@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
-    BOOL openCloseSlider;
 }
 
 
@@ -68,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
+@property (strong, nonatomic) NSString *searchText;
+@property (readwrite) BOOL openCloseSlider;
 
 - (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
 

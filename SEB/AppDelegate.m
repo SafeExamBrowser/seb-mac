@@ -504,7 +504,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 - (NSArray<UIKeyCommand *> *)keyCommands
 {
     return @[
-        [UIKeyCommand keyCommandWithInput:@"m" modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutSideMenu modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutFind modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
     ];
@@ -523,8 +524,11 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
             [_sebViewController.browserTabViewController switchToNextTab];
         }
     }
-    if ([key isEqualToString:@"m"] && modifier == UIKeyModifierCommand) {
+    if ([key caseInsensitiveCompare:SEBKeyShortcutSideMenu] == NSOrderedSame && modifier == UIKeyModifierCommand) {
         [_sebViewController leftDrawerKeyShortcutPress:self];
+    }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutFind] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+        [_sebViewController searchTextOnPage];
     }
 }
 

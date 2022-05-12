@@ -1676,7 +1676,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-#pragma mark - Init, reconfigure and reset SEB
+#pragma mark - Init main SEB UI
 
 void run_on_ui_thread(dispatch_block_t block)
 {
@@ -1696,242 +1696,247 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) initSEBUIWithCompletionBlock:(dispatch_block_t)completionBlock temporary:(BOOL)temporary
 {
-    if (sebUIInitialized) {
-        _appDelegate.sebUIController = nil;
-    } else {
-        sebUIInitialized = true;
-    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (!_showNavigationBarTemporarily && !_updateTemporaryNavigationBarVisibilty) {
+        if (sebUIInitialized) {
+            _appDelegate.sebUIController = nil;
+        } else {
+            sebUIInitialized = YES;
+        }
+        
+        // Set up system
+        
+        // Set preventing Auto-Lock according to settings
+        [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
+        
+        // Create browser user agent according to settings
+        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
+        // Register browser user agent for UIWebView
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        
+        // Update URL filter flags and rules
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        // Update URL filter ignore rules
+        [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+        
+        _allowFind = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"];
+    }
     
-    // Set up system
-    
-    // Set preventing Auto-Lock according to settings
-    [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
-    
-    // Create browser user agent according to settings
-    NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
-    // Register browser user agent for UIWebView
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-    
-    // Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-    
-    // UI
-    
-    _allowFind = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"];
     [self addBrowserToolBarWithOffset:0];
-    
-    //// Initialize SEB Dock, commands section in the slider view and
-    //// 3D Touch Home screen quick actions
-    
-    // Reset dynamic Home screen quick actions
-    [UIApplication sharedApplication].shortcutItems = nil;
-    
-    // Reset settings view controller (so new settings are displayed)
-    self.appSettingsViewController = nil;
-    
-    // If running with persisted (client) settings
-    if (!NSUserDefaults.userDefaultsPrivate) {
-        // Set the local flag for showing settings in-app, so this is also enabled
-        // when opening temporary exam settings later
-        self->_appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
-    }
-    
-    // Add scan QR code command/Home screen quick action/dock button
-    // if SEB isn't running in exam mode (= no quit pw)
-    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
-    BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
-        ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
-         (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
-         (examSession && allowReconfiguring))) {
+
+    if (!_showNavigationBarTemporarily) {
         
-        // Add scan QR code Home screen quick action
-        NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
-        [shortcutItems addObject:[self scanQRCodeShortcutItem]];
-        [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
-    } else {
+        // UI
+        
+        //// Initialize SEB Dock, commands section in the slider view and
+        //// 3D Touch Home screen quick actions
+        
+        // Reset dynamic Home screen quick actions
         [UIApplication sharedApplication].shortcutItems = nil;
-    }
-    
-    /// If dock is enabled, register items to the toolbar
-    
-    if (self.sebUIController.dockEnabled) {
-        [self.navigationController setToolbarHidden:NO];
         
-        // Check if we need to customize the toolbar, because running on a device
-        // like iPhone X
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = UIApplication.sharedApplication.keyWindow;
-            CGFloat bottomPadding = window.safeAreaInsets.bottom;
-            if (bottomPadding != 0) {
-                
-                [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-                [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
-                self.navigationController.toolbar.translucent = YES;
-                
-                if (self->_bottomBackgroundView) {
-                    [self->_bottomBackgroundView removeFromSuperview];
-                }
-                self->_bottomBackgroundView = [UIView new];
-                [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                [self.view addSubview:self->_bottomBackgroundView];
-                
-                if (self->_toolBarView) {
-                    [self->_toolBarView removeFromSuperview];
-                }
-                self->_toolBarView = [UIView new];
-                [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                [self.view addSubview:self->_toolBarView];
-                
-                
-                NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
-                                                  @"bottomBackgroundView" : self->_bottomBackgroundView,
-                                                  @"containerView" : self->_containerView};
-                
-                NSMutableArray *constraints_H = [NSMutableArray new];
-                
-                // dock/toolbar leading constraint to safe area guide of superview
-                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_containerView.safeAreaLayoutGuide
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                     multiplier:1.0
-                                                                       constant:0]];
-                
-                // dock/toolbar trailling constraint to safe area guide of superview
-                [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                      attribute:NSLayoutAttributeTrailing
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_containerView.safeAreaLayoutGuide
-                                                                      attribute:NSLayoutAttributeTrailing
-                                                                     multiplier:1.0
-                                                                       constant:0]];
-                
-                NSMutableArray *constraints_V = [NSMutableArray new];
-                
-                // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
-                if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
-                    UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
-                    self.additionalSafeAreaInsets = newSafeArea;
-                } else {
-                    UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
-                    self.additionalSafeAreaInsets = newSafeArea;
-                }
-                CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                                         self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
-                
-                self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                              attribute:NSLayoutAttributeHeight
-                                                                              relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:nil
-                                                                              attribute:NSLayoutAttributeNotAnAttribute
-                                                                             multiplier:1.0
-                                                                               constant:toolBarHeight];
-                [constraints_V addObject: self->_toolBarHeightConstraint];
-                
-                // dock/toolbar top constraint to safe area guide bottom of superview
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                      attribute:NSLayoutAttributeTop
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_containerView.safeAreaLayoutGuide
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                     multiplier:1.0
-                                                                       constant:0]];
-                
-                // dock/toolbar bottom constraint to background view top
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_bottomBackgroundView
-                                                                      attribute:NSLayoutAttributeTop
-                                                                     multiplier:1.0
-                                                                       constant:0]];
-                
-                // background view bottom constraint to superview bottom
-                [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_bottomBackgroundView
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_containerView
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                     multiplier:1.0
-                                                                       constant:0]];
-                
-                [self.view addConstraints:constraints_H];
-                [self.view addConstraints:constraints_V];
-                
-                SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
-                
-                if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-                    [self addBlurEffectStyle:UIBlurEffectStyleRegular
-                                   toBarView:self->_toolBarView
-                         backgroundTintStyle:backgroundTintStyle];
+        // Reset settings view controller (so new settings are displayed)
+        self.appSettingsViewController = nil;
+        
+        // If running with persisted (client) settings
+        if (!NSUserDefaults.userDefaultsPrivate) {
+            // Set the local flag for showing settings in-app, so this is also enabled
+            // when opening temporary exam settings later
+            self->_appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
+        }
+        
+        // Add scan QR code command/Home screen quick action/dock button
+        // if SEB isn't running in exam mode (= no quit pw)
+        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
+            ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
+             (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
+             (examSession && allowReconfiguring))) {
+            
+            // Add scan QR code Home screen quick action
+            NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
+            [shortcutItems addObject:[self scanQRCodeShortcutItem]];
+            [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
+        } else {
+            [UIApplication sharedApplication].shortcutItems = nil;
+        }
+        
+        /// If dock is enabled, register items to UIToolbar
+        
+        if (self.sebUIController.dockEnabled) {
+            [self.navigationController setToolbarHidden:NO];
+            
+            // Check if we need to customize UIToolbar, because running on a device like iPhone X
+            if (@available(iOS 11.0, *)) {
+                UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                if (bottomPadding != 0) {
                     
-                } else {
-                    self->_toolBarView.backgroundColor = [UIColor lightGrayColor];
-                }
-                self->_toolBarView.hidden = false;
-                
-                NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
-                                                                                                     options: 0
-                                                                                                     metrics: nil
-                                                                                                       views: viewsDictionary];
-                
-                [self.view addConstraints:bottomBackgroundViewConstraints_H];
-                
-                if (UIAccessibilityIsReduceTransparencyEnabled()) {
-                    self->_bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
-                } else {
-                    if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
-                        [self addBlurEffectStyle:UIBlurEffectStyleDark
-                                       toBarView:self->_bottomBackgroundView
-                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                    [self.navigationController.toolbar setBackgroundImage:[UIImage new] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
+                    [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
+                    self.navigationController.toolbar.translucent = YES;
+                    
+                    if (self->_bottomBackgroundView) {
+                        [self->_bottomBackgroundView removeFromSuperview];
+                    }
+                    self->_bottomBackgroundView = [UIView new];
+                    [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:self->_bottomBackgroundView];
+                    
+                    if (self->_toolBarView) {
+                        [self->_toolBarView removeFromSuperview];
+                    }
+                    self->_toolBarView = [UIView new];
+                    [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:self->_toolBarView];
+                    
+                    
+                    NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
+                                                      @"bottomBackgroundView" : self->_bottomBackgroundView,
+                                                      @"containerView" : self->_containerView};
+                    
+                    NSMutableArray *constraints_H = [NSMutableArray new];
+                    
+                    // dock/toolbar leading constraint to safe area guide of superview
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeLeading
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // dock/toolbar trailling constraint to safe area guide of superview
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeTrailing
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    NSMutableArray *constraints_V = [NSMutableArray new];
+                    
+                    // dock/toolbar height constraint depends on vertical size class (less high on iPhones in landscape)
+                    if (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) {
+                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, 2, 0);
+                        self.additionalSafeAreaInsets = newSafeArea;
                     } else {
-                        [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
-                                       toBarView:self->_bottomBackgroundView
-                             backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        UIEdgeInsets newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
+                        self.additionalSafeAreaInsets = newSafeArea;
+                    }
+                    CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                                             self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
+                    
+                    self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                                  attribute:NSLayoutAttributeHeight
+                                                                                  relatedBy:NSLayoutRelationEqual
+                                                                                     toItem:nil
+                                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                                 multiplier:1.0
+                                                                                   constant:toolBarHeight];
+                    [constraints_V addObject: self->_toolBarHeightConstraint];
+                    
+                    // dock/toolbar top constraint to safe area guide bottom of superview
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // dock/toolbar bottom constraint to background view top
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self->_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeTop
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    // background view bottom constraint to superview bottom
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_bottomBackgroundView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:self->_containerView
+                                                                          attribute:NSLayoutAttributeBottom
+                                                                         multiplier:1.0
+                                                                           constant:0]];
+                    
+                    [self.view addConstraints:constraints_H];
+                    [self.view addConstraints:constraints_V];
+                    
+                    SEBBackgroundTintStyle backgroundTintStyle = self.sebUIController.backgroundTintStyle;
+                    
+                    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+                        [self addBlurEffectStyle:UIBlurEffectStyleRegular
+                                       toBarView:self->_toolBarView
+                             backgroundTintStyle:backgroundTintStyle];
+                        
+                    } else {
+                        self->_toolBarView.backgroundColor = [UIColor lightGrayColor];
+                    }
+                    self->_toolBarView.hidden = false;
+                    
+                    NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
+                                                                                                         options: 0
+                                                                                                         metrics: nil
+                                                                                                           views: viewsDictionary];
+                    
+                    [self.view addConstraints:bottomBackgroundViewConstraints_H];
+                    
+                    if (UIAccessibilityIsReduceTransparencyEnabled()) {
+                        self->_bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+                    } else {
+                        if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
+                            [self addBlurEffectStyle:UIBlurEffectStyleDark
+                                           toBarView:self->_bottomBackgroundView
+                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        } else {
+                            [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
+                                           toBarView:self->_bottomBackgroundView
+                                 backgroundTintStyle:SEBBackgroundTintStyleNone];
+                        }
+                    }
+                    BOOL sideSafeAreaInsets = false;
+                    
+                    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+                    CGFloat leftPadding = window.safeAreaInsets.left;
+                    sideSafeAreaInsets = leftPadding != 0;
+                    
+                    self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
+    #ifdef DEBUG
+                    CGFloat bottomPadding = window.safeAreaInsets.bottom;
+                    CGFloat bottomMargin = window.layoutMargins.bottom;
+                    CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
+                    DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
+    #endif
+                } else {
+                    // Fix Toolbar tint issue in iOS 15.0 or later - it's transparent without the code below
+                    if (@available(iOS 15, *)) {
+                        UIToolbarAppearance *toolbarAppearance = [UIToolbarAppearance new];
+                        [toolbarAppearance configureWithDefaultBackground];
+                        UIColor *toolbarColor = [UIColor lightGrayColor];
+                        toolbarColor = [toolbarColor colorWithAlphaComponent:0.5];
+                        toolbarAppearance.backgroundColor = toolbarColor;
+                        self.navigationController.toolbar.standardAppearance = toolbarAppearance;
+                        self.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
                     }
                 }
-                BOOL sideSafeAreaInsets = false;
-                
-                UIWindow *window = UIApplication.sharedApplication.keyWindow;
-                CGFloat leftPadding = window.safeAreaInsets.left;
-                sideSafeAreaInsets = leftPadding != 0;
-                
-                self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
-#ifdef DEBUG
-                CGFloat bottomPadding = window.safeAreaInsets.bottom;
-                CGFloat bottomMargin = window.layoutMargins.bottom;
-                CGFloat bottomInset = self.view.superview.safeAreaInsets.bottom;
-                DDLogDebug(@"%f, %f, %f, ", bottomPadding, bottomMargin, bottomInset);
-#endif
-            } else {
-                // Fix Toolbar tint issue in iOS 15.0 or later - it's transparent without the code below
-                if (@available(iOS 15, *)) {
-                    UIToolbarAppearance *toolbarAppearance = [UIToolbarAppearance new];
-                    [toolbarAppearance configureWithDefaultBackground];
-                    UIColor *toolbarColor = [UIColor lightGrayColor];
-                    toolbarColor = [toolbarColor colorWithAlphaComponent:0.5];
-                    toolbarAppearance.backgroundColor = toolbarColor;
-                    self.navigationController.toolbar.standardAppearance = toolbarAppearance;
-                    self.navigationController.toolbar.scrollEdgeAppearance = toolbarAppearance;
-                }
             }
-        }
-        
-        [self setToolbarItems:self.sebUIController.dockItems];
-    } else {
-        [self.navigationController setToolbarHidden:YES];
-        
-        if (self->_bottomBackgroundView) {
-            [self->_bottomBackgroundView removeFromSuperview];
-        }
-        if (self->_toolBarView) {
-            [self->_toolBarView removeFromSuperview];
+            
+            [self setToolbarItems:self.sebUIController.dockItems];
+        } else {
+            [self.navigationController setToolbarHidden:YES];
+            
+            if (self->_bottomBackgroundView) {
+                [self->_bottomBackgroundView removeFromSuperview];
+            }
+            if (self->_toolBarView) {
+                [self->_toolBarView removeFromSuperview];
+            }
         }
     }
     
@@ -1944,155 +1949,165 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [self adjustBars];
     
-    if (!temporary) {
-        if (@available(iOS 11.0, *)) {
-            BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
-            if (jitsiMeetEnable) {
-                void (^conditionallyStartProctoring)(void) =
-                ^{
-                    // OK action handler
-                    void (^startRemoteProctoringOK)(void) =
+    if (_showNavigationBarTemporarily) {
+        run_on_ui_thread(completionBlock);
+    } else {
+        if (!temporary) {
+            if (@available(iOS 11.0, *)) {
+                BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
+                if (jitsiMeetEnable) {
+                    void (^conditionallyStartProctoring)(void) =
                     ^{
-                        [self openJitsiView];
-                        [self.jitsiViewController openJitsiMeetWithSender:self];
-                        run_on_ui_thread(completionBlock);
-                    };
-                    // Check if previous SEB session already had proctoring active
-                    if (self.previousSessionJitsiMeetEnabled) {
-                        run_on_ui_thread(startRemoteProctoringOK);
-                    } else {
-                        [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]
-                                action1Title:NSLocalizedString(@"OK", nil)
-                              action1Handler:^ {
+                        // OK action handler
+                        void (^startRemoteProctoringOK)(void) =
+                        ^{
+                            [self openJitsiView];
+                            [self.jitsiViewController openJitsiMeetWithSender:self];
+                            run_on_ui_thread(completionBlock);
+                        };
+                        // Check if previous SEB session already had proctoring active
+                        if (self.previousSessionJitsiMeetEnabled) {
                             run_on_ui_thread(startRemoteProctoringOK);
-                        }
-                                action2Title:NSLocalizedString(@"Cancel", nil)
-                              action2Handler:^ {
-                            self->_alertController = nil;
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuit" object:self];
-                        }];
-                    }
-                };
-                AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-                AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-                if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                      videoAuthorization == AVAuthorizationStatusAuthorized)) {
-                    if (self.alertController) {
-                        [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                    }
-                    NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
-                    NSString *camera = @"";
-                    if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                        camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
-                    }
-                    NSString *resolveSuggestion;
-                    NSString *resolveSuggestion2;
-                    NSString *message;
-                    if (videoAuthorization == AVAuthorizationStatusDenied ||
-                        audioAuthorization == AVAuthorizationStatusDenied) {
-                        resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
-                        resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
-                    } else {
-                        resolveSuggestion = @"";
-                        resolveSuggestion2 = @"";
-                    }
-                    if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                        audioAuthorization == AVAuthorizationStatusRestricted) {
-                        message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
-                    } else {
-                        message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
-                    }
-                    
-                    self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
-                                                                               message:message
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                                  audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
-                    [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
-                                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        self->_alertController = nil;
-                        if (videoAuthorization == AVAuthorizationStatusDenied ||
-                            audioAuthorization == AVAuthorizationStatusDenied) {
-                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuit" object:self];
-                            return;
-                        }
-                        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                            if (granted){
-                                DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
-                                
-                                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                                    if (granted){
-                                        DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                        
-                                        run_on_ui_thread(conditionallyStartProctoring);
-                                        
-                                    } else {
-                                        DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                        [[NSNotificationCenter defaultCenter]
-                                         postNotificationName:@"requestQuit" object:self];
-                                    }
-                                }];
-                                return;
-                                
-                            } else {
-                                DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                        } else {
+                            [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", nil)
+                                         message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]
+                                    action1Title:NSLocalizedString(@"OK", nil)
+                                  action1Handler:^ {
+                                run_on_ui_thread(startRemoteProctoringOK);
+                            }
+                                    action2Title:NSLocalizedString(@"Cancel", nil)
+                                  action2Handler:^ {
+                                self->_alertController = nil;
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
-                            }
-                        }];
-                        return;
-                    }]];
-                    
-                    if (NSUserDefaults.userDefaultsPrivate) {
-                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                            }];
+                        }
+                    };
+                    AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+                    AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+                    if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                          videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                        if (self.alertController) {
+                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                        }
+                        NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                        NSString *camera = @"";
+                        if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                            camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                        }
+                        NSString *resolveSuggestion;
+                        NSString *resolveSuggestion2;
+                        NSString *message;
+                        if (videoAuthorization == AVAuthorizationStatusDenied ||
+                            audioAuthorization == AVAuthorizationStatusDenied) {
+                            resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
+                            resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                        } else {
+                            resolveSuggestion = @"";
+                            resolveSuggestion2 = @"";
+                        }
+                        if (videoAuthorization == AVAuthorizationStatusRestricted ||
+                            audioAuthorization == AVAuthorizationStatusRestricted) {
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
+                        } else {
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
+                        }
+                        
+                        self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
+                                                                                   message:message
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
+                                                      audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                             self->_alertController = nil;
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuit" object:self];
+                            if (videoAuthorization == AVAuthorizationStatusDenied ||
+                                audioAuthorization == AVAuthorizationStatusDenied) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                                return;
+                            }
+                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                                if (granted){
+                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                    
+                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                                        if (granted){
+                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+                                            
+                                            run_on_ui_thread(conditionallyStartProctoring);
+                                            
+                                        } else {
+                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                            [[NSNotificationCenter defaultCenter]
+                                             postNotificationName:@"requestQuit" object:self];
+                                        }
+                                    }];
+                                    return;
+                                    
+                                } else {
+                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuit" object:self];
+                                }
+                            }];
+                            return;
                         }]];
-                    }
-                    
-                    [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                    return;
-                } else {
-                    run_on_ui_thread(conditionallyStartProctoring);
-                    return;
-                }
-            } else {
-                self.previousSessionJitsiMeetEnabled = NO;
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
-                    run_on_ui_thread(^{
-                        [self alertWithTitle:NSLocalizedString(@"Zoom Remote Proctoring Not Available", nil)
-                                     message:NSLocalizedString(@"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil)
-                                action1Title:NSLocalizedString(@"OK", nil)
-                              action1Handler:^ {
-                            self->_alertController = nil;
-                            [self sessionQuitRestart:NO];
+                        
+                        if (NSUserDefaults.userDefaultsPrivate) {
+                            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                self->_alertController = nil;
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                            }]];
                         }
-                                action2Title:nil
-                              action2Handler:^{}];
-                    });
-                    return;
+                        
+                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                        return;
+                    } else {
+                        run_on_ui_thread(conditionallyStartProctoring);
+                        return;
+                    }
+                } else {
+                    self.previousSessionJitsiMeetEnabled = NO;
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
+                        run_on_ui_thread(^{
+                            [self alertWithTitle:NSLocalizedString(@"Zoom Remote Proctoring Not Available", nil)
+                                         message:NSLocalizedString(@"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil)
+                                    action1Title:NSLocalizedString(@"OK", nil)
+                                  action1Handler:^ {
+                                self->_alertController = nil;
+                                [self sessionQuitRestart:NO];
+                            }
+                                    action2Title:nil
+                                  action2Handler:^{}];
+                        });
+                        return;
+                    }
                 }
             }
+            run_on_ui_thread(completionBlock);
         }
-        run_on_ui_thread(completionBlock);
     }
 }
 
 
 - (void) openCloseSliderForNewTab
 {
-    [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
-        [self.sideMenuController hideLeftViewAnimated];
+    [self conditionallyRemoveToolbarWithCompletion:^{
+        [self.sideMenuController showLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                [self showToolbarConditionally:YES withCompletion:nil];
+            }];
+        }];
     }];
 }
 
+
+#pragma mark - Toolbar (UINavigationBar)
 
 - (void) addBrowserToolBarWithOffset:(CGFloat)navigationBarOffset
 {
@@ -2309,6 +2324,275 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 }
 
+
+// Conditionally add back/forward buttons to navigation bar
+- (void) showToolbarNavigation:(BOOL)navigationEnabled
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL show = (navigationEnabled &&
+                 !(self.sebUIController.dockEnabled &&
+                   [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]));
+    
+    if (show && !toolbarSearchBarActiveRemovedOtherItems) {
+        // Add back/forward buttons to navigation bar
+        toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateBackIcon"]
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:self
+                                                            action:@selector(goBack)];
+        toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
+        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
+        
+        toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(goForward)];
+        toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
+        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+        
+        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
+        
+    } else {
+        self.navigationItem.leftBarButtonItems = nil;
+    }
+}
+
+
+- (void) setToolbarTitle:(NSString *)title
+{
+    if (!toolbarSearchBarActiveRemovedOtherItems) {
+        self.navigationItem.title = title;
+        toolbarSearchBarReplacedTitle = title;
+        [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:navigationBarItemsOffset
+                                                                      forBarMetrics:UIBarMetricsDefault];
+    }
+}
+
+
+- (void) restoreNavigationBarItems
+{
+    BOOL isMainBrowserWebViewActive = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == 0;
+    BOOL navigationAllowed = [self.browserController isNavigationAllowedMainWebView:isMainBrowserWebViewActive];
+    [self showToolbarNavigation:navigationAllowed];
+    [self setToolbarTitle:toolbarSearchBarReplacedTitle];
+    BOOL showReload = [self.browserController isReloadAllowedMainWebView:isMainBrowserWebViewActive];
+    [self updateRightNavigationItemsReloadEnabled:showReload];
+}
+
+
+- (void) updateRightNavigationItemsReloadEnabled:(BOOL)reloadEnabled
+{
+    NSMutableArray *rightToolbarItems = [NSMutableArray new];
+    
+    if (reloadEnabled && !toolbarSearchBarActiveRemovedOtherItems)  {
+        if (self.sebUIController.browserToolbarEnabled &&
+            !self.sebUIController.dockReloadButton) {
+            // Add reload button to navigation bar
+            toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(reload)];
+            
+            toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+            
+            [rightToolbarItems addObject:toolbarReloadButton];
+        }
+    }
+    
+    if (_allowFind)  {
+        if (self.sebUIController.browserToolbarEnabled) {
+
+            if (!toolbarSearchButton) {
+                UIStackView *searchStackView = [[UIStackView alloc] init];
+                searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
+                searchStackView.axis = UILayoutConstraintAxisHorizontal;
+    //            searchStackView.alignment = UIStackViewAlignmentCenter;
+                searchStackView.distribution = UIStackViewDistributionFill;
+                searchStackView.spacing = 8;
+                
+                toolbarSearchButtonDone = [[UIButton alloc] init];
+                toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
+                [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+                [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
+                [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
+                
+                UIView *searchBarView = [[UIView alloc] init];
+                [self createSearchBarInView:searchBarView];
+                
+                toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
+                toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
+                if (@available(iOS 13.0, *)) {
+                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
+                } else {
+                    [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
+                }
+                [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
+                
+                toolbarSearchButtonNextResult = [[UIButton alloc] init];
+                toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
+                if (@available(iOS 13.0, *)) {
+                    [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
+                } else {
+                    [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
+                }
+                [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
+
+                [searchStackView addArrangedSubview:toolbarSearchButtonDone];
+                [searchStackView addArrangedSubview:searchBarView];
+                [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
+                [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
+                NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView);
+
+                UIView *searchButtonView = [[UIView alloc] init];
+                [searchButtonView addSubview:searchStackView];
+                [searchButtonView addConstraints:
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
+                [searchButtonView addConstraints:
+                 [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[searchStackView]-0-|", navigationBarItemsOffset*2] options:0 metrics:nil views:views]];
+                
+                toolbarSearchButtonDone.hidden = YES;
+                toolbarSearchButtonPreviousResult.hidden = YES;
+                toolbarSearchButtonNextResult.hidden = YES;
+
+                toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
+                toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
+                toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
+                toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
+            }
+            [rightToolbarItems addObject:toolbarSearchButton];
+        }
+    }
+    
+    self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
+}
+
+
+// In case the toolbar (UINavigationBar) is displayed temporarily and the tab is switched
+// we need to update the visibility of UINavigationBar
+- (void) updateSearchBar
+{
+    if (searchBar) {
+        searchBar.text = self.browserTabViewController.visibleWebViewController.searchText;
+        if (_showNavigationBarTemporarily) {
+            self.sebUIController.browserToolbarEnabled = searchBar.text.length != 0;
+            self.updateTemporaryNavigationBarVisibilty = YES;
+            [self initSEBUIWithCompletionBlock:^{
+                [self restoreNavigationBarItems];
+                self.updateTemporaryNavigationBarVisibilty = NO;
+            }];
+        }
+    }
+}
+
+
+- (void)createSearchBarInView:(UIView *)searchBarView
+{
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
+    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    searchBar.returnKeyType = UIReturnKeyDone;
+    searchBar.delegate = self;
+    [searchBarView addSubview:searchBar];
+    NSDictionary *views = NSDictionaryOfVariableBindings(searchBarView, searchBar);
+    [searchBarView addConstraints:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
+    searchBarTopConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:searchBarView
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:0];
+    [searchBarView addConstraint:searchBarTopConstraint];
+    [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
+//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
+    searchBarWidthConstraint = nil;
+    [self setSearchBarWidth:SEBToolBarSearchBarIconWidth];
+}
+
+- (void)setSearchBarWidth:(CGFloat)width
+{
+    if (!searchBarWidthConstraint) {
+        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+                                                                      attribute:NSLayoutAttributeWidth
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:nil
+                                                                      attribute:NSLayoutAttributeNotAnAttribute
+                                                                     multiplier:1.0
+                                                                       constant:width];
+        [searchBar.superview addConstraint:searchBarWidthConstraint];
+    } else {
+        searchBarWidthConstraint.constant = width;
+    }
+    BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                             self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
+    if (width == SEBToolBarSearchBarIconWidth) {
+        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
+        if (toolbarSearchBarActiveRemovedOtherItems) {
+            toolbarSearchBarActiveRemovedOtherItems = NO;
+            [self restoreNavigationBarItems];
+        }
+    } else {
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+            toolbarSearchBarActiveRemovedOtherItems = YES;
+            self.navigationItem.leftBarButtonItems = nil;
+            self.navigationItem.title = nil;
+            self.navigationItem.rightBarButtonItems = @[toolbarSearchButton];
+        }
+        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 0 : (iPhoneXLandscape ? 1 : -1); //(navigationBarItemsOffset+4) / (navigationBarItemsOffset+4); //(iPhoneXLandscape ? 1 : 2));
+    }
+}
+
+
+// If no toolbar (UINavigationBar) is displayed, show it temporarilly
+- (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler
+{
+    if (!self.sebUIController.browserToolbarEnabled && (!showConditionally || self.browserTabViewController.visibleWebViewController.searchText.length > 0)) {
+        self.sebUIController.browserToolbarEnabled = YES;
+        self.showNavigationBarTemporarily = YES;
+        [self initSEBUIWithCompletionBlock:^{
+            [self restoreNavigationBarItems];
+            self->searchBar.text = self.browserTabViewController.visibleWebViewController.searchText;
+            if (completionHandler) {
+                completionHandler();
+            }
+        } temporary:NO];
+    } else {
+        if (completionHandler) {
+            completionHandler();
+        }
+    }
+}
+
+
+// If a temporary toolbar (UINavigationBar) was used, remove it
+- (void) conditionallyRemoveToolbarWithCompletion:(void (^)(void))completionHandler
+{
+    if (_showNavigationBarTemporarily) {
+        _showNavigationBarTemporarily = NO;
+        self.sebUIController.browserToolbarEnabled = NO;
+        self.updateTemporaryNavigationBarVisibilty = YES;
+        [self initSEBUIWithCompletionBlock:^{
+            self.updateTemporaryNavigationBarVisibilty = NO;
+            if (completionHandler) {
+                completionHandler();
+            }
+        }];
+    } else {
+        if (completionHandler) {
+            completionHandler();
+        }
+    }
+}
+
+
+#pragma mark -  Reset and reconfigure SEB
 
 - (void) resetSEB
 {
@@ -4517,50 +4801,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-#pragma mark - Toolbar
-
-// Conditionally add back/forward buttons to navigation bar
-- (void) showToolbarNavigation:(BOOL)navigationEnabled
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL show = (navigationEnabled &&
-                 !(self.sebUIController.dockEnabled &&
-                   [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]));
-    
-    if (show) {
-        // Add back/forward buttons to navigation bar
-        toolbarBackButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateBackIcon"]
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:self
-                                                            action:@selector(goBack)];
-        toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
-        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
-        
-        toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(goForward)];
-        toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
-        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
-        
-        self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
-        
-    } else {
-        self.navigationItem.leftBarButtonItems = nil;
-    }
-}
-
-
-- (void) setToolbarTitle:(NSString *)title
-{
-    self.navigationItem.title = title;
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:navigationBarItemsOffset
-                                                                  forBarMetrics:UIBarMetricsDefault];
-}
-
-
 #pragma mark - SEB Dock and left slider button handler
 
 - (void) leftDrawerButtonPress:(id)sender
@@ -4629,8 +4869,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (IBAction) searchTextOnPage
 {
-    [self.sideMenuController hideLeftViewAnimated];
-    [searchBar becomeFirstResponder];
+    [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+        [self activateSearchField];
+    }];
 }
 
 
@@ -4834,108 +5075,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) restoreNavigationBarItems
-{
-    BOOL isMainBrowserWebViewActive = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == 0;
-    BOOL navigationAllowed = [self.browserController isNavigationAllowedMainWebView:isMainBrowserWebViewActive];
-    [self showToolbarNavigation:navigationAllowed];
-    self.navigationItem.title = toolbarSearchBarReplacedTitle;
-    BOOL showReload = [self.browserController isReloadAllowedMainWebView:isMainBrowserWebViewActive];
-    [self updateRightNavigationItemsReloadEnabled:showReload];
-}
-
-- (void) updateRightNavigationItemsReloadEnabled:(BOOL)reloadEnabled
-{
-    NSMutableArray *rightToolbarItems = [NSMutableArray new];
-    
-    if (reloadEnabled)  {
-        if (self.sebUIController.browserToolbarEnabled &&
-            !self.sebUIController.dockReloadButton) {
-            // Add reload button to navigation bar
-            toolbarReloadButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarReloadIcon"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(reload)];
-            
-            toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
-            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
-            
-            [rightToolbarItems addObject:toolbarReloadButton];
-        }
-    }
-    
-    if (_allowFind)  {
-        if (self.sebUIController.browserToolbarEnabled) {
-
-            if (!toolbarSearchButton) {
-                UIStackView *searchStackView = [[UIStackView alloc] init];
-                searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
-                searchStackView.axis = UILayoutConstraintAxisHorizontal;
-    //            searchStackView.alignment = UIStackViewAlignmentCenter;
-                searchStackView.distribution = UIStackViewDistributionFill;
-                searchStackView.spacing = 8;
-                
-                toolbarSearchButtonDone = [[UIButton alloc] init];
-                toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
-                [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
-                [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
-                [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
-                
-                UIView *searchBarView = [[UIView alloc] init];
-                [self createSearchBarInView:searchBarView];
-                
-                toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
-                toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
-                if (@available(iOS 13.0, *)) {
-                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"magnifyingglass"] forState:UIControlStateNormal];
-                } else {
-                    [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
-                }
-                [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
-                
-                toolbarSearchButtonNextResult = [[UIButton alloc] init];
-                toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
-                if (@available(iOS 13.0, *)) {
-                    [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
-                } else {
-                    [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
-                }
-                [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
-
-                [searchStackView addArrangedSubview:toolbarSearchButtonDone];
-                [searchStackView addArrangedSubview:searchBarView];
-                [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
-                [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
-                NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView);
-
-                UIView *searchButtonView = [[UIView alloc] init];
-                [searchButtonView addSubview:searchStackView];
-                [searchButtonView addConstraints:
-                 [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchStackView]-|" options:0 metrics:nil views:views]];
-                [searchButtonView addConstraints:
-                 [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[searchStackView]-0-|", navigationBarItemsOffset*2] options:0 metrics:nil views:views]];
-                
-                toolbarSearchButtonDone.hidden = YES;
-                toolbarSearchButtonPreviousResult.hidden = YES;
-                toolbarSearchButtonNextResult.hidden = YES;
-
-                toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
-                toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-                toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
-                toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
-            }
-            [rightToolbarItems addObject:toolbarSearchButton];
-        }
-    }
-    
-    self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
-}
-
-
 // Add reload button to navigation bar or enable/disable
 // reload buttons in dock and left slider, depending if
 // active tab is the exam tab or a new (additional) tab
@@ -4955,64 +5094,6 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // Activate/Deactivate reload button and other buttons (search text) in navigation bar
     [self updateRightNavigationItemsReloadEnabled:reloadEnabled];
-}
-
-- (void)createSearchBarInView:(UIView *)searchBarView
-{
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
-    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    searchBar.returnKeyType = UIReturnKeyDone;
-    searchBar.delegate = self;
-    [searchBarView addSubview:searchBar];
-    NSDictionary *views = NSDictionaryOfVariableBindings(searchBarView, searchBar);
-    [searchBarView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
-    searchBarTopConstraint = [NSLayoutConstraint constraintWithItem:searchBar
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:searchBarView
-                                                          attribute:NSLayoutAttributeTop
-                                                         multiplier:1.0
-                                                           constant:0];
-    [searchBarView addConstraint:searchBarTopConstraint];
-    [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
-    searchBarWidthConstraint = nil;
-    [self setSearchBarWidth:SEBToolBarSearchBarIconWidth];
-}
-
-- (void)setSearchBarWidth:(CGFloat)width
-{
-    if (!searchBarWidthConstraint) {
-        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:searchBar
-                                                                      attribute:NSLayoutAttributeWidth
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:nil
-                                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                                     multiplier:1.0
-                                                                       constant:width];
-        [searchBar.superview addConstraint:searchBarWidthConstraint];
-    } else {
-        searchBarWidthConstraint.constant = width;
-    }
-    BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                             self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
-    if (width == SEBToolBarSearchBarIconWidth) {
-        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
-        if (toolbarSearchBarActiveRemovedOtherItems) {
-            toolbarSearchBarActiveRemovedOtherItems = NO;
-            [self restoreNavigationBarItems];
-        }
-    } else {
-        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
-            toolbarSearchBarActiveRemovedOtherItems = YES;
-            self.navigationItem.leftBarButtonItems = nil;
-            self.navigationItem.title = nil;
-            self.navigationItem.rightBarButtonItems = @[toolbarSearchButton];
-        }
-        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 0 : (iPhoneXLandscape ? 1 : -1); //(navigationBarItemsOffset+4) / (navigationBarItemsOffset+4); //(iPhoneXLandscape ? 1 : 2));
-    }
 }
 
 
@@ -5143,17 +5224,29 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.browserTabViewController sessionTaskDidCompleteSuccessfully:task];
 }
 
-#pragma mark - Search
+#pragma mark - Search text
+
+
+- (void) activateSearchField
+{
+    self.browserTabViewController.visibleWebViewController.openCloseSlider = NO; // This is unfortunately necessary because of reasons...
+    [self showToolbarConditionally:NO withCompletion:^{
+        [self->searchBar becomeFirstResponder];
+    }];
+}
+
 
 - (void) searchTextNext
 {
-    [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+    [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
 }
+
 
 - (void) searchTextPrevious
 {
-    [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:YES caseSensitive:NO];
+    [self.browserTabViewController.visibleWebViewController searchText:nil backwards:YES caseSensitive:NO];
 }
+
 
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
@@ -5163,25 +5256,28 @@ void run_on_ui_thread(dispatch_block_t block)
 //    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
 }
 
+
 - (void) textSearchDone:(id)sender
 {
     if (searchBar.text.length > 0) {
         searchBar.text = @"";
-        self.searchText = @"";
-        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+        self.browserTabViewController.visibleWebViewController.searchText = @"";
+        [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
     }
     toolbarSearchButtonDone.hidden = YES;
     toolbarSearchButtonPreviousResult.hidden = YES;
     toolbarSearchButtonNextResult.hidden = YES;
 //    [self.browserWindow conditionallyDisplayToolbar];
     [searchBar endEditing:YES];
+    // Because minimizing the width of UISearchBar doesn't work properly, we need to remove and add it again
     UIView *searchBarView = searchBar.superview;
     [searchBar removeFromSuperview];
     searchBar = nil;
     [self createSearchBarInView:searchBarView];
+
+    // If a temporary toolbar (UINavigationBar) was used, remove it
+    [self conditionallyRemoveToolbarWithCompletion:nil];
 }
-
-
 
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -5201,10 +5297,9 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void)searchBar:(UISearchBar *)searchBar
     textDidChange:(NSString *)newSearchText
 {
-    if (![self.searchText isEqualToString:newSearchText]) {
-        self.searchText = newSearchText;
-//        self.textSearchDone.hidden = !self.browserWindow.toolbarWasHidden;
-        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+    if (![self.browserTabViewController.visibleWebViewController.searchText isEqualToString:newSearchText]) {
+        self.browserTabViewController.visibleWebViewController.searchText = newSearchText;
+        [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
     }
 }
 
@@ -5217,26 +5312,11 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)sebWebViewDidFinishLoad
 {
-    if (self.searchText.length > 0) {
+    if (self.browserTabViewController.visibleWebViewController.searchText.length > 0) {
         [self.browserTabViewController.visibleWebViewController searchText:@"" backwards:NO caseSensitive:NO];
-        [self.browserTabViewController.visibleWebViewController searchText:self.searchText backwards:NO caseSensitive:NO];
+        [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
     }
 }
-
-//- (void)searchStarted
-//{
-//    [self.sideMenuController hideLeftViewAnimated];
-//
-//    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
-//
-//    UIBarButtonItem *cancelSearchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(searchButtonCancel:)];
-//
-//    UIBarButtonItem *padding = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-//    [padding setWidth:13];
-//
-//    [self.navigationItem setRightBarButtonItems:
-//     [NSArray arrayWithObjects:cancelSearchButton, padding, nil] animated:YES];
-//}
 
 
 #pragma mark - Memory warning delegate methods

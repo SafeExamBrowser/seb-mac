@@ -81,7 +81,6 @@
 
 #import "SEBiOSBrowserController.h"
 #import "SEBBrowserTabViewController.h"
-#import "SEBSearchBarViewController.h"
 
 #import "SEBBatteryController.h"
 #import "ServerController.h"
@@ -94,7 +93,6 @@
 @class SEBUIController;
 @class SEBiOSBrowserController;
 @class SEBBrowserTabViewController;
-@class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
 @class SEBInAppSettingsViewController;
 @class SEBInitAssistantViewController;
@@ -162,8 +160,8 @@
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
-@property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
-@property (strong, nonatomic) NSString *searchText;
+@property (readwrite) BOOL showNavigationBarTemporarily;
+@property (readwrite) BOOL updateTemporaryNavigationBarVisibilty;
 @property (readwrite) BOOL searchMatchFound;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
@@ -361,8 +359,12 @@
 - (void) storeNewSEBSettings:(NSData *)sebData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
+#pragma mark - Toolbar (UINavigationBar)
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
+- (void) updateSearchBar;
+- (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler;
+- (void) conditionallyRemoveToolbarWithCompletion:(void (^)(void))completionHandler;
 
 #pragma mark - SEB Dock and left slider button handler
 - (void) leftDrawerButtonPress:(id)sender;
