@@ -110,7 +110,6 @@
     [super viewWillDisappear:animated];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//    [self.searchBarController setLoading:NO];
 }
 
 
@@ -172,11 +171,9 @@
             
             if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
                 [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
-                [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self switchToTab:self];
-                    });
-                }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self switchToTab:self];
+                });
             }
         }
     }
@@ -262,19 +259,9 @@
 
 - (void) setLoading:(BOOL)loading
 {
-//    if (self.searchBar.text.length > 0) {
-//        if (loading) {
-//            [self.searchBarRightButton setImage:stopLoadingButtonImage forState:UIControlStateNormal];//your button image.
-//        } else {
-//            [self.searchBarRightButton setImage:reloadButtonImage forState:UIControlStateNormal];//your button image.
-//        }
-//    } else {
-//        [self.searchBarRightButton setImage:nil forState:UIControlStateNormal];
-//    }
     if (loading == false) {
         // Enable or disable back/forward buttons according to settings and
         // availability of browsing history for this webview
-        
     }
 }
 
@@ -467,7 +454,6 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     
     [_visibleWebViewController loadURL:url];
     
-//    self.searchBarController.url = url.absoluteString;
     return newOpenWebpage.webViewController.sebWebView;;
 }
 
@@ -490,9 +476,15 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 // Open new tab and load URL
 - (void) switchToTab:(id)sender
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-    [self switchToTabWithIndex:tabIndex];
-    [self.sideMenuController toggleLeftViewAnimated];
+    [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+        NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+        [self switchToTabWithIndex:tabIndex];
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+            }];
+        }];
+    }];
 }
 
 
@@ -514,6 +506,8 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         [webViewControllerToSwitch didMoveToParentViewController:self];
         
         _visibleWebViewController = webViewControllerToSwitch;
+        
+        _visibleWebViewController.openCloseSlider = NO;
         
         // Update back/forward buttons according to new visible webview
         [_visibleWebViewController setBackForwardAvailabilty];
@@ -538,13 +532,17 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
-        if (tabIndex == tabCount - 1) {
-            [self switchToTabWithIndex:0];
-        } else {
-            [self switchToTabWithIndex:tabIndex + 1];
-        }
-        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-            [self.sideMenuController hideLeftViewAnimated];
+        [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+            if (tabIndex == tabCount - 1) {
+                [self switchToTabWithIndex:0];
+            } else {
+                [self switchToTabWithIndex:tabIndex + 1];
+            }
+            [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+                [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                    [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+                }];
+            }];
         }];
     }
 }
@@ -555,13 +553,17 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
-        if (tabIndex == 0) {
-            [self switchToTabWithIndex:tabCount - 1];
-        } else {
-            [self switchToTabWithIndex:tabIndex - 1];
-        }
-        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-            [self.sideMenuController hideLeftViewAnimated];
+        [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+            if (tabIndex == 0) {
+                [self switchToTabWithIndex:tabCount - 1];
+            } else {
+                [self switchToTabWithIndex:tabIndex - 1];
+            }
+            [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+                [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                    [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+                }];
+            }];
         }];
     }
 }
@@ -754,8 +756,6 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
         _visibleWebViewController = newVisibleWebViewController;
 
-//        Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
-//        [self.searchBarController setUrl:visibleWebPage.url];
     } else {
         // There were no persisted pages
         // Load start URL from the system's user defaults

@@ -568,6 +568,9 @@ static NSString __unused *runningOSiPadOS = @"iPadOS";
 static NSString __unused *filenameExtensionPDF = @"pdf";
 static NSString __unused *mimeTypePDF = @"application/pdf";
 
+static NSString __unused *SEBKeyShortcutSideMenu = @"m";
+static NSString __unused *SEBKeyShortcutFind = @"f";
+
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
 // The Managed app configuration dictionary pushed down from an MDM server are stored in this key.

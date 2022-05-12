@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js;
 
-- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive;
+- (void) searchText:(nullable NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive;
 
 - (void) privateCopy:(id)sender;
 - (void) privateCut:(id)sender;
