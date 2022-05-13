@@ -2329,7 +2329,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) showToolbarNavigation:(BOOL)navigationEnabled
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL show = (navigationEnabled &&
+    BOOL show = (self.sebUIController.browserToolbarEnabled &&
+                 navigationEnabled &&
                  !(self.sebUIController.dockEnabled &&
                    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]));
     
@@ -2456,38 +2457,21 @@ void run_on_ui_thread(dispatch_block_t block)
                 [searchButtonView addConstraints:
                  [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(%f)-[searchStackView]-0-|", navigationBarItemsOffset*2] options:0 metrics:nil views:views]];
                 
-                toolbarSearchButtonDone.hidden = YES;
-                toolbarSearchButtonPreviousResult.hidden = YES;
-                toolbarSearchButtonNextResult.hidden = YES;
-
                 toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
                 toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
                 toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
                 toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
+            } else {
+                [self setSearchBarWidth:_searchMatchFound ? SEBToolBarSearchBarWidth : SEBToolBarSearchBarIconWidth];
             }
             [rightToolbarItems addObject:toolbarSearchButton];
         }
     }
-    
+    toolbarSearchButtonDone.hidden = !_searchMatchFound;
+    toolbarSearchButtonPreviousResult.hidden = !_searchMatchFound;
+    toolbarSearchButtonNextResult.hidden = !_searchMatchFound;
+
     self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
-}
-
-
-// In case the toolbar (UINavigationBar) is displayed temporarily and the tab is switched
-// we need to update the visibility of UINavigationBar
-- (void) updateSearchBar
-{
-    if (searchBar) {
-        searchBar.text = self.browserTabViewController.visibleWebViewController.searchText;
-        if (_showNavigationBarTemporarily) {
-            self.sebUIController.browserToolbarEnabled = searchBar.text.length != 0;
-            self.updateTemporaryNavigationBarVisibilty = YES;
-            [self initSEBUIWithCompletionBlock:^{
-                [self restoreNavigationBarItems];
-                self.updateTemporaryNavigationBarVisibilty = NO;
-            }];
-        }
-    }
 }
 
 
@@ -2513,7 +2497,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
 //            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
     searchBarWidthConstraint = nil;
-    [self setSearchBarWidth:SEBToolBarSearchBarIconWidth];
+    [self setSearchBarWidth:_searchMatchFound ? SEBToolBarSearchBarWidth : SEBToolBarSearchBarIconWidth];
 }
 
 - (void)setSearchBarWidth:(CGFloat)width
@@ -2534,7 +2518,7 @@ void run_on_ui_thread(dispatch_block_t block)
                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
     if (width == SEBToolBarSearchBarIconWidth) {
         searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
-        if (toolbarSearchBarActiveRemovedOtherItems) {
+        if (!_showNavigationBarTemporarily && toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = NO;
             [self restoreNavigationBarItems];
         }
@@ -2543,6 +2527,7 @@ void run_on_ui_thread(dispatch_block_t block)
             toolbarSearchBarActiveRemovedOtherItems = YES;
             self.navigationItem.leftBarButtonItems = nil;
             self.navigationItem.title = nil;
+            self.navigationItem.rightBarButtonItem = nil;
             self.navigationItem.rightBarButtonItems = @[toolbarSearchButton];
         }
         searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 0 : (iPhoneXLandscape ? 1 : -1); //(navigationBarItemsOffset+4) / (navigationBarItemsOffset+4); //(iPhoneXLandscape ? 1 : 2));
@@ -2553,9 +2538,11 @@ void run_on_ui_thread(dispatch_block_t block)
 // If no toolbar (UINavigationBar) is displayed, show it temporarilly
 - (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler
 {
+    self.searchMatchFound = self.browserTabViewController.visibleWebViewController.searchMatchFound;
     if (!self.sebUIController.browserToolbarEnabled && (!showConditionally || self.browserTabViewController.visibleWebViewController.searchText.length > 0)) {
         self.sebUIController.browserToolbarEnabled = YES;
         self.showNavigationBarTemporarily = YES;
+        toolbarSearchBarActiveRemovedOtherItems = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
         [self initSEBUIWithCompletionBlock:^{
             [self restoreNavigationBarItems];
             self->searchBar.text = self.browserTabViewController.visibleWebViewController.searchText;

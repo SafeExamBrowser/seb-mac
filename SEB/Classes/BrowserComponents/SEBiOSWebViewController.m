@@ -751,6 +751,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
 //    [self.sebWebView.nativeWebView becomeFirstResponder];
+    _searchMatchFound = matchFound;
     [self.navigationDelegate searchTextMatchFound:matchFound];
 }
 
