@@ -601,7 +601,7 @@ static NSMutableSet *browserWindowControllers;
                     toolBarHeight = 46;
                 }
                 if (searchBar) {
-                    [self setSearchBarWidth:searchBar.frame.size.width];
+                    [self setSearchBarWidthIcon:(!_searchMatchFound && toolbarSearchButtonDone.hidden)];
                 }
             }
             _toolBarHeightConstraint.constant = toolBarHeight;
@@ -2362,16 +2362,18 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) setToolbarTitle:(NSString *)title
 {
-    if (!toolbarSearchBarActiveRemovedOtherItems) {
+    if (!toolbarSearchBarActiveRemovedOtherItems) { //&& self.sebUIController.browserToolbarEnabled ???
         self.navigationItem.title = title;
         toolbarSearchBarReplacedTitle = title;
         [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:navigationBarItemsOffset
                                                                       forBarMetrics:UIBarMetricsDefault];
+    } else {
+        self.navigationItem.title = nil;
     }
 }
 
 
-- (void) restoreNavigationBarItems
+- (void) restoreNavigationBarItemsConditionally:(BOOL)showConditionally
 {
     BOOL isMainBrowserWebViewActive = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow == 0;
     BOOL navigationAllowed = [self.browserController isNavigationAllowedMainWebView:isMainBrowserWebViewActive];
@@ -2461,16 +2463,12 @@ void run_on_ui_thread(dispatch_block_t block)
                 toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
                 toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
                 toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
-            } else {
-                [self setSearchBarWidth:_searchMatchFound ? SEBToolBarSearchBarWidth : SEBToolBarSearchBarIconWidth];
+//            } else {
+//                [self setSearchBarWidth:!_searchMatchFound];
             }
             [rightToolbarItems addObject:toolbarSearchButton];
         }
     }
-    toolbarSearchButtonDone.hidden = !_searchMatchFound;
-    toolbarSearchButtonPreviousResult.hidden = !_searchMatchFound;
-    toolbarSearchButtonNextResult.hidden = !_searchMatchFound;
-
     self.navigationItem.rightBarButtonItems = rightToolbarItems.copy;
 }
 
@@ -2497,11 +2495,12 @@ void run_on_ui_thread(dispatch_block_t block)
     [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
 //            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
     searchBarWidthConstraint = nil;
-    [self setSearchBarWidth:_searchMatchFound ? SEBToolBarSearchBarWidth : SEBToolBarSearchBarIconWidth];
+    [self setSearchBarWidthIcon:!_searchMatchFound];
 }
 
-- (void)setSearchBarWidth:(CGFloat)width
+- (void)setSearchBarWidthIcon:(BOOL)iconWidth
 {
+    CGFloat width = iconWidth ? SEBToolBarSearchBarIconWidth : SEBToolBarSearchBarWidth;
     if (!searchBarWidthConstraint) {
         searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:searchBar
                                                                       attribute:NSLayoutAttributeWidth
@@ -2516,11 +2515,11 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
-    if (width == SEBToolBarSearchBarIconWidth) {
+    if (iconWidth) {
         searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
         if (!_showNavigationBarTemporarily && toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = NO;
-            [self restoreNavigationBarItems];
+            [self restoreNavigationBarItemsConditionally:NO];
         }
     } else {
         if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
@@ -2539,22 +2538,36 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler
 {
     self.searchMatchFound = self.browserTabViewController.visibleWebViewController.searchMatchFound;
-    if (!self.sebUIController.browserToolbarEnabled && (!showConditionally || self.browserTabViewController.visibleWebViewController.searchText.length > 0)) {
+    NSString *currentSearchText = self.browserTabViewController.visibleWebViewController.searchText;
+
+    if (!self.sebUIController.browserToolbarEnabled && (!showConditionally || currentSearchText.length > 0)) {
         self.sebUIController.browserToolbarEnabled = YES;
         self.showNavigationBarTemporarily = YES;
         toolbarSearchBarActiveRemovedOtherItems = self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact;
         [self initSEBUIWithCompletionBlock:^{
-            [self restoreNavigationBarItems];
-            self->searchBar.text = self.browserTabViewController.visibleWebViewController.searchText;
+            [self restoreNavigationBarItemsConditionally:showConditionally];
+            [self updateSearchBarConditionally:showConditionally searchText:currentSearchText];
             if (completionHandler) {
                 completionHandler();
             }
         } temporary:NO];
     } else {
+        if (searchBar) {
+            [self updateSearchBarConditionally:showConditionally searchText:currentSearchText];
+        }
         if (completionHandler) {
             completionHandler();
         }
     }
+}
+
+- (void) updateSearchBarConditionally:(BOOL)showConditionally searchText:(NSString *)currentSearchText
+{
+    searchBar.text = currentSearchText ? currentSearchText : @"";
+    toolbarSearchButtonDone.hidden = !((showConditionally && toolbarSearchBarActiveRemovedOtherItems) || currentSearchText.length > 0);
+    toolbarSearchButtonPreviousResult.hidden = !_searchMatchFound;
+    toolbarSearchButtonNextResult.hidden = !_searchMatchFound;
+    [self setSearchBarWidthIcon:currentSearchText.length == 0];
 }
 
 
@@ -2563,6 +2576,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (_showNavigationBarTemporarily) {
         _showNavigationBarTemporarily = NO;
+        [searchBar endEditing:YES];
         self.sebUIController.browserToolbarEnabled = NO;
         self.updateTemporaryNavigationBarVisibilty = YES;
         [self initSEBUIWithCompletionBlock:^{
@@ -2572,6 +2586,9 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }];
     } else {
+        [searchBar endEditing:YES];
+        _searchMatchFound = NO;
+        [self resetSearchBar];
         if (completionHandler) {
             completionHandler();
         }
@@ -5219,6 +5236,7 @@ void run_on_ui_thread(dispatch_block_t block)
     self.browserTabViewController.visibleWebViewController.openCloseSlider = NO; // This is unfortunately necessary because of reasons...
     [self showToolbarConditionally:NO withCompletion:^{
         [self->searchBar becomeFirstResponder];
+        [self searchBarTextDidBeginEditing:self->searchBar];
     }];
 }
 
@@ -5251,28 +5269,42 @@ void run_on_ui_thread(dispatch_block_t block)
         self.browserTabViewController.visibleWebViewController.searchText = @"";
         [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
     }
-    toolbarSearchButtonDone.hidden = YES;
-    toolbarSearchButtonPreviousResult.hidden = YES;
-    toolbarSearchButtonNextResult.hidden = YES;
-//    [self.browserWindow conditionallyDisplayToolbar];
-    [searchBar endEditing:YES];
-    // Because minimizing the width of UISearchBar doesn't work properly, we need to remove and add it again
-    UIView *searchBarView = searchBar.superview;
-    [searchBar removeFromSuperview];
-    searchBar = nil;
-    [self createSearchBarInView:searchBarView];
+    [self resetSearchBar];
 
     // If a temporary toolbar (UINavigationBar) was used, remove it
     [self conditionallyRemoveToolbarWithCompletion:nil];
 }
 
+- (void) resetSearchBar
+{
+    if (searchBar) {
+        [searchBar endEditing:YES];
+        toolbarSearchButtonDone.hidden = YES;
+        toolbarSearchButtonPreviousResult.hidden = YES;
+        toolbarSearchButtonNextResult.hidden = YES;
+        // Because minimizing the width of UISearchBar doesn't work properly, we need to remove and add it again
+        UIView *searchBarView = searchBar.superview;
+        [searchBar removeFromSuperview];
+        searchBar = nil;
+        [self createSearchBarInView:searchBarView];
+    }
+}
+
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    toolbarSearchBarReplacedTitle = self.navigationItem.title;
-    [self setSearchBarWidth:SEBToolBarSearchBarWidth];
+    if (self.navigationItem.title) {
+        toolbarSearchBarReplacedTitle = self.navigationItem.title;
+    }
+    [self setSearchBarWidthIcon:NO];
     toolbarSearchButtonDone.hidden = NO;
 }
+
+
+//- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+//{
+//    return YES;
+//}
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
