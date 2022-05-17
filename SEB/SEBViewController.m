@@ -5256,7 +5256,6 @@ void run_on_ui_thread(dispatch_block_t block)
     self.searchMatchFound = matchFound;
     toolbarSearchButtonPreviousResult.hidden = !matchFound;
     toolbarSearchButtonNextResult.hidden = !matchFound;
-//    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
 }
 
 
