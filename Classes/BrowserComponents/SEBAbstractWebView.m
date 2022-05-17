@@ -292,6 +292,14 @@
 }
 
 
+- (void) stopMediaPlayback
+{
+    if ([self.browserControllerDelegate respondsToSelector:@selector(stopMediaPlayback)]) {
+        [self.browserControllerDelegate stopMediaPlayback];
+    }
+}
+
+
 - (void)toggleScrollLock
 {
     if ([self.browserControllerDelegate respondsToSelector:@selector(toggleScrollLock)]) {

@@ -232,6 +232,12 @@ import PDFKit
         browserControllerDelegate?.viewDidDisappear?(animated)
     }
     
+    public func stopMediaPlayback() {
+        if #available(iOS 14.5, *) {
+            sebWebView.closeAllMediaPresentations()
+        }
+    }
+    
     public func nativeWebView() -> Any {
         return browserControllerDelegate?.nativeWebView!() as Any
     }
@@ -933,7 +939,18 @@ import PDFKit
     }
     
     public func closeTab() {
-        navigationDelegate?.closeTab?()
+        if #available(iOS 15.0, *) {
+            sebWebView.closeAllMediaPresentations {
+                DispatchQueue.main.async {
+                    self.navigationDelegate?.closeTab?()
+                }
+            }
+        } else {
+            if #available(iOS 14.5, *) {
+                sebWebView.closeAllMediaPresentations()
+            }
+            self.navigationDelegate?.closeTab?()
+        }
     }
     
     public func conditionallyDownloadAndOpenSEBConfig(from url: URL) {
