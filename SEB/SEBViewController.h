@@ -136,7 +136,7 @@
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarSearchButton;
     UIButton *toolbarSearchButtonDone;
-    UISearchBar *searchBar;
+    UISearchBar *textSearchBar;
     NSLayoutConstraint *searchBarWidthConstraint;
     NSLayoutConstraint *searchBarTopConstraint;
     UIButton *toolbarSearchButtonNextResult;
@@ -362,7 +362,6 @@
 #pragma mark - Toolbar (UINavigationBar)
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
-- (void) updateSearchBar;
 - (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler;
 - (void) conditionallyRemoveToolbarWithCompletion:(void (^)(void))completionHandler;
 
