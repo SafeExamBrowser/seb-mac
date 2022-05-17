@@ -600,8 +600,8 @@ static NSMutableSet *browserWindowControllers;
                     newSafeArea = UIEdgeInsetsMake(0, 0, -4, 0);
                     toolBarHeight = 46;
                 }
-                if (searchBar) {
-                    [self setSearchBarWidthIcon:(!_searchMatchFound && toolbarSearchButtonDone.hidden)];
+                if (textSearchBar) {
+                    [self setSearchBarWidthIcon:(textSearchBar.text.length == 0 && toolbarSearchButtonDone.hidden)];
                 }
             }
             _toolBarHeightConstraint.constant = toolBarHeight;
@@ -2475,16 +2475,16 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)createSearchBarInView:(UIView *)searchBarView
 {
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
-    searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-    searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    searchBar.returnKeyType = UIReturnKeyDone;
-    searchBar.delegate = self;
-    [searchBarView addSubview:searchBar];
-    NSDictionary *views = NSDictionaryOfVariableBindings(searchBarView, searchBar);
+    textSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
+    textSearchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    textSearchBar.searchBarStyle = UISearchBarStyleMinimal;
+    textSearchBar.returnKeyType = UIReturnKeyDone;
+    textSearchBar.delegate = self;
+    [searchBarView addSubview:textSearchBar];
+    NSDictionary *views = NSDictionaryOfVariableBindings(searchBarView, textSearchBar);
     [searchBarView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[searchBar]-|" options:0 metrics:nil views:views]];
-    searchBarTopConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textSearchBar]-|" options:0 metrics:nil views:views]];
+    searchBarTopConstraint = [NSLayoutConstraint constraintWithItem:textSearchBar
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:searchBarView
@@ -2492,8 +2492,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          multiplier:1.0
                                                            constant:0];
     [searchBarView addConstraint:searchBarTopConstraint];
-    [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(0)-|" options:0 metrics:nil views:views]];
-//            [searchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[searchBar]-(-6)-|" options:0 metrics:nil views:views]];
+    [textSearchBar.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[textSearchBar]-(0)-|" options:0 metrics:nil views:views]];
     searchBarWidthConstraint = nil;
     [self setSearchBarWidthIcon:!_searchMatchFound];
 }
@@ -2502,14 +2501,14 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     CGFloat width = iconWidth ? SEBToolBarSearchBarIconWidth : SEBToolBarSearchBarWidth;
     if (!searchBarWidthConstraint) {
-        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:searchBar
+        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:textSearchBar
                                                                       attribute:NSLayoutAttributeWidth
                                                                       relatedBy:NSLayoutRelationEqual
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                                      multiplier:1.0
                                                                        constant:width];
-        [searchBar.superview addConstraint:searchBarWidthConstraint];
+        [textSearchBar.superview addConstraint:searchBarWidthConstraint];
     } else {
         searchBarWidthConstraint.constant = width;
     }
@@ -2522,7 +2521,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [self restoreNavigationBarItemsConditionally:NO];
         }
     } else {
-        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+        if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact && !toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = YES;
             self.navigationItem.leftBarButtonItems = nil;
             self.navigationItem.title = nil;
@@ -2552,7 +2551,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         } temporary:NO];
     } else {
-        if (searchBar) {
+        if (textSearchBar) {
             [self updateSearchBarConditionally:showConditionally searchText:currentSearchText];
         }
         if (completionHandler) {
@@ -2563,7 +2562,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) updateSearchBarConditionally:(BOOL)showConditionally searchText:(NSString *)currentSearchText
 {
-    searchBar.text = currentSearchText ? currentSearchText : @"";
+    textSearchBar.text = currentSearchText;
     toolbarSearchButtonDone.hidden = !((showConditionally && toolbarSearchBarActiveRemovedOtherItems) || currentSearchText.length > 0);
     toolbarSearchButtonPreviousResult.hidden = !_searchMatchFound;
     toolbarSearchButtonNextResult.hidden = !_searchMatchFound;
@@ -2576,7 +2575,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (_showNavigationBarTemporarily) {
         _showNavigationBarTemporarily = NO;
-        [searchBar endEditing:YES];
+        [textSearchBar endEditing:YES];
         self.sebUIController.browserToolbarEnabled = NO;
         self.updateTemporaryNavigationBarVisibilty = YES;
         [self initSEBUIWithCompletionBlock:^{
@@ -2586,7 +2585,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         }];
     } else {
-        [searchBar endEditing:YES];
+        [textSearchBar endEditing:YES];
         _searchMatchFound = NO;
         [self resetSearchBar];
         if (completionHandler) {
@@ -2608,7 +2607,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.proctoringImageAnalyzer = nil;
     }
     
-    if (searchBar.text.length > 0) {
+    if (textSearchBar.text.length > 0) {
         [self textSearchDone:self];
     }
     
@@ -5235,8 +5234,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     self.browserTabViewController.visibleWebViewController.openCloseSlider = NO; // This is unfortunately necessary because of reasons...
     [self showToolbarConditionally:NO withCompletion:^{
-        [self->searchBar becomeFirstResponder];
-        [self searchBarTextDidBeginEditing:self->searchBar];
+        [self->textSearchBar becomeFirstResponder];
     }];
 }
 
@@ -5264,8 +5262,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) textSearchDone:(id)sender
 {
-    if (searchBar.text.length > 0) {
-        searchBar.text = @"";
+    [textSearchBar endEditing:YES];
+    if (textSearchBar.text.length > 0) {
+        textSearchBar.text = @"";
         self.browserTabViewController.visibleWebViewController.searchText = @"";
         [self.browserTabViewController.visibleWebViewController searchText:nil backwards:NO caseSensitive:NO];
     }
@@ -5277,15 +5276,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSearchBar
 {
-    if (searchBar) {
-        [searchBar endEditing:YES];
+    if (textSearchBar) {
         toolbarSearchButtonDone.hidden = YES;
         toolbarSearchButtonPreviousResult.hidden = YES;
         toolbarSearchButtonNextResult.hidden = YES;
         // Because minimizing the width of UISearchBar doesn't work properly, we need to remove and add it again
-        UIView *searchBarView = searchBar.superview;
-        [searchBar removeFromSuperview];
-        searchBar = nil;
+        UIView *searchBarView = textSearchBar.superview;
+        [textSearchBar removeFromSuperview];
+        textSearchBar = nil;
         [self createSearchBarInView:searchBarView];
     }
 }
@@ -5308,9 +5306,6 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    if (!self.searchMatchFound) {
-        [self textSearchDone:self];
-    }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar
