@@ -798,6 +798,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         SEBiOSWebViewController *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
+        [webViewController.sebWebView stopMediaPlayback];
         webViewController.sebWebView = nil;
         webViewController.view = nil;
         webViewController = nil;
