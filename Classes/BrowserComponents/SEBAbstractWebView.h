@@ -94,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) viewDidDisappear;
 - (void) viewDidDisappear:(BOOL)animated;
 
+- (void) stopMediaPlayback;
+
 - (void) toggleScrollLock;
 - (BOOL) isScrollLockActive;
 
