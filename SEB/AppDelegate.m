@@ -505,7 +505,9 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 {
     return @[
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutSideMenu modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutReload modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutFind modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutQuit modifierFlags:UIKeyModifierCommand | UIKeyModifierShift action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
     ];
@@ -527,8 +529,14 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     if ([key caseInsensitiveCompare:SEBKeyShortcutSideMenu] == NSOrderedSame && modifier == UIKeyModifierCommand) {
         [_sebViewController leftDrawerKeyShortcutPress:self];
     }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutReload] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+        [_sebViewController reload];
+    }
     if ([key caseInsensitiveCompare:SEBKeyShortcutFind] == NSOrderedSame && modifier == UIKeyModifierCommand) {
         [_sebViewController searchTextOnPage];
+    }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutQuit] == NSOrderedSame && modifier == (UIKeyModifierCommand | UIKeyModifierShift)) {
+        [_sebViewController quitExamConditionally];
     }
 }
 
