@@ -233,7 +233,7 @@ import PDFKit
     }
     
     public func stopMediaPlayback() {
-        if #available(iOS 14.5, *) {
+        if #available(macOS 11.3, iOS 14.5, *) {
             sebWebView.closeAllMediaPresentations()
         }
     }
@@ -944,14 +944,14 @@ import PDFKit
     }
     
     public func closeTab() {
-        if #available(iOS 15.0, *) {
+        if #available(macOS 12, iOS 15.0, *) {
             sebWebView.closeAllMediaPresentations {
                 DispatchQueue.main.async {
                     self.navigationDelegate?.closeTab?()
                 }
             }
         } else {
-            if #available(iOS 14.5, *) {
+            if #available(macOS 11.3, iOS 14.5, *) {
                 sebWebView.closeAllMediaPresentations()
             }
             self.navigationDelegate?.closeTab?()
