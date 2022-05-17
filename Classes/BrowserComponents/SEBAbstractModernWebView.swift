@@ -307,9 +307,8 @@ import PDFKit
                 if pageZoom == 1 && previousZoomLevel == 1 {
                     return
                 }
-                let zoomLevelDelta = (pageZoom - previousZoomLevel) + 1
-                previousZoomLevel = pageZoom
-                if pageZoom >= 1 {
+                let zoomLevelDelta = pageZoom / previousZoomLevel
+                if pageZoom >= 1 && !(pageZoom == 1 && previousZoomLevel < 1) {
                     let iOSPageZoom = (abs((pageZoom - 1) / (WebViewMaxPageZoom - 1) - 1) * (1 - WebViewMinPageZoom)) + WebViewMinPageZoom
                     sebWebView.pageZoom = iOSPageZoom
                     if zoomLevelDelta != 1 {
@@ -331,14 +330,19 @@ import PDFKit
                         }
                     }
                 } else {
-                    let js = "document.documentElement.style.zoom = '\(pageZoom)'; \(textZoomJS(zoomLevel: pageZoom))"
-                    sebWebView.evaluateJavaScript(js) { (response, error) in
-                        if let _ = error {
-                                print(error as Any)
+                    if pageZoom == 1 && previousZoomLevel < 1 {
+                        reload()
+                    } else {
+                        let js = "document.documentElement.style.zoom = '\(pageZoom)'; \(textZoomJS(zoomLevel: pageZoom))"
+                        sebWebView.evaluateJavaScript(js) { (response, error) in
+                            if let _ = error {
+                                    print(error as Any)
+                            }
+                            self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                         }
-                        self.browserControllerDelegate?.updateZoomScale?(self.pageZoom)
                     }
                 }
+                previousZoomLevel = pageZoom
 #else
                 sebWebView.pageZoom = pageZoom
 #endif
@@ -371,6 +375,7 @@ import PDFKit
     public func zoomPageReset() {
         pageZoom = defaultPageZoom
 #if os(iOS)
+        setPageZoom()
         reload()
 #else
         setPageZoom()
