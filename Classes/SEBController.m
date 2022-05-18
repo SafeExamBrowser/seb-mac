@@ -4522,21 +4522,23 @@ conditionallyForWindow:(NSWindow *)window
     NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
     NSURL *appURL = processDictionary[@"URL"];
     NSMutableDictionary *processDetails = processDictionary.mutableCopy;
-    if (!appURL) {
-        if (application) {
-            appURL = [self getBundleOrExecutableURL:application];
-            [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
-        } else {
-            NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
-            if (executablePath) {
-                appURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
-            }
-        }
-        if (appURL) {
-            [processDetails setValue:appURL forKey:@"URL"];
+    NSString *processName = processDictionary[@"name"];
+    if (processName) {
+        [processDetails setValue:processName forKey:@"name"];
+    }
+    if (application) {
+        appURL = [self getBundleOrExecutableURL:application];
+        [processDetails setValue:application.bundleIdentifier forKey:@"bundleID"];
+    } else if (!appURL) {
+        NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
+        if (executablePath) {
+            appURL = [NSURL fileURLWithPath:executablePath isDirectory:NO];
         }
     }
-    
+    if (appURL) {
+        [processDetails setValue:appURL forKey:@"URL"];
+    }
+
     NSInteger killSuccess = ERR_SUCCESS;
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         killSuccess = (NSInteger)kill(processPID, 9);
