@@ -60,8 +60,8 @@
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="qkO-f0-59m">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment label="Zoom Out" image="ZoomPageOut" imageScaling="none" width="24"/>
-                                    <segment label="Zoom In" image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
+                                    <segment label="Zoom Page Out" image="ZoomPageOut" imageScaling="none" width="24"/>
+                                    <segment label="Zoom Page In" image="ZoomPageIn" imageScaling="none" width="24" tag="1"/>
                                 </segments>
                                 <connections>
                                     <action selector="zoomPage:" target="-2" id="wj3-sW-hfi"/>
@@ -356,7 +356,7 @@
                                 <string key="toolTip">Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</string>
                                 <clipView key="contentView" drawsBackground="NO" id="c8z-5s-Dgt">
                                     <rect key="frame" x="1" y="1" width="528" height="120"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" id="ES5-oW-j8Q">
                                             <rect key="frame" x="0.0" y="0.0" width="528" height="120"/>
