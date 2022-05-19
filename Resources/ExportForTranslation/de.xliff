@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -209,11 +209,6 @@
         <target>Suchen</target>
         <note>Class = "NSMenu"; title = "Find"; ObjectID = "220";</note>
       </trans-unit>
-      <trans-unit id="221.title" xml:space="preserve">
-        <source>Use Selection for Find</source>
-        <target>In Auswahl suchen</target>
-        <note>Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "221";</note>
-      </trans-unit>
       <trans-unit id="239.title" xml:space="preserve">
         <source>Zoom</source>
         <target>Zoomen</target>
@@ -230,9 +225,9 @@
         <note>Class = "NSMenu"; title = "View"; ObjectID = "296";</note>
       </trans-unit>
       <trans-unit id="297.title" xml:space="preserve">
-        <source>Show Toolbar</source>
+        <source>Toggle Toolbar</source>
         <target>Symbolleiste anzeigen</target>
-        <note>Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "297";</note>
+        <note>Class = "NSMenuItem"; title = "Toggle Toolbar"; ObjectID = "297";</note>
       </trans-unit>
       <trans-unit id="346.title" xml:space="preserve">
         <source>Check Grammar With Spelling</source>
@@ -369,6 +364,11 @@
         <target>Öffnen …</target>
         <note>Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC";</note>
       </trans-unit>
+      <trans-unit id="IHx-TC-Bz7.title" xml:space="preserve">
+        <source>Send</source>
+        <target>Senden</target>
+        <note>Class = "NSButtonCell"; title = "Send"; ObjectID = "IHx-TC-Bz7";</note>
+      </trans-unit>
       <trans-unit id="ITD-IF-Cv9.placeholderString" xml:space="preserve">
         <source>09:41</source>
         <target>09:41</target>
@@ -464,6 +464,11 @@
         <target>Check für Bildschirmfreigabe deaktivieren</target>
         <note>Class = "NSButtonCell"; title = "Override checking for screen sharing"; ObjectID = "bsl-EU-pHD";</note>
       </trans-unit>
+      <trans-unit id="cfx-jb-hJX.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Current time</source>
+        <target>Aktuelle Zeit</target>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Current time"; ObjectID = "cfx-jb-hJX";</note>
+      </trans-unit>
       <trans-unit id="eiW-K5-gGu.title" xml:space="preserve">
         <source>Save</source>
         <target>Sichern</target>
@@ -514,6 +519,11 @@
         <target>Zurücksetzen auf Client-Einstellungen</target>
         <note>Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "lIX-w9-SMd";</note>
       </trans-unit>
+      <trans-unit id="mQ1-3N-dPK.title" xml:space="preserve">
+        <source>Enter Raise Hand message:</source>
+        <target>Wortmeldung/Nachricht eingeben:</target>
+        <note>Class = "NSTextFieldCell"; title = "Enter Raise Hand message:"; ObjectID = "mQ1-3N-dPK";</note>
+      </trans-unit>
       <trans-unit id="nYI-e9-Ags.title" xml:space="preserve">
         <source>Cancel</source>
         <target>Abbrechen</target>
@@ -533,6 +543,16 @@
         <source>Revert to Last Saved</source>
         <target>Zurücksetzen auf Datei</target>
         <note>Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "pMV-oP-mZU";</note>
+      </trans-unit>
+      <trans-unit id="pZD-Yp-uUL.title" xml:space="preserve">
+        <source>Retry</source>
+        <target>Wiederholen</target>
+        <note>Class = "NSButtonCell"; title = "Retry"; ObjectID = "pZD-Yp-uUL";</note>
+      </trans-unit>
+      <trans-unit id="qGd-4E-G3J.title" xml:space="preserve">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+        <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "qGd-4E-G3J";</note>
       </trans-unit>
       <trans-unit id="rlJ-6q-QNz.title" xml:space="preserve">
         <source>Quit SEB/exam session instead of unlocking</source>
@@ -568,18 +588,28 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
+      <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Touch optimized (Win)</source>
+        <target>Touch-optimiert (Win)</target>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Touch optimized (Win)"; ObjectID = "0g5-nW-upZ";</note>
+      </trans-unit>
       <trans-unit id="0g5-nW-upZ.title" xml:space="preserve">
         <source>Touch optimized (Win)</source>
         <target>Touch-optimiert (Win)</target>
         <note>Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "0g5-nW-upZ";</note>
       </trans-unit>
       <trans-unit id="01r-Av-2fG.title" xml:space="preserve">
-        <source>Enable zoom (Mac/Win)</source>
+        <source>Enable zoom</source>
         <target>Zoom zulassen (Mac/Win)</target>
-        <note>Class = "NSBox"; title = "Enable zoom (Mac/Win)"; ObjectID = "01r-Av-2fG";</note>
+        <note>Class = "NSBox"; title = "Enable zoom"; ObjectID = "01r-Av-2fG";</note>
+      </trans-unit>
+      <trans-unit id="3BX-Zg-kQK.title" xml:space="preserve">
+        <source>Show side menu (Win)</source>
+        <target>Seitliches Menü anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Show side menu (Win)"; ObjectID = "3BX-Zg-kQK";</note>
       </trans-unit>
       <trans-unit id="3Dw-Kd-w6C.title" xml:space="preserve">
         <source>Status Bar with FaceID (iOS)</source>
@@ -621,15 +651,25 @@
         <target>Höhe</target>
         <note>Class = "NSTextFieldCell"; title = "Height"; ObjectID = "8p0-c4-gAw";</note>
       </trans-unit>
+      <trans-unit id="9eK-6x-D8A.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Main browser window width</source>
+        <target>Breite des Haupt-Browserfensters</target>
+        <note>Class = "NSComboBox"; ibExternalAccessibilityDescription = "Main browser window width"; ObjectID = "9eK-6x-D8A";</note>
+      </trans-unit>
       <trans-unit id="9eK-6x-D8A.ibShadowedToolTip" xml:space="preserve">
         <source>Window width in pixel or percentage of total screen width</source>
         <target>Fensterbreite in Punkten oder Prozent der Bildschirmbreite</target>
         <note>Class = "NSComboBox"; ibShadowedToolTip = "Window width in pixel or percentage of total screen width"; ObjectID = "9eK-6x-D8A";</note>
       </trans-unit>
       <trans-unit id="AYo-yw-GhI.ibShadowedToolTip" xml:space="preserve">
-        <source>Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar</source>
+        <source>Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0</source>
         <target>Text in Browserfenstern kann mit Ctrl-Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "AYo-yw-GhI";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Text in browser windows can be zoomed with ctrl - cmd +/- or the commands in the view menu and browser window toolbar. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0"; ObjectID = "AYo-yw-GhI";</note>
+      </trans-unit>
+      <trans-unit id="CbO-ag-eEy.ibShadowedToolTip" xml:space="preserve">
+        <source>Displays address field in additional browser windows for manually entering URLs</source>
+        <target>Zeigt Adressfeld in zusätzlichen Browserfenstern für die manuelle Eingabe von URLs an</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays address field in additional browser windows for manually entering URLs"; ObjectID = "CbO-ag-eEy";</note>
       </trans-unit>
       <trans-unit id="Fjl-cW-pil.ibShadowedToolTip" xml:space="preserve">
         <source>Status Bar appearance on devices with FaceID</source>
@@ -640,6 +680,11 @@
         <source>Show keyboard layout (Win)</source>
         <target>Auswahl Tastaturbelegung anzeigen (Win)</target>
         <note>Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "HEJ-HA-6o4";</note>
+      </trans-unit>
+      <trans-unit id="ID6-7c-aOO.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Use full screen mode</source>
+        <target>Vollbildmodus benutzen</target>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Use full screen mode"; ObjectID = "ID6-7c-aOO";</note>
       </trans-unit>
       <trans-unit id="ID6-7c-aOO.title" xml:space="preserve">
         <source>Use full screen mode</source>
@@ -702,10 +747,15 @@
         <target>Symbolleiste/Menüleiste/Statusleiste</target>
         <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
       </trans-unit>
-      <trans-unit id="SGO-KD-Mam.title" xml:space="preserve">
-        <source>Zoom mode Win (Ctrl-Mousewheel)</source>
-        <target>Zoom-Modus Win (Ctrl-Maustaste)</target>
-        <note>Class = "NSBox"; title = "Zoom mode Win (Ctrl-Mousewheel)"; ObjectID = "SGO-KD-Mam";</note>
+      <trans-unit id="RJU-Xs-qUE.title" xml:space="preserve">
+        <source>Show address bar for main window (Win)</source>
+        <target>Adressfeld für Hauptfenster anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Show address bar for main window (Win)"; ObjectID = "RJU-Xs-qUE";</note>
+      </trans-unit>
+      <trans-unit id="SY0-BY-pkl.ibShadowedToolTip" xml:space="preserve">
+        <source>Displays address field in main browser window for manually entering URLs</source>
+        <target>Zeigt Adressfeld im Hauptfenster für die manuelle Eingabe von URLs an</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays address field in main browser window for manually entering URLs"; ObjectID = "SY0-BY-pkl";</note>
       </trans-unit>
       <trans-unit id="Soq-V2-Zan.ibShadowedToolTip" xml:space="preserve">
         <source>Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</source>
@@ -717,25 +767,25 @@
         <target>Uhrzeit anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi";</note>
       </trans-unit>
-      <trans-unit id="TOC-TB-yVI.title" xml:space="preserve">
-        <source>Use page zoom</source>
-        <target>Seiten-Zoom verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use page zoom"; ObjectID = "TOC-TB-yVI";</note>
-      </trans-unit>
-      <trans-unit id="Ub7-Fc-noP.title" xml:space="preserve">
-        <source>Use text zoom</source>
-        <target>Text-Zoom verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use text zoom"; ObjectID = "Ub7-Fc-noP";</note>
-      </trans-unit>
       <trans-unit id="Vv2-Sf-65e.title" xml:space="preserve">
         <source>Show menu bar</source>
         <target>Menüleiste anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e";</note>
       </trans-unit>
+      <trans-unit id="W1X-bf-zFD.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Use browser window</source>
+        <target>Browserfenster verwenden</target>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Use browser window"; ObjectID = "W1X-bf-zFD";</note>
+      </trans-unit>
       <trans-unit id="W1X-bf-zFD.title" xml:space="preserve">
         <source>Use browser window</source>
         <target>Browserfenster verwenden</target>
         <note>Class = "NSButtonCell"; title = "Use browser window"; ObjectID = "W1X-bf-zFD";</note>
+      </trans-unit>
+      <trans-unit id="XV8-Xi-8DI.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Main browser window height</source>
+        <target>Höhe Hauptfenster</target>
+        <note>Class = "NSComboBox"; ibExternalAccessibilityDescription = "Main browser window height"; ObjectID = "XV8-Xi-8DI";</note>
       </trans-unit>
       <trans-unit id="XV8-Xi-8DI.ibShadowedToolTip" xml:space="preserve">
         <source>Window height in pixel or percentage of total screen height</source>
@@ -752,6 +802,11 @@
         <target>'Zurück zum Start'-Taste anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Show Back to Start button"; ObjectID = "Xu3-qq-gP1";</note>
       </trans-unit>
+      <trans-unit id="Z1l-z6-njE.ibShadowedToolTip" xml:space="preserve">
+        <source>Zoom level to use by default on every page. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0</source>
+        <target>Zoomstufe, die standardmässig auf jeder Seite benutzt wird. Unter iOS funktioniert Text- und Seiten-Zoom nur im modernen WebView. Text-Zoom nur mit manchen (einfachen) Webseiten und nur wenn der Seiten-Zoom auf 1.0 eingestellt ist</target>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Zoom level to use by default on every page. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0"; ObjectID = "Z1l-z6-njE";</note>
+      </trans-unit>
       <trans-unit id="Z2G-Dw-4mT.title" xml:space="preserve">
         <source>Hide toolbar as default</source>
         <target>Symbolleiste standardmässig ausblenden</target>
@@ -761,6 +816,11 @@
         <source>The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls</source>
         <target>Das SEB-Dock zeigt und schaltet um auf offene Browserfenster, zugelassene Ressourcen und Drittapplikationen und kann zusätzliche Funktionen beinhalten</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "The SEB dock shows and switches between open browser windows, allowed resources and applications and displays additional controls"; ObjectID = "Zfa-sc-BEA";</note>
+      </trans-unit>
+      <trans-unit id="Zkh-MJ-gRD.title" xml:space="preserve">
+        <source>Default page zoom level</source>
+        <target>Standard Seiten-Zoomstufe</target>
+        <note>Class = "NSTextFieldCell"; title = "Default page zoom level"; ObjectID = "Zkh-MJ-gRD";</note>
       </trans-unit>
       <trans-unit id="afV-ai-ahl.title" xml:space="preserve">
         <source>Dock height</source>
@@ -807,6 +867,10 @@
         <target>Lädt die aktuelle Webseite neu. Zeigt eine Warnung an, wenn diese in den Browser-Einstellungen aktiviert ist</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Reloads current web page. Shows warning if enabled in Browser settings pane"; ObjectID = "fbK-yl-e2o";</note>
       </trans-unit>
+      <trans-unit id="geu-O8-rL1.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Horizontal positioning of main browser window</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Horizontal positioning of main browser window"; ObjectID = "geu-O8-rL1";</note>
+      </trans-unit>
       <trans-unit id="geu-O8-rL1.ibShadowedToolTip" xml:space="preserve">
         <source>Position browser window on the left, right or centered</source>
         <target>Browserfenster links, rechts oder zentriert positionieren</target>
@@ -817,10 +881,20 @@
         <target>Breite</target>
         <note>Class = "NSTextFieldCell"; title = "Width"; ObjectID = "kbg-Kp-tbc";</note>
       </trans-unit>
+      <trans-unit id="kh1-Rf-TWo.title" xml:space="preserve">
+        <source>Show address bar for additional windows (Win)</source>
+        <target>Adressfeld für zusätzliche Fenster anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Show address bar for additional windows (Win)"; ObjectID = "kh1-Rf-TWo";</note>
+      </trans-unit>
       <trans-unit id="kyV-Ns-eIu.title" xml:space="preserve">
         <source>Main browser window size and position</source>
         <target>Grösse und Position Haupt-Browserfenster</target>
         <note>Class = "NSBox"; title = "Main browser window size and position"; ObjectID = "kyV-Ns-eIu";</note>
+      </trans-unit>
+      <trans-unit id="l2A-KY-iEk.ibShadowedToolTip" xml:space="preserve">
+        <source>Zoom level to use by default on every page</source>
+        <target>Zoomstufe, die standardmässig auf jeder Seite benutzt wird</target>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Zoom level to use by default on every page"; ObjectID = "l2A-KY-iEk";</note>
       </trans-unit>
       <trans-unit id="lWE-3I-sTM.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)</source>
@@ -847,15 +921,24 @@
         <target>Seiten-Zoom zulassen</target>
         <note>Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "oH6-kG-mSm";</note>
       </trans-unit>
-      <trans-unit id="oYY-YL-Kal.title" xml:space="preserve">
-        <source>Enable touch exit (Win)</source>
-        <target>Beenden per Touch zulassen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Enable touch exit (Win)"; ObjectID = "oYY-YL-Kal";</note>
+      <trans-unit id="oZJ-Jp-rma.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Dock height in points</source>
+        <target>Dockhöhe in Punkten</target>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Dock height in points"; ObjectID = "oZJ-Jp-rma";</note>
       </trans-unit>
       <trans-unit id="oZJ-Jp-rma.ibShadowedToolTip" xml:space="preserve">
         <source>SEB dock height in points (pixel height*2 on Retina displays)</source>
         <target>SEB-Dockhöhe in Punkten</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "SEB dock height in points (pixel height*2 on Retina displays)"; ObjectID = "oZJ-Jp-rma";</note>
+      </trans-unit>
+      <trans-unit id="p1X-iY-d90.ibShadowedToolTip" xml:space="preserve">
+        <source>The SEB side menu displays the same controls as the Dock</source>
+        <target>Das SEB-Seitenmenü zeigt dieselben Kontrollelemente wie das Dock an</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "The SEB side menu displays the same controls as the Dock"; ObjectID = "p1X-iY-d90";</note>
+      </trans-unit>
+      <trans-unit id="qfl-QX-6zS.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Browser view mode</source>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Browser view mode"; ObjectID = "qfl-QX-6zS";</note>
       </trans-unit>
       <trans-unit id="qfl-QX-6zS.ibShadowedToolTip" xml:space="preserve">
         <source>Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)</source>
@@ -871,11 +954,6 @@
         <source>Shows the Quit SEB/Session (iOS) Dock button</source>
         <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK";</note>
-      </trans-unit>
-      <trans-unit id="tX1-my-lCf.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB can be quit with a swipe down from the upper display edge</source>
-        <target>SEB kann mit einem Wischen von der oberen Bildschirmkante herunter beendet werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB can be quit with a swipe down from the upper display edge"; ObjectID = "tX1-my-lCf";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>100%</source>
@@ -913,10 +991,10 @@
         <target>Neuladen-Taste anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Show reload button"; ObjectID = "whL-zd-OWS";</note>
       </trans-unit>
-      <trans-unit id="xIF-nh-kEl.ibShadowedToolTip" xml:space="preserve">
-        <source>Zoom whole web pages or just text using Ctrl-Mousewheel (Win)</source>
-        <target>Ganze Webseiten oder nur Text mittels Ctrl-Mausrad skalieren (Win)</target>
-        <note>Class = "NSMatrix"; ibShadowedToolTip = "Zoom whole web pages or just text using Ctrl-Mousewheel (Win)"; ObjectID = "xIF-nh-kEl";</note>
+      <trans-unit id="zNp-k1-XUs.title" xml:space="preserve">
+        <source>Default text zoom level</source>
+        <target>Standard-Textgrösse</target>
+        <note>Class = "NSTextFieldCell"; title = "Default text zoom level"; ObjectID = "zNp-k1-XUs";</note>
       </trans-unit>
       <trans-unit id="zrE-tv-pfV.ibShadowedToolTip" xml:space="preserve">
         <source>Show the macOS menu bar to allow accessing settings like Wi-Fi</source>
@@ -927,7 +1005,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -967,12 +1045,12 @@
       </trans-unit>
       <trans-unit id="240.label" xml:space="preserve">
         <source>Permitted Processes</source>
-        <target>Erlaubter Prozess</target>
+        <target>Erlaubte Prozesse</target>
         <note>Class = "NSTabViewItem"; label = "Permitted Processes"; ObjectID = "240";</note>
       </trans-unit>
       <trans-unit id="241.label" xml:space="preserve">
         <source>Prohibited Processes</source>
-        <target>Verbotener Prozess</target>
+        <target>Verbotene Prozesse</target>
         <note>Class = "NSTabViewItem"; label = "Prohibited Processes"; ObjectID = "241";</note>
       </trans-unit>
       <trans-unit id="299.ibShadowedToolTip" xml:space="preserve">
@@ -984,6 +1062,16 @@
         <source>Require to quit all applications</source>
         <target>Laufende Prozesse müssen beendet werden</target>
         <note>Class = "NSButtonCell"; title = "Require to quit all applications"; ObjectID = "301";</note>
+      </trans-unit>
+      <trans-unit id="346.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Permitted Processes (Win)</source>
+        <target>Erlaubte Prozesse (Win)</target>
+        <note>Class = "NSTableView"; ibExternalAccessibilityDescription = "Permitted Processes (Win)"; ObjectID = "346";</note>
+      </trans-unit>
+      <trans-unit id="346.ibShadowedToolTip" xml:space="preserve">
+        <source>Permitted Processes, currently not supported for macOS</source>
+        <target>Erlaubte Prozesse, momentan auf macOS nicht unterstützt</target>
+        <note>Class = "NSTableView"; ibShadowedToolTip = "Permitted Processes, currently not supported for macOS"; ObjectID = "346";</note>
       </trans-unit>
       <trans-unit id="351.headerCell.title" xml:space="preserve">
         <source>Executable</source>
@@ -1075,25 +1163,34 @@
         <target>Pfad</target>
         <note>Class = "NSTextFieldCell"; title = "Path"; ObjectID = "690";</note>
       </trans-unit>
-      <trans-unit id="733.ibShadowedToolTip" xml:space="preserve">
-        <source>Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active.</source>
-        <target>Kommandozeilen-Parameter, die beim Starten an das Kommando (Applikations-Executable) angehängt werden. Mit der Checkbox wird ausgewählt, ob ein Argument aktiv ist.</target>
-        <note>Class = "NSScrollView"; ibShadowedToolTip = "Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active."; ObjectID = "733";</note>
+      <trans-unit id="736.ibShadowedToolTip" xml:space="preserve">
+        <source>Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active</source>
+        <note>Class = "NSTableView"; ibShadowedToolTip = "Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active"; ObjectID = "736";</note>
       </trans-unit>
       <trans-unit id="773.title" xml:space="preserve">
         <source>Arguments</source>
         <target>Argument</target>
         <note>Class = "NSTextFieldCell"; title = "Arguments"; ObjectID = "773";</note>
       </trans-unit>
+      <trans-unit id="865.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Add Argument Button</source>
+        <target>Taste Argument hinzufügen</target>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Add Argument Button"; ObjectID = "865";</note>
+      </trans-unit>
       <trans-unit id="865.ibShadowedToolTip" xml:space="preserve">
-        <source>Add an argument</source>
-        <target>Argument hinzufügen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Add an argument"; ObjectID = "865";</note>
+        <source>Add a command line argument for the permitted process</source>
+        <target>Kommandozeilen-Argument für erlaubten Prozess hinzufügen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a command line argument for the permitted process"; ObjectID = "865";</note>
+      </trans-unit>
+      <trans-unit id="866.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Remove Argument Button</source>
+        <target>Taste Argument entfernen</target>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Remove Argument Button"; ObjectID = "866";</note>
       </trans-unit>
       <trans-unit id="866.ibShadowedToolTip" xml:space="preserve">
-        <source>Remove an argument</source>
+        <source>Remove a command line argument for the permitted process</source>
         <target>Argument entfernen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Remove an argument"; ObjectID = "866";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Remove a command line argument for the permitted process"; ObjectID = "866";</note>
       </trans-unit>
       <trans-unit id="887.ibShadowedToolTip" xml:space="preserve">
         <source>Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</source>
@@ -1149,6 +1246,10 @@
         <source>OS</source>
         <target>OS</target>
         <note>Class = "NSTextFieldCell"; title = "OS"; ObjectID = "1304";</note>
+      </trans-unit>
+      <trans-unit id="1314.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select operating system</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select operating system"; ObjectID = "1314";</note>
       </trans-unit>
       <trans-unit id="1314.ibShadowedToolTip" xml:space="preserve">
         <source>Indicates on which operating system the permitted process runs. macOS is currently not supported</source>
@@ -1215,6 +1316,10 @@
         <target>Der verbotene Prozess muss unter dem momentanen Benutzer laufen. Kann benutzt werden, anstatt den Benutzernamen anzugeben</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported"; ObjectID = "1856";</note>
       </trans-unit>
+      <trans-unit id="1859.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Identifier</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Identifier"; ObjectID = "1859";</note>
+      </trans-unit>
       <trans-unit id="1859.ibShadowedToolTip" xml:space="preserve">
         <source>Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title</source>
         <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
@@ -1225,10 +1330,18 @@
         <target>Prozessname, üblicherweise der Name der ausführbaren Datei (Executable)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "1893";</note>
       </trans-unit>
+      <trans-unit id="1895.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Description</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Description"; ObjectID = "1895";</note>
+      </trans-unit>
       <trans-unit id="1895.ibShadowedToolTip" xml:space="preserve">
         <source>Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name</source>
         <target>Optionale Beschreibung um was für einen Prozess es sich handelt, wenn dies nicht aus der Executable ersichtlich ist</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name"; ObjectID = "1895";</note>
+      </trans-unit>
+      <trans-unit id="1896.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Original Name for Windows processes</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Original Name for Windows processes"; ObjectID = "1896";</note>
       </trans-unit>
       <trans-unit id="1896.ibShadowedToolTip" xml:space="preserve">
         <source>Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</source>
@@ -1239,6 +1352,10 @@
         <source>This prohibited process item is active</source>
         <target>Der Eintrag für diesen verbotenen Prozess ist aktiv</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "This prohibited process item is active"; ObjectID = "1898";</note>
+      </trans-unit>
+      <trans-unit id="1900.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select operating system</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select operating system"; ObjectID = "1900";</note>
       </trans-unit>
       <trans-unit id="1900.ibShadowedToolTip" xml:space="preserve">
         <source>Indicates on which operating system the prohibited process runs. macOS is currently not supported.</source>
@@ -1300,6 +1417,10 @@
         <target>Beschreibung</target>
         <note>Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "1931";</note>
       </trans-unit>
+      <trans-unit id="2202.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Original Name for Windows process</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Original Name for Windows process"; ObjectID = "2202";</note>
+      </trans-unit>
       <trans-unit id="2202.ibShadowedToolTip" xml:space="preserve">
         <source>Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</source>
         <target>SEB Windows: Komma-separierte Liste von Prozessen, die das Applikationsfenster in bestimmten erlaubten Applikationen verwalten (u.a. bei Java Apps)</target>
@@ -1339,7 +1460,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -1362,10 +1483,22 @@
         <target>Neuladen in Prüfung</target>
         <note>Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "1TN-dk-xIy";</note>
       </trans-unit>
+      <trans-unit id="2BE-Ri-RWP.title" xml:space="preserve">
+        <source>Tab focuses links</source>
+        <note>Class = "NSButtonCell"; title = "Tab focuses links"; ObjectID = "2BE-Ri-RWP";</note>
+      </trans-unit>
+      <trans-unit id="2dw-Ko-tLl.ibShadowedToolTip" xml:space="preserve">
+        <source>Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS &gt;=11 / iOS &gt;= 14</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS &gt;=11 / iOS &gt;= 14"; ObjectID = "2dw-Ko-tLl";</note>
+      </trans-unit>
       <trans-unit id="6r7-Lm-bnI.title" xml:space="preserve">
         <source>Allow reload</source>
         <target>Neuladen in neuen Fenstern</target>
         <note>Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "6r7-Lm-bnI";</note>
+      </trans-unit>
+      <trans-unit id="7c3-3L-Itj.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Show URLs in exam window</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show URLs in exam window"; ObjectID = "7c3-3L-Itj";</note>
       </trans-unit>
       <trans-unit id="7c3-3L-Itj.ibShadowedToolTip" xml:space="preserve">
         <source>For some exam scenarios, you might want to keep URLs secret</source>
@@ -1407,6 +1540,14 @@
         <target>Web Inspector erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Web Inspector (developer tools)"; ObjectID = "29c-3t-HLf";</note>
       </trans-unit>
+      <trans-unit id="34u-Jt-GbJ.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Enter custom user agent string for SEB on Windows touch devices</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on Windows touch devices"; ObjectID = "34u-Jt-GbJ";</note>
+      </trans-unit>
+      <trans-unit id="85.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Links requesting to be opened in a new browser window</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Links requesting to be opened in a new browser window"; ObjectID = "85";</note>
+      </trans-unit>
       <trans-unit id="91.title" xml:space="preserve">
         <source>Links requesting to be opened in a new browser window ...</source>
         <target>Links, die in einem neuen Browserfenster geöffnet werden sollen …</target>
@@ -1423,9 +1564,9 @@
         <note>Class = "NSButtonCell"; title = "block when directing to a different server"; ObjectID = "102";</note>
       </trans-unit>
       <trans-unit id="107.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used.</source>
+        <source>Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions</source>
         <target>Erlaubt Web-Plug-Ins wie Flash. Aus Sicherheitsgründen wird empfohlen, diese Option auszuschalten, wenn keine Plug-In-Inhalte benötigt werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used."; ObjectID = "107";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions"; ObjectID = "107";</note>
       </trans-unit>
       <trans-unit id="108.title" xml:space="preserve">
         <source>Enable plug-ins</source>
@@ -1433,9 +1574,9 @@
         <note>Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108";</note>
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables Java applets</source>
+        <source>Enables Java applets, which are no longer supported on current macOS versions</source>
         <target>Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables Java applets"; ObjectID = "168";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enables Java applets, which are no longer supported on current macOS versions"; ObjectID = "168";</note>
       </trans-unit>
       <trans-unit id="169.title" xml:space="preserve">
         <source>Enable Java</source>
@@ -1443,9 +1584,9 @@
         <note>Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169";</note>
       </trans-unit>
       <trans-unit id="171.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables JavaScript. Please note that most modern websites need JavaScript for full functionality.</source>
+        <source>Enables JavaScript. Please note that most modern websites need JavaScript for full functionality</source>
         <target>JavaScript aktivieren. Bitte beachten: Die meisten modernen Websites benötigen JavaScript für volle Funktionalität</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality."; ObjectID = "171";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality"; ObjectID = "171";</note>
       </trans-unit>
       <trans-unit id="172.title" xml:space="preserve">
         <source>Enable JavaScript</source>
@@ -1453,9 +1594,9 @@
         <note>Class = "NSButtonCell"; title = "Enable JavaScript"; ObjectID = "172";</note>
       </trans-unit>
       <trans-unit id="176.ibShadowedToolTip" xml:space="preserve">
-        <source>Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click</source>
+        <source>Disables pop-up windows (often advertisement) opened by JavaScript without a user action such as a button click</source>
         <target>Blockiert Pop-Up-Fenster (häufig Werbung), die per JavaScript ohne eine Benutzeraktion wie einen Klick auf eine Schaltfläche geöffnet werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Disables pop-up windows (often advertisement) opened by JavaScript without an user action such as a button click"; ObjectID = "176";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Disables pop-up windows (often advertisement) opened by JavaScript without a user action such as a button click"; ObjectID = "176";</note>
       </trans-unit>
       <trans-unit id="177.title" xml:space="preserve">
         <source>Block pop-up windows</source>
@@ -1492,15 +1633,27 @@
         <target>Grösse und Position von neuen Browserfenstern</target>
         <note>Class = "NSBox"; title = "New browser window size and position"; ObjectID = "567";</note>
       </trans-unit>
+      <trans-unit id="569.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Horizontal positioning of new browser windows</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Horizontal positioning of new browser windows"; ObjectID = "569";</note>
+      </trans-unit>
       <trans-unit id="569.ibShadowedToolTip" xml:space="preserve">
         <source>Position new browser windows on the left, right or centered</source>
         <target>Neue Browserfenster links, rechts oder zentriert positionieren</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Position new browser windows on the left, right or centered"; ObjectID = "569";</note>
       </trans-unit>
+      <trans-unit id="570.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>New browser window height</source>
+        <note>Class = "NSComboBox"; ibExternalAccessibilityDescription = "New browser window height"; ObjectID = "570";</note>
+      </trans-unit>
       <trans-unit id="570.ibShadowedToolTip" xml:space="preserve">
         <source>Window height in pixel or percentage of total screen height</source>
         <target>Fensterhöhe in Pixeln oder Prozent der Bildschirmhöhe</target>
         <note>Class = "NSComboBox"; ibShadowedToolTip = "Window height in pixel or percentage of total screen height"; ObjectID = "570";</note>
+      </trans-unit>
+      <trans-unit id="585.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>New browser window width</source>
+        <note>Class = "NSComboBox"; ibExternalAccessibilityDescription = "New browser window width"; ObjectID = "585";</note>
       </trans-unit>
       <trans-unit id="585.ibShadowedToolTip" xml:space="preserve">
         <source>Window width in pixel or percentage of total screen width</source>
@@ -1563,14 +1716,14 @@
         <note>Class = "NSTextFieldCell"; title = "Horizontal positioning"; ObjectID = "598";</note>
       </trans-unit>
       <trans-unit id="661.ibShadowedToolTip" xml:space="preserve">
-        <source>Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB</source>
+        <source>Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</source>
         <target>XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Remove XULRunner browser profile (containing caches and also local storage) when quitting SEB"; ObjectID = "661";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane."; ObjectID = "661";</note>
       </trans-unit>
       <trans-unit id="663.title" xml:space="preserve">
-        <source>Remove profile (Win)</source>
+        <source>Clear cache(Win)</source>
         <target>Profil löschen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Remove profile (Win)"; ObjectID = "663";</note>
+        <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
         <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
@@ -1607,6 +1760,10 @@
         <target>Standard-Zeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS";</note>
       </trans-unit>
+      <trans-unit id="FHC-Y1-NDD.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Enter custom user agent string for SEB on macOS</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on macOS"; ObjectID = "FHC-Y1-NDD";</note>
+      </trans-unit>
       <trans-unit id="FfE-2h-C1L.title" xml:space="preserve">
         <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients.</source>
         <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.</target>
@@ -1632,6 +1789,10 @@
         <target>Auf Geräten, welche Bild-in-Bild-Darstellung erlauben, wird das Video in einem verschiebbaren und skalierbaren, im Vordergrund schwebenden Fenster angezeigt</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps"; ObjectID = "IqX-2Y-Ffc";</note>
       </trans-unit>
+      <trans-unit id="KFV-q6-A2b.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose user agent</source>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Choose user agent"; ObjectID = "KFV-q6-A2b";</note>
+      </trans-unit>
       <trans-unit id="LQ1-WH-kpW.title" xml:space="preserve">
         <source>Allow inline playback on iPhone</source>
         <target>Inline-Wiedergabe auf iPhone</target>
@@ -1647,35 +1808,55 @@
         <target>Video automatisch abspielen</target>
         <note>Class = "NSButtonCell"; title = "Video autoplay"; ObjectID = "MOG-Nd-tGS";</note>
       </trans-unit>
+      <trans-unit id="MPP-rQ-UjN.ibShadowedToolTip" xml:space="preserve">
+        <source>Be aware, the toolbar of the internal PDF reader also allows access to the print and download functions of the PDF reader</source>
+        <target></target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Be aware, the toolbar of the internal PDF reader also allows access to the print and download functions of the PDF reader"; ObjectID = "MPP-rQ-UjN";</note>
+      </trans-unit>
       <trans-unit id="NhI-j9-FNc.ibShadowedToolTip" xml:space="preserve">
         <source>User has to confirm reloading pages in additional browser windows</source>
         <target>Benutzer muss das Neuladen in zusätzlichen Browserfenstern bestätigen</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading pages in additional browser windows"; ObjectID = "NhI-j9-FNc";</note>
+      </trans-unit>
+      <trans-unit id="Nqe-fJ-MeT.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Show URLs in additional windows</source>
+        <target>URLs in zusätzlichen Fenstern anzeigen</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show URLs in additional windows"; ObjectID = "Nqe-fJ-MeT";</note>
       </trans-unit>
       <trans-unit id="Nqe-fJ-MeT.ibShadowedToolTip" xml:space="preserve">
         <source>For some exam scenarios, you might want to keep URLs secret</source>
         <target>In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "For some exam scenarios, you might want to keep URLs secret"; ObjectID = "Nqe-fJ-MeT";</note>
       </trans-unit>
+      <trans-unit id="OFj-GF-HjV.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose user agent</source>
+        <target>User Agent auswählen</target>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Choose user agent"; ObjectID = "OFj-GF-HjV";</note>
+      </trans-unit>
       <trans-unit id="OdB-3j-b2T.ibShadowedToolTip" xml:space="preserve">
         <source>Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)</source>
         <target>Manche Video-/Audio-Inhalte werden ohne Benutzerinteraktion abgespielt. Andere Inhalte könnten ohne diese Einstellung gar nicht abspielbar sein (aber starten nicht automatisch)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)"; ObjectID = "OdB-3j-b2T";</note>
+      </trans-unit>
+      <trans-unit id="QIK-Ry-nFM.ibShadowedToolTip" xml:space="preserve">
+        <source>Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control</source>
+        <target>Tabulator-Taste verschiebt den Eingabefokus auf den nächsten Link oder Formular-Eingabeelement. Shift-Tab auf das vorherige</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control"; ObjectID = "QIK-Ry-nFM";</note>
       </trans-unit>
       <trans-unit id="QLJ-Tp-en0.title" xml:space="preserve">
         <source>Select Browser Engine Policy</source>
         <target>Policy zum Wählen der Browser-Engine</target>
         <note>Class = "NSBox"; title = "Select Browser Engine Policy"; ObjectID = "QLJ-Tp-en0";</note>
       </trans-unit>
-      <trans-unit id="RdC-g0-HsE.title" xml:space="preserve">
-        <source>Allow video capture (webcam, Win)</source>
-        <target>Videoaufnahme erlauben (Webcam, Win)</target>
-        <note>Class = "NSButtonCell"; title = "Allow video capture (webcam, Win)"; ObjectID = "RdC-g0-HsE";</note>
-      </trans-unit>
       <trans-unit id="T01-cf-vMr.title" xml:space="preserve">
         <source>Mac Desktop:</source>
         <target>Mac Desktop:</target>
         <note>Class = "NSButtonCell"; title = "Mac Desktop:"; ObjectID = "T01-cf-vMr";</note>
+      </trans-unit>
+      <trans-unit id="UsO-tg-591.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select SEB platform version plus device type</source>
+        <target>SEB Plattform-Version und Gerätetyp auswählen</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select SEB platform version plus device type"; ObjectID = "UsO-tg-591";</note>
       </trans-unit>
       <trans-unit id="UsO-tg-591.ibShadowedToolTip" xml:space="preserve">
         <source>Each SEB version/device type has separate user agent settings</source>
@@ -1692,6 +1873,11 @@
         <target>Suffix, welcher an alle User Agents angehängt wird</target>
         <note>Class = "NSTextFieldCell"; title = "Suffix to be added to any user agent"; ObjectID = "VJ9-fx-YV7";</note>
       </trans-unit>
+      <trans-unit id="VNp-U5-dS4.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select Browser Engine Policy</source>
+        <target>Policy zum Wählen der Browser-Engine selektieren</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select Browser Engine Policy"; ObjectID = "VNp-U5-dS4";</note>
+      </trans-unit>
       <trans-unit id="X0g-7e-XAl.title" xml:space="preserve">
         <source>Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients.</source>
         <target>Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten Safari-/WebKit-Version ab.</target>
@@ -1707,10 +1893,20 @@
         <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "XSw-aj-V6a";</note>
       </trans-unit>
+      <trans-unit id="Xhr-38-Q1a.ibShadowedToolTip" xml:space="preserve">
+        <source>Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</source>
+        <target>Erlaubt Anzeige des Kontext-Menüs mittels Rechtsklick/ctrl-Linksklick für den Web Inspector (NUR für Debugging benutzen!). Muss deaktiviert werden, um die Befehle im Kontextmenü zum Teilen von Inhalten (modernes WebView) und in Browser Plug-Ins und Videoplayern auszuschalten</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players"; ObjectID = "Xhr-38-Q1a";</note>
+      </trans-unit>
       <trans-unit id="YE5-tr-HaY.title" xml:space="preserve">
         <source>Custom</source>
         <target>Benutzerdefiniert</target>
         <note>Class = "NSButtonCell"; title = "Custom"; ObjectID = "YE5-tr-HaY";</note>
+      </trans-unit>
+      <trans-unit id="YGc-0N-3Cu.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Enter custom user agent string for SEB on Windows desktop devices</source>
+        <target>Benutzerdefinierte User Agent Zeichenkette für SEB auf Windows-Desktop-Geräten eingeben</target>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on Windows desktop devices"; ObjectID = "YGc-0N-3Cu";</note>
       </trans-unit>
       <trans-unit id="YP6-xU-uXJ.title" xml:space="preserve">
         <source>Show URLs</source>
@@ -1722,15 +1918,20 @@
         <target>Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "Z3B-Za-z4X";</note>
       </trans-unit>
-      <trans-unit id="aND-Ot-lHG.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow web applications to access microphone (using HMTL 5 APIs)</source>
-        <target>Webapplikationen dürfen auf das Mikrofon zugreifen (mittels HTML5 APIs)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web applications to access microphone (using HMTL 5 APIs)"; ObjectID = "aND-Ot-lHG";</note>
+      <trans-unit id="aN2-81-3Zh.title" xml:space="preserve">
+        <source>Enable right mouse button</source>
+        <target>Rechte Maustaste erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Enable right mouse button"; ObjectID = "aN2-81-3Zh";</note>
       </trans-unit>
       <trans-unit id="al8-58-HPQ.title" xml:space="preserve">
         <source>Touch default:</source>
         <target>Touch-Standard:</target>
         <note>Class = "NSButtonCell"; title = "Touch default:"; ObjectID = "al8-58-HPQ";</note>
+      </trans-unit>
+      <trans-unit id="b7C-9j-OYg.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose user agent</source>
+        <target>User Agent auswählen</target>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Choose user agent"; ObjectID = "b7C-9j-OYg";</note>
       </trans-unit>
       <trans-unit id="bgd-GA-QC3.title" xml:space="preserve">
         <source>Restrictions in Additional Windows</source>
@@ -1757,11 +1958,6 @@
         <target>Standard User Agent für Touch-Modus</target>
         <note>Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy";</note>
       </trans-unit>
-      <trans-unit id="e54-Gu-GIx.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow web applications to access camera (using HMTL 5 APIs)</source>
-        <target>Webapplikationen dürfen auf die Kamera zugreifen (mittels HTML5 APIs)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web applications to access camera (using HMTL 5 APIs)"; ObjectID = "e54-Gu-GIx";</note>
-      </trans-unit>
       <trans-unit id="fRI-Y9-Qs5.title" xml:space="preserve">
         <source>Allow inline playback on iPad</source>
         <target>Inline-Wiedergabe auf iPad</target>
@@ -1772,10 +1968,10 @@
         <target>Desktop Standard:</target>
         <note>Class = "NSButtonCell"; title = "Desktop default:"; ObjectID = "fzm-2I-vcw";</note>
       </trans-unit>
-      <trans-unit id="gw2-ot-VdZ.title" xml:space="preserve">
-        <source>Allow audio capture (microphone, Win)</source>
-        <target>Audioaufnahme erlauben (Mikrofon, Win)</target>
-        <note>Class = "NSButtonCell"; title = "Allow audio capture (microphone, Win)"; ObjectID = "gw2-ot-VdZ";</note>
+      <trans-unit id="i2L-Fg-eTj.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose user agent</source>
+        <target>User Agent auswählen</target>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Choose user agent"; ObjectID = "i2L-Fg-eTj";</note>
       </trans-unit>
       <trans-unit id="jZa-47-k8N.title" xml:space="preserve">
         <source>Default iOS user agent</source>
@@ -1787,10 +1983,25 @@
         <target>Benutzerdefiniert</target>
         <note>Class = "NSButtonCell"; title = "Custom"; ObjectID = "kJa-eD-szz";</note>
       </trans-unit>
+      <trans-unit id="kbH-Rg-sB6.title" xml:space="preserve">
+        <source>Allow text search</source>
+        <target>Textsuche erlauben</target>
+        <note>Class = "NSButtonCell"; title = "Allow text search"; ObjectID = "kbH-Rg-sB6";</note>
+      </trans-unit>
+      <trans-unit id="ktc-tU-dLx.title" xml:space="preserve">
+        <source>Enable toolbar of PDF reader (Win)</source>
+        <target>Symbolleiste in PDF-Vorschau anzeigen (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Enable toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx";</note>
+      </trans-unit>
       <trans-unit id="mRw-O9-H0n.title" xml:space="preserve">
         <source>iPad</source>
         <target>iPad</target>
         <note>Class = "NSButtonCell"; title = "iPad"; ObjectID = "mRw-O9-H0n";</note>
+      </trans-unit>
+      <trans-unit id="oTH-6g-3oo.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Enter custom user agent string for SEB on iOS</source>
+        <target>Standard User Agent für SEB auf iOS eingeben</target>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on iOS"; ObjectID = "oTH-6g-3oo";</note>
       </trans-unit>
       <trans-unit id="p3T-fI-3bu.ibShadowedToolTip" xml:space="preserve">
         <source>This string will be appended to any user agent string (independent from the other user agent settings below)</source>
@@ -1833,9 +2044,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip";</note>
       </trans-unit>
       <trans-unit id="wFa-eR-NzK.ibShadowedToolTip" xml:space="preserve">
-        <source>If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
+        <source>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
         <target>Wenn erlaubt und der Rechtsklick nicht deaktiviert ist (siehe Sicherheit/Abgefangene Tasten/Rechte Maustaste erlauben), dann kann mittels Rechtsklick/ctrl-Linksklick auf ein Element einer Webseite der Web Inspector mittels 'Inspect Element' angezeigt werden. Win: Entwicklertools in Browserfenster-Symbolleiste anzeigen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see Security/Hooked Keys/Enable Right Mouse), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
@@ -1856,7 +2067,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -1873,6 +2084,11 @@
         <source>Allow QR code config (iOS)</source>
         <target>Konfiguration mittels QR-Code erlauben (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Allow QR code config (iOS)"; ObjectID = "53p-kc-87m";</note>
+      </trans-unit>
+      <trans-unit id="69.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose identity certificate to be used for encrypting SEB settings file</source>
+        <target>Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose identity certificate to be used for encrypting SEB settings file"; ObjectID = "69";</note>
       </trans-unit>
       <trans-unit id="69.ibShadowedToolTip" xml:space="preserve">
         <source>Identities (X.509 certificates with RSA public key and associated private key) in your default keychain which can be used for encrypting and decrypting. Export the chosen identity (in Keychain Access utility) and install it on your SEB clients.</source>
@@ -1924,10 +2140,20 @@
         <target>SEB-Konfigurationsdatei verwenden zum …</target>
         <note>Class = "NSTextFieldCell"; title = "Use config file for ..."; ObjectID = "239";</note>
       </trans-unit>
+      <trans-unit id="249.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Use config file for ...</source>
+        <target>SEB-Konfigurationsdatei verwenden zum …</target>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Use config file for ..."; ObjectID = "249";</note>
+      </trans-unit>
       <trans-unit id="249.ibShadowedToolTip" xml:space="preserve">
         <source>A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)</source>
         <target>Eine abgespeicherte Konfigurationsdatei startet entweder die Prüfung mit ihren Einstellungen (SEB temporär konfiguriert) oder ändert die lokalen Einstellungen eines SEB-Clients (permanent)</target>
         <note>Class = "NSMatrix"; ibShadowedToolTip = "A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently)"; ObjectID = "249";</note>
+      </trans-unit>
+      <trans-unit id="251.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>starting exams</source>
+        <target>Starten einer Prüfung</target>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "starting exams"; ObjectID = "251";</note>
       </trans-unit>
       <trans-unit id="251.ibShadowedToolTip" xml:space="preserve">
         <source>A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings</source>
@@ -1938,6 +2164,11 @@
         <source>starting exams</source>
         <target>Starten einer Prüfung</target>
         <note>Class = "NSButtonCell"; title = "starting exams"; ObjectID = "251";</note>
+      </trans-unit>
+      <trans-unit id="252.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>configuring clients</source>
+        <target>Konfigurieren von Clients</target>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "configuring clients"; ObjectID = "252";</note>
       </trans-unit>
       <trans-unit id="252.title" xml:space="preserve">
         <source>configuring clients</source>
@@ -2068,7 +2299,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -2090,6 +2321,11 @@
         <source>Download directory Windows:</source>
         <target>Download-Verzeichnis Windows:</target>
         <note>Class = "NSTextFieldCell"; title = "Download directory Windows:"; ObjectID = "24Q-1c-lTs";</note>
+      </trans-unit>
+      <trans-unit id="32.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Save downloaded files to directory</source>
+        <target>Downloads sichern in folgendem Verzeichnis</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Save downloaded files to directory"; ObjectID = "32";</note>
       </trans-unit>
       <trans-unit id="32.ibShadowedToolTip" xml:space="preserve">
         <source>Choose download directory</source>
@@ -2126,6 +2362,11 @@
         <target>PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Download and open PDF files instead of displaying them inline"; ObjectID = "77";</note>
       </trans-unit>
+      <trans-unit id="93.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose file to upload policy</source>
+        <target>Policy zum Auswählen der Datei für Upload</target>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose file to upload policy"; ObjectID = "93";</note>
+      </trans-unit>
       <trans-unit id="93.ibShadowedToolTip" xml:space="preserve">
         <source>SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</source>
         <target>SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladenen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladenen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen</target>
@@ -2151,6 +2392,15 @@
         <target>Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP";</note>
       </trans-unit>
+      <trans-unit id="GVV-cO-HOP.ibShadowedToolTip" xml:space="preserve">
+        <source>When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</source>
+        <target></target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system"; ObjectID = "GVV-cO-HOP";</note>
+      </trans-unit>
+      <trans-unit id="I9g-6o-a5B.title" xml:space="preserve">
+        <source>Allow to select custom down/upload directory</source>
+        <note>Class = "NSButtonCell"; title = "Allow to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
+      </trans-unit>
       <trans-unit id="zhK-R4-XtF.title" xml:space="preserve">
         <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
         <target>Acrobat Reader PDF Plug-In erlauben (unsicher)</target>
@@ -2160,7 +2410,7 @@
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2293,6 +2543,10 @@
         <target>Session-Cookies</target>
         <note>Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj";</note>
       </trans-unit>
+      <trans-unit id="Vag-ov-ItE.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Config Key</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Config Key"; ObjectID = "Vag-ov-ItE";</note>
+      </trans-unit>
       <trans-unit id="Vfv-tN-rLa.title" xml:space="preserve">
         <source>Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL).</source>
         <target>Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)</target>
@@ -2412,9 +2666,17 @@
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
+      <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>SEB connection mode</source>
+        <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "SEB connection mode"; ObjectID = "18i-Ih-TGG";</note>
+      </trans-unit>
+      <trans-unit id="18i-Ih-TGG.ibShadowedToolTip" xml:space="preserve">
+        <source>Indicates if SEB will use local settings and load the start URL or if it will try to connect to the SEB Server</source>
+        <note>Class = "NSMatrix"; ibShadowedToolTip = "Indicates if SEB will use local settings and load the start URL or if it will try to connect to the SEB Server"; ObjectID = "18i-Ih-TGG";</note>
+      </trans-unit>
       <trans-unit id="78.ibShadowedToolTip" xml:space="preserve">
         <source>Retype the administrator password</source>
         <target>Administrator-Passwort wiederholen</target>
@@ -2449,6 +2711,10 @@
         <source>Displays information about Safe Exam Browser – SEB</source>
         <target>Informationen über Safe Exam Browser – SEB anzeigen</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94";</note>
+      </trans-unit>
+      <trans-unit id="95.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Show help</source>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Show help"; ObjectID = "95";</note>
       </trans-unit>
       <trans-unit id="95.ibShadowedToolTip" xml:space="preserve">
         <source>Displays the SEB online manual at www.safeexambrowser.org/macosx</source>
@@ -2536,20 +2802,56 @@
         <note>Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "256";</note>
       </trans-unit>
       <trans-unit id="412.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB ignores the exit keys and can only be quit manually by entering the quit password</source>
+        <source>SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server</source>
         <target>SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden/Entsperren-Passworts verlassen werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB ignores the exit keys and can only be quit manually by entering the quit password"; ObjectID = "412";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server"; ObjectID = "412";</note>
       </trans-unit>
       <trans-unit id="413.title" xml:space="preserve">
-        <source>Ignore exit keys (Win)</source>
+        <source>SEB Server Fallback (Win)</source>
         <target>Beenden-Tastenkombination ignorieren (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Ignore exit keys (Win)"; ObjectID = "413";</note>
+        <note>Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413";</note>
+      </trans-unit>
+      <trans-unit id="JvD-qA-qAF.title" xml:space="preserve">
+        <source>SEB Server URL</source>
+        <note>Class = "NSTextFieldCell"; title = "SEB Server URL"; ObjectID = "JvD-qA-qAF";</note>
+      </trans-unit>
+      <trans-unit id="WYv-t7-2PL.ibShadowedToolTip" xml:space="preserve">
+        <source>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field."; ObjectID = "WYv-t7-2PL";</note>
+      </trans-unit>
+      <trans-unit id="ZPd-eH-wpn.placeholderString" xml:space="preserve">
+        <source>URL starting with http:// or https://</source>
+        <note>Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "ZPd-eH-wpn";</note>
+      </trans-unit>
+      <trans-unit id="d6u-EM-bnR.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Connect to SEB Server</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR";</note>
+      </trans-unit>
+      <trans-unit id="d6u-EM-bnR.title" xml:space="preserve">
+        <source>Connect to SEB Server</source>
+        <note>Class = "NSButtonCell"; title = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR";</note>
+      </trans-unit>
+      <trans-unit id="j7I-dg-7wv.title" xml:space="preserve">
+        <source>Paste from saved clipboard</source>
+        <note>Class = "NSButtonCell"; title = "Paste from saved clipboard"; ObjectID = "j7I-dg-7wv";</note>
+      </trans-unit>
+      <trans-unit id="jBe-dB-U1U.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Load Start URL</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Load Start URL"; ObjectID = "jBe-dB-U1U";</note>
+      </trans-unit>
+      <trans-unit id="jBe-dB-U1U.title" xml:space="preserve">
+        <source>Load Start URL</source>
+        <note>Class = "NSButtonCell"; title = "Load Start URL"; ObjectID = "jBe-dB-U1U";</note>
+      </trans-unit>
+      <trans-unit id="upZ-Jd-MXz.ibShadowedToolTip" xml:space="preserve">
+        <source>Full SEB Server URL (starting with http:// or https://)</source>
+        <note>Class = "NSTextField"; ibShadowedToolTip = "Full SEB Server URL (starting with http:// or https://)"; ObjectID = "upZ-Jd-MXz";</note>
       </trans-unit>
     </body>
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -2591,6 +2893,10 @@
         <source>Action when the filter rule expression matches (allow or block resource)</source>
         <target>Aktion bei übereinstimmendem Filterausdruck (Ressource zulassen oder blockieren)</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O";</note>
+      </trans-unit>
+      <trans-unit id="9hw-i2-YWH.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Selected URL filter action</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Selected URL filter action"; ObjectID = "9hw-i2-YWH";</note>
       </trans-unit>
       <trans-unit id="9hw-i2-YWH.ibShadowedToolTip" xml:space="preserve">
         <source>Full filter expression</source>
@@ -2712,6 +3018,10 @@
         <target>URL:</target>
         <note>Class = "NSTextFieldCell"; title = "URL:"; ObjectID = "1157";</note>
       </trans-unit>
+      <trans-unit id="1160.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Proxy Configuration File URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Proxy Configuration File URL"; ObjectID = "1160";</note>
+      </trans-unit>
       <trans-unit id="1169.title" xml:space="preserve">
         <source>Choose File…</source>
         <target>Datei auswählen …</target>
@@ -2726,6 +3036,14 @@
         <source>Web Proxy Server</source>
         <target>Web-Proxy (HTTP)</target>
         <note>Class = "NSTextFieldCell"; title = "Web Proxy Server"; ObjectID = "1215";</note>
+      </trans-unit>
+      <trans-unit id="1221.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Web Proxy Server http host URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Web Proxy Server http host URL"; ObjectID = "1221";</note>
+      </trans-unit>
+      <trans-unit id="1226.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Port number</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1226";</note>
       </trans-unit>
       <trans-unit id="1233.title" xml:space="preserve">
         <source>:</source>
@@ -2746,6 +3064,14 @@
         <source>Password:</source>
         <target>Passwort:</target>
         <note>Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1285";</note>
+      </trans-unit>
+      <trans-unit id="1517.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Secure Web Proxy Server https host URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Secure Web Proxy Server https host URL"; ObjectID = "1517";</note>
+      </trans-unit>
+      <trans-unit id="1518.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Port number</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1518";</note>
       </trans-unit>
       <trans-unit id="1526.title" xml:space="preserve">
         <source>Password:</source>
@@ -2772,6 +3098,14 @@
         <target>Sicherer Web-Proxy (HTTPS)</target>
         <note>Class = "NSTextFieldCell"; title = "Secure Web Proxy Server"; ObjectID = "1536";</note>
       </trans-unit>
+      <trans-unit id="1558.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>FTP Proxy Server host URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "FTP Proxy Server host URL"; ObjectID = "1558";</note>
+      </trans-unit>
+      <trans-unit id="1559.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Port number</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1559";</note>
+      </trans-unit>
       <trans-unit id="1567.title" xml:space="preserve">
         <source>Password:</source>
         <target>Passwort:</target>
@@ -2797,6 +3131,14 @@
         <target>FTP-Proxy</target>
         <note>Class = "NSTextFieldCell"; title = "FTP Proxy Server"; ObjectID = "1577";</note>
       </trans-unit>
+      <trans-unit id="1599.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>SOCKS Proxy Server host URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "SOCKS Proxy Server host URL"; ObjectID = "1599";</note>
+      </trans-unit>
+      <trans-unit id="1600.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Port number</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1600";</note>
+      </trans-unit>
       <trans-unit id="1608.title" xml:space="preserve">
         <source>Password:</source>
         <target>Passwort:</target>
@@ -2821,6 +3163,14 @@
         <source>SOCKS Proxy Server</source>
         <target>SOCKS-Proxy</target>
         <note>Class = "NSTextFieldCell"; title = "SOCKS Proxy Server"; ObjectID = "1618";</note>
+      </trans-unit>
+      <trans-unit id="1640.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Streaming Proxy Server host URL</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Streaming Proxy Server host URL"; ObjectID = "1640";</note>
+      </trans-unit>
+      <trans-unit id="1641.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Port number</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1641";</note>
       </trans-unit>
       <trans-unit id="1649.title" xml:space="preserve">
         <source>Password:</source>
@@ -2857,6 +3207,10 @@
         <target>In Konfiguration einzubettendes SSL-Zertifikat auswählen …</target>
         <note>Class = "NSTextFieldCell"; title = "Choose TLS/SSL certificate to embed into settings ..."; ObjectID = "1783";</note>
       </trans-unit>
+      <trans-unit id="1814.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Choose certificate authority certificate to embed into settings</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose certificate authority certificate to embed into settings"; ObjectID = "1814";</note>
+      </trans-unit>
       <trans-unit id="1814.ibShadowedToolTip" xml:space="preserve">
         <source>CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store</source>
         <target>Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf Ihren SEB-Clients</target>
@@ -2866,6 +3220,10 @@
         <source>Choose CA certificate to embed into settings ...</source>
         <target>In Konfiguration einzubettende Identität auswählen …</target>
         <note>Class = "NSTextFieldCell"; title = "Choose CA certificate to embed into settings ..."; ObjectID = "1818";</note>
+      </trans-unit>
+      <trans-unit id="1831.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Embedded certificates</source>
+        <note>Class = "NSScrollView"; ibExternalAccessibilityDescription = "Embedded certificates"; ObjectID = "1831";</note>
       </trans-unit>
       <trans-unit id="1836.headerCell.title" xml:space="preserve">
         <source>Kind</source>
@@ -2927,6 +3285,10 @@
         <target>scheme://username:password@host:port/path?query#fragment</target>
         <note>Class = "NSTextFieldCell"; title = "scheme://username:password@host:port/path?query#fragment"; ObjectID = "SI9-ap-07c";</note>
       </trans-unit>
+      <trans-unit id="UCE-sZ-Ixh.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>URL Filter message</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "UCE-sZ-Ixh";</note>
+      </trans-unit>
       <trans-unit id="UCE-sZ-Ixh.title" xml:space="preserve">
         <source>Display 'URL Blocked!'</source>
         <target>'Blockierte URL!' anzeigen</target>
@@ -2952,6 +3314,10 @@
         <target>Name</target>
         <note>Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "WtC-9s-fhR";</note>
       </trans-unit>
+      <trans-unit id="at3-bk-Nje.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>URL filter rules and actions</source>
+        <note>Class = "NSScrollView"; ibExternalAccessibilityDescription = "URL filter rules and actions"; ObjectID = "at3-bk-Nje";</note>
+      </trans-unit>
       <trans-unit id="bcq-qY-qJM.title" xml:space="preserve">
         <source>#</source>
         <target>#</target>
@@ -2963,9 +3329,9 @@
         <note>Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y";</note>
       </trans-unit>
       <trans-unit id="cfG-U9-U7j.title" xml:space="preserve">
-        <source>Choose identity to embed into settings ...</source>
+        <source>Choose identity certificate to embed into settings ...</source>
         <target>In Konfiguration einzubettende Identität auswählen … </target>
-        <note>Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "cfG-U9-U7j";</note>
+        <note>Class = "NSTextFieldCell"; title = "Choose identity certificate to embed into settings ..."; ObjectID = "cfG-U9-U7j";</note>
       </trans-unit>
       <trans-unit id="eXh-u4-x04.title" xml:space="preserve">
         <source>Embedd as</source>
@@ -2976,6 +3342,10 @@
         <source>Regex</source>
         <target>Regex</target>
         <note>Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7";</note>
+      </trans-unit>
+      <trans-unit id="gNh-Qf-Z8W.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>URL Filter message</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "gNh-Qf-Z8W";</note>
       </trans-unit>
       <trans-unit id="gNh-Qf-Z8W.title" xml:space="preserve">
         <source>Display 'X'</source>
@@ -3036,7 +3406,7 @@
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3133,7 +3503,7 @@
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -3176,6 +3546,10 @@
         <target>Standardverzeichnis benutzen</target>
         <note>Class = "NSButtonCell"; title = "Use standard directory"; ObjectID = "4vb-oP-Qf1";</note>
       </trans-unit>
+      <trans-unit id="6DQ-Jd-s1A.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Log file directory (Windows Versions 2.x):</source>
+        <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Log file directory (Windows Versions 2.x):"; ObjectID = "6DQ-Jd-s1A";</note>
+      </trans-unit>
       <trans-unit id="8N0-8l-hwO.title" xml:space="preserve">
         <source>Enable Ctrl-Esc</source>
         <target>Ctrl-Esc erlauben</target>
@@ -3196,6 +3570,10 @@
         <target>Log-Stufe</target>
         <note>Class = "NSTextFieldCell"; title = "Log level:"; ObjectID = "23";</note>
       </trans-unit>
+      <trans-unit id="32.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Save log file to directory:</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Save log file to directory:"; ObjectID = "32";</note>
+      </trans-unit>
       <trans-unit id="35.title" xml:space="preserve">
         <source>Directory</source>
         <target>Verzeichnis</target>
@@ -3215,6 +3593,10 @@
         <source>Allow to run inside virtual machine</source>
         <target>Betrieb in virtueller Maschine erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow to run inside virtual machine"; ObjectID = "77";</note>
+      </trans-unit>
+      <trans-unit id="93.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select SEB Service policy for SEB on Windows</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select SEB Service policy for SEB on Windows"; ObjectID = "93";</note>
       </trans-unit>
       <trans-unit id="93.ibShadowedToolTip" xml:space="preserve">
         <source>Policy that applies when an exam client doesn't have the SEB Service installed or running</source>
@@ -3255,6 +3637,10 @@
         <source>Enable Ease of Access</source>
         <target>Erleichterte Bedienung erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Ease of Access"; ObjectID = "AtG-6Z-aRN";</note>
+      </trans-unit>
+      <trans-unit id="AwA-eq-zFC.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Create new desktop</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Create new desktop"; ObjectID = "AwA-eq-zFC";</note>
       </trans-unit>
       <trans-unit id="AwA-eq-zFC.title" xml:space="preserve">
         <source>Create new desktop</source>
@@ -3366,6 +3752,10 @@
         <target>SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe";</note>
       </trans-unit>
+      <trans-unit id="KbI-Yu-DVk.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>None (for debugging only)</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk";</note>
+      </trans-unit>
       <trans-unit id="KbI-Yu-DVk.title" xml:space="preserve">
         <source>None (for debugging only)</source>
         <target>Keiner (nur für Debugging)</target>
@@ -3380,6 +3770,10 @@
         <source>Block screen shots (Legacy)</source>
         <target>Bildschirmfotos blockieren (Legacy)</target>
         <note>Class = "NSButtonCell"; title = "Block screen shots (Legacy)"; ObjectID = "LHf-yE-fnG";</note>
+      </trans-unit>
+      <trans-unit id="LMS-AX-0a5.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Select kiosk mode for SEB on Windows</source>
+        <note>Class = "NSView"; ibExternalAccessibilityDescription = "Select kiosk mode for SEB on Windows"; ObjectID = "LMS-AX-0a5";</note>
       </trans-unit>
       <trans-unit id="LTi-lL-sOs.title" xml:space="preserve">
         <source>Enable Log off</source>
@@ -3396,10 +3790,18 @@
         <target>Loggen</target>
         <note>Class = "NSBox"; title = "Logging"; ObjectID = "M5z-0E-3yB";</note>
       </trans-unit>
+      <trans-unit id="MYN-Xy-8h5.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Enforce minimum macOS version</source>
+        <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Enforce minimum macOS version"; ObjectID = "MYN-Xy-8h5";</note>
+      </trans-unit>
       <trans-unit id="MYN-Xy-8h5.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB refuses to run on an older system version</source>
+        <source>SEB refuses to run on an older system version. This setting is used when the new setting "Check full macOS version number" is disabled</source>
         <target>SEB verweigert den Betrieb auf einer älteren Betriebssystemversion</target>
-        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version"; ObjectID = "MYN-Xy-8h5";</note>
+        <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version. This setting is used when the new setting \"Check full macOS version number\" is disabled"; ObjectID = "MYN-Xy-8h5";</note>
+      </trans-unit>
+      <trans-unit id="NRp-5r-KY5.title" xml:space="preserve">
+        <source>Ignore errors when validating displays</source>
+        <note>Class = "NSButtonCell"; title = "Ignore errors when validating displays"; ObjectID = "NRp-5r-KY5";</note>
       </trans-unit>
       <trans-unit id="O4R-7z-oLy.title" xml:space="preserve">
         <source>Allow to use dictation</source>
@@ -3432,9 +3834,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen capture (screen shots) and recording (cmd-shift-3/-4/-5)"; ObjectID = "PH3-Cb-12g";</note>
       </trans-unit>
       <trans-unit id="PWk-fT-HdC.title" xml:space="preserve">
-        <source>Enable Right Mouse (also Mac*)</source>
+        <source>Enable Right Mouse</source>
         <target>Rechte Maustaste erlauben</target>
-        <note>Class = "NSButtonCell"; title = "Enable Right Mouse (also Mac*)"; ObjectID = "PWk-fT-HdC";</note>
+        <note>Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC";</note>
       </trans-unit>
       <trans-unit id="Q9f-s0-F1Q.ibShadowedToolTip" xml:space="preserve">
         <source>Allows to use Macs, which don't have a built-in display (like a Mac Mini or Mac Pro), even if enforcing it is enabled</source>
@@ -3497,9 +3899,9 @@
         <note>Class = "NSButtonCell"; title = "Enable F12"; ObjectID = "UcT-h8-nFW";</note>
       </trans-unit>
       <trans-unit id="Udm-zO-P00.ibShadowedToolTip" xml:space="preserve">
-        <source>Enable in SEB for macOS to access context menu for Web Inspector (see Browser pane). Disable to prevent right mouse button actions/context menu in browser plugins and video players</source>
+        <source>Enable for using right mouse button in allowed third party applications (since SEB 3.1 no longer affecting Mac version)</source>
         <target>In SEB für macOS erlaubt dies die Benutzung der rechten Maustaste/des Kontextmenüs in Browser Plug-Ins und Videoplayern etc.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enable in SEB for macOS to access context menu for Web Inspector (see Browser pane). Disable to prevent right mouse button actions/context menu in browser plugins and video players"; ObjectID = "Udm-zO-P00";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enable for using right mouse button in allowed third party applications (since SEB 3.1 no longer affecting Mac version)"; ObjectID = "Udm-zO-P00";</note>
       </trans-unit>
       <trans-unit id="WA3-Fp-0nb.title" xml:space="preserve">
         <source>Detect when SEB process was stopped</source>
@@ -3572,9 +3974,13 @@
         <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
       </trans-unit>
       <trans-unit id="dbm-W0-7Yt.title" xml:space="preserve">
-        <source>Log file directory (Win 2.x):</source>
+        <source>Log file directory:</source>
         <target>Log-Dateiverzeichnis Windows:</target>
-        <note>Class = "NSTextFieldCell"; title = "Log file directory (Win 2.x):"; ObjectID = "dbm-W0-7Yt";</note>
+        <note>Class = "NSTextFieldCell"; title = "Log file directory:"; ObjectID = "dbm-W0-7Yt";</note>
+      </trans-unit>
+      <trans-unit id="dpL-te-8hi.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Disable Explorer Shell</source>
+        <note>Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.title" xml:space="preserve">
         <source>Disable Explorer Shell</source>
@@ -3675,6 +4081,10 @@
         <source>Enable Esc</source>
         <target>Esc erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Esc"; ObjectID = "nZw-6z-Ph8";</note>
+      </trans-unit>
+      <trans-unit id="ngP-Zu-OIN.ibShadowedToolTip" xml:space="preserve">
+        <source>Activate when using SEB inside a virtual machine, otherwise display detection will not work properly</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Activate when using SEB inside a virtual machine, otherwise display detection will not work properly"; ObjectID = "ngP-Zu-OIN";</note>
       </trans-unit>
       <trans-unit id="nui-Ct-A6q.title" xml:space="preserve">
         <source>Save log file to:</source>
@@ -3804,9 +4214,17 @@
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
+      <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
+        <source>Search</source>
+        <note>Class = "NSSearchToolbarItem"; label = "Search"; ObjectID = "2GF-yS-Sed";</note>
+      </trans-unit>
+      <trans-unit id="2GF-yS-Sed.paletteLabel" xml:space="preserve">
+        <source>Search</source>
+        <note>Class = "NSSearchToolbarItem"; paletteLabel = "Search"; ObjectID = "2GF-yS-Sed";</note>
+      </trans-unit>
       <trans-unit id="3.title" xml:space="preserve">
         <source>Safe Exam Browser</source>
         <target>Safe Exam Browser</target>
@@ -3837,20 +4255,52 @@
         <target>Ignorieren</target>
         <note>Class = "NSButtonCell"; title = "Ignore"; ObjectID = "9Wp-xb-WzU";</note>
       </trans-unit>
+      <trans-unit id="173.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Go Back or Forward</source>
+        <note>Class = "NSSegmentedControl"; ibExternalAccessibilityDescription = "Go Back or Forward"; ObjectID = "173";</note>
+      </trans-unit>
+      <trans-unit id="173.ibShadowedToolTip" xml:space="preserve">
+        <source>Navigation in browsing history of this window</source>
+        <note>Class = "NSSegmentedControl"; ibShadowedToolTip = "Navigation in browsing history of this window"; ObjectID = "173";</note>
+      </trans-unit>
+      <trans-unit id="174.ibShadowedToolTips[0]" xml:space="preserve">
+        <source>Show the previous page</source>
+        <note>Class = "NSSegmentedCell"; 174.ibShadowedToolTips[0] = "Show the previous page"; ObjectID = "174";</note>
+      </trans-unit>
+      <trans-unit id="174.ibShadowedToolTips[1]" xml:space="preserve">
+        <source>Show the next page</source>
+        <note>Class = "NSSegmentedCell"; 174.ibShadowedToolTips[1] = "Show the next page"; ObjectID = "174";</note>
+      </trans-unit>
       <trans-unit id="175.label" xml:space="preserve">
-        <source>Back/Forward</source>
+        <source>Back/Forward Navigation</source>
         <target>Zurück/Vorwärts</target>
-        <note>Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175";</note>
+        <note>Class = "NSToolbarItem"; label = "Back/Forward Navigation"; ObjectID = "175";</note>
       </trans-unit>
       <trans-unit id="179.label" xml:space="preserve">
-        <source>Zoom</source>
-        <target>Zoom</target>
-        <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179";</note>
+        <source>Text Zoom</source>
+        <target>Text-Zoom</target>
+        <note>Class = "NSToolbarItem"; label = "Text Zoom"; ObjectID = "179";</note>
+      </trans-unit>
+      <trans-unit id="179.toolTip" xml:space="preserve">
+        <source>Change text size</source>
+        <note>Class = "NSToolbarItem"; toolTip = "Change text size"; ObjectID = "179";</note>
+      </trans-unit>
+      <trans-unit id="181.ibShadowedLabels[0]" xml:space="preserve">
+        <source>Make Text Smaller</source>
+        <note>Class = "NSSegmentedCell"; 181.ibShadowedLabels[0] = "Make Text Smaller"; ObjectID = "181";</note>
+      </trans-unit>
+      <trans-unit id="181.ibShadowedLabels[1]" xml:space="preserve">
+        <source>Make Text Bigger</source>
+        <note>Class = "NSSegmentedCell"; 181.ibShadowedLabels[1] = "Make Text Bigger"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="192.label" xml:space="preserve">
         <source>Reload</source>
         <target>Neu laden</target>
         <note>Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192";</note>
+      </trans-unit>
+      <trans-unit id="192.toolTip" xml:space="preserve">
+        <source>Reload this webpage</source>
+        <note>Class = "NSToolbarItem"; toolTip = "Reload this webpage"; ObjectID = "192";</note>
       </trans-unit>
       <trans-unit id="AcO-IT-BuS.title" xml:space="preserve">
         <source>Block</source>
@@ -3867,10 +4317,22 @@
         <target>Domain</target>
         <note>Class = "NSButtonCell"; title = "Domain"; ObjectID = "BmY-jI-Mu3";</note>
       </trans-unit>
+      <trans-unit id="FOw-Up-15U.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Search previous or next match</source>
+        <note>Class = "NSSegmentedControl"; ibExternalAccessibilityDescription = "Search previous or next match"; ObjectID = "FOw-Up-15U";</note>
+      </trans-unit>
       <trans-unit id="FW8-h0-H13.title" xml:space="preserve">
         <source>Dismiss All</source>
         <target>Alle verwerfen</target>
         <note>Class = "NSButtonCell"; title = "Dismiss All"; ObjectID = "FW8-h0-H13";</note>
+      </trans-unit>
+      <trans-unit id="FY0-V8-iJe.ibShadowedToolTips[0]" xml:space="preserve">
+        <source>Go to previous match</source>
+        <note>Class = "NSSegmentedCell"; FY0-V8-iJe.ibShadowedToolTips[0] = "Go to previous match"; ObjectID = "FY0-V8-iJe";</note>
+      </trans-unit>
+      <trans-unit id="FY0-V8-iJe.ibShadowedToolTips[1]" xml:space="preserve">
+        <source>Go to next match</source>
+        <note>Class = "NSSegmentedCell"; FY0-V8-iJe.ibShadowedToolTips[1] = "Go to next match"; ObjectID = "FY0-V8-iJe";</note>
       </trans-unit>
       <trans-unit id="H5P-Ew-Qp9.title" xml:space="preserve">
         <source>www.host.com</source>
@@ -3887,20 +4349,49 @@
         <target>Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/directory part of the current URL into the custom filter expression text field"; ObjectID = "KUW-Xw-ucJ";</note>
       </trans-unit>
+      <trans-unit id="NOj-02-Eih.label" xml:space="preserve">
+        <source>Previous/Next</source>
+        <note>Class = "NSToolbarItem"; label = "Previous/Next"; ObjectID = "NOj-02-Eih";</note>
+      </trans-unit>
       <trans-unit id="Poj-9Z-f7h.title" xml:space="preserve">
         <source>www.host.com/path</source>
         <target>www.host.com/path</target>
         <note>Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h";</note>
+      </trans-unit>
+      <trans-unit id="RPl-Pj-8QJ.title" xml:space="preserve">
+        <source>Done</source>
+        <note>Class = "NSButtonCell"; title = "Done"; ObjectID = "RPl-Pj-8QJ";</note>
+      </trans-unit>
+      <trans-unit id="S08-6E-SPm.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Search text</source>
+        <note>Class = "NSSearchField"; ibExternalAccessibilityDescription = "Search text"; ObjectID = "S08-6E-SPm";</note>
+      </trans-unit>
+      <trans-unit id="S08-6E-SPm.ibShadowedToolTip" xml:space="preserve">
+        <source>Search text on web pages. Search in PDFs only works with modern WebView and macOS 11 or newer</source>
+        <note>Class = "NSSearchField"; ibShadowedToolTip = "Search text on web pages. Search in PDFs only works with modern WebView and macOS 11 or newer"; ObjectID = "S08-6E-SPm";</note>
       </trans-unit>
       <trans-unit id="TD9-Qa-GkX.title" xml:space="preserve">
         <source>Host</source>
         <target>Host</target>
         <note>Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX";</note>
       </trans-unit>
+      <trans-unit id="Tww-Uu-pBF.label" xml:space="preserve">
+        <source>Search Done</source>
+        <note>Class = "NSToolbarItem"; label = "Search Done"; ObjectID = "Tww-Uu-pBF";</note>
+      </trans-unit>
+      <trans-unit id="Tww-Uu-pBF.paletteLabel" xml:space="preserve">
+        <source>Search Done</source>
+        <note>Class = "NSToolbarItem"; paletteLabel = "Search Done"; ObjectID = "Tww-Uu-pBF";</note>
+      </trans-unit>
       <trans-unit id="ZLD-BY-T5K.label" xml:space="preserve">
-        <source>Zoom</source>
-        <target>Zoom</target>
-        <note>Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "ZLD-BY-T5K";</note>
+        <source>Page Zoom</source>
+        <target>Seiten-Zoom</target>
+        <note>Class = "NSToolbarItem"; label = "Page Zoom"; ObjectID = "ZLD-BY-T5K";</note>
+      </trans-unit>
+      <trans-unit id="ZLD-BY-T5K.toolTip" xml:space="preserve">
+        <source>Zoom page content</source>
+        <target>Seiteninhalt verkleinern/vergrössern</target>
+        <note>Class = "NSToolbarItem"; toolTip = "Zoom page content"; ObjectID = "ZLD-BY-T5K";</note>
       </trans-unit>
       <trans-unit id="aE8-n6-keh.title" xml:space="preserve">
         <source>Directory</source>
@@ -3926,6 +4417,16 @@
         <source>host.com</source>
         <target>host.com</target>
         <note>Class = "NSButtonCell"; title = "host.com"; ObjectID = "gwZ-Bv-sYP";</note>
+      </trans-unit>
+      <trans-unit id="ib9-0q-pfh.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Go to Dock</source>
+        <target>Gehe zum Dock</target>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Go to Dock"; ObjectID = "ib9-0q-pfh";</note>
+      </trans-unit>
+      <trans-unit id="ib9-0q-pfh.ibShadowedToolTip" xml:space="preserve">
+        <source>Select first control in the Dock</source>
+        <target>Erste Taste im Dock auswählen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Select first control in the Dock"; ObjectID = "ib9-0q-pfh";</note>
       </trans-unit>
       <trans-unit id="ig8-v8-XUJ.ibShadowedToolTip" xml:space="preserve">
         <source>Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again</source>
@@ -3961,6 +4462,16 @@
         <target>Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee";</note>
       </trans-unit>
+      <trans-unit id="qkO-f0-59m.ibShadowedLabels[0]" xml:space="preserve">
+        <source>Zoom Out</source>
+        <target>Seiteninhalt verkleinern</target>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Out"; ObjectID = "qkO-f0-59m";</note>
+      </trans-unit>
+      <trans-unit id="qkO-f0-59m.ibShadowedLabels[1]" xml:space="preserve">
+        <source>Zoom In</source>
+        <target>Seiteninhalt vergrössern</target>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom In"; ObjectID = "qkO-f0-59m";</note>
+      </trans-unit>
       <trans-unit id="sIN-ro-zV3.ibShadowedToolTip" xml:space="preserve">
         <source>Click to restore the full current URL into the custom filter expression text field</source>
         <target>Anklicken, um den Host/Verzeichnis-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
@@ -3976,16 +4487,30 @@
         <target>Erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow"; ObjectID = "vVz-K2-Hbd";</note>
       </trans-unit>
+      <trans-unit id="wjF-4e-tSF.label" xml:space="preserve">
+        <source>Go to Dock</source>
+        <target>Gehe zum Dock</target>
+        <note>Class = "NSToolbarItem"; label = "Go to Dock"; ObjectID = "wjF-4e-tSF";</note>
+      </trans-unit>
+      <trans-unit id="wjF-4e-tSF.toolTip" xml:space="preserve">
+        <source>Select first control in the Dock</source>
+        <target>Erste Taste im Dock auswählen</target>
+        <note>Class = "NSToolbarItem"; toolTip = "Select first control in the Dock"; ObjectID = "wjF-4e-tSF";</note>
+      </trans-unit>
       <trans-unit id="z9W-wM-LUg.ibShadowedToolTip" xml:space="preserve">
         <source>Add an allow filter rule for the current URL/resource based on the selected pattern</source>
         <target>Filterregel für die aktuelle URL/Resource basierend auf dem ausgewählten Schema hinzufügen</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Add an allow filter rule for the current URL/resource based on the selected pattern"; ObjectID = "z9W-wM-LUg";</note>
       </trans-unit>
+      <trans-unit id="zsY-7o-QJv.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Text search done</source>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Text search done"; ObjectID = "zsY-7o-QJv";</note>
+      </trans-unit>
     </body>
   </file>
   <file original="Classes/ProcessMonitoring/Base.lproj/ProcessListView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="0H1-qr-5QU.title" xml:space="preserve">
@@ -4040,49 +4565,22 @@
       </trans-unit>
     </body>
   </file>
-  <file original="en.lproj/InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
-    </header>
-    <body>
-      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
-        <source>Safe Exam Browser</source>
-        <note>Bundle display name</note>
-      </trans-unit>
-      <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>SafeExamBrowser</source>
-        <note>Bundle name</note>
-      </trans-unit>
-      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera access is required for remote proctoring.</source>
-        <target>Kamerazugriff ist notwenig für Remote Proctoring.</target>
-        <note>Privacy - Camera Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
-        <note>Copyright (human-readable)</note>
-      </trans-unit>
-      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
-        <source>Microphone access is required for remote proctoring.</source>
-        <target>Mikrofonzugriff ist notwenig für Remote Proctoring.</target>
-        <note>Privacy - Microphone Usage Description</note>
-      </trans-unit>
-      <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
-        <source>Safe Exam Browser Configuration</source>
-        <target>Safe Exam Browser Konfiguration</target>
-        <note/>
-      </trans-unit>
-    </body>
-  </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>  SEB session was inactive for %1$ld:%2$.2ld (minutes:seconds)</source>
         <target>SEB-Session war inaktiv für %ld:%.2ld (Minuten:Sekunden)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
+        <source> (%1$d:%2$d Remaining)</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id=" (Connected to Power Source)" xml:space="preserve">
+        <source> (Connected to Power Source)</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
@@ -4097,6 +4595,23 @@
       <trans-unit id=" settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " xml:space="preserve">
         <source> settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS </source>
         <target> Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Dock" xml:space="preserve">
+        <source>%@ Dock</source>
+        <target>%@ Dock</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Not Allowed!" xml:space="preserve">
+        <source>%@ Not Allowed!</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
+        <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was downloaded." xml:space="preserve">
@@ -4267,6 +4782,10 @@
         <target>Zurück zum Start</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Battery Level %.f%%%@" xml:space="preserve">
+        <source>Battery Level %1$.f%%%2$@</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Battery Status" xml:space="preserve">
         <source>Battery Status</source>
         <target>Batteriestatus</target>
@@ -4292,6 +4811,10 @@
         <target>Browser</target>
         <note>Title of 'Browser' preference pane</note>
       </trans-unit>
+      <trans-unit id="Browser Window" xml:space="preserve">
+        <source>Browser Window</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="CA Certificate" xml:space="preserve">
         <source>CA Certificate</source>
         <target>CA-Zertifikat</target>
@@ -4305,6 +4828,10 @@
       <trans-unit id="Cannot Configure Client" xml:space="preserve">
         <source>Cannot Configure Client</source>
         <target>Client kann nicht konfiguriert werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
+        <source>Cannot Connect to SEB Server</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Decrypt SEB Settings" xml:space="preserve">
@@ -4337,6 +4864,10 @@
         <target>Touch Bar Modus kann nicht wiederhergestellt werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
+        <source>Cannot Start Another SEB Server Session</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
         <source>Cannot Start Exam</source>
         <target>Prüfung kann nicht gestartet werden</target>
@@ -4350,6 +4881,10 @@
       <trans-unit id="Center" xml:space="preserve">
         <source>Center</source>
         <target>Zentrieren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
+        <source>Check your configuration, probably connection settings are incorrect.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Choose" xml:space="preserve">
@@ -4397,6 +4932,14 @@
         <target>Client konfigurieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Connecting to SEB Server" xml:space="preserve">
+        <source>Connecting to SEB Server</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connecting…" xml:space="preserve">
+        <source>Connecting…</source>
+        <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
         <target>Weiter</target>
@@ -4425,6 +4968,10 @@
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them." xml:space="preserve">
         <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
         <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
@@ -4507,6 +5054,10 @@
         <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Do you really want to reload the current web page?" xml:space="preserve">
+        <source>Do you really want to reload the current web page?</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Do you want to continue editing the saved settings file?" xml:space="preserve">
         <source>Do you want to continue editing the saved settings file?</source>
         <target>Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?</target>
@@ -4530,6 +5081,10 @@
       <trans-unit id="Download Finished" xml:space="preserve">
         <source>Download Finished</source>
         <target>Download abgeschlossen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading" xml:space="preserve">
+        <source>Downloading</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit File" xml:space="preserve">
@@ -4724,6 +5279,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="If you don't enter the correct quit password, then you cannot quit." xml:space="preserve">
+        <source>If you don't enter the correct quit password, then you cannot quit.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them." xml:space="preserve">
         <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
         <target>Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.</target>
@@ -4774,9 +5333,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Loading New SEB Settings Not Allowed!" xml:space="preserve">
-        <source>Loading New SEB Settings Not Allowed!</source>
-        <target>Neue Einstellungen laden nicht erlaubt!</target>
+      <trans-unit id="Loading New %@ Settings Not Allowed!" xml:space="preserve">
+        <source>Loading New %@ Settings Not Allowed!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading Settings" xml:space="preserve">
@@ -4943,11 +5501,6 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>OS X</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well." xml:space="preserve">
-        <source>On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well.</source>
-        <target>Auf früheren macOS-Versionen kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.11 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Only on load error" xml:space="preserve">
         <source>Only on load error</source>
         <target>Nur bei Verbindungsfehlern</target>
@@ -5038,14 +5591,21 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Preferences Window Available From macOS 10.11" xml:space="preserve">
-        <source>Preferences Window Available From macOS 10.11</source>
-        <target>Einstellungen-Fenster erst ab macOS 10.11 verfügbar</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Previously interrupted exam was re-opened!" xml:space="preserve">
         <source>Previously interrupted exam was re-opened!</source>
         <target>Zuvor unterbrochene Prüfungssession wurde erneut gestartet!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Proctoring Error Locked SEB!" xml:space="preserve">
+        <source>Proctoring Error Locked SEB!</source>
+        <note>Lockdown alert title text for proctoring failure</note>
+      </trans-unit>
+      <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Proctoring failed: " xml:space="preserve">
+        <source>Proctoring failed: </source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prohibited Process Locked SEB!" xml:space="preserve">
@@ -5103,6 +5663,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Session beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Raise Hand" xml:space="preserve">
+        <source>Raise Hand</source>
+        <target>Hand heben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Re-Opening Locked Exam!" xml:space="preserve">
         <source>Re-Opening Locked Exam!</source>
         <target>Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet</target>
@@ -5123,9 +5688,21 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Einstellungen neu konfigurieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Reload" xml:space="preserve">
+        <source>Reload</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Reload Current Page" xml:space="preserve">
         <source>Reload Current Page</source>
         <target>Aktuelle Seite neu laden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Remote Proctoring" xml:space="preserve">
+        <source>Remote Proctoring</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Remote Proctoring Not Available" xml:space="preserve">
+        <source>Remote Proctoring Not Available</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Required built-in display is still not available!" xml:space="preserve">
@@ -5186,9 +5763,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>SEB neu konfiguriert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
-        <source>SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
-        <target>SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.</target>
+      <trans-unit id="SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
+        <source>SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." xml:space="preserve">
@@ -5363,6 +5939,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Auswählen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Select Exam" xml:space="preserve">
+        <source>Select Exam</source>
+        <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
       <trans-unit id="Settings for Configuring Client" xml:space="preserve">
         <source>Settings for Configuring Client</source>
         <target>Einstellungen zum Umkonfigurieren eines SEB-Clients</target>
@@ -5473,6 +6053,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
+        <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
         <source>These settings are corrupted and cannot be used.</source>
         <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden.</target>
@@ -5523,6 +6107,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Toggle Proctoring View" xml:space="preserve">
+        <source>Toggle Proctoring View</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Touch Optimized Mode Warning" xml:space="preserve">
         <source>Touch Optimized Mode Warning</source>
         <target>Warnung Modus Touch-optimiert</target>
@@ -5552,6 +6140,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <source>Untitled</source>
         <target>Unbenannt</target>
         <note>Title of a new opened browser window; Untitled</note>
+      </trans-unit>
+      <trans-unit id="Uploading" xml:space="preserve">
+        <source>Uploading</source>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Used third-party frameworks:" xml:space="preserve">
         <source>Used third-party frameworks:</source>
@@ -5590,6 +6182,10 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <trans-unit id="Warning" xml:space="preserve">
         <source>Warning</source>
         <target>Warnungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Web Content" xml:space="preserve">
+        <source>Web Content</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Web Proxy (HTTP)" xml:space="preserve">
@@ -5862,9 +6458,79 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
-  <file original="SEB/Base.lproj/Main.storyboard" datatype="plaintext" source-language="en" target-language="de">
+  <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>Safe Exam Browser</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>SafeExamBrowser</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>Camera access is required for remote proctoring.</source>
+        <target>Kamerazugriff ist notwendig für Remote Proctoring.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
+        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <note>Copyright (human-readable)</note>
+      </trans-unit>
+      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
+        <source>Microphone access is required for remote proctoring.</source>
+        <target>Mikrofonzugriff ist notwendig für Remote Proctoring.</target>
+        <note>Privacy - Microphone Usage Description</note>
+      </trans-unit>
+      <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
+        <source>Safe Exam Browser Configuration</source>
+        <target>Safe Exam Browser Konfiguration</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="en.lproj/SafeExamBrowserETH-InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>Safe Exam Browser</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>SafeExamBrowser</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>Camera access is required for remote proctoring.</source>
+        <target>Kamerazugriff ist notwendig für Remote Proctoring.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
+        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <note>Copyright (human-readable)</note>
+      </trans-unit>
+      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
+        <source>Microphone access is required for remote proctoring.</source>
+        <target>Mikrofonzugriff ist notwendig für Remote Proctoring.</target>
+        <note>Privacy - Microphone Usage Description</note>
+      </trans-unit>
+      <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
+        <source>Safe Exam Browser Configuration</source>
+        <target>Safe Exam Browser Konfiguration</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -5877,10 +6543,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="1cD-LV-BbY.normalTitle" xml:space="preserve">
         <source>Send Logs to SEB Developers</source>
+        <target>Logdateien an SEB-Entwickler senden</target>
         <note>Class = "UIButton"; normalTitle = "Send Logs to SEB Developers"; ObjectID = "1cD-LV-BbY";</note>
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.accessibilityHint" xml:space="preserve">
         <source>Enter the corrrect quit password to close the lock screen</source>
+        <target>Korrektes Beenden/Entsperren-Passwort eingeben, um den Sperrbildschirm zu schliessen</target>
         <note>Class = "UILabel"; accessibilityHint = "Enter the corrrect quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ";</note>
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.accessibilityLabel" xml:space="preserve">
@@ -5970,6 +6638,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="TLh-eI-sov.accessibilityHint" xml:space="preserve">
         <source>Displays a camera view to scan for SEB configuration QR codes</source>
+        <target>Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen</target>
         <note>Class = "UIButton"; accessibilityHint = "Displays a camera view to scan for SEB configuration QR codes"; ObjectID = "TLh-eI-sov";</note>
       </trans-unit>
       <trans-unit id="TLh-eI-sov.accessibilityLabel" xml:space="preserve">
@@ -5982,6 +6651,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="aA9-gn-PKl.accessibilityHint" xml:space="preserve">
         <source>Hides side menu and switches to this tab</source>
+        <target>Blendet das Seitenmenü aus und schaltet auf diesen Tab um</target>
         <note>Class = "UILabel"; accessibilityHint = "Hides side menu and switches to this tab"; ObjectID = "aA9-gn-PKl";</note>
       </trans-unit>
       <trans-unit id="aaL-4I-bjq.accessibilityHint" xml:space="preserve">
@@ -6006,6 +6676,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="arM-6u-TmT.accessibilityHint" xml:space="preserve">
         <source>Closes lock screen if entered quit password is correct</source>
+        <target>Schliesst den Sperrbildschirm, wenn das eingegebene Beenden/Entsperren-Passwort korrekt ist</target>
         <note>Class = "UIButton"; accessibilityHint = "Closes lock screen if entered quit password is correct"; ObjectID = "arM-6u-TmT";</note>
       </trans-unit>
       <trans-unit id="arM-6u-TmT.accessibilityLabel" xml:space="preserve">
@@ -6030,6 +6701,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="eHs-Tc-mxg.accessibilityLabel" xml:space="preserve">
         <source>Hide Side Menu</source>
+        <target>Seitenmenü ausblenden</target>
         <note>Class = "UIButton"; accessibilityLabel = "Hide Side Menu"; ObjectID = "eHs-Tc-mxg";</note>
       </trans-unit>
       <trans-unit id="eHs-Tc-mxg.normalTitle" xml:space="preserve">
@@ -6098,59 +6770,19 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
-  <file original="SEB/Resources/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+  <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
-      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
-        <source>SEB</source>
-        <note>Bundle display name</note>
+      <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
+        <source> (%1$d:%2$d Remaining)</source>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>SEB</source>
-        <note>Bundle name</note>
+      <trans-unit id=" (Connected to Power Source)" xml:space="preserve">
+        <source> (Connected to Power Source)</source>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Gzip Archive (SEB files are gzipped)" xml:space="preserve">
-        <source>Gzip Archive (SEB files are gzipped)</source>
-        <note/>
-      </trans-unit>
-      <trans-unit id="NSBluetoothPeripheralUsageDescription" xml:space="preserve">
-        <source>SEB uses Bluetooth for Jitsi Meet</source>
-        <note>Privacy - Bluetooth Peripheral Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSCalendarsUsageDescription" xml:space="preserve">
-        <source>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.</source>
-        <note>Privacy - Calendars Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera is needed to scan QR codes and for remote proctoring</source>
-        <note>Privacy - Camera Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <note>Copyright (human-readable)</note>
-      </trans-unit>
-      <trans-unit id="NSLocalNetworkUsageDescription" xml:space="preserve">
-        <source>Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.</source>
-        <target>Die automatische Client-Konfiguration benötigt Zugriff auf das lokale Netzwerk, um im lokalen Netzwerk nach einer Client-Konfiguration zu suchen.</target>
-        <note>Privacy - Local Network Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
-        <source>Microphone access is required for remote proctoring.</source>
-        <note>Privacy - Microphone Usage Description</note>
-      </trans-unit>
-      <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
-        <source>Safe Exam Browser Configuration</source>
-        <note/>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="SEB/Resources/en.lproj/Localizable.strings" datatype="plaintext" source-language="en" target-language="de">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
-    </header>
-    <body>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
         <note>No comment provided by engineer.</note>
@@ -6177,14 +6809,23 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="%@ Is Locked!" xml:space="preserve">
         <source>%@ Is Locked!</source>
+        <target>%@ ist gesperrt!</target>
         <note>Default title of lock screen alert.</note>
+      </trans-unit>
+      <trans-unit id="%@ Not Allowed!" xml:space="preserve">
+        <source>%@ Not Allowed!</source>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Re-Configured" xml:space="preserve">
         <source>%@ Re-Configured</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in %@ before starting another exam." xml:space="preserve">
-        <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session and use a quit link or the quit button in %2$@ before starting another exam.</source>
+      <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
+        <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
@@ -6314,6 +6955,10 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
         <source>Back to Start</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Battery Level %.f%%%@" xml:space="preserve">
+        <source>Battery Level %1$.f%%%2$@</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Before receiving title" xml:space="preserve">
         <source>Before receiving title</source>
         <note>No comment provided by engineer.</note>
@@ -6340,6 +6985,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Camera Access Denied" xml:space="preserve">
         <source>Camera Access Denied</source>
+        <target>Kamerazugriff verweigert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Can't Send Log File" xml:space="preserve">
@@ -6381,6 +7027,10 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Cannot Send %@ Logs" xml:space="preserve">
         <source>Cannot Send %@ Logs</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
+        <source>Cannot Start Another SEB Server Session</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
@@ -6463,6 +7113,11 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
         <source>Current Settings require Single App Mode to be active to proceed.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
+        <target>Die aktuellen Einstellungen erfordern Zoom Remote Proctoring, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungs-Organisator verlangt wird.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." xml:space="preserve">
         <source>Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.</source>
         <note>No comment provided by engineer.</note>
@@ -6495,6 +7150,10 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
         <source>Decrypting settings was canceled</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Default Size" xml:space="preserve">
+        <source>Default Size</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Device Was in Sleep Mode!" xml:space="preserve">
         <source>Device Was in Sleep Mode!</source>
         <note>Lockdown alert title text for device was in sleep mode</note>
@@ -6505,6 +7164,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Displays a camera view to scan for SEB configuration QR codes" xml:space="preserve">
         <source>Displays a camera view to scan for SEB configuration QR codes</source>
+        <target>Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you really want to reload the web page?" xml:space="preserve">
@@ -6519,8 +7179,16 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
         <source>Do you want to close Settings and apply this managed configuration?</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Done" xml:space="preserve">
+        <source>Done</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Download Finished" xml:space="preserve">
         <source>Download Finished</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading" xml:space="preserve">
+        <source>Downloading</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit Settings" xml:space="preserve">
@@ -6749,6 +7417,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help." xml:space="preserve">
         <source>Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.</source>
+        <target>Weder Automatic Assessment Configuration noch der (autonome MDM) Einzel-App-Modus sind auf diesem Gerät verfügbar oder in den Einstellungen aktiviert. Wenden Sie sich an Ihren Prüfungs-Support. Manchmal kann ein App- oder Geräte-Neustart helfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Never" xml:space="preserve">
@@ -6773,6 +7442,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="No Camera Available" xml:space="preserve">
         <source>No Camera Available</source>
+        <target>Keine Kamera verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Encryption Credentials Chosen" xml:space="preserve">
@@ -7046,6 +7716,14 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
         <source>Scroll Lock</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Search Text" xml:space="preserve">
+        <source>Search Text</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search text on web pages" xml:space="preserve">
+        <source>Search text on web pages</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Searching for %@ Configuration Canceled" xml:space="preserve">
         <source>Searching for %@ Configuration Canceled</source>
         <note>No comment provided by engineer.</note>
@@ -7125,6 +7803,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
         <source>Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again</source>
+        <target>Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und SEB-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." xml:space="preserve">
@@ -7149,6 +7828,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Der Ruhezustand wurde aktiviert, beispielsweise durch Schliessen einer iPad-Hülle. Überprüfen Sie vor dem Entsperren, ob das Sperrbildschirm-Hintergrundbild einen Spickzettel anzeigt. Dann entsperren Sie SEB mit der Eingabe des Beenden/Entsperren-Passworts, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Standard user agent" xml:space="preserve">
@@ -7211,6 +7891,10 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
+        <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
         <source>These settings are corrupted and cannot be used.</source>
         <note>No comment provided by engineer.</note>
@@ -7233,10 +7917,12 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="To scan a QR code, enable the camera in settings" xml:space="preserve">
         <source>To scan a QR code, enable the camera in settings</source>
+        <target>Um einen SEB-Konfigurations-QR-Code einzulesen, erlauben Sie den Kamerazugriff in den Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="To scan a QR code, your device must have a camera" xml:space="preserve">
         <source>To scan a QR code, your device must have a camera</source>
+        <target>Um einen SEB-Konfigurations-QR-Code einzulesen, muss Ihr Gerät eine Kamera besitzen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
@@ -7245,6 +7931,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Toggle Side Menu" xml:space="preserve">
         <source>Toggle Side Menu</source>
+        <target>Seitenmenü ein-/ausblenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Type" xml:space="preserve">
@@ -7257,6 +7944,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Unlock %@ with the quit password, which usually exam supervision/support knows." xml:space="preserve">
         <source>Unlock %@ with the quit password, which usually exam supervision/support knows.</source>
+        <target>Entsperren Sie SEB mit dem Beenden/Entsperren-Passwort, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>Default message of lock screen alert.</note>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
@@ -7265,6 +7953,10 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Untitled Page" xml:space="preserve">
         <source>Untitled Page</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Uploading" xml:space="preserve">
+        <source>Uploading</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." xml:space="preserve">
@@ -7373,6 +8065,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="You didn't enter the correct settings password." xml:space="preserve">
         <source>You didn't enter the correct settings password.</source>
+        <target></target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible %@ version." xml:space="preserve">
@@ -7408,6 +8101,21 @@ Use the button below to start another exam session and lock the device again.</s
         <target>Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Zoom Page In" xml:space="preserve">
+        <source>Zoom Page In</source>
+        <target>Seiteninhalt vergrössern</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Zoom Page Out" xml:space="preserve">
+        <source>Zoom Page Out</source>
+        <target>Seiteninhalt verkleinern</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Zoom Remote Proctoring Not Available" xml:space="preserve">
+        <source>Zoom Remote Proctoring Not Available</source>
+        <target>Zoom Remote Proctoring nicht verfügbar</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="allow" xml:space="preserve">
         <source>allow</source>
         <note>No comment provided by engineer.</note>
@@ -7434,6 +8142,7 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
       <trans-unit id="camera" xml:space="preserve">
         <source>camera</source>
+        <target>Kamera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="encrypted with identity certificate " xml:space="preserve">
@@ -7510,30 +8219,48 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
     </body>
   </file>
-  <file original="SEB/Resources/en.lproj/SEBDev-InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+  <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
-        <source>SEB Dev</source>
+        <source>SEB</source>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>SEB Dev</source>
+        <source>SEB</source>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="Gzip Archive (SEB files are gzipped)" xml:space="preserve">
         <source>Gzip Archive (SEB files are gzipped)</source>
         <note/>
       </trans-unit>
+      <trans-unit id="NSBluetoothPeripheralUsageDescription" xml:space="preserve">
+        <source>SEB uses Bluetooth for Jitsi Meet</source>
+        <note>Privacy - Bluetooth Peripheral Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSCalendarsUsageDescription" xml:space="preserve">
+        <source>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.</source>
+        <note>Privacy - Calendars Usage Description</note>
+      </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera is needed to scan QR codes</source>
+        <source>Camera is needed to scan QR codes and for remote proctoring</source>
+        <target>Kamerazugriff ist notwendig, um SEB-Konfigurations-QR-Codes einzulesen und für Remote Proctoring (falls dieses von Ihrem Prüfungsveranstalter unterstützt/benutzt wird)</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
         <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
         <note>Copyright (human-readable)</note>
+      </trans-unit>
+      <trans-unit id="NSLocalNetworkUsageDescription" xml:space="preserve">
+        <source>Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.</source>
+        <target>Die automatische Client-Konfiguration benötigt Zugriff auf das lokale Netzwerk, um im lokalen Netzwerk nach einer Client-Konfiguration zu suchen.</target>
+        <note>Privacy - Local Network Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
+        <source>Microphone access is required for remote proctoring.</source>
+        <note>Privacy - Microphone Usage Description</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
         <source>Safe Exam Browser Configuration</source>
@@ -7543,7 +8270,7 @@ Use the button below to start another exam session and lock the device again.</s
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" datatype="plaintext" source-language="en" target-language="de">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="12.5.1" build-num="12E507"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="Enabled" xml:space="preserve">
