@@ -579,7 +579,7 @@
 		69D3C4E827A0366400890B31 /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
 		69D3C4E927A0366400890B31 /* SEBProctoringViewIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 690D18FA271EFFC100558338 /* SEBProctoringViewIcon.iconset */; };
 		69D3C4EA27A0366400890B31 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
-		69D3C4EB27A0366400890B31 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
+		69D3C4EB27A0366400890B31 /* SafeExamBrowser-Info.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */; };
 		69D3C4EC27A0366400890B31 /* SEBReloadIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E43202926070055988F /* SEBReloadIconLandscape@3x.png */; };
 		69D3C4ED27A0366400890B31 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69D3C4EE27A0366400890B31 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
@@ -826,7 +826,7 @@
 		69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
 		69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */; };
 		69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */; };
-		69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* InfoPlist.strings */; };
+		69DD929E1A463435004072E5 /* SafeExamBrowser-Info.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */; };
 		69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
 		69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
 		69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2319C468E700CBE69F /* RNCryptor.h */; };
@@ -1422,7 +1422,6 @@
 		69A9A233136AF6E000840AE1 /* PrefsGeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrefsGeneralViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69A9A234136AF6E000840AE1 /* PrefsDownUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsDownUploadsViewController.h; sourceTree = "<group>"; };
 		69AA20B526EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		69AA20B726EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		69AA20BA26EEA4A2002287A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69AEC954218A228300848945 /* SEBFilteredURLCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBFilteredURLCache.h; path = Classes/BrowserComponents/SEBFilteredURLCache.h; sourceTree = "<group>"; };
 		69AEC955218A228300848945 /* SEBFilteredURLCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBFilteredURLCache.m; path = Classes/BrowserComponents/SEBFilteredURLCache.m; sourceTree = "<group>"; };
@@ -1554,7 +1553,7 @@
 		69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIconHighlighted.iconset; path = Resources/Icons/SEBRestartIconHighlighted.iconset; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
-		69DD929F1A463435004072E5 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		69DD929F1A463435004072E5 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/SafeExamBrowser-Info.strings"; sourceTree = "<group>"; };
 		69DD92A11A46353B004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsResourcesViewController.h; sourceTree = "<group>"; };
 		69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsResourcesViewController.m; sourceTree = "<group>"; };
@@ -2109,9 +2108,8 @@
 				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
 				690408EA1D4181A800A9EDDA /* SEB-Info.plist */,
 				69AA20B926EEA4A2002287A9 /* Localizable.strings */,
-				69AA20B626EEA4A2002287A9 /* InfoPlist.strings */,
 				69421680214544AC002EB416 /* SEBDev-Info.plist */,
-				69DD92A01A463435004072E5 /* InfoPlist.strings */,
+				69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */,
 				69B1721520FE2D96004BD0FC /* SEB-ETH-Enterprise-Info.plist */,
 				69CFFA771D3641B500FE5655 /* SEB-Enterprise-Info.plist */,
 			);
@@ -3637,7 +3635,7 @@
 				69D3C4E827A0366400890B31 /* ZoomPageIn@2x.png in Resources */,
 				69D3C4E927A0366400890B31 /* SEBProctoringViewIcon.iconset in Resources */,
 				69D3C4EA27A0366400890B31 /* PreferencesResources.xib in Resources */,
-				69D3C4EB27A0366400890B31 /* InfoPlist.strings in Resources */,
+				69D3C4EB27A0366400890B31 /* SafeExamBrowser-Info.strings in Resources */,
 				69D3C4EC27A0366400890B31 /* SEBReloadIconLandscape@3x.png in Resources */,
 				69D3C4ED27A0366400890B31 /* SecurityIcon.png in Resources */,
 				69D3C4EE27A0366400890B31 /* MenuTriangleDown@2x.png in Resources */,
@@ -3732,7 +3730,7 @@
 				6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */,
 				690D18FD271EFFC100558338 /* SEBProctoringViewIcon.iconset in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
-				69DD929E1A463435004072E5 /* InfoPlist.strings in Resources */,
+				69DD929E1A463435004072E5 /* SafeExamBrowser-Info.strings in Resources */,
 				69E87E4A202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
@@ -4404,15 +4402,6 @@
 			name = PreferencesSecurity.xib;
 			sourceTree = "<group>";
 		};
-		69AA20B626EEA4A2002287A9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				69AA20B726EEA4A2002287A9 /* de */,
-			);
-			name = InfoPlist.strings;
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		69AA20B926EEA4A2002287A9 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4422,12 +4411,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		69DD92A01A463435004072E5 /* InfoPlist.strings */ = {
+		69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				69DD929F1A463435004072E5 /* de */,
 			);
-			name = InfoPlist.strings;
+			name = "SafeExamBrowser-Info.strings";
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -4494,7 +4483,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4559,7 +4548,7 @@
 				PROVISIONING_PROFILE = "80253b4f-1e91-432c-8ca1-7a8599289903";
 				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessmentDev;
 				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4593,7 +4582,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4661,7 +4650,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessment;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4858,7 +4847,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4894,7 +4883,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.macOS.sebEduAssessmentDev;
 				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -4915,7 +4904,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4955,7 +4944,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
@@ -4976,7 +4965,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5012,7 +5001,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
 				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -5033,7 +5022,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5073,7 +5062,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = ../build;
@@ -5104,7 +5093,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5160,7 +5149,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14078;
+				CURRENT_PROJECT_VERSION = 14079;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
