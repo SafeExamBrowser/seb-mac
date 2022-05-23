@@ -223,7 +223,7 @@
                                 </stackView>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="WYv-t7-2PL">
                                     <rect key="frame" x="457" y="0.0" width="148" height="21"/>
-                                    <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</string>
+                                    <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="eFK-57-o98"/>
                                     </constraints>
