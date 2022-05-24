@@ -1,3 +1,9 @@
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Kamerazugriff ist notwendig, um SEB-Konfigurations-QR-Codes einzulesen und für Remote Proctoring (falls dieses von Ihrem Prüfungsveranstalter unterstützt/benutzt wird)";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen";
+
 /* Privacy - Local Network Usage Description */
 "NSLocalNetworkUsageDescription" = "Die automatische Client-Konfiguration benötigt Zugriff auf das lokale Netzwerk, um im lokalen Netzwerk nach einer Client-Konfiguration zu suchen.";
 
