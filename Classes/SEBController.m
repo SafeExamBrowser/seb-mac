@@ -2573,7 +2573,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 } else {
                                     // The app which opened the window or panel is no system process
                                     if (firstScan) {
-                                        DDLogVerbose(@"First scan, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
+                                        DDLogDebug(@"First scan, don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                         //[appWithPanel terminate];
                                     } else {
                                         DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
@@ -2669,56 +2669,64 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // obtain the cert info from the executable
         status = SecStaticCodeCreateWithPath((__bridge CFURLRef)executableURL, kSecCSDefaultFlags, &ref);
         
-        if (ref == NULL) return false;
-        if (status != noErr) return false;
+        if (ref == NULL) {
+            DDLogDebug(@"Couldn't obtain certificate info from executable %@", executablePath);
+            return NO;
+        }
+        if (status != noErr) {
+            DDLogDebug(@"Couldn't obtain certificate info from executable %@", executablePath);
+            return NO;
+        }
         
         SecRequirementRef req = NULL;
         NSString * reqStr;
         
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-            // Public SHA1 fingerprint of the CA cert match string
+        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_14 ) {
+            // Public SHA1 fingerprint of the CA certificate
+            // for macOS system software signed by Apple this is the
+            // "Software Signing" certificate (use Max Inspect from App Store or similar)
             reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                       @"certificate",
                       @"leaf",
-                      @"H\"013E2787748A74",
-                      @"103D62D2CDBF77",
-                      @"A1345517C482\""
+                      @"H\"EFDBC9139DD98D",
+                      @"BAE5A9C7165A09",
+                      @"6511B15EAEF9\""
                       ];
-        } else {
-            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-                      @"certificate",
-                      @"leaf",
-                      @"H\"2203029E85EFB1",
-                      @"828B928C3B6545",
-                      @"F003CC0E515C\""
-                      ];
+            // create the requirement to check against
+            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+            
+            if (status == noErr && req != NULL) {
+                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+                DDLogDebug(@"Returned from checking code signature of executable %@ with status %d", executablePath, (int)status);
+            }
         }
-        
-        // create the requirement to check against
-        status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-        
-        if (status == noErr && req != NULL) {
-            status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-        }
-        
+
         if (status != noErr) {
-            if (floor(NSAppKitVersionNumber) > NSAppKitVersionNumber10_15 ) {
-                // Public SHA1 fingerprint of the CA certificate
-                // for macOS system software signed by Apple this is the
-                // "Software Signing" certificate (use Max Inspect from App Store or similar)
+            if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
+                // Public SHA1 fingerprint of the CA cert match string
                 reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                           @"certificate",
                           @"leaf",
-                          @"H\"EFDBC9139DD98D",
-                          @"BAE5A9C7165A09",
-                          @"6511B15EAEF9\""
-                          ];
-                // create the requirement to check against
-                status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-                
-                if (status == noErr && req != NULL) {
-                    status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
-                }
+                          @"H\"013E2787748A74",
+                          @"103D62D2CDBF77",
+                          @"A1345517C482\""
+                ];
+            } else {
+                reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                          @"certificate",
+                          @"leaf",
+                          @"H\"2203029E85EFB1",
+                          @"828B928C3B6545",
+                          @"F003CC0E515C\""
+                ];
+            }
+            
+            // create the requirement to check against
+            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+            
+            if (status == noErr && req != NULL) {
+                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+                DDLogDebug(@"Returned from checking code signature of executable %@ with status %d", executablePath, (int)status);
             }
         }
         
@@ -2730,6 +2738,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
             
         if (status != noErr) {
+            DDLogDebug(@"Code signature suggests that %@ isn't correctly signed macOS system software.", executablePath);
             return NO;
         }
 
@@ -2737,6 +2746,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         
         return YES;
     } else {
+        DDLogDebug(@"Couldn't determine executable path of process with PID %d.", runningExecutablePID);
         return NO;
     }
 }
@@ -4542,7 +4552,10 @@ conditionallyForWindow:(NSWindow *)window
     NSInteger killSuccess = ERR_SUCCESS;
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         killSuccess = (NSInteger)kill(processPID, 9);
-        if (killSuccess != ERR_SUCCESS) {
+        if (killSuccess == ESRCH) {
+            DDLogError(@"Couldn't terminate application/process: %@, error code: %ld (no such process)", processDetails, (long)killSuccess);
+            
+        } else if (killSuccess != ERR_SUCCESS) {
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
             if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
                 [_runningProhibitedProcesses addObject:processDetails.copy];
