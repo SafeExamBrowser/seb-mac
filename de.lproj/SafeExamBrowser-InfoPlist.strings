@@ -1,0 +1,12 @@
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Kamerazugriff ist notwendig für Remote Proctoring.";
+
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen";
+
+/* Privacy - Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "Mikrofonzugriff ist notwendig für Remote Proctoring.";
+
+/* (No Comment) */
+"Safe Exam Browser Configuration" = "Safe Exam Browser Konfiguration";
+
