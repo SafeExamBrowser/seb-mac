@@ -4696,6 +4696,7 @@
       </trans-unit>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
         <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
+        <target>%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was downloaded." xml:space="preserve">
@@ -4868,6 +4869,7 @@
       </trans-unit>
       <trans-unit id="Battery Level %.f%%%@" xml:space="preserve">
         <source>Battery Level %1$.f%%%2$@</source>
+        <target>Batteriestand %1$.f%%%2$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Battery Status" xml:space="preserve">
@@ -6887,10 +6889,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="%@ Config File %@" xml:space="preserve">
         <source>%1$@ Config File %2$@</source>
+        <target>%$1@-Konfigurationsdatei %2$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Config File %@%@" xml:space="preserve">
         <source>%1$@ Config File %2$@%3$@</source>
+        <target>%$1@-Konfigurationsdatei %2$@%3$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Is Locked!" xml:space="preserve">
@@ -6908,10 +6912,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
+        <target>%$1@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
         <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
+        <target>%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
@@ -7043,6 +7049,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Battery Level %.f%%%@" xml:space="preserve">
         <source>Battery Level %1$.f%%%2$@</source>
+        <target>Batteriestand %1$.f%%%2$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Before receiving title" xml:space="preserve">
@@ -7059,6 +7066,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Browser Exam and/or Config Keys for %@ %@ Config File %@%@" xml:space="preserve">
         <source>Browser Exam and/or Config Keys for %1$@ %2$@ Config File %3$@%4$@</source>
+        <target>Browser Exam und/oder Config Keys für %$1@ %2$@ Konfigurationsdatei %3$@%4$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="CA" xml:space="preserve">
@@ -7751,6 +7759,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
+        <target>SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SOCKS Proxy" xml:space="preserve">
@@ -7950,6 +7959,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="The device was in sleep mode for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>The device was in sleep mode for %1$ld:%2$.2ld (minutes:seconds)</source>
+        <target>Das Gerät war für %1$ld:%2$.2ld (Minuten:Sekunden) im Ruhezustand</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The entered %@ admin password didn't match to the one stored for this identity. Try again." xml:space="preserve">
