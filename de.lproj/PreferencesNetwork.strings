@@ -22,6 +22,9 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Action when the filter rule expression matches (allow or block resource)"; ObjectID = "9du-EF-v3O"; */
 "9du-EF-v3O.ibShadowedToolTip" = "Aktion bei übereinstimmendem Filterausdruck (Ressource zulassen oder blockieren)";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Selected URL filter action"; ObjectID = "9hw-i2-YWH"; */
+"9hw-i2-YWH.ibExternalAccessibilityDescription" = "Ausgewählte URL-Filter-Aktion";
+
 /* Class = "NSTextField"; ibShadowedToolTip = "Full filter expression"; ObjectID = "9hw-i2-YWH"; */
 "9hw-i2-YWH.ibShadowedToolTip" = "Kompletter Filter-Ausdruck";
 
@@ -94,6 +97,9 @@
 /* Class = "NSTextFieldCell"; title = "URL:"; ObjectID = "1157"; */
 "1157.title" = "URL:";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Proxy Configuration File URL"; ObjectID = "1160"; */
+"1160.ibExternalAccessibilityDescription" = "URL einer Proxy-Konfigurationsdatei";
+
 /* Class = "NSButtonCell"; title = "Choose File…"; ObjectID = "1169"; */
 "1169.title" = "Datei auswählen …";
 
@@ -102,6 +108,12 @@
 
 /* Class = "NSTextFieldCell"; title = "Web Proxy Server"; ObjectID = "1215"; */
 "1215.title" = "Web-Proxy (HTTP)";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Web Proxy Server http host URL"; ObjectID = "1221"; */
+"1221.ibExternalAccessibilityDescription" = "Web-Proxy-Server http-Host URL";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1226"; */
+"1226.ibExternalAccessibilityDescription" = "Port-Nummer";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "1233"; */
 "1233.title" = ":";
@@ -114,6 +126,12 @@
 
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1285"; */
 "1285.title" = "Passwort:";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Secure Web Proxy Server https host URL"; ObjectID = "1517"; */
+"1517.ibExternalAccessibilityDescription" = "Sichere Web-Proxy-Server https-Host URL";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1518"; */
+"1518.ibExternalAccessibilityDescription" = "Port-Nummer";
 
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1526"; */
 "1526.title" = "Passwort:";
@@ -130,6 +148,12 @@
 /* Class = "NSTextFieldCell"; title = "Secure Web Proxy Server"; ObjectID = "1536"; */
 "1536.title" = "Sicherer Web-Proxy (HTTPS)";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "FTP Proxy Server host URL"; ObjectID = "1558"; */
+"1558.ibExternalAccessibilityDescription" = "FTP-Proxy-Server Host-URL";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1559"; */
+"1559.ibExternalAccessibilityDescription" = "Port-Nummer";
+
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1567"; */
 "1567.title" = "Passwort:";
 
@@ -145,6 +169,12 @@
 /* Class = "NSTextFieldCell"; title = "FTP Proxy Server"; ObjectID = "1577"; */
 "1577.title" = "FTP-Proxy";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "SOCKS Proxy Server host URL"; ObjectID = "1599"; */
+"1599.ibExternalAccessibilityDescription" = "SOCKS-Proxy-Server Host-URL";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1600"; */
+"1600.ibExternalAccessibilityDescription" = "Port-Nummer";
+
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1608"; */
 "1608.title" = "Passwort:";
 
@@ -159,6 +189,12 @@
 
 /* Class = "NSTextFieldCell"; title = "SOCKS Proxy Server"; ObjectID = "1618"; */
 "1618.title" = "SOCKS-Proxy";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Streaming Proxy Server host URL"; ObjectID = "1640"; */
+"1640.ibExternalAccessibilityDescription" = "Streaming-Proxy-Server Host-URL";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Port number"; ObjectID = "1641"; */
+"1641.ibExternalAccessibilityDescription" = "Port-Nummer";
 
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "1649"; */
 "1649.title" = "Passwort:";
@@ -181,11 +217,17 @@
 /* Class = "NSTextFieldCell"; title = "Choose TLS/SSL certificate to embed into settings ..."; ObjectID = "1783"; */
 "1783.title" = "In Konfiguration einzubettendes SSL-Zertifikat auswählen …";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose certificate authority certificate to embed into settings"; ObjectID = "1814"; */
+"1814.ibExternalAccessibilityDescription" = "In Konfiguration einzubettendes Zertifikat für die Zertifikats-Autorität auswählen";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "CA (certificate authority) certificates from the default keychain. This allows to extend or override (when 'Pin embedded certificates' is selected) the default browser trust store"; ObjectID = "1814"; */
 "1814.ibShadowedToolTip" = "Kryptografische Identitäten (X.509 Zertifikate mit öffentlichem RSA-Schlüssel und dazugehörigem privaten Schlüssel) im Schlüsselbund, die für Verschlüsselung und Entschlüsselung benutzt werden können. Exportieren Sie die ausgewählte Identität in der Schlüsselbundverwaltung und installieren Sie diese auf Ihren SEB-Clients";
 
 /* Class = "NSTextFieldCell"; title = "Choose CA certificate to embed into settings ..."; ObjectID = "1818"; */
 "1818.title" = "In Konfiguration einzubettende Identität auswählen …";
+
+/* Class = "NSScrollView"; ibExternalAccessibilityDescription = "Embedded certificates"; ObjectID = "1831"; */
+"1831.ibExternalAccessibilityDescription" = "Eingebettete Zertifikate";
 
 /* Class = "NSTableColumn"; headerCell.title = "Kind"; ObjectID = "1836"; */
 "1836.headerCell.title" = "Art";
@@ -202,13 +244,16 @@
 /* Class = "NSTextFieldCell"; title = "Override common name:"; ObjectID = "Apy-z9-F3c"; */
 "Apy-z9-F3c.title" = "Common Name überschreiben:";
 
+/* Class = "NSScrollView"; ibExternalAccessibilityDescription = "URL filter rules and actions"; ObjectID = "at3-bk-Nje"; */
+"at3-bk-Nje.ibExternalAccessibilityDescription" = "URL-Filter Regeln und Aktionen";
+
 /* Class = "NSTextFieldCell"; title = "#"; ObjectID = "bcq-qY-qJM"; */
 "bcq-qY-qJM.title" = "#";
 
 /* Class = "NSTextFieldCell"; title = "Action"; ObjectID = "cCY-tB-p0Y"; */
 "cCY-tB-p0Y.title" = "Aktion";
 
-/* Class = "NSTextFieldCell"; title = "Choose identity to embed into settings ..."; ObjectID = "cfG-U9-U7j"; */
+/* Class = "NSTextFieldCell"; title = "Choose identity certificate to embed into settings ..."; ObjectID = "cfG-U9-U7j"; */
 "cfG-U9-U7j.title" = "In Konfiguration einzubettende Identität auswählen … ";
 
 /* Class = "NSTextFieldCell"; title = "@"; ObjectID = "D1T-ZJ-mqa"; */
@@ -228,6 +273,9 @@
 
 /* Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7"; */
 "f49-Sx-zE7.title" = "Regex";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "gNh-Qf-Z8W"; */
+"gNh-Qf-Z8W.ibExternalAccessibilityDescription" = "URL-Filter-Nachricht";
 
 /* Class = "NSButtonCell"; title = "Display 'X'"; ObjectID = "gNh-Qf-Z8W"; */
 "gNh-Qf-Z8W.title" = "'X' anzeigen";
@@ -261,6 +309,9 @@
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "tJm-ce-zDQ"; */
 "tJm-ce-zDQ.title" = ":";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "UCE-sZ-Ixh"; */
+"UCE-sZ-Ixh.ibExternalAccessibilityDescription" = "URL-Filter-Nachricht";
 
 /* Class = "NSButtonCell"; title = "Display 'URL Blocked!'"; ObjectID = "UCE-sZ-Ixh"; */
 "UCE-sZ-Ixh.title" = "'Blockierte URL!' anzeigen";
