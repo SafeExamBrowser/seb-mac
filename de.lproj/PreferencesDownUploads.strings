@@ -10,6 +10,9 @@
 /* Class = "NSTextFieldCell"; title = "Download directory Windows:"; ObjectID = "24Q-1c-lTs"; */
 "24Q-1c-lTs.title" = "Download-Verzeichnis Windows:";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Save downloaded files to directory"; ObjectID = "32"; */
+"32.ibExternalAccessibilityDescription" = "Downloads sichern in folgendem Verzeichnis";
+
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Choose download directory"; ObjectID = "32"; */
 "32.ibShadowedToolTip" = "Download-Verzeichnis auswählen";
 
@@ -30,6 +33,9 @@
 
 /* Class = "NSButtonCell"; title = "Download and open PDF files instead of displaying them inline"; ObjectID = "77"; */
 "77.title" = "PDF-Dateien herunterladen und öffnen anstatt direkt anzeigen";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose file to upload policy"; ObjectID = "93"; */
+"93.ibExternalAccessibilityDescription" = "Policy zum Auswählen der Datei für Upload";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting."; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "SEB kann Benutzer die Upload-Datei manuell auswählen lassen oder automatisch dieselbe Datei auswählen, die zuvor heruntergeladenen wurde. Wenn die Datei nicht gefunden wurde, wird ein Dateidialog oder eine Fehlermeldung angezeigt. Falls zuvor mehrere Dateien heruntergeladenen wurden, zeigt SEB diese nacheinander an, beginnend mit der zuletzt geladenen";

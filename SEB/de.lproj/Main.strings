@@ -1,3 +1,21 @@
+/* Class = "UIButton"; normalTitle = "Send Logs to SEB Developers"; ObjectID = "1cD-LV-BbY"; */
+"1cD-LV-BbY.normalTitle" = "Logdateien an SEB-Entwickler senden";
+
+/* Class = "UILabel"; accessibilityHint = "Enter the corrrect quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ"; */
+"6fi-rT-cNJ.accessibilityHint" = "Korrektes Beenden/Entsperren-Passwort eingeben, um den Sperrbildschirm zu schliessen";
+
+/* Class = "UILabel"; accessibilityHint = "Hides side menu and switches to this tab"; ObjectID = "aA9-gn-PKl"; */
+"aA9-gn-PKl.accessibilityHint" = "Blendet das Seitenmenü aus und schaltet auf diesen Tab um";
+
+/* Class = "UIButton"; accessibilityHint = "Closes lock screen if entered quit password is correct"; ObjectID = "arM-6u-TmT"; */
+"arM-6u-TmT.accessibilityHint" = "Schliesst den Sperrbildschirm, wenn das eingegebene Beenden/Entsperren-Passwort korrekt ist";
+
 /* Class = "UILabel"; text = "Version"; ObjectID = "C6t-3t-DKh"; */
 "C6t-3t-DKh.text" = "Version";
+
+/* Class = "UIButton"; accessibilityLabel = "Hide Side Menu"; ObjectID = "eHs-Tc-mxg"; */
+"eHs-Tc-mxg.accessibilityLabel" = "Seitenmenü ausblenden";
+
+/* Class = "UIButton"; accessibilityHint = "Displays a camera view to scan for SEB configuration QR codes"; ObjectID = "TLh-eI-sov"; */
+"TLh-eI-sov.accessibilityHint" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
 

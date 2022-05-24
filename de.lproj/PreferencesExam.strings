@@ -121,6 +121,9 @@
 /* Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj"; */
 "Uuj-be-mvj.title" = "Session-Cookies";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Config Key"; ObjectID = "Vag-ov-ItE"; */
+"Vag-ov-ItE.ibExternalAccessibilityDescription" = "Config Key";
+
 /* Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa"; */
 "Vfv-tN-rLa.title" = "Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)";
 

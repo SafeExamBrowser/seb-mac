@@ -22,6 +22,9 @@
 /* Class = "NSButtonCell"; title = "Use standard directory"; ObjectID = "4vb-oP-Qf1"; */
 "4vb-oP-Qf1.title" = "Standardverzeichnis benutzen";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Log file directory (Windows Versions 2.x):"; ObjectID = "6DQ-Jd-s1A"; */
+"6DQ-Jd-s1A.ibExternalAccessibilityDescription" = "Log-Dateiverzeichnis (Windows Versionen 2.x):";
+
 /* Class = "NSButtonCell"; title = "Enable Ctrl-Esc"; ObjectID = "8N0-8l-hwO"; */
 "8N0-8l-hwO.title" = "Ctrl-Esc erlauben";
 
@@ -34,6 +37,9 @@
 /* Class = "NSTextFieldCell"; title = "Log level:"; ObjectID = "23"; */
 "23.title" = "Log-Stufe";
 
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Save log file to directory:"; ObjectID = "32"; */
+"32.ibExternalAccessibilityDescription" = "Log speichern in Verzeichnis:";
+
 /* Class = "NSMenuItem"; title = "Directory"; ObjectID = "35"; */
 "35.title" = "Verzeichnis";
 
@@ -45,6 +51,9 @@
 
 /* Class = "NSButtonCell"; title = "Allow to run inside virtual machine"; ObjectID = "77"; */
 "77.title" = "Betrieb in virtueller Maschine erlauben";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select SEB Service policy for SEB on Windows"; ObjectID = "93"; */
+"93.ibExternalAccessibilityDescription" = "SEB-Service Richtlinie für SEB auf Windows auswählen";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Policy that applies when an exam client doesn't have the SEB Service installed or running"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Richtlinie, die angewendet wird, wenn der SEB-Hintergrundservice auf einem Prüfungs-Client nicht installiert ist (wird nur unter Windows verwendet)";
@@ -75,6 +84,9 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC"; ObjectID = "AUn-ex-rqQ"; */
 "AUn-ex-rqQ.ibShadowedToolTip" = "Einzel-App-Modus aktiviert durch Classroom, ein MDM-System oder Apple Configurator benutzen, anstatt AAC/ASAM";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Create new desktop"; ObjectID = "AwA-eq-zFC"; */
+"AwA-eq-zFC.ibExternalAccessibilityDescription" = "Neuen Desktop erstellen";
 
 /* Class = "NSButtonCell"; title = "Create new desktop"; ObjectID = "AwA-eq-zFC"; */
 "AwA-eq-zFC.title" = "Neuen Desktop erstellen";
@@ -118,7 +130,7 @@
 /* Class = "NSButtonCell"; title = "Enable network connection selector"; ObjectID = "cYs-RO-IZD"; */
 "cYs-RO-IZD.title" = "Netzwerkauswahl erlauben";
 
-/* Class = "NSTextFieldCell"; title = "Log file directory (Win 2.x):"; ObjectID = "dbm-W0-7Yt"; */
+/* Class = "NSTextFieldCell"; title = "Log file directory:"; ObjectID = "dbm-W0-7Yt"; */
 "dbm-W0-7Yt.title" = "Log-Dateiverzeichnis Windows:";
 
 /* Class = "NSBox"; title = "Special Keys (Win)"; ObjectID = "Dce-pG-aKy"; */
@@ -129,6 +141,9 @@
 
 /* Class = "NSButtonCell"; title = "Allow Windows Update to run while SEB is running"; ObjectID = "DLb-CL-wTh"; */
 "DLb-CL-wTh.title" = "Windows Update zulassen, während SEB läuft";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi"; */
+"dpL-te-8hi.ibExternalAccessibilityDescription" = "Windows Explorer deaktivieren";
 
 /* Class = "NSButtonCell"; title = "Disable Explorer Shell"; ObjectID = "dpL-te-8hi"; */
 "dpL-te-8hi.title" = "Windows Explorer deaktivieren";
@@ -205,6 +220,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Allows macOS screen sharing to be used (VNC based) and Windows remote session (RDP)"; ObjectID = "k8Y-ym-LrR"; */
 "k8Y-ym-LrR.ibShadowedToolTip" = "Erlaubt Benutzung der macOS-Bildschirmfreigabe (VNC basiert)";
 
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk"; */
+"KbI-Yu-DVk.ibExternalAccessibilityDescription" = "Keiner (nur für Debugging)";
+
 /* Class = "NSButtonCell"; title = "None (for debugging only)"; ObjectID = "KbI-Yu-DVk"; */
 "KbI-Yu-DVk.title" = "Keiner (nur für Debugging)";
 
@@ -229,6 +247,9 @@
 /* Class = "NSButtonCell"; title = "Block screen shots (Legacy)"; ObjectID = "LHf-yE-fnG"; */
 "LHf-yE-fnG.title" = "Bildschirmfotos blockieren (Legacy)";
 
+/* Class = "NSView"; ibExternalAccessibilityDescription = "Select kiosk mode for SEB on Windows"; ObjectID = "LMS-AX-0a5"; */
+"LMS-AX-0a5.ibExternalAccessibilityDescription" = "Kiosk-Modus für SEB auf Windows auswählen";
+
 /* Class = "NSButtonCell"; title = "Enable Log off"; ObjectID = "LTi-lL-sOs"; */
 "LTi-lL-sOs.title" = "Abmelden erlauben";
 
@@ -241,7 +262,10 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)"; ObjectID = "mCE-kG-rgQ"; */
 "mCE-kG-rgQ.ibShadowedToolTip" = "Benutzt entweder AAC (für BYOD) oder benötigt ein betreutes Gerät, auf dem SEB als autorisierte App konfiguriert ist, um den autonomen Einzel-App-Modus (ASAM) ohne Rückfrage aktivieren zu können ";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version"; ObjectID = "MYN-Xy-8h5"; */
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Enforce minimum macOS version"; ObjectID = "MYN-Xy-8h5"; */
+"MYN-Xy-8h5.ibExternalAccessibilityDescription" = "Minimale macOS-Version erzwingen";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version. This setting is used when the new setting \"Check full macOS version number\" is disabled"; ObjectID = "MYN-Xy-8h5"; */
 "MYN-Xy-8h5.ibShadowedToolTip" = "SEB verweigert den Betrieb auf einer älteren Betriebssystemversion";
 
 /* Class = "NSButtonCell"; title = "Enable F3"; ObjectID = "n1l-UI-Mxa"; */
@@ -249,6 +273,12 @@
 
 /* Class = "NSButtonCell"; title = "Enable Lock this computer"; ObjectID = "n9V-3H-mM5"; */
 "n9V-3H-mM5.title" = "Computer sperren erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Activate when using SEB inside a virtual machine, otherwise display detection will not work properly"; ObjectID = "ngP-Zu-OIN"; */
+"ngP-Zu-OIN.ibShadowedToolTip" = "Anwählen, wenn SEB in einer virtuellen Maschine benutzt wird, ansonsten funktioniert das Erkennen von Bildschirmen nicht";
+
+/* Class = "NSButtonCell"; title = "Ignore errors when validating displays"; ObjectID = "NRp-5r-KY5"; */
+"NRp-5r-KY5.title" = "Fehler beim Validieren von Bildschirmen ignorieren";
 
 /* Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q"; */
 "nui-Ct-A6q.title" = "Log speichern:";
@@ -292,7 +322,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Overrides the original screen sharing setting (on Mac clients)"; ObjectID = "pn0-dK-cZw"; */
 "pn0-dK-cZw.ibShadowedToolTip" = "Übersteuert die originale Einstellung für die Bildschirmfreigabe";
 
-/* Class = "NSButtonCell"; title = "Enable Right Mouse (also Mac*)"; ObjectID = "PWk-fT-HdC"; */
+/* Class = "NSButtonCell"; title = "Enable Right Mouse"; ObjectID = "PWk-fT-HdC"; */
 "PWk-fT-HdC.title" = "Rechte Maustaste erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable F9"; ObjectID = "q3q-Xm-TRl"; */
@@ -349,7 +379,7 @@
 /* Class = "NSTabViewItem"; label = "System Lockdown"; ObjectID = "UDI-4x-V3M"; */
 "UDI-4x-V3M.label" = "System sperren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Enable in SEB for macOS to access context menu for Web Inspector (see Browser pane). Disable to prevent right mouse button actions/context menu in browser plugins and video players"; ObjectID = "Udm-zO-P00"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enable for using right mouse button in allowed third party applications (since SEB 3.1 no longer affecting Mac version)"; ObjectID = "Udm-zO-P00"; */
 "Udm-zO-P00.ibShadowedToolTip" = "In SEB für macOS erlaubt dies die Benutzung der rechten Maustaste/des Kontextmenüs in Browser Plug-Ins und Videoplayern etc.";
 
 /* Class = "NSBox"; title = "Kiosk Mode (Win)"; ObjectID = "UEX-8o-YnQ"; */
@@ -374,7 +404,7 @@
 "WA3-Fp-0nb.title" = "Stoppen des SEB-Prozesses detektieren";
 
 /* Class = "NSBox"; title = "SEB Service (Win)"; ObjectID = "wI5-Zh-Qfa"; */
-"wI5-Zh-Qfa.title" = "";
+"wI5-Zh-Qfa.title" = "SEB-Service (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";

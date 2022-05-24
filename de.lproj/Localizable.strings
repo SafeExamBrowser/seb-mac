@@ -1,5 +1,11 @@
 /* No comment provided by engineer. */
-"  SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %ld:%.2ld (Minuten:Sekunden)";
+"  SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
+
+/* No comment provided by engineer. */
+" (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
+
+/* No comment provided by engineer. */
+" (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
 /* word indicating the duplicate of a file, same as in Finder ' copy' */
 " copy" = "Kopie";
@@ -9,6 +15,18 @@
 
 /* No comment provided by engineer. */
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
+
+/* No comment provided by engineer. */
+"%@ Dock" = "%@ Dock";
+
+/* No comment provided by engineer. */
+"%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%$1@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.";
+
+/* No comment provided by engineer. */
+"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
+
+/* No comment provided by engineer. */
+"%@ Not Allowed!" = "%@ nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
@@ -102,6 +120,9 @@
 
 /* No comment provided by engineer. */
 "Back to Start" = "Zurück zum Start";
+
+/* No comment provided by engineer. */
+"Battery Level %.f%%%@" = "Batteriestand %1$.f%%%2$@";
 
 /* No comment provided by engineer. */
 "Battery Status" = "Batteriestatus";
@@ -344,7 +365,7 @@
 "File to Upload Not Found!" = "Datei zum Heraufladen nicht gefunden!";
 
 /* No comment provided by engineer. */
-"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder Cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
+"FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* No comment provided by engineer. */
 "Force Classic" = "Klassisch erzwingen";
@@ -426,9 +447,6 @@
 
 /* No comment provided by engineer. */
 "Loading new SEB settings not allowed!" = "Laden von neuen SEB-Einstellungen nicht erlaubt!";
-
-/* No comment provided by engineer. */
-"Loading New SEB Settings Not Allowed!" = "Neue Einstellungen laden nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "Loading new settings failed!" = "Neue Einstellungen laden fehlgeschlagen!";
@@ -524,9 +542,6 @@
 "OK" = "OK";
 
 /* No comment provided by engineer. */
-"On earlier versions of macOS SEB can only be used as an exam client. Run SEB on macOS 10.11 or higher to create a .seb configuration file to configure this SEB client as well." = "Auf früheren macOS-Versionen kann SEB nur als Prüfungs-Client verwendet werden. Benutzen Sie SEB unter macOS 10.11 oder neuer um eine .seb Konfigurationsdatei zu erstellen, mittels derer auch dieser Prüfungs-Client konfiguriert werden kann.";
-
-/* No comment provided by engineer. */
 "Only on load error" = "Nur bei Verbindungsfehlern";
 
 /* No comment provided by engineer. */
@@ -590,9 +605,6 @@
 "Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
 
 /* No comment provided by engineer. */
-"Preferences Window Available From macOS 10.11" = "Einstellungen-Fenster erst ab macOS 10.11 verfügbar";
-
-/* No comment provided by engineer. */
 "Previously interrupted exam was re-opened!" = "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!";
 
 /* Lockdown alert title text for prohibited process */
@@ -630,6 +642,9 @@
 
 /* No comment provided by engineer. */
 "Quit Session" = "Session beenden";
+
+/* No comment provided by engineer. */
+"Raise Hand" = "Hand heben";
 
 /* No comment provided by engineer. */
 "Re-opening an exam which was locked before" = "Erneutes Starten einer zuvor unterbrochenen Prüfungssession";
@@ -710,7 +725,7 @@
 "Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
 
 /* No comment provided by engineer. */
-"SEB cannot run when the Force Quit window is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.";
+"SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' oder ein anderer System-Dialog im Vordergrund geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.";
 
 /* No comment provided by engineer. */
 "SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." = "SEB muss im Verzeichnis '%1$@' installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr Verzeichnis %2$@ und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf Ihrem System installiert haben. SEB wird jetzt beendet.";
@@ -740,7 +755,7 @@
 "SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." = "SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verwendung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. ";
 
 /* No comment provided by engineer. */
-"SEB process was stopped for %ld:%.2ld (minutes:seconds)" = "SEB-Prozess war unterbrochen für %ld:%.2ld (Minuten:Sekunden)";
+"SEB process was stopped for %ld:%.2ld (minutes:seconds)" = "SEB-Prozess war unterbrochen für %1$ld:%2$.2ld (Minuten:Sekunden)";
 
 /* Lockdown alert title text for SEB process was stopped */
 "SEB Process Was Stopped!" = "SEB-Prozess wurde unterbrochen!";
@@ -749,7 +764,7 @@
 "SEB Re-Configured" = "SEB neu konfiguriert";
 
 /* No comment provided by engineer. */
-"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %ld:%.2ld (Minuten:Sekunden)";
+"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
 "SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "SEB konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).";
