@@ -69,7 +69,7 @@
                                                                            blue:SEBTintColorBlueValue
                                                                           alpha:1.0];
     }
-    openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppNameAArticle, SEBExtraShortAppName];
+    openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppName];
     automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", nil), SEBExtraShortAppName];
     scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", nil), SEBExtraShortAppName];
     noConfigQRCodeFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"No %@ configuration found!", nil), SEBExtraShortAppName];
