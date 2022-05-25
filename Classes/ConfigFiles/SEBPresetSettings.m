@@ -111,6 +111,11 @@
                           @"identifier" : @"com.techsmith.camtasia*",
                       },
                       @{
+                          @"executable" : @"AnyDesk",
+                          @"identifier" : @"com.philandro.anydesk",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Alfred*",
                           @"identifier" : @"com.runningwithcrayons.Alfred*",
                       },
