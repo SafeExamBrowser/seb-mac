@@ -197,8 +197,8 @@
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="GVV-cO-HOP">
                     <rect key="frame" x="330" y="172" width="300" height="16"/>
-                    <string key="toolTip">When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</string>
-                    <buttonCell key="cell" type="check" title="Allow to select custom down/upload directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="I9g-6o-a5B">
+                    <string key="toolTip">When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</string>
+                    <buttonCell key="cell" type="check" title="Allow user to select custom down/upload directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="I9g-6o-a5B">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="message" size="11"/>
                     </buttonCell>

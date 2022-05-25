@@ -897,7 +897,7 @@
                                                                                self.sebViewController.alertController = nil;
                                                                                if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
-                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match to the one stored for this identity. Try again.", nil), SEBShortAppName]
+                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", nil), SEBShortAppName]
                                                                                                              action1Title:NSLocalizedString(@"OK", nil)
                                                                                                            action1Handler:^{
                                                                                                                [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:identityAdminPasswordHash];
