@@ -2421,14 +2421,14 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP";</note>
       </trans-unit>
       <trans-unit id="GVV-cO-HOP.ibShadowedToolTip" xml:space="preserve">
-        <source>When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</source>
-        <target>When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system"; ObjectID = "GVV-cO-HOP";</note>
+        <source>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</source>
+        <target>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "GVV-cO-HOP";</note>
       </trans-unit>
       <trans-unit id="I9g-6o-a5B.title" xml:space="preserve">
-        <source>Allow to select custom down/upload directory</source>
-        <target>Allow to select custom down/upload directory</target>
-        <note>Class = "NSButtonCell"; title = "Allow to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
+        <source>Allow user to select custom down/upload directory</source>
+        <target>Allow user to select custom down/upload directory</target>
+        <note>Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
       </trans-unit>
       <trans-unit id="zhK-R4-XtF.title" xml:space="preserve">
         <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
@@ -2850,9 +2850,9 @@
         <note>Class = "NSTextFieldCell"; title = "SEB Server URL"; ObjectID = "JvD-qA-qAF";</note>
       </trans-unit>
       <trans-unit id="WYv-t7-2PL.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</source>
-        <target>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field."; ObjectID = "WYv-t7-2PL";</note>
+        <source>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</source>
+        <target>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field"; ObjectID = "WYv-t7-2PL";</note>
       </trans-unit>
       <trans-unit id="ZPd-eH-wpn.placeholderString" xml:space="preserve">
         <source>URL starting with http:// or https://</source>
@@ -4553,14 +4553,14 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee";</note>
       </trans-unit>
       <trans-unit id="qkO-f0-59m.ibShadowedLabels[0]" xml:space="preserve">
-        <source>Zoom Out</source>
-        <target>Zoom Out</target>
-        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Out"; ObjectID = "qkO-f0-59m";</note>
+        <source>Zoom Page Out</source>
+        <target>Zoom Page Out</target>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Page Out"; ObjectID = "qkO-f0-59m";</note>
       </trans-unit>
       <trans-unit id="qkO-f0-59m.ibShadowedLabels[1]" xml:space="preserve">
-        <source>Zoom In</source>
-        <target>Zoom In</target>
-        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom In"; ObjectID = "qkO-f0-59m";</note>
+        <source>Zoom Page In</source>
+        <target>Zoom Page In</target>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom Page In"; ObjectID = "qkO-f0-59m";</note>
       </trans-unit>
       <trans-unit id="sIN-ro-zV3.ibShadowedToolTip" xml:space="preserve">
         <source>Click to restore the full current URL into the custom filter expression text field</source>
