@@ -51,7 +51,6 @@ static NSString __unused *SEBFullAppNameClassic = @"Safe Exam Browser";
 static NSString __unused *SEBFullAppName = @"SafeExamBrowser";
 static NSString __unused *SEBShortAppName = @"SEB";
 static NSString __unused *SEBExtraShortAppName = @"SEB";
-static NSString __unused *SEBExtraShortAppNameAArticle = @"an";
 static NSString __unused *SEBFileExtension = @"seb";
 static NSString __unused *SEBConfigMIMEType = @"application/seb";
 static NSString __unused *SEBUnencryptedConfigMIMEType = @"text/xml";

@@ -7962,8 +7962,8 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
         <target>Das Gerät war für %1$ld:%2$.2ld (Minuten:Sekunden) im Ruhezustand</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The entered %@ admin password didn't match to the one stored for this identity. Try again." xml:space="preserve">
-        <source>The entered %@ admin password didn't match to the one stored for this identity. Try again.</source>
+      <trans-unit id="The entered %@ admin password didn't match the one stored for this identity. Try again." xml:space="preserve">
+        <source>The entered %@ admin password didn't match the one stored for this identity. Try again.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity '%@' could not be removed from the Keychain." xml:space="preserve">
