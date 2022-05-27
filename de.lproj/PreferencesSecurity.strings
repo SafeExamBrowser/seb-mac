@@ -350,7 +350,7 @@
 "Rfz-L4-35Q.title" = "Benachrichtigungen von Chrome Browsern erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Change a password"; ObjectID = "Rgp-1k-Eaw"; */
-"Rgp-1k-Eaw.title" = "Kennwort ändern erlauben";
+"Rgp-1k-Eaw.title" = "Passwort ändern erlauben";
 
 /* Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk"; */
 "rm8-cp-dzk.title" = "Benutzerwechsel erlauben";
