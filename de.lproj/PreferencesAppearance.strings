@@ -14,7 +14,7 @@
 "3Dw-Kd-w6C.title" = "Statusleiste mit FaceID (iOS)";
 
 /* Class = "NSButtonCell"; title = "Enable scroll lock (iOS)"; ObjectID = "4jn-9i-JSP"; */
-"4jn-9i-JSP.title" = "Scroll Lock zulassen (iOS)";
+"4jn-9i-JSP.title" = "Scrollsperre zulassen (iOS)";
 
 /* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "4om-Lh-WpE"; */
 "4om-Lh-WpE.title" = "Text-Zoom zulassen";
@@ -50,7 +50,7 @@
 "b3g-sT-qMg.title" = "Begriffe Nachschlagen erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)"; ObjectID = "bdb-Ye-f5Q"; */
-"bdb-Ye-f5Q.ibShadowedToolTip" = "Mit der Scroll-Lock-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)";
+"bdb-Ye-f5Q.ibShadowedToolTip" = "Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays address field in additional browser windows for manually entering URLs"; ObjectID = "CbO-ag-eEy"; */
 "CbO-ag-eEy.ibShadowedToolTip" = "Zeigt Adressfeld in zusätzlichen Browserfenstern für die manuelle Eingabe von URLs an";
@@ -92,7 +92,7 @@
 "ID6-7c-aOO.title" = "Vollbildmodus benutzen";
 
 /* Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg"; */
-"IjF-ym-hYg.title" = "Scroll Lock Taste anzeigen (iOS)";
+"IjF-ym-hYg.title" = "Scrollsperre Taste anzeigen (iOS)";
 
 /* Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w"; */
 "J5d-BA-D2w.title" = "Browser-Darstellungsmodus";
@@ -119,13 +119,25 @@
 "LNX-ve-0Pd.title" = "Symbolleiste anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)"; ObjectID = "lWE-3I-sTM"; */
-"lWE-3I-sTM.ibShadowedToolTip" = "Scroll Lock Taste im Dock anzeigen, wenn die Scroll Lock Funktion zugelassen ist (nur iOS)";
+"lWE-3I-sTM.ibShadowedToolTip" = "Scrollsperre-Taste im Dock anzeigen, wenn die Scrollsperre-Funktion zugelassen ist (nur iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "ndk-5a-0Nv"; */
 "ndk-5a-0Nv.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
 
 /* Class = "NSBox"; title = "Spell Checker"; ObjectID = "nO5-ha-zqD"; */
 "nO5-ha-zqD.title" = "Rechtschreibprüfung";
+
+/* Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[0] = "50%"; ObjectID = "O0B-MY-YwV"; */
+"O0B-MY-YwV.ibShadowedObjectValues[0]" = "50%";
+
+/* Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[1] = "100%"; ObjectID = "O0B-MY-YwV"; */
+"O0B-MY-YwV.ibShadowedObjectValues[1]" = "100%";
+
+/* Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[2] = "800"; ObjectID = "O0B-MY-YwV"; */
+"O0B-MY-YwV.ibShadowedObjectValues[2]" = "800";
+
+/* Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[3] = "1000"; ObjectID = "O0B-MY-YwV"; */
+"O0B-MY-YwV.ibShadowedObjectValues[3]" = "1000";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "O41-bz-cfY"; */
 "O41-bz-cfY.ibShadowedToolTip" = "'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen";
@@ -174,6 +186,18 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK"; */
 "tSt-QD-jfK.ibShadowedToolTip" = "Zeigt die 'SEB Beenden'-Taste im Dock an";
+
+/* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[0] = "100%"; ObjectID = "vDg-gs-M0S"; */
+"vDg-gs-M0S.ibShadowedObjectValues[0]" = "100%";
+
+/* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[1] = "80%"; ObjectID = "vDg-gs-M0S"; */
+"vDg-gs-M0S.ibShadowedObjectValues[1]" = "80%";
+
+/* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[2] = "600"; ObjectID = "vDg-gs-M0S"; */
+"vDg-gs-M0S.ibShadowedObjectValues[2]" = "600";
+
+/* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[3] = "800"; ObjectID = "vDg-gs-M0S"; */
+"vDg-gs-M0S.ibShadowedObjectValues[3]" = "800";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "vmu-au-292"; */
 "vmu-au-292.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten alt-cmd-T (Wahl-Befehl-T) angezeigt werden.";

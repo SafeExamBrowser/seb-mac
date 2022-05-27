@@ -305,7 +305,7 @@
 "oX1-uW-Zow.title" = "Netzwerk-Bildschirmfreigabe erlauben";
 
 /* Class = "NSButtonCell"; title = "Allow iOS screen capture"; ObjectID = "p3h-Gz-2AS"; */
-"p3h-Gz-2AS.title" = "iOS Bildschirmaufzeichnung erlauben";
+"p3h-Gz-2AS.title" = "iOS-Bildschirmaufzeichnung erlauben";
 
 /* Class = "NSButtonCell"; title = "Prevent auto-lock"; ObjectID = "P6d-Sx-lww"; */
 "P6d-Sx-lww.title" = "Auto-Sperrzustand verhindern";
@@ -339,6 +339,9 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds"; */
 "qqs-ZA-6ds.ibShadowedToolTip" = "Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können";
+
+/* Class = "NSTabViewItem"; label = "iOS"; ObjectID = "qR0-7R-jPL"; */
+"qR0-7R-jPL.label" = "iOS";
 
 /* Class = "NSButtonCell"; title = "Enable F2"; ObjectID = "rd9-dL-Qhi"; */
 "rd9-dL-Qhi.title" = "F2 erlauben";

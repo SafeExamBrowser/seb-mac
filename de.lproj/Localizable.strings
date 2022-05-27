@@ -7,6 +7,9 @@
 /* No comment provided by engineer. */
 " (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
+/* No comment provided by engineer. */
+" 1" = "1";
+
 /* word indicating the duplicate of a file, same as in Finder ' copy' */
 " copy" = "Kopie";
 
@@ -20,10 +23,10 @@
 "%@ Dock" = "%@ Dock";
 
 /* No comment provided by engineer. */
-"%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%$1@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.";
+"%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%1$@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.";
 
 /* No comment provided by engineer. */
-"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
+"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
@@ -42,6 +45,27 @@
 
 /* No comment provided by engineer. */
 "10.10 (this SEB: 10.11)" = "10.10 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.11 El Capitan" = "10.11 El Capitan";
+
+/* No comment provided by engineer. */
+"10.12 Sierra" = "10.12 Sierra";
+
+/* No comment provided by engineer. */
+"10.13 High Sierra" = "10.13 High Sierra";
+
+/* No comment provided by engineer. */
+"10.14 Mojave" = "10.14 Mojave";
+
+/* No comment provided by engineer. */
+"10.15 Catalina" = "10.15 Catalina";
+
+/* No comment provided by engineer. */
+"11 Big Sur" = "11 Big Sur";
+
+/* No comment provided by engineer. */
+"12 Monterey" = "12 Monterey";
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
@@ -143,6 +167,9 @@
 "Browser" = "Browser";
 
 /* No comment provided by engineer. */
+"Browser Window" = "Browserfenster";
+
+/* No comment provided by engineer. */
 "by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
 
 /* No comment provided by engineer. */
@@ -156,6 +183,9 @@
 
 /* No comment provided by engineer. */
 "Cannot Configure Client" = "Client kann nicht konfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Connect to SEB Server" = "Verbindung mit SEB Server nicht möglich";
 
 /* No comment provided by engineer. */
 "Cannot Decrypt SEB Settings" = "SEB-Konfiguration kann nicht entschlüsselt werden";
@@ -179,10 +209,16 @@
 "Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
 
 /* No comment provided by engineer. */
+"Cannot Start Another SEB Server Session" = "Weitere SEB Server Session kann nicht gestartet werden";
+
+/* No comment provided by engineer. */
 "Cannot Start Exam" = "Prüfung kann nicht gestartet werden";
 
 /* No comment provided by engineer. */
 "Center" = "Zentrieren";
+
+/* No comment provided by engineer. */
+"Check your configuration, probably connection settings are incorrect." = "Überprüfen Sie Ihre Konfiguration, vermutlich sind die Verbindungseinstellungen nicht korrekt.";
 
 /* No comment provided by engineer. */
 "Choose" = "Auswählen";
@@ -212,6 +248,12 @@
 "Configuring Client" = "Client konfigurieren";
 
 /* No comment provided by engineer. */
+"Connecting to SEB Server" = "Mit SEB Server verbinden";
+
+/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+"Connecting…" = "Verbinde…";
+
+/* No comment provided by engineer. */
 "Continue" = "Weiter";
 
 /* No comment provided by engineer. */
@@ -224,10 +266,13 @@
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Konnte keinen korrekten Host-Namen ermitteln. Geben Sie die Domain-URL Ihrer Institution manuell ein.";
 
 /* No comment provided by engineer. */
-"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
+
+/* No comment provided by engineer. */
+"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." = "Die aktuellen Einstellungen erfordern Fernüberwachung, welche von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
 "Debug" = "Debug";
@@ -278,6 +323,9 @@
 "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.";
 
 /* No comment provided by engineer. */
+"Do you really want to reload the current web page?" = "Wollen Sie die Seite wirklich neu laden?";
+
+/* No comment provided by engineer. */
 "Do you want to continue editing the saved settings file?" = "Wollen Sie die gespeicherten Einstellungen weiter bearbeiten?";
 
 /* No comment provided by engineer. */
@@ -291,6 +339,9 @@
 
 /* No comment provided by engineer. */
 "Download Finished" = "Download abgeschlossen";
+
+/* No comment provided by engineer. */
+"Downloading" = "Download";
 
 /* No comment provided by engineer. */
 "Edit File" = "Datei bearbeiten";
@@ -323,7 +374,7 @@
 "Enter quit/unlock password:" = "Beenden/Entsperren-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Enter the %@ administrator password used in client settings:" = "Geben Sie das %@ Administrator Passwort aus den Client-Einstellungen ein:";
+"Enter the %@ administrator password used in client settings:" = "Geben Sie das %@ Administrator-Passwort aus den Client-Einstellungen ein:";
 
 /* No comment provided by engineer. */
 "Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
@@ -404,7 +455,10 @@
 "Identity" = "Identität";
 
 /* No comment provided by engineer. */
-"If you don't enter the correct quit password, then you cannot quit SEB." = "Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.";
+"If you don't enter the correct quit password, then you cannot quit SEB." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct quit password, then you cannot quit." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.";
 
 /* No comment provided by engineer. */
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
@@ -425,6 +479,9 @@
 "Info" = "Info";
 
 /* No comment provided by engineer. */
+"iOS 14" = "iOS 14";
+
+/* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
 
 /* No comment provided by engineer. */
@@ -437,10 +494,13 @@
 "Load Error" = "Verbindungsfehler";
 
 /* No comment provided by engineer. */
-"Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@ Einstellungen.";
+"Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@-Einstellungen.";
 
 /* No comment provided by engineer. */
 "Loaded settings are empty and cannot be used." = "Geladene Konfigurationsdatei ist leer und kann nicht benutzt werden.";
+
+/* No comment provided by engineer. */
+"Loading New %@ Settings Not Allowed!" = "Laden von neuen %@-Einstellungen nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "Loading new SEB settings failed!" = "Laden von neuen SEB-Einstellungen fehlgeschlagen!";
@@ -482,6 +542,9 @@
 "Log in to" = "Einloggen";
 
 /* No comment provided by engineer. */
+"macOS" = "macOS";
+
+/* No comment provided by engineer. */
 "macOS Support Warning" = "Warnung zur macOS-Unterstützung";
 
 /* No comment provided by engineer. */
@@ -489,6 +552,9 @@
 
 /* No comment provided by engineer. */
 "manually with file requester" = "manuell mit Dateidialog";
+
+/* No comment provided by engineer. */
+"Moodle" = "Moodle";
 
 /* No comment provided by engineer. */
 "More information at https://safeexambrowser.org" = "Mehr Information auf https://safeexambrowser.org";
@@ -530,10 +596,10 @@
 "None" = "Keine";
 
 /* No comment provided by engineer. */
-"None - Black" = "Keine - Schwarz";
+"None - Black" = "Keine - schwarzer Hintergrund";
 
 /* No comment provided by engineer. */
-"None - White" = "Keine - Weiss";
+"None - White" = "Keine - weisser Hintergrund";
 
 /* No comment provided by engineer. */
 "Not Connected to WiFi" = "Nicht mit WLAN verbunden";
@@ -548,10 +614,10 @@
 "Open edX" = "Open edX";
 
 /* No comment provided by engineer. */
-"open in new window" = "werden in neuem Fenster geöffnet";
+"open in new window" = "in neuem Fenster öffnen";
 
 /* No comment provided by engineer. */
-"open in same window" = "werden im selben Fenster geöffnet";
+"open in same window" = "im selben Fenster öffnen";
 
 /* No comment provided by engineer. */
 "Opening new settings failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
@@ -584,7 +650,7 @@
 "Overriding required built-in display was enabled!" = "Internen Bildschirm erzwingen wurde deaktiviert!";
 
 /* No comment provided by engineer. */
-"Parsing Settings Failed" = "Auslesen der Konfiguration ist fehlgeschlagen";
+"Parsing Settings Failed" = "Einlesen der Konfiguration ist fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
@@ -606,6 +672,15 @@
 
 /* No comment provided by engineer. */
 "Previously interrupted exam was re-opened!" = "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!";
+
+/* Lockdown alert title text for proctoring failure */
+"Proctoring Error Locked SEB!" = "SEB gesperrt wegen Fehler bei Fernüberwachung!";
+
+/* No comment provided by engineer. */
+"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"Proctoring failed: " = "Fernüberwachung fehlgeschlagen:";
 
 /* Lockdown alert title text for prohibited process */
 "Prohibited Process Locked SEB!" = "SEB gesperrt wegen verbotenem Prozess!";
@@ -659,7 +734,16 @@
 "Reconfigure SEB Settings" = "Einstellungen neu konfigurieren";
 
 /* No comment provided by engineer. */
+"Reload" = "Neu laden";
+
+/* No comment provided by engineer. */
 "Reload Current Page" = "Aktuelle Seite neu laden";
+
+/* No comment provided by engineer. */
+"Remote Proctoring" = "Fernüberwachung";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Not Available" = "Fernüberwachung nicht verfügbar";
 
 /* No comment provided by engineer. */
 "Required built-in display is still not available!" = "Verlangtes eingebautes Display immer noch nicht verfügbar!";
@@ -669,6 +753,12 @@
 
 /* Title of 'Resources' preference pane */
 "Resources" = "Ressourcen";
+
+/* No comment provided by engineer. */
+"Restart" = "Neustart";
+
+/* No comment provided by engineer. */
+"Restart Session" = "Session neu starten";
 
 /* No comment provided by engineer. */
 "Retry" = "Wiederholen";
@@ -716,10 +806,13 @@
 "Screen sharing was activated" = "Bildschirmfreigabe wurde aktiviert";
 
 /* No comment provided by engineer. */
-"Searching for a valid %@ config file …" = "Suche eine gültige %@ Konfigurationsdatei …";
+"Searching for %@ Configuration Canceled" = "Suche für %@-Konfiguration abgebrochen";
 
 /* No comment provided by engineer. */
-"Searching for a valid %@ config file was canceled." = "Suche nach einer gültigen %@ Konfigurationsdatei wurde abgebrochen.";
+"Searching for a valid %@ config file …" = "Suche eine %@-Konfigurationsdatei …";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file was canceled." = "Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.";
 
 /* No comment provided by engineer. */
 "Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
@@ -773,6 +866,12 @@
 "SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "SEB wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
 
 /* No comment provided by engineer. */
+"Secure exam session was started, URL: " = "Sichere Prüfungssession wurde gestartet, URL:";
+
+/* No comment provided by engineer. */
+"Secure session was started" = "Sichere Session wurde gestartet";
+
+/* No comment provided by engineer. */
 "Secure Web Proxy (HTTPS)" = "Sicherer Web-Proxy (HTTPS)";
 
 /* Title of 'Security' preference pane */
@@ -783,6 +882,9 @@
 
 /* No comment provided by engineer. */
 "Select" = "Auswählen";
+
+/* 'Select Exam' header in 'Connecting to SEB Server' table view. */
+"Select Exam" = "Prüfung auswählen";
 
 /* No comment provided by engineer. */
 "settings" = "Einstellungen";
@@ -866,10 +968,13 @@
 "the webpage" = "die Webseite";
 
 /* No comment provided by engineer. */
+"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
-"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted." = "Diese Einstellungen können nicht benutzt werden. Sie wurden entweder von einer inkompatiblen SEB-Version erstellt oder sind beschädigt";
+"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted." = "Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen SEB-Version erstellt oder sind beschädigt";
 
 /* No comment provided by engineer. */
 "These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren.";
@@ -896,6 +1001,9 @@
 "To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
 
 /* No comment provided by engineer. */
+"Toggle Proctoring View" = "Fernüberwachungs-Fenster anzeigen/ausblenden";
+
+/* No comment provided by engineer. */
 "Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane." = "Der Modus Touch-optimiert funktioniert nicht, wenn der Kiosk-Modus 'Neuen Desktop erstellen' eingestellt ist, bitte Kiosk-Modus in den Sicherheits-Einstellungen auf 'Windows Explorer deaktivieren' ändern.";
 
 /* No comment provided by engineer. */
@@ -914,7 +1022,13 @@
 "Untitled" = "Unbenannt";
 
 /* No comment provided by engineer. */
+"Uploading" = "Upload";
+
+/* No comment provided by engineer. */
 "URL Blocked!" = "Blockierte URL!";
+
+/* No comment provided by engineer. */
+"Used third-party frameworks:" = "Benutzte Dritthersteller-Bibliotheken:";
 
 /* Title of 'Appearance' preference pane */
 "User Interface" = "Benutzeroberfläche";
@@ -939,6 +1053,9 @@
 
 /* No comment provided by engineer. */
 "Warning" = "Warnungen";
+
+/* No comment provided by engineer. */
+"Web Content" = "Webinhalt";
 
 /* No comment provided by engineer. */
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
@@ -1010,16 +1127,16 @@
 "You can only reconfigure by entering the current %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:";
 
 /* No comment provided by engineer. */
-"You can only reconfigure SEB by entering the current SEB administrator password:" = "Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:";
+"You can only reconfigure SEB by entering the current SEB administrator password:" = "Sie können SEB nur nach Eingabe des aktuellen SEB Administrator-Passwortes neu konfigurieren:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.";
+"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
 "You didn't enter the correct current %@ administrator password." = "Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.";
 
 /* No comment provided by engineer. */
-"You didn't enter the correct exam password." = "Das korrekte Prüfungspasswort wurde nicht eingegeben.";
+"You didn't enter the correct exam password." = "Sie haben nicht das korrekte Prüfungspasswort eingegeben.";
 
 /* No comment provided by engineer. */
 "You didn't enter the correct settings password." = "Das korrekte Passwort dieser Einstellungen wurde nicht eingegeben.";

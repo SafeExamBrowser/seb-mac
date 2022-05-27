@@ -68,7 +68,7 @@
 "260.title" = "Einstellungen-Fenster darf auf Client geöffnet werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Open a settings file for editing"; ObjectID = "1046"; */
-"1046.ibShadowedToolTip" = "Konfigurationsdatei zum Editieren öffnen";
+"1046.ibShadowedToolTip" = "Konfigurationsdatei zum Bearbeiten öffnen";
 
 /* Class = "NSButtonCell"; title = "Open Settings..."; ObjectID = "1047"; */
 "1047.title" = "Öffnen …";
@@ -131,5 +131,5 @@
 "bjh-ZV-2zp.ibShadowedToolTip" = "Erlaubt das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes, mit Befehl im Seitenmenü, Dock-Taste (wenn in den Benutzeroberfläche-Einstellungen aktiviert) oder Home-Bildschirm Schnellaktion";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe"; */
-"VYd-lj-NUe.ibShadowedToolTip" = "Zeigt die 'Edit Settings'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar";
+"VYd-lj-NUe.ibShadowedToolTip" = "Zeigt die 'Einstellungen bearbeiten'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar";
 
