@@ -618,7 +618,7 @@
       </trans-unit>
       <trans-unit id="4jn-9i-JSP.title" xml:space="preserve">
         <source>Enable scroll lock (iOS)</source>
-        <target>Scroll Lock zulassen (iOS)</target>
+        <target>Scrollsperre zulassen (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Enable scroll lock (iOS)"; ObjectID = "4jn-9i-JSP";</note>
       </trans-unit>
       <trans-unit id="4om-Lh-WpE.title" xml:space="preserve">
@@ -693,7 +693,7 @@
       </trans-unit>
       <trans-unit id="IjF-ym-hYg.title" xml:space="preserve">
         <source>Show scroll lock button (iOS)</source>
-        <target>Scroll Lock Taste anzeigen (iOS)</target>
+        <target>Scrollsperre Taste anzeigen (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg";</note>
       </trans-unit>
       <trans-unit id="J5d-BA-D2w.title" xml:space="preserve">
@@ -713,18 +713,22 @@
       </trans-unit>
       <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>50%</source>
+        <target>50%</target>
         <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[0] = "50%"; ObjectID = "O0B-MY-YwV";</note>
       </trans-unit>
       <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[1]" xml:space="preserve">
         <source>100%</source>
+        <target>100%</target>
         <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[1] = "100%"; ObjectID = "O0B-MY-YwV";</note>
       </trans-unit>
       <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[2]" xml:space="preserve">
         <source>800</source>
+        <target>800</target>
         <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[2] = "800"; ObjectID = "O0B-MY-YwV";</note>
       </trans-unit>
       <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[3]" xml:space="preserve">
         <source>1000</source>
+        <target>1000</target>
         <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[3] = "1000"; ObjectID = "O0B-MY-YwV";</note>
       </trans-unit>
       <trans-unit id="O41-bz-cfY.ibShadowedToolTip" xml:space="preserve">
@@ -834,7 +838,7 @@
       </trans-unit>
       <trans-unit id="bdb-Ye-f5Q.ibShadowedToolTip" xml:space="preserve">
         <source>With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)</source>
-        <target>Mit der Scroll-Lock-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)</target>
+        <target>Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern (nur iOS)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)"; ObjectID = "bdb-Ye-f5Q";</note>
       </trans-unit>
       <trans-unit id="cKh-Sd-JBS.title" xml:space="preserve">
@@ -899,7 +903,7 @@
       </trans-unit>
       <trans-unit id="lWE-3I-sTM.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)</source>
-        <target>Scroll Lock Taste im Dock anzeigen, wenn die Scroll Lock Funktion zugelassen ist (nur iOS)</target>
+        <target>Scrollsperre-Taste im Dock anzeigen, wenn die Scrollsperre-Funktion zugelassen ist (nur iOS)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)"; ObjectID = "lWE-3I-sTM";</note>
       </trans-unit>
       <trans-unit id="lc5-eA-GRt.title" xml:space="preserve">
@@ -959,18 +963,22 @@
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>100%</source>
+        <target>100%</target>
         <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[0] = "100%"; ObjectID = "vDg-gs-M0S";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[1]" xml:space="preserve">
         <source>80%</source>
+        <target>80%</target>
         <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[1] = "80%"; ObjectID = "vDg-gs-M0S";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[2]" xml:space="preserve">
         <source>600</source>
+        <target>600</target>
         <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[2] = "600"; ObjectID = "vDg-gs-M0S";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[3]" xml:space="preserve">
         <source>800</source>
+        <target>800</target>
         <note>Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[3] = "800"; ObjectID = "vDg-gs-M0S";</note>
       </trans-unit>
       <trans-unit id="vVA-cT-h1p.title" xml:space="preserve">
@@ -2206,7 +2214,7 @@
       </trans-unit>
       <trans-unit id="1046.ibShadowedToolTip" xml:space="preserve">
         <source>Open a settings file for editing</source>
-        <target>Konfigurationsdatei zum Editieren öffnen</target>
+        <target>Konfigurationsdatei zum Bearbeiten öffnen</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Open a settings file for editing"; ObjectID = "1046";</note>
       </trans-unit>
       <trans-unit id="1047.title" xml:space="preserve">
@@ -2301,7 +2309,7 @@
       </trans-unit>
       <trans-unit id="VYd-lj-NUe.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</source>
-        <target>Zeigt die 'Edit Settings'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar</target>
+        <target>Zeigt die 'Einstellungen bearbeiten'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe";</note>
       </trans-unit>
       <trans-unit id="b4O-Hy-kCT.title" xml:space="preserve">
@@ -2412,14 +2420,14 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP";</note>
       </trans-unit>
       <trans-unit id="GVV-cO-HOP.ibShadowedToolTip" xml:space="preserve">
-        <source>When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system</source>
+        <source>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</source>
         <target>SEB zeigt einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann ein beliebiges lokales Dateiverzeichnis auswählen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simple dialog when a download is initiated. The user can navigate to any folder from the local file system"; ObjectID = "GVV-cO-HOP";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "GVV-cO-HOP";</note>
       </trans-unit>
       <trans-unit id="I9g-6o-a5B.title" xml:space="preserve">
-        <source>Allow to select custom down/upload directory</source>
+        <source>Allow user to select custom down/upload directory</source>
         <target>Benutzer darf Upload/Download-Verzeichnis auswählen</target>
-        <note>Class = "NSButtonCell"; title = "Allow to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
+        <note>Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
       </trans-unit>
       <trans-unit id="zhK-R4-XtF.title" xml:space="preserve">
         <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
@@ -2605,7 +2613,7 @@
       </trans-unit>
       <trans-unit id="czI-08-Q8k.title" xml:space="preserve">
         <source>Back to Start Button</source>
-        <target>Zurück zum Start Taste</target>
+        <target>'Zurück zum Start'-Taste</target>
         <note>Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k";</note>
       </trans-unit>
       <trans-unit id="dN3-5O-Rpi.title" xml:space="preserve">
@@ -2841,9 +2849,9 @@
         <note>Class = "NSTextFieldCell"; title = "SEB Server URL"; ObjectID = "JvD-qA-qAF";</note>
       </trans-unit>
       <trans-unit id="WYv-t7-2PL.ibShadowedToolTip" xml:space="preserve">
-        <source>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</source>
-        <target>SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das SEB Server URL Feld eingefügt</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field."; ObjectID = "WYv-t7-2PL";</note>
+        <source>SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</source>
+        <target>SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das SEB Server URL-Feld eingefügt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field"; ObjectID = "WYv-t7-2PL";</note>
       </trans-unit>
       <trans-unit id="ZPd-eH-wpn.placeholderString" xml:space="preserve">
         <source>URL starting with http:// or https://</source>
@@ -4168,7 +4176,7 @@
       </trans-unit>
       <trans-unit id="p3h-Gz-2AS.title" xml:space="preserve">
         <source>Allow iOS screen capture</source>
-        <target>iOS Bildschirmaufzeichnung erlauben</target>
+        <target>iOS-Bildschirmaufzeichnung erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow iOS screen capture"; ObjectID = "p3h-Gz-2AS";</note>
       </trans-unit>
       <trans-unit id="p7z-jo-UF3.title" xml:space="preserve">
@@ -4193,6 +4201,7 @@
       </trans-unit>
       <trans-unit id="qR0-7R-jPL.label" xml:space="preserve">
         <source>iOS</source>
+        <target>iOS</target>
         <note>Class = "NSTabViewItem"; label = "iOS"; ObjectID = "qR0-7R-jPL";</note>
       </trans-unit>
       <trans-unit id="qqs-ZA-6ds.ibShadowedToolTip" xml:space="preserve">
@@ -4514,6 +4523,7 @@
       </trans-unit>
       <trans-unit id="jEa-eM-FvN.title" xml:space="preserve">
         <source>OK</source>
+        <target>OK</target>
         <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN";</note>
       </trans-unit>
       <trans-unit id="jnc-il-FuZ.ibShadowedToolTip" xml:space="preserve">
@@ -4542,14 +4552,14 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee";</note>
       </trans-unit>
       <trans-unit id="qkO-f0-59m.ibShadowedLabels[0]" xml:space="preserve">
-        <source>Zoom Out</source>
+        <source>Zoom Page Out</source>
         <target>Seiteninhalt verkleinern</target>
-        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Out"; ObjectID = "qkO-f0-59m";</note>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Page Out"; ObjectID = "qkO-f0-59m";</note>
       </trans-unit>
       <trans-unit id="qkO-f0-59m.ibShadowedLabels[1]" xml:space="preserve">
-        <source>Zoom In</source>
+        <source>Zoom Page In</source>
         <target>Seiteninhalt vergrössern</target>
-        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom In"; ObjectID = "qkO-f0-59m";</note>
+        <note>Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom Page In"; ObjectID = "qkO-f0-59m";</note>
       </trans-unit>
       <trans-unit id="sIN-ro-zV3.ibShadowedToolTip" xml:space="preserve">
         <source>Click to restore the full current URL into the custom filter expression text field</source>
@@ -4667,6 +4677,7 @@
       </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
+        <target>1</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=" copy" xml:space="preserve">
@@ -4691,12 +4702,12 @@
       </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
-        <target>%$1@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.</target>
+        <target>%1$@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
         <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
-        <target>%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
+        <target>%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was downloaded." xml:space="preserve">
@@ -4731,30 +4742,37 @@
       </trans-unit>
       <trans-unit id="10.11 El Capitan" xml:space="preserve">
         <source>10.11 El Capitan</source>
+        <target>10.11 El Capitan</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.12 Sierra" xml:space="preserve">
         <source>10.12 Sierra</source>
+        <target>10.12 Sierra</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
         <source>10.13 High Sierra</source>
+        <target>10.13 High Sierra</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.14 Mojave" xml:space="preserve">
         <source>10.14 Mojave</source>
+        <target>10.14 Mojave</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.15 Catalina" xml:space="preserve">
         <source>10.15 Catalina</source>
+        <target>10.15 Catalina</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="11 Big Sur" xml:space="preserve">
         <source>11 Big Sur</source>
+        <target>11 Big Sur</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="12 Monterey" xml:space="preserve">
         <source>12 Monterey</source>
+        <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." xml:space="preserve">
@@ -4899,6 +4917,7 @@
       </trans-unit>
       <trans-unit id="Browser Window" xml:space="preserve">
         <source>Browser Window</source>
+        <target>Browserfenster</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="CA Certificate" xml:space="preserve">
@@ -4918,6 +4937,7 @@
       </trans-unit>
       <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
         <source>Cannot Connect to SEB Server</source>
+        <target>Verbindung mit SEB Server nicht möglich</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Decrypt SEB Settings" xml:space="preserve">
@@ -4952,6 +4972,7 @@
       </trans-unit>
       <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
         <source>Cannot Start Another SEB Server Session</source>
+        <target>Weitere SEB Server Session kann nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
@@ -4971,6 +4992,7 @@
       </trans-unit>
       <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
         <source>Check your configuration, probably connection settings are incorrect.</source>
+        <target>Überprüfen Sie Ihre Konfiguration, vermutlich sind die Verbindungseinstellungen nicht korrekt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Choose" xml:space="preserve">
@@ -5020,10 +5042,12 @@
       </trans-unit>
       <trans-unit id="Connecting to SEB Server" xml:space="preserve">
         <source>Connecting to SEB Server</source>
+        <target>Mit SEB Server verbinden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
+        <target>Verbinde…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
@@ -5048,7 +5072,7 @@
       </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</source>
-        <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
+        <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them." xml:space="preserve">
@@ -5058,6 +5082,7 @@
       </trans-unit>
       <trans-unit id="Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
         <source>Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
+        <target>Die aktuellen Einstellungen erfordern Fernüberwachung, welche von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
@@ -5142,6 +5167,7 @@
       </trans-unit>
       <trans-unit id="Do you really want to reload the current web page?" xml:space="preserve">
         <source>Do you really want to reload the current web page?</source>
+        <target>Wollen Sie die Seite wirklich neu laden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you want to continue editing the saved settings file?" xml:space="preserve">
@@ -5171,6 +5197,7 @@
       </trans-unit>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
+        <target>Download</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit File" xml:space="preserve">
@@ -5225,7 +5252,7 @@
       </trans-unit>
       <trans-unit id="Enter the %@ administrator password used in client settings:" xml:space="preserve">
         <source>Enter the %@ administrator password used in client settings:</source>
-        <target>Geben Sie das %@ Administrator Passwort aus den Client-Einstellungen ein:</target>
+        <target>Geben Sie das %@ Administrator-Passwort aus den Client-Einstellungen ein:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter the %@ administrator password used in these settings:" xml:space="preserve">
@@ -5362,11 +5389,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit SEB." xml:space="preserve">
         <source>If you don't enter the correct quit password, then you cannot quit SEB.</source>
-        <target>Wenn Sie das korrekte Beenden/Entsperren-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
+        <target>Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit." xml:space="preserve">
         <source>If you don't enter the correct quit password, then you cannot quit.</source>
+        <target>Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them." xml:space="preserve">
@@ -5411,7 +5439,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Loaded data doesn't contain valid %@ settings." xml:space="preserve">
         <source>Loaded data doesn't contain valid %@ settings.</source>
-        <target>Geladene Daten beinhalten keine gültigen %@ Einstellungen.</target>
+        <target>Geladene Daten beinhalten keine gültigen %@-Einstellungen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loaded settings are empty and cannot be used." xml:space="preserve">
@@ -5421,6 +5449,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Loading New %@ Settings Not Allowed!" xml:space="preserve">
         <source>Loading New %@ Settings Not Allowed!</source>
+        <target>Laden von neuen %@-Einstellungen nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading Settings" xml:space="preserve">
@@ -5495,6 +5524,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
         <source>Moodle</source>
+        <target>Moodle</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="More information at https://safeexambrowser.org" xml:space="preserve">
@@ -5564,12 +5594,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="None - Black" xml:space="preserve">
         <source>None - Black</source>
-        <target>Keine - Schwarz</target>
+        <target>Keine - schwarzer Hintergrund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None - White" xml:space="preserve">
         <source>None - White</source>
-        <target>Keine - Weiss</target>
+        <target>Keine - weisser Hintergrund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Not Connected to WiFi" xml:space="preserve">
@@ -5644,7 +5674,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Parsing Settings Failed" xml:space="preserve">
         <source>Parsing Settings Failed</source>
-        <target>Auslesen der Konfiguration ist fehlgeschlagen</target>
+        <target>Einlesen der Konfiguration ist fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board." xml:space="preserve">
@@ -5684,14 +5714,17 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Proctoring Error Locked SEB!" xml:space="preserve">
         <source>Proctoring Error Locked SEB!</source>
+        <target>SEB gesperrt wegen Fehler bei Fernüberwachung!</target>
         <note>Lockdown alert title text for proctoring failure</note>
       </trans-unit>
       <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <target>Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Proctoring failed: " xml:space="preserve">
         <source>Proctoring failed: </source>
+        <target>Fernüberwachung fehlgeschlagen:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prohibited Process Locked SEB!" xml:space="preserve">
@@ -5776,6 +5809,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
         <source>Reload</source>
+        <target>Neu laden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload Current Page" xml:space="preserve">
@@ -5785,10 +5819,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Remote Proctoring" xml:space="preserve">
         <source>Remote Proctoring</source>
+        <target>Fernüberwachung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Remote Proctoring Not Available" xml:space="preserve">
         <source>Remote Proctoring Not Available</source>
+        <target>Fernüberwachung nicht verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Required built-in display is still not available!" xml:space="preserve">
@@ -5808,10 +5844,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Restart" xml:space="preserve">
         <source>Restart</source>
+        <target>Neustart</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Restart Session" xml:space="preserve">
         <source>Restart Session</source>
+        <target>Session neu starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Retry" xml:space="preserve">
@@ -5981,16 +6019,17 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Searching for %@ Configuration Canceled" xml:space="preserve">
         <source>Searching for %@ Configuration Canceled</source>
+        <target>Suche für %@-Konfiguration abgebrochen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file was canceled." xml:space="preserve">
         <source>Searching for a valid %@ config file was canceled.</source>
-        <target>Suche nach einer gültigen %@ Konfigurationsdatei wurde abgebrochen.</target>
+        <target>Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file …" xml:space="preserve">
         <source>Searching for a valid %@ config file …</source>
-        <target>Suche eine gültige %@ Konfigurationsdatei …</target>
+        <target>Suche eine %@-Konfigurationsdatei …</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." xml:space="preserve">
@@ -6005,10 +6044,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Secure exam session was started, URL: " xml:space="preserve">
         <source>Secure exam session was started, URL: </source>
+        <target>Sichere Prüfungssession wurde gestartet, URL:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Secure session was started" xml:space="preserve">
         <source>Secure session was started</source>
+        <target>Sichere Session wurde gestartet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Security" xml:space="preserve">
@@ -6028,6 +6069,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Select Exam" xml:space="preserve">
         <source>Select Exam</source>
+        <target>Prüfung auswählen</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
       <trans-unit id="Settings for Configuring Client" xml:space="preserve">
@@ -6142,6 +6184,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
         <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
+        <target>Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
@@ -6151,7 +6194,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted." xml:space="preserve">
         <source>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</source>
-        <target>Diese Einstellungen können nicht benutzt werden. Sie wurden entweder von einer inkompatiblen SEB-Version erstellt oder sind beschädigt</target>
+        <target>Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen SEB-Version erstellt oder sind beschädigt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." xml:space="preserve">
@@ -6196,6 +6239,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
         <source>Toggle Proctoring View</source>
+        <target>Fernüberwachungs-Fenster anzeigen/ausblenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Touch Optimized Mode Warning" xml:space="preserve">
@@ -6230,10 +6274,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Uploading" xml:space="preserve">
         <source>Uploading</source>
+        <target>Upload</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Used third-party frameworks:" xml:space="preserve">
         <source>Used third-party frameworks:</source>
+        <target>Benutzte Dritthersteller-Bibliotheken:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="User Interface" xml:space="preserve">
@@ -6273,6 +6319,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Web Content" xml:space="preserve">
         <source>Web Content</source>
+        <target>Webinhalt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Web Proxy (HTTP)" xml:space="preserve">
@@ -6387,7 +6434,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="You can only reconfigure SEB by entering the current SEB administrator password:" xml:space="preserve">
         <source>You can only reconfigure SEB by entering the current SEB administrator password:</source>
-        <target>Sie können SEB nur nach Eingabe des aktuellen SEB-Administrator-Passwortes neu konfigurieren:</target>
+        <target>Sie können SEB nur nach Eingabe des aktuellen SEB Administrator-Passwortes neu konfigurieren:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only reconfigure by entering the current %@ administrator password:" xml:space="preserve">
@@ -6397,7 +6444,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
         <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
-        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden.</target>
+        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct current %@ administrator password." xml:space="preserve">
@@ -6407,7 +6454,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="You didn't enter the correct exam password." xml:space="preserve">
         <source>You didn't enter the correct exam password.</source>
-        <target>Das korrekte Prüfungspasswort wurde nicht eingegeben.</target>
+        <target>Sie haben nicht das korrekte Prüfungspasswort eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct settings password." xml:space="preserve">
@@ -6482,6 +6529,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="iOS 14" xml:space="preserve">
         <source>iOS 14</source>
+        <target>iOS 14</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -6491,6 +6539,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="macOS" xml:space="preserve">
         <source>macOS</source>
+        <target>macOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="macOS Support Warning" xml:space="preserve">
@@ -6505,12 +6554,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
-        <target>werden in neuem Fenster geöffnet</target>
+        <target>in neuem Fenster öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in same window" xml:space="preserve">
         <source>open in same window</source>
-        <target>werden im selben Fenster geöffnet</target>
+        <target>im selben Fenster öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="quit" xml:space="preserve">
@@ -6545,22 +6594,24 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
-  <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+  <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
         <source>Safe Exam Browser</source>
+        <target>Safe Exam Browser</target>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
         <source>SafeExamBrowser</source>
+        <target>SafeExamBrowser</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
         <source>Camera access is required for remote proctoring.</source>
-        <target>Kamerazugriff ist notwendig für Remote Proctoring.</target>
+        <target>Kamerazugriff ist notwendig für Fernüberwachung.</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -6570,7 +6621,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
         <source>Microphone access is required for remote proctoring.</source>
-        <target>Mikrofonzugriff ist notwendig für Remote Proctoring.</target>
+        <target>Mikrofonzugriff ist notwendig für Fernüberwachung.</target>
         <note>Privacy - Microphone Usage Description</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
@@ -6580,22 +6631,24 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
-  <file original="en.lproj/SafeExamBrowserETH-InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+  <file original="en.lproj/SafeExamBrowserETH-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
         <source>Safe Exam Browser</source>
+        <target>Safe Exam Browser</target>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
         <source>SafeExamBrowser</source>
+        <target>SafeExamBrowser</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
         <source>Camera access is required for remote proctoring.</source>
-        <target>Kamerazugriff ist notwendig für Remote Proctoring.</target>
+        <target>Kamerazugriff ist notwendig für Fernüberwachung.</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -6605,7 +6658,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
         <source>Microphone access is required for remote proctoring.</source>
-        <target>Mikrofonzugriff ist notwendig für Remote Proctoring.</target>
+        <target>Mikrofonzugriff ist notwendig für Fernüberwachung.</target>
         <note>Privacy - Microphone Usage Description</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
@@ -6622,10 +6675,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
         <source>•</source>
+        <target>•</target>
         <note>Class = "UILabel"; text = "•"; ObjectID = "1bF-7Z-Q9L";</note>
       </trans-unit>
       <trans-unit id="1cD-LV-BbY.accessibilityHint" xml:space="preserve">
         <source>Shows a mail composer view to send an SEB log file to the entered mail address. Please add error description to the mail body</source>
+        <target>Zeigt eine Mail-Editor-Ansicht, um eine SEB-Logdatei an die eingegebene Mailadresse zu senden. Bitte fügen Sie eine Fehlerbeschreibung in den Mailtext ein.</target>
         <note>Class = "UIButton"; accessibilityHint = "Shows a mail composer view to send an SEB log file to the entered mail address. Please add error description to the mail body"; ObjectID = "1cD-LV-BbY";</note>
       </trans-unit>
       <trans-unit id="1cD-LV-BbY.normalTitle" xml:space="preserve">
@@ -6640,58 +6695,72 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.accessibilityLabel" xml:space="preserve">
         <source>Warning: Wrong password</source>
+        <target>Warnung: Falsches Passwort</target>
         <note>Class = "UILabel"; accessibilityLabel = "Warning: Wrong password"; ObjectID = "6fi-rT-cNJ";</note>
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.text" xml:space="preserve">
         <source>Please enter correct password!</source>
+        <target>Bitte korrektes Passwort/Response eingeben!</target>
         <note>Class = "UILabel"; text = "Please enter correct password!"; ObjectID = "6fi-rT-cNJ";</note>
       </trans-unit>
       <trans-unit id="6pO-9x-gSg.accessibilityHint" xml:space="preserve">
         <source>Searches for a SEB configuration at the entered domain URL</source>
+        <target>Sucht nach einer SEB-Konfiguration unter der eingegebenen Domain-URL</target>
         <note>Class = "UIButton"; accessibilityHint = "Searches for a SEB configuration at the entered domain URL"; ObjectID = "6pO-9x-gSg";</note>
       </trans-unit>
       <trans-unit id="6pO-9x-gSg.accessibilityLabel" xml:space="preserve">
         <source>Search for configuration</source>
+        <target>Suche Konfiguration</target>
         <note>Class = "UIButton"; accessibilityLabel = "Search for configuration"; ObjectID = "6pO-9x-gSg";</note>
       </trans-unit>
       <trans-unit id="7en-4U-bc7.text" xml:space="preserve">
         <source>Commands</source>
+        <target>Funktionen</target>
         <note>Class = "UILabel"; text = "Commands"; ObjectID = "7en-4U-bc7";</note>
       </trans-unit>
       <trans-unit id="7o6-KW-3Qp.accessibilityHint" xml:space="preserve">
         <source>Enter the domain URL of an institution which supports SEB</source>
+        <target>Geben Sie die Domain-URL einer Institution ein, die SEB unterstützt</target>
         <note>Class = "UITextField"; accessibilityHint = "Enter the domain URL of an institution which supports SEB"; ObjectID = "7o6-KW-3Qp";</note>
       </trans-unit>
       <trans-unit id="7o6-KW-3Qp.accessibilityLabel" xml:space="preserve">
         <source>URL</source>
+        <target>URL</target>
         <note>Class = "UITextField"; accessibilityLabel = "URL"; ObjectID = "7o6-KW-3Qp";</note>
       </trans-unit>
       <trans-unit id="8n2-VP-KRt.accessibilityHint" xml:space="preserve">
         <source>Closes tab or quits browser session (on first tab with exam)</source>
+        <target>Schliesst den Tab oder beendet die Browser-Sitzung (auf dem ersten Tab mit der Prüfung)</target>
         <note>Class = "UIButton"; accessibilityHint = "Closes tab or quits browser session (on first tab with exam)"; ObjectID = "8n2-VP-KRt";</note>
       </trans-unit>
       <trans-unit id="8n2-VP-KRt.accessibilityLabel" xml:space="preserve">
         <source>Close</source>
+        <target>Schliessen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "8n2-VP-KRt";</note>
       </trans-unit>
       <trans-unit id="9il-ut-H8z.accessibilityHint" xml:space="preserve">
         <source>No SEB configuration found at the entered domain URL</source>
+        <target>Keine SEB-Konfiguration an der eingegebenen Domain-URL gefunden</target>
         <note>Class = "UILabel"; accessibilityHint = "No SEB configuration found at the entered domain URL"; ObjectID = "9il-ut-H8z";</note>
       </trans-unit>
       <trans-unit id="9il-ut-H8z.accessibilityLabel" xml:space="preserve">
         <source>Warning: No SEB Configuration found!</source>
+        <target>Warnung: Keine SEB-Konfiguration gefunden!</target>
         <note>Class = "UILabel"; accessibilityLabel = "Warning: No SEB Configuration found!"; ObjectID = "9il-ut-H8z";</note>
       </trans-unit>
       <trans-unit id="9il-ut-H8z.text" xml:space="preserve">
         <source>No config found!</source>
+        <target>Keine Konfiguration gefunden!</target>
         <note>Class = "UILabel"; text = "No config found!"; ObjectID = "9il-ut-H8z";</note>
       </trans-unit>
       <trans-unit id="72x-TK-QER.text" xml:space="preserve">
         <source>SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.</source>
+        <target>SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>Class = "UILabel"; text = "SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows."; ObjectID = "72x-TK-QER";</note>
       </trans-unit>
       <trans-unit id="BE1-ZM-fgu.text" xml:space="preserve">
         <source>Open an SEB exam or configuration link from Safari, Mail or a messenger app.</source>
+        <target>SEB-Prüfungs- oder Konfigurations-Link in Safari, Mail oder einer Nachrichten-App öffnen.</target>
         <note>Class = "UILabel"; text = "Open an SEB exam or configuration link from Safari, Mail or a messenger app."; ObjectID = "BE1-ZM-fgu";</note>
       </trans-unit>
       <trans-unit id="C6t-3t-DKh.text" xml:space="preserve">
@@ -6701,26 +6770,32 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="D2p-As-V6t.text" xml:space="preserve">
         <source>SEB Is Locked!</source>
+        <target>SEB ist gesperrt!</target>
         <note>Class = "UILabel"; text = "SEB Is Locked!"; ObjectID = "D2p-As-V6t";</note>
       </trans-unit>
       <trans-unit id="Een-Fo-nNJ.accessibilityHint" xml:space="preserve">
         <source>Closes About SEB view</source>
+        <target>Schliesst das 'Über SEB'-Fenster</target>
         <note>Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "Een-Fo-nNJ";</note>
       </trans-unit>
       <trans-unit id="Een-Fo-nNJ.accessibilityLabel" xml:space="preserve">
         <source>Close</source>
+        <target>Schliessen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "Een-Fo-nNJ";</note>
       </trans-unit>
       <trans-unit id="GCj-e3-Pe5.text" xml:space="preserve">
         <source>•</source>
+        <target>•</target>
         <note>Class = "UILabel"; text = "•"; ObjectID = "GCj-e3-Pe5";</note>
       </trans-unit>
       <trans-unit id="K8j-P3-Yzd.text" xml:space="preserve">
         <source>Connecting to SEB Server</source>
+        <target>Mit SEB Server verbinden</target>
         <note>Class = "UILabel"; text = "Connecting to SEB Server"; ObjectID = "K8j-P3-Yzd";</note>
       </trans-unit>
       <trans-unit id="NvO-V8-xMf.text" xml:space="preserve">
         <source>SEB</source>
+        <target>SEB</target>
         <note>Class = "UILabel"; text = "SEB"; ObjectID = "NvO-V8-xMf";</note>
       </trans-unit>
       <trans-unit id="TLh-eI-sov.accessibilityHint" xml:space="preserve">
@@ -6730,10 +6805,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="TLh-eI-sov.accessibilityLabel" xml:space="preserve">
         <source>Scan QR Code</source>
+        <target>QR-Code scannen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Scan QR Code"; ObjectID = "TLh-eI-sov";</note>
       </trans-unit>
       <trans-unit id="Wmj-TM-U1f.text" xml:space="preserve">
         <source>Options to start an exam or configure SafeExamBrowser for your institution</source>
+        <target>Optionen zum Starten einer Prüfung oder zur Konfiguration von SafeExamBrowser für Ihre Institution</target>
         <note>Class = "UILabel"; text = "Options to start an exam or configure SafeExamBrowser for your institution"; ObjectID = "Wmj-TM-U1f";</note>
       </trans-unit>
       <trans-unit id="aA9-gn-PKl.accessibilityHint" xml:space="preserve">
@@ -6743,22 +6820,27 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="aaL-4I-bjq.accessibilityHint" xml:space="preserve">
         <source>Search local network for a SEB configuration (requires WiFi)</source>
+        <target>Suche im lokalen Netzwerk nach einer SEB-Konfiguration (erfordert WLAN)</target>
         <note>Class = "UIButton"; accessibilityHint = "Search local network for a SEB configuration (requires WiFi)"; ObjectID = "aaL-4I-bjq";</note>
       </trans-unit>
       <trans-unit id="aaL-4I-bjq.accessibilityLabel" xml:space="preserve">
         <source>Search Network</source>
+        <target>Netzwerk durchsuchen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Search Network"; ObjectID = "aaL-4I-bjq";</note>
       </trans-unit>
       <trans-unit id="aaL-4I-bjq.normalTitle" xml:space="preserve">
         <source>Search Network</source>
+        <target>Netzwerk durchsuchen</target>
         <note>Class = "UIButton"; normalTitle = "Search Network"; ObjectID = "aaL-4I-bjq";</note>
       </trans-unit>
       <trans-unit id="akf-kQ-g5l.accessibilityHint" xml:space="preserve">
         <source>Closes About SEB view</source>
+        <target>Schliesst das 'Über SEB'-Fenster</target>
         <note>Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "akf-kQ-g5l";</note>
       </trans-unit>
       <trans-unit id="akf-kQ-g5l.accessibilityLabel" xml:space="preserve">
         <source>Close</source>
+        <target>Schliessen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "akf-kQ-g5l";</note>
       </trans-unit>
       <trans-unit id="arM-6u-TmT.accessibilityHint" xml:space="preserve">
@@ -6768,22 +6850,27 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="arM-6u-TmT.accessibilityLabel" xml:space="preserve">
         <source>Continue</source>
+        <target>Weiter</target>
         <note>Class = "UIButton"; accessibilityLabel = "Continue"; ObjectID = "arM-6u-TmT";</note>
       </trans-unit>
       <trans-unit id="bhl-kf-W3Q.accessibilityHint" xml:space="preserve">
         <source>Closes About SEB view</source>
+        <target>Schliesst das 'Über SEB'-Fenster</target>
         <note>Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "bhl-kf-W3Q";</note>
       </trans-unit>
       <trans-unit id="bhl-kf-W3Q.accessibilityLabel" xml:space="preserve">
         <source>Close</source>
+        <target>Schliessen</target>
         <note>Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "bhl-kf-W3Q";</note>
       </trans-unit>
       <trans-unit id="bhl-kf-W3Q.normalTitle" xml:space="preserve">
         <source>Close</source>
+        <target>Schliessen</target>
         <note>Class = "UIButton"; normalTitle = "Close"; ObjectID = "bhl-kf-W3Q";</note>
       </trans-unit>
       <trans-unit id="dOX-Xm-hMN.text" xml:space="preserve">
         <source>Exam</source>
+        <target>Prüfung</target>
         <note>Class = "UILabel"; text = "Exam"; ObjectID = "dOX-Xm-hMN";</note>
       </trans-unit>
       <trans-unit id="eHs-Tc-mxg.accessibilityLabel" xml:space="preserve">
@@ -6793,66 +6880,82 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="eHs-Tc-mxg.normalTitle" xml:space="preserve">
         <source>SafeExamBrowser</source>
+        <target>SafeExamBrowser</target>
         <note>Class = "UIButton"; normalTitle = "SafeExamBrowser"; ObjectID = "eHs-Tc-mxg";</note>
       </trans-unit>
       <trans-unit id="ecz-EP-DY2.accessibilityHint" xml:space="preserve">
         <source>Display copyright and license. Scroll to bottom for button to send SEB logs to developers</source>
+        <target>Copyright und Lizenz anzeigen. Scrollen Sie nach unten, um die Taste zum Senden von SEB-Protokollen an die Entwickler zu finden.</target>
         <note>Class = "UIButton"; accessibilityHint = "Display copyright and license. Scroll to bottom for button to send SEB logs to developers"; ObjectID = "ecz-EP-DY2";</note>
       </trans-unit>
       <trans-unit id="ecz-EP-DY2.accessibilityLabel" xml:space="preserve">
         <source>About SEB</source>
+        <target>Über SEB</target>
         <note>Class = "UIButton"; accessibilityLabel = "About SEB"; ObjectID = "ecz-EP-DY2";</note>
       </trans-unit>
       <trans-unit id="feH-Dl-T6E.title" xml:space="preserve">
         <source>SEB View Controller</source>
+        <target>SEB View Controller</target>
         <note>Class = "UIViewController"; title = "SEB View Controller"; ObjectID = "feH-Dl-T6E";</note>
       </trans-unit>
       <trans-unit id="fem-Ic-Pih.accessibilityHint" xml:space="preserve">
         <source>The scanned QR code didn't contain an SEB configuration</source>
+        <target>Der gescannte QR-Code enthielt keine SEB-Konfiguration</target>
         <note>Class = "UILabel"; accessibilityHint = "The scanned QR code didn't contain an SEB configuration"; ObjectID = "fem-Ic-Pih";</note>
       </trans-unit>
       <trans-unit id="fem-Ic-Pih.accessibilityLabel" xml:space="preserve">
         <source>Warning: No SEB Configuration found!</source>
+        <target>Warnung: Keine SEB-Konfiguration gefunden!</target>
         <note>Class = "UILabel"; accessibilityLabel = "Warning: No SEB Configuration found!"; ObjectID = "fem-Ic-Pih";</note>
       </trans-unit>
       <trans-unit id="fem-Ic-Pih.text" xml:space="preserve">
         <source>No SEB configuration found!</source>
+        <target>Keine SEB-Konfiguration gefunden!</target>
         <note>Class = "UILabel"; text = "No SEB configuration found!"; ObjectID = "fem-Ic-Pih";</note>
       </trans-unit>
       <trans-unit id="jBa-LL-dKG.text" xml:space="preserve">
         <source>Enter quit password to unlock SEB:</source>
+        <target>Beenden-Passwort eingeben, um SEB zu entsperren:</target>
         <note>Class = "UILabel"; text = "Enter quit password to unlock SEB:"; ObjectID = "jBa-LL-dKG";</note>
       </trans-unit>
       <trans-unit id="lf7-gn-5ng.text" xml:space="preserve">
         <source>Enter the URL of an institution which supports SEB</source>
+        <target>Geben Sie die URL einer Institution ein, die SEB unterstützt</target>
         <note>Class = "UILabel"; text = "Enter the URL of an institution which supports SEB"; ObjectID = "lf7-gn-5ng";</note>
       </trans-unit>
       <trans-unit id="qCX-Ab-h85.text" xml:space="preserve">
         <source>•</source>
+        <target>•</target>
         <note>Class = "UILabel"; text = "•"; ObjectID = "qCX-Ab-h85";</note>
       </trans-unit>
       <trans-unit id="qX6-yp-qcn.title" xml:space="preserve">
         <source>Web Pages Side Panel</source>
+        <target>Webseiten-Seitenmenü</target>
         <note>Class = "UIViewController"; title = "Web Pages Side Panel"; ObjectID = "qX6-yp-qcn";</note>
       </trans-unit>
       <trans-unit id="r54-Dr-aZy.title" xml:space="preserve">
         <source>SEB Browser Tab View Controller</source>
+        <target>SEB Browser Tab View Controller</target>
         <note>Class = "UIViewController"; title = "SEB Browser Tab View Controller"; ObjectID = "r54-Dr-aZy";</note>
       </trans-unit>
       <trans-unit id="sIk-vP-dKf.normalTitle" xml:space="preserve">
         <source>More Information…</source>
+        <target>Mehr Informationen…</target>
         <note>Class = "UIButton"; normalTitle = "More Information…"; ObjectID = "sIk-vP-dKf";</note>
       </trans-unit>
       <trans-unit id="t05-Ok-qqM.text" xml:space="preserve">
         <source>SafeExamBrowser</source>
+        <target>SafeExamBrowser</target>
         <note>Class = "UILabel"; text = "SafeExamBrowser"; ObjectID = "t05-Ok-qqM";</note>
       </trans-unit>
       <trans-unit id="xG9-QS-xAw.text" xml:space="preserve">
         <source>Command</source>
+        <target>Funktion</target>
         <note>Class = "UILabel"; text = "Command"; ObjectID = "xG9-QS-xAw";</note>
       </trans-unit>
       <trans-unit id="z6r-Ir-cTX.text" xml:space="preserve">
         <source>Scan SEB configuration QR code</source>
+        <target>SEB-Konfigurations-QR-Code scannen</target>
         <note>Class = "UILabel"; text = "Scan SEB configuration QR code"; ObjectID = "z6r-Ir-cTX";</note>
       </trans-unit>
     </body>
@@ -6869,32 +6972,37 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id=" (Connected to Power Source)" xml:space="preserve">
         <source> (Connected to Power Source)</source>
+        <target>(mit Stromquelle verbunden)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
+        <target>1</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=" and " xml:space="preserve">
         <source> and </source>
+        <target>und</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=" copy" xml:space="preserve">
         <source> copy</source>
+        <target>kopieren</target>
         <note>word indicating the duplicate of a file, same as in Finder ' copy'</note>
       </trans-unit>
       <trans-unit id=" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS " xml:space="preserve">
         <source> settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS </source>
+        <target>-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Config File %@" xml:space="preserve">
         <source>%1$@ Config File %2$@</source>
-        <target>%$1@-Konfigurationsdatei %2$@</target>
+        <target>%1$@-Konfigurationsdatei %2$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Config File %@%@" xml:space="preserve">
         <source>%1$@ Config File %2$@%3$@</source>
-        <target>%$1@-Konfigurationsdatei %2$@%3$@</target>
+        <target>%1$@-Konfigurationsdatei %2$@%3$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Is Locked!" xml:space="preserve">
@@ -6904,104 +7012,127 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="%@ Not Allowed!" xml:space="preserve">
         <source>%@ Not Allowed!</source>
+        <target>%@ nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Re-Configured" xml:space="preserve">
         <source>%@ Re-Configured</source>
+        <target>%@ neu konfiguriert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
-        <target>%$1@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
+        <target>%1$@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
         <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
-        <target>%$1@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
+        <target>%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
         <source>%@ needs to be used differently depending on your role.</source>
+        <target>%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was downloaded." xml:space="preserve">
         <source>%@ was downloaded.</source>
+        <target>%@ wurde heruntergeladen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
         <source>10.7 (this SEB: 10.11)</source>
+        <target>10.7 (dieser SEB: 10.11)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.8 (this SEB: 10.11)" xml:space="preserve">
         <source>10.8 (this SEB: 10.11)</source>
+        <target>10.8 (dieser SEB: 10.11)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.9 (this SEB: 10.11)" xml:space="preserve">
         <source>10.9 (this SEB: 10.11)</source>
+        <target>10.9 (dieser SEB: 10.11)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.10 (this SEB: 10.11)" xml:space="preserve">
         <source>10.10 (this SEB: 10.11)</source>
+        <target>10.10 (dieser SEB: 10.11)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.11 El Capitan" xml:space="preserve">
         <source>10.11 El Capitan</source>
+        <target>10.11 El Capitan</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.12 Sierra" xml:space="preserve">
         <source>10.12 Sierra</source>
+        <target>10.12 Sierra</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
         <source>10.13 High Sierra</source>
+        <target>10.13 High Sierra</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.14 Mojave" xml:space="preserve">
         <source>10.14 Mojave</source>
+        <target>10.14 Mojave</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.15 Catalina" xml:space="preserve">
         <source>10.15 Catalina</source>
+        <target>10.15 Catalina</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="11 Big Sur" xml:space="preserve">
         <source>11 Big Sur</source>
+        <target>11 Big Sur</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="12 Monterey" xml:space="preserve">
         <source>12 Monterey</source>
+        <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
         <source>About %@</source>
+        <target>Über %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Actions for creating or resetting settings" xml:space="preserve">
         <source>Actions for creating or resetting settings</source>
+        <target>Aktionen zum Erstellen oder Zurücksetzen von Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Activate Scroll Lock" xml:space="preserve">
         <source>Activate Scroll Lock</source>
+        <target>Scrollsperre aktivieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Admin Password" xml:space="preserve">
         <source>Admin Password</source>
+        <target>Administrator-Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Administrator" xml:space="preserve">
         <source>Administrator</source>
+        <target>Administrator</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Always" xml:space="preserve">
         <source>Always</source>
+        <target>Immer</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="An identity needs a unique name." xml:space="preserve">
         <source>An identity needs a unique name.</source>
+        <target>Identität benötigt einmaligen Namen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="An identity with the same name is already stored in the Keychain. Please use a unique name." xml:space="preserve">
         <source>An identity with the same name is already stored in the Keychain. Please use a unique name.</source>
+        <target>Ein Identitätszertifikat mit demselben Namen ist bereits im Schlüsselbund gespeichert. Bitte benutzen Sie einen einmaligen Namen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit this session?" xml:space="preserve">
@@ -7019,13 +7150,14 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Sind Sie sicher?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Ask the vendor of your assessment solution about how to use it with %@. General instructions on how to configure %@ can be found on %@." xml:space="preserve">
-        <source>Ask the vendor of your assessment solution about how to use it with %1$@.
-General instructions on how to configure %2$@ can be found on %3$@.</source>
+      <trans-unit id="Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@." xml:space="preserve">
+        <source>Ask the vendor of your assessment solution about how to use it with %1$@.%2$@General instructions on how to configure %3$@ can be found on %4$@.</source>
+        <target>Erkundigen Sie sich beim Anbieter Ihrer Prüfungslösung, wie Sie diese mit %1$@ verwenden können.%2$@Allgemeine Anweisungen zur Konfiguration von %3$@ finden Sie auf %4$@.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Authentication Required" xml:space="preserve">
         <source>Authentication Required</source>
+        <target>Authentifizierung notwendig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Auto Proxy Discovery" xml:space="preserve">
@@ -7045,6 +7177,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Back to Start" xml:space="preserve">
         <source>Back to Start</source>
+        <target>Zurück zum Start</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Battery Level %.f%%%@" xml:space="preserve">
@@ -7054,27 +7187,32 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Before receiving title" xml:space="preserve">
         <source>Before receiving title</source>
+        <target>Bevor Titel empfangen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Black on White" xml:space="preserve">
         <source>Black on White</source>
+        <target>Schwarz auf Weiss</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Browser Exam Key" xml:space="preserve">
         <source>Browser Exam Key</source>
+        <target>Browser Exam Key</target>
         <note>Browser Exam Key</note>
       </trans-unit>
       <trans-unit id="Browser Exam and/or Config Keys for %@ %@ Config File %@%@" xml:space="preserve">
         <source>Browser Exam and/or Config Keys for %1$@ %2$@ Config File %3$@%4$@</source>
-        <target>Browser Exam und/oder Config Keys für %$1@ %2$@ Konfigurationsdatei %3$@%4$@</target>
+        <target>Browser Exam und/oder Config Keys für %1$@ %2$@ Konfigurationsdatei %3$@%4$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="CA" xml:space="preserve">
         <source>CA</source>
+        <target>CA</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="CA Certificate" xml:space="preserve">
         <source>CA Certificate</source>
+        <target>CA-Zertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Camera Access Denied" xml:space="preserve">
@@ -7084,6 +7222,7 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Can't Send Log File" xml:space="preserve">
         <source>Can't Send Log File</source>
+        <target>Logdatei kann nicht gesendet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
@@ -7093,167 +7232,207 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Cannot Configure Client" xml:space="preserve">
         <source>Cannot Configure Client</source>
+        <target>Client kann nicht konfiguriert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
         <source>Cannot Connect to SEB Server</source>
+        <target>Verbindung mit SEB Server nicht möglich</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Decrypt Settings" xml:space="preserve">
         <source>Cannot Decrypt Settings</source>
+        <target>Konfiguration kann nicht entschlüsselt werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Edit %@ Settings" xml:space="preserve">
         <source>Cannot Edit %@ Settings</source>
+        <target>%@-Einstellungen können nicht bearbeitet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">
         <source>Cannot Quit Session</source>
+        <target>Session kann nicht beendet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
         <source>Cannot Reconfigure Client</source>
+        <target>Client kann nicht umkonfiguriert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Reset %@ Settings" xml:space="preserve">
         <source>Cannot Reset %@ Settings</source>
+        <target>%@-Einstellungen können nicht zurückgesetzt werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Send %@ Logs" xml:space="preserve">
         <source>Cannot Send %@ Logs</source>
+        <target>%@-Logdateien können nicht gesendet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
         <source>Cannot Start Another SEB Server Session</source>
+        <target>Weitere SEB Server Session kann nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
         <source>Cannot Start Exam</source>
+        <target>Prüfung kann nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Capturing Screen Not Allowed" xml:space="preserve">
         <source>Capturing Screen Not Allowed</source>
+        <target>Bildschirmaufzeichnung/-teilen nicht erlaubt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Center" xml:space="preserve">
         <source>Center</source>
+        <target>Zentrieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
         <source>Check your configuration, probably connection settings are incorrect.</source>
+        <target>Überprüfen Sie Ihre Konfiguration, wahrscheinlich sind die Verbindungseinstellungen falsch.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Closing lockdown windows" xml:space="preserve">
         <source>Closing lockdown windows</source>
+        <target>Lockdown-Fenster werden geschlossen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Code contributions © 2015 - 2016 Janison" xml:space="preserve">
         <source>Code contributions © 2015 - 2016 Janison</source>
+        <target>Codebeiträge © 2015 - 2016 Janison</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Config Key" xml:space="preserve">
         <source>Config Key</source>
+        <target>Config Key</target>
         <note>Config Key</note>
       </trans-unit>
       <trans-unit id="Config QR Code" xml:space="preserve">
         <source>Config QR Code</source>
+        <target>Konfigurations-QR-Code</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Configuring Client" xml:space="preserve">
         <source>Configuring Client</source>
+        <target>Client konfigurieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Confirm Removing Identity" xml:space="preserve">
         <source>Confirm Removing Identity</source>
+        <target>Entfernen der Identität bestätigen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
+        <target>Verbinde…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
+        <target>Weiter</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Correct password entered" xml:space="preserve">
         <source>Correct password entered</source>
+        <target>Korrektes Passwort eingegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Could not Export Identity" xml:space="preserve">
         <source>Could not Export Identity</source>
+        <target>Konnte Identität nicht exportieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Could not determine a correct hostname. You can enter the domain URL of your institution manually." xml:space="preserve">
         <source>Could not determine a correct hostname. You can enter the domain URL of your institution manually.</source>
+        <target>Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</source>
+        <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Create Exam Settings" xml:space="preserve">
         <source>Create Exam Settings</source>
+        <target>Prüfungseinstellungen erstellen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Create New Identity" xml:space="preserve">
         <source>Create New Identity</source>
+        <target>Neue Identität erstellen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Create New…" xml:space="preserve">
         <source>Create New…</source>
+        <target>Neu erstellen…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current Settings require Single App Mode to be active to proceed." xml:space="preserve">
         <source>Current Settings require Single App Mode to be active to proceed.</source>
+        <target>Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
         <source>Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
-        <target>Die aktuellen Einstellungen erfordern Zoom Remote Proctoring, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungs-Organisator verlangt wird.</target>
+        <target>Die aktuellen Einstellungen erfordern Zoom-Fernüberwachung, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." xml:space="preserve">
         <source>Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.</source>
+        <target>Die aktuellen Einstellungen erfordern, dass der geführte Zugriff (Guided Access) oder ein vom MDM/Apple Configurator aufgerufener Einzel-App-Modus zunächst ausgeschaltet wird, bevor die Prüfung gestartet werden kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Currently it isn't allowed to run %@ on the iOS version installed on this device." xml:space="preserve">
         <source>Currently it isn't allowed to run %@ on the iOS version installed on this device.</source>
+        <target>Derzeit ist es nicht erlaubt, %@ mit der auf diesem Gerät installierten iOS-Version zu benutzen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="DEBUG" xml:space="preserve">
         <source>DEBUG</source>
+        <target>DEBUG</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements." xml:space="preserve">
         <source>Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements.</source>
+        <target>Deaktiviert das Scrollen und die Textauswahl auf der Webseite und erleichtert die Verwendung von Drag-und-Drop-Web-Elementen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
         <source>Debug</source>
+        <target>Debug</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug Certificate" xml:space="preserve">
         <source>Debug Certificate</source>
+        <target>Debug Zertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Decrypting exam settings was canceled" xml:space="preserve">
         <source>Decrypting exam settings was canceled</source>
+        <target>Entschlüsseln der Prüfungseinstellungen wurde abgebrochen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Decrypting settings was canceled" xml:space="preserve">
         <source>Decrypting settings was canceled</source>
+        <target>Entschlüsseln der Einstellungen wurde abgebrochen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Default Size" xml:space="preserve">
         <source>Default Size</source>
+        <target>Standardgrösse</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Device Was in Sleep Mode!" xml:space="preserve">
         <source>Device Was in Sleep Mode!</source>
+        <target>Gerät war im Ruhezustand!</target>
         <note>Lockdown alert title text for device was in sleep mode</note>
       </trans-unit>
       <trans-unit id="Disable Scroll Lock" xml:space="preserve">
         <source>Disable Scroll Lock</source>
+        <target>Scrollsperre deaktivieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Displays a camera view to scan for SEB configuration QR codes" xml:space="preserve">
@@ -7263,94 +7442,117 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Do you really want to reload the web page?" xml:space="preserve">
         <source>Do you really want to reload the web page?</source>
+        <target>Wollen Sie die Seite wirklich neu laden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you want to abort opening Settings and apply this managed configuration?" xml:space="preserve">
         <source>Do you want to abort opening Settings and apply this managed configuration?</source>
+        <target>Möchten Sie das Öffnen der Einstellungen abbrechen und diese (MDM-)verwaltete Konfiguration anwenden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Do you want to close Settings and apply this managed configuration?" xml:space="preserve">
         <source>Do you want to close Settings and apply this managed configuration?</source>
+        <target>Möchten Sie die Einstellungen schliessen und diese (MDM-)verwaltete Konfiguration anwenden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Done" xml:space="preserve">
         <source>Done</source>
+        <target>Fertig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Download Finished" xml:space="preserve">
         <source>Download Finished</source>
+        <target>Download beendet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
+        <target>Download</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit Settings" xml:space="preserve">
         <source>Edit Settings</source>
+        <target>Einstellungen bearbeiten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Embed" xml:space="preserve">
         <source>Embed</source>
+        <target>Einbetten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page)." xml:space="preserve">
         <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).</source>
+        <target>Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfigurationsdateien').</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Embedded Certificate" xml:space="preserve">
         <source>Embedded Certificate</source>
+        <target>Eingebettetes Zertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enable Scroll Lock" xml:space="preserve">
         <source>Enable Scroll Lock</source>
+        <target>Scrollsperre aktivieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Ends an exam session and returns to client settings" xml:space="preserve">
         <source>Ends an exam session and returns to client settings</source>
+        <target>Beendet eine Prüfungssession und kehrt zu Client-Einstellungen zurück</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter Exam Password:" xml:space="preserve">
         <source>Enter Exam Password:</source>
+        <target>Prüfungspasswort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter Identity Admin Password" xml:space="preserve">
         <source>Enter Identity Admin Password</source>
+        <target>Admin-Passwort des Identitätszertifikats eingeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter password used to encrypt these settings:" xml:space="preserve">
         <source>Enter password used to encrypt these settings:</source>
+        <target>Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter quit password:" xml:space="preserve">
         <source>Enter quit password:</source>
+        <target>Beenden-Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter the %@ administrator password used in these settings:" xml:space="preserve">
         <source>Enter the %@ administrator password used in these settings:</source>
+        <target>In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter the URL of an institution which supports %@" xml:space="preserve">
         <source>Enter the URL of an institution which supports %@</source>
+        <target>Geben Sie die URL einer Institution ein, die %@ unterstützt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Entering the current %@ administrator password was canceled" xml:space="preserve">
         <source>Entering the current %@ administrator password was canceled</source>
+        <target>Eingabe des aktuellen %@ Administrator-Passworts wurde abgebrochen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Error" xml:space="preserve">
         <source>Error</source>
+        <target>Fehler</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Error Decrypting Settings" xml:space="preserve">
         <source>Error Decrypting Settings</source>
+        <target>Fehler beim Entschlüsseln der Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Exam Page" xml:space="preserve">
         <source>Exam Page</source>
+        <target>Prüfungsseite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Exam Session Finished" xml:space="preserve">
         <source>Exam Session Finished</source>
+        <target>Prüfungssession beendet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="FTP Proxy" xml:space="preserve">
@@ -7360,71 +7562,87 @@ General instructions on how to configure %2$@ can be found on %3$@.</source>
       </trans-unit>
       <trans-unit id="Failed to Start Single App Mode" xml:space="preserve">
         <source>Failed to Start Single App Mode</source>
+        <target>Einzel-App-Modus konnte nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
+        <target>Identitäten werden geladen …</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Follow your educator's instructions about how to start an exam in %@. Trying to edit %@ settings yourself may block access to exams." xml:space="preserve">
-        <source>Follow your educator's instructions about how to start an exam in %1$@.
-Trying to edit %2$@ settings yourself may block access to exams.</source>
+      <trans-unit id="Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams." xml:space="preserve">
+        <source>Follow your educator's instructions about how to start an exam in %1$@.%2$@Trying to edit %3$@ settings yourself may block access to exams.</source>
+        <target>Befolgen Sie die Anweisungen Ihres Prüfers, wie Sie eine Prüfung in %1$@ starten können.%2$@Wenn Sie versuchen, die %3$@-Einstellungen selbst zu bearbeiten, kann der Zugang zu Prüfungen gesperrt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version." xml:space="preserve">
         <source>For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.</source>
+        <target>Aus Sicherheitsgründen kann %@ nicht auf einer iOS 11-Version vor iOS 11.2.5 ausgeführt werden. Aktualisieren Sie auf die aktuelle iOS-Version.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
         <source>For this session, remote proctoring is required. On this device, %1$@%2$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</source>
+        <target>Die aktuelle Session erfordert Fernüberwachung. Auf diesem Gerät ist Zugriff auf %1$@ %2$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
         <source>For this session, remote proctoring is required. You need to authorize %1$@%2$@ access %3$@before you can %4$@start the session.</source>
+        <target>Die aktuelle Session erfordert Fernüberwachung. Sie müssen Zugriff auf %1$@%2$@ %3$@erlauben, bevor Sie %4$@die Session starten können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
+        <target>Klassisches erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
         <source>Go Back</source>
+        <target>Zurück</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Forward" xml:space="preserve">
         <source>Go Forward</source>
+        <target>Vorwärts</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="IDENTITY" xml:space="preserve">
         <source>IDENTITY</source>
+        <target>IDENTITÄT</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity" xml:space="preserve">
         <source>Identity</source>
+        <target>Identität</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity Name" xml:space="preserve">
         <source>Identity Name</source>
+        <target>Name der Identität</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity Name Not Unique" xml:space="preserve">
         <source>Identity Name Not Unique</source>
+        <target>Name der Identität nicht einmalig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity in Keychain" xml:space="preserve">
         <source>Identity in Keychain</source>
+        <target>Identität im Schlüsselbund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit the session." xml:space="preserve">
         <source>If you don't enter the correct quit password, then you cannot quit the session.</source>
+        <target>Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie die Session nicht beenden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the right administrator password used in these settings you cannot open them." xml:space="preserve">
         <source>If you don't enter the right administrator password used in these settings you cannot open them.</source>
+        <target>Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore." xml:space="preserve">
         <source>If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore.</source>
+        <target>Wenn Sie die Identität '%@' aus dem Schlüsselbund entfernen und Sie keine Kopie davon haben (eingebettet in eine Konfigurationsdatei oder installiert auf einem anderen Gerät), können Sie mit dieser Identität verschlüsselte Prüfungskonfigurationsdateien nicht mehr entschlüsseln.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." xml:space="preserve">
@@ -7434,22 +7652,27 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Info" xml:space="preserve">
         <source>Info</source>
+        <target>Info</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Instructions for Administrators" xml:space="preserve">
         <source>Instructions for Administrators</source>
+        <target>Instruktionen für Administratoren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Instructions for Students" xml:space="preserve">
         <source>Instructions for Students</source>
+        <target>Instruktionen für Studierende</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Issue Description Required" xml:space="preserve">
         <source>Issue Description Required</source>
+        <target>Fehlerbeschreibung notwendig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Left" xml:space="preserve">
         <source>Left</source>
+        <target>Links</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Load Error" xml:space="preserve">
@@ -7459,54 +7682,67 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Loaded data doesn't contain valid %@ settings." xml:space="preserve">
         <source>Loaded data doesn't contain valid %@ settings.</source>
+        <target>Geladene Daten beinhalten keine gültigen %@-Einstellungen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading New %@ Settings Not Allowed!" xml:space="preserve">
         <source>Loading New %@ Settings Not Allowed!</source>
+        <target>Laden von neuen %@-Einstellungen nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading Settings" xml:space="preserve">
         <source>Loading Settings</source>
+        <target>Einstellungen werden geladen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Loading settings" xml:space="preserve">
         <source>Loading settings</source>
+        <target>Einstellungen werden geladen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Log File %@ iOS" xml:space="preserve">
         <source>Log File %@ iOS</source>
+        <target>Logdatei %@ iOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Log In" xml:space="preserve">
         <source>Log In</source>
+        <target>Einloggen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Log in to" xml:space="preserve">
         <source>Log in to</source>
+        <target>Einloggen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
         <source>Moodle</source>
+        <target>Moodle</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="More information at https://safeexambrowser.org" xml:space="preserve">
         <source>More information at https://safeexambrowser.org</source>
+        <target>Mehr Informationen auf https://safeexambrowser.org</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
+        <target>Name</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Navigate Back" xml:space="preserve">
         <source>Navigate Back</source>
+        <target>Zurück navigieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Navigate Forward" xml:space="preserve">
         <source>Navigate Forward</source>
+        <target>Vorwärts navigieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Navigates back to the start URL or to another preset URL. Doesn't log users out" xml:space="preserve">
         <source>Navigates back to the start URL or to another preset URL. Doesn't log users out</source>
+        <target>Navigiert zurück zur Start-URL oder zu einer anderen voreingestellten URL. Meldet Benutzer nicht ab</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help." xml:space="preserve">
@@ -7516,22 +7752,27 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Never" xml:space="preserve">
         <source>Never</source>
+        <target>Nie</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="New settings have been saved, they will also be used when you start %@ next time again." xml:space="preserve">
         <source>New settings have been saved, they will also be used when you start %@ next time again.</source>
+        <target>Neue Konfiguration wurde gespeichert, diese wird auch dann benutzt, wenn %@ das nächste Mal gestartet wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No %@ Configuration Found" xml:space="preserve">
         <source>No %@ Configuration Found</source>
+        <target>Keine %@-Konfiguration gefunden!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No %@ configuration found!" xml:space="preserve">
         <source>No %@ configuration found!</source>
+        <target>Keine %@-Konfiguration gefunden!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." xml:space="preserve">
         <source>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</source>
+        <target>An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Camera Available" xml:space="preserve">
@@ -7541,34 +7782,42 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="No Encryption Credentials Chosen" xml:space="preserve">
         <source>No Encryption Credentials Chosen</source>
+        <target>Keine Verschlüsselung gewählt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Hostname Found" xml:space="preserve">
         <source>No Hostname Found</source>
+        <target>Kein Hostname gefunden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Identity Name Provided" xml:space="preserve">
         <source>No Identity Name Provided</source>
+        <target>Kein Name für Identität angegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No Kiosk Mode Available" xml:space="preserve">
         <source>No Kiosk Mode Available</source>
+        <target>Kein Kioskmodus verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No valid %@ config found." xml:space="preserve">
         <source>No valid %@ config found.</source>
+        <target>Keine %@-Konfigurationsdatei gefunden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None" xml:space="preserve">
         <source>None</source>
+        <target>Keine</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None - Black" xml:space="preserve">
         <source>None - Black</source>
+        <target>Keine - schwarzer Hintergrund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None - White" xml:space="preserve">
         <source>None - White</source>
+        <target>Keine - weisser Hintergrund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Not Connected to WiFi" xml:space="preserve">
@@ -7578,6 +7827,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="OK" xml:space="preserve">
         <source>OK</source>
+        <target>OK</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Only on load error" xml:space="preserve">
@@ -7585,57 +7835,69 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
         <target>Nur bei Verbindungsfehlern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Open %@ %@ exam or configuration link from Safari, Mail or a messenger app." xml:space="preserve">
-        <source>Open %1$@ %2$@ exam or configuration link from Safari, Mail or a messenger app.</source>
+      <trans-unit id="Open %@ exam or configuration link from Safari, Mail or a messenger app." xml:space="preserve">
+        <source>Open %@ exam or configuration link from Safari, Mail or a messenger app.</source>
+        <target>%@-Prüfungs- oder Konfigurations-Link in Safari, Mail oder einer Nachrichten-App öffnen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Open edX" xml:space="preserve">
         <source>Open edX</source>
+        <target>Open edX</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
         <source>Opening New Settings Failed!</source>
+        <target>Öffnen neuer Einstellungen fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Settings Failed" xml:space="preserve">
         <source>Opening Settings Failed</source>
+        <target>Öffnen der Einstellungen fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Universal Link" xml:space="preserve">
         <source>Opening Universal Link</source>
+        <target>Universal Link wird geöffnet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Universal Link Failed" xml:space="preserve">
         <source>Opening Universal Link Failed</source>
+        <target>Öffnen eines Universal Links ist fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Options to start an exam or configure %@ for your institution" xml:space="preserve">
         <source>Options to start an exam or configure %@ for your institution</source>
+        <target>Optionen zum Starten einer Prüfung oder zur Konfiguration von %@ für Ihre Institution</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Parsing Settings Failed" xml:space="preserve">
         <source>Parsing Settings Failed</source>
+        <target>Einlesen der Konfiguration ist fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Password" xml:space="preserve">
         <source>Password</source>
+        <target>Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Permissions Required for Remote Proctoring" xml:space="preserve">
         <source>Permissions Required for Remote Proctoring</source>
+        <target>Zugriffsrechte erforderlich für Fernüberwachung. </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please Select Your Role" xml:space="preserve">
         <source>Please Select Your Role</source>
+        <target>Bitte wählen Sie Ihre Rolle</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." xml:space="preserve">
         <source>Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.</source>
+        <target>Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue): " xml:space="preserve">
-        <source>Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):
-</source>
+      <trans-unit id="Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" xml:space="preserve">
+        <source>Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</source>
+        <target>Bitte beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
@@ -7655,106 +7917,132 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Quit" xml:space="preserve">
         <source>Quit</source>
+        <target>Beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">
         <source>Quit Session</source>
+        <target>Session beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Re-enter Identity Admin Password" xml:space="preserve">
         <source>Re-enter Identity Admin Password</source>
+        <target>Admin-Passwort der Identität erneut eingeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Re-opening an exam which was locked before" xml:space="preserve">
         <source>Re-opening an exam which was locked before</source>
+        <target>Erneutes Starten einer zuvor unterbrochenen Prüfungssession</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode." xml:space="preserve">
         <source>Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.</source>
+        <target>Erneutes Starten einer zuvor unterbrochenen Prüfungssession, die aber nun kein Beenden-Passwort gesetzt hat und deswegen nicht im abgesicherten Modus läuft.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reading Settings Failed" xml:space="preserve">
         <source>Reading Settings Failed</source>
+        <target>Lesen der Einstellungen ist fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Received Config from MDM Server" xml:space="preserve">
         <source>Received Config from MDM Server</source>
+        <target>Konfiguration von MDM-Server empfangen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
         <source>Reload</source>
+        <target>Neu laden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload Page" xml:space="preserve">
         <source>Reload Page</source>
+        <target>Neu laden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload this page" xml:space="preserve">
         <source>Reload this page</source>
+        <target>Diese Seite neu laden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Remote Proctoring" xml:space="preserve">
         <source>Remote Proctoring</source>
+        <target>Fernüberwachung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Remote Proctoring Active" xml:space="preserve">
         <source>Remote Proctoring Active</source>
+        <target>Fernüberwachung ist aktiv</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Remote Proctoring Session" xml:space="preserve">
         <source>Remote Proctoring Session</source>
+        <target>Session mit Fernüberwachung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Remove" xml:space="preserve">
         <source>Remove</source>
+        <target>Entfernen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Removing Identity Failed!" xml:space="preserve">
         <source>Removing Identity Failed!</source>
+        <target>Entfernen der Identität fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reset Settings" xml:space="preserve">
         <source>Reset Settings</source>
+        <target>Einstellungen zurücksetzen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reset to Default Settings" xml:space="preserve">
         <source>Reset to Default Settings</source>
+        <target>Auf Voreinstellungen zurücksetzen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Restart" xml:space="preserve">
         <source>Restart</source>
+        <target>Neustart</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Restart Session" xml:space="preserve">
         <source>Restart Session</source>
+        <target>Session neu starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Retry" xml:space="preserve">
         <source>Retry</source>
+        <target>Wiederholen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Revert to Client Settings" xml:space="preserve">
         <source>Revert to Client Settings</source>
+        <target>Zurücksetzen auf Client-Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Right" xml:space="preserve">
         <source>Right</source>
+        <target>Rechts</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Running on Current iOS Version Not Allowed" xml:space="preserve">
         <source>Running on Current iOS Version Not Allowed</source>
+        <target>Benutzung auf aktueller iOS-Version nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Running on New iOS Version Not Allowed" xml:space="preserve">
         <source>Running on New iOS Version Not Allowed</source>
+        <target>Benutzung auf neuer iOS-Version nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
         <source>SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.</source>
+        <target>SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
         <source>SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.</source>
+        <target>SEB ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
@@ -7769,66 +8057,82 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="SSL" xml:space="preserve">
         <source>SSL</source>
+        <target>SSL</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SSL Certificate" xml:space="preserve">
         <source>SSL Certificate</source>
+        <target>SSL-Zertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Save unencrypted" xml:space="preserve">
         <source>Save unencrypted</source>
+        <target>Unverschlüsselt speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Saved file '%@'" xml:space="preserve">
         <source>Saved file '%@'</source>
+        <target>Datei '%@' speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
         <source>Scan %@ configuration QR code</source>
+        <target>%@-Konfigurations-QR-Code scannen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan Config QR Code" xml:space="preserve">
         <source>Scan Config QR Code</source>
+        <target>Konfigurations-QR-Code scannen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan QR Code" xml:space="preserve">
         <source>Scan QR Code</source>
+        <target>QR-Code scannen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scanning Config QR Code Failed" xml:space="preserve">
         <source>Scanning Config QR Code Failed</source>
+        <target>QR-Code scannen fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen capturing/sharing was started while running in secure mode" xml:space="preserve">
         <source>Screen capturing/sharing was started while running in secure mode</source>
+        <target>Bildschirmaufzeichnung/Teilen wurde während einer sicheren Session gestartet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen is Being Captured/Shared!" xml:space="preserve">
         <source>Screen is Being Captured/Shared!</source>
+        <target>Bildschirm wird aufgezeichnet/geteilt!</target>
         <note>Lockdown alert title text for screen is being captured/shared</note>
       </trans-unit>
       <trans-unit id="Scroll Lock" xml:space="preserve">
         <source>Scroll Lock</source>
+        <target>Scrollsperre</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Search Text" xml:space="preserve">
         <source>Search Text</source>
+        <target>Text suchen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Search text on web pages" xml:space="preserve">
         <source>Search text on web pages</source>
+        <target>Text auf Webseiten suchen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for %@ Configuration Canceled" xml:space="preserve">
         <source>Searching for %@ Configuration Canceled</source>
+        <target>Suche für %@-Konfiguration abgebrochen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file was canceled." xml:space="preserve">
         <source>Searching for a valid %@ config file was canceled.</source>
+        <target>Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching for a valid %@ config file …" xml:space="preserve">
         <source>Searching for a valid %@ config file …</source>
+        <target>Suche eine %@-Konfigurationsdatei …</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." xml:space="preserve">
@@ -7843,58 +8147,72 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Secure exam session was started, URL: " xml:space="preserve">
         <source>Secure exam session was started, URL: </source>
+        <target>Sichere Prüfungssession wurde gestartet, URL:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Secure session was started" xml:space="preserve">
         <source>Secure session was started</source>
+        <target>Sichere Session wurde gestartet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Select Exam" xml:space="preserve">
         <source>Select Exam</source>
+        <target>Prüfung auswählen</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
       <trans-unit id="Send %@ Logfiles" xml:space="preserve">
         <source>Send %@ Logfiles</source>
+        <target>%@ Logdateien senden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Send Log File" xml:space="preserve">
         <source>Send Log File</source>
+        <target>Logdatei senden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Send Logs to %@ Developers" xml:space="preserve">
         <source>Send Logs to %@ Developers</source>
+        <target>Logdateien an %@-Entwickler senden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Settings" xml:space="preserve">
         <source>Settings</source>
+        <target>Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Settings Actions" xml:space="preserve">
         <source>Settings Actions</source>
+        <target>Aktionen für Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Share" xml:space="preserve">
         <source>Share</source>
+        <target>Teilen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Share settings" xml:space="preserve">
         <source>Share settings</source>
+        <target>Einstellungen teilen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Share settings to see Key" xml:space="preserve">
         <source>Share settings to see Key</source>
+        <target>Einstellungen teilen, um den Schlüsselwert zu sehen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Show Remote Proctoring Information" xml:space="preserve">
         <source>Show Remote Proctoring Information</source>
+        <target>Information zu Fernüberwachung anzeigen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Show the next page" xml:space="preserve">
         <source>Show the next page</source>
+        <target>Nächste Seite anzeigen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Show the previous page" xml:space="preserve">
         <source>Show the previous page</source>
+        <target>Vorherige Seite anzeigen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
@@ -7904,22 +8222,27 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." xml:space="preserve">
         <source>Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.</source>
+        <target>Der Einzel-App-Modus konnte nicht gestartet werden. Sie müssen Ihr Gerät neu starten (iPad mit Face ID: Halten Sie eine der beiden Lautstärketasten und die obere Taste gedrückt, bis der Schieberegler zum Ausschalten erscheint. iPad mit Home-Taste: Halten Sie die obere Taste gedrückt, bis der Schieberegler zum Ausschalten angezeigt wird). Aktualisieren Sie iOS/iPadOS auf die neueste Version, um dieses Problem zu vermeiden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode needs to be reactivated before %@ can continue." xml:space="preserve">
         <source>Single App Mode needs to be reactivated before %@ can continue.</source>
+        <target>Der Einzel-App-Modus muss wieder aktiviert werden, bevor %@ fortfahren kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode switched off!" xml:space="preserve">
         <source>Single App Mode switched off!</source>
+        <target>Einzel-App-Modus ausgeschaltet!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode was switched on again." xml:space="preserve">
         <source>Single App Mode was switched on again.</source>
+        <target>Einzel-App-Modus wurde wieder eingeschaltet.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode/Guided Access Not Allowed" xml:space="preserve">
         <source>Single App Mode/Guided Access Not Allowed</source>
+        <target>Einzel-App-Modus/Geführter Zugriff (Guided Access) nicht erlaubt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
@@ -7934,10 +8257,12 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Start Another Exam" xml:space="preserve">
         <source>Start Another Exam</source>
+        <target>Weitere Prüfung starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Starting Exam" xml:space="preserve">
         <source>Starting Exam</source>
+        <target>Prüfung starten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Streaming Proxy (RTSP)" xml:space="preserve">
@@ -7947,14 +8272,18 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Student" xml:space="preserve">
         <source>Student</source>
+        <target>Studierende</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">
         <source>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</source>
+        <target>Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.
+</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
         <source>The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ proctoring server, your exam provider decides which proctoring service/server to use.</source>
+        <target>Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The device was in sleep mode for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
@@ -7964,54 +8293,67 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="The entered %@ admin password didn't match the one stored for this identity. Try again." xml:space="preserve">
         <source>The entered %@ admin password didn't match the one stored for this identity. Try again.</source>
+        <target>Das eingegebene %@-Admin-Passwort stimmt nicht mit dem für diese Identität gespeicherten Passwort überein. Versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity '%@' could not be removed from the Keychain." xml:space="preserve">
         <source>The identity '%@' could not be removed from the Keychain.</source>
+        <target>Die Identität '%@' konnte nicht aus dem Schlüsselbund entfernt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.</source>
+        <target>Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners." xml:space="preserve">
         <source>The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.</source>
+        <target>Die Fernüberwachungs-Ansicht wird zunächst in der rechten unteren Ecke angezeigt und kann in die anderen Bildschirmecken bewegt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The private key and certificate contained in the selected identity could not be exported. Try another identity." xml:space="preserve">
         <source>The private key and certificate contained in the selected identity could not be exported. Try another identity.</source>
+        <target>Der private Schlüssel und das Zertifikat, die in der ausgewählten Identität enthalten sind, konnten nicht exportiert werden. Versuchen Sie eine andere Identität.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The screen is being captured/shared. The exam cannot be started." xml:space="preserve">
         <source>The screen is being captured/shared. The exam cannot be started.</source>
+        <target>Bildschirm wird aufgezeichnet/geteilt. Die Prüfung kann nicht gestartet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
+        <target>Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
         <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
+        <target>Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
         <source>These settings are corrupted and cannot be used.</source>
+        <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." xml:space="preserve">
         <source>These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.</source>
+        <target>Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen %@-Version erstellt oder sind beschädigt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This device isn't configured for sending email." xml:space="preserve">
         <source>This device isn't configured for sending email.</source>
+        <target>Dieses Gerät ist nicht für den Versand von E-Mails konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:" xml:space="preserve">
         <source>This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:</source>
+        <target>Diese Identität wurde im Schlüsselbund gespeichert, während ein anderes %@ Administrator-Passwort als das aktuelle verwendet wurde. Geben Sie das mit der Identität verknüpfte Administrator-Passwort ein:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." xml:space="preserve">
         <source>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</source>
+        <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="To scan a QR code, enable the camera in settings" xml:space="preserve">
@@ -8026,6 +8368,7 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
         <source>Toggle Proctoring View</source>
+        <target>Fernüberwachungs-Fenster anzeigen/ausblenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Toggle Side Menu" xml:space="preserve">
@@ -8035,10 +8378,12 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Type" xml:space="preserve">
         <source>Type</source>
+        <target>Typ</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="URL Blocked!" xml:space="preserve">
         <source>URL Blocked!</source>
+        <target>Blockierte URL!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Unlock %@ with the quit password, which usually exam supervision/support knows." xml:space="preserve">
@@ -8048,46 +8393,57 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
+        <target>Unbenannt</target>
         <note>untitled filename</note>
       </trans-unit>
       <trans-unit id="Untitled Page" xml:space="preserve">
         <source>Untitled Page</source>
+        <target>Unbenannte Seite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Uploading" xml:space="preserve">
         <source>Uploading</source>
+        <target>Upload</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." xml:space="preserve">
         <source>Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.</source>
+        <target>Verwenden Sie den Identitätsnamen, der sich aus dem Dateinamen der aktuellen Konfiguration ergibt, oder geben Sie einen anderen ein. Er muss unter allen Identitäten einmalig sein.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Used third-party frameworks:" xml:space="preserve">
         <source>Used third-party frameworks:</source>
+        <target>Benutzte Dritthersteller-Bibliotheken:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="User Name" xml:space="preserve">
         <source>User Name</source>
+        <target>Username</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Verbose" xml:space="preserve">
         <source>Verbose</source>
+        <target>Alles</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
+        <target>Version</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Waiting For Single App Mode to End" xml:space="preserve">
         <source>Waiting For Single App Mode to End</source>
+        <target>Warten auf Ende des Einzel-App-Modus</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Waiting for Single App Mode" xml:space="preserve">
         <source>Waiting for Single App Mode</source>
+        <target>Warten auf Einzel-App-Modus</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Warning" xml:space="preserve">
         <source>Warning</source>
+        <target>Warnung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Web Proxy (HTTP)" xml:space="preserve">
@@ -8097,10 +8453,12 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="White on Black" xml:space="preserve">
         <source>White on Black</source>
+        <target>Weiss auf Schwarz</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Win" xml:space="preserve">
         <source>Win</source>
+        <target>Win</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Win: User agent for desktop mode" xml:space="preserve">
@@ -8115,83 +8473,102 @@ Trying to edit %2$@ settings yourself may block access to exams.</source>
       </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
         <source>Wrong password entered!</source>
+        <target>Falsches Passwort eingegeben!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the correct exam password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the correct exam password:</source>
+        <target>Falsches Passwort! Bitte das korrekte Prüfungspasswort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the correct password used to encrypt these settings:" xml:space="preserve">
         <source>Wrong password! Try again to enter the correct password used to encrypt these settings:</source>
+        <target>Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the current %@ administrator password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the current %@ administrator password:</source>
+        <target>Falsches Passwort! Bitte das korrekte %@ Administrator-Passwort erneut eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password! Try again to enter the quit password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the quit password:</source>
+        <target>Falsches Passwort! Bitte das korrekte Beenden-Passwort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only edit settings after entering the %@ administrator password:" xml:space="preserve">
         <source>You can only edit settings after entering the %@ administrator password:</source>
+        <target>Das aktuelle %@ Administrator-Passwort muss zum Editieren der Einstellungen eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only reconfigure by entering the current %@ administrator password:" xml:space="preserve">
         <source>You can only reconfigure by entering the current %@ administrator password:</source>
+        <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only reset settings after entering the %@ administrator password:" xml:space="preserve">
         <source>You can only reset settings after entering the %@ administrator password:</source>
+        <target>Das aktuelle %@ Administrator-Passwort muss zum Zurücksetzen der Einstellungen eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only send log files after entering the %@ administrator password:" xml:space="preserve">
         <source>You can only send log files after entering the %@ administrator password:</source>
+        <target>Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
+        <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can't send log files while in an exam session. Finish the exam first and try it again." xml:space="preserve">
         <source>You can't send log files while in an exam session. Finish the exam first and try it again.</source>
+        <target>Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct %@ administrator password." xml:space="preserve">
         <source>You didn't enter the correct %@ administrator password.</source>
+        <target>Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct current %@ administrator password." xml:space="preserve">
         <source>You didn't enter the correct current %@ administrator password.</source>
+        <target>Das korrekte aktuelle %@ Administrator-Passwort wurde nicht eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct exam password." xml:space="preserve">
         <source>You didn't enter the correct exam password.</source>
+        <target>Sie haben nicht das korrekte Prüfungspasswort eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You didn't enter the correct settings password." xml:space="preserve">
         <source>You didn't enter the correct settings password.</source>
-        <target></target>
+        <target>Sie haben nicht das korrekte Prüfungspasswort für diese Einstellungen eingegeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible %@ version." xml:space="preserve">
         <source>You either entered the wrong password or these settings were saved with an incompatible %@ version.</source>
+        <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen %@-Version erstellt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You need to enter the correct quit password for this command." xml:space="preserve">
         <source>You need to enter the correct quit password for this command.</source>
+        <target>Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.  You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.
-
-You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
+        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
+        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You will be able to work with other apps after Single App Mode is switched off by your administrator." xml:space="preserve">
         <source>You will be able to work with other apps after Single App Mode is switched off by your administrator.</source>
+        <target>Sie können mit anderen Apps arbeiten, nachdem der Einzel-App-Modus von Ihrem Administrator ausgeschaltet wurde.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Your device is now unlocked, you can exit %@ using the Home button/indicator.  Use the button below to start another exam session and lock the device again." xml:space="preserve">
-        <source>Your device is now unlocked, you can exit %@ using the Home button/indicator.
-
-Use the button below to start another exam session and lock the device again.</source>
+      <trans-unit id="Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again." xml:space="preserve">
+        <source>Your device is now unlocked, you can exit %1$@ using the Home button/indicator.%2$@Use the button below to start another exam session and lock the device again.</source>
+        <target>Ihr Gerät ist nun entsperrt, Sie können %1$@ mit der Home-Taste oder mittels vom unteren Bildschirmrand aus nach oben wischen verlassen.%2$@Verwenden Sie die Taste unten, um eine weitere Prüfungssitzung zu starten und das Gerät wieder zu sperren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." xml:space="preserve">
@@ -8216,26 +8593,32 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
       <trans-unit id="allow" xml:space="preserve">
         <source>allow</source>
+        <target>erlauben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="allow to use SEB only with service" xml:space="preserve">
         <source>allow to use SEB only with service</source>
+        <target>SEB darf nur mit Service laufen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="allow to use SEB without service" xml:space="preserve">
         <source>allow to use SEB without service</source>
+        <target>SEB darf ohne Service laufen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="block" xml:space="preserve">
         <source>block</source>
+        <target>blockieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="by attempting to upload same file downloaded before" xml:space="preserve">
         <source>by attempting to upload same file downloaded before</source>
+        <target>versuchen, die zuvor heruntergeladene Datei auszuwählen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="by only allowing to upload the same file downloaded before" xml:space="preserve">
         <source>by only allowing to upload the same file downloaded before</source>
+        <target>nur zuvor heruntergeladene Datei zulassen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="camera" xml:space="preserve">
@@ -8245,26 +8628,32 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
       <trans-unit id="encrypted with identity certificate " xml:space="preserve">
         <source>encrypted with identity certificate </source>
+        <target>verschlüsselt mit Identitätszertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="for Managed Configuration (MDM)" xml:space="preserve">
         <source>for Managed Configuration (MDM)</source>
+        <target>für verwaltete Konfiguration (MDM)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="for configuring clients" xml:space="preserve">
         <source>for configuring clients</source>
+        <target>zum Umkonfigurieren von Clients</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="for starting an exam" xml:space="preserve">
         <source>for starting an exam</source>
+        <target>zum Starten einer Prüfung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="get generally blocked" xml:space="preserve">
         <source>get generally blocked</source>
+        <target>werden generell blockiert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS 14" xml:space="preserve">
         <source>iOS 14</source>
+        <target>iOS 14</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -8274,46 +8663,57 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
       <trans-unit id="in Settings " xml:space="preserve">
         <source>in Settings </source>
+        <target>in der Einstellungen-App </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="macOS" xml:space="preserve">
         <source>macOS</source>
+        <target>macOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="manually with file requester" xml:space="preserve">
         <source>manually with file requester</source>
+        <target>manuell mit Dateidialog</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="microphone" xml:space="preserve">
         <source>microphone</source>
+        <target>Mikrofon</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
+        <target>in neuem Fenster öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in same window" xml:space="preserve">
         <source>open in same window</source>
+        <target>im selben Fenster öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="return to SEB and re" xml:space="preserve">
         <source>return to SEB and re</source>
+        <target>zu SEB zurückkehren und </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="the exam page" xml:space="preserve">
         <source>the exam page</source>
+        <target>die Prüfungsseite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="the webpage" xml:space="preserve">
         <source>the webpage</source>
+        <target>die Webseite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="untitled" xml:space="preserve">
         <source>untitled</source>
+        <target>Unbenannt</target>
         <note>untitled filename</note>
       </trans-unit>
       <trans-unit id="warn when service is not running" xml:space="preserve">
         <source>warn when service is not running</source>
+        <target>Warnen, wenn der Service nicht läuft</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
     </body>
@@ -8325,27 +8725,32 @@ Use the button below to start another exam session and lock the device again.</s
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
         <source>SEB</source>
+        <target>SEB</target>
         <note>Bundle display name</note>
       </trans-unit>
       <trans-unit id="CFBundleName" xml:space="preserve">
         <source>SEB</source>
+        <target>SEB</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="Gzip Archive (SEB files are gzipped)" xml:space="preserve">
         <source>Gzip Archive (SEB files are gzipped)</source>
+        <target>Gzip-Archiv (SEB-Dateien sind mittels Gzip komprimiert)</target>
         <note/>
       </trans-unit>
       <trans-unit id="NSBluetoothPeripheralUsageDescription" xml:space="preserve">
         <source>SEB uses Bluetooth for Jitsi Meet</source>
+        <target>SEB benutzt Bluetooth für Jitsi Meet</target>
         <note>Privacy - Bluetooth Peripheral Usage Description</note>
       </trans-unit>
       <trans-unit id="NSCalendarsUsageDescription" xml:space="preserve">
         <source>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.</source>
+        <target>Die eingebaute Jitsi-Meet-Unterstützung könnte auf Ihren Kalender zugreifen, um Einträge für Meetings zu erstellen. Diese Funktion wird aber in SEB nicht benutzt. </target>
         <note>Privacy - Calendars Usage Description</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
         <source>Camera is needed to scan QR codes and for remote proctoring</source>
-        <target>Kamerazugriff ist notwendig, um SEB-Konfigurations-QR-Codes einzulesen und für Remote Proctoring (falls dieses von Ihrem Prüfungsveranstalter unterstützt/benutzt wird)</target>
+        <target>Kamerazugriff ist notwendig, um SEB-Konfigurations-QR-Codes einzulesen und für Fernüberwachung (falls diese von Ihrem Prüfungsveranstalter unterstützt/benutzt wird)</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
@@ -8360,33 +8765,39 @@ Use the button below to start another exam session and lock the device again.</s
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
         <source>Microphone access is required for remote proctoring.</source>
+        <target>Mikrofonzugriff ist notwendig für Fernüberwachung.</target>
         <note>Privacy - Microphone Usage Description</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
         <source>Safe Exam Browser Configuration</source>
+        <target>Safe Exam Browser Konfiguration</target>
         <note/>
       </trans-unit>
     </body>
   </file>
-  <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" datatype="plaintext" source-language="en" target-language="de">
+  <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
       <trans-unit id="Enabled" xml:space="preserve">
         <source>Enabled</source>
+        <target>Zugelassen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Group" xml:space="preserve">
         <source>Group</source>
+        <target>Gruppe</target>
         <note>A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
+        <target>Name</target>
         <note/>
       </trans-unit>
       <trans-unit id="none given" xml:space="preserve">
         <source>none given</source>
+        <target>Keine</target>
         <note/>
       </trans-unit>
     </body>

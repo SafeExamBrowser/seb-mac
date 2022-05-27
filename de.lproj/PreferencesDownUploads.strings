@@ -52,6 +52,12 @@
 /* Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP"; */
 "AAd-LS-TUP.ibShadowedToolTip" = "Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt";
 
+/* Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "GVV-cO-HOP"; */
+"GVV-cO-HOP.ibShadowedToolTip" = "SEB zeigt einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann ein beliebiges lokales Dateiverzeichnis auswählen";
+
+/* Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory"; ObjectID = "I9g-6o-a5B"; */
+"I9g-6o-a5B.title" = "Benutzer darf Upload/Download-Verzeichnis auswählen";
+
 /* Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF"; */
 "zhK-R4-XtF.title" = "Acrobat Reader PDF Plug-In erlauben (unsicher)";
 

@@ -106,6 +106,9 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Full SEB Server URL (starting with http:// or https://)"; ObjectID = "upZ-Jd-MXz"; */
 "upZ-Jd-MXz.ibShadowedToolTip" = "Vollständige SEB Server URL (beginnend mit http:// oder https://)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field"; ObjectID = "WYv-t7-2PL"; */
+"WYv-t7-2PL.ibShadowedToolTip" = "SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das SEB Server URL-Feld eingefügt";
+
 /* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "ZPd-eH-wpn"; */
 "ZPd-eH-wpn.placeholderString" = "URL beginnend mit http:// oder https://";
 
