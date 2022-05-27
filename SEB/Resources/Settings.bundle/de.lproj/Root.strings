@@ -1,12 +1,27 @@
 /* (No Comment) */
-"Enabled" = "Zugelassen";
+"Allow Editing" = "Bearbeiten erlauben";
 
-/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
-"Group" = "Gruppe";
-
-/* (No Comment) */
-"Name" = "Name";
+/* String for Title elements */
+"Edit SEB Client Settings" = "SEB Client-Einstellungen bearbeiten";
 
 /* (No Comment) */
-"none given" = "Keine";
+"Initiate Sending Logs" = "Senden von Logdateien einleiten";
+
+/* (No Comment) */
+"Initiate Settings Reset" = "Zurücksetzen der Einstellungen einleiten";
+
+/* (No Comment) */
+"Reset SEB Client Settings" = "SEB Client-Einstellungen zurücksetzen";
+
+/* (No Comment) */
+"Send SEB Logs" = "SEB-Logdateien senden";
+
+/* String for FooterText arrays elements */
+"You can edit settings after opening SEB." = "Sie können die Einstellungen nach dem Öffnen von SEB bearbeiten.";
+
+/* (No Comment) */
+"You can reset settings after opening SEB to allow the initial configuration to be set again." = "Sie können die Einstellungen nach dem Öffnen von SEB zurücksetzen, um zur Anfangskonfiguration zurückzukehren.";
+
+/* (No Comment) */
+"You can send log files by email after opening SEB." = "Sie können nach dem Öffnen von SEB Logdateien per E-Mail versenden.";
 
