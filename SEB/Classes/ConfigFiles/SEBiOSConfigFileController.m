@@ -251,7 +251,7 @@
 //        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
 //    }
 //    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
-//                                                                message:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
+//                                                                message:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]
 //                                                         preferredStyle:UIAlertControllerStyleAlert];
 //    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
 //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
