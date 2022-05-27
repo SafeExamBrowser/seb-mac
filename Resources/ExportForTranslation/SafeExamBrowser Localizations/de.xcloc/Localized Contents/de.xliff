@@ -3097,7 +3097,7 @@
       </trans-unit>
       <trans-unit id="1241.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1241";</note>
       </trans-unit>
       <trans-unit id="1259.title" xml:space="preserve">
@@ -3132,7 +3132,7 @@
       </trans-unit>
       <trans-unit id="1530.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1530";</note>
       </trans-unit>
       <trans-unit id="1531.title" xml:space="preserve">
@@ -3167,7 +3167,7 @@
       </trans-unit>
       <trans-unit id="1571.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1571";</note>
       </trans-unit>
       <trans-unit id="1572.title" xml:space="preserve">
@@ -3202,7 +3202,7 @@
       </trans-unit>
       <trans-unit id="1612.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1612";</note>
       </trans-unit>
       <trans-unit id="1613.title" xml:space="preserve">
@@ -3237,7 +3237,7 @@
       </trans-unit>
       <trans-unit id="1653.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1653";</note>
       </trans-unit>
       <trans-unit id="1654.title" xml:space="preserve">
@@ -3921,7 +3921,7 @@
       </trans-unit>
       <trans-unit id="Rgp-1k-Eaw.title" xml:space="preserve">
         <source>Enable Change a password</source>
-        <target>Kennwort ändern erlauben</target>
+        <target>Passwort ändern erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Change a password"; ObjectID = "Rgp-1k-Eaw";</note>
       </trans-unit>
       <trans-unit id="SZK-Aw-k1e.ibShadowedToolTip" xml:space="preserve">
@@ -6960,6 +6960,98 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
+  <file original="SEB/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Admin Password" xml:space="preserve">
+        <source>Admin Password</source>
+        <target>Administrator-Passwort</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Features" xml:space="preserve">
+        <source>Browser Features</source>
+        <target>Browser-Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Config File" xml:space="preserve">
+        <source>Config File</source>
+        <target>Konfigurationsdatei</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Downloads" xml:space="preserve">
+        <source>Downloads</source>
+        <target>Downloads</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Exam Session" xml:space="preserve">
+        <source>Exam Session</source>
+        <target>Prüfungssession</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full URL" xml:space="preserve">
+        <source>Full URL</source>
+        <target>Vollständige URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="General" xml:space="preserve">
+        <source>General</source>
+        <target>General</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Network" xml:space="preserve">
+        <source>Network</source>
+        <target>Netzwerk</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Quit Password" xml:space="preserve">
+        <source>Quit Password</source>
+        <target>Beenden-Passwort</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remote Proctoring" xml:space="preserve">
+        <source>Remote Proctoring</source>
+        <target>Fernüberwachung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restricts editing settings" xml:space="preserve">
+        <source>Restricts editing settings</source>
+        <target>Schränkt die Bearbeitung der Einstellungen ein</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB Server" xml:space="preserve">
+        <source>SEB Server</source>
+        <target>SEB Server</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Security" xml:space="preserve">
+        <source>Security</source>
+        <target>Sicherheit</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Set to run in secure mode" xml:space="preserve">
+        <source>Set to run in secure mode</source>
+        <target>Setzen, damit SEB im sicheren Modus läuft</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Start URL" xml:space="preserve">
+        <source>Start URL</source>
+        <target>Start-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="User Interface" xml:space="preserve">
+        <source>User Interface</source>
+        <target>Benutzeroberfläche</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set." xml:space="preserve">
+        <source>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</source>
+        <target>Ohne Start-URL zeigt SEB den Erstkonfigurationsassistenten an. Setzen Sie immer ein Administrator-Passwort für SEB, um die Einstellungen vor Änderungen zu schützen. SEB läuft nur im Einzel-App-Modus, wenn das Beenden-Passwort gesetzt ist.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
@@ -8780,24 +8872,49 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
-      <trans-unit id="Enabled" xml:space="preserve">
-        <source>Enabled</source>
-        <target>Zugelassen</target>
+      <trans-unit id="Allow Editing" xml:space="preserve">
+        <source>Allow Editing</source>
+        <target>Bearbeiten erlauben</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Group" xml:space="preserve">
-        <source>Group</source>
-        <target>Gruppe</target>
-        <note>A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences.</note>
+      <trans-unit id="Edit SEB Client Settings" xml:space="preserve">
+        <source>Edit SEB Client Settings</source>
+        <target>SEB Client-Einstellungen bearbeiten</target>
+        <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="Name" xml:space="preserve">
-        <source>Name</source>
-        <target>Name</target>
+      <trans-unit id="Initiate Sending Logs" xml:space="preserve">
+        <source>Initiate Sending Logs</source>
+        <target>Senden von Logdateien einleiten</target>
         <note/>
       </trans-unit>
-      <trans-unit id="none given" xml:space="preserve">
-        <source>none given</source>
-        <target>Keine</target>
+      <trans-unit id="Initiate Settings Reset" xml:space="preserve">
+        <source>Initiate Settings Reset</source>
+        <target>Zurücksetzen der Einstellungen einleiten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reset SEB Client Settings" xml:space="preserve">
+        <source>Reset SEB Client Settings</source>
+        <target>SEB Client-Einstellungen zurücksetzen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Send SEB Logs" xml:space="preserve">
+        <source>Send SEB Logs</source>
+        <target>SEB-Logdateien senden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can edit settings after opening SEB." xml:space="preserve">
+        <source>You can edit settings after opening SEB.</source>
+        <target>Sie können die Einstellungen nach dem Öffnen von SEB bearbeiten.</target>
+        <note>String for FooterText arrays elements</note>
+      </trans-unit>
+      <trans-unit id="You can reset settings after opening SEB to allow the initial configuration to be set again." xml:space="preserve">
+        <source>You can reset settings after opening SEB to allow the initial configuration to be set again.</source>
+        <target>Sie können die Einstellungen nach dem Öffnen von SEB zurücksetzen, um zur Anfangskonfiguration zurückzukehren.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can send log files by email after opening SEB." xml:space="preserve">
+        <source>You can send log files by email after opening SEB.</source>
+        <target>Sie können nach dem Öffnen von SEB Logdateien per E-Mail versenden.</target>
         <note/>
       </trans-unit>
     </body>

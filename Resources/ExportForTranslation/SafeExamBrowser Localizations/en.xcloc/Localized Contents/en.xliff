@@ -6902,6 +6902,98 @@
       </trans-unit>
     </body>
   </file>
+  <file original="SEB/en.lproj/Root.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Admin Password" xml:space="preserve">
+        <source>Admin Password</source>
+        <target>Admin Password</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Features" xml:space="preserve">
+        <source>Browser Features</source>
+        <target>Browser Features</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Config File" xml:space="preserve">
+        <source>Config File</source>
+        <target>Config File</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Downloads" xml:space="preserve">
+        <source>Downloads</source>
+        <target>Downloads</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Exam Session" xml:space="preserve">
+        <source>Exam Session</source>
+        <target>Exam Session</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full URL" xml:space="preserve">
+        <source>Full URL</source>
+        <target>Full URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="General" xml:space="preserve">
+        <source>General</source>
+        <target>General</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Network" xml:space="preserve">
+        <source>Network</source>
+        <target>Network</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Quit Password" xml:space="preserve">
+        <source>Quit Password</source>
+        <target>Quit Password</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remote Proctoring" xml:space="preserve">
+        <source>Remote Proctoring</source>
+        <target>Remote Proctoring</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restricts editing settings" xml:space="preserve">
+        <source>Restricts editing settings</source>
+        <target>Restricts editing settings</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB Server" xml:space="preserve">
+        <source>SEB Server</source>
+        <target>SEB Server</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Security" xml:space="preserve">
+        <source>Security</source>
+        <target>Security</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Set to run in secure mode" xml:space="preserve">
+        <source>Set to run in secure mode</source>
+        <target>Set to run in secure mode</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Start URL" xml:space="preserve">
+        <source>Start URL</source>
+        <target>Start URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="User Interface" xml:space="preserve">
+        <source>User Interface</source>
+        <target>User Interface</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set." xml:space="preserve">
+        <source>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</source>
+        <target>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
@@ -8721,24 +8813,49 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
-      <trans-unit id="Enabled" xml:space="preserve">
-        <source>Enabled</source>
-        <target>Enabled</target>
+      <trans-unit id="Allow Editing" xml:space="preserve">
+        <source>Allow Editing</source>
+        <target>Allow Editing</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Group" xml:space="preserve">
-        <source>Group</source>
-        <target>Group</target>
-        <note>A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences.</note>
+      <trans-unit id="Edit SEB Client Settings" xml:space="preserve">
+        <source>Edit SEB Client Settings</source>
+        <target>Edit SEB Client Settings</target>
+        <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="Name" xml:space="preserve">
-        <source>Name</source>
-        <target>Name</target>
+      <trans-unit id="Initiate Sending Logs" xml:space="preserve">
+        <source>Initiate Sending Logs</source>
+        <target>Initiate Sending Logs</target>
         <note/>
       </trans-unit>
-      <trans-unit id="none given" xml:space="preserve">
-        <source>none given</source>
-        <target>none given</target>
+      <trans-unit id="Initiate Settings Reset" xml:space="preserve">
+        <source>Initiate Settings Reset</source>
+        <target>Initiate Settings Reset</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reset SEB Client Settings" xml:space="preserve">
+        <source>Reset SEB Client Settings</source>
+        <target>Reset SEB Client Settings</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Send SEB Logs" xml:space="preserve">
+        <source>Send SEB Logs</source>
+        <target>Send SEB Logs</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can edit settings after opening SEB." xml:space="preserve">
+        <source>You can edit settings after opening SEB.</source>
+        <target>You can edit settings after opening SEB.</target>
+        <note>String for FooterText arrays elements</note>
+      </trans-unit>
+      <trans-unit id="You can reset settings after opening SEB to allow the initial configuration to be set again." xml:space="preserve">
+        <source>You can reset settings after opening SEB to allow the initial configuration to be set again.</source>
+        <target>You can reset settings after opening SEB to allow the initial configuration to be set again.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can send log files by email after opening SEB." xml:space="preserve">
+        <source>You can send log files by email after opening SEB.</source>
+        <target>You can send log files by email after opening SEB.</target>
         <note/>
       </trans-unit>
     </body>

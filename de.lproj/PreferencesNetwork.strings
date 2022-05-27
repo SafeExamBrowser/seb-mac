@@ -119,7 +119,7 @@
 "1233.title" = ":";
 
 /* Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1241"; */
-"1241.title" = "Kennwort für den Proxy-Server erforderlich";
+"1241.title" = "Passwort für den Proxy-Server erforderlich";
 
 /* Class = "NSTextFieldCell"; title = "Username:"; ObjectID = "1259"; */
 "1259.title" = "Benutzername:";
@@ -140,7 +140,7 @@
 "1527.title" = "Benutzername:";
 
 /* Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1530"; */
-"1530.title" = "Kennwort für den Proxy-Server erforderlich";
+"1530.title" = "Passwort für den Proxy-Server erforderlich";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "1531"; */
 "1531.title" = ":";
@@ -161,7 +161,7 @@
 "1568.title" = "Benutzername:";
 
 /* Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1571"; */
-"1571.title" = "Kennwort für den Proxy-Server erforderlich";
+"1571.title" = "Passwort für den Proxy-Server erforderlich";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "1572"; */
 "1572.title" = ":";
@@ -182,7 +182,7 @@
 "1609.title" = "Benutzername:";
 
 /* Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1612"; */
-"1612.title" = "Kennwort für den Proxy-Server erforderlich";
+"1612.title" = "Passwort für den Proxy-Server erforderlich";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "1613"; */
 "1613.title" = ":";
@@ -203,7 +203,7 @@
 "1650.title" = "Benutzername:";
 
 /* Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1653"; */
-"1653.title" = "Kennwort für den Proxy-Server erforderlich";
+"1653.title" = "Passwort für den Proxy-Server erforderlich";
 
 /* Class = "NSTextFieldCell"; title = ":"; ObjectID = "1654"; */
 "1654.title" = ":";
