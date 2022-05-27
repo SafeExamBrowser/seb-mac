@@ -8780,24 +8780,49 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
-      <trans-unit id="Enabled" xml:space="preserve">
-        <source>Enabled</source>
-        <target>Zugelassen</target>
+      <trans-unit id="Allow Editing" xml:space="preserve">
+        <source>Allow Editing</source>
+        <target>Bearbeiten erlauben</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Group" xml:space="preserve">
-        <source>Group</source>
-        <target>Gruppe</target>
-        <note>A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences.</note>
+      <trans-unit id="Edit SEB Client Settings" xml:space="preserve">
+        <source>Edit SEB Client Settings</source>
+        <target>SEB Client-Einstellungen bearbeiten</target>
+        <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="Name" xml:space="preserve">
-        <source>Name</source>
-        <target>Name</target>
+      <trans-unit id="Initiate Sending Logs" xml:space="preserve">
+        <source>Initiate Sending Logs</source>
+        <target>Senden von Logdateien einleiten</target>
         <note/>
       </trans-unit>
-      <trans-unit id="none given" xml:space="preserve">
-        <source>none given</source>
-        <target>Keine</target>
+      <trans-unit id="Initiate Settings Reset" xml:space="preserve">
+        <source>Initiate Settings Reset</source>
+        <target>Zurücksetzen der Einstellungen einleiten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reset SEB Client Settings" xml:space="preserve">
+        <source>Reset SEB Client Settings</source>
+        <target>SEB Client-Einstellungen zurücksetzen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Send SEB Logs" xml:space="preserve">
+        <source>Send SEB Logs</source>
+        <target>SEB-Logdateien senden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can edit settings after opening SEB." xml:space="preserve">
+        <source>You can edit settings after opening SEB.</source>
+        <target>Sie können die Einstellungen nach dem Öffnen von SEB bearbeiten.</target>
+        <note>String for FooterText arrays elements</note>
+      </trans-unit>
+      <trans-unit id="You can reset settings after opening SEB to allow the initial configuration to be set again." xml:space="preserve">
+        <source>You can reset settings after opening SEB to allow the initial configuration to be set again.</source>
+        <target>Sie können die Einstellungen nach dem Öffnen von SEB zurücksetzen, um zur Anfangskonfiguration zurückzukehren.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can send log files by email after opening SEB." xml:space="preserve">
+        <source>You can send log files by email after opening SEB.</source>
+        <target>Sie können nach dem Öffnen von SEB Logdateien per E-Mail versenden.</target>
         <note/>
       </trans-unit>
     </body>
