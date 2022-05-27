@@ -53,7 +53,7 @@
 "bTx-tu-6Av.placeholderString" = "URL beginnend mit http:// oder https://";
 
 /* Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k"; */
-"czI-08-Q8k.title" = "Zurück zum Start Taste";
+"czI-08-Q8k.title" = "'Zurück zum Start'-Taste";
 
 /* Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi"; */
 "dN3-5O-Rpi.title" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration (während die Client-Konfiguration benutzt wird oder während einer Prüfungssession). Falls die laufende Session ein Beenden-Passwort gesetzt hat, muss die erlaubte URL für die neue Prüfungskonfigurationsdatei im Feld 'Rekonfigurations-URL' angegeben werden (Wildcard-Zeichen '*' kann benutzt werden).";

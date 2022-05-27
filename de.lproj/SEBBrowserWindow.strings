@@ -103,6 +103,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again"; ObjectID = "ig8-v8-XUJ"; */
 "ig8-v8-XUJ.ibShadowedToolTip" = "Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an";
 
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN"; */
+"jEa-eM-FvN.title" = "OK";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ"; */
 "jnc-il-FuZ.ibShadowedToolTip" = "Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
@@ -129,6 +132,12 @@
 
 /* Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h"; */
 "Poj-9Z-f7h.title" = "www.host.com/path";
+
+/* Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Page Out"; ObjectID = "qkO-f0-59m"; */
+"qkO-f0-59m.ibShadowedLabels[0]" = "Seiteninhalt verkleinern";
+
+/* Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom Page In"; ObjectID = "qkO-f0-59m"; */
+"qkO-f0-59m.ibShadowedLabels[1]" = "Seiteninhalt vergrössern";
 
 /* Class = "NSButtonCell"; title = "Done"; ObjectID = "RPl-Pj-8QJ"; */
 "RPl-Pj-8QJ.title" = "Fertig";

@@ -183,7 +183,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Administrators", nil)
-                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.\nGeneral instructions on how to configure %@ can be found on %@.", nil), SEBShortAppName, SEBShortAppName, SEBWebsiteShort]
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@.", nil), SEBShortAppName, @"\n", SEBShortAppName, SEBWebsiteShort]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -213,7 +213,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Students", nil)
-                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.\nTrying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, SEBShortAppName]
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, @"\n", SEBShortAppName]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
