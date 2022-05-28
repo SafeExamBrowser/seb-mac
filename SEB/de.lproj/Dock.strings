@@ -1,0 +1,36 @@
+/* (No Comment) */
+"Dock Command Items" = "Dock-Funktionen";
+
+/* String for FooterText elements */
+"Left slider menu can always be accessed by swiping right from the left display edge." = "Das linke Seitenmenü kann immer durch Wischen nach rechts vom linken Displayrand aus aufgerufen werden.";
+
+/* String for Title elements */
+"SEB Dock" = "SEB-Dock";
+
+/* (No Comment) */
+"Show Back to Start Button" = "Taste 'Zurück zum Start' anzeigen";
+
+/* (No Comment) */
+"Show Dock" = "Dock anzeigen";
+
+/* (No Comment) */
+"Show Navigation Buttons" = "Navigations-Tasten anzeigen";
+
+/* (No Comment) */
+"Show Proctoring Button" = "Taste Fernüberwachung anzeigen";
+
+/* (No Comment) */
+"Show Quit Button" = "Taste Beenden anzeigen";
+
+/* (No Comment) */
+"Show Reload Button" = "Neuladen-Taste anzeigen";
+
+/* (No Comment) */
+"Show Scan QR Code Button" = "Taste QR-Code scannen anzeigen";
+
+/* (No Comment) */
+"Show Scroll Lock Button" = "Taste Scrollsperre anzeigen";
+
+/* (No Comment) */
+"The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." = "Die oben aktivierten Befehle werden im SEB-Dock angezeigt, wenn ihre Funktionalität ebenfalls aktiviert ist (Benutzeroberfläche / Scrollsperre aktivieren, Prüfung / Zurück zum Start Taste / Start-URL oder benutzerdefinierte URL verwenden, Browser-Funktionen / Navigation zulassen & Neuladen zulassen, Remote Proctoring / Jitsi Meet aktivieren, Config File / QR-Code-Konfiguration zulassen). Wenn die oben genannten Befehle nicht aktiviert sind, werden sie in der (aktivierten) Browser-Symbolleiste oder im Seitenmenü angezeigt.";
+

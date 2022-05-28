@@ -185,7 +185,7 @@
 "GQb-uN-fJO.title" = "Print Screen erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG"; */
-"HN5-u7-3UG.ibShadowedToolTip" = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Kioskmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
+"HN5-u7-3UG.ibShadowedToolTip" = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
 
 /* Class = "NSTextFieldCell"; title = "maximum allowed number of connected displays"; ObjectID = "hpd-SM-vcA"; */
 "hpd-SM-vcA.title" = "maximal erlaubte Bildschirme";

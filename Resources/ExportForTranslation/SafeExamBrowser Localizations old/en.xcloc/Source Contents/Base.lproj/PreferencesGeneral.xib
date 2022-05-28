@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PrefsGeneralViewController">
+            <connections>
+                <outlet property="adminPasswordField" destination="93" id="391"/>
+                <outlet property="confirmAdminPasswordField" destination="78" id="392"/>
+                <outlet property="confirmQuitPasswordField" destination="83" id="394"/>
+                <outlet property="controller" destination="115" id="165"/>
+                <outlet property="pasteSavedStringFromPasteboardButton" destination="194" id="197"/>
+                <outlet property="pasteSavedStringFromPasteboardToServerURLButton" destination="WYv-t7-2PL" id="Cof-gW-mFu"/>
+                <outlet property="quitPasswordField" destination="79" id="393"/>
+                <outlet property="sebServerURL" destination="upZ-Jd-MXz" id="u3v-XR-0Gy"/>
+                <outlet property="startURL" destination="255" id="390"/>
+                <outlet property="view" destination="1" id="2"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="1" userLabel="General Preferences">
+            <rect key="frame" x="0.0" y="0.0" width="650" height="452"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="blA-jK-DKV">
+                    <rect key="frame" x="20" y="20" width="610" height="412"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="-4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HVv-6e-AIi">
+                            <rect key="frame" x="0.0" y="333" width="610" height="79"/>
+                            <subviews>
+                                <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q2D-1S-2WB">
+                                    <rect key="frame" x="43" y="36" width="567" height="43"/>
+                                    <subviews>
+                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x61-lR-iN0">
+                                            <rect key="frame" x="0.0" y="22" width="567" height="21"/>
+                                            <subviews>
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                                                    <rect key="frame" x="-2" y="3" width="63" height="16"/>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Start URL" id="106">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <textField toolTip="Full URL (starting with http:// or https://) of the page to open when SEB is started." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="255">
+                                                    <rect key="frame" x="67" y="0.0" width="500" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="500" id="qcf-It-h9X"/>
+                                                    </constraints>
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" usesSingleLineMode="YES" id="256">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <connections>
+                                                        <accessibilityConnection property="title" destination="85" id="t3m-bt-0l5"/>
+                                                        <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_startURL" id="z54-4d-hC3">
+                                                            <dictionary key="options">
+                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <outlet property="nextKeyView" destination="93" id="nbV-Az-no4"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="194">
+                                            <rect key="frame" x="419" y="0.0" width="148" height="21"/>
+                                            <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="410"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="recessed" title="Paste from saved clipboard" bezelStyle="recessed" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="195">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu" size="11"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="pasteSavedStringFromPasteboard:" target="-2" id="196"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="x61-lR-iN0" secondAttribute="trailing" id="GZa-qr-7wA"/>
+                                        <constraint firstItem="x61-lR-iN0" firstAttribute="leading" secondItem="Q2D-1S-2WB" secondAttribute="leading" id="Ka2-bA-NUq"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dbe-8C-WRt">
+                                    <rect key="frame" x="0.0" y="0.0" width="610" height="40"/>
+                                    <subviews>
+                                        <matrix toolTip="Indicates if SEB will use local settings and load the start URL or if it will try to connect to the SEB Server" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18i-Ih-TGG">
+                                            <rect key="frame" x="3" y="0.0" width="294" height="40"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="cellSize" width="460" height="18"/>
+                                            <size key="intercellSpacing" width="4" height="4"/>
+                                            <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="NDo-8Q-Oxa">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <cells>
+                                                <column>
+                                                    <buttonCell type="radio" title="Load Start URL" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="jBe-dB-U1U">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <accessibility description="Load Start URL"/>
+                                                    </buttonCell>
+                                                    <buttonCell type="radio" title="Connect to SEB Server" imagePosition="left" alignment="left" inset="2" id="d6u-EM-bnR">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                        <accessibility description="Connect to SEB Server"/>
+                                                    </buttonCell>
+                                                </column>
+                                            </cells>
+                                            <accessibility description="SEB connection mode"/>
+                                            <connections>
+                                                <binding destination="228" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebMode" id="uDt-S8-0Dv"/>
+                                            </connections>
+                                        </matrix>
+                                        <button toolTip="SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="412">
+                                            <rect key="frame" x="315" y="11" width="295" height="18"/>
+                                            <buttonCell key="cell" type="check" title="SEB Server Fallback (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="413">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_sebServerFallback" id="LZ1-1X-3Lt"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <edgeInsets key="edgeInsets" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                    <constraints>
+                                        <constraint firstItem="18i-Ih-TGG" firstAttribute="leading" secondItem="Dbe-8C-WRt" secondAttribute="leading" constant="3" id="UyF-ud-9tM"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Dbe-8C-WRt" secondAttribute="trailing" id="Nqn-l2-cVy"/>
+                                <constraint firstItem="Dbe-8C-WRt" firstAttribute="leading" secondItem="HVv-6e-AIi" secondAttribute="leading" id="yQd-g0-sZE"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCT-io-FQH">
+                            <rect key="frame" x="5" y="272" width="605" height="43"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ldi-10-Snb">
+                                    <rect key="frame" x="0.0" y="22" width="605" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="srq-q5-UTB">
+                                            <rect key="frame" x="-2" y="3" width="101" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="SEB Server URL" id="JvD-qA-qAF">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField toolTip="Full SEB Server URL (starting with http:// or https://)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="upZ-Jd-MXz">
+                                            <rect key="frame" x="105" y="0.0" width="500" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="500" id="Rxg-Oc-A65"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" usesSingleLineMode="YES" id="ZPd-eH-wpn">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="srq-q5-UTB" id="JZl-gB-Y6N"/>
+                                                <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_sebServerURL" id="R8a-kM-LEJ">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                        <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <outlet property="nextKeyView" destination="93" id="FTt-eV-sYb"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="WYv-t7-2PL">
+                                    <rect key="frame" x="457" y="0.0" width="148" height="21"/>
+                                    <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</string>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="eFK-57-o98"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="recessed" title="Paste from saved clipboard" bezelStyle="recessed" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="j7I-dg-7wv">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu" size="11"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="pasteSavedStringFromPasteboardToServerURL:" target="-2" id="7tP-ga-M5u"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bHJ-AZ-g9M">
+                            <rect key="frame" x="58" y="183" width="552" height="71"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f0H-zg-r9F">
+                                    <rect key="frame" x="50" y="50" width="502" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="80">
+                                            <rect key="frame" x="-2" y="3" width="148" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Administrator password" id="111">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField toolTip="Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="93">
+                                            <rect key="frame" x="152" y="0.0" width="350" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="350" id="357"/>
+                                            </constraints>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="98">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="80" id="avb-Ah-2fK"/>
+                                                <binding destination="115" name="value" keyPath="selection.adminPassword" id="126">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CWO-CF-llj">
+                                    <rect key="frame" x="0.0" y="23" width="552" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="81">
+                                            <rect key="frame" x="-2" y="3" width="198" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm administrator password" id="110">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField toolTip="Retype the administrator password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                                            <rect key="frame" x="202" y="0.0" width="350" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="350" id="AVd-oq-4ej"/>
+                                            </constraints>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="113">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="81" id="Xkl-cu-vGO"/>
+                                                <binding destination="115" name="value" keyPath="selection.confirmAdminPassword" id="129">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <outlet property="nextKeyView" destination="79" id="tJo-WV-rBZ"/>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="90">
+                                    <rect key="frame" x="347" y="0.0" width="207" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="264"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="101">
+                                        <font key="font" metaFont="menu" size="11"/>
+                                        <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="115" name="value" keyPath="selection.compareAdminPasswords" id="132">
+                                            <dictionary key="options">
+                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="92">
+                            <rect key="frame" x="3" y="148" width="607" height="18"/>
+                            <string key="toolTip">Users can quit SEB with Command-Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer</string>
+                            <buttonCell key="cell" type="check" title="Allow user to quit SEB" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="99">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="228" name="value" keyPath="values.org_safeexambrowser_SEB_allowQuit" id="245"/>
+                            </connections>
+                        </button>
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z43-b9-v3f">
+                            <rect key="frame" x="71" y="60" width="539" height="71"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWf-kA-UyD">
+                                    <rect key="frame" x="50" y="50" width="489" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="82">
+                                            <rect key="frame" x="-2" y="3" width="135" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Quit/unlock password" id="109">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="79">
+                                            <rect key="frame" x="139" y="0.0" width="350" height="21"/>
+                                            <string key="toolTip">This password is prompted when users try to quit SEB and when the Back to Start Button is pressed. Not prompted when using a quit link</string>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="350" id="NaP-zb-bC0"/>
+                                            </constraints>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="112">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="82" id="WP9-rL-qJA"/>
+                                                <binding destination="115" name="value" keyPath="selection.quitPassword" id="135">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="228" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowQuit" id="387">
+                                                    <dictionary key="options">
+                                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <outlet property="nextKeyView" destination="83" id="hBi-mi-AMC"/>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iCf-6P-Hfv">
+                                    <rect key="frame" x="0.0" y="23" width="539" height="21"/>
+                                    <subviews>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                                            <rect key="frame" x="-2" y="3" width="185" height="16"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm quit/unlock password" id="107">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <secureTextField toolTip="Retype the quit password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="83">
+                                            <rect key="frame" x="189" y="0.0" width="350" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="350" id="R3d-w6-H9T"/>
+                                            </constraints>
+                                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="108">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <allowedInputSourceLocales>
+                                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                                </allowedInputSourceLocales>
+                                            </secureTextFieldCell>
+                                            <connections>
+                                                <accessibilityConnection property="title" destination="84" id="RtW-F5-tTW"/>
+                                                <binding destination="115" name="value" keyPath="selection.confirmQuitPassword" id="138">
+                                                    <dictionary key="options">
+                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="228" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowQuit" id="388">
+                                                    <dictionary key="options">
+                                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </secureTextField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="91">
+                                    <rect key="frame" x="334" y="0.0" width="207" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="eG9-XX-KSk"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="100">
+                                        <font key="font" metaFont="menu" size="11"/>
+                                        <color key="textColor" red="0.72156864399999998" green="0.2588235438" blue="0.1764705926" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="115" name="value" keyPath="selection.compareQuitPasswords" id="141">
+                                            <dictionary key="options">
+                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="107" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2G-AH-3bM">
+                            <rect key="frame" x="4" y="0.0" width="606" height="42"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4zW-Xw-T2x">
+                                    <rect key="frame" x="0.0" y="0.0" width="152" height="20"/>
+                                    <subviews>
+                                        <button toolTip="Displays information about Safe Exam Browser – SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="94">
+                                            <rect key="frame" x="-7" y="-7" width="134" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" priority="500" constant="120" id="359"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="About" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="97">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="aboutSEB:" target="-2" id="142"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Displays the SEB online manual at www.safeexambrowser.org/macosx" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95">
+                                            <rect key="frame" x="129" y="-4" width="25" height="25"/>
+                                            <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="96">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <accessibility description="Show help"/>
+                                            <connections>
+                                                <action selector="showHelp:" target="-2" id="144"/>
+                                                <binding destination="115" name="enabled" keyPath="selection.compareAdminPasswords" id="172">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">NSIsNil</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="115" name="enabled2" keyPath="selection.compareQuitPasswords" previousBinding="172" id="175">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                        <integer key="NSNullPlaceholder" value="-1"/>
+                                                        <string key="NSValueTransformerName">NSIsNil</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <button toolTip="Saves preferences and exits SEB" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="88">
+                                    <rect key="frame" x="252" y="-7" width="134" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" priority="500" constant="84" id="363"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="103">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="quitSEB:" target="-2" id="143"/>
+                                        <binding destination="115" name="enabled" keyPath="selection.compareAdminPasswords" id="161">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSIsNil</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="115" name="enabled2" keyPath="selection.compareQuitPasswords" previousBinding="161" id="164">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                <string key="NSValueTransformerName">NSIsNil</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                                <button toolTip="Saves preferences and restarts SEB, displaying the webpage at start URL" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="150">
+                                    <rect key="frame" x="479" y="-7" width="134" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="364"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="push" title="Restart SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="151">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="restartSEB:" target="-2" id="152"/>
+                                        <binding destination="115" name="enabled" keyPath="selection.compareAdminPasswords" id="155">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSIsNil</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="115" name="enabled2" keyPath="selection.compareQuitPasswords" previousBinding="155" id="158">
+                                            <dictionary key="options">
+                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                <string key="NSValueTransformerName">NSIsNil</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="150" firstAttribute="width" secondItem="88" secondAttribute="width" id="RRd-rA-UGO"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="HVv-6e-AIi" secondAttribute="trailing" id="YHv-jU-TPi"/>
+                        <constraint firstItem="HVv-6e-AIi" firstAttribute="leading" secondItem="blA-jK-DKV" secondAttribute="leading" id="p34-eS-13r"/>
+                        <constraint firstItem="92" firstAttribute="leading" secondItem="blA-jK-DKV" secondAttribute="leading" constant="5" id="u1U-lK-pag"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="blA-jK-DKV" secondAttribute="bottom" constant="20" id="Kqz-JI-XQ1"/>
+                <constraint firstItem="blA-jK-DKV" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="LQf-es-fYw"/>
+                <constraint firstItem="blA-jK-DKV" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="goi-56-37D"/>
+                <constraint firstAttribute="trailing" secondItem="blA-jK-DKV" secondAttribute="trailing" constant="20" id="jCk-YF-C1F"/>
+            </constraints>
+            <point key="canvasLocation" x="117" y="168"/>
+        </customView>
+        <objectController id="115">
+            <declaredKeys>
+                <string>compareAdminPasswords</string>
+                <string>adminPassword</string>
+                <string>confirmAdminPassword</string>
+                <string>compareQuitPasswords</string>
+                <string>quitPassword</string>
+                <string>confirmQuitPassword</string>
+            </declaredKeys>
+            <connections>
+                <outlet property="content" destination="-2" id="147"/>
+            </connections>
+        </objectController>
+        <userDefaultsController representsSharedInstance="YES" id="167"/>
+        <userDefaultsController id="228" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
+    </objects>
+</document>

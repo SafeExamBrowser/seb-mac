@@ -419,7 +419,7 @@
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* No comment provided by engineer. */
-"Force Classic" = "Klassisch erzwingen";
+"Force Classic" = "Klassisches erzwingen";
 
 /* No comment provided by engineer. */
 "Force Quit All Processes" = "Prozesse sofort beenden";

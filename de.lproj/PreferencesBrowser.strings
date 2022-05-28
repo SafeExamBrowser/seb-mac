@@ -8,7 +8,7 @@
 "0xK-SO-5d2.title" = "User Agent Suffix:";
 
 /* Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "1TN-dk-xIy"; */
-"1TN-dk-xIy.title" = "Neuladen in Prüfung";
+"1TN-dk-xIy.title" = "Neuladen erlauben";
 
 /* Class = "NSButtonCell"; title = "Tab focuses links"; ObjectID = "2BE-Ri-RWP"; */
 "2BE-Ri-RWP.title" = "Tabulator fokussiert alle Objekte";
@@ -17,7 +17,7 @@
 "2dw-Ko-tLl.ibShadowedToolTip" = "Erlaubt die Textsuche auf Webseiten. Benutzen Sie das Suche-Symbol in der Browserfenster-Symbolleiste oder cmd-F. Diese Funktion ist nicht im Vollbildanzeige-Fenster verfügbar. Suche in PDF-Dateien funktioniert nur im modernen WebView und macOS >=11";
 
 /* Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "6r7-Lm-bnI"; */
-"6r7-Lm-bnI.title" = "Neuladen in neuen Fenstern";
+"6r7-Lm-bnI.title" = "Neuladen erlauben";
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show URLs in exam window"; ObjectID = "7c3-3L-Itj"; */
 "7c3-3L-Itj.ibExternalAccessibilityDescription" = "Zeige URLs im Prüfungsfenster";
@@ -26,7 +26,7 @@
 "7c3-3L-Itj.ibShadowedToolTip" = "In manchen Prüfungsszenarien sollten URLs geheim bleiben und damit nicht angezeigt werden";
 
 /* Class = "NSBox"; title = "Browser Features"; ObjectID = "7nL-Z2-JAg"; */
-"7nL-Z2-JAg.title" = "Browser-Sicherheit";
+"7nL-Z2-JAg.title" = "Browser-Funktionen";
 
 /* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "8TJ-ch-PAj"; */
 "8TJ-ch-PAj.title" = "Neuladen-Warnung in neuen Fenstern";
@@ -35,10 +35,10 @@
 "9F7-Qa-r8S.title" = "Zeige URL";
 
 /* Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "9tX-IU-bN7"; */
-"9tX-IU-bN7.title" = "Navigation in neuen Fenstern";
+"9tX-IU-bN7.title" = "Navigation erlauben";
 
 /* Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC"; */
-"9wd-E4-JwC.title" = "Standard-Zeichenketten hängen von der installierten SEB-Version ab. ";
+"9wd-E4-JwC.title" = "Standardzeichenketten hängen von der installierten SEB-Version ab. ";
 
 /* Class = "NSButtonCell"; title = "Show reload warning"; ObjectID = "16K-h7-SCc"; */
 "16K-h7-SCc.title" = "Neuladen-Warnung in Prüfung";
@@ -47,7 +47,7 @@
 "29c-3t-HLf.title" = "Web Inspector erlauben";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on Windows touch devices"; ObjectID = "34u-Jt-GbJ"; */
-"34u-Jt-GbJ.ibExternalAccessibilityDescription" = "Standard User Agent für Touch-Modus in SEB für Windows eingeben";
+"34u-Jt-GbJ.ibExternalAccessibilityDescription" = "Benutzerdefinierten User Agent für Touch-Modus in SEB für Windows eingeben";
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Links requesting to be opened in a new browser window"; ObjectID = "85"; */
 "85.ibExternalAccessibilityDescription" = "Links, die in einem neuen Browserfenster geöffnet werden sollen";
@@ -89,7 +89,7 @@
 "180.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren (per Befehlstaste - Cursor links) verhindert, eine Prüfung zu verlassen, indem man auf eine Startseite ausserhalb des Prüfungs-Servers zurückkehrt";
 
 /* Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "181"; */
-"181.title" = "Seiten-Navigation in Prüfung";
+"181.title" = "Navigation erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed."; ObjectID = "413"; */
 "413.ibShadowedToolTip" = "Wenn der SEB-Browser deaktiviert ist, wird kein Browserfenster geöffnet. Diese Option kann verwendet werden, wenn Drittapplikationen zugelassen sind.";
@@ -203,7 +203,7 @@
 "EZ4-9b-Idz.title" = "Standard Mac User Agent";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS"; */
-"F1k-Qz-pMS.ibShadowedToolTip" = "Standard-Zeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+"F1k-Qz-pMS.ibShadowedToolTip" = "Standardzeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L"; */
 "FfE-2h-C1L.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.";
@@ -278,10 +278,10 @@
 "OFj-GF-HjV.ibExternalAccessibilityDescription" = "User Agent auswählen";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on iOS"; ObjectID = "oTH-6g-3oo"; */
-"oTH-6g-3oo.ibExternalAccessibilityDescription" = "Standard User Agent für SEB auf iOS eingeben";
+"oTH-6g-3oo.ibExternalAccessibilityDescription" = "Benutzerdefinierten User Agent für SEB auf iOS eingeben";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu"; */
-"p3T-fI-3bu.ibShadowedToolTip" = "Standard-String auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)";
+"p3T-fI-3bu.ibShadowedToolTip" = "Standard-Zeichenkette auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)";
 
 /* Class = "NSButtonCell"; title = "Audio autoplay"; ObjectID = "p8H-vN-YbW"; */
 "p8H-vN-YbW.title" = "Audio automatisch abspielen";
@@ -353,7 +353,7 @@
 "YP6-xU-uXJ.title" = "Zeige URL";
 
 /* Class = "NSTextFieldCell"; title = "Default strings depend on installed iOS version and therefore can differ on exam clients."; ObjectID = "yW3-rB-jbe"; */
-"yW3-rB-jbe.title" = "Standard-Strings hängen von der iOS-Version ab und können deswegen je nach Gerät unterschiedlich sein";
+"yW3-rB-jbe.title" = "Standard-Zeichenketten hängen von der iOS-Version ab und können deswegen je nach Gerät unterschiedlich sein";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Disabling browsing to previously visited pages might not be desired for content opening in additional browser windows, therefore this separate setting"; ObjectID = "z2i-c3-hed"; */
 "z2i-c3-hed.ibShadowedToolTip" = "Ausschalten der Funktion, auf bereits besuchte Seiten zurückzukehren, mag für neu geöffnete Fenster nicht gewünscht sein, deswegen gibt es diese separate Einstellung";
