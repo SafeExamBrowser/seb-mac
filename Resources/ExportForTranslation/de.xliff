@@ -693,7 +693,7 @@
       </trans-unit>
       <trans-unit id="IjF-ym-hYg.title" xml:space="preserve">
         <source>Show scroll lock button (iOS)</source>
-        <target>Scrollsperre Taste anzeigen (iOS)</target>
+        <target>Taste Scrollsperre anzeigen (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg";</note>
       </trans-unit>
       <trans-unit id="J5d-BA-D2w.title" xml:space="preserve">
@@ -983,7 +983,7 @@
       </trans-unit>
       <trans-unit id="vVA-cT-h1p.title" xml:space="preserve">
         <source>Show navigation buttons (iOS)</source>
-        <target>Navigations-Knöpfe anzeigen (iOS)</target>
+        <target>Navigations-Tasten anzeigen (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "vVA-cT-h1p";</note>
       </trans-unit>
       <trans-unit id="vmu-au-292.ibShadowedToolTip" xml:space="preserve">
@@ -1205,7 +1205,7 @@
       </trans-unit>
       <trans-unit id="887.ibShadowedToolTip" xml:space="preserve">
         <source>Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</source>
-        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887";</note>
       </trans-unit>
       <trans-unit id="897.title" xml:space="preserve">
@@ -1335,7 +1335,7 @@
       </trans-unit>
       <trans-unit id="1859.ibShadowedToolTip" xml:space="preserve">
         <source>Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title</source>
-        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)</target>
+        <target>Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859";</note>
       </trans-unit>
       <trans-unit id="1893.ibShadowedToolTip" xml:space="preserve">
@@ -1497,7 +1497,7 @@
       </trans-unit>
       <trans-unit id="1TN-dk-xIy.title" xml:space="preserve">
         <source>Allow reload</source>
-        <target>Neuladen in Prüfung</target>
+        <target>Neuladen erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "1TN-dk-xIy";</note>
       </trans-unit>
       <trans-unit id="2BE-Ri-RWP.title" xml:space="preserve">
@@ -1512,7 +1512,7 @@
       </trans-unit>
       <trans-unit id="6r7-Lm-bnI.title" xml:space="preserve">
         <source>Allow reload</source>
-        <target>Neuladen in neuen Fenstern</target>
+        <target>Neuladen erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "6r7-Lm-bnI";</note>
       </trans-unit>
       <trans-unit id="7c3-3L-Itj.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1527,7 +1527,7 @@
       </trans-unit>
       <trans-unit id="7nL-Z2-JAg.title" xml:space="preserve">
         <source>Browser Features</source>
-        <target>Browser-Sicherheit</target>
+        <target>Browser-Funktionen</target>
         <note>Class = "NSBox"; title = "Browser Features"; ObjectID = "7nL-Z2-JAg";</note>
       </trans-unit>
       <trans-unit id="8TJ-ch-PAj.title" xml:space="preserve">
@@ -1542,12 +1542,12 @@
       </trans-unit>
       <trans-unit id="9tX-IU-bN7.title" xml:space="preserve">
         <source>Allow navigation</source>
-        <target>Navigation in neuen Fenstern</target>
+        <target>Navigation erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "9tX-IU-bN7";</note>
       </trans-unit>
       <trans-unit id="9wd-E4-JwC.title" xml:space="preserve">
         <source>Default strings depend on installed SEB for Windows version and therefore can differ on exam clients.</source>
-        <target>Standard-Zeichenketten hängen von der installierten SEB-Version ab. </target>
+        <target>Standardzeichenketten hängen von der installierten SEB-Version ab. </target>
         <note>Class = "NSTextFieldCell"; title = "Default strings depend on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "9wd-E4-JwC";</note>
       </trans-unit>
       <trans-unit id="16K-h7-SCc.title" xml:space="preserve">
@@ -1562,7 +1562,7 @@
       </trans-unit>
       <trans-unit id="34u-Jt-GbJ.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Enter custom user agent string for SEB on Windows touch devices</source>
-        <target>Standard User Agent für Touch-Modus in SEB für Windows eingeben</target>
+        <target>Benutzerdefinierten User Agent für Touch-Modus in SEB für Windows eingeben</target>
         <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on Windows touch devices"; ObjectID = "34u-Jt-GbJ";</note>
       </trans-unit>
       <trans-unit id="85.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1632,7 +1632,7 @@
       </trans-unit>
       <trans-unit id="181.title" xml:space="preserve">
         <source>Allow navigation</source>
-        <target>Seiten-Navigation in Prüfung</target>
+        <target>Navigation erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow navigation"; ObjectID = "181";</note>
       </trans-unit>
       <trans-unit id="413.ibShadowedToolTip" xml:space="preserve">
@@ -1782,7 +1782,7 @@
       </trans-unit>
       <trans-unit id="F1k-Qz-pMS.ibShadowedToolTip" xml:space="preserve">
         <source>Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)</source>
-        <target>Standard-Zeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
+        <target>Standardzeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS";</note>
       </trans-unit>
       <trans-unit id="FHC-Y1-NDD.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -2027,12 +2027,12 @@
       </trans-unit>
       <trans-unit id="oTH-6g-3oo.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Enter custom user agent string for SEB on iOS</source>
-        <target>Standard User Agent für SEB auf iOS eingeben</target>
+        <target>Benutzerdefinierten User Agent für SEB auf iOS eingeben</target>
         <note>Class = "NSTextField"; ibExternalAccessibilityDescription = "Enter custom user agent string for SEB on iOS"; ObjectID = "oTH-6g-3oo";</note>
       </trans-unit>
       <trans-unit id="p3T-fI-3bu.ibShadowedToolTip" xml:space="preserve">
         <source>This string will be appended to any user agent string (independent from the other user agent settings below)</source>
-        <target>Standard-String auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)</target>
+        <target>Standard-Zeichenkette auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu";</note>
       </trans-unit>
       <trans-unit id="p8H-vN-YbW.title" xml:space="preserve">
@@ -2077,7 +2077,7 @@
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
-        <target>Standard-Strings hängen von der iOS-Version ab und können deswegen je nach Gerät unterschiedlich sein</target>
+        <target>Standard-Zeichenketten hängen von der iOS-Version ab und können deswegen je nach Gerät unterschiedlich sein</target>
         <note>Class = "NSTextFieldCell"; title = "Default strings depend on installed iOS version and therefore can differ on exam clients."; ObjectID = "yW3-rB-jbe";</note>
       </trans-unit>
       <trans-unit id="z2i-c3-hed.ibShadowedToolTip" xml:space="preserve">
@@ -2164,12 +2164,12 @@
       </trans-unit>
       <trans-unit id="239.title" xml:space="preserve">
         <source>Use config file for ...</source>
-        <target>SEB-Konfigurationsdatei verwenden zum …</target>
+        <target>Konfigurationsdatei verwenden zum …</target>
         <note>Class = "NSTextFieldCell"; title = "Use config file for ..."; ObjectID = "239";</note>
       </trans-unit>
       <trans-unit id="249.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Use config file for ...</source>
-        <target>SEB-Konfigurationsdatei verwenden zum …</target>
+        <target>Konfigurationsdatei verwenden zum …</target>
         <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Use config file for ..."; ObjectID = "249";</note>
       </trans-unit>
       <trans-unit id="249.ibShadowedToolTip" xml:space="preserve">
@@ -2840,7 +2840,7 @@
       </trans-unit>
       <trans-unit id="413.title" xml:space="preserve">
         <source>SEB Server Fallback (Win)</source>
-        <target>Beenden-Tastenkombination ignorieren (Win)</target>
+        <target>SEB Server-Fallback (Win)</target>
         <note>Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="JvD-qA-qAF.title" xml:space="preserve">
@@ -2992,7 +2992,7 @@
       </trans-unit>
       <trans-unit id="649.title" xml:space="preserve">
         <source>Filter also embedded content</source>
-        <target>Eingebetteten Inhalt ebenfalls filtern</target>
+        <target>Eingebettete Inhalte ebenfalls filtern</target>
         <note>Class = "NSButtonCell"; title = "Filter also embedded content"; ObjectID = "649";</note>
       </trans-unit>
       <trans-unit id="744.headerCell.title" xml:space="preserve">
@@ -3097,7 +3097,7 @@
       </trans-unit>
       <trans-unit id="1241.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1241";</note>
       </trans-unit>
       <trans-unit id="1259.title" xml:space="preserve">
@@ -3132,7 +3132,7 @@
       </trans-unit>
       <trans-unit id="1530.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1530";</note>
       </trans-unit>
       <trans-unit id="1531.title" xml:space="preserve">
@@ -3167,7 +3167,7 @@
       </trans-unit>
       <trans-unit id="1571.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1571";</note>
       </trans-unit>
       <trans-unit id="1572.title" xml:space="preserve">
@@ -3202,7 +3202,7 @@
       </trans-unit>
       <trans-unit id="1612.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1612";</note>
       </trans-unit>
       <trans-unit id="1613.title" xml:space="preserve">
@@ -3237,7 +3237,7 @@
       </trans-unit>
       <trans-unit id="1653.title" xml:space="preserve">
         <source>Proxy server requires password</source>
-        <target>Kennwort für den Proxy-Server erforderlich</target>
+        <target>Passwort für den Proxy-Server erforderlich</target>
         <note>Class = "NSButtonCell"; title = "Proxy server requires password"; ObjectID = "1653";</note>
       </trans-unit>
       <trans-unit id="1654.title" xml:space="preserve">
@@ -3786,7 +3786,7 @@
       </trans-unit>
       <trans-unit id="HN5-u7-3UG.ibShadowedToolTip" xml:space="preserve">
         <source>On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up</source>
-        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Kioskmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title" xml:space="preserve">
@@ -3921,7 +3921,7 @@
       </trans-unit>
       <trans-unit id="Rgp-1k-Eaw.title" xml:space="preserve">
         <source>Enable Change a password</source>
-        <target>Kennwort ändern erlauben</target>
+        <target>Passwort ändern erlauben</target>
         <note>Class = "NSButtonCell"; title = "Enable Change a password"; ObjectID = "Rgp-1k-Eaw";</note>
       </trans-unit>
       <trans-unit id="SZK-Aw-k1e.ibShadowedToolTip" xml:space="preserve">
@@ -5334,7 +5334,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassisch erzwingen</target>
+        <target>Klassisches erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
@@ -6960,6 +6960,1442 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
     </body>
   </file>
+  <file original="SEB/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
+        <source>AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one).</source>
+        <target>Die KI-Fernüberwachungsfunktionen verwenden Computer-Vision-Algorithmen, die auf den Videobildern auf dem Gerät ausgeführt werden, nicht in einer Cloud und nicht auf dem SEB Server. Wenn eines der unten aktivierten Ereignisse erkannt wird, wird es in Textform protokolliert und an eine SEB Server-Instanz gesendet (falls mit einer solchen verbunden).</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Detect Face Angle" xml:space="preserve">
+        <source>Detect Face Angle</source>
+        <target>Gesichtswinkel erkennen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Detect Number of Faces" xml:space="preserve">
+        <source>Detect Number of Faces</source>
+        <target>Anzahl Gesichter erkennen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable AI Proctoring" xml:space="preserve">
+        <source>Enable AI Proctoring</source>
+        <target>KI-Fernüberwachung aktivieren</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable AI Proctoring Support" xml:space="preserve">
+        <source>Enable AI Proctoring Support</source>
+        <target>Unterstützung für KI-Fernüberwachung aktivieren</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Face Movement Sideways (Yaw)" xml:space="preserve">
+        <source>Face Movement Sideways (Yaw)</source>
+        <target>Gesichtsbewegung seitwärts (Gieren)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Face Movement Up &amp;amp; Down (Pitch)" xml:space="preserve">
+        <source>Face Movement Up &amp;amp; Down (Pitch)</source>
+        <target>Gesichtsbewegung nach oben und unten (Neigung)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Feedback for Candidate" xml:space="preserve">
+        <source>Feedback for Candidate</source>
+        <target>Feedback für Kandidaten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Number of Faces" xml:space="preserve">
+        <source>Number of Faces</source>
+        <target>Anzahl Gesichter</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB is using the iOS Vision framework running on device for this detection. No face recognition is performed, only face and face features detection and tracking (looking for faces, not for faces of particular people)." xml:space="preserve">
+        <source>SEB is using the iOS Vision framework running on device for this detection. No face recognition is performed, only face and face features detection and tracking (looking for faces, not for faces of particular people).</source>
+        <target>SEB verwendet für diese Erkennung das auf dem Gerät laufende iOS Vision Framework. Es wird keine Gesichtserkennung durchgeführt, sondern nur die Erkennung und Verfolgung von Gesichtern (Suche nach Gesichtern, nicht nach Gesichtern bestimmter Personen).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can display AI proctoring feedback for candidates in the proctoring Dock button." xml:space="preserve">
+        <source>You can display AI proctoring feedback for candidates in the proctoring Dock button.</source>
+        <target>Sie können KI-Fernüberwachung-Feedback für Kandidaten in der Proctoring-Dock-Taste anzeigen.</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Inline Playback on iPad" xml:space="preserve">
+        <source>Allow Inline Playback on iPad</source>
+        <target>Inline-Wiedergabe auf iPad</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Inline Playback on iPhone" xml:space="preserve">
+        <source>Allow Inline Playback on iPhone</source>
+        <target>Inline-Wiedergabe auf iPhone</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Picture in Picture Video" xml:space="preserve">
+        <source>Allow Picture in Picture Video</source>
+        <target>Bild-in-Bild-Wiedergabe erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Audio Autoplay" xml:space="preserve">
+        <source>Audio Autoplay</source>
+        <target>Audio automatisch abspielen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Media Autoplay" xml:space="preserve">
+        <source>Media Autoplay</source>
+        <target>Medien automatisch abspielen</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Video Autoplay" xml:space="preserve">
+        <source>Video Autoplay</source>
+        <target>Video automatisch abspielen</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/ConfigFile.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently)." xml:space="preserve">
+        <source>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</source>
+        <target>Eine Konfigurationsdatei startet entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) oder ändert die lokalen Einstellungen eines SEB-Clients (permanent)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow QR Code Config" xml:space="preserve">
+        <source>Allow QR Code Config</source>
+        <target>Konfiguration mittels QR-Code erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
+        <target>Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn die SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Auto-Select Identity" xml:space="preserve">
+        <source>Auto-Select Identity</source>
+        <target>Identität automatisch auswählen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Configuring Clients" xml:space="preserve">
+        <source>Configuring Clients</source>
+        <target>Konfigurieren von Clients</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Create &amp;amp; Embed Identity" xml:space="preserve">
+        <source>Create &amp;amp; Embed Identity</source>
+        <target>Identität erstellen/einbetten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Editing Settings" xml:space="preserve">
+        <source>Editing Settings</source>
+        <target>Einstellungen bearbeiten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Encrypting with Identity Certificate" xml:space="preserve">
+        <source>Encrypting with Identity Certificate</source>
+        <target>Mit Identitätszertifikat verschlüsseln</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Encryption" xml:space="preserve">
+        <source>Encryption</source>
+        <target>Verschlüsselung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Encrypts config file" xml:space="preserve">
+        <source>Encrypts config file</source>
+        <target>Verschlüsselt Konfigurationsdatei</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="File Name" xml:space="preserve">
+        <source>File Name</source>
+        <target>Dateiname</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Identity Certificate" xml:space="preserve">
+        <source>Identity Certificate</source>
+        <target>Identitätszertifikat</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="MDM Managed Configuration" xml:space="preserve">
+        <source>MDM Managed Configuration</source>
+        <target>Verwaltete MDM-Konfiguration</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recommended for easier set-up and testing. Shows the &amp;quot;Edit Settings&amp;quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." xml:space="preserve">
+        <source>Recommended for easier set-up and testing. Shows the &amp;quot;Edit Settings&amp;quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</source>
+        <target>Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB Config QR Code" xml:space="preserve">
+        <source>SEB Config QR Code</source>
+        <target>SEB Konfigurations-QR-Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate." xml:space="preserve">
+        <source>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate.</source>
+        <target>SEB kann automatisch ein Identitätszertifikat erstellen und es in die aktuelle Clientkonfiguration einbetten (siehe Seite Netzwerk/Zertifikate). Teilen Sie diese Client-Konfiguration und verwenden Sie sie für die Erstkonfiguration von SEB-Clients. Diese Clients sind in der Lage, die mit dem Identitätszertifikat verschlüsselten Prüfungskonfigurationsdateien zu entschlüsseln.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Settings Password" xml:space="preserve">
+        <source>Settings Password</source>
+        <target>Passwort Konfigurationsdatei</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Shared config file name" xml:space="preserve">
+        <source>Shared config file name</source>
+        <target>Dateiname für geteilte Konfiguration</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Sharing Settings as Config Files" xml:space="preserve">
+        <source>Sharing Settings as Config Files</source>
+        <target>Konfigurationsdateien teilen</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Show Settings In App" xml:space="preserve">
+        <source>Show Settings In App</source>
+        <target>Einstellungen in App anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Starting Exams" xml:space="preserve">
+        <source>Starting Exams</source>
+        <target>Prüfungen starten</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="Use Config File For …" xml:space="preserve">
+        <source>Use Config File For …</source>
+        <target>Konfigurationsdatei verwenden zum …</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+        <target>Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfigurationsdatei zum Starten von Prüfungen geteilt wird. Die Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfigurationsdatei verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." xml:space="preserve">
+        <source>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</source>
+        <target>Verwenden Sie die Taste Teilen auf der Seite Einstellungen, um Einstellungen als SEB-Konfigurationsdatei zu exportieren, die auf einem Webserver abgelegt und mit einem seb(s)://-Link geöffnet werden kann, um Prüfungen zu starten oder SEB-Clients zu konfigurieren.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/Dock.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Dock Command Items" xml:space="preserve">
+        <source>Dock Command Items</source>
+        <target>Dock-Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Left slider menu can always be accessed by swiping right from the left display edge." xml:space="preserve">
+        <source>Left slider menu can always be accessed by swiping right from the left display edge.</source>
+        <target>Das linke Seitenmenü kann immer durch Wischen nach rechts vom linken Displayrand aus aufgerufen werden.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="SEB Dock" xml:space="preserve">
+        <source>SEB Dock</source>
+        <target>SEB-Dock</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Show Back to Start Button" xml:space="preserve">
+        <source>Show Back to Start Button</source>
+        <target>Taste 'Zurück zum Start' anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Dock" xml:space="preserve">
+        <source>Show Dock</source>
+        <target>Dock anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Navigation Buttons" xml:space="preserve">
+        <source>Show Navigation Buttons</source>
+        <target>Navigations-Tasten anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Proctoring Button" xml:space="preserve">
+        <source>Show Proctoring Button</source>
+        <target>Taste Fernüberwachung anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Quit Button" xml:space="preserve">
+        <source>Show Quit Button</source>
+        <target>Taste Beenden anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Reload Button" xml:space="preserve">
+        <source>Show Reload Button</source>
+        <target>Neuladen-Taste anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Scan QR Code Button" xml:space="preserve">
+        <source>Show Scan QR Code Button</source>
+        <target>Taste QR-Code scannen anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Scroll Lock Button" xml:space="preserve">
+        <source>Show Scroll Lock Button</source>
+        <target>Taste Scrollsperre anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &amp;gt; Enable Scroll Lock, Exam &amp;gt; Back to Start Button &amp;gt; Use Start URL or Custom URL, Browser &amp;gt; Allow Navigation &amp;amp; Allow Reload, Remote Proctoring &amp;gt; Enable Jitsi Meet, Config File &amp;gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." xml:space="preserve">
+        <source>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &amp;gt; Enable Scroll Lock, Exam &amp;gt; Back to Start Button &amp;gt; Use Start URL or Custom URL, Browser &amp;gt; Allow Navigation &amp;amp; Allow Reload, Remote Proctoring &amp;gt; Enable Jitsi Meet, Config File &amp;gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</source>
+        <target>Die oben aktivierten Befehle werden im SEB-Dock angezeigt, wenn ihre Funktionalität ebenfalls aktiviert ist (Benutzeroberfläche / Scrollsperre aktivieren, Prüfung / Zurück zum Start Taste / Start-URL oder benutzerdefinierte URL verwenden, Browser-Funktionen / Navigation zulassen &amp; Neuladen zulassen, Remote Proctoring / Jitsi Meet aktivieren, Config File / QR-Code-Konfiguration zulassen). Wenn die oben genannten Befehle nicht aktiviert sind, werden sie in der (aktivierten) Browser-Symbolleiste oder im Seitenmenü angezeigt.</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Downloading" xml:space="preserve">
+        <source>Allow Downloading</source>
+        <target>Download erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&amp;quot;On My iPad/iPhone&amp;quot; location) and by using iTunes." xml:space="preserve">
+        <source>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&amp;quot;On My iPad/iPhone&amp;quot; location) and by using iTunes.</source>
+        <target>Derzeit können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Diese Funktion ist für die Speicherung verschlüsselter Prüfungsergebnisse gedacht, falls keine Netzwerkverbindung besteht. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') und über iTunes zugegriffen werden.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." xml:space="preserve">
+        <source>Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client.</source>
+        <target>Deaktivieren, um zu verhindern, dass SEB-Konfigurationsdateien und seb(s)://-Links Prüfungen mit individuellen Einstellungen starten oder den Client neu konfigurieren können.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Download &amp;amp; Open Config Files" xml:space="preserve">
+        <source>Download &amp;amp; Open Config Files</source>
+        <target>Konfigurationsdateien herunterladen und öffnen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Downloading Files" xml:space="preserve">
+        <source>Downloading Files</source>
+        <target>Dateien herunterladen</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/ExamKeys.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="BEK" xml:space="preserve">
+        <source>BEK</source>
+        <target>BEK</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Exam Key" xml:space="preserve">
+        <source>Browser Exam Key</source>
+        <target>Browser Exam Key</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="CK" xml:space="preserve">
+        <source>CK</source>
+        <target>CK</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Config Key" xml:space="preserve">
+        <source>Config Key</source>
+        <target>Config Key</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Config was modified, keys won&amp;apos;t match original state!" xml:space="preserve">
+        <source>Config was modified, keys won&amp;apos;t match original state!</source>
+        <target>Die Konfiguration wurde geändert, die Schlüssel stimmen nicht mehr mit dem Originalzustand überein!</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Only Keys (Don&amp;apos;t Modify Config)" xml:space="preserve">
+        <source>Only Keys (Don&amp;apos;t Modify Config)</source>
+        <target>Nur Keys (Konfiguration nicht ändern)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Select the key(s) which you want to be shared (using the Share button in the main Settings view) and copied to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copy-pasted manually to the according field in quiz settings of a compatible exam system." xml:space="preserve">
+        <source>Select the key(s) which you want to be shared (using the Share button in the main Settings view) and copied to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copy-pasted manually to the according field in quiz settings of a compatible exam system.</source>
+        <target>Wählen Sie den/die Schlüssel aus, die Sie freigeben möchten (mit der Taste Teilen in der Hauptansicht der Einstellungen) und kopieren Sie sie nach dem Schliessen der Einstellungen in die Zwischenablage. Normalerweise muss nur der Browser Exam Key manuell in das entsprechende Feld in den Quiz-Einstellungen eines kompatiblen Prüfungssystems eingefügt werden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share Browser Exam Key" xml:space="preserve">
+        <source>Share Browser Exam Key</source>
+        <target>Browser Exam Key teilen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share Config Key" xml:space="preserve">
+        <source>Share Config Key</source>
+        <target>Config Key teilen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share Keys with Config" xml:space="preserve">
+        <source>Share Keys with Config</source>
+        <target>Keys mit Konfiguration teilen</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="Share Keys with/without Config" xml:space="preserve">
+        <source>Share Keys with/without Config</source>
+        <target>Keys mit/ohne Konfiguration teilen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The Browser Exam Key (BEK) depends on SEB&amp;apos;s code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used." xml:space="preserve">
+        <source>The Browser Exam Key (BEK) depends on SEB&amp;apos;s code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used.</source>
+        <target>Der Browser Exam Key (BEK) ist abhängig von der Codesignatur von SEB und der aktuellen SEB-Konfiguration. Kopieren Sie den Wert in das entsprechende Feld in den Quiz-Einstellungen eines kompatiblen Prüfungssystems. SEB erzeugt auf jeder Plattform einen anderen BEK, auch wenn die gleiche SEB-Konfiguration verwendet wird. Unterschiedliche Versionen von SEB für iOS erzeugen den gleichen BEK, solange die gleiche SEB-Konfigurationsdatei verwendet wird.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&amp;apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings)." xml:space="preserve">
+        <source>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&amp;apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</source>
+        <target>Der Browser Exam und/oder Config Key der aktuellen SEB-Konfiguration kann (als Text-Zeichenkette) entweder zusammen mit der exportierten, modifizierten Konfigurationsdatei oder alleine (wenn die geöffnete Konfiguration nicht modifiziert werden soll) geteilt werden. Die Schlüssel werden auch in die Zwischenablage kopiert, wenn die Einstellungen geschlossen werden (so dass ein Prüfungsadministrator sie leicht in die entsprechenden Quiz-Einstellungen einfügen kann).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The Config Key (CK) depends on the current SEB config. It can be generated automatically by a compatible exam server together with the SEB config to be used for an exam. All SEB versions supporting the CK generate the same CK when using the same, unmodified SEB config file." xml:space="preserve">
+        <source>The Config Key (CK) depends on the current SEB config. It can be generated automatically by a compatible exam server together with the SEB config to be used for an exam. All SEB versions supporting the CK generate the same CK when using the same, unmodified SEB config file.</source>
+        <target>Der Config Key (CK) hängt von der aktuellen SEB-Konfiguration ab. Er kann von einem kompatiblen Prüfungsserver zusammen mit der SEB-Konfiguration, die für eine Prüfung verwendet werden soll, automatisch generiert werden. Alle SEB-Versionen, die den CK unterstützen, generieren denselben CK, wenn sie die gleiche, unveränderte SEB-Konfigurationsdatei verwenden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="When you modify settings (change one of the permanent setting options), Browser Exam and Config Key are recalculated using the full set of settings this version of SEB supports. Then you have to share these modified settings as a config file if you want to use it with other versions of SEB (which are also using the Browser Exam or Config Key)." xml:space="preserve">
+        <source>When you modify settings (change one of the permanent setting options), Browser Exam and Config Key are recalculated using the full set of settings this version of SEB supports. Then you have to share these modified settings as a config file if you want to use it with other versions of SEB (which are also using the Browser Exam or Config Key).</source>
+        <target>Wenn Sie Einstellungen modifizieren (eine der permanenten Einstellungsoptionen ändern), werden der Browser Exam Key und der Config Key neu berechnet, wobei der gesamte Satz von Einstellungen verwendet wird, den diese SEB-Version unterstützt. Dann müssen Sie diese geänderten Einstellungen als Konfigurationsdatei weitergeben, wenn Sie diese mit anderen SEB-Versionen (die ebenfalls Browser Exam Key und Config Key benutzen) verwenden möchten.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/Network.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Certificates" xml:space="preserve">
+        <source>Certificates</source>
+        <target>Zertifikate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="URL Filter" xml:space="preserve">
+        <source>URL Filter</source>
+        <target>URL-Filter</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/NetworkCertificate.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Certificates" xml:space="preserve">
+        <source>Certificates</source>
+        <target>Zertifikate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Choose Identity" xml:space="preserve">
+        <source>Choose Identity</source>
+        <target>Identität wählen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Embed Identity Certificates" xml:space="preserve">
+        <source>Embed Identity Certificates</source>
+        <target>Identitätszertifikate einbetten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Embed Server Certificates" xml:space="preserve">
+        <source>Embed Server Certificates</source>
+        <target>Server-Zertifikate einbetten</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Embed in SEB desktop version" xml:space="preserve">
+        <source>Embed in SEB desktop version</source>
+        <target>In SEB-Desktop-Version einbetten</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Embedded Certificates" xml:space="preserve">
+        <source>Embedded Certificates</source>
+        <target>Eingebettete Zertifikate</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files." xml:space="preserve">
+        <source>Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files.</source>
+        <target>In eine Client-Konfigurationsdatei eingebettete kryptografische Identitäten (X.509-Zertifikate mit öffentlichem RSA-Schlüssel und zugehörigem privaten Schlüssel, die sicher im Schlüsselbund gespeichert sind) können zur Entschlüsselung von Prüfungskonfigurationsdateien auf Clients verwendet werden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions." xml:space="preserve">
+        <source>List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions.</source>
+        <target>Liste aller eingebetteten Zertifikate in der aktuellen Konfigurationsdatei, sortiert nach Typ. SSL/CA/Debug-Zertifikate können derzeit nur in SEB-Desktop-Versionen hinzugefügt werden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Pin Certificates" xml:space="preserve">
+        <source>Pin Certificates</source>
+        <target>Zertifikate pinnen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Self-signed TLS/SSL/CA certificates have to be embedded into config files to allow accessing a secure server. With certificate pinning, the iOS certificate store is bypassed and only embedded certificates establish trust for https connections." xml:space="preserve">
+        <source>Self-signed TLS/SSL/CA certificates have to be embedded into config files to allow accessing a secure server. With certificate pinning, the iOS certificate store is bypassed and only embedded certificates establish trust for https connections.</source>
+        <target>Selbstsignierte TLS/SSL/CA-Zertifikate müssen in Konfigurationsdateien eingebettet werden, um den Zugriff auf einen sicheren Server zu ermöglichen. Mit Zertifikats-Pinning wird der iOS-Zertifikatspeicher umgangen und für https-Verbindungen wird nur eingebetteten Zertifikaten vertraut.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/NetworkFilter.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="&amp;apos;URL Blocked!&amp;apos;" xml:space="preserve">
+        <source>&amp;apos;URL Blocked!&amp;apos;</source>
+        <target>'URL Blocked!'</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="&amp;apos;✕&amp;apos;" xml:space="preserve">
+        <source>&amp;apos;✕&amp;apos;</source>
+        <target>'✕'</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Activate URL Filtering" xml:space="preserve">
+        <source>Activate URL Filtering</source>
+        <target>URL-Filter aktivieren</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Blocked Message" xml:space="preserve">
+        <source>Blocked Message</source>
+        <target>Meldung für 'blockiert'</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Control URL Filtering" xml:space="preserve">
+        <source>Control URL Filtering</source>
+        <target>URL-Filtern steuern</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Filter Embedded Content" xml:space="preserve">
+        <source>Filter Embedded Content</source>
+        <target>Eingebettete Inhalte ebenfalls filtern</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rules" xml:space="preserve">
+        <source>Filter Rules</source>
+        <target>Filterregeln</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter only links or all embedded resources and XMLHTTPRequests." xml:space="preserve">
+        <source>Filter only links or all embedded resources and XMLHTTPRequests.</source>
+        <target>Nur Links oder alle eingebetteten Ressourcen und XMLHTTP-Requests filtern.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="List of filter rules, currently these can only be edited in SEB desktop versions. Use the &amp;quot;Teach SEB allowed/blocked URLs&amp;quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." xml:space="preserve">
+        <source>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &amp;quot;Teach SEB allowed/blocked URLs&amp;quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</source>
+        <target>Liste der Filterregeln, derzeit können diese nur in den SEB-Desktop-Versionen bearbeitet werden. Verwenden Sie die Funktion 'Erlaubte/blockierte URLs lernen' in SEB für macOS, um einfach URL-Filterregeln zu erstellen. Format-Erklärung: √: Aktiv / ☒: Inaktiv, R: Regulärer Ausdruck, A: Zulassen / B: Sperren. Der Filterausdruck kann ein *-Platzhalterzeichen enthalten.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped." xml:space="preserve">
+        <source>This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped.</source>
+        <target>Diese Meldung wird kurz in der oberen rechten Ecke des Displays angezeigt, wenn ein durch die URL-Filterregeln blockierter Link angetippt wird.</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/RemoteProctoring.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="AI Proctoring" xml:space="preserve">
+        <source>AI Proctoring</source>
+        <target>KI-Fernüberwachung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="AI Proctoring Support" xml:space="preserve">
+        <source>AI Proctoring Support</source>
+        <target>Unterstützung für KI-Fernüberwachung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="AI-based proctoring features like face tracking create log events and send notifications to SEB Server." xml:space="preserve">
+        <source>AI-based proctoring features like face tracking create log events and send notifications to SEB Server.</source>
+        <target>KI-basierte Prüfungsfunktionen wie die Gesichtsverfolgung erstellen Protokollereignisse und senden Benachrichtigungen an den SEB Server.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow to Hide" xml:space="preserve">
+        <source>Allow to Hide</source>
+        <target>Ausblenden erlaubt</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow to Show" xml:space="preserve">
+        <source>Allow to Show</source>
+        <target>Einblenden erlaubt</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Always" xml:space="preserve">
+        <source>Always</source>
+        <target>Immer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Audio Initially Muted" xml:space="preserve">
+        <source>Audio Initially Muted</source>
+        <target>Audio anfangs stumm</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Audio Only" xml:space="preserve">
+        <source>Audio Only</source>
+        <target>Nur Audio</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Audio/Video Streams" xml:space="preserve">
+        <source>Audio/Video Streams</source>
+        <target>Audio/Video-Streams</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Connection details for a Jitsi Meet video conference server and room." xml:space="preserve">
+        <source>Connection details for a Jitsi Meet video conference server and room.</source>
+        <target>Verbindungsdetails für einen Jitsi Meet-Videokonferenzserver und -Raum.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Enable Jitsi Meet" xml:space="preserve">
+        <source>Enable Jitsi Meet</source>
+        <target>Jitsi Meet aktivieren</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full URL" xml:space="preserve">
+        <source>Full URL</source>
+        <target>Vollständige URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session." xml:space="preserve">
+        <source>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session.</source>
+        <target>Globale Einstellungen für den Empfang und das Senden von Audio-/Videostreams. Streams können auch von SEB Server (falls verwendet) während der Prüfungssitzung aktiviert/deaktiviert werden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Jitsi Meet Features" xml:space="preserve">
+        <source>Jitsi Meet Features</source>
+        <target>Jitsi Meet Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Jitsi Meet Support" xml:space="preserve">
+        <source>Jitsi Meet Support</source>
+        <target>Unterstützung für Jitsi Meet</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Jitsi Meet User Controls" xml:space="preserve">
+        <source>Jitsi Meet User Controls</source>
+        <target>Steuermöglichkeiten für Jitsi Meet Benutzer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Never" xml:space="preserve">
+        <source>Never</source>
+        <target>Nie</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="Proctoring View Display Policy" xml:space="preserve">
+        <source>Proctoring View Display Policy</source>
+        <target>Policy zur Anzeige des Fernüberwachungs-Fensters</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Receive Audio" xml:space="preserve">
+        <source>Receive Audio</source>
+        <target>Audio empfangen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Receive Video" xml:space="preserve">
+        <source>Receive Video</source>
+        <target>Video empfangen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Room" xml:space="preserve">
+        <source>Room</source>
+        <target>Raum</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Room Name" xml:space="preserve">
+        <source>Room Name</source>
+        <target>Raumname</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Send Audio" xml:space="preserve">
+        <source>Send Audio</source>
+        <target>Audio Senden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Send Video" xml:space="preserve">
+        <source>Send Video</source>
+        <target>Video senden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Server URL" xml:space="preserve">
+        <source>Server URL</source>
+        <target>Server-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Subject" xml:space="preserve">
+        <source>Subject</source>
+        <target>Betreff</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Subject Text" xml:space="preserve">
+        <source>Subject Text</source>
+        <target>Text für Betreff</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Token" xml:space="preserve">
+        <source>Token</source>
+        <target>Token</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Token String" xml:space="preserve">
+        <source>Token String</source>
+        <target>Token-Zeichenkette</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Video Initially Muted" xml:space="preserve">
+        <source>Video Initially Muted</source>
+        <target>Video anfangs aus</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="When the proctoring view is displayed (see its display policy below), users can mute and unmute audio and video manually. Audio and video streams can be disabled globally with the settings below." xml:space="preserve">
+        <source>When the proctoring view is displayed (see its display policy below), users can mute and unmute audio and video manually. Audio and video streams can be disabled globally with the settings below.</source>
+        <target>Wenn das Fernüberwachungs-Fenster angezeigt wird (siehe Anzeige-Policy unten), können die Benutzer Audio und Video manuell ein-/ausschalten. Audio- und Videostreams können mit den unten aufgeführten Einstellungen global deaktiviert werden.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="You can hide or show the overlay view showing the user (and if enabled other candidates and the proctor) with this setting or allow users to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command." xml:space="preserve">
+        <source>You can hide or show the overlay view showing the user (and if enabled other candidates and the proctor) with this setting or allow users to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command.</source>
+        <target>Mit dieser Einstellung können Sie das Fernüberwachungs-Fenster, die den Benutzer (und, falls aktiviert, andere Kandidaten und den Prüfer) zeigt, ein- oder ausblenden oder den Benutzern erlauben, die Ansicht über die Dock-Taste oder den Befehl im Seitenmenü ein- (anfänglich ausgeblendet) oder auszublenden (anfänglich sichtbar).</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Tile View" xml:space="preserve">
+        <source>Allow Tile View</source>
+        <target>Kachelansicht erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Display Meeting Name" xml:space="preserve">
+        <source>Display Meeting Name</source>
+        <target>Meeting-Name anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Chat" xml:space="preserve">
+        <source>Enable Chat</source>
+        <target>Chat erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Close Captions" xml:space="preserve">
+        <source>Enable Close Captions</source>
+        <target>Untertitelung zulassen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Raise Hand" xml:space="preserve">
+        <source>Enable Raise Hand</source>
+        <target>Hand heben erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Jitsi Meet Features" xml:space="preserve">
+        <source>Jitsi Meet Features</source>
+        <target>Jitsi Meet Funktionen</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Admin Password" xml:space="preserve">
+        <source>Admin Password</source>
+        <target>Administrator-Passwort</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Features" xml:space="preserve">
+        <source>Browser Features</source>
+        <target>Browser-Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Config File" xml:space="preserve">
+        <source>Config File</source>
+        <target>Konfigurationsdatei</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Downloads" xml:space="preserve">
+        <source>Downloads</source>
+        <target>Downloads</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Exam Session" xml:space="preserve">
+        <source>Exam Session</source>
+        <target>Prüfungssession</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full URL" xml:space="preserve">
+        <source>Full URL</source>
+        <target>Vollständige URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="General" xml:space="preserve">
+        <source>General</source>
+        <target>Allgemein</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Network" xml:space="preserve">
+        <source>Network</source>
+        <target>Netzwerk</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Quit Password" xml:space="preserve">
+        <source>Quit Password</source>
+        <target>Beenden-Passwort</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remote Proctoring" xml:space="preserve">
+        <source>Remote Proctoring</source>
+        <target>Fernüberwachung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restricts editing settings" xml:space="preserve">
+        <source>Restricts editing settings</source>
+        <target>Schränkt die Bearbeitung der Einstellungen ein</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB Server" xml:space="preserve">
+        <source>SEB Server</source>
+        <target>SEB Server</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Security" xml:space="preserve">
+        <source>Security</source>
+        <target>Sicherheit</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Set to run in secure mode" xml:space="preserve">
+        <source>Set to run in secure mode</source>
+        <target>Setzen, damit SEB im sicheren Modus läuft</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Start URL" xml:space="preserve">
+        <source>Start URL</source>
+        <target>Start-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="User Interface" xml:space="preserve">
+        <source>User Interface</source>
+        <target>Benutzeroberfläche</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set." xml:space="preserve">
+        <source>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</source>
+        <target>Ohne Start-URL zeigt SEB den Erstkonfigurationsassistenten an. Setzen Sie immer ein Administrator-Passwort für SEB, um die Einstellungen vor Änderungen zu schützen. SEB läuft nur im Einzel-App-Modus, wenn das Beenden-Passwort gesetzt ist.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/SEBServer.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Connect to SEB Server" xml:space="preserve">
+        <source>Connect to SEB Server</source>
+        <target>Mit SEB Server verbinden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable SEB Server Support" xml:space="preserve">
+        <source>Enable SEB Server Support</source>
+        <target>Erlaube Benutzung von SEB Server</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Full URL" xml:space="preserve">
+        <source>Full URL</source>
+        <target>Vollständige URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Load Start URL" xml:space="preserve">
+        <source>Load Start URL</source>
+        <target>Start-URL laden</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="SEB Server Fallback" xml:space="preserve">
+        <source>SEB Server Fallback</source>
+        <target>SEB Server-Fallback</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB either loads a web resource from Start URL or connects to an SEB Server" xml:space="preserve">
+        <source>SEB either loads a web resource from Start URL or connects to an SEB Server</source>
+        <target>SEB lädt entweder eine Web-Ressource von der Start-URL oder verbindet sich mit einer SEB Server-Instanz</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Server Connection Settings" xml:space="preserve">
+        <source>Server Connection Settings</source>
+        <target>Server-Verbindungseinstellungen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Server URL" xml:space="preserve">
+        <source>Server URL</source>
+        <target>Server-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="When SEB Server Fallback is enabled, the SEB client loads Start URL in a browser window if it cannot connect to the specified SEB Server." xml:space="preserve">
+        <source>When SEB Server Fallback is enabled, the SEB client loads Start URL in a browser window if it cannot connect to the specified SEB Server.</source>
+        <target>Wenn SEB Server-Fallback aktiviert ist, lädt der SEB-Client die Start-URL in einem Browserfenster, wenn er keine Verbindung zum angegebenen SEB Server herstellen kann.</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/Security.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="0" xml:space="preserve">
+        <source>0</source>
+        <target>0</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="1" xml:space="preserve">
+        <source>1</source>
+        <target>1</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="2" xml:space="preserve">
+        <source>2</source>
+        <target>2</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="3" xml:space="preserve">
+        <source>3</source>
+        <target>3</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="4" xml:space="preserve">
+        <source>4</source>
+        <target>4</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="5" xml:space="preserve">
+        <source>5</source>
+        <target>5</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="6" xml:space="preserve">
+        <source>6</source>
+        <target>6</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="7" xml:space="preserve">
+        <source>7</source>
+        <target>7</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="8" xml:space="preserve">
+        <source>8</source>
+        <target>8</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="9" xml:space="preserve">
+        <source>9</source>
+        <target>9</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="10" xml:space="preserve">
+        <source>10</source>
+        <target>10</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="11" xml:space="preserve">
+        <source>11</source>
+        <target>11</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="12" xml:space="preserve">
+        <source>12</source>
+        <target>12</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Running from iOS Version" xml:space="preserve">
+        <source>Allow Running from iOS Version</source>
+        <target>Erlaube Benutzung ab iOS-Version</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Running on iOS Beta" xml:space="preserve">
+        <source>Allow Running on iOS Beta</source>
+        <target>Benutzung mit iOS-Beta erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Screen Capture" xml:space="preserve">
+        <source>Allow Screen Capture</source>
+        <target>Bildschirmaufzeichnung erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Assessment Mode (AAC &amp;amp; ASAM)" xml:space="preserve">
+        <source>Assessment Mode (AAC &amp;amp; ASAM)</source>
+        <target>Assessment-Modus (AAC/ASAM)</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Legacy Single App Mode" xml:space="preserve">
+        <source>Legacy Single App Mode</source>
+        <target>Klassischer Einzel-App-Modus</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Lock Screen After Sleep Mode" xml:space="preserve">
+        <source>Lock Screen After Sleep Mode</source>
+        <target>Sperrbildschirm nach Ruhezustand</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Logging" xml:space="preserve">
+        <source>Logging</source>
+        <target>Logging</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Major Version Number" xml:space="preserve">
+        <source>Major Version Number</source>
+        <target>Major-Versionsnummer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Minor Version Number" xml:space="preserve">
+        <source>Minor Version Number</source>
+        <target>Minor-Versionsnummer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="None" xml:space="preserve">
+        <source>None</source>
+        <target>Keine</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="On devices with iOS &amp;lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." xml:space="preserve">
+        <source>On devices with iOS &amp;lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</source>
+        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Patch Version Number" xml:space="preserve">
+        <source>Patch Version Number</source>
+        <target>Patch-Versionsnummer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Prevent Auto-Lock" xml:space="preserve">
+        <source>Prevent Auto-Lock</source>
+        <target>Auto-Sperrzustand verhindern</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Settings for Classic Single App Mode (SAM) and Guided Access" xml:space="preserve">
+        <source>Settings for Classic Single App Mode (SAM) and Guided Access</source>
+        <target>Einstellungen für den klassischen Einzel-App-Modus (SAM) und den geführten Zugang (Guided Access)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use Assessment Mode If Available" xml:space="preserve">
+        <source>Use Assessment Mode If Available</source>
+        <target>Assessment-Modus verwenden, wenn verfügbar</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode)." xml:space="preserve">
+        <source>Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode).</source>
+        <target>Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="iOS 15" xml:space="preserve">
+        <source>iOS 15</source>
+        <target>iOS 15</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/SecurityLegacy.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Single App Mode" xml:space="preserve">
+        <source>Allow Single App Mode</source>
+        <target>Einzel-App-Modus erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Classic Single App Mode (SAM)" xml:space="preserve">
+        <source>Classic Single App Mode (SAM)</source>
+        <target>Klassischer Einzel-App-Modus (SAM)</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Guided Access Compatibility" xml:space="preserve">
+        <source>Guided Access Compatibility</source>
+        <target>Kompatibilität mit geführtem Zugang</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Transforms specific HTTP requests for clicked links to prevent the &amp;quot;Guided Access is enabled&amp;quot; message being displayed when clicking all links." xml:space="preserve">
+        <source>Transforms specific HTTP requests for clicked links to prevent the &amp;quot;Guided Access is enabled&amp;quot; message being displayed when clicking all links.</source>
+        <target>Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung 'Geführter Zugriff ist aktiv' zu vermeiden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system." xml:space="preserve">
+        <source>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</source>
+        <target>Verwendet den Einzel-App-Modus (SAM), der von Classroom, einem MDM-System oder Apple Configurator aktiviert wird, anstelle des Assessment-/Bewertungsmodus. Hinweis: Sie müssen bereits in SAM gesperrte Geräte verteilen oder den manuellen geführten Zugriff (Guided Access) deaktivieren, wenn Sie sicherstellen möchten, dass nur SAM vom System verwendet wird.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/SecurityLogging.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Debug" xml:space="preserve">
+        <source>Debug</source>
+        <target>Debug</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Logging" xml:space="preserve">
+        <source>Enable Logging</source>
+        <target>Log aktivieren</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Error" xml:space="preserve">
+        <source>Error</source>
+        <target>Fehler</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="Info" xml:space="preserve">
+        <source>Info</source>
+        <target>Info</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Log Level" xml:space="preserve">
+        <source>Log Level</source>
+        <target>Log-Stufe</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sending Logs Requires Admin PW" xml:space="preserve">
+        <source>Sending Logs Requires Admin PW</source>
+        <target>Senden von Logs erfordert Admin-PW</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password." xml:space="preserve">
+        <source>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</source>
+        <target>Die Taste zum Senden von Protokollen an die SEB-Entwickler befindet sich in der Ansicht 'Über SEB' (im Copyright- und Lizenztext nach unten scrollen). Die Taste öffnet eine Mail-Editor-Ansicht. Sie können die Protokolldatei auch zunächst an Ihre eigene E-Mail-Adresse senden, um zu prüfen, welche Protokolldaten SEB gesammelt hat. Wenn Sie nicht möchten, dass die Prüfungskandidaten selbst auf die Protokolle zugreifen können, können Sie diese Funktion mit dem SEB-Administrator-Passwort schützen.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Verbose" xml:space="preserve">
+        <source>Verbose</source>
+        <target>Alles</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Warning" xml:space="preserve">
+        <source>Warning</source>
+        <target>Warnung</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/UserInterface.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Auto-Correction" xml:space="preserve">
+        <source>Allow Auto-Correction</source>
+        <target>Auto-Korrektur erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Auto-Correction &amp;amp; Predictive Text" xml:space="preserve">
+        <source>Auto-Correction &amp;amp; Predictive Text</source>
+        <target>Auto-Korrektur und Text-Vorschläge</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Black on White" xml:space="preserve">
+        <source>Black on White</source>
+        <target>Schwarz auf Weiss</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Toolbar" xml:space="preserve">
+        <source>Browser Toolbar</source>
+        <target>Browser-Symbolleiste</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Default Page Zoom Level:" xml:space="preserve">
+        <source>Default Page Zoom Level:</source>
+        <target>Standard Seiten-Zoomstufe:</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Default Text Zoom Level:" xml:space="preserve">
+        <source>Default Text Zoom Level:</source>
+        <target>Standard-Textgrösse</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Page Zoom" xml:space="preserve">
+        <source>Enable Page Zoom</source>
+        <target>Seiten-Zoom zulassen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Scroll Lock" xml:space="preserve">
+        <source>Enable Scroll Lock</source>
+        <target>Scrollsperre zulassen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable Text Zoom" xml:space="preserve">
+        <source>Enable Text Zoom</source>
+        <target>Text-Zoom zulassen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled." xml:space="preserve">
+        <source>In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.</source>
+        <target>Im AAC-Assessment-/Bewertungsmodus oder ASAM-Einzel-App-Modus sind Autokorrektur und Textvorhersage immer deaktiviert.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Inferred" xml:space="preserve">
+        <source>Inferred</source>
+        <target>Übernommen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="None" xml:space="preserve">
+        <source>None</source>
+        <target>Keine</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="None - Black" xml:space="preserve">
+        <source>None - Black</source>
+        <target>Keine - schwarzer Hintergrund</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="None - White" xml:space="preserve">
+        <source>None - White</source>
+        <target>Keine - weisser Hintergrund</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled." xml:space="preserve">
+        <source>On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.</source>
+        <target>Auf Geräten mit FaceID wird die Statusleiste immer angezeigt, wenn die Browser-Symbolleiste aktiviert ist.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Page &amp;amp; Text Zoom" xml:space="preserve">
+        <source>Page &amp;amp; Text Zoom</source>
+        <target>Seiten- und Text-Zoom</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB Dock" xml:space="preserve">
+        <source>SEB Dock</source>
+        <target>SEB-Dock</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Scroll Lock" xml:space="preserve">
+        <source>Scroll Lock</source>
+        <target>Scrollsperre</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Status Bar (w/FaceID)" xml:space="preserve">
+        <source>Status Bar (w/FaceID)</source>
+        <target>Statusleiste mit FaceID</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Status Bar Appearance" xml:space="preserve">
+        <source>Status Bar Appearance</source>
+        <target>Darstellung Statusleiste</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Status/Tool Bar/SEB Dock" xml:space="preserve">
+        <source>Status/Tool Bar/SEB Dock</source>
+        <target>Statusleiste/Symbolleiste/SEB-Dock</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="White on Black" xml:space="preserve">
+        <source>White on Black</source>
+        <target>Weiss auf Schwarz</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." xml:space="preserve">
+        <source>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</source>
+        <target>Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." xml:space="preserve">
+        <source>Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</source>
+        <target>Zoom wird nur in modernen WebViews unterstützt. Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Navigation" xml:space="preserve">
+        <source>Allow Navigation</source>
+        <target>Navigation erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Reload" xml:space="preserve">
+        <source>Allow Reload</source>
+        <target>Neuladen erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Text Search" xml:space="preserve">
+        <source>Allow Text Search</source>
+        <target>Textsuche erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Always" xml:space="preserve">
+        <source>Always</source>
+        <target>Immer</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Automatic" xml:space="preserve">
+        <source>Automatic</source>
+        <target>Automatisch</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Before Receiving Title" xml:space="preserve">
+        <source>Before Receiving Title</source>
+        <target>Bevor Titel empfangen wird</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Block Pop-Up Windows" xml:space="preserve">
+        <source>Block Pop-Up Windows</source>
+        <target>Pop-Ups unterdrücken</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Block When on Different Server" xml:space="preserve">
+        <source>Block When on Different Server</source>
+        <target>blockieren, wenn Ziel auf anderem Server</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser Features" xml:space="preserve">
+        <source>Browser Features</source>
+        <target>Browser-Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom" xml:space="preserve">
+        <source>Custom</source>
+        <target>Benutzerdefiniert</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom user agent string" xml:space="preserve">
+        <source>Custom user agent string</source>
+        <target>Benutzerdefinierte User Agent Zeichenkette</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Default" xml:space="preserve">
+        <source>Default</source>
+        <target>Standard</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable JavaScript" xml:space="preserve">
+        <source>Enable JavaScript</source>
+        <target>JavaScript erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Force Classic" xml:space="preserve">
+        <source>Force Classic</source>
+        <target>Klassisches erzwingen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Get Generally Blocked" xml:space="preserve">
+        <source>Get Generally Blocked</source>
+        <target>werden generell blockiert</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+      <trans-unit id="Links requesting to open in new tab …" xml:space="preserve">
+        <source>Links requesting to open in new tab …</source>
+        <target>Links, die in einem neuen Browsertab geöffnet werden sollen …</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Mac Desktop" xml:space="preserve">
+        <source>Mac Desktop</source>
+        <target>Mac Desktop</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Media Playback" xml:space="preserve">
+        <source>Media Playback</source>
+        <target>Medienwiedergabe</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Never" xml:space="preserve">
+        <source>Never</source>
+        <target>Nie</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Only in Load Error" xml:space="preserve">
+        <source>Only in Load Error</source>
+        <target>Nur bei Verbindungsfehlern</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Only on Load Error" xml:space="preserve">
+        <source>Only on Load Error</source>
+        <target>Nur bei Verbindungsfehlern</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Open in New Tab" xml:space="preserve">
+        <source>Open in New Tab</source>
+        <target>in neuem Tab öffnen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Open in Same Tab" xml:space="preserve">
+        <source>Open in Same Tab</source>
+        <target>im selben Tab öffnen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Prefer Modern" xml:space="preserve">
+        <source>Prefer Modern</source>
+        <target>Modern bevorzugen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
+        <source>Prefer Modern in New Tab+Different Host</source>
+        <target>Modern in neuen Tabs+anderem Server bevorzugen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restrictions in Exam Tab" xml:space="preserve">
+        <source>Restrictions in Exam Tab</source>
+        <target>Einschränkungen im Prüfungstab</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restrictions in New Tabs" xml:space="preserve">
+        <source>Restrictions in New Tabs</source>
+        <target>Einschränkungen in zusätzlichen Tabs</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB always appends its version number. Default string depends on the iOS version and therefore can differ on exam clients." xml:space="preserve">
+        <source>SEB always appends its version number. Default string depends on the iOS version and therefore can differ on exam clients.</source>
+        <target>SEB hängt immer seine Versionsnummer an. Die Standardzeichenkette hängt von der iOS-Version ab und kann daher auf Prüfungsclients unterschiedlich sein.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Select Browser Engine Policy" xml:space="preserve">
+        <source>Select Browser Engine Policy</source>
+        <target>Policy zum Wählen der Browser-Engine</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show Reload Warning" xml:space="preserve">
+        <source>Show Reload Warning</source>
+        <target>Neuladen-Warnung anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Show URLs" xml:space="preserve">
+        <source>Show URLs</source>
+        <target>URLs anzeigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." xml:space="preserve">
+        <source>Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView.</source>
+        <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="The modern WKWebView browser engine currently doesn&amp;apos;t support URL content filters (Network &amp;gt; URL Filter &amp;gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &amp;gt; Use Browser &amp;amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &amp;apos;Use Browser &amp;amp; Config Keys&amp;apos; option in new tabs on a different server or generally." xml:space="preserve">
+        <source>The modern WKWebView browser engine currently doesn&amp;apos;t support URL content filters (Network &amp;gt; URL Filter &amp;gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &amp;gt; Use Browser &amp;amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &amp;apos;Use Browser &amp;amp; Config Keys&amp;apos; option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk &gt; URL Filter &gt; Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="User Agent" xml:space="preserve">
+        <source>User Agent</source>
+        <target>User Agent</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="User agent suffix" xml:space="preserve">
+        <source>User agent suffix</source>
+        <target>User Agent Suffix</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
@@ -7187,7 +8623,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Before receiving title" xml:space="preserve">
         <source>Before receiving title</source>
-        <target>Bevor Titel empfangen</target>
+        <target>Bevor Titel empfangen wird</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Black on White" xml:space="preserve">
@@ -8272,7 +9708,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Student" xml:space="preserve">
         <source>Student</source>
-        <target>Studierende</target>
+        <target>Studierender</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">

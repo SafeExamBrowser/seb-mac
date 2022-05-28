@@ -1,0 +1,93 @@
+/* (No Comment) */
+"AI Proctoring" = "KI-Fernüberwachung";
+
+/* (No Comment) */
+"AI Proctoring Support" = "Unterstützung für KI-Fernüberwachung";
+
+/* (No Comment) */
+"AI-based proctoring features like face tracking create log events and send notifications to SEB Server." = "KI-basierte Prüfungsfunktionen wie die Gesichtsverfolgung erstellen Protokollereignisse und senden Benachrichtigungen an den SEB Server.";
+
+/* (No Comment) */
+"Allow to Hide" = "Ausblenden erlaubt";
+
+/* (No Comment) */
+"Allow to Show" = "Einblenden erlaubt";
+
+/* (No Comment) */
+"Always" = "Immer";
+
+/* (No Comment) */
+"Audio Initially Muted" = "Audio anfangs stumm";
+
+/* (No Comment) */
+"Audio Only" = "Nur Audio";
+
+/* (No Comment) */
+"Audio/Video Streams" = "Audio/Video-Streams";
+
+/* String for FooterText elements */
+"Connection details for a Jitsi Meet video conference server and room." = "Verbindungsdetails für einen Jitsi Meet-Videokonferenzserver und -Raum.";
+
+/* (No Comment) */
+"Enable Jitsi Meet" = "Jitsi Meet aktivieren";
+
+/* String for IASKPlaceholder elements */
+"Full URL" = "Vollständige URL";
+
+/* (No Comment) */
+"Jitsi Meet Features" = "Jitsi Meet Funktionen";
+
+/* String for Title elements */
+"Jitsi Meet Support" = "Unterstützung für Jitsi Meet";
+
+/* (No Comment) */
+"Jitsi Meet User Controls" = "Steuermöglichkeiten für Jitsi Meet Benutzer";
+
+/* String for Titles arrays elements */
+"Never" = "Nie";
+
+/* (No Comment) */
+"Proctoring View Display Policy" = "Policy zur Anzeige des Fernüberwachungs-Fensters";
+
+/* (No Comment) */
+"Receive Audio" = "Audio empfangen";
+
+/* (No Comment) */
+"Receive Video" = "Video empfangen";
+
+/* (No Comment) */
+"Room" = "Raum";
+
+/* (No Comment) */
+"Room Name" = "Raumname";
+
+/* (No Comment) */
+"Send Audio" = "Audio Senden";
+
+/* (No Comment) */
+"Send Video" = "Video senden";
+
+/* (No Comment) */
+"Server URL" = "Server-URL";
+
+/* (No Comment) */
+"Subject" = "Betreff";
+
+/* (No Comment) */
+"Subject Text" = "Text für Betreff";
+
+/* (No Comment) */
+"Token" = "Token";
+
+/* (No Comment) */
+"Token String" = "Token-Zeichenkette";
+
+/* (No Comment) */
+"Video Initially Muted" = "Video anfangs aus";
+
+/* (No Comment) */
+"When the proctoring view is displayed (see its display policy below), users can mute and unmute audio and video manually. Audio and video streams can be disabled globally with the settings below." = "Wenn das Fernüberwachungs-Fenster angezeigt wird (siehe Anzeige-Policy unten), können die Benutzer Audio und Video manuell ein-/ausschalten. Audio- und Videostreams können mit den unten aufgeführten Einstellungen global deaktiviert werden.";
+
+/* (No Comment) */
+"You can hide or show the overlay view showing the user (and if enabled other candidates and the proctor) with this setting or allow users to show the view (initially hidden) or hide (initially visible) using the dock button or side menu command." = "Mit dieser Einstellung können Sie das Fernüberwachungs-Fenster, die den Benutzer (und, falls aktiviert, andere Kandidaten und den Prüfer) zeigt, ein- oder ausblenden oder den Benutzern erlauben, die Ansicht über die Dock-Taste oder den Befehl im Seitenmenü ein- (anfänglich ausgeblendet) oder auszublenden (anfänglich sichtbar).";
+

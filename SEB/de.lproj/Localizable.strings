@@ -1,0 +1,1050 @@
+/* No comment provided by engineer. */
+" (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
+
+/* No comment provided by engineer. */
+" (Connected to Power Source)" = "(mit Stromquelle verbunden)";
+
+/* No comment provided by engineer. */
+" 1" = "1";
+
+/* No comment provided by engineer. */
+" and " = "und";
+
+/* word indicating the duplicate of a file, same as in Finder ' copy' */
+" copy" = "kopieren";
+
+/* No comment provided by engineer. */
+" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS " = "-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS ";
+
+/* No comment provided by engineer. */
+"%@ Config File %@" = "%1$@-Konfigurationsdatei %2$@";
+
+/* No comment provided by engineer. */
+"%@ Config File %@%@" = "%1$@-Konfigurationsdatei %2$@%3$@";
+
+/* No comment provided by engineer. */
+"%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%1$@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter.";
+
+/* No comment provided by engineer. */
+"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
+
+/* Default title of lock screen alert. */
+"%@ Is Locked!" = "%@ ist gesperrt!";
+
+/* No comment provided by engineer. */
+"%@ needs to be used differently depending on your role." = "%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.";
+
+/* No comment provided by engineer. */
+"%@ Not Allowed!" = "%@ nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"%@ Re-Configured" = "%@ neu konfiguriert";
+
+/* No comment provided by engineer. */
+"%@ was downloaded." = "%@ wurde heruntergeladen.";
+
+/* No comment provided by engineer. */
+"10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.8 (this SEB: 10.11)" = "10.8 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.9 (this SEB: 10.11)" = "10.9 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.10 (this SEB: 10.11)" = "10.10 (dieser SEB: 10.11)";
+
+/* No comment provided by engineer. */
+"10.11 El Capitan" = "10.11 El Capitan";
+
+/* No comment provided by engineer. */
+"10.12 Sierra" = "10.12 Sierra";
+
+/* No comment provided by engineer. */
+"10.13 High Sierra" = "10.13 High Sierra";
+
+/* No comment provided by engineer. */
+"10.14 Mojave" = "10.14 Mojave";
+
+/* No comment provided by engineer. */
+"10.15 Catalina" = "10.15 Catalina";
+
+/* No comment provided by engineer. */
+"11 Big Sur" = "11 Big Sur";
+
+/* No comment provided by engineer. */
+"12 Monterey" = "12 Monterey";
+
+/* No comment provided by engineer. */
+"About %@" = "Über %@";
+
+/* No comment provided by engineer. */
+"Actions for creating or resetting settings" = "Aktionen zum Erstellen oder Zurücksetzen von Einstellungen";
+
+/* No comment provided by engineer. */
+"Activate Scroll Lock" = "Scrollsperre aktivieren";
+
+/* No comment provided by engineer. */
+"Admin Password" = "Administrator-Passwort";
+
+/* No comment provided by engineer. */
+"Administrator" = "Administrator";
+
+/* No comment provided by engineer. */
+"allow" = "erlauben";
+
+/* No comment provided by engineer. */
+"allow to use SEB only with service" = "SEB darf nur mit Service laufen";
+
+/* No comment provided by engineer. */
+"allow to use SEB without service" = "SEB darf ohne Service laufen";
+
+/* No comment provided by engineer. */
+"Always" = "Immer";
+
+/* No comment provided by engineer. */
+"An identity needs a unique name." = "Identität benötigt einmaligen Namen.";
+
+/* No comment provided by engineer. */
+"An identity with the same name is already stored in the Keychain. Please use a unique name." = "Ein Identitätszertifikat mit demselben Namen ist bereits im Schlüsselbund gespeichert. Bitte benutzen Sie einen einmaligen Namen.";
+
+/* No comment provided by engineer. */
+"Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to restart this session?" = "Sind Sie sicher, dass Sie diese Session neu starten wollen?";
+
+/* No comment provided by engineer. */
+"Are you sure?" = "Sind Sie sicher?";
+
+/* No comment provided by engineer. */
+"Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@." = "Erkundigen Sie sich beim Anbieter Ihrer Prüfungslösung, wie Sie diese mit %1$@ verwenden können.%2$@Allgemeine Anweisungen zur Konfiguration von %3$@ finden Sie auf %4$@.";
+
+/* No comment provided by engineer. */
+"Authentication Required" = "Authentifizierung notwendig";
+
+/* No comment provided by engineer. */
+"Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
+
+/* No comment provided by engineer. */
+"Automatic" = "Automatisch";
+
+/* No comment provided by engineer. */
+"Automatic Proxy Configuration" = "Autom. Proxy-Konfiguration";
+
+/* No comment provided by engineer. */
+"Back to Start" = "Zurück zum Start";
+
+/* No comment provided by engineer. */
+"Battery Level %.f%%%@" = "Batteriestand %1$.f%%%2$@";
+
+/* No comment provided by engineer. */
+"Before receiving title" = "Bevor Titel empfangen";
+
+/* No comment provided by engineer. */
+"Black on White" = "Schwarz auf Weiss";
+
+/* No comment provided by engineer. */
+"block" = "blockieren";
+
+/* No comment provided by engineer. */
+"Browser Exam and/or Config Keys for %@ %@ Config File %@%@" = "Browser Exam und/oder Config Keys für %1$@ %2$@ Konfigurationsdatei %3$@%4$@";
+
+/* Browser Exam Key */
+"Browser Exam Key" = "Browser Exam Key";
+
+/* No comment provided by engineer. */
+"by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
+
+/* No comment provided by engineer. */
+"by only allowing to upload the same file downloaded before" = "nur zuvor heruntergeladene Datei zulassen";
+
+/* No comment provided by engineer. */
+"CA" = "CA";
+
+/* No comment provided by engineer. */
+"CA Certificate" = "CA-Zertifikat";
+
+/* No comment provided by engineer. */
+"camera" = "Kamera";
+
+/* No comment provided by engineer. */
+"Camera Access Denied" = "Kamerazugriff verweigert";
+
+/* No comment provided by engineer. */
+"Can't Send Log File" = "Logdatei kann nicht gesendet werden";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Cannot Configure Client" = "Client kann nicht konfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Connect to SEB Server" = "Verbindung mit SEB Server nicht möglich";
+
+/* No comment provided by engineer. */
+"Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
+
+/* No comment provided by engineer. */
+"Cannot Edit %@ Settings" = "%@-Einstellungen können nicht bearbeitet werden";
+
+/* No comment provided by engineer. */
+"Cannot Quit Session" = "Session kann nicht beendet werden";
+
+/* No comment provided by engineer. */
+"Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
+
+/* No comment provided by engineer. */
+"Cannot Reset %@ Settings" = "%@-Einstellungen können nicht zurückgesetzt werden";
+
+/* No comment provided by engineer. */
+"Cannot Send %@ Logs" = "%@-Logdateien können nicht gesendet werden";
+
+/* No comment provided by engineer. */
+"Cannot Start Another SEB Server Session" = "Weitere SEB Server Session kann nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Cannot Start Exam" = "Prüfung kann nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Capturing Screen Not Allowed" = "Bildschirmaufzeichnung/-teilen nicht erlaubt";
+
+/* No comment provided by engineer. */
+"Center" = "Zentrieren";
+
+/* No comment provided by engineer. */
+"Check your configuration, probably connection settings are incorrect." = "Überprüfen Sie Ihre Konfiguration, wahrscheinlich sind die Verbindungseinstellungen falsch.";
+
+/* No comment provided by engineer. */
+"Closing lockdown windows" = "Lockdown-Fenster werden geschlossen";
+
+/* No comment provided by engineer. */
+"Code contributions © 2015 - 2016 Janison" = "Codebeiträge © 2015 - 2016 Janison";
+
+/* Config Key */
+"Config Key" = "Config Key";
+
+/* No comment provided by engineer. */
+"Config QR Code" = "Konfigurations-QR-Code";
+
+/* No comment provided by engineer. */
+"Configuring Client" = "Client konfigurieren";
+
+/* No comment provided by engineer. */
+"Confirm Removing Identity" = "Entfernen der Identität bestätigen";
+
+/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+"Connecting…" = "Verbinde…";
+
+/* No comment provided by engineer. */
+"Continue" = "Weiter";
+
+/* No comment provided by engineer. */
+"Correct password entered" = "Korrektes Passwort eingegeben";
+
+/* No comment provided by engineer. */
+"Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.";
+
+/* No comment provided by engineer. */
+"Could not Export Identity" = "Konnte Identität nicht exportieren";
+
+/* No comment provided by engineer. */
+"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+
+/* No comment provided by engineer. */
+"Create Exam Settings" = "Prüfungseinstellungen erstellen";
+
+/* No comment provided by engineer. */
+"Create New Identity" = "Neue Identität erstellen";
+
+/* No comment provided by engineer. */
+"Create New…" = "Neu erstellen…";
+
+/* No comment provided by engineer. */
+"Current Settings require Single App Mode to be active to proceed." = "Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.";
+
+/* No comment provided by engineer. */
+"Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." = "Die aktuellen Einstellungen erfordern, dass der geführte Zugriff (Guided Access) oder ein vom MDM/Apple Configurator aufgerufener Einzel-App-Modus zunächst ausgeschaltet wird, bevor die Prüfung gestartet werden kann.";
+
+/* No comment provided by engineer. */
+"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." = "Die aktuellen Einstellungen erfordern Zoom-Fernüberwachung, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
+
+/* No comment provided by engineer. */
+"Currently it isn't allowed to run %@ on the iOS version installed on this device." = "Derzeit ist es nicht erlaubt, %@ mit der auf diesem Gerät installierten iOS-Version zu benutzen.";
+
+/* No comment provided by engineer. */
+"Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements." = "Deaktiviert das Scrollen und die Textauswahl auf der Webseite und erleichtert die Verwendung von Drag-und-Drop-Web-Elementen.";
+
+/* No comment provided by engineer. */
+"Debug" = "Debug";
+
+/* No comment provided by engineer. */
+"DEBUG" = "DEBUG";
+
+/* No comment provided by engineer. */
+"Debug Certificate" = "Debug Zertifikat";
+
+/* No comment provided by engineer. */
+"Decrypting exam settings was canceled" = "Entschlüsseln der Prüfungseinstellungen wurde abgebrochen";
+
+/* No comment provided by engineer. */
+"Decrypting settings was canceled" = "Entschlüsseln der Einstellungen wurde abgebrochen";
+
+/* No comment provided by engineer. */
+"Default Size" = "Standardgrösse";
+
+/* Lockdown alert title text for device was in sleep mode */
+"Device Was in Sleep Mode!" = "Gerät war im Ruhezustand!";
+
+/* No comment provided by engineer. */
+"Disable Scroll Lock" = "Scrollsperre deaktivieren";
+
+/* No comment provided by engineer. */
+"Displays a camera view to scan for SEB configuration QR codes" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
+
+/* No comment provided by engineer. */
+"Do you really want to reload the web page?" = "Wollen Sie die Seite wirklich neu laden?";
+
+/* No comment provided by engineer. */
+"Do you want to abort opening Settings and apply this managed configuration?" = "Möchten Sie das Öffnen der Einstellungen abbrechen und diese (MDM-)verwaltete Konfiguration anwenden?";
+
+/* No comment provided by engineer. */
+"Do you want to close Settings and apply this managed configuration?" = "Möchten Sie die Einstellungen schliessen und diese (MDM-)verwaltete Konfiguration anwenden?";
+
+/* No comment provided by engineer. */
+"Done" = "Fertig";
+
+/* No comment provided by engineer. */
+"Download Finished" = "Download beendet";
+
+/* No comment provided by engineer. */
+"Downloading" = "Download";
+
+/* No comment provided by engineer. */
+"Edit Settings" = "Einstellungen bearbeiten";
+
+/* No comment provided by engineer. */
+"Embed" = "Einbetten";
+
+/* No comment provided by engineer. */
+"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page)." = "Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfigurationsdateien').";
+
+/* No comment provided by engineer. */
+"Embedded Certificate" = "Eingebettetes Zertifikat";
+
+/* No comment provided by engineer. */
+"Enable Scroll Lock" = "Scrollsperre aktivieren";
+
+/* No comment provided by engineer. */
+"encrypted with identity certificate " = "verschlüsselt mit Identitätszertifikat";
+
+/* No comment provided by engineer. */
+"Ends an exam session and returns to client settings" = "Beendet eine Prüfungssession und kehrt zu Client-Einstellungen zurück";
+
+/* No comment provided by engineer. */
+"Enter Exam Password:" = "Prüfungspasswort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter Identity Admin Password" = "Admin-Passwort des Identitätszertifikats eingeben";
+
+/* No comment provided by engineer. */
+"Enter password used to encrypt these settings:" = "Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter quit password:" = "Beenden-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Enter the URL of an institution which supports %@" = "Geben Sie die URL einer Institution ein, die %@ unterstützt";
+
+/* No comment provided by engineer. */
+"Entering the current %@ administrator password was canceled" = "Eingabe des aktuellen %@ Administrator-Passworts wurde abgebrochen";
+
+/* No comment provided by engineer. */
+"Error" = "Fehler";
+
+/* No comment provided by engineer. */
+"Error Decrypting Settings" = "Fehler beim Entschlüsseln der Einstellungen";
+
+/* No comment provided by engineer. */
+"Exam Page" = "Prüfungsseite";
+
+/* No comment provided by engineer. */
+"Exam Session Finished" = "Prüfungssession beendet";
+
+/* No comment provided by engineer. */
+"Failed to Start Single App Mode" = "Einzel-App-Modus konnte nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Fetching identities" = "Identitäten werden geladen …";
+
+/* No comment provided by engineer. */
+"Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams." = "Befolgen Sie die Anweisungen Ihres Prüfers, wie Sie eine Prüfung in %1$@ starten können.%2$@Wenn Sie versuchen, die %3$@-Einstellungen selbst zu bearbeiten, kann der Zugang zu Prüfungen gesperrt werden.";
+
+/* No comment provided by engineer. */
+"for configuring clients" = "zum Umkonfigurieren von Clients";
+
+/* No comment provided by engineer. */
+"for Managed Configuration (MDM)" = "für verwaltete Konfiguration (MDM)";
+
+/* No comment provided by engineer. */
+"For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version." = "Aus Sicherheitsgründen kann %@ nicht auf einer iOS 11-Version vor iOS 11.2.5 ausgeführt werden. Aktualisieren Sie auf die aktuelle iOS-Version.";
+
+/* No comment provided by engineer. */
+"for starting an exam" = "zum Starten einer Prüfung";
+
+/* No comment provided by engineer. */
+"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "Die aktuelle Session erfordert Fernüberwachung. Auf diesem Gerät ist Zugriff auf %1$@ %2$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.";
+
+/* No comment provided by engineer. */
+"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Fernüberwachung. Sie müssen Zugriff auf %1$@%2$@ %3$@erlauben, bevor Sie %4$@die Session starten können.";
+
+/* No comment provided by engineer. */
+"Force Classic" = "Klassisches erzwingen";
+
+/* No comment provided by engineer. */
+"FTP Proxy" = "FTP-Proxy";
+
+/* No comment provided by engineer. */
+"get generally blocked" = "werden generell blockiert";
+
+/* No comment provided by engineer. */
+"Go Back" = "Zurück";
+
+/* No comment provided by engineer. */
+"Go Forward" = "Vorwärts";
+
+/* No comment provided by engineer. */
+"Identity" = "Identität";
+
+/* No comment provided by engineer. */
+"IDENTITY" = "IDENTITÄT";
+
+/* No comment provided by engineer. */
+"Identity in Keychain" = "Identität im Schlüsselbund";
+
+/* No comment provided by engineer. */
+"Identity Name" = "Name der Identität";
+
+/* No comment provided by engineer. */
+"Identity Name Not Unique" = "Name der Identität nicht einmalig";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct quit password, then you cannot quit the session." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie die Session nicht beenden.";
+
+/* No comment provided by engineer. */
+"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
+
+/* No comment provided by engineer. */
+"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore." = "Wenn Sie die Identität '%@' aus dem Schlüsselbund entfernen und Sie keine Kopie davon haben (eingebettet in eine Konfigurationsdatei oder installiert auf einem anderen Gerät), können Sie mit dieser Identität verschlüsselte Prüfungskonfigurationsdateien nicht mehr entschlüsseln.";
+
+/* No comment provided by engineer. */
+"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." = "Falls Ihre Institution die automatische %@-Client-Konfiguration nicht unterstützt, befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+
+/* No comment provided by engineer. */
+"in Settings " = "in der Einstellungen-App ";
+
+/* No comment provided by engineer. */
+"Info" = "Info";
+
+/* No comment provided by engineer. */
+"Instructions for Administrators" = "Instruktionen für Administratoren";
+
+/* No comment provided by engineer. */
+"Instructions for Students" = "Instruktionen für Studierende";
+
+/* No comment provided by engineer. */
+"iOS 14" = "iOS 14";
+
+/* No comment provided by engineer. */
+"iOS User agent" = "iOS User Agent";
+
+/* No comment provided by engineer. */
+"Issue Description Required" = "Fehlerbeschreibung notwendig";
+
+/* No comment provided by engineer. */
+"Left" = "Links";
+
+/* No comment provided by engineer. */
+"Load Error" = "Verbindungsfehler";
+
+/* No comment provided by engineer. */
+"Loaded data doesn't contain valid %@ settings." = "Geladene Daten beinhalten keine gültigen %@-Einstellungen.";
+
+/* No comment provided by engineer. */
+"Loading New %@ Settings Not Allowed!" = "Laden von neuen %@-Einstellungen nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"Loading settings" = "Einstellungen werden geladen";
+
+/* No comment provided by engineer. */
+"Loading Settings" = "Einstellungen werden geladen";
+
+/* No comment provided by engineer. */
+"Log File %@ iOS" = "Logdatei %@ iOS";
+
+/* No comment provided by engineer. */
+"Log In" = "Einloggen";
+
+/* No comment provided by engineer. */
+"Log in to" = "Einloggen";
+
+/* No comment provided by engineer. */
+"macOS" = "macOS";
+
+/* No comment provided by engineer. */
+"manually with file requester" = "manuell mit Dateidialog";
+
+/* No comment provided by engineer. */
+"microphone" = "Mikrofon";
+
+/* No comment provided by engineer. */
+"Moodle" = "Moodle";
+
+/* No comment provided by engineer. */
+"More information at https://safeexambrowser.org" = "Mehr Informationen auf https://safeexambrowser.org";
+
+/* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
+"Navigate Back" = "Zurück navigieren";
+
+/* No comment provided by engineer. */
+"Navigate Forward" = "Vorwärts navigieren";
+
+/* No comment provided by engineer. */
+"Navigates back to the start URL or to another preset URL. Doesn't log users out" = "Navigiert zurück zur Start-URL oder zu einer anderen voreingestellten URL. Meldet Benutzer nicht ab";
+
+/* No comment provided by engineer. */
+"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help." = "Weder Automatic Assessment Configuration noch der (autonome MDM) Einzel-App-Modus sind auf diesem Gerät verfügbar oder in den Einstellungen aktiviert. Wenden Sie sich an Ihren Prüfungs-Support. Manchmal kann ein App- oder Geräte-Neustart helfen.";
+
+/* No comment provided by engineer. */
+"Never" = "Nie";
+
+/* No comment provided by engineer. */
+"New settings have been saved, they will also be used when you start %@ next time again." = "Neue Konfiguration wurde gespeichert, diese wird auch dann benutzt, wenn %@ das nächste Mal gestartet wird.";
+
+/* No comment provided by engineer. */
+"No %@ Configuration Found" = "Keine %@-Konfiguration gefunden!";
+
+/* No comment provided by engineer. */
+"No %@ configuration found!" = "Keine %@-Konfiguration gefunden!";
+
+/* No comment provided by engineer. */
+"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
+
+/* No comment provided by engineer. */
+"No Camera Available" = "Keine Kamera verfügbar";
+
+/* No comment provided by engineer. */
+"No Encryption Credentials Chosen" = "Keine Verschlüsselung gewählt";
+
+/* No comment provided by engineer. */
+"No Hostname Found" = "Kein Hostname gefunden";
+
+/* No comment provided by engineer. */
+"No Identity Name Provided" = "Kein Name für Identität angegeben";
+
+/* No comment provided by engineer. */
+"No Kiosk Mode Available" = "Kein Kioskmodus verfügbar";
+
+/* No comment provided by engineer. */
+"No valid %@ config found." = "Keine %@-Konfigurationsdatei gefunden";
+
+/* No comment provided by engineer. */
+"None" = "Keine";
+
+/* No comment provided by engineer. */
+"None - Black" = "Keine - schwarzer Hintergrund";
+
+/* No comment provided by engineer. */
+"None - White" = "Keine - weisser Hintergrund";
+
+/* No comment provided by engineer. */
+"Not Connected to WiFi" = "Nicht mit WLAN verbunden";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Only on load error" = "Nur bei Verbindungsfehlern";
+
+/* No comment provided by engineer. */
+"Open %@ exam or configuration link from Safari, Mail or a messenger app." = "%@-Prüfungs- oder Konfigurations-Link in Safari, Mail oder einer Nachrichten-App öffnen.";
+
+/* No comment provided by engineer. */
+"Open edX" = "Open edX";
+
+/* No comment provided by engineer. */
+"open in new window" = "in neuem Fenster öffnen";
+
+/* No comment provided by engineer. */
+"open in same window" = "im selben Fenster öffnen";
+
+/* No comment provided by engineer. */
+"Opening New Settings Failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
+
+/* No comment provided by engineer. */
+"Opening Settings Failed" = "Öffnen der Einstellungen fehlgeschlagen!";
+
+/* No comment provided by engineer. */
+"Opening Universal Link" = "Universal Link wird geöffnet";
+
+/* No comment provided by engineer. */
+"Opening Universal Link Failed" = "Öffnen eines Universal Links ist fehlgeschlagen!";
+
+/* No comment provided by engineer. */
+"Options to start an exam or configure %@ for your institution" = "Optionen zum Starten einer Prüfung oder zur Konfiguration von %@ für Ihre Institution";
+
+/* No comment provided by engineer. */
+"Parsing Settings Failed" = "Einlesen der Konfiguration ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Password" = "Passwort";
+
+/* No comment provided by engineer. */
+"Permissions Required for Remote Proctoring" = "Zugriffsrechte erforderlich für Fernüberwachung. ";
+
+/* No comment provided by engineer. */
+"Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." = "Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.";
+
+/* No comment provided by engineer. */
+"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
+
+/* No comment provided by engineer. */
+"Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
+
+/* No comment provided by engineer. */
+"Prefer Modern" = "Modern bevorzugen";
+
+/* No comment provided by engineer. */
+"Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+
+/* No comment provided by engineer. */
+"Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
+
+/* No comment provided by engineer. */
+"Quit" = "Beenden";
+
+/* No comment provided by engineer. */
+"Quit Session" = "Session beenden";
+
+/* No comment provided by engineer. */
+"Re-enter Identity Admin Password" = "Admin-Passwort der Identität erneut eingeben";
+
+/* No comment provided by engineer. */
+"Re-opening an exam which was locked before" = "Erneutes Starten einer zuvor unterbrochenen Prüfungssession";
+
+/* No comment provided by engineer. */
+"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode." = "Erneutes Starten einer zuvor unterbrochenen Prüfungssession, die aber nun kein Beenden-Passwort gesetzt hat und deswegen nicht im abgesicherten Modus läuft.";
+
+/* No comment provided by engineer. */
+"Reading Settings Failed" = "Lesen der Einstellungen ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Received Config from MDM Server" = "Konfiguration von MDM-Server empfangen";
+
+/* No comment provided by engineer. */
+"Reload" = "Neu laden";
+
+/* No comment provided by engineer. */
+"Reload Page" = "Neu laden";
+
+/* No comment provided by engineer. */
+"Reload this page" = "Diese Seite neu laden";
+
+/* No comment provided by engineer. */
+"Remote Proctoring" = "Fernüberwachung";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Active" = "Fernüberwachung ist aktiv";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Session" = "Session mit Fernüberwachung";
+
+/* No comment provided by engineer. */
+"Remove" = "Entfernen";
+
+/* No comment provided by engineer. */
+"Removing Identity Failed!" = "Entfernen der Identität fehlgeschlagen!";
+
+/* No comment provided by engineer. */
+"Reset Settings" = "Einstellungen zurücksetzen";
+
+/* No comment provided by engineer. */
+"Reset to Default Settings" = "Auf Voreinstellungen zurücksetzen";
+
+/* No comment provided by engineer. */
+"Restart" = "Neustart";
+
+/* No comment provided by engineer. */
+"Restart Session" = "Session neu starten";
+
+/* No comment provided by engineer. */
+"Retry" = "Wiederholen";
+
+/* No comment provided by engineer. */
+"return to SEB and re" = "zu SEB zurückkehren und ";
+
+/* No comment provided by engineer. */
+"Revert to Client Settings" = "Zurücksetzen auf Client-Einstellungen";
+
+/* No comment provided by engineer. */
+"Right" = "Rechts";
+
+/* No comment provided by engineer. */
+"Running on Current iOS Version Not Allowed" = "Benutzung auf aktueller iOS-Version nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"Running on New iOS Version Not Allowed" = "Benutzung auf neuer iOS-Version nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"Save unencrypted" = "Unverschlüsselt speichern";
+
+/* No comment provided by engineer. */
+"Saved file '%@'" = "Datei '%@' speichern";
+
+/* No comment provided by engineer. */
+"Scan %@ configuration QR code" = "%@-Konfigurations-QR-Code scannen";
+
+/* No comment provided by engineer. */
+"Scan Config QR Code" = "Konfigurations-QR-Code scannen";
+
+/* No comment provided by engineer. */
+"Scan QR Code" = "QR-Code scannen";
+
+/* No comment provided by engineer. */
+"Scanning Config QR Code Failed" = "QR-Code scannen fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Screen capturing/sharing was started while running in secure mode" = "Bildschirmaufzeichnung/Teilen wurde während einer sicheren Session gestartet";
+
+/* Lockdown alert title text for screen is being captured/shared */
+"Screen is Being Captured/Shared!" = "Bildschirm wird aufgezeichnet/geteilt!";
+
+/* No comment provided by engineer. */
+"Scroll Lock" = "Scrollsperre";
+
+/* No comment provided by engineer. */
+"Search Text" = "Text suchen";
+
+/* No comment provided by engineer. */
+"Search text on web pages" = "Text auf Webseiten suchen";
+
+/* No comment provided by engineer. */
+"Searching for %@ Configuration Canceled" = "Suche für %@-Konfiguration abgebrochen";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file …" = "Suche eine %@-Konfigurationsdatei …";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file was canceled." = "Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.";
+
+/* No comment provided by engineer. */
+"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
+
+/* No comment provided by engineer. */
+"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)";
+
+/* No comment provided by engineer. */
+"Secure exam session was started, URL: " = "Sichere Prüfungssession wurde gestartet, URL:";
+
+/* No comment provided by engineer. */
+"Secure session was started" = "Sichere Session wurde gestartet";
+
+/* No comment provided by engineer. */
+"Secure Web Proxy (HTTPS)" = "Sicherer Web-Proxy (HTTPS)";
+
+/* 'Select Exam' header in 'Connecting to SEB Server' table view. */
+"Select Exam" = "Prüfung auswählen";
+
+/* No comment provided by engineer. */
+"Send %@ Logfiles" = "%@ Logdateien senden";
+
+/* No comment provided by engineer. */
+"Send Log File" = "Logdatei senden";
+
+/* No comment provided by engineer. */
+"Send Logs to %@ Developers" = "Logdateien an %@-Entwickler senden";
+
+/* No comment provided by engineer. */
+"Settings" = "Einstellungen";
+
+/* No comment provided by engineer. */
+"Settings Actions" = "Aktionen für Einstellungen";
+
+/* No comment provided by engineer. */
+"Share" = "Teilen";
+
+/* No comment provided by engineer. */
+"Share settings" = "Einstellungen teilen";
+
+/* No comment provided by engineer. */
+"Share settings to see Key" = "Einstellungen teilen, um den Schlüsselwert zu sehen";
+
+/* No comment provided by engineer. */
+"Show Remote Proctoring Information" = "Information zu Fernüberwachung anzeigen";
+
+/* No comment provided by engineer. */
+"Show the next page" = "Nächste Seite anzeigen";
+
+/* No comment provided by engineer. */
+"Show the previous page" = "Vorherige Seite anzeigen";
+
+/* No comment provided by engineer. */
+"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" = "Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und SEB-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.";
+
+/* No comment provided by engineer. */
+"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." = "Der Einzel-App-Modus konnte nicht gestartet werden. Sie müssen Ihr Gerät neu starten (iPad mit Face ID: Halten Sie eine der beiden Lautstärketasten und die obere Taste gedrückt, bis der Schieberegler zum Ausschalten erscheint. iPad mit Home-Taste: Halten Sie die obere Taste gedrückt, bis der Schieberegler zum Ausschalten angezeigt wird). Aktualisieren Sie iOS/iPadOS auf die neueste Version, um dieses Problem zu vermeiden.";
+
+/* No comment provided by engineer. */
+"Single App Mode needs to be reactivated before %@ can continue." = "Der Einzel-App-Modus muss wieder aktiviert werden, bevor %@ fortfahren kann.";
+
+/* No comment provided by engineer. */
+"Single App Mode switched off!" = "Einzel-App-Modus ausgeschaltet!";
+
+/* No comment provided by engineer. */
+"Single App Mode was switched on again." = "Einzel-App-Modus wurde wieder eingeschaltet.";
+
+/* No comment provided by engineer. */
+"Single App Mode/Guided Access Not Allowed" = "Einzel-App-Modus/Geführter Zugriff (Guided Access) nicht erlaubt";
+
+/* No comment provided by engineer. */
+"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows." = "Der Ruhezustand wurde aktiviert, beispielsweise durch Schliessen einer iPad-Hülle. Überprüfen Sie vor dem Entsperren, ob das Sperrbildschirm-Hintergrundbild einen Spickzettel anzeigt. Dann entsperren Sie SEB mit der Eingabe des Beenden/Entsperren-Passworts, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"SOCKS Proxy" = "SOCKS-Proxy";
+
+/* No comment provided by engineer. */
+"SSL" = "SSL";
+
+/* No comment provided by engineer. */
+"SSL Certificate" = "SSL-Zertifikat";
+
+/* No comment provided by engineer. */
+"Standard user agent" = "Standard User Agent";
+
+/* No comment provided by engineer. */
+"Start Another Exam" = "Weitere Prüfung starten";
+
+/* No comment provided by engineer. */
+"Starting Exam" = "Prüfung starten";
+
+/* No comment provided by engineer. */
+"Streaming Proxy (RTSP)" = "Streaming-Proxy (RTSP)";
+
+/* No comment provided by engineer. */
+"Student" = "Studierende";
+
+/* No comment provided by engineer. */
+"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.\n";
+
+/* No comment provided by engineer. */
+"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll.";
+
+/* No comment provided by engineer. */
+"The device was in sleep mode for %ld:%.2ld (minutes:seconds)" = "Das Gerät war für %1$ld:%2$.2ld (Minuten:Sekunden) im Ruhezustand";
+
+/* No comment provided by engineer. */
+"The entered %@ admin password didn't match the one stored for this identity. Try again." = "Das eingegebene %@-Admin-Passwort stimmt nicht mit dem für diese Identität gespeicherten Passwort überein. Versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
+"the exam page" = "die Prüfungsseite";
+
+/* No comment provided by engineer. */
+"The identity '%@' could not be removed from the Keychain." = "Die Identität '%@' konnte nicht aus dem Schlüsselbund entfernt werden.";
+
+/* No comment provided by engineer. */
+"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." = "Das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat ist nicht auf diesem Gerät installiert. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
+
+/* No comment provided by engineer. */
+"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners." = "Die Fernüberwachungs-Ansicht wird zunächst in der rechten unteren Ecke angezeigt und kann in die anderen Bildschirmecken bewegt werden.";
+
+/* No comment provided by engineer. */
+"The private key and certificate contained in the selected identity could not be exported. Try another identity." = "Der private Schlüssel und das Zertifikat, die in der ausgewählten Identität enthalten sind, konnten nicht exportiert werden. Versuchen Sie eine andere Identität.";
+
+/* No comment provided by engineer. */
+"The screen is being captured/shared. The exam cannot be started." = "Bildschirm wird aufgezeichnet/geteilt. Die Prüfung kann nicht gestartet werden.";
+
+/* No comment provided by engineer. */
+"The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
+"the webpage" = "die Webseite";
+
+/* No comment provided by engineer. */
+"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
+
+/* No comment provided by engineer. */
+"These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
+
+/* No comment provided by engineer. */
+"These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." = "Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen %@-Version erstellt oder sind beschädigt";
+
+/* No comment provided by engineer. */
+"This device isn't configured for sending email." = "Dieses Gerät ist nicht für den Versand von E-Mails konfiguriert.";
+
+/* No comment provided by engineer. */
+"This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:" = "Diese Identität wurde im Schlüsselbund gespeichert, während ein anderes %@ Administrator-Passwort als das aktuelle verwendet wurde. Geben Sie das mit der Identität verknüpfte Administrator-Passwort ein:";
+
+/* No comment provided by engineer. */
+"This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
+
+/* No comment provided by engineer. */
+"To scan a QR code, enable the camera in settings" = "Um einen SEB-Konfigurations-QR-Code einzulesen, erlauben Sie den Kamerazugriff in den Einstellungen";
+
+/* No comment provided by engineer. */
+"To scan a QR code, your device must have a camera" = "Um einen SEB-Konfigurations-QR-Code einzulesen, muss Ihr Gerät eine Kamera besitzen";
+
+/* No comment provided by engineer. */
+"Toggle Proctoring View" = "Fernüberwachungs-Fenster anzeigen/ausblenden";
+
+/* No comment provided by engineer. */
+"Toggle Side Menu" = "Seitenmenü ein-/ausblenden";
+
+/* No comment provided by engineer. */
+"Type" = "Typ";
+
+/* Default message of lock screen alert. */
+"Unlock %@ with the quit password, which usually exam supervision/support knows." = "Entsperren Sie SEB mit dem Beenden/Entsperren-Passwort, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* untitled filename */
+"untitled" = "Unbenannt";
+
+/* untitled filename */
+"Untitled" = "Unbenannt";
+
+/* No comment provided by engineer. */
+"Untitled Page" = "Unbenannte Seite";
+
+/* No comment provided by engineer. */
+"Uploading" = "Upload";
+
+/* No comment provided by engineer. */
+"URL Blocked!" = "Blockierte URL!";
+
+/* No comment provided by engineer. */
+"Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." = "Verwenden Sie den Identitätsnamen, der sich aus dem Dateinamen der aktuellen Konfiguration ergibt, oder geben Sie einen anderen ein. Er muss unter allen Identitäten einmalig sein.";
+
+/* No comment provided by engineer. */
+"Used third-party frameworks:" = "Benutzte Dritthersteller-Bibliotheken:";
+
+/* No comment provided by engineer. */
+"User Name" = "Username";
+
+/* No comment provided by engineer. */
+"Verbose" = "Alles";
+
+/* No comment provided by engineer. */
+"Version" = "Version";
+
+/* No comment provided by engineer. */
+"Waiting for Single App Mode" = "Warten auf Einzel-App-Modus";
+
+/* No comment provided by engineer. */
+"Waiting For Single App Mode to End" = "Warten auf Ende des Einzel-App-Modus";
+
+/* No comment provided by engineer. */
+"warn when service is not running" = "Warnen, wenn der Service nicht läuft";
+
+/* No comment provided by engineer. */
+"Warning" = "Warnung";
+
+/* No comment provided by engineer. */
+"Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
+
+/* No comment provided by engineer. */
+"White on Black" = "Weiss auf Schwarz";
+
+/* No comment provided by engineer. */
+"Win" = "Win";
+
+/* No comment provided by engineer. */
+"Win: User agent for desktop mode" = "Win: User Agent für Desktop-Modus";
+
+/* No comment provided by engineer. */
+"Win: User agent for touch/tablet mode" = "Win: User Agent für Touch-/Tablet-Modus";
+
+/* No comment provided by engineer. */
+"Wrong password entered!" = "Falsches Passwort eingegeben!";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct exam password:" = "Falsches Passwort! Bitte das korrekte Prüfungspasswort eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct password used to encrypt these settings:" = "Falsches Passwort! Bitte das korrekte zur Verschlüsselung dieser Einstellungen benutzte Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the current %@ administrator password:" = "Falsches Passwort! Bitte das korrekte %@ Administrator-Passwort erneut eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the quit password:" = "Falsches Passwort! Bitte das korrekte Beenden-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"You can only edit settings after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Editieren der Einstellungen eingegeben werden:";
+
+/* No comment provided by engineer. */
+"You can only reconfigure by entering the current %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:";
+
+/* No comment provided by engineer. */
+"You can only reset settings after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Zurücksetzen der Einstellungen eingegeben werden:";
+
+/* No comment provided by engineer. */
+"You can only send log files after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:";
+
+/* No comment provided by engineer. */
+"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+
+/* No comment provided by engineer. */
+"You can't send log files while in an exam session. Finish the exam first and try it again." = "Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct %@ administrator password." = "Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct current %@ administrator password." = "Das korrekte aktuelle %@ Administrator-Passwort wurde nicht eingegeben.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct exam password." = "Sie haben nicht das korrekte Prüfungspasswort eingegeben.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct settings password." = "Sie haben nicht das korrekte Prüfungspasswort für diese Einstellungen eingegeben.";
+
+/* No comment provided by engineer. */
+"You either entered the wrong password or these settings were saved with an incompatible %@ version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen %@-Version erstellt.";
+
+/* No comment provided by engineer. */
+"You need to enter the correct quit password for this command." = "Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.";
+
+/* No comment provided by engineer. */
+"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.";
+
+/* No comment provided by engineer. */
+"You will be able to work with other apps after Single App Mode is switched off by your administrator." = "Sie können mit anderen Apps arbeiten, nachdem der Einzel-App-Modus von Ihrem Administrator ausgeschaltet wurde.";
+
+/* No comment provided by engineer. */
+"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again." = "Ihr Gerät ist nun entsperrt, Sie können %1$@ mit der Home-Taste oder mittels vom unteren Bildschirmrand aus nach oben wischen verlassen.%2$@Verwenden Sie die Taste unten, um eine weitere Prüfungssitzung zu starten und das Gerät wieder zu sperren.";
+
+/* No comment provided by engineer. */
+"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+
+/* No comment provided by engineer. */
+"Zoom Page In" = "Seiteninhalt vergrössern";
+
+/* No comment provided by engineer. */
+"Zoom Page Out" = "Seiteninhalt verkleinern";
+
+/* No comment provided by engineer. */
+"Zoom Remote Proctoring Not Available" = "Zoom Remote Proctoring nicht verfügbar";
+

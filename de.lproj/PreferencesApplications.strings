@@ -110,7 +110,7 @@
 "866.ibShadowedToolTip" = "Argument entfernen";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887"; */
-"887.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
+"887.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "897"; */
 "897.title" = "Identifier";
@@ -188,7 +188,7 @@
 "1859.ibExternalAccessibilityDescription" = "Identifier";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859"; */
-"1859.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder ein Teil-String des Titels des Hauptfensters (Win)";
+"1859.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "1893"; */
 "1893.ibShadowedToolTip" = "Prozessname, üblicherweise der Name der ausführbaren Datei (Executable)";

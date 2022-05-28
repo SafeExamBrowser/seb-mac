@@ -134,7 +134,7 @@
 			<key>Title</key>
 			<string>Audio/Video Streams</string>
 			<key>FooterText</key>
-			<string>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session.</string>
+			<string>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server (if used) during the exam session.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
