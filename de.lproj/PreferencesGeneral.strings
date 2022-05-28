@@ -83,7 +83,7 @@
 "412.ibShadowedToolTip" = "SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden/Entsperren-Passworts verlassen werden";
 
 /* Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413"; */
-"413.title" = "Beenden-Tastenkombination ignorieren (Win)";
+"413.title" = "SEB Server-Fallback (Win)";
 
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
 "d6u-EM-bnR.ibExternalAccessibilityDescription" = "Mit SEB Server verbinden";

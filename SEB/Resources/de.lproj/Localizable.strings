@@ -140,7 +140,7 @@
 "Battery Level %.f%%%@" = "Batteriestand %1$.f%%%2$@";
 
 /* No comment provided by engineer. */
-"Before receiving title" = "Bevor Titel empfangen";
+"Before receiving title" = "Bevor Titel empfangen wird";
 
 /* No comment provided by engineer. */
 "Black on White" = "Schwarz auf Weiss";
@@ -845,7 +845,7 @@
 "Streaming Proxy (RTSP)" = "Streaming-Proxy (RTSP)";
 
 /* No comment provided by engineer. */
-"Student" = "Studierende";
+"Student" = "Studierender";
 
 /* No comment provided by engineer. */
 "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.\n";

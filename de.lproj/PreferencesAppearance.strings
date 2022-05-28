@@ -92,7 +92,7 @@
 "ID6-7c-aOO.title" = "Vollbildmodus benutzen";
 
 /* Class = "NSButtonCell"; title = "Show scroll lock button (iOS)"; ObjectID = "IjF-ym-hYg"; */
-"IjF-ym-hYg.title" = "Scrollsperre Taste anzeigen (iOS)";
+"IjF-ym-hYg.title" = "Taste Scrollsperre anzeigen (iOS)";
 
 /* Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w"; */
 "J5d-BA-D2w.title" = "Browser-Darstellungsmodus";
@@ -206,7 +206,7 @@
 "Vv2-Sf-65e.title" = "Menüleiste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Show navigation buttons (iOS)"; ObjectID = "vVA-cT-h1p"; */
-"vVA-cT-h1p.title" = "Navigations-Knöpfe anzeigen (iOS)";
+"vVA-cT-h1p.title" = "Navigations-Tasten anzeigen (iOS)";
 
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Use browser window"; ObjectID = "W1X-bf-zFD"; */
 "W1X-bf-zFD.ibExternalAccessibilityDescription" = "Browserfenster verwenden";
