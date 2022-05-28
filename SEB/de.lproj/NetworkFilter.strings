@@ -1,0 +1,30 @@
+/* (No Comment) */
+"&apos;✕&apos;" = "'✕'";
+
+/* String for Titles arrays elements */
+"&apos;URL Blocked!&apos;" = "'URL Blocked!'";
+
+/* (No Comment) */
+"Activate URL Filtering" = "URL-Filter aktivieren";
+
+/* (No Comment) */
+"Blocked Message" = "Meldung für 'blockiert'";
+
+/* String for Title elements */
+"Control URL Filtering" = "URL-Filtern steuern";
+
+/* (No Comment) */
+"Filter Embedded Content" = "Eingebettete Inhalte ebenfalls filtern";
+
+/* String for FooterText elements */
+"Filter only links or all embedded resources and XMLHTTPRequests." = "Nur Links oder alle eingebetteten Ressourcen und XMLHTTP-Requests filtern.";
+
+/* (No Comment) */
+"Filter Rules" = "Filterregeln";
+
+/* (No Comment) */
+"List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." = "Liste der Filterregeln, derzeit können diese nur in den SEB-Desktop-Versionen bearbeitet werden. Verwenden Sie die Funktion 'Erlaubte/blockierte URLs lernen' in SEB für macOS, um einfach URL-Filterregeln zu erstellen. Format-Erklärung: √: Aktiv / ☒: Inaktiv, R: Regulärer Ausdruck, A: Zulassen / B: Sperren. Der Filterausdruck kann ein *-Platzhalterzeichen enthalten.";
+
+/* (No Comment) */
+"This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped." = "Diese Meldung wird kurz in der oberen rechten Ecke des Displays angezeigt, wenn ein durch die URL-Filterregeln blockierter Link angetippt wird.";
+

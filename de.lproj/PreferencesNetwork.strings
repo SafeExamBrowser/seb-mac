@@ -56,7 +56,7 @@
 "648.ibShadowedToolTip" = "Nicht nur Links zu Webseiten werden anhand der URL-Filterregeln gefiltert, sondern auch alle eingebetteten Ressourcen (Bilder, CSS, usw.)";
 
 /* Class = "NSButtonCell"; title = "Filter also embedded content"; ObjectID = "649"; */
-"649.title" = "Eingebetteten Inhalt ebenfalls filtern";
+"649.title" = "Eingebettete Inhalte ebenfalls filtern";
 
 /* Class = "NSTableColumn"; headerCell.title = "Description"; ObjectID = "744"; */
 "744.headerCell.title" = "Beschreibung";
