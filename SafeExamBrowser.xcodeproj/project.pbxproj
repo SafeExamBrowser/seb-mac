@@ -601,7 +601,6 @@
 		69D3C4E827A0366400890B31 /* ZoomPageIn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8951BB073EA00899A8A /* ZoomPageIn@2x.png */; };
 		69D3C4E927A0366400890B31 /* SEBProctoringViewIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 690D18FA271EFFC100558338 /* SEBProctoringViewIcon.iconset */; };
 		69D3C4EA27A0366400890B31 /* PreferencesResources.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AF719F6FC3F00274214 /* PreferencesResources.xib */; };
-		69D3C4EB27A0366400890B31 /* SafeExamBrowser-Info.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */; };
 		69D3C4EC27A0366400890B31 /* SEBReloadIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E43202926070055988F /* SEBReloadIconLandscape@3x.png */; };
 		69D3C4ED27A0366400890B31 /* SecurityIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69428CCC172F0C1300C87C58 /* SecurityIcon.png */; };
 		69D3C4EE27A0366400890B31 /* MenuTriangleDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69F60FAD19AB7A7E00A5F650 /* MenuTriangleDown@2x.png */; };
@@ -848,7 +847,6 @@
 		69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
 		69DA91281C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91261C6A5CCF008D38E6 /* SEBReloadIconHighlighted.iconset */; };
 		69DA91291C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */; };
-		69DD929E1A463435004072E5 /* SafeExamBrowser-Info.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */; };
 		69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */; };
 		69DE764817FC2A9300EE5958 /* PrefsResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */; };
 		69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2319C468E700CBE69F /* RNCryptor.h */; };
@@ -1613,7 +1611,6 @@
 		69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIconHighlighted.iconset; path = Resources/Icons/SEBRestartIconHighlighted.iconset; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
-		69DD929F1A463435004072E5 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/SafeExamBrowser-Info.strings"; sourceTree = "<group>"; };
 		69DD92A11A46353B004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsResourcesViewController.h; sourceTree = "<group>"; };
 		69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsResourcesViewController.m; sourceTree = "<group>"; };
@@ -2190,7 +2187,6 @@
 				690408EA1D4181A800A9EDDA /* SEB-Info.plist */,
 				69909F01283CB02E00199EB6 /* SEB-InfoPlist.strings */,
 				69AA20B926EEA4A2002287A9 /* Localizable.strings */,
-				69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3734,7 +3730,6 @@
 				69D3C4E827A0366400890B31 /* ZoomPageIn@2x.png in Resources */,
 				69D3C4E927A0366400890B31 /* SEBProctoringViewIcon.iconset in Resources */,
 				69D3C4EA27A0366400890B31 /* PreferencesResources.xib in Resources */,
-				69D3C4EB27A0366400890B31 /* SafeExamBrowser-Info.strings in Resources */,
 				69D3C4EC27A0366400890B31 /* SEBReloadIconLandscape@3x.png in Resources */,
 				69D3C4ED27A0366400890B31 /* SecurityIcon.png in Resources */,
 				69D3C4EE27A0366400890B31 /* MenuTriangleDown@2x.png in Resources */,
@@ -3830,7 +3825,6 @@
 				6947D8991BB073EA00899A8A /* ZoomPageIn@2x.png in Resources */,
 				690D18FD271EFFC100558338 /* SEBProctoringViewIcon.iconset in Resources */,
 				696A3AF419F6FC3F00274214 /* PreferencesResources.xib in Resources */,
-				69DD929E1A463435004072E5 /* SafeExamBrowser-Info.strings in Resources */,
 				69E87E4A202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
 				69428CCE172F0C1300C87C58 /* SecurityIcon.png in Resources */,
 				69F60FB019AB7A7E00A5F650 /* MenuTriangleDown@2x.png in Resources */,
@@ -4707,15 +4701,6 @@
 			);
 			name = Localizable.strings;
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		69DD92A01A463435004072E5 /* SafeExamBrowser-Info.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				69DD929F1A463435004072E5 /* de */,
-			);
-			name = "SafeExamBrowser-Info.strings";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */ = {

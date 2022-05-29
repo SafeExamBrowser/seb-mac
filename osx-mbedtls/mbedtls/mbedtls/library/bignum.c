@@ -1635,7 +1635,7 @@ int mbedtls_mpi_exp_mod( mbedtls_mpi *X, const mbedtls_mpi *A, const mbedtls_mpi
     {
         MBEDTLS_MPI_CHK( mbedtls_mpi_copy( &Apos, A ) );
         Apos.s = 1;
-        A = &Apos;
+        A = '
     }
 
     /*

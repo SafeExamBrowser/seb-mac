@@ -1494,8 +1494,8 @@
         <note>Class = "NSButtonCell"; title = "Exclude simple hostnames"; ObjectID = "1059";</note>
       </trans-unit>
       <trans-unit id="1064.title">
-        <source>Bypass proxy settings for these hosts &amp; domains:</source>
-        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts &amp; domains:"; ObjectID = "1064";</note>
+        <source>Bypass proxy settings for these hosts & domains:</source>
+        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts & domains:"; ObjectID = "1064";</note>
       </trans-unit>
       <trans-unit id="1089.title">
         <source>Use Passive FTP Mode (PASV)</source>
