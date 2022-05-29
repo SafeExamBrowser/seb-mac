@@ -8,7 +8,7 @@
 "Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." = "Deaktivieren, um zu verhindern, dass SEB-Konfigurationsdateien und seb(s)://-Links Prüfungen mit individuellen Einstellungen starten oder den Client neu konfigurieren können.";
 
 /* (No Comment) */
-"Download &amp; Open Config Files" = "Konfigurationen herunterladen/öffnen";
+"Download & Open Config Files" = "Konfigurationen herunterladen/öffnen";
 
 /* String for Title elements */
 "Downloading Files" = "Dateien herunterladen";
