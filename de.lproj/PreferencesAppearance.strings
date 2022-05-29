@@ -176,7 +176,7 @@
 "rQZ-65-nx7.title" = "Taste Beenden anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "Soq-V2-Zan"; */
-"Soq-V2-Zan.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";
+"Soq-V2-Zan.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mit QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays address field in main browser window for manually entering URLs"; ObjectID = "SY0-BY-pkl"; */
 "SY0-BY-pkl.ibShadowedToolTip" = "Zeigt Adressfeld im Hauptfenster für die manuelle Eingabe von URLs an";

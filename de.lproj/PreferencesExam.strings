@@ -89,7 +89,7 @@
 "oJT-BY-ezv.ibShadowedToolTip" = "Eingabe des Beenden/Entsperren-Passworts verlangen, wenn die 'Zurück zum Start'-Taste gedrückt wird";
 
 /* Class = "NSBox"; title = "Reconfiguring Secure/Exam Session"; ObjectID = "olf-PG-s0j"; */
-"olf-PG-s0j.title" = "Prüfungssession umkonfigurieren";
+"olf-PG-s0j.title" = "Sichere-/Prüfungssession umkonfigurieren";
 
 /* Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp"; */
 "pdT-tX-Sdp.title" = "Titel des Dialogs/Tooltips für die 'Zurück zum Start'-Taste (leer lassen für lokalisierten Standard-Text)";
@@ -104,7 +104,7 @@
 "SdD-R8-hNc.placeholderString" = "Zu vergleichende URL";
 
 /* Class = "NSButtonCell"; title = "Allow Deep Linking for Exams"; ObjectID = "sOA-63-en9"; */
-"sOA-63-en9.title" = "Deep-Linking für Prüfungen erlauben";
+"sOA-63-en9.title" = "Deep-Linking erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I"; */
 "Suk-hp-L3I.ibShadowedToolTip" = "Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird";
@@ -146,5 +146,5 @@
 "ZFB-Me-HJd.ibShadowedToolTip" = "Die zu vergleichende URL muss mit der URL des seb(s)-Links zur Rekonfiguration übereinstimmen. ";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file"; ObjectID = "zfq-ok-40e"; */
-"zfq-ok-40e.ibShadowedToolTip" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession";
+"zfq-ok-40e.ibShadowedToolTip" = "Erlaubt Umkonfigurieren durch das Laden einer SEB-Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession";
 
