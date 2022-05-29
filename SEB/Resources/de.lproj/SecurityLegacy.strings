@@ -8,7 +8,7 @@
 "Guided Access Compatibility" = "Kompatibilität mit geführtem Zugang";
 
 /* (No Comment) */
-"Transforms specific HTTP requests for clicked links to prevent the &quot;Guided Access is enabled&quot; message being displayed when clicking all links." = "Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung &apos;Geführter Zugriff ist aktiv&apos; zu vermeiden";
+"Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links." = "Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung 'Geführter Zugriff ist aktiv' zu vermeiden";
 
 /* String for FooterText elements */
 "Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system." = "Verwendet den Einzel-App-Modus (SAM), der von Classroom, einem MDM-System oder Apple Configurator aktiviert wird, anstelle des Assessment-/Bewertungsmodus. Hinweis: Sie müssen bereits in SAM gesperrte Geräte verteilen oder den manuellen geführten Zugriff (Guided Access) deaktivieren, wenn Sie sicherstellen möchten, dass nur SAM vom System verwendet wird.";

@@ -1752,7 +1752,7 @@
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
         <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
         <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
       </trans-unit>
       <trans-unit id="Afc-A3-r3P.title" xml:space="preserve">
@@ -5334,7 +5334,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassisches erzwingen</target>
+        <target>Klassische erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
@@ -5699,12 +5699,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Modern bevorzugen</target>
+        <target>Moderne bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
+        <target>Moderne in neuen Fenstern+anderem Server</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Previously interrupted exam was re-opened!" xml:space="preserve">
@@ -8453,7 +8453,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassisches erzwingen</target>
+        <target>Klassische erzwingen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Get Generally Blocked" xml:space="preserve">
@@ -8503,7 +8503,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Modern bevorzugen</target>
+        <target>Moderne bevorzugen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
@@ -8548,7 +8548,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
         <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
         <note/>
       </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">
@@ -9195,7 +9195,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassisches erzwingen</target>
+        <target>Klassische erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -9505,12 +9505,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Modern bevorzugen</target>
+        <target>Moderne bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
+        <target>Moderne in neuen Fenstern+anderem Server</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">
