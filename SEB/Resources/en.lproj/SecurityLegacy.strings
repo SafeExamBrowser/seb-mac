@@ -11,6 +11,6 @@
 
 /* String for FooterText elements */
 "Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system." = "Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.";
-"Transforms specific HTTP requests for clicked links to prevent the &quot;Guided Access is enabled&quot; message being displayed when clicking all links." = "Transforms specific HTTP requests for clicked links to prevent the &quot;Guided Access is enabled&quot; message being displayed when clicking all links.";
+"Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links." = "Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links.";
 
 /* String for IASKPlaceholder elements */
