@@ -8163,9 +8163,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="iOS 15" xml:space="preserve">
-        <source>iOS 15</source>
-        <target>iOS 15</target>
+      <trans-unit id="iOS >15" xml:space="preserve">
+        <source>iOS >15</source>
+        <target>iOS >15</target>
         <note/>
       </trans-unit>
     </body>
@@ -8508,7 +8508,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Modern in neuen Tabs+anderem Server bevorzugen</target>
+        <target>Moderne in neuen Tabs+anderem Server</target>
         <note/>
       </trans-unit>
       <trans-unit id="Restrictions in Exam Tab" xml:space="preserve">
