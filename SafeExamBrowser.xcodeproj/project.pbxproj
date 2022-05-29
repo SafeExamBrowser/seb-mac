@@ -4524,6 +4524,7 @@
 				69718ADD284170A900623060 /* de */,
 			);
 			name = AIProctoringSupport.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718ADF284170AF00623060 /* BrowserMediaPlayback.strings */ = {
@@ -4533,6 +4534,7 @@
 				69718AE0284170B200623060 /* de */,
 			);
 			name = BrowserMediaPlayback.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AE2284170B700623060 /* ConfigFile.strings */ = {
@@ -4542,6 +4544,7 @@
 				69718AE3284170B900623060 /* de */,
 			);
 			name = ConfigFile.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AEA284170D800623060 /* Dock.strings */ = {
@@ -4551,6 +4554,7 @@
 				69718AEB284170DA00623060 /* de */,
 			);
 			name = Dock.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AEF284170E000623060 /* DownUploads.strings */ = {
@@ -4560,6 +4564,7 @@
 				69718AF0284170E400623060 /* de */,
 			);
 			name = DownUploads.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AF4284170EE00623060 /* ExamKeys.strings */ = {
@@ -4569,6 +4574,7 @@
 				69718AF5284170F000623060 /* de */,
 			);
 			name = ExamKeys.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AF92841710400623060 /* Network.strings */ = {
@@ -4578,6 +4584,7 @@
 				69718AFA2841710600623060 /* de */,
 			);
 			name = Network.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718AFE2841711100623060 /* NetworkCertificate.strings */ = {
@@ -4587,6 +4594,7 @@
 				69718AFF2841711500623060 /* de */,
 			);
 			name = NetworkCertificate.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B032841712300623060 /* NetworkFilter.strings */ = {
@@ -4596,6 +4604,7 @@
 				69718B042841712500623060 /* de */,
 			);
 			name = NetworkFilter.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B082841713400623060 /* RemoteProctoring.strings */ = {
@@ -4605,6 +4614,7 @@
 				69718B092841713600623060 /* de */,
 			);
 			name = RemoteProctoring.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B0D2841713D00623060 /* RemoteProctoringFeatures.strings */ = {
@@ -4614,6 +4624,7 @@
 				69718B0E2841714100623060 /* de */,
 			);
 			name = RemoteProctoringFeatures.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B122841714A00623060 /* SEBServer.strings */ = {
@@ -4633,6 +4644,7 @@
 				69718B182841715900623060 /* de */,
 			);
 			name = Security.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B1C2841716100623060 /* SecurityLegacy.strings */ = {
@@ -4642,6 +4654,7 @@
 				69718B1D2841716300623060 /* de */,
 			);
 			name = SecurityLegacy.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B212841716A00623060 /* SecurityLogging.strings */ = {
@@ -4651,6 +4664,7 @@
 				69718B222841716C00623060 /* de */,
 			);
 			name = SecurityLogging.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B262841719D00623060 /* UserInterface.strings */ = {
@@ -4660,6 +4674,7 @@
 				69718B272841719F00623060 /* de */,
 			);
 			name = UserInterface.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69718B282842C4EE00623060 /* Exam.strings */ = {
@@ -4669,6 +4684,7 @@
 				69718B2B2842C4FD00623060 /* de */,
 			);
 			name = Exam.strings;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		69909EFB283CB02E00199EB6 /* SafeExamBrowser-InfoPlist.strings */ = {
@@ -4768,7 +4784,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4867,7 +4883,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5132,7 +5148,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5189,7 +5205,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5250,7 +5266,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5307,7 +5323,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5378,7 +5394,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5434,7 +5450,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14114;
+				CURRENT_PROJECT_VERSION = 14115;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

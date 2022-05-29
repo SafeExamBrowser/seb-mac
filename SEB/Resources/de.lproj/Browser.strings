@@ -20,7 +20,7 @@
 "Block Pop-Up Windows" = "Pop-Ups unterdrücken";
 
 /* (No Comment) */
-"Block When on Different Server" = "blockieren, wenn Ziel auf anderem Server";
+"Block When on Different Server" = "blockieren, wenn auf anderem Server";
 
 /* (No Comment) */
 "Browser Features" = "Browser-Funktionen";
@@ -38,7 +38,7 @@
 "Enable JavaScript" = "JavaScript erlauben";
 
 /* (No Comment) */
-"Force Classic" = "Klassisches erzwingen";
+"Force Classic" = "Klassische erzwingen";
 
 /* String for Titles arrays elements */
 "Get Generally Blocked" = "werden generell blockiert";
@@ -68,7 +68,7 @@
 "Open in Same Tab" = "im selben Tab öffnen";
 
 /* (No Comment) */
-"Prefer Modern" = "Modern bevorzugen";
+"Prefer Modern" = "Moderne bevorzugen";
 
 /* (No Comment) */
 "Prefer Modern in New Tab+Different Host" = "Modern in neuen Tabs+anderem Server bevorzugen";
@@ -95,7 +95,7 @@
 "Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." = "Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.";
 
 /* (No Comment) */
-"The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
+"The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
 
 /* (No Comment) */
 "User Agent" = "User Agent";
