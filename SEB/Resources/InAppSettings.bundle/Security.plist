@@ -200,14 +200,14 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>iOS 15</string>
+				<string>iOS &gt;15</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
-				<integer>15</integer>
+				<integer>16</integer>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
