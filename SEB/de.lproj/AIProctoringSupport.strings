@@ -14,10 +14,10 @@
 "Enable AI Proctoring Support" = "Unterstützung für KI-Fernüberwachung aktivieren";
 
 /* (No Comment) */
-"Face Movement Sideways (Yaw)" = "Gesichtsbewegung seitwärts (Gieren)";
+"Face Movement Sideways (Yaw)" = "Gesichtsbewegung seitwärts";
 
 /* (No Comment) */
-"Face Movement Up &amp; Down (Pitch)" = "Gesichtsbewegung nach oben und unten (Neigung)";
+"Face Movement Up & Down (Pitch)" = "Gesichtsbewegung oben und unten";
 
 /* (No Comment) */
 "Feedback for Candidate" = "Feedback für Kandidaten";

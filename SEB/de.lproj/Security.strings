@@ -47,7 +47,7 @@
 "Allow Screen Capture" = "Bildschirmaufzeichnung erlauben";
 
 /* String for Title elements */
-"Assessment Mode (AAC &amp; ASAM)" = "Assessment-Modus (AAC/ASAM)";
+"Assessment Mode (AAC & ASAM)" = "Assessment-Modus (AAC/ASAM)";
 
 /* (No Comment) */
 "iOS 15" = "iOS 15";
@@ -83,7 +83,7 @@
 "Settings for Classic Single App Mode (SAM) and Guided Access" = "Einstellungen für den klassischen Einzel-App-Modus (SAM) und den geführten Zugang (Guided Access)";
 
 /* (No Comment) */
-"Use Assessment Mode If Available" = "Assessment-Modus verwenden, wenn verfügbar";
+"Use Assessment Mode If Available" = "Assessment-Modus verwenden";
 
 /* String for FooterText elements */
 "Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode)." = "Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.";
