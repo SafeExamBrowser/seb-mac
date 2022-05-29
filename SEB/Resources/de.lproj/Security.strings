@@ -47,7 +47,7 @@
 "Allow Screen Capture" = "Bildschirmaufzeichnung erlauben";
 
 /* String for Title elements */
-"Assessment Mode (AAC &amp; ASAM)" = "Assessment-Modus (AAC/ASAM)";
+"Assessment Mode (AAC & ASAM)" = "Assessment-Modus (AAC/ASAM)";
 
 /* (No Comment) */
 "iOS 15" = "iOS 15";
@@ -71,7 +71,7 @@
 "None" = "Keine";
 
 /* (No Comment) */
-"On devices with iOS &lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
+"On devices with iOS <= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
 
 /* (No Comment) */
 "Patch Version Number" = "Patch-Versionsnummer";

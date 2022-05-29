@@ -6937,9 +6937,9 @@
         <target>Face Movement Sideways (Yaw)</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Face Movement Up &amp;amp; Down (Pitch)" xml:space="preserve">
-        <source>Face Movement Up &amp;amp; Down (Pitch)</source>
-        <target>Face Movement Up &amp;amp; Down (Pitch)</target>
+      <trans-unit id="Face Movement Up &amp; Down (Pitch)" xml:space="preserve">
+        <source>Face Movement Up &amp; Down (Pitch)</source>
+        <target>Face Movement Up &amp; Down (Pitch)</target>
         <note/>
       </trans-unit>
       <trans-unit id="Feedback for Candidate" xml:space="preserve">
@@ -7016,9 +7016,9 @@
         <target>Allow QR Code Config</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
-        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
-        <target>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</target>
+      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
+        <target>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Auto-Select Identity" xml:space="preserve">
@@ -7031,9 +7031,9 @@
         <target>Configuring Clients</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Create &amp;amp; Embed Identity" xml:space="preserve">
-        <source>Create &amp;amp; Embed Identity</source>
-        <target>Create &amp;amp; Embed Identity</target>
+      <trans-unit id="Create &amp; Embed Identity" xml:space="preserve">
+        <source>Create &amp; Embed Identity</source>
+        <target>Create &amp; Embed Identity</target>
         <note/>
       </trans-unit>
       <trans-unit id="Editing Settings" xml:space="preserve">
@@ -7116,9 +7116,9 @@
         <target>Use Config File For …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
-        <target>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+        <target>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." xml:space="preserve">
@@ -7188,9 +7188,9 @@
         <target>Show Scroll Lock Button</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &amp;gt; Enable Scroll Lock, Exam &amp;gt; Back to Start Button &amp;gt; Use Start URL or Custom URL, Browser &amp;gt; Allow Navigation &amp;amp; Allow Reload, Remote Proctoring &amp;gt; Enable Jitsi Meet, Config File &amp;gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." xml:space="preserve">
-        <source>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &amp;gt; Enable Scroll Lock, Exam &amp;gt; Back to Start Button &amp;gt; Use Start URL or Custom URL, Browser &amp;gt; Allow Navigation &amp;amp; Allow Reload, Remote Proctoring &amp;gt; Enable Jitsi Meet, Config File &amp;gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</source>
-        <target>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &amp;gt; Enable Scroll Lock, Exam &amp;gt; Back to Start Button &amp;gt; Use Start URL or Custom URL, Browser &amp;gt; Allow Navigation &amp;amp; Allow Reload, Remote Proctoring &amp;gt; Enable Jitsi Meet, Config File &amp;gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</target>
+      <trans-unit id="The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." xml:space="preserve">
+        <source>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</source>
+        <target>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</target>
         <note/>
       </trans-unit>
     </body>
@@ -7215,9 +7215,9 @@
         <target>Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Download &amp;amp; Open Config Files" xml:space="preserve">
-        <source>Download &amp;amp; Open Config Files</source>
-        <target>Download &amp;amp; Open Config Files</target>
+      <trans-unit id="Download &amp; Open Config Files" xml:space="preserve">
+        <source>Download &amp; Open Config Files</source>
+        <target>Download &amp; Open Config Files</target>
         <note/>
       </trans-unit>
       <trans-unit id="Downloading Files" xml:space="preserve">
@@ -7247,9 +7247,9 @@
         <target>Allow Reconfiguring</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &amp;apos;*&amp;apos; can be used)." xml:space="preserve">
-        <source>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &amp;apos;*&amp;apos; can be used).</source>
-        <target>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &amp;apos;*&amp;apos; can be used).</target>
+      <trans-unit id="Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)." xml:space="preserve">
+        <source>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</source>
+        <target>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used).</target>
         <note/>
       </trans-unit>
       <trans-unit id="Back to Start" xml:space="preserve">
@@ -7262,9 +7262,9 @@
         <target>Back to Start Button</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Browser &amp;amp; Config Keys" xml:space="preserve">
-        <source>Browser &amp;amp; Config Keys</source>
-        <target>Browser &amp;amp; Config Keys</target>
+      <trans-unit id="Browser &amp; Config Keys" xml:space="preserve">
+        <source>Browser &amp; Config Keys</source>
+        <target>Browser &amp; Config Keys</target>
         <note>String for Title elements</note>
       </trans-unit>
       <trans-unit id="Clear on Session End" xml:space="preserve">
@@ -7372,19 +7372,19 @@
         <target>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &amp;apos;?&amp;apos; or &amp;apos;??&amp;apos; (if the URL itself doesn&amp;apos;t contain a query). SEB will then append this query string to the Start URL." xml:space="preserve">
-        <source>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &amp;apos;?&amp;apos; or &amp;apos;??&amp;apos; (if the URL itself doesn&amp;apos;t contain a query). SEB will then append this query string to the Start URL.</source>
-        <target>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &amp;apos;?&amp;apos; or &amp;apos;??&amp;apos; (if the URL itself doesn&amp;apos;t contain a query). SEB will then append this query string to the Start URL.</target>
+      <trans-unit id="The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL." xml:space="preserve">
+        <source>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL.</source>
+        <target>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="This function doesn&amp;apos;t log you out if you are logged in on a website (doesn&amp;apos;t clear session cookies). " xml:space="preserve">
-        <source>This function doesn&amp;apos;t log you out if you are logged in on a website (doesn&amp;apos;t clear session cookies). </source>
-        <target>This function doesn&amp;apos;t log you out if you are logged in on a website (doesn&amp;apos;t clear session cookies). </target>
+      <trans-unit id="This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). " xml:space="preserve">
+        <source>This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). </source>
+        <target>This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). </target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Browser &amp;amp; Config Keys" xml:space="preserve">
-        <source>Use Browser &amp;amp; Config Keys</source>
-        <target>Use Browser &amp;amp; Config Keys</target>
+      <trans-unit id="Use Browser &amp; Config Keys" xml:space="preserve">
+        <source>Use Browser &amp; Config Keys</source>
+        <target>Use Browser &amp; Config Keys</target>
         <note/>
       </trans-unit>
       <trans-unit id="Use Start URL" xml:space="preserve">
@@ -7419,14 +7419,14 @@
         <target>Config Key</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Config was modified, keys won&amp;apos;t match original state!" xml:space="preserve">
-        <source>Config was modified, keys won&amp;apos;t match original state!</source>
-        <target>Config was modified, keys won&amp;apos;t match original state!</target>
+      <trans-unit id="Config was modified, keys won't match original state!" xml:space="preserve">
+        <source>Config was modified, keys won't match original state!</source>
+        <target>Config was modified, keys won't match original state!</target>
         <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="Only Keys (Don&amp;apos;t Modify Config)" xml:space="preserve">
-        <source>Only Keys (Don&amp;apos;t Modify Config)</source>
-        <target>Only Keys (Don&amp;apos;t Modify Config)</target>
+      <trans-unit id="Only Keys (Don't Modify Config)" xml:space="preserve">
+        <source>Only Keys (Don't Modify Config)</source>
+        <target>Only Keys (Don't Modify Config)</target>
         <note/>
       </trans-unit>
       <trans-unit id="Select the key(s) which you want to be shared (using the Share button in the main Settings view) and copied to the clipboard after closing Settings. Usually only the Browser Exam Key needs to be copy-pasted manually to the according field in quiz settings of a compatible exam system." xml:space="preserve">
@@ -7454,14 +7454,14 @@
         <target>Share Keys with/without Config</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The Browser Exam Key (BEK) depends on SEB&amp;apos;s code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used." xml:space="preserve">
-        <source>The Browser Exam Key (BEK) depends on SEB&amp;apos;s code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used.</source>
-        <target>The Browser Exam Key (BEK) depends on SEB&amp;apos;s code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used.</target>
+      <trans-unit id="The Browser Exam Key (BEK) depends on SEB's code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used." xml:space="preserve">
+        <source>The Browser Exam Key (BEK) depends on SEB's code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used.</source>
+        <target>The Browser Exam Key (BEK) depends on SEB's code signature and the current SEB config. Copy the value to the according field in the quiz settings of a compatible exam system. SEB on each platform generates another BEK, even if the same SEB config is used. Different versions of SEB for iOS generate the same BEK, as long as the same SEB config file is used.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&amp;apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings)." xml:space="preserve">
-        <source>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&amp;apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</source>
-        <target>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn&amp;apos;t supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</target>
+      <trans-unit id="The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn't supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings)." xml:space="preserve">
+        <source>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn't supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</source>
+        <target>The Browser Exam and/or Config Key of the current SEB config can be shared (as text string) either together with the exported, modified config file or alone (if the opened config isn't supposed to be modified). The keys are also copied to the clipboard when closing Settings (so an exam admin can easily paste them to the according quiz settings).</target>
         <note/>
       </trans-unit>
       <trans-unit id="The Config Key (CK) depends on the current SEB config. It can be generated automatically by a compatible exam server together with the SEB config to be used for an exam. All SEB versions supporting the CK generate the same CK when using the same, unmodified SEB config file." xml:space="preserve">
@@ -7555,14 +7555,14 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
     </header>
     <body>
-      <trans-unit id="&amp;apos;URL Blocked!&amp;apos;" xml:space="preserve">
-        <source>&amp;apos;URL Blocked!&amp;apos;</source>
-        <target>&amp;apos;URL Blocked!&amp;apos;</target>
+      <trans-unit id="'URL Blocked!'" xml:space="preserve">
+        <source>'URL Blocked!'</source>
+        <target>'URL Blocked!'</target>
         <note>String for Titles arrays elements</note>
       </trans-unit>
-      <trans-unit id="&amp;apos;✕&amp;apos;" xml:space="preserve">
-        <source>&amp;apos;✕&amp;apos;</source>
-        <target>&amp;apos;✕&amp;apos;</target>
+      <trans-unit id="'✕'" xml:space="preserve">
+        <source>'✕'</source>
+        <target>'✕'</target>
         <note/>
       </trans-unit>
       <trans-unit id="Activate URL Filtering" xml:space="preserve">
@@ -8040,9 +8040,9 @@
         <target>Allow Screen Capture</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Assessment Mode (AAC &amp;amp; ASAM)" xml:space="preserve">
-        <source>Assessment Mode (AAC &amp;amp; ASAM)</source>
-        <target>Assessment Mode (AAC &amp;amp; ASAM)</target>
+      <trans-unit id="Assessment Mode (AAC &amp; ASAM)" xml:space="preserve">
+        <source>Assessment Mode (AAC &amp; ASAM)</source>
+        <target>Assessment Mode (AAC &amp; ASAM)</target>
         <note>String for Title elements</note>
       </trans-unit>
       <trans-unit id="Legacy Single App Mode" xml:space="preserve">
@@ -8179,9 +8179,9 @@
         <target>Sending Logs Requires Admin PW</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password." xml:space="preserve">
-        <source>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</source>
-        <target>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</target>
+      <trans-unit id="The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don't want students to easily access logs themselves, you can protect this feature with the SEB administrator password." xml:space="preserve">
+        <source>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don't want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</source>
+        <target>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don't want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="Verbose" xml:space="preserve">
@@ -8206,9 +8206,9 @@
         <target>Allow Auto-Correction</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Auto-Correction &amp;amp; Predictive Text" xml:space="preserve">
-        <source>Auto-Correction &amp;amp; Predictive Text</source>
-        <target>Auto-Correction &amp;amp; Predictive Text</target>
+      <trans-unit id="Auto-Correction &amp; Predictive Text" xml:space="preserve">
+        <source>Auto-Correction &amp; Predictive Text</source>
+        <target>Auto-Correction &amp; Predictive Text</target>
         <note/>
       </trans-unit>
       <trans-unit id="Black on White" xml:space="preserve">
@@ -8276,9 +8276,9 @@
         <target>On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="Page &amp;amp; Text Zoom" xml:space="preserve">
-        <source>Page &amp;amp; Text Zoom</source>
-        <target>Page &amp;amp; Text Zoom</target>
+      <trans-unit id="Page &amp; Text Zoom" xml:space="preserve">
+        <source>Page &amp; Text Zoom</source>
+        <target>Page &amp; Text Zoom</target>
         <note/>
       </trans-unit>
       <trans-unit id="SEB Dock" xml:space="preserve">
@@ -8488,9 +8488,9 @@
         <target>Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The modern WKWebView browser engine currently doesn&amp;apos;t support URL content filters (Network &amp;gt; URL Filter &amp;gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &amp;gt; Use Browser &amp;amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &amp;apos;Use Browser &amp;amp; Config Keys&amp;apos; option in new tabs on a different server or generally." xml:space="preserve">
-        <source>The modern WKWebView browser engine currently doesn&amp;apos;t support URL content filters (Network &amp;gt; URL Filter &amp;gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &amp;gt; Use Browser &amp;amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &amp;apos;Use Browser &amp;amp; Config Keys&amp;apos; option in new tabs on a different server or generally.</source>
-        <target>The modern WKWebView browser engine currently doesn&amp;apos;t support URL content filters (Network &amp;gt; URL Filter &amp;gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &amp;gt; Use Browser &amp;amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &amp;apos;Use Browser &amp;amp; Config Keys&amp;apos; option in new tabs on a different server or generally.</target>
+      <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
+        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
+        <target>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</target>
         <note/>
       </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">

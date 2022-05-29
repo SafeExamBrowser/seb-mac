@@ -419,7 +419,7 @@
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* No comment provided by engineer. */
-"Force Classic" = "Klassisches erzwingen";
+"Force Classic" = "Klassische erzwingen";
 
 /* No comment provided by engineer. */
 "Force Quit All Processes" = "Prozesse sofort beenden";
@@ -665,10 +665,10 @@
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
-"Prefer Modern" = "Modern bevorzugen";
+"Prefer Modern" = "Moderne bevorzugen";
 
 /* No comment provided by engineer. */
-"Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+"Prefer Modern in New Tab+Different Host" = "Moderne in neuen Fenstern+anderem Server";
 
 /* No comment provided by engineer. */
 "Previously interrupted exam was re-opened!" = "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!";
