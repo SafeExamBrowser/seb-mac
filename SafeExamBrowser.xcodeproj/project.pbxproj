@@ -303,6 +303,7 @@
 		69718B1A2841716100623060 /* SecurityLegacy.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B1C2841716100623060 /* SecurityLegacy.strings */; };
 		69718B1F2841716A00623060 /* SecurityLogging.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B212841716A00623060 /* SecurityLogging.strings */; };
 		69718B242841719D00623060 /* UserInterface.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B262841719D00623060 /* UserInterface.strings */; };
+		69718B2A2842C4EE00623060 /* Exam.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B282842C4EE00623060 /* Exam.strings */; };
 		6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
 		6974C04B2475E354009F0529 /* ProctoringVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */; };
 		69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
@@ -1335,6 +1336,8 @@
 		69718B222841716C00623060 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SecurityLogging.strings; sourceTree = "<group>"; };
 		69718B252841719D00623060 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserInterface.strings; sourceTree = "<group>"; };
 		69718B272841719F00623060 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/UserInterface.strings; sourceTree = "<group>"; };
+		69718B292842C4EE00623060 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Exam.strings; sourceTree = "<group>"; };
+		69718B2B2842C4FD00623060 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Exam.strings; sourceTree = "<group>"; };
 		6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProctoringVideoCapturer.h; sourceTree = "<group>"; };
 		6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProctoringVideoCapturer.m; sourceTree = "<group>"; };
 		697736FB26D3E4E2000B7C0D /* libquarantine.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libquarantine.tbd; path = usr/lib/system/libquarantine.tbd; sourceTree = SDKROOT; };
@@ -2168,23 +2171,24 @@
 				6940B99D1BA0FBDF008C8CFC /* Icons */,
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
 				692E48FD28415DBF0052600B /* Root.strings */,
-				69718AC92841662100623060 /* Browser.strings */,
-				69718ADC284170A600623060 /* AIProctoringSupport.strings */,
-				69718ADF284170AF00623060 /* BrowserMediaPlayback.strings */,
-				69718AE2284170B700623060 /* ConfigFile.strings */,
-				69718AEA284170D800623060 /* Dock.strings */,
-				69718AEF284170E000623060 /* DownUploads.strings */,
-				69718AF4284170EE00623060 /* ExamKeys.strings */,
-				69718AF92841710400623060 /* Network.strings */,
-				69718AFE2841711100623060 /* NetworkCertificate.strings */,
-				69718B032841712300623060 /* NetworkFilter.strings */,
+				69718B122841714A00623060 /* SEBServer.strings */,
 				69718B082841713400623060 /* RemoteProctoring.strings */,
 				69718B0D2841713D00623060 /* RemoteProctoringFeatures.strings */,
-				69718B122841714A00623060 /* SEBServer.strings */,
+				69718ADC284170A600623060 /* AIProctoringSupport.strings */,
+				69718AE2284170B700623060 /* ConfigFile.strings */,
+				69718B262841719D00623060 /* UserInterface.strings */,
+				69718AEA284170D800623060 /* Dock.strings */,
+				69718AC92841662100623060 /* Browser.strings */,
+				69718ADF284170AF00623060 /* BrowserMediaPlayback.strings */,
+				69718AEF284170E000623060 /* DownUploads.strings */,
+				69718B282842C4EE00623060 /* Exam.strings */,
+				69718AF4284170EE00623060 /* ExamKeys.strings */,
+				69718AF92841710400623060 /* Network.strings */,
+				69718B032841712300623060 /* NetworkFilter.strings */,
+				69718AFE2841711100623060 /* NetworkCertificate.strings */,
 				69718B172841715700623060 /* Security.strings */,
 				69718B1C2841716100623060 /* SecurityLegacy.strings */,
 				69718B212841716A00623060 /* SecurityLogging.strings */,
-				69718B262841719D00623060 /* UserInterface.strings */,
 				69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */,
 				690408EA1D4181A800A9EDDA /* SEB-Info.plist */,
 				69909F01283CB02E00199EB6 /* SEB-InfoPlist.strings */,
@@ -3571,6 +3575,7 @@
 				69D5988E1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */,
 				691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */,
 				6966F8831D1D96BE00684182 /* SEBSliderRestartIcon.png in Resources */,
+				69718B2A2842C4EE00623060 /* Exam.strings in Resources */,
 				69B253EF1E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png in Resources */,
 				69718B0B2841713D00623060 /* RemoteProctoringFeatures.strings in Resources */,
 				695A8EE51E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png in Resources */,
@@ -4667,6 +4672,15 @@
 			name = UserInterface.strings;
 			sourceTree = "<group>";
 		};
+		69718B282842C4EE00623060 /* Exam.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69718B292842C4EE00623060 /* en */,
+				69718B2B2842C4FD00623060 /* de */,
+			);
+			name = Exam.strings;
+			sourceTree = "<group>";
+		};
 		69909EFB283CB02E00199EB6 /* SafeExamBrowser-InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4773,7 +4787,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4872,7 +4886,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5137,7 +5151,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5194,7 +5208,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5255,7 +5269,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5312,7 +5326,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5383,7 +5397,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5439,7 +5453,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14091;
+				CURRENT_PROJECT_VERSION = 14112;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

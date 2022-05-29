@@ -5,7 +5,7 @@
 "4.title" = "Speichern";
 
 /* Class = "NSButtonCell"; title = "Allow QR code config (iOS)"; ObjectID = "53p-kc-87m"; */
-"53p-kc-87m.title" = "Konfiguration mittels QR-Code erlauben (iOS)";
+"53p-kc-87m.title" = "Konfiguration mit QR-Code erlauben (iOS)";
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose identity certificate to be used for encrypting SEB settings file"; ObjectID = "69"; */
 "69.ibExternalAccessibilityDescription" = "Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen";
