@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>DownUploads</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Downloading Files</string>
 			<key>FooterText</key>
-			<string>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&quot;On My iPad/iPhone&quot; location) and by using iTunes.</string>
+			<string>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&apos;On My iPad/iPhone&apos; location) and by using iTunes.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

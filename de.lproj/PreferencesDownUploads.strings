@@ -44,10 +44,10 @@
 "100.title" = "Datei für Upload auswählen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265"; */
-"265.ibShadowedToolTip" = ".seb Konfigurationsdateien herunterladen und öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
+"265.ibShadowedToolTip" = ".seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
 
 /* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266"; */
-"266.title" = "SEB Konfigurationsdateien herunterladen und öffnen";
+"266.title" = "SEB Konfigurationen herunterladen/öffnen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP"; */
 "AAd-LS-TUP.ibShadowedToolTip" = "Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt";

@@ -2406,12 +2406,12 @@
       </trans-unit>
       <trans-unit id="265.ibShadowedToolTip" xml:space="preserve">
         <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
-        <target>.seb Konfigurationsdateien herunterladen und öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
+        <target>.seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265";</note>
       </trans-unit>
       <trans-unit id="266.title" xml:space="preserve">
         <source>Download and open SEB config files</source>
-        <target>SEB Konfigurationsdateien herunterladen und öffnen</target>
+        <target>SEB Konfigurationen herunterladen/öffnen</target>
         <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266";</note>
       </trans-unit>
       <trans-unit id="AAd-LS-TUP.ibShadowedToolTip" xml:space="preserve">
@@ -2648,7 +2648,7 @@
       </trans-unit>
       <trans-unit id="olf-PG-s0j.title" xml:space="preserve">
         <source>Reconfiguring Secure/Exam Session</source>
-        <target>Prüfungssession umkonfigurieren</target>
+        <target>Sichere-/Prüfungssession umkonfigurieren</target>
         <note>Class = "NSBox"; title = "Reconfiguring Secure/Exam Session"; ObjectID = "olf-PG-s0j";</note>
       </trans-unit>
       <trans-unit id="pdT-tX-Sdp.title" xml:space="preserve">
@@ -2658,7 +2658,7 @@
       </trans-unit>
       <trans-unit id="sOA-63-en9.title" xml:space="preserve">
         <source>Allow Deep Linking for Exams</source>
-        <target>Deep-Linking für Prüfungen erlauben</target>
+        <target>Deep-Linking erlauben</target>
         <note>Class = "NSButtonCell"; title = "Allow Deep Linking for Exams"; ObjectID = "sOA-63-en9";</note>
       </trans-unit>
       <trans-unit id="sY9-Fu-u2Z.placeholderString" xml:space="preserve">
@@ -2688,7 +2688,7 @@
       </trans-unit>
       <trans-unit id="zfq-ok-40e.ibShadowedToolTip" xml:space="preserve">
         <source>Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file</source>
-        <target>Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession</target>
+        <target>Erlaubt Umkonfigurieren durch das Laden einer SEB-Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file"; ObjectID = "zfq-ok-40e";</note>
       </trans-unit>
     </body>
@@ -3785,9 +3785,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X";</note>
       </trans-unit>
       <trans-unit id="HN5-u7-3UG.ibShadowedToolTip" xml:space="preserve">
-        <source>On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up</source>
-        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG";</note>
+        <source>On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up</source>
+        <target>Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title" xml:space="preserve">
         <source>Enable Alt-Mousewheel</source>
@@ -6992,12 +6992,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Face Movement Sideways (Yaw)" xml:space="preserve">
         <source>Face Movement Sideways (Yaw)</source>
-        <target>Gesichtsbewegung seitwärts (Gieren)</target>
+        <target>Gesichtsbewegung seitwärts</target>
         <note/>
       </trans-unit>
       <trans-unit id="Face Movement Up &amp;amp; Down (Pitch)" xml:space="preserve">
         <source>Face Movement Up &amp;amp; Down (Pitch)</source>
-        <target>Gesichtsbewegung nach oben und unten (Neigung)</target>
+        <target>Gesichtsbewegung nach oben und unten</target>
         <note/>
       </trans-unit>
       <trans-unit id="Feedback for Candidate" xml:space="preserve">
@@ -7129,8 +7129,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Verwaltete MDM-Konfiguration</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Recommended for easier set-up and testing. Shows the &amp;quot;Edit Settings&amp;quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." xml:space="preserve">
-        <source>Recommended for easier set-up and testing. Shows the &amp;quot;Edit Settings&amp;quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</source>
+      <trans-unit id="Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." xml:space="preserve">
+        <source>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</source>
         <target>Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.</target>
         <note/>
       </trans-unit>
@@ -7146,7 +7146,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Settings Password" xml:space="preserve">
         <source>Settings Password</source>
-        <target>Passwort Konfigurationsdatei</target>
+        <target>Passwort</target>
         <note/>
       </trans-unit>
       <trans-unit id="Shared config file name" xml:space="preserve">
@@ -7263,8 +7263,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Download erlauben</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&amp;quot;On My iPad/iPhone&amp;quot; location) and by using iTunes." xml:space="preserve">
-        <source>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&amp;quot;On My iPad/iPhone&amp;quot; location) and by using iTunes.</source>
+      <trans-unit id="Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." xml:space="preserve">
+        <source>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.</source>
         <target>Derzeit können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Diese Funktion ist für die Speicherung verschlüsselter Prüfungsergebnisse gedacht, falls keine Netzwerkverbindung besteht. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') und über iTunes zugegriffen werden.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
@@ -7275,13 +7275,180 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Download &amp;amp; Open Config Files" xml:space="preserve">
         <source>Download &amp;amp; Open Config Files</source>
-        <target>Konfigurationsdateien herunterladen und öffnen</target>
+        <target>Konfigurationen herunterladen/öffnen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Downloading Files" xml:space="preserve">
         <source>Downloading Files</source>
         <target>Dateien herunterladen</target>
         <note>String for Title elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/Exam.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
+    </header>
+    <body>
+      <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
+        <source>Allow Deep Linking for Exams</source>
+        <target>Deep-Linking erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Query Parameter" xml:space="preserve">
+        <source>Allow Query Parameter</source>
+        <target>Query-Parameter erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Reconfiguring" xml:space="preserve">
+        <source>Allow Reconfiguring</source>
+        <target>Umkonfigurieren erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &amp;apos;*&amp;apos; can be used)." xml:space="preserve">
+        <source>Allow reconfiguring by loading an SEB exam config file (while using the client config or during an exam session). If the running session has a quit password set, indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character &amp;apos;*&amp;apos; can be used).</source>
+        <target>Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration (während die Client-Konfiguration benutzt wird oder während einer Prüfungssession). Falls die laufende Session ein Beenden-Passwort gesetzt hat, muss die erlaubte URL für die neue Prüfungskonfigurationsdatei im Feld 'Rekonfigurations-URL' angegeben werden (Wildcard-Zeichen '*' kann benutzt werden).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Back to Start" xml:space="preserve">
+        <source>Back to Start</source>
+        <target>Zurück zum Start</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Back to Start Button" xml:space="preserve">
+        <source>Back to Start Button</source>
+        <target>'Zurück zum Start'-Taste</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Browser &amp;amp; Config Keys" xml:space="preserve">
+        <source>Browser &amp;amp; Config Keys</source>
+        <target>Browser und Config Keys</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Clear on Session End" xml:space="preserve">
+        <source>Clear on Session End</source>
+        <target>Zu Sessionsende löschen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Clear on Session Start" xml:space="preserve">
+        <source>Clear on Session Start</source>
+        <target>Zu Beginn der Session löschen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Confirm Quitting" xml:space="preserve">
+        <source>Confirm Quitting</source>
+        <target>Beenden bestätigen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom Title Text" xml:space="preserve">
+        <source>Custom Title Text</source>
+        <target>Benutzerdefinierter Titel</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom URL" xml:space="preserve">
+        <source>Custom URL</source>
+        <target>Benutzerdefinierte URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string)." xml:space="preserve">
+        <source>Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (which needs to start with the Start URL string).</source>
+        <target>Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session." xml:space="preserve">
+        <source>Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session.</source>
+        <target>Wenn das Löschen der Session-Cookies beim Beenden der ersten Prüfungssession und beim Starten den zweiten deaktiviert wird, bleiben Benutzer eingeloggt.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Exact full URL" xml:space="preserve">
+        <source>Exact full URL</source>
+        <target>Exakte vollständige URL</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Exam Deep Linking" xml:space="preserve">
+        <source>Exam Deep Linking</source>
+        <target>Deep-Linking für Prüfungen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Match URL" xml:space="preserve">
+        <source>Match URL</source>
+        <target>Zu vergleichende URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Place a hyperlink with this URL on the feedback page displayed after an exam is successfully finished (or use the URL of the feedback page itself). Tapping the link or navigating to the feedback page will quit the exam session and unlock SEB without having to enter the quit/unlock password. " xml:space="preserve">
+        <source>Place a hyperlink with this URL on the feedback page displayed after an exam is successfully finished (or use the URL of the feedback page itself). Tapping the link or navigating to the feedback page will quit the exam session and unlock SEB without having to enter the quit/unlock password. </source>
+        <target>Link mit dieser URL auf der 'Feedback'-Seite platzieren, die nach Abgabe einer Prüfung angezeigt wird. Anklicken des Links beendet die Prüfungssession und entsperrt SEB, ohne dass ein Beenden/Entsperren-Passwort eingegeben werden müsste.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Query String Parameter" xml:space="preserve">
+        <source>Query String Parameter</source>
+        <target>Query-Parameter</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Quit Link" xml:space="preserve">
+        <source>Quit Link</source>
+        <target>Beenden-Link</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Quit URL" xml:space="preserve">
+        <source>Quit URL</source>
+        <target>Beenden-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reconfiguring Config URL" xml:space="preserve">
+        <source>Reconfiguring Config URL</source>
+        <target>Rekonfigurations-URL</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reconfiguring Exam Session" xml:space="preserve">
+        <source>Reconfiguring Exam Session</source>
+        <target>Sichere-/Prüfungssession umkonfigurieren</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Require Quit Password" xml:space="preserve">
+        <source>Require Quit Password</source>
+        <target>Beenden-Passwort verlangen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Restart Instead of Quitting" xml:space="preserve">
+        <source>Restart Instead of Quitting</source>
+        <target>Neustarten anstatt Beenden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Session Cookies" xml:space="preserve">
+        <source>Session Cookies</source>
+        <target>Session-Cookies</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share Keys" xml:space="preserve">
+        <source>Share Keys</source>
+        <target>Schlüssel/Keys teilen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings." xml:space="preserve">
+        <source>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</source>
+        <target>Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &amp;apos;?&amp;apos; or &amp;apos;??&amp;apos; (if the URL itself doesn&amp;apos;t contain a query). SEB will then append this query string to the Start URL." xml:space="preserve">
+        <source>The seb(s):// link to the config file can contain an additional query string, separated from the main URL by &amp;apos;?&amp;apos; or &amp;apos;??&amp;apos; (if the URL itself doesn&amp;apos;t contain a query). SEB will then append this query string to the Start URL.</source>
+        <target>Der seb(s):// Link zur Konfigurationsdatei kann eine zusätzliche Query-Zeichenkette beinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-Parameter an die Start URL anhängen.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="This function doesn&amp;apos;t log you out if you are logged in on a website (doesn&amp;apos;t clear session cookies). " xml:space="preserve">
+        <source>This function doesn&amp;apos;t log you out if you are logged in on a website (doesn&amp;apos;t clear session cookies). </source>
+        <target>Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use Browser &amp;amp; Config Keys" xml:space="preserve">
+        <source>Use Browser &amp;amp; Config Keys</source>
+        <target>Browser und Config Keys verwenden</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Use Start URL" xml:space="preserve">
+        <source>Use Start URL</source>
+        <target>Start-URL verwenden</target>
+        <note/>
       </trans-unit>
     </body>
   </file>
@@ -7399,6 +7566,11 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Identität wählen</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) embedded into a client config file can be used to decrypt exam config files on clients." xml:space="preserve">
+        <source>Cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) embedded into a client config file can be used to decrypt exam config files on clients.</source>
+        <target>In eine Client-Konfigurationsdatei eingebettete kryptografische Identitäten (X.509-Zertifikate mit öffentlichem RSA-Schlüssel und zugehörigem privaten Schlüssel, die sicher im Schlüsselbund gespeichert sind) können zur Entschlüsselung von Prüfungskonfigurationsdateien auf Clients verwendet werden.</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Embed Identity Certificates" xml:space="preserve">
         <source>Embed Identity Certificates</source>
         <target>Identitätszertifikate einbetten</target>
@@ -7417,11 +7589,6 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       <trans-unit id="Embedded Certificates" xml:space="preserve">
         <source>Embedded Certificates</source>
         <target>Eingebettete Zertifikate</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files." xml:space="preserve">
-        <source>Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files.</source>
-        <target>In eine Client-Konfigurationsdatei eingebettete kryptografische Identitäten (X.509-Zertifikate mit öffentlichem RSA-Schlüssel und zugehörigem privaten Schlüssel, die sicher im Schlüsselbund gespeichert sind) können zur Entschlüsselung von Prüfungskonfigurationsdateien auf Clients verwendet werden.</target>
         <note/>
       </trans-unit>
       <trans-unit id="List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions." xml:space="preserve">
@@ -7486,8 +7653,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Nur Links oder alle eingebetteten Ressourcen und XMLHTTP-Requests filtern.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="List of filter rules, currently these can only be edited in SEB desktop versions. Use the &amp;quot;Teach SEB allowed/blocked URLs&amp;quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." xml:space="preserve">
-        <source>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &amp;quot;Teach SEB allowed/blocked URLs&amp;quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</source>
+      <trans-unit id="List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." xml:space="preserve">
+        <source>List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</source>
         <target>Liste der Filterregeln, derzeit können diese nur in den SEB-Desktop-Versionen bearbeitet werden. Verwenden Sie die Funktion 'Erlaubte/blockierte URLs lernen' in SEB für macOS, um einfach URL-Filterregeln zu erstellen. Format-Erklärung: √: Aktiv / ☒: Inaktiv, R: Regulärer Ausdruck, A: Zulassen / B: Sperren. Der Filterausdruck kann ein *-Platzhalterzeichen enthalten.</target>
         <note/>
       </trans-unit>
@@ -7563,8 +7730,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Vollständige URL</target>
         <note>String for IASKPlaceholder elements</note>
       </trans-unit>
-      <trans-unit id="Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session." xml:space="preserve">
-        <source>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server during the exam session.</source>
+      <trans-unit id="Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server (if used) during the exam session." xml:space="preserve">
+        <source>Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server (if used) during the exam session.</source>
         <target>Globale Einstellungen für den Empfang und das Senden von Audio-/Videostreams. Streams können auch von SEB Server (falls verwendet) während der Prüfungssitzung aktiviert/deaktiviert werden.</target>
         <note/>
       </trans-unit>
@@ -7968,7 +8135,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="On devices with iOS &amp;lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." xml:space="preserve">
         <source>On devices with iOS &amp;lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</source>
-        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+        <target>Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Patch Version Number" xml:space="preserve">
@@ -7988,7 +8155,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Use Assessment Mode If Available" xml:space="preserve">
         <source>Use Assessment Mode If Available</source>
-        <target>Assessment-Modus verwenden, wenn verfügbar</target>
+        <target>Assessment-Modus verwenden</target>
         <note/>
       </trans-unit>
       <trans-unit id="Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode)." xml:space="preserve">
@@ -8023,8 +8190,8 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Kompatibilität mit geführtem Zugang</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Transforms specific HTTP requests for clicked links to prevent the &amp;quot;Guided Access is enabled&amp;quot; message being displayed when clicking all links." xml:space="preserve">
-        <source>Transforms specific HTTP requests for clicked links to prevent the &amp;quot;Guided Access is enabled&amp;quot; message being displayed when clicking all links.</source>
+      <trans-unit id="Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links." xml:space="preserve">
+        <source>Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links.</source>
         <target>Spezifische HTTP-Request für angeklickte Links werden angepasst, um die Meldung 'Geführter Zugriff ist aktiv' zu vermeiden</target>
         <note/>
       </trans-unit>
@@ -8067,7 +8234,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Sending Logs Requires Admin PW" xml:space="preserve">
         <source>Sending Logs Requires Admin PW</source>
-        <target>Senden von Logs erfordert Admin-PW</target>
+        <target>Admin-PW für Log-Senden</target>
         <note/>
       </trans-unit>
       <trans-unit id="The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&amp;apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password." xml:space="preserve">
