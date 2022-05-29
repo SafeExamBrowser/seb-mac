@@ -196,7 +196,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:iOSBetaVersionNone],
                    @"allowiOSBetaVersionNumber",
                    
-                   [NSNumber numberWithLong:iOSVersion9],
+                   [NSNumber numberWithLong:iOSVersion11],
                    @"allowiOSVersionNumberMajor",
                    
                    @3,
