@@ -1,8 +1,8 @@
 /* (No Comment) */
-"&apos;✕&apos;" = "'✕'";
+"'✕'" = "'✕'";
 
 /* String for Titles arrays elements */
-"&apos;URL Blocked!&apos;" = "'URL Blocked!'";
+"'URL Blocked!'" = "'URL Blocked!'";
 
 /* (No Comment) */
 "Activate URL Filtering" = "URL-Filter aktivieren";
