@@ -23,7 +23,7 @@
 "Filter Rules" = "Filterregeln";
 
 /* (No Comment) */
-"List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." = "Liste der Filterregeln, derzeit können diese nur in den SEB-Desktop-Versionen bearbeitet werden. Verwenden Sie die Funktion 'Erlaubte/blockierte URLs lernen' in SEB für macOS, um einfach URL-Filterregeln zu erstellen. Format-Erklärung: √: Aktiv / ☒: Inaktiv, R: Regulärer Ausdruck, A: Zulassen / B: Sperren. Der Filterausdruck kann ein *-Platzhalterzeichen enthalten.";
+"List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." = "Liste der Filterregeln, derzeit können diese nur in den SEB-Desktop-Versionen bearbeitet werden. Verwenden Sie die Funktion 'Erlaubte/blockierte URLs lernen' in SEB für macOS, um einfach URL-Filterregeln zu erstellen. Format-Erklärung: √: Aktiv / ☒: Inaktiv, R: Regulärer Ausdruck, A: Zulassen / B: Sperren. Der Filterausdruck kann ein *-Platzhalterzeichen enthalten.";
 
 /* (No Comment) */
 "This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped." = "Diese Meldung wird kurz in der oberen rechten Ecke des Displays angezeigt, wenn ein durch die URL-Filterregeln blockierter Link angetippt wird.";

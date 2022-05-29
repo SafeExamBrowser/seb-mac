@@ -1,0 +1,105 @@
+/* (No Comment) */
+"Allow Navigation" = "Navigation erlauben";
+
+/* (No Comment) */
+"Allow Reload" = "Neuladen erlauben";
+
+/* (No Comment) */
+"Allow Text Search" = "Textsuche erlauben";
+
+/* (No Comment) */
+"Always" = "Immer";
+
+/* (No Comment) */
+"Automatic" = "Automatisch";
+
+/* (No Comment) */
+"Before Receiving Title" = "Bevor Titel empfangen wird";
+
+/* (No Comment) */
+"Block Pop-Up Windows" = "Pop-Ups unterdrücken";
+
+/* (No Comment) */
+"Block When on Different Server" = "blockieren, wenn Ziel auf anderem Server";
+
+/* (No Comment) */
+"Browser Features" = "Browser-Funktionen";
+
+/* (No Comment) */
+"Custom" = "Benutzerdefiniert";
+
+/* String for IASKPlaceholder elements */
+"Custom user agent string" = "Benutzerdefinierte User Agent Zeichenkette";
+
+/* (No Comment) */
+"Default" = "Standard";
+
+/* (No Comment) */
+"Enable JavaScript" = "JavaScript erlauben";
+
+/* (No Comment) */
+"Force Classic" = "Klassisches erzwingen";
+
+/* String for Titles arrays elements */
+"Get Generally Blocked" = "werden generell blockiert";
+
+/* String for Title elements */
+"Links requesting to open in new tab …" = "Links, die in einem neuen Browsertab geöffnet werden sollen …";
+
+/* (No Comment) */
+"Mac Desktop" = "Mac Desktop";
+
+/* (No Comment) */
+"Media Playback" = "Medienwiedergabe";
+
+/* (No Comment) */
+"Never" = "Nie";
+
+/* (No Comment) */
+"Only in Load Error" = "Nur bei Verbindungsfehlern";
+
+/* (No Comment) */
+"Only on Load Error" = "Nur bei Verbindungsfehlern";
+
+/* (No Comment) */
+"Open in New Tab" = "in neuem Tab öffnen";
+
+/* (No Comment) */
+"Open in Same Tab" = "im selben Tab öffnen";
+
+/* (No Comment) */
+"Prefer Modern" = "Modern bevorzugen";
+
+/* (No Comment) */
+"Prefer Modern in New Tab+Different Host" = "Modern in neuen Tabs+anderem Server bevorzugen";
+
+/* (No Comment) */
+"Restrictions in Exam Tab" = "Einschränkungen im Prüfungstab";
+
+/* (No Comment) */
+"Restrictions in New Tabs" = "Einschränkungen in zusätzlichen Tabs";
+
+/* (No Comment) */
+"SEB always appends its version number. Default string depends on the iOS version and therefore can differ on exam clients." = "SEB hängt immer seine Versionsnummer an. Die Standardzeichenkette hängt von der iOS-Version ab und kann daher auf Prüfungsclients unterschiedlich sein.";
+
+/* (No Comment) */
+"Select Browser Engine Policy" = "Policy zum Wählen der Browser-Engine";
+
+/* (No Comment) */
+"Show Reload Warning" = "Neuladen-Warnung anzeigen";
+
+/* (No Comment) */
+"Show URLs" = "URLs anzeigen";
+
+/* String for FooterText elements */
+"Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." = "Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.";
+
+/* (No Comment) */
+"The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
+
+/* (No Comment) */
+"User Agent" = "User Agent";
+
+/* (No Comment) */
+"User agent suffix" = "User Agent Suffix";
+
