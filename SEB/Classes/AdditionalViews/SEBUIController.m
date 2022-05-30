@@ -166,33 +166,21 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableZoomPage"] &&
         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectForceClassic) {
         
-        if (@available(iOS 13.0, *)) {
-            sliderIcon = [UIImage systemImageNamed:@"textformat.size"];
-        } else {
-            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomResetIcon"];
-        }
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomDefaultSizeIcon"];
         sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageReset)];
         [sliderCommands addObject:sliderZoomPageOutItem];
         
-        if (@available(iOS 13.0, *)) {
-            sliderIcon = [UIImage systemImageNamed:@"textformat.size.smaller"];
-        } else {
-            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomOutIcon"];
-        }
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomOutSmallerSizeIcon"];
         sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageOut)];
         [sliderCommands addObject:sliderZoomPageOutItem];
         
-        if (@available(iOS 13.0, *)) {
-            sliderIcon = [UIImage systemImageNamed:@"textformat.size.larger"];
-        } else {
-            sliderIcon = [UIImage imageNamed:@"SEBSliderPageZoomInIcon"];
-        }
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomInLargerSizeIcon"];
         sliderZoomPageInItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page In", nil)
                                                             icon:sliderIcon
                                                           target:self
@@ -204,12 +192,7 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"]) {
         
         // Add Search Text command to slider items
-        if (@available(iOS 13.0, *)) {
-            sliderIcon = [UIImage systemImageNamed:@"magnifyingglass"];
-        } else {
-            sliderIcon = [UIImage imageNamed:@"SEBSliderSearchTextIcon"];
-        }
-
+        sliderIcon = [UIImage imageNamed:@"SEBSliderSearchIcon"];
         sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Search Text", nil)
                                                             icon:sliderIcon
                                                           target:self
