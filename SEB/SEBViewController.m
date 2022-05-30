@@ -2420,7 +2420,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
                 [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
                 [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15]];
+                [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]];
                 [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
                 
                 UIView *searchBarView = [[UIView alloc] init];
@@ -2428,21 +2428,13 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
                 toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
-                if (@available(iOS 13.0, *)) {
-                    [toolbarSearchButtonPreviousResult setImage:[UIImage systemImageNamed:@"chevron.up"] forState:UIControlStateNormal];
-                } else {
-                    [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarPreviousResult"] forState:UIControlStateNormal];
-                }
+                [toolbarSearchButtonPreviousResult setImage:[UIImage imageNamed:@"SEBToolbarSearchPreviousResultIcon"] forState:UIControlStateNormal];
                 [toolbarSearchButtonPreviousResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [toolbarSearchButtonPreviousResult addTarget:self action:@selector(searchTextPrevious) forControlEvents:UIControlEventTouchUpInside];
                 
                 toolbarSearchButtonNextResult = [[UIButton alloc] init];
                 toolbarSearchButtonNextResult.translatesAutoresizingMaskIntoConstraints = NO;
-                if (@available(iOS 13.0, *)) {
-                    [toolbarSearchButtonNextResult setImage:[UIImage systemImageNamed:@"chevron.down"] forState:UIControlStateNormal];
-                } else {
-                    [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarNextResult"] forState:UIControlStateNormal];
-                }
+                [toolbarSearchButtonNextResult setImage:[UIImage imageNamed:@"SEBToolbarSearchNextResultIcon"] forState:UIControlStateNormal];
                 [toolbarSearchButtonNextResult setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
 
