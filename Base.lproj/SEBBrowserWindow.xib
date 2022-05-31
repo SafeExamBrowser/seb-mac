@@ -100,11 +100,11 @@
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="176"/>
-                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" toolTip="Reload this webpage" image="SEBReloadIcon" bordered="YES" sizingBehavior="auto" id="192">
+                    <toolbarItem implicitItemIdentifier="84F62431-3DD3-4394-83F6-D0215AD95868" label="Reload" paletteLabel="" toolTip="Reload this webpage" image="SEBReloadIconToolbar" bordered="YES" sizingBehavior="auto" id="192">
                         <button key="view" verticalHuggingPriority="750" id="190">
                             <rect key="frame" x="0.0" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIcon" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SEBReloadIconToolbar" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="191">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -113,15 +113,13 @@
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D8316489-D2D0-4893-B3A7-DB00C4FBBA6F" label="Go to Dock" paletteLabel="" toolTip="Select first control in the Dock" sizingBehavior="auto" id="wjF-4e-tSF" userLabel="Dock">
-                        <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
+                    <toolbarItem implicitItemIdentifier="D8316489-D2D0-4893-B3A7-DB00C4FBBA6F" label="Go to Dock" paletteLabel="" toolTip="Select first control in the Dock" image="GoToDock" bordered="YES" sizingBehavior="auto" id="wjF-4e-tSF" userLabel="Dock">
                         <button key="view" identifier="toolbarGoToDockButton" verticalHuggingPriority="750" id="PVb-Dk-TxC" userLabel="Textured Rounded Button" customClass="SEBGoToDockButton">
-                            <rect key="frame" x="0.0" y="14" width="36" height="23"/>
+                            <rect key="frame" x="0.0" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qS-Je-CPh" userLabel="Button Cell">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="GoToDock" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qS-Je-CPh" userLabel="Button Cell">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <imageReference key="image" image="dock.rectangle" catalog="system" symbolScale="large"/>
                             </buttonCell>
                             <connections>
                                 <action selector="goToDock:" target="-2" id="vey-Ns-DSy"/>
@@ -591,9 +589,10 @@ Gw
         </customView>
     </objects>
     <resources>
+        <image name="GoToDock" width="20" height="20"/>
         <image name="NSGoLeftTemplate" width="10" height="14"/>
         <image name="NSGoRightTemplate" width="10" height="14"/>
-        <image name="SEBReloadIcon" width="512" height="512"/>
+        <image name="SEBReloadIconToolbar" width="20" height="20"/>
         <image name="ZoomPageIn" width="20" height="20"/>
         <image name="ZoomPageOut" width="20" height="20"/>
         <image name="ZoomTextIn" width="20" height="20"/>
