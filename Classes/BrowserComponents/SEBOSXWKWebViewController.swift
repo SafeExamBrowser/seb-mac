@@ -250,7 +250,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return .grant
     }
     
-    public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
+    @objc public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
         decisionHandler(true)
     }
     
