@@ -622,6 +622,19 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (BOOL) showURLFilterAlertForRequest:(NSURLRequest *)request
+                     forContentFilter:(BOOL)contentFilter
+                       filterResponse:(URLFilterRuleActions)filterResponse
+{
+    if (contentFilter == NO) {
+        // The filter Response is block or the URL filter learning mode isn't switched on
+        // Display "URL Blocked" (or red "X") top/right in window title bar
+        [self showURLFilterMessage];
+    }
+    return NO;
+}
+
+
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
