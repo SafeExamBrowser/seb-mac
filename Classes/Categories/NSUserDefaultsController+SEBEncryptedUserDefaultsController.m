@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 30.08.12.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -58,9 +58,6 @@
             return nil;
         }
         NSError *error;
-//        NSData *decrypted = [RNDecryptor decryptData:encrypted
-//                                        withPassword:userDefaultsMasala
-//                                               error:&error];
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey: key error:&error];
         
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
@@ -87,10 +84,7 @@
     
     if ([NSUserDefaults userDefaultsPrivate]) {
         if (value == nil) value = [NSNull null];
-//        [[NSUserDefaults standardUserDefaults] willChangeValueForKey:key];
         [[NSUserDefaults privateUserDefaults] setValue:value forKey:key];
-//        [[NSUserDefaults standardUserDefaults] didChangeValueForKey:key];
-        //[self.defaults setSecureObject:value forKey:key];
         DDLogVerbose(@"keypath: %@ [[NSUserDefaults privateUserDefaults] setValue:%@ forKey:%@]", keyPath, value, key);
     } else {
         if (value == nil || keyPath == nil) {
@@ -100,10 +94,6 @@
         } else {
             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
             NSError *error;
-//            NSData *encryptedData = [RNEncryptor encryptData:data
-//                                                withSettings:kRNCryptorAES256Settings
-//                                                    password:userDefaultsMasala
-//                                                       error:&error];
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
             
             DDLogVerbose(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);

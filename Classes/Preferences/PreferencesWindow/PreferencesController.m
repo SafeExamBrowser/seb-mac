@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -38,6 +38,7 @@
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
 
 @implementation PreferencesController
@@ -89,7 +90,7 @@
 
 - (SEBBrowserController *)browserController {
     if (!_browserController) {
-        _browserController = _sebController.browserController.browserController;
+        _browserController = _sebController.browserController;
     }
     return _browserController;
 }
@@ -184,6 +185,7 @@
 
     // Store current settings (before they probably get edited)
     [self storeCurrentSettings];
+    urlFilterLearningModeInitialState = self.networkVC.URLFilterLearningMode;
     
     [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
 	[[MBPreferencesController sharedController] showWindow:self];
@@ -447,6 +449,9 @@
 // Check if settings have changed
 - (BOOL) settingsChanged
 {
+    if (self.networkVC.URLFilterLearningMode != urlFilterLearningModeInitialState) {
+        return YES;
+    }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     return ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
@@ -571,9 +576,12 @@
 
 - (SEBDisabledPreferencesAnswer) alertForDisabledPreferences
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBDisabledPreferencesAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBDisabledPreferencesAnswerApply;
+            }
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
@@ -611,9 +619,12 @@
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBUnsavedSettingsAnswerDontSave;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBUnsavedSettingsAnswerDontSave;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -638,9 +649,12 @@
 // Ask if edited settings should be applied or previously active settings restored
 - (SEBApplySettingsAnswers) askToApplySettingsAlert
 {
-    if (@available(macOS 11.0, *)) {
-        if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-            return SEBApplySettingsAnswerApply;
+    if (@available(macOS 12.0, *)) {
+    } else {
+        if (@available(macOS 11.0, *)) {
+            if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                return SEBApplySettingsAnswerApply;
+            }
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -871,7 +885,7 @@
     [self closePreferencesWindow];
 
 	[[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestQuitNotification" object:self];
+     postNotificationName:@"requestExitNotification" object:self];
 }
 
 
@@ -911,7 +925,7 @@
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     //[panel setNameFieldStringValue:newName];
-    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
     [panel beginSheetModalForWindow:self.preferencesWindow
@@ -971,7 +985,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
+        currentConfigFileURL = [NSURL fileURLWithPathString:SEBClientSettingsFilename];
         
     } else {
         
@@ -1026,7 +1040,7 @@
             }
             [panel setDirectoryURL:directory];
             [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
-            [panel setAllowedFileTypes:[NSArray arrayWithObject:@"seb"]];
+            [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
             NSInteger result = [panel runModal];
             if (result == NSFileHandlingPanelOKButton) {
                 prefsFileURL = [panel URL];
@@ -1077,9 +1091,12 @@
 
         // When Save As with local user defaults we ask if the saved file should be edited further
         if (saveAs && !NSUserDefaults.userDefaultsPrivate) {
-            if (@available(macOS 11.0, *)) {
-                if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
-                    return YES;
+            if (@available(macOS 12.0, *)) {
+            } else {
+                if (@available(macOS 11.0, *)) {
+                    if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
+                        return YES;
+                    }
                 }
             }
 
@@ -1457,7 +1474,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBClientSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

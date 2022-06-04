@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>SecurityLogging</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Logging</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableLogging</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_logLevel</string>
+			<key>Title</key>
+			<string>Log Level</string>
+			<key>Titles</key>
+			<array>
+				<string>Error</string>
+				<string>Warning</string>
+				<string>Info</string>
+				<string>Debug</string>
+				<string>Verbose</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>FooterText</key>
+			<string>The button for sending logs to the SEB developers is located in the About SEB view (scroll down in the copyright and license text). The button opens a mail compose view. You can also first send the log file to your own email address to check what log data SEB collected. If you don&apos;t want students to easily access logs themselves, you can protect this feature with the SEB administrator password.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Sending Logs Requires Admin PW</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_logSendingRequiresAdminPassword</string>
+		</dict>
+	</array>
+</dict>
+</plist>

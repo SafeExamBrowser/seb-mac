@@ -4,22 +4,56 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SEB-iOS Development.xcscheme</key>
+		<key>SEB Develop.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>14</integer>
+		</dict>
+		<key>SEB Development.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>SEB-iOS Development.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>SEB-iOS Enterprise.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>SEB-iOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>SEB.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Safe Exam Browser ETH.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
 		</dict>
 		<key>Safe Exam Browser Release.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>Safe Exam Browser copy.xcscheme</key>
+		<key>Safe Exam Browser copy.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>16</integer>
 		</dict>
-		<key>Safe Exam Browser.xcscheme</key>
+		<key>Safe Exam Browser.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -42,6 +76,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>694215B6214544AB002EB416</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6949B31B14F40AAD009E1775</key>
 		<dict>
 			<key>primary</key>
@@ -52,7 +91,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69B377471DD5E8E4008F6692</key>
+		<key>69B1714B20FE2D95004BD0FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69CFF9FE1D3641B500FE5655</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69D3C4A827A0366400890B31</key>
 		<dict>
 			<key>primary</key>
 			<true/>

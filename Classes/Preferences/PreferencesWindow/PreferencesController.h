@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -54,6 +54,8 @@
 @class SEBOSXConfigFileController;
 @class PrefsGeneralViewController;
 @class PrefsConfigFileViewController;
+@class PrefsAppearanceViewController;
+@class PrefsBrowserViewController;
 @class PrefsExamViewController;
 @class PrefsNetworkViewController;
 @class SEBBrowserController;
@@ -67,6 +69,7 @@
     SEBEncapsulatedSettings *settingsBeforeEditing;
     BOOL restartSEB;
     NSURL *currentSEBFileURL;
+    BOOL urlFilterLearningModeInitialState;
 }
 
 @property BOOL currentConfigPasswordIsHash;

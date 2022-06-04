@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24/09/14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -38,12 +38,28 @@
 
 @class SEBDockItemMenu;
 
+@protocol SEBDockItemButtonDelegate <NSObject>
+
+- (void) lastDockItemResignedFirstResponder;
+- (void) firstDockItemResignedFirstResponder;
+
+- (id) currentDockAccessibilityParent;
+
+@optional
+- (NSWindow *)dockWindow;
+
+@end
+
 @interface SEBDockItemButton : NSButton
 {
+    @private
+    
     NSTrackingArea *trackingArea;
     NSPopUpButtonCell *popUpCell;
     
     BOOL mouseDown;
+    
+    CAShapeLayer *focusRing;
 }
 
 //@property (strong) NSString *itemTitle;
@@ -53,8 +69,14 @@
 @property (strong) NSTextField *label;
 @property (strong) NSPopover *labelPopover;
 @property (strong) SEBDockItemMenu *dockMenu;
+@property (readwrite) BOOL isFirstDockItem;
+@property (readwrite) BOOL isLastDockItem;
+@property (assign, nonatomic) SEL secondaryAction;
+
+@property (strong, nonatomic) id<SEBDockItemButtonDelegate> delegate;
 
 - (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu;
+- (id) initWithFrame:(NSRect)frameRect icon:(NSImage *)itemIcon highlightedIcon:(NSImage *)itemHighlightedIcon title:(NSString *)itemTitle menu:(SEBDockItemMenu *)itemMenu target:(id)newTarget secondaryAction:(SEL)newSecondaryAction;
 
 - (void)unhighlight;
 - (void)mouseEntered:(NSEvent *)theEvent;

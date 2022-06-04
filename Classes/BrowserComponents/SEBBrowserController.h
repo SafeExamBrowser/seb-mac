@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 22/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,6 +33,11 @@
 //
 
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
+#import <Foundation/Foundation.h>
+#import "SEBAbstractWebView.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SEBURLFilter;
 
@@ -45,7 +50,7 @@
  */
 @protocol SEBBrowserControllerDelegate <NSObject>
 /**
- * @name		Item Attributes
+ * @name        Item Attributes
  */
 @required
 /**
@@ -58,16 +63,30 @@
                                 username:(NSString *)username
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector;
+
 /**
  * @brief       Delegate method to hide the previously displayed enter password dialog
  */
 - (void) hideEnterUsernamePasswordDialog;
 
 /**
- * @brief       Delegate method which returns a placeholder text in case settings
- *              don't allow to display its URL
+ * @brief       Delegate method which returns if the main web view (browser window or tab)
+ *              is the currently active (selected, displayed) one
  */
-- (NSString *) showURLplaceholderTitleForWebpage;
+
+- (BOOL) isMainBrowserWebViewActive;
+
+/**
+ * @brief       Open a new, temporary webView for downloading the linked config file
+ *              This allows the user to authenticate if the link target is stored on a secured server
+ */
+- (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
+- (void) closeWebView:(SEBAbstractWebView *) webViewToClose;
+- (void) downloadingSEBConfigFailed:(NSError *)error;
+- (void) openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL;
+
+- (void) openingConfigURLRoleBack;
+
 
 /**
  * @brief       Delegate method which should display a dialog when a config file
@@ -104,59 +123,118 @@
  *              error is nil, otherwise it contains an NSError object
  *              with the failure reason
  */
-- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
+- (void) storeNewSEBSettingsSuccessfulProceed:(NSError *)error;
 
 /**
  * @brief       Delegate method called when a regular HTTP request or a XMLHttpRequest (XHR)
  *              successfully completed loading. The delegate can use this callback
  *              for example to scan the newly received HTML data is being downloaded.
  */
-- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
+- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
+
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message;
+- (void) presentDownloadError:(NSError *)error;
+
+@property (readwrite) BOOL startingUp;
+@property (readwrite) BOOL openingSettings;
+
+@optional
+- (void) openDownloadedFile:(NSString *)path;
 
 @end
 
-
-#import <Foundation/Foundation.h>
 
 @interface SEBBrowserController : NSObject <NSURLSessionTaskDelegate> {
     
     @private
     
+    BOOL examSessionCookiesAlreadyCleared;
+    NSURL *downloadedSEBConfigDataURL;
     NSString *cachedConfigFileName;
     NSURL *cachedDownloadURL;
     NSURL *cachedHostURL;
     NSURL *cachedUniversalLink;
-    NSString *quitURLTrimmed;
+    NSString *startURLQueryParameter;
     BOOL sendHashKeys;
+    BOOL usingEmbeddedCertificates;
+    BOOL pinEmbeddedCertificates;
+    BOOL webPageShowURLAlways;
+    BOOL newWebPageShowURLAlways;
 }
 
-@property (weak) id delegate;
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
+
+@property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
+
+@property (strong, nonatomic) NSURL *sebServerExamStartURL;
+
+@property (readwrite) BOOL finishedInitializing;
+@property (readwrite) BOOL directConfigDownloadAttempted;
+@property (readwrite) BOOL downloadingInTemporaryWebView;
+@property (strong, nonatomic) NSURL *_Nullable openConfigSEBURL;
+@property (strong, nonatomic) NSURL *originalURL;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
 
+@property (strong, nonatomic) NSString *currentMainHost;
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
-@property (strong) id URLSession;
+@property (strong) NSURLCredential *enteredCredential;
+@property (strong) NSURLSession *URLSession;
+@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *_Nullable credential);
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;
+@property (strong, nonatomic) NSString *javaScriptFunctions;
 
-@property (strong, nonatomic) NSData *browserExamKey;
-@property (strong, nonatomic) NSData *browserExamKeySalt;
-@property (strong, nonatomic) NSData *configKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKeySalt;
+@property (strong, nonatomic) NSData *_Nullable configKey;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 
 @property (readwrite) BOOL didReconfigureWithUniversalLink;
 @property (readwrite) BOOL cancelReconfigureWithUniversalLink;
 
-- (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-- (NSString *) startURLQueryParameter:(NSURL**)url;
+- (void) resetAllCookiesWithCompletionHandler:(void (^)(void))completionHandler;
+- (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
+
+- (void) quitSession;
+- (void) resetBrowser;
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+@property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
+@property (strong, nonatomic) NSString* quitURL;
+@property (readonly) BOOL allowDownUploads;
+
+@property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
+
+@property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
+- (NSString *) urlOrPlaceholderForURL:(NSString *)url;
+- (NSString *) startURLQueryParameter:(NSURL*_Nonnull*_Nonnull)url;
 - (NSString *) backToStartURLString;
+
+- (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
+- (NSString *) browserExamKeyForURL:(NSURL *)url;
+- (NSString *) configKeyForURL:(NSURL *)url;
 
 - (void) conditionallyInitCustomHTTPProtocol;
 
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url;
+
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler;
+
+- (BOOL) downloadingInTemporaryWebView;
+- (void) openConfigFromSEBURL:(NSURL *)url;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
+- (void) openingConfigURLFailed;
+
+@property (weak) SEBAbstractWebView *temporaryWebView;
 
 /**
  * @brief       Checks if a URL is in an associated domain and therefore might have
@@ -168,3 +246,5 @@
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 28.04.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -39,7 +39,6 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "NSData+NSDataZIPExtension.h"
-#import "MyGlobals.h"
 
 
 @implementation SEBConfigFileManager
@@ -95,7 +94,9 @@
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
-    DDLogInfo(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#ifdef DEBUG
+    DDLogDebug(@"%s: Check received MDM settings %@", __FUNCTION__, sebPreferencesDict);
+#endif
     [self checkParsedSettingForConfiguringAndStore:sebPreferencesDict];
 }
 
@@ -270,13 +271,9 @@
         }
     }
     
-    // If we deal with an unencrypted seb file
-    if ([prefixString isEqualToString:@"<?xm"]) {
-        // We reset the "for editing" flag, because it doesn't make sense having to enter an admin pw if the file is unencrypted
-        forEditing = false;
-    } else {
-        // The file was encrypted:
-        // Ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    // If we don't deal with an unencrypted seb file
+    // ungzip the .seb (according to specification >= v14) decrypted serialized XML plist data
+    if (![prefixString isEqualToString:@"<?xm"]) {
         encryptedSEBData = [encryptedSEBData gzipInflate];
     }
     [self parseSettingsStartingExamForEditing:forEditing];
@@ -739,6 +736,18 @@ static NSString *getUppercaseAdminPasswordHash()
         /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
+        if (!storeSettingsForEditing && [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+            if ((_delegate.startingExamFromSEBServer || _delegate.sebServerConnectionEstablished) && [[sebPreferencesDict valueForKey:@"sebMode"] intValue] == sebModeSebServer) {
+                
+                DDLogError(@"%s: There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session.", __FUNCTION__);
+
+                NSString *title = NSLocalizedString(@"Cannot Start Another SEB Server Session", nil);
+                NSString *informativeText = NSLocalizedString(@"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.", nil);
+                [self.delegate showAlertWithTitle:title andText:informativeText];
+
+                return;
+            }
+        }
         // Inform delegate that preferences will be reconfigured
         if ([self.delegate respondsToSelector:@selector(willReconfigureTemporary)]) {
             [self.delegate willReconfigureTemporary];
@@ -827,7 +836,7 @@ static NSString *getUppercaseAdminPasswordHash()
             [self.delegate didReconfigurePermanentlyForceConfiguringClient:storeSettingsForceConfiguringClient
                                                         sebFileCredentials:sebFileCredentials showReconfiguredAlert:storeShowReconfiguredAlert];
             return;
-
+            
         } else {
             // Inform callback that storing new settings was successful
             [self storeNewSEBSettingsSuccessful:nil];
@@ -1057,7 +1066,7 @@ static NSString *getUppercaseAdminPasswordHash()
         sebFileCredentials.publicKeyHash = nil;
         return nil;
     }
-
+    
     return sebData;
 }
 

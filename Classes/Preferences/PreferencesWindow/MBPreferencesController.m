@@ -242,7 +242,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 		NSToolbar *toolbar = [self.window toolbar];
 		if (toolbar) {
 			NSInteger index = [[toolbar items] count]-1;
-			while (index > 0) {
+			while (index >= 0) {
 				[toolbar removeItemAtIndex:index];
 				index--;
 			}
@@ -326,6 +326,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	
 	_currentModule = module;
 	[[self.window contentView] addSubview:[_currentModule view]];
+    [self.window recalculateKeyViewLoop];
 	
     // Set preferences title as module title – settings title
     [self setPreferencesWindowTitle];

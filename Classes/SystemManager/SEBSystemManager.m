@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 14.11.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -145,14 +145,14 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         blockScreenShots = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"];
     }
 
-    /// Check if there is a redirected sc location persistantly stored
+    /// Check if there is a redirected sc location persistently stored
     /// What only happends when it couldn't be reset last time SEB has run
     
     scTempPath = [self getStoredNewScreenCaptureLocation];
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
-        DDLogWarn(@"There was a persistantly saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
+        DDLogWarn(@"There was a persistently saved redirected screencapture location (%@). Looks like SEB didn't quit properly when running last time.", scTempPath);
         
         // Delete the last directory
         if ([self removeTempDirectory:scTempPath]) {
@@ -175,7 +175,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
     } else {
         
-        /// No redirected location was persistantly saved
+        /// No redirected location was persistently saved
         
         // Get current screencapture location
         scLocation = [self getCurrentScreenCaptureLocation];
@@ -187,7 +187,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         /// Block screenshots
         
-        // Store current (= original) location persistantly
+        // Store current (= original) location persistently
         [preferences setSecureString:scLocation forKey:@"currentDestination"];
         
         // Create a new random directory name
@@ -236,7 +236,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             // Check if the saved path really exists
             BOOL isDir;
             NSFileManager *fileManager= [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+            if(![fileManager fileExistsAtPath:[scLocation stringByExpandingTildeInPath] isDirectory:&isDir]) {
                 // No, the directory for storing screenshots doesn't exist
                 // probably something went wrong sometimes ago (SEB crashed in a bad moment)
                 // so restore the screen capture path to the OS X standard (user's desktop)
