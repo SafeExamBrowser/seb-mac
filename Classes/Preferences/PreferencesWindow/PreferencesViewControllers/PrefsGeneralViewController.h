@@ -3,11 +3,11 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -46,24 +46,26 @@
 
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
 
-	IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *sebServerURL;
 
 	NSMutableString *adminPassword;
 	NSMutableString *confirmAdminPassword;
     BOOL adminPasswordIsHash;
-    IBOutlet NSSecureTextField *adminPasswordField;
-    IBOutlet NSSecureTextField *confirmAdminPasswordField;
+    IBOutlet __weak NSSecureTextField *adminPasswordField;
+    IBOutlet __weak NSSecureTextField *confirmAdminPasswordField;
 
     NSMutableString *quitPassword;
     NSMutableString *confirmQuitPassword;
     BOOL quitPasswordIsHash;
-    IBOutlet NSSecureTextField *quitPasswordField;
-    IBOutlet NSSecureTextField *confirmQuitPasswordField;
+    IBOutlet __weak NSSecureTextField *quitPasswordField;
+    IBOutlet __weak NSSecureTextField *confirmQuitPasswordField;
 
-	IBOutlet NSButton *prefsQuitSEB;
-	IBOutlet NSButton *pasteSavedStringFromPasteboardButton;
-    
-	IBOutlet NSObjectController *controller;
+	IBOutlet __weak NSButton *prefsQuitSEB;
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardButton;
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardToServerURLButton;
+
+	IBOutlet __weak NSObjectController *controller;
 	MyGlobals *myGlobals;
     
     @private
@@ -76,10 +78,11 @@
 - (NSString *)identifier;
 - (NSImage *)image;
 
+- (void)windowWillClose:(NSNotification *)notification;
+
 - (NSString*) compareAdminPasswords;
 - (NSString*) compareQuitPasswords;
 
-- (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 - (IBAction) restartSEB:(id)sender;
 - (IBAction) quitSEB:(id)sender;
 - (IBAction) aboutSEB:(id)sender;

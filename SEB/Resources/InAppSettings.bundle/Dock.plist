@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Dock</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>SEB Dock</string>
+			<key>FooterText</key>
+			<string>Left slider menu can always be accessed by swiping right from the left display edge.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Dock</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showTaskBar</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Dock Command Items</string>
+			<key>FooterText</key>
+			<string>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Scroll Lock Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showScrollLockButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Back to Start Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showBackToStartButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Navigation Buttons</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showNavigationButtons</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Reload Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showReloadButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Proctoring Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showProctoringViewButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Scan QR Code Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showScanQRCodeButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Show Quit Button</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_showQuitButton</string>
+		</dict>
+	</array>
+</dict>
+</plist>

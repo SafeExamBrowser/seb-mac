@@ -294,8 +294,8 @@
         <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "721";</note>
       </trans-unit>
       <trans-unit id="871.title">
-        <source>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
-        <note>Class = "NSTextFieldCell"; title = "© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
+        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board.</source>
+        <note>Class = "NSTextFieldCell"; title = "© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen\n\nImportant parts of this project have been carried out as part of the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, and was supported by funds from the ETH Board."; ObjectID = "871";</note>
       </trans-unit>
       <trans-unit id="887.title">
         <source>Reload Page</source>
@@ -1494,8 +1494,8 @@
         <note>Class = "NSButtonCell"; title = "Exclude simple hostnames"; ObjectID = "1059";</note>
       </trans-unit>
       <trans-unit id="1064.title">
-        <source>Bypass proxy settings for these hosts &amp; domains:</source>
-        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts &amp; domains:"; ObjectID = "1064";</note>
+        <source>Bypass proxy settings for these hosts & domains:</source>
+        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts & domains:"; ObjectID = "1064";</note>
       </trans-unit>
       <trans-unit id="1089.title">
         <source>Use Passive FTP Mode (PASV)</source>
@@ -2749,8 +2749,8 @@
         <source>Wrong Quit Password</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password from these settings:">
-        <source>Wrong password! Try again to enter the correct SEB administrator password from these settings:</source>
+      <trans-unit id="Wrong password! Try again to enter the correct SEB administrator password used in these settings:">
+        <source>Wrong password! Try again to enter the correct SEB administrator password used in these settings:</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are not allowed to run SEB inside a virtual machine!">
@@ -2854,7 +2854,7 @@
         <source>2.0</source>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright">
-        <source>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
       </trans-unit>
     </body>
   </file>

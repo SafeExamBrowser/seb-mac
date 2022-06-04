@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>General</string>
+			<key>FooterText</key>
+			<string>Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Start URL</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_startURL</string>
+			<key>IASKPlaceholder</key>
+			<string>Full URL</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>SEB Server</string>
+			<key>File</key>
+			<string>SEBServer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Remote Proctoring</string>
+			<key>File</key>
+			<string>RemoteProctoring</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Admin Password</string>
+			<key>Key</key>
+			<string>adminPassword</string>
+			<key>IASKPlaceholder</key>
+			<string>Restricts editing settings</string>
+			<key>IsSecure</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Quit Password</string>
+			<key>Key</key>
+			<string>quitPassword</string>
+			<key>IASKPlaceholder</key>
+			<string>Set to run in secure mode</string>
+			<key>IsSecure</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Config File</string>
+			<key>File</key>
+			<string>ConfigFile</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>User Interface</string>
+			<key>File</key>
+			<string>UserInterface</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Browser Features</string>
+			<key>File</key>
+			<string>Browser</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Downloads</string>
+			<key>File</key>
+			<string>DownUploads</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Exam Session</string>
+			<key>File</key>
+			<string>Exam</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Network</string>
+			<key>File</key>
+			<string>Network</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Security</string>
+			<key>File</key>
+			<string>Security</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 21.10.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -84,15 +84,12 @@
 // This is necessary because bindings don't work with private user defaults
 - (IBAction) newBrowserWindowByLinkPolicyChanged:(NSPopUpButton *)sender
 {
-    
     newBrowserWindowByLinkBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
 }
-
-// Action to set the enabled property of dependent buttons
-// This is necessary because bindings don't work with private user defaults
-- (IBAction) newBrowserWindowByScriptPolicyChanged:(NSPopUpButton *)sender
+- (IBAction) setEnabledBrowserMediaAutoplay:(NSButton *)sender
 {
-    newBrowserWindowByScriptBlockForeignButton.enabled = [sender indexOfSelectedItem] != getGenerallyBlocked;
+    browserMediaAutoplayVideoButton.enabled = sender.state;
+    browserMediaAutoplayAudioButton.enabled = sender.state;
 }
 
 // Action to change the displayed browser user agent environment tab

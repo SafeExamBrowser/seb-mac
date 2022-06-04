@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 13.10.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -33,24 +33,44 @@
 //
 
 #import <Foundation/Foundation.h>
+#if TARGET_OS_IPHONE
+#import "SEBViewController.h"
+#else
+#import <CocoaLumberjack.h>
+#endif
 
-@interface MyGlobals : NSObjectController
+@interface MyGlobals : NSObject
+
+NS_ASSUME_NONNULL_BEGIN
 
 + (MyGlobals*)sharedMyGlobals;
 
-+ (int)ddLogLevel;
-//+ (void)ddSetLogLevel:(int)logLevel;
++ (DDLogLevel)ddLogLevel;
 
 + (NSArray *)SEBExtensions;
+
++ (NSString *)osName;
++ (NSString *)localHostname;
++ (NSString *)computerName;
++ (nullable NSString *)userName;
++ (nullable NSString *)fullUserName;
++ (NSString *)displayName;
++ (NSString *)versionString;
++ (NSString *)buildNumber;
++ (NSString *)bundleID;
++ (NSString *)bundleExecutable;
+
++ (void) logSystemInfo;
 
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
 
-@property(copy, readwrite) NSURL *currentConfigURL;
+@property(copy, readwrite) NSURL *_Nullable currentConfigURL;
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
+@property(readwrite) BOOL startInitAssistant;
 @property(readwrite) BOOL startKioskChangedPresentationOptions;
 @property(readwrite) BOOL flashChangedPresentationOptions;
 @property(readwrite) BOOL preferencesReset;
@@ -61,10 +81,19 @@
 @property(copy, readwrite) NSString *defaultUserAgent;
 @property(copy, readwrite) NSString *currentUserAgent;
 
+#if TARGET_OS_IPHONE
+@property(weak, nonatomic) SEBViewController *sebViewController;
+#endif
+
+// SEB for iOS
+@property(readwrite) NSInteger currentWebpageIndexPathRow;
+@property(readwrite) NSInteger selectedWebpageIndexPathRow;
 
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
++ (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
+- (NSString *)createUniqueFilename:(NSString *)filename;
 
-//- (NSArray *)ddLogLevels;
+NS_ASSUME_NONNULL_END
 
 @end

@@ -1,8 +1,14 @@
+/* Class = "NSMatrix"; ibExternalAccessibilityDescription = "SEB connection mode"; ObjectID = "18i-Ih-TGG"; */
+"18i-Ih-TGG.ibExternalAccessibilityDescription" = "SEB-Verbindungsmodus";
+
+/* Class = "NSMatrix"; ibShadowedToolTip = "Indicates if SEB will use local settings and load the start URL or if it will try to connect to the SEB Server"; ObjectID = "18i-Ih-TGG"; */
+"18i-Ih-TGG.ibShadowedToolTip" = "Bestimmt, ob SEB lokale Einstellungen benutzen und die Start-URL laden oder versuchen soll, sich mit SEB Server zu verbinden";
+
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the administrator password"; ObjectID = "78"; */
 "78.ibShadowedToolTip" = "Administrator-Passwort wiederholen";
 
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "This password is prompted when users try to quit SEB and when the Back to Start Button is pressed. Not prompted when using a quit link"; ObjectID = "79"; */
-"79.ibShadowedToolTip" = "Dieses Passwort wird abgefragt, wenn Benutzer SEB mittels Cmd-Q (Befehl-Q), Fenster-Schliessen- und Beenden-Taste beenden wollen. Das Passwort wird nicht abgefragt, wenn ein Beenden-Link verwendet wird.";
+"79.ibShadowedToolTip" = "Dieses Passwort wird abgefragt, wenn Benutzer SEB mittels cmd-Q (Befehl-Q), Fenster-Schliessen- und Beenden-Taste beenden wollen. Das Passwort wird nicht abgefragt, wenn ein Beenden-Link verwendet wird.";
 
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Retype the quit password"; ObjectID = "83"; */
 "83.ibShadowedToolTip" = "Beenden/Entsperren-Passwort wiederholen";
@@ -11,13 +17,16 @@
 "88.ibShadowedToolTip" = "Speichert Einstellungen und beendet SEB";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Users can quit SEB with Command-Q, window close or quit button. Otherwise use a quit link in your exam system or shutdown/restart the computer"; ObjectID = "92"; */
-"92.ibShadowedToolTip" = "Benutzer können SEB mit Cmd-Q (Befehlstaste-Q), Fenster-Schliessen- und Beenden-Taste beenden. Ansonsten benutzen Sie einen Beenden-Link im Prüfungssystem oder schalten den Rechner aus.";
+"92.ibShadowedToolTip" = "Benutzer können SEB mit cmd-Q (Befehlstaste-Q), Fenster-Schliessen- und Beenden-Taste beenden. Ansonsten benutzen Sie einen Beenden-Link im Prüfungssystem oder schalten den Rechner aus.";
 
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!"; ObjectID = "93"; */
 "93.ibShadowedToolTip" = "Passwort, das beim Öffnen einer Konfigurationsdatei zum Bearbeiten oder beim Aufrufen der Einstellungen abgefragt wird. Es wird empfohlen, eines zu setzen!";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94"; */
 "94.ibShadowedToolTip" = "Informationen über Safe Exam Browser – SEB anzeigen";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Show help"; ObjectID = "95"; */
+"95.ibExternalAccessibilityDescription" = "Hilfe anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays the SEB online manual at www.safeexambrowser.org/macosx"; ObjectID = "95"; */
 "95.ibShadowedToolTip" = "Zeigt das Online-Manual unter safeexambrowser.org/macosx an";
@@ -59,7 +68,7 @@
 "151.title" = "SEB Neustart";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field."; ObjectID = "194"; */
-"194.ibShadowedToolTip" = "SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das Start-URL-Feld eingefügt.";
+"194.ibShadowedToolTip" = "SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das Start-URL-Feld eingefügt";
 
 /* Class = "NSButtonCell"; title = "Paste from saved clipboard"; ObjectID = "195"; */
 "195.title" = "Einfügen aus gespeicherter Zwischenablage";
@@ -70,9 +79,36 @@
 /* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "256"; */
 "256.placeholderString" = "URL beginnend mit http:// oder https://";
 
-/* Class = "NSButton"; ibShadowedToolTip = "SEB ignores the exit keys and can only be quit manually by entering the quit password"; ObjectID = "412"; */
+/* Class = "NSButton"; ibShadowedToolTip = "SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server"; ObjectID = "412"; */
 "412.ibShadowedToolTip" = "SEB ignoriert die Beenden-Tastenkombination und kann manuell nur durch Eingeben des Beenden/Entsperren-Passworts verlassen werden";
 
-/* Class = "NSButtonCell"; title = "Ignore exit keys (Win)"; ObjectID = "413"; */
-"413.title" = "Beenden-Tastenkombination ignorieren (Win)";
+/* Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413"; */
+"413.title" = "SEB Server-Fallback (Win)";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
+"d6u-EM-bnR.ibExternalAccessibilityDescription" = "Mit SEB Server verbinden";
+
+/* Class = "NSButtonCell"; title = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
+"d6u-EM-bnR.title" = "Mit SEB Server verbinden";
+
+/* Class = "NSButtonCell"; title = "Paste from saved clipboard"; ObjectID = "j7I-dg-7wv"; */
+"j7I-dg-7wv.title" = "Einfügen aus gesicherter Zwischenablage";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Load Start URL"; ObjectID = "jBe-dB-U1U"; */
+"jBe-dB-U1U.ibExternalAccessibilityDescription" = "Start URL laden";
+
+/* Class = "NSButtonCell"; title = "Load Start URL"; ObjectID = "jBe-dB-U1U"; */
+"jBe-dB-U1U.title" = "Start URL laden";
+
+/* Class = "NSTextFieldCell"; title = "SEB Server URL"; ObjectID = "JvD-qA-qAF"; */
+"JvD-qA-qAF.title" = "SEB Server URL";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Full SEB Server URL (starting with http:// or https://)"; ObjectID = "upZ-Jd-MXz"; */
+"upZ-Jd-MXz.ibShadowedToolTip" = "Vollständige SEB Server URL (beginnend mit http:// oder https://)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field"; ObjectID = "WYv-t7-2PL"; */
+"WYv-t7-2PL.ibShadowedToolTip" = "SEB speichert den Inhalt der Zwischenablage (sofern es sich um einen Text handelt) beim Aufstarten, bevor diese gelöscht wird. Mittels dieses Links wird der gesicherte Text in das SEB Server URL-Feld eingefügt";
+
+/* Class = "NSTextFieldCell"; placeholderString = "URL starting with http:// or https://"; ObjectID = "ZPd-eH-wpn"; */
+"ZPd-eH-wpn.placeholderString" = "URL beginnend mit http:// oder https://";
 

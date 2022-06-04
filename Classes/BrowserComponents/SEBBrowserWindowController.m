@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 17.01.12.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -33,7 +33,6 @@
 //
 
 #import "SEBBrowserWindowController.h"
-#import "MyGlobals.h"
 #import <WebKit/WebKit.h>
 #import "SEBBrowserWindow.h"
 #import "NSScreen+SEBScreen.h"
@@ -53,7 +52,6 @@ void DisposeWindow (
 
 @implementation SEBBrowserWindowController
 
-@synthesize webView;
 @synthesize frameForNonFullScreenMode;
 
 
@@ -63,9 +61,17 @@ void DisposeWindow (
     if (self) {
         // Initialization code here.
         [self setShouldCascadeWindows:NO];
+        window.autorecalculatesKeyViewLoop = YES;
     }
     
     return self;
+}
+
+
+- (SEBBrowserWindow *) browserWindow
+{
+    NSWindow *window = super.window;
+    return (SEBBrowserWindow *)window;
 }
 
 
@@ -75,43 +81,23 @@ void DisposeWindow (
 {
     [super windowDidLoad];
     
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)self.window;
-    
     if (@available(macOS 11, *)) {
         self.window.toolbarStyle = NSWindowToolbarStyleExpanded;
     }
-
     
     // Set the reference to the browser controller in the browser window instance
-    browserWindow.browserController = _browserController;
+    self.browserWindow.browserController = _browserController;
 
-    [browserWindow setCalculatedFrameOnScreen:[_browserController mainScreen]];
-    self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
+    [self.browserWindow setCalculatedFrameOnScreen:[_browserController mainScreen]];
+    self.browserController.activeBrowserWindow = self.browserWindow;
     _previousScreen = self.window.screen;
-    
-    NSString *keyAllowNavigation;
-    NSString *keyAllowReload;
-    if (!self.browserController.mainBrowserWindow || browserWindow == self.browserController.mainBrowserWindow) {
-        [browserWindow.webView bind:@"maintainsBackForwardList"
-                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-               withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
-                   options:nil];
-        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
-        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
-    } else {
-        [browserWindow.webView bind:@"maintainsBackForwardList"
-                  toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-               withKeyPath:@"values.org_safeexambrowser_SEB_newBrowserWindowNavigation"
-                   options:nil];
-        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
-        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
-    }
-    
-    BOOL allowNavigation = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
+        
+    BOOL allowNavigation = self.browserWindow.isNavigationAllowed;
     [self.backForwardButtons setHidden:!allowNavigation];
-    BOOL allowReload = [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
+    BOOL allowReload = self.browserWindow.isReloadAllowed;
     [self.toolbarReloadButton setHidden:!allowReload];
+    
+//    [self createAccessoryViewController];
     
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
 }
@@ -126,7 +112,7 @@ void DisposeWindow (
          postNotificationName:@"requestReinforceKioskMode" object:self];
     }
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
-    [self.browserController setStateForWindow:(SEBBrowserWindow *)self.window withWebView:self.webView];
+    [self.browserController setStateForWindow:self.browserWindow withWebView:self.browserWindow.webView];
     
     // If this is the main browser window, check if it's still on the same screen as when the dock was opened
     if (self.window == self.browserController.mainBrowserWindow) {
@@ -141,6 +127,10 @@ void DisposeWindow (
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"windowDidBecomeKey" object:self];
+
+//    [self.window recalculateKeyViewLoop];
     self.browserController.activeBrowserWindow = (SEBBrowserWindow *)self.window;
     DDLogDebug(@"BrowserWindow %@ did become key", self.window);
 }
@@ -396,9 +386,9 @@ void DisposeWindow (
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName
 {
     // Check data source of web view
-    if (![[[self webView] mainFrame] dataSource]) {
+    if (!((SEBBrowserWindow *)(self.window)).browserControllerDelegate) {
         NSString* appTitleString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-        appTitleString = [NSString stringWithFormat:@"Safe Exam Browser %@", appTitleString];
+        appTitleString = [NSString stringWithFormat:@"%@ %@", SEBFullAppNameClassic, appTitleString];
         DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self.window, appTitleString);
         return appTitleString;
     }
@@ -406,12 +396,102 @@ void DisposeWindow (
 }
 
 
+- (void) createAccessoryViewController
+{
+    if (!self.accessoryViewController) {
+        _accessoryViewController = [NSTitlebarAccessoryViewController new];
+        _accessoryViewController.view = _accessoryView;
+        _accessoryViewController.layoutAttribute = NSLayoutAttributeRight;
+        [self.window addTitlebarAccessoryViewController:_accessoryViewController];
+    }
+}
+
+
+- (BOOL) isAccessoryViewGoToDockButtonHidden
+{
+    return self.window.toolbar.isVisible;
+}
+
+
+- (void) activateInitialFirstResponder
+{
+//    if (self.window.toolbar.isVisible) {
+        [self.browserWindow makeFirstResponder:self.toolbarGoToDockButton];
+//    } else {
+//        [self.browserWindow makeFirstResponder:self.accessoryViewGoToDockButton];
+//    }
+}
+
+
+- (IBAction) goToDock: (id)sender
+{
+    [self.browserWindow goToDock];
+}
+
+
 - (IBAction) backForward: (id)sender
 {
     if ([sender selectedSegment] == 0) {
-        [self.webView goBack:self];
+        [self.browserWindow goBack];
     } else {
-        [self.webView goForward:self];
+        [self.browserWindow goForward];
+    }
+}
+
+
+- (IBAction) textSearch: (NSSearchField *)sender
+{
+    NSString *newSearchText = sender.stringValue;
+    if (![self.searchText isEqualToString:newSearchText]) {
+        self.searchText = newSearchText;
+        self.textSearchDone.hidden = !self.browserWindow.toolbarWasHidden;
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+}
+
+- (IBAction)previousNext:(id)sender
+{
+    if ([sender selectedSegment] == 0) {
+        [self searchTextPrevious];
+    } else {
+        [self searchTextNext];
+    }
+}
+
+- (void) searchTextNext
+{
+    [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+}
+
+- (void) searchTextPrevious
+{
+    [self.browserWindow searchText:self.searchText backwards:YES caseSensitive:NO];
+}
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    self.textSearchPreviousNext.hidden = !matchFound;
+    self.textSearchDone.hidden = (!matchFound || self.searchText.length == 0) && !self.browserWindow.toolbarWasHidden;
+}
+
+- (IBAction) textSearchDone:(id)sender
+{
+    if (self.textSearchField.stringValue.length > 0) {
+        self.textSearchField.stringValue = @"";
+        self.searchText = @"";
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
+    }
+    self.textSearchPreviousNext.hidden = YES;
+    self.textSearchDone.hidden = YES;
+    [self.browserWindow conditionallyDisplayToolbar];
+    [self.browserWindow makeFirstResponder:self.browserWindow];
+}
+
+- (void)sebWebViewDidFinishLoad
+{
+    if (self.searchText.length > 0) {
+        [self.browserWindow searchText:@"" backwards:NO caseSensitive:NO];
+        [self.browserWindow searchText:self.searchText backwards:NO caseSensitive:NO];
     }
 }
 
@@ -419,9 +499,9 @@ void DisposeWindow (
 - (IBAction) zoomText: (id)sender
 {
     if ([sender selectedSegment] == 0) {
-        [self.webView makeTextSmaller:self];
+        [self.browserWindow textSizeDecrease];
     } else {
-        [self.webView makeTextLarger:self];
+        [self.browserWindow textSizeIncrease];
     }
 }
 
@@ -429,12 +509,16 @@ void DisposeWindow (
 - (IBAction) zoomPage: (id)sender
 {
     if ([sender selectedSegment] == 0) {
-        SEL selector = NSSelectorFromString(@"zoomPageOut:");
-        [[NSApplication sharedApplication] sendAction:selector to:self.webView from:self];
+        [self.browserWindow zoomPageOut];
     } else {
-        SEL selector = NSSelectorFromString(@"zoomPageIn:");
-        [[NSApplication sharedApplication] sendAction:selector to:self.webView from:self];
+        [self.browserWindow zoomPageIn];
     }
+}
+
+
+- (IBAction) reload: (id)sender
+{
+    [self.browserWindow reload];
 }
 
 @end

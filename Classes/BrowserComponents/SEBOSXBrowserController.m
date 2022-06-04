@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 06/10/14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,14 +33,10 @@
 //
 
 #import "SEBOSXBrowserController.h"
-#import "SEBBrowserOpenWindowWebView.h"
 #import "NSWindow+SEBWindow.h"
-#import "WebKit+WebKitExtensions.h"
+#import "SEBWebViewController.h"
 #import "SEBOSXConfigFileController.h"
 
-#include "WebStorageManagerPrivate.h"
-#include "WebPreferencesPrivate.h"
-#import "WebPluginDatabase.h"
 #import "NSURL+SEBURL.h"
 #import "NSScreen+SEBScreen.h"
 
@@ -51,11 +47,7 @@
 {
     self = [super init];
     if (self) {
-        _browserController = [SEBBrowserController new];
-        _browserController.delegate = self;
-
-        // Activate the custom URL protocol if necessary (embedded certs or pinning available)
-        [_browserController conditionallyInitCustomHTTPProtocol];
+        self.delegate = self;
 
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
@@ -64,58 +56,61 @@
         self.openBrowserWindowsWebViewsMenu = dockMenu;
 
         // Create a private pasteboard
-        _privatePasteboardItems = [NSArray array];
-        
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket.
-        // OS X 10.9 and newer
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-            [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                DDLogInfo(@"Cookies, caches and credential stores were reset");
-            }];
-        } else {
-            DDLogError(@"Cannot reset cookies, caches and credential stores because of running on OS X 10.7 or 10.8.");
-        }
+        self.privatePasteboardItems = [NSArray array];
     }
     return self;
 }
 
-
-- (NSData *)browserExamKey
-{
-    return _browserController.browserExamKey;
-}
-
-- (NSData *)configKey
-{
-    return _browserController.configKey;
-}
 
 - (NSScreen *) mainScreen
 {
     return _sebController.mainScreen;
 }
 
+
+- (void) closeWebView
+{
+    [self closeWebView:self.abstractWebView];
+}
+
+
+- (void) closeWebView:(SEBAbstractWebView *)webViewToClose
+{
+    if (webViewToClose) {
+        // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+        SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
+        [self removeBrowserWindowWithWebView:webViewToClose];
+        
+        // Get the document for the web view
+        id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];
+        
+        // Close document and therefore also window
+        DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
+        
+        [myDocument close];
+        _activeBrowserWindow = nil;
+        
+        if (webViewToClose == self.temporaryWebView) {
+            self.downloadingInTemporaryWebView = NO;
+            self.temporaryWebView = nil;
+        }
+    }
+}
+
+
+@synthesize startingUp;
+
+- (BOOL) startingUp {
+    return _sebController.startingUp;
+}
+
+- (void) setStartingUp:(BOOL)startingUp {
+    _sebController.startingUp = startingUp;
+}
+
+
 - (void) resetBrowser
 {
-    if (examSessionCookiesAlreadyCleared == NO) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-            // downloads to disk, and ensures that future requests occur on a new socket.
-            // OS X 10.9 and newer
-            if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                    DDLogInfo(@"Cookies, caches and credential stores were reset when starting new browser session (examSessionClearCookiesOnStart = false)");
-                }];
-            } else {
-                DDLogError(@"Cannot reset cookies, caches and credential stores (when starting new browser session) because of running on OS X 10.7 or 10.8.");
-            }
-        }
-    } else {
-        // reset the flag when it was true before
-        examSessionCookiesAlreadyCleared = NO;
-    }
-
     _activeBrowserWindow = nil;
     
     [self.openBrowserWindowsWebViews removeAllObjects];
@@ -123,89 +118,80 @@
     SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
     self.openBrowserWindowsWebViewsMenu = dockMenu;
     
-    // Clear browser back/forward list (page cache)
-    [self clearBackForwardList];
-    
     self.currentMainHost = nil;
-    _temporaryWebView = nil;
     
-    _browserController.browserExamKey = nil;
-    _browserController.configKey = nil;
-    
-    [_browserController conditionallyInitCustomHTTPProtocol];
+    [super resetBrowser];
 }
 
 
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
 {
-    [_browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+    [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
 }
 
 
-// Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-- (void) setCustomWebPreferencesForWebView:(SEBWebView *)webView
-{    
-    // Set browser user agent according to settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *overrideUserAgent;
-    NSString *browserUserAgentSuffix = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgent"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (browserUserAgentSuffix.length != 0) {
-        browserUserAgentSuffix = [NSString stringWithFormat:@" %@", browserUserAgentSuffix];
-    }
-    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserUserAgentMac"] == browserUserAgentModeMacDefault) {
-        overrideUserAgent = [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"];
-    } else {
-        overrideUserAgent = [preferences secureStringForKey:@"org_safeexambrowser_SEB_browserUserAgentMacCustom"];
-    }
-    // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-    overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@%@", SEBUserAgentDefaultSuffix, versionString, browserUserAgentSuffix]];
-    [webView setCustomUserAgent:overrideUserAgent];
+// Open a new WebView and show its window
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url
+{
+    return [self openAndShowWebViewWithURL:url title:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled") overrideSpellCheck:NO mainBrowserWindow:NO temporaryWindow:NO];
+}
+
+// Open a new WebView and show its window
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
+{
+    SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck mainWebView:mainBrowserWindow];
+    SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
+    newBrowserWindow.browserControllerDelegate = newWindowWebView;
     
-    WebPreferences* prefs = [webView preferences];
-
-    DDLogDebug(@"Testing if WebStorageManager respondsToSelector:@selector(_storageDirectoryPath)");
-    if ([WebStorageManager respondsToSelector: @selector(_storageDirectoryPath)]) {
-        NSString* dbPath = [WebStorageManager _storageDirectoryPath];
-        if (![prefs respondsToSelector:@selector(_localStorageDatabasePath)]) {
-            DDLogError(@"WebPreferences did not respond to selector _localStorageDatabasePath. Local Storage won't be available!");
-            return;
-        }
-        NSString* localDBPath = [prefs _localStorageDatabasePath];
-        [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
-        [prefs setWebGLEnabled:YES];
-        
-        // Check if paths match and if not, create a new local storage database file
-        // (otherwise localstorage file is erased when starting program)
-        // Thanks to Derek Wade!
-        if ([localDBPath isEqualToString:dbPath] == NO) {
-            // Define application cache quota
-            static const unsigned long long defaultTotalQuota = 10 * 1024 * 1024; // 10MB
-            static const unsigned long long defaultOriginQuota = 5 * 1024 * 1024; // 5MB
-            [prefs setApplicationCacheTotalQuota:defaultTotalQuota];
-            [prefs setApplicationCacheDefaultOriginQuota:defaultOriginQuota];
-            
-            [prefs setOfflineWebApplicationCacheEnabled:YES];
-            
-            [prefs setDatabasesEnabled:YES];
-            [prefs _setLocalStorageDatabasePath:dbPath];
-            [prefs setLocalStorageEnabled:YES];
-        } else {
-            [prefs setLocalStorageEnabled:YES];
-        }
-    } else {
-        DDLogError(@"WebStorageManager did not respond to selector _storageDirectoryPath. Local Storage won't be available!");
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
+        [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
-    [prefs setDeveloperExtrasEnabled:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"]];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    // Order new browser window to the front of our level
+    [self setLevelForBrowserWindow:newBrowserWindow elevateLevels:elevateWindowLevels];
+    self.activeBrowserWindow = newBrowserWindow;
+    self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", nil);
+    [newBrowserWindow setCalculatedFrameOnScreen:newBrowserWindow.screen mainBrowserWindow:mainBrowserWindow temporaryWindow:temporaryWindow];
+    [newBrowserWindow.windowController showWindow:self];
+    [newBrowserWindow makeKeyAndOrderFront:self];
+    [self transferCookiesToWKWebViewWithCompletionHandler:^{
+        [newWindowWebView loadURL:url];
+    }];
 
-    [webView setPreferences:prefs];
-
+    return newWindowWebView;
 }
 
 
-// Open a new web browser window document
-- (SEBBrowserWindowDocument *) openBrowserWindowDocument
+- (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainWebView:(BOOL)mainWebView
+{
+    SEBBrowserWindow *browserWindow = [self openBrowserWindow];
+    
+    SEBOSXWebViewController *newViewController;
+    newViewController = [self createNewWebViewControllerMainWebView:mainWebView withCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
+
+    SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
+    newWindowWebView.creatingWebView = nil;
+    browserWindow.webView = newWindowWebView;
+
+    NSView *webView = newViewController.view;
+    [browserWindow.contentView addSubview:webView];
+    webView.translatesAutoresizingMaskIntoConstraints = NO;
+    [webView.leadingAnchor constraintEqualToAnchor:browserWindow.contentView.leadingAnchor].active = YES;
+    [webView.trailingAnchor constraintEqualToAnchor:browserWindow.contentView.trailingAnchor].active = YES;
+    [webView.topAnchor constraintEqualToAnchor:browserWindow.contentView.topAnchor].active = YES;
+    [webView.bottomAnchor constraintEqualToAnchor:browserWindow.contentView.bottomAnchor].active = YES;
+        
+    [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
+               withWebView:newWindowWebView
+                 withTitle:title];
+    return browserWindow;
+}
+
+
+// Open a new web browser window document and window
+- (SEBBrowserWindow *) openBrowserWindow
 {
     NSError *error;
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:NO error:&error];
@@ -222,101 +208,61 @@
         // Prevent that the browser window displays the button to make it fullscreen in OS X 10.11
         // and that it would allow to be used in split screen mode
         newWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-        
-        // Enable or disable spell checking
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        _allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-        
         //    NSTextView *textView = (NSTextView *)[newWindow firstResponder];
-        [newWindow.webView setContinuousSpellCheckingEnabled:_allowSpellCheck];
+        return newWindow;
     }
-    return browserWindowDocument;
+    return nil;
 }
 
 
-// Open a new WebView and show its window
-- (SEBWebView *) openAndShowWebView
-{
-    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
-
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
-    SEBWebView *newWindowWebView = browserWindowDocument.mainWindowController.webView;
-    newWindowWebView.creatingWebView = nil;
-    newWindowWebView.browserController = self;
-
-    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:newWindowWebView];
-
-    [self addBrowserWindow:(SEBBrowserWindow *)browserWindowDocument.mainWindowController.window
-               withWebView:newWindowWebView
-                 withTitle:NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled")];
-    
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-        [browserWindowDocument.mainWindowController.window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL elevateWindowLevels = [preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:browserWindowDocument.mainWindowController.window elevateLevels:elevateWindowLevels];
-    self.activeBrowserWindow = newWindow;
-    self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", nil);
-    [browserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
-    
-    return newWindowWebView;
+// Create a NSViewController with a SEBAbstractWebView to hold new webpages
+- (SEBOSXWebViewController *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
+    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabMainWebView:mainWebView withCommonHostWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate:delegate];
+    return newSEBWebViewController;
 }
 
 
-- (void) closeWebView:(SEBWebView *) webViewToClose
-{
-    if (webViewToClose) {
-        // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-        [self removeBrowserWindow:(SEBBrowserWindow *)webViewToClose.window withWebView:webViewToClose];
-        
-        // Get the document for the web view
-        id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:webViewToClose.window];
-        
-        // Close document and therefore also window
-        DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
-        
-        [myDocument close];
-        _activeBrowserWindow = nil;
-        
-        if (webViewToClose == _temporaryWebView) {
-            _temporaryWebView = nil;
-        }
-    }
-}
-
-
-- (void) checkForClosingTemporaryWebView:(SEBWebView *) webViewToClose
+- (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    if (webViewToClose == _temporaryWebView) {
+    if (webViewToClose == self.temporaryWebView) {
+        self.downloadingInTemporaryWebView = NO;
         [self openingConfigURLRoleBack];
     }
 }
 
 
 // Show new window containing webView
-- (void) webViewShow:(SEBWebView *)sender
+- (void) webViewShow:(SEBAbstractWebView *)sender
 {
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] documentForWindow:[sender window]];
-//    [[sender window] setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-//    BOOL elevateWindowLevels = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-//    [self setLevelForBrowserWindow:[sender window] elevateLevels:elevateWindowLevels];
-
     [browserWindowDocument showWindows];
     DDLogInfo(@"Now showing new document browser window for: %@",sender);
-    // Order new browser window to the front
-    //[[sender window] makeKeyAndOrderFront:self];
 }
 
 
 // Set up SEB Browser and open the main window
-- (void) openMainBrowserWindow {
+- (void) openMainBrowserWindow
+{
+    // Load start URL from the system's user defaults
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *urlString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
     
-    [self.sebController conditionallyLockExam];
+    // Handle Start URL Query String Parameter
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
+        NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
+        if (queryString.length > 0) {
+            urlString = [NSString stringWithFormat:@"%@?%@", urlString, queryString];
+        }
+    }
+    NSURL *startURL = [NSURL URLWithString:urlString];
+    [self openMainBrowserWindowWithStartURL:startURL];
+}
+
+
+- (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL
+{
+    [self.sebController conditionallyLockExam:startURL.absoluteString];
     
     // Log current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
@@ -336,28 +282,16 @@
     
     // Open and maximize the browser window
     // (this is done here, after presentation options are set,
-    // because otherwise menu bar and dock are deducted from screen size)
-    SEBBrowserWindowDocument *browserWindowDocument = [self openBrowserWindowDocument];
-    
-    self.mainWebView = browserWindowDocument.mainWindowController.webView;
+    // because otherwise menu bar and dock are deducted from screen size)    
+    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", startURL.absoluteString);
+    SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
+    SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
+    [newBrowserWindow recalculateKeyViewLoop];
+
+
+    self.mainBrowserWindow = newBrowserWindow;
+    self.mainWebView = newBrowserWindowWebView;
     self.mainWebView.creatingWebView = nil;
-    self.mainWebView.browserController = self;
-
-    // Load start URL from the system's user defaults
-    NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    
-    // Handle Start URL Query String Parameter
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
-        NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];
-        if (queryString.length > 0) {
-            urlText = [NSString stringWithFormat:@"%@?%@", urlText, queryString];
-        }
-    }
-
-    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:self.mainWebView];
-    
-    self.mainBrowserWindow = (SEBBrowserWindow *)browserWindowDocument.mainWindowController.window;
     DDLogDebug(@"Set main browser window: %@", self.mainBrowserWindow);
 
     // Check if the active screen (where the window is opened) changed in between opening dock
@@ -379,14 +313,6 @@
         [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
-    
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-        [self.mainBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    }
-    [self.mainBrowserWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"] && _sebController.isAACEnabled == NO) {
-        [self.mainBrowserWindow newSetLevel:NSMainMenuWindowLevel+3];
-    }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     
     // Setup bindings to the preferences window close button
@@ -397,50 +323,24 @@
           withKeyPath:@"values.org_safeexambrowser_SEB_allowQuit"
               options:nil];
     
-    [self addBrowserWindow:self.mainBrowserWindow withWebView:self.mainWebView withTitle:NSLocalizedString(@"Main Browser Window", nil)];
     
     [self.mainBrowserWindow makeMainWindow];
     [self.mainBrowserWindow makeKeyAndOrderFront:self];
-    self.activeBrowserWindow = self.mainBrowserWindow;
-    
-    DDLogInfo(@"Open MainBrowserWindow with start URL: %@", urlText);
-    
-    [self openURLString:urlText withSEBUserAgentInWebView:self.mainWebView];
+//    self.activeBrowserWindow = self.mainBrowserWindow;
 }
 
 
-- (void) clearBackForwardList
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
-    [self.mainWebView setMaintainsBackForwardList:NO];
-    [self.mainWebView setMaintainsBackForwardList:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]];
-}
-
-
-- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBWebView *)webView
+- (void) openURLString:(NSString *)urlText withSEBUserAgentInWebView:(SEBAbstractWebView *)webView
 {
     // Load start URL into browser window
-    [[webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+    [webView loadURL:[NSURL URLWithString:urlText]];
 }
 
 
 // Find the real visible frame of a screen SEB is running on
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen
 {
-    // Get frame of the usable screen (considering if menu bar is enabled)
-    NSRect screenFrame = screen.usableFrame;
-    // Check if SEB Dock is displayed and reduce visibleFrame accordingly
-    // Also check if mainBrowserWindow exists, because when starting with a temporary
-    // browser window for loading a seb(s):// link from a authenticated server, there
-    // is no main browser window open yet
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ((!_mainBrowserWindow || screen == _mainBrowserWindow.screen) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showTaskBar"]) {
-        double dockHeight = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];
-        screenFrame.origin.y += dockHeight;
-        screenFrame.size.height -= dockHeight;
-    }
-    return screenFrame;
+    return [_sebController visibleFrameForScreen:screen];
 }
 
 
@@ -543,13 +443,13 @@
         DDLogInfo(@"Open additional browser window with URL: %@", URL);
         
         // Load start URL into browser window
-        [[browserWindowDocument.mainWindowController.webView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:URL]]];
+        [((SEBBrowserWindow *)browserWindowDocument.mainWindowController.window).webView loadURL:[NSURL URLWithString:URL]];
     }
 }
 
 
 // Set web page title for a window/WebView
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
+- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView
 {
     _activeBrowserWindowTitle = title;
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
@@ -563,7 +463,7 @@
 
 
 // Select the current window in the SEB Dock popup menu with the titles of all open browser windows
-- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
+- (void) setStateForWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView
 {
     DDLogVerbose(@"setStateForWindow: %@ withWebView: %@", browserWindow, webView);
 
@@ -576,9 +476,35 @@
         }
     }
     // Update enabled property of reload button in Dock
-    [self.sebController reloadButtonEnabled:[[NSUserDefaults standardUserDefaults] secureBoolForKey:
-                                             (_activeBrowserWindow == _mainBrowserWindow ?
-                                             @"org_safeexambrowser_SEB_browserWindowAllowReload" : @"org_safeexambrowser_SEB_newBrowserWindowAllowReload")]];
+    [self.sebController reloadButtonEnabled:webView.isReloadAllowed];
+}
+
+
+- (void) activateCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow makeContentFirstResponder];
+}
+
+
+- (void) focusFirstElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusFirstElement];
+}
+
+
+- (void) focusLastElementInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow focusLastElement];
+}
+
+
+- (void) activateInitialFirstResponderInCurrentWindow
+{
+    [self.activeBrowserWindow makeKeyAndOrderFront:self];
+    [self.activeBrowserWindow activateInitialFirstResponder];
 }
 
 
@@ -621,7 +547,7 @@
 
 
 // Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
-- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBWebView *)newWebView withTitle:(NSString *)newTitle
+- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBAbstractWebView *)newWebView withTitle:(NSString *)newTitle
 {
     SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
@@ -651,7 +577,7 @@
 
 
 // Remove an entry for a WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-- (void) removeBrowserWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBWebView *)webView
+- (void) removeBrowserWindowWithWebView:(SEBAbstractWebView *)webView
 {
     SEBBrowserOpenWindowWebView *itemToRemove;
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
@@ -668,6 +594,17 @@
 }
 
 
+- (BOOL) browserWindowHasCommonHostWithURL:(NSURL *)url
+{
+    BOOL commonHost = YES;
+    if (self.openBrowserWindowsWebViews.count > 0) {
+        commonHost = [self.openBrowserWindowsWebViews[0].webView.url.host isEqualToString:url.host];
+    }
+    return commonHost;
+}
+
+
+
 - (void) openWindowSelected:(SEBBrowserOpenWindowWebView *)sender
 {
     DDLogInfo(@"Selected menu item: %@", sender);
@@ -680,11 +617,21 @@
 // Close all browser windows (including the main browser window)
 - (void) closeAllBrowserWindows
 {
-    // Close all browser windows (documents)
-    self.mainBrowserWindow = nil;
-    [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
-                                                               didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
-                                                                       contextInfo: nil];
+    if (self.mainBrowserWindow.isFullScreen) {
+        [self closeAllAdditionalBrowserWindows];
+        [self.mainBrowserWindow setStyleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+        [self.mainBrowserWindow.webView.nativeWebView removeFromSuperview];
+        self.mainBrowserWindow.webView = nil;
+        self.mainBrowserWindow.releasedWhenClosed = NO;
+        [self.mainBrowserWindow close];
+        self.mainBrowserWindow = nil;
+    } else {
+        // Close all browser windows (documents)
+        self.mainBrowserWindow = nil;
+        [[NSDocumentController sharedDocumentController] closeAllDocumentsWithDelegate:self
+                                                                   didCloseAllSelector:@selector(documentController:didCloseAll:contextInfo:)
+                                                                           contextInfo: nil];
+    }
 }
 
 
@@ -715,12 +662,7 @@
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector
 {
-    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text]
-                                     modalForWindow:window
-                                        windowTitle:title
-                                           username:username
-                                      modalDelegate:modalDelegate
-                                     didEndSelector:didEndSelector];
+    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text] modalForWindow:window windowTitle:title username:username modalDelegate:modalDelegate didEndSelector:didEndSelector];
 }
 
 
@@ -732,12 +674,7 @@
                            modalDelegate:(id)modalDelegate
                           didEndSelector:(SEL)didEndSelector
 {
-    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text]
-                                     modalForWindow:self.activeBrowserWindow
-                                        windowTitle:title
-                                           username:username
-                                      modalDelegate:modalDelegate
-                                     didEndSelector:didEndSelector];
+    [_sebController showEnterUsernamePasswordDialog:[[NSAttributedString alloc] initWithString:text] modalForWindow:self.activeBrowserWindow windowTitle:title username:username modalDelegate:modalDelegate didEndSelector:didEndSelector];
 }
 
 
@@ -750,61 +687,42 @@
 }
 
 
+- (void)showOpeningConfigFileDialog:(NSString *)text title:(NSString *)title cancelCallback:(id)callback selector:(SEL)selector {
+}
+
+
+- (BOOL) isMainBrowserWebViewActive
+{
+    return (_mainBrowserWindow == nil || _activeBrowserWindow == _mainBrowserWindow);
+}
+
+
+- (BOOL) isMainBrowserWindow:(SEBBrowserWindow *)browserWindow
+{
+    return (_mainBrowserWindow == nil || browserWindow == _mainBrowserWindow);
+}
+
+
 // Delegate method which returns URL or placeholder text (in case settings
 // don't allow to display its URL) for active browser window
 - (NSString *) placeholderTitleOrURLForActiveWebpage
 {
-    NSString *placeholderOrURLString = nil;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (_activeBrowserWindow == _mainBrowserWindow) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderOrURLString = NSLocalizedString(@"the exam page", nil);
-        } else {
-            placeholderOrURLString = _activeBrowserWindow.webView.mainFrameURL;
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderOrURLString = NSLocalizedString(@"the webpage", nil);
-        } else {
-            placeholderOrURLString = _activeBrowserWindow.webView.mainFrameURL;
-        }
-    }
-    return placeholderOrURLString;
-}
-
-
-// Delegate method which returns a placeholder text in case settings
-// don't allow to display its URL
-- (NSString *) showURLplaceholderTitleForWebpage
-{
-    NSString *placeholderString = nil;
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (_activeBrowserWindow == _mainBrowserWindow) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the exam page", nil);
-        }
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
-            placeholderString = NSLocalizedString(@"the webpage", nil);
-        }
-    }
-    return placeholderString;
+    return [super urlOrPlaceholderForURL:_activeBrowserWindow.webView.url.absoluteString];
 }
 
 
 #pragma mark Downloading SEB Config Files
 
-// Check if SEB is in exam mode = private UserDefauls are switched on:
-// Then opening a new config file/reconfiguring SEB isn't allowed
+// Check if reconfiguring from exam or secure mode is allowed
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
 {
-    if (![self.browserController isReconfiguringAllowedFromURL:url]) {
+    if (![super isReconfiguringAllowedFromURL:url]) {
         // If yes, we don't download the .seb file
         // Also reset the flag for SEB starting up
-        _sebController.startingUp = false;
+        self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
-        [modalAlert setMessageText:NSLocalizedString(@"Loading New SEB Settings Not Allowed!", nil)];
-        [modalAlert setInformativeText:NSLocalizedString(@"SEB is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam and quit SEB before starting another exam.", nil)];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -821,115 +739,36 @@
 
 /// Initiating Opening the Config File Link
 
-// Conditionally open a config from an URL passed to SEB as parameter
-// usually with a link using the seb(s):// protocols
-- (void) openConfigFromSEBURL:(NSURL *)url
+- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
 {
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_temporaryWebView) {
-        // Check if SEB is in exam mode = private UserDefauls are switched on
-        if (_sebController.startingUp || [self isReconfiguringAllowedFromURL:url]) {
-            // SEB isn't in exam mode: reconfiguring is allowed
-            NSURL *sebURL = url;
-            // Figure the download URL out, depending on if http or https should be used
-            if ([url.scheme isEqualToString:@"seb"]) {
-                // If it's a seb:// URL, we try to download it by http
-                url = [url URLByReplacingScheme:@"http"];
-            } else if ([url.scheme isEqualToString:@"sebs"]) {
-                // If it's a sebs:// URL, we try to download it by https
-                url = [url URLByReplacingScheme:@"https"];
-            }
-            
-            // When the URL of the SEB config file to load is on another host than the current page
-            // then we might need to clear session cookies before attempting to download the config file
-            // when the setting examSessionClearCookiesOnEnd is true
-            if (_currentMainHost && ![url.host isEqualToString:_currentMainHost]) {
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
-                    // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                    // downloads to disk, and ensures that future requests occur on a new socket.
-                    // OS X 10.9 and newer
-                    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                        [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                            DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
-                        }];
-                    } else {
-                        DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
-                    }
-                }
-                // Set the flag for cookies cleared (either they actually were or they would have
-                // been settings prevented it)
-                examSessionCookiesAlreadyCleared = YES;
-
-            } else if (!_currentMainHost) {
-                // When currentMainHost isn't set yet, SEB was started with a config link, possibly
-                // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
-                // as they were anyways cleared when SEB was started
-                examSessionCookiesAlreadyCleared = YES;
-            }
-            // Check if we should try to download the config file from the seb(s) URL directly
-            // This is the case when the URL has a .seb filename extension
-            // But we only try it when it didn't fail in a first attempt
-            if (_directConfigDownloadAttempted == false && [url.pathExtension isEqualToString:@"seb"]) {
-                _directConfigDownloadAttempted = true;
-                [self downloadSEBConfigFileFromURL:url originalURL:sebURL];
-            } else {
-                _directConfigDownloadAttempted = false;
-                [self openTempWindowForDownloadingConfigFromURL:url originalURL:sebURL];
-            }
-        }
-    } else {
-        DDLogDebug(@"%s aborted, downloading and opening settings not allowed or temporary webview already open: %@", __FUNCTION__, _temporaryWebView);
-        _sebController.openingSettings = false;
-    }
+    SEBAbstractWebView *tempWebView = [self openTempWindowForDownloadingConfigFromURL:url originalURL:originalURL];
+    
+    return tempWebView;
 }
 
 
 // Open a new, temporary browser window for downloading the linked config file
 // This allows the user to authenticate if the link target is stored on a secured server
-- (void) openTempWindowForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
+- (SEBAbstractWebView *) openTempWindowForDownloadingConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    DDLogDebug(@"[SEBOSXBrowserController openTempWindowForDownloadingConfigFromURL: %@ originalURL: %@]", url, originalURL);
     
     // Create a new WebView
     NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
-    _temporaryBrowserWindowDocument = [self openBrowserWindowDocument];
-    SEBBrowserWindow *newWindow = (SEBBrowserWindow *)_temporaryBrowserWindowDocument.mainWindowController.window;
-    _temporaryWebView = _temporaryBrowserWindowDocument.mainWindowController.webView;
-    if (_sebController.startingUp) {
-        _temporaryWebView.creatingWebView = _temporaryWebView;
+    SEBAbstractWebView *temporaryWebView = [self openAndShowWebViewWithURL:url title:tempWindowTitle overrideSpellCheck:YES mainBrowserWindow:NO temporaryWindow:YES];
+    SEBBrowserWindow *temporaryBrowserWindow = temporaryWebView.window;
+
+    if (self.startingUp) {
+        temporaryWebView.creatingWebView = temporaryWebView;
     } else {
-        _temporaryWebView.creatingWebView = nil;
+        temporaryWebView.creatingWebView = nil;
     }
-    _temporaryWebView.browserController = self;
-    _temporaryWebView.originalURL = originalURL;
+    temporaryWebView.originalURL = originalURL;
     
-    newWindow.isPanel = true;
-    [newWindow setCalculatedFrameOnScreen:_sebController.mainScreen];
-    [newWindow setTitle:tempWindowTitle];
+    temporaryBrowserWindow.isPanel = true;
+    [temporaryBrowserWindow setTitle:tempWindowTitle];
     
-    // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
-    [self setCustomWebPreferencesForWebView:_temporaryWebView];
-    
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
-        [newWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
-    }
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL elevateWindowLevels = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    // Order new browser window to the front of our level
-    [self setLevelForBrowserWindow:newWindow elevateLevels:elevateWindowLevels];
-    
-    [self addBrowserWindow:(SEBBrowserWindow *)newWindow
-               withWebView:_temporaryWebView
-                 withTitle:tempWindowTitle];
-    
-    self.activeBrowserWindow = newWindow;
-    [_temporaryBrowserWindowDocument.mainWindowController showWindow:self];
-    [newWindow makeKeyAndOrderFront:self];
-    
-    // Try to download the SEB config file by opening it in the invisible WebView
-    [self tryToDownloadConfigByOpeningURL:url];
+    return temporaryWebView;
 }
 
 
@@ -937,227 +776,8 @@
 - (void) tryToDownloadConfigByOpeningURL:(NSURL *)url
 {
     DDLogInfo(@"Loading SEB config from URL %@ in temporary browser window.", [url absoluteString]);
-    [[_temporaryWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.temporaryWebView loadURL:url];
     
-}
-
-
-// Called by the browser webview delegate if loading the config URL failed
-- (void) openingConfigURLFailed {
-    DDLogDebug(@"%s", __FUNCTION__);
-    
-    // Close the temporary browser window if it was opened
-    if (_temporaryWebView) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            DDLogDebug(@"Closing temporary browser window in: %s", __FUNCTION__);
-            [self closeWebView:self.temporaryWebView];
-        });
-    }
-    
-    [self openingConfigURLRoleBack];
-    
-    // Also reset the flag for SEB starting up
-    _sebController.startingUp = false;
-}
-
-
-/// Performing the Download
-
-// This method is called by the browser webview delegate if the file to download has a .seb extension
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    
-    startURLQueryParameter = [self.browserController startURLQueryParameter:&url];
-    
-    // OS X 10.9 and newer: Use modern NSURLSession for downloading .seb files which also allows handling
-    // basic/digest/NTLM authentication without having to open a temporary webview
-    if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-        if (!_URLSession) {
-            NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-            _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
-        }
-        NSURLSessionDataTask *downloadTask = [_URLSession dataTaskWithURL:url
-                                                        completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error)
-                                              {
-                                                  [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
-                                              }];
-        
-        [downloadTask resume];
-        
-    } else {
-        // OS X 10.7 and 10.8: Use NSURLConnection
-        NSURLRequest *downloadRequest = [NSURLRequest requestWithURL:url];
-        [NSURLConnection sendAsynchronousRequest:downloadRequest
-                                           queue:NSOperationQueue.mainQueue
-                               completionHandler:^(NSURLResponse *response, NSData *sebFileData, NSError *error)
-         {
-             [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL];
-         }];
-    }
-}
-
-
-- (void) didDownloadConfigData:(NSData *)sebFileData
-                      response:(NSURLResponse *)response
-                         error:(NSError *)error
-                           URL:(NSURL *)url
-                   originalURL:(NSURL *)originalURL
-{
-    DDLogDebug(@"%s URL: %@, error: %@", __FUNCTION__, url, error);
-    
-    if (error) {
-        if (error.code == NSURLErrorCancelled) {
-            // Only close temp browser window if this wasn't a direct download attempt
-            if (!_directConfigDownloadAttempted) {
-                // Close the temporary browser window
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self closeWebView:self.temporaryWebView];
-                });
-                [self openingConfigURLRoleBack];
-                
-            } else {
-                _directConfigDownloadAttempted = false;
-            }
-            return;
-        }
-        if ([url.scheme isEqualToString:@"http"] && !_browserController.usingCustomURLProtocol) {
-            // If it was a seb:// URL, and http failed, we try to download it by https
-            NSURL *downloadURL = [url URLByReplacingScheme:@"https"];
-            if (_directConfigDownloadAttempted) {
-                [self downloadSEBConfigFileFromURL:downloadURL originalURL:originalURL];
-            } else {
-                [self tryToDownloadConfigByOpeningURL:downloadURL];
-            }
-        } else {
-            if (_directConfigDownloadAttempted) {
-                // If we tried a direct download first, now try to download it
-                // by opening the URL in a temporary webview
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // which needs to be done on the main thread!
-                    [self openTempWindowForDownloadingConfigFromURL:url originalURL:originalURL];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self downloadingSEBConfigFailed:error];
-                });
-            }
-        }
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self openDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
-        });
-    }
-}
-
-
-// NSURLSession download basic/digest/NTLM authentication challenge delegate
-// Only called when downloading .seb files and only when running on OS X 10.9 or higher
-- (void)URLSession:(NSURLSession *)session
-              task:(NSURLSessionTask *)task
-didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
- completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
-{
-    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
-    
-    // We accept any username/password authentication challenges.
-    NSString *authenticationMethod = challenge.protectionSpace.authenticationMethod;
-    
-    if ([authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
-        [authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest] ||
-        [authenticationMethod isEqual:NSURLAuthenticationMethodNTLM]) {
-        DDLogInfo(@"URLSession didReceive HTTPBasic/HTTPDigest/NTLM challenge");
-        // If we have credentials from a previous login to the server we're on, try these first
-        // but not when the credentials are from a failed username/password attempt
-        if (_enteredCredential &&!_pendingChallengeCompletionHandler) {
-            completionHandler(NSURLSessionAuthChallengeUseCredential, _enteredCredential);
-            // We reset the cached previously entered credentials, because subsequent
-            // downloads in this session won't need authentication anymore
-            _enteredCredential = nil;
-        } else {
-            // Allow to enter password 3 times
-            if ([challenge previousFailureCount] < 3) {
-                // Display authentication dialog
-                _pendingChallengeCompletionHandler = completionHandler;
-                
-                NSString *text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
-                if ([challenge previousFailureCount] == 0) {
-                    text = [NSString stringWithFormat:@"%@\n%@", NSLocalizedString(@"To proceed, you must log in to", nil), text];
-                    lastUsername = @"";
-                } else {
-                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password you entered for %@ was incorrect. Make sure you’re entering them correctly, and then try again.", nil), text];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self showEnterUsernamePasswordDialog:text
-                                           modalForWindow:self.activeBrowserWindow
-                                              windowTitle:NSLocalizedString(@"Authentication Required", nil)
-                                                 username:self->lastUsername
-                                            modalDelegate:self
-                                           didEndSelector:@selector(enteredUsername:password:returnCode:)];
-                });
-                
-            } else {
-                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-                // inform the user that the user name and password
-                // in the preferences are incorrect
-                
-                [self openingConfigURLRoleBack];
-            }
-        }
-    } else {
-        DDLogInfo(@"URLSession didReceive other challenge (default handling)");
-        completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
-    }
-}
-
-
-// Managing entered credentials for .seb file download
-- (void)enteredUsername:(NSString *)username password:(NSString *)password returnCode:(NSInteger)returnCode
-{
-    DDLogDebug(@"Enter username password sheetDidEnd with return code: %ld", (long)returnCode);
-    
-    if (_pendingChallengeCompletionHandler) {
-        if (returnCode == SEBEnterPasswordOK) {
-            lastUsername = username;
-            NSURLCredential *newCredential = [NSURLCredential credentialWithUser:username
-                                                                        password:password
-                                                                     persistence:NSURLCredentialPersistenceForSession];
-            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
-            
-            _enteredCredential = newCredential;
-            return;
-            
-            // Authentication wasn't successful
-        } else if (returnCode == SEBEnterPasswordCancel) {
-            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-            _enteredCredential = nil;
-            _pendingChallengeCompletionHandler = nil;
-        } else {
-            // Any other case as when the server aborted the authentication challenge
-            _enteredCredential = nil;
-            _pendingChallengeCompletionHandler = nil;
-        }
-        [self openingConfigURLRoleBack];
-    }
-}
-
-
-// Called when downloading the config file failed
-- (void) downloadingSEBConfigFailed:(NSError *)error
-{
-    DDLogError(@"%s error: %@", __FUNCTION__, error);
-    _sebController.openingSettings = false;
-    
-    // Only show the download error and close temp browser window if this wasn't a direct download attempt
-    if (!_directConfigDownloadAttempted) {
-        
-        // Close the temporary browser window
-        [self closeWebView:_temporaryWebView];
-        // Show the load error
-        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
-        [self openingConfigURLRoleBack];
-    }
 }
 
 
@@ -1166,106 +786,86 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
-    // Close the temporary browser window
-    [self closeWebView:_temporaryWebView];
-    
-    if (_sebController.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
-        _sebController.openingSettings = true;
-        SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
-        configFileController.sebController = self.sebController;
+    _sebController.openingSettings = true;
+    SEBOSXConfigFileController *configFileController = [[SEBOSXConfigFileController alloc] init];
+    configFileController.sebController = self.sebController;
+
+    // Get current config path
+    currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
+    // Store the URL of the .seb file as current config file path
+    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
         
-        if (examSessionCookiesAlreadyCleared == NO) {
-            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"] == YES) {
-                // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                // downloads to disk, and ensures that future requests occur on a new socket.
-                // OS X 10.9 and newer
-                if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_9) {
-                    [[NSURLSession sharedSession] resetWithCompletionHandler:^{
-                        DDLogInfo(@"Cookies, caches and credential stores were reset when ending browser session (examSessionClearCookiesOnEnd = false)");
-                    }];
-                } else {
-                    DDLogError(@"Cannot reset cookies, caches and credential stores (when ending browser session) because of running on OS X 10.7 or 10.8.");
-                }
-            }
-            // Set the flag for cookies cleared (either they actually were or they would have
-            // been settings prevented it)
-            examSessionCookiesAlreadyCleared = YES;
-        }
-        // Get current config path
-        currentConfigPath = [[MyGlobals sharedMyGlobals] currentConfigURL];
-        // Store the URL of the .seb file as current config file path
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL URLWithString:url.lastPathComponent]]; // absoluteString]];
+    [configFileController storeNewSEBSettings:sebFileData
+                                forEditing:NO
+                                  callback:self
+                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+// Called when downloading the config file failed
+- (void) downloadingSEBConfigFailed:(NSError *)error
+{
+    DDLogError(@"%s error: %@", __FUNCTION__, error);
+    _sebController.openingSettings = false;
+    // Also reset the flag for SEB starting up
+    self.startingUp = false;
+
+    // Only show the download error and close temp browser window if this wasn't a direct download attempt
+    if (!self.directConfigDownloadAttempted) {
         
-        downloadedSEBConfigDataURL = url;
-        
-        // Reset the pending challenge in case it was an authenticated load
-        _pendingChallengeCompletionHandler = nil;
-        
-        [configFileController storeNewSEBSettings:sebFileData
-                                    forEditing:NO
-                                      callback:self
-                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
-        
-    } else {
-        // Opening downloaded SEB config data definitely failed:
-        // we might need to quit (if SEB was just started)
-        // or reset the opening settings flag which prevents opening URLs concurrently
+        // Close the temporary browser window
+        [self closeWebView:self.temporaryWebView];
+        // Show the load error
+        [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
         [self openingConfigURLRoleBack];
     }
 }
 
 
-- (void) storeNewSEBSettingsSuccessful:(NSError *)error
+- (void) openingConfigURLRoleBack
+{
+    // If SEB was just started (by opening a seb(s) link)
+    if (self.startingUp) {
+        // we quit, as decrypting the config wasn't successful
+        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
+        [_sebController requestedExit:nil]; // Quit SEB
+    }
+    // Reset the opening settings flag which prevents opening URLs concurrently
+    _sebController.openingSettings = false;
+}
+
+
+- (void) closeOpeningConfigFileDialog {
+    //TODO: not yet used on macOS
+}
+
+
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
+    //TODO: not yet used on macOS
+}
+
+- (void) storeNewSEBSettingsSuccessfulProceed:(NSError *)error
 {
     if (!error) {
-        DDLogInfo(@"Storing downloaded SEB config data was successful");
-        
-        // Reset the direct download flag for the case this was a successful direct download
-        _directConfigDownloadAttempted = false;
-        
-        [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
-
-        // Reset BrowserController to force re-reading parameters like Browser Exam and Config Key
-        // from changed settings even if SEB was started opening a new config
-        _browserController = [SEBBrowserController new];
-        _browserController.delegate = self;
-
         [_sebController didOpenSettings];
         
         return;
         
     } else {
-        /// Decrypting new settings wasn't successfull:
-        DDLogInfo(@"Decrypting downloaded SEB config data failed or data needs to be downloaded in a temporary WebView after the user performs web-based authentication.");
-        
+        // Decrypting new settings wasn't successfull:
         // We have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
         
-        // Was this an attempt to download the config directly and the downloaded data was corrupted?
-        if (_directConfigDownloadAttempted && error.code == SEBErrorNoValidConfigData) {
-            // We try to download the config in a temporary WebView
-            DDLogInfo(@"Trying to download the config in a temporary WebView");
-            [self openConfigFromSEBURL:downloadedSEBConfigDataURL];
-            
+        // Opening downloaded SEB config data definitely failed:
+        if (self.mainBrowserWindow) {
+            [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
             return;
-        } else {
-            // The download failed definitely or was canceled by the user:
-            DDLogError(@"Decrypting downloaded SEB config data failed definitely, present error and role back opening URL!");
-            
-            // Reset the direct download flag for the case this was a successful direct download
-            _directConfigDownloadAttempted = false;
-            
-            // Opening downloaded SEB config data definitely failed:
-            if (self.mainBrowserWindow) {
-                [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
-                return;
-            } else if (!(_sebController.isAACEnabled && _sebController.wasAACEnabled)) {
-                [NSApp presentError:error];
-            }
-            // we might need to quit (if SEB was just started)
-            // or reset the opening settings flag which prevents opening URLs concurrently
-            [self openingConfigURLRoleBack];
+        } else if (!(_sebController.isAACEnabled && _sebController.wasAACEnabled)) {
+            [NSApp presentError:error];
         }
+        // we might need to quit (if SEB was just started)
+        // or reset the opening settings flag which prevents opening URLs concurrently
+        [self openingConfigURLRoleBack];
     }
 }
 
@@ -1278,21 +878,6 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 }
 
 
-- (void)closeOpeningConfigFileDialog {
-    //TODO: not yet used on macOS
-}
-
-
-- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task {
-    //TODO: not yet used on macOS
-}
-
-
-- (void)showOpeningConfigFileDialog:(NSString *)text title:(NSString *)title cancelCallback:(id)callback selector:(SEL)selector {
-    //TODO: not yet used on macOS
-}
-
-
 - (void)storeNewSEBSettings:(NSData *)sebData
                  forEditing:(BOOL)forEditing
      forceConfiguringClient:(BOOL)forceConfiguringClient
@@ -1300,36 +885,51 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
                    callback:(id)callback
                    selector:(SEL)selector
 {
-    [self.sebController storeNewSEBSettings:sebData
-                                 forEditing:forEditing
-                     forceConfiguringClient:forceConfiguringClient
-                      showReconfiguredAlert:showReconfiguredAlert
-                                   callback:callback
-                                   selector:selector];
+    [self.sebController storeNewSEBSettings:sebData forEditing:forEditing forceConfiguringClient:forceConfiguringClient showReconfiguredAlert:showReconfiguredAlert callback:callback selector:selector];
 }
 
 
-- (void) openingConfigURLRoleBack
+- (void) openDownloadedFile:(NSString *)path
 {
-    // If SEB was just started (by opening a seb(s) link)
-    if (_sebController.startingUp) {
-        // we quit, as decrypting the config wasn't successful
-        DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will be terminated!", __FUNCTION__);
-        _sebController.quittingMyself = true; // quit SEB without asking for confirmation or password
-        [NSApp terminate: nil]; // Quit SEB
-    }
-    // Reset the opening settings flag which prevents opening URLs concurrently
-    _sebController.openingSettings = false;
+    // Open downloaded file
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:path isDirectory:NO]];
+}
+
+
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    NSAlert *modalAlert = [self.sebController newAlert];
+    // Inform user that download succeeded
+    [modalAlert setMessageText:title];
+    [modalAlert setInformativeText:message];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.activeBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+
+}
+
+
+- (void) presentDownloadError:(NSError *)error
+{
+    [self.mainBrowserWindow presentError:error modalForWindow:self.mainBrowserWindow delegate:nil didPresentSelector:NULL contextInfo:NULL];
 }
 
 
 #pragma mark SEB Dock Buttons Action Methods
 
+- (void) goToDock
+{
+    [_dockController activateDockFirstControl:YES];
+}
+
+
 - (void) backToStartCommand
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    [self clearBackForwardList];
     
     // Close all browser windows (documents)
     [self closeAllAdditionalBrowserWindows];
@@ -1353,7 +953,167 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
 - (void) reloadCommand
 {
     DDLogInfo(@"Reloading current browser window: %@", self.activeBrowserWindow);
-    [self.activeBrowserWindow.webView reload:self.activeBrowserWindow];
+    [self.activeBrowserWindow reload];
+}
+
+
+#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+
+- (void) privateCopy:(id)sender
+{
+    [self.activeBrowserWindow privateCopy:sender];
+}
+
+- (void) privateCut:(id)sender
+{
+    [self.activeBrowserWindow privateCut:sender];
+}
+
+- (void) privatePaste:(id)sender
+{
+    [self.activeBrowserWindow privatePaste:sender];
+}
+
+- (void) clearPrivatePasteboard
+{
+    self.privatePasteboardItems = [NSArray array];
+}
+
+
+#pragma mark SEBAbstractWebViewNavigationDelegate Methods
+
+- (id) accessibilityDock
+{
+    return _dockController.dockWindow.contentView;
+}
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
+{
+    [self.sebController examineCookies:cookies forURL:url];
+}
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    [self.sebController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    [self.sebController firstDOMElementDeselected];
+}
+
+- (void) lastDOMElementDeselected
+{
+    [self.sebController lastDOMElementDeselected];
+}
+
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    NSString *downUploadingString;
+    if (uploading) {
+        downUploadingString = NSLocalizedString(@"Uploading", nil);
+    } else {
+        downUploadingString = NSLocalizedString(@"Downloading", nil);
+    }
+    DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
+    NSAlert *modalAlert = [self.sebController newAlert];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+}
+
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    [self.sebController shouldStartLoadFormSubmittedURL:url];
+}
+
+
+- (void)setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward {
+    // Would be used if SEB for macOS would support back/forward buttons in the Dock
+}
+
+
+- (void)setLoading:(BOOL)loading {
+    // Would be used if SEB for macOS would support a global "loading" indicator
+}
+
+
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+{
+    return [self openNewWebViewWindowWithURL:url];
+}
+
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+{
+    return [self openAndShowWebViewWithURL:url];
+}
+
+
+- (void) showWebView:(SEBAbstractWebView *)webView
+{
+    [self webViewShow:webView];
+}
+
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+    NSAlert *modalAlert = [_sebController newAlert];
+    [modalAlert setMessageText:webView.title];
+    [modalAlert setInformativeText:prompt];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [textInput setStringValue:defaultText];
+    [modalAlert setAccessoryView:textInput];
+    void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+        NSString *resultString;
+        [self.sebController removeAlertWindow:modalAlert.window];
+        if (answer == NSAlertFirstButtonReturn) {
+            [textInput validateEditing];
+            resultString = textInput.stringValue;
+        } else {
+            resultString = @"";
+        }
+        completionHandler(resultString);
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))reconfiguringNotAllowedOK];
+}
+
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+            defaultText:(NSString *)defaultText
+{
+    NSAlert *modalAlert = [_sebController newAlert];
+    [modalAlert setMessageText:pageTitle];
+    [modalAlert setInformativeText:prompt];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [textInput setStringValue:defaultText];
+    [modalAlert setAccessoryView:textInput];
+    NSModalResponse answer = [modalAlert runModal];
+    NSString *resultString;
+    [self.sebController removeAlertWindow:modalAlert.window];
+    if (answer == NSAlertFirstButtonReturn) {
+        [textInput validateEditing];
+        resultString = textInput.stringValue;
+    } else {
+        resultString = @"";
+    }
+    return resultString;
 }
 
 
