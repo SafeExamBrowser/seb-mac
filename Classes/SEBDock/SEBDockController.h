@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24/09/14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -37,6 +37,7 @@
 #import "SEBDockItemButton.h"
 #import "SEBDockItemMenu.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  * @protocol    SEBDockItem
@@ -105,6 +106,12 @@
 - (SEL) action;
 
 /**
+ * @brief       Action to be performed when a right or long mouse click on the dock item is
+ *              performed.
+ */
+- (SEL) secondaryAction;
+
+/**
  * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
  */
 - (NSView *) view;
@@ -115,10 +122,10 @@
  * @class       SEBDockController
  *
  * @brief       SEBDockController implements a custom control which is designed to be a
- *              mixture of the OS X Dock and a Windows toolbar, intended to provide an easy
+ *              mixture of the OS X Dock and a Windows task bar, intended to provide an easy
  *              way of switching between allowed third party applications and resources or
  *              opening them if they are not yet running/open. All items placed in the 
- *              SEB Dock have to be rectangular and scalable, with a minimum size of
+ *              SEB Dock have to be scalable (preferably rectangular), with a minimum size of
  *              32 points (32 or 64 pixels @2x resolution). The SEB Dock bar has a min. 
  *              height of SEBDefaultDockHeight (40 points) and is pinned to the botton of a screen.
  *              The SEB Dock is divided into three sections left, center and right. 
@@ -128,35 +135,39 @@
  *              The center section can contain a scroll view so if a large number of 
  *              center items don't fit into the space available for the center section,
  *              users can scroll the center section horizontally to show all items.
- *              Items in the right section are intended to be controlls providing functions
+ *              Items in the right section are intended to be controls providing functions
  *              and information which should be accessible application wide (like a quit
- *              button, battery and time information/clock, WLAN control etc.).
+ *              button, battery and current time/clock, WLAN control etc.).
  *
  * @details     SEBDockController handles the creation and display of the SEB Dock hovering
  *              window as well as switching between different items using the dock bar.
  */
-@interface SEBDockController : NSWindowController {
+@interface SEBDockController : NSWindowController <SEBDockItemButtonDelegate> {
 
+    @private
     CGFloat horizontalPadding;
     CGFloat verticalPadding;
     CGFloat iconSize;
-    
+    BOOL isLeftmostItemButton;
 }
 
-@property (strong) SEBDockWindow *dockWindow;
+@property (strong, nonatomic) SEBDockWindow *dockWindow;
+@property (strong, nonatomic) id<SEBDockItemButtonDelegate> dockButtonDelegate;
+@property (nullable, readonly, nonatomic) NSArray *dockItems;
 
-@property (weak) NSArray *leftDockItems;
-@property (weak) NSArray *centerDockItems;
-@property (weak) NSArray *rightDockItems;
-@property (weak) NSView *rightMostLeftItemView;
+@property (nullable, weak, nonatomic) NSView *rightMostLeftItemView;
+
 
 - (NSArray *) setLeftItems:(NSArray *)newLeftDockItems;
 - (NSArray *) setCenterItems:(NSArray *)newCenterDockItems;
 - (NSArray *) setRightItems:(NSArray *)newRightDockItems;
 
 - (void) showDockOnScreen:(NSScreen *)screen;
+- (void) activateDockFirstControl:(BOOL)firstControl;
 - (void) hideDock;
 - (void) adjustDock;
 - (void) moveDockToScreen:(NSScreen *)screen;
 
 @end
+
+NS_ASSUME_NONNULL_END

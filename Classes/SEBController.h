@@ -3,32 +3,32 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 29.04.10.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
-//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
 //  ``The contents of this file are subject to the Mozilla Public License
 //  Version 1.1 (the "License"); you may not use this file except in
 //  compliance with the License. You may obtain a copy of the License at
 //  http://www.mozilla.org/MPL/
-//  
+//
 //  Software distributed under the License is distributed on an "AS IS"
 //  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
 //  License for the specific language governing rights and limitations
 //  under the License.
-//  
+//
 //  The Original Code is Safe Exam Browser for Mac OS X.
-//  
+//
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
-//  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  Portions created by Daniel R. Schneider are Copyright
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
-//  
+//
 //  Contributor(s): ______________________________________.
 //
 
@@ -37,6 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
+#import <AVFoundation/AVFoundation.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "PreferencesController.h"
 #import "SEBOSXConfigFileController.h"
@@ -58,6 +59,7 @@
 #import "SEBDockItem.h"
 #import "SEBDockItemTime.h"
 #import "SEBDockItemBattery.h"
+#import "SEBBatteryController.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -67,6 +69,10 @@
 
 #import "CocoaLumberjack.h"
 
+#import "ServerController.h"
+#import "SEBServerOSXViewController.h"
+#import "ServerLogger.h"
+
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -75,16 +81,18 @@
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 @class HUDController;
+@class ServerController;
+@class SEBServerOSXViewController;
+@class SEBBatteryController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate> {
-	
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
+{
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
-	BOOL f3Pressed;
-	BOOL firstStart;
+    BOOL f3Pressed;
+    BOOL firstStart;
     BOOL quittingMyself;
-
     NSAlert *_modalAlert;
     IBOutlet NSWindow *cmdKeyAlertWindow;
     IBOutlet NSMenuItem *configMenu;
@@ -93,7 +101,6 @@
     IBOutlet NSPanel *informationHUD;
     IBOutlet NSTextField *informationHUDLabel;
     __weak IBOutlet NSView *inactiveScreenCoverLabel;
-
     IBOutlet NSWindow *enterPasswordDialogWindow;
     IBOutlet NSTextField *enterPasswordDialog;
     
@@ -117,7 +124,7 @@
     BOOL _cmdKeyDown;
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
-    SEBMinMacOSVersion _enforceMinMacOSVersion;
+    BOOL enforceMinMacOSVersion;
     pid_t sebPID;
     BOOL allowScreenCapture;
     BOOL allowScreenSharing;
@@ -141,22 +148,92 @@
     NSDate *timeProcessCheckBeforeSIGSTOP;
     
     CGEventRef keyboardEventReturnKey;
+    
+    NSImage *ProctoringIconDefaultState;
+    NSImage *ProctoringIconAIInactiveState;
+    NSImage *ProctoringIconNormalState;
+    NSImage *ProctoringIconWarningState;
+    NSImage *ProctoringIconErrorState;
+    NSColor *ProctoringIconColorNormalState;
+    NSColor *ProctoringIconColorWarningState;
+    NSColor *ProctoringIconColorErrorState;
+    
+    CIImage *ProctoringBadgeNormalState;
+    CIImage *ProctoringBadgeWarningState;
+    CIImage *ProctoringBadgeErrorState;
+    
+    NSImage *RaisedHandIconDefaultState;
+    NSColor *RaisedHandIconColorDefaultState;
+    NSImage *RaisedHandIconRaisedState;
+    NSColor *RaisedHandIconColorRaisedState;
+    
+    NSInteger raiseHandUID;
+    NSString *raiseHandNotification;
 }
+
+- (void) firstDOMElementDeselected;
+- (void) lastDOMElementDeselected;
 
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
+@property(strong, nonatomic) SEBBatteryController *batteryController;
 @property(strong, nonatomic) SEBDockController *dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
 @property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
+@property (strong, nonatomic) WKWebView *temporaryWebView;
+
+#pragma mark - Connecting to SEB Server
+// Waiting for user to select exam from SEB Server and to successfully log in
+@property(readwrite) BOOL establishingSEBServerConnection;
+// Exam URL is opened in a webview (tab), waiting for user to log in
+@property(readwrite) BOOL startingExamFromSEBServer;
+// User logged in to LMS, monitoring the client started
+@property(readwrite) BOOL sebServerConnectionEstablished;
+// The SEB Server exam list view is displayed
+@property(readwrite) BOOL sebServerViewDisplayed;
+@property(readwrite) BOOL sessionRunning;
+
+@property (strong, nonatomic) ServerController *serverController;
+@property (strong, nonatomic) NSWindowController *sebServerViewWindowController;
+@property (strong, nonatomic) SEBServerOSXViewController *sebServerViewController;
+
+/// Remote Proctoring
+#define JitsiMeetProctoringSupported NO
+#define ZoomProctoringSupported NO
+@property(readwrite) BOOL previousSessionZoomEnabled;
+
+@property(readwrite) BOOL zoomReceiveAudio;
+@property(readwrite) BOOL zoomReceiveVideo;
+@property(readwrite) BOOL zoomSendAudio;
+@property(readwrite) BOOL zoomSendVideo;
+@property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
+
+@property(readwrite) BOOL zoomUserRetryWasUsed;
+
+- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
+- (void) toggleProctoringViewVisibility;
+//- (BOOL) rtcAudioInputEnabled;
+//- (BOOL) rtcAudioReceivingEnabled;
+//- (BOOL) rtcVideoSendingEnabled;
+//- (BOOL) rtcVideoReceivingEnabled;
+//- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+//
+//- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+//- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+
+@property(readwrite) BOOL raiseHandRaised;
 
 @property(strong) NSDate *didLockSEBTime;
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 @property(readwrite) BOOL isAACEnabled;
 @property(readwrite) BOOL overrideAAC;
@@ -178,10 +255,16 @@
 @property(readwrite) BOOL builtinDisplayNotAvailableDetected;
 @property(readwrite) BOOL builtinDisplayEnforceOverride;
 @property(readwrite) BOOL touchBarDetected;
+@property(readwrite) BOOL proctoringFailedDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
+@property(readwrite) BOOL tabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL tabPressedWhileWebViewIsFirstResponder;
+@property(readwrite) BOOL shiftTabPressedWhileDockIsKeyWindow;
+@property(readwrite) BOOL shiftTabPressedWhileWebViewIsFirstResponder;
 @property(readwrite) BOOL startingUp;
+@property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL conditionalInitAfterProcessesChecked;
@@ -189,7 +272,6 @@
 @property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
 
-@property(weak) SEBWebView *webView;
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
@@ -209,10 +291,12 @@
 @property(strong, nonatomic) NSMutableArray *terminatedProcessesExecutableURLs;
 @property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
-
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
-@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery
-;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
+@property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
+@property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
+@property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing
@@ -238,6 +322,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
 
+- (NSRect) visibleFrameForScreen:(NSScreen *)screen;
+
 - (NSInteger) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *)window
                           windowTitle:(NSString *)title;
@@ -256,8 +342,7 @@ conditionallyForWindow:(NSWindow *)window
                           didEndSelector:(SEL)didEndSelector;
 - (void) hideEnterUsernamePasswordDialog;
 
-- (IBAction) exitSEB:(id)sender;
-- (void) requestedQuitWPwd:(id)sender;
+- (IBAction) requestedQuit:(id)sender;
 
 - (IBAction) openPreferences:(id)sender;
 - (IBAction) showAbout:(id)sender;
@@ -265,13 +350,20 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) reloadButtonEnabled:(BOOL)enabled;
 
+- (IBAction) searchText:(id)sender;
+- (IBAction) searchTextNext:(id)sender;
+- (IBAction) searchTextPrevious:(id)sender;
+
 - (void) requestedRestart:(NSNotification *)notification;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (void) conditionallyLockExam;
+- (BOOL) conditionallyLockExam:(NSString *)examURLString;
+
 - (void) correctPasswordEntered;
-- (void) closeLockdownWindows;
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
+
+- (void) requestedExit:(NSNotification *)notification;
 
 @end

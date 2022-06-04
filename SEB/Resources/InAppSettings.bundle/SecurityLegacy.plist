@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>SecurityLegacy</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Classic Single App Mode (SAM)</string>
+			<key>FooterText</key>
+			<string>Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of Assessment Mode. Note: You have to distribute devices already locked into SAM or disable manual Guided Access if you want to make sure that only SAM is used by the system.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Single App Mode</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileAllowSingleAppMode</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>FooterText</key>
+			<string>Transforms specific HTTP requests for clicked links to prevent the &apos;Guided Access is enabled&apos; message being displayed when clicking all links.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Guided Access Compatibility</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileEnableGuidedAccessLinkTransform</string>
+		</dict>
+	</array>
+</dict>
+</plist>

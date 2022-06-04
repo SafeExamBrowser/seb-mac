@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 17.01.12.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -34,11 +34,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebView.h>
+#import "SEBBrowserWindow.h"
+#import "SEBBrowserWindowAccessoryView.h"
 #import "SEBOSXBrowserController.h"
-#import "SEBWebView.h"
 
+@class SEBBrowserWindow;
+@class SEBBrowserWindowAccessoryView;
 @class SEBOSXBrowserController;
-@class SEBWebView;
 
 @interface SEBBrowserWindowController : NSWindowController <NSWindowDelegate>
 {
@@ -50,12 +52,29 @@
 
 @property (assign) NSRect frameForNonFullScreenMode;
 @property (weak) IBOutlet NSView *rootView;
-@property (weak) IBOutlet SEBWebView *webView;
+@property (readonly, nonatomic) SEBBrowserWindow *browserWindow;
+//@property (weak) IBOutlet SEBAbstractWebView *webView;
+@property (weak) IBOutlet NSButton *toolbarGoToDockButton;
+@property (strong, nonatomic) IBOutlet SEBBrowserWindowAccessoryView *accessoryView;
+@property (weak) IBOutlet NSButton *accessoryViewGoToDockButton;
+@property (nonatomic, readwrite) BOOL isAccessoryViewGoToDockButtonHidden;
+@property (strong, nonatomic) NSTitlebarAccessoryViewController *accessoryViewController;
 @property (weak) IBOutlet NSSegmentedControl *backForwardButtons;
+@property (weak) IBOutlet NSSearchField *textSearchField;
+@property (weak) IBOutlet NSSegmentedControl *textSearchPreviousNext;
+- (void) searchTextNext;
+- (void) searchTextPrevious;
+@property (weak) IBOutlet NSButton *textSearchDone;
 @property (weak) IBOutlet NSButton *toolbarReloadButton;
 @property (weak) SEBOSXBrowserController *browserController;
-@property (strong) NSScreen *previousScreen;
-@property (strong) NSTimer *windowWatchTimer;
+@property (strong, nonatomic) NSScreen *previousScreen;
+@property (strong, nonatomic) NSTimer *windowWatchTimer;
+
+@property (strong, nonatomic) NSString *searchText;
+- (void) searchTextMatchFound:(BOOL)matchFound;
+- (void) sebWebViewDidFinishLoad;
+
+- (void) activateInitialFirstResponder;
 
 - (IBAction) backForward: (id)sender;
 - (IBAction) zoomText: (id)sender;

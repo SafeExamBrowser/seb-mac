@@ -15,7 +15,7 @@
 //  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //  ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -36,7 +36,7 @@
 //  The Original Code is Safe Exam Browser for Mac OS X.
 //
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -215,7 +215,7 @@ static NSNumber *_logLevel;
                                         @"org_safeexambrowser_startURLQueryParameter",
                                         
                                         nil];
-    
+
     for (NSString *key in processedDictionary) {
         NSString *keyWithPrefix = [self prefixKey:key];
         id value = [processedDictionary objectForKey:key];
@@ -239,7 +239,7 @@ static NSNumber *_logLevel;
     }
 
     // Get all dictionary keys
-    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
+    NSArray *configKeysAlphabetically = [[defaultSettings allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(caseInsensitiveOrdinalCompare:)]]];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:configKeysAlphabetically.count];
     
     
@@ -269,7 +269,7 @@ static NSNumber *_logLevel;
 // Returns YES if SEB was started first time on this system (no SEB settings found in UserDefaults)
 - (BOOL) setSEBDefaults
 {
-    DDLogWarn(@"Setting local client settings (NSUserDefaults)");
+    DDLogDebug(@"Setting local client settings (NSUserDefaults)");
 
     BOOL firstStart = NO;
     _cachedUserDefaults = [NSMutableDictionary new];
@@ -302,13 +302,13 @@ static NSNumber *_logLevel;
                 // Set the flag to indicate to user later that settings have been reset
                 [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
 
-                DDLogError(@"%s: Initial Exam Settings Key check failed: Local preferences have been reset!", __FUNCTION__);
+                DDLogError(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
             }
         }
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
-            DDLogError(@"%s: There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!", __FUNCTION__);
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {
@@ -325,6 +325,11 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
+#if TARGET_OS_IPHONE
+     if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
+         exit(0);
+     }
+#endif
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version
@@ -394,7 +399,7 @@ static NSNumber *_logLevel;
 {
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
-    
+
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
@@ -470,9 +475,8 @@ static NSNumber *_logLevel;
         [self setSecureObject:value forKey:keyWithPrefix];
     }
 }
-                                    
-                                    
-                                    
+
+
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
@@ -792,7 +796,7 @@ static NSNumber *_logLevel;
                 [self setObject:encryptedData forKey:key];
             } else {
                 encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-                if (error || !encryptedData) {
+                if (error || !encryptedData || encryptedData.length == 0) {
 
                     DDLogError(@"PREFERENCES CORRUPTED ERROR in [self setObject:(encrypted %@) forKey:%@]", value, key);
 

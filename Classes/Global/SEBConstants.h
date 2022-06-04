@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -47,12 +47,13 @@ static NSString __unused *SEBWebsiteShort = @"safeexambrowser.org";
 static NSString __unused *SEBOrganization = @"ETH Zurich";
 static NSString __unused *SEBCountry = @"CH";
 
+static NSString __unused *SEBFullAppNameClassic = @"Safe Exam Browser";
 static NSString __unused *SEBFullAppName = @"SafeExamBrowser";
 static NSString __unused *SEBShortAppName = @"SEB";
 static NSString __unused *SEBExtraShortAppName = @"SEB";
-static NSString __unused *SEBExtraShortAppNameAArticle = @"an";
 static NSString __unused *SEBFileExtension = @"seb";
-static NSString __unused *SEBMIMEType = @"application/seb";
+static NSString __unused *SEBConfigMIMEType = @"application/seb";
+static NSString __unused *SEBUnencryptedConfigMIMEType = @"text/xml";
 static NSString __unused *SEBProtocolScheme = @"seb";
 static NSString __unused *SEBSSecureProtocolScheme = @"sebs";
 static NSString __unused *SEBClientSettingsACCSubdomainShort = @"seb";

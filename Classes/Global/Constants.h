@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
-//  Educational Development and Technology (LET), 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
+//  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,14 +25,14 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
-//  and Technology (LET), based on the original idea of Safe Exam Browser 
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
+//  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
 //  Contributor(s): ______________________________________.
 //
 
-#import "DDLog.h"
+#import <CocoaLumberjack.h>
 #import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h
@@ -50,12 +50,12 @@
 // padding for margins
 
 // for general screen
-#define kLeftMargin                20.0
-#define kTopMargin                20.0
-#define kRightMargin            20.0
-#define kTweenMargin            10.0
+#define kLeftMargin				20.0
+#define kTopMargin				20.0
+#define kRightMargin			20.0
+#define kTweenMargin			10.0
 
-#define kTextFieldHeight        30.0
+#define kTextFieldHeight		30.0
 
 // Toolbar height when printing is supported
 #define kToolbarHeight 49
@@ -65,7 +65,7 @@
 #define kCustomButtonHeight     30.0
 
 #define SEBDefaultDockHeight 40.0
-#define SEBDefaultDockTimeItemFontSize 15.0
+#define SEBDefaultDockTimeItemFontSize 14.5
 #define SEBDefaultDockTimeItemPreferredWidth 42.0
 
 #define SEBErrorNoValidConfigData 10
@@ -79,7 +79,24 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 13
+#define currentStableMajoriOSVersion 15
+
+#define WebViewDefaultTextSize 120.0
+#define WebViewDefaultTextZoom 1.0
+#define WebViewMinTextZoom 0.9
+#define WebViewMaxTextZoom 3.5
+#define WebViewDefaultPageZoom 1.0
+#define WebViewMinPageZoom 0.25
+#define WebViewMaxPageZoom 4.0
+
+enum {
+    webViewSelectAutomatic                      = 0,
+    webViewSelectForceClassic                   = 1,
+    webViewSelectPreferModernInForeignNewTabs   = 2,
+    webViewSelectPreferModern                   = 3
+};
+typedef NSUInteger webViewSelectPolicies;
+
 
 enum {
     browserUserAgentModeiOSDefault              = 0,
@@ -176,7 +193,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion14                            = 14
+    iOSBetaVersion16                            = 16
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -185,9 +202,39 @@ enum {
     iOSVersion9                                 = 9,
     iOSVersion10                                = 10,
     iOSVersion11                                = 11,
-    iOSVersion12                                = 12
+    iOSVersion12                                = 12,
+    iOSVersion13                                = 13,
+    iOSVersion14                                = 14
 };
 typedef NSUInteger iOSVersion;
+
+
+enum {
+    remoteProctoringViewShowNever               = 0,
+    remoteProctoringViewShowAllowToShow         = 1,
+    remoteProctoringViewShowAllowToHide         = 2,
+    remoteProctoringViewShowAlways              = 3
+};
+typedef NSInteger remoteProctoringViewShowPolicies;
+
+
+enum {
+    remoteProctoringButtonStateDefault          = 0,
+    remoteProctoringButtonStateNormal           = 1,
+    remoteProctoringButtonStateWarning          = 2,
+    remoteProctoringButtonStateError            = 3,
+    remoteProctoringButtonStateAIInactive       = 4
+};
+typedef NSInteger remoteProctoringButtonStates;
+
+
+enum {
+    RemoteProctoringEventTypeDefault            = 0,
+    RemoteProctoringEventTypeNormal             = 1,
+    RemoteProctoringEventTypeWarning            = 2,
+    RemoteProctoringEventTypeError              = 3
+};
+typedef NSInteger RemoteProctoringEventType;
 
 
 enum {
@@ -213,7 +260,7 @@ enum {
     SEBBackgroundTintStyleLight                 = 1,
     SEBBackgroundTintStyleDark                  = 2
 };
-typedef NSUInteger SEBBackgroundTintStyle;
+typedef NSInteger SEBBackgroundTintStyle;
 
 
 enum {
@@ -222,6 +269,22 @@ enum {
     openInNewWindow                             = 2
 };
 typedef NSUInteger newBrowserWindowPolicies;
+
+
+enum {
+    SEBNavigationActionPolicyCancel             = 0,
+    SEBNavigationActionPolicyAllow              = 1,
+    SEBNavigationActionPolicyDownload           = 2
+};
+typedef NSInteger SEBNavigationActionPolicy;
+
+
+enum {
+    SEBNavigationResponsePolicyCancel             = 0,
+    SEBNavigationResponsePolicyAllow              = 1,
+    SEBNavigationResponsePolicyDownload           = 2
+};
+typedef NSUInteger SEBNavigationResponsePolicy;
 
 
 enum {
@@ -255,6 +318,16 @@ typedef NSUInteger sebConfigPurposes;
 
 
 enum {
+    SEBClientConfigURLSchemeNone                = 0,
+    SEBClientConfigURLSchemeSubdomainShort      = 1,
+    SEBClientConfigURLSchemeSubdomainLong       = 2,
+    SEBClientConfigURLSchemeDomain              = 3,
+    SEBClientConfigURLSchemeWellKnown           = 4
+};
+typedef NSUInteger SEBClientConfigURLSchemes;
+
+
+enum {
     SEBEnterPasswordCancel                      = 0,
     SEBEnterPasswordOK                          = 1,
     SEBEnterPasswordAborted                     = 2
@@ -273,7 +346,7 @@ typedef NSUInteger SEBURLFilterAlertPattern;
 
 
 enum {
-    SEBURLFilterAlertDismiss                      = 0,
+    SEBURLFilterAlertDismiss                     = 0,
     SEBURLFilterAlertAllow                       = 1,
     SEBURLFilterAlertIgnore                      = 2,
     SEBURLFilterAlertBlock                       = 3,
@@ -340,6 +413,41 @@ typedef NSUInteger SEBLogLevel;
 
 
 enum {
+/*! @constant   SEBLowBatteryWarningNone
+ *
+ *  @abstract   The system is not in a low battery situation, or is on drawing from an external power source.
+ *
+ *  @discussion The system displays no low power warnings; neither should application clients of this
+ *              API.
+ */
+    SEBLowBatteryWarningNone  = 1,
+
+/*! @constant   SEBLowBatteryWarningEarly
+ *
+ *  @abstract   The battery can provide no more than 20 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Early Warning for 20 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 20 minutes.
+ *              macOS alerts the user by changing the color of BatteryMonitor to red.
+ *              Warning the user is optional for full screen apps.
+ */
+    SEBLowBatteryWarningEarly = 2,
+
+/*! @constant   SEBLowBatteryWarningFinal
+ *
+ *  @abstract   The battery can provide no more than 10 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Final Warning for 10 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 10 minutes.
+ */
+    SEBLowBatteryWarningFinal = 3
+};
+typedef NSInteger SEBLowBatteryWarningLevel;
+
+
+enum {
     SEBMinOSX10_7                               = 0,
     SEBMinOSX10_8                               = 1,
     SEBMinOSX10_9                               = 2,
@@ -347,7 +455,10 @@ enum {
     SEBMinOSX10_11                              = 4,
     SEBMinMacOS10_12                            = 5,
     SEBMinMacOS10_13                            = 6,
-    SEBMinMacOS10_14                            = 7
+    SEBMinMacOS10_14                            = 7,
+    SEBMinMacOS10_15                            = 8,
+    SEBMinMacOS11                               = 9,
+    SEBMinMacOS12                               = 10
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
@@ -396,6 +507,8 @@ static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing
 static NSString __unused *screenCaptureAgent = @"screencapture";
 static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
 static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
+static NSString __unused *ARDAgent = @"ARDAgent";
+static NSString __unused *ARDAgentBundleID = @"com.apple.RemoteDesktopAgent";
 static NSString __unused *fontRegistryUIAgent = @"FontRegistryUIAgent";
 static NSString __unused *fontRegistryUIAgentBundleID = @"com.apple.FontRegistryUIAgent";
 static NSString __unused *SiriService = @"SiriNCService";
@@ -411,6 +524,7 @@ static NSString __unused *TouchBarFnDefaultsKey = @"fullControlStrip";
 static NSString __unused *TouchBarFnDefaultsValue = @"functionKeys";
 static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
 static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
+static NSString __unused *WebKitNetworkingProcess = @"com.apple.WebKit.Networking";
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";
@@ -429,15 +543,47 @@ static NSString __unused *fontDownloadAttemptedOnPageURLOrPlaceholderKey = @"fon
 
 static NSString __unused *userDefaultsMasala = @"Di𝈭l𝈖Ch𝈒ah𝉇t𝈁a𝉈Hai1972";
 
-static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/11.1.2 Safari";
+// Error numbers for SEB error domains
+enum {
+    SEBErrorASCCNoConfigFound                   = 1000,
+    SEBErrorASCCNoWiFi                          = 1001,
+    SEBErrorASCCNoHostnameFound                 = 1002,
+    SEBErrorASCCCanceled                        = 1003
+};
+typedef NSUInteger SEBErrorDomainErrors;
+
+static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/14.0.3 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
+static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15";
+static NSString __unused *SEBiOSUserAgentiPadDefault = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15";
 static NSString __unused *SEBWinUserAgentDesktopDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0";
 static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0; Touch) Gecko/20100101 Firefox/52.0";
-static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1";
-static NSString __unused *SEBiOSUserAgentiPadDefault = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15";
+static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Mobile/15E148 Safari/604.1";
+static NSString __unused *SEBBrowserExamKeyHeaderKey = @"X-SafeExamBrowser-RequestHash";
+static NSString __unused *SEBConfigKeyHeaderKey = @"X-SafeExamBrowser-ConfigKeyHash";
+static NSString __unused *runningOSmacOS = @"macOS";
+static NSString __unused *runningOSiOS = @"iOS";
+static NSString __unused *runningOSiPadOS = @"iPadOS";
+
+static NSString __unused *filenameExtensionPDF = @"pdf";
+static NSString __unused *mimeTypePDF = @"application/pdf";
+
+static NSString __unused *SEBKeyShortcutSideMenu = @"m";
+static NSString __unused *SEBKeyShortcutReload = @"r";
+static NSString __unused *SEBKeyShortcutFind = @"f";
+static NSString __unused *SEBKeyShortcutQuit = @"q";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
-static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_7;
+// The Managed app configuration dictionary pushed down from an MDM server are stored in this key.
+static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
+
+// The dictionary that is sent back to the MDM server as feedback must be stored in this key.
+static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
+
+static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_11;
+static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
+static NSInteger SEBMinMacOSVersionSupportedMinor = 11;
+static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
 #endif
