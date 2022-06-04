@@ -1,0 +1,72 @@
+/* (No Comment) */
+"Allow Auto-Correction" = "Auto-Korrektur erlauben";
+
+/* (No Comment) */
+"Auto-Correction & Predictive Text" = "Auto-Korrektur und Text-Vorschläge";
+
+/* (No Comment) */
+"Black on White" = "Schwarz auf Weiss";
+
+/* (No Comment) */
+"Browser Toolbar" = "Browser-Symbolleiste";
+
+/* (No Comment) */
+"Default Page Zoom Level:" = "Standard Seiten-Zoomstufe:";
+
+/* (No Comment) */
+"Default Text Zoom Level:" = "Standard-Textgrösse";
+
+/* (No Comment) */
+"Enable Page Zoom" = "Seiten-Zoom zulassen";
+
+/* (No Comment) */
+"Enable Scroll Lock" = "Scrollsperre zulassen";
+
+/* (No Comment) */
+"Enable Text Zoom" = "Text-Zoom zulassen";
+
+/* (No Comment) */
+"In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled." = "Im AAC-Assessment-/Bewertungsmodus oder ASAM-Einzel-App-Modus sind Autokorrektur und Textvorhersage immer deaktiviert.";
+
+/* (No Comment) */
+"Inferred" = "Übernommen";
+
+/* String for Titles arrays elements */
+"None" = "Keine";
+
+/* (No Comment) */
+"None - Black" = "Keine - schwarzer Hintergrund";
+
+/* (No Comment) */
+"None - White" = "Keine - weisser Hintergrund";
+
+/* String for FooterText elements */
+"On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled." = "Auf Geräten mit FaceID wird die Statusleiste immer angezeigt, wenn die Browser-Symbolleiste aktiviert ist.";
+
+/* (No Comment) */
+"Page & Text Zoom" = "Seiten- und Text-Zoom";
+
+/* (No Comment) */
+"Scroll Lock" = "Scrollsperre";
+
+/* (No Comment) */
+"SEB Dock" = "SEB-Dock";
+
+/* (No Comment) */
+"Status Bar (w/FaceID)" = "Statusleiste mit FaceID";
+
+/* (No Comment) */
+"Status Bar Appearance" = "Darstellung Statusleiste";
+
+/* String for Title elements */
+"Status/Tool Bar/SEB Dock" = "Statusleiste/Symbolleiste/SEB-Dock";
+
+/* (No Comment) */
+"White on Black" = "Weiss auf Schwarz";
+
+/* (No Comment) */
+"With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." = "Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern.";
+
+/* (No Comment) */
+"Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Zoom wird nur in modernen WebViews unterstützt. Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.";
+

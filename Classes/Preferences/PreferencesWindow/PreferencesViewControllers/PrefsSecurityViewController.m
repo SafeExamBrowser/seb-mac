@@ -3,11 +3,11 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 15.02.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider, 
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, 
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, 
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -59,10 +59,14 @@
     // Add default values (NSNumbers!) to the max displays combo box
     [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
 
+    [minMacOSVersionMajor addItemsWithObjectValues:@[@10, @11, @12]];
+    [minMacOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15]];
+    [minMacOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
+
     [miniOSVersionMajor addItemsWithObjectValues:@[@9, @10, @11, @12, @13]];
     [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
-    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @14]];
+    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @15]];
 }
 
 
@@ -141,6 +145,15 @@
 - (IBAction) setEnableAllowUserAppFolderInstall:(NSButton *)sender
 {
     allowUserAppFolderInstallButton.enabled = sender.state;
+}
+
+
+- (IBAction) setAllowMacOSVersionNumberCheckFullButton:(NSButton *)sender
+{
+    minMacOSVersionPopUpButton.enabled = !sender.state;
+    minMacOSVersionMajor.enabled = sender.state;
+    minMacOSVersionMinor.enabled = sender.state;
+    minMacOSVersionPatch.enabled = sender.state;
 }
 
 

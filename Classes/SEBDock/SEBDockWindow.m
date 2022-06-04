@@ -3,11 +3,11 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.09.14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
-//  Project concept: Thomas Piendl, Daniel R. Schneider,
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
 //  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
 //  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
 //
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,6 +33,7 @@
 //
 
 #import "SEBDockWindow.h"
+#import "SEBDockController.h"
 
 @implementation SEBDockWindow
 
@@ -45,6 +46,15 @@
 //        [super sendEvent:theEvent];
 //    }
 //}
+
+
+-(BOOL)canBecomeKeyWindow {
+    return YES;
+}
+
+-(BOOL)canBecomeMainWindow {
+    return NO;
+}
 
         
 - (void) setCalculatedFrame:(NSScreen *)screen
@@ -65,5 +75,11 @@
     [self setFrame:windowFrame display:YES];    
 }
 
+
+- (NSArray *)accessibilityChildren
+{
+    NSView *activeBrowserWindowContentView = [(SEBDockController *)self.windowController currentDockAccessibilityParent];
+    return @[activeBrowserWindowContentView.superview, activeBrowserWindowContentView, self.contentView];
+}
 
 @end

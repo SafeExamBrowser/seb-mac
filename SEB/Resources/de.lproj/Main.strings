@@ -1,0 +1,171 @@
+/* Class = "UILabel"; text = "•"; ObjectID = "1bF-7Z-Q9L"; */
+"1bF-7Z-Q9L.text" = "•";
+
+/* Class = "UIButton"; accessibilityHint = "Shows a mail composer view to send an SEB log file to the entered mail address. Please add error description to the mail body"; ObjectID = "1cD-LV-BbY"; */
+"1cD-LV-BbY.accessibilityHint" = "Zeigt eine Mail-Editor-Ansicht, um eine SEB-Logdatei an die eingegebene Mailadresse zu senden. Bitte fügen Sie eine Fehlerbeschreibung in den Mailtext ein.";
+
+/* Class = "UIButton"; normalTitle = "Send Logs to SEB Developers"; ObjectID = "1cD-LV-BbY"; */
+"1cD-LV-BbY.normalTitle" = "Logdateien an SEB-Entwickler senden";
+
+/* Class = "UILabel"; accessibilityHint = "Enter the corrrect quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ"; */
+"6fi-rT-cNJ.accessibilityHint" = "Korrektes Beenden/Entsperren-Passwort eingeben, um den Sperrbildschirm zu schliessen";
+
+/* Class = "UILabel"; accessibilityLabel = "Warning: Wrong password"; ObjectID = "6fi-rT-cNJ"; */
+"6fi-rT-cNJ.accessibilityLabel" = "Warnung: Falsches Passwort";
+
+/* Class = "UILabel"; text = "Please enter correct password!"; ObjectID = "6fi-rT-cNJ"; */
+"6fi-rT-cNJ.text" = "Bitte korrektes Passwort/Response eingeben!";
+
+/* Class = "UIButton"; accessibilityHint = "Searches for a SEB configuration at the entered domain URL"; ObjectID = "6pO-9x-gSg"; */
+"6pO-9x-gSg.accessibilityHint" = "Sucht nach einer SEB-Konfiguration unter der eingegebenen Domain-URL";
+
+/* Class = "UIButton"; accessibilityLabel = "Search for configuration"; ObjectID = "6pO-9x-gSg"; */
+"6pO-9x-gSg.accessibilityLabel" = "Suche Konfiguration";
+
+/* Class = "UILabel"; text = "Commands"; ObjectID = "7en-4U-bc7"; */
+"7en-4U-bc7.text" = "Funktionen";
+
+/* Class = "UITextField"; accessibilityHint = "Enter the domain URL of an institution which supports SEB"; ObjectID = "7o6-KW-3Qp"; */
+"7o6-KW-3Qp.accessibilityHint" = "Geben Sie die Domain-URL einer Institution ein, die SEB unterstützt";
+
+/* Class = "UITextField"; accessibilityLabel = "URL"; ObjectID = "7o6-KW-3Qp"; */
+"7o6-KW-3Qp.accessibilityLabel" = "URL";
+
+/* Class = "UIButton"; accessibilityHint = "Closes tab or quits browser session (on first tab with exam)"; ObjectID = "8n2-VP-KRt"; */
+"8n2-VP-KRt.accessibilityHint" = "Schliesst den Tab oder beendet die Browser-Sitzung (auf dem ersten Tab mit der Prüfung)";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "8n2-VP-KRt"; */
+"8n2-VP-KRt.accessibilityLabel" = "Schliessen";
+
+/* Class = "UILabel"; accessibilityHint = "No SEB configuration found at the entered domain URL"; ObjectID = "9il-ut-H8z"; */
+"9il-ut-H8z.accessibilityHint" = "Keine SEB-Konfiguration an der eingegebenen Domain-URL gefunden";
+
+/* Class = "UILabel"; accessibilityLabel = "Warning: No SEB Configuration found!"; ObjectID = "9il-ut-H8z"; */
+"9il-ut-H8z.accessibilityLabel" = "Warnung: Keine SEB-Konfiguration gefunden!";
+
+/* Class = "UILabel"; text = "No config found!"; ObjectID = "9il-ut-H8z"; */
+"9il-ut-H8z.text" = "Keine Konfiguration gefunden!";
+
+/* Class = "UILabel"; text = "SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows."; ObjectID = "72x-TK-QER"; */
+"72x-TK-QER.text" = "SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* Class = "UILabel"; accessibilityHint = "Hides side menu and switches to this tab"; ObjectID = "aA9-gn-PKl"; */
+"aA9-gn-PKl.accessibilityHint" = "Blendet das Seitenmenü aus und schaltet auf diesen Tab um";
+
+/* Class = "UIButton"; accessibilityHint = "Search local network for a SEB configuration (requires WiFi)"; ObjectID = "aaL-4I-bjq"; */
+"aaL-4I-bjq.accessibilityHint" = "Suche im lokalen Netzwerk nach einer SEB-Konfiguration (erfordert WLAN)";
+
+/* Class = "UIButton"; accessibilityLabel = "Search Network"; ObjectID = "aaL-4I-bjq"; */
+"aaL-4I-bjq.accessibilityLabel" = "Netzwerk durchsuchen";
+
+/* Class = "UIButton"; normalTitle = "Search Network"; ObjectID = "aaL-4I-bjq"; */
+"aaL-4I-bjq.normalTitle" = "Netzwerk durchsuchen";
+
+/* Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "akf-kQ-g5l"; */
+"akf-kQ-g5l.accessibilityHint" = "Schliesst das 'Über SEB'-Fenster";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "akf-kQ-g5l"; */
+"akf-kQ-g5l.accessibilityLabel" = "Schliessen";
+
+/* Class = "UIButton"; accessibilityHint = "Closes lock screen if entered quit password is correct"; ObjectID = "arM-6u-TmT"; */
+"arM-6u-TmT.accessibilityHint" = "Schliesst den Sperrbildschirm, wenn das eingegebene Beenden/Entsperren-Passwort korrekt ist";
+
+/* Class = "UIButton"; accessibilityLabel = "Continue"; ObjectID = "arM-6u-TmT"; */
+"arM-6u-TmT.accessibilityLabel" = "Weiter";
+
+/* Class = "UILabel"; text = "Open an SEB exam or configuration link from Safari, Mail or a messenger app."; ObjectID = "BE1-ZM-fgu"; */
+"BE1-ZM-fgu.text" = "SEB-Prüfungs- oder Konfigurations-Link in Safari, Mail oder einer Nachrichten-App öffnen.";
+
+/* Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "bhl-kf-W3Q"; */
+"bhl-kf-W3Q.accessibilityHint" = "Schliesst das 'Über SEB'-Fenster";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "bhl-kf-W3Q"; */
+"bhl-kf-W3Q.accessibilityLabel" = "Schliessen";
+
+/* Class = "UIButton"; normalTitle = "Close"; ObjectID = "bhl-kf-W3Q"; */
+"bhl-kf-W3Q.normalTitle" = "Schliessen";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "C6t-3t-DKh"; */
+"C6t-3t-DKh.text" = "Version";
+
+/* Class = "UILabel"; text = "SEB Is Locked!"; ObjectID = "D2p-As-V6t"; */
+"D2p-As-V6t.text" = "SEB ist gesperrt!";
+
+/* Class = "UILabel"; text = "Exam"; ObjectID = "dOX-Xm-hMN"; */
+"dOX-Xm-hMN.text" = "Prüfung";
+
+/* Class = "UIButton"; accessibilityHint = "Display copyright and license. Scroll to bottom for button to send SEB logs to developers"; ObjectID = "ecz-EP-DY2"; */
+"ecz-EP-DY2.accessibilityHint" = "Copyright und Lizenz anzeigen. Scrollen Sie nach unten, um die Taste zum Senden von SEB-Protokollen an die Entwickler zu finden.";
+
+/* Class = "UIButton"; accessibilityLabel = "About SEB"; ObjectID = "ecz-EP-DY2"; */
+"ecz-EP-DY2.accessibilityLabel" = "Über SEB";
+
+/* Class = "UIButton"; accessibilityHint = "Closes About SEB view"; ObjectID = "Een-Fo-nNJ"; */
+"Een-Fo-nNJ.accessibilityHint" = "Schliesst das 'Über SEB'-Fenster";
+
+/* Class = "UIButton"; accessibilityLabel = "Close"; ObjectID = "Een-Fo-nNJ"; */
+"Een-Fo-nNJ.accessibilityLabel" = "Schliessen";
+
+/* Class = "UIButton"; accessibilityLabel = "Hide Side Menu"; ObjectID = "eHs-Tc-mxg"; */
+"eHs-Tc-mxg.accessibilityLabel" = "Seitenmenü ausblenden";
+
+/* Class = "UIButton"; normalTitle = "SafeExamBrowser"; ObjectID = "eHs-Tc-mxg"; */
+"eHs-Tc-mxg.normalTitle" = "SafeExamBrowser";
+
+/* Class = "UIViewController"; title = "SEB View Controller"; ObjectID = "feH-Dl-T6E"; */
+"feH-Dl-T6E.title" = "SEB View Controller";
+
+/* Class = "UILabel"; accessibilityHint = "The scanned QR code didn't contain an SEB configuration"; ObjectID = "fem-Ic-Pih"; */
+"fem-Ic-Pih.accessibilityHint" = "Der gescannte QR-Code enthielt keine SEB-Konfiguration";
+
+/* Class = "UILabel"; accessibilityLabel = "Warning: No SEB Configuration found!"; ObjectID = "fem-Ic-Pih"; */
+"fem-Ic-Pih.accessibilityLabel" = "Warnung: Keine SEB-Konfiguration gefunden!";
+
+/* Class = "UILabel"; text = "No SEB configuration found!"; ObjectID = "fem-Ic-Pih"; */
+"fem-Ic-Pih.text" = "Keine SEB-Konfiguration gefunden!";
+
+/* Class = "UILabel"; text = "•"; ObjectID = "GCj-e3-Pe5"; */
+"GCj-e3-Pe5.text" = "•";
+
+/* Class = "UILabel"; text = "Enter quit password to unlock SEB:"; ObjectID = "jBa-LL-dKG"; */
+"jBa-LL-dKG.text" = "Beenden-Passwort eingeben, um SEB zu entsperren:";
+
+/* Class = "UILabel"; text = "Connecting to SEB Server"; ObjectID = "K8j-P3-Yzd"; */
+"K8j-P3-Yzd.text" = "Mit SEB Server verbinden";
+
+/* Class = "UILabel"; text = "Enter the URL of an institution which supports SEB"; ObjectID = "lf7-gn-5ng"; */
+"lf7-gn-5ng.text" = "Geben Sie die URL einer Institution ein, die SEB unterstützt";
+
+/* Class = "UILabel"; text = "SEB"; ObjectID = "NvO-V8-xMf"; */
+"NvO-V8-xMf.text" = "SEB";
+
+/* Class = "UILabel"; text = "•"; ObjectID = "qCX-Ab-h85"; */
+"qCX-Ab-h85.text" = "•";
+
+/* Class = "UIViewController"; title = "Web Pages Side Panel"; ObjectID = "qX6-yp-qcn"; */
+"qX6-yp-qcn.title" = "Webseiten-Seitenmenü";
+
+/* Class = "UIViewController"; title = "SEB Browser Tab View Controller"; ObjectID = "r54-Dr-aZy"; */
+"r54-Dr-aZy.title" = "SEB Browser Tab View Controller";
+
+/* Class = "UIButton"; normalTitle = "More Information…"; ObjectID = "sIk-vP-dKf"; */
+"sIk-vP-dKf.normalTitle" = "Mehr Informationen…";
+
+/* Class = "UILabel"; text = "SafeExamBrowser"; ObjectID = "t05-Ok-qqM"; */
+"t05-Ok-qqM.text" = "SafeExamBrowser";
+
+/* Class = "UIButton"; accessibilityHint = "Displays a camera view to scan for SEB configuration QR codes"; ObjectID = "TLh-eI-sov"; */
+"TLh-eI-sov.accessibilityHint" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
+
+/* Class = "UIButton"; accessibilityLabel = "Scan QR Code"; ObjectID = "TLh-eI-sov"; */
+"TLh-eI-sov.accessibilityLabel" = "QR-Code scannen";
+
+/* Class = "UILabel"; text = "Options to start an exam or configure SafeExamBrowser for your institution"; ObjectID = "Wmj-TM-U1f"; */
+"Wmj-TM-U1f.text" = "Optionen zum Starten einer Prüfung oder zur Konfiguration von SafeExamBrowser für Ihre Institution";
+
+/* Class = "UILabel"; text = "Command"; ObjectID = "xG9-QS-xAw"; */
+"xG9-QS-xAw.text" = "Funktion";
+
+/* Class = "UILabel"; text = "Scan SEB configuration QR code"; ObjectID = "z6r-Ir-cTX"; */
+"z6r-Ir-cTX.text" = "SEB-Konfigurations-QR-Code scannen";
+

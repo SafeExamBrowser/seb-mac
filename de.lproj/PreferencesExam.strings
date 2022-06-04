@@ -53,7 +53,7 @@
 "bTx-tu-6Av.placeholderString" = "URL beginnend mit http:// oder https://";
 
 /* Class = "NSBox"; title = "Back to Start Button"; ObjectID = "czI-08-Q8k"; */
-"czI-08-Q8k.title" = "Zurück zum Start Taste";
+"czI-08-Q8k.title" = "'Zurück zum Start'-Taste";
 
 /* Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi"; */
 "dN3-5O-Rpi.title" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration (während die Client-Konfiguration benutzt wird oder während einer Prüfungssession). Falls die laufende Session ein Beenden-Passwort gesetzt hat, muss die erlaubte URL für die neue Prüfungskonfigurationsdatei im Feld 'Rekonfigurations-URL' angegeben werden (Wildcard-Zeichen '*' kann benutzt werden).";
@@ -89,7 +89,7 @@
 "oJT-BY-ezv.ibShadowedToolTip" = "Eingabe des Beenden/Entsperren-Passworts verlangen, wenn die 'Zurück zum Start'-Taste gedrückt wird";
 
 /* Class = "NSBox"; title = "Reconfiguring Secure/Exam Session"; ObjectID = "olf-PG-s0j"; */
-"olf-PG-s0j.title" = "Prüfungssession umkonfigurieren";
+"olf-PG-s0j.title" = "Sichere-/Prüfungssession umkonfigurieren";
 
 /* Class = "NSTextFieldCell"; title = "Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)"; ObjectID = "pdT-tX-Sdp"; */
 "pdT-tX-Sdp.title" = "Titel des Dialogs/Tooltips für die 'Zurück zum Start'-Taste (leer lassen für lokalisierten Standard-Text)";
@@ -104,7 +104,7 @@
 "SdD-R8-hNc.placeholderString" = "Zu vergleichende URL";
 
 /* Class = "NSButtonCell"; title = "Allow Deep Linking for Exams"; ObjectID = "sOA-63-en9"; */
-"sOA-63-en9.title" = "Deep-Linking für Prüfungen erlauben";
+"sOA-63-en9.title" = "Deep-Linking erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I"; */
 "Suk-hp-L3I.ibShadowedToolTip" = "Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird";
@@ -112,14 +112,17 @@
 /* Class = "NSTextFieldCell"; placeholderString = "Back to Start"; ObjectID = "sY9-Fu-u2Z"; */
 "sY9-Fu-u2Z.placeholderString" = "Prüfung neu starten";
 
-/* Class = "NSButtonCell"; title = "Restart instead of quitting (iOS)"; ObjectID = "u5B-hW-58P"; */
-"u5B-hW-58P.title" = "Neustarten anstatt Beenden (iOS)";
+/* Class = "NSButtonCell"; title = "Restart instead of quitting"; ObjectID = "u5B-hW-58P"; */
+"u5B-hW-58P.title" = "Neustarten anstatt Beenden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "The Back to Start Button reloads the exam's Start URL"; ObjectID = "ujx-Tz-w75"; */
 "ujx-Tz-w75.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste öffnet erneut die Start-URL der Prüfung";
 
 /* Class = "NSBox"; title = "Session Cookies"; ObjectID = "Uuj-be-mvj"; */
 "Uuj-be-mvj.title" = "Session-Cookies";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Config Key"; ObjectID = "Vag-ov-ItE"; */
+"Vag-ov-ItE.ibExternalAccessibilityDescription" = "Config Key";
 
 /* Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa"; */
 "Vfv-tN-rLa.title" = "Deep-Linking erlaubt das Öffnen von diversen Prüfungen mit einer einzigen Konfigurationsdatei, welche irgendwo in der Pfadhierarchie eines sebs:// oder Universal Links abgelegt wurde (die Links müssen mit der Start URL aus der Konfigurationsdatei beginnen)";
@@ -143,5 +146,5 @@
 "ZFB-Me-HJd.ibShadowedToolTip" = "Die zu vergleichende URL muss mit der URL des seb(s)-Links zur Rekonfiguration übereinstimmen. ";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file"; ObjectID = "zfq-ok-40e"; */
-"zfq-ok-40e.ibShadowedToolTip" = "Erlaubt Umkonfigurieren durch das Laden einer SEB Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession";
+"zfq-ok-40e.ibShadowedToolTip" = "Erlaubt Umkonfigurieren durch das Laden einer SEB-Prüfungskonfiguration während die Client-Konfiguration benutzt wird oder während einer Prüfungssession";
 
