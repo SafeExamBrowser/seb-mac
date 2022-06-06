@@ -2861,6 +2861,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) storeDownloadedData:(NSData *)sebFileData fromURL:(NSURL *)url
 {
+    DDLogDebug(@"%s fromURL: %@", __FUNCTION__, url);
     run_on_ui_thread(^{
         self->directlyDownloadedURL = url;
         [self.configFileController storeNewSEBSettings:sebFileData
