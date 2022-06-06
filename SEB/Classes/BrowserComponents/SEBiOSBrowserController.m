@@ -188,7 +188,9 @@
 }
 
 
-- (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector {
+- (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     [_sebViewController storeNewSEBSettings:sebData forEditing:forEditing forceConfiguringClient:forceConfiguringClient showReconfiguredAlert:showReconfiguredAlert callback:callback selector:selector];
 }
 
