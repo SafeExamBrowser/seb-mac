@@ -295,6 +295,7 @@
                       callback:(id)callback
                       selector:(SEL)selector
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
 }
 
