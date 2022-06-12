@@ -232,10 +232,31 @@ import PDFKit
         browserControllerDelegate?.viewDidDisappear?(animated)
     }
     
-    public func stopMediaPlayback() {
-        if #available(macOS 11.3, iOS 14.5, *) {
-            sebWebView.closeAllMediaPresentations()
+    public func stopMediaPlayback(completionHandler: @escaping () -> Void) {
+        let stopMediaScript = "var videos = document.getElementsByTagName('video'); for( var i = 0; i < videos.length; i++ ){videos.item(i).pause()}"
+        if #available(macOS 12, iOS 15.0, *) {
+            sebWebView.pauseAllMediaPlayback {
+                self.sebWebView.closeAllMediaPresentations(completionHandler: completionHandler)
+            }
+            return
+        } else {
+            if #available(macOS 11.3, iOS 14.5, *) {
+                sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
+                    if let _ = error {
+                        print(error as Any)
+                    }
+                    self.sebWebView.closeAllMediaPresentations()
+                    completionHandler()
+                })
+                return
+            }
         }
+        sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
+            if let _ = error {
+                print(error as Any)
+            }
+            completionHandler()
+        })
     }
     
     public func nativeWebView() -> Any {
@@ -866,15 +887,15 @@ import PDFKit
         navigationDelegate?.sebWebViewDidUpdateProgress?(progress)
     }
     
-    public func webViewDidClose(_ webView: WKWebView) {
-        navigationDelegate?.webViewDidClose?(webView)
-    }
-    
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
             _ = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: true)
         }
         return nil
+    }
+    
+    public func webViewDidClose(_ webView: WKWebView) {
+        navigationDelegate?.webViewDidClose?(webView)
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -944,18 +965,6 @@ import PDFKit
     }
     
     public func closeTab() {
-        if #available(macOS 12, iOS 15.0, *) {
-            sebWebView.closeAllMediaPresentations {
-                DispatchQueue.main.async {
-                    self.navigationDelegate?.closeTab?()
-                }
-            }
-        } else {
-            if #available(macOS 11.3, iOS 14.5, *) {
-                sebWebView.closeAllMediaPresentations()
-            }
-            self.navigationDelegate?.closeTab?()
-        }
     }
     
     public func conditionallyDownloadAndOpenSEBConfig(from url: URL) {
