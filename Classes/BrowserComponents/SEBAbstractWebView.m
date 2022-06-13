@@ -292,10 +292,12 @@
 }
 
 
-- (void) stopMediaPlayback
+- (void) stopMediaPlaybackWithCompletionHandler:(void (^)(void))completionHandler
 {
-    if ([self.browserControllerDelegate respondsToSelector:@selector(stopMediaPlayback)]) {
-        [self.browserControllerDelegate stopMediaPlayback];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(stopMediaPlaybackWithCompletionHandler:)]) {
+        [self.browserControllerDelegate stopMediaPlaybackWithCompletionHandler:completionHandler];
+    } else {
+        completionHandler();
     }
 }
 
@@ -785,6 +787,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // If MIME type cannot be displayed by the WebView, then we download it
     DDLogInfo(@"MIME type to download is %@", mimeType);
     return SEBNavigationActionPolicyDownload;
+}
+
+
+- (void)webViewDidClose:(WKWebView *)webView
+{
+    [self.navigationDelegate closeWebView:self];
 }
 
 
