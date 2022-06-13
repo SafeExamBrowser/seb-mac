@@ -228,6 +228,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return navigationDelegate?.webView?(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures)
     }
     
+    public func webViewDidClose(_ webView: WKWebView) {
+        self.navigationDelegate?.webViewDidClose?(webView)
+    }
+    
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         navigationDelegate?.webView?(webView, runJavaScriptAlertPanelWithMessage: message, initiatedByFrame: frame, completionHandler: completionHandler)
     }
@@ -250,7 +254,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         return .grant
     }
     
-    @objc public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
+    public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
         decisionHandler(true)
     }
     

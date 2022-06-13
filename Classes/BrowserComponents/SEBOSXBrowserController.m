@@ -77,23 +77,27 @@
 - (void) closeWebView:(SEBAbstractWebView *)webViewToClose
 {
     if (webViewToClose) {
-        // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-        SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
-        [self removeBrowserWindowWithWebView:webViewToClose];
-        
-        // Get the document for the web view
-        id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];
-        
-        // Close document and therefore also window
-        DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
-        
-        [myDocument close];
-        _activeBrowserWindow = nil;
-        
-        if (webViewToClose == self.temporaryWebView) {
-            self.downloadingInTemporaryWebView = NO;
-            self.temporaryWebView = nil;
-        }
+        [webViewToClose stopMediaPlaybackWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+                SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
+                [self removeBrowserWindowWithWebView:webViewToClose];
+                
+                // Get the document for the web view
+                id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];
+                
+                // Close document and therefore also window
+                DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
+                
+                [myDocument close];
+                self.activeBrowserWindow = nil;
+                
+                if (webViewToClose == self.temporaryWebView) {
+                    self.downloadingInTemporaryWebView = NO;
+                    self.temporaryWebView = nil;
+                }
+            });
+        }];
     }
 }
 
@@ -617,6 +621,8 @@
 // Close all browser windows (including the main browser window)
 - (void) closeAllBrowserWindows
 {
+    [self stopMediaPlaybackInAllWebViews];
+    
     if (self.mainBrowserWindow.isFullScreen) {
         [self closeAllAdditionalBrowserWindows];
         [self.mainBrowserWindow setStyleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
@@ -641,9 +647,24 @@
 }
 
 
+- (void) stopMediaPlaybackInAllWebViews
+{
+    NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
+    SEBBrowserWindowDocument *openWindowDocument;
+    for (openWindowDocument in openWindowDocuments) {
+        SEBBrowserWindow *browserWindow = (SEBBrowserWindow *)openWindowDocument.mainWindowController.window;
+        [browserWindow.webView stopMediaPlaybackWithCompletionHandler:^{
+            DDLogDebug(@"Stopped media playback in browser window %@ with WebView %@", browserWindow, browserWindow.webView);
+        }];
+    }
+}
+
+
 // Close all additional browser windows (except the main browser window)
 - (void) closeAllAdditionalBrowserWindows
 {
+    [self stopMediaPlaybackInAllWebViews];
+    
     NSArray *openWindowDocuments = [[NSDocumentController sharedDocumentController] documents];
     SEBBrowserWindowDocument *openWindowDocument;
     for (openWindowDocument in openWindowDocuments) {
