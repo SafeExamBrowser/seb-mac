@@ -61,7 +61,11 @@
 
 
 - (void)closeWebView:(SEBAbstractWebView *)webViewToClose {
-    [_sebViewController.browserTabViewController closeTab];
+    [webViewToClose stopMediaPlaybackWithCompletionHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.sebViewController.browserTabViewController closeTab];
+        });
+    }];
 }
 
 
