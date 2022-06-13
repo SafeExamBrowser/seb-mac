@@ -964,9 +964,6 @@ import PDFKit
         navigationDelegate?.switchToPreviousTab?()
     }
     
-    public func closeTab() {
-    }
-    
     public func conditionallyDownloadAndOpenSEBConfig(from url: URL) {
         navigationDelegate?.conditionallyDownloadAndOpenSEBConfig?(from: url)
     }
