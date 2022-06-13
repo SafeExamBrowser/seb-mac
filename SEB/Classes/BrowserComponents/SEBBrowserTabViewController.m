@@ -622,6 +622,8 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         OpenWebpages *webpage = _openWebpages[tabIndex];
         SEBiOSWebViewController *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
+        // by calling the according API in WKWebView
+        [webViewController closeTab];
         // by properly releasing it
         webViewController.sebWebView = nil;
         webViewController.view = nil;
@@ -795,13 +797,14 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     [_visibleWebViewController removeFromParentViewController];
 
     for (OpenWebpages *webpage in _openWebpages) {
-        SEBiOSWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController __block *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
-        [webViewController.sebWebView stopMediaPlayback];
-        webViewController.sebWebView = nil;
-        webViewController.view = nil;
-        webViewController = nil;
+        [webViewController.sebWebView stopMediaPlaybackWithCompletionHandler:^{
+            webViewController.sebWebView = nil;
+            webViewController.view = nil;
+            webViewController = nil;
+        }];
     }
     [_openWebpages removeAllObjects];
     
