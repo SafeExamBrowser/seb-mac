@@ -569,7 +569,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 
-- (void) closeTabWithWebView:(SEBAbstractWebView *)webView
+- (void) closeWebView:(SEBAbstractWebView *)webView
 {
     NSUInteger tabIndex = [self tabIndexForWebView:webView];
     [self closeTabWithIndex:tabIndex];
@@ -620,48 +620,50 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         
 //        NSString *pageToCloseURL = webpageToClose.url;
         OpenWebpages *webpage = _openWebpages[tabIndex];
-        SEBiOSWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController __block *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
-        // by calling the according API in WKWebView
-        [webViewController closeTab];
         // by properly releasing it
-        webViewController.sebWebView = nil;
-        webViewController.view = nil;
-        webViewController = nil;
+        [webViewController.sebWebView stopMediaPlaybackWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                webViewController.sebWebView = nil;
+                webViewController.view = nil;
+                webViewController = nil;
 
-        [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
-        
-        // Save everything
-        NSError *error = nil;
-        if ([context save:&error]) {
-            DDLogDebug(@"%s: Saving context was successful!", __FUNCTION__);
-        } else {
-            DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
-        }
-        
-        [_persistentWebpages removeObjectAtIndex:tabIndex];
-        [_openWebpages removeObjectAtIndex:tabIndex];
-        
-        // Check if the user is closing the main web view (with the exam)
-        if (tabIndex == 0) {
-            [_visibleWebViewController removeFromParentViewController];
-            _visibleWebViewController = nil;
-        } else {
-            NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-            NSInteger currentWebpageIndexPathRow = self.currentTabIndex;
-            // Was a tab closed which was before the currently displayed in the webpage side panel list
-            if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
-                // Yes: the index of the current webpage must be decreased by one
-                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
-                // Or was the currently displayed webpage closed?
-            } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
-                // Yes: the index of the current webpage must be decreased by one
-                self.currentTabIndex--;
-                [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
-                // and we switch to the webpage one position before the closed one in the webpage side panel list
-                [self switchToTab:nil];
-            }
-        }
+                [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
+                
+                // Save everything
+                NSError *error = nil;
+                if ([context save:&error]) {
+                    DDLogDebug(@"%s: Saving context was successful!", __FUNCTION__);
+                } else {
+                    DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
+                }
+                
+                [self.persistentWebpages removeObjectAtIndex:tabIndex];
+                [self.openWebpages removeObjectAtIndex:tabIndex];
+                
+                // Check if the user is closing the main web view (with the exam)
+                if (tabIndex == 0) {
+                    [self.visibleWebViewController removeFromParentViewController];
+                    self.visibleWebViewController = nil;
+                } else {
+                    NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+                    NSInteger currentWebpageIndexPathRow = self.currentTabIndex;
+                    // Was a tab closed which was before the currently displayed in the webpage side panel list
+                    if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
+                        // Yes: the index of the current webpage must be decreased by one
+                        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+                        // Or was the currently displayed webpage closed?
+                    } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
+                        // Yes: the index of the current webpage must be decreased by one
+                        self.currentTabIndex--;
+                        [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
+                        // and we switch to the webpage one position before the closed one in the webpage side panel list
+                        [self switchToTab:nil];
+                    }
+                }
+            });
+        }];
     }
 }
 
