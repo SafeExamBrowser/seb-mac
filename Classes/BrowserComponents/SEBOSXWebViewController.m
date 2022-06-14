@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel Schneider on 09.08.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -38,11 +38,11 @@
 @implementation SEBOSXWebViewController
 
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHostWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
         _sebAbstractWebView = sebAbstractWebView;
     }
     return self;
@@ -97,12 +97,5 @@
     
     [super viewDidDisappear];
 }
-
-//- (void)viewDidLayout
-//{
-//    [_sebAbstractWebView view]
-//    
-//}
-
 
 @end

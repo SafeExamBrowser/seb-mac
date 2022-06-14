@@ -1,0 +1,51 @@
+/* (No Comment) */
+"Admin Password" = "Administrator-Passwort";
+
+/* (No Comment) */
+"Browser Features" = "Browser-Funktionen";
+
+/* (No Comment) */
+"Config File" = "Konfigurationsdatei";
+
+/* (No Comment) */
+"Downloads" = "Downloads";
+
+/* (No Comment) */
+"Exam Session" = "Prüfungssession";
+
+/* String for IASKPlaceholder elements */
+"Full URL" = "Vollständige URL";
+
+/* String for Title elements */
+"General" = "Allgemein";
+
+/* (No Comment) */
+"Network" = "Netzwerk";
+
+/* (No Comment) */
+"Quit Password" = "Beenden-Passwort";
+
+/* (No Comment) */
+"Remote Proctoring" = "Fernüberwachung";
+
+/* (No Comment) */
+"Restricts editing settings" = "Schränkt die Bearbeitung der Einstellungen ein";
+
+/* (No Comment) */
+"SEB Server" = "SEB Server";
+
+/* (No Comment) */
+"Security" = "Sicherheit";
+
+/* (No Comment) */
+"Set to run in secure mode" = "Setzen, damit SEB im sicheren Modus läuft";
+
+/* (No Comment) */
+"Start URL" = "Start-URL";
+
+/* (No Comment) */
+"User Interface" = "Benutzeroberfläche";
+
+/* String for FooterText elements */
+"Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set." = "Ohne Start-URL zeigt SEB den Erstkonfigurationsassistenten an. Setzen Sie immer ein Administrator-Passwort für SEB, um die Einstellungen vor Änderungen zu schützen. SEB läuft nur im Einzel-App-Modus, wenn das Beenden-Passwort gesetzt ist.";
+

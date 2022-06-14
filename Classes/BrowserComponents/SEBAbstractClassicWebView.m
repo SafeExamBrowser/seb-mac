@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03.03.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -110,6 +110,16 @@
     [self.browserControllerDelegate stopLoading];
 }
 
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_FocusFirstElement()"];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_FocusLastElement()"];
+}
+
 - (void) zoomPageIn
 {
     [self.browserControllerDelegate zoomPageIn];
@@ -138,6 +148,44 @@
 - (void) textSizeReset
 {
     [self.browserControllerDelegate textSizeReset];
+}
+
+
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    if (textToSearch.length == 0) {
+        previousSearchText = textToSearch;
+        [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_RemoveAllHighlights()"];
+        [self.navigationDelegate searchTextMatchFound:NO];
+    } else {
+        if ([previousSearchText isEqualToString:textToSearch]) {
+            if (backwards) {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchPrevious()"];
+            } else {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchNext()"];
+            }
+            [self.navigationDelegate searchTextMatchFound:YES];
+        } else {
+            previousSearchText = textToSearch;
+            NSString *searchString = [NSString stringWithFormat:@"SEB_HighlightAllOccurencesOfString('%@')", textToSearch];
+            [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:searchString];
+            if (backwards) {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchPrevious()"];
+            } else {
+                [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchNext()"];
+            }
+            NSString *result = [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_SearchResultCount"];
+            if (result.length > 0) {
+                NSInteger count = result.integerValue;
+                if (count > 0) {
+                    [self.navigationDelegate searchTextMatchFound:YES];
+                    return;
+                }
+            }
+            [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_RemoveAllHighlights()"];
+            [self.navigationDelegate searchTextMatchFound:NO];
+        }
+    }
 }
 
 
@@ -275,6 +323,11 @@
     return self.navigationDelegate.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.navigationDelegate.accessibilityDock;
+}
+
 - (void) setLoading:(BOOL)loading
 {
     [self.navigationDelegate setLoading:loading];
@@ -287,6 +340,9 @@
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
+    if (cookies.count == 0) {
+        cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+    }
     [self.navigationDelegate examineCookies:cookies forURL:url];
 }
 
@@ -340,6 +396,11 @@
     self.navigationDelegate.currentMainHost = currentMainHost;
 }
 
+- (BOOL) isMainBrowserWebView
+{
+    return self.navigationDelegate.isMainBrowserWebView;
+}
+
 - (BOOL) isMainBrowserWebViewActive
 {
     return self.navigationDelegate.isMainBrowserWebViewActive;
@@ -353,6 +414,16 @@
 - (NSString *) pageJavaScript
 {
     return self.navigationDelegate.pageJavaScript;
+}
+
+- (BOOL)allowDownUploads
+{
+    return self.navigationDelegate.allowDownUploads;
+}
+
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL) allowSpellCheck
@@ -421,6 +492,17 @@
     [self.navigationDelegate sebWebViewDidStartLoad];
 }
 
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
+{
+    if (self.navigationDelegate == nil) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    } else {
+        [self.navigationDelegate webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    }
+}
+
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
@@ -477,9 +559,8 @@ completionHandler:(void (^)(void))completionHandler
 
 - (void)pageTitle:(NSString *)pageTitle
 runJavaScriptAlertPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -492,9 +573,8 @@ completionHandler:(void (^)(BOOL result))completionHandler
 
 - (BOOL)pageTitle:(NSString *)pageTitle
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -509,9 +589,8 @@ completionHandler:(void (^)(NSString *result))completionHandler
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
           defaultText:(NSString *)defaultText
-     initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 - (void)webView:(WKWebView *)webView

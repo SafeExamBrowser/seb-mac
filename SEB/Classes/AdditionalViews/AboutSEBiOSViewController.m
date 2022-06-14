@@ -242,7 +242,7 @@
                 }
                 [self.sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
                 [self.sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
-                [self.sebViewController.mailViewController setMessageBody:NSLocalizedString(@"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):\n", nil) isHTML:NO];
+                [self.sebViewController.mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):", nil)] isHTML:NO];
                 [self.sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
                 
                 [self.sebViewController.topMostController presentViewController:self.sebViewController.mailViewController animated:YES completion:nil];

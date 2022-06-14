@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 04.11.20.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -35,23 +35,32 @@
 #import "SEBAbstractWebView.h"
 #import "SEBAbstractClassicWebView.h"
 #import "SafeExamBrowser-Swift.h"
+#if TARGET_OS_OSX
 #import "NSPasteboard+SaveRestore.h"
-
+#endif
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = delegate;
     if (self) {
+        _isMainBrowserWebView = mainWebView;
+        _isReloadAllowed = [_navigationDelegate isReloadAllowedMainWebView:mainWebView];
+        _showReloadWarning = [_navigationDelegate showReloadWarningMainWebView:mainWebView];
+        _isNavigationAllowed = [_navigationDelegate isNavigationAllowedMainWebView:mainWebView];
         _overrideAllowSpellCheck = overrideSpellCheck;
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
-        downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+        _downUploadsAllowed = _navigationDelegate.allowDownUploads;
+#if TARGET_OS_OSX
+        // Downloading PDF files on iOS is currently unsupported, they will always be displayed
+        _downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+#endif
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
         if (@available(macOS 10.13, iOS 11.0, *)) {
@@ -131,6 +140,9 @@
 
 - (void)reload
 {
+    if (self.isReloadAllowed == NO) {
+        return;
+    }
     [self.browserControllerDelegate reload];
 }
 
@@ -144,6 +156,16 @@
 - (void)stopLoading
 {
     [self.browserControllerDelegate stopLoading];
+}
+
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
 }
 
 - (void) zoomPageIn
@@ -174,6 +196,12 @@
 - (void) textSizeReset
 {
     [self.browserControllerDelegate textSizeReset];
+}
+
+
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    [self.browserControllerDelegate searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
 }
 
 
@@ -264,6 +292,16 @@
 }
 
 
+- (void) stopMediaPlaybackWithCompletionHandler:(void (^)(void))completionHandler
+{
+    if ([self.browserControllerDelegate respondsToSelector:@selector(stopMediaPlaybackWithCompletionHandler:)]) {
+        [self.browserControllerDelegate stopMediaPlaybackWithCompletionHandler:completionHandler];
+    } else {
+        completionHandler();
+    }
+}
+
+
 - (void)toggleScrollLock
 {
     if ([self.browserControllerDelegate respondsToSelector:@selector(toggleScrollLock)]) {
@@ -303,6 +341,10 @@
     return self.navigationDelegate.wkWebViewConfiguration;
 }
 
+- (id) accessibilityDock
+{
+    return self.navigationDelegate.accessibilityDock;
+}
 
 - (void) setLoading:(BOOL)loading
 {
@@ -322,6 +364,20 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.navigationDelegate examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(firstDOMElementDeselected)]) {
+        [self.navigationDelegate firstDOMElementDeselected];
+   }
+}
+
+- (void) lastDOMElementDeselected
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(lastDOMElementDeselected)]) {
+        [self.navigationDelegate lastDOMElementDeselected];
+    }
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
@@ -376,7 +432,7 @@
 
 - (BOOL)isMainBrowserWebViewActive
 {
-    return self.navigationDelegate.isMainBrowserWebViewActive;
+    return self.isMainBrowserWebView;
 }
 
 - (NSString *)quitURL
@@ -387,6 +443,16 @@
 - (NSString *)pageJavaScript
 {
     return self.navigationDelegate.pageJavaScript;
+}
+
+- (BOOL)allowDownUploads
+{
+    return _downUploadsAllowed;
+}
+
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -415,6 +481,12 @@
 }
 
 
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [self.navigationDelegate searchTextMatchFound:matchFound];
+}
+
+
 @synthesize customSEBUserAgent;
 
 - (NSString *) customSEBUserAgent
@@ -435,17 +507,21 @@
 }
 
 - (void) storePasteboard {
+#if TARGET_OS_OSX
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     NSArray *archive = [generalPasteboard archiveObjects];
     self.navigationDelegate.privatePasteboardItems = archive;
     [generalPasteboard clearContents];
+#endif
 }
 
 - (void) restorePasteboard {
+#if TARGET_OS_OSX
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     [generalPasteboard clearContents];
     NSArray *archive = self.navigationDelegate.privatePasteboardItems;
     [generalPasteboard restoreArchive:archive];
+#endif
 }
 
 
@@ -468,6 +544,9 @@
 //    [self.navigationDelegate examineCookies:cookies];
 
     [self.navigationDelegate sebWebViewDidStartLoad];
+    if (self.isNavigationAllowed == NO && [self.browserControllerDelegate respondsToSelector:@selector(clearBackForwardList)]) {
+        [self.browserControllerDelegate clearBackForwardList];
+    }
 }
 
 
@@ -475,13 +554,27 @@
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    [self.navigationDelegate webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    if (self.navigationDelegate == nil) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    } else {
+        [self.navigationDelegate webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    }
 }
 
 
 - (void)sebWebViewDidFinishLoad
 {
     [self.navigationDelegate sebWebViewDidFinishLoad];
+
+    NSURL *pageURL = self.url;
+    NSString *pageTitle = self.pageTitle;
+    if (pageTitle.length == 0) {
+        if ([pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+            pageTitle = pageURL.lastPathComponent;
+        }
+    }
+    [self.navigationDelegate setPageTitle:pageTitle];
+
     [self.navigationDelegate setCanGoBack:self.canGoBack canGoForward:self.canGoForward];
 }
 
@@ -513,7 +606,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         // (according to current ShowURL policy settings for exam/additional tab)
         BOOL showURL = false;
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if (self.navigationDelegate.isMainBrowserWebViewActive) {
+        if (self.isMainBrowserWebView) {
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLOnlyLoadError) {
                 showURL = true;
             }
@@ -539,7 +632,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogDebug(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
@@ -670,7 +763,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                                      suggestedFilename:(NSString *)suggestedFilename
                                                cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    DDLogDebug(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
+    DDLogVerbose(@"decidePolicyForMIMEType: %@, URL: %@, canShowMIMEType: %d, isForMainFrame: %d, suggestedFilename %@", mimeType, url.absoluteString, canShowMIMEType, isForMainFrame, suggestedFilename);
     
     [self.navigationDelegate examineCookies:cookies forURL:url];
     
@@ -685,7 +778,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (![mimeType isEqualToString:mimeTypePDF] || !downloadPDFFiles) {
+    if (!([mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && _downUploadsAllowed && _downloadPDFFiles)) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;
@@ -694,6 +787,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // If MIME type cannot be displayed by the WebView, then we download it
     DDLogInfo(@"MIME type to download is %@", mimeType);
     return SEBNavigationActionPolicyDownload;
+}
+
+
+- (void)webViewDidClose:(WKWebView *)webView
+{
+    [self.navigationDelegate closeWebView:self];
 }
 
 
@@ -707,9 +806,8 @@ completionHandler:(void (^)(void))completionHandler
 
 - (void)pageTitle:(NSString *)pageTitle
 runJavaScriptAlertPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -722,9 +820,8 @@ completionHandler:(void (^)(BOOL result))completionHandler
 
 - (BOOL)pageTitle:(NSString *)pageTitle
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
-initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message];
 }
 
 - (void)webView:(WKWebView *)webView
@@ -739,9 +836,8 @@ completionHandler:(void (^)(NSString *result))completionHandler
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
           defaultText:(NSString *)defaultText
-     initiatedByFrame:(WebFrame *)frame
 {
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 - (void)webView:(WKWebView *)webView

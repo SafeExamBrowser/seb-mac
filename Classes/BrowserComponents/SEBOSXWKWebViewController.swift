@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 10.08.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -33,6 +33,7 @@
 //
 
 import Foundation
+import WebKit
 
 public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, SEBAbstractBrowserControllerDelegate {
     
@@ -54,6 +55,8 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
             
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            let enableZoomPage = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage")
+            _sebWebView?.allowsMagnification = enableZoomPage
             urlFilter = SEBURLFilter.shared()
         }
         return _sebWebView
@@ -153,8 +156,8 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         sebWebView?.goForward()
     }
     
-    public func reload() {
-        sebWebView?.reload()
+    public func clearBackForwardList() {
+        sebWebView?.backForwardList.perform(Selector(("_removeAllItems")))
     }
     
     public func load(_ url: URL) {
@@ -183,6 +186,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
     }
     
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
+    }
+    
     public func webView(_ webView: WKWebView,
                         didReceive challenge: URLAuthenticationChallenge,
                         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -200,11 +207,11 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
-        
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         DDLogError("[SEBOSXWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+        navigationDelegate?.webViewWebContentProcessDidTerminate?(webView)
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -219,6 +226,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         return navigationDelegate?.webView?(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures)
+    }
+    
+    public func webViewDidClose(_ webView: WKWebView) {
+        self.navigationDelegate?.webViewDidClose?(webView)
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -237,6 +248,20 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
         navigationDelegate?.webView?(webView, runOpenPanelWithParameters: parameters, initiatedByFrame: frame, completionHandler: completionHandler)
     }
+    
+    @available(macOS 12.0, *)
+    public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
+        return .grant
+    }
+    
+    public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
+        decisionHandler(true)
+    }
+    
+    public func _webView(_ webView: WKWebView, requestDisplayCapturePermissionFor securityOrigin: WKSecurityOrigin, initiatedByFrame frame: WKFrameInfo, withSystemAudio: Bool, decisionHandler: @escaping (WKDisplayCapturePermissionDecision) -> Void) {
+        decisionHandler(.screenPrompt)
+    }
+
 }
 
 extension NSView {
@@ -279,7 +304,7 @@ extension NSObject {
     }
 
     @objc public func instanceMethod(for selector: Selector) -> Method? {
-        let classType: AnyClass! = object_getClass(self)
+        let classType: AnyClass? = object_getClass(self)
         return class_getInstanceMethod(classType, selector)
     }
 }

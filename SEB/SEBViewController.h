@@ -2,7 +2,7 @@
 //  SEBViewController.h
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -81,8 +81,8 @@
 
 #import "SEBiOSBrowserController.h"
 #import "SEBBrowserTabViewController.h"
-#import "SEBSearchBarViewController.h"
 
+#import "SEBBatteryController.h"
 #import "ServerController.h"
 #import "SEBServerViewController.h"
 #import "ServerLogger.h"
@@ -93,7 +93,6 @@
 @class SEBUIController;
 @class SEBiOSBrowserController;
 @class SEBBrowserTabViewController;
-@class SEBSearchBarViewController;
 @class SEBiOSConfigFileController;
 @class SEBInAppSettingsViewController;
 @class SEBInitAssistantViewController;
@@ -101,12 +100,16 @@
 @class SEBiOSLockedViewController;
 @class QRCodeReaderViewController;
 @class AboutSEBiOSViewController;
+@class SEBBatteryController;
 @class ServerController;
 @class SEBServerViewController;
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate>
+#define SEBToolBarSearchBarIconWidth 24.0
+#define SEBToolBarSearchBarWidth 200.0
+
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -131,8 +134,19 @@
     NSUInteger statusBarAppearance;
     UIBarButtonItem *toolbarBackButton;
     UIBarButtonItem *toolbarForwardButton;
+    UIBarButtonItem *toolbarSearchButton;
+    UIButton *toolbarSearchButtonDone;
+    UISearchBar *textSearchBar;
+    NSLayoutConstraint *searchBarWidthConstraint;
+    NSLayoutConstraint *searchBarTopConstraint;
+    UIButton *toolbarSearchButtonNextResult;
+    UIButton *toolbarSearchButtonPreviousResult;
+    BOOL toolbarSearchBarActiveRemovedOtherItems;
+    NSString *toolbarSearchBarReplacedTitle;
+
     UIBarButtonItem *toolbarReloadButton;
     CGFloat navigationBarItemsOffset;
+    
     BOOL assureSAMNotActiveWaiting;
 }
 
@@ -146,7 +160,9 @@
 @property (strong, nonatomic) SEBBrowserTabViewController *browserTabViewController;
 @property (strong, nonatomic) SEBUIController *sebUIController;
 //@property (nonatomic, strong) SEBiOSDockController *dockController;
-@property (strong, nonatomic) SEBSearchBarViewController *searchBarViewController;
+@property (readwrite) BOOL showNavigationBarTemporarily;
+@property (readwrite) BOOL updateTemporaryNavigationBarVisibilty;
+@property (readwrite) BOOL searchMatchFound;
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
@@ -154,6 +170,7 @@
 @property (strong, nonatomic) MFMailComposeViewController *mailViewController;
 @property (strong, nonatomic) UIViewController *rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
+@property(strong, nonatomic) SEBBatteryController *batteryController;
 
 /// Locking down SEB
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
@@ -165,6 +182,7 @@
 @property (readwrite, strong) NSDate *didResumeExamTime;
 @property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
 @property (readwrite, strong) NSDate *appDidBecomeActiveTime;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 /// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
@@ -227,6 +245,8 @@
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarBottomConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSafeArea;
 @property (strong, nonatomic) NSLayoutConstraint *navigationBarLeftConstraintToSuperView;
+
+@property(readonly) BOOL allowFind;
 
 @property(readwrite) BOOL secureMode;
 @property(readwrite) BOOL enableASAM;
@@ -321,7 +341,7 @@
 - (void) stopAutonomousSingleAppMode;
 
 #pragma mark - Lockdown windows
-- (void) conditionallyOpenStartExamLockdownWindows;
+- (void) conditionallyOpenStartExamLockdownWindows:(NSString *)examURLString;
 - (BOOL) conditionallyOpenSleepModeLockdownWindows;
 - (void) openLockdownWindows;
 
@@ -339,8 +359,11 @@
 - (void) storeNewSEBSettings:(NSData *)sebData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
+#pragma mark - Toolbar (UINavigationBar)
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
+- (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler;
+- (void) conditionallyRemoveToolbarWithCompletion:(void (^)(void))completionHandler;
 
 #pragma mark - SEB Dock and left slider button handler
 - (void) leftDrawerButtonPress:(id)sender;
@@ -349,6 +372,15 @@
 - (IBAction) toggleScrollLock;
 - (void) updateScrollLockButtonStates;
 @property (readonly) BOOL isScrollLockActive;
+
+- (void) zoomPageIn;
+- (void) zoomPageOut;
+- (void) zoomPageReset;
+- (void) textSizeIncrease;
+- (void) textSizeDecrease;
+- (void) textSizeReset;
+
+- (IBAction) searchTextOnPage;
 - (IBAction) backToStart;
 - (IBAction) goBack;
 - (IBAction) goForward;
@@ -391,6 +423,9 @@
                             selector:(SEL)selector;
 - (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 - (UIViewController *) topMostController;
+
+- (void) searchTextMatchFound:(BOOL)matchFound;
+- (void) sebWebViewDidFinishLoad;
 
 @end
 

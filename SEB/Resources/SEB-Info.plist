@@ -73,7 +73,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Camera is needed to scan QR codes and for remote proctoring</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<string>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.</string>
 	<key>NSMicrophoneUsageDescription</key>

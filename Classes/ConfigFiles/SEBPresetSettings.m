@@ -42,12 +42,21 @@
                           @"identifier" : @"im.riot.app",
                       },
                       @{
+                          @"executable" : @"Universal Control",
+                          @"identifier" : @"com.apple.universalcontrol",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
                       @{
                           @"executable" : @"Messages",
                           @"identifier" : @"com.apple.iChat",
+                      },
+                      @{
+                          @"executable" : @"Messages",
+                          @"identifier" : @"com.apple.MobileSMS",
                       },
                       @{
                           @"executable" : @"Telegram",
@@ -102,13 +111,18 @@
                           @"identifier" : @"com.techsmith.camtasia*",
                       },
                       @{
+                          @"executable" : @"AnyDesk",
+                          @"identifier" : @"com.philandro.anydesk",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Alfred*",
                           @"identifier" : @"com.runningwithcrayons.Alfred*",
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
-                          @"executable" : @"Safari Networking",
-                          @"identifier" : @"com.apple.WebKit.Networking",
+                          @"executable" : @"Safari/WebKit Networking",
+                          @"identifier" : WebKitNetworkingProcess,
                           @"strongKill" : @YES,
                       },
                       @{

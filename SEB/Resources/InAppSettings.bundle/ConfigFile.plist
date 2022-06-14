@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>ConfigFile</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -124,7 +124,7 @@
 			<key>Title</key>
 			<string>Editing Settings</string>
 			<key>FooterText</key>
-			<string>Recommended for easier set-up and testing. Shows the &quot;Edit Settings&quot; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</string>
+			<string>Recommended for easier set-up and testing. Shows the &apos;Edit Settings&apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

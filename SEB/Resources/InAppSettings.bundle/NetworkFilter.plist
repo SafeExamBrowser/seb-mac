@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>NetworkFilter</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -56,7 +56,7 @@
 			<key>Title</key>
 			<string>Filter Rules</string>
 			<key>FooterText</key>
-			<string>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &quot;Teach SEB allowed/blocked URLs&quot; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</string>
+			<string>List of filter rules, currently these can only be edited in SEB desktop versions. Use the &apos;Teach SEB allowed/blocked URLs&apos; feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

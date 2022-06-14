@@ -1,8 +1,8 @@
 //
-//  SEBWebViewController.h
+//  SEBiOSWebViewController.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -37,6 +37,8 @@
 #import "SEBAbstractWebView.h"
 #import "SEBBrowserTabViewController.h"
 #import "SEBURLFilter.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SEBAbstractWebView;
 @class SEBBrowserTabViewController;
@@ -53,21 +55,23 @@
     NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
-    BOOL openCloseSlider;
 }
 
 
-@property (weak, nonatomic) SEBBrowserTabViewController *navigationDelegate;
-@property (strong, nonatomic) SEBAbstractWebView *sebWebView;
+@property (weak, nonatomic) SEBBrowserTabViewController<SEBAbstractWebViewNavigationDelegate> *navigationDelegate;
+@property (strong, nonatomic) SEBAbstractWebView *_Nullable sebWebView;
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
-@property (strong, nonatomic) NSURL *currentURL;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;
 @property (readonly) BOOL isScrollLockActive;
+@property (strong, nonatomic) NSString *searchText;
+@property (readwrite) BOOL searchMatchFound;
+@property (readwrite) BOOL openCloseSlider;
 
-- (instancetype)initNewTabWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
 
 - (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
 - (void)removeAllHighlightsInWebView:(UIWebView *)webView;
@@ -85,5 +89,7 @@
 - (void)loadURL:(NSURL *)url;
 
 - (void)setBackForwardAvailabilty;
+
+NS_ASSUME_NONNULL_END
 
 @end

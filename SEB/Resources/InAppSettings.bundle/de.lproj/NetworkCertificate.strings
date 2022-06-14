@@ -1,0 +1,30 @@
+/* (No Comment) */
+"Certificates" = "Zertifikate";
+
+/* (No Comment) */
+"Choose Identity" = "Identität wählen";
+
+/* (No Comment) */
+"Cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) embedded into a client config file can be used to decrypt exam config files on clients." = "In eine Client-Konfigurationsdatei eingebettete kryptografische Identitäten (X.509-Zertifikate mit öffentlichem RSA-Schlüssel und zugehörigem privaten Schlüssel, die sicher im Schlüsselbund gespeichert sind) können zur Entschlüsselung von Prüfungskonfigurationsdateien auf Clients verwendet werden.";
+
+/* (No Comment) */
+"Embed Identity Certificates" = "Identitätszertifikate einbetten";
+
+/* (No Comment) */
+"Embed in SEB desktop version" = "In SEB-Desktop-Version einbetten";
+
+/* String for Title elements */
+"Embed Server Certificates" = "Server-Zertifikate einbetten";
+
+/* (No Comment) */
+"Embedded Certificates" = "Eingebettete Zertifikate";
+
+/* (No Comment) */
+"List of all embedded certificates in the current config file, sorted by type. SSL/CA/Debug certificates can currently only be added in SEB desktop versions." = "Liste aller eingebetteten Zertifikate in der aktuellen Konfigurationsdatei, sortiert nach Typ. SSL/CA/Debug-Zertifikate können derzeit nur in SEB-Desktop-Versionen hinzugefügt werden.";
+
+/* (No Comment) */
+"Pin Certificates" = "Zertifikate pinnen";
+
+/* String for FooterText elements */
+"Self-signed TLS/SSL/CA certificates have to be embedded into config files to allow accessing a secure server. With certificate pinning, the iOS certificate store is bypassed and only embedded certificates establish trust for https connections." = "Selbstsignierte TLS/SSL/CA-Zertifikate müssen in Konfigurationsdateien eingebettet werden, um den Zugriff auf einen sicheren Server zu ermöglichen. Mit Zertifikats-Pinning wird der iOS-Zertifikatspeicher umgangen und für https-Verbindungen wird nur eingebetteten Zertifikaten vertraut.";
+

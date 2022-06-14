@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 30/09/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -73,8 +73,9 @@
 }
 
 
-- (BOOL)isStartingLockedExam {
-    return [self.lockedViewController isStartingLockedExam];
+- (BOOL) isStartingLockedExam:(NSString *)examURLString
+{
+    return [self.lockedViewController isStartingLockedExam:examURLString];
 }
 
 - (void)shouldCloseLockdownWindows {
@@ -97,9 +98,14 @@
 }
 
 
+- (IBAction)retryButtonPressed:(id)sender {
+    [self.lockedViewController retryButtonPressed];
+}
+
+
 - (IBAction)passwordEntered:(id)sender {
-    DDLogDebug(@"Password entered in lock view alert");
-    DDLogDebug(@"Lockdown alert: Covering window has frame %@ and window level %ld",
+    DDLogInfo(@"Password entered in lock view alert");
+    DDLogVerbose(@"Lockdown alert: Covering window has frame %@ and window level %ld",
                (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.view.superview.frame)),
                self.view.window.level);
     [self.lockedViewController passwordEntered];
@@ -132,7 +138,7 @@
     } else {
         newScrollOrigin = NSMakePoint(0.0,0.0);
     }
-    DDLogDebug(@"Log scroll view frame: %@, y coordinate to scroll to: %f",
+    DDLogDebug(@"Log scroll view %@ frame: %@, y coordinate to scroll to: %f", logScrollView, 
                (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame])),
                newScrollOrigin.y);
     

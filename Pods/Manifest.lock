@@ -1,30 +1,38 @@
 PODS:
-  - CocoaLumberjack/Core (3.7.2)
-  - CocoaLumberjack/Swift (3.7.2):
+  - CocoaLumberjack/Core (3.7.4)
+  - CocoaLumberjack/Swift (3.7.4):
     - CocoaLumberjack/Core
-  - InAppSettingsKit (2.15)
+  - InAppSettingsKit (3.3.6)
   - JitsiMeetSDK (3.9.0)
   - QRCodeReaderViewController (4.0.2)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift
-  - InAppSettingsKit (~> 2.15)
-  - JitsiMeetSDK
+  - InAppSettingsKit (from `https://github.com/SafeExamBrowser/InAppSettingsKit.git`)
+  - JitsiMeetSDK (~> 3.9.0)
   - QRCodeReaderViewController (~> 4.0.2)
 
 SPEC REPOS:
   trunk:
     - CocoaLumberjack
-    - InAppSettingsKit
     - JitsiMeetSDK
     - QRCodeReaderViewController
 
+EXTERNAL SOURCES:
+  InAppSettingsKit:
+    :git: https://github.com/SafeExamBrowser/InAppSettingsKit.git
+
+CHECKOUT OPTIONS:
+  InAppSettingsKit:
+    :commit: 15f73b8350f303ca6b7bb66f598f124c986eed81
+    :git: https://github.com/SafeExamBrowser/InAppSettingsKit.git
+
 SPEC CHECKSUMS:
-  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
-  InAppSettingsKit: 4890a44f9df7a1742c632920f0ea939cbeb29ea2
+  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
+  InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   JitsiMeetSDK: ee41fac0c5e4157ea2d88ed9e9ca5ab1dca8311b
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: 71f8e0101749b56f3c9491dc5d2168660f922849
+PODFILE CHECKSUM: 6bd0c773ec6f6365a24433848af65d3fcb0453e9
 
 COCOAPODS: 1.10.1

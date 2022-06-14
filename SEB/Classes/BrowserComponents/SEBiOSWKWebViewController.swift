@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 19.03.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -43,20 +43,22 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     private var _sebWebView: WKWebView?
 
     public var sebWebView: WKWebView? {
-        if sebWebView == nil {
+        if _sebWebView == nil {
             let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             let webFrame = UIScreen.main.bounds
-            sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
+            _sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
             let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
-            sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
-            sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            sebWebView?.scrollView.isScrollEnabled = true
-            sebWebView?.translatesAutoresizingMaskIntoConstraints = true
-            zoomScale = sebWebView?.scrollView.zoomScale
-            sebWebView?.uiDelegate = self
-            sebWebView?.navigationDelegate = self
-            
-            sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
+            _sebWebView?.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? UIColor.black : UIColor.white
+            _sebWebView?.scrollView.contentInsetAdjustmentBehavior = .always
+            _sebWebView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            _sebWebView?.scrollView.isScrollEnabled = true
+            _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
+            zoomScale = _sebWebView?.scrollView.zoomScale
+            _sebWebView?.uiDelegate = self
+            _sebWebView?.navigationDelegate = self
+            _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)            
+
+            _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
             urlFilter = SEBURLFilter.shared()
         }
         return _sebWebView
@@ -66,6 +68,15 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter: SEBURLFilter?
     
+    public func updateZoomScale(_ contentZoomScale: Double) {
+        zoomScale = sebWebView?.scrollView.zoomScale
+        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
+        if contentZoomScale != 1 {
+            let js = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
+            sebWebView?.evaluateJavaScript(js)
+        }
+    }
+    
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
         self.init()
         navigationDelegate = delegate
@@ -74,13 +85,21 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     public override func loadView() {
     }
     
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "title" {
+            if let title = sebWebView?.title {
+                self.navigationDelegate?.sebWebViewDidUpdateTitle?(title)
+            }
+        }
+    }
+    
     public func viewWillTransitionToSize() {
         zoomScale = sebWebView?.scrollView.zoomScale
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         sebWebView?.uiDelegate = self
-        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
+        sebWebView?.scrollView.setZoomScale(zoomScale!, animated: animated)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -140,10 +159,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.goForward()
     }
     
-    public func reload() {
-        sebWebView?.reload()
-    }
-    
     public func load(_ url: URL) {
         sebWebView?.load(URLRequest.init(url: url))
     }
@@ -153,7 +168,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
  
     
-    public func webView(_ webView: WKWebView,  shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
+    public func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
         return false
     }
 
@@ -163,7 +178,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView,
                          didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
-        
+        navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
+    }
+    
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
     }
     
     public func webView(_ webView: WKWebView,
@@ -183,11 +202,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
-        
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         DDLogError("[SEBiOSWKWebViewController webViewWebContentProcessDidTerminate:\(webView)]")
+        navigationDelegate?.webViewWebContentProcessDidTerminate?(webView)
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -201,7 +220,11 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        return navigationDelegate?.webView?(webView(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures))
+        return navigationDelegate?.webView?(webView, createWebViewWith: configuration, for: navigationAction, windowFeatures: windowFeatures)
+    }
+    
+    public func webViewDidClose(_ webView: WKWebView) {
+        self.navigationDelegate?.webViewDidClose?(webView)
     }
     
     public func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -214,5 +237,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
         navigationDelegate?.webView?(webView, runJavaScriptTextInputPanelWithPrompt: prompt, defaultText: defaultText, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+    
+    @available(iOS 15.0, *)
+    public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
+        return .grant
     }
 }

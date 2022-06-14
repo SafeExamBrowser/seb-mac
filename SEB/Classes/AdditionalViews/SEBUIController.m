@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 17.02.18.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -45,6 +45,18 @@
     }
     return self;
 }
+
+
+- (SEBBackgroundTintStyle)backgroundTintStyle
+{
+    _statusBarAppearance = [self statusBarAppearanceForDevice];
+    
+    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
+                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
+                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
+    return _backgroundTintStyle;
+}
+
 
 //// Initialize SEB Dock, commands section in the slider view and
 //// 3D Touch Home screen quick actions
@@ -69,11 +81,6 @@
     _statusBarAppearanceExtended = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mobileStatusBarAppearanceExtended"];
     _statusBarAppearance = [self statusBarAppearanceForDevice];
     
-    _backgroundTintStyle = (_statusBarAppearance == mobileStatusBarAppearanceNone ||
-                            _statusBarAppearance == mobileStatusBarAppearanceLight ||
-                            _statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark) ? SEBBackgroundTintStyleDark : SEBBackgroundTintStyleLight;
-
-
     // Check if a quit password is set = run SEB in secure mode
     BOOL secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
 
@@ -155,6 +162,44 @@
         }
     }
     
+    // Add Page Zoom buttons to side menu if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableZoomPage"] &&
+        [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectForceClassic) {
+        
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomDefaultSizeIcon"];
+        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageReset)];
+        [sliderCommands addObject:sliderZoomPageOutItem];
+        
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomOutSmallerSizeIcon"];
+        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageOut)];
+        [sliderCommands addObject:sliderZoomPageOutItem];
+        
+        sliderIcon = [UIImage imageNamed:@"SEBSliderZoomInLargerSizeIcon"];
+        sliderZoomPageInItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page In", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(zoomPageIn)];
+        [sliderCommands addObject:sliderZoomPageInItem];
+    }
+    
+    // Add Search Text button to side menu if enabled
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowFind"]) {
+        
+        // Add Search Text command to slider items
+        sliderIcon = [UIImage imageNamed:@"SEBSliderSearchIcon"];
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Search Text", nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(searchTextOnPage)];
+        [sliderCommands addObject:sliderCommandItem];
+    }
+    
     // Add Back to Start button if enabled
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"] ||
         [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"].length > 0) {
@@ -191,9 +236,9 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"] ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
         
+        BOOL showNavigationButtons = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"];
         // Add Navigate Back Button to dock if enabled
-        if (_dockEnabled &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
+        if (_dockEnabled && showNavigationButtons) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateBackIcon"];
             
             dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
@@ -210,6 +255,7 @@
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
             dockItem.width = 0;
             [newDockItems addObject:dockItem];
+            
         } else if (!_browserToolbarEnabled) {
             // otherwise add navigate back command to slider if the toolbar isn't enabled
             sliderIcon = [UIImage imageNamed:@"SEBSliderNavigateBackIcon"];
@@ -221,8 +267,7 @@
         }
         
         // Add Navigate Forward Button to dock if enabled
-        if (_dockEnabled &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showNavigationButtons"]) {
+        if (_dockEnabled && showNavigationButtons) {
             dockIcon = [UIImage imageNamed:@"SEBNavigateForwardIcon"];
             
             dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
@@ -251,35 +296,35 @@
     
     // Add Reload dock button if enabled and dock visible
     _dockReloadButton = nil;
-    if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
-         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-        _dockEnabled &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
-        dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
-        dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
-                                                    style:UIBarButtonItemStylePlain
-                                                   target:self
-                                                   action:@selector(reload)];
-        dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
-        dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
-        //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
-        [newDockItems addObject:dockItem];
-        _dockReloadButton = dockItem;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
+         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) {
         
-        dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-        dockItem.width = 0;
-        [newDockItems addObject:dockItem];
-        
-    } else if (([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"] ||
-                [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
-               !_browserToolbarEnabled) {
-        // otherwise add reload page command to slider if the toolbar isn't enabled
-        sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
-        sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
-                                                            icon:sliderIcon
-                                                          target:self
-                                                          action:@selector(reload)];
-        [sliderCommands addObject:sliderReloadButtonItem];
+        if (_dockEnabled &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
+            dockIcon = [UIImage imageNamed:@"SEBReloadIcon"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:dockIcon
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(reload)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
+            dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+            //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
+            [newDockItems addObject:dockItem];
+            _dockReloadButton = dockItem;
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+            
+        } else if (!_browserToolbarEnabled) {
+            // otherwise add reload page command to slider if the toolbar isn't enabled
+            sliderIcon = [UIImage imageNamed:@"SEBSliderReloadIcon"];
+            sliderReloadButtonItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Reload Page",nil)
+                                                                icon:sliderIcon
+                                                              target:self
+                                                              action:@selector(reload)];
+            [sliderCommands addObject:sliderReloadButtonItem];
+        }
     }
     
     // Add Proctoring slider command and dock button if enabled and dock visible
@@ -418,7 +463,8 @@
     if (@available(iOS 11.0, *)) {
         // Check if running on a device like iPhone X
         UIWindow *window = UIApplication.sharedApplication.keyWindow;
-        if (window.safeAreaInsets.bottom != 0)
+        CGFloat bottomSafeAreaInset = window.safeAreaInsets.bottom;
+        if (bottomSafeAreaInset != 0)
         {
             if (_statusBarAppearanceExtended != mobileStatusBarAppearanceExtendedInferred) {
                 deviceStatusBarAppearance = _statusBarAppearanceExtended;
@@ -607,6 +653,44 @@
         _sliderScrollLockItem.icon = sliderScrollLockIcon;
         _sliderScrollLockItem.title = sliderScrollLockItemTitle;
     }
+}
+
+
+- (void)zoomPageIn
+{
+    [_sebViewController zoomPageIn];
+}
+
+- (void)zoomPageOut
+{
+    [_sebViewController zoomPageOut];
+}
+
+- (void)zoomPageReset
+{
+    [_sebViewController zoomPageReset];
+}
+
+
+- (void)textSizeIncrease
+{
+    [_sebViewController textSizeIncrease];
+}
+
+- (void)textSizeDecrease
+{
+    [_sebViewController textSizeDecrease];
+}
+
+- (void)textSizeReset
+{
+    [_sebViewController textSizeReset];
+}
+
+
+- (IBAction)searchTextOnPage
+{
+    [_sebViewController searchTextOnPage];
 }
 
 - (IBAction)backToStart

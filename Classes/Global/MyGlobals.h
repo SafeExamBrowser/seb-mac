@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 13.10.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -41,17 +41,32 @@
 
 @interface MyGlobals : NSObject
 
+NS_ASSUME_NONNULL_BEGIN
+
 + (MyGlobals*)sharedMyGlobals;
 
 + (DDLogLevel)ddLogLevel;
 
 + (NSArray *)SEBExtensions;
 
++ (NSString *)osName;
++ (NSString *)localHostname;
++ (NSString *)computerName;
++ (nullable NSString *)userName;
++ (nullable NSString *)fullUserName;
++ (NSString *)displayName;
++ (NSString *)versionString;
++ (NSString *)buildNumber;
++ (NSString *)bundleID;
++ (NSString *)bundleExecutable;
+
++ (void) logSystemInfo;
+
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;
 
-@property(copy, readwrite) NSURL *currentConfigURL;
+@property(copy, readwrite) NSURL *_Nullable currentConfigURL;
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
@@ -76,7 +91,9 @@
 
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
-+ (DDFileLogger *)initializeFileLoggerWithDirectory:(NSString *)logPath;
++ (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
 - (NSString *)createUniqueFilename:(NSString *)filename;
+
+NS_ASSUME_NONNULL_END
 
 @end

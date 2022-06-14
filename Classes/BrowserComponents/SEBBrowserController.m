@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 22/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -36,6 +36,7 @@
 #import "CustomHTTPProtocol.h"
 #import "SEBCertServices.h"
 #include "x509_crt.h"
+#import "NSURL+SEBURL.h"
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
@@ -89,12 +90,13 @@ void run_block_on_ui_thread(dispatch_block_t block)
     DDLogInfo(@"-[SEBBrowserController init]");
     self = [super init];
     if (self) {
+        [self initSessionSettings];
+        // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
+        self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
         [self resetAllCookiesWithCompletionHandler:^{
             DDLogInfo(@"-[SEBBrowserController init] Cookies, caches and credential stores have been reset");
-            [self initSessionSettings];
-            // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"ModifyPages" ofType:@"js"];
-            self.javaScriptFunctions = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
             self.finishedInitializing = YES;
             NSURL *sebURLWaitingToBeOpened = self.openConfigSEBURL;
             if (sebURLWaitingToBeOpened) {
@@ -117,6 +119,46 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
+    newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
+    _allowDownUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+}
+
+
+- (BOOL)isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    NSString *keyAllowNavigation;
+    if (mainWebView) {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_allowBrowsingBackForward";
+    } else {
+        keyAllowNavigation = @"org_safeexambrowser_SEB_newBrowserWindowNavigation";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowNavigation];
+}
+
+- (BOOL)isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    NSString *keyAllowReload;
+    if (mainWebView) {
+        keyAllowReload = @"org_safeexambrowser_SEB_browserWindowAllowReload";
+    } else {
+        keyAllowReload = @"org_safeexambrowser_SEB_newBrowserWindowAllowReload";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyAllowReload];
+}
+
+- (BOOL)showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    NSString *keyShowReloadWarning;
+    if (mainWebView) {
+        keyShowReloadWarning = @"org_safeexambrowser_SEB_showReloadWarning";
+    } else {
+        keyShowReloadWarning = @"org_safeexambrowser_SEB_newBrowserWindowShowReloadWarning";
+    }
+    
+    return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyShowReloadWarning];
 }
 
 
@@ -148,24 +190,49 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #ifdef DEBUG
     DDLogDebug(@"NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies: %@", cookies);
 #endif
-    if (@available(macOS 10.13, iOS 11.0, *)) {
-        dispatch_group_t waitGroup = dispatch_group_create();
-        WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
-        for (NSHTTPCookie *cookie in cookies) {
-            dispatch_group_enter(waitGroup);
-            [cookieStore setCookie:cookie completionHandler:^{
-                dispatch_group_leave(waitGroup);
+    if (cookies.count > 0) {
+        if (@available(macOS 10.13, iOS 11.0, *)) {
+            dispatch_group_t waitGroup = dispatch_group_create();
+            WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+            [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
+#ifdef DEBUG
+    DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies: %@", wkWebViewCookies);
+#endif
+                for (NSHTTPCookie *cookie in cookies) {
+                    NSString *name = cookie.name;
+                    NSString *domain = cookie.domain;
+                    BOOL cookieExists = NO;
+                    for (NSHTTPCookie *wkCookie in wkWebViewCookies) {
+                        if ([name isEqualToString:wkCookie.name]) {
+                            if ([domain isEqualToString:wkCookie.domain]) {
+                                cookieExists = YES;
+                                break;
+                            }
+                        }
+                    }
+                    if (!cookieExists) {
+                        dispatch_group_enter(waitGroup);
+                        [cookieStore setCookie:cookie completionHandler:^{
+                            dispatch_group_leave(waitGroup);
+                        }];
+                    }
+                }
+                dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
+                    [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull wkWebViewCookies) {
+        #ifdef DEBUG
+            DDLogDebug(@"wkWebViewConfiguration.websiteDataStore.httpCookieStore cookies after transfer: %@", wkWebViewCookies);
+        #endif
+                        completionHandler();
+                    }];
+                });
             }];
+            return;
         }
-        dispatch_group_notify(waitGroup, dispatch_get_main_queue(), ^{
-            completionHandler();
-        });
-    } else {
-        run_block_on_ui_thread(^{
-            completionHandler();
-        });
     }
-};
+    run_block_on_ui_thread(^{
+        completionHandler();
+    });
+}
 
 
 - (void) quitSession
@@ -295,26 +362,45 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    NSString *webPageTitle;
+    if (mainWebView) {
+        if (webPageShowURLAlways) {
+            webPageTitle = url.absoluteString;
+        } else {
+            webPageTitle = title;
+        }
+    } else {
+        if (newWebPageShowURLAlways) {
+                webPageTitle = url.absoluteString;
+            } else {
+                webPageTitle = title;
+            }
+    }
+    return webPageTitle;
+}
+
 
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url
 {
-    NSString *urlOrPlaceholder = [self showURLplaceholderTitleForWebpage];
+    NSString *urlOrPlaceholder = [self urlPlaceholderTitleForWebpage];
     return urlOrPlaceholder ? urlOrPlaceholder : url;
 }
 
 
 // Delegate method which returns a placeholder text in case settings
 // don't allow to display its URL
-- (NSString *) showURLplaceholderTitleForWebpage
+- (NSString *) urlPlaceholderTitleForWebpage
 {
     NSString *placeholderString = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([self.delegate isMainBrowserWebViewActive]) {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
             placeholderString = NSLocalizedString(@"the exam page", nil);
         }
     } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] <= browserWindowShowURLOnlyLoadError) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
             placeholderString = NSLocalizedString(@"the webpage", nil);
         }
     }
@@ -737,13 +823,19 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (!found) {
                 [previousAuthentications addObject:newAuthentication];
             }
+            _pendingChallenge = nil;
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+            _pendingChallengeCompletionHandler = nil;
             return;
         } else if (returnCode == SEBEnterPasswordCancel) {
+            _pendingChallenge = nil;
             _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _pendingChallengeCompletionHandler = nil;
         } else {
             // Any other case as when the server aborted the authentication challenge
+            // We still might have to call the completion handler with the NSURLSessionAuthChallengeCancelAuthenticationChallenge answer
+            _pendingChallenge = nil;
+            _pendingChallengeCompletionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
             _pendingChallengeCompletionHandler = nil;
             _authenticatingProtocol = nil;
         }
@@ -895,10 +987,24 @@ static NSString *urlStrippedFragment(NSURL* url)
                                                     completionHandler:^(NSData *sebFileData, NSURLResponse *response, NSError *error) {
         [self didDownloadConfigData:sebFileData response:response error:error URL:url originalURL:originalURL sender:sender];
     }];
-    [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
-    NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
-    DDLogDebug(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
-    [downloadTask resume];
+    if (cookies.count > 0) {
+        [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+        NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+        DDLogVerbose(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+        [downloadTask resume];
+    } else {
+        if (@available(macOS 10.13, *)) {
+            WKHTTPCookieStore *cookieStore = self.wkWebViewConfiguration.websiteDataStore.httpCookieStore;
+            [cookieStore getAllCookies:^(NSArray<NSHTTPCookie *> * _Nonnull cookies) {
+                [sessionConfig.HTTPCookieStorage storeCookies:cookies forTask:downloadTask];
+                NSHTTPCookieStorage *sessionCookieStore = sessionConfig.HTTPCookieStorage;
+                DDLogVerbose(@"sessionCookieStore.cookies: %@", sessionCookieStore.cookies);
+                [downloadTask resume];
+            }];
+        } else {
+            [downloadTask resume];
+        }
+    }
 }
 
 
@@ -1039,7 +1145,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                     return;
                 }
             }
-        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+        } else if (self.allowDownUploads) {
             // If downloading is allowed
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
@@ -1055,7 +1161,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
             NSString* extension = [filename pathExtension];
 
-            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename] error:&error] == NO) {
+            while ([fileManager moveItemAtURL:url toURL:[directory URLByAppendingPathComponent:filename isDirectory:NO] error:&error] == NO) {
                 if (error.code == NSFileWriteFileExistsError) {
                     error = nil;
                     filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, extension];
@@ -1065,7 +1171,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 }
             }
             if (!error) {
-                [self storeDownloadPath:destinationURL.absoluteString];
+                [self storeDownloadPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self fileDownloadedSuccessfully:destinationURL.path];
                 });
@@ -1079,6 +1185,9 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
         } else {
             // Downloading not allowed
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate showAlertNotAllowedDownUploading:NO];
+            });
             return;
         }
     }
@@ -1109,9 +1218,12 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] == YES) {
+    if (([path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
-        [[NSWorkspace sharedWorkspace] openFile:path];
+        if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
+            [self.delegate openDownloadedFile:path];
+        }
     } else {
         [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
                                      message:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), path]];
@@ -1152,54 +1264,64 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         NSString *server = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, challenge.protectionSpace.host];
         DDLogDebug(@"Server which requires authentication: %@", server);
 #endif
-        _pendingChallenge = challenge;
-        
-        NSString *host = challenge.protectionSpace.host;
-        NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
-        if (!_pendingChallengeCompletionHandler && previousAuthentication && challenge.previousFailureCount == 0) {
-            NSURLCredential *newCredential;
-            newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
-                                                       password:[previousAuthentication objectForKey:authenticationPassword]
-                                                    persistence:NSURLCredentialPersistenceForSession];
-            completionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
-            return;
-        }
-        // Allow to enter password 3 times
-        if ([challenge previousFailureCount] < 3) {
-            // Display authentication dialog
-            _pendingChallengeCompletionHandler = completionHandler;
-            //            _pendingChallenge = challenge;
-            
-            NSString *text = [self showURLplaceholderTitleForWebpage];
-            if (!text) {
-                text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
-            } else {
-                if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
-                    text = [NSString stringWithFormat:@"%@ (secure connection)", text];
-                } else {
-                    text = [NSString stringWithFormat:@"%@ (insecure connection!)", text];
-                }
-            }
-            if ([challenge previousFailureCount] == 0) {
-                text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
-                _lastUsername = @"";
-            } else {
-                text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate showEnterUsernamePasswordDialog:text
-                                                         title:NSLocalizedString(@"Authentication Required", nil)
-                                                      username:self.lastUsername
-                                                 modalDelegate:self
-                                                didEndSelector:@selector(enteredUsername:password:returnCode:)];
-            });
-            
-        } else {
+        if (_pendingChallenge) {
+            // There already is a pending challenge: We cancel the current one expecting a new one will be created
+            // at a later point, when the pending one maybe already was processed
+            // ToDo: Maybe allow parallel challenges to be processes in future
+            DDLogWarn(@"Canceling new authentication challenge as there is already a pending challenge");
             completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
-            // inform the user that the user name and password
-            // in the preferences are incorrect
-            [_delegate openingConfigURLRoleBack];
+        } else {
+            _pendingChallenge = challenge;
+            
+            NSString *host = challenge.protectionSpace.host;
+            NSDictionary *previousAuthentication = [self fetchPreviousAuthenticationForHost:host];
+            if (!_pendingChallengeCompletionHandler && previousAuthentication && challenge.previousFailureCount == 0) {
+                NSURLCredential *newCredential;
+                newCredential = [NSURLCredential credentialWithUser:[previousAuthentication objectForKey:authenticationUsername]
+                                                           password:[previousAuthentication objectForKey:authenticationPassword]
+                                                        persistence:NSURLCredentialPersistenceForSession];
+                completionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
+                _pendingChallenge = nil;
+                return;
+            }
+            // Allow to enter password 3 times
+            if ([challenge previousFailureCount] < 3) {
+                // Display authentication dialog
+                _pendingChallengeCompletionHandler = completionHandler;
+                
+                NSString *text = [self urlPlaceholderTitleForWebpage];
+                if (!text) {
+                    text = [NSString stringWithFormat:@"%@://%@", challenge.protectionSpace.protocol, host];
+                } else {
+                    if ([challenge.protectionSpace.protocol isEqualToString:@"https"]) {
+                        text = [NSString stringWithFormat:@"%@ (secure connection)", text];
+                    } else {
+                        text = [NSString stringWithFormat:@"%@ (insecure connection!)", text];
+                    }
+                }
+                if ([challenge previousFailureCount] == 0) {
+                    text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
+                    _lastUsername = @"";
+                } else {
+                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate showEnterUsernamePasswordDialog:text
+                                                             title:NSLocalizedString(@"Authentication Required", nil)
+                                                          username:self.lastUsername
+                                                     modalDelegate:self
+                                                    didEndSelector:@selector(enteredUsername:password:returnCode:)];
+                });
+                
+            } else {
+                completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+                _pendingChallenge = nil;
+                // inform the user that the user name and password
+                // in the preferences are incorrect
+                [_delegate openingConfigURLRoleBack];
+            }
         }
+        
     } else {
         // Server trust authentication challenge
         if (!usingEmbeddedCertificates) {

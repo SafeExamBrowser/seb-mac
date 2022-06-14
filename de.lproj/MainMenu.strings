@@ -121,9 +121,6 @@
 /* Class = "NSMenu"; title = "Find"; ObjectID = "220"; */
 "220.title" = "Suchen";
 
-/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "221"; */
-"221.title" = "In Auswahl suchen";
-
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "239"; */
 "239.title" = "Zoomen";
 
@@ -133,7 +130,7 @@
 /* Class = "NSMenu"; title = "View"; ObjectID = "296"; */
 "296.title" = "Darstellung";
 
-/* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "297"; */
+/* Class = "NSMenuItem"; title = "Toggle Toolbar"; ObjectID = "297"; */
 "297.title" = "Symbolleiste anzeigen";
 
 /* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "346"; */
@@ -217,6 +214,9 @@
 /* Class = "NSButtonCell"; title = "Override checking for screen sharing"; ObjectID = "bsl-EU-pHD"; */
 "bsl-EU-pHD.title" = "Check für Bildschirmfreigabe deaktivieren";
 
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Current time"; ObjectID = "cfx-jb-hJX"; */
+"cfx-jb-hJX.ibExternalAccessibilityDescription" = "Aktuelle Zeit";
+
 /* Class = "NSTextFieldCell"; title = "This event has been recorded."; ObjectID = "Dex-y3-8UD"; */
 "Dex-y3-8UD.title" = "Dieses Ereigniss wurde aufgezeichnet.";
 
@@ -240,6 +240,9 @@
 
 /* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "icu-d0-oaR"; */
 "icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
+
+/* Class = "NSButtonCell"; title = "Send"; ObjectID = "IHx-TC-Bz7"; */
+"IHx-TC-Bz7.title" = "Senden";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "iQ5-CR-q1d"; */
 "iQ5-CR-q1d.title" = "OK";
@@ -268,6 +271,9 @@
 /* Class = "NSMenuItem"; title = "Configure Client"; ObjectID = "LTv-Us-Cro"; */
 "LTv-Us-Cro.title" = "Client konfigurieren";
 
+/* Class = "NSTextFieldCell"; title = "Enter Raise Hand message:"; ObjectID = "mQ1-3N-dPK"; */
+"mQ1-3N-dPK.title" = "Wortmeldung/Nachricht eingeben:";
+
 /* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "MYP-4t-dpx"; */
 "MYP-4t-dpx.title" = "Zurücksetzen auf Datei";
 
@@ -282,6 +288,12 @@
 
 /* Class = "NSMenuItem"; title = "Revert to Last Saved"; ObjectID = "pMV-oP-mZU"; */
 "pMV-oP-mZU.title" = "Zurücksetzen auf Datei";
+
+/* Class = "NSButtonCell"; title = "Retry"; ObjectID = "pZD-Yp-uUL"; */
+"pZD-Yp-uUL.title" = "Wiederholen";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "qGd-4E-G3J"; */
+"qGd-4E-G3J.title" = "Abbrechen";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "Qlt-2p-OmY"; */
 "Qlt-2p-OmY.title" = "Abbrechen";

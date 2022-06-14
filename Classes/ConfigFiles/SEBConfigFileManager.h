@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 02.05.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -121,6 +121,12 @@
 @optional
 
 /**
+ * @brief       Re-configure SEB using the config data from a SEBClientSettings.seb
+ *              file from the preferences directory (macOS-only)
+ */
+- (void) reconfigureClientWithSebClientSettingsCallback;
+
+/**
  * @brief       Delegate method called before SEB is getting reconfigured temporarily
  *              for starting an exam.
  */
@@ -159,6 +165,12 @@
  */
 - (NSData *) getSEBClientSettings;
 
+// Exam URL is opened in a webview (tab), waiting for user to log in
+@property(readwrite) BOOL startingExamFromSEBServer;
+// User logged in to LMS, monitoring the client started
+@property(readwrite) BOOL sebServerConnectionEstablished;
+
+
 @end
 
 /**
@@ -188,7 +200,7 @@
     //NSData *_currentConfigKeyHash;
 }
 
-@property (weak) id delegate;
+@property (weak) id <SEBConfigUIDelegate> delegate;
 @property BOOL currentConfigPasswordIsHash;
 @property StoreDecryptedSEBSettingsResult storeDecryptedSEBSettingsResult;
 @property BOOL suppressFileFormatError;

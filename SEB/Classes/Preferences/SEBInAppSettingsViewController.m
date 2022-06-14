@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 26.10.18.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -68,13 +68,14 @@
         // Select identity for passed identity reference
         [self selectSettingsIdentity];
 
-        // Set visibility of keys dependent on specific settings
-        [self setAllDependentKeys];
-
-        // Display current keys
+        // Set current keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
+
+        // Set visibility of keys dependent on specific settings
+        [self setAllDependentKeys];
         
+        [self initTextFieldValues];
     }
     return self;
 }
@@ -271,7 +272,8 @@
 #pragma mark -
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+- (CGFloat)settingsViewController:(UITableViewController<IASKViewController> *)settingsViewController heightForSpecifier:(IASKSpecifier *)specifier
+{
     if ([specifier.key isEqualToString:@"browserExamKey"]) {
         if (_configModified) {
             _configModified = NO;
@@ -288,8 +290,9 @@
 }
 
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
-    CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
+- (UITableViewCell*)settingsViewController:(UITableViewController<IASKViewController> *)settingsViewController cellForSpecifier:(IASKSpecifier*)specifier
+ {
+    CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -350,6 +353,75 @@
 }
 
 
+- (IASKValidationResult)settingsViewController:(IASKAppSettingsViewController*)settingsViewController validateSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField*)textField previousValue:(nullable NSString*)previousValue replacement:(NSString* _Nonnull __autoreleasing *_Nullable)replacement
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    IASKValidationResult validationResult = IASKValidationResultOk;
+    NSString *newDefaultZoomLevelString = ((UITextField *)textField).text;
+
+    /// User Interface
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_defaultPageZoomLevel"]) {
+        double newDefaultPageZoomLevel = [self validateZoomLevel:newDefaultZoomLevelString previousValue:previousValue defaultZoomLevel:WebViewDefaultPageZoom minZoomLevel:WebViewMinPageZoom maxZoomLevel:WebViewMaxPageZoom validationResult:&validationResult];
+        [preferences setSecureDouble:newDefaultPageZoomLevel forKey:@"org_safeexambrowser_SEB_defaultPageZoomLevel"];
+        NSNumber *defaultPageZoomLevel = [NSNumber numberWithDouble:newDefaultPageZoomLevel];
+        newDefaultZoomLevelString = [defaultPageZoomLevel stringValue];
+        *replacement = newDefaultZoomLevelString;
+    }
+    
+    if ([specifier.key isEqualToString:@"org_safeexambrowser_defaultTextZoomLevel"]) {
+        double newDefaultTextZoomLevel = [self validateZoomLevel:newDefaultZoomLevelString previousValue:previousValue defaultZoomLevel:WebViewDefaultTextZoom minZoomLevel:WebViewMinTextZoom maxZoomLevel:WebViewMaxTextZoom validationResult:&validationResult];
+        [preferences setSecureDouble:newDefaultTextZoomLevel forKey:@"org_safeexambrowser_SEB_defaultTextZoomLevel"];
+        NSNumber *defaultTextZoomLevel = [NSNumber numberWithDouble:newDefaultTextZoomLevel];
+        newDefaultZoomLevelString = [defaultTextZoomLevel stringValue];
+        *replacement = newDefaultZoomLevelString;
+    }
+
+    return validationResult;
+}
+
+- (double)validateZoomLevel:(NSString *)newDefaultPageZoomLevelString previousValue:(nullable NSString*)previousValue defaultZoomLevel:(double)defaultZoomLevel minZoomLevel:(double)minZoomLevel maxZoomLevel:(double)maxZoomLevel validationResult:(IASKValidationResult *)validationResult
+{
+    double newDefaultPageZoomLevel = WebViewDefaultPageZoom;
+    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+    if ([numberFormatter numberFromString:newDefaultPageZoomLevelString] == nil) {
+        newDefaultPageZoomLevelString = previousValue;
+        *validationResult = IASKValidationResultFailedWithShake;
+    }
+    if (![[newDefaultPageZoomLevelString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:newDefaultPageZoomLevelString]) {
+        *validationResult = IASKValidationResultFailed;
+    }
+
+    if (newDefaultPageZoomLevelString.length == 0) {
+        newDefaultPageZoomLevelString = previousValue;
+        *validationResult = IASKValidationResultFailedWithShake;
+    }
+
+    newDefaultPageZoomLevel = newDefaultPageZoomLevelString.doubleValue;
+    if (newDefaultPageZoomLevel < WebViewMinPageZoom) {
+        newDefaultPageZoomLevel = WebViewMinPageZoom;
+        *validationResult = IASKValidationResultFailedWithShake;
+    } else if (newDefaultPageZoomLevel > WebViewMaxPageZoom) {
+        newDefaultPageZoomLevel = WebViewMaxPageZoom;
+        *validationResult = IASKValidationResultFailedWithShake;
+    }
+    return newDefaultPageZoomLevel;
+}
+
+
+- (void)initTextFieldValues
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    double defaultPageZoomLevel = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_defaultPageZoomLevel"];
+    NSString *defaultPageZoomLevelString = [[NSNumber numberWithDouble:defaultPageZoomLevel] stringValue];
+    [preferences setSecureString:defaultPageZoomLevelString forKey:@"org_safeexambrowser_defaultPageZoomLevel"];
+    
+    double defaultTextZoomLevel = [preferences secureDoubleForKey:@"org_safeexambrowser_SEB_defaultTextZoomLevel"];
+    NSString *defaultTextZoomLevelString = [[NSNumber numberWithDouble:defaultTextZoomLevel] stringValue];
+    [preferences setSecureString:defaultTextZoomLevelString forKey:@"org_safeexambrowser_defaultTextZoomLevel"];
+}
+
+
 - (void)settingsChanged:(NSNotification *)notification
 {
     NSArray *changedKeys = [notification.userInfo allKeys];
@@ -372,6 +444,8 @@
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
         _sebViewController.browserController.browserExamKey = nil;
         _sebViewController.browserController.configKey = nil;
+        // Force recalculating Config Key
+        [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         // Display updated or current keys
         [self displayBrowserExamKey];
@@ -380,7 +454,6 @@
         // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
         // then we don't alter the Browser Exam and Config Keys
 
-    
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
@@ -416,13 +489,12 @@
         }
     }
     
-    
     /// Browser Features
 
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_browserMediaAutoplay"]) {
         [self setDependentKeysForBrowserMediaAutoplay];
     }
-    
+   
     
     /// Exam Session
     
@@ -645,6 +717,7 @@
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
         
     } else {
+        [self setDependentKeysForPermanentSettingsChanged];
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
@@ -824,7 +897,7 @@
                                                                                self.sebViewController.alertController = nil;
                                                                                if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
-                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match to the one stored for this identity. Try again.", nil), SEBShortAppName]
+                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", nil), SEBShortAppName]
                                                                                                              action1Title:NSLocalizedString(@"OK", nil)
                                                                                                            action1Handler:^{
                                                                                                                [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:identityAdminPasswordHash];

@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -46,7 +46,8 @@
 
 @interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
 
-	IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *startURL;
+    IBOutlet NSTextField *sebServerURL;
 
 	NSMutableString *adminPassword;
 	NSMutableString *confirmAdminPassword;
@@ -61,8 +62,9 @@
     IBOutlet __weak NSSecureTextField *confirmQuitPasswordField;
 
 	IBOutlet __weak NSButton *prefsQuitSEB;
-	IBOutlet __weak NSButton *pasteSavedStringFromPasteboardButton;
-    
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardButton;
+    IBOutlet __weak NSButton *pasteSavedStringFromPasteboardToServerURLButton;
+
 	IBOutlet __weak NSObjectController *controller;
 	MyGlobals *myGlobals;
     
@@ -81,7 +83,6 @@
 - (NSString*) compareAdminPasswords;
 - (NSString*) compareQuitPasswords;
 
-- (IBAction) pasteSavedStringFromPasteboard:(id)sender;
 - (IBAction) restartSEB:(id)sender;
 - (IBAction) quitSEB:(id)sender;
 - (IBAction) aboutSEB:(id)sender;

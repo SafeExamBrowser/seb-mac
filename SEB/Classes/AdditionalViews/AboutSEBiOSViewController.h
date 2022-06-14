@@ -38,7 +38,7 @@
 #import "SEBViewController.h"
 
 #import <MessageUI/MessageUI.h>
-#import <CocoaLumberjack.h>
+//#import <CocoaLumberjack.h>
 #import "DDFileLogger.h"
 
 

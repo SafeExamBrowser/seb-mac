@@ -1,6 +1,0 @@
-framework module Pods_SEB_Dev {
-  umbrella header "Pods-SEB Dev-umbrella.h"
-
-  export *
-  module * { export * }
-}

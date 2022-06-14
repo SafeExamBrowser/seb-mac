@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 03.08.18.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -40,8 +40,12 @@ public struct keys {
     static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
     static let contentTypeJSON = "application/json;charset=UTF-8"
     static let institutionId = "institutionId"
-    static let examId = "examId"
     static let sebConnectionToken = "SEBConnectionToken"
+    static let examId = "examId"
+    static let clientId = "client_id"
+    static let sebOSName = "seb_os_name"
+    static let sebVersion = "seb_version"
+    static let sebMachineName = "seb_machine_name"
     static let sebUserSessionId = "seb_user_session_id"
     static let timestamp = "timestamp"
     static let pingNumber = "ping-number"
@@ -54,6 +58,11 @@ public struct keys {
     static let logLevelInfo = "INFO_LOG"
     static let logLevelDebug = "DEBUG_LOG"
     static let logLevelUnknown = "UNKNOWN"
+    static let notificationType = "NOTIFICATION"
+    static let notificationTagBattery = "battery"
+    static let notificationTagLockscreen = "lockscreen"
+    static let notificationTagRaisehand = "raisehand"
+    static let notificationConfirmed = "NOTIFICATION_CONFIRMED"
 }
 
 public struct Discovery: Codable {

@@ -204,7 +204,7 @@
                     }
                 }
             };
-            [self.modalAlert beginSheetModalForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesAnswer];
+            [self.delegate runModalAlert:self.modalAlert conditionallyForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesAnswer];
             
         } else {
             for (NSRunningApplication* runningApplication in _runningApplications) {
@@ -285,7 +285,7 @@
                     }
                 }
             };
-            [self.modalAlert beginSheetModalForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesFailedAnswer];
+            [self.delegate runModalAlert:self.modalAlert conditionallyForWindow:self.view.window completionHandler:(void (^)(NSModalResponse answer))forceQuitAllProcessesFailedAnswer];
         }
     });
 }

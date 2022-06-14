@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>SecurityLegacy</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -28,7 +28,7 @@
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>Transforms specific HTTP requests for clicked links to prevent the &quot;Guided Access is enabled&quot; message being displayed when clicking all links.</string>
+			<string>Transforms specific HTTP requests for clicked links to prevent the &apos;Guided Access is enabled&apos; message being displayed when clicking all links.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

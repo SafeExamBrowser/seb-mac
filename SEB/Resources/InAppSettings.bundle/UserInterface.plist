@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>UserInterface</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -93,6 +93,62 @@
 			<string>Enable Scroll Lock</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_enableScrollLock</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Page &amp; Text Zoom</string>
+			<key>FooterText</key>
+			<string>Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Page Zoom</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableZoomPage</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Default Page Zoom Level:</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_defaultPageZoomLevel</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Text Zoom</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableZoomText</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Default Text Zoom Level:</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_defaultTextZoomLevel</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
 		</dict>
 		<dict>
 			<key>Type</key>

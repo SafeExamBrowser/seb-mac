@@ -4,52 +4,27 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>CocoaLumberjack-framework-iOS.xcscheme</key>
+		<key>CocoaLumberjack-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CocoaLumberjack-framework-macOS.xcscheme</key>
+		<key>CocoaLumberjack-macOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>CocoaLumberjack-library.xcscheme</key>
+		<key>InAppSettingsKit-InAppSettingsKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>InAppSettingsKit-framework-InAppSettingsKit.xcscheme</key>
+		<key>InAppSettingsKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>InAppSettingsKit-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>InAppSettingsKit-library-InAppSettingsKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>InAppSettingsKit-library.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>JitsiMeetSDK-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>JitsiMeetSDK-library.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SEB Dev.xcscheme</key>
+		<key>JitsiMeetSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -59,17 +34,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Safe Exam Browser ETH.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Safe Exam Browser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>QRCodeReaderViewController-framework.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>QRCodeReaderViewController-library.xcscheme</key>
+		<key>QRCodeReaderViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

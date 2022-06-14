@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 07/03/17.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -69,7 +69,7 @@
                                                                            blue:SEBTintColorBlueValue
                                                                           alpha:1.0];
     }
-    openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppNameAArticle, SEBExtraShortAppName];
+    openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ exam or configuration link from Safari, Mail or a messenger app.", nil), SEBExtraShortAppName];
     automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", nil), SEBExtraShortAppName];
     scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", nil), SEBExtraShortAppName];
     noConfigQRCodeFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"No %@ configuration found!", nil), SEBExtraShortAppName];
@@ -183,7 +183,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Administrators", nil)
-                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.\nGeneral instructions on how to configure %@ can be found on %@.", nil), SEBShortAppName, SEBShortAppName, SEBWebsiteShort]
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@.", nil), SEBShortAppName, @"\n", SEBShortAppName, SEBWebsiteShort]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -213,7 +213,7 @@
                                                                              
                                                                              // Show Alert with more information for students
                                                                              self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Students", nil)
-                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.\nTrying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, SEBShortAppName]
+                                                                                                                                                      message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, @"\n", SEBShortAppName]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
@@ -295,6 +295,7 @@
                       callback:(id)callback
                       selector:(SEL)selector
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     [_sebViewController.configFileController storeNewSEBSettings:sebData forEditing:false callback:callback selector:selector];
 }
 

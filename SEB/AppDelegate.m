@@ -3,7 +3,7 @@
 //  SEB
 //
 //  Created by Daniel R. Schneider on 10/09/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -48,14 +48,6 @@
 @implementation AppDelegate
 
 @synthesize persistentWebpages;
-
-void run_block_on_ui_thread(dispatch_block_t block)
-{
-    if ([NSThread isMainThread])
-        block();
-    else
-        dispatch_sync(dispatch_get_main_queue(), block);
-}
 
 - (SEBUIController *)sebUIController {
     if (!_sebUIController) {
@@ -371,22 +363,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
     DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
-//    NSString *localHostname = (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
-//    NSString *computerName = (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
-    NSString *userName = NSUserName();
-    NSString *fullUserName = NSFullUserName();
-    NSString *displayName = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
-    NSString *versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString *buildNumber = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
-    NSString *bundleID = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
-    NSString *bundleExecutable = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
-    DDLogInfo(@"%@ Version %@ (Build %@)", displayName, versionString, buildNumber);
-    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
-    
-//    DDLogInfo(@"Local hostname: %@", localHostname);
-//    DDLogInfo(@"Computer name: %@", computerName);
-    DDLogInfo(@"User name: %@", userName);
-    DDLogInfo(@"Full user name: %@", fullUserName);
+    [MyGlobals logSystemInfo];
 }
 
 
@@ -527,7 +504,10 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 - (NSArray<UIKeyCommand *> *)keyCommands
 {
     return @[
-        [UIKeyCommand keyCommandWithInput:@"m" modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutSideMenu modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutReload modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutFind modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
+        [UIKeyCommand keyCommandWithInput:SEBKeyShortcutQuit modifierFlags:UIKeyModifierCommand | UIKeyModifierShift action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
     ];
@@ -546,8 +526,17 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
             [_sebViewController.browserTabViewController switchToNextTab];
         }
     }
-    if ([key isEqualToString:@"m"] && modifier == UIKeyModifierCommand) {
+    if ([key caseInsensitiveCompare:SEBKeyShortcutSideMenu] == NSOrderedSame && modifier == UIKeyModifierCommand) {
         [_sebViewController leftDrawerKeyShortcutPress:self];
+    }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutReload] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+        [_sebViewController reload];
+    }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutFind] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+        [_sebViewController searchTextOnPage];
+    }
+    if ([key caseInsensitiveCompare:SEBKeyShortcutQuit] == NSOrderedSame && modifier == (UIKeyModifierCommand | UIKeyModifierShift)) {
+        [_sebViewController quitExamConditionally];
     }
 }
 
