@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -86,6 +86,12 @@
     [pasteSavedStringFromPasteboardButton setFrameOrigin:origin]; //483, 335
     [pasteSavedStringFromPasteboardButton setAttributedTitle:linkString];
     
+    origin = [pasteSavedStringFromPasteboardToServerURLButton frame].origin;
+    origin.x = 482 - bounds.width;
+    [pasteSavedStringFromPasteboardToServerURLButton setFrameSize:bounds]; //483, 335
+    [pasteSavedStringFromPasteboardToServerURLButton setFrameOrigin:origin]; //483, 335
+    [pasteSavedStringFromPasteboardToServerURLButton setAttributedTitle:linkString];
+
     // Setup bindings to the preferences window close button
     NSButton *closeButton = [[MBPreferencesController sharedController].window standardWindowButton:NSWindowCloseButton];
     NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -107,8 +113,10 @@
     NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
     if (pasteboardString.length == 0) {
         [pasteSavedStringFromPasteboardButton setEnabled:NO];
+        [pasteSavedStringFromPasteboardToServerURLButton setEnabled:NO];
     } else {
         [pasteSavedStringFromPasteboardButton setEnabled:YES];
+        [pasteSavedStringFromPasteboardToServerURLButton setEnabled:YES];
     }
 }
 
@@ -298,6 +306,16 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureString:pasteboardString forKey:@"org_safeexambrowser_SEB_startURL"];
         [startURL setStringValue:pasteboardString];
+    }
+}
+
+
+- (IBAction) pasteSavedStringFromPasteboardToServerURL:(id)sender {
+    NSString *pasteboardString = [[MyGlobals sharedMyGlobals] valueForKey:@"pasteboardString"];
+    if (![pasteboardString isEqualToString:@""]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setSecureString:pasteboardString forKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        [sebServerURL setStringValue:pasteboardString];
     }
 }
 

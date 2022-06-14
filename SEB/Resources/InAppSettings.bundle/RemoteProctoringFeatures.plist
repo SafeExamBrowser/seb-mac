@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>RemoteProctoringFeatures</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>

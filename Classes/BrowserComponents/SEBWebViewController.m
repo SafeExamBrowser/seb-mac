@@ -67,6 +67,11 @@
            withKeyPath:@"values.org_safeexambrowser_SEB_enableJavaScript"
                options:nil];
 
+        [webPrefs bind:@"tabsToLinks"
+              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
+           withKeyPath:@"values.org_safeexambrowser_SEB_tabFocusesLinks"
+               options:nil];
+
         NSDictionary *bindingOptions = [NSDictionary dictionaryWithObjectsAndKeys:@"NSNegateBoolean",NSValueTransformerNameBindingOption,nil];
         [webPrefs bind:@"javaScriptCanOpenWindowsAutomatically"
               toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
@@ -84,7 +89,7 @@
         // Create custom WebPreferences with bugfix for local storage not persisting application quit/start
         [self setCustomWebPreferencesForWebView:_sebWebView];
         
-        if (self.navigationDelegate.isMainBrowserWebViewActive) {
+        if (self.navigationDelegate.isMainBrowserWebView) {
             [_sebWebView bind:@"maintainsBackForwardList"
                       toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
                    withKeyPath:@"values.org_safeexambrowser_SEB_allowBrowsingBackForward"
@@ -97,18 +102,20 @@
         }
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+        _allowDownloads = self.navigationDelegate.allowDownUploads;
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+#ifdef DEBUG
         // Display all MIME types the WebView can display as HTML
         NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
         NSUInteger i, count = [MIMETypes count];
         for (i=0; i<count; i++) {
-            DDLogDebug(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
+            DDLogVerbose(@"MIME type shown as HTML: %@", [MIMETypes objectAtIndex:i]);
         }
+#endif
     }
     return _sebWebView;
 }
@@ -258,6 +265,12 @@
 - (void) textSizeReset
 {
     [self.sebWebView makeTextStandardSize:self];
+}
+
+
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js
+{
+    return [_sebWebView stringByEvaluatingJavaScriptFromString:js];
 }
 
 
@@ -487,6 +500,8 @@
             [resultListener chooseFilenames:filenames.copy];
         };
         [self.navigationDelegate webView:nil runOpenPanelWithParameters:[NSNumber numberWithBool:allowMultipleFiles] initiatedByFrame:nil completionHandler:completionHandler];
+    } else {
+        [self.navigationDelegate showAlertNotAllowedDownUploading:YES];
     }
 }
 
@@ -516,7 +531,7 @@
 initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message initiatedByFrame:frame];
+    [self.navigationDelegate pageTitle:pageTitle runJavaScriptAlertPanelWithMessage:message];
 }
 
 
@@ -525,7 +540,7 @@ initiatedByFrame:(WebFrame *)frame
 initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptConfirmPanelWithMessage:message];
 }
 
 
@@ -535,7 +550,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
      initiatedByFrame:(WebFrame *)frame
 {
     NSString *pageTitle = [sender stringByEvaluatingJavaScriptFromString:@"document.title"];
-    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame];
+    return [self.navigationDelegate pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 
@@ -577,6 +592,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 - (void)webView:(SEBWebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     if (frame == [sender mainFrame]){
+        [_sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
         [self.navigationDelegate setCanGoBack:sender.canGoBack canGoForward:sender.canGoForward];
         
         [self.navigationDelegate sebWebViewDidFinishLoad];
@@ -885,8 +901,8 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-    DDLogDebug(@"[SEBWebViewController webView: %@ decidePolicyForNavigationAction request URL: %@ ...]", sender, [[request URL] absoluteString]);
-    DDLogDebug(@"self.sebWebView: %@", self.sebWebView);
+    DDLogVerbose(@"[SEBWebViewController webView: %@ decidePolicyForNavigationAction request URL: %@ ...]", sender, [[request URL] absoluteString]);
+    DDLogVerbose(@"self.sebWebView: %@", self.sebWebView);
     //NSString *requestedHost = [[request mainDocumentURL] host];
     
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
@@ -896,7 +912,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     #ifdef DEBUG
         DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
     #endif
-        if (_allowDownloads) {
+        if (_allowDownloads || [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
             // Get the DOMNode from the information about the action that triggered the navigation request
             self.downloadFilename = nil;
             NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
@@ -969,7 +985,12 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 }
             }
         }
-        SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        SEBNavigationActionPolicy delegateNavigationActionPolicy;
+        if (!_allowDownloads && self.downloadFilename && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+        } else {
+            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        }
     #ifdef DEBUG
         DDLogDebug(@"%s: [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO] = (SEBNavigationActionPolicy) %lu", __FUNCTION__, (unsigned long)delegateNavigationActionPolicy);
     #endif
@@ -1001,7 +1022,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             return;
         } else {
             SEBWebView *creatingWebView = self.sebWebView.creatingWebView;
-            DDLogDebug(@"navigationDelegate decidePolicyForNavigationAction was Allow: sender WebView %@, creatingWebView property: %@, self.sebWebView: %@", sender, creatingWebView, self.sebWebView);
+            DDLogVerbose(@"navigationDelegate decidePolicyForNavigationAction was Allow: sender WebView %@, creatingWebView property: %@, self.sebWebView: %@", sender, creatingWebView, self.sebWebView);
             
             // Check if the request's sender is different than the current webview (means the sender is the temporary webview)
             if (self.sebWebView && ![sender isEqual:self.sebWebView]) {
@@ -1058,11 +1079,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
           frame:(WebFrame *)frame
 decisionListener:(id < WebPolicyDecisionListener >)listener
 {
-    DDLogDebug(@"[SEBWebViewController webView: %@ decidePolicyForMIMEType: %@ requestURL: %@ ...]", sender, type, request.URL.absoluteString);
-    DDLogDebug(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
+    DDLogVerbose(@"[SEBWebViewController webView: %@ decidePolicyForMIMEType: %@ requestURL: %@ ...]", sender, type, request.URL.absoluteString);
+    DDLogVerbose(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
 
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-    if (self.downloadFilename) {
+    if (self.downloadFilename && _allowDownloads) {
         DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
         [listener download];
         [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
@@ -1107,8 +1128,12 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
         return;
     }
     
-    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:@[]];
-    if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
+    SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForMIMEType:type url:request.URL canShowMIMEType:[WebView canShowMIMEType:type] isForMainFrame:(frame == sender.mainFrame) suggestedFilename:self.downloadFilename cookies:NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies];
+    if (delegateNavigationActionPolicy == SEBNavigationActionPolicyDownload) {
+        DDLogInfo(@"Resource %@ will be downloaded.", request.URL.lastPathComponent);
+        [listener download];
+        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
+    } else if (delegateNavigationActionPolicy == SEBNavigationResponsePolicyAllow) {
         [listener use];
     } else {
         [listener ignore];

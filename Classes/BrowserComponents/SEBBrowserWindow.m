@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -46,6 +46,14 @@
 @implementation SEBBrowserWindow
 
 @synthesize webView;
+
+
+- (NSArray *)accessibilityChildren {
+    NSArray *subViews = self.contentView.superview.subviews;
+    DDLogVerbose(@"Browser window contentView superview subviews: %@", subViews);
+    
+    return @[self.contentView.superview, self.contentView, self.accessibilityDock];
+}
 
 
 -(BOOL)canBecomeKeyWindow {
@@ -97,21 +105,89 @@
 }
 
 
+- (SEBBrowserWindowController *)browserWindowController
+{
+    return (SEBBrowserWindowController *)self.windowController;
+}
+
+
 // Setup browser window and webView delegates
 - (void) awakeFromNib
 {
-    // Display or don't display toolbar
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     // No toolbar on full screen window
     if (!_isFullScreen) {
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"])
-        {
-            [self.toolbar setVisible:NO];
-        } else {
-            [self.toolbar setVisible:YES];
-        }
+        // Display or don't display toolbar
+        [self conditionallyDisplayToolbar];
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
+    self.contentView.superview.accessibilityLabel = NSLocalizedString(@"Browser Window", nil);
+    self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", nil);
+}
+
+- (void)performFindPanelAction:(id)sender
+{
+    long tag = ((NSMenuItem *)sender).tag;
+    switch (tag) {
+        case NSFindPanelActionShowFindPanel:
+            [self searchText];
+            break;
+            
+        case NSFindPanelActionNext:
+            [self searchTextNext];
+            break;
+            
+        case NSFindPanelActionPrevious:
+            [self searchTextPrevious];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void) searchText
+{
+    if (!_isFullScreen) {
+        [self displayToolbar];
+        [self.browserWindowController searchTextMatchFound:NO];
+        [self makeFirstResponder:self.browserWindowController.textSearchField];
+    }
+}
+
+- (void) searchTextNext
+{
+    if (!_isFullScreen) {
+        [self.browserWindowController searchTextNext];
+    }
+}
+
+- (void) searchTextPrevious
+{
+    if (!_isFullScreen) {
+        [self.browserWindowController searchTextPrevious];
+    }
+}
+
+
+
+- (void) conditionallyDisplayToolbar
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableBrowserWindowToolbar"] || ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideBrowserWindowToolbar"] || _toolbarWasHidden))
+    {
+        _toolbarWasHidden = NO;
+        [self.toolbar setVisible:NO];
+    } else {
+        [self.toolbar setVisible:YES];
+    }
+}
+
+- (void) displayToolbar
+{
+    if (!_isFullScreen && !self.toolbar.isVisible) {
+        _toolbarWasHidden = !self.toolbar.isVisible;
+        [self.toolbar setVisible:YES];
+    }
 }
 
 
@@ -218,7 +294,7 @@
         // Allow right mouse button/context menu according to setting
         // This is the only way how to block the context menu in browser plugins
         // and video players etc. (not on regular website elements)
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouse"]) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouseMac"]) {
             [super sendEvent:theEvent];
         }
     }
@@ -283,6 +359,25 @@
 }
 
 
+- (void) activateInitialFirstResponder
+{
+    if (self.toolbar.isVisible) {
+        [self.browserWindowController activateInitialFirstResponder];
+    } else {
+        [self focusFirstElement];
+    }
+}
+
+- (void) makeContentFirstResponder
+{
+    [self makeFirstResponder:(NSResponder *)[self nativeWebView]];
+}
+
+- (void) goToDock
+{
+    [self.browserController goToDock];
+}
+
 - (void)goBack
 {
     [self.browserControllerDelegate goBack];
@@ -295,7 +390,80 @@
 
 - (void)reload
 {
+    if (self.webView.isReloadAllowed) {
+        if (self.webView.showReloadWarning) {
+            // Display warning and ask if to reload page
+            NSAlert *newAlert = [self.browserController.sebController newAlert];
+            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setAlertStyle:NSWarningAlertStyle];
+            
+            void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.browserController.sebController removeAlertWindow:newAlert.window];
+                switch(answer) {
+                    case NSAlertFirstButtonReturn:
+                        [self unconditionallyReload];
+                        break;
+                    
+                        
+                    default:
+                        // Return without reloading page
+                        return;
+                }
+            };
+            
+            [self.browserController.sebController runModalAlert:newAlert conditionallyForWindow:self completionHandler:conditionalReload];
+            
+        } else {
+            // Reload page without displaying warning
+            [self unconditionallyReload];
+        }
+    }
+}
+
+- (void)unconditionallyReload
+{
+    // Reset the list of dismissed URLs and the dismissAll flag
+    // (for the Teach allowed/blocked URLs mode)
+    SEBAbstractWebView *creatingWebView = [self.webView creatingWebView];
+    if (!creatingWebView) {
+        creatingWebView = self.webView;
+    }
+    [creatingWebView.notAllowedURLs removeAllObjects];
+    creatingWebView.dismissAll = NO;
+    
+    // Reload page
+    DDLogInfo(@"Reloading current webpage");
     [self.browserControllerDelegate reload];
+}
+
+
+- (void) focusFirstElement
+{
+    [self.browserControllerDelegate focusFirstElement];
+}
+
+- (void) focusLastElement
+{
+    [self.browserControllerDelegate focusLastElement];
+}
+
+
+- (void)zoomPageIn:(id)sender
+{
+    [self zoomPageIn];
+}
+
+- (void)zoomPageOut:(id)sender
+{
+    [self zoomPageOut];
+}
+
+- (void)resetPageZoom:(id)sender
+{
+    [self zoomPageReset];
 }
 
 
@@ -314,6 +482,22 @@
 - (void)zoomPageReset
 {
     [self.browserControllerDelegate zoomPageReset];
+}
+
+
+- (void)makeTextLarger:(id)sender
+{
+    [self textSizeIncrease];
+}
+
+- (void)makeTextSmaller:(id)sender
+{
+    [self textSizeDecrease];
+}
+
+- (void)makeTextStandardSize:(id)sender
+{
+    [self textSizeReset];
 }
 
 
@@ -811,6 +995,18 @@
 }
 
 
+- (void) searchText:(NSString *)textToSearch backwards:(BOOL)backwards caseSensitive:(BOOL)caseSensitive
+{
+    [self.browserControllerDelegate searchText:textToSearch backwards:backwards caseSensitive:caseSensitive];
+}
+
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [self.browserWindowController searchTextMatchFound:matchFound];
+}
+
+
 - (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
     self.browserControllerDelegate.downloadingSEBConfig = downloadingSEBConfig;
 }
@@ -821,6 +1017,17 @@
 - (WKWebViewConfiguration *) wkWebViewConfiguration
 {
     return self.browserController.wkWebViewConfiguration;
+}
+
+- (id) accessibilityDock
+{
+    return self.browserController.accessibilityDock;
+}
+
+
+- (void) setPageTitle:(NSString *)title
+{
+    [self sebWebViewDidUpdateTitle:title];
 }
 
 
@@ -837,7 +1044,7 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
     // Enable back/forward buttons according to availablility for this webview
-    NSSegmentedControl *backForwardButtons = [(SEBBrowserWindowController *)self.windowController backForwardButtons];
+    NSSegmentedControl *backForwardButtons = [self.browserWindowController backForwardButtons];
     [backForwardButtons setEnabled:canGoBack forSegment:0];
     [backForwardButtons setEnabled:canGoForward forSegment:1];
     
@@ -852,6 +1059,20 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [self.browserController examineHeaders:headerFields forURL:url];
+}
+
+- (void) firstDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController firstDOMElementDeselected];
+    }
+}
+
+- (void) lastDOMElementDeselected
+{
+    if (!self.toolbar.isVisible) {
+        [self.browserController lastDOMElementDeselected];
+    }
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
@@ -897,7 +1118,54 @@
 
 - (BOOL) isMainBrowserWebViewActive
 {
-    return self.browserController.isMainBrowserWebViewActive;
+    return self.webView.isMainBrowserWebView;
+}
+
+- (BOOL) isNavigationAllowed
+{
+    if (self.webView) {
+        return self.webView.isNavigationAllowed;
+    } else {
+        return [self isNavigationAllowedMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController isNavigationAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) isReloadAllowed
+{
+    if (self.webView) {
+        return self.webView.isReloadAllowed;
+    } else {
+        return [self isReloadAllowedMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController isReloadAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) showReloadWarning
+{
+    if (self.webView) {
+        return self.webView.showReloadWarning;
+    } else {
+        return [self showReloadWarningMainWebView:self.browserController.isMainBrowserWebViewActive];
+    }
+}
+
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    return [self.browserController showReloadWarningMainWebView:mainWebView];
+}
+
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    return [self.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
 }
 
 - (NSString *)quitURL
@@ -908,6 +1176,16 @@
 - (NSString *)pageJavaScript
 {
     return self.browserController.pageJavaScript;
+}
+
+- (BOOL)allowDownUploads
+{
+    return self.browserController.allowDownUploads;
+}
+
+- (void)showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [self showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -970,6 +1248,8 @@
 - (void)sebWebViewDidFinishLoad
 {
     [self setLoading:NO];
+    [self.browserWindowController sebWebViewDidFinishLoad];
+
 }
 
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error
@@ -1021,6 +1301,7 @@
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {
+    title = [self.browserController webPageTitle:title orURL:self.webView.url mainWebView:self.webView.isMainBrowserWebView];
     [self.browserController setTitle: title forWindow:self withWebView:self.webView];
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
     NSString* appTitleString = [NSString stringWithFormat:@"%@ %@  —  %@",
@@ -1041,7 +1322,11 @@
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    if (_browserController == nil) {
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    } else {
+        [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+    }
 }
 
 - (void)webView:(WKWebView *)webView
@@ -1069,7 +1354,6 @@ completionHandler:(void (^)(void))completionHandler
 
 - (void)pageTitle:(NSString *)pageTitle
 runJavaScriptAlertPanelWithMessage:(NSString *)message
- initiatedByFrame:(WebFrame *)frame
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
@@ -1122,7 +1406,6 @@ completionHandler:(void (^)(BOOL result))completionHandler
 
 - (BOOL)pageTitle:(NSString *)pageTitle
 runJavaScriptConfirmPanelWithMessage:(NSString *)message
- initiatedByFrame:(WebFrame *)frame
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self makeKeyAndOrderFront:self];
@@ -1183,16 +1466,15 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSString *result))completionHandler
 {
-    //    [self.navigationDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
+    [self.browserController webView:webView runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText initiatedByFrame:frame completionHandler:completionHandler];
 }
 
 
 - (NSString *)pageTitle:(NSString *)pageTitle
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
             defaultText:(NSString *)defaultText
-       initiatedByFrame:(WebFrame *)frame
 {
-    return @"";
+    return [self.browserController pageTitle:pageTitle runJavaScriptTextInputPanelWithPrompt:prompt defaultText:defaultText];
 }
 
 
@@ -1202,7 +1484,7 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == YES) {
+    if (self.allowDownUploads) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
             // If the policy isn't "manually with file requester"
             // We try to choose the filename and path ourselves, it's the last dowloaded file
@@ -1217,7 +1499,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 lastDownloadPathIndex--;
                 [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
                 if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
-                    completionHandler(@[[NSURL fileURLWithPathString:lastDownloadPath]]);
+                    completionHandler(@[[NSURL fileURLWithPath:lastDownloadPath]]);
                     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                     [self makeKeyAndOrderFront:self];
                     
@@ -1280,7 +1562,13 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
         
         // Change default directory in file dialog
-        openFilePanel.directoryURL = [NSURL fileURLWithPath:[preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] isDirectory:NO];
+        NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        if (downloadPath.length == 0) {
+            //if there's no path saved in preferences, set standard path
+            downloadPath = @"~/Downloads";
+        }
+        downloadPath = [downloadPath stringByExpandingTildeInPath];
+        openFilePanel.directoryURL = [NSURL fileURLWithPathString:downloadPath];
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self makeKeyAndOrderFront:self];
@@ -1294,8 +1582,13 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 // files and directories selected.
                 NSArray* fileURLs = [openFilePanel URLs];
                 completionHandler(fileURLs);
+            } else {
+                completionHandler(nil);
             }
         }];
+    } else {
+        completionHandler(nil);
+        [self.browserController showAlertNotAllowedDownUploading:YES];
     }
 }
 

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 05.03.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -36,6 +36,10 @@
 #import "UIWebView+SEBWebView.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+
+@interface SEBUIWebViewController ()
+
+@end
 
 @implementation SEBUIWebViewController
 
@@ -49,51 +53,45 @@
 }
 
 
-- (SEBWebView *)sebWebView
-{
-    if (!_sebWebView) {
-        // Create a webview to fit underneath the navigation view (=fill the whole screen).
-        CGRect webFrame = [[UIScreen mainScreen] bounds];
-        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
-        // Get statusbar appearance depending on device type (traditional or iPhone X like)
-        SEBBackgroundTintStyle backgroundTintStyle = [self.navigationDelegate backgroundTintStyle];
-        _sebWebView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
-        _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
-        _sebWebView.scalesPageToFit = YES;
-        if (@available(iOS 11.0, *)) {
-            _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
-        }
-        _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-        _sebWebView.scrollView.scrollEnabled = YES;
-        [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
-        
-        // Set media playback properties on new webview
-
-        WKWebViewConfiguration *webViewConfiguration = self.navigationDelegate.wkWebViewConfiguration;
-        
-        _sebWebView.mediaPlaybackRequiresUserAction = webViewConfiguration.mediaTypesRequiringUserActionForPlayback != WKAudiovisualMediaTypeNone;
-        
-        _sebWebView.allowsInlineMediaPlayback = webViewConfiguration.allowsInlineMediaPlayback;
-        _sebWebView.allowsPictureInPictureMediaPlayback = webViewConfiguration.allowsPictureInPictureMediaPlayback;
-        _sebWebView.mediaPlaybackAllowsAirPlay = NO;
-
-        _sebWebView.delegate = self;
-        
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            if (UIApplication.sharedApplication.keyWindow == self.view.window) {
-                DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
-                // ToDo: The possible fix below first has to be tested
-                //[self reload];
-            }
-        }];
-    }
-    return _sebWebView;
-}
-
-
 - (void)loadView
 {
-    self.view = self.sebWebView;
+    // Create a webview to fit underneath the navigation view (=fill the whole screen).
+    CGRect webFrame = [[UIScreen mainScreen] bounds];
+    if (!_sebWebView) {
+        _sebWebView = [[UIWebView alloc] initWithFrame:webFrame];
+    }
+    
+    // Get statusbar appearance depending on device type (traditional or iPhone X like)
+    SEBBackgroundTintStyle backgroundTintStyle = [self.navigationDelegate backgroundTintStyle];
+    _sebWebView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+    _sebWebView.dataDetectorTypes = UIDataDetectorTypeNone;
+    _sebWebView.scalesPageToFit = YES;
+    if (@available(iOS 11.0, *)) {
+        _sebWebView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAlways;
+    }
+    _sebWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    _sebWebView.scrollView.scrollEnabled = YES;
+    [_sebWebView setTranslatesAutoresizingMaskIntoConstraints:YES];
+    
+    // Set media playback properties on new webview
+
+    WKWebViewConfiguration *webViewConfiguration = self.navigationDelegate.wkWebViewConfiguration;
+    
+    _sebWebView.mediaPlaybackRequiresUserAction = webViewConfiguration.mediaTypesRequiringUserActionForPlayback != WKAudiovisualMediaTypeNone;
+    
+    _sebWebView.allowsInlineMediaPlayback = webViewConfiguration.allowsInlineMediaPlayback;
+    _sebWebView.allowsPictureInPictureMediaPlayback = webViewConfiguration.allowsPictureInPictureMediaPlayback;
+    _sebWebView.mediaPlaybackAllowsAirPlay = NO;
+
+    _sebWebView.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIWindowDidBecomeKeyNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        if (UIApplication.sharedApplication.keyWindow == self.view.window) {
+            DDLogDebug(@"UIWindowDidBecomeKeyNotification with UIApplication.sharedApplication.keyWindow == self.view.window.");
+            // ToDo: The possible fix below first has to be tested
+            //[self reload];
+        }
+    }];
 }
 
 
@@ -104,9 +102,9 @@
     if (@available(iOS 11.0, *)) {
         // Not necessary for iOS 11 thanks to Safe Area
     } else {
-        [self.sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [self.sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
-        [self.sebWebView.scrollView setZoomScale:0 animated:YES];
+        [_sebWebView.scrollView setContentInset:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0)];
+        [_sebWebView.scrollView setZoomScale:0 animated:YES];
     }
 }
 
@@ -138,7 +136,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.sebWebView.delegate = self;    // setup the delegate as the web view is shown
+    _sebWebView.delegate = self;    // setup the delegate as the web view is shown
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSpellCheck = self.navigationDelegate.allowSpellCheck;
@@ -163,39 +161,39 @@
 
 - (void)toggleScrollLock {
     _isScrollLockActive = !_isScrollLockActive;
-    self.sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
-    self.sebWebView.scrollView.bounces = !_isScrollLockActive;
+    _sebWebView.scrollView.scrollEnabled = !_isScrollLockActive;
+    _sebWebView.scrollView.bounces = !_isScrollLockActive;
     if (_isScrollLockActive) {
         // Disable text/content selection
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='none';"];
         // Disable selection context popup (copy/paste etc.)
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='none';"];
         // Disable magnifier glass
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='none';"];
     } else {
         // Enable text/content selection
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitUserSelect='text';"];
         // Enable selection context popup (copy/paste etc.)
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.documentElement.style.webkitTouchCallout='default';"];
         // Enable magnifier glass
-        [self.sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
+        [_sebWebView stringByEvaluatingJavaScriptFromString: @"document.body.style.webkitUserSelect='default';"];
     }
 }
 
 - (void)backToStart {
-    [self.sebWebView goBack];
+    [_sebWebView goBack];
 }
 
 - (void)goBack {
-    [self.sebWebView goBack];
+    [_sebWebView goBack];
 }
 
 - (void)goForward {
-    [self.sebWebView goForward];
+    [_sebWebView goForward];
 }
 
 - (void)reload {
-    [self.sebWebView reload];
+    [_sebWebView reload];
 }
 
 - (void)loadURL:(NSURL *)url
@@ -204,23 +202,31 @@
 }
 
 - (void)stopLoading {
-    [self.sebWebView stopLoading];
+    [_sebWebView stopLoading];
 }
 
-- (void) zoomPageIn
+
+- (NSString *) stringByEvaluatingJavaScriptFromString:(NSString *)js
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"1.25\""];
+    return [_sebWebView stringByEvaluatingJavaScriptFromString:js];
 }
 
-- (void) zoomPageOut
+
+- (void) setPrivateClipboardEnabled:(BOOL)privateClipboardEnabled
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"0.75\""];
+    return;
 }
 
-- (void) zoomPageReset
+- (void)setAllowDictionaryLookup:(BOOL)allowDictionaryLookup
 {
-    [self.browserControllerDelegate.nativeWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.zoom = \"100%\""];
+    return;
 }
+
+- (void)setAllowPDFPlugIn:(BOOL)allowPDFPlugIn
+{
+    return;
+}
+
 
 #pragma mark -
 #pragma mark UIWebViewDelegate
@@ -233,12 +239,12 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [self.sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
+    [_sebWebView stringByEvaluatingJavaScriptFromString:self.navigationDelegate.pageJavaScript];
     
-    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
-    [self.sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
+    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyLinkTargets()"];
+    [_sebWebView stringByEvaluatingJavaScriptFromString:@"SEB_ModifyWindowOpen()"];
     
-    [self.sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
+    [_sebWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"SEB_AllowSpellCheck(%@)", allowSpellCheck ? @"true" : @"false"]];
     
     //[webView stringByEvaluatingJavaScriptFromString:@"SEB_increaseMaxZoomFactor()"];
     
@@ -299,8 +305,7 @@
         default:
             break;
     }
-    navigationAction.writableRequest = request;
-    
+
     NSURL *url = [request URL];
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
@@ -309,11 +314,13 @@
 
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
-        NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[self.sebWebView url]];
+        NSURL *originalURL = [NSURL URLWithString:urlString relativeToURL:[_sebWebView url]];
         request = [NSURLRequest requestWithURL:originalURL];
         newTabRequested = YES;
     }
     
+    navigationAction.writableRequest = request;
+
     NSString *fileExtension = [url pathExtension];
 
     // Check if this is a seb:// or sebs:// link or a .seb file link
@@ -332,13 +339,26 @@
             waitingForConfigDownload = NO;
             // If the scheme is seb(s):// or the file extension .seb,
             // we (conditionally) download and open the linked .seb file
-            [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[];
+            [self.navigationDelegate decidePolicyForMIMEType:@"" url:url canShowMIMEType:NO isForMainFrame:YES suggestedFilename:nil cookies:@[]];
             return NO;
         }
     }
 
+    if (!url.hasDirectoryPath && ([url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && self.downloadFilename.length == 0)) {
+        NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]').download", url.absoluteString];
+        self.downloadFilename = [webView stringByEvaluatingJavaScriptFromString:javaScript];
+    } else {
+        self.downloadFilename = nil;
+    }
+    if (self.downloadFilename.length != 0) {
+        BOOL displayPDF = [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
+        if (displayPDF) {
+            newTabRequested = YES;
+        }
+    }
+
     SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
-    if (navigationActionPolicy = SEBNavigationActionPolicyAllow) {
+    if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;
     } else {
         return NO;
@@ -371,34 +391,29 @@
 }
 
 
-- (void)setBackForwardAvailabilty
-{
-    [self.navigationDelegate setCanGoBack:self.sebWebView.canGoBack canGoForward:self.sebWebView.canGoForward];
-}
-
 - (BOOL)canGoBack {
-    return self.sebWebView.canGoBack;
+    return _sebWebView.canGoBack;
 }
 
 
 - (BOOL)canGoForward {
-    return self.sebWebView.canGoForward;
+    return _sebWebView.canGoForward;
 }
 
 
 - (nonnull id)nativeWebView {
-    return self.sebWebView;
+    return _sebWebView;
 }
 
 
 - (NSURL *)url {
-    return [self.sebWebView url];
+    return [_sebWebView url];
 }
 
 
 - (NSString*)pageTitle
 {
-    return [self.sebWebView title];
+    return [_sebWebView title];
 }
 
 

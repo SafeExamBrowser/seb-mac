@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 02.12.14.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -77,7 +77,7 @@
 
 + (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
 {
-    if (!allowPlugins && [MIMEType isEqualToString:@"application/pdf"])
+    if (!allowPlugins && [MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame)
     {
         return YES;
     }
@@ -91,7 +91,7 @@
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
 {
-    if ([MIMEType isEqualToString:@"application/pdf"] && !self.navigationDelegate.allowPDFPlugIn)
+    if ([MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && !self.navigationDelegate.allowPDFPlugIn)
     {
         return nil;
     }

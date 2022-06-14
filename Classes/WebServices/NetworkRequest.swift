@@ -2,7 +2,7 @@
 //  NetworkRequest.swift
 //
 //  Created by Daniel R. Schneider on 15.10.18.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -71,15 +71,15 @@ extension NetworkRequest {
 
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            print(data as Any)
-            if (data != nil) {
-                print(String(decoding: data!, as: UTF8.self))
-            }
-            print(response as Any)
+//            print(data as Any)
+//            if (data != nil) {
+//                print(String(decoding: data!, as: UTF8.self))
+//            }
+//            print(response as Any)
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
             let responseHeaders = httpResponse?.allHeaderFields
-            print(error as Any)
+//            print(error as Any)
             guard let receivedData = data else {
                 completion(nil, statusCode, [:])
                 return

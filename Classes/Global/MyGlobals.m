@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 13.10.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -34,6 +34,7 @@
 
 #import "SynthesizeSingleton.h"
 #import "MyGlobals.h"
+#include <SystemConfiguration/SystemConfiguration.h>
 
 @implementation MyGlobals
 
@@ -50,6 +51,95 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 + (NSArray *)SEBExtensions
 {
     return @[@"SEBPresetSettings"];
+}
+
+
++ (NSString *)osName
+{
+#if TARGET_OS_OSX
+    return [NSString stringWithFormat:@"%@ %@", runningOSmacOS, NSProcessInfo.processInfo.operatingSystemVersionString];
+#else
+    UIDevice *device = UIDevice.currentDevice;
+    NSString *deviceModel = device.model;
+    NSString *systemName = device.systemName;
+    NSString *systemVersion = device.systemVersion;
+    return [NSString stringWithFormat:@"%@ (%@ %@)", deviceModel, systemName, systemVersion];
+#endif
+}
+
++ (NSString *)localHostname
+{
+#if TARGET_OS_OSX
+    return (NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL));
+#else
+    return @"";
+#endif
+}
+
++ (NSString *)computerName
+{
+#if TARGET_OS_OSX
+    return (NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL));
+#else
+    return UIDevice.currentDevice.name;
+#endif
+}
+
++ (NSString *)userName
+{
+    return NSUserName();
+}
+
++ (NSString *)fullUserName
+{
+    return NSFullUserName();
+}
+
++ (NSString *)displayName
+{
+    return [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"];
+}
+
++ (NSString *)versionString
+{
+    return [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
+}
+
++ (NSString *)buildNumber
+{
+    return [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"];
+}
++ (NSString *)bundleID
+{
+    return [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"];
+}
+
++ (NSString *)bundleExecutable
+{
+    return [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleExecutable"];
+}
+
+
++ (void) logSystemInfo
+{
+    NSString *localHostname = MyGlobals.localHostname;
+    NSString *computerName = MyGlobals.computerName;
+    NSString *userName = MyGlobals.userName;
+    NSString *fullUserName = MyGlobals.fullUserName;
+    NSString *displayName = MyGlobals.displayName;
+    NSString *versionString = MyGlobals.versionString;
+    NSString *buildNumber = MyGlobals.buildNumber;
+    NSString *bundleID = MyGlobals.bundleID;
+    NSString *bundleExecutable = MyGlobals.bundleExecutable;
+    DDLogInfo(@"%@ version %@ (Build %@)", displayName, versionString, buildNumber);
+    DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    DDLogInfo(@"OS version %@", MyGlobals.osName);
+    if (localHostname.length > 0) {
+        DDLogInfo(@"Local hostname: %@", localHostname);
+    }
+    DDLogInfo(@"Device name: %@", computerName);
+    DDLogInfo(@"User name: %@", userName);
+    DDLogInfo(@"Full user name: %@", fullUserName);
 }
 
 

@@ -6,10 +6,11 @@
 //
 
 #import "SEBDockItem.h"
+#import "SEBBatteryController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBDockItemBattery : SEBDockItem {
+@interface SEBDockItemBattery : SEBDockItem <SEBBatteryControllerDelegate> {
     __weak IBOutlet NSView *backgroundView;
     CGFloat dockScale;
     CGFloat itemSize;
@@ -29,18 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
     CGColorRef systemGreenCGColor;
     CGColorRef systemOrangeCGColor;
     CGColorRef systemRedCGColor;
-
-    NSTimer *batteryTimer;
-    CFRunLoopSourceRef powerSourceMonitoringLoop;
-    
-    double lastBatteryLevel;
 }
 
-@property (strong, nonatomic) IBOutlet NSView *view;
 @property (readonly) double batteryLevel;
 
-- (void) startDisplayingBattery;
+@property (strong, nonatomic) IBOutlet NSView *view;
 
+- (void) startDisplayingBattery;
 - (void) setToolTip:(NSString *)toolTip;
 
 @end

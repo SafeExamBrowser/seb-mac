@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 24/10/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -38,7 +38,7 @@
 
 - (id) initWithToolTip:(NSString *)newToolTip
 {
-    self = [super initWithTitle:nil icon:nil highlightedIcon:nil toolTip:newToolTip menu:nil target:nil action:nil];
+    self = [super initWithTitle:nil icon:nil highlightedIcon:nil toolTip:newToolTip menu:nil target:nil action:nil secondaryAction:nil];
     if (self) {
     }
     return self;
@@ -48,6 +48,7 @@
 - (void) startDisplayingTime
 {
     NSDate *dateNow = [NSDate date];
+    timeTextField.placeholderString = @"";
     
     NSFont *itemFont = timeTextField.font;
     CGFloat dockHeight = [[NSUserDefaults standardUserDefaults] secureDoubleForKey:@"org_safeexambrowser_SEB_taskBarHeight"];

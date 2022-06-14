@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 30/11/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -46,6 +46,17 @@
         [super setDelegate:self];
 }
     return self;
+}
+
+
+// Exam URL is opened in a webview (tab), waiting for user to log in
+- (BOOL) startingExamFromSEBServer {
+    return _sebController.startingExamFromSEBServer;
+}
+
+// User logged in to LMS, monitoring the client started
+- (BOOL) sebServerConnectionEstablished {
+    return _sebController.sebServerConnectionEstablished;
 }
 
 
@@ -133,12 +144,13 @@
                                    showReconfiguredAlert:(BOOL)showReconfiguredAlert {
     if (!forceConfiguringClient && showReconfiguredAlert) {
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
-            NSAlert *newAlert = [[NSAlert alloc] init];
+            NSAlert *newAlert = [self.sebController newAlert];
             [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
             [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
             void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.sebController removeAlertWindow:newAlert.window];
                 switch(answer)
                 {
                     case NSAlertFirstButtonReturn:
@@ -149,11 +161,11 @@
                         
                     case NSAlertSecondButtonReturn:
                         
-                        [self.sebController exitSEB]; // Quit SEB
+                        [self.sebController requestedExit:nil]; // Quit SEB
                         return;
                 }
             };
-            [newAlert beginSheetModalForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
             return;
 
         } else {
@@ -208,12 +220,13 @@
 
 
 - (BOOL) saveSettingsUnencrypted {
-    NSAlert *newAlert = [[NSAlert alloc] init];
+    NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
     [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:newAlert.window];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:

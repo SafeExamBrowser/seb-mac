@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 22/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -36,6 +36,8 @@
 #import "NSURL+SEBURL.h"
 #import <Foundation/Foundation.h>
 #import "SEBAbstractWebView.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SEBURLFilter;
 
@@ -137,6 +139,9 @@
 @property (readwrite) BOOL startingUp;
 @property (readwrite) BOOL openingSettings;
 
+@optional
+- (void) openDownloadedFile:(NSString *)path;
+
 @end
 
 
@@ -154,7 +159,13 @@
     BOOL sendHashKeys;
     BOOL usingEmbeddedCertificates;
     BOOL pinEmbeddedCertificates;
+    BOOL webPageShowURLAlways;
+    BOOL newWebPageShowURLAlways;
 }
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
 
 @property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
 
@@ -163,7 +174,7 @@
 @property (readwrite) BOOL finishedInitializing;
 @property (readwrite) BOOL directConfigDownloadAttempted;
 @property (readwrite) BOOL downloadingInTemporaryWebView;
-@property (strong, nonatomic) NSURL *openConfigSEBURL;
+@property (strong, nonatomic) NSURL *_Nullable openConfigSEBURL;
 @property (strong, nonatomic) NSURL *originalURL;
 
 @property (readwrite) BOOL usingCustomURLProtocol;
@@ -173,15 +184,15 @@
 
 @property (strong) NSURLCredential *enteredCredential;
 @property (strong) NSURLSession *URLSession;
-@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential);
+@property (strong) void (^pendingChallengeCompletionHandler)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *_Nullable credential);
 @property (strong) NSURLSessionDataTask *downloadTask;
 
 @property (strong) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 
-@property (strong, nonatomic) NSData *browserExamKey;
-@property (strong, nonatomic) NSData *browserExamKeySalt;
-@property (strong, nonatomic) NSData *configKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKey;
+@property (strong, nonatomic) NSData *_Nullable browserExamKeySalt;
+@property (strong, nonatomic) NSData *_Nullable configKey;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 
@@ -194,14 +205,16 @@
 - (void) quitSession;
 - (void) resetBrowser;
 + (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-@property (strong, nonatomic) NSString* customSEBUserAgent;
+@property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
+@property (readonly) BOOL allowDownUploads;
 
 @property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 
 @property (strong, nonatomic) WKWebViewConfiguration *wkWebViewConfiguration;
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 - (NSString *) urlOrPlaceholderForURL:(NSString *)url;
-- (NSString *) startURLQueryParameter:(NSURL**)url;
+- (NSString *) startURLQueryParameter:(NSURL*_Nonnull*_Nonnull)url;
 - (NSString *) backToStartURLString;
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request;
@@ -218,6 +231,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (BOOL) downloadingInTemporaryWebView;
 - (void) openConfigFromSEBURL:(NSURL *)url;
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 - (void) openingConfigURLFailed;
 
 @property (weak) SEBAbstractWebView *temporaryWebView;
@@ -232,3 +246,5 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

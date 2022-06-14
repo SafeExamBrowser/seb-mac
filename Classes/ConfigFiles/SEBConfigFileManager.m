@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 28.04.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -736,6 +736,18 @@ static NSString *getUppercaseAdminPasswordHash()
         /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
+        if (!storeSettingsForEditing && [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+            if ((_delegate.startingExamFromSEBServer || _delegate.sebServerConnectionEstablished) && [[sebPreferencesDict valueForKey:@"sebMode"] intValue] == sebModeSebServer) {
+                
+                DDLogError(@"%s: There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session.", __FUNCTION__);
+
+                NSString *title = NSLocalizedString(@"Cannot Start Another SEB Server Session", nil);
+                NSString *informativeText = NSLocalizedString(@"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.", nil);
+                [self.delegate showAlertWithTitle:title andText:informativeText];
+
+                return;
+            }
+        }
         // Inform delegate that preferences will be reconfigured
         if ([self.delegate respondsToSelector:@selector(willReconfigureTemporary)]) {
             [self.delegate willReconfigureTemporary];

@@ -1,0 +1,17 @@
+/* IASKLocalizable.strings
+  InAppSettingsKit
+
+  Created by Ortwin Gentz on 20.10.14.
+  Copyright (c) 2014 FutureTap. All rights reserved. */
+
+/* Privacy cell: title */
+"Privacy" = "Απόρρητο";
+
+/* warning title */
+"Mail not configured" = "Δεν έχει ρυθμιστεί ακόμα το Mail";
+
+"OK" = "OK";
+
+/* warning message */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Αυτή η συσκευή δεν έχει ρυθμιστεί για χρήση Email. Παρακαλώ συμπληρώστε τις ρυθμίσεις στο Mail.";
+

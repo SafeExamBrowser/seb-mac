@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 06.12.10.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -44,6 +44,8 @@
 #import "SEBOSXBrowserController.h"
 #import "SEBTextField.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBOSXWebViewController;
 @class SEBAbstractWebView;
 @class SEBOSXBrowserController;
@@ -54,9 +56,10 @@
 @property (strong, nonatomic) id<SEBAbstractBrowserControllerDelegate> browserControllerDelegate;
 @property (weak) SEBOSXBrowserController *browserController;
 @property (nonatomic, strong) SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
-@property (strong, nonatomic) SEBAbstractWebView *webView;
-@property (strong, nonatomic) NSURL *currentURL;
+@property (nullable, strong, nonatomic) SEBAbstractWebView *webView;
+@property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
+@property (readwrite) BOOL isMainBrowserWindow;
 @property (strong) IBOutlet NSWindow *URLFilterAlert;
 @property (strong) IBOutlet NSWindow *customAlert;
 @property (weak) IBOutlet SEBTextField *customAlertText;
@@ -75,12 +78,25 @@
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
 
+- (void) performFindPanelAction:(id)sender;
+- (void) searchText;
+- (void) searchTextNext;
+- (void) searchTextPrevious;
+
+@property (readwrite) BOOL toolbarWasHidden;
+- (void) conditionallyDisplayToolbar;
+
 - (void) setCalculatedFrame;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen;
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow;
 
 - (void) startProgressIndicatorAnimation;
 - (void) stopProgressIndicatorAnimation;
+- (void) activateInitialFirstResponder;
+- (void) makeContentFirstResponder;
+- (void) goToDock;
 
 
 @end
+
+NS_ASSUME_NONNULL_END

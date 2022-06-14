@@ -2,7 +2,7 @@
 //  OpenWebpages.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -34,11 +34,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "SEBWebViewController.h"
+#import "SEBiOSWebViewController.h"
 
 @interface OpenWebpages : NSObject
 
-@property (nonatomic, retain) SEBWebViewController<SEBAbstractBrowserControllerDelegate> *webViewController;
+@property (nonatomic, retain) SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *webViewController;
 @property (readwrite) NSUInteger index;
 @property (nonatomic, retain) NSNumber *loadDate;
 

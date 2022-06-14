@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 14.11.13.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -236,7 +236,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             // Check if the saved path really exists
             BOOL isDir;
             NSFileManager *fileManager= [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:scLocation isDirectory:&isDir]) {
+            if(![fileManager fileExistsAtPath:[scLocation stringByExpandingTildeInPath] isDirectory:&isDir]) {
                 // No, the directory for storing screenshots doesn't exist
                 // probably something went wrong sometimes ago (SEB crashed in a bad moment)
                 // so restore the screen capture path to the OS X standard (user's desktop)

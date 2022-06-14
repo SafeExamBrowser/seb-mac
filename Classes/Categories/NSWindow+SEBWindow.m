@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 19.01.12.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -43,15 +43,15 @@
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+5;
-            DDLogDebug(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
+            DDLogVerbose(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
         }
         if (windowLevel == NSMainMenuWindowLevel) {
             windowLevel = NSScreenSaverWindowLevel+1;
-            DDLogDebug(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
+            DDLogVerbose(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
         }
         if (windowLevel == NSModalPanelWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+6;
-            DDLogDebug(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
+            DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
         }
     }
     [self newSetLevel:windowLevel]; //call the original(!) method
@@ -92,7 +92,7 @@
 }
 
 - (void)addPositionedViewToTitleBar:(NSView *)viewToAdd atRightOffset:(CGFloat)x {
-    DDLogDebug(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
+    DDLogVerbose(@"View to add frame size: %f, %f at origin: %f, %f", viewToAdd.frame.size.width, viewToAdd.frame.size.height, viewToAdd.frame.origin.x, viewToAdd.frame.origin.y);
     
     NSUInteger mask = 0;
     if( x > self.frame.size.width / 2.0 )

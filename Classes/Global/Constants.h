@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -65,7 +65,7 @@
 #define kCustomButtonHeight     30.0
 
 #define SEBDefaultDockHeight 40.0
-#define SEBDefaultDockTimeItemFontSize 15.0
+#define SEBDefaultDockTimeItemFontSize 14.5
 #define SEBDefaultDockTimeItemPreferredWidth 42.0
 
 #define SEBErrorNoValidConfigData 10
@@ -81,8 +81,13 @@
 
 #define currentStableMajoriOSVersion 15
 
-#define WebViewDefaultTextSize 135
+#define WebViewDefaultTextSize 120.0
+#define WebViewDefaultTextZoom 1.0
+#define WebViewMinTextZoom 0.9
+#define WebViewMaxTextZoom 3.5
 #define WebViewDefaultPageZoom 1.0
+#define WebViewMinPageZoom 0.25
+#define WebViewMaxPageZoom 4.0
 
 enum {
     webViewSelectAutomatic                      = 0,
@@ -188,7 +193,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion15                            = 15
+    iOSBetaVersion16                            = 16
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -271,7 +276,7 @@ enum {
     SEBNavigationActionPolicyAllow              = 1,
     SEBNavigationActionPolicyDownload           = 2
 };
-typedef NSUInteger SEBNavigationActionPolicy;
+typedef NSInteger SEBNavigationActionPolicy;
 
 
 enum {
@@ -408,6 +413,41 @@ typedef NSUInteger SEBLogLevel;
 
 
 enum {
+/*! @constant   SEBLowBatteryWarningNone
+ *
+ *  @abstract   The system is not in a low battery situation, or is on drawing from an external power source.
+ *
+ *  @discussion The system displays no low power warnings; neither should application clients of this
+ *              API.
+ */
+    SEBLowBatteryWarningNone  = 1,
+
+/*! @constant   SEBLowBatteryWarningEarly
+ *
+ *  @abstract   The battery can provide no more than 20 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Early Warning for 20 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 20 minutes.
+ *              macOS alerts the user by changing the color of BatteryMonitor to red.
+ *              Warning the user is optional for full screen apps.
+ */
+    SEBLowBatteryWarningEarly = 2,
+
+/*! @constant   SEBLowBatteryWarningFinal
+ *
+ *  @abstract   The battery can provide no more than 10 minutes of runtime.
+ *
+ *  @discussion macOS makes no guarantees that the system shall remain in Final Warning for 10 minutes.
+ *              Batteries are frequently calibrated differently and may provide runtime
+ *              for more, or less, than the estimated 10 minutes.
+ */
+    SEBLowBatteryWarningFinal = 3
+};
+typedef NSInteger SEBLowBatteryWarningLevel;
+
+
+enum {
     SEBMinOSX10_7                               = 0,
     SEBMinOSX10_8                               = 1,
     SEBMinOSX10_9                               = 2,
@@ -484,6 +524,7 @@ static NSString __unused *TouchBarFnDefaultsKey = @"fullControlStrip";
 static NSString __unused *TouchBarFnDefaultsValue = @"functionKeys";
 static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
 static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
+static NSString __unused *WebKitNetworkingProcess = @"com.apple.WebKit.Networking";
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";
@@ -520,8 +561,17 @@ static NSString __unused *SEBWinUserAgentTouchDefault = @"Mozilla/5.0 (Windows N
 static NSString __unused *SEBWinUserAgentTouchiPad = @"Mozilla/5.0 (iPad; CPU OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.2 Mobile/15E148 Safari/604.1";
 static NSString __unused *SEBBrowserExamKeyHeaderKey = @"X-SafeExamBrowser-RequestHash";
 static NSString __unused *SEBConfigKeyHeaderKey = @"X-SafeExamBrowser-ConfigKeyHash";
+static NSString __unused *runningOSmacOS = @"macOS";
+static NSString __unused *runningOSiOS = @"iOS";
+static NSString __unused *runningOSiPadOS = @"iPadOS";
 
+static NSString __unused *filenameExtensionPDF = @"pdf";
 static NSString __unused *mimeTypePDF = @"application/pdf";
+
+static NSString __unused *SEBKeyShortcutSideMenu = @"m";
+static NSString __unused *SEBKeyShortcutReload = @"r";
+static NSString __unused *SEBKeyShortcutFind = @"f";
+static NSString __unused *SEBKeyShortcutQuit = @"q";
 
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 

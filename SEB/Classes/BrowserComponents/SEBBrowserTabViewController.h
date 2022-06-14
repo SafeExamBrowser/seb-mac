@@ -2,7 +2,7 @@
 //  SEBWebpageManager.h
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -39,16 +39,14 @@
 
 #import "SEBAbstractWebView.h"
 #import "SEBiOSWebViewController.h"
-#import "SEBSearchBarViewController.h"
 
 @class SEBViewController;
 @class OpenWebpages;
 @class SEBAbstractWebView;
 @class SEBiOSWebViewController;
-@class SEBSearchBarViewController;
 
 
-@interface SEBBrowserTabViewController : UIViewController <SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
+@interface SEBBrowserTabViewController : UIViewController <SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, NSFetchedResultsControllerDelegate>
 {
     IBOutlet UIBarButtonItem *MainWebView;
 }
@@ -59,8 +57,6 @@
 @property (nonatomic, strong) NSMutableArray<OpenWebpages*> *openWebpages;
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 @property (readwrite) NSUInteger maxIndex;
-
-@property (nonatomic, strong) SEBSearchBarViewController *searchBarController;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck;
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;

@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 25.01.19.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -44,6 +44,7 @@
     NSString *username =  [sebServerConfiguration valueForKey:@"clientName"];
     NSString *password =  [sebServerConfiguration valueForKey:@"clientSecret"];
     NSString *discoveryAPIEndpoint = [sebServerConfiguration valueForKey:@"apiDiscovery"];
+    double pingInterval = [[sebServerConfiguration valueForKey:@"pingInterval"] doubleValue] / 1000;
     if (url && institution && username && password && discoveryAPIEndpoint)
     {
         _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
@@ -52,7 +53,12 @@
                                                                    username:username
                                                                    password:password
                                                           discoveryEndpoint:discoveryAPIEndpoint
+                                                               pingInterval:pingInterval
                                                                    delegate:self];
+        _sebServerController.clientUserId = MyGlobals.userName;
+        _sebServerController.osName = MyGlobals.osName;
+        _sebServerController.sebVersion = MyGlobals.versionString;
+        _sebServerController.machineName = MyGlobals.computerName;
         [_sebServerController getServerAPI];
         return YES;
     }
@@ -62,30 +68,37 @@
 
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
+    DDLogInfo(@"ServerController: Reconfigure with server exam config");
     [self.delegate storeNewSEBSettings:configData];
 }
 
 
 - (void) startExamFromServer
 {
+    DDLogInfo(@"ServerController: Start exam from server");
     [_sebServerController loginToExam];
 }
 
 
 - (void) loginToExam:(NSString * _Nonnull)url
 {
+    DDLogInfo(@"ServerController: Login to exam");
+    DDLogDebug(@"ServerController: Login to exam with URL %@", url);
     [self.delegate loginToExam:url];
 }
 
 
 - (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion
 {
+    DDLogInfo(@"ServerController: Abort SEB Server login to exam");
     [_sebServerController loginToExamAbortedWithCompletion:completion];
 }
 
 
 - (void) didSelectExam:(NSString *)examId url:(NSString *)url
 {
+    DDLogInfo(@"ServerController: Did select exam");
+    DDLogDebug(@"ServerController: Did select exam with URL %@", url);
     [self.delegate didSelectExamWithExamId:examId url:url];
 }
 
@@ -130,7 +143,8 @@
 - (void) didReceiveMoodleUserId:(NSString *)moodleUserId
 {
     if (moodleUserId.length > 0  && ![sessionIdentifier isEqualToString:moodleUserId]) {
-        sessionIdentifier = moodleUserId;
+        DDLogInfo(@"ServerController: Did receive Moodle user ID");
+       sessionIdentifier = moodleUserId;
         [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
     }
 }
@@ -139,7 +153,7 @@
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     NSString *userID = [headerFields objectForKey:@"X-LMS-USER-ID"];
-    DDLogDebug(@"Examine Headers: %@", headerFields);
+    DDLogVerbose(@"Examine Headers: %@", headerFields);
     if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
         sessionIdentifier = userID;
         [_sebServerController startMonitoringWithUserSessionId:userID];
@@ -155,6 +169,7 @@
         // after a user logs in to a quiz
         NSRange testsessionRange = [query rangeOfString:@"testsession="];
         if (query && testsessionRange.location != NSNotFound) {
+            DDLogInfo(@"ServerController: Found Moodle testsession ID");
             NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
             if (testsessionID.length > 0 && ![sessionIdentifier isEqualToString:testsessionID]) {
                 sessionIdentifier = testsessionID;
@@ -165,7 +180,8 @@
 }
 
 
-- (void)didEstablishSEBServerConnection {
+- (void) didEstablishSEBServerConnection {
+    DDLogInfo(@"[ServerController: Did establish SEB Server connection]");
     [self.delegate didEstablishSEBServerConnection];
 }
 
@@ -176,6 +192,29 @@
                           message:(NSString *)message
 {
     [_sebServerController sendLogEvent:logLevel timestamp:timestamp numericValue:numericValue message:message];
+}
+
+
+- (void) startBatteryMonitoringWithDelegate:(id)delegate
+{
+    [_delegate startBatteryMonitoringWithDelegate:delegate];
+}
+
+
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message
+{
+    return  [_sebServerController sendLockscreenWithMessage:message];
+}
+
+
+- (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
+{
+    return [_sebServerController sendRaiseHandWithMessage:message];
+}
+
+- (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID
+{
+    [_sebServerController sendLowerHandWithNotificationUID:notificationUID];
 }
 
 
@@ -201,18 +240,27 @@
                 [self.delegate reconfigureWithAttributes:(NSDictionary *)attributes];
             }
         }
+        
+        if ([instruction isEqualToString:@"NOTIFICATION_CONFIRM"]) {
+            if ([self.delegate respondsToSelector:@selector(confirmNotificationWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate confirmNotificationWithAttributes:(NSDictionary *)attributes];
+            }
+        }
     }
 }
 
 
 - (void) quitSessionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
+    DDLogInfo(@"ServerController: Quit SEB Server session");
     [_sebServerController quitSessionWithRestart:restart completion:completion];
 }
 
 
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart
 {
+    DDLogInfo(@"ServerController: Did close SEB Server connection");
     [self.delegate didCloseSEBServerConnectionRestart:restart];
 }
 

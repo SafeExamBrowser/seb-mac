@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 25.01.19.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -50,8 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 
 @optional
+- (void) startBatteryMonitoringWithDelegate:(id)delegate;
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *> *)cookies forURL:(NSURL *)url;
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;
@@ -85,6 +87,9 @@ NS_ASSUME_NONNULL_BEGIN
                           message:(NSString *)message;
 - (void) loginToExamAbortedWithCompletion:(void (^)(BOOL))completion;
 - (void) quitSessionWithRestart:(BOOL)restart completion:(void (^ _Nonnull)(BOOL))completion;
+- (NSInteger) sendLockscreenWithMessage:(NSString *)message;
+- (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message;
+- (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID;
 
 @end
 

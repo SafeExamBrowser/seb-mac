@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 21.08.17.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -155,6 +155,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowBrowsingBackForward",
                    
                    @NO,
+                   @"allowCustomDownloadLocation",
+                   
+                   @NO,
                    @"allowDeveloperConsole",
                    
                    @NO,
@@ -175,11 +178,17 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"allowedDisplayBuiltinExceptDesktop",
 
+                   @NO,
+                   @"allowedDisplaysIgnoreFailure",
+
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
                    
                    @NO,
                    @"allowDownUploads",
+                   
+                   @YES,
+                   @"allowFind",
                    
                    @NO,
                    @"allowFlashFullscreen",
@@ -187,7 +196,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:iOSBetaVersionNone],
                    @"allowiOSBetaVersionNumber",
                    
-                   [NSNumber numberWithLong:iOSVersion9],
+                   [NSNumber numberWithLong:iOSVersion11],
                    @"allowiOSVersionNumberMajor",
                    
                    @3,
@@ -210,6 +219,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowPDFPlugIn",
+                   
+                   @NO,
+                   @"allowPDFReaderToolbar",
                    
                    @YES,
                    @"allowPreferencesWindow",
@@ -313,6 +325,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserViewModeWindow],
                    @"browserViewMode",
                    
+                   @NO,
+                   @"browserWindowAllowAddressBar",
+                   
                    @YES,
                    @"browserWindowAllowReload",
                    
@@ -336,6 +351,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"createNewDesktop",
+                   
+                   [NSNumber numberWithDouble:WebViewDefaultPageZoom],
+                   @"defaultPageZoomLevel",
+                   
+                   [NSNumber numberWithDouble:WebViewDefaultPageZoom],
+                   @"defaultTextZoomLevel",
                    
                    @YES,
                    @"detectStoppedProcess",
@@ -425,6 +446,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableRightMouse",
                    
                    @NO,
+                   @"enableRightMouseMac",
+                   
+                   @NO,
                    @"enableStartMenu",
                    
                    @YES,
@@ -466,7 +490,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableZoomPage",
                    
-                   @YES,
+                   @NO,
                    @"enableZoomText",
                    
                    [NSData data],
@@ -706,6 +730,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"monitorProcesses",
                    
+                   @NO,
+                   @"newBrowserWindowAllowAddressBar",
+                   
                    @YES,
                    @"newBrowserWindowAllowReload",
                    
@@ -793,6 +820,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"quitURLRestart",
                    
+                   @YES,
+                   @"raiseHandButtonShow",
+                   
+                   @NO,
+                   @"raiseHandButtonAlwaysPromptMessage",
+                   
                    [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
 
@@ -868,6 +901,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"showReloadWarning",
                    
+                   @YES,
+                   @"showSideMenu",
+                   
                    @NO,
                    @"showScanQRCodeButton",
                    
@@ -888,6 +924,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"startURLAppendQueryParameter",
+                   
+                   @YES,
+                   @"tabFocusesLinks",
                    
                    [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
@@ -927,6 +966,66 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBZoomModePage],
                    @"zoomMode",
+                   
+                   @"",
+                   @"zoomAPIKey",
+                   
+                   @NO,
+                   @"zoomAudioMuted",
+                   
+                   @NO,
+                   @"zoomEnable",
+                   
+                   @NO,
+                   @"zoomFeatureFlagChat",
+                   
+                   @NO,
+                   @"zoomFeatureFlagCloseCaptions",
+                   
+                   @NO,
+                   @"zoomFeatureFlagRaiseHand",
+                   
+                   @NO,
+                   @"zoomFeatureFlagTileView",
+                   
+                   @"",
+                   @"zoomMeetingKey",
+                   
+                   @NO,
+                   @"zoomReceiveAudio",
+                   
+                   @NO,
+                   @"zoomReceiveVideo",
+                   
+                   @"",
+                   @"zoomRoom",
+                   
+                   @"",
+                   @"zoomSDKToken",
+                   
+                   @YES,
+                   @"zoomSendAudio",
+                   
+                   @YES,
+                   @"zoomSendVideo",
+                   
+                   @"",
+                   @"zoomServerURL",
+                   
+                   @"",
+                   @"zoomSubject",
+                   
+                   @"",
+                   @"zoomToken",
+                   
+                   @"",
+                   @"zoomUserInfoDisplayName",
+                   
+                   @"",
+                   @"zoomUserName",
+                   
+                   @NO,
+                   @"zoomVideoMuted",
                    
                    nil],
               
@@ -1033,7 +1132,8 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"institution" : @"",
                       @"clientName" : @"",
                       @"clientSecret" : @"",
-                      @"apiDiscovery" : @""
+                      @"apiDiscovery" : @"",
+                      @"pingInterval" : @1000
                       }
               
               };

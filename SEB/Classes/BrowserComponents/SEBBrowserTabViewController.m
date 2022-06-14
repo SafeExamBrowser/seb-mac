@@ -2,7 +2,7 @@
 //  SEBBrowserTabViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -24,7 +24,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -110,11 +110,21 @@
     [super viewWillDisappear:animated];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//    [self.searchBarController setLoading:NO];
 }
 
 
 #pragma mark - Controller interface
+
+- (NSUInteger) currentTabIndex
+{
+    return [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+}
+
+- (void) setCurrentTabIndex:(NSUInteger)currentTabIndex
+{
+    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = currentTabIndex;
+}
+
 
 - (NSURL *) currentURL
 {
@@ -134,7 +144,7 @@
 
 - (BOOL) isMainBrowserWebViewActive
 {
-    return self.navigationDelegate.isMainBrowserWebViewActive;
+    return self.currentTabIndex == 0;
 }
 
 - (void) toggleScrollLock
@@ -161,66 +171,70 @@
             
             if ([MyGlobals sharedMyGlobals].currentWebpageIndexPathRow != 0) {
                 [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow = 0;
-                [self.sideMenuController showLeftViewAnimated:YES completionHandler:^(void) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self switchToTab:self];
-                    });
-                }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self switchToTab:self];
+                });
             }
         }
     }
 }
 
 - (void) goBack {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+            // Cancel if navigation is disabled in current tab
             return;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            return;
-        }
     }
     [_visibleWebViewController goBack];
 }
 
 - (void) goForward {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+            // Cancel if navigation is disabled in current tab
             return;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            return;
-        }
     }
     [_visibleWebViewController goForward];
-}
-
-- (void) reload {
-    [_visibleWebViewController reload];
 }
 
 - (void) stopLoading {
     [_visibleWebViewController stopLoading];
 }
 
+- (void) reload {
+    [_visibleWebViewController reload];
+}
 
-/// SEBAbstractWebViewNavigationDelegate Methods
+- (void)zoomPageIn
+{
+    [_visibleWebViewController zoomPageIn];
+}
+
+- (void)zoomPageOut
+{
+    [_visibleWebViewController zoomPageOut];
+}
+
+- (void)zoomPageReset
+{
+    [_visibleWebViewController zoomPageReset];
+}
+
+
+- (void)setDownloadingSEBConfig:(BOOL)downloadingSEBConfig {
+    _visibleWebViewController.downloadingSEBConfig = downloadingSEBConfig;
+}
+
+
+#pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 - (WKWebViewConfiguration *)wkWebViewConfiguration
 {
     return [_sebViewController.browserController wkWebViewConfiguration];
+}
+
+
+- (void) searchTextMatchFound:(BOOL)matchFound
+{
+    [_sebViewController searchTextMatchFound:matchFound];
 }
 
 
@@ -238,47 +252,28 @@
 }
 
 
+- (NSString *)pageJavaScript
+{
+    return _sebViewController.browserController.pageJavaScript;
+}
+
 - (void) setLoading:(BOOL)loading
 {
-//    if (self.searchBar.text.length > 0) {
-//        if (loading) {
-//            [self.searchBarRightButton setImage:stopLoadingButtonImage forState:UIControlStateNormal];//your button image.
-//        } else {
-//            [self.searchBarRightButton setImage:reloadButtonImage forState:UIControlStateNormal];//your button image.
-//        }
-//    } else {
-//        [self.searchBarRightButton setImage:nil forState:UIControlStateNormal];
-//    }
     if (loading == false) {
         // Enable or disable back/forward buttons according to settings and
         // availability of browsing history for this webview
-        
     }
 }
 
 
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL showToolbarNavigation = true;
-    if (self.navigationDelegate.isMainBrowserWebViewActive) {
-        // Main browser tab with the exam
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowBrowsingBackForward"]) {
-            // Cancel if navigation is disabled in exam
-            showToolbarNavigation = false;
-            canGoBack = false;
-            canGoForward = false;
-        }
-    } else {
-        // Additional browser tab
-        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowNavigation"]) {
-            // Cancel if navigation is disabled in additional browser tabs
-            showToolbarNavigation = false;
-            canGoBack = false;
-            canGoForward = false;
-        }
+    if (![_sebViewController.browserController isNavigationAllowedMainWebView:self.isMainBrowserWebViewActive]) {
+        showToolbarNavigation = false;
+        canGoBack = false;
+        canGoForward = false;
     }
-
     [_sebViewController showToolbarNavigation:showToolbarNavigation];
     [_sebViewController setCanGoBack:canGoBack canGoForward:canGoForward];
 }
@@ -290,11 +285,61 @@
 }
 
 
+- (void)sebWebViewDidFinishLoad
+{
+    [_sebViewController sebWebViewDidFinishLoad];
+}
+
+
 - (void)webView:(WKWebView *)webView
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
     [_sebViewController.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
+}
+
+
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString *result))completionHandler
+{
+    if (self.uiAlertController) {
+        [self.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+    }
+
+    self.uiAlertController = [UIAlertController  alertControllerWithTitle:webView.title
+                                                                              message:prompt
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = ((UIAlertController *)self.uiAlertController).textFields[0];
+        completionHandler(textField.text);
+        self.uiAlertController = nil;
+                                                        }]];
+    
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        completionHandler(@"");
+        self.uiAlertController = nil;
+                                                        }]];
+
+    [self.uiAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.text = defaultText;
+        textField.keyboardType = UIKeyboardTypeDefault;
+    }];
+
+    [self presentViewController:self.uiAlertController animated:NO completion:nil];
+}
+
+
+- (NSString *)pageTitle:(NSString *)pageTitle
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+            defaultText:(NSString *)defaultText
+{
+    // On iOS, this will never be called (as UIWebView doesn't implement this delegate)
+    return @"";
 }
 
 
@@ -360,9 +405,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // Create new OpenWebpage object with reference to the CoreData information
     OpenWebpages *newOpenWebpage = [OpenWebpages new];
     
-    id newViewController;
+    SEBiOSWebViewController *newViewController;
 
-    newViewController = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    BOOL isMainWebView = _openWebpages.count == 0;
+    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -370,7 +416,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [_openWebpages addObject:newOpenWebpage];
     
     // Set the index of the current web page
-    [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = _openWebpages.count-1;
+    self.currentTabIndex = _openWebpages.count-1;
     
     // Exchange the old against the new webview
     [_visibleWebViewController removeFromParentViewController];
@@ -381,6 +427,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     _visibleWebViewController = newViewController;
 
     NSString *browserTabTitle;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (index == 0) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
             browserTabTitle = url.absoluteString;
@@ -400,9 +447,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
     [_sebViewController updateScrollLockButtonStates];
     
+    if (self.currentTabIndex == 0) {
+        // For the main WebView (exam page), we check if the exam should be locked
+        [_sebViewController conditionallyOpenStartExamLockdownWindows:url.absoluteString];
+    }
+    
     [_visibleWebViewController loadURL:url];
     
-//    self.searchBarController.url = url.absoluteString;
     return newOpenWebpage.webViewController.sebWebView;;
 }
 
@@ -425,9 +476,15 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 // Open new tab and load URL
 - (void) switchToTab:(id)sender
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-    [self switchToTabWithIndex:tabIndex];
-    [self.sideMenuController toggleLeftViewAnimated];
+    [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+        NSUInteger tabIndex = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+        [self switchToTabWithIndex:tabIndex];
+        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+            [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+            }];
+        }];
+    }];
 }
 
 
@@ -439,7 +496,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewControllerWithCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
+            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
         }
         
         // Exchange the old against the new webview
@@ -449,6 +506,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         [webViewControllerToSwitch didMoveToParentViewController:self];
         
         _visibleWebViewController = webViewControllerToSwitch;
+        
+        _visibleWebViewController.openCloseSlider = NO;
         
         // Update back/forward buttons according to new visible webview
         [_visibleWebViewController setBackForwardAvailabilty];
@@ -463,23 +522,27 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         NSString *title = [(Webpages *)_persistentWebpages[tabIndex] valueForKey:@"title"];
         [_sebViewController setToolbarTitle:title];
         
-        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow = tabIndex;
+        self.currentTabIndex = tabIndex;
     }
 }
 
 
 - (void) switchToNextTab
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
-        if (tabIndex == tabCount - 1) {
-            [self switchToTabWithIndex:0];
-        } else {
-            [self switchToTabWithIndex:tabIndex + 1];
-        }
-        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-            [self.sideMenuController hideLeftViewAnimated];
+        [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+            if (tabIndex == tabCount - 1) {
+                [self switchToTabWithIndex:0];
+            } else {
+                [self switchToTabWithIndex:tabIndex + 1];
+            }
+            [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+                [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                    [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+                }];
+            }];
         }];
     }
 }
@@ -487,22 +550,26 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void) switchToPreviousTab
 {
-    NSUInteger tabIndex = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
+    NSUInteger tabIndex = self.currentTabIndex;
     NSUInteger tabCount = _openWebpages.count;
     if (tabCount > 1) {
-        if (tabIndex == 0) {
-            [self switchToTabWithIndex:tabCount - 1];
-        } else {
-            [self switchToTabWithIndex:tabIndex - 1];
-        }
-        [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
-            [self.sideMenuController hideLeftViewAnimated];
+        [self.sebViewController conditionallyRemoveToolbarWithCompletion:^{
+            if (tabIndex == 0) {
+                [self switchToTabWithIndex:tabCount - 1];
+            } else {
+                [self switchToTabWithIndex:tabIndex - 1];
+            }
+            [self.sideMenuController toggleLeftViewAnimated:YES completionHandler:^{
+                [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
+                    [self.sebViewController showToolbarConditionally:YES withCompletion:nil];
+                }];
+            }];
         }];
     }
 }
 
 
-- (void) closeTabWithWebView:(SEBAbstractWebView *)webView
+- (void) closeWebView:(SEBAbstractWebView *)webView
 {
     NSUInteger tabIndex = [self tabIndexForWebView:webView];
     [self closeTabWithIndex:tabIndex];
@@ -551,48 +618,52 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     if (tabIndex < _persistentWebpages.count) {
         Webpages *webpageToClose = _persistentWebpages[tabIndex];
         
-        NSString *pageToCloseURL = webpageToClose.url;
+//        NSString *pageToCloseURL = webpageToClose.url;
         OpenWebpages *webpage = _openWebpages[tabIndex];
-        SEBiOSWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController __block *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
-        webViewController.sebWebView = nil;
-        webViewController.view = nil;
-        webViewController = nil;
+        [webViewController.sebWebView stopMediaPlaybackWithCompletionHandler:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                webViewController.sebWebView = nil;
+                webViewController.view = nil;
+                webViewController = nil;
 
-        [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
-        
-        // Save everything
-        NSError *error = nil;
-        if ([context save:&error]) {
-            DDLogDebug(@"%s: Saving context was successful!", __FUNCTION__);
-        } else {
-            DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
-        }
-        
-        [_persistentWebpages removeObjectAtIndex:tabIndex];
-        [_openWebpages removeObjectAtIndex:tabIndex];
-        
-        // Check if the user is closing the main web view (with the exam)
-        if (tabIndex == 0) {
-            [_visibleWebViewController removeFromParentViewController];
-            _visibleWebViewController = nil;
-        } else {
-            NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
-            NSInteger currentWebpageIndexPathRow = [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow;
-            // Was a tab closed which was before the currently displayed in the webpage side panel list
-            if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
-                // Yes: the index of the current webpage must be decreased by one
-                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
-                // Or was the currently displayed webpage closed?
-            } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
-                // Yes: the index of the current webpage must be decreased by one
-                [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
-                [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
-                // and we switch to the webpage one position before the closed one in the webpage side panel list
-                [self switchToTab:nil];
-            }
-        }
+                [context deleteObject:[context objectWithID:[webpageToClose objectID]]];
+                
+                // Save everything
+                NSError *error = nil;
+                if ([context save:&error]) {
+                    DDLogDebug(@"%s: Saving context was successful!", __FUNCTION__);
+                } else {
+                    DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
+                }
+                
+                [self.persistentWebpages removeObjectAtIndex:tabIndex];
+                [self.openWebpages removeObjectAtIndex:tabIndex];
+                
+                // Check if the user is closing the main web view (with the exam)
+                if (tabIndex == 0) {
+                    [self.visibleWebViewController removeFromParentViewController];
+                    self.visibleWebViewController = nil;
+                } else {
+                    NSInteger selectedWebpageIndexPathRow = [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow;
+                    NSInteger currentWebpageIndexPathRow = self.currentTabIndex;
+                    // Was a tab closed which was before the currently displayed in the webpage side panel list
+                    if (selectedWebpageIndexPathRow < currentWebpageIndexPathRow) {
+                        // Yes: the index of the current webpage must be decreased by one
+                        [MyGlobals sharedMyGlobals].currentWebpageIndexPathRow--;
+                        // Or was the currently displayed webpage closed?
+                    } else if (selectedWebpageIndexPathRow == currentWebpageIndexPathRow) {
+                        // Yes: the index of the current webpage must be decreased by one
+                        self.currentTabIndex--;
+                        [MyGlobals sharedMyGlobals].selectedWebpageIndexPathRow--;
+                        // and we switch to the webpage one position before the closed one in the webpage side panel list
+                        [self switchToTab:nil];
+                    }
+                }
+            });
+        }];
     }
 }
 
@@ -628,8 +699,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // Currently we don't use eventually persisted webpages
     [self removePersistedOpenWebPages];
     
-    [_sebViewController conditionallyOpenStartExamLockdownWindows];
-    
     NSArray<Webpages*> *persistedOpenWebPages;
     
     NSManagedObjectContext *context = self.managedObjectContext;
@@ -658,16 +727,19 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         for (Webpages *webpage in persistedOpenWebPages) {
             // Open URL in a new webview
             // Create a new WebView
+            NSUInteger index = [webpage.index unsignedIntegerValue];
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerWithCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
+            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
             newOpenWebpage.webViewController = newWebViewController;
-            NSUInteger index = [webpage.index unsignedIntegerValue];
             if (index != 0) {
                 _maxIndex++;
                 index = _maxIndex;
+            } else {
+                // For the main WebView (exam page), we check if the exam should be locked
+                [_sebViewController conditionallyOpenStartExamLockdownWindows:webpageURL.absoluteString];
             }
             newOpenWebpage.index = index;
             newOpenWebpage.loadDate = webpage.loadDate;
@@ -688,8 +760,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
         _visibleWebViewController = newVisibleWebViewController;
 
-//        Webpages *visibleWebPage = persistedOpenWebPages.lastObject;
-//        [self.searchBarController setUrl:visibleWebPage.url];
     } else {
         // There were no persisted pages
         // Load start URL from the system's user defaults
@@ -729,12 +799,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [_visibleWebViewController removeFromParentViewController];
 
     for (OpenWebpages *webpage in _openWebpages) {
-        SEBiOSWebViewController *webViewController = webpage.webViewController;
+        SEBiOSWebViewController __block *webViewController = webpage.webViewController;
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
-        webViewController.sebWebView = nil;
-        webViewController.view = nil;
-        webViewController = nil;
+        [webViewController.sebWebView stopMediaPlaybackWithCompletionHandler:^{
+            webViewController.sebWebView = nil;
+            webViewController.view = nil;
+            webViewController = nil;
+        }];
     }
     [_openWebpages removeAllObjects];
     
@@ -765,8 +837,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerWithCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
+- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
     return newSEBWebViewController;
 }
 
@@ -804,7 +876,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
-    [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:nil];
+    [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:self];
+}
+
+
+- (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
+{
+    [_sebViewController.browserController downloadFileFromURL:url filename:filename cookies:cookies sender:self];
 }
 
 
@@ -828,6 +906,37 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
 {
     [_sebViewController examineHeaders:headerFields forURL:url];
+}
+
+
+- (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController isNavigationAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController isReloadAllowedMainWebView:mainWebView];
+}
+
+- (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController showReloadWarningMainWebView:mainWebView];
+}
+
+- (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
+{
+    return [_sebViewController.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
+}
+
+- (BOOL)allowDownUploads
+{
+    return _sebViewController.browserController.allowDownUploads;
+}
+
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    [_sebViewController.browserController showAlertNotAllowedDownUploading:uploading];
 }
 
 

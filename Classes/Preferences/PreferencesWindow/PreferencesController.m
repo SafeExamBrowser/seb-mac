@@ -3,7 +3,7 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 18.04.11.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich, 
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich, 
 //  Educational Development and Technology (LET), 
 //  based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //  
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright 
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser 
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //  
@@ -38,6 +38,7 @@
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
 #import "SEBURLFilter.h"
+#import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
 
 @implementation PreferencesController
@@ -984,7 +985,7 @@
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         
         // Preset "SebClientSettings.seb" as default file name
-        currentConfigFileURL = [NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO];
+        currentConfigFileURL = [NSURL fileURLWithPathString:SEBClientSettingsFilename];
         
     } else {
         
@@ -1473,7 +1474,7 @@
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPath:@"SebClientSettings.seb" isDirectory:NO]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBClientSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

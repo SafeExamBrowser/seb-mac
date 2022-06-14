@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 27.04.21.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -60,8 +60,58 @@
 }
 
 
-- (void)closeWebView:(SEBAbstractWebView *)webViewToClose {
-    [_sebViewController.browserTabViewController closeTab];
+- (void)closeWebView:(SEBAbstractWebView *)webViewToClose
+{
+    [self.sebViewController.browserTabViewController closeWebView:webViewToClose];
+}
+
+
+#pragma mark Downloading SEB Config Files
+
+// Check if reconfiguring from exam or secure mode is allowed
+- (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
+{
+    if (![super isReconfiguringAllowedFromURL:url]) {
+        [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
+                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+
+- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
+{
+    SEBAbstractWebView *tempWebView = [_sebViewController openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
+    
+    return tempWebView;
+}
+
+
+- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+{
+    NSString *downUploadingString;
+    if (uploading) {
+        downUploadingString = NSLocalizedString(@"Uploading", nil);
+    } else {
+        downUploadingString = NSLocalizedString(@"Downloading", nil);
+    }
+    DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
+    [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]
+                     andText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
+}
+
+
+- (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
+{
+    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
+    
+    _sebViewController.openingSettings = true;
+    [_sebViewController.configFileController storeNewSEBSettings:sebFileData
+                                forEditing:NO
+                                  callback:self
+                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
 }
 
 
@@ -80,26 +130,6 @@
         [_sebViewController showAlertWithError:error];
         [self openingConfigURLRoleBack];
     }
-}
-
-
-- (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
-{
-    DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
-    
-    _sebViewController.openingSettings = true;
-    [_sebViewController.configFileController storeNewSEBSettings:sebFileData
-                                forEditing:NO
-                                  callback:self
-                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
-}
-
-
-- (SEBAbstractWebView *)openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL
-{
-    SEBAbstractWebView *tempWebView = [_sebViewController openTempWebViewForDownloadingConfigFromURL:url originalURL:originalURL];
-    
-    return tempWebView;
 }
 
 
@@ -159,7 +189,9 @@
 }
 
 
-- (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector {
+- (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     [_sebViewController storeNewSEBSettings:sebData forEditing:forEditing forceConfiguringClient:forceConfiguringClient showReconfiguredAlert:showReconfiguredAlert callback:callback selector:selector];
 }
 
@@ -169,5 +201,13 @@
     _sebViewController.openingSettings = NO;
     [_sebViewController storeNewSEBSettingsSuccessful:error];
 }
+
+- (void)presentAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message {
+}
+
+
+- (void)presentDownloadError:(nonnull NSError *)error {
+}
+
 
 @end

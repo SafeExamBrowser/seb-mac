@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15/12/15.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -51,6 +51,17 @@
         [super setDelegate:self];
 }
     return self;
+}
+
+
+// Exam URL is opened in a webview (tab), waiting for user to log in
+- (BOOL) startingExamFromSEBServer {
+    return _sebViewController.startingExamFromSEBServer;
+}
+
+// User logged in to LMS, monitoring the client started
+- (BOOL) sebServerConnectionEstablished {
+    return _sebViewController.sebServerConnectionEstablished;
 }
 
 
@@ -240,7 +251,7 @@
 //        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
 //    }
 //    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Encryption Credentials Chosen", nil)
-//                                                                message:NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.\n\nYou can save an unencrypted settings file, but this is not recommended for use in exams.", nil)
+//                                                                message:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]
 //                                                         preferredStyle:UIAlertControllerStyleAlert];
 //    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
 //                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

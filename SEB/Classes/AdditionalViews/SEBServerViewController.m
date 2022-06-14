@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 04.09.19.
-//  Copyright (c) 2010-2021 Daniel R. Schneider, ETH Zurich,
+//  Copyright (c) 2010-2022 Daniel R. Schneider, ETH Zurich,
 //  Educational Development and Technology (LET),
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
@@ -25,7 +25,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2021 Daniel R. Schneider, ETH Zurich, Educational Development
+//  (c) 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development
 //  and Technology (LET), based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //
@@ -51,6 +51,9 @@
 
     self.examsTableView.dataSource = self;
     self.examsTableView.delegate = self;
+    if (@available(iOS 15.0, *)) {
+        self.examsTableView.sectionHeaderTopPadding = 0.0;
+    }
 
     [self updateExamList];
 }
@@ -95,6 +98,14 @@
     NSString *examId = exam.examId;
     NSString *examURL = exam.url;
     [_sebViewController didSelectExamWithExamId:examId url:examURL];
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *tableHeader = (UITableViewHeaderFooterView *)view;
+    tableHeader.contentView.backgroundColor = UIColor.groupTableViewBackgroundColor;
+    tableHeader.textLabel.textColor = UIColor.blackColor;
 }
 
 

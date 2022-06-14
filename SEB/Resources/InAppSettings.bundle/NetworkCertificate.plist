@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>Root</string>
+	<string>NetworkCertificate</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -36,7 +36,7 @@
 			<key>Title</key>
 			<string>Embed Identity Certificates</string>
 			<key>FooterText</key>
-			<string>Embedded cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) in a client config file can be used to decrypt exam config files.</string>
+			<string>Cryptographic identities (X.509 certificates with RSA public key and associated private key, which are stored securely in the Keychain) embedded into a client config file can be used to decrypt exam config files on clients.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

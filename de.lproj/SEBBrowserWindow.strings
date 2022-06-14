@@ -1,3 +1,9 @@
+/* Class = "NSSearchToolbarItem"; label = "Search"; ObjectID = "2GF-yS-Sed"; */
+"2GF-yS-Sed.label" = "Suchen";
+
+/* Class = "NSSearchToolbarItem"; paletteLabel = "Search"; ObjectID = "2GF-yS-Sed"; */
+"2GF-yS-Sed.paletteLabel" = "Suchen";
+
 /* Class = "NSWindow"; title = "Safe Exam Browser"; ObjectID = "3"; */
 "3.title" = "Safe Exam Browser";
 
@@ -16,14 +22,38 @@
 /* Class = "NSButtonCell"; title = "Ignore"; ObjectID = "9Wp-xb-WzU"; */
 "9Wp-xb-WzU.title" = "Ignorieren";
 
-/* Class = "NSToolbarItem"; label = "Back/Forward"; ObjectID = "175"; */
+/* Class = "NSSegmentedControl"; ibExternalAccessibilityDescription = "Go Back or Forward"; ObjectID = "173"; */
+"173.ibExternalAccessibilityDescription" = "Vorherige oder nächste Seite anzeigen";
+
+/* Class = "NSSegmentedControl"; ibShadowedToolTip = "Navigation in browsing history of this window"; ObjectID = "173"; */
+"173.ibShadowedToolTip" = "Im Browser-Verlauf dieses Fensters navigieren ";
+
+/* Class = "NSSegmentedCell"; 174.ibShadowedToolTips[0] = "Show the previous page"; ObjectID = "174"; */
+"174.ibShadowedToolTips[0]" = "Vorherige Seite anzeigen";
+
+/* Class = "NSSegmentedCell"; 174.ibShadowedToolTips[1] = "Show the next page"; ObjectID = "174"; */
+"174.ibShadowedToolTips[1]" = "Nächste Seite anzeigen";
+
+/* Class = "NSToolbarItem"; label = "Back/Forward Navigation"; ObjectID = "175"; */
 "175.label" = "Zurück/Vorwärts";
 
-/* Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "179"; */
-"179.label" = "Zoom";
+/* Class = "NSToolbarItem"; label = "Text Zoom"; ObjectID = "179"; */
+"179.label" = "Text-Zoom";
+
+/* Class = "NSToolbarItem"; toolTip = "Change text size"; ObjectID = "179"; */
+"179.toolTip" = "Textgrösse ändern";
+
+/* Class = "NSSegmentedCell"; 181.ibShadowedLabels[0] = "Make Text Smaller"; ObjectID = "181"; */
+"181.ibShadowedLabels[0]" = "Schrift verkleinern";
+
+/* Class = "NSSegmentedCell"; 181.ibShadowedLabels[1] = "Make Text Bigger"; ObjectID = "181"; */
+"181.ibShadowedLabels[1]" = "Schrift vergrössern";
 
 /* Class = "NSToolbarItem"; label = "Reload"; ObjectID = "192"; */
 "192.label" = "Neu laden";
+
+/* Class = "NSToolbarItem"; toolTip = "Reload this webpage"; ObjectID = "192"; */
+"192.toolTip" = "Diese Seite neu laden";
 
 /* Class = "NSButtonCell"; title = "Block"; ObjectID = "AcO-IT-BuS"; */
 "AcO-IT-BuS.title" = "Blockieren";
@@ -46,8 +76,17 @@
 /* Class = "NSButtonCell"; title = "www.host.com/directory/*"; ObjectID = "fhn-de-60C"; */
 "fhn-de-60C.title" = "www.host.com/directory/*";
 
+/* Class = "NSSegmentedControl"; ibExternalAccessibilityDescription = "Search previous or next match"; ObjectID = "FOw-Up-15U"; */
+"FOw-Up-15U.ibExternalAccessibilityDescription" = "Vorheriger oder nächster Suchtreffer";
+
 /* Class = "NSButtonCell"; title = "Dismiss All"; ObjectID = "FW8-h0-H13"; */
 "FW8-h0-H13.title" = "Alle verwerfen";
+
+/* Class = "NSSegmentedCell"; FY0-V8-iJe.ibShadowedToolTips[0] = "Go to previous match"; ObjectID = "FY0-V8-iJe"; */
+"FY0-V8-iJe.ibShadowedToolTips[0]" = "Zum vorherigen Suchtreffer springen";
+
+/* Class = "NSSegmentedCell"; FY0-V8-iJe.ibShadowedToolTips[1] = "Go to next match"; ObjectID = "FY0-V8-iJe"; */
+"FY0-V8-iJe.ibShadowedToolTips[1]" = "Zum nächsten Suchtreffer springen";
 
 /* Class = "NSButtonCell"; title = "host.com"; ObjectID = "gwZ-Bv-sYP"; */
 "gwZ-Bv-sYP.title" = "host.com";
@@ -55,8 +94,17 @@
 /* Class = "NSButtonCell"; title = "www.host.com"; ObjectID = "H5P-Ew-Qp9"; */
 "H5P-Ew-Qp9.title" = "www.host.com";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Go to Dock"; ObjectID = "ib9-0q-pfh"; */
+"ib9-0q-pfh.ibExternalAccessibilityDescription" = "Gehe zum Dock";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Select first control in the Dock"; ObjectID = "ib9-0q-pfh"; */
+"ib9-0q-pfh.ibShadowedToolTip" = "Erste Taste im Dock auswählen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Dismiss current unknown URL/resource, so it doesn't show up again on this page. Reloading a page shows dismissed URLs again"; ObjectID = "ig8-v8-XUJ"; */
 "ig8-v8-XUJ.ibShadowedToolTip" = "Diese unbekannte URL/Ressource verwerfen, sodass sie nicht mehr angezeigt wird auf dieser Webseite. Neu laden der Seite zeigt verworfene URLs wieder an";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN"; */
+"jEa-eM-FvN.title" = "OK";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ"; */
 "jnc-il-FuZ.ibShadowedToolTip" = "Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
@@ -79,8 +127,26 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Click to copy the host/path part of the current URL into the custom filter expression text field"; ObjectID = "mvP-Sq-mee"; */
 "mvP-Sq-mee.ibShadowedToolTip" = "Anklicken, um den Host/Pfad-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
+/* Class = "NSToolbarItem"; label = "Previous/Next"; ObjectID = "NOj-02-Eih"; */
+"NOj-02-Eih.label" = "Vorheriger/Nächster";
+
 /* Class = "NSButtonCell"; title = "www.host.com/path"; ObjectID = "Poj-9Z-f7h"; */
 "Poj-9Z-f7h.title" = "www.host.com/path";
+
+/* Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[0] = "Zoom Page Out"; ObjectID = "qkO-f0-59m"; */
+"qkO-f0-59m.ibShadowedLabels[0]" = "Seiteninhalt verkleinern";
+
+/* Class = "NSSegmentedCell"; qkO-f0-59m.ibShadowedLabels[1] = "Zoom Page In"; ObjectID = "qkO-f0-59m"; */
+"qkO-f0-59m.ibShadowedLabels[1]" = "Seiteninhalt vergrössern";
+
+/* Class = "NSButtonCell"; title = "Done"; ObjectID = "RPl-Pj-8QJ"; */
+"RPl-Pj-8QJ.title" = "Fertig";
+
+/* Class = "NSSearchField"; ibExternalAccessibilityDescription = "Search text"; ObjectID = "S08-6E-SPm"; */
+"S08-6E-SPm.ibExternalAccessibilityDescription" = "Text suchen";
+
+/* Class = "NSSearchField"; ibShadowedToolTip = "Search text on web pages. Search in PDFs only works with modern WebView and macOS 11 or newer"; ObjectID = "S08-6E-SPm"; */
+"S08-6E-SPm.ibShadowedToolTip" = "Text auf Webseiten suchen. Suche in PDF-Dateien funktioniert nur im modernen WebView und macOS 11 oder neuer";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Click to copy the host part of the current URL into the custom filter expression text field"; ObjectID = "sfT-nQ-Hte"; */
 "sfT-nQ-Hte.ibShadowedToolTip" = "Anklicken, um den Host-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
@@ -91,12 +157,30 @@
 /* Class = "NSButtonCell"; title = "Host"; ObjectID = "TD9-Qa-GkX"; */
 "TD9-Qa-GkX.title" = "Host";
 
+/* Class = "NSToolbarItem"; label = "Search Done"; ObjectID = "Tww-Uu-pBF"; */
+"Tww-Uu-pBF.label" = "Suche fertig";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Search Done"; ObjectID = "Tww-Uu-pBF"; */
+"Tww-Uu-pBF.paletteLabel" = "Suche fertig";
+
 /* Class = "NSButtonCell"; title = "Allow"; ObjectID = "vVz-K2-Hbd"; */
 "vVz-K2-Hbd.title" = "Erlauben";
+
+/* Class = "NSToolbarItem"; label = "Go to Dock"; ObjectID = "wjF-4e-tSF"; */
+"wjF-4e-tSF.label" = "Gehe zum Dock";
+
+/* Class = "NSToolbarItem"; toolTip = "Select first control in the Dock"; ObjectID = "wjF-4e-tSF"; */
+"wjF-4e-tSF.toolTip" = "Erste Taste im Dock auswählen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add an allow filter rule for the current URL/resource based on the selected pattern"; ObjectID = "z9W-wM-LUg"; */
 "z9W-wM-LUg.ibShadowedToolTip" = "Filterregel für die aktuelle URL/Resource basierend auf dem ausgewählten Schema hinzufügen";
 
-/* Class = "NSToolbarItem"; label = "Zoom"; ObjectID = "ZLD-BY-T5K"; */
-"ZLD-BY-T5K.label" = "Zoom";
+/* Class = "NSToolbarItem"; label = "Page Zoom"; ObjectID = "ZLD-BY-T5K"; */
+"ZLD-BY-T5K.label" = "Seiten-Zoom";
+
+/* Class = "NSToolbarItem"; toolTip = "Zoom page content"; ObjectID = "ZLD-BY-T5K"; */
+"ZLD-BY-T5K.toolTip" = "Seiteninhalt verkleinern/vergrössern";
+
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "Text search done"; ObjectID = "zsY-7o-QJv"; */
+"zsY-7o-QJv.ibExternalAccessibilityDescription" = "Textsuche beenden";
 
