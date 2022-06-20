@@ -167,11 +167,11 @@
         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectForceClassic) {
         
         sliderIcon = [UIImage imageNamed:@"SEBSliderZoomDefaultSizeIcon"];
-        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
+        sliderZoomPageResetItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageReset)];
-        [sliderCommands addObject:sliderZoomPageOutItem];
+        [sliderCommands addObject:sliderZoomPageResetItem];
         
         sliderIcon = [UIImage imageNamed:@"SEBSliderZoomOutSmallerSizeIcon"];
         sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", nil)
@@ -540,24 +540,6 @@
 }
 
 
-//// Add reload button to navigation bar or enable/disable
-//// reload buttons in dock and left slider, depending if
-//// active tab is the exam tab or a new (additional) tab
-//- (void) activateReloadButtonsExamTab:(BOOL)examTab
-//{
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    BOOL showReload = false;
-//    if (examTab) {
-//        // Main browser tab with the exam
-//        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowAllowReload"];
-//    } else {
-//        // Additional browser tab
-//        showReload = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"];
-//    }
-//    [self activateReloadButtons:showReload];
-//}
-
-
 // Conditionally add reload button to navigation bar or
 // enable/disable reload buttons in dock and left slider
 - (void) activateReloadButtons:(BOOL)reloadEnabled
@@ -573,6 +555,15 @@
         sliderReloadButtonItem.enabled = false;
     }
 }
+
+
+- (void) activateZoomButtons:(BOOL)zoomEnabled
+{
+    sliderZoomPageResetItem.enabled = zoomEnabled;
+    sliderZoomPageOutItem.enabled = zoomEnabled;
+    sliderZoomPageInItem.enabled = zoomEnabled;
+}
+
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
 {
