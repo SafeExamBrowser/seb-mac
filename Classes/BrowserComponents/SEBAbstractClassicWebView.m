@@ -120,34 +120,51 @@
     [self.browserControllerDelegate stringByEvaluatingJavaScriptFromString:@"SEB_FocusLastElement()"];
 }
 
+- (BOOL) zoomPageSupported
+{
+    return [self.browserControllerDelegate respondsToSelector:@selector(zoomPageIn)];
+}
+
 - (void) zoomPageIn
 {
-    [self.browserControllerDelegate zoomPageIn];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(zoomPageIn)]) {
+        [self.browserControllerDelegate zoomPageIn];
+    }
 }
 
 - (void) zoomPageOut
 {
-    [self.browserControllerDelegate zoomPageOut];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(zoomPageOut)]) {
+        [self.browserControllerDelegate zoomPageOut];
+    }
 }
 
 - (void) zoomPageReset
 {
-    [self.browserControllerDelegate zoomPageReset];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(zoomPageReset)]) {
+        [self.browserControllerDelegate zoomPageReset];
+    }
 }
 
 - (void) textSizeIncrease
 {
-    [self.browserControllerDelegate textSizeIncrease];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(textSizeIncrease)]) {
+        [self.browserControllerDelegate textSizeIncrease];
+    }
 }
 
 - (void) textSizeDecrease
 {
-    [self.browserControllerDelegate textSizeDecrease];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(textSizeDecrease)]) {
+        [self.browserControllerDelegate textSizeDecrease];
+    }
 }
 
 - (void) textSizeReset
 {
-    [self.browserControllerDelegate textSizeReset];
+    if ([self.browserControllerDelegate respondsToSelector:@selector(textSizeReset)]) {
+        [self.browserControllerDelegate textSizeReset];
+    }
 }
 
 

@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) focusFirstElement;
 - (void) focusLastElement;
 
+@property (readonly) BOOL zoomPageSupported;
 - (void) zoomPageIn;
 - (void) zoomPageOut;
 - (void) zoomPageReset;

@@ -389,6 +389,7 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 - (void) activateReloadButtonsExamTab:(BOOL)examTab;
 - (void) activateReloadButtons:(BOOL)reloadEnabled;
+- (void) activateZoomButtons:(BOOL)zoomEnabled;
 
 - (void) alertWithTitle:(NSString *)title
                 message:(NSString *)message
