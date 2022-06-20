@@ -189,6 +189,10 @@
     [_sebWebView reload];
 }
 
+- (BOOL)zoomPageSupported {
+    return _sebWebView.zoomPageSupported;
+}
+
 - (void)zoomPageIn
 {
     if ([_sebWebView respondsToSelector:@selector(zoomPageIn)]) {

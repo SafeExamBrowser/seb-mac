@@ -5093,6 +5093,12 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) activateZoomButtons:(BOOL)zoomEnabled
+{
+    [self.sebUIController activateZoomButtons:zoomEnabled];
+}
+
+
 - (void)setPowerConnected:(BOOL)powerConnected warningLevel:(SEBLowBatteryWarningLevel)batteryWarningLevel {
     // ToDo: To be used for battery dock item
 }

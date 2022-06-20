@@ -45,6 +45,7 @@
     
     UIBarButtonItem *dockBackButton;
     UIBarButtonItem *dockForwardButton;
+    SEBSliderItem *sliderZoomPageResetItem;
     SEBSliderItem *sliderZoomPageOutItem;
     SEBSliderItem *sliderZoomPageInItem;
     SEBSliderItem *sliderBackButtonItem;
@@ -104,6 +105,7 @@
 - (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward;
 
 - (void) activateReloadButtons:(BOOL)reloadEnabled; 
+- (void) activateZoomButtons:(BOOL)zoomEnabled;
 
 - (void) updateScrollLockButtonStates;
 
