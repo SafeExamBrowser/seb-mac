@@ -444,6 +444,8 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     [_sebViewController setToolbarTitle:browserTabTitle];
     
     [_sebViewController activateReloadButtonsExamTab:index == 0];
+    
+    [_sebViewController activateZoomButtons:_visibleWebViewController.zoomPageSupported];
 
     [_sebViewController updateScrollLockButtonStates];
     
@@ -515,6 +517,8 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         // Update reload button depending if switching to exam or new tab
         [_sebViewController activateReloadButtonsExamTab:tabIndex == 0];
         
+        [_sebViewController activateZoomButtons:_visibleWebViewController.zoomPageSupported];
+
         // Update state of scroll lock buttons for the new webview
         [_sebViewController updateScrollLockButtonStates];
         

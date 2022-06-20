@@ -168,6 +168,11 @@
     [self.browserControllerDelegate focusLastElement];
 }
 
+- (BOOL) zoomPageSupported
+{
+    return self.browserControllerDelegate.zoomPageSupported;
+}
+
 - (void) zoomPageIn
 {
     [self.browserControllerDelegate zoomPageIn];

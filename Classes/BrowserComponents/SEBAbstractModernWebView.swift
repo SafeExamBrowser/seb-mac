@@ -44,6 +44,7 @@ import PDFKit
     
     private let defaultPageZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel") : WebViewDefaultPageZoom
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
+    public let zoomPageSupported = true
     public var pageZoom = WebViewDefaultPageZoom
     private var previousZoomLevel = WebViewDefaultPageZoom
     private var textZoom = WebViewDefaultTextZoom
