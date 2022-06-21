@@ -714,11 +714,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         return SEBNavigationActionPolicyCancel;
     }
 
-    if ([url.scheme isEqualToString:@"about"]) {
-        DDLogVerbose(@"This about request URL %@ was blocked", originalURL.absoluteString);
-        return SEBNavigationActionPolicyCancel;
-    }
-    
     if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:)]) {
         SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
         if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
