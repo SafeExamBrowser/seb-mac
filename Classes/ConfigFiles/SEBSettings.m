@@ -280,8 +280,14 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"browserMediaAutoplayVideo",
                    
+                   @YES,
+                   @"browserMediaCaptureCamera", //setting for WebRTC camera capture
+                   
+                   @YES,
+                   @"browserMediaCaptureMicrophone", //setting for WebRTC microphone capture
+                   
                    @NO,
-                   @"browserMediaCaptureScreen",
+                   @"browserMediaCaptureScreen", //setting for WebRTC screen capture
                    
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",

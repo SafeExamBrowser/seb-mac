@@ -259,6 +259,8 @@ runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
+- (WKPermissionDecision)permissionDecisionForType:(WKMediaCaptureType)type API_AVAILABLE(macos(12.0));
+@property (readonly) BOOL browserMediaCaptureScreen;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 #if TARGET_OS_IPHONE
@@ -286,6 +288,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 @property (readonly) BOOL downloadingInTemporaryWebView;
 // Required by SEB-iOS (SEBUIWebViewController)
 - (BOOL) originalURLIsEqualToURL:(NSURL *)url;
+
+@end
+
+
+@protocol WKUIDelegatePrivateSEB <NSObject>
 
 typedef NS_OPTIONS(NSUInteger, _WKCaptureDevices) {
     _WKCaptureDeviceMicrophone = 1 << 0,
