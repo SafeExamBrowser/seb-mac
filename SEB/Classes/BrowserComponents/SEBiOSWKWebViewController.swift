@@ -241,6 +241,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     @available(iOS 15.0, *)
     public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
-        return .grant
+        return (navigationDelegate?.permissionDecision?(for: type) ?? .deny)
     }
 }
