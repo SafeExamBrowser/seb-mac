@@ -44,6 +44,9 @@ import PDFKit
     
     private let defaultPageZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel") : WebViewDefaultPageZoom
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
+    private let browserMediaCaptureCamera = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_browserMediaCaptureCamera")
+    private let browserMediaCaptureMicrophone = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_browserMediaCaptureMicrophone")
+    public let browserMediaCaptureScreen = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_browserMediaCaptureScreen")
     public let zoomPageSupported = true
     public var pageZoom = WebViewDefaultPageZoom
     private var previousZoomLevel = WebViewDefaultPageZoom
@@ -913,6 +916,20 @@ import PDFKit
     
     public func webView(_ webView: WKWebView?, runOpenPanelWithParameters parameters: Any, initiatedByFrame frame: WKFrameInfo?, completionHandler: @escaping ([URL]) -> Void) {
         navigationDelegate?.webView?(webView, runOpenPanelWithParameters: parameters, initiatedByFrame: frame, completionHandler: completionHandler)
+    }
+    
+    @available(macOS 12.0, *)
+    public func permissionDecision(for type: WKMediaCaptureType) -> WKPermissionDecision {
+        switch type {
+        case .camera:
+            return browserMediaCaptureCamera ? .grant : .deny
+        case .microphone:
+            return browserMediaCaptureMicrophone ? .grant : .deny
+        case .cameraAndMicrophone:
+            return (browserMediaCaptureCamera && browserMediaCaptureMicrophone) ? .grant : .deny
+        @unknown default:
+            return .deny
+        }
     }
 
     public func modifyRequest(_ request: URLRequest) -> URLRequest {

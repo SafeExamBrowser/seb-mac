@@ -1892,6 +1892,34 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
 
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"]) {
+        if (@available(macOS 10.15, *)) {
+            if (!CGPreflightScreenCaptureAccess()) {
+                screenCapturePermissionsRequested = YES;
+                if (self.examSession && self.secureClientSession) {
+                    // When running an exam session and the client session is secure (has quit pw set), we need to quit the exam session first
+                    // but the user or an exam admin will have to quit SEB from the client session manually
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Screen Capture", nil)];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security & Privacy (after quitting %@). Then restart %@ and your exam.", nil), SEBFullAppNameClassic, SEBShortAppName, SEBShortAppName]];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit Session", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self removeAlertWindow:modalAlert.window];
+                        [[NSNotificationCenter defaultCenter]
+                         postNotificationName:@"requestQuitSEBOrSession" object:self];
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+                    return;
+                } else {
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuitSEBOrSession" object:self];
+                    return;
+                }
+            }
+        }
+    }
+
     // Continue to starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
@@ -4385,10 +4413,14 @@ conditionallyForWindow:(NSWindow *)window
     
     NSDictionary *userInfo = [sender userInfo];
     if (userInfo) {
-#ifdef DEBUG
         NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
-        DDLogInfo(@"Activated app localizedName: %@, executableURL: %@", [launchedApp localizedName], [launchedApp executableURL]);
+#ifdef DEBUG
+        DDLogInfo(@"Activated app localizedName: %@, bundle ID: %@, executableURL: %@", launchedApp.localizedName, launchedApp.bundleIdentifier, launchedApp.executableURL);
 #endif
+        if (systemPreferencesOpenedForScreenRecordingPermissions && [launchedApp.bundleIdentifier isEqualToString:systemPreferencesBundleID]) {
+            systemPreferencesOpenedForScreenRecordingPermissions = NO;
+            [NSApp abortModal];
+        }
     }
     
     // Load preferences from the system's user defaults database
@@ -5747,14 +5779,24 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) quittingSession
 {
-    BOOL examSession = NSUserDefaults.userDefaultsPrivate;
     BOOL secureClientSession = NO;
-    if (examSession) {
-        [NSUserDefaults setUserDefaultsPrivate:NO];
-        secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
-        [NSUserDefaults setUserDefaultsPrivate:YES];
+    if (self.examSession) {
+        secureClientSession = self.secureClientSession;
     }
-    return !_startingUp && examSession && secureClientSession && !_openedURL;
+    return !_startingUp && self.examSession && secureClientSession && !_openedURL;
+}
+
+- (BOOL) examSession
+{
+    return NSUserDefaults.userDefaultsPrivate;
+}
+
+- (BOOL) secureClientSession
+{
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    BOOL secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    return secureClientSession;
 }
 
 
@@ -5879,12 +5921,12 @@ conditionallyForWindow:(NSWindow *)window
 // Called when SEB should be terminated
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
 {
-	if (quittingMyself) {
+	if (quittingMyself || systemPreferencesOpenedForScreenRecordingPermissions) {
         DDLogDebug(@"%s: quttingMyself = true", __FUNCTION__);
         if (_isAACEnabled && _wasAACEnabled && !_isTerminating) {
             // Don't try to switch AAC off if it didn't switch on yet
             if (@available(macOS 10.15.4, *)) {
-                _isTerminating = YES;
+                _isTerminating = YES; //prevent trying to switch AAC off twice
 
                 if (self.browserController) {
                     [self.browserController closeAllBrowserWindows];
@@ -5955,6 +5997,49 @@ conditionallyForWindow:(NSWindow *)window
             [self applicationWillTerminateProceed];
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    } else if (screenCapturePermissionsRequested) {
+        screenCapturePermissionsRequested = NO;
+        if (@available(macOS 10.15, *)) {
+            if (CGRequestScreenCaptureAccess()) {
+                DDLogInfo(@"Screen capture access has been granted");
+            } else {
+                DDLogError(@"User has to grant screen capture access, display authorization dialog or open System Preferences");
+            }
+            systemPreferencesOpenedForScreenRecordingPermissions = YES;
+
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Screen Capture", nil)];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security & Privacy and restart %@ and your exam afterwards.", nil), SEBFullAppNameClassic, SEBShortAppName]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Authorize Screen Recording", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
+                switch(answer)
+                {
+                    case NSAlertFirstButtonReturn:
+                    {
+                        [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+                        return;
+                    }
+                        
+                    case NSAlertSecondButtonReturn:
+                    {
+                    }
+                        
+                    default:
+                    {
+                    }
+                }
+                [self applicationWillTerminateProceed];
+
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+            return;
+        } else {
+            [self applicationWillTerminateProceed];
+        }
+
     } else if (_cmdKeyDown) {
         // Show alert that keys were hold while starting SEB
         NSAlert *modalAlert = [self newAlert];

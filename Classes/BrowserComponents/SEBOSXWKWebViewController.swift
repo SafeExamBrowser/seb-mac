@@ -35,8 +35,8 @@
 import Foundation
 import WebKit
 
-public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, SEBAbstractBrowserControllerDelegate {
-    
+public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, SEBAbstractBrowserControllerDelegate, WKUIDelegatePrivateSEB {
+        
     weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
     
     private var _sebWebView : SEBOSXWKWebView?
@@ -251,11 +251,11 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     @available(macOS 12.0, *)
     public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
-        return .grant
+        return (navigationDelegate?.permissionDecision?(for: type) ?? .deny)
     }
     
     public func _webView(_ webView: WKWebView, requestUserMediaAuthorizationFor devices: _WKCaptureDevices, url: URL, mainFrameURL: URL, decisionHandler: @escaping (Bool) -> Void) {
-        decisionHandler(true)
+        decisionHandler(navigationDelegate?.browserMediaCaptureScreen ?? false)
     }
     
     public func _webView(_ webView: WKWebView, requestDisplayCapturePermissionFor securityOrigin: WKSecurityOrigin, initiatedByFrame frame: WKFrameInfo, withSystemAudio: Bool, decisionHandler: @escaping (WKDisplayCapturePermissionDecision) -> Void) {
