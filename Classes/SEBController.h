@@ -131,6 +131,8 @@
     BOOL allowSiri;
     BOOL allowDictation;
     BOOL detectSIGSTOP;
+    BOOL screenCapturePermissionsRequested;
+    BOOL systemPreferencesOpenedForScreenRecordingPermissions;
     NSString *currentExamStartURL;
     BOOL fontRegistryUIAgentRunning;
     BOOL fontRegistryUIAgentDialogClosed;
@@ -268,6 +270,8 @@
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL conditionalInitAfterProcessesChecked;
+@property(readonly) BOOL examSession;
+@property(readonly) BOOL secureClientSession;
 @property(readwrite) BOOL quittingMyself;
 @property(readwrite) BOOL isTerminating;
 @property(strong) NSURL *openingSettingsFileURL;
