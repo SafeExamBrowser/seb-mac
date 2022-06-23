@@ -64,6 +64,8 @@
 
 - (void)viewDidLayoutSubviews
 {
+    [super viewDidLayoutSubviews];
+    
     logTextView.textContainerInset = UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
 }
 
