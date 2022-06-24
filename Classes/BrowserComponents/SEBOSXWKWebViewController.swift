@@ -262,6 +262,10 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
         decisionHandler(.screenPrompt)
     }
 
+    @available(macOS 12.0, *)
+    public func _webView(_ webView: WKWebView, queryPermission name: String, for origin: WKSecurityOrigin) async -> WKPermissionDecision {
+        return .grant
+    }
 }
 
 extension NSView {

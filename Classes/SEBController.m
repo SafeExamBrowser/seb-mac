@@ -1893,7 +1893,7 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"]) {
-        if (@available(macOS 10.15, *)) {
+        if (@available(macOS 11, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
                 if (self.examSession && self.secureClientSession) {
