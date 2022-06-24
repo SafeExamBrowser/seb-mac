@@ -302,8 +302,10 @@ import PDFKit
             if let url = self.sebWebView.url {
                 self.load(url)
             } else {
-                if let currentURL = self.navigationDelegate?.currentURL {
-                    self.load(currentURL!)
+                if let currentPageURL = self.navigationDelegate?.currentURL {
+                    if currentPageURL != nil {
+                        self.load(currentPageURL!)
+                    }
                 }
             }
         })
