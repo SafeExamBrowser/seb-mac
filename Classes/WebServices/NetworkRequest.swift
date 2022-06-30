@@ -84,6 +84,17 @@ extension NetworkRequest {
                 completion(nil, statusCode, [:])
                 return
             }
+            if statusCode == statusCodes.unauthorized {
+                // Error: Unauthorized
+                guard let errorResponse = self?.decode(receivedData) as? ErrorResponse else {
+                    completion(nil, statusCode, [:])
+                    return
+                }
+                if errorResponse.error == errors.invalidToken {
+                    // Token expired, get new token
+                }
+            }
+
             completion(self?.decode(receivedData), statusCode, responseHeaders)
         })
         task.resume()
