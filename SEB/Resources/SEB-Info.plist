@@ -68,6 +68,11 @@
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>SEB uses Bluetooth for Jitsi Meet</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_bonjour._tcp</string>
+		<string>_lnp._tcp.</string>
+	</array>
 	<key>NSCalendarsUsageDescription</key>
 	<string>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.</string>
 	<key>NSCameraUsageDescription</key>

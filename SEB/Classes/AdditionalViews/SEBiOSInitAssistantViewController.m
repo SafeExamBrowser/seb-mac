@@ -34,7 +34,6 @@
 
 #import "SEBiOSInitAssistantViewController.h"
 
-
 @implementation SEBiOSInitAssistantViewController
 
 
@@ -155,13 +154,43 @@
     noConfigURLFoundLabel.hidden = true;
     // Keep a reference for the scan QR code "config not found" label
     noConfigFoundLabel = noConfigURLFoundLabel;
-
-    NSString *hostName = [_assistantController domainForCurrentNetwork];
-    if ([hostName hasSuffix:@"ethz.ch"]) {
-        hostName = @"let.ethz.ch";
+    
+    void (^completionHandler)(BOOL) = ^void(BOOL authorized) {
+        if (authorized) {
+            NSString *hostName = [self.assistantController domainForCurrentNetwork];
+            if ([hostName hasSuffix:@"ethz.ch"]) {
+                hostName = @"let.ethz.ch";
+            }
+            [self setConfigURLString:hostName];
+            [self urlEntered:self];
+        } else {
+            self.sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Local Network Access", nil)
+                                                                                         message:[NSString stringWithFormat:NSLocalizedString(@"Local network access is needed when using Automatic Client Configuration to search the local network for a %@ client configuration. You can allow access to the local network for %@ in Settings.", nil), SEBShortAppName, SEBShortAppName]
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+            [self.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:^(UIAlertAction *action) {
+                
+                self.sebViewController.alertController = nil;
+            }]];
+            [self.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
+                                                                                       style:UIAlertActionStyleDefault
+                                                                                     handler:^(UIAlertAction *action) {
+                self.sebViewController.alertController = nil;
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+                
+            }]];
+            [self.sebViewController.topMostController presentViewController:self.sebViewController.alertController animated:NO completion:nil];
+        }
+    };
+    if (@available(iOS 14.0, *)) {
+        if (!_localNetworkAuthorizationManager) {
+            _localNetworkAuthorizationManager = [LocalNetworkAuthorizationManager new];
+        }
+        [_localNetworkAuthorizationManager requestAuthorizationWithCompletion:completionHandler];
+    } else {
+        completionHandler(YES);
     }
-    [self setConfigURLString:hostName];
-    [self urlEntered:self];
 }
 
 
@@ -182,29 +211,29 @@
                                                                              // First time show Alert with more information for administrators
                                                                              
                                                                              // Show Alert with more information for students
-                                                                             self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Administrators", nil)
+                                                                             self.sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Administrators", nil)
                                                                                                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@.", nil), SEBShortAppName, @"\n", SEBShortAppName, SEBWebsiteShort]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
                                                                              
-                                                                             [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                             [self.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                                                                                                     style:UIAlertActionStyleCancel
                                                                                                                                                   handler:^(UIAlertAction *action) {
                                                                                                                                                       
-                                                                                                                                                      self->_sebViewController.alertController = nil;
+                                                                                                                                                      self.sebViewController.alertController = nil;
                                                                                                                                                   }]];
                                                                              
-                                                                             [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Edit Settings", nil)
+                                                                             [self.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Edit Settings", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
                                                                                                                                                   handler:^(UIAlertAction *action) {
                                                                                                                                                       
-                                                                                                                                                      self->_sebViewController.alertController = nil;
+                                                                                                                                                      self.sebViewController.alertController = nil;
                                                                                                                                                       // This flag needs to be set to NO to load
                                                                                                                                                       // the Inital Assistant again if editing settings is canceled
-                                                                                                                                                      self->_sebViewController.finishedStartingUp = NO;
-                                                                                                                                                      [self->_sebViewController conditionallyShowSettingsModal];
+                                                                                                                                                      self.sebViewController.finishedStartingUp = NO;
+                                                                                                                                                      [self.sebViewController conditionallyShowSettingsModal];
                                                                                                                                                   }]];
                                                                              
-                                                                             [self->_sebViewController.topMostController presentViewController:self->_sebViewController.alertController animated:NO completion:nil];
+                                                                             [self.sebViewController.topMostController presentViewController:self.sebViewController.alertController animated:NO completion:nil];
                                                                          }]];
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Student", nil)
@@ -212,16 +241,16 @@
                                                                          handler:^(UIAlertAction *action) {
                                                                              
                                                                              // Show Alert with more information for students
-                                                                             self->_sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Students", nil)
+                                                                             self.sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Instructions for Students", nil)
                                                                                                                                                       message:[NSString stringWithFormat:NSLocalizedString(@"Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams.", nil), SEBShortAppName, @"\n", SEBShortAppName]
                                                                                                                                                preferredStyle:UIAlertControllerStyleAlert];
-                                                                             [self->_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                             [self.sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                                                                                     style:UIAlertActionStyleDefault
                                                                                                                                                   handler:^(UIAlertAction *action) {
                                                                                                                                                       
-                                                                                                                                                      self->_sebViewController.alertController = nil;
+                                                                                                                                                      self.sebViewController.alertController = nil;
                                                                                                                                                   }]];
-                                                                             [self->_sebViewController.topMostController presentViewController:self->_sebViewController.alertController animated:NO completion:nil];
+                                                                             [self.sebViewController.topMostController presentViewController:self.sebViewController.alertController animated:NO completion:nil];
                                                                          }]];
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
@@ -304,8 +333,8 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         [self setConfigURLString:@""];
-        self->_sebViewController.initAssistantOpen = false;
-        [self->_sebViewController storeNewSEBSettingsSuccessful:nil];
+        self.sebViewController.initAssistantOpen = false;
+        [self.sebViewController storeNewSEBSettingsSuccessful:nil];
     }];
 }
 
