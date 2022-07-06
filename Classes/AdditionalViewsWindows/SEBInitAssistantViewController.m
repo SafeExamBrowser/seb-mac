@@ -89,7 +89,7 @@
     
     NSString *ipAddress = [self getIPAddress];
     if (!ipAddress) {
-        return nil;
+        return @"";
     }
     NSString *fullHost = [self getHostFromIPAddress:ipAddress];
     NSString *hostDomain = @"";
@@ -117,8 +117,10 @@
         temp_addr = interfaces;
         while(temp_addr != NULL) {
             if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                // Check if interface is en0 which is the wifi connection on the iPhone
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                // Check if interface is en0 which is a Wi-Fi connection or
+                // utun5, which is a VPN connection
+                NSString *interfaceName = [NSString stringWithUTF8String:temp_addr->ifa_name];
+                if([interfaceName isEqualToString:@"en0"] || [interfaceName isEqualToString:@"utun5"]) {
                     // Get NSString from C String
                     address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
                 }
@@ -131,9 +133,9 @@
                                                     initWithDomain:sebErrorDomain
                                                     code:SEBErrorASCCNoWiFi
                                                     userInfo:@{ NSLocalizedDescriptionKey :
-                                                                    NSLocalizedString(@"Not Connected to WiFi", nil),
+                                                                    NSLocalizedString(@"Not Connected to Wi-Fi or VPN", nil),
                                                                 NSLocalizedFailureReasonErrorKey :
-                                                                    [NSString stringWithFormat:NSLocalizedString(@"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too.", nil), SEBExtraShortAppName]
+                                                                    [NSString stringWithFormat:NSLocalizedString(@"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too.", nil), SEBExtraShortAppName]
                                                                 }]];
         }
     }
@@ -161,20 +163,23 @@
         if (addressRef) {
             freeaddrinfo(result);
             CFHostRef hostRef = CFHostCreateWithAddress(kCFAllocatorDefault, addressRef);
+            CFRelease(addressRef);
             if (hostRef) {
-                CFRelease(addressRef);
                 BOOL succeeded = CFHostStartInfoResolution(hostRef, kCFHostNames, NULL);
                 if (succeeded) {
                     NSMutableArray *hostnames = [NSMutableArray array];
                     
                     CFArrayRef hostnamesRef = CFHostGetNames(hostRef, NULL);
-                    for (int currentIndex = 0; currentIndex < [(__bridge NSArray *)hostnamesRef count]; currentIndex++) {
-                        [hostnames addObject:[(__bridge NSArray *)hostnamesRef objectAtIndex:currentIndex]];
+                    if (hostnamesRef) {
+                        for (int currentIndex = 0; currentIndex < [(__bridge NSArray *)hostnamesRef count]; currentIndex++) {
+                            [hostnames addObject:[(__bridge NSArray *)hostnamesRef objectAtIndex:currentIndex]];
+                        }
+                        CFRelease(hostnamesRef);
                     }
-                    
                     hostname = hostnames.firstObject;
+                } else {
+                    CFRelease(hostRef);
                 }
-                CFRelease(hostRef);
             }
         }
     }

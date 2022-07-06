@@ -920,7 +920,7 @@ import PDFKit
         navigationDelegate?.webView?(webView, runOpenPanelWithParameters: parameters, initiatedByFrame: frame, completionHandler: completionHandler)
     }
     
-    @available(macOS 12.0, *)
+    @available(macOS 12.0, iOS 15.0, *)
     public func permissionDecision(for type: WKMediaCaptureType) -> WKPermissionDecision {
         switch type {
         case .camera:
