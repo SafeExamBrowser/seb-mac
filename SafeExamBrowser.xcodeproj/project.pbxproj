@@ -993,6 +993,7 @@
 		69F90022232309BB003A5015 /* ExamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F9001F232309BB003A5015 /* ExamCell.m */; };
 		69F9110016CA5C720041EA38 /* PrefsNetworkViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */; };
 		69F9110116CA5C720041EA38 /* PrefsNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */; };
+		69FC8F5028743C5C00ECD0A3 /* SEBNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
 		8DE31FEF9851E3ED88004761 /* Pods_Safe_Exam_Browser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3483C29FF808795E779E8996 /* Pods_Safe_Exam_Browser.framework */; };
@@ -1749,6 +1750,7 @@
 		69F9001F232309BB003A5015 /* ExamCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExamCell.m; path = Classes/AdditionalViews/ExamCell.m; sourceTree = "<group>"; };
 		69F910FE16CA5C720041EA38 /* PrefsNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsNetworkViewController.h; sourceTree = "<group>"; };
 		69F910FF16CA5C720041EA38 /* PrefsNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsNetworkViewController.m; sourceTree = "<group>"; };
+		69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBNetworkManager.swift; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
 		71B3BB56996BA771D79A9304 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1988,6 +1990,7 @@
 		690E25A71BFC7E4000B41217 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				69FC8F4E28743C0400ECD0A3 /* Network */,
 				6974C0462475E257009F0529 /* Proctoring */,
 				69F215E11CE74EBC00BD9AA3 /* SEB Slider */,
 				694FB9CF1CCF0BEB00E80CD9 /* Preferences */,
@@ -3056,6 +3059,14 @@
 				69F5229621467187009F3999 /* QNSURLSessionDemux.m */,
 			);
 			name = SEBURLProtocol;
+			sourceTree = "<group>";
+		};
+		69FC8F4E28743C0400ECD0A3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		A9DCFB3F301AB1EC72C987AA /* Pods */ = {
@@ -4128,6 +4139,7 @@
 				698AB4192638630A00E84161 /* SEBiOSBrowserController.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */,
+				69FC8F5028743C5C00ECD0A3 /* SEBNetworkManager.swift in Sources */,
 				69F522CA2146720C009F3999 /* SEBCertServices.m in Sources */,
 				6914D12E2183A260004F4A4B /* CustomViewCell.m in Sources */,
 				69A07218268A38AD00A0464B /* MscPKCS7.m in Sources */,
@@ -4880,7 +4892,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4979,7 +4991,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5244,7 +5256,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5301,7 +5313,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5362,7 +5374,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5419,7 +5431,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5490,7 +5502,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5546,7 +5558,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14160;
+				CURRENT_PROJECT_VERSION = 14176;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
