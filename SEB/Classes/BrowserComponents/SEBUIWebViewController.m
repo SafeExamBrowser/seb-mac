@@ -325,7 +325,7 @@
     NSString *fileExtension = [url pathExtension];
 
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if ([fileExtension isEqualToString:SEBFileExtension] &&
+    if ([fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame &&
         self.navigationDelegate.downloadingInTemporaryWebView) {
         if (!waitingForConfigDownload) {
             waitingForConfigDownload = YES;
