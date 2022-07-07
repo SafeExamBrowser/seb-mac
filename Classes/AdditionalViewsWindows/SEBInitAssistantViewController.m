@@ -73,8 +73,22 @@
         }
     }
     if (URLFromString) {
-        clientConfigURL = NO;
-        [self checkSEBClientConfigURL:URLFromString withScheme:0];
+        if (URLFromString.path.length > 0 && ![URLFromString.path isEqualToString:@"/"]) {
+            NSError *error = [[NSError alloc]
+                              initWithDomain:sebErrorDomain
+                              code:SEBErrorASCCNoWiFi
+                              userInfo:@{ NSLocalizedDescriptionKey :
+                                              NSLocalizedString(@"Wrong Institution URL", nil),
+                                          NSLocalizedFailureReasonErrorKey :
+                                              [NSString stringWithFormat:NSLocalizedString(@"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer.", nil), SEBExtraShortAppName, SEBWebsiteShort]
+                                       }];
+            [_controllerDelegate setConfigURLWrongLabelHidden:YES
+                                                        error:error
+                                           forClientConfigURL:false];
+        } else {
+            clientConfigURL = NO;
+            [self checkSEBClientConfigURL:URLFromString withScheme:SEBClientConfigURLSchemeNone];
+        }
     } else {
         [_controllerDelegate setConfigURLWrongLabelHidden:URLString.length == 0
                                                     error:nil
@@ -178,7 +192,7 @@
                     }
                     hostname = hostnames.firstObject;
                 } else {
-                    CFRelease(hostRef);
+//                    CFRelease(hostRef);
                 }
             }
         }
