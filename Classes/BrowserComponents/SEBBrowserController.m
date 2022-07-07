@@ -886,10 +886,10 @@ static NSString *urlStrippedFragment(NSURL* url)
                 // SEB isn't in exam mode: reconfiguring is allowed
                 NSURL *sebURL = url;
                 // Figure the download URL out, depending on if http or https should be used
-                if ([url.scheme isEqualToString:SEBProtocolScheme]) {
+                if ([url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
                     // If it's a seb:// URL, we try to download it by http
                     url = [url URLByReplacingScheme:@"http"];
-                } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+                } else if ([url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                     // If it's a sebs:// URL, we try to download it by https
                     url = [url URLByReplacingScheme:@"https"];
                 }
@@ -1127,7 +1127,8 @@ static NSString *urlStrippedFragment(NSURL* url)
             filename = suggestedFilename;
         }
 
-        if ([pathExtension isEqualToString:SEBFileExtension] || [filename.pathExtension isEqualToString:SEBFileExtension]) {
+        if ([pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame ||
+            [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1730,7 +1731,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                             atHost:(NSURL *)host
                      universalLink:(NSURL *)universalLink
 {
-    if ([configFileName isEqualToString:SEBSettingsFilename]) {
+    if ([configFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) {
         // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
         // recursivly starting at the folder addressed by the original Universal Link
         [self downloadConfigFile:SEBExamSettingsFilename
@@ -1894,7 +1895,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
         // If these SEB settings came from
         // a "SEBSettings.seb" file, we check if they contained Client Settings
-        if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
+        if ([cachedConfigFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame &&
             ![NSUserDefaults userDefaultsPrivate]) {
             // SEB successfully read a SEBSettings.seb file with Client Settings
             // Now we try if there is a "SEBExamSettings.seb" file as well in the
