@@ -2886,7 +2886,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.browserController handleUniversalLink:directlyDownloadedURL];
             return;
         } else {
-            if ([directlyDownloadedURL.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+            if ([directlyDownloadedURL.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                 // If it's a sebs:// URL, we try to download it by https
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:directlyDownloadedURL resolvingAgainstBaseURL:NO];
                 urlComponents.scheme = @"https";

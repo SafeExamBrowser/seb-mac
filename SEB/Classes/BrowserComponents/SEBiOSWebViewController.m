@@ -455,7 +455,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
         NSRange mediaTypeRange = [urlResourceSpecifier rangeOfString:@","];
         if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
-            NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
+            NSString *mediaType = [[urlResourceSpecifier substringToIndex:mediaTypeRange.location] lowercaseString];
             NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
             if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound &&
                 [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
