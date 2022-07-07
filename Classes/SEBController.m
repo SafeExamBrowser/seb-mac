@@ -1019,7 +1019,9 @@ bool insideMatrix(void);
 - (void)didFinishLaunchingWithSettings
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
+    _runningProhibitedProcesses = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+
     _alternateKeyPressed = [self alternateKeyCheck];
 
     if (_alternateKeyPressed) {
@@ -4521,8 +4523,8 @@ conditionallyForWindow:(NSWindow *)window
     };
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         NSInteger killSuccess = [application kill];
-        if (killSuccess != ERR_SUCCESS) {
-            DDLogError(@"Couldn't terminate app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+        if (killSuccess != ERR_SUCCESS && killSuccess != ESRCH) { // ESRCH: No such process
+            DDLogError(@"Couldn't terminate app with localized name (error %ld): %@, bundle or executable URL: %@", (long)killSuccess, appLocalizedName, appURL);
             [_runningProhibitedProcesses addObject:processDetails];
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedProhibitedProcess" object:self];
