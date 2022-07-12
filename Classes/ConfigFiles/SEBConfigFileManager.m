@@ -985,7 +985,7 @@ static NSString *getUppercaseAdminPasswordHash()
         } else {
             hashedPassword = [keychainManager generateSHAHashString:password];
         }
-        passwordsMatch = ([hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
+        passwordsMatch = (hashedPassword && [hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
     } while ((password == nil || !passwordsMatch) && i > 0);
     

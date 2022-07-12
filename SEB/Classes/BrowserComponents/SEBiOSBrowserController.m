@@ -107,7 +107,7 @@
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
-    _sebViewController.openingSettings = true;
+    _sebViewController.openingSettings = YES;
     [_sebViewController.configFileController storeNewSEBSettings:sebFileData
                                 forEditing:NO
                                   callback:self
@@ -119,7 +119,7 @@
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
     DDLogError(@"%s error: %@", __FUNCTION__, error);
-    _sebViewController.openingSettings = false;
+    _sebViewController.openingSettings = NO;
     
     // Only show the download error and close temp browser window if this wasn't a direct download attempt
     if (!self.directConfigDownloadAttempted) {
@@ -140,7 +140,8 @@
         DDLogError(@"%s: SEB is starting up and opening a config link wasn't successfull, SEB will use client setting", __FUNCTION__);
     }
     // Reset the opening settings flag which prevents opening URLs concurrently
-    _sebViewController.openingSettings = false;
+    _sebViewController.openingSettings = NO;
+    _sebViewController.scannedQRCode = NO;
 }
 
 - (void)closeOpeningConfigFileDialog {

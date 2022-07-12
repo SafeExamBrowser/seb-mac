@@ -912,7 +912,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     #ifdef DEBUG
         DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
     #endif
-        if (_allowDownloads || [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+        if (_allowDownloads || (request.URL.pathExtension && [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
             // Get the DOMNode from the information about the action that triggered the navigation request
             self.downloadFilename = nil;
             NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
@@ -986,7 +986,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             }
         }
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
-        if (!_allowDownloads && self.downloadFilename && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+        if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
             delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
         } else {
             delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
