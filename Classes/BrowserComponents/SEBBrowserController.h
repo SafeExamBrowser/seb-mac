@@ -137,7 +137,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) presentDownloadError:(NSError *)error;
 
 @property (readwrite) BOOL startingUp;
-@property (readwrite) BOOL openingSettings;
 
 @optional
 - (void) openDownloadedFile:(NSString *)path;
