@@ -3279,6 +3279,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     //    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
+    _scannedQRCode = NO;    
     _resettingSettings = NO;
     
     [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
