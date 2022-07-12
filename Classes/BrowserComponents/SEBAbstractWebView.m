@@ -574,8 +574,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     NSURL *pageURL = self.url;
     NSString *pageTitle = self.pageTitle;
     if (pageTitle.length == 0) {
-        if ([pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+        if (pageURL.pathExtension && [pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
             pageTitle = pageURL.lastPathComponent;
+        } else {
+            pageTitle = @"";
         }
     }
     [self.navigationDelegate setPageTitle:pageTitle];
@@ -722,9 +724,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
     
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if (([url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame ||
-        [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame ||
-        [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) &&
+    if (((url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) ||
+        (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) ||
+        (fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
@@ -767,9 +769,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     
     [self.navigationDelegate examineCookies:cookies forURL:url];
     
-    if (([mimeType caseInsensitiveCompare:SEBConfigMIMEType] == NSOrderedSame) ||
-        ([mimeType caseInsensitiveCompare:SEBUnencryptedConfigMIMEType] == NSOrderedSame) ||
-        ([url.pathExtension caseInsensitiveCompare:SEBFileExtension]) == NSOrderedSame) {
+    if ((mimeType && [mimeType caseInsensitiveCompare:SEBConfigMIMEType] == NSOrderedSame) ||
+        (mimeType && [mimeType caseInsensitiveCompare:SEBUnencryptedConfigMIMEType] == NSOrderedSame) ||
+        (url.pathExtension && [url.pathExtension caseInsensitiveCompare:SEBFileExtension]) == NSOrderedSame) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.originalURL;
         self.downloadingSEBConfig = YES;
@@ -778,7 +780,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (!([mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && _downUploadsAllowed && _downloadPDFFiles)) {
+    if (!((mimeType && [mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame) && _downUploadsAllowed && _downloadPDFFiles)) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;

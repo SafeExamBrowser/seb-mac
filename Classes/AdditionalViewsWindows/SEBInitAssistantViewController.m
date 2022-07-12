@@ -52,9 +52,9 @@
             // if yes, replace it with http(s)
             scheme = [URLString substringToIndex:scanResult.location];
             NSString *newScheme = scheme;
-            if ([scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
+            if (scheme && [scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
                 newScheme = @"http";
-            } else if ([scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
+            } else if (scheme && [scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                 newScheme = @"https";
             } else if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])) {
                 // if the scheme isn't seb, sebs, http, https, then don't accept the URL
@@ -284,7 +284,7 @@
 - (void) downloadSEBClientConfigFromURL:(NSURL *)url originalURL:(NSURL *)originalURL withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     if (!_searchingConfigCanceled) {
-        if ([url.pathExtension caseInsensitiveCompare:SEBFileExtension] != NSOrderedSame) {
+        if (url.pathExtension && [url.pathExtension caseInsensitiveCompare:SEBFileExtension] != NSOrderedSame) {
             NSString *clientSettingsPathAAC;
             if (configURLScheme == SEBClientConfigURLSchemeWellKnown) {
                 clientSettingsPathAAC = @".well-known";

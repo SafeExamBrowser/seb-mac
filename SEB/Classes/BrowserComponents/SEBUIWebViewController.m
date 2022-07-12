@@ -325,7 +325,7 @@
     NSString *fileExtension = [url pathExtension];
 
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if ([fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame &&
+    if ((fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) &&
         self.navigationDelegate.downloadingInTemporaryWebView) {
         if (!waitingForConfigDownload) {
             waitingForConfigDownload = YES;
@@ -345,14 +345,16 @@
         }
     }
 
-    if (!url.hasDirectoryPath && ([url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && self.downloadFilename.length == 0)) {
+    if (!url.hasDirectoryPath &&
+        ((url.pathExtension && [url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) &&
+         self.downloadFilename.length == 0)) {
         NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]').download", url.absoluteString];
         self.downloadFilename = [webView stringByEvaluatingJavaScriptFromString:javaScript];
     } else {
         self.downloadFilename = nil;
     }
     if (self.downloadFilename.length != 0) {
-        BOOL displayPDF = [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
+        BOOL displayPDF = self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
         if (displayPDF) {
             newTabRequested = YES;
         }
