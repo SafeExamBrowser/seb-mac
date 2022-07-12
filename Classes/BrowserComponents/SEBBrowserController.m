@@ -365,6 +365,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
 {
     NSString *webPageTitle;
+    if (!title) {
+        title = [self urlOrPlaceholderForURL:url.absoluteString];
+    }
     if (mainWebView) {
         if (webPageShowURLAlways) {
             webPageTitle = url.absoluteString;
@@ -881,15 +884,15 @@ static NSString *urlStrippedFragment(NSURL* url)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_downloadingInTemporaryWebView) {
-            // Check if SEB is in exam mode = private UserDefauls are switched on
+            // Check if reconfiguring is actually allowed
             if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
                 // SEB isn't in exam mode: reconfiguring is allowed
                 NSURL *sebURL = url;
                 // Figure the download URL out, depending on if http or https should be used
-                if ([url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
+                if (url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
                     // If it's a seb:// URL, we try to download it by http
                     url = [url URLByReplacingScheme:@"http"];
-                } else if ([url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
+                } else if (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                     // If it's a sebs:// URL, we try to download it by https
                     url = [url URLByReplacingScheme:@"https"];
                 }
@@ -932,11 +935,12 @@ static NSString *urlStrippedFragment(NSURL* url)
                     examSessionCookiesAlreadyCleared = YES;
                 }
                 [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
+                return;
             }
         } else {
             DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
-            _delegate.openingSettings = false;
         }
+        [_delegate openingConfigURLRoleBack];
     }
 }
 
@@ -1127,8 +1131,8 @@ static NSString *urlStrippedFragment(NSURL* url)
             filename = suggestedFilename;
         }
 
-        if ([pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame ||
-            [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) {
+        if ((pathExtension && [pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) ||
+            (filename.pathExtension && [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1219,7 +1223,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+    if (((path.pathExtension && [path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
@@ -1588,7 +1592,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
     DDLogError(@"%s error: %@", __FUNCTION__, error);
-    _delegate.openingSettings = false;
     [_delegate downloadingSEBConfigFailed:error];
 }
 
@@ -1609,7 +1612,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     _pendingChallengeCompletionHandler = nil;
     
     if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
-        _delegate.openingSettings = true;
         
         void (^completionHandler)(void) = ^void() {
             self->downloadedSEBConfigDataURL = url;
@@ -1731,7 +1733,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                             atHost:(NSURL *)host
                      universalLink:(NSURL *)universalLink
 {
-    if ([configFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) {
+    if (configFileName && [configFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) {
         // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
         // recursivly starting at the folder addressed by the original Universal Link
         [self downloadConfigFile:SEBExamSettingsFilename
@@ -1895,7 +1897,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
         // If these SEB settings came from
         // a "SEBSettings.seb" file, we check if they contained Client Settings
-        if ([cachedConfigFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame &&
+        if ((cachedConfigFileName && [cachedConfigFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) &&
             ![NSUserDefaults userDefaultsPrivate]) {
             // SEB successfully read a SEBSettings.seb file with Client Settings
             // Now we try if there is a "SEBExamSettings.seb" file as well in the

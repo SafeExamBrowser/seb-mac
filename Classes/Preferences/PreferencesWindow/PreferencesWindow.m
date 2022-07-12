@@ -80,7 +80,7 @@
     
     if (filename) {
         if ([[NSApp delegate] respondsToSelector:@selector(application:openFile:)]) {
-            if ([filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) {
+            if (filename.pathExtension && [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) {
                 return [(SEBController *)[NSApp delegate] application:NSApp openFile:filename];
             }
         }

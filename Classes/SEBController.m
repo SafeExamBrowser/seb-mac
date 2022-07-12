@@ -5165,7 +5165,7 @@ conditionallyForWindow:(NSWindow *)window
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // if the correct quit/unlock password was entered, restart the exam
             [self.browserController backToStartCommand];
         } else {
@@ -5638,7 +5638,7 @@ conditionallyForWindow:(NSWindow *)window
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+            if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
                 DDLogInfo(@"Correct quit password entered");
                 [self quitSEBOrSession]; // Quit SEB or the exam session

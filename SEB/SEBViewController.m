@@ -169,7 +169,7 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
+                                                                     self.alertController = nil;
                                                                      NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
                                                                      if ([[UIApplication sharedApplication] canOpenURL:url]) {
                                                                          [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
@@ -177,7 +177,7 @@ static NSMutableSet *browserWindowControllers;
                                                                  }]];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
+                                                                     self.alertController = nil;
                                                                  }]];
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         } else if (camAuthStatus == AVAuthorizationStatusNotDetermined) {
@@ -189,7 +189,7 @@ static NSMutableSet *browserWindowControllers;
                                                              preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                     self->_alertController = nil;
+                                                                     self.alertController = nil;
                                                                  }]];
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
@@ -936,9 +936,9 @@ static NSMutableSet *browserWindowControllers;
     [self becomeFirstResponder];
     
     if (!_scannedQRCode) {
-        _scannedQRCode = true;
+        _scannedQRCode = YES;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
-            self->_visibleCodeReaderViewController = nil;
+            self.visibleCodeReaderViewController = nil;
             [self adjustBars];
             DDLogInfo(@"Scanned QR code: %@", result);
             NSURL *URLFromString = [NSURL URLWithString:result];
@@ -959,9 +959,9 @@ static NSMutableSet *browserWindowControllers;
     [self.sideMenuController hideLeftView];
     [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
-        self->_visibleCodeReaderViewController = nil;
-        if (!self->_finishedStartingUp || self->_pausedSAMAlertDisplayed) {
-            self->_pausedSAMAlertDisplayed = false;
+        self.visibleCodeReaderViewController = nil;
+        if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
+            self.pausedSAMAlertDisplayed = false;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
             [self initSEBUIWithCompletionBlock:^{
@@ -1742,7 +1742,7 @@ void run_on_ui_thread(dispatch_block_t block)
         if (!NSUserDefaults.userDefaultsPrivate) {
             // Set the local flag for showing settings in-app, so this is also enabled
             // when opening temporary exam settings later
-            self->_appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
+            self.appDelegate.showSettingsInApp = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showSettingsInApp"];
         }
         
         // Add scan QR code command/Home screen quick action/dock button
@@ -1777,41 +1777,41 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.navigationController.toolbar setShadowImage:[UIImage new] forToolbarPosition:UIBarPositionBottom];
                     self.navigationController.toolbar.translucent = YES;
                     
-                    if (self->_bottomBackgroundView) {
-                        [self->_bottomBackgroundView removeFromSuperview];
+                    if (self.bottomBackgroundView) {
+                        [self.bottomBackgroundView removeFromSuperview];
                     }
-                    self->_bottomBackgroundView = [UIView new];
-                    [self->_bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                    [self.view addSubview:self->_bottomBackgroundView];
+                    self.bottomBackgroundView = [UIView new];
+                    [self.bottomBackgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:self.bottomBackgroundView];
                     
-                    if (self->_toolBarView) {
-                        [self->_toolBarView removeFromSuperview];
+                    if (self.toolBarView) {
+                        [self.toolBarView removeFromSuperview];
                     }
-                    self->_toolBarView = [UIView new];
-                    [self->_toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
-                    [self.view addSubview:self->_toolBarView];
+                    self.toolBarView = [UIView new];
+                    [self.toolBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
+                    [self.view addSubview:self.toolBarView];
                     
                     
-                    NSDictionary *viewsDictionary = @{@"toolBarView" : self->_toolBarView,
-                                                      @"bottomBackgroundView" : self->_bottomBackgroundView,
-                                                      @"containerView" : self->_containerView};
+                    NSDictionary *viewsDictionary = @{@"toolBarView" : self.toolBarView,
+                                                      @"bottomBackgroundView" : self.bottomBackgroundView,
+                                                      @"containerView" : self.containerView};
                     
                     NSMutableArray *constraints_H = [NSMutableArray new];
                     
                     // dock/toolbar leading constraint to safe area guide of superview
-                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self.toolBarView
                                                                           attribute:NSLayoutAttributeLeading
                                                                           relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                             toItem:self.containerView.safeAreaLayoutGuide
                                                                           attribute:NSLayoutAttributeLeading
                                                                          multiplier:1.0
                                                                            constant:0]];
                     
                     // dock/toolbar trailling constraint to safe area guide of superview
-                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                    [constraints_H addObject:[NSLayoutConstraint constraintWithItem:self.toolBarView
                                                                           attribute:NSLayoutAttributeTrailing
                                                                           relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                             toItem:self.containerView.safeAreaLayoutGuide
                                                                           attribute:NSLayoutAttributeTrailing
                                                                          multiplier:1.0
                                                                            constant:0]];
@@ -1829,38 +1829,38 @@ void run_on_ui_thread(dispatch_block_t block)
                     CGFloat toolBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 36 : 46;
                     
-                    self->_toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self->_toolBarView
+                    self.toolBarHeightConstraint = [NSLayoutConstraint constraintWithItem:self.toolBarView
                                                                                   attribute:NSLayoutAttributeHeight
                                                                                   relatedBy:NSLayoutRelationEqual
                                                                                      toItem:nil
                                                                                   attribute:NSLayoutAttributeNotAnAttribute
                                                                                  multiplier:1.0
                                                                                    constant:toolBarHeight];
-                    [constraints_V addObject: self->_toolBarHeightConstraint];
+                    [constraints_V addObject: self.toolBarHeightConstraint];
                     
                     // dock/toolbar top constraint to safe area guide bottom of superview
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self.toolBarView
                                                                           attribute:NSLayoutAttributeTop
                                                                           relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView.safeAreaLayoutGuide
+                                                                             toItem:self.containerView.safeAreaLayoutGuide
                                                                           attribute:NSLayoutAttributeBottom
                                                                          multiplier:1.0
                                                                            constant:0]];
                     
                     // dock/toolbar bottom constraint to background view top
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_toolBarView
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self.toolBarView
                                                                           attribute:NSLayoutAttributeBottom
                                                                           relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_bottomBackgroundView
+                                                                             toItem:self.bottomBackgroundView
                                                                           attribute:NSLayoutAttributeTop
                                                                          multiplier:1.0
                                                                            constant:0]];
                     
                     // background view bottom constraint to superview bottom
-                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self->_bottomBackgroundView
+                    [constraints_V addObject:[NSLayoutConstraint constraintWithItem:self.bottomBackgroundView
                                                                           attribute:NSLayoutAttributeBottom
                                                                           relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self->_containerView
+                                                                             toItem:self.containerView
                                                                           attribute:NSLayoutAttributeBottom
                                                                          multiplier:1.0
                                                                            constant:0]];
@@ -1872,13 +1872,13 @@ void run_on_ui_thread(dispatch_block_t block)
                     
                     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
                         [self addBlurEffectStyle:UIBlurEffectStyleRegular
-                                       toBarView:self->_toolBarView
+                                       toBarView:self.toolBarView
                              backgroundTintStyle:backgroundTintStyle];
                         
                     } else {
-                        self->_toolBarView.backgroundColor = [UIColor lightGrayColor];
+                        self.toolBarView.backgroundColor = [UIColor lightGrayColor];
                     }
-                    self->_toolBarView.hidden = false;
+                    self.toolBarView.hidden = false;
                     
                     NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
                                                                                                          options: 0
@@ -1888,15 +1888,15 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.view addConstraints:bottomBackgroundViewConstraints_H];
                     
                     if (UIAccessibilityIsReduceTransparencyEnabled()) {
-                        self->_bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+                        self.bottomBackgroundView.backgroundColor = backgroundTintStyle == SEBBackgroundTintStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
                     } else {
                         if (backgroundTintStyle == SEBBackgroundTintStyleDark) {
                             [self addBlurEffectStyle:UIBlurEffectStyleDark
-                                           toBarView:self->_bottomBackgroundView
+                                           toBarView:self.bottomBackgroundView
                                  backgroundTintStyle:SEBBackgroundTintStyleNone];
                         } else {
                             [self addBlurEffectStyle:UIBlurEffectStyleExtraLight
-                                           toBarView:self->_bottomBackgroundView
+                                           toBarView:self.bottomBackgroundView
                                  backgroundTintStyle:SEBBackgroundTintStyleNone];
                         }
                     }
@@ -1906,7 +1906,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     CGFloat leftPadding = window.safeAreaInsets.left;
                     sideSafeAreaInsets = leftPadding != 0;
                     
-                    self->_bottomBackgroundView.hidden = sideSafeAreaInsets;
+                    self.bottomBackgroundView.hidden = sideSafeAreaInsets;
     #ifdef DEBUG
                     CGFloat bottomPadding = window.safeAreaInsets.bottom;
                     CGFloat bottomMargin = window.layoutMargins.bottom;
@@ -1931,11 +1931,11 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self.navigationController setToolbarHidden:YES];
             
-            if (self->_bottomBackgroundView) {
-                [self->_bottomBackgroundView removeFromSuperview];
+            if (self.bottomBackgroundView) {
+                [self.bottomBackgroundView removeFromSuperview];
             }
-            if (self->_toolBarView) {
-                [self->_toolBarView removeFromSuperview];
+            if (self.toolBarView) {
+                [self.toolBarView removeFromSuperview];
             }
         }
     }
@@ -1977,7 +1977,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             }
                                     action2Title:NSLocalizedString(@"Cancel", nil)
                                   action2Handler:^ {
-                                self->_alertController = nil;
+                                self.alertController = nil;
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
                             }];
@@ -2021,7 +2021,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                       audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
                         [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                            self->_alertController = nil;
+                            self.alertController = nil;
                             if (videoAuthorization == AVAuthorizationStatusDenied ||
                                 audioAuthorization == AVAuthorizationStatusDenied) {
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
@@ -2059,7 +2059,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (NSUserDefaults.userDefaultsPrivate) {
                             [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                self->_alertController = nil;
+                                self.alertController = nil;
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
                             }]];
@@ -2079,7 +2079,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                          message:NSLocalizedString(@"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil)
                                     action1Title:NSLocalizedString(@"OK", nil)
                                   action1Handler:^ {
-                                self->_alertController = nil;
+                                self.alertController = nil;
                                 [self sessionQuitRestart:NO];
                             }
                                     action2Title:nil
@@ -2703,7 +2703,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                         DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
                         self.appSettingsViewController = nil;
-                        self->_settingsOpen = false;
+                        self.settingsOpen = false;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
                     }];
                 }
@@ -2735,12 +2735,12 @@ void run_on_ui_thread(dispatch_block_t block)
     if (_startSAMWAlertDisplayed) {
         // Dismiss the Activate SAM alert in case it still was visible
         [_alertController dismissViewControllerAnimated:NO completion:^{
-            self->_alertController = nil;
-            self->_startSAMWAlertDisplayed = false;
-            self->_singleAppModeActivated = false;
+            self.alertController = nil;
+            self.startSAMWAlertDisplayed = false;
+            self.singleAppModeActivated = false;
             // Set the paused SAM alert displayed flag, because if loading settings
             // fails or is canceled, we need to restart the kiosk mode
-            self->_pausedSAMAlertDisplayed = true;
+            self.pausedSAMAlertDisplayed = true;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2748,7 +2748,7 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     } else if (_alertController) {
         [_alertController dismissViewControllerAnimated:YES completion:^{
-            self->_alertController = nil;
+            self.alertController = nil;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2757,10 +2757,10 @@ void run_on_ui_thread(dispatch_block_t block)
     } else if (_initAssistantOpen) {
         // Check if the initialize settings assistant is open
         [self dismissViewControllerAnimated:YES completion:^{
-            self->_initAssistantOpen = false;
+            self.initAssistantOpen = false;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
-            self->_finishedStartingUp = false;
+            self.finishedStartingUp = false;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2768,11 +2768,11 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self->_sebServerViewDisplayed = false;
+            self.sebServerViewDisplayed = false;
             self.establishingSEBServerConnection = false;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
-            self->_finishedStartingUp = false;
+            self.finishedStartingUp = false;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2795,11 +2795,11 @@ void run_on_ui_thread(dispatch_block_t block)
             // reconfigure allow setting isn't set
             if (_sessionRunning && ![self.browserController isReconfiguringAllowedFromURL:sebConfigURL]) {
                 // If yes, we don't download the .seb file
-                _scannedQRCode = false;
+                _scannedQRCode = NO;
                 return;
             }
         } else {
-            _scannedQRCode = false;
+            _scannedQRCode = NO;
             return;
         }
     }
@@ -2848,6 +2848,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
                 else {
                     DDLogError(@"Coordinating reading the file URL %@ contents failed with error %@", url, error);
+                    [self storeNewSEBSettingsSuccessful:error];
                 }
             }];
             
@@ -2886,7 +2887,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.browserController handleUniversalLink:directlyDownloadedURL];
             return;
         } else {
-            if ([directlyDownloadedURL.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
+            if (directlyDownloadedURL.scheme && [directlyDownloadedURL.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                 // If it's a sebs:// URL, we try to download it by https
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:directlyDownloadedURL resolvingAgainstBaseURL:NO];
                 urlComponents.scheme = @"https";
@@ -2957,7 +2958,7 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: Storing new SEB settings was %@successful", __FUNCTION__, error ? @"not " : @"");
     if (!error) {
         // If decrypting new settings was successfull
-        self->receivedServerConfig = nil;
+        receivedServerConfig = nil;
         self.isReconfiguringToMDMConfig = NO;
         self.scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:self->startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
@@ -2978,18 +2979,9 @@ void run_on_ui_thread(dispatch_block_t block)
         // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:self->currentConfigPath];
         
-        // When reconfiguring from MDM config fails, the SEB session needs to be restarted
-        if (self.isReconfiguringToMDMConfig) {
-            DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
-            self.isReconfiguringToMDMConfig = NO;
-            self.didReceiveMDMConfig = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self restartExamQuitting:NO];
-            });
-            
-        } else if (self.scannedQRCode) {
+        if (self.scannedQRCode) {
             DDLogError(@"%s: Reconfiguring from QR code config failed!", __FUNCTION__);
-            self.scannedQRCode = false;
+            self.scannedQRCode = NO;
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
                                             code:SEBErrorNoValidConfigData
@@ -3008,8 +3000,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                     preferredStyle:UIAlertControllerStyleAlert];
                 [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
-                    if (!self->_finishedStartingUp) {
+                    self.alertController = nil;
+                    if (!self.finishedStartingUp) {
                         // Continue starting up SEB without resetting settings
                         [self conditionallyStartKioskMode];
                     }
@@ -3018,8 +3010,17 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
             });
             
+        } else if (self.isReconfiguringToMDMConfig) {
+            // When reconfiguring from MDM config fails, the SEB session needs to be restarted
+            DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
+            self.isReconfiguringToMDMConfig = NO;
+            self.didReceiveMDMConfig = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self restartExamQuitting:NO];
+            });
+            
         } else if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
-            self.pausedSAMAlertDisplayed = false;
+            self.pausedSAMAlertDisplayed = NO;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -3029,7 +3030,7 @@ void run_on_ui_thread(dispatch_block_t block)
             });
             
         } else {
-            self.establishingSEBServerConnection = false;
+            self.establishingSEBServerConnection = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showReconfiguringAlertWithError:error];
             });
@@ -3127,13 +3128,13 @@ void run_on_ui_thread(dispatch_block_t block)
             
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                self->_alertController = nil;
+                self.alertController = nil;
                 [self startExam];
             }]];
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
+                    self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
@@ -3257,14 +3258,14 @@ void run_on_ui_thread(dispatch_block_t block)
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self->_alertController = nil;
+        self.alertController = nil;
         DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
         [self sessionQuitRestart:restart];
     }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        self->_alertController = nil;
+        self.alertController = nil;
         DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
         [self.sideMenuController hideLeftViewAnimated];
     }]];
@@ -3547,7 +3548,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            self->_alertController = nil;
+            self.alertController = nil;
             [self initSEBUIWithCompletionBlock:^{
                 [self conditionallyStartKioskMode];
                 self.clientConfigSecureModePaused = NO;
@@ -3820,9 +3821,9 @@ void run_on_ui_thread(dispatch_block_t block)
                 // Dismiss the Waiting for SAM to end alert
                 if (_endSAMWAlertDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:^{
-                        self->_alertController = nil;
-                        self->_endSAMWAlertDisplayed = false;
-                        self->_singleAppModeActivated = false;
+                        self.alertController = nil;
+                        self.endSAMWAlertDisplayed = false;
+                        self.singleAppModeActivated = false;
                         [self showRestartSingleAppMode];
                     }];
                     return;
@@ -3870,7 +3871,7 @@ void run_on_ui_thread(dispatch_block_t block)
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
+                    self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
@@ -3930,7 +3931,7 @@ void run_on_ui_thread(dispatch_block_t block)
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
+                    self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
@@ -3979,7 +3980,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     // Wait at least 2 seconds after app launch
                     DDLogInfo(@"%s Wait at least 2 seconds after app launch", __FUNCTION__);
                     dispatch_after(dispatch_time(dispatchTimeAppLaunched, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        self->_appDelegate.dispatchTimeAppLaunched = 0;
+                        self.appDelegate.dispatchTimeAppLaunched = 0;
                         // Is SAM/Guided Access (or ASAM because of previous crash) active?
                         [self assureSAMNotActive];
                         self->assureSAMNotActiveWaiting = NO;
@@ -4077,14 +4078,14 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
+                    self.alertController = nil;
                     // Check again if a single app mode is still active
                     [self requestDisablingSAM];
                 }]];
                 
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                    self->_alertController = nil;
+                    self.alertController = nil;
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:@"requestQuit" object:self];
                 }]];
@@ -4131,7 +4132,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         
                         [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                            self->_alertController = nil;
+                            self.alertController = nil;
                             DDLogInfo(@"%s User confirmed OK, quit current session.", __FUNCTION__);
                             [[NSNotificationCenter defaultCenter]
                              postNotificationName:@"requestQuit" object:self];
@@ -4144,7 +4145,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self startExam];
                 } else {
                     DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
-                    self->_ASAMActive = NO;
+                    self.ASAMActive = NO;
                     [self showNoKioskModeAvailable];
                 }
             });
@@ -4161,7 +4162,7 @@ void run_on_ui_thread(dispatch_block_t block)
     UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
         if (didSucceed) {
             DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-            self->_ASAMActive = false;
+            self.ASAMActive = false;
         }
         else {
             DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
@@ -4217,21 +4218,21 @@ void run_on_ui_thread(dispatch_block_t block)
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
-        self->_alertController = nil;
-        self->_noSAMAlertDisplayed = false;
+        self.alertController = nil;
+        self.noSAMAlertDisplayed = false;
         [self conditionallyStartKioskMode];
     }]];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Cancel", __FUNCTION__);
-        self->_alertController = nil;
-        self->_noSAMAlertDisplayed = false;
+        self.alertController = nil;
+        self.noSAMAlertDisplayed = false;
         if (self.establishingSEBServerConnection) {
             self.establishingSEBServerConnection = false;
         }
         // We didn't actually succeed to switch a kiosk mode on
-        // self->_secureMode = false;
+        // self.secureMode = false;
         // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
         DDLogInfo(@"%s: Quitting session", __FUNCTION__);
         [[NSNotificationCenter defaultCenter]
@@ -4622,7 +4623,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          preferredStyle:UIAlertControllerStyleAlert];
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            self->_alertController = nil;
+            self.alertController = nil;
         }]];
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
     }
@@ -4897,7 +4898,7 @@ void run_on_ui_thread(dispatch_block_t block)
                  message:NSLocalizedString(@"Are you sure?", nil)
             action1Title:NSLocalizedString(@"OK", nil)
           action1Handler:^{
-        [self->_browserTabViewController backToStart];
+        [self.browserTabViewController backToStart];
         [self.sideMenuController hideLeftViewAnimated];
     }
             action2Title:NSLocalizedString(@"Cancel", nil)
@@ -4945,14 +4946,14 @@ void run_on_ui_thread(dispatch_block_t block)
     [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
                                                          style:action1Style
                                                        handler:^(UIAlertAction *action) {
-        self->_alertController = nil;
+        self.alertController = nil;
         action1Handler();
     }]];
     if (action2Title) {
         [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
                                                              style:action2Style
                                                            handler:^(UIAlertAction *action) {
-            self->_alertController = nil;
+            self.alertController = nil;
             action2Handler();
         }]];
     }
@@ -5036,7 +5037,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (IBAction) reload {
     void (^action1Handler)(void) =
     ^{
-        [self->_browserTabViewController reload];
+        [self.browserTabViewController reload];
         [self.sideMenuController hideLeftViewAnimated];
     };
     
@@ -5155,9 +5156,9 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        NSString *username = self->_alertController.textFields[0].text;
-        NSString *password = self->_alertController.textFields[1].text;
-        self->_alertController = nil;
+        NSString *username = self.alertController.textFields[0].text;
+        NSString *password = self.alertController.textFields[1].text;
+        self.alertController = nil;
         IMP imp = [modalDelegate methodForSelector:didEndSelector];
         void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
         func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
@@ -5165,9 +5166,9 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSString *username = self->_alertController.textFields[0].text;
-        NSString *password = self->_alertController.textFields[1].text;
-        self->_alertController = nil;
+        NSString *username = self.alertController.textFields[0].text;
+        NSString *password = self.alertController.textFields[1].text;
+        self.alertController = nil;
         IMP imp = [modalDelegate methodForSelector:didEndSelector];
         void (*func)(id, SEL, NSString*, NSString*, NSInteger) = (void *)imp;
         func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordCancel);
