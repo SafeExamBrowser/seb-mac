@@ -41,6 +41,7 @@
 		691018D31CF1EA8300AB8803 /* SEBDockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */; };
 		691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */; };
 		691018D91CF26A9C00AB8803 /* SEBReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */; };
+		691281D7287EB04B00D01164 /* VerificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 691281D2287EB04B00D01164 /* VerificationManager.m */; };
 		69129E14278E759D000BBF79 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD0A267E9B1900B8F1D6 /* NSDictionary+Extensions.m */; };
 		6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */; };
 		6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */; };
@@ -556,6 +557,13 @@
 		69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CEDCF026ACD00C0030787B /* SEBWebViewController.h */; };
 		69CEDCF326ACD00C0030787B /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEDCF126ACD00C0030787B /* SEBWebViewController.m */; };
 		69CF5829220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69D02484287C68E5006CEC19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D02483287C68E5006CEC19 /* AppDelegate.swift */; };
+		69D02486287C68E5006CEC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D02485287C68E5006CEC19 /* ViewController.swift */; };
+		69D02488287C68E6006CEC19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69D02487287C68E6006CEC19 /* Assets.xcassets */; };
+		69D0248B287C68E6006CEC19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D02489287C68E6006CEC19 /* Main.storyboard */; };
+		69D02496287C68E7006CEC19 /* SEBVerificatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D02495287C68E7006CEC19 /* SEBVerificatorTests.swift */; };
+		69D024A0287C68E7006CEC19 /* SEBVerificatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D0249F287C68E7006CEC19 /* SEBVerificatorUITests.swift */; };
+		69D024A2287C68E7006CEC19 /* SEBVerificatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D024A1287C68E7006CEC19 /* SEBVerificatorUITestsLaunchTests.swift */; };
 		69D1EBE61BFEAD73001838DC /* SEBDockItemTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */; };
 		69D1EBE71BFEAD73001838DC /* SEBDockItemTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */; };
 		69D35D1E217AB4F400C6CFB9 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
@@ -1015,6 +1023,20 @@
 			remoteGlobalIDString = 6940B9651BA0F2FB008C8CFC;
 			remoteInfo = SEB;
 		};
+		69D02492287C68E7006CEC19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69D02480287C68E5006CEC19;
+			remoteInfo = SEBVerificator;
+		};
+		69D0249C287C68E7006CEC19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69D02480287C68E5006CEC19;
+			remoteInfo = SEBVerificator;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1093,6 +1115,9 @@
 		691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBDockIcon@3x.png"; path = "Resources/Icons/Dock/SEBDockIcon@3x.png"; sourceTree = "<group>"; };
 		691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBReloadIcon@2x.png"; path = "Resources/Icons/Dock/SEBReloadIcon@2x.png"; sourceTree = "<group>"; };
 		691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBReloadIcon.png; path = Resources/Icons/Dock/SEBReloadIcon.png; sourceTree = "<group>"; };
+		691281D0287EB04A00D01164 /* SEBVerificator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEBVerificator-Bridging-Header.h"; sourceTree = "<group>"; };
+		691281D2287EB04B00D01164 /* VerificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerificationManager.m; sourceTree = "<group>"; };
+		691281D9287EB66000D01164 /* VerificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationManager.h; sourceTree = "<group>"; };
 		6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextFieldNilToEmptyStringTransformer.h; sourceTree = "<group>"; };
 		6913E5C31A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldNilToEmptyStringTransformer.m; sourceTree = "<group>"; };
 		6914D1222183A156004F4A4B /* SEBInAppSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBInAppSettingsViewController.h; path = Classes/Preferences/SEBInAppSettingsViewController.h; sourceTree = "<group>"; };
@@ -1639,6 +1664,17 @@
 		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
 		69CEDCF026ACD00C0030787B /* SEBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebViewController.h; path = Classes/BrowserComponents/SEBWebViewController.h; sourceTree = "<group>"; };
 		69CEDCF126ACD00C0030787B /* SEBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebViewController.m; path = Classes/BrowserComponents/SEBWebViewController.m; sourceTree = "<group>"; };
+		69D02481287C68E5006CEC19 /* SEBVerificator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEBVerificator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69D02483287C68E5006CEC19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		69D02485287C68E5006CEC19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		69D02487287C68E6006CEC19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		69D0248A287C68E6006CEC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		69D0248C287C68E6006CEC19 /* SEBVerificator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SEBVerificator.entitlements; sourceTree = "<group>"; };
+		69D02491287C68E7006CEC19 /* SEBVerificatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEBVerificatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		69D02495287C68E7006CEC19 /* SEBVerificatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBVerificatorTests.swift; sourceTree = "<group>"; };
+		69D0249B287C68E7006CEC19 /* SEBVerificatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEBVerificatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		69D0249F287C68E7006CEC19 /* SEBVerificatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBVerificatorUITests.swift; sourceTree = "<group>"; };
+		69D024A1287C68E7006CEC19 /* SEBVerificatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBVerificatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		69D1EBE41BFEAD73001838DC /* SEBDockItemTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBDockItemTime.h; path = Classes/SEBDock/SEBDockItemTime.h; sourceTree = "<group>"; };
 		69D1EBE51BFEAD73001838DC /* SEBDockItemTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockItemTime.m; path = Classes/SEBDock/SEBDockItemTime.m; sourceTree = "<group>"; };
 		69D3C5E327A0366400890B31 /* Safe Exam Browser ETH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser ETH.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1789,6 +1825,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69D0247E287C68E5006CEC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D0248E287C68E7006CEC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D02498287C68E7006CEC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D3C57227A0366400890B31 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1877,6 +1934,9 @@
 				6940B9811BA0F2FB008C8CFC /* SEBTests.xctest */,
 				6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */,
 				69D3C5E327A0366400890B31 /* Safe Exam Browser ETH.app */,
+				69D02481287C68E5006CEC19 /* SEBVerificator.app */,
+				69D02491287C68E7006CEC19 /* SEBVerificatorTests.xctest */,
+				69D0249B287C68E7006CEC19 /* SEBVerificatorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1888,6 +1948,9 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				69D02482287C68E5006CEC19 /* SEBVerificator */,
+				69D02494287C68E7006CEC19 /* SEBVerificatorTests */,
+				69D0249E287C68E7006CEC19 /* SEBVerificatorUITests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				6940B9671BA0F2FB008C8CFC /* SEB iOS */,
@@ -3001,6 +3064,38 @@
 			path = Classes/BugfixingSubclasses;
 			sourceTree = "<group>";
 		};
+		69D02482287C68E5006CEC19 /* SEBVerificator */ = {
+			isa = PBXGroup;
+			children = (
+				69D02483287C68E5006CEC19 /* AppDelegate.swift */,
+				69D02485287C68E5006CEC19 /* ViewController.swift */,
+				69D02487287C68E6006CEC19 /* Assets.xcassets */,
+				69D02489287C68E6006CEC19 /* Main.storyboard */,
+				69D0248C287C68E6006CEC19 /* SEBVerificator.entitlements */,
+				691281D9287EB66000D01164 /* VerificationManager.h */,
+				691281D2287EB04B00D01164 /* VerificationManager.m */,
+				691281D0287EB04A00D01164 /* SEBVerificator-Bridging-Header.h */,
+			);
+			path = SEBVerificator;
+			sourceTree = "<group>";
+		};
+		69D02494287C68E7006CEC19 /* SEBVerificatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				69D02495287C68E7006CEC19 /* SEBVerificatorTests.swift */,
+			);
+			path = SEBVerificatorTests;
+			sourceTree = "<group>";
+		};
+		69D0249E287C68E7006CEC19 /* SEBVerificatorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				69D0249F287C68E7006CEC19 /* SEBVerificatorUITests.swift */,
+				69D024A1287C68E7006CEC19 /* SEBVerificatorUITestsLaunchTests.swift */,
+			);
+			path = SEBVerificatorUITests;
+			sourceTree = "<group>";
+		};
 		69E036C8230D8EA300DCBDA6 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -3456,6 +3551,59 @@
 			productReference = 6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		69D02480287C68E5006CEC19 /* SEBVerificator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69D024A9287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificator" */;
+			buildPhases = (
+				69D0247D287C68E5006CEC19 /* Sources */,
+				69D0247E287C68E5006CEC19 /* Frameworks */,
+				69D0247F287C68E5006CEC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SEBVerificator;
+			productName = SEBVerificator;
+			productReference = 69D02481287C68E5006CEC19 /* SEBVerificator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		69D02490287C68E7006CEC19 /* SEBVerificatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69D024AA287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificatorTests" */;
+			buildPhases = (
+				69D0248D287C68E7006CEC19 /* Sources */,
+				69D0248E287C68E7006CEC19 /* Frameworks */,
+				69D0248F287C68E7006CEC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69D02493287C68E7006CEC19 /* PBXTargetDependency */,
+			);
+			name = SEBVerificatorTests;
+			productName = SEBVerificatorTests;
+			productReference = 69D02491287C68E7006CEC19 /* SEBVerificatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		69D0249A287C68E7006CEC19 /* SEBVerificatorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69D024AB287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificatorUITests" */;
+			buildPhases = (
+				69D02497287C68E7006CEC19 /* Sources */,
+				69D02498287C68E7006CEC19 /* Frameworks */,
+				69D02499287C68E7006CEC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69D0249D287C68E7006CEC19 /* PBXTargetDependency */,
+			);
+			name = SEBVerificatorUITests;
+			productName = SEBVerificatorUITests;
+			productReference = 69D0249B287C68E7006CEC19 /* SEBVerificatorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		69D3C4A827A0366400890B31 /* Safe Exam Browser ETH */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69D3C5E027A0366400890B31 /* Build configuration list for PBXNativeTarget "Safe Exam Browser ETH" */;
@@ -3508,6 +3656,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6940B9651BA0F2FB008C8CFC = {
@@ -3531,6 +3680,24 @@
 					6940B98B1BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 6940B9651BA0F2FB008C8CFC;
+					};
+					69D02480287C68E5006CEC19 = {
+						CreatedOnToolsVersion = 13.4.1;
+						DevelopmentTeam = 62DXYN3744;
+						LastSwiftMigration = 1340;
+						ProvisioningStyle = Automatic;
+					};
+					69D02490287C68E7006CEC19 = {
+						CreatedOnToolsVersion = 13.4.1;
+						DevelopmentTeam = 62DXYN3744;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 69D02480287C68E5006CEC19;
+					};
+					69D0249A287C68E7006CEC19 = {
+						CreatedOnToolsVersion = 13.4.1;
+						DevelopmentTeam = 62DXYN3744;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 69D02480287C68E5006CEC19;
 					};
 					69D3C4A827A0366400890B31 = {
 						DevelopmentTeam = 9Z623UDZ5L;
@@ -3562,6 +3729,9 @@
 				6940B9801BA0F2FB008C8CFC /* SEBTests */,
 				6940B98B1BA0F2FB008C8CFC /* SEBUITests */,
 				69D3C4A827A0366400890B31 /* Safe Exam Browser ETH */,
+				69D02480287C68E5006CEC19 /* SEBVerificator */,
+				69D02490287C68E7006CEC19 /* SEBVerificatorTests */,
+				69D0249A287C68E7006CEC19 /* SEBVerificatorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -3756,6 +3926,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6940B98A1BA0F2FB008C8CFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D0247F287C68E5006CEC19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69D02488287C68E6006CEC19 /* Assets.xcassets in Resources */,
+				69D0248B287C68E6006CEC19 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D0248F287C68E7006CEC19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D02499287C68E7006CEC19 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4237,6 +4430,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69D0247D287C68E5006CEC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				691281D7287EB04B00D01164 /* VerificationManager.m in Sources */,
+				69D02486287C68E5006CEC19 /* ViewController.swift in Sources */,
+				69D02484287C68E5006CEC19 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D0248D287C68E7006CEC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69D02496287C68E7006CEC19 /* SEBVerificatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69D02497287C68E7006CEC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69D024A2287C68E7006CEC19 /* SEBVerificatorUITestsLaunchTests.swift in Sources */,
+				69D024A0287C68E7006CEC19 /* SEBVerificatorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D3C50527A0366400890B31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4485,6 +4705,16 @@
 			isa = PBXTargetDependency;
 			target = 6940B9651BA0F2FB008C8CFC /* SEB */;
 			targetProxy = 6940B98D1BA0F2FB008C8CFC /* PBXContainerItemProxy */;
+		};
+		69D02493287C68E7006CEC19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69D02480287C68E5006CEC19 /* SEBVerificator */;
+			targetProxy = 69D02492287C68E7006CEC19 /* PBXContainerItemProxy */;
+		};
+		69D0249D287C68E7006CEC19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69D02480287C68E5006CEC19 /* SEBVerificator */;
+			targetProxy = 69D0249C287C68E7006CEC19 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4829,6 +5059,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		69D02489287C68E6006CEC19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69D0248A287C68E6006CEC19 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4892,7 +5130,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4991,7 +5229,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5242,6 +5480,266 @@
 			};
 			name = Release;
 		};
+		69D024A3287C68E7006CEC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SEBVerificator/SEBVerificator.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SEBVerificator/SEBVerificator-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		69D024A4287C68E7006CEC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SEBVerificator/SEBVerificator.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SEBVerificator/SEBVerificator-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		69D024A5287C68E7006CEC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEBVerificator.app/Contents/MacOS/SEBVerificator";
+			};
+			name = Debug;
+		};
+		69D024A6287C68E7006CEC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEBVerificator.app/Contents/MacOS/SEBVerificator";
+			};
+			name = Release;
+		};
+		69D024A7287C68E7006CEC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificatorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SEBVerificator;
+			};
+			name = Debug;
+		};
+		69D024A8287C68E7006CEC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 62DXYN3744;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBVerificatorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SEBVerificator;
+			};
+			name = Release;
+		};
 		69D3C5E127A0366400890B31 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6573CC6A21D125FFEDB8FF08 /* Pods-Safe Exam Browser ETH.debug.xcconfig */;
@@ -5256,7 +5754,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5313,7 +5811,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5374,7 +5872,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5431,7 +5929,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5502,7 +6000,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5558,7 +6056,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14176;
+				CURRENT_PROJECT_VERSION = 8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5612,6 +6110,33 @@
 			buildConfigurations = (
 				6940B9971BA0F2FB008C8CFC /* Debug */,
 				6940B9981BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69D024A9287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69D024A3287C68E7006CEC19 /* Debug */,
+				69D024A4287C68E7006CEC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69D024AA287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69D024A5287C68E7006CEC19 /* Debug */,
+				69D024A6287C68E7006CEC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69D024AB287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificatorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69D024A7287C68E7006CEC19 /* Debug */,
+				69D024A8287C68E7006CEC19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
