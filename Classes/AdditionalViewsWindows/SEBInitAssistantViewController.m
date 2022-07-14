@@ -292,10 +292,10 @@
                 clientSettingsPathAAC = SEBClientSettingsACCPath;
             }
             url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@", clientSettingsPathAAC, SEBClientSettingsFilename]];
-            clientConfigURL = true;
+            clientConfigURL = YES;
         }
         if (url) {
-            [_controllerDelegate activityIndicatorAnimate:true];
+            [_controllerDelegate activityIndicatorAnimate:YES];
             if (!_URLSession) {
                 NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
                 _URLSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
@@ -328,8 +328,8 @@
               withScheme:(SEBClientConfigURLSchemes)configURLScheme
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self->_downloadTimer invalidate];
-        if (error || !sebFileData || self->_searchingConfigCanceled) {
+        [self.downloadTimer invalidate];
+        if (error || !sebFileData || self.searchingConfigCanceled) {
             [self checkSEBClientConfigURL:url withScheme:configURLScheme];
         } else {
             self->storeClienConfigURL = url;
