@@ -9,8 +9,16 @@ import Foundation
 import Cocoa
 import CoreServices
 
-class ViewController: NSViewController {
+public struct strings {
+    static let sebBundleID = "org.safeexambrowser.SafeExamBrowser"
+    static let sebFileExtension = "seb"
+    static let sebURLScheme = "seb"
+    static let sebsURLScheme = "seb"
+    static let applicationDirectory = "/Applications/"
+}
 
+class ViewController: NSViewController {
+    
     @IBOutlet var applicationsArrayController: NSArrayController!
     var foundSEBApplications: [SEBApplication] = []
     @IBOutlet var consoleTextView: NSTextView!
@@ -19,6 +27,8 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
 
         // Do any additional setup after loading the view.
         verificationManager = VerificationManager()
@@ -34,9 +44,10 @@ class ViewController: NSViewController {
         let allSEBAlikeBundleIDs = NSMutableSet()
         let allSEBAlikeURLs = NSMutableSet()
         var allSEBAlikeLog = [NSAttributedString]()
-        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forFileExtension: "seb"))
-        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: "seb"))
-        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: "sebs"))
+        
+        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forFileExtension: strings.sebFileExtension))
+        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: strings.sebURLScheme))
+        allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: strings.sebsURLScheme))
         for sebAlikeBundleID in allSEBAlikeBundleIDs {
             if let sebAlikeURLs = LSCopyApplicationURLsForBundleIdentifier(sebAlikeBundleID as! CFString, nil)?.takeRetainedValue() as? [URL] {
                 allSEBAlikeURLs.addObjects(from: sebAlikeURLs)
@@ -44,11 +55,31 @@ class ViewController: NSViewController {
                     let icon = NSWorkspace.shared.icon(forFile: sebAlikeURL.path)
                     let name = sebAlikeURL.deletingPathExtension().lastPathComponent
                     let version = Bundle(path: sebAlikeURL.path)?.fullVersion
-                    let signature = verifySignature(path: sebAlikeURL.path) ? "OK" : "Invalid"
-                    foundSEBApplications.append(SEBApplication.init(icon: icon, name: name, version: version ?? "", bundleID: sebAlikeBundleID as! String, path: sebAlikeURL.absoluteString, signature: signature))
+                    let validSEB = (sebAlikeBundleID as! String == strings.sebBundleID && verifySignature(path: sebAlikeURL.path))
+                    let signature = validSEB ? NSLocalizedString("OK", comment: "Signature OK") : NSLocalizedString("Invalid", comment: "Invalid signature")
+                    foundSEBApplications.append(SEBApplication.init(icon: icon, name: name, version: version ?? "", bundleID: sebAlikeBundleID as! String, path: sebAlikeURL.path, signature: signature, validSEB: validSEB))
                 }
              }
         }
+        // Sort found SEB-alike apps so that the correct BundleID and Application folder location is first
+        foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
+            guard sebApp1.validSEB else {
+                return sebApp2.validSEB
+            }
+            guard sebApp2.validSEB else {
+                return sebApp1.validSEB
+            }
+            return sebApp1.path.hasPrefix(strings.applicationDirectory)
+        })
+        foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
+            guard sebApp1.bundleID != strings.sebBundleID && sebApp1.validSEB else {
+                return sebApp2.bundleID != strings.sebBundleID
+            }
+            guard sebApp2.bundleID != strings.sebBundleID && sebApp2.validSEB else {
+                return sebApp1.bundleID != strings.sebBundleID
+            }
+            return true
+        })
         applicationsArrayController.content = foundSEBApplications
         return allSEBAlikeLog
     }
@@ -64,6 +95,17 @@ class ViewController: NSViewController {
         
         for sebAlikeString in foundSEBAlikeStrings {
             print(sebAlikeString)
+        }
+    }
+    
+    @IBAction func startSEB(_ sender: Any) {
+        guard let selectedSEBApp = applicationsArrayController.selectedObjects[0] as? SEBApplication else {
+            return
+        }
+        if selectedSEBApp.validSEB {
+            if NSWorkspace.shared.open(URL.init(fileURLWithPath: selectedSEBApp.path)) {
+                NSApp.terminate(self)
+            }
         }
     }
     
@@ -89,14 +131,16 @@ class ViewController: NSViewController {
     @objc let bundleID: String
     @objc var path: String
     @objc var signature: String
+    @objc var validSEB: Bool
     
-    init(icon: NSImage?, name: String, version: String, bundleID: String, path: String, signature: String) {
+    init(icon: NSImage?, name: String, version: String, bundleID: String, path: String, signature: String, validSEB: Bool) {
         self.icon = icon
         self.name = name
         self.version = version
         self.bundleID = bundleID
         self.path = path
         self.signature = signature
+        self.validSEB = validSEB
     }
 }
 
@@ -123,4 +167,22 @@ extension Bundle {
     var fullVersion: String {
         return "\(shortVersion)(\(buildVersion))"
     }
+}
+
+class ValidSEBColorTransformer: ValueTransformer {
+    override class func transformedValueClass() -> AnyClass {
+        return NSColor.self
+    }
+    
+    override class func allowsReverseTransformation() -> Bool {
+        return false
+    }
+    
+    override func transformedValue(_ value: Any?) -> Any? {
+        return (value as! Bool) ? NSColor.black : NSColor.systemRed
+    }
+}
+
+extension NSValueTransformerName {
+    static let validSEBColorTransformer = NSValueTransformerName(rawValue: "ValidSEBColorTransformer")
 }
