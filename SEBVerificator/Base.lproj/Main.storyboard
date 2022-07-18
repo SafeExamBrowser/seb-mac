@@ -707,14 +707,14 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SEBVerificator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1200" height="628"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1265" height="628"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ke9-Jh-eyi">
-                                <rect key="frame" x="20" y="20" width="1160" height="588"/>
+                                <rect key="frame" x="20" y="20" width="1225" height="588"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="660" translatesAutoresizingMaskIntoConstraints="NO" id="Xrk-AG-Dz4">
-                                        <rect key="frame" x="-2" y="540" width="1164" height="48"/>
+                                        <rect key="frame" x="-2" y="540" width="1229" height="48"/>
                                         <textFieldCell key="cell" selectable="YES" id="bzt-lT-Pcg">
                                             <font key="font" metaFont="system"/>
                                             <string key="title">SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions.</string>
@@ -723,13 +723,13 @@
                                         </textFieldCell>
                                     </textField>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbt-Cu-iiA">
-                                        <rect key="frame" x="0.0" y="120" width="1160" height="400"/>
+                                        <rect key="frame" x="0.0" y="120" width="1225" height="400"/>
                                         <clipView key="contentView" id="k7O-lq-i7m">
-                                            <rect key="frame" x="1" y="1" width="1158" height="398"/>
+                                            <rect key="frame" x="1" y="1" width="1223" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="vV8-JJ-2fX" id="ZMx-gA-u2W">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1158" height="370"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1223" height="370"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -747,7 +747,7 @@
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn width="161.5" minWidth="40" maxWidth="1000" id="nko-9m-cj1">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Executable Name">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="App Name">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -761,6 +761,11 @@
                                                                 <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.name" id="gMQ-BF-0ZE">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="0wH-xP-ghp">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -782,6 +787,11 @@
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="V4a-Ke-eOh">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn width="267" minWidth="10" maxWidth="1000" id="Q16-ME-a9s">
@@ -801,9 +811,14 @@
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="3R7-Jt-0wv">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="456" minWidth="10" maxWidth="3.4028234663852886e+38" id="BpK-NM-gKl">
+                                                        <tableColumn width="445" minWidth="10" maxWidth="3.4028234663852886e+38" id="BpK-NM-gKl">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Path">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -820,9 +835,14 @@
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="cca-5N-hwh">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="87" minWidth="40" maxWidth="1000" id="oaQ-Zj-hTe" userLabel="Signature">
+                                                        <tableColumn width="97.5" minWidth="40" maxWidth="1000" id="oaQ-Zj-hTe" userLabel="Signature">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Signature">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -839,6 +859,11 @@
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="A7j-O9-Nvk">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
@@ -849,7 +874,7 @@
                                             <constraint firstAttribute="height" constant="400" id="JBb-aP-Q6H"/>
                                         </constraints>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="php-AC-NQQ">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="php-AC-NQQ">
                                             <rect key="frame" x="1" y="384" width="1158" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -858,23 +883,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" wantsLayer="YES" id="vV8-JJ-2fX">
-                                            <rect key="frame" x="0.0" y="0.0" width="1158" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1223" height="28"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sez-CV-fcV">
-                                        <rect key="frame" x="0.0" y="40" width="1160" height="60"/>
+                                        <rect key="frame" x="0.0" y="40" width="1225" height="60"/>
                                         <clipView key="contentView" drawsBackground="NO" id="4jv-PP-ZfR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1145" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1210" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="NEW-mA-dfB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1145" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1210" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="1145" height="60"/>
-                                                    <size key="maxSize" width="1145" height="10000000"/>
+                                                    <size key="minSize" width="1210" height="60"/>
+                                                    <size key="maxSize" width="1210" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
@@ -887,27 +912,53 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Z3p-jI-OOU">
-                                            <rect key="frame" x="1145" y="0.0" width="15" height="60"/>
+                                            <rect key="frame" x="1210" y="0.0" width="15" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-yB-kL5">
-                                        <rect key="frame" x="1088" y="-7" width="79" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Rescan" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rvM-qA-gOk">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="verifySignature:" target="XfG-lQ-9wD" id="BgT-yo-C0c"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="equalSpacing" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-6q-qLC">
+                                        <rect key="frame" x="0.0" y="0.0" width="1225" height="20"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kvj-CD-ecj">
+                                                <rect key="frame" x="-7" y="-7" width="79" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Rescan" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ByG-5p-onf">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="verifySignature:" target="XfG-lQ-9wD" id="9kR-bC-GLe"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-yB-kL5" userLabel="Start SEB">
+                                                <rect key="frame" x="1140" y="-7" width="92" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Start SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rvM-qA-gOk">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="startSEB:" target="XfG-lQ-9wD" id="tlz-01-iSC"/>
+                                                    <binding destination="UqW-lH-XlF" name="enabled" keyPath="selection.validSEB" id="qIn-eo-dSo"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Xrk-AG-Dz4" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="BUy-hm-srr"/>
                                     <constraint firstAttribute="trailing" secondItem="Gbt-Cu-iiA" secondAttribute="trailing" id="CIl-ra-SVk"/>
+                                    <constraint firstItem="PLh-6q-qLC" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="IgY-mN-8AR"/>
                                     <constraint firstItem="Sez-CV-fcV" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="SSX-oQ-JJy"/>
                                     <constraint firstItem="Gbt-Cu-iiA" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="hrU-Hr-Zos"/>
                                     <constraint firstAttribute="trailing" secondItem="Sez-CV-fcV" secondAttribute="trailing" id="mYK-kY-cig"/>
+                                    <constraint firstAttribute="trailing" secondItem="PLh-6q-qLC" secondAttribute="trailing" id="sqA-Pk-CsR"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
