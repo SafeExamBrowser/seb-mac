@@ -122,19 +122,28 @@ class ViewController: NSViewController {
             if sebConfigFiles?.count ?? 0 > 0 {
                 argumentURL = appDirectoryURL.appendingPathComponent("/\(sebConfigFiles?[0] ?? "")")
             }
-//            if NSWorkspace.shared.open(URL.init(fileURLWithPath: launchPath)) {
-//                NSApp.terminate(self)
-//            }
-            let configuration = NSWorkspace.OpenConfiguration()
-            configuration.arguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
-            NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path),
-                                               configuration: configuration,
-                                               completionHandler: { (app, error) in
-                                                if app == nil {
-                                                    print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
-                                                }
-                                               })
-
+            let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
+            if #available(macOS 10.15, *) {
+                let configuration = NSWorkspace.OpenConfiguration()
+                configuration.arguments = configFileArguments
+                NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path),
+                                                   configuration: configuration,
+                                                   completionHandler: { (app, error) in
+                                                    if app == nil {
+                                                        print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                    } else {
+                                                        NSApp.terminate(self)
+                                                    }
+                                                   })
+            } else {
+                do {
+                    try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
+                } catch {
+                    // Cannot open application
+                    return
+                }
+                NSApp.terminate(self)
+            }
         }
     }
     
