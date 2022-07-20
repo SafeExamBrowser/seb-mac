@@ -22,6 +22,7 @@ class ViewController: NSViewController {
     @IBOutlet var applicationsArrayController: NSArrayController!
     var foundSEBApplications: [SEBApplication] = []
     @IBOutlet var consoleTextView: NSTextView!
+    var sebConfigFiles: [String]?
     
     var verificationManager: VerificationManager?
     
@@ -34,6 +35,7 @@ class ViewController: NSViewController {
         verificationManager = VerificationManager()
         
         let foundSEBAlikeStrings = findAllSEBAlikes()
+        sebConfigFiles = findSEBConfigFiles()
         
         for sebAlikeString in foundSEBAlikeStrings {
             print(sebAlikeString)
@@ -84,6 +86,18 @@ class ViewController: NSViewController {
         return allSEBAlikeLog
     }
     
+    func findSEBConfigFiles() -> [String]? {
+        let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
+        let files = FileManager.default.enumerator(atPath: appDirectoryURL.path)
+        var foundSEBConfigFiles = [String]()
+        while let file = files?.nextObject() as? String {
+            if file.hasSuffix("."+strings.sebFileExtension) {
+                foundSEBConfigFiles.append(file)
+            }
+        }
+        return foundSEBConfigFiles
+    }
+    
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
@@ -103,9 +117,24 @@ class ViewController: NSViewController {
             return
         }
         if selectedSEBApp.validSEB {
-            if NSWorkspace.shared.open(URL.init(fileURLWithPath: selectedSEBApp.path)) {
-                NSApp.terminate(self)
+            let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
+            var argumentURL: URL?
+            if sebConfigFiles?.count ?? 0 > 0 {
+                argumentURL = appDirectoryURL.appendingPathComponent("/\(sebConfigFiles?[0] ?? "")")
             }
+//            if NSWorkspace.shared.open(URL.init(fileURLWithPath: launchPath)) {
+//                NSApp.terminate(self)
+//            }
+            let configuration = NSWorkspace.OpenConfiguration()
+            configuration.arguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
+            NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path),
+                                               configuration: configuration,
+                                               completionHandler: { (app, error) in
+                                                if app == nil {
+                                                    print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                }
+                                               })
+
         }
     }
     
