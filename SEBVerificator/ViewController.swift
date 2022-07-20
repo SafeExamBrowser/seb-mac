@@ -20,9 +20,10 @@ public struct strings {
 class ViewController: NSViewController {
     
     @IBOutlet var applicationsArrayController: NSArrayController!
+    @IBOutlet var configsArrayController: NSArrayController!
     var foundSEBApplications: [SEBApplication] = []
     @IBOutlet var consoleTextView: NSTextView!
-    var sebConfigFiles: [String]?
+    var sebConfigFiles: [SEBConfigFile]?
     
     var verificationManager: VerificationManager?
     
@@ -36,6 +37,7 @@ class ViewController: NSViewController {
         
         let foundSEBAlikeStrings = findAllSEBAlikes()
         sebConfigFiles = findSEBConfigFiles()
+        configsArrayController.content = sebConfigFiles
         
         for sebAlikeString in foundSEBAlikeStrings {
             print(sebAlikeString)
@@ -86,15 +88,16 @@ class ViewController: NSViewController {
         return allSEBAlikeLog
     }
     
-    func findSEBConfigFiles() -> [String]? {
+    func findSEBConfigFiles() -> [SEBConfigFile]? {
         let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
         let files = FileManager.default.enumerator(atPath: appDirectoryURL.path)
-        var foundSEBConfigFiles = [String]()
+        var foundSEBConfigFiles = [SEBConfigFile]()
         while let file = files?.nextObject() as? String {
             if file.hasSuffix("."+strings.sebFileExtension) {
-                foundSEBConfigFiles.append(file)
+                foundSEBConfigFiles.append(SEBConfigFile.init(path: file))
             }
         }
+        foundSEBConfigFiles = foundSEBConfigFiles.sorted { $0.path.lowercased() < $1.path.lowercased() }
         return foundSEBConfigFiles
     }
     
@@ -119,8 +122,10 @@ class ViewController: NSViewController {
         if selectedSEBApp.validSEB {
             let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
             var argumentURL: URL?
-            if sebConfigFiles?.count ?? 0 > 0 {
-                argumentURL = appDirectoryURL.appendingPathComponent("/\(sebConfigFiles?[0] ?? "")")
+            if sebConfigFiles?.count ?? 0 > 0 && !configsArrayController.selectedObjects.isEmpty {
+                if let selectedConfigFile = configsArrayController.selectedObjects[0] as? SEBConfigFile {
+                    argumentURL = appDirectoryURL.appendingPathComponent(selectedConfigFile.path)
+                }
             }
             let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
             if #available(macOS 10.15, *) {
@@ -132,7 +137,9 @@ class ViewController: NSViewController {
                                                     if app == nil {
                                                         print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
                                                     } else {
-                                                        NSApp.terminate(self)
+                                                        DispatchQueue.main.async {
+                                                            NSApp.terminate(self)
+                                                        }
                                                     }
                                                    })
             } else {
@@ -179,6 +186,14 @@ class ViewController: NSViewController {
         self.path = path
         self.signature = signature
         self.validSEB = validSEB
+    }
+}
+
+@objc class SEBConfigFile : NSObject {
+    @objc var path: String
+    
+    init(path: String) {
+        self.path = path
     }
 }
 
