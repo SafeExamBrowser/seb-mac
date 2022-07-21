@@ -688,7 +688,7 @@
                     <window key="window" title="SEB Verificator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="1200" height="628"/>
+                        <rect key="contentRect" x="196" y="240" width="1380" height="650"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -707,32 +707,32 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SEBVerificator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1265" height="680"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1378" height="650"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ke9-Jh-eyi">
-                                <rect key="frame" x="20" y="20" width="1225" height="640"/>
+                                <rect key="frame" x="20" y="20" width="1338" height="610"/>
                                 <subviews>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xrk-AG-Dz4">
-                                        <rect key="frame" x="-2" y="590" width="1229" height="50"/>
+                                        <rect key="frame" x="-2" y="560" width="1342" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="wGv-4d-aNH"/>
                                         </constraints>
                                         <textFieldCell key="cell" selectable="YES" id="bzt-lT-Pcg">
                                             <font key="font" metaFont="system"/>
-                                            <mutableString key="title">SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</mutableString>
+                                            <string key="title">SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</string>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbt-Cu-iiA" userLabel="Apps Scroll View - Table View">
-                                        <rect key="frame" x="0.0" y="370" width="1225" height="200"/>
+                                        <rect key="frame" x="0.0" y="340" width="1338" height="200"/>
                                         <clipView key="contentView" id="k7O-lq-i7m">
-                                            <rect key="frame" x="1" y="1" width="1223" height="198"/>
+                                            <rect key="frame" x="1" y="1" width="1336" height="198"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="vV8-JJ-2fX" id="ZMx-gA-u2W">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1223" height="170"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1336" height="170"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -761,6 +761,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="Wg0-PH-dSr"/>
                                                                 <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.name" id="gMQ-BF-0ZE">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
@@ -785,14 +786,15 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.version" id="5Cs-CT-caa">
-                                                                    <dictionary key="options">
-                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                    </dictionary>
-                                                                </binding>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="fzt-oR-Rye"/>
                                                                 <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="V4a-Ke-eOh">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.version" id="5Cs-CT-caa">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -814,6 +816,7 @@
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="27h-bR-oed"/>
                                                                 <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="3R7-Jt-0wv">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
@@ -833,6 +836,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="jxN-iq-tzd"/>
                                                                 <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.path" id="KOc-h5-gDj">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
@@ -845,7 +849,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="97.5" minWidth="40" maxWidth="1000" id="oaQ-Zj-hTe" userLabel="Signature">
+                                                        <tableColumn width="64" minWidth="40" maxWidth="1000" id="oaQ-Zj-hTe" userLabel="Signature">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Signature">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -857,6 +861,7 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="euJ-89-fvh"/>
                                                                 <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.signature" id="VqG-Zl-V5R">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEditable" value="NO"/>
@@ -869,6 +874,31 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
+                                                        <tableColumn width="209.5" minWidth="40" maxWidth="1000" id="BI7-wo-SEq" userLabel="Default for">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Default for">
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" title="Text Cell" id="UNe-y8-uGc">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <connections>
+                                                                <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="4N7-nC-u3h"/>
+                                                                <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="0Iy-gf-T2U">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.defaultFor" id="M3U-Tm-ZzD">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </tableColumn>
                                                     </tableColumns>
                                                 </tableView>
                                             </subviews>
@@ -877,8 +907,8 @@
                                             <constraint firstAttribute="height" constant="200" id="JBb-aP-Q6H"/>
                                         </constraints>
                                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="php-AC-NQQ">
-                                            <rect key="frame" x="1" y="384" width="1158" height="15"/>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="php-AC-NQQ">
+                                            <rect key="frame" x="1" y="184" width="1336" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="bHH-P0-RRE">
@@ -886,18 +916,18 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" wantsLayer="YES" id="vV8-JJ-2fX">
-                                            <rect key="frame" x="0.0" y="0.0" width="1223" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1336" height="28"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgh-VY-Wpc" userLabel="Configs Scroll View - Table View">
-                                        <rect key="frame" x="0.0" y="150" width="1225" height="200"/>
+                                        <rect key="frame" x="0.0" y="120" width="1338" height="200"/>
                                         <clipView key="contentView" id="xZw-cH-zmv">
-                                            <rect key="frame" x="1" y="1" width="1223" height="198"/>
+                                            <rect key="frame" x="1" y="1" width="1336" height="198"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="0K2-hZ-wDD" id="IEh-cS-UDg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1223" height="170"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1336" height="170"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -939,23 +969,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" toolTip="Icon for bundled applications, BSD processes don't have icons" wantsLayer="YES" id="0K2-hZ-wDD">
-                                            <rect key="frame" x="0.0" y="0.0" width="1223" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1336" height="28"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sez-CV-fcV">
-                                        <rect key="frame" x="0.0" y="70" width="1225" height="60"/>
+                                        <rect key="frame" x="0.0" y="40" width="1338" height="60"/>
                                         <clipView key="contentView" drawsBackground="NO" id="4jv-PP-ZfR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1210" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="NEW-mA-dfB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1210" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="1210" height="60"/>
-                                                    <size key="maxSize" width="1210" height="10000000"/>
+                                                    <size key="minSize" width="1323" height="60"/>
+                                                    <size key="maxSize" width="1323" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
@@ -968,25 +998,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Z3p-jI-OOU">
-                                            <rect key="frame" x="1210" y="0.0" width="15" height="60"/>
+                                            <rect key="frame" x="1323" y="0.0" width="15" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <stackView distribution="equalSpacing" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-6q-qLC">
-                                        <rect key="frame" x="0.0" y="0.0" width="1225" height="50"/>
+                                    <stackView distribution="equalSpacing" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-6q-qLC">
+                                        <rect key="frame" x="0.0" y="0.0" width="1338" height="20"/>
                                         <subviews>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kvj-CD-ecj">
-                                                <rect key="frame" x="-7" y="23" width="79" height="32"/>
+                                                <rect key="frame" x="-7" y="-7" width="79" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Rescan" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ByG-5p-onf">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="verifySignature:" target="XfG-lQ-9wD" id="9kR-bC-GLe"/>
+                                                    <action selector="rescanForSEBAlikes:" target="XfG-lQ-9wD" id="5wZ-eO-LWH"/>
                                                 </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-yB-kL5" userLabel="Start SEB">
-                                                <rect key="frame" x="1140" y="23" width="92" height="32"/>
+                                                <rect key="frame" x="1253" y="-7" width="92" height="32"/>
                                                 <buttonCell key="cell" type="push" title="Start SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rvM-qA-gOk">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -997,6 +1027,10 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="kvj-CD-ecj" firstAttribute="top" secondItem="PLh-6q-qLC" secondAttribute="top" id="WVu-E9-fFE"/>
+                                            <constraint firstAttribute="bottom" secondItem="kvj-CD-ecj" secondAttribute="bottom" id="jDw-H7-Fa7"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1010,8 +1044,10 @@
                                 <constraints>
                                     <constraint firstItem="Xrk-AG-Dz4" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="BUy-hm-srr"/>
                                     <constraint firstAttribute="trailing" secondItem="Gbt-Cu-iiA" secondAttribute="trailing" id="CIl-ra-SVk"/>
+                                    <constraint firstItem="xgh-VY-Wpc" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="He8-VA-Rbc"/>
                                     <constraint firstItem="PLh-6q-qLC" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="IgY-mN-8AR"/>
                                     <constraint firstItem="Sez-CV-fcV" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="SSX-oQ-JJy"/>
+                                    <constraint firstAttribute="trailing" secondItem="xgh-VY-Wpc" secondAttribute="trailing" id="Xp0-Bb-brM"/>
                                     <constraint firstItem="Gbt-Cu-iiA" firstAttribute="leading" secondItem="Ke9-Jh-eyi" secondAttribute="leading" id="hrU-Hr-Zos"/>
                                     <constraint firstAttribute="trailing" secondItem="Sez-CV-fcV" secondAttribute="trailing" id="mYK-kY-cig"/>
                                     <constraint firstAttribute="trailing" secondItem="PLh-6q-qLC" secondAttribute="trailing" id="sqA-Pk-CsR"/>
@@ -1049,7 +1085,7 @@
                 <arrayController id="UqW-lH-XlF" userLabel="Applications Array Controller"/>
                 <arrayController id="osD-Yb-NEH" userLabel="Configs Array Controller"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1047"/>
+            <point key="canvasLocation" x="75" y="1037"/>
         </scene>
     </scenes>
 </document>

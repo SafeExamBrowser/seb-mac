@@ -13,7 +13,7 @@ public struct strings {
     static let sebBundleID = "org.safeexambrowser.SafeExamBrowser"
     static let sebFileExtension = "seb"
     static let sebURLScheme = "seb"
-    static let sebsURLScheme = "seb"
+    static let sebsURLScheme = "sebs"
     static let applicationDirectory = "/Applications/"
 }
 
@@ -21,8 +21,8 @@ class ViewController: NSViewController {
     
     @IBOutlet var applicationsArrayController: NSArrayController!
     @IBOutlet var configsArrayController: NSArrayController!
-    var foundSEBApplications: [SEBApplication] = []
     @IBOutlet var consoleTextView: NSTextView!
+    var foundSEBApplications: [SEBApplication] = []
     var sebConfigFiles: [SEBConfigFile]?
     
     var verificationManager: VerificationManager?
@@ -48,10 +48,14 @@ class ViewController: NSViewController {
         let allSEBAlikeBundleIDs = NSMutableSet()
         let allSEBAlikeURLs = NSMutableSet()
         var allSEBAlikeLog = [NSAttributedString]()
+        foundSEBApplications.removeAll()
         
         allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forFileExtension: strings.sebFileExtension))
         allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: strings.sebURLScheme))
         allSEBAlikeBundleIDs.addObjects(from: verificationManager!.associatedApps(forURLScheme: strings.sebsURLScheme))
+        let defaultAppForSEBFileExtension = verificationManager!.defaultApp(forFileExtension: strings.sebFileExtension)
+        let defaultAppForSEBScheme = verificationManager!.defaultApp(forURLScheme: strings.sebURLScheme)
+        let defaultAppForSEBSScheme = verificationManager!.defaultApp(forURLScheme: strings.sebsURLScheme)
         for sebAlikeBundleID in allSEBAlikeBundleIDs {
             if let sebAlikeURLs = LSCopyApplicationURLsForBundleIdentifier(sebAlikeBundleID as! CFString, nil)?.takeRetainedValue() as? [URL] {
                 allSEBAlikeURLs.addObjects(from: sebAlikeURLs)
@@ -61,7 +65,18 @@ class ViewController: NSViewController {
                     let version = Bundle(path: sebAlikeURL.path)?.fullVersion
                     let validSEB = (sebAlikeBundleID as! String == strings.sebBundleID && verifySignature(path: sebAlikeURL.path))
                     let signature = validSEB ? NSLocalizedString("OK", comment: "Signature OK") : NSLocalizedString("Invalid", comment: "Invalid signature")
-                    foundSEBApplications.append(SEBApplication.init(icon: icon, name: name, version: version ?? "", bundleID: sebAlikeBundleID as! String, path: sebAlikeURL.path, signature: signature, validSEB: validSEB))
+                    
+                    var defaultFor = ""
+                    if sebAlikeURL == defaultAppForSEBFileExtension {
+                        defaultFor = defaultFor.setOrAppend("." + strings.sebFileExtension)
+                    }
+                    if sebAlikeURL == defaultAppForSEBScheme {
+                        defaultFor = defaultFor.setOrAppend(strings.sebURLScheme + "://")
+                    }
+                    if sebAlikeURL == defaultAppForSEBSScheme {
+                        defaultFor = defaultFor.setOrAppend(strings.sebsURLScheme + "://")
+                    }
+                    foundSEBApplications.append(SEBApplication.init(icon: icon, name: name, version: version ?? "", bundleID: sebAlikeBundleID as! String, path: sebAlikeURL.path, signature: signature, validSEB: validSEB, defaultFor: defaultFor, defaultSEB: defaultFor.count != 0))
                 }
              }
         }
@@ -73,7 +88,7 @@ class ViewController: NSViewController {
             guard sebApp2.validSEB else {
                 return sebApp1.validSEB
             }
-            return sebApp1.path.hasPrefix(strings.applicationDirectory)
+            return sebApp1.path.hasPrefix(strings.applicationDirectory) && sebApp1.defaultSEB
         })
         foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
             guard sebApp1.bundleID != strings.sebBundleID && sebApp1.validSEB else {
@@ -177,8 +192,10 @@ class ViewController: NSViewController {
     @objc var path: String
     @objc var signature: String
     @objc var validSEB: Bool
-    
-    init(icon: NSImage?, name: String, version: String, bundleID: String, path: String, signature: String, validSEB: Bool) {
+    @objc var defaultFor: String
+    @objc var defaultSEB: Bool
+
+    init(icon: NSImage?, name: String, version: String, bundleID: String, path: String, signature: String, validSEB: Bool, defaultFor: String, defaultSEB: Bool) {
         self.icon = icon
         self.name = name
         self.version = version
@@ -186,6 +203,8 @@ class ViewController: NSViewController {
         self.path = path
         self.signature = signature
         self.validSEB = validSEB
+        self.defaultFor = defaultFor
+        self.defaultSEB = defaultSEB
     }
 }
 
@@ -194,6 +213,18 @@ class ViewController: NSViewController {
     
     init(path: String) {
         self.path = path
+    }
+}
+
+extension String {
+    func setOrAppend(_ toString: String) -> String {
+        var returnString: String
+        if self.count == 0 {
+            returnString = toString
+        } else {
+            returnString = self + ", " + toString
+        }
+        return returnString
     }
 }
 
