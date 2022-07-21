@@ -7,11 +7,13 @@
 
 #import "VerificationManager.h"
 @import AppKit;
+#import "UniformTypeIdentifiers/UTType.h"
+#import "UniformTypeIdentifiers/UTCoreTypes.h"
 
 @implementation VerificationManager
 
 
-- (NSArray *)associatedAppsForFile:(NSURL *)fileURL
+- (NSArray<NSString *> *)associatedAppsForFile:(NSURL *)fileURL
 {
     // Ask launch services for the different apps that it thinks could edit this file.
     // This is usually a more useful list than what can view the file.
@@ -35,17 +37,14 @@
 }
 
 
-- (NSArray *)associatedAppsForFileExtension:(NSString *)pathExtension
+- (NSArray<NSString *> *)associatedAppsForFileExtension:(NSString *)pathExtension
 {
-//    UTType;
-//    [NSWorkspace.sharedWorkspace URLsForApplicationsToOpenContentType:pathExtension];
-    
     CFArrayRef utisRef = UTTypeCreateAllIdentifiersForTag(kUTTagClassFilenameExtension,(__bridge  CFStringRef) pathExtension,nil);
     NSLog( @"UTI: utisRef %@", utisRef);
     NSArray *utis = CFBridgingRelease(utisRef);
     NSMutableSet *mutableSet = [[NSMutableSet alloc] init];
     for (NSString *uti in utis) {
-        CFArrayRef bundleIDsRef = LSCopyAllRoleHandlersForContentType((__bridge  CFStringRef) uti,kLSRolesEditor);
+        CFArrayRef bundleIDsRef = LSCopyAllRoleHandlersForContentType((__bridge  CFStringRef) uti, kLSRolesAll);
         [mutableSet addObjectsFromArray:CFBridgingRelease(bundleIDsRef)];
     }
     NSLog( @"bundleIDs: %@", mutableSet);
@@ -53,7 +52,50 @@
 }
 
 
-- (NSArray *)associatedAppsForURLScheme:(NSString *)scheme
+- (nullable NSURL *)defaultAppForFileExtension:(NSString *)pathExtension
+{
+    NSURL *appURL;
+    if (@available(macOS 12.0, *)) {
+        UTType *uti = [UTType typeWithTag:pathExtension
+                                 tagClass:UTTagClassFilenameExtension
+                         conformingToType:UTTypeData];
+        appURL = [NSWorkspace.sharedWorkspace URLForApplicationToOpenContentType:uti];
+    } else {
+        NSArray *utis = CFBridgingRelease(UTTypeCreateAllIdentifiersForTag(kUTTagClassFilenameExtension,(__bridge  CFStringRef) pathExtension,nil));
+        NSLog( @"UTIs: %@", utis);
+        for (NSString *uti in utis) {
+            NSURL *appURLForUTI = CFBridgingRelease(LSCopyDefaultApplicationURLForContentType((__bridge  CFStringRef) uti, kLSRolesAll, NULL));
+            if (!appURL) {
+                appURL = appURLForUTI;
+            } else if (![appURL isEqualTo:appURLForUTI]) {
+                appURL = nil;
+                break;
+            }
+        }
+    }
+    return appURL;
+}
+
+
+- (nullable NSURL *)defaultAppForURLScheme:(NSString *)urlScheme
+{
+    NSURL *appURL;
+//    if (@available(macOS 12.0, *)) {
+//        UTType *uti = [UTType typeWithTag:urlScheme
+//                                 tagClass:UTTagClassMIMEType
+//                         conformingToType:UTTypeData];
+//        appURL = [NSWorkspace.sharedWorkspace URLForApplicationToOpenContentType:uti];
+//    } else {
+    NSString *bundleID = CFBridgingRelease(LSCopyDefaultHandlerForURLScheme((__bridge  CFStringRef) urlScheme));
+        if (bundleID) {
+            appURL = [NSWorkspace.sharedWorkspace URLForApplicationWithBundleIdentifier: bundleID];
+        }
+//    }
+    return appURL;
+}
+
+
+- (NSArray<NSString *> *)associatedAppsForURLScheme:(NSString *)scheme
 {
     CFArrayRef schemeHandlersRef = LSCopyAllHandlersForURLScheme((__bridge  CFStringRef) scheme);
     return CFBridgingRelease(schemeHandlersRef);
