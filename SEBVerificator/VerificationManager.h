@@ -11,9 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VerificationManager : NSObject
 
-- (NSArray *)associatedAppsForFile:(NSURL *)fileURL;
-- (NSArray *)associatedAppsForFileExtension:(NSString *)pathExtension;
-- (NSArray *)associatedAppsForURLScheme:(NSString *)scheme;
+- (NSArray<NSString *> *)associatedAppsForFile:(NSURL *)fileURL;
+- (NSArray<NSString *> *)associatedAppsForFileExtension:(NSString *)pathExtension;
+- (nullable NSURL *)defaultAppForFileExtension:(NSString *)pathExtension;
+- (nullable NSURL *)defaultAppForURLScheme:(NSString *)mimeType;
+- (NSArray<NSString *> *)associatedAppsForURLScheme:(NSString *)scheme;
 - (BOOL)signedSEBExecutable:(NSString *)executablePath;
 
 @end
