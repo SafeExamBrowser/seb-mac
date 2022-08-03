@@ -130,11 +130,46 @@ class ViewController: NSViewController {
         }
     }
     
+    func terminateSEBAlikes() -> Bool {
+        let sebAppBundleIDs = foundSEBApplications.map {$0.bundleID}
+        var notTerminatedApplications: [NSRunningApplication]?
+        for bundleID in sebAppBundleIDs {
+            if bundleID != "org.safeexambrowser.SEBVerificator" { // ToDo: Remove in production version
+                let runningApplications = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
+                if !runningApplications.isEmpty {
+                    let newNotTerminatedApplications = kill(runningApplications: runningApplications)
+                    if newNotTerminatedApplications != nil {
+                        notTerminatedApplications = (notTerminatedApplications ?? []) + newNotTerminatedApplications!
+                    }
+                }
+            }
+        }
+        if (notTerminatedApplications?.count ?? 0) > 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func kill(runningApplications: [NSRunningApplication]) -> [NSRunningApplication]? {
+        var notTerminatedApplications: [NSRunningApplication]?
+        for runningApplication in runningApplications {
+            NSLog("Terminating running application \(runningApplication)")
+            let killSuccess = runningApplication.forceTerminate()
+//            let killSuccess = runningApplication.terminate()
+            NSLog("Success of terminating running application: \(killSuccess)")
+            if !killSuccess || !runningApplication.isTerminated {
+                notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
+            }
+        }
+        return notTerminatedApplications
+    }
+    
     @IBAction func startSEB(_ sender: Any) {
         guard let selectedSEBApp = applicationsArrayController.selectedObjects[0] as? SEBApplication else {
             return
         }
-        if selectedSEBApp.validSEB {
+        if selectedSEBApp.validSEB && terminateSEBAlikes() {
             let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
             var argumentURL: URL?
             if sebConfigFiles?.count ?? 0 > 0 && !configsArrayController.selectedObjects.isEmpty {
@@ -146,7 +181,7 @@ class ViewController: NSViewController {
             if #available(macOS 10.15, *) {
                 let configuration = NSWorkspace.OpenConfiguration()
                 configuration.arguments = configFileArguments
-                NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path),
+                NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true),
                                                    configuration: configuration,
                                                    completionHandler: { (app, error) in
                                                     if app == nil {
@@ -159,7 +194,7 @@ class ViewController: NSViewController {
                                                    })
             } else {
                 do {
-                    try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
+                    try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
                 } catch {
                     // Cannot open application
                     return
