@@ -9,7 +9,6 @@
 #import "ProcessManager.h"
 #import "ProcessListElement.h"
 #import "NSRunningApplication+SEB.h"
-#import "SEBController.h"
 
 @interface ProcessListViewController () {
     __weak IBOutlet NSButton *forceQuitButton;
