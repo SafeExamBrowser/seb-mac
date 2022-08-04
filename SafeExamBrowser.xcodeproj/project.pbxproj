@@ -894,6 +894,10 @@
 		69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2B19C468E700CBE69F /* RNCryptor+Private.h */; };
 		69DFAF3A19C468E700CBE69F /* RNCryptor OS X-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69DFAF2C19C468E700CBE69F /* RNCryptor OS X-Prefix.pch */; };
 		69E036C6230D8E1D00DCBDA6 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D468230D7584005656B8 /* SEB-Bridging-Header.h */; };
+		69E0812C289C37D500653364 /* ProcessListElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD1F267E9F2B00B8F1D6 /* ProcessListElement.m */; };
+		69E0812D289C37D800653364 /* ProcessListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD21267E9F2B00B8F1D6 /* ProcessListViewController.m */; };
+		69E0812E289C37DC00653364 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD24267E9F2B00B8F1D6 /* ProcessManager.m */; };
+		69E0812F289C37E300653364 /* ProcessListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69433AF3268A7F37005E59A5 /* ProcessListView.xib */; };
 		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
 		69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */; };
 		69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */; };
@@ -3936,6 +3940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E0812F289C37E300653364 /* ProcessListView.xib in Resources */,
 				69D02488287C68E6006CEC19 /* Assets.xcassets in Resources */,
 				69D0248B287C68E6006CEC19 /* Main.storyboard in Resources */,
 			);
@@ -4434,9 +4439,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69E0812C289C37D500653364 /* ProcessListElement.m in Sources */,
 				691281D7287EB04B00D01164 /* VerificationManager.m in Sources */,
 				69D02486287C68E5006CEC19 /* ViewController.swift in Sources */,
+				69E0812D289C37D800653364 /* ProcessListViewController.m in Sources */,
 				69D02484287C68E5006CEC19 /* AppDelegate.swift in Sources */,
+				69E0812E289C37DC00653364 /* ProcessManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
