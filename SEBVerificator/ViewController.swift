@@ -17,7 +17,7 @@ public struct strings {
     static let applicationDirectory = "/Applications/"
 }
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, ProcessListViewControllerDelegate {
     
     @IBOutlet var applicationsArrayController: NSArrayController!
     @IBOutlet var configsArrayController: NSArrayController!
@@ -26,11 +26,20 @@ class ViewController: NSViewController {
     var sebConfigFiles: [SEBConfigFile]?
     
     var verificationManager: VerificationManager?
+
+    lazy var processListViewController: ProcessListViewController? = {
+        let viewController = ProcessListViewController.init(nibName: "ProcessListView", bundle: nil)
+        viewController.delegate = self
+        return viewController
+    }()
+    var runningProcessesListWindowController: NSWindowController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
+
+//        NSWorkspace.shared.addObserver(self, forKeyPath: "runningApplications", options: [.new, .old], context: nil)
 
         // Do any additional setup after loading the view.
         verificationManager = VerificationManager()
@@ -41,6 +50,20 @@ class ViewController: NSViewController {
         
         for sebAlikeString in foundSEBAlikeStrings {
             print(sebAlikeString)
+        }
+    }
+        
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "runningApplications" {
+            guard let changedObjects = change else {
+                return
+            }
+            guard let terminatedProcesses = changedObjects[.oldKey] as? Array<NSRunningApplication> else {
+                return
+            }
+            if terminatedProcesses.count > 0 {
+                print(terminatedProcesses)
+            }
         }
     }
 
@@ -130,7 +153,7 @@ class ViewController: NSViewController {
         }
     }
     
-    func terminateSEBAlikes() -> Bool {
+    func terminateSEBAlikesWithCallback(selector: Selector) {
         let sebAppBundleIDs = foundSEBApplications.map {$0.bundleID}
         var notTerminatedApplications: [NSRunningApplication]?
         for bundleID in sebAppBundleIDs {
@@ -144,10 +167,33 @@ class ViewController: NSViewController {
                 }
             }
         }
-        if (notTerminatedApplications?.count ?? 0) > 0 {
-            return false
+        if notTerminatedApplications != nil && notTerminatedApplications!.count > 0 {
+            terminateAppsWithCallback(notTerminatedApplications!, selector: selector)
         } else {
-            return true
+            perform(selector)
+        }
+    }
+    
+    func terminateAppsWithCallback(_ apps: [NSRunningApplication], selector: Selector) {
+        guard let processListController = processListViewController else {
+            return
+        }
+        processListController.runningApplications = NSMutableArray(array: apps)
+        processListController.callback = self
+        processListController.selector = selector
+        NSRunningApplication.current.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
+        
+        let runningProcessesListWindow = NSWindow(contentViewController: processListController)
+        runningProcessesListWindow.level = .modalPanel
+        runningProcessesListWindow.title = NSLocalizedString("Processes Must Be Terminated", comment: "Title for window with list of running processes to be terminated")
+        let processListWindowController = NSWindowController(window: runningProcessesListWindow)
+        runningProcessesListWindowController = processListWindowController
+        // Check if the process wasn't closed in the meantime (race condition)
+        if processListViewController != nil &&
+            processListViewController!.runningApplications.count +
+            processListViewController!.runningProcesses.count > 0 {
+            runningProcessesListWindow.delegate = self.processListViewController
+            runningProcessesListWindowController?.showWindow(self)
         }
     }
     
@@ -166,10 +212,14 @@ class ViewController: NSViewController {
     }
     
     @IBAction func startSEB(_ sender: Any) {
+        terminateSEBAlikesWithCallback(selector: #selector(startSEBApp))
+    }
+    
+    @objc func startSEBApp() {
         guard let selectedSEBApp = applicationsArrayController.selectedObjects[0] as? SEBApplication else {
             return
         }
-        if selectedSEBApp.validSEB && terminateSEBAlikes() {
+        if selectedSEBApp.validSEB {
             let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
             var argumentURL: URL?
             if sebConfigFiles?.count ?? 0 > 0 && !configsArrayController.selectedObjects.isEmpty {
@@ -216,6 +266,38 @@ class ViewController: NSViewController {
         mutableAttributedOutputString.addAttribute(NSAttributedString.Key.foregroundColor, value: (signatureOK ? NSColor.black : NSColor.red), range: range)
 
         consoleTextView.textContainer?.textView?.textStorage?.setAttributedString(mutableAttributedOutputString.copy() as! NSAttributedString)
+    }
+
+    // ProcessListViewControllerDelegate methods
+    
+    var quittingSession = false
+
+    func checkProcessesRunning(_ runningProcesses: NSMutableArray) -> NSMutableArray {
+        return []
+    }
+    
+    func closeProcessListWindow() {
+
+    }
+    
+    func closeProcessListWindow(withCallback callback: Any?, selector: Selector) {
+        
+    }
+    
+    func newAlert() -> NSAlert {
+        return NSAlert()
+    }
+    
+    func removeAlert(_ alertWindow: NSWindow) {
+        
+    }
+    
+    func runModalAlert(_ alert: NSAlert, conditionallyFor window: NSWindow, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Void) {
+        
+    }
+    
+    func quitSEBOrSession() {
+        
     }
 }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21179.7" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21179.7"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -874,7 +874,7 @@
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn width="209.5" minWidth="40" maxWidth="1000" id="BI7-wo-SEq" userLabel="Default for">
+                                                        <tableColumn width="180.5" minWidth="40" maxWidth="1000" id="BI7-wo-SEq" userLabel="Default for">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Default for">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -886,15 +886,15 @@
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
+                                                                <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.defaultFor" id="M3U-Tm-ZzD">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                    </dictionary>
+                                                                </binding>
                                                                 <binding destination="UqW-lH-XlF" name="fontBold" keyPath="arrangedObjects.defaultSEB" id="4N7-nC-u3h"/>
                                                                 <binding destination="UqW-lH-XlF" name="textColor" keyPath="arrangedObjects.validSEB" id="0Iy-gf-T2U">
                                                                     <dictionary key="options">
                                                                         <string key="NSValueTransformerName">ValidSEBColorTransformer</string>
-                                                                    </dictionary>
-                                                                </binding>
-                                                                <binding destination="UqW-lH-XlF" name="value" keyPath="arrangedObjects.defaultFor" id="M3U-Tm-ZzD">
-                                                                    <dictionary key="options">
-                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -976,16 +976,16 @@
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sez-CV-fcV">
                                         <rect key="frame" x="0.0" y="40" width="1338" height="60"/>
                                         <clipView key="contentView" drawsBackground="NO" id="4jv-PP-ZfR">
-                                            <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1338" height="60"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="NEW-mA-dfB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1338" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="1323" height="60"/>
-                                                    <size key="maxSize" width="1323" height="10000000"/>
+                                                    <size key="minSize" width="1338" height="60"/>
+                                                    <size key="maxSize" width="1338" height="10000000"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
@@ -993,12 +993,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="pg9-gE-paK"/>
                                         </constraints>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="bd1-N2-IWe">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="bd1-N2-IWe">
                                             <rect key="frame" x="-100" y="-100" width="225" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="Z3p-jI-OOU">
-                                            <rect key="frame" x="1323" y="0.0" width="15" height="60"/>
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Z3p-jI-OOU">
+                                            <rect key="frame" x="1322" y="0.0" width="16" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>

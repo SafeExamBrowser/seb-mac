@@ -22,7 +22,6 @@ conditionallyForWindow:(NSWindow *)window
      completionHandler:(void (^)(NSModalResponse returnCode))handler;
 - (void) quitSEBOrSession;
 
-@property (readwrite) BOOL quittingMyself;
 @property (readwrite) BOOL quittingSession;
 
 @end
