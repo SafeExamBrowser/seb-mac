@@ -1624,9 +1624,9 @@ bool insideMatrix(void);
             // important: processListViewController must be accessed with the instance variable
             // _processListViewController here and not using the property self.processListViewController
             // as otherwise a new instance of the controller will be allocated
-            if (self.processListViewController &&
-                self.processListViewController.runningApplications.count +
-                self.processListViewController.runningProcesses.count > 0) {
+            if (self->_processListViewController &&
+                self->_processListViewController.runningApplications.count +
+                self->_processListViewController.runningProcesses.count > 0) {
                 runningProcessesListWindow.delegate = self.processListViewController;
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
@@ -6068,6 +6068,8 @@ conditionallyForWindow:(NSWindow *)window
     
     [self stopWindowWatcher];
     [self stopProcessWatcher];
+    
+    [self removeKeyPathObservers];
 
     if (keyboardEventReturnKey != NULL) {
         DDLogDebug(@"%s CFRelease(keyboardEventReturnKey)", __FUNCTION__);
