@@ -45,10 +45,14 @@
         return;
     } else {
         _processListArrayController.content = allProcessListElements;
+#ifdef VERIFICATOR
+        autoQuitApplications = YES;
+#else
         // If the setting autoQuitApplications = true or there are no running applications (only BSD processes)
         // we show the force quit option
         autoQuitApplications = _runningApplications.count == 0 ||
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
+#endif
         [self updateUIStrings];
         quitSEBSessionButton.title = [self quitSEBOrSessionString];
     }

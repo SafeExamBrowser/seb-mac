@@ -4,3 +4,4 @@
 
 #import "VerificationManager.h"
 #import "ProcessListViewController.h"
+#import "NSRunningApplication+SEB.h"
