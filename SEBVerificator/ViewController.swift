@@ -153,13 +153,39 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         }
     }
     
+    func terminateDockAppsWithCallback(selector: Selector) {
+        let runningApplications = NSWorkspace.shared.runningApplications
+        var notTerminatedApplications: [NSRunningApplication]?
+#if DEBUG
+        let debug = true
+        #else
+        let debug = false
+#endif
+        for runningApplication in runningApplications {
+            if runningApplication.bundleIdentifier != "org.safeexambrowser.SEBVerificator" &&
+                (debug && runningApplication.bundleIdentifier != "com.apple.dt.Xcode") {
+                if runningApplication.activationPolicy == .regular {
+                    let success = runningApplication.terminate()
+                    if !success || !runningApplication.isTerminated {
+                        notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
+                    }
+                }
+            }
+        }
+        if notTerminatedApplications != nil && notTerminatedApplications!.count > 0 {
+            terminateAppsWithCallback(notTerminatedApplications!, forceQuit: false, selector: selector)
+        } else {
+            perform(selector)
+        }
+    }
+    
     func terminateSEBAlikesWithCallback(selector: Selector) {
         let allSEBAlikeBundleIDs = NSMutableSet()
         allSEBAlikeBundleIDs.addObjects(from: foundSEBApplications.map {$0.bundleID})
         let sebAppBundleIDs = allSEBAlikeBundleIDs.allObjects as! [String]
         var notTerminatedApplications: [NSRunningApplication]?
         for bundleID in sebAppBundleIDs {
-            if bundleID != "org.safeexambrowser.SEBVerificator" { // ToDo: Remove in production version
+            if bundleID != "org.safeexambrowser.SEBVerificator" {
                 let runningApplications = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
                 if !runningApplications.isEmpty {
                     let newNotTerminatedApplications = kill(runningApplications: runningApplications)
@@ -170,24 +196,25 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
             }
         }
         if notTerminatedApplications != nil && notTerminatedApplications!.count > 0 {
-            terminateAppsWithCallback(notTerminatedApplications!, selector: selector)
+            terminateAppsWithCallback(notTerminatedApplications!, forceQuit: true, selector: selector)
         } else {
             perform(selector)
         }
     }
     
-    func terminateAppsWithCallback(_ apps: [NSRunningApplication], selector: Selector) {
+    func terminateAppsWithCallback(_ apps: [NSRunningApplication], forceQuit: Bool, selector: Selector) {
         guard let processListController = processListViewController else {
             return
         }
         processListController.runningApplications = NSMutableArray(array: apps)
         processListController.callback = self
         processListController.selector = selector
+        processListController.autoQuitApplications = forceQuit
         NSRunningApplication.current.activate(options: [.activateAllWindows, .activateIgnoringOtherApps])
         
         let runningProcessesListWindow = NSWindow(contentViewController: processListController)
         runningProcessesListWindow.level = .modalPanel
-        runningProcessesListWindow.title = NSLocalizedString("Processes Must Be Terminated", comment: "Title for window with list of running processes to be terminated")
+        runningProcessesListWindow.title = NSLocalizedString("Applications Must Be Terminated", comment: "Title for window with list of running SEB-like applications to be terminated")
         let processListWindowController = NSWindowController(window: runningProcessesListWindow)
         runningProcessesListWindowController = processListWindowController
         // Check if the process wasn't closed in the meantime (race condition)
@@ -210,6 +237,14 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
             }
         }
         return notTerminatedApplications
+    }
+    
+    @IBAction func startSEBTerminatingApps(_ sender: Any) {
+        terminateDockAppsWithCallback(selector: #selector(startSEBTerminatingAlikes))
+    }
+    
+    @objc func startSEBTerminatingAlikes() {
+        startSEB(self)
     }
     
     @IBAction func startSEB(_ sender: Any) {
@@ -303,7 +338,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
     
     func quitSEBOrSession() {
-        startSEBApp()
+        startSEBTerminatingAlikes()
     }
 }
 
