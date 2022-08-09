@@ -30,6 +30,14 @@ pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-io
 
 end
 
+target 'SEBVerificator' do
+
+platform :osx, '10.11'
+use_frameworks!
+pod 'CocoaLumberjack/Swift'
+
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|

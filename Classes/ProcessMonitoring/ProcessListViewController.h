@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
 - (void) runModalAlert:(NSAlert *)alert
 conditionallyForWindow:(NSWindow *)window
-     completionHandler:(void (^)(NSModalResponse returnCode))handler;
+     completionHandler:(nullable void (^)(NSModalResponse returnCode))handler;
 - (void) quitSEBOrSession;
 
 @property (readwrite) BOOL quittingSession;

@@ -63,6 +63,7 @@ static ProcessManager *sharedProcessManager = nil;
 }
 
 
+#ifndef VERIFICATOR
 // Updates process arrays with current settings (UserDefaults)
 - (void) updateMonitoredProcesses
 {
@@ -134,6 +135,7 @@ static ProcessManager *sharedProcessManager = nil;
         }
     }
 }
+#endif
 
 
 - (void) removeOverriddenProhibitedBSDProcesses:(NSArray *)overriddenProhibitedProcesses
