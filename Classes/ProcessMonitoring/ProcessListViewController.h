@@ -36,6 +36,7 @@ conditionallyForWindow:(NSWindow *)window
 @property (strong, atomic) NSMutableArray <NSDictionary *>*runningProcesses;
 @property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property (readwrite) BOOL windowOpen;
+@property (readwrite) BOOL autoQuitApplications;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
