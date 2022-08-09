@@ -154,7 +154,9 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
     
     func terminateSEBAlikesWithCallback(selector: Selector) {
-        let sebAppBundleIDs = foundSEBApplications.map {$0.bundleID}
+        let allSEBAlikeBundleIDs = NSMutableSet()
+        allSEBAlikeBundleIDs.addObjects(from: foundSEBApplications.map {$0.bundleID})
+        let sebAppBundleIDs = allSEBAlikeBundleIDs.allObjects as! [String]
         var notTerminatedApplications: [NSRunningApplication]?
         for bundleID in sebAppBundleIDs {
             if bundleID != "org.safeexambrowser.SEBVerificator" { // ToDo: Remove in production version
@@ -201,10 +203,9 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         var notTerminatedApplications: [NSRunningApplication]?
         for runningApplication in runningApplications {
             NSLog("Terminating running application \(runningApplication)")
-            let killSuccess = runningApplication.forceTerminate()
-//            let killSuccess = runningApplication.terminate()
+            let killSuccess = runningApplication.kill()
             NSLog("Success of terminating running application: \(killSuccess)")
-            if !killSuccess || !runningApplication.isTerminated {
+            if killSuccess != ESRCH && (killSuccess != ERR_SUCCESS || !runningApplication.isTerminated) { // ESRCH: No such process
                 notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
             }
         }
@@ -277,27 +278,32 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
     
     func closeProcessListWindow() {
-
+        runningProcessesListWindowController?.window?.delegate = nil
+        runningProcessesListWindowController?.close()
+        processListViewController = nil
     }
     
     func closeProcessListWindow(withCallback callback: Any?, selector: Selector) {
-        
+        closeProcessListWindow()
+        perform(selector)
     }
     
     func newAlert() -> NSAlert {
         return NSAlert()
     }
     
-    func removeAlert(_ alertWindow: NSWindow) {
-        
+    func removeAlert(_ window: NSWindow) {
     }
     
-    func runModalAlert(_ alert: NSAlert, conditionallyFor window: NSWindow, completionHandler handler: @escaping (NSApplication.ModalResponse) -> Void) {
-        
+    func runModalAlert(_ alert: NSAlert, conditionallyFor window: NSWindow, completionHandler handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
+        let answer = alert.runModal()
+        if handler != nil {
+            handler!(answer)
+        }
     }
     
     func quitSEBOrSession() {
-        
+        startSEBApp()
     }
 }
 
