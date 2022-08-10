@@ -69,7 +69,7 @@
 {
     forceQuitButton.title = self.autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", nil) : NSLocalizedString(@"Quit All Applications", nil);
 #ifdef VERIFICATOR
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEBVerificator to start SEB.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
     if (self.autoQuitApplications) {
         quitSEBSessionButton.hidden = YES;
     } else {
