@@ -256,37 +256,59 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
             return
         }
         if selectedSEBApp.validSEB {
-            let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
-            var argumentURL: URL?
-            if sebConfigFiles?.count ?? 0 > 0 && !configsArrayController.selectedObjects.isEmpty {
-                if let selectedConfigFile = configsArrayController.selectedObjects[0] as? SEBConfigFile {
-                    argumentURL = appDirectoryURL.appendingPathComponent(selectedConfigFile.path)
+            if selectedSEBApp.defaultSEB == false ||
+                selectedSEBApp.defaultSEB && (foundSEBApplications.map {$0.defaultSEB}).count > 1 {
+                let alert = NSAlert.init()
+                alert.messageText = NSLocalizedString("Warning About Selected SEB Version", comment: "")
+                alert.informativeText = (!selectedSEBApp.defaultSEB ? NSLocalizedString("You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links", comment: "") : NSLocalizedString("You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator. ", comment: "")) + "\n\n" + NSLocalizedString("We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version.", comment: "")
+                alert.alertStyle = .critical
+                alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+                alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+                alert.beginSheetModal(for: self.view.window!) { answer in
+                    switch answer {
+                    case .alertFirstButtonReturn:
+                        self.startSEBApplication(selectedSEBApp)
+                    case .alertSecondButtonReturn:
+                        break
+                    default:
+                        break
+                    }
                 }
             }
-            let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
-            if #available(macOS 10.15, *) {
-                let configuration = NSWorkspace.OpenConfiguration()
-                configuration.arguments = configFileArguments
-                NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true),
-                                                   configuration: configuration,
-                                                   completionHandler: { (app, error) in
-                                                    if app == nil {
-                                                        print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
-                                                    } else {
-                                                        DispatchQueue.main.async {
-                                                            NSApp.terminate(self)
-                                                        }
+        }
+    }
+    
+    func startSEBApplication(_ selectedSEBApp: SEBApplication) {
+        let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
+        var argumentURL: URL?
+        if sebConfigFiles?.count ?? 0 > 0 && !configsArrayController.selectedObjects.isEmpty {
+            if let selectedConfigFile = configsArrayController.selectedObjects[0] as? SEBConfigFile {
+                argumentURL = appDirectoryURL.appendingPathComponent(selectedConfigFile.path)
+            }
+        }
+        let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
+        if #available(macOS 10.15, *) {
+            let configuration = NSWorkspace.OpenConfiguration()
+            configuration.arguments = configFileArguments
+            NSWorkspace.shared.openApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true),
+                                               configuration: configuration,
+                                               completionHandler: { (app, error) in
+                                                if app == nil {
+                                                    print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                } else {
+                                                    DispatchQueue.main.async {
+                                                        NSApp.terminate(self)
                                                     }
-                                                   })
-            } else {
-                do {
-                    try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
-                } catch {
-                    // Cannot open application
-                    return
-                }
-                NSApp.terminate(self)
+                                                }
+                                               })
+        } else {
+            do {
+                try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
+            } catch {
+                // Cannot open application
+                return
             }
+            NSApp.terminate(self)
         }
     }
     
