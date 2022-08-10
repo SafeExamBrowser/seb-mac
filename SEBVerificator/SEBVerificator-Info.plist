@@ -2,74 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>mydoc</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string></string>
-			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>????</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>SEBBrowserWindowDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>seb</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>sebConfigIcon</string>
-			<key>CFBundleTypeName</key>
-			<string>SEBSettings</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.safeexambrowser.seb</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string></string>
-		</dict>
-	</array>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>CFBundleURLIconFile</key>
-			<string>sebConfigIcon</string>
-			<key>CFBundleURLName</key>
-			<string>org.safeexambrowser.seb</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>seb</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>CFBundleURLIconFile</key>
-			<string>sebConfigIcon</string>
-			<key>CFBundleURLName</key>
-			<string>org.safeexambrowser.sebs</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>sebs</string>
-			</array>
-		</dict>
-	</array>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSMinimumSystemVersion</key>
@@ -81,29 +15,5 @@
 	</dict>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<true/>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Safe Exam Browser Configuration</string>
-			<key>UTTypeIconFile</key>
-			<string>SEBDocumentIcon.icns</string>
-			<key>UTTypeIdentifier</key>
-			<string>org.safeexambrowser.seb</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>seb</string>
-				</array>
-				<key>public.mime-type</key>
-				<string>application/seb</string>
-			</dict>
-		</dict>
-	</array>
 </dict>
 </plist>
