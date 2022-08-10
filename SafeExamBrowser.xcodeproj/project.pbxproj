@@ -876,6 +876,7 @@
 		69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
 		69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
 		69D5988E1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
+		69D5CC6528A44FC100A1F84E /* SEBVerificator-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */; };
 		69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
@@ -1698,6 +1699,7 @@
 		69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCodeIcon.png; path = Resources/Icons/Dock/SEBQRCodeIcon.png; sourceTree = "<group>"; };
 		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
+		69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
@@ -3090,6 +3092,7 @@
 				691281D2287EB04B00D01164 /* VerificationManager.m */,
 				691281D0287EB04A00D01164 /* SEBVerificator-Bridging-Header.h */,
 				69E08134289C66F300653364 /* SEBVERIFICATOR_Prefix.pch */,
+				69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */,
 			);
 			path = SEBVerificator;
 			sourceTree = "<group>";
@@ -3587,6 +3590,7 @@
 				69D0247E287C68E5006CEC19 /* Frameworks */,
 				69D0247F287C68E5006CEC19 /* Resources */,
 				A0F088F0A42D5759908526B4 /* [CP] Embed Pods Frameworks */,
+				69D5CC6328A44F7E00A1F84E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3965,6 +3969,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D5CC6528A44FC100A1F84E /* SEBVerificator-Info.plist in Resources */,
 				69E0812F289C37E300653364 /* ProcessListView.xib in Resources */,
 				69D02488287C68E6006CEC19 /* Assets.xcassets in Resources */,
 				69D0248B287C68E6006CEC19 /* Main.storyboard in Resources */,
@@ -4280,6 +4285,23 @@
 			inputPaths = (
 			);
 			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"\n";
+		};
+		69D5CC6328A44F7E00A1F84E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
