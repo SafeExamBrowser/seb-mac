@@ -19,7 +19,10 @@ public struct strings {
 
 class ViewController: NSViewController, ProcessListViewControllerDelegate {
     
+    @IBOutlet weak var applicationsTableView: NSTableView!
+    @IBOutlet weak var applicationsScrollView: NSScrollView!
     @IBOutlet var applicationsArrayController: NSArrayController!
+    @IBOutlet weak var configsTableView: NSTableView!
     @IBOutlet var configsArrayController: NSArrayController!
     @IBOutlet var consoleTextView: NSTextView!
     var foundSEBApplications: [SEBApplication] = []
@@ -38,7 +41,6 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         super.viewDidLoad()
 
         ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
-
 //        NSWorkspace.shared.addObserver(self, forKeyPath: "runningApplications", options: [.new, .old], context: nil)
 
         // Do any additional setup after loading the view.
@@ -53,6 +55,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         }
     }
         
+    override func viewDidAppear() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.applicationsTableView.scrollRowToVisible(0)
+            self.configsTableView.scrollRowToVisible(0)
+        }
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "runningApplications" {
             guard let changedObjects = change else {
@@ -147,7 +156,9 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
 
     @IBAction func rescanForSEBAlikes(_ sender: Any) {
         let foundSEBAlikeStrings = findAllSEBAlikes()
-        
+        applicationsTableView.scrollRowToVisible(0)
+        configsTableView.scrollRowToVisible(0)
+
         for sebAlikeString in foundSEBAlikeStrings {
             print(sebAlikeString)
         }
@@ -367,7 +378,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
 }
 
-@objc class SEBApplication : NSObject {
+@objc class SEBApplication: NSObject {
     @objc var icon: NSImage?
     @objc var name: String
     @objc var version: String
@@ -391,11 +402,19 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
 }
 
-@objc class SEBConfigFile : NSObject {
+@objc class SEBConfigFile: NSObject {
     @objc var path: String
     
     init(path: String) {
         self.path = path
+    }
+}
+
+class SEBVerificatorWindow: NSWindow, NSWindowDelegate {
+    
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        NSApp.terminate(self)
+        return true
     }
 }
 

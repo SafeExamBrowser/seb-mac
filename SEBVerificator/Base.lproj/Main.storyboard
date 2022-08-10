@@ -685,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="SEB Verificator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="SEB Verificator" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA" customClass="SEBVerificatorWindow" customModule="SEBVerificator" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="1380" height="650"/>
@@ -1101,7 +1101,10 @@
                     </view>
                     <connections>
                         <outlet property="applicationsArrayController" destination="UqW-lH-XlF" id="4D8-9k-Jk7"/>
+                        <outlet property="applicationsScrollView" destination="Gbt-Cu-iiA" id="ful-m1-kcp"/>
+                        <outlet property="applicationsTableView" destination="ZMx-gA-u2W" id="uPF-fb-gSm"/>
                         <outlet property="configsArrayController" destination="osD-Yb-NEH" id="wVz-Ed-2K2"/>
+                        <outlet property="configsTableView" destination="IEh-cS-UDg" id="EZN-e0-F8V"/>
                         <outlet property="consoleTextView" destination="NEW-mA-dfB" id="L1E-9B-r3q"/>
                     </connections>
                 </viewController>
