@@ -115,10 +115,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         // Sort found SEB-alike apps so that the correct BundleID and Application folder location is first
         foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
             guard sebApp1.validSEB else {
-                return sebApp2.validSEB
+                guard sebApp2.validSEB else {
+                    return false
+                }
+                return false
             }
             guard sebApp2.validSEB else {
-                return sebApp1.validSEB
+                return true //sebApp1.validSEB
             }
             return sebApp1.path.hasPrefix(strings.applicationDirectory) && sebApp1.defaultSEB
         })
