@@ -154,6 +154,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
     
     func terminateDockAppsWithCallback(selector: Selector) {
+        NSRunningApplication.terminateAutomaticallyTerminableApplications()
         let runningApplications = NSWorkspace.shared.runningApplications
         var notTerminatedApplications: [NSRunningApplication]?
 #if DEBUG
@@ -257,7 +258,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         }
         if selectedSEBApp.validSEB {
             if selectedSEBApp.defaultSEB == false ||
-                selectedSEBApp.defaultSEB && (foundSEBApplications.map {$0.defaultSEB}).count > 1 {
+                selectedSEBApp.defaultSEB && foundSEBApplications.filter({$0.defaultSEB == true}).count > 1 {
                 let alert = NSAlert.init()
                 alert.messageText = NSLocalizedString("Warning About Selected SEB Version", comment: "")
                 alert.informativeText = (!selectedSEBApp.defaultSEB ? NSLocalizedString("You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links", comment: "") : NSLocalizedString("You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator. ", comment: "")) + "\n\n" + NSLocalizedString("We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version.", comment: "")
@@ -274,6 +275,8 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
                         break
                     }
                 }
+            } else {
+                self.startSEBApplication(selectedSEBApp)
             }
         }
     }
