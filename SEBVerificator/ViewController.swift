@@ -45,11 +45,12 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         NSApp.delegate = self
         ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
 //        NSWorkspace.shared.addObserver(self, forKeyPath: "runningApplications", options: [.new, .old], context: nil)
-//        intializeLogger()
         let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
         let logDirectory = appDirectoryURL.appendingPathComponent("Logs").path
-        fileLogger = MyGlobals.initializeFileLogger(withDirectory: logDirectory)
-        DDLog.add(fileLogger!)
+        if FileManager.default.isWritableFile(atPath: appDirectoryURL.path) {
+            fileLogger = MyGlobals.initializeFileLogger(withDirectory: logDirectory)
+            DDLog.add(fileLogger!)
+        }
         DDLogInfo("---------- INITIALIZING SEB Verificator - STARTING SESSION -------------")
         MyGlobals.logSystemInfo()
         
@@ -72,6 +73,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.applicationsTableView.scrollRowToVisible(0)
             self.configsTableView.scrollRowToVisible(0)
+            self.consoleTextView.scrollToBottom()
         }
     }
     
@@ -89,31 +91,6 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         }
     }
 
-    func intializeLogger() {
-        // Initialize logger
-        if #available(macOS 10.12, *) {
-#if DEBUG
-            // We show log messages only in Console.app and the Xcode console in debug mode
-            DDLog.add(DDOSLogger.sharedInstance)
-#endif
-        }
-        // Initialize file logger if parent directory is writable
-        let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
-        let logDirectory = appDirectoryURL.appendingPathComponent("Logs").path
-//        if FileManager.default.isWritableFile(atPath: appDirectoryURL.appendingPathComponent("logFileTest.txt").path) {
-            let logFileManager = DDLogFileManagerDefault(logsDirectory: logDirectory)
-            let myLogger = DDFileLogger(logFileManager: logFileManager)
-            myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-            myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.formatterBehavior = .behavior10_4
-            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss:SSS"
-            myLogger.logFormatter = DDLogFileFormatterDefault(dateFormatter: dateFormatter)
-            fileLogger = myLogger
-//        }
-    }
-    
     func findAllSEBAlikes() -> ([NSAttributedString]) {
         let allSEBAlikeBundleIDs = NSMutableSet()
         let allSEBAlikeURLs = NSMutableSet()
@@ -393,11 +370,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     func updateConsole(logEntry: NSAttributedString) {
         consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
         consoleTextView.textContainer?.textView?.textStorage?.append(logEntry)
-        if #available(macOS 10.14, *) {
-            consoleTextView.textContainer?.textView?.scrollToEndOfDocument(self)
-        } else {
-            consoleTextView.textContainer?.textView?.scrollRangeToVisible(NSMakeRange(consoleTextView.textContainer?.textView?.attributedString().length ?? 0, 0))
-        }
+        consoleTextView.scrollToBottom()
     }
 
     // ProcessListViewControllerDelegate methods
@@ -516,6 +489,17 @@ extension Bundle {
 
     var fullVersion: String {
         return "\(shortVersion)(\(buildVersion))"
+    }
+}
+
+extension NSTextView {
+    
+    func scrollToBottom() {
+        if #available(macOS 10.14, *) {
+            textContainer?.textView?.scrollToEndOfDocument(self)
+        } else {
+            textContainer?.textView?.scrollRangeToVisible(NSMakeRange(textContainer?.textView?.attributedString().length ?? 0, 0))
+        }
     }
 }
 
