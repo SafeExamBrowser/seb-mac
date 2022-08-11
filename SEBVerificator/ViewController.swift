@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import CoreServices
+import CocoaLumberjack
 
 public struct strings {
     static let sebBundleID = "org.safeexambrowser.SafeExamBrowser"
@@ -50,8 +51,11 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         sebConfigFiles = findSEBConfigFiles()
         configsArrayController.content = sebConfigFiles
         
+        let scanningString = "Scanning for SEB-alike applications"
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(scanningString, comment: ""), emphasized: true, error: false))
+        DDLogInfo(scanningString)
         for sebAlikeString in foundSEBAlikeStrings {
-            print(sebAlikeString)
+            updateConsole(logEntry: sebAlikeString)
         }
     }
         
@@ -121,7 +125,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
                 return false
             }
             guard sebApp2.validSEB else {
-                return true //sebApp1.validSEB
+                return true
             }
             return sebApp1.path.hasPrefix(strings.applicationDirectory) && sebApp1.defaultSEB
         })
@@ -135,6 +139,11 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
             return true
         })
         applicationsArrayController.content = foundSEBApplications
+        for application in foundSEBApplications {
+            let applicationLogEntry = "\(application.name) \(NSLocalizedString("Version", comment: "")) \(application.version), \(NSLocalizedString("Bundle ID", comment: "")): \(application.bundleID), \(NSLocalizedString("Path", comment: "")): \(application.path): \(NSLocalizedString("Signature", comment: "")) \(application.signature)" + (application.defaultSEB ? ", \(NSLocalizedString("Default for opening", comment: "")) \(application.defaultFor)" : "")
+            allSEBAlikeLog.append(attributedStringFor(logEntry: applicationLogEntry, emphasized: false, error: !application.validSEB))
+            application.validSEB ? DDLogInfo("Found SEB application: " + applicationLogEntry) : DDLogError("Found invalid SEB application: " + applicationLogEntry)
+        }
         return allSEBAlikeLog
     }
     
@@ -162,8 +171,12 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         applicationsTableView.scrollRowToVisible(0)
         configsTableView.scrollRowToVisible(0)
 
+        let rescanningString = "Rescanning for SEB-alike applications"
+        updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(rescanningString, comment: ""), emphasized: true, error: false))
+        DDLogInfo(rescanningString)
         for sebAlikeString in foundSEBAlikeStrings {
-            print(sebAlikeString)
+            updateConsole(logEntry: sebAlikeString)
         }
     }
     
@@ -311,7 +324,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
                                                configuration: configuration,
                                                completionHandler: { (app, error) in
                                                 if app == nil {
-                                                    print("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                    DDLogError("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
                                                 } else {
                                                     DispatchQueue.main.async {
                                                         NSApp.terminate(self)
@@ -333,14 +346,24 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         verificationManager!.signedSEBExecutable(path)
     }
     
-    func updateConsole(logEntries: [NSAttributedString]) {
-        let signatureOK = true
-        let outputString = "" //"\(sebPath) is \(signatureOK ? "" : "NOT ")an original SEB version!"
-        let mutableAttributedOutputString = NSMutableAttributedString.init(string: outputString)
-        let range = (outputString as NSString).range(of: outputString)
-        mutableAttributedOutputString.addAttribute(NSAttributedString.Key.foregroundColor, value: (signatureOK ? NSColor.black : NSColor.red), range: range)
-
-        consoleTextView.textContainer?.textView?.textStorage?.setAttributedString(mutableAttributedOutputString.copy() as! NSAttributedString)
+    func attributedStringFor(logEntry: String, emphasized: Bool, error: Bool) -> NSAttributedString {
+        let mutableAttributedOutputString = NSMutableAttributedString.init(string: logEntry)
+        let range = (logEntry as NSString).range(of: logEntry)
+        if emphasized {
+            mutableAttributedOutputString.addAttribute(NSAttributedString.Key.font, value: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize) , range: range)
+        }
+        mutableAttributedOutputString.addAttribute(NSAttributedString.Key.foregroundColor, value: (error ? NSColor.red : NSColor.black), range: range)
+        return mutableAttributedOutputString as NSAttributedString
+    }
+    
+    func updateConsole(logEntry: NSAttributedString) {
+        consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
+        consoleTextView.textContainer?.textView?.textStorage?.append(logEntry)
+        if #available(macOS 10.14, *) {
+            consoleTextView.textContainer?.textView?.scrollToEndOfDocument(self)
+        } else {
+            consoleTextView.textContainer?.textView?.scrollRangeToVisible(NSMakeRange(consoleTextView.textContainer?.textView?.attributedString().length ?? 0, 0))
+        }
     }
 
     // ProcessListViewControllerDelegate methods
