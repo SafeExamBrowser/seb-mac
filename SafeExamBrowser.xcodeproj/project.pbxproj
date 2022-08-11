@@ -277,6 +277,9 @@
 		6966F8841D1D96BE00684182 /* SEBSliderRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */; };
 		6966F8871D1DE07100684182 /* SEBSliderSettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */; };
 		6966F8881D1DE07100684182 /* SEBSliderSettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */; };
+		6968376428A5A08B00F4BFA8 /* ProcessListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD23267E9F2B00B8F1D6 /* ProcessListViewController.h */; };
+		6968376528A5A09300F4BFA8 /* ProcessListElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD20267E9F2B00B8F1D6 /* ProcessListElement.h */; };
+		6968376628A5A09900F4BFA8 /* ProcessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD22267E9F2B00B8F1D6 /* ProcessManager.h */; };
 		696A3AE419F6FBC500274214 /* PreferencesConfigFile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AE719F6FBC500274214 /* PreferencesConfigFile.xib */; };
 		696A3AE819F6FBCD00274214 /* PreferencesAppearance.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEB19F6FBCD00274214 /* PreferencesAppearance.xib */; };
 		696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696A3AEF19F6FBEA00274214 /* PreferencesExam.xib */; };
@@ -876,7 +879,14 @@
 		69D5988A1E7F222D00698BA8 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
 		69D5988C1E7F222D00698BA8 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
 		69D5988E1E7F222D00698BA8 /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
-		69D5CC6528A44FC100A1F84E /* SEBVerificator-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */; };
+		69D5CC6628A5514100A1F84E /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
+		69D5CC6728A5514100A1F84E /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
+		69D5CC6828A5514100A1F84E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
+		69D5CC6928A5514200A1F84E /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
+		69D5CC6A28A5514200A1F84E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
+		69D5CC6B28A5515F00A1F84E /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 692F53D614AD03F300011C84 /* Constants.h */; };
+		69D5CC6C28A5516400A1F84E /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932ABC321DE29BE00DEF77D /* SEBConstants.h */; };
+		69D5CC6E28A556E400A1F84E /* SEBVerificator-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */; };
 		69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
@@ -1699,7 +1709,7 @@
 		69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCodeIcon.png; path = Resources/Icons/Dock/SEBQRCodeIcon.png; sourceTree = "<group>"; };
 		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
-		69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
+		69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
@@ -3092,7 +3102,7 @@
 				691281D2287EB04B00D01164 /* VerificationManager.m */,
 				691281D0287EB04A00D01164 /* SEBVerificator-Bridging-Header.h */,
 				69E08134289C66F300653364 /* SEBVERIFICATOR_Prefix.pch */,
-				69D5CC6428A44FC100A1F84E /* SEBVerificator-Info.plist */,
+				69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */,
 			);
 			path = SEBVerificator;
 			sourceTree = "<group>";
@@ -3481,6 +3491,7 @@
 				69D3C5C127A0366400890B31 /* SEBController.h in Headers */,
 				69D3C5C227A0366400890B31 /* HUDController.h in Headers */,
 				69D3C5C327A0366400890B31 /* SEBAboutController.h in Headers */,
+				69D5CC6928A5514200A1F84E /* MyGlobals.h in Headers */,
 				69D3C5C427A0366400890B31 /* AssessmentModeManager.h in Headers */,
 				69D3C5C527A0366400890B31 /* PreferencesViewController.h in Headers */,
 				69D3C5C627A0366400890B31 /* PrefsDownUploadsViewController.h in Headers */,
@@ -3490,6 +3501,7 @@
 				69D3C5CA27A0366400890B31 /* SEBURLFilterRegexExpression.h in Headers */,
 				69D3C5CB27A0366400890B31 /* SEBConfigFileManager.h in Headers */,
 				69D3C5CC27A0366400890B31 /* SEBTextField.h in Headers */,
+				69D5CC6A28A5514200A1F84E /* SynthesizeSingleton.h in Headers */,
 				69D3C5CD27A0366400890B31 /* HUDPanel.h in Headers */,
 				69D3C5CE27A0366400890B31 /* CacheStoragePolicy.h in Headers */,
 				69D3C5CF27A0366400890B31 /* WebPluginDatabase.h in Headers */,
@@ -3516,8 +3528,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6968376428A5A08B00F4BFA8 /* ProcessListViewController.h in Headers */,
+				69D5CC6B28A5515F00A1F84E /* Constants.h in Headers */,
+				69D5CC6C28A5516400A1F84E /* SEBConstants.h in Headers */,
+				69D5CC6828A5514100A1F84E /* SynthesizeSingleton.h in Headers */,
 				69E08133289C60C600653364 /* NSRunningApplication+SEB.h in Headers */,
 				69E08135289C66F300653364 /* SEBVERIFICATOR_Prefix.pch in Headers */,
+				69D5CC6628A5514100A1F84E /* MyGlobals.h in Headers */,
+				6968376628A5A09900F4BFA8 /* ProcessManager.h in Headers */,
+				6968376528A5A09300F4BFA8 /* ProcessListElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3969,7 +3988,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69D5CC6528A44FC100A1F84E /* SEBVerificator-Info.plist in Resources */,
+				69D5CC6E28A556E400A1F84E /* SEBVerificator-Info.plist in Resources */,
 				69E0812F289C37E300653364 /* ProcessListView.xib in Resources */,
 				69D02488287C68E6006CEC19 /* Assets.xcassets in Resources */,
 				69D0248B287C68E6006CEC19 /* Main.storyboard in Resources */,
@@ -4510,6 +4529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D5CC6728A5514100A1F84E /* MyGlobals.m in Sources */,
 				69E0812C289C37D500653364 /* ProcessListElement.m in Sources */,
 				69E08130289C5FC100653364 /* NSRunningApplication+SEB.m in Sources */,
 				691281D7287EB04B00D01164 /* VerificationManager.m in Sources */,
@@ -5210,7 +5230,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5241,7 +5261,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
@@ -5309,7 +5329,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5342,7 +5362,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
@@ -5581,7 +5601,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 32;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5640,7 +5660,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 32;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5971,7 +5991,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6028,7 +6048,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 14176;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;

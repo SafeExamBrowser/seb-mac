@@ -18,7 +18,7 @@ public struct strings {
     static let applicationDirectory = "/Applications/"
 }
 
-class ViewController: NSViewController, ProcessListViewControllerDelegate {
+class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApplicationDelegate {
     
     @IBOutlet weak var applicationsTableView: NSTableView!
     @IBOutlet weak var applicationsScrollView: NSScrollView!
@@ -28,7 +28,8 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     @IBOutlet var consoleTextView: NSTextView!
     var foundSEBApplications: [SEBApplication] = []
     var sebConfigFiles: [SEBConfigFile]?
-    
+
+    var fileLogger: DDFileLogger?
     var verificationManager: VerificationManager?
 
     lazy var processListViewController: ProcessListViewController? = {
@@ -41,19 +42,27 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSApp.delegate = self
         ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
 //        NSWorkspace.shared.addObserver(self, forKeyPath: "runningApplications", options: [.new, .old], context: nil)
-
+//        intializeLogger()
+        let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
+        let logDirectory = appDirectoryURL.appendingPathComponent("Logs").path
+        fileLogger = MyGlobals.initializeFileLogger(withDirectory: logDirectory)
+        DDLog.add(fileLogger!)
+        DDLogInfo("---------- INITIALIZING SEB Verificator - STARTING SESSION -------------")
+        MyGlobals.logSystemInfo()
+        
         // Do any additional setup after loading the view.
         verificationManager = VerificationManager()
         
+        let scanningString = "Scanning for SEB-alike applications"
+        DDLogInfo(scanningString)
         let foundSEBAlikeStrings = findAllSEBAlikes()
         sebConfigFiles = findSEBConfigFiles()
         configsArrayController.content = sebConfigFiles
         
-        let scanningString = "Scanning for SEB-alike applications"
         updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(scanningString, comment: ""), emphasized: true, error: false))
-        DDLogInfo(scanningString)
         for sebAlikeString in foundSEBAlikeStrings {
             updateConsole(logEntry: sebAlikeString)
         }
@@ -80,6 +89,31 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
         }
     }
 
+    func intializeLogger() {
+        // Initialize logger
+        if #available(macOS 10.12, *) {
+#if DEBUG
+            // We show log messages only in Console.app and the Xcode console in debug mode
+            DDLog.add(DDOSLogger.sharedInstance)
+#endif
+        }
+        // Initialize file logger if parent directory is writable
+        let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
+        let logDirectory = appDirectoryURL.appendingPathComponent("Logs").path
+//        if FileManager.default.isWritableFile(atPath: appDirectoryURL.appendingPathComponent("logFileTest.txt").path) {
+            let logFileManager = DDLogFileManagerDefault(logsDirectory: logDirectory)
+            let myLogger = DDFileLogger(logFileManager: logFileManager)
+            myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+            myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.formatterBehavior = .behavior10_4
+            dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss:SSS"
+            myLogger.logFormatter = DDLogFileFormatterDefault(dateFormatter: dateFormatter)
+            fileLogger = myLogger
+//        }
+    }
+    
     func findAllSEBAlikes() -> ([NSAttributedString]) {
         let allSEBAlikeBundleIDs = NSMutableSet()
         let allSEBAlikeURLs = NSMutableSet()
@@ -167,14 +201,14 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     }
 
     @IBAction func rescanForSEBAlikes(_ sender: Any) {
+        let rescanningString = "Rescanning for SEB-alike applications"
+        DDLogInfo(rescanningString)
         let foundSEBAlikeStrings = findAllSEBAlikes()
         applicationsTableView.scrollRowToVisible(0)
         configsTableView.scrollRowToVisible(0)
 
-        let rescanningString = "Rescanning for SEB-alike applications"
         updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
         updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(rescanningString, comment: ""), emphasized: true, error: false))
-        DDLogInfo(rescanningString)
         for sebAlikeString in foundSEBAlikeStrings {
             updateConsole(logEntry: sebAlikeString)
         }
@@ -401,6 +435,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate {
     
     func quitSEBOrSession() {
         startSEBTerminatingAlikes()
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        DDLogInfo("---------- EXITING SEB Verificator - ENDING SESSION -------------");
     }
 }
 
