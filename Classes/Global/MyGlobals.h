@@ -33,10 +33,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
 #if TARGET_OS_IPHONE
 #import "SEBViewController.h"
 #else
-#import <CocoaLumberjack.h>
+@import CocoaLumberjack;
 #endif
 
 @interface MyGlobals : NSObject
