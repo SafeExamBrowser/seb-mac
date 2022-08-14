@@ -194,6 +194,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     func terminateDockAppsWithCallback(selector: Selector) {
         NSRunningApplication.terminateAutomaticallyTerminableApplications()
         let runningApplications = NSWorkspace.shared.runningApplications
+        DDLogInfo("All running applications: \(runningApplications.map({ ($0.bundleIdentifier ?? "no BundleID") + " " + ($0.executableURL?.absoluteString ?? "no executable URL") }))")
         var notTerminatedApplications: [NSRunningApplication]?
 #if DEBUG
         let debug = true
@@ -204,8 +205,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
             if runningApplication.bundleIdentifier != "org.safeexambrowser.SEBVerificator" &&
                 (debug && runningApplication.bundleIdentifier != "com.apple.dt.Xcode") {
                 if runningApplication.activationPolicy == .regular {
+                    DDLogInfo("Running app \(runningApplication.bundleIdentifier ?? "no BundleID") (\(runningApplication.executableURL?.absoluteString ?? "no executable URL")) is visible in the Dock and should be quit.")
                     let success = runningApplication.terminate()
                     if !success || !runningApplication.isTerminated {
+                        DDLogWarn("Application \(runningApplication.bundleIdentifier ?? "no BundleID") did not yet quit.")
                         notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
                     }
                 }
@@ -225,8 +228,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         var notTerminatedApplications: [NSRunningApplication]?
         for bundleID in sebAppBundleIDs {
             if bundleID != "org.safeexambrowser.SEBVerificator" {
+                DDLogInfo("Check if SEB\(bundleID == strings.sebBundleID ? "" : "-alike") app(s) with Bundle ID \(bundleID) are running")
                 let runningApplications = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
                 if !runningApplications.isEmpty {
+                    DDLogWarn("The following SEB\(bundleID == strings.sebBundleID ? "" : "-alike") app instance\(runningApplications.count == 1 ? "" : "s") with Bundle ID \(bundleID) \(runningApplications.count == 1 ? "is" : "are") running (and must be terminated): \(runningApplications.map({ $0.executableURL}))")
                     let newNotTerminatedApplications = kill(runningApplications: runningApplications)
                     if newNotTerminatedApplications != nil {
                         notTerminatedApplications = (notTerminatedApplications ?? []) + newNotTerminatedApplications!
@@ -245,6 +250,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         guard let processListController = processListViewController else {
             return
         }
+        DDLogInfo("The following running applications must be \(forceQuit ? "terminated" : "quit") before starting SEB: \(apps.map({ $0.bundleIdentifier ?? "no BundleID" }))\nOpening process list window")
         processListController.runningApplications = NSMutableArray(array: apps)
         processListController.callback = self
         processListController.selector = selector
@@ -268,10 +274,11 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     func kill(runningApplications: [NSRunningApplication]) -> [NSRunningApplication]? {
         var notTerminatedApplications: [NSRunningApplication]?
         for runningApplication in runningApplications {
-            NSLog("Terminating running application \(runningApplication)")
+            DDLogInfo("Terminating running application \(runningApplication)")
             let killSuccess = runningApplication.kill()
-            NSLog("Success of terminating running application: \(killSuccess)")
+            DDLogInfo("Success of terminating running application: \(killSuccess)")
             if killSuccess != ESRCH && (killSuccess != ERR_SUCCESS || !runningApplication.isTerminated) { // ESRCH: No such process
+                DDLogWarn("Application \(runningApplication) did not yet terminate.")
                 notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
             }
         }
@@ -279,6 +286,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     }
     
     @IBAction func startSEBTerminatingApps(_ sender: Any) {
+        DDLogInfo("Quit Apps & Start SEB")
         terminateDockAppsWithCallback(selector: #selector(startSEBTerminatingAlikes))
     }
     
@@ -287,6 +295,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     }
     
     @IBAction func startSEB(_ sender: Any) {
+        DDLogInfo("Start SEB")
         terminateSEBAlikesWithCallback(selector: #selector(startSEBApp))
     }
     
@@ -299,15 +308,18 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
                 selectedSEBApp.defaultSEB && foundSEBApplications.filter({$0.defaultSEB == true}).count > 1 {
                 let alert = NSAlert.init()
                 alert.messageText = NSLocalizedString("Warning About Selected SEB Version", comment: "")
-                alert.informativeText = (!selectedSEBApp.defaultSEB ? NSLocalizedString("You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links", comment: "") : NSLocalizedString("You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator. ", comment: "")) + "\n\n" + NSLocalizedString("We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version.", comment: "")
+                alert.informativeText = (!selectedSEBApp.defaultSEB ? NSLocalizedString("You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links", comment: "") : NSLocalizedString("You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator.", comment: "")) + "\n\n" + NSLocalizedString("We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version.", comment: "")
                 alert.alertStyle = .critical
                 alert.addButton(withTitle: NSLocalizedString("OK", comment: ""))
                 alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+                DDLogWarn("The user selected an SEB Version which isn't registered as the default application in the system to open \(!selectedSEBApp.defaultSEB ? ".seb files and seb(s):// links" : "both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator.")")
                 alert.beginSheetModal(for: self.view.window!) { answer in
                     switch answer {
                     case .alertFirstButtonReturn:
+                        DDLogInfo("The user confirmed opening this SEB version")
                         self.startSEBApplication(selectedSEBApp)
                     case .alertSecondButtonReturn:
+                        DDLogInfo("The user canceled opening this SEB version")
                         break
                     default:
                         break
@@ -328,6 +340,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
             }
         }
         let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
+        DDLogInfo("Opening SEB app \(selectedSEBApp.path)\(argumentURL == nil ? "" : " with argument " + argumentURL!.absoluteString)")
         if #available(macOS 10.15, *) {
             let configuration = NSWorkspace.OpenConfiguration()
             configuration.arguments = configFileArguments
@@ -335,9 +348,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
                                                configuration: configuration,
                                                completionHandler: { (app, error) in
                                                 if app == nil {
-                                                    DDLogError("starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                    DDLogError("Starting \(selectedSEBApp) failed with error: \(String(describing: error))")
                                                 } else {
                                                     DispatchQueue.main.async {
+                                                        DDLogInfo("Terminating SEB Verficator after starting SEB")
                                                         NSApp.terminate(self)
                                                     }
                                                 }
@@ -347,8 +361,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
                 try NSWorkspace.shared.launchApplication(at: URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true), configuration: [NSWorkspace.LaunchConfigurationKey.arguments : configFileArguments])
             } catch {
                 // Cannot open application
+                DDLogError("Starting \(selectedSEBApp) failed with error: \(String(describing: error))")
                 return
             }
+            DDLogInfo("Terminating SEB Verficator after starting SEB")
             NSApp.terminate(self)
         }
     }
