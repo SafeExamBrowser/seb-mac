@@ -23,7 +23,7 @@
 
 - (void)loadView
 {
-    DDLogDebug(@"%s: calling [super loadView]", __FUNCTION__);
+    DDLogDebug(@"Loading ProcessListView");
     [super loadView];
     
     if (@available(macOS 10.10, *)) {
