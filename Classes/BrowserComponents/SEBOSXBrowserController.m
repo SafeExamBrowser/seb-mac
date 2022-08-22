@@ -156,7 +156,7 @@
     // Order new browser window to the front of our level
     [self setLevelForBrowserWindow:newBrowserWindow elevateLevels:elevateWindowLevels];
     self.activeBrowserWindow = newBrowserWindow;
-    self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", nil);
+    self.activeBrowserWindowTitle = NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled");
     [newBrowserWindow setCalculatedFrameOnScreen:newBrowserWindow.screen mainBrowserWindow:mainBrowserWindow temporaryWindow:temporaryWindow];
     [newBrowserWindow.windowController showWindow:self];
     [newBrowserWindow makeKeyAndOrderFront:self];
@@ -455,6 +455,9 @@
 // Set web page title for a window/WebView
 - (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView
 {
+    if (title.length == 0) {
+        title = NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled");
+    }
     _activeBrowserWindowTitle = title;
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
