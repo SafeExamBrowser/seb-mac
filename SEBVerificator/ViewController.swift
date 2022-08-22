@@ -51,19 +51,26 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
             fileLogger = MyGlobals.initializeFileLogger(withDirectory: logDirectory)
             DDLog.add(fileLogger!)
         }
+#if DEBUG
+        if #available(macOS 10.12, *) {
+            // We show log messages only in Console.app and the Xcode console in debug mode
+            DDLog.add(DDOSLogger.sharedInstance)
+        }
+#endif
         DDLogInfo("---------- INITIALIZING SEB Verificator - STARTING SESSION -------------")
-        MyGlobals.logSystemInfo()
+        updateConsole(logEntry: "SEB Verificator initialized", emphasized: true, error: false)
+        updateConsole(logEntries: MyGlobals.logSystemInfo())
         
         // Do any additional setup after loading the view.
         verificationManager = VerificationManager()
         
-        let scanningString = "Scanning for SEB-alike applications"
-        DDLogInfo(scanningString)
+        DDLogInfo("Scanning for SEB-alike applications")
         let foundSEBAlikeStrings = findAllSEBAlikes()
         sebConfigFiles = findSEBConfigFiles()
         configsArrayController.content = sebConfigFiles
         
-        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(scanningString, comment: ""), emphasized: true, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Scanning for SEB-alike applications", comment: ""), emphasized: true, error: false))
         for sebAlikeString in foundSEBAlikeStrings {
             updateConsole(logEntry: sebAlikeString)
         }
@@ -384,11 +391,25 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     }
     
     func updateConsole(logEntry: NSAttributedString) {
-        consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
         consoleTextView.textContainer?.textView?.textStorage?.append(logEntry)
+        consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
         consoleTextView.scrollToBottom()
     }
 
+    func updateConsole(logEntry: String, emphasized: Bool, error: Bool) {
+        consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: logEntry, emphasized: emphasized, error: error))
+        consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
+        consoleTextView.scrollToBottom()
+    }
+    
+    func updateConsole(logEntries: [String]) {
+        for logEntry in logEntries {
+            consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: logEntry, emphasized: false, error: false))
+            consoleTextView.textContainer?.textView?.textStorage?.append(attributedStringFor(logEntry: "\n", emphasized: false, error: false))
+            consoleTextView.scrollToBottom()
+        }
+    }
+    
     // ProcessListViewControllerDelegate methods
     
     var quittingSession = false
