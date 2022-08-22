@@ -120,8 +120,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
-+ (void) logSystemInfo
++ (NSArray<NSString *> *) logSystemInfo
 {
+    NSMutableArray *logOutput = [NSMutableArray new];
     NSString *localHostname = MyGlobals.localHostname;
     NSString *computerName = MyGlobals.computerName;
     NSString *userName = MyGlobals.userName;
@@ -131,15 +132,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     NSString *buildNumber = MyGlobals.buildNumber;
     NSString *bundleID = MyGlobals.bundleID;
     NSString *bundleExecutable = MyGlobals.bundleExecutable;
+    
     DDLogInfo(@"%@ version %@ (Build %@)", displayName, versionString, buildNumber);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"%@ version %@ (Build %@)", @"App full/build version"), displayName, versionString, buildNumber]];
+    
     DDLogInfo(@"Bundle ID: %@, executable: %@", bundleID, bundleExecutable);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"Bundle ID: %@, executable: %@", @""), bundleID, bundleExecutable]];
+
     DDLogInfo(@"OS version %@", MyGlobals.osName);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"OS version %@", @""), MyGlobals.osName]];
+
     if (localHostname.length > 0) {
         DDLogInfo(@"Local hostname: %@", localHostname);
+        [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"Local hostname: %@", @""), localHostname]];
     }
     DDLogInfo(@"Device name: %@", computerName);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"Device name: %@", @""), computerName]];
+
     DDLogInfo(@"User name: %@", userName);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"User name: %@", @""), userName]];
+
     DDLogInfo(@"Full user name: %@", fullUserName);
+    [logOutput addObject:[NSString stringWithFormat:NSLocalizedString(@"Full user name: %@", @""), fullUserName]];
+
+    return logOutput.copy;
 }
 
 

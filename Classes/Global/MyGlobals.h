@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)bundleID;
 + (NSString *)bundleExecutable;
 
-+ (void) logSystemInfo;
++ (NSArray<NSString *> *) logSystemInfo;
 
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
