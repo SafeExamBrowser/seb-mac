@@ -185,14 +185,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     }
 
     @IBAction func rescanForSEBAlikes(_ sender: Any) {
-        let rescanningString = "Rescanning for SEB-alike applications"
-        DDLogInfo(rescanningString)
+        DDLogInfo("Rescanning for SEB-alike applications")
         let foundSEBAlikeStrings = findAllSEBAlikes()
         applicationsTableView.scrollRowToVisible(0)
         configsTableView.scrollRowToVisible(0)
 
         updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
-        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString(rescanningString, comment: ""), emphasized: true, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Rescanning for SEB-alike applications", comment: ""), emphasized: true, error: false))
         for sebAlikeString in foundSEBAlikeStrings {
             updateConsole(logEntry: sebAlikeString)
         }
@@ -202,6 +201,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         NSRunningApplication.terminateAutomaticallyTerminableApplications()
         let runningApplications = NSWorkspace.shared.runningApplications
         DDLogInfo("All running applications: \(runningApplications.map({ ($0.bundleIdentifier ?? "no BundleID") + " " + ($0.executableURL?.absoluteString ?? "no executable URL") }))")
+        
         var notTerminatedApplications: [NSRunningApplication]?
 #if DEBUG
         let debug = true
@@ -258,6 +258,9 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
             return
         }
         DDLogInfo("The following running applications must be \(forceQuit ? "terminated" : "quit") before starting SEB: \(apps.map({ $0.bundleIdentifier ?? "no BundleID" }))\nOpening process list window")
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("The following running applications must be " + (forceQuit ? NSLocalizedString("terminated", comment: "") : NSLocalizedString("quit", comment: "")), comment: ""), emphasized: true, error: false))
+        updateConsole(logEntries: apps.map({ $0.bundleIdentifier ?? NSLocalizedString("no BundleID", comment: "") }))
+        updateConsole(logEntry: attributedStringFor(logEntry: "Opening process list window", emphasized: true, error: false))
         processListController.runningApplications = NSMutableArray(array: apps)
         processListController.callback = self
         processListController.selector = selector
@@ -294,6 +297,8 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     
     @IBAction func startSEBTerminatingApps(_ sender: Any) {
         DDLogInfo("Quit Apps & Start SEB")
+        updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Quit Apps & Start SEB", comment: ""), emphasized: true, error: false))
         terminateDockAppsWithCallback(selector: #selector(startSEBTerminatingAlikes))
     }
     
@@ -303,6 +308,8 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     
     @IBAction func startSEB(_ sender: Any) {
         DDLogInfo("Start SEB")
+        updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Start SEB", comment: ""), emphasized: true, error: false))
         terminateSEBAlikesWithCallback(selector: #selector(startSEBApp))
     }
     
@@ -348,6 +355,8 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         }
         let configFileArguments = argumentURL != nil ? [argumentURL!.absoluteString] : []
         DDLogInfo("Opening SEB app \(selectedSEBApp.path)\(argumentURL == nil ? "" : " with argument " + argumentURL!.absoluteString)")
+        updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
+        updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Opening SEB app", comment: "") + selectedSEBApp.path + (argumentURL == nil ? "" : NSLocalizedString(" with argument ", comment: "") + (argumentURL!.absoluteString)), emphasized: true, error: false))
         if #available(macOS 10.15, *) {
             let configuration = NSWorkspace.OpenConfiguration()
             configuration.arguments = configFileArguments
@@ -356,9 +365,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
                                                completionHandler: { (app, error) in
                                                 if app == nil {
                                                     DDLogError("Starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                                                    self.updateConsole(logEntry: self.attributedStringFor(logEntry: "", emphasized: false, error: false))
+                                                    self.updateConsole(logEntry: self.attributedStringFor(logEntry: NSLocalizedString("Starting SEB failed with error: ", comment: "") + String(describing: error), emphasized: true, error: true))
                                                 } else {
                                                     DispatchQueue.main.async {
                                                         DDLogInfo("Terminating SEB Verficator after starting SEB")
+                                                        self.updateConsole(logEntry: self.attributedStringFor(logEntry: "", emphasized: false, error: false))
+                                                        self.updateConsole(logEntry: self.attributedStringFor(logEntry: NSLocalizedString("Terminating SEB Verficator after starting SEB", comment: ""), emphasized: true, error: false))
                                                         NSApp.terminate(self)
                                                     }
                                                 }
@@ -369,9 +382,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
             } catch {
                 // Cannot open application
                 DDLogError("Starting \(selectedSEBApp) failed with error: \(String(describing: error))")
+                self.updateConsole(logEntry: self.attributedStringFor(logEntry: "", emphasized: false, error: false))
+                self.updateConsole(logEntry: self.attributedStringFor(logEntry: NSLocalizedString("Starting SEB failed with error: ", comment: "") + String(describing: error), emphasized: true, error: true))
                 return
             }
             DDLogInfo("Terminating SEB Verficator after starting SEB")
+            self.updateConsole(logEntry: self.attributedStringFor(logEntry: "", emphasized: false, error: false))
+            self.updateConsole(logEntry: self.attributedStringFor(logEntry: NSLocalizedString("Terminating SEB Verficator after starting SEB", comment: ""), emphasized: true, error: false))
             NSApp.terminate(self)
         }
     }
