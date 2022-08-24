@@ -4528,9 +4528,9 @@
         <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN";</note>
       </trans-unit>
       <trans-unit id="jnc-il-FuZ.ibShadowedToolTip" xml:space="preserve">
-        <source>Click to copy the registred domain part of the current URL into the custom filter expression text field</source>
+        <source>Click to copy the registered domain part of the current URL into the custom filter expression text field</source>
         <target>Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the registered domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ";</note>
       </trans-unit>
       <trans-unit id="kPG-Y4-EWv.ibShadowedToolTip" xml:space="preserve">
         <source>Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</source>
