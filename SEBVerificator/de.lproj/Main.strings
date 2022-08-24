@@ -1,159 +1,159 @@
-
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "0F9-PI-gFi"; */
-"0F9-PI-gFi.title" = "Text Cell";
+"0F9-PI-gFi.title" = "Textzelle";
 
 /* Class = "NSTableHeaderView"; ibShadowedToolTip = "Icon for bundled applications, BSD processes don't have icons"; ObjectID = "0K2-hZ-wDD"; */
-"0K2-hZ-wDD.ibShadowedToolTip" = "Icon for bundled applications, BSD processes don't have icons";
+"0K2-hZ-wDD.ibShadowedToolTip" = "Icon für Applikations-Bundles, BSD-Prozesse haben keine Icons";
 
 /* Class = "NSMenuItem"; title = "SEBVerificator"; ObjectID = "1Xt-HY-uBw"; */
 "1Xt-HY-uBw.title" = "SEBVerificator";
 
 /* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
-"3rS-ZA-NoH.title" = "Speech";
+"3rS-ZA-NoH.title" = "Sprachausgabe";
 
 /* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
-"4J7-dP-txa.title" = "Enter Full Screen";
+"4J7-dP-txa.title" = "Vollbildmodus";
 
 /* Class = "NSMenuItem"; title = "Quit SEBVerificator"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "Quit SEBVerificator";
-
-/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
-"5QF-Oa-p0T.title" = "Edit";
+"4sb-4s-VLi.title" = "SEBVerificator beenden";
 
 /* Class = "NSMenuItem"; title = "About SEBVerificator"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "About SEBVerificator";
+"5kV-Vb-QxS.title" = "Über SEBVerificator";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Bearbeiten";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
-"6dh-zS-Vam.title" = "Redo";
+"6dh-zS-Vam.title" = "Wiederholen";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "AYZ-dP-qAj"; */
-"AYZ-dP-qAj.title" = "Text Cell";
-
-/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
-"AYu-sK-qS6.title" = "Main Menu";
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Fenster";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Axh-wP-wXM"; */
-"Axh-wP-wXM.title" = "Text Cell";
+"Axh-wP-wXM.title" = "Text-Zelle";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Hauptmenü";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "AYZ-dP-qAj"; */
+"AYZ-dP-qAj.title" = "Text-Zelle";
 
 /* Class = "NSTableColumn"; headerCell.title = "Default for"; ObjectID = "BI7-wo-SEq"; */
-"BI7-wo-SEq.headerCell.title" = "Default for";
+"BI7-wo-SEq.headerCell.title" = "Standard für";
 
 /* Class = "NSTableColumn"; headerCell.title = "Path"; ObjectID = "BpK-NM-gKl"; */
-"BpK-NM-gKl.headerCell.title" = "Path";
+"BpK-NM-gKl.headerCell.title" = "Pfad";
 
 /* Class = "NSButtonCell"; title = "Rescan"; ObjectID = "ByG-5p-onf"; */
-"ByG-5p-onf.title" = "Rescan";
+"ByG-5p-onf.title" = "Neu scannen";
+
+/* Class = "NSTextFieldCell"; title = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button."; ObjectID = "bzt-lT-Pcg"; */
+"bzt-lT-Pcg.title" = "SEB Verificator hat die unten stehenden Applikationen gefunden, die zum Öffnen von .seb Dateien oder seb(s):// Links registriert sind. Stellen Sie sicher, dass nur die offizielle Safe Exam Browser Version mit korrekter Code-Signatur, die sich im Ordner /Programme befindet, für Ihre Prüfungen verwendet wird! Wir empfehlen, alle anderen SEB-Versionen zu löschen (oder zu archivieren). Wenn Sie die SEB-Konfigurationsdatei(en) im selben Ordner wie SEB Verificator ablegen, werden sie unten in alphabetischer Reihenfolge aufgeführt. Die selektierte Konfiguration wird verwendet, wenn Sie die ausgewählte SEB-Version über die Schaltfläche \"SEB starten\" ausführen.";
 
 /* Class = "NSTableColumn"; headerCell.title = "Version"; ObjectID = "C8d-xW-5GM"; */
 "C8d-xW-5GM.headerCell.title" = "Version";
 
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Eingabe widerrufen";
+
 /* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
-"F2S-fz-NVQ.title" = "Help";
+"F2S-fz-NVQ.title" = "Hilfe";
 
 /* Class = "NSMenuItem"; title = "SEBVerificator Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "SEBVerificator Help";
+"FKE-Sm-Kum.title" = "SEBVerificator Hilfe";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "fMW-ki-eNP"; */
+"fMW-ki-eNP.title" = "Text-Zelle";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Einsetzen";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
-"H8h-7b-M4v.title" = "View";
+"H8h-7b-M4v.title" = "Darstellung";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
-"HyV-fh-RgO.title" = "View";
+"HyV-fh-RgO.title" = "Darstellung";
 
 /* Class = "NSWindow"; title = "SEB Verificator"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "SEB Verificator";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
-"Kd2-mp-pUS.title" = "Show All";
+"Kd2-mp-pUS.title" = "Alle einblenden";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
-"LE2-aR-0XJ.title" = "Bring All to Front";
-
-/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
-"OY7-WF-poV.title" = "Minimize";
-
-/* Class = "NSMenuItem"; title = "Hide SEBVerificator"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = "Hide SEBVerificator";
-
-/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
-"Oyz-dy-DGm.title" = "Stop Speaking";
-
-/* Class = "NSTableColumn"; headerCell.title = "Bundle ID"; ObjectID = "Q16-ME-a9s"; */
-"Q16-ME-a9s.headerCell.title" = "Bundle ID";
-
-/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
-"R4o-n2-Eq4.title" = "Zoom";
-
-/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
-"Ruw-6m-B2m.title" = "Select All";
-
-/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
-"Td7-aD-5lo.title" = "Window";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Tdk-Pw-m81"; */
-"Tdk-Pw-m81.title" = "Text Cell";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "UNe-y8-uGc"; */
-"UNe-y8-uGc.title" = "Text Cell";
-
-/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
-"Vdr-fp-XzO.title" = "Hide Others";
-
-/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
-"W48-6f-4Dl.title" = "Edit";
-
-/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
-"Ynk-f8-cLZ.title" = "Start Speaking";
-
-/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
-"aUF-d1-5bR.title" = "Window";
-
-/* Class = "NSTextFieldCell"; title = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button."; ObjectID = "bzt-lT-Pcg"; */
-"bzt-lT-Pcg.title" = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button.";
-
-/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
-"dRJ-4n-Yzg.title" = "Undo";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "fMW-ki-eNP"; */
-"fMW-ki-eNP.title" = "Text Cell";
-
-/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
-"gVA-U4-sdL.title" = "Paste";
+"LE2-aR-0XJ.title" = "Alle nach vorne bringen";
 
 /* Class = "NSTableColumn"; headerCell.title = "App Name"; ObjectID = "nko-9m-cj1"; */
-"nko-9m-cj1.headerCell.title" = "App Name";
+"nko-9m-cj1.headerCell.title" = "Appname";
 
 /* Class = "NSTableColumn"; headerCell.title = "SEB Configuration Files"; ObjectID = "nte-6R-9eH"; */
-"nte-6R-9eH.headerCell.title" = "SEB Configuration Files";
+"nte-6R-9eH.headerCell.title" = "SEB-Konfigurationsdateien";
 
 /* Class = "NSTableColumn"; headerCell.title = "Signature"; ObjectID = "oaQ-Zj-hTe"; */
-"oaQ-Zj-hTe.headerCell.title" = "Signature";
+"oaQ-Zj-hTe.headerCell.title" = "Signatur";
+
+/* Class = "NSMenuItem"; title = "Hide SEBVerificator"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "SEBVerificator ausblenden";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Im Dock ablegen";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
+"Oyz-dy-DGm.title" = "Sprachausgabe stoppen";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
-"pa3-QI-u2k.title" = "Delete";
+"pa3-QI-u2k.title" = "Löschen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Bundle ID"; ObjectID = "Q16-ME-a9s"; */
+"Q16-ME-a9s.headerCell.title" = "Bundle-ID";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zoomen";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "Alles auswählen";
 
 /* Class = "NSButtonCell"; title = "Quit Apps & Start SEB"; ObjectID = "rvM-qA-gOk"; */
-"rvM-qA-gOk.title" = "Quit Apps & Start SEB";
+"rvM-qA-gOk.title" = "Apps beenden & SEB starten";
 
 /* Class = "NSButtonCell"; title = "Start SEB"; ObjectID = "sbr-9f-jAT"; */
-"sbr-9f-jAT.title" = "Start SEB";
+"sbr-9f-jAT.title" = "SEB starten";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ser-R6-Pdf"; */
-"ser-R6-Pdf.title" = "Text Cell";
+"ser-R6-Pdf.title" = "Text-Zelle";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Fenster";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Tdk-Pw-m81"; */
+"Tdk-Pw-m81.title" = "Text-Zelle";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "UNe-y8-uGc"; */
+"UNe-y8-uGc.title" = "Text-Zelle";
 
 /* Class = "NSMenu"; title = "SEBVerificator"; ObjectID = "uQy-DD-JDr"; */
 "uQy-DD-JDr.title" = "SEBVerificator";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
-"uRl-iY-unG.title" = "Cut";
+"uRl-iY-unG.title" = "Ausschneiden";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "Andere ausblenden";
 
 /* Class = "NSTableHeaderView"; ibShadowedToolTip = "Icon for bundled applications, BSD processes don't have icons"; ObjectID = "vV8-JJ-2fX"; */
-"vV8-JJ-2fX.ibShadowedToolTip" = "Icon for bundled applications, BSD processes don't have icons";
+"vV8-JJ-2fX.ibShadowedToolTip" = "Icon für Applikations-Bundles, BSD-Prozesse haben keine Icons";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Bearbeiten";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
-"wpr-3q-Mcd.title" = "Help";
+"wpr-3q-Mcd.title" = "Hilfe";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
-"x3v-GG-iWU.title" = "Copy";
+"x3v-GG-iWU.title" = "Kopieren";
 
 /* Class = "NSMenuItem"; title = "Speech"; ObjectID = "xrE-MZ-jX0"; */
-"xrE-MZ-jX0.title" = "Speech";
+"xrE-MZ-jX0.title" = "Sprachausgabe";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
+"Ynk-f8-cLZ.title" = "Sprachausgabe starten";
+

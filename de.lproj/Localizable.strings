@@ -31,6 +31,9 @@
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
 
+/* App full/build version */
+"%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
+
 /* No comment provided by engineer. */
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
@@ -134,6 +137,9 @@
 "Authentication Required" = "Authentifizierung erforderlich";
 
 /* No comment provided by engineer. */
+"Authorize Screen Recording" = "Bildschirmaufnahme erlauben";
+
+/* No comment provided by engineer. */
 "Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
 
 /* No comment provided by engineer. */
@@ -168,6 +174,9 @@
 
 /* No comment provided by engineer. */
 "Browser Window" = "Browserfenster";
+
+/* No comment provided by engineer. */
+"Bundle ID: %@, executable: %@" = "Bundle-ID: %1$@, Applikations-Executable: %2$@";
 
 /* No comment provided by engineer. */
 "by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
@@ -305,6 +314,9 @@
 "Detecting the processes listed above was disabled!" = "Detektieren der oben aufgelisteten Prozesse wurde ausgeschaltet!";
 
 /* No comment provided by engineer. */
+"Device name: %@" = "Gerätename: %@";
+
+/* No comment provided by engineer. */
 "Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
@@ -419,6 +431,12 @@
 "FirstTimeUserNotice" = "Bitte benutzen Sie die Fenster-Schliessen-Taste oder cmd-Q (Befehlstaste-Q) um SEB zu beenden und (fn-)F3-F6 um die Einstellungen zu öffnen.\n\nDieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-URL eingeben. Sie sollten dort ausserdem ein Beenden/Entsperren-Passwort und ein Administrator-Passwort festlegen, um das Beenden von SEB und den Zugang zu den Einstellungen einzuschränken.";
 
 /* No comment provided by engineer. */
+"For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security & Privacy (after quitting %@). Then restart %@ and your exam." = "Für diese Prüfungssession wird Bildschirmaufzeichnung verlangt. Sie können diese Prüfung nicht starten, bevor Bildschirmaufnahme für %1$@ in den Systemeinstellungen unter 'Sicherheit & Datenschutz'  erlaubt wurde (nach Beenden von %2$@). Dann starten Sie %3$@ und die Prüfung erneut.";
+
+/* No comment provided by engineer. */
+"For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security & Privacy and restart %@ and your exam afterwards." = "Für diese Session wird Bildschirmaufzeichnung verlangt. Sie müssen Bildschirmaufnahme für %1$@ in den Systemeinstellungen unter 'Sicherheit & Datenschutz'  erlauben und dannach %2$@ und die Prüfung erneut starten.";
+
+/* No comment provided by engineer. */
 "Force Classic" = "Klassische erzwingen";
 
 /* No comment provided by engineer. */
@@ -429,6 +447,9 @@
 
 /* No comment provided by engineer. */
 "FTP Proxy" = "FTP-Proxy";
+
+/* No comment provided by engineer. */
+"Full user name: %@" = "Vollständiger Benutzername: %@";
 
 /* Title of 'General' preference pane */
 "General" = "Allgemein";
@@ -524,6 +545,9 @@
 "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." = "Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von SEB verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.";
 
 /* No comment provided by engineer. */
+"Local hostname: %@" = "Lokaler Host-Name: %@";
+
+/* No comment provided by engineer. */
 "Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
@@ -602,7 +626,7 @@
 "None - White" = "Keine - weisser Hintergrund";
 
 /* No comment provided by engineer. */
-"Not Connected to WiFi" = "Nicht mit WLAN verbunden";
+"Not Connected to Wi-Fi or VPN" = "Nicht mit WLAN oder VPN verbunden";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -641,6 +665,9 @@
 "Opening Universal Link Failed" = "Öffnen eines Universal Links ist fehlgeschlagen!";
 
 /* No comment provided by engineer. */
+"OS version %@" = "Betriebssystemversion: %@";
+
+/* No comment provided by engineer. */
 "OS X" = "OS X";
 
 /* No comment provided by engineer. */
@@ -657,6 +684,9 @@
 
 /* No comment provided by engineer. */
 "Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
+
+/* No comment provided by engineer. */
+"Permissions Required for Screen Capture" = "Zugriffsrechte erforderlich für Bildschirmaufzeichnung ";
 
 /* No comment provided by engineer. */
 "Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";
@@ -701,7 +731,7 @@
 "Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
-"quit" = "Beenden";
+"quit" = "beenden";
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
@@ -815,7 +845,7 @@
 "Searching for a valid %@ config file was canceled." = "Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.";
 
 /* No comment provided by engineer. */
-"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
+"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN- oder VPN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
 
 /* No comment provided by engineer. */
 "SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." = "SEB kann nicht gestartet werden, wenn das Fenster 'Programme sofort beenden' oder ein anderer System-Dialog im Vordergrund geöffnet ist. Dieses Fenster schliessen oder SEB beenden. Falls die Fehlermeldung weiterhin angezeigt wird, starten Sie Ihren Mac neu.";
@@ -932,6 +962,9 @@
 "Start" = "Start";
 
 /* No comment provided by engineer. */
+"Start SEB" = "SEB starten";
+
+/* No comment provided by engineer. */
 "Starting Exam" = "Prüfung starten";
 
 /* No comment provided by engineer. */
@@ -939,6 +972,9 @@
 
 /* No comment provided by engineer. */
 "Switched back after user switch / login window" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
+
+/* No comment provided by engineer. */
+"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." = "Die folgenden gestarteten Applikationen müssen vor dem Starten von SEB beendet werden. Sie können die Applikationen manuell beenden und zu SEB Verificator zurückkehren, um SEB zu starten.";
 
 /* No comment provided by engineer. */
 "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.";
@@ -1034,6 +1070,9 @@
 "User Interface" = "Benutzeroberfläche";
 
 /* No comment provided by engineer. */
+"User name: %@" = "Benutzername: %@";
+
+/* No comment provided by engineer. */
 "User switch / switch to login window detected" = "Benutzerwechsel / Anmeldefenster detektiert";
 
 /* Lockdown alert title text for switching the user */
@@ -1074,6 +1113,9 @@
 
 /* No comment provided by engineer. */
 "Wrong Admin Password" = "Falsches Administrator-Passwort";
+
+/* No comment provided by engineer. */
+"Wrong Institution URL" = "Falsche Institutions-URL";
 
 /* No comment provided by engineer. */
 "Wrong password entered!" = "Falsches Passwort eingegeben!";
@@ -1131,6 +1173,9 @@
 
 /* No comment provided by engineer. */
 "You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+
+/* No comment provided by engineer. */
+"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." = "Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer.";
 
 /* No comment provided by engineer. */
 "You didn't enter the correct current %@ administrator password." = "Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.";
