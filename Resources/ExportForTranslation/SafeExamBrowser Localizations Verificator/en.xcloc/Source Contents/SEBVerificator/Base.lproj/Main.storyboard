@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -214,7 +213,7 @@
                                         </constraints>
                                         <textFieldCell key="cell" selectable="YES" id="bzt-lT-Pcg">
                                             <font key="font" metaFont="system"/>
-                                            <string key="title">SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</string>
+                                            <string key="title">SEB Verificator found the applications below which are registered to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</string>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -223,7 +222,7 @@
                                         <rect key="frame" x="0.0" y="340" width="1338" height="200"/>
                                         <clipView key="contentView" id="k7O-lq-i7m">
                                             <rect key="frame" x="1" y="1" width="1336" height="198"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="vV8-JJ-2fX" id="ZMx-gA-u2W">
                                                     <rect key="frame" x="0.0" y="0.0" width="1336" height="170"/>
@@ -418,7 +417,7 @@
                                         <rect key="frame" x="0.0" y="120" width="1338" height="200"/>
                                         <clipView key="contentView" id="xZw-cH-zmv">
                                             <rect key="frame" x="1" y="1" width="1336" height="198"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="0K2-hZ-wDD" id="IEh-cS-UDg">
                                                     <rect key="frame" x="0.0" y="0.0" width="1336" height="170"/>
@@ -471,7 +470,7 @@
                                         <rect key="frame" x="0.0" y="40" width="1338" height="60"/>
                                         <clipView key="contentView" drawsBackground="NO" id="4jv-PP-ZfR">
                                             <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="NEW-mA-dfB">
                                                     <rect key="frame" x="0.0" y="0.0" width="1323" height="60"/>
