@@ -58,7 +58,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         }
 #endif
         DDLogInfo("---------- INITIALIZING SEB Verificator - STARTING SESSION -------------")
-        updateConsole(logEntry: "SEB Verificator initialized", emphasized: true, error: false)
+        updateConsole(logEntry: NSLocalizedString("SEB Verificator initialized", comment: ""), emphasized: true, error: false)
         updateConsole(logEntries: MyGlobals.logSystemInfo())
         
         // Do any additional setup after loading the view.

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
@@ -4641,7 +4640,7 @@
       </trans-unit>
       <trans-unit id="jMN-hX-gi7.title" xml:space="preserve">
         <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam. You can also force quit these processes, but this may lead to loss of data.</source>
-        <target>Die folgenden gestarteten Applikationen/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können die Applikationen manuell beenden oder Hilfsprozesse deaktivieren/deinstallieren und zu SEB zurückkehren, um zur Prüfung zu gelangen. Sie können die Prozesse auch zwangsweise sofort beenden, aber dies kann zu Datenverlust führen.</target>
+        <target>Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.</target>
         <note>Class = "NSTextFieldCell"; title = "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam. You can also force quit these processes, but this may lead to loss of data."; ObjectID = "jMN-hX-gi7";</note>
       </trans-unit>
       <trans-unit id="vrs-II-djV.title" xml:space="preserve">

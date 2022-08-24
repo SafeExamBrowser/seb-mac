@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4" build-num="13F17a"/>
@@ -763,7 +764,7 @@
       </trans-unit>
       <trans-unit id="Soq-V2-Zan.ibShadowedToolTip" xml:space="preserve">
         <source>Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</source>
-        <target>Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mittels QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft</target>
+        <target>Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mit QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "Soq-V2-Zan";</note>
       </trans-unit>
       <trans-unit id="TNk-06-tQi.title" xml:space="preserve">
@@ -1506,9 +1507,9 @@
         <note>Class = "NSButtonCell"; title = "Tab focuses links"; ObjectID = "2BE-Ri-RWP";</note>
       </trans-unit>
       <trans-unit id="2dw-Ko-tLl.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS >=11 / iOS >= 14</source>
-        <target>Erlaubt die Textsuche auf Webseiten. Benutzen Sie das Suche-Symbol in der Browserfenster-Symbolleiste oder cmd-F. Diese Funktion ist nicht im Vollbildanzeige-Fenster verfügbar. Suche in PDF-Dateien funktioniert nur im modernen WebView und macOS >=11</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS >=11 / iOS >= 14"; ObjectID = "2dw-Ko-tLl";</note>
+        <source>Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS &gt;=11 / iOS &gt;= 14</source>
+        <target>Erlaubt die Textsuche auf Webseiten. Benutzen Sie das Suche-Symbol in der Browserfenster-Symbolleiste oder cmd-F. Diese Funktion ist nicht im Vollbildanzeige-Fenster verfügbar. Suche in PDF-Dateien funktioniert nur im modernen WebView und macOS &gt;=11</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS &gt;=11 / iOS &gt;= 14"; ObjectID = "2dw-Ko-tLl";</note>
       </trans-unit>
       <trans-unit id="6r7-Lm-bnI.title" xml:space="preserve">
         <source>Allow reload</source>
@@ -1751,9 +1752,9 @@
         <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
-        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
+        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk &gt; URL Filter &gt; Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
       </trans-unit>
       <trans-unit id="Afc-A3-r3P.title" xml:space="preserve">
         <source>Media autoplay</source>
@@ -2109,7 +2110,7 @@
       </trans-unit>
       <trans-unit id="53p-kc-87m.title" xml:space="preserve">
         <source>Allow QR code config (iOS)</source>
-        <target>Konfiguration mittels QR-Code erlauben (iOS)</target>
+        <target>Konfiguration mit QR-Code erlauben (iOS)</target>
         <note>Class = "NSButtonCell"; title = "Allow QR code config (iOS)"; ObjectID = "53p-kc-87m";</note>
       </trans-unit>
       <trans-unit id="69.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -2502,9 +2503,9 @@
         <note>Class = "NSTextFieldCell"; title = "Copy this key (which depends on your SEB configuration and the code signature of the SEB app) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in."; ObjectID = "33";</note>
       </trans-unit>
       <trans-unit id="57Q-JV-oaf.title" xml:space="preserve">
-        <source>Browser & Config Keys</source>
-        <target>Browser & Config Keys</target>
-        <note>Class = "NSBox"; title = "Browser & Config Keys"; ObjectID = "57Q-JV-oaf";</note>
+        <source>Browser &amp; Config Keys</source>
+        <target>Browser &amp; Config Keys</target>
+        <note>Class = "NSBox"; title = "Browser &amp; Config Keys"; ObjectID = "57Q-JV-oaf";</note>
       </trans-unit>
       <trans-unit id="443.title" xml:space="preserve">
         <source>Place this Quit Link to the 'feedback' page displayed after an exam was successfully finished. Clicking that link will quit or restart SEB without having to enter the quit password.</source>
@@ -2622,9 +2623,9 @@
         <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
       </trans-unit>
       <trans-unit id="gk0-kD-QIq.title" xml:space="preserve">
-        <source>Use Browser & Config Keys (send in HTTP header)</source>
-        <target>Browser & Config Key benutzen (im HTTP-Header senden)</target>
-        <note>Class = "NSButtonCell"; title = "Use Browser & Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
+        <source>Use Browser &amp; Config Keys (send in HTTP header)</source>
+        <target>Browser &amp; Config Key benutzen (im HTTP-Header senden)</target>
+        <note>Class = "NSButtonCell"; title = "Use Browser &amp; Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
       </trans-unit>
       <trans-unit id="iVS-rH-hVZ.title" xml:space="preserve">
         <source>Browser Exam Key</source>
@@ -3041,9 +3042,9 @@
         <note>Class = "NSButtonCell"; title = "Exclude simple hostnames"; ObjectID = "1059";</note>
       </trans-unit>
       <trans-unit id="1064.title" xml:space="preserve">
-        <source>Bypass proxy settings for these hosts & domains:</source>
+        <source>Bypass proxy settings for these hosts &amp; domains:</source>
         <target>Proxy-Einstellungen für diese Hosts und Domains nicht verwenden:</target>
-        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts & domains:"; ObjectID = "1064";</note>
+        <note>Class = "NSTextFieldCell"; title = "Bypass proxy settings for these hosts &amp; domains:"; ObjectID = "1064";</note>
       </trans-unit>
       <trans-unit id="1076.ibShadowedToolTip" xml:space="preserve">
         <source>Separate hosts/domains with commas</source>
@@ -3785,9 +3786,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB enforces to be installed in the Applications folder (/Applications)"; ObjectID = "Gly-dr-m3X";</note>
       </trans-unit>
       <trans-unit id="HN5-u7-3UG.ibShadowedToolTip" xml:space="preserve">
-        <source>On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up</source>
-        <target>Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG";</note>
+        <source>On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up</source>
+        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "On devices with iOS &lt;= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG";</note>
       </trans-unit>
       <trans-unit id="IWf-Eq-wzJ.title" xml:space="preserve">
         <source>Enable Alt-Mousewheel</source>
@@ -5334,7 +5335,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassische erzwingen</target>
+        <target>Klassisches erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
@@ -5699,12 +5700,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Moderne bevorzugen</target>
+        <target>Modern bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Moderne in neuen Fenstern+anderem Server</target>
+        <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Previously interrupted exam was re-opened!" xml:space="preserve">
@@ -5922,9 +5923,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
-      <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences." xml:space="preserve">
-        <source>SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.</source>
-        <target>SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung "Sicherheit & Datenschutz" / Bedienungshilfen.</target>
+      <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
+        <source>SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences.</source>
+        <target>SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung "Sicherheit &amp; Datenschutz" / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." xml:space="preserve">
@@ -6997,7 +6998,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Face Movement Up &amp; Down (Pitch)" xml:space="preserve">
         <source>Face Movement Up &amp; Down (Pitch)</source>
-        <target>Gesichtsbewegung nach oben und unten</target>
+        <target>Gesichtsbewegung oben und unten</target>
         <note/>
       </trans-unit>
       <trans-unit id="Feedback for Candidate" xml:space="preserve">
@@ -7071,7 +7072,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Allow QR Code Config" xml:space="preserve">
         <source>Allow QR Code Config</source>
-        <target>Konfiguration mittels QR-Code erlauben</target>
+        <target>Konfiguration mit QR-Code erlauben</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
@@ -7246,9 +7247,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Taste Scrollsperre anzeigen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface > Enable Scroll Lock, Exam > Back to Start Button > Use Start URL or Custom URL, Browser > Allow Navigation &amp; Allow Reload, Remote Proctoring > Enable Jitsi Meet, Config File > Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." xml:space="preserve">
-        <source>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface > Enable Scroll Lock, Exam > Back to Start Button > Use Start URL or Custom URL, Browser > Allow Navigation &amp; Allow Reload, Remote Proctoring > Enable Jitsi Meet, Config File > Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</source>
-        <target>Die oben aktivierten Befehle werden im SEB-Dock angezeigt, wenn ihre Funktionalität ebenfalls aktiviert ist (Benutzeroberfläche / Scrollsperre aktivieren, Prüfung / Zurück zum Start Taste / Start-URL oder benutzerdefinierte URL verwenden, Browser-Funktionen / Navigation zulassen & Neuladen zulassen, Remote Proctoring / Jitsi Meet aktivieren, Config File / QR-Code-Konfiguration zulassen). Wenn die oben genannten Befehle nicht aktiviert sind, werden sie in der (aktivierten) Browser-Symbolleiste oder im Seitenmenü angezeigt.</target>
+      <trans-unit id="The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu." xml:space="preserve">
+        <source>The command items enabled above will be displayed in the SEB Dock when their functionality is also enabled (User Interface &gt; Enable Scroll Lock, Exam &gt; Back to Start Button &gt; Use Start URL or Custom URL, Browser &gt; Allow Navigation &amp; Allow Reload, Remote Proctoring &gt; Enable Jitsi Meet, Config File &gt; Allow QR Code Config). If not enabled above, those commands will be displayed in the (enabled) browser toolbar or in the slider menu.</source>
+        <target>Die oben aktivierten Befehle werden im SEB-Dock angezeigt, wenn ihre Funktionalität ebenfalls aktiviert ist (Benutzeroberfläche &gt; Scrollsperre aktivieren, Prüfung &gt; Zurück zum Start Taste &gt; Start-URL oder benutzerdefinierte URL verwenden, Browser-Funktionen &gt; Navigation zulassen &amp; Neuladen zulassen, Remote Proctoring &gt; Jitsi Meet aktivieren, Config File &gt; QR-Code-Konfiguration zulassen). Wenn die oben genannten Befehle nicht aktiviert sind, werden sie in der (aktivierten) Browser-Symbolleiste oder im Seitenmenü angezeigt.</target>
         <note/>
       </trans-unit>
     </body>
@@ -8133,9 +8134,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Keine</target>
         <note/>
       </trans-unit>
-      <trans-unit id="On devices with iOS <= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." xml:space="preserve">
-        <source>On devices with iOS <= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</source>
-        <target>Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
+      <trans-unit id="On devices with iOS &lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up." xml:space="preserve">
+        <source>On devices with iOS &lt;= 12, sleep mode can be activated while in Assessment Mode by for example closing an iPad case. Use this option to display a lock screen when the device is woken up.</source>
+        <target>Auf Geräten mit iOS &lt;= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Patch Version Number" xml:space="preserve">
@@ -8163,9 +8164,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="iOS >15" xml:space="preserve">
-        <source>iOS >15</source>
-        <target>iOS >15</target>
+      <trans-unit id="iOS 15" xml:space="preserve">
+        <source>iOS 15</source>
+        <target>iOS 15</target>
         <note/>
       </trans-unit>
     </body>
@@ -8453,7 +8454,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassische erzwingen</target>
+        <target>Klassisches erzwingen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Get Generally Blocked" xml:space="preserve">
@@ -8503,12 +8504,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Moderne bevorzugen</target>
+        <target>Modern bevorzugen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Moderne in neuen Tabs+anderem Server</target>
+        <target>Modern in neuen Tabs+anderem Server bevorzugen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Restrictions in Exam Tab" xml:space="preserve">
@@ -8546,9 +8547,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
-        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+      <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
+        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk &gt; URL Filter &gt; Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Modern bevorzugen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
         <note/>
       </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">
@@ -9195,7 +9196,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
         <source>Force Classic</source>
-        <target>Klassische erzwingen</target>
+        <target>Klassisches erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -9505,12 +9506,12 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
         <source>Prefer Modern</source>
-        <target>Moderne bevorzugen</target>
+        <target>Modern bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
-        <target>Moderne in neuen Fenstern+anderem Server</target>
+        <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">

@@ -40,6 +40,9 @@
 /* No comment provided by engineer. */
 "%@ Re-Configured" = "%@ neu konfiguriert";
 
+/* App full/build version */
+"%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
+
 /* No comment provided by engineer. */
 "%@ was downloaded." = "%@ wurde heruntergeladen.";
 
@@ -153,6 +156,9 @@
 
 /* Browser Exam Key */
 "Browser Exam Key" = "Browser Exam Key";
+
+/* No comment provided by engineer. */
+"Bundle ID: %@, executable: %@" = "Bundle-ID: %1$@, Applikations-Executable: %2$@";
 
 /* No comment provided by engineer. */
 "by attempting to upload same file downloaded before" = "versuchen, die zuvor heruntergeladene Datei auszuwählen";
@@ -295,6 +301,9 @@
 /* No comment provided by engineer. */
 "Default Size" = "Standardgrösse";
 
+/* No comment provided by engineer. */
+"Device name: %@" = "Gerätename: %@";
+
 /* Lockdown alert title text for device was in sleep mode */
 "Device Was in Sleep Mode!" = "Gerät war im Ruhezustand!";
 
@@ -410,6 +419,9 @@
 "FTP Proxy" = "FTP-Proxy";
 
 /* No comment provided by engineer. */
+"Full user name: %@" = "Vollständiger Benutzername: %@";
+
+/* No comment provided by engineer. */
 "get generally blocked" = "werden generell blockiert";
 
 /* No comment provided by engineer. */
@@ -483,6 +495,15 @@
 
 /* No comment provided by engineer. */
 "Loading Settings" = "Einstellungen werden geladen";
+
+/* No comment provided by engineer. */
+"Local hostname: %@" = "Lokaler Host-Name: %@";
+
+/* No comment provided by engineer. */
+"Local Network Access" = "Zugriff auf lokales Netzwerk";
+
+/* No comment provided by engineer. */
+"Local network access is needed when using Automatic Client Configuration to search the local network for a %@ client configuration. You can allow access to the local network for %@ in Settings." = "Zugriff auf das lokale Netzwert wird benötigt, wenn die Funktion für automatische %1$@-Client-Konfiguration benutzt wird. Sie können die Berechtigung für 'Lokales Netzwerk' für %2$@ in den Einstellungen/Datenschutz einschalten.";
 
 /* No comment provided by engineer. */
 "Log File %@ iOS" = "Logdatei %@ iOS";
@@ -566,7 +587,7 @@
 "None - White" = "Keine - weisser Hintergrund";
 
 /* No comment provided by engineer. */
-"Not Connected to WiFi" = "Nicht mit WLAN verbunden";
+"Not Connected to Wi-Fi or VPN" = "Nicht mit WLAN oder VPN verbunden";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -600,6 +621,9 @@
 
 /* No comment provided by engineer. */
 "Options to start an exam or configure %@ for your institution" = "Optionen zum Starten einer Prüfung oder zur Konfiguration von %@ für Ihre Institution";
+
+/* No comment provided by engineer. */
+"OS version %@" = "Betriebssystemversion: %@";
 
 /* No comment provided by engineer. */
 "Parsing Settings Failed" = "Einlesen der Konfiguration ist fehlgeschlagen";
@@ -746,7 +770,7 @@
 "Searching for a valid %@ config file was canceled." = "Suche nach einer %@-Konfigurationsdatei wurde abgebrochen.";
 
 /* No comment provided by engineer. */
-"Searching local network for Automatic %@ Client Configuration requires a WiFi connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
+"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN- oder VPN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
 
 /* No comment provided by engineer. */
 "SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
@@ -941,7 +965,10 @@
 "Used third-party frameworks:" = "Benutzte Dritthersteller-Bibliotheken:";
 
 /* No comment provided by engineer. */
-"User Name" = "Username";
+"User Name" = "Benutzername";
+
+/* No comment provided by engineer. */
+"User name: %@" = "Benutzername: %@";
 
 /* No comment provided by engineer. */
 "Verbose" = "Alles";
@@ -977,6 +1004,9 @@
 "Win: User agent for touch/tablet mode" = "Win: User Agent für Touch-/Tablet-Modus";
 
 /* No comment provided by engineer. */
+"Wrong Institution URL" = "Falsche Institutions-URL";
+
+/* No comment provided by engineer. */
 "Wrong password entered!" = "Falsches Passwort eingegeben!";
 
 /* No comment provided by engineer. */
@@ -1008,6 +1038,9 @@
 
 /* No comment provided by engineer. */
 "You can't send log files while in an exam session. Finish the exam first and try it again." = "Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.";
+
+/* No comment provided by engineer. */
+"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." = "Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer.";
 
 /* No comment provided by engineer. */
 "You didn't enter the correct %@ administrator password." = "Das korrekte %@ Administrator-Passwort wurde nicht eingegeben.";
