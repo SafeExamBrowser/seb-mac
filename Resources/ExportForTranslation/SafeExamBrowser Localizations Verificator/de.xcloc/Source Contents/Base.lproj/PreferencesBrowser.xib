@@ -699,7 +699,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bjS-Ok-Dj9">
                                                                     <rect key="frame" x="-2" y="21" width="157" height="18"/>
-                                                                    <string key="toolTip">Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on supported OS versions)</string>
+                                                                    <string key="toolTip">Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</string>
                                                                     <buttonCell key="cell" type="check" title="Allow camera capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="4cR-n5-sEi">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -710,7 +710,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="d4A-pq-G5U">
                                                                     <rect key="frame" x="-2" y="-1" width="184" height="18"/>
-                                                                    <string key="toolTip">Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on supported OS versions)</string>
+                                                                    <string key="toolTip">Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</string>
                                                                     <buttonCell key="cell" type="check" title="Allow microphone capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6ym-r5-MoN">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -777,7 +777,7 @@
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NjH-uQ-OnL">
                                                                     <rect key="frame" x="-2" y="-1" width="153" height="18"/>
-                                                                    <string key="toolTip">Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 12.3 or newer )</string>
+                                                                    <string key="toolTip">Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )</string>
                                                                     <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fCI-oc-vd6">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -1504,7 +1504,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.59420289855072461" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99420289855072463" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

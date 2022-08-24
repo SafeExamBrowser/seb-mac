@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
@@ -1856,9 +1857,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading pages in additional browser windows"; ObjectID = "NhI-j9-FNc";</note>
       </trans-unit>
       <trans-unit id="NjH-uQ-OnL.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 12.3 or newer )</source>
+        <source>Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )</source>
         <target>Erlaubt Websites Zugriff auf den Bildschirm für WebRTC-Livestreams oder Bildschirmfotos (nur in modernem WebView und unter macOS 11.1 oder neuer)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 12.3 or newer )"; ObjectID = "NjH-uQ-OnL";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )"; ObjectID = "NjH-uQ-OnL";</note>
       </trans-unit>
       <trans-unit id="Nqe-fJ-MeT.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Show URLs in additional windows</source>
@@ -1981,9 +1982,9 @@
         <note>Class = "NSBox"; title = "Restrictions in Additional Windows"; ObjectID = "bgd-GA-QC3";</note>
       </trans-unit>
       <trans-unit id="bjS-Ok-Dj9.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on supported OS versions)</source>
+        <source>Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</source>
         <target>Erlaubt Websites Zugriff auf die Kamera für WebRTC-Livestreams oder Fotos (nur in modernem WebView und unter macOS 11.1/iOS 14.3 oder neuer)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on supported OS versions)"; ObjectID = "bjS-Ok-Dj9";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)"; ObjectID = "bjS-Ok-Dj9";</note>
       </trans-unit>
       <trans-unit id="cg4-A3-rqm.ibShadowedToolTip" xml:space="preserve">
         <source>Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</source>
@@ -1996,9 +1997,9 @@
         <note>Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj";</note>
       </trans-unit>
       <trans-unit id="d4A-pq-G5U.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on supported OS versions)</source>
+        <source>Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</source>
         <target>Erlaubt Websites Zugriff auf das Mikrofon für WebRTC-Livestreams oder Audioaufnahmen (nur in modernem WebView und unter macOS 11.1/iOS 14.3 oder neuer)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on supported OS versions)"; ObjectID = "d4A-pq-G5U";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)"; ObjectID = "d4A-pq-G5U";</note>
       </trans-unit>
       <trans-unit id="dP1-5V-zqF.ibShadowedToolTip" xml:space="preserve">
         <source>Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)</source>
@@ -4557,9 +4558,9 @@
         <note>Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN";</note>
       </trans-unit>
       <trans-unit id="jnc-il-FuZ.ibShadowedToolTip" xml:space="preserve">
-        <source>Click to copy the registred domain part of the current URL into the custom filter expression text field</source>
+        <source>Click to copy the registered domain part of the current URL into the custom filter expression text field</source>
         <target>Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Click to copy the registered domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ";</note>
       </trans-unit>
       <trans-unit id="kPG-Y4-EWv.ibShadowedToolTip" xml:space="preserve">
         <source>Shows initially the full URL, can be edited to create a custom URL filter expression. You can use the wildcard character * too. Click the links above to copy the according pattern into this field</source>
@@ -10776,9 +10777,9 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
         <note>Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR";</note>
       </trans-unit>
       <trans-unit id="bzt-lT-Pcg.title" xml:space="preserve">
-        <source>SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</source>
+        <source>SEB Verificator found the applications below which are registered to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the "Start SEB" button.</source>
         <target>SEB Verificator hat die unten stehenden Applikationen gefunden, die zum Öffnen von .seb Dateien oder seb(s):// Links registriert sind. Stellen Sie sicher, dass nur die offizielle Safe Exam Browser Version mit korrekter Code-Signatur, die sich im Ordner /Programme befindet, für Ihre Prüfungen verwendet wird! Wir empfehlen, alle anderen SEB-Versionen zu löschen (oder zu archivieren). Wenn Sie die SEB-Konfigurationsdatei(en) im selben Ordner wie SEB Verificator ablegen, werden sie unten in alphabetischer Reihenfolge aufgeführt. Die selektierte Konfiguration wird verwendet, wenn Sie die ausgewählte SEB-Version über die Schaltfläche "SEB starten" ausführen.</target>
-        <note>Class = "NSTextFieldCell"; title = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button."; ObjectID = "bzt-lT-Pcg";</note>
+        <note>Class = "NSTextFieldCell"; title = "SEB Verificator found the applications below which are registered to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button."; ObjectID = "bzt-lT-Pcg";</note>
       </trans-unit>
       <trans-unit id="dRJ-4n-Yzg.title" xml:space="preserve">
         <source>Undo</source>
@@ -11064,7 +11065,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator." xml:space="preserve">
         <source>You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator.</source>
-        <target>Sie möchten eine SEB-Version starten, die im Betriebssystem nicht als Standard zum Öffnen von sowohl .seb Dateien als auch seb(s):// Links registriert ist. Dies ist inkonsistent und ein Problem für Prüfungen, die nicht mittels SEB Verificator gestartet werden.</target>
+        <target>Sie möchten eine SEB-Version starten, die im Betriebssystem nicht als Standard zum Öffnen von .seb Dateien oder seb(s):// Links registriert ist. Dies ist inkonsistent und ein Problem für Prüfungen, die nicht mittels SEB Verificator gestartet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links" xml:space="preserve">
