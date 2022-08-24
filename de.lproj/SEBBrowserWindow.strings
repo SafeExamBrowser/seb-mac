@@ -106,7 +106,7 @@
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "jEa-eM-FvN"; */
 "jEa-eM-FvN.title" = "OK";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the registred domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Click to copy the registered domain part of the current URL into the custom filter expression text field"; ObjectID = "jnc-il-FuZ"; */
 "jnc-il-FuZ.ibShadowedToolTip" = "Anklicken, um den registrierten Domain-Teil der aktuellen URL in das Feld für den benutzerdefinierten Filterausdruck zu kopieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Dismiss all unknown URLs/resources of the current HTTP request. Reloading a page shows dismissed URLs again"; ObjectID = "KId-E2-Y59"; */

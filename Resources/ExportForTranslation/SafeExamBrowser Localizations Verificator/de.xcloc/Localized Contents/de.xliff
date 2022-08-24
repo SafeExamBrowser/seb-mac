@@ -11064,7 +11064,7 @@ Dieser Hinweis wird solange angezeigt, bis Sie in den Einstellungen eine Start-U
       </trans-unit>
       <trans-unit id="You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator." xml:space="preserve">
         <source>You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator.</source>
-        <target>Sie möchten eine SEB-Version starten, die im Betriebssystem nicht als Standard zum Öffnen von .seb Dateien oder seb(s):// Links registriert ist. Dies ist inkonsistent und ein Problem für Prüfungen, die nicht mittels SEB Verificator gestartet werden.</target>
+        <target>Sie möchten eine SEB-Version starten, die im Betriebssystem nicht als Standard zum Öffnen von sowohl .seb Dateien als auch seb(s):// Links registriert ist. Dies ist inkonsistent und ein Problem für Prüfungen, die nicht mittels SEB Verificator gestartet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links" xml:space="preserve">
