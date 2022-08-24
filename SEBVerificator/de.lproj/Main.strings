@@ -1,0 +1,159 @@
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "0F9-PI-gFi"; */
+"0F9-PI-gFi.title" = "Text Cell";
+
+/* Class = "NSTableHeaderView"; ibShadowedToolTip = "Icon for bundled applications, BSD processes don't have icons"; ObjectID = "0K2-hZ-wDD"; */
+"0K2-hZ-wDD.ibShadowedToolTip" = "Icon for bundled applications, BSD processes don't have icons";
+
+/* Class = "NSMenuItem"; title = "SEBVerificator"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "SEBVerificator";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "Speech";
+
+/* Class = "NSMenuItem"; title = "Enter Full Screen"; ObjectID = "4J7-dP-txa"; */
+"4J7-dP-txa.title" = "Enter Full Screen";
+
+/* Class = "NSMenuItem"; title = "Quit SEBVerificator"; ObjectID = "4sb-4s-VLi"; */
+"4sb-4s-VLi.title" = "Quit SEBVerificator";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "About SEBVerificator"; ObjectID = "5kV-Vb-QxS"; */
+"5kV-Vb-QxS.title" = "About SEBVerificator";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Redo";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "AYZ-dP-qAj"; */
+"AYZ-dP-qAj.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Axh-wP-wXM"; */
+"Axh-wP-wXM.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "Default for"; ObjectID = "BI7-wo-SEq"; */
+"BI7-wo-SEq.headerCell.title" = "Default for";
+
+/* Class = "NSTableColumn"; headerCell.title = "Path"; ObjectID = "BpK-NM-gKl"; */
+"BpK-NM-gKl.headerCell.title" = "Path";
+
+/* Class = "NSButtonCell"; title = "Rescan"; ObjectID = "ByG-5p-onf"; */
+"ByG-5p-onf.title" = "Rescan";
+
+/* Class = "NSTableColumn"; headerCell.title = "Version"; ObjectID = "C8d-xW-5GM"; */
+"C8d-xW-5GM.headerCell.title" = "Version";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "SEBVerificator Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "SEBVerificator Help";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "H8h-7b-M4v"; */
+"H8h-7b-M4v.title" = "View";
+
+/* Class = "NSMenu"; title = "View"; ObjectID = "HyV-fh-RgO"; */
+"HyV-fh-RgO.title" = "View";
+
+/* Class = "NSWindow"; title = "SEB Verificator"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "SEB Verificator";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
+"Kd2-mp-pUS.title" = "Show All";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
+"LE2-aR-0XJ.title" = "Bring All to Front";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "OY7-WF-poV"; */
+"OY7-WF-poV.title" = "Minimize";
+
+/* Class = "NSMenuItem"; title = "Hide SEBVerificator"; ObjectID = "Olw-nP-bQN"; */
+"Olw-nP-bQN.title" = "Hide SEBVerificator";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
+"Oyz-dy-DGm.title" = "Stop Speaking";
+
+/* Class = "NSTableColumn"; headerCell.title = "Bundle ID"; ObjectID = "Q16-ME-a9s"; */
+"Q16-ME-a9s.headerCell.title" = "Bundle ID";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "R4o-n2-Eq4"; */
+"R4o-n2-Eq4.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "Select All";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "Tdk-Pw-m81"; */
+"Tdk-Pw-m81.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "UNe-y8-uGc"; */
+"UNe-y8-uGc.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "Vdr-fp-XzO"; */
+"Vdr-fp-XzO.title" = "Hide Others";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Edit";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
+"Ynk-f8-cLZ.title" = "Start Speaking";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Window";
+
+/* Class = "NSTextFieldCell"; title = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button."; ObjectID = "bzt-lT-Pcg"; */
+"bzt-lT-Pcg.title" = "SEB Verificator found the applications below which are registred to open .seb files or seb(s):// links. Make sure only the official Safe Exam Browser version with correct code signature, placed in the /Applications folder is used for your exams! It is advisable to delete (or archive) all other SEB versions. If you place SEB configuration file(s) in the same folder as the Verificator, they will be listed below in alphabetic order. The selected config will be used when starting the selected SEB version using the \"Start SEB\" button.";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Undo";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "fMW-ki-eNP"; */
+"fMW-ki-eNP.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Paste";
+
+/* Class = "NSTableColumn"; headerCell.title = "App Name"; ObjectID = "nko-9m-cj1"; */
+"nko-9m-cj1.headerCell.title" = "App Name";
+
+/* Class = "NSTableColumn"; headerCell.title = "SEB Configuration Files"; ObjectID = "nte-6R-9eH"; */
+"nte-6R-9eH.headerCell.title" = "SEB Configuration Files";
+
+/* Class = "NSTableColumn"; headerCell.title = "Signature"; ObjectID = "oaQ-Zj-hTe"; */
+"oaQ-Zj-hTe.headerCell.title" = "Signature";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Delete";
+
+/* Class = "NSButtonCell"; title = "Quit Apps & Start SEB"; ObjectID = "rvM-qA-gOk"; */
+"rvM-qA-gOk.title" = "Quit Apps & Start SEB";
+
+/* Class = "NSButtonCell"; title = "Start SEB"; ObjectID = "sbr-9f-jAT"; */
+"sbr-9f-jAT.title" = "Start SEB";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "ser-R6-Pdf"; */
+"ser-R6-Pdf.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "SEBVerificator"; ObjectID = "uQy-DD-JDr"; */
+"uQy-DD-JDr.title" = "SEBVerificator";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Cut";
+
+/* Class = "NSTableHeaderView"; ibShadowedToolTip = "Icon for bundled applications, BSD processes don't have icons"; ObjectID = "vV8-JJ-2fX"; */
+"vV8-JJ-2fX.ibShadowedToolTip" = "Icon for bundled applications, BSD processes don't have icons";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Copy";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "xrE-MZ-jX0"; */
+"xrE-MZ-jX0.title" = "Speech";
