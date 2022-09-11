@@ -10,6 +10,7 @@
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
 #import "WebPluginDatabase.h"
+#import "SEBAbstractClassicWebView.h"
 
 @implementation SEBWebViewController
 
@@ -455,6 +456,20 @@
             // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
             DDLogDebug(@"Cancel opening link from Flash plugin context menu");
             return nil; // cancel opening link
+        }
+        if (newBrowserWindowPolicy == openInNewWindow) {
+            SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
+            sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
+            
+            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES];
+            if (navigationAction.policy == SEBNavigationActionPolicyJSOpen) {
+                SEBAbstractWebView *newAbstractWebView = navigationAction.openedWebView;
+                DDLogInfo(@"Opening classic WebView after Javascript .open()");
+                SEBAbstractClassicWebView <SEBAbstractBrowserControllerDelegate> *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:newAbstractWebView];
+                newAbstractWebView.browserControllerDelegate = sebAbstractClassicWebView;
+                [newAbstractWebView initGeneralProperties];
+                return newAbstractWebView.nativeWebView;
+            }
         }
         SEBWebView *tempWebView = [[SEBWebView alloc] init];
         DDLogDebug(@"Opened new temporary WebView: %@", tempWebView);
@@ -986,10 +1001,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             }
         }
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
+        SEBNavigationAction *delegateNavigationAction;
         if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
-            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+            delegateNavigationActionPolicy = delegateNavigationAction.policy;
         } else {
-            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+            delegateNavigationActionPolicy = delegateNavigationAction.policy;
         }
     #ifdef DEBUG
         DDLogDebug(@"%s: [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO] = (SEBNavigationActionPolicy) %lu", __FUNCTION__, (unsigned long)delegateNavigationActionPolicy);

@@ -408,7 +408,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     SEBiOSWebViewController *newViewController;
 
     BOOL isMainWebView = _openWebpages.count == 0;
-    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck];
+    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] noNativeWebView:!url overrideSpellCheck:overrideSpellCheck];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -498,7 +498,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] overrideSpellCheck:NO];
+            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] noNativeWebView:NO overrideSpellCheck:NO];
         }
         
         // Exchange the old against the new webview
@@ -577,6 +577,12 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 {
     NSUInteger tabIndex = [self tabIndexForWebView:webView];
     [self closeTabWithIndex:tabIndex];
+}
+
+
+- (void) addWebView:(id)nativeWebView
+{
+    
 }
 
 
@@ -733,7 +739,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
             // Create a new WebView
             NSUInteger index = [webpage.index unsignedIntegerValue];
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] overrideSpellCheck:NO];
+            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] noNativeWebView:NO overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
@@ -841,8 +847,11 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
 
 // Create a UIViewController with a SEBWebView to hold new webpages
-- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate: self];
+- (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerMainWebView:(BOOL)mainWebView
+                                                                                           withCommonHost:(BOOL)commonHostTab
+                                                                                          noNativeWebView:(BOOL)noNativeWebView
+                                                                                       overrideSpellCheck:(BOOL)overrideSpellCheck {
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:overrideSpellCheck delegate: self];
     return newSEBWebViewController;
 }
 
@@ -878,7 +887,9 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 
-- (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies
+- (void) downloadSEBConfigFileFromURL:(NSURL *)url
+                          originalURL:(NSURL *)originalURL
+                              cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:self];
 }
