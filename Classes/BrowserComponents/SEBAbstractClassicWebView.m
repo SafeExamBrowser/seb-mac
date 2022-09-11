@@ -536,7 +536,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
 {
     return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab];

@@ -142,7 +142,7 @@
 }
 
 // Open a new WebView and show its window
-- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
 {
     SEBBrowserWindow *newBrowserWindow = [self openBrowserWindowWithURL:url title:title overrideSpellCheck:overrideSpellCheck mainWebView:mainBrowserWindow];
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
@@ -168,12 +168,15 @@
 }
 
 
-- (SEBBrowserWindow *) openBrowserWindowWithURL:(NSURL *)url title:(NSString *)title overrideSpellCheck:(BOOL)overrideSpellCheck mainWebView:(BOOL)mainWebView
+- (SEBBrowserWindow *) openBrowserWindowWithURL:(nullable NSURL *)url
+                                          title:(NSString *)title
+                             overrideSpellCheck:(BOOL)overrideSpellCheck
+                                    mainWebView:(BOOL)mainWebView
 {
     SEBBrowserWindow *browserWindow = [self openBrowserWindow];
     
     SEBOSXWebViewController *newViewController;
-    newViewController = [self createNewWebViewControllerMainWebView:mainWebView withCommonHost:[self browserWindowHasCommonHostWithURL:url] overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
+    newViewController = [self createNewWebViewControllerMainWebView:mainWebView withCommonHost:[self browserWindowHasCommonHostWithURL:url] noNativeWebView:!url overrideSpellCheck:overrideSpellCheck delegate:browserWindow];
 
     SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
     newWindowWebView.creatingWebView = nil;
@@ -181,12 +184,8 @@
 
     NSView *webView = newViewController.view;
     [browserWindow.contentView addSubview:webView];
-    webView.translatesAutoresizingMaskIntoConstraints = NO;
-    [webView.leadingAnchor constraintEqualToAnchor:browserWindow.contentView.leadingAnchor].active = YES;
-    [webView.trailingAnchor constraintEqualToAnchor:browserWindow.contentView.trailingAnchor].active = YES;
-    [webView.topAnchor constraintEqualToAnchor:browserWindow.contentView.topAnchor].active = YES;
-    [webView.bottomAnchor constraintEqualToAnchor:browserWindow.contentView.bottomAnchor].active = YES;
-        
+    [browserWindow addConstraintsToWebView:webView];
+    
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
                withWebView:newWindowWebView
                  withTitle:title];
@@ -220,8 +219,12 @@
 
 
 // Create a NSViewController with a SEBAbstractWebView to hold new webpages
-- (SEBOSXWebViewController *) createNewWebViewControllerMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
-    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabMainWebView:mainWebView withCommonHostWithCommonHost:commonHostTab overrideSpellCheck:overrideSpellCheck delegate:delegate];
+- (SEBOSXWebViewController *) createNewWebViewControllerMainWebView:(BOOL)mainWebView
+                                                     withCommonHost:(BOOL)commonHostTab
+                                                    noNativeWebView:(BOOL)noNativeWebView
+                                                 overrideSpellCheck:(BOOL)overrideSpellCheck
+                                                           delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
+    SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab noNativeWebView:noNativeWebView overrideSpellCheck:overrideSpellCheck delegate:delegate];
     return newSEBWebViewController;
 }
 
@@ -453,7 +456,9 @@
 
 
 // Set web page title for a window/WebView
-- (void) setTitle:(NSString *)title forWindow:(SEBBrowserWindow *)browserWindow withWebView:(SEBAbstractWebView *)webView
+- (void) setTitle:(NSString *)title
+        forWindow:(SEBBrowserWindow *)browserWindow
+      withWebView:(SEBAbstractWebView *)webView
 {
     if (title.length == 0) {
         title = NSLocalizedString(@"Untitled", @"Title of a new opened browser window; Untitled");
@@ -554,7 +559,9 @@
 
 
 // Add an entry for a WebView in a browser window into the array and dock item menu of open browser windows/WebViews
-- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow withWebView:(SEBAbstractWebView *)newWebView withTitle:(NSString *)newTitle
+- (void) addBrowserWindow:(SEBBrowserWindow *)newBrowserWindow
+              withWebView:(SEBAbstractWebView *)newWebView
+                withTitle:(NSString *)newTitle
 {
     SEBBrowserOpenWindowWebView *newWindowWebView = [[SEBBrowserOpenWindowWebView alloc] initWithTitle:newTitle action:@selector(openWindowSelected:) keyEquivalent:@""];
     newWindowWebView.browserWindow = newBrowserWindow;
@@ -601,7 +608,7 @@
 }
 
 
-- (BOOL) browserWindowHasCommonHostWithURL:(NSURL *)url
+- (BOOL) browserWindowHasCommonHostWithURL:(nullable NSURL *)url
 {
     BOOL commonHost = YES;
     if (self.openBrowserWindowsWebViews.count > 0) {
@@ -644,7 +651,7 @@
 }
 
 
-- (void)documentController:(NSDocumentController *)docController  didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
+- (void)documentController:(NSDocumentController *)docController didCloseAll: (BOOL)didCloseAll contextInfo:(void *)contextInfo
 {
     DDLogDebug(@"documentController: %@ didCloseAll: %hhd contextInfo: %@", docController, didCloseAll, contextInfo);
 }

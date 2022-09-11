@@ -162,22 +162,25 @@ import PDFKit
 
     private var firstLoad = true
 
-    @objc public init(delegate: SEBAbstractWebViewNavigationDelegate) {
+    @objc public init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         super.init()
         navigationDelegate = delegate
-        #if os(iOS)
-        let sebWKWebViewController = SEBiOSWKWebViewController(delegate: self)
-        self.browserControllerDelegate = sebWKWebViewController
-        #elseif os(macOS)
-        let sebWKWebViewController = SEBOSXWKWebViewController(delegate: self)
-        self.browserControllerDelegate = sebWKWebViewController
-        #endif
-        
+        initWKWebViewController(configuration: configuration)
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
         sebWebView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
         
         pageZoom = defaultPageZoom
         textZoom = defaultTextZoom
+    }
+    
+    public func initWKWebViewController(configuration: WKWebViewConfiguration?) {
+#if os(iOS)
+        let sebWKWebViewController = SEBiOSWKWebViewController(delegate: self, configuration: configuration)
+        self.browserControllerDelegate = sebWKWebViewController
+#elseif os(macOS)
+        let sebWKWebViewController = SEBOSXWKWebViewController(delegate: self, configuration: configuration)
+        self.browserControllerDelegate = sebWKWebViewController
+#endif
     }
     
     public func loadView() {
@@ -620,7 +623,7 @@ import PDFKit
         navigationDelegate?.setCanGoBack?(canGoBack, canGoForward: canGoForward)
     }
     
-    public func openNewTab(with url: URL) -> SEBAbstractWebView {
+    public func openNewTab(with url: URL?) -> SEBAbstractWebView {
         return (navigationDelegate?.openNewTab?(with: url))!
     }
 
@@ -714,7 +717,7 @@ import PDFKit
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         var newTab = false
         if navigationAction.targetFrame == nil {
-            newTab = true;
+            newTab = true
         }
         var navigationActionPolicy = SEBNavigationActionPolicyCancel
 
@@ -734,6 +737,8 @@ import PDFKit
             } else if navigationActionPolicy == SEBNavigationActionPolicyDownload {
                 // This case should not happen in the current implementation
                 decisionHandler(.cancel)
+            } else if navigationActionPolicy == SEBNavigationActionPolicyJSOpen {
+                decisionHandler(.allow)
             }
         }
 
@@ -752,7 +757,8 @@ import PDFKit
                     newTab = true
                 }
             }
-            navigationActionPolicy = (self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)) ?? SEBNavigationActionPolicyCancel
+            let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)
+            navigationActionPolicy = newNavigationPolicy?.policy ?? SEBNavigationActionPolicyCancel
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
                 if allowDownloads && self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
@@ -881,8 +887,13 @@ import PDFKit
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
-    public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool) -> SEBNavigationActionPolicy {
-        return (navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)) ?? SEBNavigationActionPolicyCancel
+    public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool, newWebView: AutoreleasingUnsafeMutablePointer<SEBAbstractWebView?>?) -> SEBNavigationAction {
+        guard let newNavigationAction = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab) else {
+            let newNavigationAction = SEBNavigationAction()
+            newNavigationAction.policy = SEBNavigationActionPolicyCancel
+            return newNavigationAction
+        }
+        return newNavigationAction
     }
     
     public func sebWebViewDidUpdateTitle(_ title: String?) {
@@ -895,7 +906,27 @@ import PDFKit
     
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
-            _ = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: true)
+            let sebWKNavigationAction = SEBWKNavigationAction()
+            sebWKNavigationAction.writableNavigationType = navigationAction.navigationType
+            let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true)
+            let openedAbstractWebView = newNavigationAction?.openedWebView
+            if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
+                if openedAbstractWebView == nil {
+                    // Special case: Open in same window
+                    self.browserControllerDelegate?.closeWKWebView?()
+                    self.browserControllerDelegate = nil
+                    initWKWebViewController(configuration: configuration)
+                    self.navigationDelegate?.addWebView?(sebWebView)
+                    return sebWebView
+                } else {
+                    DDLogInfo("Opening modern WebView after Javascript .open()")
+                    let newAbstractWebView = openedAbstractWebView!
+                    let sebModernWebView = SEBAbstractModernWebView(delegate: newAbstractWebView, configuration: configuration)
+                    newAbstractWebView.browserControllerDelegate = sebModernWebView
+                    newAbstractWebView.initGeneralProperties()
+                    return (newAbstractWebView.nativeWebView() as? WKWebView)
+                }
+            }
         }
         return nil
     }
