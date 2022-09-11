@@ -274,7 +274,8 @@ typedef NSUInteger newBrowserWindowPolicies;
 enum {
     SEBNavigationActionPolicyCancel             = 0,
     SEBNavigationActionPolicyAllow              = 1,
-    SEBNavigationActionPolicyDownload           = 2
+    SEBNavigationActionPolicyDownload           = 2,
+    SEBNavigationActionPolicyJSOpen             = 3
 };
 typedef NSInteger SEBNavigationActionPolicy;
 

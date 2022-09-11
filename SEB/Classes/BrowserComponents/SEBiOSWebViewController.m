@@ -39,7 +39,11 @@
 
 @implementation SEBiOSWebViewController
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                      noNativeWebView:(BOOL)noNativeWebView
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = (SEBBrowserTabViewController *)delegate;
@@ -49,7 +53,7 @@
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
 
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
     }
     return self;
