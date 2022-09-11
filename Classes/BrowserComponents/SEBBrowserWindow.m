@@ -48,6 +48,16 @@
 @synthesize webView;
 
 
+- (void)addConstraintsToWebView:(NSView*) nativeWebView
+{
+    nativeWebView.translatesAutoresizingMaskIntoConstraints = NO;
+    [nativeWebView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
+    [nativeWebView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
+    [nativeWebView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+    [nativeWebView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+}
+
+
 - (NSArray *)accessibilityChildren {
     NSArray *subViews = self.contentView.superview.subviews;
     DDLogVerbose(@"Browser window contentView superview subviews: %@", subViews);
@@ -1103,6 +1113,12 @@
 - (void) closeWebView:(SEBAbstractWebView *)webView
 {
     [self.browserController closeWebView:webView];
+}
+
+- (void) addWebView:(id)nativeWebView
+{
+    [self.contentView addSubview:nativeWebView];
+    [self addConstraintsToWebView:(NSView *)nativeWebView];
 }
 
 

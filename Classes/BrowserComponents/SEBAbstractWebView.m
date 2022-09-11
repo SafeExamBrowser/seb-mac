@@ -41,7 +41,7 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = delegate;
@@ -63,31 +63,33 @@
 #endif
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
-        if (@available(macOS 10.13, iOS 11.0, *)) {
-            if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
-                BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-                
-                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
+        if (!noNativeWebView) {
+            if (@available(macOS 10.13, iOS 11.0, *)) {
+                if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
+                    BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
                     
-                    if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                        (webViewSelectPolicy == webViewSelectPreferModern) ||
-                        (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
-                        downloadingInTemporaryWebView) {
+                    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
                         
-                        DDLogInfo(@"Opening modern WebView");
-                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self];
-                        self.browserControllerDelegate = sebAbstractModernWebView;
-                        [self initGeneralProperties];
-                        return self;
+                        if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                            (webViewSelectPolicy == webViewSelectPreferModern) ||
+                            (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                            downloadingInTemporaryWebView) {
+                            
+                            DDLogInfo(@"Opening modern WebView");
+                            SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:nil];
+                            self.browserControllerDelegate = sebAbstractModernWebView;
+                            [self initGeneralProperties];
+                            return self;
+                        }
                     }
                 }
             }
+            DDLogInfo(@"Opening classic WebView");
+            SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
+            self.browserControllerDelegate = sebAbstractClassicWebView;
+            [self initGeneralProperties];
         }
-        DDLogInfo(@"Opening classic WebView");
-        SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
-        self.browserControllerDelegate = sebAbstractClassicWebView;
     }
-    [self initGeneralProperties];
     return self;
 }
 
@@ -415,6 +417,11 @@
     [self.navigationDelegate closeWebView:webView];
 }
 
+- (void) addWebView:(id)nativeWebView
+{
+    [self.navigationDelegate addWebView:nativeWebView];
+}
+
 - (SEBAbstractWebView *) abstractWebView
 {
     return self;
@@ -634,7 +641,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
 {
     NSURLRequest *request = navigationAction.request;
@@ -651,7 +658,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     NSURL *originalURL = url;
-    
+    SEBNavigationAction *newNavigationAction = [SEBNavigationAction new];
+    newNavigationAction.policy = SEBNavigationActionPolicyCancel;
+
     // This is currently used for SEB Server handshake after logging in to Moodle
     if (navigationType == WKNavigationTypeFormSubmitted) {
         [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
@@ -661,7 +670,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
-        return SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
     
     if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
@@ -674,11 +683,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     /// User didn't allow the content, don't load it
                     DDLogWarn(@"A clicked link was blocked by the URL filter");
                     DDLogDebug(@"This clicked link was blocked by the URL filter: %@", originalURL.absoluteString);
-                    return SEBNavigationActionPolicyCancel;
+                    return newNavigationAction;
                 }
             } else {
                 DDLogDebug(@"This resource was blocked by the URL filter: %@", originalURL.absoluteString);
-                return SEBNavigationActionPolicyCancel;
+                return newNavigationAction;
             }
         }
     }
@@ -696,14 +705,25 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 if (newBrowserWindowPolicy == openInNewWindow) {
                     // Open in new tab
                     DDLogInfo(@"Open new window/tab URL in new window");
-                    [self.navigationDelegate openNewTabWithURL:url];
-                    return SEBNavigationActionPolicyCancel;
+                    newNavigationAction.openedWebView = [self.navigationDelegate openNewTabWithURL:url];
+                    if (!url) {
+                        // Special case of window opened with Javascript .open()
+                        newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
+                        return newNavigationAction;
+                    }
+                    return newNavigationAction;
                 }
                 if (newBrowserWindowPolicy == openInSameWindow) {
                     // Load URL request in existing tab
                     DDLogInfo(@"Open new window/tab URL in same window (selected in current settings)");
+                    if (!url) {
+                        // Special case of window opened with Javascript .open()
+                        newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
+                        return newNavigationAction;
+                    }
                     [self loadURL:url];
-                    return SEBNavigationActionPolicyCancel;
+                    newNavigationAction.openedWebView = self;
+                    return newNavigationAction;
                 }
             }
         }
@@ -713,12 +733,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:SEBURLFilterAlertBlock];
         }
         DDLogInfo(@"Opening new window/tab URL generally blocked in current settings");
-        return SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
 
     if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:)]) {
-        SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
-        if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
+        SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+        if (delegateNavigationActionPolicy.policy != SEBNavigationResponsePolicyAllow) {
             return delegateNavigationActionPolicy;
         }
     }
@@ -732,13 +752,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         // we (conditionally) download and open the linked .seb file
         if (!self.navigationDelegate.downloadingInTemporaryWebView) {
             [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
-            return SEBNavigationActionPolicyCancel;
+            return newNavigationAction;
         }
     }
 
     self.navigationDelegate.currentURL = url;
     self.navigationDelegate.currentMainHost = url.host;
-    return SEBNavigationResponsePolicyAllow;
+    newNavigationAction.policy = SEBNavigationResponsePolicyAllow;
+    return newNavigationAction;
 }
 
 
@@ -906,5 +927,10 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         return super.request;
     }
 }
+
+@end
+
+
+@implementation SEBNavigationAction
 
 @end

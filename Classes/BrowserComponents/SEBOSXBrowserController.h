@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Save the default user agent of the installed WebKit version
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
-- (SEBAbstractWebView *) openAndShowWebViewWithURL:(NSURL *)url;
+- (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url;
 - (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
 - (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
