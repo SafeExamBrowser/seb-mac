@@ -360,7 +360,8 @@
         }
     }
 
-    SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
+    SEBNavigationAction *delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested configuration:nil];
+    SEBNavigationActionPolicy navigationActionPolicy = delegateNavigationAction.policy;
     if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;
     } else {
