@@ -33,7 +33,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CocoaLumberjack.h>
+@import CocoaLumberjack;
 
 NS_ASSUME_NONNULL_BEGIN
 
