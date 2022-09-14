@@ -254,7 +254,7 @@
   NSDictionary *views = NSDictionaryOfVariableBindings(_cameraView, _cancelButton);
 
   [self.view addConstraints:
-   [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_cameraView][_cancelButton(70)]|" options:0 metrics:nil views:views]];
+   [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_cameraView][_cancelButton(40)]|" options:0 metrics:nil views:views]];
   [self.view addConstraints:
    [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_cameraView]|" options:0 metrics:nil views:views]];
   [self.view addConstraints:
