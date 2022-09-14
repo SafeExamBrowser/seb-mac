@@ -2507,12 +2507,18 @@ void run_on_ui_thread(dispatch_block_t block)
     BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
     if (iconWidth) {
+        if (@available(iOS 13.0, *)) {
+            textSearchBar.searchTextField.backgroundColor = UIColor.clearColor;
+        }
         searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
         if (!_showNavigationBarTemporarily && toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = NO;
             [self restoreNavigationBarItemsConditionally:NO];
         }
     } else {
+        if (@available(iOS 13.0, *)) {
+            textSearchBar.searchTextField.backgroundColor = nil;
+        }
         if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact && !toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = YES;
             self.navigationItem.leftBarButtonItems = nil;
