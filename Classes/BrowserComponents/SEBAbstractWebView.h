@@ -128,8 +128,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) firstDOMElementDeselected;
 - (void) lastDOMElementDeselected;
 
-- (SEBAbstractWebView *) openNewTabWithURL:(nullable NSURL *)url;
-- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(nullable NSURL *)url;
+- (SEBAbstractWebView *) openNewTabWithURL:(nullable NSURL *)url
+                             configuration:(nullable WKWebViewConfiguration *)configuration;
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(nullable NSURL *)url
+                                       configuration:(nullable WKWebViewConfiguration *)configuration;
 
 - (void) makeActiveAndOrderFront;
 - (void) showWebView:(SEBAbstractWebView *)webView;
@@ -186,7 +188,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-                                                      newTab:(BOOL)newTab;
+                                                  newTab:(BOOL)newTab
+                                           configuration:(nullable WKWebViewConfiguration *)configuration;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 - (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(nullable NSString*)mimeType
@@ -344,7 +347,11 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 @property (readwrite) BOOL dismissAll;
 
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                        configuration:(WKWebViewConfiguration *)configuration
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
 - (void) initGeneralProperties;
 
 @end

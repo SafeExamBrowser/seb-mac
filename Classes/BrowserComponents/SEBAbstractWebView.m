@@ -41,7 +41,11 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                        configuration:(WKWebViewConfiguration *)configuration
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = delegate;
@@ -63,32 +67,30 @@
 #endif
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
-        if (!noNativeWebView) {
-            if (@available(macOS 10.13, iOS 11.0, *)) {
-                if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
-                    BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+        if (@available(macOS 10.13, iOS 11.0, *)) {
+            if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
+                BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+                
+                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
                     
-                    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
+                    if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                        (webViewSelectPolicy == webViewSelectPreferModern) ||
+                        (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                        downloadingInTemporaryWebView) {
                         
-                        if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                            (webViewSelectPolicy == webViewSelectPreferModern) ||
-                            (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
-                            downloadingInTemporaryWebView) {
-                            
-                            DDLogInfo(@"Opening modern WebView");
-                            SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:nil];
-                            self.browserControllerDelegate = sebAbstractModernWebView;
-                            [self initGeneralProperties];
-                            return self;
-                        }
+                        DDLogInfo(@"Opening modern WebView");
+                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
+                        self.browserControllerDelegate = sebAbstractModernWebView;
+                        [self initGeneralProperties];
+                        return self;
                     }
                 }
             }
-            DDLogInfo(@"Opening classic WebView");
-            SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
-            self.browserControllerDelegate = sebAbstractClassicWebView;
-            [self initGeneralProperties];
         }
+        DDLogInfo(@"Opening classic WebView");
+        SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
+        self.browserControllerDelegate = sebAbstractClassicWebView;
+        [self initGeneralProperties];
     }
     return self;
 }
@@ -388,13 +390,15 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+                                       configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewWebViewWindowWithURL:url];
+    return [self.navigationDelegate openNewWebViewWindowWithURL:url configuration:configuration];
 }
 
 - (void) makeActiveAndOrderFront
@@ -652,10 +656,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
+                                           configuration:(WKWebViewConfiguration *)configuration
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
@@ -714,7 +719,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 if (newBrowserWindowPolicy == openInNewWindow) {
                     // Open in new tab
                     DDLogInfo(@"Open new window/tab URL in new window");
-                    newNavigationAction.openedWebView = [self.navigationDelegate openNewTabWithURL:url];
+                    newNavigationAction.openedWebView = [self.navigationDelegate openNewTabWithURL:url configuration:(WKWebViewConfiguration *)configuration];
                     if (!url) {
                         // Special case of window opened with Javascript .open()
                         newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
@@ -745,8 +750,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         return newNavigationAction;
     }
 
-    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:)]) {
-        SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:configuration:)]) {
+        SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:configuration];
         if (delegateNavigationActionPolicy.policy != SEBNavigationResponsePolicyAllow) {
             return delegateNavigationActionPolicy;
         }

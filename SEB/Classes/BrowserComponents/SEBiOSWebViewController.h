@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initNewTabMainWebView:(BOOL)mainWebView
                        withCommonHost:(BOOL)commonHostTab
-                      noNativeWebView:(BOOL)noNativeWebView
+                        configuration:(WKWebViewConfiguration *)configuration
                    overrideSpellCheck:(BOOL)overrideSpellCheck
                              delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
 
