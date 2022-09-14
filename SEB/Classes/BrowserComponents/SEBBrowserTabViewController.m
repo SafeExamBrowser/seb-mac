@@ -232,6 +232,25 @@
 }
 
 
+- (void) addWebView:(id)nativeWebView
+{
+    _visibleWebViewController.view = nativeWebView;
+}
+
+
+- (void) addWebViewController:(id)webViewController
+{
+    // Exchange the old against the new webview
+//    [_visibleWebViewController removeFromParentViewController];
+
+    SEBiOSWebViewController *newViewController = (SEBiOSWebViewController *)webViewController;
+    [self addChildViewController:newViewController];
+    [newViewController didMoveToParentViewController:self];
+    [newViewController loadView];
+    _visibleWebViewController = newViewController;
+}
+
+
 - (void) searchTextMatchFound:(BOOL)matchFound
 {
     [_sebViewController searchTextMatchFound:matchFound];
@@ -577,12 +596,6 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 {
     NSUInteger tabIndex = [self tabIndexForWebView:webView];
     [self closeTabWithIndex:tabIndex];
-}
-
-
-- (void) addWebView:(id)nativeWebView
-{
-    
 }
 
 

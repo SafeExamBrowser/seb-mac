@@ -419,7 +419,16 @@
 
 - (void) addWebView:(id)nativeWebView
 {
-    [self.navigationDelegate addWebView:nativeWebView];
+    if ([self.navigationDelegate respondsToSelector:@selector(addWebView:)]) {
+        [self.navigationDelegate addWebView:nativeWebView];
+    }
+}
+
+- (void) addWebViewController:(id)webViewController
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(addWebViewController:)]) {
+        [self.navigationDelegate addWebViewController:webViewController];
+    }
 }
 
 - (SEBAbstractWebView *) abstractWebView

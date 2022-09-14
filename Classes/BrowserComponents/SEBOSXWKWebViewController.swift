@@ -54,7 +54,6 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
             _sebWebView?.uiDelegate = self
             _sebWebView?.navigationDelegate = self
-
             _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
             
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
