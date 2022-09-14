@@ -136,6 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) closeWebView;
 - (void) closeWebView:(SEBAbstractWebView *)webView;
 - (void) addWebView:(id)nativeWebView;
+- (void) addWebViewController:(id)webViewController;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
 @property (nullable, strong, nonatomic) NSURL *currentURL;

@@ -48,6 +48,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
             if webViewConfiguration == nil {
                 webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
             }
+            DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             let webFrame = UIScreen.main.bounds
             _sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
             let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
@@ -84,6 +85,13 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         self.init()
         webViewConfiguration = configuration
         navigationDelegate = delegate
+    }
+    
+    public func closeWKWebView() {
+        _sebWebView?.removeObserver(self, forKeyPath: #keyPath(WKWebView.title))
+        _sebWebView?.removeFromSuperview()
+        _sebWebView = nil
+        self.removeFromParent()
     }
     
     public override func loadView() {

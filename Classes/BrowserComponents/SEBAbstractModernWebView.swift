@@ -270,6 +270,10 @@ import PDFKit
         return browserControllerDelegate?.nativeWebView!() as Any
     }
     
+    public func closeWKWebView() {
+        browserControllerDelegate?.closeWKWebView?()
+    }
+    
     public func url() -> URL? {
         return browserControllerDelegate?.url?()
     }
@@ -778,16 +782,21 @@ import PDFKit
                         return
                     }
                 }
+            } else {
+                DDLogDebug("Navigation action policy for URL \(url) was 'cancel'")
             }
             callDecisionHandler()
         }
 
+        
         if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
             webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
                 self.downloadFilename = result as? String
+                DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
                 proceedHandler()
             }
         } else {
+            DDLogDebug("Not searched for 'download' attribute")
             self.downloadFilename = nil
             proceedHandler()
         }
@@ -917,13 +926,16 @@ import PDFKit
                     self.browserControllerDelegate = nil
                     initWKWebViewController(configuration: configuration)
                     self.navigationDelegate?.addWebView?(sebWebView)
+                    let currentAbstractWebView = self.navigationDelegate as! SEBAbstractWebView
+                    self.navigationDelegate?.addWebViewController?(currentAbstractWebView.navigationDelegate as Any)
                     return sebWebView
                 } else {
                     DDLogInfo("Opening modern WebView after Javascript .open()")
                     let newAbstractWebView = openedAbstractWebView!
-                    let sebModernWebView = SEBAbstractModernWebView(delegate: newAbstractWebView, configuration: configuration)
-                    newAbstractWebView.browserControllerDelegate = sebModernWebView
+                    let newModernAbstractWebView = SEBAbstractModernWebView(delegate: newAbstractWebView, configuration: configuration)
+                    newAbstractWebView.browserControllerDelegate = newModernAbstractWebView
                     newAbstractWebView.initGeneralProperties()
+                    self.navigationDelegate?.addWebViewController?(newAbstractWebView.navigationDelegate as Any)
                     return (newAbstractWebView.nativeWebView() as? WKWebView)
                 }
             }
