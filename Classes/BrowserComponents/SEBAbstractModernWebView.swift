@@ -627,8 +627,8 @@ import PDFKit
         navigationDelegate?.setCanGoBack?(canGoBack, canGoForward: canGoForward)
     }
     
-    public func openNewTab(with url: URL?) -> SEBAbstractWebView {
-        return (navigationDelegate?.openNewTab?(with: url))!
+    public func openNewTab(with url: URL?, configuration: WKWebViewConfiguration?) -> SEBAbstractWebView {
+        return (navigationDelegate?.openNewTab?(with: url, configuration: configuration))!
     }
 
     public func examine(_ cookies: [HTTPCookie], url: URL) {
@@ -761,7 +761,7 @@ import PDFKit
                     newTab = true
                 }
             }
-            let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab)
+            let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil)
             navigationActionPolicy = newNavigationPolicy?.policy ?? SEBNavigationActionPolicyCancel
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
@@ -897,7 +897,7 @@ import PDFKit
     }
     
     public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool, newWebView: AutoreleasingUnsafeMutablePointer<SEBAbstractWebView?>?) -> SEBNavigationAction {
-        guard let newNavigationAction = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab) else {
+        guard let newNavigationAction = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil) else {
             let newNavigationAction = SEBNavigationAction()
             newNavigationAction.policy = SEBNavigationActionPolicyCancel
             return newNavigationAction
@@ -917,26 +917,18 @@ import PDFKit
         if navigationAction.targetFrame == nil {
             let sebWKNavigationAction = SEBWKNavigationAction()
             sebWKNavigationAction.writableNavigationType = navigationAction.navigationType
-            let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true)
+            let request = navigationAction.request
+            sebWKNavigationAction.writableRequest = request
+            let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration)
             let openedAbstractWebView = newNavigationAction?.openedWebView
             if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
                 if openedAbstractWebView == nil {
-                    // Special case: Open in same window
-                    self.browserControllerDelegate?.closeWKWebView?()
-                    self.browserControllerDelegate = nil
-                    initWKWebViewController(configuration: configuration)
-                    self.navigationDelegate?.addWebView?(sebWebView)
-                    let currentAbstractWebView = self.navigationDelegate as! SEBAbstractWebView
-                    self.navigationDelegate?.addWebViewController?(currentAbstractWebView.navigationDelegate as Any)
-                    return sebWebView
+                    return nil
                 } else {
-                    DDLogInfo("Opening modern WebView after Javascript .open()")
+                    DDLogInfo("Opened modern WebView after Javascript .open()")
                     let newAbstractWebView = openedAbstractWebView!
-                    let newModernAbstractWebView = SEBAbstractModernWebView(delegate: newAbstractWebView, configuration: configuration)
-                    newAbstractWebView.browserControllerDelegate = newModernAbstractWebView
-                    newAbstractWebView.initGeneralProperties()
-                    self.navigationDelegate?.addWebViewController?(newAbstractWebView.navigationDelegate as Any)
-                    return (newAbstractWebView.nativeWebView() as? WKWebView)
+                    let newWKWebView = newAbstractWebView.nativeWebView() as? WKWebView
+                    return newWKWebView
                 }
             }
         }

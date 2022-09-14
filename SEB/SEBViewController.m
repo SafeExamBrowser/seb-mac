@@ -2815,7 +2815,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!sebUIInitialized) {
         [self initSEBUIWithCompletionBlock:nil temporary:YES];
     }
-    SEBAbstractWebView *tempWebView = [self.browserTabViewController openNewTabWithURL:url overrideSpellCheck:YES];
+    SEBAbstractWebView *tempWebView = [self.browserTabViewController openNewTabWithURL:url configuration:nil overrideSpellCheck:YES];
     tempWebView.originalURL = originalURL;
     
     return tempWebView;
@@ -3634,7 +3634,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) loginToExam:(NSString *)url
 {
     NSURL *examURL = [NSURL URLWithString:url];
-    [_browserTabViewController openNewTabWithURL:examURL];
+    [_browserTabViewController openNewTabWithURL:examURL configuration:nil];
     [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = true;
