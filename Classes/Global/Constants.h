@@ -79,7 +79,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 15
+#define currentStableMajoriOSVersion 16
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -204,7 +204,8 @@ enum {
     iOSVersion11                                = 11,
     iOSVersion12                                = 12,
     iOSVersion13                                = 13,
-    iOSVersion14                                = 14
+    iOSVersion14                                = 14,
+    iOSVersion15                                = 15
 };
 typedef NSUInteger iOSVersion;
 

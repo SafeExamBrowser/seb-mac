@@ -101,15 +101,21 @@
 				<string>10</string>
 				<string>11</string>
 				<string>12</string>
+				<string>13</string>
+				<string>14</string>
+				<string>15</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
 				<integer>9</integer>
-				<integer>10</integer>
-				<integer>11</integer>
+				<string>10</string>
+				<string>11</string>
 				<integer>12</integer>
+				<integer>13</integer>
+				<integer>14</integer>
+				<integer>15</integer>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
@@ -200,7 +206,7 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>iOS &gt;15</string>
+				<string>iOS 16</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
