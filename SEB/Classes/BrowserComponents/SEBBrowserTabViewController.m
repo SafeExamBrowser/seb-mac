@@ -366,36 +366,45 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
 // Open new tab and load URL
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self openNewTabWithURL:url overrideSpellCheck:NO];
-}
-
-
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck
-{
-    _maxIndex++;
-    NSUInteger index = _maxIndex;
-    return [self openNewTabWithURL:url index:index overrideSpellCheck:overrideSpellCheck];
-}
-
-
-// Open new tab and load URL or image (in the case of a freehand drawing)
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage
-{
-    _maxIndex++;
-    NSUInteger index = _maxIndex;
-    return [self openNewTabWithURL:url index:index image:templateImage overrideSpellCheck:NO];
-}
-
-
-// Open new tab and load URL, use passed index
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck
-{
-    return [self openNewTabWithURL:url index:index image:nil overrideSpellCheck:overrideSpellCheck];
+    return [self openNewTabWithURL:url configuration:configuration overrideSpellCheck:NO];
 }
 
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
+                        overrideSpellCheck:(BOOL)overrideSpellCheck
+{
+    _maxIndex++;
+    NSUInteger index = _maxIndex;
+    return [self openNewTabWithURL:url configuration:configuration index:index overrideSpellCheck:overrideSpellCheck];
+}
+
+
+// Open new tab and load URL or image (in the case of a freehand drawing)
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
+                                     image:(UIImage *)templateImage
+{
+    _maxIndex++;
+    NSUInteger index = _maxIndex;
+    return [self openNewTabWithURL:url configuration:configuration index:index image:templateImage overrideSpellCheck:NO];
+}
+
+
+// Open new tab and load URL, use passed index
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
+                                     index:(NSUInteger)index
+                        overrideSpellCheck:(BOOL)overrideSpellCheck
+{
+    return [self openNewTabWithURL:url configuration:configuration index:index image:nil overrideSpellCheck:overrideSpellCheck];
+}
+
+
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration 
                                      index:(NSUInteger)index
                                      image:(UIImage *)templateImage
                         overrideSpellCheck:(BOOL)overrideSpellCheck
@@ -427,7 +436,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     SEBiOSWebViewController *newViewController;
 
     BOOL isMainWebView = _openWebpages.count == 0;
-    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] noNativeWebView:!url overrideSpellCheck:overrideSpellCheck];
+    newViewController = [self createNewWebViewControllerMainWebView:isMainWebView withCommonHost:[self examTabHasCommonHostWithURL:url] configuration:configuration overrideSpellCheck:overrideSpellCheck];
     
     newOpenWebpage.webViewController = newViewController;
     newOpenWebpage.loadDate = timeStamp;
@@ -517,7 +526,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         
         // Create the webView in case it doesn't exist
         if (!webViewControllerToSwitch) {
-            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] noNativeWebView:NO overrideSpellCheck:NO];
+            webViewControllerToSwitch = [self createNewWebViewControllerMainWebView:(tabIndex == 0) withCommonHost:[self examTabHasCommonHostWithURL:webpageToSwitch.webViewController.url] configuration:nil overrideSpellCheck:NO];
         }
         
         // Exchange the old against the new webview
@@ -752,7 +761,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
             // Create a new WebView
             NSUInteger index = [webpage.index unsignedIntegerValue];
             NSURL *webpageURL = [NSURL URLWithString:webpage.url];
-            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] noNativeWebView:NO overrideSpellCheck:NO];
+            SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newWebViewController = [self createNewWebViewControllerMainWebView:(index == 0) withCommonHost:[examPageHost isEqualToString:webpageURL.host] configuration:nil overrideSpellCheck:NO];
             
             // Create new OpenWebpage object with reference to the CoreData information
             OpenWebpages *newOpenWebpage = [OpenWebpages new];
@@ -809,7 +818,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         // This should prevent that a race condition with
         // receiving MDM server config already added an empty webpage
         [_openWebpages removeAllObjects];
-        [self openNewTabWithURL:[NSURL URLWithString:urlText] index:0 overrideSpellCheck:NO];
+        [self openNewTabWithURL:[NSURL URLWithString:urlText] configuration:nil index:0 overrideSpellCheck:NO];
     }
 }
 
@@ -862,9 +871,9 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 // Create a UIViewController with a SEBWebView to hold new webpages
 - (SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *) createNewWebViewControllerMainWebView:(BOOL)mainWebView
                                                                                            withCommonHost:(BOOL)commonHostTab
-                                                                                          noNativeWebView:(BOOL)noNativeWebView
+                                                                                            configuration:(WKWebViewConfiguration *)configuration
                                                                                        overrideSpellCheck:(BOOL)overrideSpellCheck {
-    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab noNativeWebView:(BOOL)noNativeWebView overrideSpellCheck:overrideSpellCheck delegate: self];
+    SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *newSEBWebViewController = [[SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:overrideSpellCheck delegate: self];
     return newSEBWebViewController;
 }
 
