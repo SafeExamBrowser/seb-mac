@@ -205,7 +205,8 @@ enum {
     iOSVersion12                                = 12,
     iOSVersion13                                = 13,
     iOSVersion14                                = 14,
-    iOSVersion15                                = 15
+    iOSVersion15                                = 15,
+    iOSVersion16                                = 16
 };
 typedef NSUInteger iOSVersion;
 
