@@ -1086,13 +1086,15 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.browserController openNewTabWithURL:url];
+    return [self.browserController openNewTabWithURL:url configuration:configuration];
 }
 
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+                                       configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.browserController openNewWebViewWindowWithURL:url];
+    return [self.browserController openNewWebViewWindowWithURL:url configuration:configuration];
 }
 
 - (void) makeActiveAndOrderFront
