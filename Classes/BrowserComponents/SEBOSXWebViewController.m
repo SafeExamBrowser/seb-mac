@@ -40,13 +40,13 @@
 
 - (instancetype)initNewTabMainWebView:(BOOL)mainWebView
                        withCommonHost:(BOOL)commonHostTab
-                      noNativeWebView:(BOOL)noNativeWebView
+                        configuration:(WKWebViewConfiguration *)configuration
                    overrideSpellCheck:(BOOL)overrideSpellCheck
                              delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     if (self) {
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab noNativeWebView:noNativeWebView overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
         _sebAbstractWebView = sebAbstractWebView;
     }
     return self;

@@ -5604,7 +5604,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSString *urlString = SEBHelpPage;
     // Open new browser window containing WebView and show it
-    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
+    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString] configuration:nil];
 }
 
 

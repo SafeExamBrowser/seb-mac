@@ -16,6 +16,7 @@
 			dependencies = (
 			);
 			name = JitsiMeetSDK;
+			productName = JitsiMeetSDK;
 		};
 /* End PBXAggregateTarget section */
 
@@ -201,7 +202,7 @@
 		FDBAB8E5D53005F101F058C56AFD23B5 /* SwiftLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 53367020877D0F750373E53A5C3B7E44 /* SwiftLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FDF7DF34641F6488A43A6BCF12BAB906 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4902569697BE256490A93AF60A6398 /* IASKSettingsStore.m */; };
 		FE8F7E6755172443AD30CCD7CE60A068 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B625BD2F1DEE60ECEE150A94520E64D /* Cocoa.framework */; };
-		FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit-InAppSettingsKit in Resources */ = {isa = PBXBuildFile; fileRef = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */; };
+		FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */; };
 		FFF2BE08DEE63A72E987DED9A9156E8F /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B1997F5CB18C2693F63104F782569 /* DDASLLogCapture.m */; };
 /* End PBXBuildFile section */
 
@@ -273,16 +274,16 @@
 		07FAC78A163FD48745CD3A411E8BA608 /* InAppSettingsKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-prefix.pch"; sourceTree = "<group>"; };
 		08A6B69F91B7296C19F03CDE16C7CA9D /* IASKColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKColor.m; path = Sources/InAppSettingsKit/Views/IASKColor.m; sourceTree = "<group>"; };
 		0C4902569697BE256490A93AF60A6398 /* IASKSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStore.m; path = Sources/InAppSettingsKit/Models/IASKSettingsStore.m; sourceTree = "<group>"; };
-		0F9AE5599C8F8B3D041699366B96126B /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
+		0F9AE5599C8F8B3D041699366B96126B /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		10AAB46C37C11D879F3D04CE463B4097 /* Pods-SEBVerificator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-SEBVerificator"; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		110947CDBEAFA3BB61329CEA5600EF65 /* uk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = uk.lproj; path = Sources/InAppSettingsKit/Resources/uk.lproj; sourceTree = "<group>"; };
+		110947CDBEAFA3BB61329CEA5600EF65 /* uk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = uk.lproj; path = Sources/InAppSettingsKit/Resources/uk.lproj; sourceTree = "<group>"; };
 		11338055F2FDB35094E4509B20777E54 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
 		121C28E0CD89E0B4DCF0389D9F5F034C /* InAppSettingsKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-umbrella.h"; sourceTree = "<group>"; };
 		126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-SEB"; path = Pods_SEB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		127FAA2EA262AF59F8833712DB021F23 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nb.lproj; path = Sources/InAppSettingsKit/Resources/nb.lproj; sourceTree = "<group>"; };
+		127FAA2EA262AF59F8833712DB021F23 /* nb.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nb.lproj; path = Sources/InAppSettingsKit/Resources/nb.lproj; sourceTree = "<group>"; };
 		12C05D09D7DFC3ED2264316499800833 /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreFile.m; path = Sources/InAppSettingsKit/Models/IASKSettingsStoreFile.m; sourceTree = "<group>"; };
 		12CE1CBCDDC4FEAA34D7DA1F79788837 /* CocoaLumberjack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CocoaLumberjack.swift; path = Sources/CocoaLumberjackSwift/CocoaLumberjack.swift; sourceTree = "<group>"; };
-		1305969C7678880298A3DA32E4CFBA88 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Sources/InAppSettingsKit/Resources/ja.lproj; sourceTree = "<group>"; };
+		1305969C7678880298A3DA32E4CFBA88 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = Sources/InAppSettingsKit/Resources/ja.lproj; sourceTree = "<group>"; };
 		14A2A9A0019B3B27863F27F0593CA898 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
 		15FB22554D48E97C8A6A717DA0316F0F /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		15FEF1F762D03BDDA3F65263C67C2B14 /* CocoaLumberjack-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-iOS-dummy.m"; sourceTree = "<group>"; };
@@ -292,7 +293,7 @@
 		22D9718509428FF28E0E1CADE9437772 /* Pods-Safe Exam Browser ETH-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser ETH-frameworks.sh"; sourceTree = "<group>"; };
 		254B5870E930B6495E4F1FE41FA3A8AC /* DDFileLogger+Buffering.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "DDFileLogger+Buffering.m"; path = "Sources/CocoaLumberjack/Extensions/DDFileLogger+Buffering.m"; sourceTree = "<group>"; };
 		2776A6463C704B094868763B3903B7C5 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = "Sources/CocoaLumberjack/Supporting Files/CocoaLumberjack.h"; sourceTree = "<group>"; };
-		283BE60F6893961C70A5BC386E0F2BB1 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pl.lproj; path = Sources/InAppSettingsKit/Resources/pl.lproj; sourceTree = "<group>"; };
+		283BE60F6893961C70A5BC386E0F2BB1 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pl.lproj; path = Sources/InAppSettingsKit/Resources/pl.lproj; sourceTree = "<group>"; };
 		29214B4424116965F4FF99C74F9FBE78 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDASLLogger.h; sourceTree = "<group>"; };
 		2B625BD2F1DEE60ECEE150A94520E64D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		2C4EFFEC3AFB90B42AD69973BC10AA91 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
@@ -300,9 +301,9 @@
 		2F5A19B178E1C77C01F61124DD70413D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		30AD8188BBB5AC38D502892BE4D49F24 /* IASKEmbeddedDatePickerViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKEmbeddedDatePickerViewCell.h; path = Sources/InAppSettingsKit/include/IASKEmbeddedDatePickerViewCell.h; sourceTree = "<group>"; };
 		30C4CFE8E85DFD92EF25383B2385874D /* IASKSettingsReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsReader.m; path = Sources/InAppSettingsKit/Models/IASKSettingsReader.m; sourceTree = "<group>"; };
-		325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "InAppSettingsKit-InAppSettingsKit"; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DE472E570C576E77D4BCC9D6811F2C /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreFile.h; path = Sources/InAppSettingsKit/include/IASKSettingsStoreFile.h; sourceTree = "<group>"; };
-		33BAA91CC07A758E57E67A23AF1F66F5 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = es.lproj; path = Sources/InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
+		33BAA91CC07A758E57E67A23AF1F66F5 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = es.lproj; path = Sources/InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
 		340CE09772732671CC02B44611E2EB69 /* IASKTextViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextViewCell.m; path = Sources/InAppSettingsKit/Views/IASKTextViewCell.m; sourceTree = "<group>"; };
 		349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack-macOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "CocoaLumberjack-macOS"; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3583F72A30B8D60024852620BA9912AF /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
@@ -310,10 +311,10 @@
 		3BF31E64F919598A264FF10E1ACBEA7B /* Pods-Safe Exam Browser ETH-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser ETH-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3C3D298EE947FD81B216916B463E1657 /* CocoaLumberjack-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CocoaLumberjack-macOS-prefix.pch"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch"; sourceTree = "<group>"; };
 		3EE2F73A270D326DDD90DB22AE4A2F31 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
-		44C887040D9074726C961D562F72E16E /* hr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = hr.lproj; path = Sources/InAppSettingsKit/Resources/hr.lproj; sourceTree = "<group>"; };
-		46135605F2BA48BE493D3258203CC93F /* WebRTC.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = WebRTC.xcframework; path = Frameworks/WebRTC.xcframework; sourceTree = "<group>"; };
+		44C887040D9074726C961D562F72E16E /* hr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hr.lproj; path = Sources/InAppSettingsKit/Resources/hr.lproj; sourceTree = "<group>"; };
+		46135605F2BA48BE493D3258203CC93F /* WebRTC.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = Frameworks/WebRTC.xcframework; sourceTree = "<group>"; };
 		47309894399379AA70C1CEEC9B21CC9A /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Sources/CocoaLumberjack/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		4866CE983D687A5E005B98D01E725289 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = Base.lproj; path = Sources/InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
+		4866CE983D687A5E005B98D01E725289 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = Sources/InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
 		48EEFE0684FA716B826AD0D00D9B4CBA /* DDLoggerNames.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLoggerNames.m; path = Sources/CocoaLumberjack/DDLoggerNames.m; sourceTree = "<group>"; };
 		4AFBF924782E7D0550F1F170C10DA6B4 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD0AA2530A2432A2AFD9B9F722A9D82 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifierValuesViewController.h; path = Sources/InAppSettingsKit/include/IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -325,16 +326,16 @@
 		52817F07C6F1ED527537DA082C08DB78 /* CocoaLumberjack-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		52FAFC40DE1D4CAFA1DE13F91A6C02B4 /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKMultipleValueSelection.h; path = Sources/InAppSettingsKit/include/IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		53367020877D0F750373E53A5C3B7E44 /* SwiftLogLevel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftLogLevel.h; path = Sources/CocoaLumberjackSwiftSupport/include/CocoaLumberjackSwiftSupport/SwiftLogLevel.h; sourceTree = "<group>"; };
-		5371F69C2DD8B9BFB3E09BF487886FA2 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Sources/InAppSettingsKit/Resources/de.lproj; sourceTree = "<group>"; };
+		5371F69C2DD8B9BFB3E09BF487886FA2 /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = Sources/InAppSettingsKit/Resources/de.lproj; sourceTree = "<group>"; };
 		53811C485A9B3D961E2DA2A305B1F534 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsViewController.m; path = Sources/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		53A0151428C48B82BB2EF3E3A6168434 /* JitsiMeetSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "JitsiMeetSDK-xcframeworks.sh"; sourceTree = "<group>"; };
 		53B0C99897F81BE2A335BE0C92FCE068 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLogMacros.h; sourceTree = "<group>"; };
 		54B256B3D2F47A5949E03A2634D620B9 /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
-		5A0DE0C19D4E0D030DD6A776B1F0572E /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Sources/InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
+		5A0DE0C19D4E0D030DD6A776B1F0572E /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = Sources/InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
 		5E351CDAB7976B7223DE64A7E6DA38E6 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Sources/CocoaLumberjack/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		5E67E13A5F6FF52F1636088AD0B9654F /* CocoaLumberjack-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-macOS.release.xcconfig"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		605D9B0995D3876693B1A4ACA7117FCC /* Pods-SEB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEB-umbrella.h"; sourceTree = "<group>"; };
-		61F922071CFFF71767749EE6D1349B32 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sv.lproj; path = Sources/InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
+		61F922071CFFF71767749EE6D1349B32 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sv.lproj; path = Sources/InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
 		63763A7A47BC02DC6C6D2D62D78C8701 /* InAppSettingsKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.release.xcconfig; sourceTree = "<group>"; };
 		63E53F5D989C510190F0390AABD2CDC3 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		6404FBEDF73A63207327E3CFEDFBC108 /* IASKSpecifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifier.m; path = Sources/InAppSettingsKit/Models/IASKSpecifier.m; sourceTree = "<group>"; };
@@ -350,40 +351,40 @@
 		7294E5954A958B931FC7660912B410DD /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSTextFieldSpecifierViewCell.m; path = Sources/InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
 		72BF5364E0A6B53655C52E2FB9C2DEBD /* DDFileLogger+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDFileLogger+Internal.h"; path = "Sources/CocoaLumberjack/DDFileLogger+Internal.h"; sourceTree = "<group>"; };
 		77333D166D6EF68C6E3D763E9B75EABA /* Pods-Safe Exam Browser ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser ETH.release.xcconfig"; sourceTree = "<group>"; };
-		78DE2370D6D9C6255633246CC7264728 /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "pt-PT.lproj"; path = "Sources/InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
+		78DE2370D6D9C6255633246CC7264728 /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "pt-PT.lproj"; path = "Sources/InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
 		7983D4BB257A6169EE7FD1DB36A17135 /* IASKColor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKColor.h; path = Sources/InAppSettingsKit/include/IASKColor.h; sourceTree = "<group>"; };
 		79E605D5358B5796658E53F6BDAA69ED /* IASKDatePickerViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKDatePickerViewCell.m; path = Sources/InAppSettingsKit/Views/IASKDatePickerViewCell.m; sourceTree = "<group>"; };
 		7F3BF525B43DB8B524AA8173164F0533 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDTTYLogger.h; sourceTree = "<group>"; };
 		8138B0EDEA5726F07F6603F8E89EE027 /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
-		8519D914FA2F0B97422CB3AEBB847542 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = hu.lproj; path = Sources/InAppSettingsKit/Resources/hu.lproj; sourceTree = "<group>"; };
+		8519D914FA2F0B97422CB3AEBB847542 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hu.lproj; path = Sources/InAppSettingsKit/Resources/hu.lproj; sourceTree = "<group>"; };
 		86030ABDDEB005BFF00A4F1B50642CB8 /* IASKTextViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextViewCell.h; path = Sources/InAppSettingsKit/include/IASKTextViewCell.h; sourceTree = "<group>"; };
 		86C2F4F9E68CBB8E3D48486B63BCDA6B /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Sources/CocoaLumberjack/DDOSLogger.m; sourceTree = "<group>"; };
-		8765589F908E028DF9D13C1019427BC7 /* es-MX.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "es-MX.lproj"; path = "Sources/InAppSettingsKit/Resources/es-MX.lproj"; sourceTree = "<group>"; };
+		8765589F908E028DF9D13C1019427BC7 /* es-MX.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "es-MX.lproj"; path = "Sources/InAppSettingsKit/Resources/es-MX.lproj"; sourceTree = "<group>"; };
 		8A035895255BDB7159790F76F4191375 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
 		8A8FBA97BBC9BA940B8D2DE2F7EE577F /* Pods-Safe Exam Browser ETH.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Safe Exam Browser ETH.modulemap"; sourceTree = "<group>"; };
 		8C560302F684BD4DF12909CFE42ED3D0 /* IASKSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStore.h; path = Sources/InAppSettingsKit/include/IASKSettingsStore.h; sourceTree = "<group>"; };
 		8CA044B4EB417D3C02793CD145459EFF /* Pods-Safe Exam Browser ETH-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser ETH-acknowledgements.plist"; sourceTree = "<group>"; };
-		8CDC275AEFD78133C53CEE3DD46F5B39 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Sources/InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
+		8CDC275AEFD78133C53CEE3DD46F5B39 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = Sources/InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
 		8DDE953D76C98E2900B3DDCDD9F04D83 /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKMultipleValueSelection.m; path = Sources/InAppSettingsKit/Controllers/IASKMultipleValueSelection.m; sourceTree = "<group>"; };
 		8E6D0200AB442FE5C33CC636B7ADD4FF /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsWebViewController.m; path = Sources/InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
 		8F3530AA1DD152AFC583BB13659C3657 /* InAppSettingsKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InAppSettingsKit-dummy.m"; sourceTree = "<group>"; };
 		90AC723E3A4AFBDF44A4955E8932C101 /* Pods-Safe Exam Browser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Safe Exam Browser-umbrella.h"; sourceTree = "<group>"; };
 		9172A521BD0ABE1E9D7481EB9D476531 /* Pods-SEBVerificator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEBVerificator-frameworks.sh"; sourceTree = "<group>"; };
-		91E21B3EA639E7CCF3744E4CC8CC3882 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Sources/InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
+		91E21B3EA639E7CCF3744E4CC8CC3882 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = Sources/InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
 		92C0C6E868B9E90902D314C7C7275F91 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Sources/CocoaLumberjack/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
 		9415E4DEC4D92264D42AE6F2DE1CE31C /* CocoaLumberjack-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "CocoaLumberjack-iOS.modulemap"; sourceTree = "<group>"; };
 		942D62DA4E735580295D3081825646E2 /* IASKSwitch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSwitch.h; path = Sources/InAppSettingsKit/include/IASKSwitch.h; sourceTree = "<group>"; };
 		946C3816929996B19C75A6477052D3B8 /* Pods-Safe Exam Browser ETH-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser ETH-Info.plist"; sourceTree = "<group>"; };
 		94C3B169513EFE4B4859D03F487DEEDF /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
-		9514C4288FE0B8C439AF59BB908D1A0D /* es-419.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "es-419.lproj"; path = "Sources/InAppSettingsKit/Resources/es-419.lproj"; sourceTree = "<group>"; };
-		957094264A7F4A313CFBFC223BA4A55F /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = el.lproj; path = Sources/InAppSettingsKit/Resources/el.lproj; sourceTree = "<group>"; };
+		9514C4288FE0B8C439AF59BB908D1A0D /* es-419.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "es-419.lproj"; path = "Sources/InAppSettingsKit/Resources/es-419.lproj"; sourceTree = "<group>"; };
+		957094264A7F4A313CFBFC223BA4A55F /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = el.lproj; path = Sources/InAppSettingsKit/Resources/el.lproj; sourceTree = "<group>"; };
 		95A86CE7A589641BEB915A1B9870BCF3 /* QRCodeReaderViewController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = QRCodeReaderViewController.modulemap; sourceTree = "<group>"; };
 		96561FAE35351C7255FA9ED4E4BD158E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		97496A0C7E308C2F850C360AB18D8C3A /* ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
 		9AA5D5C7520826868D8353E2F2417C11 /* CocoaLumberjack-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "CocoaLumberjack-macOS-Info.plist"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-Info.plist"; sourceTree = "<group>"; };
 		9ABCC176C92E7902EBD86CE4AE6A557F /* Pods-Safe Exam Browser ETH-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser ETH-dummy.m"; sourceTree = "<group>"; };
-		9C8BAC7949CC9E542738B7C5091A85C4 /* JitsiMeetSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; name = JitsiMeetSDK.xcframework; path = Frameworks/JitsiMeetSDK.xcframework; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9C8BAC7949CC9E542738B7C5091A85C4 /* JitsiMeetSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = JitsiMeetSDK.xcframework; path = Frameworks/JitsiMeetSDK.xcframework; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DF76A06D0F864030236FB37C0A15398 /* IASKSettingsStoreInMemory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreInMemory.h; path = Sources/InAppSettingsKit/include/IASKSettingsStoreInMemory.h; sourceTree = "<group>"; };
 		9FEE6EC91032CA6F1EC0451929958114 /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Sources/CocoaLumberjack/DDLog.m; sourceTree = "<group>"; };
 		9FFA5B29D81483BF4354DE1888D19EBB /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Sources/CocoaLumberjack/include/CocoaLumberjack/DDLog+LOGV.h"; sourceTree = "<group>"; };
@@ -431,7 +432,7 @@
 		D101583BAB74D69643093AD7E56D2565 /* Pods-Safe Exam Browser ETH */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Safe Exam Browser ETH"; path = Pods_Safe_Exam_Browser_ETH.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D25D847750471573B852632853A6A037 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		D265989984A0AA9C37E76B432D64600D /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLog.h; sourceTree = "<group>"; };
-		D377D0DBE6AD9847AF6CC6F48519C8DD /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Sources/InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
+		D377D0DBE6AD9847AF6CC6F48519C8DD /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = Sources/InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
 		D40D513BFEAE367677B4AF651746FFCE /* InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
 		D86B6FDFA0EC563AC2E5730C78BA5282 /* IASKDatePickerViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKDatePickerViewCell.h; path = Sources/InAppSettingsKit/include/IASKDatePickerViewCell.h; sourceTree = "<group>"; };
 		D87C1D1EA9716E8B9E03F86EA8115393 /* CocoaLumberjack-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-iOS-prefix.pch"; sourceTree = "<group>"; };
@@ -444,7 +445,7 @@
 		DDC729D02A61242E09325713AC1F6AF5 /* CLIColor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLIColor.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/CLIColor.h; sourceTree = "<group>"; };
 		DE72EA0C3E4026339CB5CD1280E4F958 /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
 		DE9DE372FACA6D903E30603D42E8A126 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		DF1D42C8080E38E490F497373805ACDC /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = pt.lproj; path = Sources/InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
+		DF1D42C8080E38E490F497373805ACDC /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pt.lproj; path = Sources/InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
 		E2CE5AA6951C2F482DDD8226A6EBF4FC /* Pods-SEBVerificator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEBVerificator.debug.xcconfig"; sourceTree = "<group>"; };
 		E531AE1C5ED9AF3DAB028D5D411B71E2 /* DDOSLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDOSLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDOSLogger.h; sourceTree = "<group>"; };
 		E6334B9F777DD657FF3F43C1822F37B2 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsViewController.h; path = Sources/InAppSettingsKit/include/IASKAppSettingsViewController.h; sourceTree = "<group>"; };
@@ -452,21 +453,21 @@
 		E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "CocoaLumberjack-iOS"; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9ECD097E488432AF3F560AF6788BA0F /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
 		ED998B7472E81DE8651881CC912F97E7 /* Pods-SEBVerificator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-acknowledgements.plist"; sourceTree = "<group>"; };
-		EFCECF05D915D88D0F7698476C861DE5 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Sources/InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
+		EFCECF05D915D88D0F7698476C861DE5 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = Sources/InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
 		EFD8D67F143D9DC7B931953C0955343C /* IASKTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextView.m; path = Sources/InAppSettingsKit/Views/IASKTextView.m; sourceTree = "<group>"; };
 		F0954556E1424F9AB0FFA022DA42720D /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
 		F1CB06C447D9EE374C098F3C9C1EC53A /* Pods-Safe Exam Browser-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-Info.plist"; sourceTree = "<group>"; };
 		F1F144F22C11DD0915313474AC15D00C /* IASKSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSlider.h; path = Sources/InAppSettingsKit/include/IASKSlider.h; sourceTree = "<group>"; };
 		F326A9E923EB9979786BD35B17A46513 /* JitsiMeetSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JitsiMeetSDK.release.xcconfig; sourceTree = "<group>"; };
-		F335F4D1F653D879248BD3CD20754CAC /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = tr.lproj; path = Sources/InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
+		F335F4D1F653D879248BD3CD20754CAC /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = Sources/InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
 		F396030642F8DBD481E2AA50FDDAD2F7 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Sources/CocoaLumberjack/DDTTYLogger.m; sourceTree = "<group>"; };
 		F7AD51497CB5F10D74E731EEC57577BA /* IASKSwitch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSwitch.m; path = Sources/InAppSettingsKit/Views/IASKSwitch.m; sourceTree = "<group>"; };
-		F86BF1C807B2EED8C7904E950CB34301 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
-		F9DB97E0C500AE40A7E1077BBB44AACC /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ca.lproj; path = Sources/InAppSettingsKit/Resources/ca.lproj; sourceTree = "<group>"; };
+		F86BF1C807B2EED8C7904E950CB34301 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		F9DB97E0C500AE40A7E1077BBB44AACC /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ca.lproj; path = Sources/InAppSettingsKit/Resources/ca.lproj; sourceTree = "<group>"; };
 		FAFBD790347D0C6FF1B5AF29CF1A86E3 /* Pods-Safe Exam Browser ETH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser ETH.debug.xcconfig"; sourceTree = "<group>"; };
 		FB5BBFD259F4EAD6A03EAC80D9ED81C7 /* IASKDatePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKDatePicker.h; path = Sources/InAppSettingsKit/include/IASKDatePicker.h; sourceTree = "<group>"; };
 		FF4E2E62B17DDE9276C33A1940F8B700 /* InAppSettingsKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.debug.xcconfig; sourceTree = "<group>"; };
-		FFBC17296ACB10CDDE0A4B8AB05FAA1E /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = th.lproj; path = Sources/InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
+		FFBC17296ACB10CDDE0A4B8AB05FAA1E /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = th.lproj; path = Sources/InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -554,7 +555,6 @@
 				AA69FD86D9458126F9BDE4685186AE90 /* Support Files */,
 				7E5129AD4FE42FA651D37556B0374352 /* Swift */,
 			);
-			name = CocoaLumberjack;
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
 		};
@@ -574,7 +574,6 @@
 				DD5CC75F7F8A11D959687E41BCDDB3E3 /* QRToggleTorchButton.m */,
 				6F9FCCF83B64020709E82E5850D54D6D /* Support Files */,
 			);
-			name = QRCodeReaderViewController;
 			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
 		};
@@ -627,7 +626,6 @@
 				96446E85913E0B3A18A923729A9C5B64 /* Frameworks */,
 				3B2550DB71C178DB2098B62786078E21 /* Support Files */,
 			);
-			name = JitsiMeetSDK;
 			path = JitsiMeetSDK;
 			sourceTree = "<group>";
 		};
@@ -863,7 +861,6 @@
 				38D02AD7E50AB6419AA18467F62FDD5E /* Resources */,
 				96616D067D0F980380A85197507014C8 /* Support Files */,
 			);
-			name = InAppSettingsKit;
 			path = InAppSettingsKit;
 			sourceTree = "<group>";
 		};
@@ -925,7 +922,7 @@
 				E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */,
 				349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack-macOS */,
 				C082AE78A2C795A7CD50CE6E5575AB9C /* InAppSettingsKit */,
-				325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */,
+				325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */,
 				C8DE2D5CE46EDF5E5229918A90D80C8D /* Pods-Safe Exam Browser */,
 				D101583BAB74D69643093AD7E56D2565 /* Pods-Safe Exam Browser ETH */,
 				126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */,
@@ -1172,7 +1169,7 @@
 			);
 			name = "InAppSettingsKit-InAppSettingsKit";
 			productName = InAppSettingsKit;
-			productReference = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */;
+			productReference = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		8D1165BCE944BB911E03BF62CB52B947 /* CocoaLumberjack-iOS */ = {
@@ -1369,7 +1366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit-InAppSettingsKit in Resources */,
+				FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1671,6 +1668,7 @@
 			baseConfigurationReference = FF4E2E62B17DDE9276C33A1940F8B700 /* InAppSettingsKit.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
 				IBSC_MODULE = InAppSettingsKit;
 				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
@@ -2227,6 +2225,7 @@
 			baseConfigurationReference = 63763A7A47BC02DC6C6D2D62D78C8701 /* InAppSettingsKit.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
 				IBSC_MODULE = InAppSettingsKit;
 				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
