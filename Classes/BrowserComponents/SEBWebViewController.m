@@ -389,8 +389,9 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(nullable WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
@@ -461,7 +462,7 @@
             SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
             sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
             
-            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES];
+            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil];
             if (navigationAction.policy == SEBNavigationActionPolicyJSOpen) {
                 SEBAbstractWebView *newAbstractWebView = navigationAction.openedWebView;
                 DDLogInfo(@"Opening classic WebView after Javascript .open()");
@@ -1003,10 +1004,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
         SEBNavigationAction *delegateNavigationAction;
         if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
-            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
             delegateNavigationActionPolicy = delegateNavigationAction.policy;
         } else {
-            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:nil];
             delegateNavigationActionPolicy = delegateNavigationAction.policy;
         }
     #ifdef DEBUG
@@ -1047,7 +1048,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 // If the request's sender is the temporary webview
                 
                 if (sender.creatingWebView && newBrowserWindowPolicy == openInNewWindow) {
-                    SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindowWithURL:request.URL];
+                    SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindowWithURL:request.URL configuration:nil];
                     newWindowAbstractWebView.creatingWebView = self.navigationDelegate.abstractWebView;
                     DDLogDebug(@"Just opened new document browser window with SEBAbstractWebView %@", newWindowAbstractWebView);
                     [listener ignore];
@@ -1083,7 +1084,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
     navigationAction.writableRequest = request;
 
-    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
 
     [listener ignore];
 }
