@@ -921,6 +921,7 @@ import PDFKit
             sebWKNavigationAction.writableRequest = request
             let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration)
             let openedAbstractWebView = newNavigationAction?.openedWebView
+#if os(macOS)
             if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
                 if openedAbstractWebView != nil { // Excluding special case: Open in same window
                     DDLogInfo("Opened modern WebView after Javascript .open()")
@@ -929,6 +930,7 @@ import PDFKit
                     return newWKWebView
                 }
             }
+#endif
         }
         return nil
     }
