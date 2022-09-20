@@ -922,9 +922,7 @@ import PDFKit
             let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration)
             let openedAbstractWebView = newNavigationAction?.openedWebView
             if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
-                if openedAbstractWebView == nil {
-                    return nil
-                } else {
+                if openedAbstractWebView != nil { // Excluding special case: Open in same window
                     DDLogInfo("Opened modern WebView after Javascript .open()")
                     let newAbstractWebView = openedAbstractWebView!
                     let newWKWebView = newAbstractWebView.nativeWebView() as? WKWebView
