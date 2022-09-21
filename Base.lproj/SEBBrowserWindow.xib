@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
@@ -32,7 +33,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166" customClass="SEBToolbar">
+            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward Navigation" paletteLabel="" sizingBehavior="auto" id="175">
                         <nil key="toolTip"/>
