@@ -28,7 +28,7 @@ import Network
         browser.stateUpdateHandler = { newState in
             switch newState {
             case .failed(let error):
-                print(error.localizedDescription)
+                DDLogError("Requesting local network permission failed: \(error.debugDescription) \(error.localizedDescription)")
             case .ready, .cancelled:
                 break
             case let .waiting(error):
@@ -59,7 +59,7 @@ import Network
 extension LocalNetworkAuthorizationManager : NetServiceDelegate {
     public func netServiceDidPublish(_ sender: NetService) {
         self.reset()
-        DDLogInfo("Local network permission has been granted")
+        DDLogInfo("Local network permission available")
         completion?(true)
     }
 }
