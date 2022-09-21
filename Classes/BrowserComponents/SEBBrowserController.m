@@ -1240,7 +1240,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    DDLogInfo(@"WKWebView: %@ didReceiveAuthenticationChallenge: %@", webView, challenge);
+    DDLogVerbose(@"WKWebView: %@ didReceiveAuthenticationChallenge: %@", webView, challenge);
     [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
@@ -1251,7 +1251,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
+    DDLogDebug(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
     [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
