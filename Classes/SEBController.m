@@ -4517,12 +4517,16 @@ conditionallyForWindow:(NSWindow *)window
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
+    appLocalizedName = appLocalizedName ? appLocalizedName : @"";
     NSURL *appURL = [self getBundleOrExecutableURL:application];
+    appURL = appURL ? appURL : NSURL.new;
+    NSString *appBundleID = application.bundleIdentifier;
+    appBundleID = appBundleID ? appBundleID : @"";
     NSDictionary *processDetails = @{
         @"name" : appLocalizedName,
         @"PID" : [NSNumber numberWithInt:application.processIdentifier],
         @"URL": appURL,
-        @"bundleID" : application.bundleIdentifier
+        @"bundleID" : appBundleID
     };
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         NSInteger killSuccess = [application kill];
