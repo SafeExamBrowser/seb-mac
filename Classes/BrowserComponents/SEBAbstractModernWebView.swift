@@ -733,7 +733,7 @@ import PDFKit
         let allowDownloads = self.navigationDelegate?.allowDownUploads ?? false
         
         let callDecisionHandler:() -> () = {
-            DDLogDebug("navigationActionPolicy: \(navigationActionPolicy)")
+            DDLogVerbose("navigationActionPolicy: \(navigationActionPolicy)")
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
             } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
@@ -796,7 +796,6 @@ import PDFKit
                 proceedHandler()
             }
         } else {
-            DDLogDebug("Not searched for 'download' attribute")
             self.downloadFilename = nil
             proceedHandler()
         }
@@ -850,8 +849,6 @@ import PDFKit
 
                 }
                 DDLogDebug("Filename '\(filename)' of resource to download determined using the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...'. Property suggestedFilename from WKNavigationResponse: '\(suggestedFilename ?? "<empty>")'")
-            } else {
-                DDLogDebug("downloadFilename: \(String(describing: self.downloadFilename)), downloadingSEBConfig: \(self.downloadingSEBConfig)")
             }
             
             if navigationResponsePolicy == SEBNavigationResponsePolicyAllow {
