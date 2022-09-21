@@ -1040,6 +1040,9 @@ bool insideMatrix(void);
         _runningProhibitedProcesses = [NSMutableArray new];
         _terminatedProcessesExecutableURLs = [NSMutableArray new];
 
+        // Reset SEB Browser
+        [self.browserController resetBrowser];
+
         if (!_openingSettings) {
             // Initialize SEB according to client settings
             [self conditionallyInitSEBWithCallback:self
