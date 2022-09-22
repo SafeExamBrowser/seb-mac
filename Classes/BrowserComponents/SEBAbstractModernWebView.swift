@@ -639,6 +639,10 @@ import PDFKit
         return navigationDelegate?.isNavigationAllowed ?? false
     }
     
+    public var isAACEnabled: Bool {
+        return navigationDelegate?.isAACEnabled ?? false
+    }
+    
     public func sebWebViewDidStartLoad() {
         navigationDelegate?.sebWebViewDidStartLoad?()
     }
@@ -733,7 +737,6 @@ import PDFKit
         let allowDownloads = self.navigationDelegate?.allowDownUploads ?? false
         
         let callDecisionHandler:() -> () = {
-            DDLogVerbose("navigationActionPolicy: \(navigationActionPolicy)")
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
             } else if navigationActionPolicy == SEBNavigationActionPolicyCancel {
@@ -804,8 +807,6 @@ import PDFKit
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        
-        DDLogDebug("decidePolicyFor navigationResponse")
         
         let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
             guard let url = navigationResponse.response.url else {
