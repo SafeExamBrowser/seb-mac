@@ -561,6 +561,10 @@
     return self.navigationDelegate.window;
 }
 
+- (BOOL) isAACEnabled
+{
+    return self.navigationDelegate.isAACEnabled;
+}
 
 - (void)sebWebViewDidStartLoad
 {

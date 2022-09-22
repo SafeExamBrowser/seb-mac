@@ -181,6 +181,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Required by SEB-macOS
 @property (weak, nonatomic) id __nullable window;
+@property (readonly) BOOL isAACEnabled;
+
 // Required by SEB-iOS
 @property (strong, nonatomic) id __nullable uiAlertController;
 
@@ -371,5 +373,17 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 @property (nullable, weak, nonatomic) SEBAbstractWebView *openedWebView;
 
 @end
+
+
+#if TARGET_OS_OSX
+@interface WKPreferences ()
+
+- (void)_setDeveloperExtrasEnabled:(BOOL)developerExtrasEnabled;
+- (void)_setShouldAllowUserInstalledFonts:(BOOL)_shouldAllowUserInstalledFonts;
+- (void)_setFullScreenEnabled:(BOOL)fullScreenEnabled;
+- (void)_setAllowsPictureInPictureMediaPlayback:(BOOL)allowed;
+
+@end
+#endif
 
 NS_ASSUME_NONNULL_END
