@@ -64,10 +64,10 @@ extension NetworkRequest {
         request.httpMethod = httpMethod
         if let additionalHeaders = headers {
             for header in additionalHeaders {
-                request.addValue(header.value as! String, forHTTPHeaderField: header.key as! String)
+                request.addValue(header.value as? String ?? "", forHTTPHeaderField: header.key as? String ?? "")
             }
         }
-        request.httpBody = body.data(using: .utf8)!
+        request.httpBody = body.data(using: .utf8)
 
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
