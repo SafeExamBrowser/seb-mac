@@ -1257,6 +1257,11 @@
     return self;
 }
 
+- (BOOL) isAACEnabled
+{
+    return self.browserController.isAACEnabled;
+}
+
 
 - (void)sebWebViewDidStartLoad
 {

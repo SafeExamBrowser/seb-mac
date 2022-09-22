@@ -1100,6 +1100,12 @@
 }
 
 
+- (BOOL) isAACEnabled
+{
+    return _sebController.isAACEnabled;
+}
+
+
 - (void)webView:(WKWebView *)webView
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     defaultText:(nullable NSString *)defaultText
