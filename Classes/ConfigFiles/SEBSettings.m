@@ -280,10 +280,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"browserMediaAutoplayVideo",
                    
-                   @YES,
+                   @NO,
                    @"browserMediaCaptureCamera", //setting for WebRTC camera capture
                    
-                   @YES,
+                   @NO,
                    @"browserMediaCaptureMicrophone", //setting for WebRTC microphone capture
                    
                    @NO,

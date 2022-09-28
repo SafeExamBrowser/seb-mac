@@ -200,6 +200,16 @@ bool insideMatrix(void);
 }
 
 
+- (SEBZoomController *)zoomController
+{
+    if (!_zoomController) {
+        _zoomController = [[SEBZoomController alloc] init];
+//        _zoomController.proctoringUIDelegate = self;
+    }
+    return _zoomController;
+}
+
+
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -1878,9 +1888,18 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
+    // Check microphone/camera/screen capturing/proctoring permissions
+    
+    BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
+    BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
+    BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
+
     BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
-    if (zoomEnable || jitsiMeetEnable) {
+    BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
+    BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+    
+    if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
 
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
@@ -1897,7 +1916,7 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
 
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"]) {
+    if (browserMediaCaptureScreen) {
         if (@available(macOS 11, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
@@ -1925,6 +1944,177 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
 
+    void (^conditionallyStartProctoring)(void) =
+    ^{
+        // OK action handler
+        void (^startRemoteProctoringOK)(void) =
+        ^{
+            if (zoomEnable) {
+                [self openZoomView];
+                [self.zoomController openZoomWithSender:self];
+            }
+            // Continue starting the exam session
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL) = (void *)imp;
+            func(callback, selector);
+        };
+        if (zoomEnable) {
+            // Check if previous SEB session already had proctoring active
+            if (self.previousSessionZoomEnabled) {
+                run_on_ui_thread(startRemoteProctoringOK);
+            } else {
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", nil)];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            run_on_ui_thread(startRemoteProctoringOK);
+                            return;
+                        }
+                            
+                        case NSAlertSecondButtonReturn:
+                        {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
+                        }
+                            
+                        default:
+                        {
+                        }
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+                return;
+            }
+        }
+        // Continue starting the exam session
+        IMP imp = [callback methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(callback, selector);
+    };
+
+    if (browserMediaCaptureMicrophone ||
+        browserMediaCaptureCamera ||
+        zoomEnable ||
+        jitsiMeetEnable) {
+        
+        if (@available(macOS 10.14, *)) {
+            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *camera = @"";
+                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                }
+                NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
+                                                    proctoringSession ? NSLocalizedString(@"remote proctoring", nil) : @"",
+                                                    proctoringSession && webApplications ? NSLocalizedString(@" and ", nil) : @"",
+                                                    webApplications ? NSLocalizedString(@"web applications", nil) : @""];
+                NSString *resolveSuggestion;
+                NSString *resolveSuggestion2;
+                NSString *message;
+                if (videoAuthorization == AVAuthorizationStatusDenied ||
+                    audioAuthorization == AVAuthorizationStatusDenied) {
+                    resolveSuggestion = NSLocalizedString(@"in System Preferences ", nil);
+                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                } else {
+                    resolveSuggestion = @"";
+                    resolveSuggestion2 = @"";
+                }
+                if (videoAuthorization == AVAuthorizationStatusRestricted ||
+                    audioAuthorization == AVAuthorizationStatusRestricted) {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone, permissionsRequiredFor, camera, microphone];
+                } else {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
+                }
+                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
+                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"System Preferences", nil) : NSLocalizedString(@"OK", nil);
+                
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", nil), permissionsRequiredFor.localizedCapitalizedString]];
+                [modalAlert setInformativeText:message];
+                [modalAlert addButtonWithTitle:firstButtonTitle];
+                if (NSUserDefaults.userDefaultsPrivate) {
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                }
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            if (videoAuthorization == AVAuthorizationStatusDenied ||
+                                audioAuthorization == AVAuthorizationStatusDenied) {
+                                [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                return;
+                            }
+                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                                if (granted){
+                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                    
+                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                                        if (granted){
+                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+                                            
+                                            run_on_ui_thread(conditionallyStartProctoring);
+                                            
+                                        } else {
+                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                            [[NSNotificationCenter defaultCenter]
+                                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                        }
+                                    }];
+                                    return;
+                                    
+                                } else {
+                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                }
+                            }];
+                            return;
+                        }
+                            
+                        case NSAlertSecondButtonReturn:
+                        {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                        }
+                            
+                        default:
+                        {
+                        }
+                    }
+                    
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+                return;
+                
+            } else {
+                run_on_ui_thread(conditionallyStartProctoring);
+                return;
+            }
+        } else {
+            run_on_ui_thread(conditionallyStartProctoring);
+            return;
+        }
+    } else {
+        self.previousSessionZoomEnabled = NO;
+    }
+    
     // Continue to starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;

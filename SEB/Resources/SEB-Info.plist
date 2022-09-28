@@ -76,7 +76,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in $(PRODUCT_NAME).</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera is needed to scan QR codes, for web applications and remote proctoring</string>
+	<string>Camera is needed to scan QR codes, for web applications and remote proctoringca</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSLocalNetworkUsageDescription</key>
