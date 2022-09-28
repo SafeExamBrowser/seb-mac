@@ -73,6 +73,8 @@
 #import "SEBServerOSXViewController.h"
 #import "ServerLogger.h"
 
+#import "SEBZoomController.h"
+
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -84,6 +86,7 @@
 @class ServerController;
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
+@class SEBZoomController;
 
 
 @interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
@@ -206,6 +209,8 @@
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported NO
 #define ZoomProctoringSupported NO
+@property (strong, nonatomic) SEBZoomController *zoomController;
+
 @property(readwrite) BOOL previousSessionZoomEnabled;
 
 @property(readwrite) BOOL zoomReceiveAudio;
