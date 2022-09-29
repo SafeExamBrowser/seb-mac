@@ -346,7 +346,7 @@ void DisposeWindow (
             }
             // Check if top of window is hidden below the dock (if visible)
             // or just slightly (20 points) above the bottom edge of the visible screen space
-            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + NSApp.mainMenu.menuBarHeight)) { //showDock * dockHeight +
+            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + newScreen.menuBarHeight)) { //showDock * dockHeight +
                 // In this case shift the window up
                 newWindowFrame = NSMakeRect(newWindowFrame.origin.x, newFrame.origin.y, newWindowFrame.size.width, newWindowFrame.size.height);
             }

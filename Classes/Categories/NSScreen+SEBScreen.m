@@ -52,7 +52,7 @@
 }
 
 
-+(NSString*) displayNameForID:(NSInteger)displayID
++ (NSString*) displayNameForID:(NSInteger)displayID
 {
     NSString *screenName = nil;
     
@@ -69,7 +69,7 @@
 }
 
 
--(NSString*) displayName
+- (NSString*) displayName
 {
     CGDirectDisplayID displayID = [[self displayID] intValue];
     
@@ -86,22 +86,26 @@
 }
 
 
--(NSNumber*) displayID
+- (NSNumber*) displayID
 {
     return [[self deviceDescription] valueForKey:@"NSScreenNumber"];
 }
 
 
--(NSRect) usableFrame
+- (NSRect) usableFrame
 {
     // Get full screen frame
     NSRect newFrame = self.frame;
     // Deduct menu bar height
-    CGFloat menuBarHeight = [NSApplication sharedApplication].mainMenu.menuBarHeight + 1;
-    newFrame.size.height -= [NSMenu menuBarVisible] * menuBarHeight;
+    newFrame.size.height -= [NSMenu menuBarVisible] * self.menuBarHeight;
 
     return newFrame;
 }
 
+- (CGFloat) menuBarHeight
+{
+    CGFloat menuBarHeight = self.frame.size.height - self.visibleFrame.size.height - (self.visibleFrame.origin.y - self.frame.origin.y) - 1;
+    return menuBarHeight;
+}
 
 @end
