@@ -1030,7 +1030,7 @@ bool insideMatrix(void);
 {
     DDLogDebug(@"%s", __FUNCTION__);
     _runningProhibitedProcesses = [NSMutableArray new];
-    _terminatedProcessesExecutableURLs = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableSet new];
 
     _alternateKeyPressed = [self alternateKeyCheck];
 
@@ -1048,7 +1048,7 @@ bool insideMatrix(void);
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
 
         _runningProhibitedProcesses = [NSMutableArray new];
-        _terminatedProcessesExecutableURLs = [NSMutableArray new];
+        _terminatedProcessesExecutableURLs = [NSMutableSet new];
 
         // Reset SEB Browser
         [self.browserController resetBrowser];
@@ -3680,7 +3680,7 @@ bool insideMatrix(){
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
         if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
-            rect.size.height -= NSApp.mainMenu.menuBarHeight;
+            rect.size.height -= iterScreen.menuBarHeight;
         }
         DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld",
                    coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert",
@@ -4556,7 +4556,7 @@ conditionallyForWindow:(NSWindow *)window
     NSScreen *mainScreen = screens[0];
     
     NSPoint topLeftPoint;
-    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - NSApp.mainMenu.menuBarHeight;
+    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - mainScreen.menuBarHeight;
     topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
     
@@ -6281,10 +6281,8 @@ conditionallyForWindow:(NSWindow *)window
     
     // Restart terminated apps
     DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);
-    NSArray *uniqueTerminatedProcessesURLs = [_terminatedProcessesExecutableURLs valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    DDLogInfo(@"These unique processes were terminated by SEB during this session: %@", uniqueTerminatedProcessesURLs);
     
-    for (NSURL *executableURL in uniqueTerminatedProcessesURLs) {
+    for (NSURL *executableURL in _terminatedProcessesExecutableURLs) {
         
         NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
