@@ -37,9 +37,10 @@
 
 @property (nonatomic, assign)  BOOL inactive;
 
-+(NSString*) displayNameForID:(NSInteger)displayID;
--(NSString*) displayName;
--(NSNumber*) displayID;
--(NSRect) usableFrame;
++ (NSString*) displayNameForID:(NSInteger)displayID;
+- (NSString*) displayName;
+- (NSNumber*) displayID;
+- (NSRect) usableFrame;
+- (CGFloat) menuBarHeight;
 
 @end
