@@ -3680,7 +3680,7 @@ bool insideMatrix(){
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
         if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
-            rect.size.height -= 22;
+            rect.size.height -= NSApp.mainMenu.menuBarHeight;
         }
         DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld",
                    coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert",
@@ -4556,7 +4556,7 @@ conditionallyForWindow:(NSWindow *)window
     NSScreen *mainScreen = screens[0];
     
     NSPoint topLeftPoint;
-    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - 22;
+    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - NSApp.mainMenu.menuBarHeight;
     topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
     
