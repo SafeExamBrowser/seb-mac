@@ -1711,8 +1711,17 @@ bool insideMatrix(void);
                 if (@available(macOS 12.1, *)) {
                     // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
                 } else {
-                    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
                         NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
+                        if (permittedDomains.count == 0) {
+                            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                            if (urlText.length == 0) {
+                                urlText = SEBStartPage;
+                            }
+                            NSURL *startURL = [NSURL URLWithString:urlText];
+                            permittedDomains = @[startURL.host];
+                        }
                         BOOL result;
                         for (NSString *permittedDomain in permittedDomains) {
                             NSString *host = permittedDomain;
