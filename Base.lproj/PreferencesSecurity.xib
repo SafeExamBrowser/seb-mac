@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
+                <outlet property="aacDnsPrePinningButton" destination="GXF-y1-76z" id="ozh-xG-mKU"/>
                 <outlet property="allowDictationButton" destination="vh3-YR-Pun" id="UvJ-DP-dXu"/>
                 <outlet property="allowDisplayMirroringButton" destination="oq3-9u-BrJ" id="DB5-ZR-VWB"/>
                 <outlet property="allowScreenCaptureButton" destination="PH3-Cb-12g" id="5RA-zw-afm"/>
@@ -506,7 +507,7 @@
                                                                                 <font key="font" metaFont="message" size="11"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_forceAppFolderInstall" id="hOT-bo-JlP">
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="jFq-ie-2rG">
                                                                                     <dictionary key="options">
                                                                                         <string key="NSValueTransformerName">BoolValueTransformer</string>
                                                                                     </dictionary>

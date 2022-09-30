@@ -128,6 +128,7 @@
 {
     BOOL AACDisabled = !sender.state;
     
+    aacDnsPrePinningButton.enabled = !AACDisabled;
     allowScreenCaptureButton.enabled = AACDisabled;
     allowWindowCaptureButton.enabled = AACDisabled && allowScreenCaptureButton.state;
     blockScreenShotsButton.enabled = AACDisabled && allowScreenCaptureButton.state && allowWindowCaptureButton.state;
