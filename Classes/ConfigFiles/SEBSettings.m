@@ -148,6 +148,9 @@ static SEBSettings *sharedSEBSettings = nil;
     return  @{@"rootSettings" :
                   [NSDictionary dictionaryWithObjectsAndKeys:
                    
+                   @NO,
+                   @"aacDnsPrePinning",
+                   
                    [NSArray array],
                    @"additionalResources",
                    
