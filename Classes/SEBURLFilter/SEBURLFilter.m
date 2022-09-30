@@ -459,16 +459,12 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSMutableArray <NSString *>* permittedDomains = [NSMutableArray new];
     
     for (URLFilterRule in URLFilterRules) {
-        
-        if ([URLFilterRule[@"active"] boolValue] == YES) {
-            
-            NSString *expressionString = URLFilterRule[@"expression"];
-            if (expressionString.length > 0) {
-                if ([URLFilterRule[@"regex"] boolValue] == NO &&
-                    [URLFilterRule[@"action"] intValue] == URLFilterActionAllow) {
-                    SEBURLFilterExpression *urlFromString = [SEBURLFilterExpression filterExpressionWithString:expressionString];
-                    [permittedDomains addObject:urlFromString.host];
-                }
+        NSString *expressionString = URLFilterRule[@"expression"];
+        if (expressionString.length > 0) {
+            if ([URLFilterRule[@"regex"] boolValue] == NO &&
+                [URLFilterRule[@"action"] intValue] == URLFilterActionAllow) {
+                SEBURLFilterExpression *urlFromString = [SEBURLFilterExpression filterExpressionWithString:expressionString];
+                [permittedDomains addObject:urlFromString.host];
             }
         }
     }
