@@ -162,11 +162,15 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL newWebPageShowURLAlways;
 }
 
+- (void) quitSession;
+- (void) resetBrowser;
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
+
+@property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
+
 - (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
 - (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
 - (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
-
-@property (weak) id<SEBBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate> delegate;
 
 @property (strong, nonatomic) NSURL *sebServerExamStartURL;
 
@@ -201,9 +205,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) resetAllCookiesWithCompletionHandler:(void (^)(void))completionHandler;
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
 
-- (void) quitSession;
-- (void) resetBrowser;
-+ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 @property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
 @property (readonly) BOOL allowDownUploads;
