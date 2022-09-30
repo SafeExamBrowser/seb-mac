@@ -161,8 +161,57 @@ void run_block_on_ui_thread(dispatch_block_t block)
     return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyShowReloadWarning];
 }
 
+- (void) quitSession
+{
+    examSessionCookiesAlreadyCleared = NO;
+}
 
-#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+- (void) resetBrowser
+{
+    self.downloadingInTemporaryWebView = NO;
+    self.temporaryWebView = nil;
+
+    self.browserExamKey = nil;
+    self.configKey = nil;
+    self.customSEBUserAgent = nil;
+    [self initSessionSettings];
+
+    void (^completionHandler)(void) = ^void() {
+        // Additional commands for resetting browser
+    };
+    if (examSessionCookiesAlreadyCleared == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+            // downloads to disk, and ensures that future requests occur on a new socket.
+            DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
+            [self resetAllCookiesWithCompletionHandler:^{
+                completionHandler();
+            }];
+            return;
+        }
+    } else {
+        // reset the flag when it was true before
+        examSessionCookiesAlreadyCleared = NO;
+    }
+    [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+}
+
+
+/// Save the default user agent of the installed WebKit version
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
+{
+    // Get WebKit version number string to use it as Safari version
+    NSRange webKitSubstring = [defaultUserAgent rangeOfString:@"AppleWebKit/"];
+    NSString *webKitVersion;
+    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < defaultUserAgent.length) {
+        webKitVersion = [defaultUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
+        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
+    } else {
+        webKitVersion = SEBUserAgentDefaultSafariVersion;
+    }
+    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
+    [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
+}
 
 
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
@@ -232,59 +281,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     run_block_on_ui_thread(^{
         completionHandler();
     });
-}
-
-
-- (void) quitSession
-{
-    examSessionCookiesAlreadyCleared = NO;
-}
-
-- (void) resetBrowser
-{
-    self.downloadingInTemporaryWebView = NO;
-    self.temporaryWebView = nil;
-
-    self.browserExamKey = nil;
-    self.configKey = nil;
-    self.customSEBUserAgent = nil;
-    [self initSessionSettings];
-
-    void (^completionHandler)(void) = ^void() {
-        // Additional commands for resetting browser
-    };
-    if (examSessionCookiesAlreadyCleared == NO) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-            // downloads to disk, and ensures that future requests occur on a new socket.
-            DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
-            [self resetAllCookiesWithCompletionHandler:^{
-                completionHandler();
-            }];
-            return;
-        }
-    } else {
-        // reset the flag when it was true before
-        examSessionCookiesAlreadyCleared = NO;
-    }
-    [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
-}
-
-
-/// Save the default user agent of the installed WebKit version
-+ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
-{
-    // Get WebKit version number string to use it as Safari version
-    NSRange webKitSubstring = [defaultUserAgent rangeOfString:@"AppleWebKit/"];
-    NSString *webKitVersion;
-    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < defaultUserAgent.length) {
-        webKitVersion = [defaultUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
-        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
-    } else {
-        webKitVersion = SEBUserAgentDefaultSafariVersion;
-    }
-    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
-    [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
 }
 
 
