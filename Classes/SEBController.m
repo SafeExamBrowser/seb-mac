@@ -1688,22 +1688,51 @@ bool insideMatrix(void);
         if (@available(macOS 10.15.4, *)) {
             DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
             [self updateAACAvailablility];
-                DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-                [self closeCapWindows];
+            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+            [self closeCapWindows];
             DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
             if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+                void (^startAssessmentMode)(void) =
+                ^{
+                    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
+                    DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+                    self.assessmentModeManager = assessmentModeManager;
+                    self.assessmentModeManager.delegate = self;
+                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                        [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                    }
+                };
+                
                 // Save current string from pasteboard for pasting start URL in Preferences Window
-                // and clear pasteboard (which acutally isn't necessary for AAC)
+                // and clear pasteboard (latter acutally isn't necessary for AAC)
                 [self clearPasteboardSavingCurrentString];
                 
-                NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
-                DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
-                AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
-                self.assessmentModeManager = assessmentModeManager;
-                self.assessmentModeManager.delegate = self;
-                if ([self.assessmentModeManager beginAssessmentMode] == NO) {
-                    [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                if (@available(macOS 12.1, *)) {
+                    // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
+                } else {
+                    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
+                        NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
+                        BOOL result;
+                        for (NSString *permittedDomain in permittedDomains) {
+                            NSString *host = permittedDomain;
+                            if ([permittedDomain hasPrefix:@"."] && permittedDomain.length > 1) {
+                                host = [permittedDomain substringFromIndex:1];
+                            }
+                            CFHostRef hostRef;
+                            hostRef = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)host);
+                            if (hostRef) {
+                                 result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
+                                if (result) {
+                                    DDLogDebug(@"Performed DNS pre-pinning of host %@", host);
+                                } else {
+                                    DDLogDebug(@"DNS pre-pinning of host %@ failed", host);
+                                }
+                            }
+                        }
+                    }
                 }
+                startAssessmentMode();
                 return;
             } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
                 DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
@@ -4851,10 +4880,17 @@ conditionallyForWindow:(NSWindow *)window
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
 
-    if ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) ||
-        (currentOSMajorVersion == 11 && currentOSMinorVersion >= 4) ||
-        currentOSMajorVersion > 11) {
-        DDLogDebug(@"Running on macOS 10.15.4-11.0 or >11.4, may use AAC if allowed in current settings.");
+    BOOL aacDnsPrePinning = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"];
+    // Determine on which macOS versions AAC is possible:
+    BOOL aacPossible = ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) && //>= Catalina 10.15.4
+    !(currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion == 5)) || //except 10.15.5 connectivity broken
+    (aacDnsPrePinning && currentOSMajorVersion == 11) || //Big Sur 11 with DNS pre-pinning
+    (aacDnsPrePinning && currentOSMajorVersion == 12 && currentOSMinorVersion == 1) || //Monterey 12.1 with DNS pre-pinning
+    (currentOSMajorVersion == 12 && currentOSMinorVersion > 1) || //>12.1 without bugs (hopefully)
+    currentOSMajorVersion > 12;
+    
+    if (aacPossible) {
+        DDLogDebug(@"Running on supported macOS version where AAC isn't buggy (or with DNS pre-pinning enabled), may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
     } else {
         _isAACEnabled = NO;
