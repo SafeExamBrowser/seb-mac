@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsSecurityViewController">
             <connections>
+                <outlet property="aacDnsPrePinningButton" destination="GXF-y1-76z" id="ozh-xG-mKU"/>
                 <outlet property="allowDictationButton" destination="vh3-YR-Pun" id="UvJ-DP-dXu"/>
                 <outlet property="allowDisplayMirroringButton" destination="oq3-9u-BrJ" id="DB5-ZR-VWB"/>
                 <outlet property="allowScreenCaptureButton" destination="PH3-Cb-12g" id="5RA-zw-afm"/>
@@ -483,18 +483,47 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
                                                             <rect key="frame" x="15" y="23" width="574" height="407"/>
                                                             <subviews>
-                                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
-                                                                    <rect key="frame" x="-2" y="390" width="272" height="18"/>
-                                                                    <string key="toolTip">Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4 (except macOS Big Sur 11.0-11.3). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) </string>
-                                                                    <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <action selector="setEnableEnableAAC:" target="-2" id="9Q9-wD-gAV"/>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="W98-SB-no7"/>
-                                                                    </connections>
-                                                                </button>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="25" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cw0-1d-lEF">
+                                                                    <rect key="frame" x="0.0" y="391" width="426" height="16"/>
+                                                                    <subviews>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="krs-I7-LT9">
+                                                                            <rect key="frame" x="-2" y="-1" width="217" height="18"/>
+                                                                            <string key="toolTip">Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 and &gt;= 10.15.6). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation)</string>
+                                                                            <buttonCell key="cell" type="check" title="Prefer Assessment Mode (AAC)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0in-TF-gTG">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <action selector="setEnableEnableAAC:" target="-2" id="9Q9-wD-gAV"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="W98-SB-no7"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="GXF-y1-76z">
+                                                                            <rect key="frame" x="238" y="0.0" width="188" height="18"/>
+                                                                            <string key="toolTip">On macOS &lt;12.1 DNS lookup doesn't work while in AAC. Pre-pinning resolves all domains from Start URL and URL filter rules before starting AAC to mitigate this bug. This allows to use AAC on macOS 11 - 12.0</string>
+                                                                            <buttonCell key="cell" type="check" title="Use AAC with DNS pre-pinning" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="jQ0-cO-PEU">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_aacDnsPrePinning" id="gWh-rG-E6L"/>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="jFq-ie-2rG">
+                                                                                    <dictionary key="options">
+                                                                                        <string key="NSValueTransformerName">BoolValueTransformer</string>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
                                                                     <rect key="frame" x="-2" y="366" width="239" height="18"/>
                                                                     <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
