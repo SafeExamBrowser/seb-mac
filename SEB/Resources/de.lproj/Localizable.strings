@@ -638,7 +638,7 @@
 "Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." = "Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.";
 
 /* No comment provided by engineer. */
-"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
+"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte beschreiben Sie das Problem, welches Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
 
 /* No comment provided by engineer. */
 "Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
