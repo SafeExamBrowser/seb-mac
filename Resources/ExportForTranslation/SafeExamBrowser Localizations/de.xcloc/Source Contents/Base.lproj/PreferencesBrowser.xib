@@ -35,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="949"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="993"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="869" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="913" width="594" height="65"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -108,7 +108,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="773" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="817" width="616" height="86"/>
                                         <view key="contentView" id="sga-L4-DYG">
                                             <rect key="frame" x="3" y="3" width="610" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,7 +224,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="619" width="616" height="148"/>
+                                        <rect key="frame" x="17" y="663" width="616" height="148"/>
                                         <view key="contentView" id="guQ-Yx-amA">
                                             <rect key="frame" x="3" y="3" width="610" height="130"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -420,7 +420,7 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
-                                        <rect key="frame" x="20" y="495" width="610" height="118"/>
+                                        <rect key="frame" x="20" y="539" width="610" height="118"/>
                                         <subviews>
                                             <box title="Restrictions in Exam Window" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-y6-APQ">
                                                 <rect key="frame" x="-3" y="-4" width="301" height="122"/>
@@ -651,20 +651,20 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <box title="Media Playback" translatesAutoresizingMaskIntoConstraints="NO" id="u8M-48-HFC">
-                                        <rect key="frame" x="17" y="389" width="616" height="96"/>
+                                    <box title="Media Playback/Capture" translatesAutoresizingMaskIntoConstraints="NO" id="u8M-48-HFC">
+                                        <rect key="frame" x="17" y="389" width="616" height="140"/>
                                         <view key="contentView" id="X79-ym-XJE">
-                                            <rect key="frame" x="3" y="3" width="610" height="78"/>
+                                            <rect key="frame" x="3" y="3" width="610" height="122"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kLQ-7r-lWn">
-                                                    <rect key="frame" x="11" y="10" width="588" height="60"/>
+                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kLQ-7r-lWn">
+                                                    <rect key="frame" x="11" y="10" width="588" height="104"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DrK-xB-gdR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="60"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-3j-b2T">
-                                                                    <rect key="frame" x="-2" y="43" width="119" height="18"/>
+                                                                    <rect key="frame" x="-2" y="87" width="119" height="18"/>
                                                                     <string key="toolTip">Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)</string>
                                                                     <buttonCell key="cell" type="check" title="Media autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Afc-A3-r3P">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -676,7 +676,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Using the modern WebView, video autoplay can be controlled separately" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uOh-V9-bip">
-                                                                    <rect key="frame" x="13" y="21" width="116" height="18"/>
+                                                                    <rect key="frame" x="13" y="65" width="116" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Video autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="MOG-Nd-tGS">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -687,7 +687,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="Using the modern WebView, audio autoplay can be controlled separately" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-8y-dLi">
-                                                                    <rect key="frame" x="13" y="-1" width="116" height="18"/>
+                                                                    <rect key="frame" x="13" y="43" width="116" height="18"/>
                                                                     <buttonCell key="cell" type="check" title="Audio autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="p8H-vN-YbW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -695,6 +695,28 @@
                                                                     <connections>
                                                                         <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplay" id="0Lo-uj-FN9"/>
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplayAudio" id="f5C-wh-J8d"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bjS-Ok-Dj9">
+                                                                    <rect key="frame" x="-2" y="21" width="157" height="18"/>
+                                                                    <string key="toolTip">Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow camera capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="4cR-n5-sEi">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaCaptureCamera" id="MXH-5a-DK4"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="d4A-pq-G5U">
+                                                                    <rect key="frame" x="-2" y="-1" width="184" height="18"/>
+                                                                    <string key="toolTip">Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow microphone capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6ym-r5-MoN">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaCaptureMicrophone" id="aJZ-3D-Bqk"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -706,18 +728,22 @@
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="7kt-y8-7Rd">
-                                                            <rect key="frame" x="304" y="0.0" width="284" height="60"/>
+                                                            <rect key="frame" x="304" y="22" width="284" height="82"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
-                                                                    <rect key="frame" x="-2" y="43" width="200" height="18"/>
+                                                                    <rect key="frame" x="-2" y="65" width="200" height="18"/>
                                                                     <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -728,7 +754,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="rf6-Kj-obV">
-                                                                    <rect key="frame" x="-2" y="21" width="216" height="18"/>
+                                                                    <rect key="frame" x="-2" y="43" width="216" height="18"/>
                                                                     <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -739,7 +765,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IqX-2Y-Ffc">
-                                                                    <rect key="frame" x="-2" y="-1" width="237" height="18"/>
+                                                                    <rect key="frame" x="-2" y="21" width="237" height="18"/>
                                                                     <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps</string>
                                                                     <buttonCell key="cell" type="check" title="Allow picture in picture video (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zZ5-9g-Lhz">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -749,13 +775,26 @@
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback" id="PRS-fW-XES"/>
                                                                     </connections>
                                                                 </button>
+                                                                <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NjH-uQ-OnL">
+                                                                    <rect key="frame" x="-2" y="-1" width="153" height="18"/>
+                                                                    <string key="toolTip">Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fCI-oc-vd6">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaCaptureScreen" id="PHj-bQ-ReC"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
+                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
@@ -1465,7 +1504,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99335548172757471" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99420289855072463" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
