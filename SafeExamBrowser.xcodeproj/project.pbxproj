@@ -1722,7 +1722,6 @@
 		69DA91271C6A5CCF008D38E6 /* SEBRestartIconHighlighted.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRestartIconHighlighted.iconset; path = Resources/Icons/SEBRestartIconHighlighted.iconset; sourceTree = "<group>"; };
 		69DD2FCF1201C416009B1005 /* CapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapView.h; sourceTree = "<group>"; };
 		69DD2FD01201C416009B1005 /* CapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapView.m; sourceTree = "<group>"; };
-		69DD92A11A46353B004072E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69DE764517FC2A9300EE5958 /* PrefsResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsResourcesViewController.h; sourceTree = "<group>"; };
 		69DE764617FC2A9300EE5958 /* PrefsResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsResourcesViewController.m; sourceTree = "<group>"; };
 		69DFAF2319C468E700CBE69F /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
@@ -5205,7 +5204,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				69A3022919FE7B8F00B9A0F3 /* de */,
-				69DD92A11A46353B004072E5 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
