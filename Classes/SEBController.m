@@ -663,12 +663,12 @@ bool insideMatrix(void);
 {
     [NSApp removeObserver:self
             forKeyPath:@"currentSystemPresentationOptions"];
-    [NSApp removeObserver:self
+    [[NSWorkspace sharedWorkspace] removeObserver:self
             forKeyPath:@"runningApplications"];
-    [NSApp removeObserver:self
+    [[NSWorkspace sharedWorkspace] removeObserver:self
             forKeyPath:@"isTerminated"];
-    [NSApp removeObserver:self
-            forKeyPath:@"isActive"];
+//    [NSApp removeObserver:self
+//            forKeyPath:@"isActive"];
 }
 
 
@@ -1046,9 +1046,6 @@ bool insideMatrix(void);
     } else {
         [self updateAACAvailablility];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
-
-        _runningProhibitedProcesses = [NSMutableArray new];
-        _terminatedProcessesExecutableURLs = [NSMutableSet new];
 
         // Reset SEB Browser
         [self.browserController resetBrowser];
@@ -6310,8 +6307,10 @@ conditionallyForWindow:(NSWindow *)window
     
     [self stopWindowWatcher];
     [self stopProcessWatcher];
-    
+    DDLogDebug(@"Returned after stopProcessWatcher");
+
     [self removeKeyPathObservers];
+    DDLogDebug(@"Returned after removeKeyPathObservers");
 
     if (keyboardEventReturnKey != NULL) {
         DDLogDebug(@"%s CFRelease(keyboardEventReturnKey)", __FUNCTION__);
