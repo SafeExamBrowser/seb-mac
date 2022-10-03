@@ -202,10 +202,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:iOSVersion11],
                    @"allowiOSVersionNumberMajor",
                    
-                   @3,
+                   @0,
                    @"allowiOSVersionNumberMinor",
                    
-                   @5,
+                   @0,
                    @"allowiOSVersionNumberPatch",
                    
                    @NO,
