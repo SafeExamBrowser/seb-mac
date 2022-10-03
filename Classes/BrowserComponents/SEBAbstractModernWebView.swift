@@ -55,7 +55,7 @@ import PDFKit
     private var previousSearchText = ""
 
     private var downloadFilename: String?
-
+    private var forceDownload = false
     public var downloadingSEBConfig = false
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
@@ -770,6 +770,7 @@ import PDFKit
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
                 if allowDownloads && self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
                     DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+                    self.forceDownload = false
                     if #available(macOS 10.13, iOS 11.0, *) {
                         let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
                         httpCookieStore.getAllCookies{ cookies in
@@ -796,6 +797,9 @@ import PDFKit
             webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
                 self.downloadFilename = result as? String
                 DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
+                if self.downloadFilename != nil {
+                    self.forceDownload = true
+                }
                 proceedHandler()
             }
         } else {
@@ -841,7 +845,8 @@ import PDFKit
                 }
                 let isPDF = (filename as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
                 let downloadPDFFiles = self.navigationDelegate?.downloadPDFFiles
-                if !isPDF || isPDF && downloadPDFFiles == true {
+                if !isPDF || isPDF && downloadPDFFiles == true || isPDF && self.forceDownload {
+                    self.forceDownload = false
                     DDLogInfo("Link to resource '\(filename)' had the 'download' attribute or the header 'Content-Disposition': 'attachment; filename=...', it will be downloaded instead of displayed.")
                     decisionHandler(.cancel)
                     self.navigationDelegate?.downloadFile?(from: url, filename: filename, cookies: cookies)
@@ -880,6 +885,7 @@ import PDFKit
                         if innerComponents.count > 1 {
                             if innerComponents[0].lowercased().contains("filename") {
                                 let filename = innerComponents[1]
+                                forceDownload = true
                                 return filename.replacingOccurrences(of: "\"", with: "")
                             }
                         }
