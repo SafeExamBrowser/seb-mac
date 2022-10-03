@@ -14,7 +14,7 @@
 "6fi-rT-cNJ.accessibilityLabel" = "Warnung: Falsches Passwort";
 
 /* Class = "UILabel"; text = "Please enter correct password!"; ObjectID = "6fi-rT-cNJ"; */
-"6fi-rT-cNJ.text" = "Bitte korrektes Passwort/Response eingeben!";
+"6fi-rT-cNJ.text" = "Bitte korrektes Passwort eingeben!";
 
 /* Class = "UIButton"; accessibilityHint = "Searches for a SEB configuration at the entered domain URL"; ObjectID = "6pO-9x-gSg"; */
 "6pO-9x-gSg.accessibilityHint" = "Sucht nach einer SEB-Konfiguration unter der eingegebenen Domain-URL";
