@@ -477,7 +477,7 @@
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -809,7 +809,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     
     if ((mimeType && [mimeType caseInsensitiveCompare:SEBConfigMIMEType] == NSOrderedSame) ||
         (mimeType && [mimeType caseInsensitiveCompare:SEBUnencryptedConfigMIMEType] == NSOrderedSame) ||
-        (url.pathExtension && [url.pathExtension caseInsensitiveCompare:SEBFileExtension]) == NSOrderedSame) {
+        (url.pathExtension && [url.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.originalURL;
         self.downloadingSEBConfig = YES;

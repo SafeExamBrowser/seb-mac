@@ -1203,7 +1203,7 @@
 
 - (void)showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.browserController showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck

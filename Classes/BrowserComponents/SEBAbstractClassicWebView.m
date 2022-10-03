@@ -442,7 +442,7 @@
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL) allowSpellCheck
