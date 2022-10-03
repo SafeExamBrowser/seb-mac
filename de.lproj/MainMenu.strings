@@ -4,8 +4,8 @@
 /* Class = "NSTextFieldCell"; title = "This screen is disabled in current settings"; ObjectID = "0RK-x9-0F0"; */
 "0RK-x9-0F0.title" = "Dieser Bildschirm ist in den aktuellen Einstellungen deaktiviert";
 
-/* Class = "NSTextFieldCell"; title = "Please enter correct password/response!"; ObjectID = "2XV-dZ-8rd"; */
-"2XV-dZ-8rd.title" = "Bitte korrektes Passwort/Response eingeben!";
+/* Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "2XV-dZ-8rd"; */
+"2XV-dZ-8rd.title" = "Bitte korrektes Passwort eingeben!";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alle nach vorne bringen";
@@ -319,8 +319,8 @@
 /* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "Thx-Ic-L6f"; */
 "Thx-Ic-L6f.title" = "Anwenden und Neustart";
 
-/* Class = "NSTextFieldCell"; title = "Enter quit/unlock password/response to unlock SEB:"; ObjectID = "toT-ZU-d4i"; */
-"toT-ZU-d4i.title" = "Beenden/Entsperren-Passwort/Response eingeben, um SEB zu entsperren:";
+/* Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i"; */
+"toT-ZU-d4i.title" = "Beenden/Entsperren-Passwort eingeben, um SEB zu entsperren:";
 
 /* Class = "NSMenuItem"; title = "Settings"; ObjectID = "UaS-yv-Dq3"; */
 "UaS-yv-Dq3.title" = "Einstellungen";
@@ -329,7 +329,7 @@
 "UPO-LF-2DU.title" = "Check für verbotene Prozesse ganz deaktivieren";
 
 /* Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK"; */
-"xDQ-P3-KpK.title" = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"xDQ-P3-KpK.title" = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "XL9-tP-eEk"; */
 "XL9-tP-eEk.title" = "Passwort:";
