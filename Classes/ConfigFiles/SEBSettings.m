@@ -148,6 +148,9 @@ static SEBSettings *sharedSEBSettings = nil;
     return  @{@"rootSettings" :
                   [NSDictionary dictionaryWithObjectsAndKeys:
                    
+                   @NO,
+                   @"aacDnsPrePinning",
+                   
                    [NSArray array],
                    @"additionalResources",
                    
@@ -199,10 +202,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:iOSVersion11],
                    @"allowiOSVersionNumberMajor",
                    
-                   @3,
+                   @0,
                    @"allowiOSVersionNumberMinor",
                    
-                   @5,
+                   @0,
                    @"allowiOSVersionNumberPatch",
                    
                    @NO,
@@ -280,10 +283,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"browserMediaAutoplayVideo",
                    
-                   @YES,
+                   @NO,
                    @"browserMediaCaptureCamera", //setting for WebRTC camera capture
                    
-                   @YES,
+                   @NO,
                    @"browserMediaCaptureMicrophone", //setting for WebRTC microphone capture
                    
                    @NO,

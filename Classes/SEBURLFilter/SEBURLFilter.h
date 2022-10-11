@@ -62,4 +62,6 @@
 
 - (void) addRuleAction:(URLFilterRuleActions)action withFilterExpression:(SEBURLFilterExpression *)filterExpression;
 
+- (NSArray <NSString*>*)permittedDomains;
+
 @end

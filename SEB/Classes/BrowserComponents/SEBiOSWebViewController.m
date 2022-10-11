@@ -39,7 +39,11 @@
 
 @implementation SEBiOSWebViewController
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                        configuration:(WKWebViewConfiguration *)configuration
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = (SEBBrowserTabViewController *)delegate;
@@ -49,7 +53,7 @@
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
 
-        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
+        SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
     }
     return self;
@@ -355,6 +359,18 @@
 #pragma mark -
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
+//- (void) addWebView:(id)nativeWebView
+//{
+//    [self.navigationDelegate addWebView:nativeWebView];
+//}
+//
+
+- (void) addWebViewController:(id)webViewController
+{
+    [self.navigationDelegate addWebViewController:webViewController];
+}
+
+
 - (void) setPageTitle:(NSString *)title
 {
     [self.navigationDelegate setTitle:title forWebViewController:self];
@@ -441,7 +457,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 
 /// Request handling
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
 {
     NSURLRequest *request = navigationAction.request;
@@ -449,13 +465,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     WKNavigationType navigationType = navigationAction.navigationType;
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    SEBNavigationAction *newNavigationAction = [SEBNavigationAction new];
 
     if ([url.scheme isEqualToString:@"data"]) {
         NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
         DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
         NSRange mediaTypeRange = [urlResourceSpecifier rangeOfString:@","];
         if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
-            NSString *mediaType = [urlResourceSpecifier substringToIndex:mediaTypeRange.location];
+            NSString *mediaType = [[urlResourceSpecifier substringToIndex:mediaTypeRange.location] lowercaseString];
             NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
             if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound &&
                 [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -491,9 +508,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 [self.navigationDelegate showAlertNotAllowedDownUploading:NO];
             }
         }
-        return SEBNavigationActionPolicyCancel;
+        newNavigationAction.policy = SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
-    return SEBNavigationActionPolicyAllow;
+    newNavigationAction.policy = SEBNavigationActionPolicyAllow;
+    return newNavigationAction;
 }
 
 
@@ -533,8 +552,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 

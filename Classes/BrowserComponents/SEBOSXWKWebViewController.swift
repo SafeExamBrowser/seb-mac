@@ -40,10 +40,19 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
     
     private var _sebWebView : SEBOSXWKWebView?
+    private var webViewConfiguration: WKWebViewConfiguration?
     
     public var sebWebView : SEBOSXWKWebView? {
         if _sebWebView == nil {
-            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            if webViewConfiguration == nil {
+                webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            }
+            let fullScreenPossible = navigationDelegate?.isAACEnabled ?? false
+            webViewConfiguration?.preferences._setFullScreenEnabled(fullScreenPossible)
+//            webViewConfiguration?.preferences._setShouldAllowUserInstalledFonts(false) //ToDo: Test if this controls downloading fonts
+//            webViewConfiguration?.preferences._setDeveloperExtrasEnabled(UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole"))
+//            webViewConfiguration?.preferences._setAllowsPicture(inPictureMediaPlayback: fullScreenPossible && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"))
+
             DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             _sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
             _sebWebView?.sebOSXWebViewController = self
@@ -51,7 +60,6 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             _sebWebView?.translatesAutoresizingMaskIntoConstraints = true
             _sebWebView?.uiDelegate = self
             _sebWebView?.navigationDelegate = self
-
             _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
             
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
@@ -72,9 +80,16 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
 
     private var urlFilter : SEBURLFilter?
     
-    convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
+    convenience init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         self.init()
+        webViewConfiguration = configuration
         navigationDelegate = delegate
+    }
+    
+    public func closeWKWebView() {
+        _sebWebView?.removeObserver(self, forKeyPath: #keyPath(WKWebView.title))
+        _sebWebView?.removeFromSuperview()
+        _sebWebView = nil
     }
     
     public override func loadView() {
@@ -177,16 +192,16 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     }
     
 
-    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
     }
     
     public func webView(_ webView: WKWebView,
-                         didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+                         didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
         navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
     }
     
@@ -197,15 +212,15 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     }
     
     public func webView(_ webView: WKWebView,
-                          didCommit navigation: WKNavigation!) {
+                          didCommit navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didCommit: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didFinish: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
@@ -324,7 +339,7 @@ public class SEBOSXWKWebView: WKWebView {
     }
     
     public override func quickLook(with event: NSEvent) {
-        if sebOSXWebViewController!.allowDictionaryLookup {
+        if sebOSXWebViewController?.allowDictionaryLookup == true {
             super.quickLook(with: event)
             DDLogInfo("Dictionary look-up was used! [SEBOSXWKWebView quickLookWithEvent:]")
         } else {
@@ -333,7 +348,7 @@ public class SEBOSXWKWebView: WKWebView {
     }
     
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        if sebOSXWebViewController!.privateClipboardEnabled {
+        if sebOSXWebViewController?.privateClipboardEnabled == true {
             let chars = event.characters
             var status = false
             
@@ -360,25 +375,25 @@ public class SEBOSXWKWebView: WKWebView {
 
     @objc public func privateCopy(_ sender: Any?) {
         super.perform(NSSelectorFromString("copy:"), with: sender)
-        if sebOSXWebViewController!.privateClipboardEnabled {
+        if sebOSXWebViewController?.privateClipboardEnabled == true {
             delayWithSeconds(0.1) {
-                self.sebOSXWebViewController!.storePasteboard()
+                self.sebOSXWebViewController?.storePasteboard()
             }
         }
     }
 
     @objc public func privateCut(_ sender: Any?) {
         super.perform(NSSelectorFromString("cut:"), with: sender)
-        if sebOSXWebViewController!.privateClipboardEnabled {
+        if sebOSXWebViewController?.privateClipboardEnabled == true {
             delayWithSeconds(0.1) {
-                self.sebOSXWebViewController!.storePasteboard()
+                self.sebOSXWebViewController?.storePasteboard()
             }
         }
     }
 
     @objc public func privatePaste(_ sender: Any?) {
-        if sebOSXWebViewController!.privateClipboardEnabled {
-            self.sebOSXWebViewController!.restorePasteboard()
+        if sebOSXWebViewController?.privateClipboardEnabled == true {
+            self.sebOSXWebViewController?.restorePasteboard()
             delayWithSeconds(0.1) {
                 super.perform(NSSelectorFromString("paste:"), with: sender)
                 self.delayWithSeconds(0.1) {

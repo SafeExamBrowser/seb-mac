@@ -1,8 +1,8 @@
 /* Class = "NSButtonCell"; title = "Force installation in /Applications folder"; ObjectID = "0Ey-3L-Lb6"; */
 "0Ey-3L-Lb6.title" = "SEB im Programmverzeichnis erzwingen";
 
-/* Class = "NSButtonCell"; title = "Use Assessment Mode (AAC) if available"; ObjectID = "0in-TF-gTG"; */
-"0in-TF-gTG.title" = "Assessment-Modus (AAC) verwenden, wenn verfügbar";
+/* Class = "NSButtonCell"; title = "Prefer Assessment Mode (AAC)"; ObjectID = "0in-TF-gTG"; */
+"0in-TF-gTG.title" = "Assessment-Modus (AAC) bevorzugen";
 
 /* Class = "NSButtonCell"; title = "Ignore SEB Service"; ObjectID = "0Nd-GJ-9QM"; */
 "0Nd-GJ-9QM.title" = "SEB Service ignorieren";
@@ -184,6 +184,9 @@
 /* Class = "NSButtonCell"; title = "Enable Print Screen"; ObjectID = "GQb-uN-fJO"; */
 "GQb-uN-fJO.title" = "Print Screen erlauben";
 
+/* Class = "NSButton"; ibShadowedToolTip = "On macOS <12.1 DNS lookup doesn't work while in AAC. Pre-pinning resolves all domains from Start URL and URL filter rules before starting AAC to mitigate this bug. This allows to use AAC on macOS 11 - 12.0"; ObjectID = "GXF-y1-76z"; */
+"GXF-y1-76z.ibShadowedToolTip" = "Unter macOS <12.1 funktioniert die DNS-Auflösung in AAC nicht. Das Pre-Pinning löst alle Domains aus der Start-URL und den URL-Filterregeln vor dem Start von AAC auf, um diesen Fehler zu vermeiden. Dies ermöglicht die Verwendung von AAC unter macOS 11 - 12.0";
+
 /* Class = "NSButton"; ibShadowedToolTip = "On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG"; */
 "HN5-u7-3UG.ibShadowedToolTip" = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
 
@@ -211,6 +214,9 @@
 /* Class = "NSButtonCell"; title = "Guided Access Compatibility"; ObjectID = "JG9-Mn-nzE"; */
 "JG9-Mn-nzE.title" = "Kompatibilität zu 'Geführtem Zugriff'";
 
+/* Class = "NSButtonCell"; title = "Use AAC with DNS pre-pinning"; ObjectID = "jQ0-cO-PEU"; */
+"jQ0-cO-PEU.title" = "AAC mit DNS-Pre-Pinning verwenden";
+
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
 "JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
 
@@ -235,7 +241,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe"; */
 "KKV-0r-AMe.ibShadowedToolTip" = "SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Catalina 10.15.4 (except macOS Big Sur 11.0-11.3). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation) "; ObjectID = "krs-I7-LT9"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 and >= 10.15.6). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation)"; ObjectID = "krs-I7-LT9"; */
 "krs-I7-LT9.ibShadowedToolTip" = "Der Automatic Assessment Configuration (AAC) Modus ist ab macOS Catalina 10.15.4 verfügbar. Er blockiert verschiedene macOS-Funktionen (diese können nicht optional erlaubt werden, beispielsweise Bildschirmaufzeichnung, Siri und Diktieren)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl"; */
