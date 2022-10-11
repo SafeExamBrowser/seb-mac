@@ -312,6 +312,11 @@
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
     DDLogDebug(@"HTTP method for URL %@: %@", url, httpMethod);
     DDLogDebug(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
+    if (url) {
+        [self.navigationDelegate examineHeaders:allHTTPHeaderFields forURL:url];
+        NSArray<NSHTTPCookie *> *cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage.cookies;
+        [self.navigationDelegate examineCookies:cookies forURL:url];
+    }
 
     if ([url.scheme isEqualToString:@"newtab"]) {
         NSString *urlString = [[url resourceSpecifier] stringByRemovingPercentEncoding];
@@ -325,7 +330,7 @@
     NSString *fileExtension = [url pathExtension];
 
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if ([fileExtension isEqualToString:SEBFileExtension] &&
+    if ((fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) &&
         self.navigationDelegate.downloadingInTemporaryWebView) {
         if (!waitingForConfigDownload) {
             waitingForConfigDownload = YES;
@@ -345,20 +350,23 @@
         }
     }
 
-    if (!url.hasDirectoryPath && ([url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && self.downloadFilename.length == 0)) {
+    if (!url.hasDirectoryPath &&
+        ((url.pathExtension && [url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) &&
+         self.downloadFilename.length == 0)) {
         NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]').download", url.absoluteString];
         self.downloadFilename = [webView stringByEvaluatingJavaScriptFromString:javaScript];
     } else {
         self.downloadFilename = nil;
     }
     if (self.downloadFilename.length != 0) {
-        BOOL displayPDF = [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
+        BOOL displayPDF = self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
         if (displayPDF) {
             newTabRequested = YES;
         }
     }
 
-    SEBNavigationActionPolicy navigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested];
+    SEBNavigationAction *delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested configuration:nil];
+    SEBNavigationActionPolicy navigationActionPolicy = delegateNavigationAction.policy;
     if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;
     } else {

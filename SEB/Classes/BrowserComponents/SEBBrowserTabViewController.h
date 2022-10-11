@@ -58,9 +58,9 @@
 @property (nonatomic, strong) NSMutableArray *persistentWebpages;
 @property (readwrite) NSUInteger maxIndex;
 
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url overrideSpellCheck:(BOOL)overrideSpellCheck;
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url image:(UIImage *)templateImage;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url configuration:(nullable WKWebViewConfiguration *)configuration overrideSpellCheck:(BOOL)overrideSpellCheck;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url configuration:(nullable WKWebViewConfiguration *)configuration index:(NSUInteger)index overrideSpellCheck:(BOOL)overrideSpellCheck;
+- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url configuration:(nullable WKWebViewConfiguration *)configuration image:(UIImage *)templateImage;
 - (void) loadPersistedOpenWebPages;
 - (void) removePersistedOpenWebPages;
 - (void) closeAllTabs;

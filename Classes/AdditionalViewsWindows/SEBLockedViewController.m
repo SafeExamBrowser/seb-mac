@@ -230,7 +230,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         
         NSString *password = [self.UIDelegate lockedAlertPassword];
-        if (hashedQuitPassword.length == 0 || [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        if (hashedQuitPassword.length == 0 || (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame)) {
             // Correct password entered
             closingLockdownWindowsInProgress = true;
             [self.UIDelegate setLockedAlertPassword:@""];

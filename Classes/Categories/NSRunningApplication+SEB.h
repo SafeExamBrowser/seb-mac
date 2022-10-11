@@ -32,6 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import <Cocoa/Cocoa.h>
 
 @interface NSRunningApplication (SEB)
 

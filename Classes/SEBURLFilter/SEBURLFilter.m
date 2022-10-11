@@ -451,4 +451,25 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 }
 
 
+- (NSArray <NSString*>*) permittedDomains
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *URLFilterRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterRules"];
+    NSDictionary *URLFilterRule;
+    NSMutableArray <NSString *>* permittedDomains = [NSMutableArray new];
+    
+    for (URLFilterRule in URLFilterRules) {
+        NSString *expressionString = URLFilterRule[@"expression"];
+        if (expressionString.length > 0) {
+            if ([URLFilterRule[@"regex"] boolValue] == NO &&
+                [URLFilterRule[@"action"] intValue] == URLFilterActionAllow) {
+                SEBURLFilterExpression *urlFromString = [SEBURLFilterExpression filterExpressionWithString:expressionString];
+                [permittedDomains addObject:urlFromString.host];
+            }
+        }
+    }
+    return permittedDomains.copy;
+}
+
+
 @end

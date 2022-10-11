@@ -27,13 +27,13 @@
         <window title="Safe Exam Browser" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" visibleAtLaunch="NO" animationBehavior="default" id="3" userLabel="Browser Window" customClass="SEBBrowserWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="394" height="247"/>
             <view key="contentView" id="4">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166" customClass="SEBToolbar">
+            <toolbar key="toolbar" implicitIdentifier="BDAFF22A-CD78-4B87-BE08-89EB5FD8D41E" autosavesConfiguration="NO" allowsUserCustomization="NO" prefersToBeShown="NO" displayMode="iconOnly" sizeMode="regular" id="166">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="FC8FE802-AA82-4102-ACE1-2024646D31EE" label="Back/Forward Navigation" paletteLabel="" sizingBehavior="auto" id="175">
                         <nil key="toolTip"/>
@@ -214,7 +214,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="570" height="328"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="52A-2p-iMa">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="328"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -231,7 +231,7 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YuW-7G-2aQ">
-                                <rect key="frame" x="0.0" y="130" width="324" height="98"/>
+                                <rect key="frame" x="0.0" y="130" width="323" height="98"/>
                                 <subviews>
                                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-Ar-k0D">
                                         <rect key="frame" x="0.0" y="0.0" width="84" height="98"/>
@@ -271,10 +271,10 @@
                                         </connections>
                                     </matrix>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1l7-lf-HAE">
-                                        <rect key="frame" x="92" y="0.0" width="232" height="98"/>
+                                        <rect key="frame" x="92" y="0.0" width="231" height="98"/>
                                         <subviews>
-                                            <button toolTip="Click to copy the registred domain part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
-                                                <rect key="frame" x="0.0" y="84" width="54" height="14"/>
+                                            <button toolTip="Click to copy the registered domain part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="jnc-il-FuZ">
+                                                <rect key="frame" x="0.0" y="84" width="53" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="gwZ-Bv-sYP">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -284,7 +284,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Click to copy the host part of the current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-nQ-Hte">
-                                                <rect key="frame" x="0.0" y="63" width="82" height="14"/>
+                                                <rect key="frame" x="0.0" y="63" width="81" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="www.host.com" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="H5P-Ew-Qp9">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -314,7 +314,7 @@
                                                 </connections>
                                             </button>
                                             <button toolTip="Click to restore the full current URL into the custom filter expression text field" translatesAutoresizingMaskIntoConstraints="NO" id="sIN-ro-zV3">
-                                                <rect key="frame" x="0.0" y="0.0" width="232" height="14"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="231" height="14"/>
                                                 <buttonCell key="cell" type="recessed" title="Click to restore full URL as filter expression" bezelStyle="recessed" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="lbT-D3-1dX">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="smallSystem"/>
@@ -486,7 +486,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="93"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3840" height="2135"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="93"/>
             <view key="contentView" id="4Pp-ao-nkH">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="93"/>

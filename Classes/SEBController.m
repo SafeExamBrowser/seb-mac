@@ -200,6 +200,16 @@ bool insideMatrix(void);
 }
 
 
+- (SEBZoomController *)zoomController
+{
+    if (!_zoomController) {
+        _zoomController = [[SEBZoomController alloc] init];
+//        _zoomController.proctoringUIDelegate = self;
+    }
+    return _zoomController;
+}
+
+
 #pragma mark - Class and Instance Initialization
 
 + (void) initialize
@@ -653,12 +663,12 @@ bool insideMatrix(void);
 {
     [NSApp removeObserver:self
             forKeyPath:@"currentSystemPresentationOptions"];
-    [NSApp removeObserver:self
+    [[NSWorkspace sharedWorkspace] removeObserver:self
             forKeyPath:@"runningApplications"];
-    [NSApp removeObserver:self
+    [[NSWorkspace sharedWorkspace] removeObserver:self
             forKeyPath:@"isTerminated"];
-    [NSApp removeObserver:self
-            forKeyPath:@"isActive"];
+//    [NSApp removeObserver:self
+//            forKeyPath:@"isActive"];
 }
 
 
@@ -1019,7 +1029,9 @@ bool insideMatrix(void);
 - (void)didFinishLaunchingWithSettings
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    
+    _runningProhibitedProcesses = [NSMutableArray new];
+    _terminatedProcessesExecutableURLs = [NSMutableSet new];
+
     _alternateKeyPressed = [self alternateKeyCheck];
 
     if (_alternateKeyPressed) {
@@ -1035,8 +1047,8 @@ bool insideMatrix(void);
         [self updateAACAvailablility];
         DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
 
-        _runningProhibitedProcesses = [NSMutableArray new];
-        _terminatedProcessesExecutableURLs = [NSMutableArray new];
+        // Reset SEB Browser
+        [self.browserController resetBrowser];
 
         if (!_openingSettings) {
             // Initialize SEB according to client settings
@@ -1622,9 +1634,9 @@ bool insideMatrix(void);
             // important: processListViewController must be accessed with the instance variable
             // _processListViewController here and not using the property self.processListViewController
             // as otherwise a new instance of the controller will be allocated
-            if (self.processListViewController &&
-                self.processListViewController.runningApplications.count +
-                self.processListViewController.runningProcesses.count > 0) {
+            if (self->_processListViewController &&
+                self->_processListViewController.runningApplications.count +
+                self->_processListViewController.runningProcesses.count > 0) {
                 runningProcessesListWindow.delegate = self.processListViewController;
                 [self.runningProcessesListWindowController showWindow:nil];
                 return;
@@ -1673,22 +1685,60 @@ bool insideMatrix(void);
         if (@available(macOS 10.15.4, *)) {
             DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
             [self updateAACAvailablility];
-                DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-                [self closeCapWindows];
+            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+            [self closeCapWindows];
             DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
             if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+                void (^startAssessmentMode)(void) =
+                ^{
+                    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
+                    DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+                    self.assessmentModeManager = assessmentModeManager;
+                    self.assessmentModeManager.delegate = self;
+                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                        [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                    }
+                };
+                
                 // Save current string from pasteboard for pasting start URL in Preferences Window
-                // and clear pasteboard (which acutally isn't necessary for AAC)
+                // and clear pasteboard (latter acutally isn't necessary for AAC)
                 [self clearPasteboardSavingCurrentString];
                 
-                NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
-                DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
-                AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
-                self.assessmentModeManager = assessmentModeManager;
-                self.assessmentModeManager.delegate = self;
-                if ([self.assessmentModeManager beginAssessmentMode] == NO) {
-                    [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                if (@available(macOS 12.1, *)) {
+                    // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
+                } else {
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
+                        NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
+                        if (permittedDomains.count == 0) {
+                            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                            if (urlText.length == 0) {
+                                urlText = SEBStartPage;
+                            }
+                            NSURL *startURL = [NSURL URLWithString:urlText];
+                            permittedDomains = @[startURL.host];
+                        }
+                        BOOL result;
+                        for (NSString *permittedDomain in permittedDomains) {
+                            NSString *host = permittedDomain;
+                            if ([permittedDomain hasPrefix:@"."] && permittedDomain.length > 1) {
+                                host = [permittedDomain substringFromIndex:1];
+                            }
+                            CFHostRef hostRef;
+                            hostRef = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)host);
+                            if (hostRef) {
+                                 result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
+                                if (result) {
+                                    DDLogDebug(@"Performed DNS pre-pinning of host %@", host);
+                                } else {
+                                    DDLogDebug(@"DNS pre-pinning of host %@ failed", host);
+                                }
+                            }
+                        }
+                    }
                 }
+                startAssessmentMode();
                 return;
             } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
                 DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
@@ -1873,9 +1923,18 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
+    // Check microphone/camera/screen capturing/proctoring permissions
+    
+    BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
+    BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
+    BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
+
     BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
-    if (zoomEnable || jitsiMeetEnable) {
+    BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
+    BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+    
+    if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
 
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
@@ -1892,7 +1951,7 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     }
 
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"]) {
+    if (browserMediaCaptureScreen) {
         if (@available(macOS 11, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
@@ -1920,6 +1979,177 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
 
+    void (^conditionallyStartProctoring)(void) =
+    ^{
+        // OK action handler
+        void (^startRemoteProctoringOK)(void) =
+        ^{
+            if (zoomEnable) {
+                [self openZoomView];
+                [self.zoomController openZoomWithSender:self];
+            }
+            // Continue starting the exam session
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL) = (void *)imp;
+            func(callback, selector);
+        };
+        if (zoomEnable) {
+            // Check if previous SEB session already had proctoring active
+            if (self.previousSessionZoomEnabled) {
+                run_on_ui_thread(startRemoteProctoringOK);
+            } else {
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", nil)];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            run_on_ui_thread(startRemoteProctoringOK);
+                            return;
+                        }
+                            
+                        case NSAlertSecondButtonReturn:
+                        {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
+                        }
+                            
+                        default:
+                        {
+                        }
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+                return;
+            }
+        }
+        // Continue starting the exam session
+        IMP imp = [callback methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(callback, selector);
+    };
+
+    if (browserMediaCaptureMicrophone ||
+        browserMediaCaptureCamera ||
+        zoomEnable ||
+        jitsiMeetEnable) {
+        
+        if (@available(macOS 10.14, *)) {
+            AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+            AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
+                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *camera = @"";
+                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                }
+                NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
+                                                    proctoringSession ? NSLocalizedString(@"remote proctoring", nil) : @"",
+                                                    proctoringSession && webApplications ? NSLocalizedString(@" and ", nil) : @"",
+                                                    webApplications ? NSLocalizedString(@"web applications", nil) : @""];
+                NSString *resolveSuggestion;
+                NSString *resolveSuggestion2;
+                NSString *message;
+                if (videoAuthorization == AVAuthorizationStatusDenied ||
+                    audioAuthorization == AVAuthorizationStatusDenied) {
+                    resolveSuggestion = NSLocalizedString(@"in System Preferences ", nil);
+                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                } else {
+                    resolveSuggestion = @"";
+                    resolveSuggestion2 = @"";
+                }
+                if (videoAuthorization == AVAuthorizationStatusRestricted ||
+                    audioAuthorization == AVAuthorizationStatusRestricted) {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone, permissionsRequiredFor, camera, microphone];
+                } else {
+                    message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
+                }
+                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
+                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"System Preferences", nil) : NSLocalizedString(@"OK", nil);
+                
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", nil), permissionsRequiredFor.localizedCapitalizedString]];
+                [modalAlert setInformativeText:message];
+                [modalAlert addButtonWithTitle:firstButtonTitle];
+                if (NSUserDefaults.userDefaultsPrivate) {
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                }
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            if (videoAuthorization == AVAuthorizationStatusDenied ||
+                                audioAuthorization == AVAuthorizationStatusDenied) {
+                                [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                return;
+                            }
+                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                                if (granted){
+                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                    
+                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+                                        if (granted){
+                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
+                                            
+                                            run_on_ui_thread(conditionallyStartProctoring);
+                                            
+                                        } else {
+                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
+                                            [[NSNotificationCenter defaultCenter]
+                                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                        }
+                                    }];
+                                    return;
+                                    
+                                } else {
+                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                }
+                            }];
+                            return;
+                        }
+                            
+                        case NSAlertSecondButtonReturn:
+                        {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                        }
+                            
+                        default:
+                        {
+                        }
+                    }
+                    
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+                return;
+                
+            } else {
+                run_on_ui_thread(conditionallyStartProctoring);
+                return;
+            }
+        } else {
+            run_on_ui_thread(conditionallyStartProctoring);
+            return;
+        }
+    } else {
+        self.previousSessionZoomEnabled = NO;
+    }
+    
     // Continue to starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
@@ -3485,7 +3715,7 @@ bool insideMatrix(){
         // On OS X <= 10.9 we exclude the menu bar only on the screen which actually displays the menu bar
         if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
             // Reduce size of covering background windows to not cover the menu bar
-            rect.size.height -= 22;
+            rect.size.height -= iterScreen.menuBarHeight;
         }
         DDLogDebug(@"Opening %@ covering window with frame %@ and window level %ld",
                    coveringWindowKind == coveringWindowBackground ? @"background" : @"lockdown alert",
@@ -4361,7 +4591,7 @@ conditionallyForWindow:(NSWindow *)window
     NSScreen *mainScreen = screens[0];
     
     NSPoint topLeftPoint;
-    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - 22;
+    topLeftPoint.x = mainScreen.frame.origin.x + mainScreen.frame.size.width - informationHUD.frame.size.width - mainScreen.menuBarHeight;
     topLeftPoint.y = mainScreen.frame.origin.y + mainScreen.frame.size.height - 44;
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
     
@@ -4512,17 +4742,21 @@ conditionallyForWindow:(NSWindow *)window
 - (NSInteger) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
+    appLocalizedName = appLocalizedName ? appLocalizedName : @"";
     NSURL *appURL = [self getBundleOrExecutableURL:application];
+    appURL = appURL ? appURL : NSURL.new;
+    NSString *appBundleID = application.bundleIdentifier;
+    appBundleID = appBundleID ? appBundleID : @"";
     NSDictionary *processDetails = @{
         @"name" : appLocalizedName,
         @"PID" : [NSNumber numberWithInt:application.processIdentifier],
         @"URL": appURL,
-        @"bundleID" : application.bundleIdentifier
+        @"bundleID" : appBundleID
     };
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         NSInteger killSuccess = [application kill];
-        if (killSuccess != ERR_SUCCESS) {
-            DDLogError(@"Couldn't terminate app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
+        if (killSuccess != ERR_SUCCESS && killSuccess != ESRCH) { // ESRCH: No such process
+            DDLogError(@"Couldn't terminate app with localized name (error %ld): %@, bundle or executable URL: %@", (long)killSuccess, appLocalizedName, appURL);
             [_runningProhibitedProcesses addObject:processDetails];
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedProhibitedProcess" object:self];
@@ -4652,10 +4886,17 @@ conditionallyForWindow:(NSWindow *)window
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
 
-    if ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) ||
-        (currentOSMajorVersion == 11 && currentOSMinorVersion >= 4) ||
-        currentOSMajorVersion > 11) {
-        DDLogDebug(@"Running on macOS 10.15.4-11.0 or >11.4, may use AAC if allowed in current settings.");
+    BOOL aacDnsPrePinning = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"];
+    // Determine on which macOS versions AAC is possible:
+    BOOL aacPossible = ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) && //>= Catalina 10.15.4
+    !(currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion == 5)) || //except 10.15.5 connectivity broken
+    (aacDnsPrePinning && currentOSMajorVersion == 11) || //Big Sur 11 with DNS pre-pinning
+    (aacDnsPrePinning && currentOSMajorVersion == 12 && currentOSMinorVersion == 1) || //Monterey 12.1 with DNS pre-pinning
+    (currentOSMajorVersion == 12 && currentOSMinorVersion > 1) || //>12.1 without bugs (hopefully)
+    currentOSMajorVersion > 12;
+    
+    if (aacPossible) {
+        DDLogDebug(@"Running on supported macOS version where AAC isn't buggy (or with DNS pre-pinning enabled), may use AAC if allowed in current settings.");
         _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
     } else {
         _isAACEnabled = NO;
@@ -5163,7 +5404,7 @@ conditionallyForWindow:(NSWindow *)window
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
             // if the correct quit/unlock password was entered, restart the exam
             [self.browserController backToStartCommand];
         } else {
@@ -5602,7 +5843,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSString *urlString = SEBHelpPage;
     // Open new browser window containing WebView and show it
-    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString]];
+    [self.browserController openAndShowWebViewWithURL:[NSURL URLWithString:urlString] configuration:nil];
 }
 
 
@@ -5636,7 +5877,7 @@ conditionallyForWindow:(NSWindow *)window
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if ([hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+            if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
                 DDLogInfo(@"Correct quit password entered");
                 [self quitSEBOrSession]; // Quit SEB or the exam session
@@ -6066,6 +6307,10 @@ conditionallyForWindow:(NSWindow *)window
     
     [self stopWindowWatcher];
     [self stopProcessWatcher];
+    DDLogDebug(@"Returned after stopProcessWatcher");
+
+    [self removeKeyPathObservers];
+    DDLogDebug(@"Returned after removeKeyPathObservers");
 
     if (keyboardEventReturnKey != NULL) {
         DDLogDebug(@"%s CFRelease(keyboardEventReturnKey)", __FUNCTION__);
@@ -6080,10 +6325,8 @@ conditionallyForWindow:(NSWindow *)window
     
     // Restart terminated apps
     DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);
-    NSArray *uniqueTerminatedProcessesURLs = [_terminatedProcessesExecutableURLs valueForKeyPath:@"@distinctUnionOfObjects.self"];
-    DDLogInfo(@"These unique processes were terminated by SEB during this session: %@", uniqueTerminatedProcessesURLs);
     
-    for (NSURL *executableURL in uniqueTerminatedProcessesURLs) {
+    for (NSURL *executableURL in _terminatedProcessesExecutableURLs) {
         
         NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         

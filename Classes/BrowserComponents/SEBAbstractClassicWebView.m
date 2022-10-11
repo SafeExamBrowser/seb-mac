@@ -369,13 +369,15 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+                                       configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewWebViewWindowWithURL:url];
+    return [self.navigationDelegate openNewWebViewWindowWithURL:url configuration:configuration];
 }
 
 - (void) makeActiveAndOrderFront
@@ -440,7 +442,7 @@
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL) allowSpellCheck
@@ -536,10 +538,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     [self.navigationDelegate sebWebViewDidFailLoadWithError:error];
 }
 
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
-{
-    return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab];
+                                           configuration:(WKWebViewConfiguration *)configuration {
+    return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab configuration:configuration];
 }
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
