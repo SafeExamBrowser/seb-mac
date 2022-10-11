@@ -35,6 +35,7 @@
 #import <UIKit/UIKit.h>
 #import "SEBInitAssistantViewController.h"
 #import "SEBViewController.h"
+#import "SafeExamBrowser-Swift.h"
 
 @class SEBViewController;
 
@@ -59,6 +60,7 @@
 }
 
 @property (nonatomic, strong) SEBInitAssistantViewController *assistantController;
+@property (nonatomic, strong) LocalNetworkAuthorizationManager *localNetworkAuthorizationManager API_AVAILABLE(ios(14.0));
 //@property (nonatomic, strong) id< SEBInitAssistantViewControllerDelegate > assistantControllerDelegate;
 @property (nonatomic, strong) SEBViewController *sebViewController;
 

@@ -41,10 +41,14 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     public var scrollLockActive = false
     
     private var _sebWebView: WKWebView?
+    private var webViewConfiguration: WKWebViewConfiguration?
 
     public var sebWebView: WKWebView? {
         if _sebWebView == nil {
-            let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            if webViewConfiguration == nil {
+                webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
+            }
+            DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             let webFrame = UIScreen.main.bounds
             _sebWebView = WKWebView.init(frame: webFrame, configuration: webViewConfiguration!)
             let backgroundTintStyle = navigationDelegate?.backgroundTintStyle?() ?? SEBBackgroundTintStyleDark
@@ -77,9 +81,17 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         }
     }
     
-    convenience init(delegate: SEBAbstractWebViewNavigationDelegate) {
+    convenience init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         self.init()
+        webViewConfiguration = configuration
         navigationDelegate = delegate
+    }
+    
+    public func closeWKWebView() {
+        _sebWebView?.removeObserver(self, forKeyPath: #keyPath(WKWebView.title))
+        _sebWebView?.removeFromSuperview()
+        _sebWebView = nil
+        self.removeFromParent()
     }
     
     public override func loadView() {
@@ -172,16 +184,16 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         return false
     }
 
-    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didStartProvisionalNavigation: navigation)
     }
     
     public func webView(_ webView: WKWebView,
-                         didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+                         didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didReceiveServerRedirectForProvisionalNavigation: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
         navigationDelegate?.webView?(webView, didFailProvisionalNavigation: navigation, withError: error)
     }
     
@@ -192,15 +204,15 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func webView(_ webView: WKWebView,
-                          didCommit navigation: WKNavigation!) {
+                          didCommit navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didCommit: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.webView?(webView, didFinish: navigation)
     }
     
-    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    public func webView(_ webView: WKWebView, didFail navigation: WKNavigation, withError error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     

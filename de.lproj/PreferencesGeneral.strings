@@ -20,7 +20,7 @@
 "92.ibShadowedToolTip" = "Benutzer können SEB mit cmd-Q (Befehlstaste-Q), Fenster-Schliessen- und Beenden-Taste beenden. Ansonsten benutzen Sie einen Beenden-Link im Prüfungssystem oder schalten den Rechner aus.";
 
 /* Class = "NSSecureTextField"; ibShadowedToolTip = "Password required to open the configuration file for editing or to show the preferences window. It is recommended to set one!"; ObjectID = "93"; */
-"93.ibShadowedToolTip" = "Passwort, das beim Öffnen einer Konfigurationsdatei zum Bearbeiten oder beim Aufrufen der Einstellungen abgefragt wird. Es wird empfohlen, eines zu setzen!";
+"93.ibShadowedToolTip" = "Passwort, welches beim Öffnen einer Konfigurationsdatei zum Bearbeiten oder beim Aufrufen der Einstellungen abgefragt wird. Es wird empfohlen, eines zu setzen!";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays information about Safe Exam Browser – SEB"; ObjectID = "94"; */
 "94.ibShadowedToolTip" = "Informationen über Safe Exam Browser – SEB anzeigen";

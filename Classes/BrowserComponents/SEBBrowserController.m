@@ -161,8 +161,57 @@ void run_block_on_ui_thread(dispatch_block_t block)
     return [[NSUserDefaults standardUserDefaults] secureBoolForKey:keyShowReloadWarning];
 }
 
+- (void) quitSession
+{
+    examSessionCookiesAlreadyCleared = NO;
+}
 
-#pragma mark - SEBAbstractBrowserControllerDelegate Methods
+- (void) resetBrowser
+{
+    self.downloadingInTemporaryWebView = NO;
+    self.temporaryWebView = nil;
+
+    self.browserExamKey = nil;
+    self.configKey = nil;
+    self.customSEBUserAgent = nil;
+    [self initSessionSettings];
+
+    void (^completionHandler)(void) = ^void() {
+        // Additional commands for resetting browser
+    };
+    if (examSessionCookiesAlreadyCleared == NO) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
+            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+            // downloads to disk, and ensures that future requests occur on a new socket.
+            DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
+            [self resetAllCookiesWithCompletionHandler:^{
+                completionHandler();
+            }];
+            return;
+        }
+    } else {
+        // reset the flag when it was true before
+        examSessionCookiesAlreadyCleared = NO;
+    }
+    [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
+}
+
+
+/// Save the default user agent of the installed WebKit version
++ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
+{
+    // Get WebKit version number string to use it as Safari version
+    NSRange webKitSubstring = [defaultUserAgent rangeOfString:@"AppleWebKit/"];
+    NSString *webKitVersion;
+    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < defaultUserAgent.length) {
+        webKitVersion = [defaultUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
+        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
+    } else {
+        webKitVersion = SEBUserAgentDefaultSafariVersion;
+    }
+    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
+    [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
+}
 
 
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
@@ -232,59 +281,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     run_block_on_ui_thread(^{
         completionHandler();
     });
-}
-
-
-- (void) quitSession
-{
-    examSessionCookiesAlreadyCleared = NO;
-}
-
-- (void) resetBrowser
-{
-    self.downloadingInTemporaryWebView = NO;
-    self.temporaryWebView = nil;
-
-    self.browserExamKey = nil;
-    self.configKey = nil;
-    self.customSEBUserAgent = nil;
-    [self initSessionSettings];
-
-    void (^completionHandler)(void) = ^void() {
-        // Additional commands for resetting browser
-    };
-    if (examSessionCookiesAlreadyCleared == NO) {
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnStart"]) {
-            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-            // downloads to disk, and ensures that future requests occur on a new socket.
-            DDLogInfo(@"-[SEBBrowserController resetBrowser] Cookies, caches and credential stores are being reset when starting new browser session (examSessionClearCookiesOnStart = true)");
-            [self resetAllCookiesWithCompletionHandler:^{
-                completionHandler();
-            }];
-            return;
-        }
-    } else {
-        // reset the flag when it was true before
-        examSessionCookiesAlreadyCleared = NO;
-    }
-    [self transferCookiesToWKWebViewWithCompletionHandler:completionHandler];
-}
-
-
-/// Save the default user agent of the installed WebKit version
-+ (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent
-{
-    // Get WebKit version number string to use it as Safari version
-    NSRange webKitSubstring = [defaultUserAgent rangeOfString:@"AppleWebKit/"];
-    NSString *webKitVersion;
-    if (webKitSubstring.location != NSNotFound && (webKitSubstring.location + webKitSubstring.length) < defaultUserAgent.length) {
-        webKitVersion = [defaultUserAgent substringFromIndex:webKitSubstring.location + webKitSubstring.length];
-        webKitVersion = [[webKitVersion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]  componentsSeparatedByString:@" "][0];
-    } else {
-        webKitVersion = SEBUserAgentDefaultSafariVersion;
-    }
-    defaultUserAgent = [defaultUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@", SEBUserAgentDefaultBrowserSuffix, webKitVersion]];
-    [[MyGlobals sharedMyGlobals] setValue:defaultUserAgent forKey:@"defaultUserAgent"];
 }
 
 
@@ -365,6 +361,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView
 {
     NSString *webPageTitle;
+    if (!title) {
+        title = [self urlOrPlaceholderForURL:url.absoluteString];
+    }
     if (mainWebView) {
         if (webPageShowURLAlways) {
             webPageTitle = url.absoluteString;
@@ -881,15 +880,15 @@ static NSString *urlStrippedFragment(NSURL* url)
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_downloadingInTemporaryWebView) {
-            // Check if SEB is in exam mode = private UserDefauls are switched on
+            // Check if reconfiguring is actually allowed
             if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
                 // SEB isn't in exam mode: reconfiguring is allowed
                 NSURL *sebURL = url;
                 // Figure the download URL out, depending on if http or https should be used
-                if ([url.scheme isEqualToString:SEBProtocolScheme]) {
+                if (url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
                     // If it's a seb:// URL, we try to download it by http
                     url = [url URLByReplacingScheme:@"http"];
-                } else if ([url.scheme isEqualToString:SEBSSecureProtocolScheme]) {
+                } else if (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
                     // If it's a sebs:// URL, we try to download it by https
                     url = [url URLByReplacingScheme:@"https"];
                 }
@@ -932,11 +931,12 @@ static NSString *urlStrippedFragment(NSURL* url)
                     examSessionCookiesAlreadyCleared = YES;
                 }
                 [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
+                return;
             }
         } else {
             DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
-            _delegate.openingSettings = false;
         }
+        [_delegate openingConfigURLRoleBack];
     }
 }
 
@@ -1127,7 +1127,8 @@ static NSString *urlStrippedFragment(NSURL* url)
             filename = suggestedFilename;
         }
 
-        if ([pathExtension isEqualToString:SEBFileExtension] || [filename.pathExtension isEqualToString:SEBFileExtension]) {
+        if ((pathExtension && [pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame) ||
+            (filename.pathExtension && [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) {
             // If file extension indicates a .seb file, we try to open it
             // First check if opening SEB config files is allowed in settings and if no other settings are currently being opened
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
@@ -1218,7 +1219,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (([path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+    if (((path.pathExtension && [path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
@@ -1235,7 +1236,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    DDLogInfo(@"WKWebView: %@ didReceiveAuthenticationChallenge: %@", webView, challenge);
+    DDLogVerbose(@"WKWebView: %@ didReceiveAuthenticationChallenge: %@", webView, challenge);
     [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
@@ -1246,7 +1247,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
-    DDLogInfo(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
+    DDLogDebug(@"URLSession: %@ task: %@ didReceiveChallenge: %@", session, task, challenge);
     [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
@@ -1587,7 +1588,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (void) downloadingSEBConfigFailed:(NSError *)error
 {
     DDLogError(@"%s error: %@", __FUNCTION__, error);
-    _delegate.openingSettings = false;
     [_delegate downloadingSEBConfigFailed:error];
 }
 
@@ -1608,7 +1608,6 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     _pendingChallengeCompletionHandler = nil;
     
     if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:originalURL ? originalURL : url]) {
-        _delegate.openingSettings = true;
         
         void (^completionHandler)(void) = ^void() {
             self->downloadedSEBConfigDataURL = url;
@@ -1730,7 +1729,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                             atHost:(NSURL *)host
                      universalLink:(NSURL *)universalLink
 {
-    if ([configFileName isEqualToString:SEBSettingsFilename]) {
+    if (configFileName && [configFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) {
         // No "SEBSettings.seb" file found, search for "SEBExamSettings.seb" file
         // recursivly starting at the folder addressed by the original Universal Link
         [self downloadConfigFile:SEBExamSettingsFilename
@@ -1894,7 +1893,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
         // If these SEB settings came from
         // a "SEBSettings.seb" file, we check if they contained Client Settings
-        if ([cachedConfigFileName isEqualToString:SEBSettingsFilename] &&
+        if ((cachedConfigFileName && [cachedConfigFileName caseInsensitiveCompare:SEBSettingsFilename] == NSOrderedSame) &&
             ![NSUserDefaults userDefaultsPrivate]) {
             // SEB successfully read a SEBSettings.seb file with Client Settings
             // Now we try if there is a "SEBExamSettings.seb" file as well in the

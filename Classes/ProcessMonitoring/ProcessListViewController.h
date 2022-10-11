@@ -19,10 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
 - (void) runModalAlert:(NSAlert *)alert
 conditionallyForWindow:(NSWindow *)window
-     completionHandler:(void (^)(NSModalResponse returnCode))handler;
+     completionHandler:(nullable void (^)(NSModalResponse returnCode))handler;
 - (void) quitSEBOrSession;
 
-@property (readwrite) BOOL quittingMyself;
 @property (readwrite) BOOL quittingSession;
 
 @end
@@ -37,6 +36,7 @@ conditionallyForWindow:(NSWindow *)window
 @property (strong, atomic) NSMutableArray <NSDictionary *>*runningProcesses;
 @property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property (readwrite) BOOL windowOpen;
+@property (readwrite) BOOL autoQuitApplications;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
