@@ -297,21 +297,23 @@ void DisposeWindow (
 {
     NSScreen *currentScreen = self.window.screen;
     BOOL movingWindowBack = false;
-    DDLogDebug(@"windowDidChangeScreen to %@", currentScreen);
+    DDLogDebug(@"windowDidChangeScreen from previous %@ to %@, level %ld", _previousScreen, currentScreen, (long)self.window.level);
     // Check if window is off-screen or the new screen is inactive
     if (currentScreen.inactive) {
         // Yes: Move the window back to the screen it has been on before
         currentScreen = _previousScreen;
         movingWindowBack = true;
         DDLogDebug(@"Screen is inactive, move window back to previous screen %@", currentScreen);
+        [self adjustWindowForScreen:currentScreen moveBack:movingWindowBack];
+    } else if (currentScreen != _previousScreen){
+        [self adjustWindowForScreen:currentScreen moveBack:movingWindowBack];
     }
-    [self adjustWindowForScreen:currentScreen moveBack:movingWindowBack];
 }
 
 
 - (void)adjustWindowForScreen:(NSScreen *)newScreen moveBack:(BOOL)movingWindowBack
 {
-    DDLogDebug(@"%s newScreen: %@ moveBack: %hhd (current screen: %@)", __FUNCTION__, newScreen, movingWindowBack, self.window.screen);
+    DDLogDebug(@"%s newScreen: %@ moveBack: %hhd (previous screen: %@)", __FUNCTION__, newScreen, movingWindowBack, _previousScreen);
     NSUInteger pressedButtons = [NSEvent pressedMouseButtons];
     if (((pressedButtons & (1 << 0)) != (1 << 0))) {
         
@@ -344,7 +346,7 @@ void DisposeWindow (
             }
             // Check if top of window is hidden below the dock (if visible)
             // or just slightly (20 points) above the bottom edge of the visible screen space
-            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + kMenuBarHeight)) { //showDock * dockHeight +
+            if ((newWindowFrame.origin.y + newWindowFrame.size.height) < (newFrame.origin.y + newScreen.menuBarHeight)) { //showDock * dockHeight +
                 // In this case shift the window up
                 newWindowFrame = NSMakeRect(newWindowFrame.origin.x, newFrame.origin.y, newWindowFrame.size.width, newWindowFrame.size.height);
             }

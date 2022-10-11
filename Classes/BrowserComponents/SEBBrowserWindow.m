@@ -48,6 +48,16 @@
 @synthesize webView;
 
 
+- (void)addConstraintsToWebView:(NSView*) nativeWebView
+{
+    nativeWebView.translatesAutoresizingMaskIntoConstraints = NO;
+    [nativeWebView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
+    [nativeWebView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
+    [nativeWebView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
+    [nativeWebView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
+}
+
+
 - (NSArray *)accessibilityChildren {
     NSArray *subViews = self.contentView.superview.subviews;
     DDLogVerbose(@"Browser window contentView superview subviews: %@", subViews);
@@ -1076,13 +1086,15 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.browserController openNewTabWithURL:url];
+    return [self.browserController openNewTabWithURL:url configuration:configuration];
 }
 
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+                                       configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.browserController openNewWebViewWindowWithURL:url];
+    return [self.browserController openNewWebViewWindowWithURL:url configuration:configuration];
 }
 
 - (void) makeActiveAndOrderFront
@@ -1103,6 +1115,12 @@
 - (void) closeWebView:(SEBAbstractWebView *)webView
 {
     [self.browserController closeWebView:webView];
+}
+
+- (void) addWebView:(id)nativeWebView
+{
+    [self.contentView addSubview:nativeWebView];
+    [self addConstraintsToWebView:(NSView *)nativeWebView];
 }
 
 
@@ -1185,7 +1203,7 @@
 
 - (void)showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.browserController showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -1237,6 +1255,11 @@
 - (id) window
 {
     return self;
+}
+
+- (BOOL) isAACEnabled
+{
+    return self.browserController.isAACEnabled;
 }
 
 

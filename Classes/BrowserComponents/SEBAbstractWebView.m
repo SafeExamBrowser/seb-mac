@@ -41,7 +41,11 @@
 
 @implementation SEBAbstractWebView
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                        configuration:(WKWebViewConfiguration *)configuration
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate
 {
     self = [super init];
     _navigationDelegate = delegate;
@@ -75,7 +79,7 @@
                         downloadingInTemporaryWebView) {
                         
                         DDLogInfo(@"Opening modern WebView");
-                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self];
+                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
                         self.browserControllerDelegate = sebAbstractModernWebView;
                         [self initGeneralProperties];
                         return self;
@@ -86,8 +90,8 @@
         DDLogInfo(@"Opening classic WebView");
         SEBAbstractClassicWebView *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:self];
         self.browserControllerDelegate = sebAbstractClassicWebView;
+        [self initGeneralProperties];
     }
-    [self initGeneralProperties];
     return self;
 }
 
@@ -386,13 +390,15 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 - (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url
+                                       configuration:(WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewWebViewWindowWithURL:url];
+    return [self.navigationDelegate openNewWebViewWindowWithURL:url configuration:configuration];
 }
 
 - (void) makeActiveAndOrderFront
@@ -413,6 +419,20 @@
 - (void) closeWebView:(SEBAbstractWebView *)webView
 {
     [self.navigationDelegate closeWebView:webView];
+}
+
+- (void) addWebView:(id)nativeWebView
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(addWebView:)]) {
+        [self.navigationDelegate addWebView:nativeWebView];
+    }
+}
+
+- (void) addWebViewController:(id)webViewController
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(addWebViewController:)]) {
+        [self.navigationDelegate addWebViewController:webViewController];
+    }
 }
 
 - (SEBAbstractWebView *) abstractWebView
@@ -457,7 +477,7 @@
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading
 {
-    [self showAlertNotAllowedDownUploading:uploading];
+    [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -541,6 +561,10 @@
     return self.navigationDelegate.window;
 }
 
+- (BOOL) isAACEnabled
+{
+    return self.navigationDelegate.isAACEnabled;
+}
 
 - (void)sebWebViewDidStartLoad
 {
@@ -574,8 +598,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     NSURL *pageURL = self.url;
     NSString *pageTitle = self.pageTitle;
     if (pageTitle.length == 0) {
-        if ([pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+        if (pageURL.pathExtension && [pageURL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
             pageTitle = pageURL.lastPathComponent;
+        } else {
+            pageTitle = @"";
         }
     }
     [self.navigationDelegate setPageTitle:pageTitle];
@@ -632,12 +658,13 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
+                                           configuration:(WKWebViewConfiguration *)configuration
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd]: request = %@, URL = %@", navigationAction, newTab, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
@@ -649,7 +676,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     NSURL *originalURL = url;
-    
+    SEBNavigationAction *newNavigationAction = [SEBNavigationAction new];
+    newNavigationAction.policy = SEBNavigationActionPolicyCancel;
+
     // This is currently used for SEB Server handshake after logging in to Moodle
     if (navigationType == WKNavigationTypeFormSubmitted) {
         [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
@@ -659,7 +688,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
-        return SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
     
     if (urlFilter.enableURLFilter && ![self.navigationDelegate downloadingInTemporaryWebView]) {
@@ -672,11 +701,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     /// User didn't allow the content, don't load it
                     DDLogWarn(@"A clicked link was blocked by the URL filter");
                     DDLogDebug(@"This clicked link was blocked by the URL filter: %@", originalURL.absoluteString);
-                    return SEBNavigationActionPolicyCancel;
+                    return newNavigationAction;
                 }
             } else {
                 DDLogDebug(@"This resource was blocked by the URL filter: %@", originalURL.absoluteString);
-                return SEBNavigationActionPolicyCancel;
+                return newNavigationAction;
             }
         }
     }
@@ -694,14 +723,24 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 if (newBrowserWindowPolicy == openInNewWindow) {
                     // Open in new tab
                     DDLogInfo(@"Open new window/tab URL in new window");
-                    [self.navigationDelegate openNewTabWithURL:url];
-                    return SEBNavigationActionPolicyCancel;
+                    newNavigationAction.openedWebView = [self.navigationDelegate openNewTabWithURL:url configuration:(WKWebViewConfiguration *)configuration];
+                    if (configuration) {
+                        // Special case of window opened with Javascript .open()
+                        newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
+                        return newNavigationAction;
+                    }
+                    return newNavigationAction;
                 }
                 if (newBrowserWindowPolicy == openInSameWindow) {
                     // Load URL request in existing tab
                     DDLogInfo(@"Open new window/tab URL in same window (selected in current settings)");
+                    if (configuration) {
+                        // Special case of window opened with Javascript .open()
+                        newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
+                    }
                     [self loadURL:url];
-                    return SEBNavigationActionPolicyCancel;
+//                    newNavigationAction.openedWebView = self;
+                    return newNavigationAction;
                 }
             }
         }
@@ -711,32 +750,33 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:NO filterResponse:SEBURLFilterAlertBlock];
         }
         DDLogInfo(@"Opening new window/tab URL generally blocked in current settings");
-        return SEBNavigationActionPolicyCancel;
+        return newNavigationAction;
     }
 
-    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:)]) {
-        SEBNavigationActionPolicy delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
-        if (delegateNavigationActionPolicy != SEBNavigationResponsePolicyAllow) {
+    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:configuration:)]) {
+        SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:configuration];
+        if (delegateNavigationActionPolicy.policy != SEBNavigationResponsePolicyAllow) {
             return delegateNavigationActionPolicy;
         }
     }
     
     // Check if this is a seb:// or sebs:// link or a .seb file link
-    if (([url.scheme isEqualToString:SEBProtocolScheme] ||
-        [url.scheme isEqualToString:SEBSSecureProtocolScheme] ||
-        [fileExtension isEqualToString:SEBFileExtension]) &&
+    if (((url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) ||
+        (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) ||
+        (fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) &&
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
         // If the scheme is seb(s):// or the file extension .seb,
         // we (conditionally) download and open the linked .seb file
         if (!self.navigationDelegate.downloadingInTemporaryWebView) {
             [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
-            return SEBNavigationActionPolicyCancel;
+            return newNavigationAction;
         }
     }
 
     self.navigationDelegate.currentURL = url;
     self.navigationDelegate.currentMainHost = url.host;
-    return SEBNavigationResponsePolicyAllow;
+    newNavigationAction.policy = SEBNavigationResponsePolicyAllow;
+    return newNavigationAction;
 }
 
 
@@ -767,9 +807,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     
     [self.navigationDelegate examineCookies:cookies forURL:url];
     
-    if (([mimeType isEqualToString:SEBConfigMIMEType]) ||
-        ([mimeType isEqualToString:SEBUnencryptedConfigMIMEType]) ||
-        ([url.pathExtension isEqualToString:SEBFileExtension])) {
+    if ((mimeType && [mimeType caseInsensitiveCompare:SEBConfigMIMEType] == NSOrderedSame) ||
+        (mimeType && [mimeType caseInsensitiveCompare:SEBUnencryptedConfigMIMEType] == NSOrderedSame) ||
+        (url.pathExtension && [url.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) {
         // If MIME-Type or extension of the file indicates a .seb file, we (conditionally) download and open it
         NSURL *originalURL = self.originalURL;
         self.downloadingSEBConfig = YES;
@@ -778,7 +818,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
 
     // Check for PDF file and according to settings either download or display it inline in the SEB browser
-    if (!([mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && _downUploadsAllowed && _downloadPDFFiles)) {
+    if (!((mimeType && [mimeType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame) && _downUploadsAllowed && _downloadPDFFiles)) {
         // MIME type isn't PDF or downloading of PDFs isn't allowed
         if (canShowMIMEType) {
             return SEBNavigationActionPolicyAllow;
@@ -904,5 +944,10 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         return super.request;
     }
 }
+
+@end
+
+
+@implementation SEBNavigationAction
 
 @end

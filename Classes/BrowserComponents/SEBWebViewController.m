@@ -10,6 +10,7 @@
 #include "WebStorageManagerPrivate.h"
 #include "WebPreferencesPrivate.h"
 #import "WebPluginDatabase.h"
+#import "SEBAbstractClassicWebView.h"
 
 @implementation SEBWebViewController
 
@@ -388,8 +389,9 @@
 }
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url
+                             configuration:(nullable WKWebViewConfiguration *)configuration
 {
-    return [self.navigationDelegate openNewTabWithURL:url];
+    return [self.navigationDelegate openNewTabWithURL:url configuration:configuration];
 }
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
@@ -455,6 +457,20 @@
             // request to open link in new window came from the flash plugin context menu while playing video in full screen mode
             DDLogDebug(@"Cancel opening link from Flash plugin context menu");
             return nil; // cancel opening link
+        }
+        if (newBrowserWindowPolicy == openInNewWindow) {
+            SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
+            sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
+            
+            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil];
+            if (navigationAction.policy == SEBNavigationActionPolicyJSOpen) {
+                SEBAbstractWebView *newAbstractWebView = navigationAction.openedWebView;
+                DDLogInfo(@"Opening classic WebView after Javascript .open()");
+                SEBAbstractClassicWebView <SEBAbstractBrowserControllerDelegate> *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:newAbstractWebView];
+                newAbstractWebView.browserControllerDelegate = sebAbstractClassicWebView;
+                [newAbstractWebView initGeneralProperties];
+                return newAbstractWebView.nativeWebView;
+            }
         }
         SEBWebView *tempWebView = [[SEBWebView alloc] init];
         DDLogDebug(@"Opened new temporary WebView: %@", tempWebView);
@@ -912,7 +928,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
     #ifdef DEBUG
         DDLogDebug(@"%s: Downloading allowed: %hhd", __FUNCTION__, _allowDownloads);
     #endif
-        if (_allowDownloads || [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
+        if (_allowDownloads || (request.URL.pathExtension && [request.URL.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
             // Get the DOMNode from the information about the action that triggered the navigation request
             self.downloadFilename = nil;
             NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
@@ -986,10 +1002,13 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             }
         }
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
-        if (!_allowDownloads && self.downloadFilename && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) {
-            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+        SEBNavigationAction *delegateNavigationAction;
+        if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
+            delegateNavigationActionPolicy = delegateNavigationAction.policy;
         } else {
-            delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:nil];
+            delegateNavigationActionPolicy = delegateNavigationAction.policy;
         }
     #ifdef DEBUG
         DDLogDebug(@"%s: [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO] = (SEBNavigationActionPolicy) %lu", __FUNCTION__, (unsigned long)delegateNavigationActionPolicy);
@@ -1029,7 +1048,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                 // If the request's sender is the temporary webview
                 
                 if (sender.creatingWebView && newBrowserWindowPolicy == openInNewWindow) {
-                    SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindowWithURL:request.URL];
+                    SEBAbstractWebView *newWindowAbstractWebView = [self.navigationDelegate openNewWebViewWindowWithURL:request.URL configuration:nil];
                     newWindowAbstractWebView.creatingWebView = self.navigationDelegate.abstractWebView;
                     DDLogDebug(@"Just opened new document browser window with SEBAbstractWebView %@", newWindowAbstractWebView);
                     [listener ignore];
@@ -1065,7 +1084,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
     navigationAction.writableRequest = request;
 
-    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES];
+    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
 
     [listener ignore];
 }

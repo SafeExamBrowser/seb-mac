@@ -1309,7 +1309,7 @@
     [NSUserDefaults setUserDefaultsPrivate:NO];
     NSString *hashedAdminPassword = [self.configFileController getHashedAdminPassword];
     // Check if the admin password from the current private defaults is the same as the one in client setting
-    if (hashedAdminPassword.length > 0 && [privateDefaultsHashedAdminPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+    if (hashedAdminPassword.length > 0 && ([privateDefaultsHashedAdminPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame)) {
         // If admin passwords differ, ask the user to enter the admin pw from client settings
         [self.configFileController promptPasswordForHashedPassword:hashedAdminPassword messageText:[NSString stringWithFormat:NSLocalizedString(@"Enter the %@ administrator password used in client settings:",nil), SEBShortAppName] title:NSLocalizedString(@"Revert to Client Settings",nil) completionHandler:revertToClientSettings];
     } else {

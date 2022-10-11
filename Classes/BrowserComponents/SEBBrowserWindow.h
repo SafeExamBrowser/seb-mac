@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSView *filterMessageHolder;
 @property (strong) NSPanel *filterMessageHUD;
 
+- (void)addConstraintsToWebView:(NSView*) nativeWebView;
+
 - (void) performFindPanelAction:(id)sender;
 - (void) searchText;
 - (void) searchTextNext;

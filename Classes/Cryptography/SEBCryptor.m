@@ -530,9 +530,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Get all dictionary keys alphabetically sorted
     NSMutableArray *configKeysAlphabetically = [[sourceDictionary allKeys] sortedArrayUsingDescriptors:@[[NSSortDescriptor
-                                                                                                   sortDescriptorWithKey:@"description"
-                                                                                                   ascending:YES
-                                                                                                   selector:@selector(caseInsensitiveOrdinalCompare:)]]].mutableCopy;
+                                                                                                          sortDescriptorWithKey:@"description"
+                                                                                                          ascending:YES
+                                                                                                          selector:@selector(caseInsensitiveOrdinalCompare:)]]].mutableCopy;
     // Remove the special key "originatorVersion" which doesn't have any functionality,
     // it's just meta data indicating which SEB version saved the config file
     [configKeysAlphabetically removeObject:@"originatorVersion"];
@@ -540,11 +540,11 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Get default settings including sub-dictionaries and sub-arrays
     NSDictionary *defaultSettings = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey];
-
+    
     NSArray *containedKeys = [*containedKeysPtr objectForKey:dictionaryKey];
     if (!containedKeys || (containedKeys.count == 0 &&
-        configKeysAlphabetically.count != 0 &&
-        initializeContainedKeys)) {
+                           configKeysAlphabetically.count != 0 &&
+                           initializeContainedKeys)) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
@@ -552,9 +552,9 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         NSArray *newArray = [configKeysAlphabetically arrayByAddingObjectsFromArray:containedKeys];
         containedKeys = (NSArray *)[[NSSet setWithArray:newArray] allObjects];
         containedKeys = [containedKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor
-                                                                                                       sortDescriptorWithKey:@"description"
-                                                                                                       ascending:YES
-                                                                                                       selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
+                                                                      sortDescriptorWithKey:@"description"
+                                                                      ascending:YES
+                                                                      selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
         [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
     }
     
@@ -642,7 +642,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
             // Update JSON string
-                [*jsonStringPtr appendFormat:@"\"%@\":", key];
+            [*jsonStringPtr appendFormat:@"\"%@\":", key];
             if (dictionaryJSON.length > 0) {
                 [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
             } else {
@@ -658,7 +658,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         [*jsonStringPtr deleteCharactersInRange:NSMakeRange([*jsonStringPtr length] - 1, 1)];
     }
     [*jsonStringPtr appendString:@"}"];
-
+    
     return [filteredPrefsDict copy];
 }
 

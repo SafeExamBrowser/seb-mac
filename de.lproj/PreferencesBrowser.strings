@@ -16,8 +16,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Enables the text search feature in browser windows. Use the search icon in the browser window toolbar or cmd-F. This feature is not available in the full screen mode main window. Search in PDFs works only in modern WebView and macOS >=11 / iOS >= 14"; ObjectID = "2dw-Ko-tLl"; */
 "2dw-Ko-tLl.ibShadowedToolTip" = "Erlaubt die Textsuche auf Webseiten. Benutzen Sie das Suche-Symbol in der Browserfenster-Symbolleiste oder cmd-F. Diese Funktion ist nicht im Vollbildanzeige-Fenster verfügbar. Suche in PDF-Dateien funktioniert nur im modernen WebView und macOS >=11";
 
+/* Class = "NSButtonCell"; title = "Allow camera capture"; ObjectID = "4cR-n5-sEi"; */
+"4cR-n5-sEi.title" = "Kamerazugriff erlauben";
+
 /* Class = "NSButtonCell"; title = "Allow reload"; ObjectID = "6r7-Lm-bnI"; */
 "6r7-Lm-bnI.title" = "Neuladen erlauben";
+
+/* Class = "NSButtonCell"; title = "Allow microphone capture"; ObjectID = "6ym-r5-MoN"; */
+"6ym-r5-MoN.title" = "Mikrofonzugriff erlauben";
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show URLs in exam window"; ObjectID = "7c3-3L-Itj"; */
 "7c3-3L-Itj.ibExternalAccessibilityDescription" = "Zeige URLs im Prüfungsfenster";
@@ -178,6 +184,9 @@
 /* Class = "NSBox"; title = "Restrictions in Additional Windows"; ObjectID = "bgd-GA-QC3"; */
 "bgd-GA-QC3.title" = "Einschränkungen in zusätzlichen Fenstern";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the camera, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)"; ObjectID = "bjS-Ok-Dj9"; */
+"bjS-Ok-Dj9.ibShadowedToolTip" = "Erlaubt Websites Zugriff auf die Kamera für WebRTC-Livestreams oder Fotos (nur in modernem WebView und unter macOS 11.1/iOS 14.3 oder neuer)";
+
 /* Class = "NSTextFieldCell"; title = "iOS Mac desktop user agent"; ObjectID = "Bmg-9t-VQK"; */
 "Bmg-9t-VQK.title" = "iOS Mac Desktop User Agent";
 
@@ -189,6 +198,9 @@
 
 /* Class = "NSBox"; title = "User agent"; ObjectID = "ckm-lX-Woj"; */
 "ckm-lX-Woj.title" = "User Agent";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow web sites to access the microphone, for WebRTC live streams or audio recording (only in modern WebView and on macOS 11.1/iOS 14.3 or newer)"; ObjectID = "d4A-pq-G5U"; */
+"d4A-pq-G5U.ibShadowedToolTip" = "Erlaubt Websites Zugriff auf das Mikrofon für WebRTC-Livestreams oder Audioaufnahmen (nur in modernem WebView und unter macOS 11.1/iOS 14.3 oder neuer)";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "dP1-5V-zqF"; */
 "dP1-5V-zqF.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
@@ -204,6 +216,9 @@
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS"; */
 "F1k-Qz-pMS.ibShadowedToolTip" = "Standardzeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSButtonCell"; title = "Allow screen capture"; ObjectID = "fCI-oc-vd6"; */
+"fCI-oc-vd6.title" = "Bildschirmaufzeichnung erlauben";
 
 /* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed SEB for Windows version and therefore can differ on exam clients."; ObjectID = "FfE-2h-C1L"; */
 "FfE-2h-C1L.title" = "Benutzerdefinierte User Agent Zeichenkette (SEB hängt seine Versionsnummer automatisch an). Die Standardzeichenkette hängt von der der installierten SEB für Windows Version ab.";
@@ -265,6 +280,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "User has to confirm reloading pages in additional browser windows"; ObjectID = "NhI-j9-FNc"; */
 "NhI-j9-FNc.ibShadowedToolTip" = "Benutzer muss das Neuladen in zusätzlichen Browserfenstern bestätigen";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )"; ObjectID = "NjH-uQ-OnL"; */
+"NjH-uQ-OnL.ibShadowedToolTip" = "Erlaubt Websites Zugriff auf den Bildschirm für WebRTC-Livestreams oder Bildschirmfotos (nur in modernem WebView und unter macOS 11.1 oder neuer)";
+
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Show URLs in additional windows"; ObjectID = "Nqe-fJ-MeT"; */
 "Nqe-fJ-MeT.ibExternalAccessibilityDescription" = "URLs in zusätzlichen Fenstern anzeigen";
 
@@ -307,7 +325,7 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "twb-Ov-Zlx"; */
 "twb-Ov-Zlx.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
-/* Class = "NSBox"; title = "Media Playback"; ObjectID = "u8M-48-HFC"; */
+/* Class = "NSBox"; title = "Media Playback/Capture"; ObjectID = "u8M-48-HFC"; */
 "u8M-48-HFC.title" = "Medienwiedergabe (iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip"; */

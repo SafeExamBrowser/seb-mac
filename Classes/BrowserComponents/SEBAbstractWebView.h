@@ -41,11 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBAbstractWebView;
 @class SEBURLFilter;
 @class WKWebView;
+@class SEBNavigationAction;
 
 @protocol SEBAbstractBrowserControllerDelegate <NSObject>
 
 @optional
 - (id) nativeWebView;
+- (void) closeWKWebView;
 - (nullable NSURL*) url;
 - (nullable NSString*) pageTitle;
 - (BOOL) canGoBack;
@@ -126,13 +128,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) firstDOMElementDeselected;
 - (void) lastDOMElementDeselected;
 
-- (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url;
-- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(NSURL *)url;
+- (SEBAbstractWebView *) openNewTabWithURL:(nullable NSURL *)url
+                             configuration:(nullable WKWebViewConfiguration *)configuration;
+- (SEBAbstractWebView *) openNewWebViewWindowWithURL:(nullable NSURL *)url
+                                       configuration:(nullable WKWebViewConfiguration *)configuration;
 
 - (void) makeActiveAndOrderFront;
 - (void) showWebView:(SEBAbstractWebView *)webView;
 - (void) closeWebView;
 - (void) closeWebView:(SEBAbstractWebView *)webView;
+- (void) addWebView:(id)nativeWebView;
+- (void) addWebViewController:(id)webViewController;
 
 @property (readonly, nonatomic) SEBAbstractWebView *abstractWebView;
 @property (nullable, strong, nonatomic) NSURL *currentURL;
@@ -175,14 +181,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Required by SEB-macOS
 @property (weak, nonatomic) id __nullable window;
+@property (readonly) BOOL isAACEnabled;
+
 // Required by SEB-iOS
 @property (strong, nonatomic) id __nullable uiAlertController;
 
 - (void)sebWebViewDidStartLoad;
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
-- (SEBNavigationActionPolicy)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-                                                      newTab:(BOOL)newTab;
+- (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                                                  newTab:(BOOL)newTab
+                                           configuration:(nullable WKWebViewConfiguration *)configuration;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 - (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(nullable NSString*)mimeType
@@ -310,7 +319,7 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 
 - (void)_webView:(WKWebView *)webView requestDisplayCapturePermissionForOrigin:(WKSecurityOrigin *)securityOrigin initiatedByFrame:(WKFrameInfo *)frame withSystemAudio:(BOOL)withSystemAudio decisionHandler:(void (^)(WKDisplayCapturePermissionDecision decision))decisionHandler;
 
-- (void)_webView:(WKWebView *)webView queryPermission:(NSString*)name forOrigin:(WKSecurityOrigin*)origin completionHandler:(void (^)(WKPermissionDecision permissionState))completionHandler API_AVAILABLE(macos(12.0));
+- (void)_webView:(WKWebView *)webView queryPermission:(NSString*)name forOrigin:(WKSecurityOrigin*)origin completionHandler:(void (^)(WKPermissionDecision permissionState))completionHandler API_AVAILABLE(macos(12.0), ios(15.0));
 
 @end
 
@@ -340,7 +349,12 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 @property (readwrite) BOOL dismissAll;
 
 
-- (instancetype)initNewTabMainWebView:(BOOL)mainWebView withCommonHost:(BOOL)commonHostTab overrideSpellCheck:(BOOL)overrideSpellCheck delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+- (instancetype)initNewTabMainWebView:(BOOL)mainWebView
+                       withCommonHost:(BOOL)commonHostTab
+                        configuration:(WKWebViewConfiguration *)configuration
+                   overrideSpellCheck:(BOOL)overrideSpellCheck
+                             delegate:(id <SEBAbstractWebViewNavigationDelegate>)delegate;
+- (void) initGeneralProperties;
 
 @end
 
@@ -351,5 +365,25 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 @property (readwrite, nonatomic) NSURLRequest *writableRequest;
 
 @end
+
+
+@interface SEBNavigationAction : NSObject
+
+@property (readwrite, nonatomic) SEBNavigationActionPolicy policy;
+@property (nullable, weak, nonatomic) SEBAbstractWebView *openedWebView;
+
+@end
+
+
+#if TARGET_OS_OSX
+@interface WKPreferences ()
+
+- (void)_setDeveloperExtrasEnabled:(BOOL)developerExtrasEnabled;
+- (void)_setShouldAllowUserInstalledFonts:(BOOL)_shouldAllowUserInstalledFonts;
+- (void)_setFullScreenEnabled:(BOOL)fullScreenEnabled;
+- (void)_setAllowsPictureInPictureMediaPlayback:(BOOL)allowed;
+
+@end
+#endif
 
 NS_ASSUME_NONNULL_END

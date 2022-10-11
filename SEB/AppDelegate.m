@@ -517,26 +517,28 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 - (void)performKeyCommand:(UIKeyCommand *)sender
 {
     NSString *key = sender.input;
-    UIKeyModifierFlags modifier = sender.modifierFlags;
-    DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
-    if ([key isEqualToString:@"\t"]) {
-        if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
-            [_sebViewController.browserTabViewController switchToPreviousTab];
-        } else if (modifier == (UIKeyModifierControl)) {
-            [_sebViewController.browserTabViewController switchToNextTab];
+    if (key) {
+        UIKeyModifierFlags modifier = sender.modifierFlags;
+        DDLogVerbose(@"Pressed key: %@ with modifier flags: %ld", key, (long)modifier);
+        if ([key isEqualToString:@"\t"]) {
+            if (modifier == (UIKeyModifierControl | UIKeyModifierShift)) {
+                [_sebViewController.browserTabViewController switchToPreviousTab];
+            } else if (modifier == (UIKeyModifierControl)) {
+                [_sebViewController.browserTabViewController switchToNextTab];
+            }
         }
-    }
-    if ([key caseInsensitiveCompare:SEBKeyShortcutSideMenu] == NSOrderedSame && modifier == UIKeyModifierCommand) {
-        [_sebViewController leftDrawerKeyShortcutPress:self];
-    }
-    if ([key caseInsensitiveCompare:SEBKeyShortcutReload] == NSOrderedSame && modifier == UIKeyModifierCommand) {
-        [_sebViewController reload];
-    }
-    if ([key caseInsensitiveCompare:SEBKeyShortcutFind] == NSOrderedSame && modifier == UIKeyModifierCommand) {
-        [_sebViewController searchTextOnPage];
-    }
-    if ([key caseInsensitiveCompare:SEBKeyShortcutQuit] == NSOrderedSame && modifier == (UIKeyModifierCommand | UIKeyModifierShift)) {
-        [_sebViewController quitExamConditionally];
+        if ([key caseInsensitiveCompare:SEBKeyShortcutSideMenu] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+            [_sebViewController leftDrawerKeyShortcutPress:self];
+        }
+        if ([key caseInsensitiveCompare:SEBKeyShortcutReload] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+            [_sebViewController reload];
+        }
+        if ([key caseInsensitiveCompare:SEBKeyShortcutFind] == NSOrderedSame && modifier == UIKeyModifierCommand) {
+            [_sebViewController searchTextOnPage];
+        }
+        if ([key caseInsensitiveCompare:SEBKeyShortcutQuit] == NSOrderedSame && modifier == (UIKeyModifierCommand | UIKeyModifierShift)) {
+            [_sebViewController quitExamConditionally];
+        }
     }
 }
 

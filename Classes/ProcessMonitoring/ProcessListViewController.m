@@ -9,13 +9,11 @@
 #import "ProcessManager.h"
 #import "ProcessListElement.h"
 #import "NSRunningApplication+SEB.h"
-#import "SEBController.h"
 
 @interface ProcessListViewController () {
     __weak IBOutlet NSButton *forceQuitButton;
     __weak IBOutlet NSButton *quitSEBSessionButton;
     __weak IBOutlet NSTextField *runningProhibitedProcessesText;
-    BOOL autoQuitApplications;
 }
 
 @end
@@ -25,7 +23,7 @@
 
 - (void)loadView
 {
-    DDLogDebug(@"%s: calling [super loadView]", __FUNCTION__);
+    DDLogDebug(@"Loading ProcessListView");
     [super loadView];
     
     if (@available(macOS 10.10, *)) {
@@ -46,12 +44,14 @@
         return;
     } else {
         _processListArrayController.content = allProcessListElements;
+#ifndef VERIFICATOR
         // If the setting autoQuitApplications = true or there are no running applications (only BSD processes)
         // we show the force quit option
-        autoQuitApplications = _runningApplications.count == 0 ||
+        self.autoQuitApplications = _runningApplications.count == 0 ||
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
-        [self updateUIStrings];
         quitSEBSessionButton.title = [self quitSEBOrSessionString];
+#endif
+        [self updateUIStrings];
     }
     if (!_processWatchTimer) {
         dispatch_source_t newProcessWatchTimer =
@@ -67,8 +67,18 @@
 
 - (void)updateUIStrings
 {
-    forceQuitButton.title = autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", nil) : NSLocalizedString(@"Quit All Applications", nil);
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", nil), autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+    forceQuitButton.title = self.autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", nil) : NSLocalizedString(@"Quit All Applications", nil);
+#ifdef VERIFICATOR
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+    if (self.autoQuitApplications) {
+        quitSEBSessionButton.hidden = YES;
+    } else {
+        quitSEBSessionButton.hidden = NO;
+        quitSEBSessionButton.title = NSLocalizedString(@"Start SEB", nil);
+    }
+#else
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+#endif
 }
 
 - (NSString *)quitSEBOrSessionString
@@ -170,7 +180,7 @@
 - (IBAction)forceQuitAllProcesses:(id)sender
 {
     if ([self allProcessListElements].count > 0) {
-        if (autoQuitApplications) {
+        if (self.autoQuitApplications) {
             self.modalAlert = [self.delegate newAlert];
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
             [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
@@ -210,7 +220,7 @@
             for (NSRunningApplication* runningApplication in _runningApplications) {
                 [runningApplication terminate];
             }
-            autoQuitApplications = YES;
+            self.autoQuitApplications = YES;
             [self updateUIStrings];
         }
     }

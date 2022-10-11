@@ -32,7 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
-#import <CocoaLumberjack.h>
+@import CocoaLumberjack;
 #import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h
@@ -41,7 +41,6 @@
 
 #define sebConfigFilePrefixLength               4
 #define publicKeyHashLenght                     20
-#define kMenuBarHeight                          22.0
 #define kMenuBarNotificationCenterIconWidth     46.0
 
 
@@ -79,7 +78,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define currentStableMajoriOSVersion 15
+#define currentStableMajoriOSVersion 16
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -204,7 +203,9 @@ enum {
     iOSVersion11                                = 11,
     iOSVersion12                                = 12,
     iOSVersion13                                = 13,
-    iOSVersion14                                = 14
+    iOSVersion14                                = 14,
+    iOSVersion15                                = 15,
+    iOSVersion16                                = 16
 };
 typedef NSUInteger iOSVersion;
 
@@ -274,7 +275,8 @@ typedef NSUInteger newBrowserWindowPolicies;
 enum {
     SEBNavigationActionPolicyCancel             = 0,
     SEBNavigationActionPolicyAllow              = 1,
-    SEBNavigationActionPolicyDownload           = 2
+    SEBNavigationActionPolicyDownload           = 2,
+    SEBNavigationActionPolicyJSOpen             = 3
 };
 typedef NSInteger SEBNavigationActionPolicy;
 

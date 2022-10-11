@@ -77,7 +77,7 @@
 
 + (BOOL)_canShowMIMEType:(NSString *)MIMEType allowingPlugins:(BOOL)allowPlugins
 {
-    if (!allowPlugins && [MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame)
+    if (!allowPlugins && (MIMEType && [MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame))
     {
         return YES;
     }
@@ -91,7 +91,7 @@
 
 - (WebBasePluginPackage *)_pluginForMIMEType:(NSString *)MIMEType
 {
-    if ([MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame && !self.navigationDelegate.allowPDFPlugIn)
+    if ((MIMEType && [MIMEType caseInsensitiveCompare:mimeTypePDF] == NSOrderedSame) && !self.navigationDelegate.allowPDFPlugIn)
     {
         return nil;
     }
