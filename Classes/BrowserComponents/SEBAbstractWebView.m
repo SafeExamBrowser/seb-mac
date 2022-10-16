@@ -671,7 +671,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     request.allHTTPHeaderFields;
     DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
     DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
-    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
+//    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
