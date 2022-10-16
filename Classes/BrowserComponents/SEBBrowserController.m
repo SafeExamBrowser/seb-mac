@@ -494,7 +494,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 
     NSDictionary *headerFields;
     headerFields = [request allHTTPHeaderFields];
-    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+//    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
     
 //    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
 //        return request;
@@ -513,7 +513,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
         
         headerFields = [modifiedRequest allHTTPHeaderFields];
-        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+//        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
         
         return [modifiedRequest copy];
 
