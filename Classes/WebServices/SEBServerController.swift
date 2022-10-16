@@ -79,6 +79,7 @@ import Foundation
     @objc public var examList: [ExamObject]?
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
+    private var maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
 
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
@@ -99,6 +100,24 @@ extension Array where Element == Endpoint {
 }
 
 public extension SEBServerController {
+
+    fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        let request = ApiRequest(resource: resource)
+        pendingRequests?.append(request)
+        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: 0, completion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
+            if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
+                // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
+                if attempt <= self.maxRequestAttemps {
+                    self.getServerAccessToken {
+                        // and try to perform the request again
+                        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: completion)
+                    }
+                }
+                return
+            }
+            completion(response, statusCode, errorResponse, responseHeaders, attempt)
+        })
+    }
 
     @objc func getServerAPI() {
 
@@ -130,16 +149,20 @@ public extension SEBServerController {
     }
     
     func getAccessToken() {
+        getServerAccessToken {
+            self.getExamList()
+        }
+    }
+    
+    fileprivate func getServerAccessToken(completionHandler: @escaping () -> Void) {
         let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
         
-        let accessTokenRequest = ApiRequest(resource: accessTokenResource)
-        pendingRequests?.append(accessTokenRequest)
         // ToDo: Implement timeout and sebServerFallback -> on a higher level
         let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         
-        accessTokenRequest.load(httpMethod: accessTokenResource.httpMethod, body:accessTokenResource.body, headers: requestHeaders, completion: { (accessTokenResponse, statusCode, responseHeaders) in
+        load(accessTokenResource, httpMethod: accessTokenResource.httpMethod, body: accessTokenResource.body, headers: requestHeaders, withCompletion: { (accessTokenResponse, statusCode, errorResponse, responseHeaders, attempt) in
             guard let accessToken = accessTokenResponse else {
                 return
             }
@@ -147,24 +170,20 @@ public extension SEBServerController {
                 return
             }
             self.accessToken = tokenString
-            // self.delegate?.didGetUserToken()
 
-            self.getExamList()
+            completionHandler()
         })
     }
-    
     
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         handshakeResource.body = keys.institutionId + "=" + institution + (exam == nil ? "" : ("&" + keys.examId + "=" + exam!))
         
-        let handshakeRequest = ApiRequest(resource: handshakeResource)
-        pendingRequests?.append(handshakeRequest)
         // ToDo: Implement timeout and sebServerFallback
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
-        handshakeRequest.load(httpMethod: handshakeResource.httpMethod, body:handshakeResource.body, headers: requestHeaders, completion: { (handshakeResponse, statusCode, responseHeaders) in
+        load(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
             guard let connectionTokenString = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value else {
                 return
             }
@@ -231,16 +250,14 @@ public extension SEBServerController {
     func getExamConfig() {
         let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId)])
         
-        let examConfigRequest = DataRequest(resource: examConfigResource)
-        pendingRequests?.append(examConfigRequest)
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        examConfigRequest.load(httpMethod: examConfigResource.httpMethod, body:examConfigResource.body, headers: requestHeaders, completion: { (examConfigResponse, statusCode, responseHeaders) in
+        load(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
             guard let config = examConfigResponse else {
                 return
             }
-            self.delegate?.reconfigureWithServerExamConfig(config)
+            self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
         })
     }
     
@@ -258,12 +275,10 @@ public extension SEBServerController {
     @objc func getMoodleUserId(moodleSession: String, url: URL, endpoint: String) {
         let moodleUserIdResource = MoodleUserIdResource(baseURL: url, endpoint: endpoint)
 
-        let moodleUserIdRequest = DataRequest(resource: moodleUserIdResource)
-        pendingRequests?.append(moodleUserIdRequest)
         let requestHeaders = ["Cookie" : "MoodleSession=\(moodleSession)"]
-        moodleUserIdRequest.load(httpMethod: moodleUserIdResource.httpMethod, body:"", headers: requestHeaders, completion: { (moodleUserIdResponse, statusCode, responseHeaders) in
+        load(moodleUserIdResource, httpMethod: moodleUserIdResource.httpMethod, body: "", headers: requestHeaders, withCompletion: { (moodleUserIdResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode == 200 && moodleUserIdResponse != nil {
-                guard let moodleUserId = String(data: moodleUserIdResponse!, encoding: .utf8) else {
+                guard let moodleUserId = String(data: moodleUserIdResponse!!, encoding: .utf8) else {
 //                    DDLogDebug("No valid Moodle user ID found")
                     return
                 }
@@ -281,13 +296,11 @@ public extension SEBServerController {
         let clientInfo = keys.sebVersion + "=" + sebVersion + "&" + keys.sebMachineName + "=" + machineName
         handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + environmentInfo + "&" + clientInfo + "&" + keys.sebUserSessionId + "=" + userSessionId
 
-        let handshakeCloseRequest = DataRequest(resource: handshakeCloseResource)
-        pendingRequests?.append(handshakeCloseRequest)
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        handshakeCloseRequest.load(httpMethod: handshakeCloseResource.httpMethod, body:handshakeCloseResource.body, headers: requestHeaders, completion: { (handshakeCloseResponse, statusCode, responseHeaders) in
+        load(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
 //            if handshakeCloseResponse != nil  {
 //                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
 //                DDLogVerbose(responseBody as Any)
@@ -305,13 +318,11 @@ public extension SEBServerController {
                 + "&" + keys.pingNumber + "=" + String(pingNumber)
                 + (pingInstruction == nil ? "" : "&" + keys.pingInstructionConfirm + "=" + pingInstruction!)
             
-            let pingRequest = ApiRequest(resource: pingResource)
-            pendingRequests?.append(pingRequest)
             let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
-            pingRequest.load(httpMethod: pingResource.httpMethod, body:pingResource.body, headers: requestHeaders, completion: { (pingResponse, statusCode, responseHeaders) in
+            load(pingResource, httpMethod: pingResource.httpMethod, body: pingResource.body, headers: requestHeaders, withCompletion: { (pingResponse, statusCode, errorResponse, responseHeaders, attempt) in
                 guard let ping = pingResponse else {
                     return
                 }
@@ -344,7 +355,8 @@ public extension SEBServerController {
             let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
-            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, responseHeaders) in
+            load(logResource, httpMethod: logResource.httpMethod, body: logResource.body, headers: requestHeaders, withCompletion: { (logResponse, statusCode, errorResponse, responseHeaders, attempt) in
+//            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, errorResponse, responseHeaders) in
 //                if logResponse != nil  {
 //                    let responseBody = String(data: logResponse!, encoding: .utf8)
 //                    DDLogVerbose(responseBody as Any)
@@ -399,13 +411,11 @@ public extension SEBServerController {
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
         let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         
-        let quitSessionRequest = DataRequest(resource: quitSessionResource)
-        pendingRequests?.append(quitSessionRequest)
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken ?? ""]
-        quitSessionRequest.load(httpMethod: quitSessionResource.httpMethod, body:quitSessionResource.body, headers: requestHeaders, completion: { (quitSessionResponse, statusCode, responseHeaders) in
+        load(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
             self.stopPingTimer()
             self.connectionToken = nil
 //            if quitSessionResponse != nil  {
