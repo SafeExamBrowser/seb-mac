@@ -38,6 +38,8 @@ public struct keys {
     static let headerAuthorization = "Authorization"
     static let headerContentType = "Content-Type"
     static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
+    static let headerAccept = "Accept"
+    static let acceptJSON = "application/json, */*"
     static let contentTypeJSON = "application/json;charset=UTF-8"
     static let institutionId = "institutionId"
     static let sebConnectionToken = "SEBConnectionToken"
@@ -66,7 +68,10 @@ public struct keys {
 }
 
 public struct statusCodes {
+    static let ok = 200
+    static let badRequest = 400
     static let unauthorized = 401
+    static let internalServerError = 500
 }
 
 public struct errors {

@@ -32,7 +32,6 @@
 //
 
 import Foundation
-//import UIKit
 
 protocol NetworkRequest: AnyObject {
 	associatedtype Model
@@ -41,6 +40,10 @@ protocol NetworkRequest: AnyObject {
 }
 
 extension NetworkRequest {
+    var requestTimeout: Double {
+        get { return UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackTimeout") / 1000 }
+    }
+
 	fileprivate func load(_ url: URL, withCompletion completion: @escaping (Model?) -> Void) {
 		let configuration = URLSessionConfiguration.ephemeral
 		let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
@@ -57,18 +60,21 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping ((Model?), Int?, [AnyHashable: Any]?) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         let configuration = URLSessionConfiguration.ephemeral
+        configuration.timeoutIntervalForResource = requestTimeout
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
+        request.addValue(keys.acceptJSON, forHTTPHeaderField: keys.headerAccept)
         if let additionalHeaders = headers {
             for header in additionalHeaders {
                 request.addValue(header.value as? String ?? "", forHTTPHeaderField: header.key as? String ?? "")
             }
         }
         request.httpBody = body.data(using: .utf8)
-
+        let currentAttempt = attempt+1
+        
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
 //            print(data as Any)
@@ -78,32 +84,45 @@ extension NetworkRequest {
 //            print(response as Any)
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
+            var errorResponse: ErrorResponse? = nil
             let responseHeaders = httpResponse?.allHeaderFields
 //            print(error as Any)
             guard let receivedData = data else {
-                completion(nil, statusCode, [:])
+                completion(nil, statusCode, nil, [:], currentAttempt)
                 return
             }
-            if statusCode == statusCodes.unauthorized {
-                // Error: Unauthorized
-                guard let errorResponse = self?.decode(receivedData) as? ErrorResponse else {
-                    completion(nil, statusCode, [:])
+            if statusCode ?? 0 >= statusCodes.badRequest {
+                // Some error happened
+                guard let unauthorizedErrorResponse = self?.decodeErrorResponse(receivedData) else {
+                    print(data as Any)
+                    if (data != nil) {
+                        print(String(decoding: data!, as: UTF8.self))
+                    }
+                    completion(nil, statusCode, nil, [:], currentAttempt)
                     return
                 }
-                if errorResponse.error == errors.invalidToken {
-                    // Token expired, get new token
-                }
+                errorResponse = unauthorizedErrorResponse
             }
 
-            completion(self?.decode(receivedData), statusCode, responseHeaders)
+            completion(self?.decode(receivedData), statusCode, errorResponse, responseHeaders, currentAttempt)
         })
         task.resume()
+    }
+    
+    fileprivate func decodeErrorResponse(_ data: Data) -> ErrorResponse? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        print(String(data: data, encoding: String.Encoding.utf8)!)
+        guard let errorResponse = try? decoder.decode(ErrorResponse.self, from: data) else {
+            return nil
+        }
+        return errorResponse
     }
 }
 
 class ApiRequest<Resource: ApiResource> {
 	let resource: Resource
-	
+    
 	init(resource: Resource) {
 		self.resource = resource
 	}
@@ -118,8 +137,8 @@ extension ApiRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Resource.Model?), Int?, [AnyHashable: Any]?) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, withCompletion: completion)
     }
 }
 
@@ -140,9 +159,7 @@ extension DataRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
     
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, completion: @escaping ((Data?), Int?, [AnyHashable: Any]?) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, withCompletion: completion)
     }
 }
-
-
