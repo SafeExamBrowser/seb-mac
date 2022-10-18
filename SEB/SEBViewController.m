@@ -2646,7 +2646,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig
 {
     // Check if not running in exam mode
-    if (!NSUserDefaults.userDefaultsPrivate  && [self isReceivedServerConfigNew:serverConfig]) {
+    if (!NSUserDefaults.userDefaultsPrivate && [self isReceivedServerConfigNew:serverConfig]) {
         _didReceiveMDMConfig = YES;
         [self resetReceivedServerConfig];
         
