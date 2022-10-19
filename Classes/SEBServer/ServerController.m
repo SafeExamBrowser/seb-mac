@@ -66,6 +66,13 @@
 }
 
 
+- (BOOL) fallbackEnabled
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    return [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"];
+}
+
+
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
     DDLogInfo(@"ServerController: Reconfigure with server exam config");

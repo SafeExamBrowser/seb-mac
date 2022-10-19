@@ -830,7 +830,7 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-#pragma mark - Inititial Configuration Assistant
+#pragma mark - Initial Configuration Assistant
 
 - (void)openInitAssistant
 {
@@ -3159,15 +3159,17 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
             _establishingSEBServerConnection = YES;
-            [self showSEBServerView];
             if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
                 // All necessary information for connecting to SEB Server was available in settings:
                 // try to connect to SEB Server and wait for delegate method to be called with success/failure
+                [self showSEBServerView];
                 return;
             } else {
                 // Cannot connect as some SEB Server settings/API endpoints are missing
+                DDLogError(@"Cannot connect to SEB Server, probably connection settings are incorrect.");
                 // Abort if fallback isn't enabled
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"] == NO) {
+                if (!self.serverController.fallbackEnabled) {
+                    DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
                     [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
                                  message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
                             action1Title:NSLocalizedString(@"OK", nil)
@@ -3177,6 +3179,8 @@ void run_on_ui_thread(dispatch_block_t block)
                             action2Title:nil
                           action2Handler:nil];
                     return;
+                } else {
+                    DDLogInfo(@"Open startURL as SEB Server fallback");
                 }
             }
         }
