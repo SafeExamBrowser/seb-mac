@@ -874,6 +874,18 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"sebServerFallback",
                    
+                   [NSNumber numberWithLong:2000],
+                   @"sebServerFallbackAttemptInterval",
+
+                   [NSNumber numberWithLong:5],
+                   @"sebServerFallbackAttempts",
+
+                   @"",
+                   @"sebServerFallbackPasswordHash",
+                   
+                   [NSNumber numberWithLong:30000],
+                   @"sebServerFallbackTimeout",
+
                    @"",
                    @"sebServerURL",
                    

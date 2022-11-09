@@ -448,7 +448,7 @@ static NSNumber *_logLevel;
                         }
                     }
                     if (matches.count > 0) {
-                        NSDictionary *matchingProcessFromSettings = matches[0];
+                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
                         [processesFromSettings removeObject:matchingProcessFromSettings];
                         if (executable.length == 0) {
                             [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:keyWithPrefix];
@@ -462,7 +462,7 @@ static NSNumber *_logLevel;
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
                         
-                        [newProcesses addObject:matchingProcessFromSettings];
+                        [newProcesses addObject:matchingProcessFromSettings.copy];
                     } else {
                         [newProcesses addObject:presetProcess];
                     }
