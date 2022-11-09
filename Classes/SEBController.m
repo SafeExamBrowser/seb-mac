@@ -1120,40 +1120,46 @@ bool insideMatrix(void);
                 return;
             } else {
                 // Cannot connect as some SEB Server settings/API endpoints are missing
+                DDLogError(@"Cannot connect to SEB Server, probably connection settings are incorrect.");
                 // Abort if fallback isn't enabled
-                if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerFallback"] == NO) {
-//                    [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
-//                                 message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
-//                            action1Title:NSLocalizedString(@"OK", nil)
-//                          action1Handler:^(void){
-//                        [self closeServerView:self];
-//                    }
-//                            action2Title:nil
-//                          action2Handler:nil];
-//                    return;
+                if (!self.serverController.fallbackEnabled) {
+                    DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Cannot Connect to SEB Server", nil)];
+                    [modalAlert setInformativeText:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self closeServerView:self];
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
+                    return;
+                } else {
+                    DDLogInfo(@"Open startURL as SEB Server fallback");
                 }
             }
-        } else {
-            //        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-            //        NSURL *startURL = [NSURL URLWithString:startURLString];
-            //        if (startURLString.length == 0 ||
-            //            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
-            //              [startURL.host hasSuffix:SEBWebsiteShort]) &&
-            //             [startURL.path hasSuffix:@"start"]))
-            //        {
-            //            // Start URL was set to the default value, show init assistant
-            //            [self openInitAssistant];
-            //        } else {
-                        _sessionRunning = true;
-                        
-                        // Load all open web pages from the persistent store and re-create webview(s) for them
-                        // or if no persisted web pages are available, load the start URL
-                        [self.browserController openMainBrowserWindow];
-                        
-            // Persist start URL of a "secure" exam
-            [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
-            //        }
         }
+        // ToDo: Implement Initial Configuration Assistant
+        //        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        //        NSURL *startURL = [NSURL URLWithString:startURLString];
+        //        if (startURLString.length == 0 ||
+        //            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+        //              [startURL.host hasSuffix:SEBWebsiteShort]) &&
+        //             [startURL.path hasSuffix:@"start"]))
+        //        {
+        //            // Start URL was set to the default value, show init assistant
+        //            [self openInitAssistant];
+        //        } else {
+                    _sessionRunning = true;
+                    
+                    // Load all open web pages from the persistent store and re-create webview(s) for them
+                    // or if no persisted web pages are available, load the start URL
+                    [self.browserController openMainBrowserWindow];
+                    
+        // Persist start URL of a "secure" exam
+        [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
+        //        }
+
     }
 }
 

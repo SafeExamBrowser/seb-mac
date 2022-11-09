@@ -240,8 +240,8 @@ struct QuitSessionResource: ApiResource {
     func makeModel(data: Data) -> Data? {
         return data
     }
-    
 }
+
 
 //struct CoursesResource: ApiResource {
 //
