@@ -69,7 +69,6 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
 
     private var zoomScale: CGFloat?
-
     private var urlFilter: SEBURLFilter?
     
     public func updateZoomScale(_ contentZoomScale: Double) {
@@ -153,6 +152,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     
     public func isScrollLockActive() -> Bool {
         return scrollLockActive
+    }
+    
+    public func setAllowDictionaryLookup(_ allowDictionaryLookup: Bool) {
+        _sebWebView?.allowsLinkPreview = allowDictionaryLookup
     }
     
     public func canGoBack() -> Bool {
