@@ -148,7 +148,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     }
     
     public func setAllowDictionaryLookup(_ allowDictionaryLookup: Bool) {
-        self.allowDictionaryLookup = allowDictionaryLookup
+        _sebWebView?.allowsLinkPreview = allowDictionaryLookup
     }
     
     public func setAllowPDFPlugIn(_ allowPDFPlugIn: Bool) {
@@ -336,15 +336,6 @@ public class SEBOSXWKWebView: WKWebView {
     @available(macOS 10.12.2, *)
     public override func makeTouchBar() -> NSTouchBar? {
         return nil
-    }
-    
-    public override func quickLook(with event: NSEvent) {
-        if sebOSXWebViewController?.allowDictionaryLookup == true {
-            super.quickLook(with: event)
-            DDLogInfo("Dictionary look-up was used! [SEBOSXWKWebView quickLookWithEvent:]")
-        } else {
-            DDLogInfo("Dictionary look-up was blocked! [SEBOSXWKWebView quickLookWithEvent:]")
-        }
     }
     
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
