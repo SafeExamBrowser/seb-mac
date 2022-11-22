@@ -1085,7 +1085,7 @@ bool insideMatrix(void);
     // Open the main browser window
     DDLogDebug(@"%s openMainBrowserWindow", __FUNCTION__);
     
-    [self startExam];
+    [self startExamWithFallback:NO];
 
     // SEB finished starting up, reset the flag for starting up
     _startingUp = false;
@@ -1101,7 +1101,7 @@ bool insideMatrix(void);
 }
 
 
-- (void) startExam
+- (void) startExamWithFallback:(BOOL)fallback
 {
     DDLogInfo(@"%s", __FUNCTION__);
     if (_establishingSEBServerConnection == YES) {
@@ -1109,34 +1109,21 @@ bool insideMatrix(void);
         [self.serverController startExamFromServer];
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
+            !fallback) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
             _establishingSEBServerConnection = YES;
-            if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
+            NSError *error = [self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration];
+            if (!error) {
                 // All necessary information for connecting to SEB Server was available in settings:
                 // try to connect to SEB Server and wait for delegate method to be called with success/failure
                 [self showSEBServerView];
                 return;
             } else {
                 // Cannot connect as some SEB Server settings/API endpoints are missing
-                DDLogError(@"Cannot connect to SEB Server, probably connection settings are incorrect.");
-                // Abort if fallback isn't enabled
-                if (!self.serverController.fallbackEnabled) {
-                    DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
-                    NSAlert *modalAlert = [self newAlert];
-                    [modalAlert setMessageText:NSLocalizedString(@"Cannot Connect to SEB Server", nil)];
-                    [modalAlert setInformativeText:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                    void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                        [self closeServerView:self];
-                    };
-                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
-                    return;
-                } else {
-                    DDLogInfo(@"Open startURL as SEB Server fallback");
-                }
+                [self didFailWithError:error fatal:YES];
+                return;
             }
         }
         // ToDo: Implement Initial Configuration Assistant
@@ -5997,6 +5984,31 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
+{
+    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    if (fatal) {
+        if (!self.serverController.fallbackEnabled) {
+            DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
+            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+            [modalAlert setInformativeText:informativeText];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self closeServerView:self];
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
+            return;
+        } else {
+            DDLogInfo(@"Open startURL as SEB Server fallback");
+            [self startExamWithFallback:YES];
+        }
+    }
+}
+
+
 - (void)requestedExit:(NSNotification *)notification
 {
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
@@ -6142,7 +6154,7 @@ conditionallyForWindow:(NSWindow *)window
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
     
-    [self startExam];
+    [self startExamWithFallback:NO];
 
     // Adjust screen locking
     [self adjustScreenLocking:nil];
