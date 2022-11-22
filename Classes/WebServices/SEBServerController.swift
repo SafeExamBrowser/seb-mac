@@ -1,5 +1,5 @@
 //
-//  MoodleController.swift
+//  SEBServerController.swift
 //  SafeExamBrowser
 //
 //  Created by Daniel R. Schneider on 15.10.18.
@@ -43,6 +43,7 @@ import Foundation
     func didEstablishSEBServerConnection()
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
     func didCloseSEBServerConnectionRestart(_ restart: Bool)
+    func didFail(error: NSError, fatal: Bool)
 }
 
 @objc public protocol ServerControllerUIDelegate: AnyObject {
@@ -112,6 +113,12 @@ public extension SEBServerController {
                         // and try to perform the request again
                         request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: completion)
                     }
+                } else {
+                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
+                        NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
+                                   NSDebugDescriptionErrorKey : "Server reported Invalid Token for maxRequestAttempts"]
+                    let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                    self.delegate?.didFail(error: error, fatal: true)
                 }
                 return
             }
@@ -127,24 +134,26 @@ public extension SEBServerController {
         pendingRequests?.append(discoveryRequest)
         // ToDo: Implement timeout and sebServerFallback
         discoveryRequest.load { (discoveryResponse) in
-            // ToDo: This guard check doesn't work, userToken seems to be a double optional?
-            guard let discovery = discoveryResponse else {
-                return
-            }
-            guard let serverAPIEndpoints = discovery?.api_versions[0].endpoints else {
-                return
-            }
-            var sebEndpoints = SEB_Endpoints()
-                        
-            sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
-            sebEndpoints.handshake.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.handshake.name)
-            sebEndpoints.configuration.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.configuration.name)
-            sebEndpoints.ping.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.ping.name)
-            sebEndpoints.log.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.log.name)
+            // ToDo: Does this if let check work, response seems to be a double optional?
+            if let discovery = discoveryResponse, let serverAPIEndpoints = discovery?.api_versions[0].endpoints {
+                var sebEndpoints = SEB_Endpoints()
+                            
+                sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
+                sebEndpoints.handshake.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.handshake.name)
+                sebEndpoints.configuration.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.configuration.name)
+                sebEndpoints.ping.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.ping.name)
+                sebEndpoints.log.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.log.name)
 
-            self.serverAPI = sebEndpoints
-            
-            self.getAccessToken()
+                self.serverAPI = sebEndpoints
+                
+                self.getAccessToken()
+            } else {
+                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Server API", comment: ""),
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
+                               NSDebugDescriptionErrorKey : "Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints")."]
+                let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                self.delegate?.didFail(error: error, fatal: true)
+            }
         }
     }
     
@@ -157,20 +166,16 @@ public extension SEBServerController {
     fileprivate func getServerAccessToken(completionHandler: @escaping () -> Void) {
         let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
         
-        // ToDo: Implement timeout and sebServerFallback -> on a higher level
         let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         
         load(accessTokenResource, httpMethod: accessTokenResource.httpMethod, body: accessTokenResource.body, headers: requestHeaders, withCompletion: { (accessTokenResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            guard let accessToken = accessTokenResponse else {
-                return
+            if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
+                self.accessToken = tokenString
+            } else {
+                DDLogError("Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token").")
             }
-            guard let tokenString = accessToken?.access_token else {
-                return
-            }
-            self.accessToken = tokenString
-
             completionHandler()
         })
     }
@@ -184,29 +189,35 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
         load(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            guard let connectionTokenString = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value else {
-                return
-            }
-            self.connectionToken = connectionTokenString as? String
-            
-            self.startPingTimer()
-            self.startBatteryMonitoring()
-            
-            guard let exams = handshakeResponse else {
-                return
-            }
-            self.exams = exams
-            self.examList = [];
+            let connectionToken =  (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value
+            if let connectionTokenString = connectionToken {
+                self.connectionToken = connectionTokenString as? String
+                
+                self.startPingTimer()
+                self.startBatteryMonitoring()
+                
+                if let exams = handshakeResponse  {
+                    self.exams = exams
+                    self.examList = [];
 
-            if (exams != nil) {
-                for exam in exams! {
-                    self.examList?.append(ExamObject(exam))
+                    if (exams != nil) {
+                        for exam in exams! {
+                            self.examList?.append(ExamObject(exam))
+                        }
+                    }
+                    self.serverControllerUIDelegate?.updateExamList()
+                    if self.exam != nil {
+                        self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
+                    }
+                    return
                 }
             }
-            self.serverControllerUIDelegate?.updateExamList()
-            if self.exam != nil {
-                self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
-            }
+            let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam List", comment: ""),
+                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
+                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionToken == nil ? "connection token" : "exams")."]
+            let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+            self.delegate?.didFail(error: error, fatal: true)
+
         })
     }
     
@@ -254,10 +265,16 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         load(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            guard let config = examConfigResponse else {
-                return
+            if let config = examConfigResponse  {
+                self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
+            } else {
+                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam     administrator", comment: ""),
+                               NSDebugDescriptionErrorKey : "Server didn't return exam configuration."]
+                let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                self.delegate?.didFail(error: error, fatal: true)
+
             }
-            self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
         })
     }
     

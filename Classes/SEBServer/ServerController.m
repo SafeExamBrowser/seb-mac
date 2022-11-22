@@ -37,8 +37,9 @@
 @implementation ServerController
 
 
-- (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration
+- (NSError *) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration
 {
+    NSError *error = nil;
     NSString *institution =  [sebServerConfiguration valueForKey:@"institution"];
     NSString *exam = [sebServerConfiguration valueForKey:@"exam"];
     NSString *username =  [sebServerConfiguration valueForKey:@"clientName"];
@@ -60,9 +61,14 @@
         _sebServerController.sebVersion = MyGlobals.versionString;
         _sebServerController.machineName = MyGlobals.computerName;
         [_sebServerController getServerAPI];
-        return YES;
+    } else {
+        error = [[NSError alloc] initWithDomain:sebErrorDomain
+                                           code:SEBErrorConnectionSettingsInvalid
+                                       userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Missing Connection Settings", comment: ""),
+                                                  NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Check your server connection configuration.", comment: ""),
+                                                  NSDebugDescriptionErrorKey : @"Cannot connect to SEB Server. Some connection settings are missing."}];
     }
-    return NO;
+    return error;
 }
 
 
@@ -271,5 +277,11 @@
     [self.delegate didCloseSEBServerConnectionRestart:restart];
 }
 
+
+- (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
+{
+    DDLogInfo(@"ServerController: SEB Server connection did fail");
+    [self.delegate didFailWithError:error fatal:fatal];
+}
 
 @end
