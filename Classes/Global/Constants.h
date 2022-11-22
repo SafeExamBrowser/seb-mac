@@ -78,6 +78,9 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
+#define SEBErrorConnectionSettingsInvalid 400
+#define SEBErrorGettingConnectionTokenFailed 401
+
 #define currentStableMajoriOSVersion 16
 
 #define WebViewDefaultTextSize 120.0
