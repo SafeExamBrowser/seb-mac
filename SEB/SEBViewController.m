@@ -3115,7 +3115,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 #pragma mark - Start, restart and quit exam session
 
-- (void) startExam
+- (void) startExamWithFallback:(BOOL)fallback
 {
     DDLogInfo(@"%s", __FUNCTION__);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -3135,7 +3135,7 @@ void run_on_ui_thread(dispatch_block_t block)
             [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 self.alertController = nil;
-                [self startExam];
+                [self startExamWithFallback:fallback];
             }]];
             if (NSUserDefaults.userDefaultsPrivate) {
                 [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
@@ -3155,33 +3155,21 @@ void run_on_ui_thread(dispatch_block_t block)
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
+            !fallback) {
             NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
             NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
             _establishingSEBServerConnection = YES;
-            if ([self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration]) {
+            NSError *error = [self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration];
+            if (!error) {
                 // All necessary information for connecting to SEB Server was available in settings:
                 // try to connect to SEB Server and wait for delegate method to be called with success/failure
                 [self showSEBServerView];
                 return;
             } else {
                 // Cannot connect as some SEB Server settings/API endpoints are missing
-                DDLogError(@"Cannot connect to SEB Server, probably connection settings are incorrect.");
-                // Abort if fallback isn't enabled
-                if (!self.serverController.fallbackEnabled) {
-                    DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
-                    [self alertWithTitle:NSLocalizedString(@"Cannot Connect to SEB Server", nil)
-                                 message:NSLocalizedString(@"Check your configuration, probably connection settings are incorrect.", nil)
-                            action1Title:NSLocalizedString(@"OK", nil)
-                          action1Handler:^(void){
-                        [self closeServerView:self];
-                    }
-                            action2Title:nil
-                          action2Handler:nil];
-                    return;
-                } else {
-                    DDLogInfo(@"Open startURL as SEB Server fallback");
-                }
+                [self didFailWithError:error fatal:YES];
+                return;
             }
         }
         NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
@@ -3529,7 +3517,7 @@ void run_on_ui_thread(dispatch_block_t block)
             } else {
                 // If kiosk mode settings stay same, we just initialize SEB with new settings and start the exam
                 [self initSEBUIWithCompletionBlock:^{
-                    [self startExam];
+                    [self startExamWithFallback:NO];
                 }];
             }
             
@@ -3825,7 +3813,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 }];
                 
                 // Proceed to exam
-                [self startExam];
+                [self startExamWithFallback:NO];
                 
             } else {
                 
@@ -4120,7 +4108,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!_secureMode) {
         DDLogInfo(@"%s Secure mode isn't required in settings (no quit pw), proceed to open start URL", __FUNCTION__);
         // If secure mode isn't required, we can proceed to opening start URL
-        [self startExam];
+        [self startExamWithFallback:NO];
     } else if (!_ASAMActive) {
         // Secure mode required, find out which kiosk mode to use
         // Is ASAM enabled in settings?
@@ -4153,7 +4141,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         return;
                     }
                     DDLogInfo(@"%s: Entered AAC/Autonomous Single App Mode, proceed to open start URL", __FUNCTION__);
-                    [self startExam];
+                    [self startExamWithFallback:NO];
                 } else {
                     DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
                     self.ASAMActive = NO;
@@ -4282,7 +4270,7 @@ void run_on_ui_thread(dispatch_block_t block)
         DDLogInfo(@"%s: No quit password is defined, then we can initialize SEB with new settings, quit and restart the exam / reload the start page directly", __FUNCTION__);
         DDLogDebug(@"%s: [self initSEBWithCompletionBlock:^{[self startExam]; }];", __FUNCTION__);
         [self initSEBUIWithCompletionBlock:^{
-            [self startExam];
+            [self startExamWithFallback:NO];
         }];
     }
 }

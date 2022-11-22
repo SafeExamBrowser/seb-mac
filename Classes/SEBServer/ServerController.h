@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) serverSessionQuitRestart:(BOOL)restart;
 - (void) closeServerView:(id)sender;
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
+- (void) didFailWithError:(NSError *)error fatal:(BOOL)fallback;
 
 @optional
 - (void) startBatteryMonitoringWithDelegate:(id)delegate;
@@ -74,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong) NSDictionary *sebServer;
 @property (strong, nonatomic) SEBServerController *sebServerController;
 
-- (BOOL) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
+- (NSError *) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
 - (BOOL) fallbackEnabled;
 - (void) startExamFromServer;
 - (void) loginToExam:(NSString * _Nonnull)url;
