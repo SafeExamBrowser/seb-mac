@@ -45,7 +45,12 @@
     NSString *username =  [sebServerConfiguration valueForKey:@"clientName"];
     NSString *password =  [sebServerConfiguration valueForKey:@"clientSecret"];
     NSString *discoveryAPIEndpoint = [sebServerConfiguration valueForKey:@"apiDiscovery"];
-    double pingInterval = [[sebServerConfiguration valueForKey:@"pingInterval"] doubleValue] / 1000;
+    double pingInterval = [[sebServerConfiguration valueForKey:@"pingInterval"] doubleValue];
+    if (pingInterval <= 0) {
+        pingInterval = SEBServerDefaultPingInterval;
+    }
+    pingInterval = pingInterval / 1000;
+    
     if (url && institution && username && password && discoveryAPIEndpoint)
     {
         _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
