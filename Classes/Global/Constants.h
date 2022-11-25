@@ -78,6 +78,7 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
+#define SEBServerDefaultPingInterval 1000
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
 
