@@ -3671,6 +3671,40 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
+{
+    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    if (fatal) {
+        if (!self.serverController.fallbackEnabled) {
+            DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
+            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+            [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed", nil)
+                         message:informativeText
+                    action1Title:NSLocalizedString(@"OK", nil)
+                  action1Handler:^(void){
+                [self closeServerView:self];
+            }
+                    action2Title:nil
+                  action2Handler:nil];
+            return;
+        } else {
+            DDLogInfo(@"Open startURL as SEB Server fallback");
+            [self startExamWithFallback:YES];
+        }
+    }
+}
+
+
+- (void) closeServerView:(id)sender
+{
+    _establishingSEBServerConnection = false;
+    _sebServerViewDisplayed = false;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        [self sessionQuitRestart:NO];
+    }];
+}
+
+
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
     if (_sebServerViewDisplayed) {
