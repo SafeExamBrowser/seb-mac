@@ -189,7 +189,7 @@ public extension SEBServerController {
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Access Server", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
-                               NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error: \(errorResponse?.error ?? "Unspecified")."]
+                               NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of  \(errorResponse?.error ?? "Unspecified")."]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
                 self.delegate?.didFail(error: error, fatal: true)
                 return
