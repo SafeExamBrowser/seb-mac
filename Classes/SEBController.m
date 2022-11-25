@@ -1213,14 +1213,6 @@ bool insideMatrix(void);
 }
 
 
-- (void) closeServerView:(id)sender
-{
-    _establishingSEBServerConnection = NO;
-    [self closeSEBServerView];
-    [self sessionQuitRestart:NO];
-}
-
-
 - (void) loginToExam:(NSString *)url
 {
     NSURL *examURL = [NSURL URLWithString:url];
@@ -1239,6 +1231,49 @@ bool insideMatrix(void);
 }
 
 
+- (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
+{
+    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    if (fatal) {
+        if (!self.serverController.fallbackEnabled) {
+            DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
+            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+            [modalAlert setInformativeText:informativeText];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self closeServerView:self];
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
+            return;
+        } else {
+            DDLogInfo(@"Open startURL as SEB Server fallback");
+            [self closeServerViewWithCompletion:^{
+                [self startExamWithFallback:YES];
+            }];
+        }
+    }
+}
+
+
+- (void) closeServerView:(id)sender
+{
+    [self closeServerViewWithCompletion:^{
+        [self sessionQuitRestart:NO];
+    }];
+}
+
+
+- (void) closeServerViewWithCompletion:(void (^)(void))completion
+{
+    _establishingSEBServerConnection = NO;
+    [self closeSEBServerView];
+    completion();
+}
+
+
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
     if (_sebServerViewDisplayed) {
@@ -1251,6 +1286,17 @@ bool insideMatrix(void);
         [self closePreferencesWindow];
     }
     [self sessionQuitRestart:restart];
+}
+
+
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    _establishingSEBServerConnection = NO;
+    if (restart) {
+        [self requestedRestart:nil];
+    } else {
+        [self quitSEBOrSession];
+    }
 }
 
 
@@ -5969,42 +6015,6 @@ conditionallyForWindow:(NSWindow *)window
         }];
     } else {
         completion(restart);
-    }
-}
-
-
-- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
-{
-    _establishingSEBServerConnection = NO;
-    if (restart) {
-        [self requestedRestart:nil];
-    } else {
-        [self quitSEBOrSession];
-    }
-}
-
-
-- (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
-{
-    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
-    if (fatal) {
-        if (!self.serverController.fallbackEnabled) {
-            DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
-            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
-            [modalAlert setInformativeText:informativeText];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self closeServerView:self];
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
-            return;
-        } else {
-            DDLogInfo(@"Open startURL as SEB Server fallback");
-            [self startExamWithFallback:YES];
-        }
     }
 }
 
