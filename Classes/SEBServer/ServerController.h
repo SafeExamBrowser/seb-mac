@@ -45,10 +45,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) storeNewSEBSettings:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
-- (void) serverSessionQuitRestart:(BOOL)restart;
-- (void) closeServerView:(id)sender;
-- (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fallback;
+- (void) closeServerView:(id)sender;
+- (void) serverSessionQuitRestart:(BOOL)restart;
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 
 @optional
 - (void) startBatteryMonitoringWithDelegate:(id)delegate;

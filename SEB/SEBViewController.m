@@ -3152,45 +3152,50 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     if (_establishingSEBServerConnection == YES) {
-        _startingExamFromSEBServer = YES;
-        [self.serverController startExamFromServer];
-    } else {
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
-            !fallback) {
-            NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
-            NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
-            _establishingSEBServerConnection = YES;
-            NSError *error = [self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration];
-            if (!error) {
-                // All necessary information for connecting to SEB Server was available in settings:
-                // try to connect to SEB Server and wait for delegate method to be called with success/failure
-                [self showSEBServerView];
-                return;
-            } else {
-                // Cannot connect as some SEB Server settings/API endpoints are missing
-                [self didFailWithError:error fatal:YES];
-                return;
-            }
-        }
-        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        NSURL *startURL = [NSURL URLWithString:startURLString];
-        if (startURLString.length == 0 ||
-            (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
-              [startURL.host hasSuffix:SEBWebsiteShort]) &&
-             [startURL.path hasSuffix:@"start"]))
-        {
-            // Start URL was set to the default value, show init assistant
-            [self openInitAssistant];
+        if (fallback) {
+            _establishingSEBServerConnection = NO;
         } else {
-            _sessionRunning = YES;
-            
-            // Load all open web pages from the persistent store and re-create webview(s) for them
-            // or if no persisted web pages are available, load the start URL
-            [_browserTabViewController loadPersistedOpenWebPages];
-            
-            [self persistSecureExamStartURL:startURLString];
+            _startingExamFromSEBServer = YES;
+            [self.serverController startExamFromServer];
+            return;
         }
     }
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
+        !fallback) {
+        NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        NSDictionary *sebServerConfiguration = [preferences secureDictionaryForKey:@"org_safeexambrowser_SEB_sebServerConfiguration"];
+        _establishingSEBServerConnection = YES;
+        NSError *error = [self.serverController connectToServer:[NSURL URLWithString:sebServerURLString] withConfiguration:sebServerConfiguration];
+        if (!error) {
+            // All necessary information for connecting to SEB Server was available in settings:
+            // try to connect to SEB Server and wait for delegate method to be called with success/failure
+            [self showSEBServerView];
+            return;
+        } else {
+            // Cannot connect as some SEB Server settings/API endpoints are missing
+            [self didFailWithError:error fatal:YES];
+            return;
+        }
+    }
+    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSURL *startURL = [NSURL URLWithString:startURLString];
+    if (startURLString.length == 0 ||
+        (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
+          [startURL.host hasSuffix:SEBWebsiteShort]) &&
+         [startURL.path hasSuffix:@"start"]))
+    {
+        // Start URL was set to the default value, show init assistant
+        [self openInitAssistant];
+    } else {
+        _sessionRunning = YES;
+        
+        // Load all open web pages from the persistent store and re-create webview(s) for them
+        // or if no persisted web pages are available, load the start URL
+        [_browserTabViewController loadPersistedOpenWebPages];
+        
+        [self persistSecureExamStartURL:startURLString];
+    }
+
 }
 
 // Persist start URL of a secure exam
@@ -3299,17 +3304,6 @@ void run_on_ui_thread(dispatch_block_t block)
         }];
     } else {
         completion(restart);
-    }
-}
-
-
-- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
-{
-    _establishingSEBServerConnection = NO;
-    if (restart) {
-        [self restartExamQuitting:YES];
-    } else {
-        [self quitSEBOrSession];
     }
 }
 
@@ -3603,16 +3597,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) closeServerView:(id)sender
-{
-    _establishingSEBServerConnection = false;
-    _sebServerViewDisplayed = false;
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
-        [self sessionQuitRestart:NO];
-    }];
-}
-
-
 - (void) startBatteryMonitoringWithDelegate:(id)delegate
 {
     [self.batteryController addDelegate:delegate];
@@ -3636,30 +3620,6 @@ void run_on_ui_thread(dispatch_block_t block)
     [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = true;
-}
-
-
-- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
-{
-    if (_establishingSEBServerConnection) {
-        [self.serverController examineCookies:cookies forURL:url];
-    }
-}
-
-
-- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
-{
-    if (_establishingSEBServerConnection) {
-        [self.serverController examineHeaders:headerFields forURL:url];
-    }
-}
-
-
-- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
-{
-    if (_establishingSEBServerConnection) {
-        [self.serverController shouldStartLoadFormSubmittedURL:url];
-    }
 }
 
 
@@ -3689,7 +3649,9 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         } else {
             DDLogInfo(@"Open startURL as SEB Server fallback");
-            [self startExamWithFallback:YES];
+            [self closeServerViewWithCompletion:^{
+                [self startExamWithFallback:YES];
+            }];
         }
     }
 }
@@ -3697,10 +3659,18 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) closeServerView:(id)sender
 {
-    _establishingSEBServerConnection = false;
-    _sebServerViewDisplayed = false;
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+    [self closeServerViewWithCompletion:^{
         [self sessionQuitRestart:NO];
+    }];
+}
+
+
+- (void) closeServerViewWithCompletion:(void (^)(void))completion
+{
+    _establishingSEBServerConnection = NO;
+    _sebServerViewDisplayed = NO;
+    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        completion();
     }];
 }
 
@@ -3743,6 +3713,17 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) didCloseSEBServerConnectionRestart:(BOOL)restart
+{
+    _establishingSEBServerConnection = NO;
+    if (restart) {
+        [self restartExamQuitting:YES];
+    } else {
+        [self quitSEBOrSession];
+    }
+}
+
+
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
@@ -3774,6 +3755,30 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self correctPasswordEntered];
             }
         }
+    }
+}
+
+
+- (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController shouldStartLoadFormSubmittedURL:url];
+    }
+}
+
+
+- (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineCookies:cookies forURL:url];
+    }
+}
+
+
+- (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url
+{
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineHeaders:headerFields forURL:url];
     }
 }
 
