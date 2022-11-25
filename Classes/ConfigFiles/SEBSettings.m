@@ -1157,7 +1157,7 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"clientName" : @"",
                       @"clientSecret" : @"",
                       @"apiDiscovery" : @"",
-                      @"pingInterval" : @1000
+                      @"pingInterval" : [NSNumber numberWithLong:SEBServerDefaultPingInterval]
                       }
               
               };

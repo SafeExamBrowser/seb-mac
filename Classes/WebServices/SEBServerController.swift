@@ -51,9 +51,17 @@ import Foundation
     func updateExamList()
 }
 
+public class PendingServerRequest : NSObject {
+    public var pendingRequest: AnyObject?
+    
+    public init(request: AnyObject) {
+        pendingRequest = request
+    }
+}
+
 @objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate {
     
-    fileprivate var pendingRequests: [AnyObject]? = []
+    fileprivate var pendingRequests: [PendingServerRequest] = []
     fileprivate var serverAPI: SEB_Endpoints?
     fileprivate var accessToken: String?
     fileprivate var connectionToken: String?
@@ -102,16 +110,21 @@ extension Array where Element == Endpoint {
 
 public extension SEBServerController {
 
-    fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion completion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         let request = ApiRequest(resource: resource)
-        pendingRequests?.append(request)
-        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: 0, completion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
+        let pendingRequest = PendingServerRequest(request: request)
+        pendingRequests.append(pendingRequest)
+        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
+            self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
+//            if statusCode == nil {
+//                return
+//            }
             if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                 // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
                 if attempt <= self.maxRequestAttemps {
                     self.getServerAccessToken {
                         // and try to perform the request again
-                        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: completion)
+                        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
                     }
                 } else {
                     let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
@@ -122,7 +135,7 @@ public extension SEBServerController {
                 }
                 return
             }
-            completion(response, statusCode, errorResponse, responseHeaders, attempt)
+            resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, attempt)
         })
     }
 
@@ -131,7 +144,7 @@ public extension SEBServerController {
         let discoveryResource = DiscoveryResource(baseURL: self.baseURL, discoveryEndpoint: self.discoveryEndpoint)
 
         let discoveryRequest = ApiRequest(resource: discoveryResource)
-        pendingRequests?.append(discoveryRequest)
+        pendingRequests.append(PendingServerRequest(request: discoveryRequest))
         // ToDo: Implement timeout and sebServerFallback
         discoveryRequest.load { (discoveryResponse) in
             // ToDo: Does this if let check work, response seems to be a double optional?
@@ -213,7 +226,7 @@ public extension SEBServerController {
                 }
             }
             let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam List", comment: ""),
-                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
+                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator", comment: ""),
                            NSDebugDescriptionErrorKey : "Server didn't return \(connectionToken == nil ? "connection token" : "exams")."]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
             self.delegate?.didFail(error: error, fatal: true)
@@ -269,11 +282,10 @@ public extension SEBServerController {
                 self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
-                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam     administrator", comment: ""),
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator", comment: ""),
                                NSDebugDescriptionErrorKey : "Server didn't return exam configuration."]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
                 self.delegate?.didFail(error: error, fatal: true)
-
             }
         })
     }
@@ -340,10 +352,10 @@ public extension SEBServerController {
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
             load(pingResource, httpMethod: pingResource.httpMethod, body: pingResource.body, headers: requestHeaders, withCompletion: { (pingResponse, statusCode, errorResponse, responseHeaders, attempt) in
+                self.pingInstruction = nil
                 guard let ping = pingResponse else {
                     return
                 }
-                self.pingInstruction = nil
                 if (ping != nil) {
                     self.delegate?.executeSEBInstruction(SEBInstruction(ping!))
                 }
@@ -366,14 +378,14 @@ public extension SEBServerController {
             let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
             logResource.body = jsonString
             
-            let logRequest = DataRequest(resource: logResource)
-            pendingRequests?.append(logRequest)
+//            let logRequest = DataRequest(resource: logResource)
+//            pendingRequests?.append(logRequest)
             let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
             let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
             load(logResource, httpMethod: logResource.httpMethod, body: logResource.body, headers: requestHeaders, withCompletion: { (logResponse, statusCode, errorResponse, responseHeaders, attempt) in
-//            logRequest.load(httpMethod: logResource.httpMethod, body:logResource.body, headers: requestHeaders, completion: { (logResponse, statusCode, errorResponse, responseHeaders) in
+                
 //                if logResponse != nil  {
 //                    let responseBody = String(data: logResponse!, encoding: .utf8)
 //                    DDLogVerbose(responseBody as Any)
