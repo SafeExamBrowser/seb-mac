@@ -2664,7 +2664,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogError(@"Detected SIGSTOP! SEB was stopped for %f seconds", -timeSinceLastProcessCheck);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.SIGSTOPDetected) {
-                self.SIGSTOPDetected = true;
+                self.SIGSTOPDetected = YES;
                 self->timeProcessCheckBeforeSIGSTOP = lastTimeProcessCheckBeforeSIGSTOP;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedSIGSTOP" object:self];
@@ -2761,7 +2761,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     
     lastTimeProcessCheck = [NSDate date];
-    checkingRunningProcesses = false;
+    checkingRunningProcesses = NO;
 }
 
 - (void)windowWatcher
@@ -2780,18 +2780,18 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogDebug(@"Check for prohibited windows still ongoing, returning");
         return;
     }
-    checkingForWindows = true;
+    checkingForWindows = YES;
     
     if (_isAACEnabled == NO && _wasAACEnabled == NO) {
         CGWindowListOption options;
-        BOOL firstScan = false;
-        BOOL fishyWindowWasOpened = false;
+        BOOL firstScan = NO;
+        BOOL fishyWindowWasOpened = NO;
         if (!_systemProcessPIDs) {
             // When this method is called the first time, we scan all windows
-            firstScan = true;
+            firstScan = YES;
             _systemProcessPIDs = [NSMutableArray new];
             options = kCGWindowListOptionAll;
-            fishyWindowWasOpened = true;
+            fishyWindowWasOpened = YES;
 
         } else {
             // otherwise only those which are visible (on screen)
@@ -2850,7 +2850,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 } else {
                                     DDLogWarn(@"Application %@ is being force terminated because its bundle ID doesn't have the prefix com.apple.", windowOwner);
                                     [self killApplication:appWithPanel];
-                                    fishyWindowWasOpened = true;
+                                    fishyWindowWasOpened = YES;
                                 }
                             } else {
 #ifdef DEBUG
@@ -2875,7 +2875,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     } else {
                                         DDLogWarn(@"Application %@ is being force terminated because it isn't macOS system software!", windowOwner);
                                         [self killProcessWithPID:windowOwnerPID];
-                                        fishyWindowWasOpened = true;
+                                        fishyWindowWasOpened = YES;
                                     }
                                 }
                             }
