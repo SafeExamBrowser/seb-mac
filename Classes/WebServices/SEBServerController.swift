@@ -116,9 +116,6 @@ public extension SEBServerController {
         pendingRequests.append(pendingRequest)
         request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
             self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
-//            if statusCode == nil {
-//                return
-//            }
             if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                 // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
                 if attempt <= self.maxRequestAttemps {
@@ -187,7 +184,7 @@ public extension SEBServerController {
             if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
                 self.accessToken = tokenString
             } else {
-                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Access Server", comment: ""),
+                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server due to \(errorResponse?.error ?? "unspecified") error.", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
                                NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of  \(errorResponse?.error ?? "Unspecified")."]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
@@ -283,7 +280,7 @@ public extension SEBServerController {
         let requestHeaders = [keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
         load(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if let config = examConfigResponse  {
+            if statusCode ?? 0 < statusCodes.badRequest, let config = examConfigResponse  {
                 self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
