@@ -89,6 +89,7 @@ public class PendingServerRequest : NSObject {
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
     private var maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
+    private var fallbackAttemptInterval = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttemptInterval") / 1000
 
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
@@ -119,9 +120,29 @@ public extension SEBServerController {
             if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                 // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
                 if attempt <= self.maxRequestAttemps {
-                    self.getServerAccessToken {
-                        // and try to perform the request again
-                        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
+                    DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
+                        self.getServerAccessToken {
+                            // and try to perform the request again
+                            request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
+                        }
+                    }
+                } else {
+                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
+                        NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
+                                   NSDebugDescriptionErrorKey : "Server reported Invalid Token for maxRequestAttempts"]
+                    let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                    self.delegate?.didFail(error: error, fatal: true)
+                }
+                return
+            }
+            if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
+                // Error: Try the request again
+                if attempt <= self.maxRequestAttemps {
+                    DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
+                        self.getServerAccessToken {
+                            // and try to perform the request again
+                            request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
+                        }
                     }
                 } else {
                     let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
@@ -133,6 +154,25 @@ public extension SEBServerController {
                 return
             }
             resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, attempt)
+        })
+    }
+
+    fileprivate func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
+            if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
+                DDLogError("Loading resource \(resource) not successful, status code: \(String(describing: statusCode)))")
+                // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
+                let currentAttempt = fallbackAttempt+1
+                if currentAttempt <= self.maxRequestAttemps {
+                    DispatchQueue.main.asyncAfter(deadline: (.now() + self.fallbackAttemptInterval)) {
+                        // and try to perform the request again
+                        self.loadWithFallback(resource, httpMethod: httpMethod, body: body, headers: headers, fallbackAttempt: currentAttempt, withCompletion: resourceLoadCompletion)
+                        return
+                    }
+                    return
+                } //if maxRequestAttemps reached, report failure to load resource
+            }
+            resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, fallbackAttempt)
         })
     }
 
@@ -203,33 +243,39 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString]
-        load(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            let connectionToken =  (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value
-            if let connectionTokenString = connectionToken {
-                self.connectionToken = connectionTokenString as? String
-                
-                self.startPingTimer()
-                self.startBatteryMonitoring()
-                
-                if let exams = handshakeResponse  {
-                    self.exams = exams
-                    self.examList = [];
+        loadWithFallback(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            var connectionTokenSuccess = false
+            if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange {
+                let connectionToken = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebConnectionToken) == .orderedSame}))?.value
+                if let connectionTokenString = connectionToken {
+                    connectionTokenSuccess = true
+                    self.connectionToken = connectionTokenString as? String
+                    
+                    self.startPingTimer()
+                    self.startBatteryMonitoring()
+                    
+                    if let exams = handshakeResponse  {
+                        self.exams = exams
+                        self.examList = [];
 
-                    if (exams != nil) {
-                        for exam in exams! {
-                            self.examList?.append(ExamObject(exam))
+                        if (exams != nil) {
+                            for exam in exams! {
+                                self.examList?.append(ExamObject(exam))
+                            }
                         }
+                        self.serverControllerUIDelegate?.updateExamList()
+                        if self.exam != nil {
+                            self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
+                        }
+                        return
                     }
-                    self.serverControllerUIDelegate?.updateExamList()
-                    if self.exam != nil {
-                        self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
-                    }
-                    return
                 }
             }
-            let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam List", comment: ""),
+            let userInfo = [NSLocalizedDescriptionKey : connectionTokenSuccess ?
+                            NSLocalizedString("Cannot Establish Server Connection", comment: "") :
+                                NSLocalizedString("Cannot Get Exam List", comment: ""),
                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator", comment: ""),
-                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionToken == nil ? "connection token" : "exams")."]
+                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionTokenSuccess ? "connection token" : "exams")."]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
             self.delegate?.didFail(error: error, fatal: true)
 
@@ -279,8 +325,8 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken!]
-        load(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if statusCode ?? 0 < statusCodes.badRequest, let config = examConfigResponse  {
+        loadWithFallback(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange, let config = examConfigResponse  {
                 self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
