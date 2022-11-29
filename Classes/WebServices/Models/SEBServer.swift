@@ -69,9 +69,10 @@ public struct keys {
 
 public struct statusCodes {
     static let ok = 200
+    static let notSuccessfullRange = 300
     static let badRequest = 400
     static let unauthorized = 401
-    static let internalServerError = 500
+    static let internalServerError = 500   
 }
 
 public struct errors {
