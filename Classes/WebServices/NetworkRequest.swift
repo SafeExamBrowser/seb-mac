@@ -77,26 +77,25 @@ extension NetworkRequest {
         
         let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
-//            print(data as Any)
-//            if (data != nil) {
-//                print(String(decoding: data!, as: UTF8.self))
-//            }
-//            print(response as Any)
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
             var errorResponse: ErrorResponse? = nil
             let responseHeaders = httpResponse?.allHeaderFields
-//            print(error as Any)
+            if error != nil {
+                DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
+            }
             guard let receivedData = data else {
+                DDLogError("Network Request didn't return response data (status code: \(String(describing: statusCode)))")
                 completion(nil, statusCode, nil, [:], currentAttempt)
                 return
             }
-            if statusCode ?? 0 >= statusCodes.badRequest {
+            if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
                 // Some error happened
                 guard let unauthorizedErrorResponse = self?.decodeErrorResponse(receivedData) else {
-                    print(data as Any)
                     if (data != nil) {
-                        print(String(decoding: data!, as: UTF8.self))
+                        DDLogError("Network Request load returned error object: \(String(decoding: data!, as: UTF8.self))")
+                    } else {
+                        DDLogError("Network Request load returned unspecified error.")
                     }
                     completion(nil, statusCode, nil, [:], currentAttempt)
                     return
