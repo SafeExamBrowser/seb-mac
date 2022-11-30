@@ -77,6 +77,7 @@ public struct statusCodes {
 
 public struct errors {
     static let invalidToken = "invalid_token"
+    static let generic = "Generic error message"
 }
 
 public struct Discovery: Codable {
@@ -131,6 +132,14 @@ public struct SEB_Endpoints {
 public struct ErrorResponse: Codable {
     let error: String?
     let error_description: String?
+}
+
+
+public struct ServerErrorResponse: Codable {
+    let messageCode: String?
+    let systemMessage: String?
+    let details: String?
+    let attributes: Array<String?>?
 }
 
 

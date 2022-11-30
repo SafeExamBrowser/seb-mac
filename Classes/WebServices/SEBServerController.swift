@@ -36,6 +36,7 @@ import Foundation
 
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didSelectExam(_ examId: String, url: String)
+    func closeServerView()
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
     func didReceiveMoodleUserId(_ moodleUserId: String)
@@ -135,24 +136,6 @@ public extension SEBServerController {
                 }
                 return
             }
-            if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
-                // Error: Try the request again
-                if attempt <= self.maxRequestAttemps {
-                    DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
-                        self.getServerAccessToken {
-                            // and try to perform the request again
-                            request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
-                        }
-                    }
-                } else {
-                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
-                        NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
-                                   NSDebugDescriptionErrorKey : "Server reported Invalid Token for maxRequestAttempts"]
-                    let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
-                    self.delegate?.didFail(error: error, fatal: true)
-                }
-                return
-            }
             resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, attempt)
         })
     }
@@ -224,9 +207,9 @@ public extension SEBServerController {
             if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
                 self.accessToken = tokenString
             } else {
-                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server due to \(errorResponse?.error ?? "unspecified") error.", comment: ""),
+                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: \(errorResponse?.error ?? "unspecified")", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
-                               NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of  \(errorResponse?.error ?? "Unspecified")."]
+                               NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")."]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
                 self.delegate?.didFail(error: error, fatal: true)
                 return
@@ -274,8 +257,8 @@ public extension SEBServerController {
             let userInfo = [NSLocalizedDescriptionKey : connectionTokenSuccess ?
                             NSLocalizedString("Cannot Establish Server Connection", comment: "") :
                                 NSLocalizedString("Cannot Get Exam List", comment: ""),
-                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator", comment: ""),
-                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionTokenSuccess ? "connection token" : "exams")."]
+                NSLocalizedRecoverySuggestionErrorKey : "\(NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "")) \(errorResponse?.error ?? "Unspecified")).",
+                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionTokenSuccess ? "connection token" : "exams"), server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
             self.delegate?.didFail(error: error, fatal: true)
 
@@ -327,11 +310,12 @@ public extension SEBServerController {
                               keys.sebConnectionToken : connectionToken!]
         loadWithFallback(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange, let config = examConfigResponse  {
+                self.delegate?.closeServerView()
                 self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
-                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator", comment: ""),
-                               NSDebugDescriptionErrorKey : "Server didn't return exam configuration."]
+                    NSLocalizedRecoverySuggestionErrorKey : "\(NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "")) \(errorResponse?.error ?? "Unspecified")).",
+                               NSDebugDescriptionErrorKey : "Server didn't return exam configuration, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
                 self.delegate?.didFail(error: error, fatal: true)
             }

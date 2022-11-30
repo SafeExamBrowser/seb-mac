@@ -92,7 +92,7 @@
 
 - (BOOL)windowShouldClose:(NSWindow *)sender
 {
-    [_serverControllerDelegate closeServerView:sender];
+    [_serverControllerDelegate closeServerViewAndRestart:sender];
     return YES;
 }
 

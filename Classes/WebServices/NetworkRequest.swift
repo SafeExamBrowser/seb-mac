@@ -91,16 +91,23 @@ extension NetworkRequest {
             }
             if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
                 // Some error happened
-                guard let unauthorizedErrorResponse = self?.decodeErrorResponse(receivedData) else {
-                    if (data != nil) {
-                        DDLogError("Network Request load returned error object: \(String(decoding: data!, as: UTF8.self))")
-                    } else {
-                        DDLogError("Network Request load returned unspecified error.")
+                if statusCode == statusCodes.unauthorized {
+                    if let unauthorizedErrorResponse = self?.decodeErrorResponse(receivedData) {
+                        errorResponse = unauthorizedErrorResponse
                     }
-                    completion(nil, statusCode, nil, [:], currentAttempt)
-                    return
+                } else if statusCode == statusCodes.internalServerError {
+                    if let internalServerErrorResponse = self?.decodeServerErrorResponse(receivedData) {
+                        errorResponse = internalServerErrorResponse
+                    }
+                } else if (data != nil) {
+                    let errorObjectString = String(decoding: data!, as: UTF8.self)
+                    errorResponse = ErrorResponse(error: "Network Request load returned unspecified error object", error_description: errorObjectString)
+                    DDLogError("\(errorResponse?.error ?? ""): \(errorResponse?.error_description ?? "Unspecified"))")
+                } else {
+                    DDLogError("Network Request load returned unspecified error.")
                 }
-                errorResponse = unauthorizedErrorResponse
+                completion(nil, statusCode, errorResponse, [:], currentAttempt)
+                return
             }
 
             completion(self?.decode(receivedData), statusCode, errorResponse, responseHeaders, currentAttempt)
@@ -111,11 +118,26 @@ extension NetworkRequest {
     fileprivate func decodeErrorResponse(_ data: Data) -> ErrorResponse? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        print(String(data: data, encoding: String.Encoding.utf8)!)
-        guard let errorResponse = try? decoder.decode(ErrorResponse.self, from: data) else {
-            return nil
+        do {
+            return try decoder.decode(ErrorResponse.self, from: data)
+        } catch let error {
+            return ErrorResponse(error: "\(NSLocalizedString("decoding error: ", comment: "") + error.localizedDescription)", error_description: String(describing: error))
         }
-        return errorResponse
+    }
+
+    fileprivate func decodeServerErrorResponse(_ data: Data) -> ErrorResponse? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+        do {
+            let serverErrorResponse = try decoder.decode(ServerErrorResponse.self, from: data)
+            if serverErrorResponse.systemMessage != errors.generic {
+                return ErrorResponse(error: serverErrorResponse.systemMessage, error_description: serverErrorResponse.details)
+            } else {
+                return ErrorResponse(error: serverErrorResponse.details, error_description: nil)
+            }
+        } catch let error {
+            return ErrorResponse(error: "\(NSLocalizedString("decoding error: ", comment: "") + error.localizedDescription)", error_description: String(describing: error))
+        }
     }
 }
 
