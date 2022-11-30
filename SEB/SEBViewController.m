@@ -682,8 +682,8 @@ static NSMutableSet *browserWindowControllers;
     _resettingSettings = YES;
     if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.sebServerViewDisplayed = false;
-            self.establishingSEBServerConnection = false;
+            self.sebServerViewDisplayed = NO;
+            self.establishingSEBServerConnection = NO;
             [self conditionallyResetSettings];
         }];
         return;
@@ -2631,7 +2631,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     [self closeSettingsBeforeOpeningSEBConfig:sebConfigData
                                      callback:self
-                                     selector:@selector(storeNewSEBSettings:)];
+                                     selector:@selector(storeNewSEBSettingsFromServer:)];
 }
 
 
@@ -2915,7 +2915,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 // Decrypt, parse and store new SEB settings and report if it was successful
-- (void) storeNewSEBSettings:(NSData *)sebData
+- (void) storeNewSEBSettingsFromServer:(NSData *)sebData
 {
     [self.configFileController storeNewSEBSettings:sebData
                                         forEditing:false
@@ -3612,9 +3612,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) closeServerView
 {
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
-        self.sebServerViewDisplayed = false;
-    }];
+    [self closeServerViewWithCompletion:^{}];
 }
 
 
@@ -3624,7 +3622,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [_browserTabViewController openNewTabWithURL:examURL configuration:nil];
     [self persistSecureExamStartURL:url];
     self.browserController.sebServerExamStartURL = examURL;
-    _sessionRunning = true;
+    _sessionRunning = YES;
 }
 
 
@@ -3638,8 +3636,9 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
 {
-    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
-    if (fatal) {
+    BOOL optionallyAttemptFallback = fatal && !_startingExamFromSEBServer && !_sebServerConnectionEstablished;
+    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], optionallyAttemptFallback ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    if (optionallyAttemptFallback) {
         if (!self.serverController.fallbackEnabled) {
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
             NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
@@ -3672,9 +3671,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) closeServerViewWithCompletion:(void (^)(void))completion
 {
-    _establishingSEBServerConnection = NO;
-    _sebServerViewDisplayed = NO;
     [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+        self.sebServerViewDisplayed = NO;
         completion();
     }];
 }

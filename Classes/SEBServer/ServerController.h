@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ServerControllerDelegate <NSObject>
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
-- (void) storeNewSEBSettings:(NSData *)configData;
+- (void) storeNewSEBSettingsFromServer:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fallback;
