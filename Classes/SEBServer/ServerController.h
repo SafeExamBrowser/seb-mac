@@ -46,7 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fallback;
-- (void) closeServerView:(id)sender;
+- (void) closeServerView;
+- (void) closeServerViewAndRestart:(id)sender;
 - (void) serverSessionQuitRestart:(BOOL)restart;
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 

@@ -1183,7 +1183,7 @@ bool insideMatrix(void);
     [_sebServerViewController updateExamList];
 }
 
-- (void) closeSEBServerView
+- (void) closeServerView
 {
     _sebServerViewWindowController.window.delegate = nil;
     [_sebServerViewWindowController close];
@@ -1202,7 +1202,6 @@ bool insideMatrix(void);
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
     _sebServerViewController = false;
-    [self closeSEBServerView];
     [self.serverController examSelected:examId url:url];
 }
 
@@ -1244,7 +1243,7 @@ bool insideMatrix(void);
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self closeServerView:self];
+                [self closeServerViewAndRestart:self];
             };
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
             return;
@@ -1258,7 +1257,7 @@ bool insideMatrix(void);
 }
 
 
-- (void) closeServerView:(id)sender
+- (void) closeServerViewAndRestart:(id)sender
 {
     [self closeServerViewWithCompletion:^{
         [self sessionQuitRestart:NO];
@@ -1269,7 +1268,7 @@ bool insideMatrix(void);
 - (void) closeServerViewWithCompletion:(void (^)(void))completion
 {
     _establishingSEBServerConnection = NO;
-    [self closeSEBServerView];
+    [self closeServerView];
     completion();
 }
 
@@ -1277,7 +1276,7 @@ bool insideMatrix(void);
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
     if (_sebServerViewDisplayed) {
-        [self closeSEBServerView];
+        [self closeServerView];
         self.establishingSEBServerConnection = NO;
     }
     // Check if Preferences are currently open
