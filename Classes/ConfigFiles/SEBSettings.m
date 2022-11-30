@@ -883,7 +883,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"",
                    @"sebServerFallbackPasswordHash",
                    
-                   [NSNumber numberWithLong:30000],
+                   [NSNumber numberWithLong:SEBServerDefaultFallbackTimeout],
                    @"sebServerFallbackTimeout",
 
                    @"",
