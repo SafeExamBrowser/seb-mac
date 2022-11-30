@@ -79,6 +79,7 @@
 #define SEBErrorOpeningUniversalLinkFailed 300
 
 #define SEBServerDefaultPingInterval 1000
+#define SEBServerDefaultFallbackTimeout 30000
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
 

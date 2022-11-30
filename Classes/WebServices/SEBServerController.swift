@@ -89,8 +89,9 @@ public class PendingServerRequest : NSObject {
     @objc public var examList: [ExamObject]?
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
-    private var maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
-    private var fallbackAttemptInterval = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttemptInterval") / 1000
+    private var maxRequestAttemps: Int
+    private var fallbackAttemptInterval: Double
+    private var fallbackTimeout: Double
 
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
@@ -101,6 +102,9 @@ public class PendingServerRequest : NSObject {
         self.discoveryEndpoint = discoveryEndpoint
         self.pingInterval = pingInterval
         self.delegate = delegate
+        self.maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
+        self.fallbackAttemptInterval = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttemptInterval") / 1000
+        self.fallbackTimeout = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackTimeout") / 1000
     }
 }
 
@@ -116,7 +120,7 @@ public extension SEBServerController {
         let request = ApiRequest(resource: resource)
         let pendingRequest = PendingServerRequest(request: request)
         pendingRequests.append(pendingRequest)
-        request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
+        request.load(httpMethod: httpMethod, body: body, headers: headers, timeout: self.fallbackTimeout, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
             self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
             if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                 // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
@@ -124,7 +128,7 @@ public extension SEBServerController {
                     DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
                         self.getServerAccessToken {
                             // and try to perform the request again
-                            request.load(httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, completion: resourceLoadCompletion)
+                            request.load(httpMethod: httpMethod, body: body, headers: headers, timeout: self.fallbackTimeout, attempt: attempt, completion: resourceLoadCompletion)
                         }
                     }
                 } else {
