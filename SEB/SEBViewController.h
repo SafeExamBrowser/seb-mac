@@ -356,7 +356,7 @@
 - (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
-- (void) storeNewSEBSettings:(NSData *)sebData;
+- (void) storeNewSEBSettingsFromServer:(NSData *)sebData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 #pragma mark - Toolbar (UINavigationBar)
