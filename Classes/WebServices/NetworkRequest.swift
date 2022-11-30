@@ -40,15 +40,10 @@ protocol NetworkRequest: AnyObject {
 }
 
 extension NetworkRequest {
-    var requestTimeout: Double {
-        get { return UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackTimeout") / 1000 }
-    }
-
 	fileprivate func load(_ url: URL, withCompletion completion: @escaping (Model?) -> Void) {
 		let configuration = URLSessionConfiguration.ephemeral
 		let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
 		let task = session.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
-//            print(data as Any)
 			guard let receivedData = data else {
 				completion(nil)
 				return
@@ -60,9 +55,9 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, timeout: Double, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         let configuration = URLSessionConfiguration.ephemeral
-        configuration.timeoutIntervalForResource = requestTimeout
+        configuration.timeoutIntervalForResource = timeout
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
@@ -158,8 +153,8 @@ extension ApiRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, timeout: Double, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, timeout: timeout, attempt: attempt, withCompletion: completion)
     }
 }
 
@@ -180,7 +175,7 @@ extension DataRequest: NetworkRequest {
 		load(resource.url, withCompletion: completion)
 	}
     
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, attempt: attempt, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, timeout: Double, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, timeout: timeout, attempt: attempt, withCompletion: completion)
     }
 }
