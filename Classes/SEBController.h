@@ -196,7 +196,7 @@
 @property(readwrite) BOOL establishingSEBServerConnection;
 // Exam URL is opened in a webview (tab), waiting for user to log in
 @property(readwrite) BOOL startingExamFromSEBServer;
-// User logged in to LMS, monitoring the client started
+// User logged in to LMS, monitored client is fully identified now
 @property(readwrite) BOOL sebServerConnectionEstablished;
 // The SEB Server exam list view is displayed
 @property(readwrite) BOOL sebServerViewDisplayed;

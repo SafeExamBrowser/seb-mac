@@ -14,12 +14,6 @@
 @implementation SEBServerOSXViewController
 
 
-//- (void)loadView
-//{
-//
-//}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

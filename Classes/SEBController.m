@@ -1206,7 +1206,7 @@ bool insideMatrix(void);
 }
 
 
-- (void) storeNewSEBSettings:(NSData *)configData
+- (void) storeNewSEBSettingsFromServer:(NSData *)configData
 {
     [self storeNewSEBSettings:configData forEditing:NO forceConfiguringClient:NO showReconfiguredAlert:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
 }
@@ -1232,8 +1232,9 @@ bool insideMatrix(void);
 
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fatal
 {
-    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], fatal ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
-    if (fatal) {
+    BOOL optionallyAttemptFallback = fatal && !_startingExamFromSEBServer && !_sebServerConnectionEstablished;
+    DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], optionallyAttemptFallback ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    if (optionallyAttemptFallback) {
         if (!self.serverController.fallbackEnabled) {
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
             NSAlert *modalAlert = [self newAlert];
@@ -1267,7 +1268,6 @@ bool insideMatrix(void);
 
 - (void) closeServerViewWithCompletion:(void (^)(void))completion
 {
-    _establishingSEBServerConnection = NO;
     [self closeServerView];
     completion();
 }
