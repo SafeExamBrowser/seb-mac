@@ -330,7 +330,7 @@
 @property(readwrite) BOOL sebServerViewDisplayed;
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
-- (void) closeServerView:(id)sender;
+- (void) closeServerViewAndRestart:(id)sender;
 - (void) loginToExam:(NSString *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url;
 - (void) examineHeaders:(NSDictionary<NSString *,NSString *>*)headerFields forURL:(NSURL *)url;

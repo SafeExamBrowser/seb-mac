@@ -113,7 +113,7 @@
 
 - (IBAction)closeButtonAction:(id)sender
 {
-    [_sebViewController closeServerView:sender];
+    [_sebViewController closeServerViewAndRestart:sender];
 }
 
 
