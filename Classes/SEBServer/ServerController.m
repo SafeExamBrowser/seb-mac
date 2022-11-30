@@ -84,6 +84,12 @@
 }
 
 
+- (void) closeServerView
+{
+    [self.delegate closeServerView];
+}
+
+
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
     DDLogInfo(@"ServerController: Reconfigure with server exam config");

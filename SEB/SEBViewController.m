@@ -3606,9 +3606,14 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
-    _sebServerViewDisplayed = false;
+    [self.serverController examSelected:examId url:url];
+}
+
+
+- (void) closeServerView
+{
     [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
-        [self.serverController examSelected:examId url:url];
+        self.sebServerViewDisplayed = false;
     }];
 }
 
@@ -3642,7 +3647,7 @@ void run_on_ui_thread(dispatch_block_t block)
                          message:informativeText
                     action1Title:NSLocalizedString(@"OK", nil)
                   action1Handler:^(void){
-                [self closeServerView:self];
+                [self closeServerViewAndRestart:self];
             }
                     action2Title:nil
                   action2Handler:nil];
@@ -3657,7 +3662,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) closeServerView:(id)sender
+- (void) closeServerViewAndRestart:(id)sender
 {
     [self closeServerViewWithCompletion:^{
         [self sessionQuitRestart:NO];
