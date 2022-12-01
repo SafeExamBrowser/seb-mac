@@ -145,24 +145,24 @@
 //            DDLogDebug(@"Returned from checking code signature of executable %@ with status %d", executablePath, (int)status);
         }
 
-//        if (status != noErr) {
-//            // Public SHA1 fingerprint of the CA cert match string
-//            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
-//                      @"certificate",
-//                      @"leaf",
-//                      @"H\"013E2787748A74",
-//                      @"103D62D2CDBF77",
-//                      @"A1345517C482\""
-//            ];
-//
-//            // create the requirement to check against
-//            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
-//
-//            if (status == noErr && req != NULL) {
-//                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
+        if (status != noErr) {
+            // Public SHA1 fingerprint of the CA cert match string
+            reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
+                      @"certificate",
+                      @"leaf",
+                      @"H\"70E916BF7D906D",
+                      @"0AEE89AEAD1406",
+                      @"6DB3E45E511A\""
+            ];
+
+            // create the requirement to check against
+            status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
+
+            if (status == noErr && req != NULL) {
+                status = SecStaticCodeCheckValidity(ref, kSecCSCheckAllArchitectures, req);
 ////                DDLogDebug(@"Returned from checking code signature of executable %@ with status %d", executablePath, (int)status);
-//            }
-//        }
+            }
+        }
         
         if (ref) {
             CFRelease(ref);
