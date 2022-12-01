@@ -606,10 +606,12 @@
             break;
         }
     }
-    [self.openBrowserWindowsWebViews removeObject:itemToRemove];
-    [self.openBrowserWindowsWebViewsMenu removeItem:itemToRemove];
-    if (self.openBrowserWindowsWebViews.count == 1) {
-        [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
+    if (itemToRemove) {
+        [self.openBrowserWindowsWebViews removeObject:itemToRemove];
+        [self.openBrowserWindowsWebViewsMenu removeItem:itemToRemove];
+        if (self.openBrowserWindowsWebViews.count == 1) {
+            [self.openBrowserWindowsWebViewsMenu removeItemAtIndex:1];
+        }
     }
 }
 
