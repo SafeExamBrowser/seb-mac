@@ -4052,6 +4052,7 @@ conditionallyForWindow:(NSWindow *)window
              NSWorkspaceSessionDidResignActiveNotification])
         {
             self.didResignActiveTime = [NSDate date];
+            self.userSwitchDetected = YES;
             
             // Set alert title and message strings
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
@@ -4092,7 +4093,7 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedReOpeningExam"])
         {
-            self.reOpenedExamDetected = true;
+            self.reOpenedExamDetected = YES;
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
@@ -4438,7 +4439,8 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForDictation.hidden &&
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
         _sebLockedViewController.overrideCheckForAllProcesses.hidden &&
-        !_proctoringFailedDetected) {
+        !_proctoringFailedDetected &&
+        !_userSwitchDetected) {
         DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
         [self closeLockdownWindowsAllowOverride:YES];
     }
@@ -4528,6 +4530,7 @@ conditionallyForWindow:(NSWindow *)window
 
         _proctoringFailedDetected = NO;
         _zoomUserRetryWasUsed = NO;
+        _userSwitchDetected = NO;
         _sebLockedViewController.retryButton.hidden = YES;
         [self.sebServerPendingLockscreenEvents removeAllObjects];
         
