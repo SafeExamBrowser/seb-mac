@@ -50,6 +50,7 @@ import Foundation
 @objc public protocol ServerControllerUIDelegate: AnyObject {
     
     func updateExamList()
+    func updateStatus(string: String?, append: Bool)
 }
 
 public class PendingServerRequest : NSObject {
@@ -151,6 +152,7 @@ public extension SEBServerController {
                 // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
                 let currentAttempt = fallbackAttempt+1
                 if currentAttempt <= self.maxRequestAttemps {
+                    self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed, retrying...", comment: ""), append: true)
                     DispatchQueue.main.asyncAfter(deadline: (.now() + self.fallbackAttemptInterval)) {
                         // and try to perform the request again
                         self.loadWithFallback(resource, httpMethod: httpMethod, body: body, headers: headers, fallbackAttempt: currentAttempt, withCompletion: resourceLoadCompletion)
@@ -158,6 +160,7 @@ public extension SEBServerController {
                     }
                     return
                 } //if maxRequestAttemps reached, report failure to load resource
+                self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
             }
             resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, fallbackAttempt)
         })
@@ -211,6 +214,7 @@ public extension SEBServerController {
             if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
                 self.accessToken = tokenString
             } else {
+                self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: \(errorResponse?.error ?? "unspecified")", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
                                NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")."]
@@ -307,6 +311,7 @@ public extension SEBServerController {
     
     
     func getExamConfig() {
+        self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Getting Exam Config...", comment: ""), append: false)
         let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId)])
         
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
@@ -401,7 +406,7 @@ public extension SEBServerController {
     
     
     func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?) {
-        if (serverAPI != nil) && (connectionToken != nil) {
+        if serverAPI != nil && connectionToken != nil {
             let timestampString = timestamp ?? String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
             var logJSON: [String : Any]
@@ -474,20 +479,24 @@ public extension SEBServerController {
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
-        let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        
-        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
-        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
-                              keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken ?? ""]
-        load(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            self.stopPingTimer()
-            self.connectionToken = nil
-//            if quitSessionResponse != nil  {
-//                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
-//                DDLogVerbose(responseBody as Any)
-//            }
+        if accessToken != nil {
+            let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+            
+            let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+            let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                                  keys.headerAuthorization : authorizationString,
+                                  keys.sebConnectionToken : connectionToken ?? ""]
+            load(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
+                self.stopPingTimer()
+                self.connectionToken = nil
+    //            if quitSessionResponse != nil  {
+    //                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
+    //                DDLogVerbose(responseBody as Any)
+    //            }
+                completion(restart)
+            })
+        } else {
             completion(restart)
-        })
+        }
     }
 }

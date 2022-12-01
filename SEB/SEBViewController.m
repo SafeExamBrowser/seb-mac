@@ -3588,10 +3588,11 @@ void run_on_ui_thread(dispatch_block_t block)
         _sebServerViewController.modalInPopover = YES;
     }
     
+    self.sebServerViewController.sebServerController = self.serverController.sebServerController;
+    self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
+
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
         self.sebServerViewDisplayed = true;
-        self.sebServerViewController.sebServerController = self.serverController.sebServerController;
-        self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
         [self.sebServerViewController updateExamList];
     }];
 }

@@ -37,8 +37,18 @@
 #import "SafeExamBrowser-Swift.h"
 
 
-@implementation SEBServerViewController
+@interface SEBServerViewController ()
+{
+@private
+    NSString *serverStatusString;
+    NSString *fullServerStatusString;
+    NSUInteger retries;
+}
 
+@end
+
+
+@implementation SEBServerViewController
 
 - (BOOL) prefersStatusBarHidden
 {
@@ -65,12 +75,33 @@
 }
 
 
+- (void)updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    if (append) {
+        if ([fullServerStatusString containsString:string]) {
+            retries ++;
+            fullServerStatusString = [NSString stringWithFormat:@"%@ %@ (%lu)", serverStatusString, string, retries+1];
+        } else {
+            fullServerStatusString = [serverStatusString stringByAppendingFormat:@" %@", string];
+        }
+    } else {
+        serverStatusString = string;
+        fullServerStatusString = serverStatusString;
+        retries = 0;
+    }
+    [self.examsTableView reloadData];
+}
+
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (_sebServerController.examList.count > 0) {
+    if (fullServerStatusString) {
+        return fullServerStatusString;
+    } else if (_sebServerController.examList.count > 0) {
         return NSLocalizedString(@"Select Exam", @"'Select Exam' header in 'Connecting to SEB Server' table view.");
+    } else {
+        return NSLocalizedString(@"Connecting…", @"'Connecting…' header in 'Connecting to SEB Server' table view.");
     }
-    return NSLocalizedString(@"Connecting…", @"'Connecting…' header in 'Connecting to SEB Server' table view.");
 }
 
 
