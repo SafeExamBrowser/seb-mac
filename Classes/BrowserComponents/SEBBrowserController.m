@@ -1600,8 +1600,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     // Close the temporary browser window
     if (_temporaryWebView) {
         self.downloadingInTemporaryWebView = NO;
-        [_delegate closeWebView:_temporaryWebView];
-        _temporaryWebView = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.delegate closeWebView:self.temporaryWebView];
+            self.temporaryWebView = nil;
+        });
     }
     
     // Reset the pending challenge in case it was an authenticated load
