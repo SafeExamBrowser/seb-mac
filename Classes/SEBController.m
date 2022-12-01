@@ -1172,7 +1172,11 @@ bool insideMatrix(void);
     _sebServerViewController.serverControllerDelegate = self;
     NSWindow *sebServerViewWindow;
     sebServerViewWindow = [NSWindow windowWithContentViewController:_sebServerViewController];
-    [sebServerViewWindow setLevel:NSMainMenuWindowLevel+5];
+    if (_allowSwitchToApplications) {
+        [sebServerViewWindow setLevel:NSModalPanelWindowLevel-1];
+    } else {
+        [sebServerViewWindow setLevel:NSMainMenuWindowLevel+5];
+    }
     sebServerViewWindow.title = NSLocalizedString(@"Connecting to SEB Server", nil);
     sebServerViewWindow.delegate = _sebServerViewController;
     NSWindowController *sebServerViewWindowController = [[NSWindowController alloc] initWithWindow:sebServerViewWindow];
@@ -1244,6 +1248,7 @@ bool insideMatrix(void);
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
             [modalAlert setAlertStyle:NSCriticalAlertStyle];
             void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
                 [self closeServerViewAndRestart:self];
             };
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
