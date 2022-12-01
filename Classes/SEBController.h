@@ -248,6 +248,7 @@
 @property(readwrite) BOOL allowSwitchToApplications;
 
 @property(readwrite) BOOL reOpenedExamDetected;
+@property(readwrite) BOOL userSwitchDetected;
 @property(readwrite) BOOL screenSharingDetected;
 @property(readwrite) BOOL screenSharingCheckOverride;
 @property(readwrite) BOOL processesDetected;
