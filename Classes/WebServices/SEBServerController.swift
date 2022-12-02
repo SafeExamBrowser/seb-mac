@@ -167,7 +167,6 @@ public extension SEBServerController {
     }
 
     @objc func getServerAPI() {
-
         let discoveryResource = DiscoveryResource(baseURL: self.baseURL, discoveryEndpoint: self.discoveryEndpoint)
 
         let discoveryRequest = ApiRequest(resource: discoveryResource)
