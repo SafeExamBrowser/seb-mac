@@ -35,13 +35,13 @@
 import Foundation
 
 @objc public protocol SEBServerControllerDelegate: AnyObject {
+    func didEstablishSEBServerConnection()
     func didSelectExam(_ examId: String, url: String)
     func closeServerView()
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
     func didReceiveMoodleUserId(_ moodleUserId: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
-    func didEstablishSEBServerConnection()
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
     func didCloseSEBServerConnectionRestart(_ restart: Bool)
     func didFail(error: NSError, fatal: Bool)
@@ -251,8 +251,10 @@ public extension SEBServerController {
     
     func getExamList() {
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeResource.body = keys.institutionId + "=" + institution + (exam == nil ? "" : ("&" + keys.examId + "=" + exam!))
-        
+        let environmentInfo = keys.clientId + "=" + (clientUserId) + "&" + keys.sebOSName + "=" + osName
+        let clientInfo = keys.sebVersion + "=" + sebVersion + "&" + keys.sebMachineName + "=" + machineName
+        handshakeResource.body = keys.institutionId + "=" + institution + (exam == nil ? "" : ("&" + keys.examId + "=" + exam!)) + "&" + environmentInfo + "&" + clientInfo
+
         // ToDo: Implement timeout and sebServerFallback
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
@@ -385,9 +387,7 @@ public extension SEBServerController {
     
     @objc func startMonitoring(userSessionId: String) {
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        let environmentInfo = keys.clientId + "=" + (clientUserId) + "&" + keys.sebOSName + "=" + osName
-        let clientInfo = keys.sebVersion + "=" + sebVersion + "&" + keys.sebMachineName + "=" + machineName
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + environmentInfo + "&" + clientInfo + "&" + keys.sebUserSessionId + "=" + userSessionId
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId
 
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
