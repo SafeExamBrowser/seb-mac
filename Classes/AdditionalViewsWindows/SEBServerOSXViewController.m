@@ -101,10 +101,12 @@
 {
     NSInteger row = _examsTableView.selectedRow;
 //    [_examsTableView deselectAll:self];
-    ExamObject *exam = _sebServerController.examList[row];
-    NSString *examId = exam.examId;
-    NSString *examURL = exam.url;
-    [self.serverControllerDelegate didSelectExamWithExamId:examId url:examURL];
+    if (row >= 0 && row < _sebServerController.examList.count) {
+        ExamObject *exam = _sebServerController.examList[row];
+        NSString *examId = exam.examId;
+        NSString *examURL = exam.url;
+        [self.serverControllerDelegate didSelectExamWithExamId:examId url:examURL];
+    }
 }
 
 
