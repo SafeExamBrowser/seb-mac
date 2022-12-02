@@ -30,6 +30,7 @@
     NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"Column1"];
     [column1 setWidth:444];
     [column1.headerCell setStringValue:[self titleForHeader]];
+    column1.editable = NO;
 
     [self.examsTableView addTableColumn:column1];
     self.examsTableView.dataSource = self;
