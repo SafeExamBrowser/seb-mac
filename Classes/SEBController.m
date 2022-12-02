@@ -1254,9 +1254,37 @@ bool insideMatrix(void);
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
             return;
         } else {
-            DDLogInfo(@"Open startURL as SEB Server fallback");
             [self closeServerViewWithCompletion:^{
-                [self startExamWithFallback:YES];
+                DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", nil)];
+                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+                [modalAlert setInformativeText:informativeText];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            [self closeServerViewAndRestart:self];
+                            break;
+                        }
+                        case NSAlertSecondButtonReturn:
+                        {
+                            DDLogInfo(@"Open startURL as SEB Server fallback");
+                            [self startExamWithFallback:YES];
+                            break;
+                        }
+                        default:
+                        {
+                            
+                        }
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
             }];
         }
     }
