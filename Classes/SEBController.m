@@ -1104,7 +1104,7 @@ bool insideMatrix(void);
 - (void) startExamWithFallback:(BOOL)fallback
 {
     DDLogInfo(@"%s", __FUNCTION__);
-    if (_establishingSEBServerConnection == YES) {
+    if (_establishingSEBServerConnection == YES && !fallback) {
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
@@ -1241,27 +1241,13 @@ bool insideMatrix(void);
     if (optionallyAttemptFallback) {
         if (!self.serverController.fallbackEnabled) {
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
-            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
-            [modalAlert setInformativeText:informativeText];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
-            void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                [self closeServerViewAndRestart:self];
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
-            return;
-        } else {
             [self closeServerViewWithCompletion:^{
-                DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
                 NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", nil)];
+                [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -1269,23 +1255,95 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            [self closeServerViewAndRestart:self];
+                            self.establishingSEBServerConnection = NO;
+                            [self startExamWithFallback:NO];
                             break;
                         }
                         case NSAlertSecondButtonReturn:
                         {
-                            DDLogInfo(@"Open startURL as SEB Server fallback");
-                            [self startExamWithFallback:YES];
+                            [self closeServerViewAndRestart:self];
                             break;
                         }
                         default:
                         {
-                            
                         }
                     }
                 };
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
             }];
+            return;;
+        } else {
+            [self closeServerViewWithCompletion:^{
+                DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", nil)];
+                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+                [modalAlert setInformativeText:informativeText];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", nil)];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
+                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            self.establishingSEBServerConnection = NO;
+                            [self startExamWithFallback:NO];
+                            break;
+                        }
+                        case NSAlertSecondButtonReturn:
+                        {
+                            DDLogInfo(@"User selected Fallback option");
+                            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                            NSString *sebServerFallbackPasswordHash = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerFallbackPasswordHash"];
+                            // If SEB Server fallback password is set, then restrict fallback
+                            if (sebServerFallbackPasswordHash.length != 0) {
+                                DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
+                                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+                                NSString *password = [self.enterPassword stringValue];
+                                
+                                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                                if ([sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                                    DDLogInfo(@"Correct SEB Server fallback password entered");
+                                    DDLogInfo(@"Open startURL as SEB Server fallback");
+                                    self.establishingSEBServerConnection = NO;
+                                    [self startExamWithFallback:YES];
+
+                                } else {
+                                    DDLogInfo(@"Wrong SEB Server fallback password entered");
+                                    NSAlert *modalAlert = [self newAlert];
+                                    [modalAlert setMessageText:NSLocalizedString(@"Wrong SEB Server Fallback Password", nil)];
+                                    [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", nil)];
+                                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                                    [modalAlert setAlertStyle:NSWarningAlertStyle];
+                                    void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+                                        [self removeAlertWindow:modalAlert.window];
+                                        [self didFailWithError:error fatal:fatal];
+                                    };
+                                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                                }
+                            } else {
+                                DDLogInfo(@"Open startURL as SEB Server fallback");
+                                self.establishingSEBServerConnection = NO;
+                                [self startExamWithFallback:YES];
+                            }
+                            break;
+                        }
+                        case NSAlertThirdButtonReturn:
+                        {
+                            [self closeServerViewAndRestart:self];
+                            break;
+                        }
+                        default:
+                        {
+                        }
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))closeServerViewHandler];
+            }];
+            return;
         }
     }
 }
