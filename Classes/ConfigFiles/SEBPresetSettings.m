@@ -91,6 +91,10 @@
                           @"identifier" : @"com.TeamViewer.TeamViewer",
                       },
                       @{
+                          @"executable" : @"TeamViewer",
+                          @"identifier" : @"com.teamviewer.TeamViewer",
+                      },
+                      @{
                           @"executable" : @"vncserver",
                           @"description" : @"The user will have to deactivate/uninstall RealVNC server to use SEB.",
                       },
