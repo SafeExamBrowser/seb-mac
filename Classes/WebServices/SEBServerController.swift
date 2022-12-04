@@ -92,11 +92,46 @@ public class PendingServerRequest : NSObject {
     @objc public var examList: [ExamObject]?
     private var pingTimer: Timer?
     @objc public var pingInstruction: String?
+    private var logSendigDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.LogSending", qos: .background)
+    private var logQueue: Queue<LogEvent> = Queue()
+    private var sendingLogEvent = false
     private var maxRequestAttemps: Int
     private var fallbackAttemptInterval: Double
     private var fallbackTimeout: Double
     private var cancelAllRequests = false
 
+    struct Queue<T> {
+         var list = [T]()
+        
+        mutating func enqueue(_ element: T) {
+              list.append(element)
+        }
+        mutating func dequeue() -> T? {
+             if !list.isEmpty {
+               return list.removeFirst()
+             } else {
+               return nil
+             }
+        }
+        var isEmpty: Bool {
+             return list.isEmpty
+        }
+    }
+
+    struct LogEvent {
+        var logLevel: String
+        var timestamp: String
+        var numericValue: Double
+        var message: String
+        
+        init(logLevel: String, timestamp: String, numericValue: Double, message: String) {
+            self.logLevel = logLevel
+            self.timestamp = timestamp
+            self.numericValue = numericValue
+            self.message = message
+        }
+    }
+    
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
         self.baseURL = baseURL
         self.institution = institution
@@ -428,7 +463,7 @@ public extension SEBServerController {
     }
     
     
-    func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?) {
+    fileprivate func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?, withCompletion loadCompletion: @escaping (Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if serverAPI != nil && connectionToken != nil {
             let timestampString = timestamp ?? String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
@@ -449,56 +484,90 @@ public extension SEBServerController {
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken!]
             load(logResource, httpMethod: logResource.httpMethod, body: logResource.body, headers: requestHeaders, withCompletion: { (logResponse, statusCode, errorResponse, responseHeaders, attempt) in
-                
-//                if logResponse != nil  {
-//                    let responseBody = String(data: logResponse!, encoding: .utf8)
-//                    DDLogVerbose(responseBody as Any)
-//                }
+                loadCompletion(statusCode, errorResponse, responseHeaders, attempt)
             })
         }
     }
     
     
     @objc func sendLogEvent(_ logLevel: UInt, timestamp: String, numericValue: Double, message: String) {
-        if (serverAPI != nil) && (connectionToken != nil) {
-            var serverLogLevel: String
-            switch logLevel {
-            case 1:
-                serverLogLevel = keys.logLevelError
-            case 2:
-                serverLogLevel = keys.logLevelWarning
-            case 4:
-                serverLogLevel = keys.logLevelInfo
-            case 8:
-                serverLogLevel = keys.logLevelDebug
-            default:
-                serverLogLevel = keys.logLevelUnknown
+        
+        var serverLogLevel: String
+        switch logLevel {
+        case 1:
+            serverLogLevel = keys.logLevelError
+        case 2:
+            serverLogLevel = keys.logLevelWarning
+        case 4:
+            serverLogLevel = keys.logLevelInfo
+        case 8:
+            serverLogLevel = keys.logLevelDebug
+        default:
+            serverLogLevel = keys.logLevelUnknown
+        }
+        let logEvent = LogEvent(logLevel: serverLogLevel, timestamp: timestamp, numericValue: numericValue, message: message)
+        logSendigDispatchQueue.async {
+            self.logQueue.enqueue(logEvent)
+        }
+        if !sendingLogEvent && serverAPI != nil && connectionToken != nil {
+            logSendigDispatchQueue.async {
+                self.sendLogQueue()
             }
-            sendNotification(serverLogLevel, timestamp: timestamp, numericValue: numericValue, text: message)
+        }
+    }
+    
+    private func sendLogQueue() {
+        if !(logQueue.isEmpty) {
+            sendingLogEvent = true
+            guard let logEvent = self.logQueue.dequeue() else {
+                return
+            }
+            sendLogNotification(logLevel: logEvent.logLevel, timestamp: logEvent.timestamp, numericValue: logEvent.numericValue, text: logEvent.message)
+        } else {
+            sendingLogEvent = false
+        }
+    }
+    
+    private func sendLogNotification(logLevel: String, timestamp: String?, numericValue: Double, text: String?) {
+        sendNotification(logLevel, timestamp: timestamp, numericValue: numericValue, text: text) { statusCode, errorResponse, responseHeaders, attempt in
+            if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange { //sending was successful
+                self.logSendigDispatchQueue.async {
+                    self.sendLogQueue() //send next log event from the queue
+                }
+            } else {
+                // Sending this event failed: wait for fallback interval and retry
+                self.logSendigDispatchQueue.asyncAfter(deadline: (.now() + self.fallbackAttemptInterval)) {
+                    self.sendLogNotification(logLevel: logLevel, timestamp: timestamp, numericValue: numericValue, text: text)
+                }
+            }
         }
     }
     
     @objc func sendBatteryEvent(numericValue: Double, message: String?) {
         if (serverAPI != nil) && (connectionToken != nil) {
             let messageString = "<\(keys.notificationTagBattery)> \(message ?? "")"
-            sendNotification(keys.logLevelInfo, timestamp: nil, numericValue: numericValue, text: messageString)
+            sendNotification(keys.logLevelInfo, timestamp: nil, numericValue: numericValue, text: messageString) { statusCode, errorResponse, responseHeaders, attempt in
+            }
         }
     }
     
     @objc func sendLockscreen(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
+        }
         return notificationNumber
     }
     
     @objc func sendRaiseHand(message: String?) -> Int64 {
         notificationNumber+=1
-        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")")
+        sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
+        }
         return notificationNumber
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
-        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationNumber), text: nil)
+        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationNumber), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
+        }
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
