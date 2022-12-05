@@ -2064,7 +2064,8 @@ void run_on_ui_thread(dispatch_block_t block)
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
-
+        DDLogError(@"%@%@Remote proctoring not available", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
+                   jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @"");
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil), SEBShortAppName, SEBShortAppName]];
@@ -3392,9 +3393,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     if (runningAirPlayAgents.count != 0) {
         NSInteger killSuccess;
         for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
-            DDLogWarn(@"Terminating AirPlayUIAgent %@", airPlayAgent);
+            DDLogDebug(@"Terminating AirPlayUIAgent %@", airPlayAgent);
             killSuccess = [airPlayAgent kill];
-            DDLogWarn(@"Success of terminating AirPlayUIAgent: %ld", (long)killSuccess);
+            DDLogVerbose(@"Success of terminating AirPlayUIAgent: %ld", (long)killSuccess);
         }
     }
 }
@@ -3407,9 +3408,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         _touchBarDetected = YES;
         NSInteger killSuccess;
         for (NSRunningApplication *touchBarAgent in runningTouchBarAgents) {
-            DDLogWarn(@"Terminating TouchBarAgent %@", touchBarAgent);
+            DDLogDebug(@"Terminating TouchBarAgent %@", touchBarAgent);
             killSuccess = [touchBarAgent kill];
-            DDLogWarn(@"Success of terminating TouchBarAgent: %ld", (long)killSuccess);
+            DDLogVerbose(@"Success of terminating TouchBarAgent: %ld", (long)killSuccess);
         }
     }
 }
@@ -4899,7 +4900,7 @@ conditionallyForWindow:(NSWindow *)window
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedProhibitedProcess" object:self];
         } else {
-            if (appLocalizedName && [appLocalizedName isEqualToString:WebKitNetworkingProcess]) {
+            if ([appBundleID isEqualToString:WebKitNetworkingProcessBundleID] || [appBundleID isEqualToString:UniversalControlBundleID]) {
                 DDLogVerbose(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
             } else {
                 DDLogDebug(@"Successfully terminated app with localized name: %@, bundle or executable URL: %@", appLocalizedName, appURL);
@@ -6578,7 +6579,8 @@ conditionallyForWindow:(NSWindow *)window
             NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
             for (NSRunningApplication *startedApplication in startedProcesses) {
                 NSString *bundleID = startedApplication.bundleIdentifier;
-                if (bundleID && [bundleID isEqualToString:WebKitNetworkingProcess]) {
+                if (bundleID && ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] ||
+                                 [bundleID isEqualToString:UniversalControlBundleID])) {
                     DDLogVerbose(@"Started application with bundle ID: %@", bundleID);
                 } else {
                     DDLogDebug(@"Started application with bundle ID: %@", bundleID);
@@ -6586,7 +6588,7 @@ conditionallyForWindow:(NSWindow *)window
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
-                    if ([bundleID isEqualToString:WebKitNetworkingProcess]) {
+                    if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID]) {
                         pid_t processPID = startedApplication.processIdentifier;
                         typedef pid_t (*pidResolver)(pid_t pid);
                         pidResolver resolver = dlsym(RTLD_NEXT, "responsibility_get_pid_responsible_for_pid");
