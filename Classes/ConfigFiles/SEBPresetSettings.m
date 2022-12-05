@@ -43,7 +43,7 @@
                       },
                       @{
                           @"executable" : @"Universal Control",
-                          @"identifier" : @"com.apple.universalcontrol",
+                          @"identifier" : UniversalControlBundleID,
                           @"strongKill" : @YES,
                       },
                       @{
@@ -126,7 +126,7 @@
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Safari/WebKit Networking",
-                          @"identifier" : WebKitNetworkingProcess,
+                          @"identifier" : WebKitNetworkingProcessBundleID,
                           @"strongKill" : @YES,
                       },
                       @{
