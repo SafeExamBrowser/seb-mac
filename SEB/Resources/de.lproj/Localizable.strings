@@ -80,6 +80,9 @@
 "12 Monterey" = "12 Monterey";
 
 /* No comment provided by engineer. */
+"13 Ventura" = "13 Ventura";
+
+/* No comment provided by engineer. */
 "About %@" = "Über %@";
 
 /* No comment provided by engineer. */
@@ -185,16 +188,28 @@
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
-"Cannot Configure Client" = "Client kann nicht konfiguriert werden";
+"Cannot access server because of error: " = "Zugriff auf den Server fehlgeschlagen wegen Fehler: ";
 
 /* No comment provided by engineer. */
-"Cannot Connect to SEB Server" = "Verbindung mit SEB Server nicht möglich";
+"Cannot Configure Client" = "Client kann nicht konfiguriert werden";
 
 /* No comment provided by engineer. */
 "Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
 "Cannot Edit %@ Settings" = "%@-Einstellungen können nicht bearbeitet werden";
+
+/* No comment provided by engineer. */
+"Cannot Establish Server Connection" = "Kann Serververbindung nicht aufbauen";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam Config" = "Prüfungskonfiguration kann nicht geladen werden";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam List" = "Liste der Prüfungen kann nicht geladen werden";
+
+/* No comment provided by engineer. */
+"Cannot Get Server API" = "Server API kann nicht geladen werden";
 
 /* No comment provided by engineer. */
 "Cannot Quit Session" = "Session kann nicht beendet werden";
@@ -221,7 +236,7 @@
 "Center" = "Zentrieren";
 
 /* No comment provided by engineer. */
-"Check your configuration, probably connection settings are incorrect." = "Überprüfen Sie Ihre Konfiguration, wahrscheinlich sind die Verbindungseinstellungen falsch.";
+"Check your server connection configuration." = "Die Konfiguration der Serververbindung muss überprüft werden.";
 
 /* No comment provided by engineer. */
 "Closing lockdown windows" = "Lockdown-Fenster werden geschlossen";
@@ -243,6 +258,18 @@
 
 /* 'Connecting…' header in 'Connecting to SEB Server' table view. */
 "Connecting…" = "Verbinde…";
+
+/* No comment provided by engineer. */
+"Connection to SEB Server Failed" = "Verbindung zu SEB Server fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Contact your exam administrator" = "Kontaktieren Sie Ihren Prüfungs-Administrator";
+
+/* No comment provided by engineer. */
+"Contact your server administrator" = "Kontaktieren Sie Ihren Server-Administrator";
+
+/* No comment provided by engineer. */
+"Contact your server/exam administrator (Server error: " = "Kontaktieren Sie Ihren Server-/Prüfungs-Administrator (Server-Fehler: ";
 
 /* No comment provided by engineer. */
 "Continue" = "Weiter";
@@ -291,6 +318,9 @@
 
 /* No comment provided by engineer. */
 "Debug Certificate" = "Debug Zertifikat";
+
+/* No comment provided by engineer. */
+"decoding error: " = "Dekodierungsfehler: ";
 
 /* No comment provided by engineer. */
 "Decrypting exam settings was canceled" = "Entschlüsseln der Prüfungseinstellungen wurde abgebrochen";
@@ -386,7 +416,13 @@
 "Exam Session Finished" = "Prüfungssession beendet";
 
 /* No comment provided by engineer. */
+"Failed" = "Fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Failed to Start Single App Mode" = "Einzel-App-Modus konnte nicht gestartet werden";
+
+/* No comment provided by engineer. */
+"Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
@@ -423,6 +459,9 @@
 
 /* No comment provided by engineer. */
 "get generally blocked" = "werden generell blockiert";
+
+/* No comment provided by engineer. */
+"Getting Exam Config..." = "Lade Prüfungskonfiguration...";
 
 /* No comment provided by engineer. */
 "Go Back" = "Zurück";
@@ -470,7 +509,7 @@
 "Instructions for Students" = "Instruktionen für Studierende";
 
 /* No comment provided by engineer. */
-"iOS 14" = "iOS 14";
+"iOS 16" = "iOS 16";
 
 /* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
@@ -522,6 +561,9 @@
 
 /* No comment provided by engineer. */
 "microphone" = "Mikrofon";
+
+/* No comment provided by engineer. */
+"Missing Connection Settings" = "Fehlende Verbindungseinstellungen";
 
 /* No comment provided by engineer. */
 "Moodle" = "Moodle";
@@ -696,6 +738,9 @@
 
 /* No comment provided by engineer. */
 "Removing Identity Failed!" = "Entfernen der Identität fehlgeschlagen!";
+
+/* No comment provided by engineer. */
+"Repeating Error: Invalid Token" = "Wiederholter Fehler: Ungültiges Token";
 
 /* No comment provided by engineer. */
 "Reset Settings" = "Einstellungen zurücksetzen";
