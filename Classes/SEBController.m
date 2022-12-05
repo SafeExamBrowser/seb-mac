@@ -1448,33 +1448,6 @@ bool insideMatrix(void);
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
-    if ([serviceType isEqualToString:@"ZOOM"]) {
-        NSString *zoomServerURLString = attributes[@"zoomServerURL"];
-        NSURL *zoomServerURL = [NSURL URLWithString:zoomServerURLString];
-        NSString *zoomUserName = attributes[@"zoomUserName"];
-        NSString *zoomRoom = attributes[@"zoomRoom"];
-        NSString *zoomSubject = attributes[@"zoomSubject"];
-        NSString *zoomToken = attributes[@"zoomToken"];
-        NSString *zoomSDKToken = attributes[@"zoomSDKToken"];
-        NSString *zoomAPIKey = attributes[@"zoomAPIKey"];
-        NSString *zoomMeetingKey = attributes[@"zoomMeetingKey"];
-        NSString *instructionConfirm = attributes[@"instruction-confirm"];
-        if (zoomServerURL && zoomRoom && zoomToken && zoomSDKToken && instructionConfirm) {
-            DDLogInfo(@"Starting Zoom proctoring.");
-            [self.zoomController openZoomWithServerURL:zoomServerURL
-                                              userName:zoomUserName
-                                                  room:zoomRoom
-                                               subject:zoomSubject
-                                                 token:zoomToken
-                                              sdkToken:zoomSDKToken
-                                                apiKey:zoomAPIKey
-                                            meetingKey:zoomMeetingKey];
-            self.serverController.sebServerController.pingInstruction = instructionConfirm;
-            [self.zoomController updateProctoringViewButtonState];
-        } else {
-            DDLogError(@"%s: Cannot start proctoring, missing parameters in attributes %@!", __FUNCTION__, attributes);
-        }
-    }
 }
 
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes
