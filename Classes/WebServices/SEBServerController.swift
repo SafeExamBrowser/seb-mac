@@ -284,7 +284,7 @@ public extension SEBServerController {
                     self.accessToken = tokenString
                 } else {
                     self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
-                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: \(errorResponse?.error ?? "unspecified")", comment: ""),
+                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: ", comment: "") + (errorResponse?.error ?? "unspecified"),
                         NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
                                    NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")."]
                     let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
@@ -343,7 +343,7 @@ public extension SEBServerController {
             let userInfo = [NSLocalizedDescriptionKey : connectionTokenSuccess ?
                             NSLocalizedString("Cannot Establish Server Connection", comment: "") :
                                 NSLocalizedString("Cannot Get Exam List", comment: ""),
-                NSLocalizedRecoverySuggestionErrorKey : "\(NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "")) \(errorResponse?.error ?? "Unspecified")).",
+                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
                            NSDebugDescriptionErrorKey : "Server didn't return \(connectionTokenSuccess ? "connection token" : "exams"), server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
             self.didFail(error: error, fatal: true)
@@ -401,7 +401,7 @@ public extension SEBServerController {
                 self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
-                    NSLocalizedRecoverySuggestionErrorKey : "\(NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "")) \(errorResponse?.error ?? "Unspecified")).",
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
                                NSDebugDescriptionErrorKey : "Server didn't return exam configuration, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
                 self.didFail(error: error, fatal: true)
