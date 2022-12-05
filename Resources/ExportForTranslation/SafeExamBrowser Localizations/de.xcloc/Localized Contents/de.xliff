@@ -15,9 +15,9 @@
         <note>Class = "NSMenuItem"; title = "Save"; ObjectID = "0h8-R9-UfE";</note>
       </trans-unit>
       <trans-unit id="2XV-dZ-8rd.title" xml:space="preserve">
-        <source>Please enter correct password/response!</source>
-        <target>Bitte korrektes Passwort/Response eingeben!</target>
-        <note>Class = "NSTextFieldCell"; title = "Please enter correct password/response!"; ObjectID = "2XV-dZ-8rd";</note>
+        <source>Please enter correct password!</source>
+        <target>Bitte korrektes Passwort eingeben!</target>
+        <note>Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "2XV-dZ-8rd";</note>
       </trans-unit>
       <trans-unit id="5.title" xml:space="preserve">
         <source>Bring All to Front</source>
@@ -570,13 +570,13 @@
         <note>Class = "NSMenu"; title = "Settings"; ObjectID = "sdD-uM-Hx0";</note>
       </trans-unit>
       <trans-unit id="toT-ZU-d4i.title" xml:space="preserve">
-        <source>Enter quit/unlock password/response to unlock SEB:</source>
-        <target>Beenden/Entsperren-Passwort/Response eingeben, um SEB zu entsperren:</target>
-        <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password/response to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
+        <source>Enter quit/unlock password to unlock SEB:</source>
+        <target>Beenden/Entsperren-Passwort eingeben, um SEB zu entsperren:</target>
+        <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title" xml:space="preserve">
         <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
       </trans-unit>
       <trans-unit id="ztz-q9-fV1.title" xml:space="preserve">
@@ -4747,7 +4747,7 @@
       </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
-        <target>%1$@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Report this to your exam provider.</target>
+        <target>%1$@ von Dateien ist in den aktuellen %2$@-Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
@@ -4825,6 +4825,11 @@
         <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="13 Ventura" xml:space="preserve">
+        <source>13 Ventura</source>
+        <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.</source>
         <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.</target>
@@ -4832,7 +4837,7 @@
       </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort/Response ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Accessibility Permissions Needed" xml:space="preserve">
@@ -4970,14 +4975,29 @@
         <target>Client kann nicht konfiguriert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
-        <source>Cannot Connect to SEB Server</source>
-        <target>Verbindung mit SEB Server nicht möglich</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Cannot Decrypt Settings" xml:space="preserve">
         <source>Cannot Decrypt Settings</source>
         <target>Konfiguration kann nicht entschlüsselt werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Establish Server Connection" xml:space="preserve">
+        <source>Cannot Establish Server Connection</source>
+        <target>Kann Serververbindung nicht aufbauen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam Config" xml:space="preserve">
+        <source>Cannot Get Exam Config</source>
+        <target>Prüfungskonfiguration kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam List" xml:space="preserve">
+        <source>Cannot Get Exam List</source>
+        <target>Liste der Prüfungen kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Server API" xml:space="preserve">
+        <source>Cannot Get Server API</source>
+        <target>Server API kann nicht geladen werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
@@ -5005,14 +5025,19 @@
         <target>Prüfung kann nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot access server because of error: " xml:space="preserve">
+        <source>Cannot access server because of error: </source>
+        <target>Zugriff auf den Server fehlgeschlagen wegen Fehler: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Center" xml:space="preserve">
         <source>Center</source>
         <target>Zentrieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
-        <source>Check your configuration, probably connection settings are incorrect.</source>
-        <target>Überprüfen Sie Ihre Konfiguration, vermutlich sind die Verbindungseinstellungen nicht korrekt.</target>
+      <trans-unit id="Check your server connection configuration." xml:space="preserve">
+        <source>Check your server connection configuration.</source>
+        <target>Die Konfiguration der Serververbindung muss überprüft werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Choose" xml:space="preserve">
@@ -5069,6 +5094,31 @@
         <source>Connecting…</source>
         <target>Verbinde…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
+        <source>Connection to SEB Server Failed</source>
+        <target>Verbindung zu SEB Server fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed: Fallback Option" xml:space="preserve">
+        <source>Connection to SEB Server Failed: Fallback Option</source>
+        <target>Verbindung zu SEB Server fehlgeschlagen: Fallback-Option</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your exam administrator" xml:space="preserve">
+        <source>Contact your exam administrator</source>
+        <target>Kontaktieren Sie Ihren Prüfungs-Administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server administrator" xml:space="preserve">
+        <source>Contact your server administrator</source>
+        <target>Kontaktieren Sie Ihren Server-Administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server/exam administrator (Server error: " xml:space="preserve">
+        <source>Contact your server/exam administrator (Server error: </source>
+        <target>Kontaktieren Sie Ihren Server-/Prüfungs-Administrator (Server-Fehler: </target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
@@ -5172,7 +5222,7 @@
       </trans-unit>
       <trans-unit id="Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Dictation is still active" xml:space="preserve">
@@ -5245,6 +5295,11 @@
         <target>Prüfungspasswort eingeben:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enter SEB Server fallback password:" xml:space="preserve">
+        <source>Enter SEB Server fallback password:</source>
+        <target>SEB Server Fallback-Passwort eingeben:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Enter administrator password:" xml:space="preserve">
         <source>Enter administrator password:</source>
         <target>Administrator-Passwort eingeben:</target>
@@ -5303,6 +5358,21 @@
       <trans-unit id="FTP Proxy" xml:space="preserve">
         <source>FTP Proxy</source>
         <target>FTP-Proxy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed" xml:space="preserve">
+        <source>Failed</source>
+        <target>Fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed, retrying..." xml:space="preserve">
+        <source>Failed, retrying...</source>
+        <target>Fehlgeschlagen, erneut versuchen...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fallback" xml:space="preserve">
+        <source>Fallback</source>
+        <target>Fallback</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
@@ -5365,6 +5435,11 @@
         <target>Allgemein</target>
         <note>Title of 'General' preference pane</note>
       </trans-unit>
+      <trans-unit id="Getting Exam Config..." xml:space="preserve">
+        <source>Getting Exam Config...</source>
+        <target>Lade Prüfungskonfiguration...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Holding Command Key Not Allowed!" xml:space="preserve">
         <source>Holding Command Key Not Allowed!</source>
         <target>Befehlstaste drücken nicht erlaubt!</target>
@@ -5383,6 +5458,11 @@
       <trans-unit id="Identity" xml:space="preserve">
         <source>Identity</source>
         <target>Identität</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
+        <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
+        <target>Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct SEB administrator password, then you cannot open preferences." xml:space="preserve">
@@ -5488,6 +5568,11 @@
       <trans-unit id="Main Browser Window" xml:space="preserve">
         <source>Main Browser Window</source>
         <target>Haupt-Browserfenster</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Missing Connection Settings" xml:space="preserve">
+        <source>Missing Connection Settings</source>
+        <target>Fehlende Verbindungseinstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
@@ -5790,6 +5875,11 @@
         <target>Session mit Fernüberwachung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
+        <source>Repeating Error: Invalid Token</source>
+        <target>Wiederholter Fehler: Ungültiges Token</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Required built-in display is still not available!" xml:space="preserve">
         <source>Required built-in display is still not available!</source>
         <target>Verlangtes eingebautes Display immer noch nicht verfügbar!</target>
@@ -5867,12 +5957,12 @@
       </trans-unit>
       <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
       <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
@@ -5952,7 +6042,7 @@
       </trans-unit>
       <trans-unit id="Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen sharing is still active" xml:space="preserve">
@@ -6052,7 +6142,7 @@
       </trans-unit>
       <trans-unit id="Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Siri is still active" xml:space="preserve">
@@ -6097,7 +6187,7 @@
       </trans-unit>
       <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." xml:space="preserve">
@@ -6162,7 +6252,7 @@
       </trans-unit>
       <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
         <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort/Response eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
+        <target>Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." xml:space="preserve">
@@ -6320,6 +6410,11 @@
         <target>Falsches Beenden/Entsperren-Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Wrong SEB Server Fallback Password" xml:space="preserve">
+        <source>Wrong SEB Server Fallback Password</source>
+        <target>Falsches SEB Server Fallback-Passwort</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
         <source>Wrong password entered!</source>
         <target>Falsches Passwort eingegeben!</target>
@@ -6470,14 +6565,19 @@
         <target>Kamera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="decoding error: " xml:space="preserve">
+        <source>decoding error: </source>
+        <target>Dekodierungsfehler: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="get generally blocked" xml:space="preserve">
         <source>get generally blocked</source>
         <target>werden generell blockiert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 14" xml:space="preserve">
-        <source>iOS 14</source>
-        <target>iOS 14</target>
+      <trans-unit id="iOS 16" xml:space="preserve">
+        <source>iOS 16</source>
+        <target>iOS 16</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -6673,7 +6773,7 @@
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.text" xml:space="preserve">
         <source>Please enter correct password!</source>
-        <target>Bitte korrektes Passwort/Response eingeben!</target>
+        <target>Bitte korrektes Passwort eingeben!</target>
         <note>Class = "UILabel"; text = "Please enter correct password!"; ObjectID = "6fi-rT-cNJ";</note>
       </trans-unit>
       <trans-unit id="6pO-9x-gSg.accessibilityHint" xml:space="preserve">
@@ -7829,6 +7929,11 @@
         <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="13 Ventura" xml:space="preserve">
+        <source>13 Ventura</source>
+        <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
         <source>About %@</source>
         <target>Über %@</target>
@@ -7974,11 +8079,6 @@
         <target>Client kann nicht konfiguriert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
-        <source>Cannot Connect to SEB Server</source>
-        <target>Verbindung mit SEB Server nicht möglich</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Cannot Decrypt Settings" xml:space="preserve">
         <source>Cannot Decrypt Settings</source>
         <target>Konfiguration kann nicht entschlüsselt werden</target>
@@ -7987,6 +8087,26 @@
       <trans-unit id="Cannot Edit %@ Settings" xml:space="preserve">
         <source>Cannot Edit %@ Settings</source>
         <target>%@-Einstellungen können nicht bearbeitet werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Establish Server Connection" xml:space="preserve">
+        <source>Cannot Establish Server Connection</source>
+        <target>Kann Serververbindung nicht aufbauen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam Config" xml:space="preserve">
+        <source>Cannot Get Exam Config</source>
+        <target>Prüfungskonfiguration kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam List" xml:space="preserve">
+        <source>Cannot Get Exam List</source>
+        <target>Liste der Prüfungen kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Server API" xml:space="preserve">
+        <source>Cannot Get Server API</source>
+        <target>Server API kann nicht geladen werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">
@@ -8019,6 +8139,11 @@
         <target>Prüfung kann nicht gestartet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot access server because of error: " xml:space="preserve">
+        <source>Cannot access server because of error: </source>
+        <target>Zugriff auf den Server fehlgeschlagen wegen Fehler: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Capturing Screen Not Allowed" xml:space="preserve">
         <source>Capturing Screen Not Allowed</source>
         <target>Bildschirmaufzeichnung/-teilen nicht erlaubt</target>
@@ -8029,9 +8154,9 @@
         <target>Zentrieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
-        <source>Check your configuration, probably connection settings are incorrect.</source>
-        <target>Überprüfen Sie Ihre Konfiguration, wahrscheinlich sind die Verbindungseinstellungen falsch.</target>
+      <trans-unit id="Check your server connection configuration." xml:space="preserve">
+        <source>Check your server connection configuration.</source>
+        <target>Die Konfiguration der Serververbindung muss überprüft werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Closing lockdown windows" xml:space="preserve">
@@ -8068,6 +8193,26 @@
         <source>Connecting…</source>
         <target>Verbinde…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
+        <source>Connection to SEB Server Failed</source>
+        <target>Verbindung zu SEB Server fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your exam administrator" xml:space="preserve">
+        <source>Contact your exam administrator</source>
+        <target>Kontaktieren Sie Ihren Prüfungs-Administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server administrator" xml:space="preserve">
+        <source>Contact your server administrator</source>
+        <target>Kontaktieren Sie Ihren Server-Administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server/exam administrator (Server error: " xml:space="preserve">
+        <source>Contact your server/exam administrator (Server error: </source>
+        <target>Kontaktieren Sie Ihren Server-/Prüfungs-Administrator (Server-Fehler: </target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
@@ -8304,9 +8449,19 @@
         <target>FTP-Proxy</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Failed" xml:space="preserve">
+        <source>Failed</source>
+        <target>Fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Failed to Start Single App Mode" xml:space="preserve">
         <source>Failed to Start Single App Mode</source>
         <target>Einzel-App-Modus konnte nicht gestartet werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed, retrying..." xml:space="preserve">
+        <source>Failed, retrying...</source>
+        <target>Fehlgeschlagen, erneut versuchen...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
@@ -8342,6 +8497,11 @@
       <trans-unit id="Full user name: %@" xml:space="preserve">
         <source>Full user name: %@</source>
         <target>Vollständiger Benutzername: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Getting Exam Config..." xml:space="preserve">
+        <source>Getting Exam Config...</source>
+        <target>Lade Prüfungskonfiguration...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -8477,6 +8637,11 @@
       <trans-unit id="Log in to" xml:space="preserve">
         <source>Log in to</source>
         <target>Einloggen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Missing Connection Settings" xml:space="preserve">
+        <source>Missing Connection Settings</source>
+        <target>Fehlende Verbindungseinstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
@@ -8757,6 +8922,11 @@
       <trans-unit id="Removing Identity Failed!" xml:space="preserve">
         <source>Removing Identity Failed!</source>
         <target>Entfernen der Identität fehlgeschlagen!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
+        <source>Repeating Error: Invalid Token</source>
+        <target>Wiederholter Fehler: Ungültiges Token</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reset Settings" xml:space="preserve">
@@ -9410,6 +9580,11 @@
         <target>Kamera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="decoding error: " xml:space="preserve">
+        <source>decoding error: </source>
+        <target>Dekodierungsfehler: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="encrypted with identity certificate " xml:space="preserve">
         <source>encrypted with identity certificate </source>
         <target>verschlüsselt mit Identitätszertifikat</target>
@@ -9435,9 +9610,9 @@
         <target>werden generell blockiert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 14" xml:space="preserve">
-        <source>iOS 14</source>
-        <target>iOS 14</target>
+      <trans-unit id="iOS 16" xml:space="preserve">
+        <source>iOS 16</source>
+        <target>iOS 16</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">

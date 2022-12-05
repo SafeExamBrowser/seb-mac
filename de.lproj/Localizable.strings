@@ -74,6 +74,9 @@
 "12 Monterey" = "12 Monterey";
 
 /* No comment provided by engineer. */
+"13 Ventura" = "13 Ventura";
+
+/* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
 
 /* No comment provided by engineer. */
@@ -182,13 +185,25 @@
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
+"Cannot access server because of error: " = "Zugriff auf den Server fehlgeschlagen wegen Fehler: ";
+
+/* No comment provided by engineer. */
 "Cannot Configure Client" = "Client kann nicht konfiguriert werden";
 
 /* No comment provided by engineer. */
-"Cannot Connect to SEB Server" = "Verbindung mit SEB Server nicht möglich";
+"Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
-"Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
+"Cannot Establish Server Connection" = "Kann Serververbindung nicht aufbauen";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam Config" = "Prüfungskonfiguration kann nicht geladen werden";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam List" = "Liste der Prüfungen kann nicht geladen werden";
+
+/* No comment provided by engineer. */
+"Cannot Get Server API" = "Server API kann nicht geladen werden";
 
 /* No comment provided by engineer. */
 "Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
@@ -209,7 +224,7 @@
 "Center" = "Zentrieren";
 
 /* No comment provided by engineer. */
-"Check your configuration, probably connection settings are incorrect." = "Überprüfen Sie Ihre Konfiguration, vermutlich sind die Verbindungseinstellungen nicht korrekt.";
+"Check your server connection configuration." = "Die Konfiguration der Serververbindung muss überprüft werden.";
 
 /* No comment provided by engineer. */
 "Choose" = "Auswählen";
@@ -245,6 +260,21 @@
 "Connecting…" = "Verbinde…";
 
 /* No comment provided by engineer. */
+"Connection to SEB Server Failed" = "Verbindung zu SEB Server fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Connection to SEB Server Failed: Fallback Option" = "Verbindung zu SEB Server fehlgeschlagen: Fallback-Option";
+
+/* No comment provided by engineer. */
+"Contact your exam administrator" = "Kontaktieren Sie Ihren Prüfungs-Administrator";
+
+/* No comment provided by engineer. */
+"Contact your server administrator" = "Kontaktieren Sie Ihren Server-Administrator";
+
+/* No comment provided by engineer. */
+"Contact your server/exam administrator (Server error: " = "Kontaktieren Sie Ihren Server-/Prüfungs-Administrator (Server-Fehler: ";
+
+/* No comment provided by engineer. */
 "Continue" = "Weiter";
 
 /* No comment provided by engineer. */
@@ -270,6 +300,9 @@
 
 /* No comment provided by engineer. */
 "Debug Certificate" = "Debug-Zertifikat";
+
+/* No comment provided by engineer. */
+"decoding error: " = "Dekodierungsfehler: ";
 
 /* No comment provided by engineer. */
 "Decrypting exam settings was canceled" = "Entschlüsselung der Prüfungseinstellungen wurde abgebrochen";
@@ -362,6 +395,9 @@
 "Enter quit/unlock password:" = "Beenden/Entsperren-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter SEB Server fallback password:" = "SEB Server Fallback-Passwort eingeben:";
+
+/* No comment provided by engineer. */
 "Enter the %@ administrator password used in client settings:" = "Geben Sie das %@ Administrator-Passwort aus den Client-Einstellungen ein:";
 
 /* No comment provided by engineer. */
@@ -381,6 +417,15 @@
 
 /* No comment provided by engineer. */
 "Exporting Identity Failed" = "Exportieren des Identitätszertifikats ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Failed" = "Fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
+
+/* No comment provided by engineer. */
+"Fallback" = "Fallback";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
@@ -425,6 +470,9 @@
 "get generally blocked" = "werden generell blockiert";
 
 /* No comment provided by engineer. */
+"Getting Exam Config..." = "Lade Prüfungskonfiguration...";
+
+/* No comment provided by engineer. */
 "Holding Command Key Not Allowed!" = "Befehlstaste drücken nicht erlaubt!";
 
 /* No comment provided by engineer. */
@@ -443,6 +491,9 @@
 "If you don't enter the correct SEB administrator password, then you cannot open preferences." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
+"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." = "Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.";
+
+/* No comment provided by engineer. */
 "If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten, in dieser Konfigurationsdatei verwendeten SEB Administrator-Passworts kann diese nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
@@ -458,7 +509,7 @@
 "Info" = "Info";
 
 /* No comment provided by engineer. */
-"iOS 14" = "iOS 14";
+"iOS 16" = "iOS 16";
 
 /* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
@@ -519,6 +570,9 @@
 
 /* No comment provided by engineer. */
 "microphone" = "Mikrofon";
+
+/* No comment provided by engineer. */
+"Missing Connection Settings" = "Fehlende Verbindungseinstellungen";
 
 /* No comment provided by engineer. */
 "Moodle" = "Moodle";
@@ -711,6 +765,9 @@
 
 /* No comment provided by engineer. */
 "Remote Proctoring Session" = "Session mit Fernüberwachung";
+
+/* No comment provided by engineer. */
+"Repeating Error: Invalid Token" = "Wiederholter Fehler: Ungültiges Token";
 
 /* No comment provided by engineer. */
 "Required built-in display is still not available!" = "Verlangtes eingebautes Display immer noch nicht verfügbar!";
@@ -1065,6 +1122,9 @@
 
 /* No comment provided by engineer. */
 "Wrong quit/unlock password." = "Falsches Beenden/Entsperren-Passwort";
+
+/* No comment provided by engineer. */
+"Wrong SEB Server Fallback Password" = "Falsches SEB Server Fallback-Passwort";
 
 /* No comment provided by engineer. */
 "You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation." = "Es ist nicht erlaubt, die Diktat-Funktion zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Diktat-Funktion deaktiviert haben.";
