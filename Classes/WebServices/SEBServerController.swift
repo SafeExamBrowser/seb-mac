@@ -64,7 +64,25 @@ public class PendingServerRequest : NSObject {
 @objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate {
     
     fileprivate var session: URLSession
-    fileprivate var pendingRequests: [PendingServerRequest] = []
+    private let pendingRequestsQueue = dispatch_queue_concurrent_t.init(label: UUID().uuidString)
+
+    private var _pendingRequests: [PendingServerRequest] = []
+    public var pendingRequests: [PendingServerRequest] {
+        get {
+            var result: [PendingServerRequest] = []
+            pendingRequestsQueue.sync() {
+                result = self._pendingRequests
+            }
+            return result
+        }
+
+        set {
+            pendingRequestsQueue.async(group: nil, qos: .default, flags: .barrier) {
+                self._pendingRequests = newValue
+            }
+        }
+    }
+    
     fileprivate var serverAPI: SEB_Endpoints?
     fileprivate var accessToken: String?
     fileprivate var gettingAccessToken = false
@@ -536,7 +554,8 @@ public extension SEBServerController {
                 }
             } else {
                 // Sending this event failed: wait for fallback interval and retry
-                self.logSendigDispatchQueue.asyncAfter(deadline: (.now() + self.fallbackAttemptInterval)) {
+                self.logSendigDispatchQueue.async {
+                    Thread.sleep(forTimeInterval: self.fallbackAttemptInterval)
                     self.sendLogNotification(logLevel: logLevel, timestamp: timestamp, numericValue: numericValue, text: text)
                 }
             }
