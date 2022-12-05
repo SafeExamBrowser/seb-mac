@@ -934,11 +934,11 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
             NSDictionary *webElementDict = [actionInformation valueForKey:@"WebActionElementKey"];
             if (webElementDict) {
     #ifdef DEBUG
-                DDLogDebug(@"DOMNode *webElementDOMNode = [webElementDict valueForKey:@\"WebElementDOMNode\"];");
+                DDLogVerbose(@"DOMNode *webElementDOMNode = [webElementDict valueForKey:@\"WebElementDOMNode\"];");
     #endif
                 DOMNode *webElementDOMNode = [webElementDict valueForKey:@"WebElementDOMNode"];
     #ifdef DEBUG
-                DDLogDebug(@"Successfully got webElementDOMNode");
+                DDLogVerbose(@"Successfully got webElementDOMNode");
     #endif
 
                 // Do we have a parentNode?
@@ -946,19 +946,19 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                     
                     // Is the parent an anchor?
     #ifdef DEBUG
-                    DDLogDebug(@"DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;");
+                    DDLogVerbose(@"DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;");
     #endif
                     DOMHTMLAnchorElement *parentNode = (DOMHTMLAnchorElement *)webElementDOMNode.parentNode;
     #ifdef DEBUG
-                    DDLogDebug(@"Successfully got webElementDOMNode.parentNode");
+                    DDLogVerbose(@"Successfully got webElementDOMNode.parentNode");
     #endif
                     if ([parentNode respondsToSelector:@selector(nodeName)]) {
     #ifdef DEBUG
-                        DDLogDebug(@"if ([parentNode.nodeName isEqualToString:@\"A\"]) {");
+                        DDLogVerbose(@"if ([parentNode.nodeName isEqualToString:@\"A\"]) {");
     #endif
                         if ([parentNode.nodeName isEqualToString:@"A"]) {
     #ifdef DEBUG
-                            DDLogDebug(@"Successfully compared parentNode.nodeName to A");
+                            DDLogVerbose(@"Successfully compared parentNode.nodeName to A");
     #endif
                             self.downloadFilename = [self getFilenameFromHTMLAnchorElement:parentNode];
                         }
@@ -969,28 +969,28 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
                         // We had to check if we get children, bad formatted HTML and
                         // older WebKit versions would throw an exception here
     #ifdef DEBUG
-                        DDLogDebug(@"DOMHTMLCollection *childrenNodes = parentNode.children;");
+                        DDLogVerbose(@"DOMHTMLCollection *childrenNodes = parentNode.children;");
     #endif
                         DOMHTMLCollection *childrenNodes = parentNode.children;
     #ifdef DEBUG
-                        DDLogDebug(@"Successfully got childrenNodes = parentNode.children");
+                        DDLogVerbose(@"Successfully got childrenNodes = parentNode.children");
     #endif
                         uint i;
                         for (i = 0; i < childrenNodes.length; i++) {
     #ifdef DEBUG
-                            DDLogDebug(@"DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];");
+                            DDLogVerbose(@"DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];");
     #endif
                             DOMHTMLAnchorElement *childNode = (DOMHTMLAnchorElement *)[childrenNodes item:i];
     #ifdef DEBUG
-                            DDLogDebug(@"Successfully got childNode");
+                            DDLogVerbose(@"Successfully got childNode");
     #endif
                             if ([childNode respondsToSelector:@selector(nodeName)]) {
     #ifdef DEBUG
-                                DDLogDebug(@"if ([childNode.nodeName isEqualToString:@\"A\"]) {");
+                                DDLogVerbose(@"if ([childNode.nodeName isEqualToString:@\"A\"]) {");
     #endif
                                 if ([childNode.nodeName isEqualToString:@"A"]) {
     #ifdef DEBUG
-                                    DDLogDebug(@"Successfully got childNode.nodeName");
+                                    DDLogVerbose(@"Successfully got childNode.nodeName");
     #endif
                                     self.downloadFilename = [self getFilenameFromHTMLAnchorElement:childNode];
                                     break;
