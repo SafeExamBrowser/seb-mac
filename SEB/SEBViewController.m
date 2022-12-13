@@ -3642,23 +3642,121 @@ void run_on_ui_thread(dispatch_block_t block)
     if (optionallyAttemptFallback) {
         if (!self.serverController.fallbackEnabled) {
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
-            NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
-            [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed", nil)
-                         message:informativeText
-                    action1Title:NSLocalizedString(@"OK", nil)
-                  action1Handler:^(void){
-                [self closeServerViewAndRestart:self];
-            }
-                    action2Title:nil
-                  action2Handler:nil];
+            [self closeServerViewWithCompletion:^{
+                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed", nil)
+                             message:informativeText
+                        action1Title:NSLocalizedString(@"Retry", nil)
+                      action1Handler:^(void){
+                    self.establishingSEBServerConnection = NO;
+                    [self startExamWithFallback:NO];
+                }
+                        action2Title:NSLocalizedString(@"Quit Session", nil)
+                      action2Handler:^(void){
+                    [self closeServerViewAndRestart:self];
+                }];
+                return;
+            }];
             return;
         } else {
-            DDLogInfo(@"Open startURL as SEB Server fallback");
             [self closeServerViewWithCompletion:^{
-                [self startExamWithFallback:YES];
+                DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
+                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
+                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", nil)
+                             message:informativeText
+                      preferredStyle:UIAlertControllerStyleAlert
+                        action1Title:NSLocalizedString(@"Retry", nil)
+                        action1Style:UIAlertActionStyleDefault
+                      action1Handler:^(void){
+                    DDLogInfo(@"User selected Retry option");
+                    self.establishingSEBServerConnection = NO;
+                    [self startExamWithFallback:NO];
+                }
+                        action2Title:NSLocalizedString(@"Fallback", nil)
+                        action2Style:UIAlertActionStyleDefault
+                      action2Handler:^(void){
+                    DDLogInfo(@"User selected Fallback option");
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    NSString *sebServerFallbackPasswordHash = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerFallbackPasswordHash"];
+                    // If SEB Server fallback password is set, then restrict fallback
+                    if (sebServerFallbackPasswordHash.length != 0) {
+                        DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
+                        [self promptPasswordWithMessageText:NSLocalizedString(@"Enter SEB Server fallback password:", nil) title:NSLocalizedString(@"SEB Server Fallback Password Required", nil) completion:^(NSString* password) {
+                            
+                            SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                            if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                                DDLogInfo(@"Correct SEB Server fallback password entered");
+                                DDLogInfo(@"Open startURL as SEB Server fallback");
+                                self.establishingSEBServerConnection = NO;
+                                [self startExamWithFallback:YES];
+                                
+                            } else {
+                                DDLogInfo(@"%@ SEB Server fallback password entered", password.length > 0 ? @"Wrong" : @"No");
+                                
+                                self.alertController = [UIAlertController  alertControllerWithTitle:password.length > 0 ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", nil) : NSLocalizedString(@"No SEB Server Fallback Password entered", nil)
+                                                                                            message:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", nil)
+                                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                    self.alertController = nil;
+                                    [self didFailWithError:error fatal:fatal];
+                                    
+                                }]];
+                                [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                                
+                                
+                            }
+                            [self closeServerViewAndRestart:self];
+                        }];
+                    } else {
+                        DDLogInfo(@"Open startURL as SEB Server fallback");
+                        self.establishingSEBServerConnection = NO;
+                        [self startExamWithFallback:YES];
+                    }
+                }
+                        action3Title:NSLocalizedString(@"Quit Session", nil)
+                        action3Style:UIAlertActionStyleDestructive
+                      action3Handler:^(void){
+                    DDLogInfo(@"User selected Quit option");
+                    [self closeServerViewAndRestart:self];
+                }];
+                return;
             }];
         }
     }
+}
+
+
+// Ask the user to enter a password using the message text and then call the callback selector with the password as parameter
+- (void) promptPasswordWithMessageText:(NSString *)messageText title:(NSString *)titleString completion:(void (^)(NSString * _Nullable ))completion;
+{
+    if (self.alertController) {
+        [self.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    self.alertController = [UIAlertController alertControllerWithTitle:titleString
+                                                               message:messageText
+                                                        preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+        textField.placeholder = NSLocalizedString(@"Password", nil);
+        textField.secureTextEntry = YES;
+    }];
+    
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *password = self.alertController.textFields.firstObject.text;
+        self.alertController = nil;
+        completion(password);
+    }]];
+    
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        completion(nil);
+    }]];
+    
+    [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
 }
 
 
@@ -5000,6 +5098,52 @@ void run_on_ui_thread(dispatch_block_t block)
         }]];
     }
     
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+         preferredStyle:(UIAlertControllerStyle)controllerStyle
+           action1Title:(NSString *)action1Title
+           action1Style:(UIAlertActionStyle)action1Style
+         action1Handler:(void (^)(void))action1Handler
+           action2Title:(NSString *)action2Title
+           action2Style:(UIAlertActionStyle)action2Style
+         action2Handler:(void (^)(void))action2Handler
+           action3Title:(NSString *)action3Title
+           action3Style:(UIAlertActionStyle)action3Style
+         action3Handler:(void (^)(void))action3Handler
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController alertControllerWithTitle:title
+                                                           message:message
+                                                    preferredStyle:controllerStyle];
+    [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
+                                                         style:action1Style
+                                                       handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        action1Handler();
+    }]];
+    if (action2Title) {
+        [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
+                                                             style:action2Style
+                                                           handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            action2Handler();
+        }]];
+    }
+    if (action3Title) {
+        [_alertController addAction:[UIAlertAction actionWithTitle:action3Title
+                                                             style:action3Style
+                                                           handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            action2Handler();
+        }]];
+    }
+
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 

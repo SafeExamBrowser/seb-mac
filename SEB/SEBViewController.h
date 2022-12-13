@@ -314,7 +314,6 @@
 - (void) resetSEB;
 
 #pragma mark - Start and quit exam session
-- (void) startExam;
 - (void) quitExamConditionally;
 - (void) sessionQuitRestart:(BOOL)restart;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
@@ -407,6 +406,19 @@
            action2Title:(NSString *)action2Title
            action2Style:(UIAlertActionStyle)action2Style
          action2Handler:(void (^)(void))action2Handler;
+
+- (void) alertWithTitle:(NSString *)title
+                message:(NSString *)message
+         preferredStyle:(UIAlertControllerStyle)controllerStyle
+           action1Title:(NSString *)action1Title
+           action1Style:(UIAlertActionStyle)action1Style
+         action1Handler:(void (^)(void))action1Handler
+           action2Title:(NSString *)action2Title
+           action2Style:(UIAlertActionStyle)action2Style
+         action2Handler:(void (^)(void))action2Handler
+           action3Title:(NSString *)action3Title
+           action3Style:(UIAlertActionStyle)action3Style
+         action3Handler:(void (^)(void))action32Handler;
 
 // Delegate method to display an enter password dialog with the
 // passed message text asynchronously, calling the callback
