@@ -334,10 +334,10 @@ conditionallyForWindow:(NSWindow *)window
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 
-- (NSInteger) showEnterPasswordDialog:(NSString *)text
+- (NSModalResponse) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *)window
                           windowTitle:(NSString *)title;
-- (NSInteger) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
+- (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
                                      modalForWindow:(NSWindow *)window
                                         windowTitle:(NSString *)title;
 

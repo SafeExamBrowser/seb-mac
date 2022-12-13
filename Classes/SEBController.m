@@ -1302,7 +1302,9 @@ bool insideMatrix(void);
                             // If SEB Server fallback password is set, then restrict fallback
                             if (sebServerFallbackPasswordHash.length != 0) {
                                 DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
-                                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+                                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) {
+                                    return;
+                                }
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -5631,14 +5633,14 @@ conditionallyForWindow:(NSWindow *)window
 
 
 
-- (NSInteger) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
 {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
     return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window windowTitle:title];
 }
     
     
-- (NSInteger) showEnterPasswordDialogAttributedText:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
 {
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
 
