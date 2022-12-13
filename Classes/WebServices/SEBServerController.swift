@@ -37,7 +37,7 @@ import Foundation
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didEstablishSEBServerConnection()
     func didSelectExam(_ examId: String, url: String)
-    func closeServerView()
+    func closeServerView(completion: @escaping () -> ())
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
     func didReceiveMoodleUserId(_ moodleUserId: String)
@@ -397,8 +397,9 @@ public extension SEBServerController {
                               keys.sebConnectionToken : connectionToken!]
         loadWithFallback(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange, let config = examConfigResponse  {
-                self.delegate?.closeServerView()
-                self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
+                self.delegate?.closeServerView(completion: {
+                    self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
+                })
             } else {
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
