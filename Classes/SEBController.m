@@ -1308,16 +1308,16 @@ bool insideMatrix(void);
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                                if (password && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                                if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                                     DDLogInfo(@"Correct SEB Server fallback password entered");
                                     DDLogInfo(@"Open startURL as SEB Server fallback");
                                     self.establishingSEBServerConnection = NO;
                                     [self startExamWithFallback:YES];
 
                                 } else {
-                                    DDLogInfo(@"%@ SEB Server fallback password entered", password ? @"Wrong" : @"No");
+                                    DDLogInfo(@"%@ SEB Server fallback password entered", password.length > 0 ? @"Wrong" : @"No");
                                     NSAlert *modalAlert = [self newAlert];
-                                    [modalAlert setMessageText:password ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", nil) : NSLocalizedString(@"No SEB Server Fallback Password entered", nil)];
+                                    [modalAlert setMessageText:password.length > 0 ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", nil) : NSLocalizedString(@"No SEB Server Fallback Password entered", nil)];
                                     [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", nil)];
                                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                                     [modalAlert setAlertStyle:NSWarningAlertStyle];
