@@ -1205,7 +1205,6 @@ bool insideMatrix(void);
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
-    _sebServerViewController = false;
     [self.serverController examSelected:examId url:url];
 }
 
@@ -1302,9 +1301,7 @@ bool insideMatrix(void);
                             // If SEB Server fallback password is set, then restrict fallback
                             if (sebServerFallbackPasswordHash.length != 0) {
                                 DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
-                                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) {
-                                    return;
-                                }
+                                [self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""];
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
