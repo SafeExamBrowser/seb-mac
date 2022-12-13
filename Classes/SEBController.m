@@ -1289,6 +1289,7 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
+                            DDLogInfo(@"User selected Retry option");
                             self.establishingSEBServerConnection = NO;
                             [self startExamWithFallback:NO];
                             break;
@@ -1305,16 +1306,16 @@ bool insideMatrix(void);
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                                if ([sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                                if (password && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                                     DDLogInfo(@"Correct SEB Server fallback password entered");
                                     DDLogInfo(@"Open startURL as SEB Server fallback");
                                     self.establishingSEBServerConnection = NO;
                                     [self startExamWithFallback:YES];
 
                                 } else {
-                                    DDLogInfo(@"Wrong SEB Server fallback password entered");
+                                    DDLogInfo(@"%@ SEB Server fallback password entered", password ? @"Wrong" : @"No");
                                     NSAlert *modalAlert = [self newAlert];
-                                    [modalAlert setMessageText:NSLocalizedString(@"Wrong SEB Server Fallback Password", nil)];
+                                    [modalAlert setMessageText:password ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", nil) : NSLocalizedString(@"No SEB Server Fallback Password entered", nil)];
                                     [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", nil)];
                                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
                                     [modalAlert setAlertStyle:NSWarningAlertStyle];
@@ -1333,6 +1334,7 @@ bool insideMatrix(void);
                         }
                         case NSAlertThirdButtonReturn:
                         {
+                            DDLogInfo(@"User selected Quit option");
                             [self closeServerViewAndRestart:self];
                             break;
                         }
