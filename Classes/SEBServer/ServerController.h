@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart;
 
 @optional
+- (void) closeServerViewWithCompletion:(void (^)(void))completion;
 - (void) startBatteryMonitoringWithDelegate:(id)delegate;
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;

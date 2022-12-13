@@ -3569,7 +3569,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) showSEBServerView
 {
-    if (_sebServerViewDisplayed == false) {
+    if (_sebServerViewDisplayed == NO) {
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
                 self.alertController = nil;
@@ -3588,11 +3588,11 @@ void run_on_ui_thread(dispatch_block_t block)
         _sebServerViewController.modalInPopover = YES;
     }
     
-    self.sebServerViewController.sebServerController = self.serverController.sebServerController;
+    _sebServerViewController.sebServerController = self.serverController.sebServerController;
     self.serverController.sebServerController.serverControllerUIDelegate = self.sebServerViewController;
 
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
-        self.sebServerViewDisplayed = true;
+        self.sebServerViewDisplayed = YES;
         [self.sebServerViewController updateExamList];
     }];
 }
@@ -3608,12 +3608,6 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
     [self.serverController examSelected:examId url:url];
-}
-
-
-- (void) closeServerView
-{
-    [self closeServerViewWithCompletion:^{}];
 }
 
 
@@ -3672,6 +3666,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     self.establishingSEBServerConnection = NO;
                     [self startExamWithFallback:NO];
                 }
+                 
                         action2Title:NSLocalizedString(@"Fallback", nil)
                         action2Style:UIAlertActionStyleDefault
                       action2Handler:^(void){
@@ -3703,10 +3698,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                     
                                 }]];
                                 [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                                
-                                
                             }
-                            [self closeServerViewAndRestart:self];
                         }];
                     } else {
                         DDLogInfo(@"Open startURL as SEB Server fallback");
@@ -3714,6 +3706,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         [self startExamWithFallback:YES];
                     }
                 }
+                 
                         action3Title:NSLocalizedString(@"Quit Session", nil)
                         action3Style:UIAlertActionStyleDestructive
                       action3Handler:^(void){
@@ -3770,10 +3763,15 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) closeServerViewWithCompletion:(void (^)(void))completion
 {
-    [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
-        self.sebServerViewDisplayed = NO;
+    if (_sebServerViewController) {
+        [_sebServerViewController dismissViewControllerAnimated:YES completion:^{
+            self.sebServerViewDisplayed = NO;
+            self.sebServerViewController = nil;
+            completion();
+        }];
+    } else {
         completion();
-    }];
+    }
 }
 
 
@@ -5140,7 +5138,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                              style:action3Style
                                                            handler:^(UIAlertAction *action) {
             self.alertController = nil;
-            action2Handler();
+            action3Handler();
         }]];
     }
 
