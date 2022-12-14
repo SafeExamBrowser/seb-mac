@@ -84,12 +84,14 @@ import PDFKit
         
         let jsDocumentEndCode = """
     var elements = document.body.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), details:not([disabled]), summary:not([disabled])');
-    elements[0].addEventListener('blur', (event) => {
-        window.webkit.messageHandlers.firstElementBlured.postMessage(event.target.outerHTML);
-      }, true);
-    elements[elements.length - 1].addEventListener('blur', (event) => {
-        window.webkit.messageHandlers.lastElementBlured.postMessage(event.target.outerHTML);
-      }, true);
+    if (elements[0]) {
+        elements[0].addEventListener('blur', (event) => {
+            window.webkit.messageHandlers.firstElementBlured.postMessage(event.target.outerHTML);
+        }, true);
+        elements[elements.length - 1].addEventListener('blur', (event) => {
+            window.webkit.messageHandlers.lastElementBlured.postMessage(event.target.outerHTML);
+        }, true);
+    }
 """
         let jsDocumentEndScript = WKUserScript(source: jsDocumentEndCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
         userContentController.addUserScript(jsDocumentEndScript)
@@ -794,11 +796,16 @@ import PDFKit
 
         
         if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
-            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]').download") {(result, error) in
-                self.downloadFilename = result as? String
-                DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
-                if self.downloadFilename != nil {
-                    self.forceDownload = true
+            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
+                if error == nil {
+                    self.downloadFilename = result as? String
+                    DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
+                    if self.downloadFilename != nil {
+                        self.forceDownload = true
+                    }
+                } else {
+                    DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
+                    self.downloadFilename = nil
                 }
                 proceedHandler()
             }
