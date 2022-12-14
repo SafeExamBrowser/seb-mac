@@ -462,7 +462,7 @@ static NSNumber *_logLevel;
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
                         
-                        [newProcesses addObject:matchingProcessFromSettings.copy];
+                        [newProcesses addObject:matchingProcessFromSettings];
                     } else {
                         [newProcesses addObject:presetProcess];
                     }
