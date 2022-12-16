@@ -494,7 +494,7 @@
         }
     }
     // Update enabled property of reload button in Dock
-    [self.sebController reloadButtonEnabled:webView.isReloadAllowed];
+    self.sebController.reloadButtonEnabled = webView.isReloadAllowed;
 }
 
 

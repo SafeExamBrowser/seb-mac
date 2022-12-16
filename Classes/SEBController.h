@@ -358,7 +358,8 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) showAbout:(id)sender;
 - (IBAction) showHelp:(id)sender;
 
-- (void) reloadButtonEnabled:(BOOL)enabled;
+@property(readwrite, nonatomic) BOOL reloadButtonEnabled;
+@property(strong, nonatomic) ReloadPageUIElement *reloadPageUIElement;
 
 - (IBAction) searchText:(id)sender;
 - (IBAction) searchTextNext:(id)sender;

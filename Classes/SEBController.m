@@ -311,6 +311,7 @@ bool insideMatrix(void);
         // we need to first open the background cover windows with standard window levels
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
 
+        _reloadPageUIElement = [ReloadPageUIElement new];
     }
     return self;
 }
@@ -5593,9 +5594,9 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) reloadButtonEnabled:(BOOL)enabled
+- (void) setReloadButtonEnabled:(BOOL)enabled
 {
-    _dockButtonReload.enabled = enabled;
+    _reloadPageUIElement.enabled = enabled;
 }
 
 
