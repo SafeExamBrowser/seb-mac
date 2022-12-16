@@ -1954,17 +1954,44 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         if (!temporary) {
             if (@available(iOS 11.0, *)) {
+                BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
+                BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
                 BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
-                if (jitsiMeetEnable) {
-                    void (^conditionallyStartProctoring)(void) =
+                BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
+                BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
+                BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+
+                if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
+                    NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
+                                                         jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @""];
+                    DDLogError(@"%@Remote proctoring not available", notAvailableRequiredRemoteProctoringService);
+                    run_on_ui_thread(^{
+                         
+                        [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Not Available", nil)
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", nil), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]
+                                action1Title:NSLocalizedString(@"OK", nil)
+                              action1Handler:^ {
+                            self.alertController = nil;
+                            [self sessionQuitRestart:NO];
+                        }
+                                action2Title:nil
+                              action2Handler:^{}];
+                    });
+                    return;
+                }
+                
+                void (^conditionallyStartProctoring)(void) =
+                ^{
+                    // OK action handler
+                    void (^startRemoteProctoringOK)(void) =
                     ^{
-                        // OK action handler
-                        void (^startRemoteProctoringOK)(void) =
-                        ^{
+                        if (jitsiMeetEnable) {
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
-                            run_on_ui_thread(completionBlock);
-                        };
+                        }
+                        run_on_ui_thread(completionBlock);
+                    };
+                    if (jitsiMeetEnable) {
                         // Check if previous SEB session already had proctoring active
                         if (self.previousSessionJitsiMeetEnabled) {
                             run_on_ui_thread(startRemoteProctoringOK);
@@ -1981,8 +2008,16 @@ void run_on_ui_thread(dispatch_block_t block)
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
                             }];
+                            return;
                         }
-                    };
+                    }
+                    run_on_ui_thread(completionBlock);
+                };
+                
+                if (browserMediaCaptureMicrophone ||
+                    browserMediaCaptureCamera ||
+                    zoomEnable ||
+                    jitsiMeetEnable) {
                     AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
                     AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
                     if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
@@ -1990,11 +2025,15 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
-                        NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                        NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
                         NSString *camera = @"";
-                        if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                        if ((proctoringSession || browserMediaCaptureCamera) && videoAuthorization != AVAuthorizationStatusAuthorized) {
                             camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
                         }
+                        NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
+                                                            proctoringSession ? NSLocalizedString(@"remote proctoring", nil) : @"",
+                                                            proctoringSession && webApplications ? NSLocalizedString(@" and ", nil) : @"",
+                                                            webApplications ? NSLocalizedString(@"web applications", nil) : @""];
                         NSString *resolveSuggestion;
                         NSString *resolveSuggestion2;
                         NSString *message;
@@ -2008,12 +2047,12 @@ void run_on_ui_thread(dispatch_block_t block)
                         }
                         if (videoAuthorization == AVAuthorizationStatusRestricted ||
                             audioAuthorization == AVAuthorizationStatusRestricted) {
-                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone];
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone, permissionsRequiredFor, camera, microphone];
                         } else {
-                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, resolveSuggestion, resolveSuggestion2];
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
                         }
                         
-                        self.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Permissions Required for Remote Proctoring", nil)
+                        self.alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", nil), permissionsRequiredFor.localizedCapitalizedString]
                                                                                    message:message
                                                                             preferredStyle:UIAlertControllerStyleAlert];
                         
@@ -2073,20 +2112,6 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
                 } else {
                     self.previousSessionJitsiMeetEnabled = NO;
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
-                        run_on_ui_thread(^{
-                            [self alertWithTitle:NSLocalizedString(@"Zoom Remote Proctoring Not Available", nil)
-                                         message:NSLocalizedString(@"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil)
-                                    action1Title:NSLocalizedString(@"OK", nil)
-                                  action1Handler:^ {
-                                self.alertController = nil;
-                                [self sessionQuitRestart:NO];
-                            }
-                                    action2Title:nil
-                                  action2Handler:^{}];
-                        });
-                        return;
-                    }
                 }
             }
             run_on_ui_thread(completionBlock);
