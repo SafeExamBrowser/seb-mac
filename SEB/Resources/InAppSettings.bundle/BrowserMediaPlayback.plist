@@ -54,6 +54,30 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Media Capture</string>
+			<key>FooterText</key>
+			<string>Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Camera Capture</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaCaptureCamera</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Microphone Capture</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserMediaCaptureMicrophone</string>
+		</dict>
 	</array>
 </dict>
 </plist>

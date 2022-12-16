@@ -199,6 +199,8 @@
 @property (strong, nonatomic) SEBServerViewController *sebServerViewController;
 
 /// Remote Proctoring
+#define JitsiMeetProctoringSupported YES
+#define ZoomProctoringSupported NO
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer API_AVAILABLE(ios(11));
 @property (readwrite) UIInterfaceOrientation userInterfaceOrientation;

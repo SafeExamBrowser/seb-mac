@@ -2066,11 +2066,12 @@ void run_on_ui_thread(dispatch_block_t block)
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
-        DDLogError(@"%@%@Remote proctoring not available", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
-                   jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @"");
+        NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
+                                             jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @""];
+        DDLogError(@"%@Remote proctoring not available", notAvailableRequiredRemoteProctoringService);
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", nil)];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.", nil), SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", nil), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
         [modalAlert setAlertStyle:NSWarningAlertStyle];
         void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -2178,9 +2179,9 @@ void run_on_ui_thread(dispatch_block_t block)
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
                   videoAuthorization == AVAuthorizationStatusAuthorized)) {
-                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
                 NSString *camera = @"";
-                if (videoAuthorization != AVAuthorizationStatusAuthorized) {
+                if ((proctoringSession || browserMediaCaptureCamera) && videoAuthorization != AVAuthorizationStatusAuthorized) {
                     camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
                 }
                 NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
@@ -2282,7 +2283,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.previousSessionZoomEnabled = NO;
     }
     
-    // Continue to starting the exam session
+    // Continue starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
     func(callback, selector);
