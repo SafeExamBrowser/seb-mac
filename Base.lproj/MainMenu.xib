@@ -334,7 +334,7 @@
                             <menuItem title="Reload Page" keyEquivalent="r" id="887">
                                 <connections>
                                     <action selector="reload:" target="543" id="XEr-5J-eyD"/>
-                                    <binding destination="543" name="enabled" keyPath="self.dockButtonReload.enabled" id="FOS-yi-Kew"/>
+                                    <binding destination="543" name="enabled" keyPath="self.reloadPageUIElement.enabled" id="1pV-Iw-Bup"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="905"/>
