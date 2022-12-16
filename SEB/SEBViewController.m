@@ -796,6 +796,7 @@ static NSMutableSet *browserWindowControllers;
     // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];
     [self.configFileController storeIntoUserDefaults:emptySettings];
+    [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"configFileName"];
     
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
     
