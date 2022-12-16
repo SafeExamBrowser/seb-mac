@@ -184,7 +184,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Media Playback</string>
+			<string>Media Playback/Capture</string>
 			<key>File</key>
 			<string>BrowserMediaPlayback</string>
 		</dict>
