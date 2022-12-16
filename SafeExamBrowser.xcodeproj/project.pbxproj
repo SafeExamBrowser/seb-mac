@@ -556,6 +556,8 @@
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
 		69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
+		69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */; };
+		69C2C912294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */; };
 		69C73FAC28A5A34F00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69C73FAD28A5A37B00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69C73FAE28A5A37C00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
@@ -1675,6 +1677,7 @@
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
 		69BBAE55232702BD005BC19F /* ServerLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerLogger.m; sourceTree = "<group>"; };
+		69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadPageUIElement.swift; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
@@ -2536,6 +2539,7 @@
 				69B581831ED8214700CE70F3 /* SEBAboutController.m */,
 				69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */,
 				69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */,
+				69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -4578,6 +4582,7 @@
 				69D3C50E27A0366400890B31 /* SEBController.m in Sources */,
 				69D3C50F27A0366400890B31 /* CapView.m in Sources */,
 				69D3C51027A0366400890B31 /* AboutWindow.m in Sources */,
+				69C2C912294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */,
 				69D3C51127A0366400890B31 /* AboutView.m in Sources */,
 				69D3C51227A0366400890B31 /* SEBBrowserWindow.m in Sources */,
 				69D3C51327A0366400890B31 /* MBPreferencesController.m in Sources */,
@@ -4697,6 +4702,7 @@
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
+				69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */,
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
@@ -5291,7 +5297,7 @@
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -5392,7 +5398,7 @@
 					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
 					"$(PROJECT_DIR)/SEB/Frameworks",
 				);
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -6081,7 +6087,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
@@ -6146,7 +6152,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.2.1;
+				MARKETING_VERSION = 3.2.2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
