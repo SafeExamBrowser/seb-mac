@@ -2010,8 +2010,9 @@ void run_on_ui_thread(dispatch_block_t block)
                             }];
                             return;
                         }
+                    } else {
+                        run_on_ui_thread(completionBlock);
                     }
-                    run_on_ui_thread(completionBlock);
                 };
                 
                 if (browserMediaCaptureMicrophone ||

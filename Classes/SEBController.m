@@ -2162,11 +2162,12 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
                 return;
             }
+        } else {
+            // Continue starting the exam session
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL) = (void *)imp;
+            func(callback, selector);
         }
-        // Continue starting the exam session
-        IMP imp = [callback methodForSelector:selector];
-        void (*func)(id, SEL) = (void *)imp;
-        func(callback, selector);
     };
 
     if (browserMediaCaptureMicrophone ||
