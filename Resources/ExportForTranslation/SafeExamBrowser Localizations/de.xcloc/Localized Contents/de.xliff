@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
@@ -2869,9 +2870,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server"; ObjectID = "412";</note>
       </trans-unit>
       <trans-unit id="413.title" xml:space="preserve">
-        <source>SEB Server Fallback (Win)</source>
-        <target>SEB Server-Fallback (Win)</target>
-        <note>Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413";</note>
+        <source>SEB Server Fallback</source>
+        <target>SEB Server-Fallback</target>
+        <note>Class = "NSButtonCell"; title = "SEB Server Fallback"; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="JvD-qA-qAF.title" xml:space="preserve">
         <source>SEB Server URL</source>
@@ -5150,9 +5151,9 @@
         <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
-        <target>Die aktuellen Einstellungen erfordern Fernüberwachung, welche von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
+      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
@@ -5628,6 +5629,11 @@
       <trans-unit id="No Hostname Found" xml:space="preserve">
         <source>No Hostname Found</source>
         <target>Kein Hostname gefunden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
+        <source>No SEB Server Fallback Password entered</source>
+        <target>Kein SEB Server Fallback-Passwort eingegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No built-in display available, although required in settings!" xml:space="preserve">
@@ -6410,9 +6416,9 @@
         <target>Falsches Beenden/Entsperren-Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Wrong SEB Server Fallback Password" xml:space="preserve">
-        <source>Wrong SEB Server Fallback Password</source>
-        <target>Falsches SEB Server Fallback-Passwort</target>
+      <trans-unit id="Wrong SEB Server Fallback Password entered" xml:space="preserve">
+        <source>Wrong SEB Server Fallback Password entered</source>
+        <target>Falsches  SEB Server Fallback-Passwort eingegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
@@ -8199,6 +8205,11 @@
         <target>Verbindung zu SEB Server fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed: Fallback Option" xml:space="preserve">
+        <source>Connection to SEB Server Failed: Fallback Option</source>
+        <target>Verbindung zu SEB Server fehlgeschlagen: Fallback-Option</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Contact your exam administrator" xml:space="preserve">
         <source>Contact your exam administrator</source>
         <target>Kontaktieren Sie Ihren Prüfungs-Administrator</target>
@@ -8259,9 +8270,9 @@
         <target>Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
-        <target>Die aktuellen Einstellungen erfordern Zoom-Fernüberwachung, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
+      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." xml:space="preserve">
@@ -8399,6 +8410,11 @@
         <target>Admin-Passwort des Identitätszertifikats eingeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enter SEB Server fallback password:" xml:space="preserve">
+        <source>Enter SEB Server fallback password:</source>
+        <target>SEB Server Fallback-Passwort eingeben:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Enter password used to encrypt these settings:" xml:space="preserve">
         <source>Enter password used to encrypt these settings:</source>
         <target>Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:</target>
@@ -8464,6 +8480,11 @@
         <target>Fehlgeschlagen, erneut versuchen...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Fallback" xml:space="preserve">
+        <source>Fallback</source>
+        <target>Fallback</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
         <target>Identitäten werden geladen …</target>
@@ -8479,14 +8500,14 @@
         <target>Aus Sicherheitsgründen kann %@ nicht auf einer iOS 11-Version vor iOS 11.2.5 ausgeführt werden. Aktualisieren Sie auf die aktuelle iOS-Version.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
-        <source>For this session, remote proctoring is required. On this device, %1$@%2$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</source>
-        <target>Die aktuelle Session erfordert Fernüberwachung. Auf diesem Gerät ist Zugriff auf %1$@ %2$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.</target>
+      <trans-unit id="For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
+        <source>For this session, %1$@%2$@ access for %3$@ is required. On this device, %4$@%5$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</source>
+        <target>Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Auf diesem Gerät ist Zugriff auf %4$@%5$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
-        <source>For this session, remote proctoring is required. You need to authorize %1$@%2$@ access %3$@before you can %4$@start the session.</source>
-        <target>Die aktuelle Session erfordert Fernüberwachung. Sie müssen Zugriff auf %1$@%2$@ %3$@erlauben, bevor Sie %4$@die Session starten können.</target>
+      <trans-unit id="For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
+        <source>For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.</source>
+        <target>Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie %7$@die Session starten können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
@@ -8537,6 +8558,11 @@
       <trans-unit id="Identity in Keychain" xml:space="preserve">
         <source>Identity in Keychain</source>
         <target>Identität im Schlüsselbund</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
+        <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
+        <target>Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit the session." xml:space="preserve">
@@ -8729,6 +8755,11 @@
         <target>Kein Kioskmodus verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
+        <source>No SEB Server Fallback Password entered</source>
+        <target>Kein SEB Server Fallback-Passwort eingegeben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="No valid %@ config found." xml:space="preserve">
         <source>No valid %@ config found.</source>
         <target>Keine %@-Konfigurationsdatei gefunden</target>
@@ -8814,9 +8845,9 @@
         <target>Passwort</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Permissions Required for Remote Proctoring" xml:space="preserve">
-        <source>Permissions Required for Remote Proctoring</source>
-        <target>Zugriffsrechte erforderlich für Fernüberwachung. </target>
+      <trans-unit id="Permissions Required for %@" xml:space="preserve">
+        <source>Permissions Required for %@</source>
+        <target>Zugriffsrechte erforderlich für %@ </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please Select Your Role" xml:space="preserve">
@@ -8909,6 +8940,11 @@
         <target>Fernüberwachung ist aktiv</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Remote Proctoring Not Available" xml:space="preserve">
+        <source>Remote Proctoring Not Available</source>
+        <target>Fernüberwachung nicht verfügbar</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Remote Proctoring Session" xml:space="preserve">
         <source>Remote Proctoring Session</source>
         <target>Session mit Fernüberwachung</target>
@@ -8972,6 +9008,11 @@
       <trans-unit id="Running on New iOS Version Not Allowed" xml:space="preserve">
         <source>Running on New iOS Version Not Allowed</source>
         <target>Benutzung auf neuer iOS-Version nicht erlaubt!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="SEB Server Fallback Password Required" xml:space="preserve">
+        <source>SEB Server Fallback Password Required</source>
+        <target>SEB Server Fallback-Passwort benötigt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
@@ -9420,6 +9461,11 @@
         <target>Falsche Institutions-URL</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Wrong SEB Server Fallback Password entered" xml:space="preserve">
+        <source>Wrong SEB Server Fallback Password entered</source>
+        <target>Falsches  SEB Server Fallback-Passwort eingegeben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
         <source>Wrong password entered!</source>
         <target>Falsches Passwort eingegeben!</target>
@@ -9540,11 +9586,6 @@
         <target>Seiteninhalt verkleinern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Zoom Remote Proctoring Not Available" xml:space="preserve">
-        <source>Zoom Remote Proctoring Not Available</source>
-        <target>Zoom Remote Proctoring nicht verfügbar</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="allow" xml:space="preserve">
         <source>allow</source>
         <target>erlauben</target>
@@ -9650,6 +9691,11 @@
         <target>im selben Fenster öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="remote proctoring" xml:space="preserve">
+        <source>remote proctoring</source>
+        <target>Fernüberwachung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="return to SEB and re" xml:space="preserve">
         <source>return to SEB and re</source>
         <target>zu SEB zurückkehren und </target>
@@ -9673,6 +9719,11 @@
       <trans-unit id="warn when service is not running" xml:space="preserve">
         <source>warn when service is not running</source>
         <target>Warnen, wenn der Service nicht läuft</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="web applications" xml:space="preserve">
+        <source>web applications</source>
+        <target>Webapplikationen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
     </body>
@@ -10135,7 +10186,7 @@
         <note>Privacy - Calendars Usage Description</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera is needed to scan QR codes, for web applications and remote proctoringca</source>
+        <source>Camera is needed to scan QR codes, for web applications and remote proctoring.</source>
         <target>Kamerazugriff ist notwendig, um SEB-Konfigurations-QR-Codes einzulesen und für Fernüberwachung (falls diese von Ihrem Prüfungsveranstalter unterstützt/benutzt wird)</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
