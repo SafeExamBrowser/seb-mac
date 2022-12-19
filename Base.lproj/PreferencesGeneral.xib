@@ -79,7 +79,7 @@
                                             </customSpacing>
                                         </stackView>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="194">
-                                            <rect key="frame" x="419" y="0.0" width="148" height="21"/>
+                                            <rect key="frame" x="420" y="0.0" width="147" height="21"/>
                                             <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the Start URL field.</string>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="410"/>
@@ -139,7 +139,7 @@
                                         </matrix>
                                         <button toolTip="SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="412">
                                             <rect key="frame" x="315" y="11" width="295" height="18"/>
-                                            <buttonCell key="cell" type="check" title="SEB Server Fallback (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="413">
+                                            <buttonCell key="cell" type="check" title="SEB Server Fallback" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="413">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -222,7 +222,7 @@
                                     </customSpacing>
                                 </stackView>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="WYv-t7-2PL">
-                                    <rect key="frame" x="457" y="0.0" width="148" height="21"/>
+                                    <rect key="frame" x="458" y="0.0" width="147" height="21"/>
                                     <string key="toolTip">SEB saves the content of the clipboard (if it's a text string) when starting up and before clearing the clipboard. Use this link to paste the saved string to the SEB Server URL field</string>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="eFK-57-o98"/>
