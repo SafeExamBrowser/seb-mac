@@ -359,11 +359,11 @@
 #pragma mark -
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
 
-//- (void) addWebView:(id)nativeWebView
-//{
-//    [self.navigationDelegate addWebView:nativeWebView];
-//}
-//
+- (void) closeWebView:(SEBAbstractWebView *)webView
+{
+    [self.navigationDelegate closeWebView:webView];
+}
+
 
 - (void) addWebViewController:(id)webViewController
 {
