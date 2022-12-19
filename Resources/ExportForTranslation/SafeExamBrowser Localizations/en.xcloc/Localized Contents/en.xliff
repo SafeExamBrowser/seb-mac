@@ -16,9 +16,9 @@
         <note>Class = "NSMenuItem"; title = "Save"; ObjectID = "0h8-R9-UfE";</note>
       </trans-unit>
       <trans-unit id="2XV-dZ-8rd.title" xml:space="preserve">
-        <source>Please enter correct password/response!</source>
-        <target>Please enter correct password/response!</target>
-        <note>Class = "NSTextFieldCell"; title = "Please enter correct password/response!"; ObjectID = "2XV-dZ-8rd";</note>
+        <source>Please enter correct password!</source>
+        <target>Please enter correct password!</target>
+        <note>Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "2XV-dZ-8rd";</note>
       </trans-unit>
       <trans-unit id="5.title" xml:space="preserve">
         <source>Bring All to Front</source>
@@ -571,9 +571,9 @@
         <note>Class = "NSMenu"; title = "Settings"; ObjectID = "sdD-uM-Hx0";</note>
       </trans-unit>
       <trans-unit id="toT-ZU-d4i.title" xml:space="preserve">
-        <source>Enter quit/unlock password/response to unlock SEB:</source>
-        <target>Enter quit/unlock password/response to unlock SEB:</target>
-        <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password/response to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
+        <source>Enter quit/unlock password to unlock SEB:</source>
+        <target>Enter quit/unlock password to unlock SEB:</target>
+        <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title" xml:space="preserve">
         <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
@@ -2870,9 +2870,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server"; ObjectID = "412";</note>
       </trans-unit>
       <trans-unit id="413.title" xml:space="preserve">
-        <source>SEB Server Fallback (Win)</source>
-        <target>SEB Server Fallback (Win)</target>
-        <note>Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413";</note>
+        <source>SEB Server Fallback</source>
+        <target>SEB Server Fallback</target>
+        <note>Class = "NSButtonCell"; title = "SEB Server Fallback"; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="JvD-qA-qAF.title" xml:space="preserve">
         <source>SEB Server URL</source>
@@ -4769,6 +4769,11 @@
         <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="13 Ventura" xml:space="preserve">
+        <source>13 Ventura</source>
+        <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.</source>
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.</target>
@@ -4914,14 +4919,29 @@
         <target>Cannot Configure Client</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
-        <source>Cannot Connect to SEB Server</source>
-        <target>Cannot Connect to SEB Server</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Cannot Decrypt Settings" xml:space="preserve">
         <source>Cannot Decrypt Settings</source>
         <target>Cannot Decrypt Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Establish Server Connection" xml:space="preserve">
+        <source>Cannot Establish Server Connection</source>
+        <target>Cannot Establish Server Connection</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam Config" xml:space="preserve">
+        <source>Cannot Get Exam Config</source>
+        <target>Cannot Get Exam Config</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam List" xml:space="preserve">
+        <source>Cannot Get Exam List</source>
+        <target>Cannot Get Exam List</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Server API" xml:space="preserve">
+        <source>Cannot Get Server API</source>
+        <target>Cannot Get Server API</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
@@ -4949,14 +4969,19 @@
         <target>Cannot Start Exam</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot access server because of error: " xml:space="preserve">
+        <source>Cannot access server because of error: </source>
+        <target>Cannot access server because of error: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Center" xml:space="preserve">
         <source>Center</source>
         <target>Center</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
-        <source>Check your configuration, probably connection settings are incorrect.</source>
-        <target>Check your configuration, probably connection settings are incorrect.</target>
+      <trans-unit id="Check your server connection configuration." xml:space="preserve">
+        <source>Check your server connection configuration.</source>
+        <target>Check your server connection configuration.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Choose" xml:space="preserve">
@@ -5014,6 +5039,31 @@
         <target>Connecting…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
+        <source>Connection to SEB Server Failed</source>
+        <target>Connection to SEB Server Failed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed: Fallback Option" xml:space="preserve">
+        <source>Connection to SEB Server Failed: Fallback Option</source>
+        <target>Connection to SEB Server Failed: Fallback Option</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your exam administrator" xml:space="preserve">
+        <source>Contact your exam administrator</source>
+        <target>Contact your exam administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server administrator" xml:space="preserve">
+        <source>Contact your server administrator</source>
+        <target>Contact your server administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server/exam administrator (Server error: " xml:space="preserve">
+        <source>Contact your server/exam administrator (Server error: </source>
+        <target>Contact your server/exam administrator (Server error: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
         <target>Continue</target>
@@ -5044,9 +5094,9 @@
         <target>Current settings have unsaved changes. If you don't save those first, you will loose them.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
-        <target>Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</target>
+      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <target>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
@@ -5189,6 +5239,11 @@
         <target>Enter Exam Password:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enter SEB Server fallback password:" xml:space="preserve">
+        <source>Enter SEB Server fallback password:</source>
+        <target>Enter SEB Server fallback password:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Enter administrator password:" xml:space="preserve">
         <source>Enter administrator password:</source>
         <target>Enter administrator password:</target>
@@ -5247,6 +5302,21 @@
       <trans-unit id="FTP Proxy" xml:space="preserve">
         <source>FTP Proxy</source>
         <target>FTP Proxy</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed" xml:space="preserve">
+        <source>Failed</source>
+        <target>Failed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed, retrying..." xml:space="preserve">
+        <source>Failed, retrying...</source>
+        <target>Failed, retrying...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fallback" xml:space="preserve">
+        <source>Fallback</source>
+        <target>Fallback</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
@@ -5309,6 +5379,11 @@
         <target>General</target>
         <note>Title of 'General' preference pane</note>
       </trans-unit>
+      <trans-unit id="Getting Exam Config..." xml:space="preserve">
+        <source>Getting Exam Config...</source>
+        <target>Getting Exam Config...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Holding Command Key Not Allowed!" xml:space="preserve">
         <source>Holding Command Key Not Allowed!</source>
         <target>Holding Command Key Not Allowed!</target>
@@ -5327,6 +5402,11 @@
       <trans-unit id="Identity" xml:space="preserve">
         <source>Identity</source>
         <target>Identity</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
+        <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
+        <target>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct SEB administrator password, then you cannot open preferences." xml:space="preserve">
@@ -5434,6 +5514,11 @@
         <target>Main Browser Window</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Missing Connection Settings" xml:space="preserve">
+        <source>Missing Connection Settings</source>
+        <target>Missing Connection Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
         <source>Moodle</source>
         <target>Moodle</target>
@@ -5487,6 +5572,11 @@
       <trans-unit id="No Hostname Found" xml:space="preserve">
         <source>No Hostname Found</source>
         <target>No Hostname Found</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
+        <source>No SEB Server Fallback Password entered</source>
+        <target>No SEB Server Fallback Password entered</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No built-in display available, although required in settings!" xml:space="preserve">
@@ -5732,6 +5822,11 @@
       <trans-unit id="Remote Proctoring Session" xml:space="preserve">
         <source>Remote Proctoring Session</source>
         <target>Remote Proctoring Session</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
+        <source>Repeating Error: Invalid Token</source>
+        <target>Repeating Error: Invalid Token</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Required built-in display is still not available!" xml:space="preserve">
@@ -6264,6 +6359,11 @@
         <target>Wrong Quit Password</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Wrong SEB Server Fallback Password entered" xml:space="preserve">
+        <source>Wrong SEB Server Fallback Password entered</source>
+        <target>Wrong SEB Server Fallback Password entered</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
         <source>Wrong password entered!</source>
         <target>Wrong password entered!</target>
@@ -6414,14 +6514,19 @@
         <target>camera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="decoding error: " xml:space="preserve">
+        <source>decoding error: </source>
+        <target>decoding error: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="get generally blocked" xml:space="preserve">
         <source>get generally blocked</source>
         <target>get generally blocked</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 14" xml:space="preserve">
-        <source>iOS 14</source>
-        <target>iOS 14</target>
+      <trans-unit id="iOS 16" xml:space="preserve">
+        <source>iOS 16</source>
+        <target>iOS 16</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -7773,6 +7878,11 @@
         <target>12 Monterey</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="13 Ventura" xml:space="preserve">
+        <source>13 Ventura</source>
+        <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
         <source>About %@</source>
         <target>About %@</target>
@@ -7918,11 +8028,6 @@
         <target>Cannot Configure Client</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Connect to SEB Server" xml:space="preserve">
-        <source>Cannot Connect to SEB Server</source>
-        <target>Cannot Connect to SEB Server</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Cannot Decrypt Settings" xml:space="preserve">
         <source>Cannot Decrypt Settings</source>
         <target>Cannot Decrypt Settings</target>
@@ -7931,6 +8036,26 @@
       <trans-unit id="Cannot Edit %@ Settings" xml:space="preserve">
         <source>Cannot Edit %@ Settings</source>
         <target>Cannot Edit %@ Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Establish Server Connection" xml:space="preserve">
+        <source>Cannot Establish Server Connection</source>
+        <target>Cannot Establish Server Connection</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam Config" xml:space="preserve">
+        <source>Cannot Get Exam Config</source>
+        <target>Cannot Get Exam Config</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Exam List" xml:space="preserve">
+        <source>Cannot Get Exam List</source>
+        <target>Cannot Get Exam List</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Get Server API" xml:space="preserve">
+        <source>Cannot Get Server API</source>
+        <target>Cannot Get Server API</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">
@@ -7963,6 +8088,11 @@
         <target>Cannot Start Exam</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot access server because of error: " xml:space="preserve">
+        <source>Cannot access server because of error: </source>
+        <target>Cannot access server because of error: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Capturing Screen Not Allowed" xml:space="preserve">
         <source>Capturing Screen Not Allowed</source>
         <target>Capturing Screen Not Allowed</target>
@@ -7973,9 +8103,9 @@
         <target>Center</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Check your configuration, probably connection settings are incorrect." xml:space="preserve">
-        <source>Check your configuration, probably connection settings are incorrect.</source>
-        <target>Check your configuration, probably connection settings are incorrect.</target>
+      <trans-unit id="Check your server connection configuration." xml:space="preserve">
+        <source>Check your server connection configuration.</source>
+        <target>Check your server connection configuration.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Closing lockdown windows" xml:space="preserve">
@@ -8012,6 +8142,31 @@
         <source>Connecting…</source>
         <target>Connecting…</target>
         <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
+        <source>Connection to SEB Server Failed</source>
+        <target>Connection to SEB Server Failed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Connection to SEB Server Failed: Fallback Option" xml:space="preserve">
+        <source>Connection to SEB Server Failed: Fallback Option</source>
+        <target>Connection to SEB Server Failed: Fallback Option</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your exam administrator" xml:space="preserve">
+        <source>Contact your exam administrator</source>
+        <target>Contact your exam administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server administrator" xml:space="preserve">
+        <source>Contact your server administrator</source>
+        <target>Contact your server administrator</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Contact your server/exam administrator (Server error: " xml:space="preserve">
+        <source>Contact your server/exam administrator (Server error: </source>
+        <target>Contact your server/exam administrator (Server error: </target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Continue" xml:space="preserve">
         <source>Continue</source>
@@ -8058,9 +8213,9 @@
         <target>Current Settings require Single App Mode to be active to proceed.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</source>
-        <target>Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer.</target>
+      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <target>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." xml:space="preserve">
@@ -8198,6 +8353,11 @@
         <target>Enter Identity Admin Password</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enter SEB Server fallback password:" xml:space="preserve">
+        <source>Enter SEB Server fallback password:</source>
+        <target>Enter SEB Server fallback password:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Enter password used to encrypt these settings:" xml:space="preserve">
         <source>Enter password used to encrypt these settings:</source>
         <target>Enter password used to encrypt these settings:</target>
@@ -8248,9 +8408,24 @@
         <target>FTP Proxy</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Failed" xml:space="preserve">
+        <source>Failed</source>
+        <target>Failed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Failed to Start Single App Mode" xml:space="preserve">
         <source>Failed to Start Single App Mode</source>
         <target>Failed to Start Single App Mode</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed, retrying..." xml:space="preserve">
+        <source>Failed, retrying...</source>
+        <target>Failed, retrying...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fallback" xml:space="preserve">
+        <source>Fallback</source>
+        <target>Fallback</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
@@ -8268,14 +8443,14 @@
         <target>For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
-        <source>For this session, remote proctoring is required. On this device, %1$@%2$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</source>
-        <target>For this session, remote proctoring is required. On this device, %1$@%2$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</target>
+      <trans-unit id="For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
+        <source>For this session, %1$@%2$@ access for %3$@ is required. On this device, %4$@%5$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</source>
+        <target>For this session, %1$@%2$@ access for %3$@ is required. On this device, %4$@%5$@ access is restricted. Ask your IT support to provide you a device without these restrictions.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
-        <source>For this session, remote proctoring is required. You need to authorize %1$@%2$@ access %3$@before you can %4$@start the session.</source>
-        <target>For this session, remote proctoring is required. You need to authorize %1$@%2$@ access %3$@before you can %4$@start the session.</target>
+      <trans-unit id="For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
+        <source>For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.</source>
+        <target>For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Force Classic" xml:space="preserve">
@@ -8286,6 +8461,11 @@
       <trans-unit id="Full user name: %@" xml:space="preserve">
         <source>Full user name: %@</source>
         <target>Full user name: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Getting Exam Config..." xml:space="preserve">
+        <source>Getting Exam Config...</source>
+        <target>Getting Exam Config...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -8321,6 +8501,11 @@
       <trans-unit id="Identity in Keychain" xml:space="preserve">
         <source>Identity in Keychain</source>
         <target>Identity in Keychain</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
+        <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
+        <target>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit the session." xml:space="preserve">
@@ -8423,6 +8608,11 @@
         <target>Log in to</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Missing Connection Settings" xml:space="preserve">
+        <source>Missing Connection Settings</source>
+        <target>Missing Connection Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Moodle" xml:space="preserve">
         <source>Moodle</source>
         <target>Moodle</target>
@@ -8506,6 +8696,11 @@
       <trans-unit id="No Kiosk Mode Available" xml:space="preserve">
         <source>No Kiosk Mode Available</source>
         <target>No Kiosk Mode Available</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
+        <source>No SEB Server Fallback Password entered</source>
+        <target>No SEB Server Fallback Password entered</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No valid %@ config found." xml:space="preserve">
@@ -8593,9 +8788,9 @@
         <target>Password</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Permissions Required for Remote Proctoring" xml:space="preserve">
-        <source>Permissions Required for Remote Proctoring</source>
-        <target>Permissions Required for Remote Proctoring</target>
+      <trans-unit id="Permissions Required for %@" xml:space="preserve">
+        <source>Permissions Required for %@</source>
+        <target>Permissions Required for %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Please Select Your Role" xml:space="preserve">
@@ -8688,6 +8883,11 @@
         <target>Remote Proctoring Active</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Remote Proctoring Not Available" xml:space="preserve">
+        <source>Remote Proctoring Not Available</source>
+        <target>Remote Proctoring Not Available</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Remote Proctoring Session" xml:space="preserve">
         <source>Remote Proctoring Session</source>
         <target>Remote Proctoring Session</target>
@@ -8701,6 +8901,11 @@
       <trans-unit id="Removing Identity Failed!" xml:space="preserve">
         <source>Removing Identity Failed!</source>
         <target>Removing Identity Failed!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
+        <source>Repeating Error: Invalid Token</source>
+        <target>Repeating Error: Invalid Token</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reset Settings" xml:space="preserve">
@@ -8746,6 +8951,11 @@
       <trans-unit id="Running on New iOS Version Not Allowed" xml:space="preserve">
         <source>Running on New iOS Version Not Allowed</source>
         <target>Running on New iOS Version Not Allowed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="SEB Server Fallback Password Required" xml:space="preserve">
+        <source>SEB Server Fallback Password Required</source>
+        <target>SEB Server Fallback Password Required</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
@@ -9193,6 +9403,11 @@
         <target>Wrong Institution URL</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Wrong SEB Server Fallback Password entered" xml:space="preserve">
+        <source>Wrong SEB Server Fallback Password entered</source>
+        <target>Wrong SEB Server Fallback Password entered</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Wrong password entered!" xml:space="preserve">
         <source>Wrong password entered!</source>
         <target>Wrong password entered!</target>
@@ -9313,11 +9528,6 @@
         <target>Zoom Page Out</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Zoom Remote Proctoring Not Available" xml:space="preserve">
-        <source>Zoom Remote Proctoring Not Available</source>
-        <target>Zoom Remote Proctoring Not Available</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="allow" xml:space="preserve">
         <source>allow</source>
         <target>allow</target>
@@ -9353,6 +9563,11 @@
         <target>camera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="decoding error: " xml:space="preserve">
+        <source>decoding error: </source>
+        <target>decoding error: </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="encrypted with identity certificate " xml:space="preserve">
         <source>encrypted with identity certificate </source>
         <target>encrypted with identity certificate </target>
@@ -9378,9 +9593,9 @@
         <target>get generally blocked</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 14" xml:space="preserve">
-        <source>iOS 14</source>
-        <target>iOS 14</target>
+      <trans-unit id="iOS 16" xml:space="preserve">
+        <source>iOS 16</source>
+        <target>iOS 16</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -9418,6 +9633,11 @@
         <target>open in same window</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="remote proctoring" xml:space="preserve">
+        <source>remote proctoring</source>
+        <target>remote proctoring</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="return to SEB and re" xml:space="preserve">
         <source>return to SEB and re</source>
         <target>return to SEB and re</target>
@@ -9441,6 +9661,11 @@
       <trans-unit id="warn when service is not running" xml:space="preserve">
         <source>warn when service is not running</source>
         <target>warn when service is not running</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="web applications" xml:space="preserve">
+        <source>web applications</source>
+        <target>web applications</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
     </body>
@@ -9903,8 +10128,8 @@
         <note>Privacy - Calendars Usage Description</note>
       </trans-unit>
       <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera is needed to scan QR codes, for web applications and remote proctoringca</source>
-        <target>Camera is needed to scan QR codes, for web applications and remote proctoringca</target>
+        <source>Camera is needed to scan QR codes, for web applications and remote proctoring.</source>
+        <target>Camera is needed to scan QR codes, for web applications and remote proctoring.</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">

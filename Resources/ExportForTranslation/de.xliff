@@ -2869,9 +2869,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB should connect to Start URL and use local settings in case it cannot connect to SEB Server"; ObjectID = "412";</note>
       </trans-unit>
       <trans-unit id="413.title" xml:space="preserve">
-        <source>SEB Server Fallback (Win)</source>
-        <target>SEB Server-Fallback (Win)</target>
-        <note>Class = "NSButtonCell"; title = "SEB Server Fallback (Win)"; ObjectID = "413";</note>
+        <source>SEB Server Fallback</source>
+        <target>SEB Server-Fallback</target>
+        <note>Class = "NSButtonCell"; title = "SEB Server Fallback"; ObjectID = "413";</note>
       </trans-unit>
       <trans-unit id="JvD-qA-qAF.title" xml:space="preserve">
         <source>SEB Server URL</source>

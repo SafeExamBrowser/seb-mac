@@ -293,7 +293,7 @@
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
 
 /* No comment provided by engineer. */
-"Current settings require remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." = "Die aktuellen Einstellungen erfordern Fernüberwachung, welche von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
+"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
 "Debug" = "Debug";
@@ -609,6 +609,9 @@
 
 /* No comment provided by engineer. */
 "No Hostname Found" = "Kein Hostname gefunden";
+
+/* No comment provided by engineer. */
+"No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
 "None" = "Keine";
@@ -1124,7 +1127,7 @@
 "Wrong quit/unlock password." = "Falsches Beenden/Entsperren-Passwort";
 
 /* No comment provided by engineer. */
-"Wrong SEB Server Fallback Password" = "Falsches SEB Server Fallback-Passwort";
+"Wrong SEB Server Fallback Password entered" = "Falsches  SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
 "You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation." = "Es ist nicht erlaubt, die Diktat-Funktion zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Diktat-Funktion deaktiviert haben.";
