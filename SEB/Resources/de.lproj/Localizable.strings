@@ -263,6 +263,9 @@
 "Connection to SEB Server Failed" = "Verbindung zu SEB Server fehlgeschlagen";
 
 /* No comment provided by engineer. */
+"Connection to SEB Server Failed: Fallback Option" = "Verbindung zu SEB Server fehlgeschlagen: Fallback-Option";
+
+/* No comment provided by engineer. */
 "Contact your exam administrator" = "Kontaktieren Sie Ihren Prüfungs-Administrator";
 
 /* No comment provided by engineer. */
@@ -296,13 +299,13 @@
 "Create New…" = "Neu erstellen…";
 
 /* No comment provided by engineer. */
+"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
+
+/* No comment provided by engineer. */
 "Current Settings require Single App Mode to be active to proceed." = "Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.";
 
 /* No comment provided by engineer. */
 "Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." = "Die aktuellen Einstellungen erfordern, dass der geführte Zugriff (Guided Access) oder ein vom MDM/Apple Configurator aufgerufener Einzel-App-Modus zunächst ausgeschaltet wird, bevor die Prüfung gestartet werden kann.";
-
-/* No comment provided by engineer. */
-"Current settings require Zoom remote proctoring, which this SEB version doesn't support. Use the correct SEB version required by your exam organizer." = "Die aktuellen Einstellungen erfordern Zoom-Fernüberwachung, welches von dieser SEB-Version nicht unterstützt wird. Verwenden Sie die korrekte SEB-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
 "Currently it isn't allowed to run %@ on the iOS version installed on this device." = "Derzeit ist es nicht erlaubt, %@ mit der auf diesem Gerät installierten iOS-Version zu benutzen.";
@@ -395,6 +398,9 @@
 "Enter quit password:" = "Beenden-Passwort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter SEB Server fallback password:" = "SEB Server Fallback-Passwort eingeben:";
+
+/* No comment provided by engineer. */
 "Enter the %@ administrator password used in these settings:" = "In diesen Einstellungen verwendetes %@ Administrator-Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -425,6 +431,9 @@
 "Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
 
 /* No comment provided by engineer. */
+"Fallback" = "Fallback";
+
+/* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
 
 /* No comment provided by engineer. */
@@ -443,10 +452,10 @@
 "for starting an exam" = "zum Starten einer Prüfung";
 
 /* No comment provided by engineer. */
-"For this session, remote proctoring is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "Die aktuelle Session erfordert Fernüberwachung. Auf diesem Gerät ist Zugriff auf %1$@ %2$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.";
+"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Auf diesem Gerät ist Zugriff auf %4$@%5$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.";
 
 /* No comment provided by engineer. */
-"For this session, remote proctoring is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Fernüberwachung. Sie müssen Zugriff auf %1$@%2$@ %3$@erlauben, bevor Sie %4$@die Session starten können.";
+"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie %7$@die Session starten können.";
 
 /* No comment provided by engineer. */
 "Force Classic" = "Klassische erzwingen";
@@ -486,6 +495,9 @@
 
 /* No comment provided by engineer. */
 "If you don't enter the correct quit password, then you cannot quit the session." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie die Session nicht beenden.";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." = "Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.";
 
 /* No comment provided by engineer. */
 "If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
@@ -617,6 +629,9 @@
 "No Kiosk Mode Available" = "Kein Kioskmodus verfügbar";
 
 /* No comment provided by engineer. */
+"No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
+
+/* No comment provided by engineer. */
 "No valid %@ config found." = "Keine %@-Konfigurationsdatei gefunden";
 
 /* No comment provided by engineer. */
@@ -674,7 +689,7 @@
 "Password" = "Passwort";
 
 /* No comment provided by engineer. */
-"Permissions Required for Remote Proctoring" = "Zugriffsrechte erforderlich für Fernüberwachung. ";
+"Permissions Required for %@" = "Zugriffsrechte erforderlich für %@ ";
 
 /* No comment provided by engineer. */
 "Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." = "Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.";
@@ -725,10 +740,16 @@
 "Reload this page" = "Diese Seite neu laden";
 
 /* No comment provided by engineer. */
+"remote proctoring" = "Fernüberwachung";
+
+/* No comment provided by engineer. */
 "Remote Proctoring" = "Fernüberwachung";
 
 /* No comment provided by engineer. */
 "Remote Proctoring Active" = "Fernüberwachung ist aktiv";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Not Available" = "Fernüberwachung nicht verfügbar";
 
 /* No comment provided by engineer. */
 "Remote Proctoring Session" = "Session mit Fernüberwachung";
@@ -822,6 +843,9 @@
 
 /* No comment provided by engineer. */
 "SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"SEB Server Fallback Password Required" = "SEB Server Fallback-Passwort benötigt";
 
 /* No comment provided by engineer. */
 "SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)";
@@ -1034,6 +1058,9 @@
 "Warning" = "Warnung";
 
 /* No comment provided by engineer. */
+"web applications" = "Webapplikationen";
+
+/* No comment provided by engineer. */
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
 
 /* No comment provided by engineer. */
@@ -1065,6 +1092,9 @@
 
 /* No comment provided by engineer. */
 "Wrong password! Try again to enter the quit password:" = "Falsches Passwort! Bitte das korrekte Beenden-Passwort eingeben:";
+
+/* No comment provided by engineer. */
+"Wrong SEB Server Fallback Password entered" = "Falsches  SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
 "You can only edit settings after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Editieren der Einstellungen eingegeben werden:";
@@ -1122,7 +1152,4 @@
 
 /* No comment provided by engineer. */
 "Zoom Page Out" = "Seiteninhalt verkleinern";
-
-/* No comment provided by engineer. */
-"Zoom Remote Proctoring Not Available" = "Zoom Remote Proctoring nicht verfügbar";
 
