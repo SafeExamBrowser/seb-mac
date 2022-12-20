@@ -656,7 +656,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         // Prevent media player from playing audio after its webview was closed
         // by properly releasing it
         [webViewController.sebWebView stopMediaPlaybackWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 webViewController.sebWebView = nil;
                 webViewController.view = nil;
                 webViewController = nil;
