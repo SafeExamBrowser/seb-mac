@@ -150,6 +150,8 @@
     BOOL assureSAMNotActiveWaiting;
 }
 
+void run_on_ui_thread(dispatch_block_t block);
+
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;
