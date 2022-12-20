@@ -3003,7 +3003,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         self.isReconfiguringToMDMConfig = NO;
         self.didReceiveMDMConfig = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
+        run_on_ui_thread(^{
             [self restartExamQuitting:NO];
         });
         
@@ -3022,7 +3022,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                    NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No valid %@ config found.", nil), SEBShortAppName],
                                                    NSUnderlyingErrorKey : error}];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
+            run_on_ui_thread(^{
                 if (self.alertController) {
                     [self.alertController dismissViewControllerAnimated:NO completion:nil];
                 }
@@ -3048,7 +3048,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"%s: Reconfiguring from MDM config failed, restarting SEB session.", __FUNCTION__);
             self.isReconfiguringToMDMConfig = NO;
             self.didReceiveMDMConfig = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
+            run_on_ui_thread(^{
                 [self restartExamQuitting:NO];
             });
             
@@ -3056,7 +3056,7 @@ void run_on_ui_thread(dispatch_block_t block)
             self.pausedSAMAlertDisplayed = NO;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
-            dispatch_async(dispatch_get_main_queue(), ^{
+            run_on_ui_thread(^{
                 [self initSEBUIWithCompletionBlock:^{
                     [self conditionallyStartKioskMode];
                 }];
@@ -3064,7 +3064,7 @@ void run_on_ui_thread(dispatch_block_t block)
             
         } else {
             self.establishingSEBServerConnection = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
+            run_on_ui_thread(^{
                 [self showReconfiguringAlertWithError:error];
             });
         }
