@@ -37,12 +37,8 @@
 #import "SEBUIUserDefaultsController.h"
 
 
-@interface SEBInAppSettingsViewController ()
-
-@end
-
-
 @implementation SEBInAppSettingsViewController
+
 
 - (id)initWithIASKAppSettingsViewController:(IASKAppSettingsViewController *)appSettingsViewController sebViewController:(SEBViewController *)sebViewController {
     self = [super init];
@@ -277,7 +273,7 @@
     if ([specifier.key isEqualToString:@"browserExamKey"]) {
         if (_configModified) {
             _configModified = NO;
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            run_on_ui_thread(^{
                 [self setDependentKeysForPermanentSettingsChanged];
             });
         }

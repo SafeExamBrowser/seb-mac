@@ -40,6 +40,8 @@
 #import "SEBAbstractWebView.h"
 #import "SEBiOSWebViewController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBViewController;
 @class OpenWebpages;
 @class SEBAbstractWebView;
@@ -76,3 +78,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
