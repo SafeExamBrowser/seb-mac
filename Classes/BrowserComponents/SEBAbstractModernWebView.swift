@@ -249,23 +249,17 @@ import PDFKit
             }
             return
         } else {
-            if #available(macOS 11.3, iOS 14.5, *) {
-                sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
-                    if let _ = error {
-                        print(error as Any)
-                    }
+            sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
+                if let _ = error {
+                    print(error as Any)
+                }
+                if #available(macOS 11.3, iOS 14.5, *) {
                     self.sebWebView.closeAllMediaPresentations()
-                    completionHandler()
-                })
-                return
-            }
+                }
+                completionHandler()
+            })
+            return
         }
-        sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
-            if let _ = error {
-                print(error as Any)
-            }
-            completionHandler()
-        })
     }
     
     public func nativeWebView() -> Any {
