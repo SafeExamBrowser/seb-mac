@@ -84,12 +84,6 @@
 }
 
 
-- (void) closeServerView
-{
-    [self.delegate closeServerView];
-}
-
-
 - (void) closeServerViewWithCompletion:(void (^)(void))completion
 {
     [self.delegate closeServerViewWithCompletion:completion];
