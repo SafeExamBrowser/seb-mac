@@ -52,6 +52,7 @@
 #import "SEBConfigFileManager.h"
 #import "SEBSettings.h"
 #import "NSDictionary+Extensions.h"
+#import "NSArray+Extensions.h"
 
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
@@ -450,14 +451,12 @@ static NSNumber *_logLevel;
                     if (matches.count > 0) {
                         NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
                         [processesFromSettings removeObject:matchingProcessFromSettings];
-                        if (executable.length == 0) {
-                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:keyWithPrefix];
-                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
                         NSString *description = matchingProcessFromSettings[@"description"];
-                        if (description.length > 0) {
-                            [matchingProcessFromSettings setMatchingValueInDictionary:presetProcess forKey:@"description"];
+                        if (description.length == 0) {
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
                         }
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
                         [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
@@ -568,6 +567,41 @@ static NSNumber *_logLevel;
         }
     }
     return YES;
+}
+
+
+- (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    for (NSString *key in newReceivedServerConfig) {
+        if (![key isEqualToString:@"originatorVersion"]) {
+            id newValue = [newReceivedServerConfig objectForKey:key];
+            Class newValueClass = [newValue superclass];
+            id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
+            Class currentValueClass = [currentValue superclass];
+            
+            if (newValueClass == NSDictionary.class || newValueClass == NSMutableDictionary.class) {
+                if (currentValueClass == NSDictionary.class || currentValueClass == NSMutableDictionary.class) {
+                    if (![currentValue containsDictionary:newValue]) {
+                        return YES;
+                    }
+                } else {
+                    return YES;
+                }
+            } else if (newValueClass == NSArray.class || newValueClass == NSMutableArray.class) {
+                if (currentValueClass == NSArray.class || currentValueClass == NSMutableArray.class) {
+                    if (![currentValue containsArray:newValue]) {
+                        return YES;
+                    }
+                } else {
+                    return YES;
+                }
+            } else if (![newValue isEqual:currentValue]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 
