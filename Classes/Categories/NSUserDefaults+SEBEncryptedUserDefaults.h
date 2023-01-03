@@ -66,6 +66,8 @@
 + (BOOL)userDefaultsPrivate;
 
 
+- (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig;
+
 - (id)persistedSecureObjectForKey:(NSString *)key;
 - (void)setPersistedSecureObject:(id)value forKey:(NSString *)key;
 

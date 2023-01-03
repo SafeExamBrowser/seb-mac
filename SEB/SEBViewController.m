@@ -1545,11 +1545,11 @@ static NSMutableSet *browserWindowControllers;
     BOOL readMDMConfig = NO;
     
     // Check again if not running in exam mode, to catch timing related issues
-    if (!NSUserDefaults.userDefaultsPrivate) {
+    BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
+    if (clientConfigActive) {
         if (!_isReconfiguringToMDMConfig) {
             // Check if we received a new configuration from an MDM server
             _isReconfiguringToMDMConfig = YES;
-            BOOL clientConfigActive = !NSUserDefaults.userDefaultsPrivate;
             NSString *currentURL = [self.browserTabViewController.currentURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
             NSString *currentStartURLTrimmed = [currentStartURL stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
             DDLogVerbose(@"%s: %@ receive MDM Managed Configuration dictionary. Check for openWebpages.count: %lu = 1 AND (currentMainHost == nil OR currentMainHost %@ is equal to currentStartURL %@ OR clientConfigSecureModePaused: %d)",
@@ -1560,7 +1560,7 @@ static NSMutableSet *browserWindowControllers;
                          _clientConfigSecureModePaused);
             if (serverConfig.count > 0 &&
                 clientConfigActive &&
-                (!currentURL ||
+                (!currentURL || !currentStartURL ||
                  (self.browserTabViewController.openWebpages.count == 1 &&
                   [currentURL isEqualToString:currentStartURLTrimmed]) ||
                  _clientConfigSecureModePaused))
@@ -1636,19 +1636,14 @@ static NSMutableSet *browserWindowControllers;
 - (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in newReceivedServerConfig) {
-        if (![key isEqualToString:@"originatorVersion"]) {
-            id newValue = [newReceivedServerConfig objectForKey:key];
-            id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
-            if (![newValue isEqual:currentValue]) {
-                DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
-                receivedServerConfig = newReceivedServerConfig;
-                return YES;
-            }
-        }
+    if ([preferences isReceivedServerConfigNew:newReceivedServerConfig]) {
+        DDLogDebug(@"%s: Configuration received from MDM server is different from current settings, it will be used to reconfigure SEB.", __FUNCTION__);
+        receivedServerConfig = newReceivedServerConfig;
+        return YES;
+    } else {
+        DDLogVerbose(@"%s: Configuration received from MDM server is same as current settings, ignore it.", __FUNCTION__);
+        return NO;
     }
-    DDLogVerbose(@"%s: Configuration received from MDM server is same as current settings, ignore it.", __FUNCTION__);
-    return NO;
 }
 
 
@@ -2992,7 +2987,6 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!error) {
         // If decrypting new settings was successfull
         receivedServerConfig = nil;
-        self.isReconfiguringToMDMConfig = NO;
         self.scannedQRCode = NO;
         [[NSUserDefaults standardUserDefaults] setSecureString:self->startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
@@ -3001,10 +2995,10 @@ void run_on_ui_thread(dispatch_block_t block)
         if (newSettingsFilename.length > 0) {
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
-        self.isReconfiguringToMDMConfig = NO;
-        self.didReceiveMDMConfig = NO;
         run_on_ui_thread(^{
             [self restartExamQuitting:NO];
+            self.isReconfiguringToMDMConfig = NO;
+            self.didReceiveMDMConfig = NO;
         });
         
     } else {

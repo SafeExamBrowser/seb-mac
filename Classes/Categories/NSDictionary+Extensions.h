@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setMatchingValueInDictionary: (NSDictionary *)dictionary forKey:(NSString *)key;
 - (void) updateMatchingValueInDictionary:(NSDictionary *)dictionary forKey:(NSString *)key;
 - (void) setNonexistingValueInDictionary:(NSDictionary *)dictionary forKey:(NSString *)key;
+- (BOOL) containsDictionary:(NSDictionary *)dictionary;
 
 @end
 
