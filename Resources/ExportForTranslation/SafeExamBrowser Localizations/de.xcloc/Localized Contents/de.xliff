@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
@@ -958,9 +957,9 @@
         <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7";</note>
       </trans-unit>
       <trans-unit id="tSt-QD-jfK.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows the Quit SEB/Session (iOS) Dock button</source>
+        <source>Shows the Quit SEB/Session Dock button</source>
         <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session Dock button"; ObjectID = "tSt-QD-jfK";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>100%</source>
@@ -2093,7 +2092,7 @@
       </trans-unit>
       <trans-unit id="u8M-48-HFC.title" xml:space="preserve">
         <source>Media Playback/Capture</source>
-        <target>Medienwiedergabe (iOS)</target>
+        <target>Medienwiedergabe/-aufzeichnung</target>
         <note>Class = "NSBox"; title = "Media Playback/Capture"; ObjectID = "u8M-48-HFC";</note>
       </trans-unit>
       <trans-unit id="uOh-V9-bip.ibShadowedToolTip" xml:space="preserve">
@@ -2613,9 +2612,9 @@
         <note>Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa";</note>
       </trans-unit>
       <trans-unit id="Vu0-G2-uN8.title" xml:space="preserve">
-        <source>Exam Deep Linking (iOS)</source>
+        <source>Exam Deep Linking</source>
         <target>Deep-Linking für Prüfungen (iOS)</target>
-        <note>Class = "NSBox"; title = "Exam Deep Linking (iOS)"; ObjectID = "Vu0-G2-uN8";</note>
+        <note>Class = "NSBox"; title = "Exam Deep Linking"; ObjectID = "Vu0-G2-uN8";</note>
       </trans-unit>
       <trans-unit id="XHR-6b-cHs.title" xml:space="preserve">
         <source>Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session.</source>
@@ -7191,9 +7190,9 @@
         <target>Mac Desktop</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Media Playback" xml:space="preserve">
-        <source>Media Playback</source>
-        <target>Medienwiedergabe</target>
+      <trans-unit id="Media Playback/Capture" xml:space="preserve">
+        <source>Media Playback/Capture</source>
+        <target>Medienwiedergabe/-aufzeichnung</target>
         <note/>
       </trans-unit>
       <trans-unit id="Never" xml:space="preserve">
@@ -7288,6 +7287,11 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
     </header>
     <body>
+      <trans-unit id="Allow Camera Capture" xml:space="preserve">
+        <source>Allow Camera Capture</source>
+        <target>Kamerazugriff erlauben</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Allow Inline Playback on iPad" xml:space="preserve">
         <source>Allow Inline Playback on iPad</source>
         <target>Inline-Wiedergabe auf iPad</target>
@@ -7298,10 +7302,20 @@
         <target>Inline-Wiedergabe auf iPhone</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Allow Microphone Capture" xml:space="preserve">
+        <source>Allow Microphone Capture</source>
+        <target>Mikrofonzugriff erlauben</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Allow Picture in Picture Video" xml:space="preserve">
         <source>Allow Picture in Picture Video</source>
         <target>Bild-in-Bild-Wiedergabe erlauben</target>
         <note/>
+      </trans-unit>
+      <trans-unit id="Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)" xml:space="preserve">
+        <source>Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)</source>
+        <target>Websites den Zugriff auf Kamera/Mikrofon erlauben, für WebRTC-Livestreams, Standbilder und Video-/Audioaufnahmen (nur in modernem WebView und unter iOS 14.3/macOS 11.1 oder neuer)</target>
+        <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="Audio Autoplay" xml:space="preserve">
         <source>Audio Autoplay</source>
@@ -7312,6 +7326,11 @@
         <source>Media Autoplay</source>
         <target>Medien automatisch abspielen</target>
         <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Media Capture" xml:space="preserve">
+        <source>Media Capture</source>
+        <target>Medienaufzeichnung</target>
+        <note/>
       </trans-unit>
       <trans-unit id="Video Autoplay" xml:space="preserve">
         <source>Video Autoplay</source>
