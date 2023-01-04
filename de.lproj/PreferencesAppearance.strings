@@ -184,7 +184,7 @@
 /* Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi"; */
 "TNk-06-tQi.title" = "Uhrzeit anzeigen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session Dock button"; ObjectID = "tSt-QD-jfK"; */
 "tSt-QD-jfK.ibShadowedToolTip" = "Zeigt die 'SEB Beenden'-Taste im Dock an";
 
 /* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[0] = "100%"; ObjectID = "vDg-gs-M0S"; */
