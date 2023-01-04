@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -747,7 +746,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="h63-qm-O7D"/>
                                         </constraints>
                                     </box>
-                                    <box title="Exam Deep Linking (iOS)" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-G2-uN8">
+                                    <box title="Exam Deep Linking" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-G2-uN8">
                                         <rect key="frame" x="17" y="11" width="616" height="90"/>
                                         <view key="contentView" id="Oob-Qk-EkQ">
                                             <rect key="frame" x="3" y="3" width="610" height="72"/>
