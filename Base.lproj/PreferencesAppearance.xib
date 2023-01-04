@@ -613,7 +613,7 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="F53-s5-Caw"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Shows the Quit SEB/Session (iOS) Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-QD-jfK">
+                                                                        <button toolTip="Shows the Quit SEB/Session Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-QD-jfK">
                                                                             <rect key="frame" x="-2" y="21" width="130" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Show quit button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rQZ-65-nx7">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
