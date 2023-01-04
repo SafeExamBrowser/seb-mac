@@ -8,9 +8,13 @@
 "Allow Inline Playback on iPad" = "Allow Inline Playback on iPad";
 "Allow Inline Playback on iPhone" = "Allow Inline Playback on iPhone";
 "Allow Picture in Picture Video" = "Allow Picture in Picture Video";
+"Media Capture" = "Media Capture";
+"Allow Camera Capture" = "Allow Camera Capture";
+"Allow Microphone Capture" = "Allow Microphone Capture";
 
 /* String for Titles arrays elements */
 
 /* String for FooterText elements */
+"Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)" = "Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)";
 
 /* String for IASKPlaceholder elements */
