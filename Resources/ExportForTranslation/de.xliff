@@ -957,9 +957,9 @@
         <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7";</note>
       </trans-unit>
       <trans-unit id="tSt-QD-jfK.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows the Quit SEB/Session (iOS) Dock button</source>
+        <source>Shows the Quit SEB/Session Dock button</source>
         <target>Zeigt die 'SEB Beenden'-Taste im Dock an</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session (iOS) Dock button"; ObjectID = "tSt-QD-jfK";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows the Quit SEB/Session Dock button"; ObjectID = "tSt-QD-jfK";</note>
       </trans-unit>
       <trans-unit id="vDg-gs-M0S.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>100%</source>
@@ -2612,9 +2612,9 @@
         <note>Class = "NSTextFieldCell"; title = "Deep linking allows to directly open various exams using just one exam config file placed somewhere in the path hierarchy of a sebs:// or Universal Link (those links need to start with the URL used in Start URL)."; ObjectID = "Vfv-tN-rLa";</note>
       </trans-unit>
       <trans-unit id="Vu0-G2-uN8.title" xml:space="preserve">
-        <source>Exam Deep Linking (iOS)</source>
+        <source>Exam Deep Linking</source>
         <target>Deep-Linking für Prüfungen (iOS)</target>
-        <note>Class = "NSBox"; title = "Exam Deep Linking (iOS)"; ObjectID = "Vu0-G2-uN8";</note>
+        <note>Class = "NSBox"; title = "Exam Deep Linking"; ObjectID = "Vu0-G2-uN8";</note>
       </trans-unit>
       <trans-unit id="XHR-6b-cHs.title" xml:space="preserve">
         <source>Disable clearing session cookies when ending the first session and when starting the second session. Then users stay logged in if they already were in the previous session.</source>

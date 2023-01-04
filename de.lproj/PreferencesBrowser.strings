@@ -326,7 +326,7 @@
 "twb-Ov-Zlx.ibShadowedToolTip" = "Standardzeichenkette auf diesem Mac (hängt von der der installierten Safari-/WebKit-Version ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
 
 /* Class = "NSBox"; title = "Media Playback/Capture"; ObjectID = "u8M-48-HFC"; */
-"u8M-48-HFC.title" = "Medienwiedergabe (iOS)";
+"u8M-48-HFC.title" = "Medienwiedergabe/-aufzeichnung";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip"; */
 "uOh-V9-bip.ibShadowedToolTip" = "Im modernen WebView kann Video-Autoplay separat gesteuert werden";
