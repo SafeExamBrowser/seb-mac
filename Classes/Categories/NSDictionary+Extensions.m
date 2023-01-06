@@ -42,7 +42,7 @@
         id object = [self objectForKey:key];
         Class objectClass = [object superclass];
         
-        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
+        if (value && object && (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class)) {
             if (objectClass == NSDictionary.class || objectClass == NSMutableDictionary.class) {
                 if (![object containsDictionary:value]) {
                     return NO;
@@ -50,7 +50,7 @@
             } else {
                 return NO;
             }
-        } else if (valueClass == NSArray.class || valueClass == NSMutableArray.class) {
+        } else if (value && object && (valueClass == NSArray.class || valueClass == NSMutableArray.class)) {
             if (objectClass == NSArray.class || objectClass == NSMutableArray.class) {
                 if (![object containsArray:value]) {
                     return NO;

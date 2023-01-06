@@ -572,15 +572,20 @@ static NSNumber *_logLevel;
 
 - (BOOL)isReceivedServerConfigNew:(NSDictionary *)newReceivedServerConfig
 {
+    NSDictionary *completeSettings = [self completeSettingsWithDefaultValues:newReceivedServerConfig];
+    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    for (NSString *key in newReceivedServerConfig) {
+    for (NSString *key in completeSettings) {
         if (![key isEqualToString:@"originatorVersion"]) {
-            id newValue = [newReceivedServerConfig objectForKey:key];
+            id newValue = [completeSettings objectForKey:key];
             Class newValueClass = [newValue superclass];
             id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
             Class currentValueClass = [currentValue superclass];
             
             if (newValueClass == NSDictionary.class || newValueClass == NSMutableDictionary.class) {
+                if ([(NSDictionary *)newValue count] == 0) {
+                    continue;
+                }
                 if (currentValueClass == NSDictionary.class || currentValueClass == NSMutableDictionary.class) {
                     if (![currentValue containsDictionary:newValue]) {
                         return YES;
@@ -588,7 +593,7 @@ static NSNumber *_logLevel;
                 } else {
                     return YES;
                 }
-            } else if (newValueClass == NSArray.class || newValueClass == NSMutableArray.class) {
+            } else if (newValue && currentValue && (newValueClass == NSArray.class || newValueClass == NSMutableArray.class)) {
                 if (currentValueClass == NSArray.class || currentValueClass == NSMutableArray.class) {
                     if (![currentValue containsArray:newValue]) {
                         return YES;
@@ -602,6 +607,87 @@ static NSNumber *_logLevel;
         }
     }
     return NO;
+}
+
+
+- (NSDictionary *) completeSettingsWithDefaultValues:(NSDictionary *) sourceDictionary
+{
+    // Get default settings
+    NSDictionary *defaultSettings = [self getDefaultDictionaryForKey:@"rootSettings"];
+    NSMutableDictionary *completedSettings = defaultSettings.mutableCopy;
+    
+    // Join source settings dictionary with default values
+    for (NSString *key in sourceDictionary) {
+        id value = [sourceDictionary objectForKey:key];
+        
+        // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
+        // will cause a crash when trying to modify the dictionary
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            value = [NSMutableDictionary dictionaryWithDictionary:value];
+        }
+        
+        // We need to join loaded prohibited processes with preset default processes
+        if ([key isEqualToString:@"prohibitedProcesses"]) {
+            NSDictionary *presetProcess;
+            NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+            NSMutableArray *presetProcesses = ((NSArray *)[defaultSettings objectForKey:key]).mutableCopy;
+            NSMutableArray *newProcesses = [NSMutableArray new];
+            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                presetProcess = presetProcesses[i];
+                NSInteger os = [presetProcess[@"os"] longValue];
+                if (os == operatingSystemMacOS) {
+                    NSString *bundleID = presetProcess[@"identifier"];
+                    NSString *executable = presetProcess[@"executable"];
+                    NSArray *matches;
+                    if (bundleID.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                if (processFromSettingsBundleID.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify a bundle ID
+                                    matchingProcess = processFromSettings;
+                                    break;
+                                }
+                            }
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
+                        if (description.length == 0) {
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+                        
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
+                    }
+                }
+            }
+            [newProcesses addObjectsFromArray:processesFromSettings];
+            value = newProcesses.copy;
+        }
+        
+        [completedSettings setObject:value forKey:key];
+    }
+    return completedSettings.copy;
 }
 
 
