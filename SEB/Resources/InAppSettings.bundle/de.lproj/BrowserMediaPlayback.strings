@@ -1,17 +1,29 @@
 /* (No Comment) */
+"Allow Camera Capture" = "Kamerazugriff erlauben";
+
+/* (No Comment) */
 "Allow Inline Playback on iPad" = "Inline-Wiedergabe auf iPad";
 
 /* (No Comment) */
 "Allow Inline Playback on iPhone" = "Inline-Wiedergabe auf iPhone";
 
 /* (No Comment) */
+"Allow Microphone Capture" = "Mikrofonzugriff erlauben";
+
+/* (No Comment) */
 "Allow Picture in Picture Video" = "Bild-in-Bild-Wiedergabe erlauben";
+
+/* String for FooterText elements */
+"Allow web sites to access camera/microphone, for WebRTC live streams, still pictures and video/audio recordings (only in modern WebView and on iOS 14.3/macOS 11.1 or newer)" = "Websites den Zugriff auf Kamera/Mikrofon erlauben, für WebRTC-Livestreams, Standbilder und Video-/Audioaufnahmen (nur in modernem WebView und unter iOS 14.3/macOS 11.1 oder neuer)";
 
 /* (No Comment) */
 "Audio Autoplay" = "Audio automatisch abspielen";
 
 /* String for Title elements */
 "Media Autoplay" = "Medien automatisch abspielen";
+
+/* (No Comment) */
+"Media Capture" = "Medienaufzeichnung";
 
 /* (No Comment) */
 "Video Autoplay" = "Video automatisch abspielen";
