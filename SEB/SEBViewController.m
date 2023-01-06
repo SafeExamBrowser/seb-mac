@@ -981,14 +981,14 @@ static NSMutableSet *browserWindowControllers;
     // Check if the initialize settings assistant is open
     if (_initAssistantOpen) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.initAssistantOpen = false;
+            self.initAssistantOpen = NO;
             [self conditionallyShowSettingsModal];
         }];
         return;
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.sebServerViewDisplayed = false;
-            self.establishingSEBServerConnection = false;
+            self.sebServerViewDisplayed = NO;
+            self.establishingSEBServerConnection = NO;
             [self conditionallyShowSettingsModal];
         }];
         return;
@@ -2796,11 +2796,11 @@ void run_on_ui_thread(dispatch_block_t block)
         return;
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.sebServerViewDisplayed = false;
-            self.establishingSEBServerConnection = false;
+            self.sebServerViewDisplayed = NO;
+            self.establishingSEBServerConnection = NO;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
-            self.finishedStartingUp = false;
+            self.finishedStartingUp = NO;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -3002,7 +3002,8 @@ void run_on_ui_thread(dispatch_block_t block)
         });
         
     } else {
-        
+
+        self.establishingSEBServerConnection = NO;
         // If decrypting new settings wasn't successfull, we have to restore the path to the old settings
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:self->currentConfigPath];
         
@@ -3057,7 +3058,6 @@ void run_on_ui_thread(dispatch_block_t block)
             });
             
         } else {
-            self.establishingSEBServerConnection = NO;
             run_on_ui_thread(^{
                 [self showReconfiguringAlertWithError:error];
             });
@@ -3172,14 +3172,10 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }
     
-    if (_establishingSEBServerConnection == YES) {
-        if (fallback) {
-            _establishingSEBServerConnection = NO;
-        } else {
-            _startingExamFromSEBServer = YES;
-            [self.serverController startExamFromServer];
-            return;
-        }
+    if (_establishingSEBServerConnection == YES && !fallback) {
+        _startingExamFromSEBServer = YES;
+        [self.serverController startExamFromServer];
+        return;
     }
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
         !fallback) {
@@ -3428,6 +3424,7 @@ void run_on_ui_thread(dispatch_block_t block)
             pasteboardString:(NSString *)pasteboardString
 {
     _isReconfiguringToMDMConfig = NO;
+    _establishingSEBServerConnection = NO;
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
@@ -3798,10 +3795,10 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
+    self.establishingSEBServerConnection = NO;
     if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
-            self.sebServerViewDisplayed = false;
-            self.establishingSEBServerConnection = false;
+            self.sebServerViewDisplayed = NO;
             [self serverSessionQuitRestart:restart];
         }];
         return;
@@ -3824,7 +3821,7 @@ void run_on_ui_thread(dispatch_block_t block)
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
-                self.settingsOpen = false;
+                self.settingsOpen = NO;
                 [self serverSessionQuitRestart:restart];
             }];
             return;
@@ -4386,10 +4383,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Cancel", __FUNCTION__);
         self.alertController = nil;
-        self.noSAMAlertDisplayed = false;
-        if (self.establishingSEBServerConnection) {
-            self.establishingSEBServerConnection = false;
-        }
+        self.noSAMAlertDisplayed = NO;
+        self.establishingSEBServerConnection = NO;
         // We didn't actually succeed to switch a kiosk mode on
         // self.secureMode = false;
         // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
