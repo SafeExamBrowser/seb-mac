@@ -1610,6 +1610,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void) handleMDMServerConfig:(NSDictionary *)serverConfig
 {
+    _establishingSEBServerConnection = NO;
     [self.configFileController reconfigueClientWithMDMSettingsDict:serverConfig
                                                           callback:self
                                                           selector:@selector(storeNewSEBSettingsSuccessful:)];
@@ -3424,7 +3425,6 @@ void run_on_ui_thread(dispatch_block_t block)
             pasteboardString:(NSString *)pasteboardString
 {
     _isReconfiguringToMDMConfig = NO;
-    _establishingSEBServerConnection = NO;
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
