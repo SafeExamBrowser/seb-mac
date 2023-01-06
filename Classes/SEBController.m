@@ -1368,9 +1368,9 @@ bool insideMatrix(void);
 
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
+    self.establishingSEBServerConnection = NO;
     if (_sebServerViewDisplayed) {
         [self closeServerView];
-        self.establishingSEBServerConnection = NO;
     }
     // Check if Preferences are currently open
     if ([self.preferencesController preferencesAreOpen]) {

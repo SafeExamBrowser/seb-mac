@@ -15,7 +15,7 @@
     for (id object in array) {
         Class objectClass = [object superclass];
         
-        if (objectClass == NSDictionary.class || objectClass == NSMutableDictionary.class) {
+        if (object && (objectClass == NSDictionary.class || objectClass == NSMutableDictionary.class)) {
             BOOL dictionaryExists = NO;
             for (NSDictionary *dictionary in self) {
                 if ([dictionary containsDictionary:object]) {
