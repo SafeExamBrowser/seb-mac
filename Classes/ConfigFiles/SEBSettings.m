@@ -667,9 +667,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBMinOSX10_11],
                    @"minMacOSVersion",
                    
-                   @0,
-                   @"minMacOSVersionNumberMinor",
-                   
                    @YES,
                    @"mobileAllowInlineMediaPlayback",
                    
