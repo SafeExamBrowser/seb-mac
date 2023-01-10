@@ -95,6 +95,9 @@
 "Start SEB" = "SEB starten";
 
 /* No comment provided by engineer. */
+"Start with config " = "Starten mit Konfiguration ";
+
+/* No comment provided by engineer. */
 "Starting SEB failed with error: " = "SEB Starten fehlgeschlagen! Fehler:";
 
 /* No comment provided by engineer. */
