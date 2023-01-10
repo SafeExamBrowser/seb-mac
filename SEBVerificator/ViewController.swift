@@ -3,7 +3,35 @@
 //  SEBVerificator
 //
 //  Created by Daniel Schneider on 11.07.22.
+//  Copyright (c) 2010-2023 Daniel R. Schneider, ETH Zurich,
+//  Educational Development and Technology (LET),
+//  based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Andreas Hefti, Marco Lehre, Tobias Halbherr, Dirk Bauer, Kai Reuter,
+//  Karsten Burger, Brigitte Schmucki, Oliver Rahs.
 //
+//  ``The contents of this file are subject to the Mozilla Public License
+//  Version 1.1 (the "License"); you may not use this file except in
+//  compliance with the License. You may obtain a copy of the License at
+//  http://www.mozilla.org/MPL/
+//
+//  Software distributed under the License is distributed on an "AS IS"
+//  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+//  License for the specific language governing rights and limitations
+//  under the License.
+//
+//  The Original Code is Safe Exam Browser for Mac OS X.
+//
+//  The Initial Developer of the Original Code is Daniel R. Schneider.
+//  Portions created by Daniel R. Schneider are Copyright
+//  (c) 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development
+//  and Technology (LET), based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen. All Rights Reserved.
+//
+//  Contributor(s): ______________________________________.
+//
+
 
 import Foundation
 import Cocoa
@@ -18,7 +46,7 @@ public struct strings {
     static let applicationDirectory = "/Applications/"
 }
 
-class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApplicationDelegate {
+class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTableViewDelegate, NSApplicationDelegate {
     
     @IBOutlet weak var applicationsTableView: NSTableView!
     @IBOutlet weak var applicationsScrollView: NSScrollView!
@@ -26,6 +54,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     @IBOutlet weak var configsTableView: NSTableView!
     @IBOutlet var configsArrayController: NSArrayController!
     @IBOutlet var consoleTextView: NSTextView!
+    @IBOutlet weak var startUsingConfigCheckbox: NSButton!
     var foundSEBApplications: [SEBApplication] = []
     var sebConfigFiles: [SEBConfigFile]?
 
@@ -68,6 +97,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         let foundSEBAlikeStrings = findAllSEBAlikes()
         sebConfigFiles = findSEBConfigFiles()
         configsArrayController.content = sebConfigFiles
+        tableViewSelectionDidChange(Notification.init(name: Notification.Name.init(rawValue: "NewSelection"), object: self, userInfo: nil))
         
         updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
         updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Scanning for SEB-alike applications", comment: ""), emphasized: true, error: false))
@@ -79,6 +109,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
     override func viewDidAppear() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.applicationsTableView.scrollRowToVisible(0)
+            self.configsTableView.delegate = self
             self.configsTableView.scrollRowToVisible(0)
             self.consoleTextView.scrollToBottom()
         }
@@ -176,6 +207,29 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSApp
         }
         foundSEBConfigFiles = foundSEBConfigFiles.sorted { $0.path.lowercased() < $1.path.lowercased() }
         return foundSEBConfigFiles
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let selectedRow = self.configsTableView.selectedRow
+        if selectedRow < 0 {
+            startUsingConfigCheckbox.isHidden = true
+        } else {
+            startUsingConfigCheckbox.isHidden = false
+            guard let selectedConfigFile = configsArrayController.selectedObjects[0] as? SEBConfigFile else {
+                startUsingConfigCheckbox.isHidden = true
+                return
+            }
+            startUsingConfigCheckbox.title = NSLocalizedString("Start with config ", comment: "") + selectedConfigFile.path
+            startUsingConfigCheckbox.state = .on
+        }
+    }
+    
+    @IBAction func startWithConfigAction(_ sender: NSButton) {
+        if sender.state == .on {
+            
+        } else {
+            self.configsTableView.deselectAll(self)
+        }
     }
     
     override var representedObject: Any? {
