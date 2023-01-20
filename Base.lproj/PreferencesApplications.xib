@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -752,14 +752,14 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
-                                        <rect key="frame" x="65" y="387" width="164" height="32"/>
+                                        <rect key="frame" x="65" y="387" width="163" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                        <rect key="frame" x="227" y="387" width="144" height="32"/>
+                                        <rect key="frame" x="226" y="387" width="144" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -797,11 +797,11 @@
                         </tabViewItem>
                         <tabViewItem label="Prohibited Processes" identifier="2" id="241">
                             <view key="view" id="242">
-                                <rect key="frame" x="10" y="33" width="604" height="628"/>
+                                <rect key="frame" x="10" y="33" width="604" height="634"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1839">
-                                        <rect key="frame" x="17" y="240" width="570" height="360"/>
+                                        <rect key="frame" x="17" y="246" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                             <rect key="frame" x="1" y="1" width="568" height="358"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -903,13 +903,13 @@
                                         </tableHeaderView>
                                     </scrollView>
                                     <box autoresizesSubviews="NO" borderType="line" title="Selected Process" translatesAutoresizingMaskIntoConstraints="NO" id="1840">
-                                        <rect key="frame" x="14" y="5" width="577" height="198"/>
+                                        <rect key="frame" x="14" y="5" width="577" height="204"/>
                                         <view key="contentView" id="Chp-M2-5uo">
-                                            <rect key="frame" x="3" y="3" width="571" height="180"/>
+                                            <rect key="frame" x="3" y="3" width="571" height="186"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="This prohibited process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="1898">
-                                                    <rect key="frame" x="14" y="149" width="64" height="20"/>
+                                                    <rect key="frame" x="14" y="155" width="64" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="1908"/>
                                                     </constraints>
@@ -927,7 +927,7 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
-                                                    <rect key="frame" x="181" y="153" width="71" height="16"/>
+                                                    <rect key="frame" x="181" y="159" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -942,7 +942,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
-                                                    <rect key="frame" x="258" y="150" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="156" width="297" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
                                                     </constraints>
@@ -961,7 +961,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
-                                                    <rect key="frame" x="14" y="124" width="74" height="16"/>
+                                                    <rect key="frame" x="14" y="130" width="74" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="1913">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -976,7 +976,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
-                                                    <rect key="frame" x="94" y="121" width="461" height="21"/>
+                                                    <rect key="frame" x="94" y="127" width="461" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -993,7 +993,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
-                                                    <rect key="frame" x="162" y="66" width="90" height="16"/>
+                                                    <rect key="frame" x="162" y="72" width="90" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1008,7 +1008,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
-                                                    <rect key="frame" x="258" y="63" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="69" width="297" height="21"/>
                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
                                                         <font key="font" metaFont="system"/>
@@ -1027,7 +1027,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
-                                                    <rect key="frame" x="258" y="92" width="297" height="21"/>
+                                                    <rect key="frame" x="258" y="98" width="297" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1045,7 +1045,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
-                                                    <rect key="frame" x="194" y="95" width="58" height="16"/>
+                                                    <rect key="frame" x="194" y="101" width="58" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1060,7 +1060,7 @@
                                                     </connections>
                                                 </textField>
                                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1856">
-                                                    <rect key="frame" x="14" y="65" width="102" height="18"/>
+                                                    <rect key="frame" x="14" y="71" width="102" height="18"/>
                                                     <string key="toolTip">The prohibited process has to run under the currently logged in user. Use it instead of indicating the user. Currently not supported</string>
                                                     <buttonCell key="cell" type="check" title="Current user" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1920">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1076,7 +1076,7 @@
                                                     </connections>
                                                 </button>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="zxG-qL-0eW">
-                                                    <rect key="frame" x="16" y="39" width="539" height="16"/>
+                                                    <rect key="frame" x="16" y="45" width="539" height="16"/>
                                                     <subviews>
                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="1855">
                                                             <rect key="frame" x="-2" y="-1" width="414" height="18"/>
@@ -1093,9 +1093,8 @@
                                                                 </binding>
                                                             </connections>
                                                         </button>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="kwe-Gh-ELP">
+                                                        <button toolTip="When using the AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="kwe-Gh-ELP">
                                                             <rect key="frame" x="430" y="-1" width="109" height="18"/>
-                                                            <string key="toolTip">When using the new AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process</string>
                                                             <buttonCell key="cell" type="check" title="Ignore in AAC" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="0ME-6B-zzQ">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -1120,7 +1119,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
-                                                    <rect key="frame" x="14" y="95" width="23" height="16"/>
+                                                    <rect key="frame" x="14" y="101" width="23" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1906">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1136,7 +1135,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the prohibited process runs. macOS is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
-                                                    <rect key="frame" x="40" y="88" width="82" height="25"/>
+                                                    <rect key="frame" x="40" y="94" width="82" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="ooY-Jz-CeW"/>
                                                     </constraints>
@@ -1207,14 +1206,14 @@
                                         </constraints>
                                     </box>
                                     <button hidden="YES" toolTip="For choosing a running process which will be added to the list of prohibited processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
-                                        <rect key="frame" x="225" y="205" width="144" height="32"/>
+                                        <rect key="frame" x="225" y="211" width="144" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1853">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
                                     <button toolTip="Add a prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
-                                        <rect key="frame" x="17" y="211" width="22" height="21"/>
+                                        <rect key="frame" x="17" y="217" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1851"/>
                                             <constraint firstAttribute="width" constant="22" id="1852"/>
@@ -1228,7 +1227,7 @@
                                         </connections>
                                     </button>
                                     <button toolTip="Remove process" translatesAutoresizingMaskIntoConstraints="NO" id="1843">
-                                        <rect key="frame" x="38" y="211" width="22" height="21"/>
+                                        <rect key="frame" x="38" y="217" width="22" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="2090"/>
                                         </constraints>
@@ -1241,7 +1240,7 @@
                                         </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
-                                        <rect key="frame" x="15" y="607" width="318" height="14"/>
+                                        <rect key="frame" x="15" y="613" width="318" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="System processes which are not allowed to run during exam" id="1847">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1249,7 +1248,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button hidden="YES" toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
-                                        <rect key="frame" x="65" y="205" width="162" height="32"/>
+                                        <rect key="frame" x="65" y="211" width="162" height="32"/>
                                         <buttonCell key="cell" type="push" title="Choose Executable..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
