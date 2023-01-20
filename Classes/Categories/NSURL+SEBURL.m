@@ -81,17 +81,66 @@
     return [NSURL URLWithString:newURLString];
 }
 
+- (NSURL *) URLByReplacingSEBScheme
+{
+    NSURL *url = self;
+    if (self.scheme && [self.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
+        // If it's a seb:// URL, we try to download it by http
+        url = [self URLByReplacingScheme:@"http"];
+    } else if (self.scheme && [self.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
+        // If it's a sebs:// URL, we try to download it by https
+        url = [self URLByReplacingScheme:@"https"];
+    }
+    return url;
+}
+
 - (NSURL *) URLByReplacingScheme:(NSString *)scheme
 {
     NSString *URLString = self.absoluteString;
 
     NSRange scanResult = [URLString rangeOfString:@"://"];
-    if (scanResult.location != NSNotFound) {
-        // URL contains a scheme: replace it with the new one
-        URLString = [NSString stringWithFormat:@"%@%@", scheme, [URLString substringFromIndex:scanResult.location]];
+    if (scanResult.location != NSNotFound &&
+        URLString.length > scanResult.location+3) {
+        // URL contains a scheme: replace it with the new one but check for data: URL
+        URLString = [URLString substringFromIndex:scanResult.location+3];
+        if ([URLString hasPrefix:@"data:"]) {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:URLString];
+            return urlComponents.URL;
+        }
+        URLString = [NSString stringWithFormat:@"%@://%@", scheme, URLString];
     }
 
     return [NSURL URLWithString:URLString];
+}
+
++ (NSURL *) URLFromStringRemovingSEBScheme:(NSString *)stringWithScheme
+{
+    NSRange scanResult = [stringWithScheme rangeOfString:@"://"];
+    if (scanResult.location != NSNotFound &&
+        scanResult.location > 0 &&
+        stringWithScheme.length > scanResult.location+3) {
+        // URL contains a scheme: extract it
+        NSString *scheme = [stringWithScheme substringToIndex:scanResult.location];
+        if ([scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame ||
+            [scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
+            stringWithScheme = [stringWithScheme substringFromIndex:scanResult.location+3];
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:stringWithScheme];
+            return urlComponents.URL;
+        }
+    }
+
+    return [NSURL URLWithString:stringWithScheme];
+}
+
++ (NSURL *) URLWithSEBString:(NSString *)sebString
+{
+    NSURL *URLFromString = [NSURL URLWithString:sebString];
+    if (URLFromString) {
+        return URLFromString;
+    } else {
+        URLFromString = [NSURL URLFromStringRemovingSEBScheme:sebString];
+    }
+    return URLFromString;
 }
 
 + (NSURL *) fileURLWithPathString:(NSString *)pathString

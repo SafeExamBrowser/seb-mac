@@ -885,13 +885,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 // SEB isn't in exam mode: reconfiguring is allowed
                 NSURL *sebURL = url;
                 // Figure the download URL out, depending on if http or https should be used
-                if (url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) {
-                    // If it's a seb:// URL, we try to download it by http
-                    url = [url URLByReplacingScheme:@"http"];
-                } else if (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) {
-                    // If it's a sebs:// URL, we try to download it by https
-                    url = [url URLByReplacingScheme:@"https"];
-                }
+                url = [url URLByReplacingSEBScheme];
                 
                 void (^conditionallyDownloadConfig)(void) = ^void() {
                     // Check if we should try to download the config file from the seb(s) URL directly
@@ -977,6 +971,11 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
     
+    NSString *scheme = url.scheme;
+    NSString *host = url.host;
+    NSString *resouceSpecifier = url.resourceSpecifier;
+    DDLogDebug(@"Scheme: %@, host: %@, resource specifier: %@", scheme, host, resouceSpecifier);
+
     startURLQueryParameter = [self startURLQueryParameter:&url];
     
     // Use modern NSURLSession for downloading .seb files which also allows handling
