@@ -38,7 +38,11 @@
 
 + (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment;
 
+- (NSURL *) URLByReplacingSEBScheme;
+
 - (NSURL *) URLByReplacingScheme:(NSString *)scheme;
+
++ (NSURL *) URLWithSEBString:(NSString *)sebString;
 
 + (NSURL *) fileURLWithPathString:(NSString *)pathString;
 
