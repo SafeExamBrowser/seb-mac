@@ -127,7 +127,7 @@
     
     [self becomeFirstResponder];
 
-    [_sebWebView viewDidAppear:animated];
+    // [_sebWebView viewDidAppear:animated];
 }
 
 
