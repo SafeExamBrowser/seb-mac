@@ -942,7 +942,7 @@ static NSMutableSet *browserWindowControllers;
             self.visibleCodeReaderViewController = nil;
             [self adjustBars];
             DDLogInfo(@"Scanned QR code: %@", result);
-            NSURL *URLFromString = [NSURL URLWithString:result];
+            NSURL *URLFromString = [NSURL URLWithSEBString:result];
             if (URLFromString) {
                 [self conditionallyDownloadAndOpenSEBConfigFromURL:URLFromString];
             } else {
