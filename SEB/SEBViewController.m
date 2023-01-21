@@ -1307,16 +1307,30 @@ static NSMutableSet *browserWindowControllers;
     encryptingPassword = [preferences secureStringForKey:@"org_safeexambrowser_settingsPassword"];
     
     // Encrypt current settings with current credentials
+    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
+    BOOL shareQRCode = [preferences secureBoolForKey:@"org_safeexambrowser_shareQRCode"];
+    
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
-                                                                              forPurpose:configPurpose];
+                                                                              forPurpose:configPurpose
+                                                                          removeDefaults:removeDefaults || shareQRCode];
     if (encryptedSEBData) {
         
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
                 self.alertController = nil;
             }];
+        }
+        
+        if (configPurpose != sebConfigPurposeManagedConfiguration && shareQRCode) {
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://data:%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+            if (qrCode) {
+                encryptedSEBData = UIImagePNGRepresentation(qrCode);
+            } else {
+                shareQRCode = NO;
+            }
         }
         
         // Get config file name
@@ -1327,7 +1341,7 @@ static NSMutableSet *browserWindowControllers;
         
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
-        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : SEBFileExtension];
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : (shareQRCode ? @"png" : SEBFileExtension)];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];

@@ -323,6 +323,8 @@ enum {
 };
 typedef NSUInteger sebConfigPurposes;
 
+#define sebConfigPurposeDefault 0
+
 
 enum {
     SEBClientConfigURLSchemeNone                = 0,
