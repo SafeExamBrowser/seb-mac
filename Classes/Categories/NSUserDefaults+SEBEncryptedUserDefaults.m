@@ -718,73 +718,38 @@ static NSNumber *_logLevel;
     // Join source settings dictionary with default values
     for (NSString *key in sourceDictionary) {
         id value = [sourceDictionary objectForKey:key];
+        Class valueClass = [value superclass];
         
         // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
         // will cause a crash when trying to modify the dictionary
-        if ([value isKindOfClass:NSDictionary.class] || [value isKindOfClass:NSMutableDictionary.class]) {
+        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
             value = [NSMutableDictionary dictionaryWithDictionary:[self removeDefaultValuesFromSettingsDictionary:value defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]]];
             if ([value count] == 0) {
                 continue;
             }
         }
 
-//        if ([value isKindOfClass:NSArray.class] || [value isKindOfClass:NSMutableArray.class]) {
-//            NSDictionary *presetProcess;
-//            NSMutableArray *elementsFromSettings = ((NSArray *)value).mutableCopy;
-//            NSMutableArray *presetProcesses = ((NSArray *)[defaultSettings objectForKey:key]).mutableCopy;
-//            NSMutableArray *newProcesses = [NSMutableArray new];
-//            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
-//                presetProcess = presetProcesses[i];
-//                NSInteger os = [presetProcess[@"os"] longValue];
-//                if (os == operatingSystemMacOS) {
-//                    NSString *bundleID = presetProcess[@"identifier"];
-//                    NSString *executable = presetProcess[@"executable"];
-//                    NSArray *matches;
-//                    if (bundleID.length > 0) {
-//                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
-//                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-//                    } else {
-//                        // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
-//                        if (executable.length > 0) {
-//                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
-//                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-//                            NSDictionary *matchingProcess;
-//                            for (NSDictionary *processFromSettings in matches) {
-//                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
-//                                if (processFromSettingsBundleID.length == 0) {
-//                                    // we join processes with same executable only if they both
-//                                    // don't specify a bundle ID
-//                                    matchingProcess = processFromSettings;
-//                                    break;
-//                                }
-//                            }
-//                            if (matchingProcess) {
-//                                matches = [NSArray arrayWithObject:matchingProcess];
-//                            }
-//                        }
-//                    }
-//                    if (matches.count > 0) {
-//                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
-//                        [processesFromSettings removeObject:matchingProcessFromSettings];
-//                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
-//                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
-//                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
-//                        NSString *description = matchingProcessFromSettings[@"description"];
-//                        if (description.length == 0) {
-//                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
-//                        }
-//                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
-//                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
-//
-//                        [newProcesses addObject:matchingProcessFromSettings];
-//                    } else {
-//                        [newProcesses addObject:presetProcess];
-//                    }
-//                }
-//            }
-//            [newProcesses addObjectsFromArray:processesFromSettings];
-//            value = newProcesses;
-//        }
+        if ([value isKindOfClass:NSArray.class] || [value isKindOfClass:NSMutableArray.class]) {
+            NSDictionary *element;
+            NSMutableArray *elementsFromSettings = ((NSArray *)value).mutableCopy;
+            NSArray *defaultElements = ((NSArray *)[defaultSettings objectForKey:key]);
+            NSUInteger i = 0;
+            while (i < elementsFromSettings.count) {
+                element = elementsFromSettings[i];
+                Class elementClass = [element superclass];
+                if ([defaultElements containsObject:element]) {
+                    [elementsFromSettings removeObjectAtIndex:i];
+                    continue;
+                } else if (elementClass == NSDictionary.class || elementClass == NSMutableDictionary.class) {
+                    elementsFromSettings[i] = [self removeDefaultValuesFromSettingsDictionary:element defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]].mutableCopy;
+                }
+                i++;
+            }
+            value = elementsFromSettings;
+            if ([value count] == 0) {
+                continue;
+            }
+        }
         
         if (![[defaultSettings objectForKey:key] isEqual:value]) {
             [strippedSettings setObject:value forKey:key];
