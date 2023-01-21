@@ -728,15 +728,19 @@ static NSString *getUppercaseAdminPasswordHash()
         return; //Decryption didn't work, we abort
     }
     
-    // Reset SEB, close third party applications
+    id sebConfigPurposeValue = [sebPreferencesDict valueForKey:@"sebConfigPurpose"];
+    NSUInteger sebConfigPurpose = sebConfigPurposeDefault;
+    if (sebConfigPurposeValue) {
+        sebConfigPurpose = [sebConfigPurposeValue intValue];
+    }
     
-    if (!storeSettingsForceConfiguringClient && (storeSettingsForEditing || [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam)) {
+    if (!storeSettingsForceConfiguringClient && (storeSettingsForEditing || sebConfigPurpose == sebConfigPurposeStartingExam)) {
         
         ///
         /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
-        if (!storeSettingsForEditing && [[sebPreferencesDict valueForKey:@"sebConfigPurpose"] intValue] == sebConfigPurposeStartingExam) {
+        if (!storeSettingsForEditing && sebConfigPurpose == sebConfigPurposeStartingExam) {
             if ((_delegate.startingExamFromSEBServer || _delegate.sebServerConnectionEstablished) && [[sebPreferencesDict valueForKey:@"sebMode"] intValue] == sebModeSebServer) {
                 
                 DDLogError(@"%s: There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session.", __FUNCTION__);
@@ -1108,12 +1112,14 @@ static NSString *getUppercaseAdminPasswordHash()
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
                              passwordIsHash:(BOOL) passwordIsHash
                                withIdentity:(SecIdentityRef) identityRef
-                                 forPurpose:(sebConfigPurposes)configPurpose {
+                                 forPurpose:(sebConfigPurposes)configPurpose
+                             removeDefaults:(BOOL)removeDefaults
+{
 
     // Copy preferences to a dictionary
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *filteredPrefsDict;
-    filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEB]];
+    filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEBRemoveDefaults:removeDefaults]];
     
     // Write SEB_OS_version_build version information to .seb settings
     NSString *originatorVersion = [NSString stringWithFormat:@"SEB_iOS_%@_%@",
