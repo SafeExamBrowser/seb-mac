@@ -121,6 +121,7 @@
 - (BOOL)haveSEBUserDefaults;
 
 // Get dictionary representation of all SEB user defaults
+- (NSDictionary *)dictionaryRepresentationSEBRemoveDefaults:(BOOL)removeDefaults;
 - (NSDictionary *)dictionaryRepresentationSEB;
 
 // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the returned NSSet

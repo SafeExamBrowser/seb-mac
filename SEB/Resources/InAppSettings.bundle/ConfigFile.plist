@@ -48,6 +48,22 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Remove Default Values</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_removeDefaults</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Share as QR Code</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_shareQRCode</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Encryption</string>
