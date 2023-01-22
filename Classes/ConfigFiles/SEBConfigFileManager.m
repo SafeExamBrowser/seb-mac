@@ -1158,9 +1158,12 @@ static NSString *getUppercaseAdminPasswordHash()
     
     // Check for special case: SEB settings for Managed Configuration
     if (configPurpose == sebConfigPurposeManagedConfiguration) {
-        // Return SEB config data unencrypted
+        // Return SEB config data unencrypted and not gzip compressed
         return encryptedSebData;
     }
+    
+    // gzip the serialized XML data
+    encryptedSebData = [encryptedSebData gzipDeflate];
     
     // Check for special case: SEB settings for configuring client, empty password
     if (settingsPassword.length == 0 && configPurpose == sebConfigPurposeConfiguringClient) {
@@ -1178,9 +1181,6 @@ static NSString *getUppercaseAdminPasswordHash()
             }
         }
     }
-    // gzip the serialized XML data
-    encryptedSebData = [encryptedSebData gzipDeflate];
-    
     // Check if password for encryption is provided and use it then
     if (settingsPassword.length > 0) {
         encryptingPassword = settingsPassword;
