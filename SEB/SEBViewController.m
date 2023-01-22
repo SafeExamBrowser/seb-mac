@@ -1299,7 +1299,7 @@ static NSMutableSet *browserWindowControllers;
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
     
-    NSString *encryptedWithIdentity = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
+    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
     
     // Get password
     NSString *encryptingPassword;
@@ -1330,10 +1330,36 @@ static NSMutableSet *browserWindowControllers;
                 encryptedSEBData = UIImagePNGRepresentation(qrCode);
             } else {
                 shareQRCode = NO;
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
+                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self.alertController = nil;
+
+                }]];
+                
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Config File", nil)
+                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                    self.alertController = nil;
+                    [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareQRCode:shareQRCode];
+                }]];
+                
+                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+                return;
             }
         }
-        
+        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareQRCode:shareQRCode];
+    }
+}
+    
+- (void)shareEncryptedSettings:(NSData *)encryptedSEBData
+         encryptedWithIdentity:(NSString *)encryptedWithIdentityString
+              forConfigPurpose:(sebConfigPurposes)configPurpose
+                   shareQRCode:(BOOL)shareQRCode
+    {
         // Get config file name
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *configFileName = [preferences secureStringForKey:@"configFileName"];
         if (configFileName.length == 0) {
             configFileName = @"SEBConfigFile";
@@ -1349,7 +1375,7 @@ static NSMutableSet *browserWindowControllers;
         NSArray *activityItems;
         
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
-                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentity] :
+                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentityString] :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
                                         NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
@@ -1382,7 +1408,6 @@ static NSMutableSet *browserWindowControllers;
         activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
         [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
     }
-}
 
 
 - (NSString *)base16StringForHashKey:(NSData *)hashKey
