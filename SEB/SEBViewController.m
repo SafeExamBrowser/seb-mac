@@ -1324,7 +1324,7 @@ static NSMutableSet *browserWindowControllers;
         }
         
         if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
-            NSString *configInDataURL = [NSString stringWithFormat:@"%@://data:%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
             if (shareConfigFormat == shareConfigFormatQRCode) {
                 UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
                 if (qrCode) {
