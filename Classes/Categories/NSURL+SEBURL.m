@@ -101,10 +101,10 @@
     NSRange scanResult = [URLString rangeOfString:@"://"];
     if (scanResult.location != NSNotFound &&
         URLString.length > scanResult.location+3) {
-        // URL contains a scheme: replace it with the new one but check for data: URL
+        // URL contains a scheme: replace it with the new one but check for application/seb URL
         URLString = [URLString substringFromIndex:scanResult.location+3];
-        if ([URLString hasPrefix:@"data:"]) {
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:URLString];
+        if ([URLString hasPrefix:SEBConfigMIMEType]) {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithString:[@"data:" stringByAppendingString:URLString]];
             return urlComponents.URL;
         }
         URLString = [NSString stringWithFormat:@"%@://%@", scheme, URLString];
