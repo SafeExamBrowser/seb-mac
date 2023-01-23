@@ -82,7 +82,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Config File</string>
+			<string>Configuration</string>
 			<key>File</key>
 			<string>ConfigFile</string>
 		</dict>

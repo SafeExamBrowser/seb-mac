@@ -212,8 +212,8 @@ static NSNumber *_logLevel;
                                          @NO,
                                          @"org_safeexambrowser_removeDefaults",
                                          
-                                         @NO,
-                                         @"org_safeexambrowser_shareQRCode",
+                                         [NSNumber numberWithLong:shareConfigFormatFile],
+                                         @"org_safeexambrowser_shareConfigFormat",
                                          
                                          @"",
                                          @"org_safeexambrowser_startURLDeepLink",
