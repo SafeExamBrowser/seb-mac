@@ -1308,13 +1308,13 @@ static NSMutableSet *browserWindowControllers;
     
     // Encrypt current settings with current credentials
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
-    BOOL shareQRCode = [preferences secureBoolForKey:@"org_safeexambrowser_shareQRCode"];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
     
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
                                                                               forPurpose:configPurpose
-                                                                          removeDefaults:removeDefaults || shareQRCode];
+                                                                          removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     if (encryptedSEBData) {
         
         if (_alertController) {
@@ -1323,40 +1323,44 @@ static NSMutableSet *browserWindowControllers;
             }];
         }
         
-        if (configPurpose != sebConfigPurposeManagedConfiguration && shareQRCode) {
+        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
             NSString *configInDataURL = [NSString stringWithFormat:@"%@://data:%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
-            UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
-            if (qrCode) {
-                encryptedSEBData = UIImagePNGRepresentation(qrCode);
-            } else {
-                shareQRCode = NO;
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
-                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    self.alertController = nil;
+            if (shareConfigFormat == shareConfigFormatQRCode) {
+                UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+                if (qrCode) {
+                    encryptedSEBData = UIImagePNGRepresentation(qrCode);
+                } else {
+                    shareConfigFormat = shareConfigFormatFile;
+                    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
+                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        self.alertController = nil;
 
-                }]];
-                
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Config File", nil)
-                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                    self.alertController = nil;
-                    [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareQRCode:shareQRCode];
-                }]];
-                
-                [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                return;
+                    }]];
+                    
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Config File", nil)
+                                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                        self.alertController = nil;
+                        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
+                    }]];
+                    
+                    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+                    return;
+                }
+            } else {
+                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
             }
         }
-        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareQRCode:shareQRCode];
+        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
     }
 }
     
 - (void)shareEncryptedSettings:(NSData *)encryptedSEBData
          encryptedWithIdentity:(NSString *)encryptedWithIdentityString
               forConfigPurpose:(sebConfigPurposes)configPurpose
-                   shareQRCode:(BOOL)shareQRCode
+             shareConfigFormat:(ShareConfigFormat)shareConfigFormat
     {
         // Get config file name
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1367,7 +1371,24 @@ static NSMutableSet *browserWindowControllers;
         
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
-        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : (shareQRCode ? @"png" : SEBFileExtension)];
+        NSString *fileExtension;
+        switch (shareConfigFormat) {
+            case shareConfigFormatFile:
+                fileExtension = SEBFileExtension;
+                break;
+                
+            case shareConfigFormatLink:
+                fileExtension = @"txt";
+                break;
+                
+            case shareConfigFormatQRCode:
+                fileExtension = @"png";
+                break;
+                
+            default:
+                break;
+        }
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:fileExtension];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
