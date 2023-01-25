@@ -458,7 +458,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 /// Request handling
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-                                                      newTab:(BOOL)newTab
+                                                  newTab:(BOOL)newTab
+                                           configuration:(WKWebViewConfiguration *)configuration
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;

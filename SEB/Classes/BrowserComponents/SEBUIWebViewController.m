@@ -375,31 +375,6 @@
 }
 
 
-- (NSString *)saveData:(NSData *)data
-{
-    // Get the path to the App's Documents directory
-    NSURL *documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-    NSString *filename = NSLocalizedString(@"Untitled", @"untitled filename");
-    
-    NSDate *time = [NSDate date];
-    NSDateFormatter* dateFormatter = [NSDateFormatter new];
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd_hh-mm-ssZZZZZ"];
-    NSString *timeString = [dateFormatter stringFromDate:time];
-    filename = [NSString stringWithFormat:@"%@_%@", filename, timeString];
-    
-    NSString *fullPath = [documentsDirectory URLByAppendingPathComponent:filename].path;
-    DDLogInfo(@"%s File path: %@", __FUNCTION__, fullPath);
-    
-    BOOL success = [NSFileManager.defaultManager createFileAtPath:fullPath contents:data attributes:nil];
-    if (success) {
-        return filename;
-    } else {
-        return nil;
-    }
-}
-
-
 - (BOOL)canGoBack {
     return _sebWebView.canGoBack;
 }
