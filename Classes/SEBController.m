@@ -1808,215 +1808,7 @@ bool insideMatrix(void);
     }
     DDLogDebug(@"%s", __FUNCTION__);
     
-    if (!_conditionalInitAfterProcessesChecked) {
-        _conditionalInitAfterProcessesChecked = YES;
-        /// Early kiosk mode setup (as these actions might take some time)
-        
-        /// When running on macOS 10.15.4 or newer, use AAC
-        if (@available(macOS 10.15.4, *)) {
-            DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
-            [self updateAACAvailablility];
-            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
-            [self closeCapWindows];
-            DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
-            if (_isAACEnabled == YES && _wasAACEnabled == NO) {
-                void (^startAssessmentMode)(void) =
-                ^{
-                    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
-                    DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
-                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
-                    self.assessmentModeManager = assessmentModeManager;
-                    self.assessmentModeManager.delegate = self;
-                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
-                        [self assessmentSessionDidEndWithCallback:callback selector:selector];
-                    }
-                };
-                
-                // Save current string from pasteboard for pasting start URL in Preferences Window
-                // and clear pasteboard (latter acutally isn't necessary for AAC)
-                [self clearPasteboardSavingCurrentString];
-                
-                if (@available(macOS 12.1, *)) {
-                    // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
-                } else {
-                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
-                        NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
-                        if (permittedDomains.count == 0) {
-                            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-                            if (urlText.length == 0) {
-                                urlText = SEBStartPage;
-                            }
-                            NSURL *startURL = [NSURL URLWithString:urlText];
-                            permittedDomains = @[startURL.host];
-                        }
-                        BOOL result;
-                        for (NSString *permittedDomain in permittedDomains) {
-                            NSString *host = permittedDomain;
-                            if ([permittedDomain hasPrefix:@"."] && permittedDomain.length > 1) {
-                                host = [permittedDomain substringFromIndex:1];
-                            }
-                            CFHostRef hostRef;
-                            hostRef = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)host);
-                            if (hostRef) {
-                                 result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
-                                if (result) {
-                                    DDLogDebug(@"Performed DNS pre-pinning of host %@", host);
-                                } else {
-                                    DDLogDebug(@"DNS pre-pinning of host %@ failed", host);
-                                }
-                            }
-                        }
-                    }
-                }
-                startAssessmentMode();
-                return;
-            } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
-                DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
-                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
-                return;
-            }
-        } else {
-            _isAACEnabled = NO;
-        }
-        
-        [self initSEBProcessesCheckedWithCallback:callback selector:selector];
-    }
-}
-    
-
-/// Assessment Mode Delegate Methods
-
-- (void) assessmentSessionWillBegin
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    [self.hudController showHUDProgressIndicator];
-}
-
-- (void) assessmentSessionWillEnd
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    [self.hudController showHUDProgressIndicator];
-}
-
-- (void) assessmentSessionDidBeginWithCallback:(id)callback
-                                      selector:(SEL)selector
-{
-    _isAACEnabled = YES;
-    _wasAACEnabled = YES;
-    [NSMenu setMenuBarVisible:NO];
-    [self.hudController hideHUDProgressIndicator];
-    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
-}
-
-- (void) assessmentSessionFailedToBeginWithError:(NSError *)error
-                                        callback:(id)callback
-                                        selector:(SEL)selector
-{
-    [self.hudController hideHUDProgressIndicator];
-    DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
-    // Use SEB kiosk mode
-    _overrideAAC = YES;
-    _isAACEnabled = NO;
-    _wasAACEnabled = NO;
-    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
-}
-
-
-- (void) assessmentSessionDidEndWithCallback:(id)callback
-                                    selector:(SEL)selector
-{
-    _wasAACEnabled = NO;
-    [self.hudController hideHUDProgressIndicator];
-    if (_isTerminating) {
-        DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-        IMP imp = [callback methodForSelector:selector];
-        void (*func)(id, SEL) = (void *)imp;
-        func(callback, selector);
-    } else {
-        DDLogDebug(@"%s, continue with [self initSEBProcessesCheckedWithCallback:%@ selector: %@]", __FUNCTION__, callback, NSStringFromSelector(selector));
-        [self initSEBProcessesCheckedWithCallback:callback selector:selector];
-    }
-}
-
-- (void) assessmentSessionWasInterruptedWithError:(NSError *)error
-{
-    [self.hudController hideHUDProgressIndicator];
-    DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    [self requestedExit:nil]; // Quit SEB
-}
-
-
-void run_on_ui_thread(dispatch_block_t block)
-{
-    if ([NSThread isMainThread])
-        block();
-    else
-        dispatch_sync(dispatch_get_main_queue(), block);
-}
-
-
-- (void) initSEBProcessesCheckedWithCallback:(id)callback
-                                                 selector:(SEL)selector
-{
-    if (_openingSettings) {
-        DDLogDebug(@"OpeningSettings = true, abort %s", __FUNCTION__);
-        return;
-    }
-    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-    
-    /// Early kiosk mode setup (as these actions might take some time)
-    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (_isAACEnabled == NO) {
-        DDLogDebug(@"%s: isAACEnabled = false, using SEB kiosk mode", __FUNCTION__);
-        
-        // Hide all other applications
-        [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                        withObject:NULL waitUntilDone:YES];
-        
-        allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
-    }
-    // Switch off display mirroring and find main active screen according to settings
-    [self conditionallyTerminateDisplayMirroring];
-    
-    if (_isAACEnabled == NO) {
-        
-        // Switch off Siri and dictation if not allowed in settings
-        [self conditionallyDisableSpeechInput];
-        
-        // Switch off TouchBar features
-        [self disableTouchBarFeatures];
-        
-        // Switch to kiosk mode by setting the proper presentation options
-        [self setElevateWindowLevels];
-        [self startKioskMode];
-        
-        // Clear pasteboard and save current string for pasting start URL in Preferences Window
-        [self clearPasteboardSavingCurrentString];
-        
-        // Check if the Force Quit window is open
-        if (![self forceQuitWindowCheckContinue]) {
-            return;
-        }
-        
-        // Run watchdog event for windows and events which need to be observed
-        // on the main (UI!) thread once, to initialize
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self windowWatcher];
-        });
-    }
-    
-    /// Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
-    // Update URL filter ignore rules
-    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
-    
-    // Set up and open SEB Dock
-    [self openSEBDock];
-    self.browserController.dockController = self.dockController;
-    self.dockController.dockButtonDelegate = self;
-    
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
@@ -2122,9 +1914,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 [self.zoomController openZoomWithSender:self];
             }
             // Continue starting the exam session
-            IMP imp = [callback methodForSelector:selector];
-            void (*func)(id, SEL) = (void *)imp;
-            func(callback, selector);
+            [self conditionallyStartAACWithCallback:callback selector:selector];
         };
         if (zoomEnable) {
             // Check if previous SEB session already had proctoring active
@@ -2164,9 +1954,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         } else {
             // Continue starting the exam session
-            IMP imp = [callback methodForSelector:selector];
-            void (*func)(id, SEL) = (void *)imp;
-            func(callback, selector);
+            [self conditionallyStartAACWithCallback:callback selector:selector];
         }
     };
 
@@ -2283,7 +2071,220 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         self.previousSessionZoomEnabled = NO;
     }
+    // Continue starting the exam session
+    [self conditionallyStartAACWithCallback:callback selector:selector];
+}
     
+
+- (void) conditionallyStartAACWithCallback:(id)callback selector:(SEL)selector
+{
+    if (!_conditionalInitAfterProcessesChecked) {
+        _conditionalInitAfterProcessesChecked = YES;
+        /// Early kiosk mode setup (as these actions might take some time)
+        
+        /// When running on macOS 10.15.4 or newer, use AAC
+        if (@available(macOS 10.15.4, *)) {
+            DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
+            [self updateAACAvailablility];
+            DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
+            [self closeCapWindows];
+            DDLogInfo(@"isAACEnabled = %hhd", _isAACEnabled);
+            if (_isAACEnabled == YES && _wasAACEnabled == NO) {
+                void (^startAssessmentMode)(void) =
+                ^{
+                    NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
+                    DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+                    self.assessmentModeManager = assessmentModeManager;
+                    self.assessmentModeManager.delegate = self;
+                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                        [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                    }
+                };
+                
+                // Save current string from pasteboard for pasting start URL in Preferences Window
+                // and clear pasteboard (latter acutally isn't necessary for AAC)
+                [self clearPasteboardSavingCurrentString];
+                
+                if (@available(macOS 12.1, *)) {
+                    // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
+                } else {
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
+                        NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
+                        if (permittedDomains.count == 0) {
+                            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                            if (urlText.length == 0) {
+                                urlText = SEBStartPage;
+                            }
+                            NSURL *startURL = [NSURL URLWithString:urlText];
+                            permittedDomains = @[startURL.host];
+                        }
+                        BOOL result;
+                        for (NSString *permittedDomain in permittedDomains) {
+                            NSString *host = permittedDomain;
+                            if ([permittedDomain hasPrefix:@"."] && permittedDomain.length > 1) {
+                                host = [permittedDomain substringFromIndex:1];
+                            }
+                            CFHostRef hostRef;
+                            hostRef = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)host);
+                            if (hostRef) {
+                                 result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
+                                if (result) {
+                                    DDLogDebug(@"Performed DNS pre-pinning of host %@", host);
+                                } else {
+                                    DDLogDebug(@"DNS pre-pinning of host %@ failed", host);
+                                }
+                            }
+                        }
+                    }
+                }
+                startAssessmentMode();
+                return;
+            } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
+                DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
+                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
+                return;
+            }
+        } else {
+            _isAACEnabled = NO;
+        }
+    }
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+
+
+/// Assessment Mode Delegate Methods
+
+- (void) assessmentSessionWillBegin
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    [self.hudController showHUDProgressIndicator];
+}
+
+- (void) assessmentSessionWillEnd
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    [self.hudController showHUDProgressIndicator];
+}
+
+- (void) assessmentSessionDidBeginWithCallback:(id)callback
+                                      selector:(SEL)selector
+{
+    _isAACEnabled = YES;
+    _wasAACEnabled = YES;
+    [NSMenu setMenuBarVisible:NO];
+    [self.hudController hideHUDProgressIndicator];
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+
+- (void) assessmentSessionFailedToBeginWithError:(NSError *)error
+                                        callback:(id)callback
+                                        selector:(SEL)selector
+{
+    [self.hudController hideHUDProgressIndicator];
+    DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
+    // Use SEB kiosk mode
+    _overrideAAC = YES;
+    _isAACEnabled = NO;
+    _wasAACEnabled = NO;
+    [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+}
+
+
+- (void) assessmentSessionDidEndWithCallback:(id)callback
+                                    selector:(SEL)selector
+{
+    _wasAACEnabled = NO;
+    [self.hudController hideHUDProgressIndicator];
+    if (_isTerminating) {
+        DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        IMP imp = [callback methodForSelector:selector];
+        void (*func)(id, SEL) = (void *)imp;
+        func(callback, selector);
+    } else {
+        DDLogDebug(@"%s, continue with [self initSEBProcessesCheckedWithCallback:%@ selector: %@]", __FUNCTION__, callback, NSStringFromSelector(selector));
+        [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+    }
+}
+
+- (void) assessmentSessionWasInterruptedWithError:(NSError *)error
+{
+    [self.hudController hideHUDProgressIndicator];
+    DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
+    [self requestedExit:nil]; // Quit SEB
+}
+
+
+void run_on_ui_thread(dispatch_block_t block)
+{
+    if ([NSThread isMainThread])
+        block();
+    else
+        dispatch_sync(dispatch_get_main_queue(), block);
+}
+
+
+- (void) initSEBProcessesCheckedWithCallback:(id)callback selector:(SEL)selector
+{
+    if (_openingSettings) {
+        DDLogDebug(@"OpeningSettings = true, abort %s", __FUNCTION__);
+        return;
+    }
+    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    
+    /// Early kiosk mode setup (as these actions might take some time)
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (_isAACEnabled == NO) {
+        DDLogDebug(@"%s: isAACEnabled = false, using SEB kiosk mode", __FUNCTION__);
+        
+        // Hide all other applications
+        [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
+                                                        withObject:NULL waitUntilDone:YES];
+        
+        allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+    }
+    // Switch off display mirroring and find main active screen according to settings
+    [self conditionallyTerminateDisplayMirroring];
+    
+    if (_isAACEnabled == NO) {
+        
+        // Switch off Siri and dictation if not allowed in settings
+        [self conditionallyDisableSpeechInput];
+        
+        // Switch off TouchBar features
+        [self disableTouchBarFeatures];
+        
+        // Switch to kiosk mode by setting the proper presentation options
+        [self setElevateWindowLevels];
+        [self startKioskMode];
+        
+        // Clear pasteboard and save current string for pasting start URL in Preferences Window
+        [self clearPasteboardSavingCurrentString];
+        
+        // Check if the Force Quit window is open
+        if (![self forceQuitWindowCheckContinue]) {
+            return;
+        }
+        
+        // Run watchdog event for windows and events which need to be observed
+        // on the main (UI!) thread once, to initialize
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self windowWatcher];
+        });
+    }
+    
+    /// Update URL filter flags and rules
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    // Update URL filter ignore rules
+    [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
+    
+    // Set up and open SEB Dock
+    [self openSEBDock];
+    self.browserController.dockController = self.dockController;
+    self.dockController.dockButtonDelegate = self;
+        
     // Continue starting the exam session
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL) = (void *)imp;
