@@ -105,7 +105,7 @@
 
     [self.browserController checkForClosingTemporaryWebView:self.webView];
     [self.browserController closeWebView:self.webView];
-    return YES;
+    return NO;
 }
 
 
