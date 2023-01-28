@@ -14,9 +14,7 @@
 				<string>mydoc</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>sebConfigIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>0</integer>
+			<string></string>
 			<key>CFBundleTypeName</key>
 			<string>DocumentType</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -25,8 +23,6 @@
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 			<key>NSDocumentClass</key>
 			<string>SEBBrowserWindowDocument</string>
 		</dict>
@@ -37,14 +33,10 @@
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>sebConfigIcon</string>
-			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>SEBSettings</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.safeexambrowser.seb</string>
@@ -95,7 +87,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>14541</string>
+	<string>14490</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
