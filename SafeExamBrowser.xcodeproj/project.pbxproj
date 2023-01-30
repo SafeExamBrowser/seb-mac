@@ -933,6 +933,7 @@
 		69E08135289C66F300653364 /* SEBVERIFICATOR_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69E08134289C66F300653364 /* SEBVERIFICATOR_Prefix.pch */; };
 		69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
 		69E1310826C665B0005C5530 /* SEBOSXWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */; };
+		69E18FE82987D303007E0689 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
 		69E2BBB126FDBAA90055531A /* SEBServerOSXViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */; };
 		69E2BBB226FDBAA90055531A /* SEBServerOSXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */; };
 		69E2BBB62703FD8F0055531A /* SEBServerOSXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E2BBB42703FD8F0055531A /* SEBServerOSXViewController.xib */; };
@@ -1754,6 +1755,7 @@
 		69E1310726C665B0005C5530 /* SEBOSXWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBOSXWKWebViewController.swift; path = Classes/BrowserComponents/SEBOSXWKWebViewController.swift; sourceTree = "<group>"; };
 		69E13AEE127C812900CB81E1 /* AboutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutView.h; sourceTree = "<group>"; };
 		69E13AEF127C812900CB81E1 /* AboutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutView.m; sourceTree = "<group>"; };
+		69E18FE72987D303007E0689 /* qrCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = qrCodeGenerator.swift; path = Classes/ConfigFiles/qrCodeGenerator.swift; sourceTree = "<group>"; };
 		69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBServerOSXViewController.h; sourceTree = "<group>"; };
 		69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBServerOSXViewController.m; sourceTree = "<group>"; };
 		69E2BBB52703FD8F0055531A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SEBServerOSXViewController.xib; sourceTree = "<group>"; };
@@ -2921,6 +2923,7 @@
 		69A223391C20C0BE00766354 /* Config Files */ = {
 			isa = PBXGroup;
 			children = (
+				69E18FE72987D303007E0689 /* qrCodeGenerator.swift */,
 				69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */,
 				694803921C236E7800593711 /* SEBiOSConfigFileController.m */,
 			);
@@ -4447,6 +4450,7 @@
 				693FB272232064110062E36E /* SEBServerViewController.m in Sources */,
 				695370B72033921C00C638A8 /* LGSideMenuBorderView.m in Sources */,
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
+				69E18FE82987D303007E0689 /* qrCodeGenerator.swift in Sources */,
 				698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
