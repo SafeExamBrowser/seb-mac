@@ -3689,6 +3689,22 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (NSString * _Nullable)appSignatureKey {
+    return [self base16StringForHashKey:self.browserController.appSignatureKey];
+}
+
+
+- (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
+    self.browserController.examSalt = [NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+    self.browserController.connectionToken = connectionToken;
+}
+
+
+- (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
+    self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+}
+
+
 - (void) loginToExam:(NSString *)url
 {
     NSURL *examURL = [NSURL URLWithString:url];
