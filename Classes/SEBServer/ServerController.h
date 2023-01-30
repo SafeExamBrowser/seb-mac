@@ -42,6 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ServerControllerDelegate <NSObject>
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
+- (void) didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken;
+- (void) didReceiveServerBEK:(NSString * _Nonnull)serverBEK;
+@property (readonly, nonatomic) NSString *_Nullable appSignatureKey;
 - (void) storeNewSEBSettingsFromServer:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
