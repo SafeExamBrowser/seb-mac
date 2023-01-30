@@ -265,6 +265,13 @@
             }
         }
         
+        if ([instruction isEqualToString:@"SEB_FORCE_LOCK_SCREEN"]) {
+            if ([self.delegate respondsToSelector:@selector(lockSEBWithAttributes:)]) {
+                NSDictionary *attributes = sebInstruction.attributes;
+                [self.delegate lockSEBWithAttributes:(NSDictionary *)attributes];
+            }
+        }
+
         if ([instruction isEqualToString:@"NOTIFICATION_CONFIRM"]) {
             if ([self.delegate respondsToSelector:@selector(confirmNotificationWithAttributes:)]) {
                 NSDictionary *attributes = sebInstruction.attributes;

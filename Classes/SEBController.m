@@ -1466,6 +1466,14 @@ bool insideMatrix(void);
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
 }
 
+- (void) lockSEBWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *message = attributes[@"message"];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message}];
+}
+
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
@@ -4465,6 +4473,19 @@ conditionallyForWindow:(NSWindow *)window
             [self appendErrorString:[NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Proctoring failed: ", nil), proctoringFailedErrorString] withTime:self.didBecomeActiveTime repeated:self.zoomUserRetryWasUsed];
             
             [self openLockdownWindows];
+        } else {
+            NSString *lockReason;
+            NSDictionary *userInfo = notification.userInfo;
+            if (userInfo) {
+                lockReason = [userInfo valueForKey:@"lockReason"];
+            }
+            DDLogError(@"%@", lockReason);
+            if (lockReason.length > 0) {
+                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
+                                                            Message:[NSString stringWithFormat:@"%@", lockReason]];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
+                [self openLockdownWindows];
+            }
         }
 
     });
