@@ -3690,7 +3690,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 - (NSString * _Nullable)appSignatureKey {
-    return [self base16StringForHashKey:self.browserController.appSignatureKey];
+    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
 }
 
 
