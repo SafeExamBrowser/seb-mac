@@ -178,6 +178,8 @@ void DisposeWindow (
         [_windowWatchTimer invalidate];
         _windowWatchTimer = nil;
     }
+    [self.browserController closeWebView:self.browserWindow.webView];
+
     self.window = nil;
     _browserController.activeBrowserWindow = nil;
 }
