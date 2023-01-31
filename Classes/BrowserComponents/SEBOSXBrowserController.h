@@ -82,7 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;
 - (SEBAbstractWebView *) openAndShowWebViewWithURL:(nullable NSURL *)url
                                      configuration:(nullable WKWebViewConfiguration *)configuration;
-- (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose;
 - (void) webViewShow:(SEBAbstractWebView *)sender;
 - (void) openMainBrowserWindow;
 - (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL;
