@@ -804,7 +804,7 @@
                                         <rect key="frame" x="17" y="246" width="570" height="360"/>
                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                             <rect key="frame" x="1" y="1" width="568" height="358"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="335"/>
