@@ -102,10 +102,7 @@
         
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
     }
-
-    [self.browserController checkForClosingTemporaryWebView:self.webView];
-    [self.browserController closeWebView:self.webView];
-    return NO;
+    return YES;
 }
 
 
