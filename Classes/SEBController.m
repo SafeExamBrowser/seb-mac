@@ -994,15 +994,23 @@ bool insideMatrix(void);
         }
         
     } else {
-        // If SEB was just started (by opening a config file)
-        if (_startingUp) {
-            // we quit, as decrypting the config wasn't successful
-            DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            [self requestedExit:nil]; // Quit SEB
-        } else {
-            // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-//        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-        }
+        BOOL startingSEBServerSession = _startingExamFromSEBServer || _sebServerConnectionEstablished;
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+        [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
+        [modalAlert addButtonWithTitle:(!startingSEBServerSession && !_startingUp) ? NSLocalizedString(@"OK", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            if (self.startingUp) {
+                // we quit, as decrypting the config wasn't successful
+                DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
+                [self requestedExit:nil]; // Quit SEB
+            } else if (startingSEBServerSession) {
+                [self sessionQuitRestart:NO];
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))storeNewSEBSettingsNotSuccessfulHandler];
         _openingSettings = NO;
     }
 }
