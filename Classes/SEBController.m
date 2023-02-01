@@ -994,11 +994,10 @@ bool insideMatrix(void);
         }
         
     } else {
-        BOOL startingSEBServerSession = _startingExamFromSEBServer || _sebServerConnectionEstablished;
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
         [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
-        [modalAlert addButtonWithTitle:(!startingSEBServerSession && !_startingUp) ? NSLocalizedString(@"OK", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
@@ -1006,7 +1005,7 @@ bool insideMatrix(void);
                 // we quit, as decrypting the config wasn't successful
                 DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
                 [self requestedExit:nil]; // Quit SEB
-            } else if (startingSEBServerSession) {
+            } else if (self.establishingSEBServerConnection) {
                 [self sessionQuitRestart:NO];
             }
         };
