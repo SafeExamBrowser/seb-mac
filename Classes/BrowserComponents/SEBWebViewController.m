@@ -133,8 +133,7 @@
     if (@available(macOS 10.10.3, *)) {
         
         NSPressureConfiguration* pressureConfiguration;
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"]) {
+        if (_allowDictionaryLookup) {
             pressureConfiguration = [[NSPressureConfiguration alloc]
                                      initWithPressureBehavior:NSPressureBehaviorPrimaryDefault];
         } else {
@@ -145,6 +144,7 @@
         for (NSView *subview in [self.view subviews]) {
             if ([subview respondsToSelector:@selector(setPressureConfiguration:)]) {
                 subview.pressureConfiguration = pressureConfiguration;
+                DDLogVerbose(@"NSPressureConfiguration %@ set for subview %@", pressureConfiguration == NSPressureBehaviorPrimaryDefault ? @"NSPressureBehaviorPrimaryDefault" : @"NSPressureBehaviorPrimaryClick", subview);
             }
         }
     }
