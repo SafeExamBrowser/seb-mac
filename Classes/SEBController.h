@@ -133,6 +133,7 @@
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
+    BOOL allowDictionaryLookup;
     BOOL detectSIGSTOP;
     BOOL screenCapturePermissionsRequested;
     BOOL systemPreferencesOpenedForScreenRecordingPermissions;

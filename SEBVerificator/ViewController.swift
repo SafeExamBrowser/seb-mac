@@ -264,7 +264,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
 #endif
         for runningApplication in runningApplications {
             if runningApplication.bundleIdentifier != "org.safeexambrowser.SEBVerificator" &&
-                !(debug && runningApplication.bundleIdentifier == "com.apple.dt.Xcode") {
+                !(debug && runningApplication.bundleIdentifier == XcodeBundleID) {
                 if runningApplication.activationPolicy == .regular {
                     DDLogInfo("Running app \(runningApplication.bundleIdentifier ?? "no BundleID") (\(runningApplication.executableURL?.absoluteString ?? "no executable URL")) is visible in the Dock and should be quit.")
                     let success = runningApplication.terminate()
