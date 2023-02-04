@@ -2251,6 +2251,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                         withObject:NULL waitUntilDone:YES];
         
         allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+        allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -2943,6 +2944,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         CGSGetWindowWorkspace(connection, windowID, &workspace);
                         DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
     #endif
+                        if (@available(macOS 13.0, *)) {
+                            if (!allowDictionaryLookup && ([appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleID] ||
+                                                           [appWithPanelBundleID isEqualToString:lookupViewServiceBundleID])) {
+                                DDLogDebug(@"Terminating process %@ as lookup is not allowed in settings.", appWithPanelBundleID);
+                                [self killProcessWithPID:windowOwnerPID];
+                                continue;
+                            }
+                        }
+                        
                         if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
                             if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
                                 // Application hasn't a com.apple. bundle ID prefix
@@ -2957,7 +2967,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 }
                             } else {
 #ifdef DEBUG
-                                if ([appWithPanelBundleID isEqualToString:@"com.apple.dt.Xcode"]) {
+                                if ([appWithPanelBundleID isEqualToString:XcodeBundleID]) {
                                     DDLogVerbose(@"Don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                     [_systemProcessPIDs addObject:windowOwnerPIDString];
                                     continue;
