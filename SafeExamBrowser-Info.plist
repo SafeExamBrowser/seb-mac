@@ -14,7 +14,7 @@
 				<string>mydoc</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>sebConfigIcon</string>
+			<string></string>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
@@ -36,9 +36,9 @@
 				<string>seb</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>CFBundleTypeIconSystemGenerated</key>
-			<integer>1</integer>
+			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>SEBSettings</string>
 			<key>CFBundleTypeRole</key>
@@ -73,7 +73,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>CFBundleURLName</key>
 			<string>org.safeexambrowser.seb</string>
 			<key>CFBundleURLSchemes</key>
@@ -85,7 +85,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>CFBundleURLName</key>
 			<string>org.safeexambrowser.sebs</string>
 			<key>CFBundleURLSchemes</key>
@@ -95,7 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>144AF</string>
+	<string>144B3</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -129,11 +129,11 @@
 			<key>UTTypeDescription</key>
 			<string>Safe Exam Browser Configuration</string>
 			<key>UTTypeIconFile</key>
-			<string>sebConfigIcon</string>
+			<string>SEBDocumentIcon.icns</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
-				<string>SEBDocumentIcon</string>
+				<string></string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.safeexambrowser.seb</string>
