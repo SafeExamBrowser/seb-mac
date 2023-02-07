@@ -95,23 +95,7 @@
 - (NSRect) usableFrame
 {
     // Get full screen frame
-    NSRect newFrame = self.visibleFrame; //frame;
-    
-//    if (@available(macOS 12.0, *)) {
-//        NSEdgeInsets safeAreaInsets = self.safeAreaInsets;
-//        if (safeAreaInsets.left != 0 ||
-//            safeAreaInsets.right != 0 ||
-//            safeAreaInsets.top != 0 ||
-//            safeAreaInsets.bottom != 0) {
-//            newFrame.size.height -= safeAreaInsets.top + safeAreaInsets.bottom;
-//            newFrame.size.width -= safeAreaInsets.left + safeAreaInsets.right;
-//            return newFrame;
-//        }
-//    }
-//    
-//    // Deduct menu bar height
-//    newFrame.size.height -= [NSMenu menuBarVisible] * self.menuBarHeight;
-
+    NSRect newFrame = self.visibleFrame;
     return newFrame;
 }
 
