@@ -994,15 +994,22 @@ bool insideMatrix(void);
         }
         
     } else {
-        // If SEB was just started (by opening a config file)
-        if (_startingUp) {
-            // we quit, as decrypting the config wasn't successful
-            DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
-            [self requestedExit:nil]; // Quit SEB
-        } else {
-            // otherwise, if decrypting new settings wasn't successfull, we have to restore the path to the old settings
-//        TODO    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigPath];
-        }
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
+        [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
+        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", nil) : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil))];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            if (self.startingUp) {
+                // we quit, as decrypting the config wasn't successful
+                DDLogError(@"SEB was started with a SEB Config File as argument, but decrypting this configuration failed: Terminating.");
+                [self requestedExit:nil]; // Quit SEB
+            } else if (self.establishingSEBServerConnection) {
+                [self sessionQuitRestart:NO];
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))storeNewSEBSettingsNotSuccessfulHandler];
         _openingSettings = NO;
     }
 }
@@ -1394,7 +1401,9 @@ bool insideMatrix(void);
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.serverController examineCookies:cookies forURL:url];
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineCookies:cookies forURL:url];
+    }
 }
 
 
@@ -2244,6 +2253,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                         withObject:NULL waitUntilDone:YES];
         
         allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+        allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -2936,6 +2946,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         CGSGetWindowWorkspace(connection, windowID, &workspace);
                         DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
     #endif
+                        if (@available(macOS 13.0, *)) {
+                            if (!allowDictionaryLookup && ([appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleID] ||
+                                                           [appWithPanelBundleID isEqualToString:lookupViewServiceBundleID])) {
+                                DDLogDebug(@"Terminating process %@ as lookup is not allowed in settings.", appWithPanelBundleID);
+                                [self killProcessWithPID:windowOwnerPID];
+                                continue;
+                            }
+                        }
+                        
                         if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
                             if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
                                 // Application hasn't a com.apple. bundle ID prefix
@@ -2950,7 +2969,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                 }
                             } else {
 #ifdef DEBUG
-                                if ([appWithPanelBundleID isEqualToString:@"com.apple.dt.Xcode"]) {
+                                if ([appWithPanelBundleID isEqualToString:XcodeBundleID]) {
                                     DDLogVerbose(@"Don't terminate application %@ (%@)", windowOwner, appWithPanelBundleID);
                                     [_systemProcessPIDs addObject:windowOwnerPIDString];
                                     continue;

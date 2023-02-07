@@ -877,7 +877,7 @@ static NSString *getUppercaseAdminPasswordHash()
             *error = [NSError errorWithDomain:sebErrorDomain
                                          code:SEBErrorParsingSettingsFailedValueClassMissmatch
                                      userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil)}];
+                                                NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"These settings are corrupted and cannot be used (failing key: %@).", nil), key]}];
             
             return NO; //we abort reading the new settings here
         }

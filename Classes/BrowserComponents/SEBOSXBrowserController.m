@@ -95,6 +95,7 @@
                 if (webViewToClose == self.temporaryWebView) {
                     self.downloadingInTemporaryWebView = NO;
                     self.temporaryWebView = nil;
+                    [self openingConfigURLRoleBack];
                 }
             });
         }];
@@ -232,16 +233,6 @@
                                                            delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate {
     SEBOSXWebViewController *newSEBWebViewController = [[SEBOSXWebViewController alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:overrideSpellCheck delegate:delegate];
     return newSEBWebViewController;
-}
-
-
-- (void) checkForClosingTemporaryWebView:(SEBAbstractWebView *) webViewToClose
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    if (webViewToClose == self.temporaryWebView) {
-        self.downloadingInTemporaryWebView = NO;
-        [self openingConfigURLRoleBack];
-    }
 }
 
 
