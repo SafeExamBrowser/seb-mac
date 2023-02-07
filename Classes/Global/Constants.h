@@ -323,6 +323,16 @@ enum {
 };
 typedef NSUInteger sebConfigPurposes;
 
+#define sebConfigPurposeDefault 0
+
+
+enum {
+    shareConfigFormatFile                       = 0,
+    shareConfigFormatLink                       = 1,
+    shareConfigFormatQRCode                     = 2
+};
+typedef NSUInteger ShareConfigFormat;
+
 
 enum {
     SEBClientConfigURLSchemeNone                = 0,

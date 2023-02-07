@@ -195,7 +195,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSData *_Nullable browserExamKey;
 @property (strong, nonatomic) NSData *_Nullable browserExamKeySalt;
+@property (strong, nonatomic) NSData *_Nullable serverBrowserExamKey;
 @property (strong, nonatomic) NSData *_Nullable configKey;
+@property (strong, nonatomic) NSData *_Nullable examSalt;
+@property (strong, nonatomic) NSString *_Nullable connectionToken;
+@property (strong, nonatomic) NSData *_Nullable appSignatureKey;
 
 @property (readwrite) BOOL isShowingOpeningConfigFileDialog;
 

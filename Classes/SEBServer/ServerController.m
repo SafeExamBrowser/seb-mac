@@ -127,6 +127,21 @@
 }
 
 
+- (NSString * _Nullable)appSignatureKey {
+    return self.delegate.appSignatureKey;
+}
+
+
+- (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken {
+    [self.delegate didReceiveExamSalt:examSalt connectionToken:connectionToken];
+}
+
+
+- (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
+    [self.delegate didReceiveServerBEK:serverBEK];
+}
+
+
 - (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url
 {
     [_sebServerController examSelected:examId url:url];
@@ -294,5 +309,6 @@
     DDLogInfo(@"ServerController: SEB Server connection did fail");
     [self.delegate didFailWithError:error fatal:fatal];
 }
+
 
 @end
