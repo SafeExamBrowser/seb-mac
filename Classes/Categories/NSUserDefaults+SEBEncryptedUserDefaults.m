@@ -178,7 +178,7 @@ static NSNumber *_logLevel;
                                         
                                         [NSNumber numberWithLong:-1],
                                         @"org_safeexambrowser_chooseIdentityToEmbed",
-
+                                        
                                         [NSNumber numberWithLong:0],
                                         @"org_safeexambrowser_configFileIdentity",
                                         
@@ -190,7 +190,7 @@ static NSNumber *_logLevel;
                                         
                                         @NO,
                                         @"org_safeexambrowser_configFileShareConfigKey",
-
+                                        
                                         [NSDictionary dictionary],
                                         @"org_safeexambrowser_configKeyContainedKeys",
                                         
@@ -199,30 +199,36 @@ static NSNumber *_logLevel;
                                         
                                         @NO,
                                         @"org_safeexambrowser_elevateWindowLevels",
-
+                                        
 #if TARGET_OS_IPHONE
                                         [NSString stringWithFormat:@"SEB_iOS_%@_%@",
 #else
-                                        [NSString stringWithFormat:@"SEB_OSX_%@_%@",
+                                         [NSString stringWithFormat:@"SEB_OSX_%@_%@",
 #endif
-                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                         [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
-                                        @"org_safeexambrowser_originatorVersion",
+                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                          [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]],
+                                         @"org_safeexambrowser_originatorVersion",
+                                         
+                                         @NO,
+                                         @"org_safeexambrowser_removeDefaults",
+                                         
+                                         [NSNumber numberWithLong:shareConfigFormatFile],
+                                         @"org_safeexambrowser_shareConfigFormat",
+                                         
+                                         @"",
+                                         @"org_safeexambrowser_startURLDeepLink",
+                                         
+                                         @"",
+                                         @"org_safeexambrowser_startURLQueryParameter",
+                                         
+                                         nil];
                                         
-                                        @"",
-                                        @"org_safeexambrowser_startURLDeepLink",
-                                        
-                                        @"",
-                                        @"org_safeexambrowser_startURLQueryParameter",
-                                        
-                                        nil];
-
-    for (NSString *key in processedDictionary) {
+                                        for (NSString *key in processedDictionary) {
         NSString *keyWithPrefix = [self prefixKey:key];
         id value = [processedDictionary objectForKey:key];
         [appDefaults setValue:value forKey:keyWithPrefix];
     }
-    return [appDefaults copy];
+                                        return [appDefaults copy];
 }
 
 
@@ -358,6 +364,13 @@ static NSNumber *_logLevel;
 }
 
 
+- (NSDictionary *) dictionaryRepresentationSEBRemoveDefaults:(BOOL)removeDefaults
+{
+    NSDictionary *sebSettings = [self dictionaryRepresentationSEB];
+    return [self removeDefaultValuesFromSettings:sebSettings];
+}
+
+
 - (NSDictionary *) dictionaryRepresentationSEB
 {
     // Filter UserDefaults so only org_safeexambrowser_SEB_ keys are included in the set
@@ -368,7 +381,7 @@ static NSNumber *_logLevel;
     for (NSString *key in filteredPrefsSet) {
         id value = [self secureObjectForKey:key];
         if (value) {
-            [filteredPrefsDict setObject:value forKey:[key substringFromIndex:24]];
+            [filteredPrefsDict setObject:value forKey:[key substringFromIndex:SEBUserDefaultsPrefixLength]];
         } else {
             // If one value was nil, we skip this key/value
             DDLogWarn(@"dictionaryRepresentationSEB: nil value for key %@", key);
@@ -387,7 +400,7 @@ static NSNumber *_logLevel;
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [prefsDict keysOfEntriesPassingTest:^(id key, id obj, BOOL *stop)
                                {
-                                   if ([key hasPrefix:@"org_safeexambrowser_SEB_"])
+                                   if ([key hasPrefix:sebUserDefaultsPrefix])
                                        return YES;
                                    
                                    else return NO;
@@ -496,9 +509,9 @@ static NSNumber *_logLevel;
     NSString *keyWithPrefix;
     if ([key isEqualToString:@"originatorVersion"] ||
         [key isEqualToString:@"copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_%@", key];
+        keyWithPrefix = [NSString stringWithFormat:@"%@%@", sebPrivateUserDefaultsPrefix , key];
     } else {
-        keyWithPrefix = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        keyWithPrefix = [NSString stringWithFormat:@"%@%@", sebUserDefaultsPrefix, key];
     }
     return keyWithPrefix;
 }
@@ -513,7 +526,7 @@ static NSNumber *_logLevel;
 
     // Remove all values for keys with prefix "org_safeexambrowser_"
     for (NSString *key in prefsDict) {
-        if ([key hasPrefix:@"org_safeexambrowser_"]) {
+        if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
             [preferences removeObjectForKey:key];
         }
     }
@@ -610,7 +623,7 @@ static NSNumber *_logLevel;
 }
 
 
-- (NSDictionary *) completeSettingsWithDefaultValues:(NSDictionary *) sourceDictionary
+- (NSDictionary *) completeSettingsWithDefaultValues:(NSDictionary *)sourceDictionary
 {
     // Get default settings
     NSDictionary *defaultSettings = [self getDefaultDictionaryForKey:@"rootSettings"];
@@ -688,6 +701,61 @@ static NSNumber *_logLevel;
         [completedSettings setObject:value forKey:key];
     }
     return completedSettings.copy;
+}
+
+
+- (NSDictionary *) removeDefaultValuesFromSettings:(NSDictionary *)sourceDictionary
+{
+    // Get default settings
+    NSDictionary *defaultSettings = [self getDefaultDictionaryForKey:@"rootSettings"];
+    return [self removeDefaultValuesFromSettingsDictionary:sourceDictionary defaultSettingsDictionary:defaultSettings];
+}
+    
+- (NSDictionary *) removeDefaultValuesFromSettingsDictionary:(NSDictionary *)sourceDictionary defaultSettingsDictionary:(NSDictionary *)defaultSettings
+{
+    NSMutableDictionary *strippedSettings = [NSMutableDictionary new];
+    
+    // Join source settings dictionary with default values
+    for (NSString *key in sourceDictionary) {
+        id value = [sourceDictionary objectForKey:key];
+        Class valueClass = [value superclass];
+        
+        // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
+        // will cause a crash when trying to modify the dictionary
+        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
+            value = [NSMutableDictionary dictionaryWithDictionary:[self removeDefaultValuesFromSettingsDictionary:value defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]]];
+            if ([value count] == 0) {
+                continue;
+            }
+        }
+
+        if ([value isKindOfClass:NSArray.class] || [value isKindOfClass:NSMutableArray.class]) {
+            NSDictionary *element;
+            NSMutableArray *elementsFromSettings = ((NSArray *)value).mutableCopy;
+            NSArray *defaultElements = ((NSArray *)[defaultSettings objectForKey:key]);
+            NSUInteger i = 0;
+            while (i < elementsFromSettings.count) {
+                element = elementsFromSettings[i];
+                Class elementClass = [element superclass];
+                if ([defaultElements containsObject:element]) {
+                    [elementsFromSettings removeObjectAtIndex:i];
+                    continue;
+                } else if (elementClass == NSDictionary.class || elementClass == NSMutableDictionary.class) {
+                    elementsFromSettings[i] = [self removeDefaultValuesFromSettingsDictionary:element defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]].mutableCopy;
+                }
+                i++;
+            }
+            value = elementsFromSettings;
+            if ([value count] == 0) {
+                continue;
+            }
+        }
+        
+        if (![[defaultSettings objectForKey:key] isEqual:value]) {
+            [strippedSettings setObject:value forKey:key];
+        }
+    }
+    return strippedSettings.copy;
 }
 
 
@@ -877,8 +945,8 @@ static NSNumber *_logLevel;
 {
     // Set value for key (without prefix) in cachedUserDefaults
     // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
-    if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
-        [_cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
+    if ([key hasPrefix:sebUserDefaultsPrefix]) {
+        [_cachedUserDefaults setValue:value forKey:[key substringFromIndex:SEBUserDefaultsPrefixLength]];
         // Update Exam Settings Key
         [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
     }
@@ -902,7 +970,7 @@ static NSNumber *_logLevel;
             NSData *encryptedData;
             
             // Treat keys without SEB prefix separately
-            if (![key hasPrefix:@"org_safeexambrowser_"]) {
+            if (![key hasPrefix:sebPrivateUserDefaultsPrefix]) {
                 encryptedData = [RNEncryptor encryptData:data
                                                     withSettings:kRNCryptorAES256Settings
                                                         password:userDefaultsMasala
@@ -1052,7 +1120,7 @@ static NSNumber *_logLevel;
         NSData *decrypted;
         
         // Treat keys without SEB prefix separately
-        if (![key hasPrefix:@"org_safeexambrowser_"]) {
+        if (![key hasPrefix:sebPrivateUserDefaultsPrefix]) {
             decrypted = [RNDecryptor decryptData:encrypted
                                             withPassword:userDefaultsMasala
                                                    error:&error];
