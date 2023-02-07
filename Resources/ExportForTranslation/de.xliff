@@ -11112,7 +11112,7 @@
       </trans-unit>
       <trans-unit id="Rescanning for SEB-alike applications" xml:space="preserve">
         <source>Rescanning for SEB-alike applications</source>
-        <target>Neue Suche für SEB-Applikationen</target>
+        <target>Neue Suche nach SEB-Applikationen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB Verificator initialized" xml:space="preserve">
