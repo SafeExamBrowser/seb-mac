@@ -95,16 +95,14 @@
 - (NSRect) usableFrame
 {
     // Get full screen frame
-    NSRect newFrame = self.frame;
-    // Deduct menu bar height
-    newFrame.size.height -= [NSMenu menuBarVisible] * self.menuBarHeight;
-
+    NSRect newFrame = self.visibleFrame;
     return newFrame;
 }
 
 - (CGFloat) menuBarHeight
 {
-    CGFloat menuBarHeight = self.frame.size.height - self.visibleFrame.size.height - (self.visibleFrame.origin.y - self.frame.origin.y) - 1;
+    NSRect visibleFrame = self.visibleFrame;
+    CGFloat menuBarHeight = self.frame.size.height - visibleFrame.size.height - (self.visibleFrame.origin.y - self.frame.origin.y) - 1;
     return menuBarHeight;
 }
 
