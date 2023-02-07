@@ -37,6 +37,10 @@
 #define SEBTintColorGreenValue 0.533
 #define SEBTintColorBlueValue 0.274
 
+static NSString __unused *sebUserDefaultsPrefix = @"org_safeexambrowser_SEB_";
+#define SEBUserDefaultsPrefixLength 24
+static NSString __unused *sebPrivateUserDefaultsPrefix = @"org_safeexambrowser_";
+
 static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
 static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";

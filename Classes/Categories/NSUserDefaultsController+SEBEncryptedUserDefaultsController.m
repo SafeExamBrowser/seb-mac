@@ -75,9 +75,9 @@
     // Set value for key (without prefix) in cachedUserDefaults
     // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([key hasPrefix:@"org_safeexambrowser_SEB_"]) {
+    if ([key hasPrefix:sebUserDefaultsPrefix]) {
         NSMutableDictionary *cachedUserDefaults = [preferences cachedUserDefaults];
-        [cachedUserDefaults setValue:value forKey:[key substringFromIndex:24]];
+        [cachedUserDefaults setValue:value forKey:[key substringFromIndex:SEBUserDefaultsPrefixLength]];
         // Update Exam Settings Key
         [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:cachedUserDefaults];
     }

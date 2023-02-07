@@ -37,6 +37,9 @@ import Foundation
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didEstablishSEBServerConnection()
     func didSelectExam(_ examId: String, url: String)
+    func didReceiveExamSalt(_ examSalt: String, connectionToken: String)
+    func didReceiveServerBEK(_ serverBEK: String)
+    func appSignatureKey() -> String?
     func closeServerView(completion: @escaping () -> ())
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
@@ -320,6 +323,13 @@ public extension SEBServerController {
                     connectionTokenSuccess = true
                     self.connectionToken = connectionTokenString as? String
                     
+                    if let examSalt = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebExamSalt) == .orderedSame}))?.value {
+                        self.delegate?.didReceiveExamSalt(examSalt as! String, connectionToken: self.connectionToken ?? "")
+                    }
+                    if let serverBEK = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebServerBEK) == .orderedSame}))?.value {
+                        self.delegate?.didReceiveServerBEK(serverBEK as! String)
+                    }
+                    
                     self.startPingTimer()
                     self.startBatteryMonitoring()
                     
@@ -384,13 +394,41 @@ public extension SEBServerController {
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
         selectedExamURL = url
-        getExamConfig()
+        if exam == nil {
+            updateConnectionHandshake()
+        } else {
+            getExamConfig()
+        }
+    }
+
+    
+    func updateConnectionHandshake() {
+        var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        let encryptedAppSignatureKey = delegate?.appSignatureKey()
+        handshakeResource.body = keys.examId + "=" + selectedExamId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+
+        // ToDo: Implement timeout and sebServerFallback
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken!]
+        loadWithFallback(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange {
+                if let examSalt = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebExamSalt) == .orderedSame}))?.value {
+                    self.delegate?.didReceiveExamSalt(examSalt as! String, connectionToken: self.connectionToken ?? "")
+                }
+                if let serverBEK = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebServerBEK) == .orderedSame}))?.value {
+                    self.delegate?.didReceiveServerBEK(serverBEK as! String)
+                }
+            }
+            self.getExamConfig()
+        })
     }
     
     
     func getExamConfig() {
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Getting Exam Config...", comment: ""), append: false)
-        let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + (selectedExamId)])
+        let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + selectedExamId])
         
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerAuthorization : authorizationString,
@@ -441,7 +479,8 @@ public extension SEBServerController {
     
     @objc func startMonitoring(userSessionId: String) {
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId
+        let encryptedAppSignatureKey = delegate?.appSignatureKey()
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
 
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
