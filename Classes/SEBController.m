@@ -1401,7 +1401,9 @@ bool insideMatrix(void);
 
 - (void) examineCookies:(NSArray<NSHTTPCookie *>*)cookies forURL:(NSURL *)url
 {
-    [self.serverController examineCookies:cookies forURL:url];
+    if (_establishingSEBServerConnection) {
+        [self.serverController examineCookies:cookies forURL:url];
+    }
 }
 
 
