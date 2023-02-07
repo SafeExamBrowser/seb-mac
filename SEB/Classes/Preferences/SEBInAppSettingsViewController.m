@@ -425,7 +425,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Check if permanent SEB settings (which are exported) changed
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", @"org_safeexambrowser_SEB_"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", sebUserDefaultsPrefix];
     NSArray *results = [changedKeys filteredArrayUsingPredicate:predicate];
     if (results.count > 0) {
         // Key/values of permanent SEB settings changed: We reset the contained keys array

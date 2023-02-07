@@ -1299,7 +1299,7 @@ static NSMutableSet *browserWindowControllers;
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
     
-    NSString *encryptedWithIdentity = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
+    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
     
     // Get password
     NSString *encryptingPassword;
@@ -1307,10 +1307,14 @@ static NSMutableSet *browserWindowControllers;
     encryptingPassword = [preferences secureStringForKey:@"org_safeexambrowser_settingsPassword"];
     
     // Encrypt current settings with current credentials
+    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
-                                                                              forPurpose:configPurpose];
+                                                                              forPurpose:configPurpose
+                                                                          removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     if (encryptedSEBData) {
         
         if (_alertController) {
@@ -1319,7 +1323,47 @@ static NSMutableSet *browserWindowControllers;
             }];
         }
         
+        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            if (shareConfigFormat == shareConfigFormatQRCode) {
+                UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+                if (qrCode) {
+                    encryptedSEBData = UIImagePNGRepresentation(qrCode);
+                } else {
+                    shareConfigFormat = shareConfigFormatFile;
+                    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
+                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        self.alertController = nil;
+
+                    }]];
+                    
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Config File", nil)
+                                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                        self.alertController = nil;
+                        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
+                    }]];
+                    
+                    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+                    return;
+                }
+            } else {
+                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
+            }
+        }
+        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
+    }
+}
+    
+- (void)shareEncryptedSettings:(NSData *)encryptedSEBData
+         encryptedWithIdentity:(NSString *)encryptedWithIdentityString
+              forConfigPurpose:(sebConfigPurposes)configPurpose
+             shareConfigFormat:(ShareConfigFormat)shareConfigFormat
+    {
         // Get config file name
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSString *configFileName = [preferences secureStringForKey:@"configFileName"];
         if (configFileName.length == 0) {
             configFileName = @"SEBConfigFile";
@@ -1327,7 +1371,24 @@ static NSMutableSet *browserWindowControllers;
         
         NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         documentsPath = [documentsPath stringByAppendingPathComponent:configFileName];
-        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:configPurpose == sebConfigPurposeManagedConfiguration ? @"plist" : SEBFileExtension];
+        NSString *fileExtension;
+        switch (shareConfigFormat) {
+            case shareConfigFormatFile:
+                fileExtension = SEBFileExtension;
+                break;
+                
+            case shareConfigFormatLink:
+                fileExtension = @"txt";
+                break;
+                
+            case shareConfigFormatQRCode:
+                fileExtension = @"png";
+                break;
+                
+            default:
+                break;
+        }
+        NSString *configFilePath = [documentsPath stringByAppendingPathExtension:fileExtension];
         NSURL *configFileRUL = [NSURL fileURLWithPath:configFilePath];
         
         [encryptedSEBData writeToURL:configFileRUL atomically:YES];
@@ -1335,7 +1396,7 @@ static NSMutableSet *browserWindowControllers;
         NSArray *activityItems;
         
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
-                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentity] :
+                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentityString] :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
                                         NSLocalizedString(@"for configuring clients", nil) :
                                         NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
@@ -1368,7 +1429,6 @@ static NSMutableSet *browserWindowControllers;
         activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
         [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
     }
-}
 
 
 - (NSString *)base16StringForHashKey:(NSData *)hashKey
@@ -3626,6 +3686,22 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url
 {
     [self.serverController examSelected:examId url:url];
+}
+
+
+- (NSString * _Nullable)appSignatureKey {
+    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
+}
+
+
+- (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
+    self.browserController.examSalt = [NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+    self.browserController.connectionToken = connectionToken;
+}
+
+
+- (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
+    self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
 }
 
 

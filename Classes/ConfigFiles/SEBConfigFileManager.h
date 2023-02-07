@@ -270,9 +270,10 @@
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
-                             passwordIsHash:(BOOL) passwordIsHash
-                               withIdentity:(SecIdentityRef) identityRef
-                                 forPurpose:(sebConfigPurposes)configPurpose;
+                             passwordIsHash:(BOOL)passwordIsHash
+                               withIdentity:(SecIdentityRef)identityRef
+                                 forPurpose:(sebConfigPurposes)configPurpose
+                             removeDefaults:(BOOL)removeDefaults;
 
 
 @end

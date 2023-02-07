@@ -298,10 +298,12 @@
     }
     
     // Encrypt current settings with current credentials
-    NSData *encryptedSebData = [self.preferencesController.configFileController encryptSEBSettingsWithPassword:encryptingPassword
-                                                                  passwordIsHash:self.configPasswordIsHash
-                                                                    withIdentity:identityRef
-                                                                      forPurpose:configPurpose];
+    NSData *encryptedSebData = [self.preferencesController.configFileController
+                                encryptSEBSettingsWithPassword:encryptingPassword
+                                passwordIsHash:self.configPasswordIsHash
+                                withIdentity:identityRef
+                                forPurpose:configPurpose
+                                removeDefaults:NO];
     return encryptedSebData;
 }
 

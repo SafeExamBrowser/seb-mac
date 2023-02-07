@@ -122,6 +122,25 @@ struct HandshakeResource: ApiResource {
     }
 }
 
+struct HandshakeUpdateResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "PATCH"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+    }
+    
+    func makeModel(data: Data) -> Data? {
+        return data
+    }
+}
+
 struct ExamConfigResource: ApiResource {
     
     var baseURL: URL
