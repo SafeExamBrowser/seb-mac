@@ -204,10 +204,14 @@
 }
 
 - (void)presentAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message {
+    [_sebViewController alertWithTitle:title message:message action1Title:NSLocalizedString(@"OK", nil) action1Handler:^{
+        self.sebViewController.alertController = nil;
+    } action2Title:nil action2Handler:nil];
 }
 
 
 - (void)presentDownloadError:(nonnull NSError *)error {
+    [_sebViewController showAlertWithError:error];
 }
 
 

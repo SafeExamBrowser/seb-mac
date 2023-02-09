@@ -1147,6 +1147,9 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
         } else if (self.allowDownUploads) {
             // If downloading is allowed
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            int fileIndex = 1;
+#if TARGET_OS_OSX
             NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
             if (downloadPath.length == 0) {
                 //if there's no path saved in preferences, set standard path
@@ -1154,10 +1157,10 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
             downloadPath = [downloadPath stringByExpandingTildeInPath];
             NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            int fileIndex = 1;
             NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
+#else
+            NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+#endif
             NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
             NSString* extension = [filename pathExtension];
 
@@ -1173,13 +1176,22 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (!error) {
                 [self storeDownloadPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path];
                 dispatch_async(dispatch_get_main_queue(), ^{
+#if TARGET_OS_OSX
                     [self fileDownloadedSuccessfully:destinationURL.path];
+#else
+                    [self fileDownloadedSuccessfully:filename];
+#endif
                 });
                 return;
             } else {
                 DDLogError(@"Failed to move downloaded file! %@", [error userInfo]);
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.delegate presentDownloadError:error];
+                    NSError *downloadError = [NSError errorWithDomain:error.domain
+                                                         code:error.code
+                                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to Save Downloaded File", nil),
+                                                                NSLocalizedFailureReasonErrorKey : error.localizedDescription}];
+
+                    [self.delegate presentDownloadError:downloadError];
                 });
                 return;
             }

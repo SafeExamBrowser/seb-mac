@@ -753,7 +753,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         return newNavigationAction;
     }
 
-    if ([self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:configuration:)]) {
+    if (![self.nativeWebView isKindOfClass:WKWebView.class] && [self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:configuration:)]) {
+        // This handles data: downloads in the classic WebView
         SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:configuration];
         if (delegateNavigationActionPolicy.policy != SEBNavigationResponsePolicyAllow) {
             return delegateNavigationActionPolicy;
