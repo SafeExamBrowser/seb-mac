@@ -3183,7 +3183,7 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     NSString *alertMessage = error.localizedRecoverySuggestion;
     alertMessage = [NSString stringWithFormat:@"%@%@%@", alertMessage ? alertMessage : @"", alertMessage ? @"\n" : @"", error.localizedFailureReason ? error.localizedFailureReason : @""];
-    _alertController = [UIAlertController  alertControllerWithTitle:error.localizedDescription
+    _alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
                                                             message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
@@ -3191,7 +3191,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.alertController = nil;
     }]];
     
-    [_topMostController presentViewController:_alertController animated:NO completion:nil];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
 
