@@ -1217,7 +1217,7 @@ bool insideMatrix(void);
 }
 
 
-- (void) storeNewSEBSettingsFromServer:(NSData *)configData
+- (void) storeNewSEBSettingsFromData:(NSData *)configData
 {
     [self storeNewSEBSettings:configData forEditing:NO forceConfiguringClient:NO showReconfiguredAlert:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
 }

@@ -353,7 +353,7 @@
     if (!url.hasDirectoryPath &&
         ((url.pathExtension && [url.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) &&
          self.downloadFilename.length == 0)) {
-        NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]').download", url.absoluteString];
+        NSString *javaScript = [NSString stringWithFormat:@"document.querySelector('[href=\"%@\"]')?.download", url.absoluteString];
         self.downloadFilename = [webView stringByEvaluatingJavaScriptFromString:javaScript];
     } else {
         self.downloadFilename = nil;
@@ -365,7 +365,7 @@
         }
     }
 
-    SEBNavigationAction *delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested configuration:nil];
+    SEBNavigationAction *delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTabRequested configuration:nil downloadFilename:self.downloadFilename];
     SEBNavigationActionPolicy navigationActionPolicy = delegateNavigationAction.policy;
     if (navigationActionPolicy == SEBNavigationActionPolicyAllow) {
         return YES;

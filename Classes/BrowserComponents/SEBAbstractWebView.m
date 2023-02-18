@@ -661,14 +661,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
                                            configuration:(WKWebViewConfiguration *)configuration
+                                        downloadFilename:(nullable NSString *)downloadFilename
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@ downloadFilename:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, downloadFilename, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
-    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields =
-    request.allHTTPHeaderFields;
+//    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
     DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
     DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
 //    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
@@ -752,12 +752,47 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         DDLogInfo(@"Opening new window/tab URL generally blocked in current settings");
         return newNavigationAction;
     }
-
-    if (![self.nativeWebView isKindOfClass:WKWebView.class] && [self.navigationDelegate respondsToSelector:@selector(decidePolicyForNavigationAction:newTab:configuration:)]) {
-        // This handles data: downloads in the classic WebView
-        SEBNavigationAction *delegateNavigationActionPolicy = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:configuration];
-        if (delegateNavigationActionPolicy.policy != SEBNavigationResponsePolicyAllow) {
-            return delegateNavigationActionPolicy;
+    if (@available(macOS 11.3, iOS 14.5, *)) {
+    } else {
+        if ([url.scheme isEqualToString:@"data"]) {
+            NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
+            DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
+            NSRange mediaTypeRange = [urlResourceSpecifier rangeOfString:@","];
+            if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
+                NSString *mediaType = [[urlResourceSpecifier substringToIndex:mediaTypeRange.location] lowercaseString];
+                NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
+                if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound &&
+                    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+                    NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
+                    NSData *sebConfigData;
+                    if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
+                        sebConfigData = [sebConfigString dataUsingEncoding:NSUTF8StringEncoding];
+                    } else {
+                        sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                    }
+                    [self.navigationDelegate openSEBConfigFromData:sebConfigData];
+                } else if (self.allowDownUploads) {
+                    NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
+                    NSData *fileData;
+                    if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
+                        fileData = [fileDataString dataUsingEncoding:NSUTF8StringEncoding];
+                    } else {
+                        fileData = [[NSData alloc] initWithBase64EncodedString:fileDataString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                    }
+                    NSString *filename = [self saveData:fileData downloadFilename:downloadFilename];
+                    if (filename) {
+                        DDLogInfo(@"Successfully saved website generated data: %@", url);
+                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]];
+                    } else {
+                        DDLogError(@"Failed to save website generated data: %@", url);
+                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Could not save downloaded data, probably a wrong download directory was used in %@ settings.", nil), SEBShortAppName]];
+                    }
+                } else if (!self.allowDownUploads && navigationType == WKNavigationTypeLinkActivated) {
+                    [self.navigationDelegate showAlertNotAllowedDownUploading:NO];
+                }
+            }
+            newNavigationAction.policy = SEBNavigationActionPolicyCancel;
+            return newNavigationAction;
         }
     }
     
@@ -778,6 +813,42 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     self.navigationDelegate.currentMainHost = url.host;
     newNavigationAction.policy = SEBNavigationResponsePolicyAllow;
     return newNavigationAction;
+}
+
+
+- (NSString *)saveData:(NSData *)data downloadFilename:(nullable NSString *)downloadFilename
+{
+    // Get the path to the App's Documents directory
+    NSString *filename;
+    if (downloadFilename.length > 0) {
+        filename = downloadFilename;
+    } else {
+        filename = NSLocalizedString(@"Untitled", @"untitled filename");
+        NSDate *time = [NSDate date];
+        NSDateFormatter* dateFormatter = [NSDateFormatter new];
+        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd_hh-mm-ss"];
+        NSString *timeString = [dateFormatter stringFromDate:time];
+        filename = [NSString stringWithFormat:@"%@_%@", filename, timeString];
+    }
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    int fileIndex = 1;
+    NSURL *directory = self.downloadPathURL;
+    NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
+    NSString* fileExtension = [filename pathExtension];
+
+    while ([fileManager fileExistsAtPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path]) {
+        filename = [NSString stringWithFormat:@"%@-%d.%@", filenameWithoutExtension, fileIndex, fileExtension];
+        fileIndex++;
+    }
+    BOOL success = [fileManager createFileAtPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path contents:data attributes:nil];
+    if (success) {
+        DDLogInfo(@"%s at file path: %@", __FUNCTION__, [directory URLByAppendingPathComponent:filename isDirectory:NO].path);
+        return filename;
+    } else {
+        return nil;
+    }
 }
 
 
@@ -897,6 +968,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     return [self.navigationDelegate showURLFilterAlertForRequest:request forContentFilter:contentFilter filterResponse:filterResponse];
 }
 
+
+- (NSURL *) downloadPathURL
+{
+    return self.navigationDelegate.downloadPathURL;
+}
 
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
