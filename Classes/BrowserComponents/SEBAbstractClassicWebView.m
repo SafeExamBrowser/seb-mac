@@ -540,8 +540,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
-                                           configuration:(WKWebViewConfiguration *)configuration {
-    return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab configuration:configuration];
+                                           configuration:(WKWebViewConfiguration *)configuration
+                                        downloadFilename:(nullable NSString *)downloadFilename
+{
+    return [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:newTab configuration:configuration downloadFilename:downloadFilename];
 }
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
