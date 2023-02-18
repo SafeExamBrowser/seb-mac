@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken;
 - (void) didReceiveServerBEK:(NSString * _Nonnull)serverBEK;
 @property (readonly, nonatomic) NSString *_Nullable appSignatureKey;
-- (void) storeNewSEBSettingsFromServer:(NSData *)configData;
+- (void) storeNewSEBSettingsFromData:(NSData *)configData;
 - (void) loginToExam:(NSString *)url;
 - (void) didEstablishSEBServerConnection;
 - (void) didFailWithError:(NSError *)error fatal:(BOOL)fallback;

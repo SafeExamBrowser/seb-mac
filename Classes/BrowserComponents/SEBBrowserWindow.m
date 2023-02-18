@@ -1249,6 +1249,13 @@
 }
 
 
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    [self.browserController presentAlertWithTitle:title message:message];
+}
+
+
 - (id) window
 {
     return self;
@@ -1633,6 +1640,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (NSURL *) downloadPathURL
+{
+    return self.browserController.downloadPathURL;
+}
+
+
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [self.browserController downloadFileFromURL:url filename:filename cookies:cookies sender:self];
@@ -1642,6 +1655,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     [self.browserController openConfigFromSEBURL:url];
+}
+
+
+- (void) openSEBConfigFromData:(NSData *)sebConfigData;
+{
+    [self.browserController.sebController storeNewSEBSettingsFromData:sebConfigData];
 }
 
 

@@ -176,6 +176,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) storePasteboard;
 - (void) restorePasteboard;
 
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message;
+
 // Required by SEB-iOS
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 
@@ -191,7 +194,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                   newTab:(BOOL)newTab
-                                           configuration:(nullable WKWebViewConfiguration *)configuration;
+                                           configuration:(nullable WKWebViewConfiguration *)configuration
+                                        downloadFilename:(nullable NSString *)downloadFilename;
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title;
 - (void)sebWebViewDidUpdateProgress:(double)progress;
 - (SEBNavigationResponsePolicy)decidePolicyForMIMEType:(nullable NSString*)mimeType
@@ -268,7 +272,23 @@ runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
-- (WKPermissionDecision)permissionDecisionForType:(WKMediaCaptureType)type API_AVAILABLE(macos(12.0));
+- (void)webView:(WKWebView *)webView
+navigationAction:(WKNavigationAction *)navigationAction
+didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
+
+- (void)download:(WKDownload *)download
+decideDestinationUsingResponse:(NSURLResponse *)response
+suggestedFilename:(NSString *)suggestedFilename
+completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
+
+- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
+
+- (void)download:(WKDownload *)download
+didFailWithError:(NSError *)error
+      resumeData:(nullable NSData *)resumeData API_AVAILABLE(macos(11.3), ios(14.5));
+
+
+- (WKPermissionDecision)permissionDecisionForType:(WKMediaCaptureType)type API_AVAILABLE(macos(12.0), ios(15.0));
 @property (readonly) BOOL browserMediaCaptureScreen;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) transferCookiesToWKWebViewWithCompletionHandler:(void (^)(void))completionHandler;
@@ -288,10 +308,11 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 - (void) closeTab;
 - (void) closeTabWithIndex:(NSUInteger)tabIndex;
 
+@property (readonly) NSURL *downloadPathURL;
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (void) openSEBConfigFromData:(NSData *)sebConfigData;
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 @property (readonly) BOOL downloadingInTemporaryWebView;
