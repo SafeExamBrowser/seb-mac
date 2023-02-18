@@ -57,6 +57,7 @@ import PDFKit
     private var downloadFilename: String?
     private var forceDownload = false
     public var downloadingSEBConfig = false
+    fileprivate var fileDownloadDestinationURL: URL?
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
@@ -760,11 +761,19 @@ import PDFKit
                     newTab = true
                 }
             }
-            let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil)
+            let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil, downloadFilename:self.downloadFilename)
             navigationActionPolicy = newNavigationPolicy?.policy ?? SEBNavigationActionPolicyCancel
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
-                if allowDownloads && self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
+                if #available(macOS 11.3, iOS 14.5, *) {
+                    if allowDownloads && navigationAction.shouldPerformDownload {
+                        decisionHandler(.download)
+                        return
+                    }
+                } else {
+                    // Fallback on earlier versions
+                }
+                if allowDownloads && !(self.downloadFilename ?? "").isEmpty {
                     DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
                     self.forceDownload = false
                     if #available(macOS 10.13, iOS 11.0, *) {
@@ -788,24 +797,28 @@ import PDFKit
             callDecisionHandler()
         }
 
-        
-        if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
-            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
-                if error == nil {
-                    self.downloadFilename = result as? String
-                    DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
-                    if self.downloadFilename != nil {
-                        self.forceDownload = true
-                    }
-                } else {
-                    DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
-                    self.downloadFilename = nil
-                }
-                proceedHandler()
-            }
-        } else {
+        if #available(macOS 11.3, iOS 14.5, *) {
             self.downloadFilename = nil
             proceedHandler()
+        } else {
+            if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
+                webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
+                    if error == nil {
+                        self.downloadFilename = result as? String
+                        if !(self.downloadFilename ?? "").isEmpty {
+                            DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
+                            self.forceDownload = true
+                        }
+                    } else {
+                        DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
+                        self.downloadFilename = nil
+                    }
+                    proceedHandler()
+                }
+            } else {
+                self.downloadFilename = nil
+                proceedHandler()
+            }
         }
     }
     
@@ -902,7 +915,7 @@ import PDFKit
     }
     
     public func decidePolicyForNavigationAction(with navigationAction: WKNavigationAction, newTab: Bool, newWebView: AutoreleasingUnsafeMutablePointer<SEBAbstractWebView?>?) -> SEBNavigationAction {
-        guard let newNavigationAction = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil) else {
+        guard let newNavigationAction = navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil, downloadFilename:self.downloadFilename) else {
             let newNavigationAction = SEBNavigationAction()
             newNavigationAction.policy = SEBNavigationActionPolicyCancel
             return newNavigationAction
@@ -924,7 +937,7 @@ import PDFKit
             sebWKNavigationAction.writableNavigationType = navigationAction.navigationType
             let request = navigationAction.request
             sebWKNavigationAction.writableRequest = request
-            let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration)
+            let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration, downloadFilename:self.downloadFilename)
             let openedAbstractWebView = newNavigationAction?.openedWebView
 #if os(macOS)
             if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
@@ -1028,29 +1041,41 @@ import PDFKit
         navigationDelegate?.conditionallyDownloadAndOpenSEBConfig?(from: url)
     }
     
-    public func conditionallyOpenSEBConfig(from sebConfigData: Data) {
-        navigationDelegate?.conditionallyOpenSEBConfig?(from: sebConfigData)
+    public func openSEBConfig(from sebConfigData: Data) {
+        navigationDelegate?.openSEBConfig?(from: sebConfigData)
     }
 }
 
-//@available(macOS 11.3, iOS 14.5, *)
-//extension SEBAbstractModernWebView: WKDownloadDelegate {
-//    public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
-//        let temporaryDir = NSTemporaryDirectory()
-//        let fileName = temporaryDir + "/" + suggestedFilename
-//        let url = URL(fileURLWithPath: fileName)
-//        fileDestinationURL = url
-//        completionHandler(url)
-//    }
-//
-//    public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
-//        print("download failed \(error)")
-//    }
-//
-//    public func downloadDidFinish(_ download: WKDownload) {
-//        print("download finish")
-//        if let url = fileDestinationURL {
-//            self.delegate.fileDownloadedAtURL(url: url)
-//        }
-//    }
-//}
+@available(macOS 11.3, iOS 14.5, *)
+extension SEBAbstractModernWebView: WKDownloadDelegate {
+    
+    public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
+        var filename = suggestedFilename
+        let fileManager = FileManager.default
+        var fileIndex = 1
+        let downloadDirectory = self.navigationDelegate?.downloadPathURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
+        let filenameWithoutExtension = (filename as NSString).deletingPathExtension
+        let fileExtension = (suggestedFilename as NSString).pathExtension
+        while fileManager.fileExists(atPath: downloadDirectory.appendingPathComponent(filename).path) {
+            filename = filenameWithoutExtension + "-\(fileIndex)." + fileExtension
+            fileIndex+=1
+        }
+        fileDownloadDestinationURL = downloadDirectory.appendingPathComponent(filename)
+        completionHandler(fileDownloadDestinationURL)
+    }
+
+    public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
+        download.delegate = self
+    }
+
+    public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        DDLogError("Download failed with Error \(error)")
+    }
+
+    public func downloadDidFinish(_ download: WKDownload) {
+        if let url = fileDownloadDestinationURL {
+            DDLogInfo("File was downloaded at \(url)")
+//            navigationDelegate?.did .fileDownloadedAtURL(url: url)
+        }
+    }
+}
