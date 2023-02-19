@@ -1068,14 +1068,20 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
         download.delegate = self
     }
 
+    public func download(_ download: WKDownload, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        webView(sebWebView, didReceive: challenge, completionHandler: completionHandler)
+    }
+    
     public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
         DDLogError("Download failed with Error \(error)")
+        navigationDelegate?.presentAlert?(withTitle: NSLocalizedString("Download Failed", comment: ""), message: NSLocalizedString(error.localizedDescription, comment: ""))
     }
 
     public func downloadDidFinish(_ download: WKDownload) {
         if let url = fileDownloadDestinationURL {
             DDLogInfo("File was downloaded at \(url)")
-//            navigationDelegate?.did .fileDownloadedAtURL(url: url)
+            navigationDelegate?.presentAlert?(withTitle: NSLocalizedString("Download Finished", comment: ""),
+                                              message: NSLocalizedString("Saved file '\(url.lastPathComponent)'", comment: ""))
         }
     }
 }
