@@ -550,6 +550,13 @@
 }
 
 
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    [self.navigationDelegate presentAlertWithTitle:title message:message];
+}
+
+
 - (SEBBackgroundTintStyle) backgroundTintStyle
 {
     return [self.navigationDelegate backgroundTintStyle];
@@ -668,17 +675,17 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@ downloadFilename:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, downloadFilename, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
-//    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
+    //    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
     DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
     DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
-//    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
+    //    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-
+    
     NSURL *originalURL = url;
     SEBNavigationAction *newNavigationAction = [SEBNavigationAction new];
     newNavigationAction.policy = SEBNavigationActionPolicyCancel;
-
+    
     // This is currently used for SEB Server handshake after logging in to Moodle
     if (navigationType == WKNavigationTypeFormSubmitted) {
         [self.navigationDelegate shouldStartLoadFormSubmittedURL:url];
@@ -709,12 +716,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             }
         }
     }
-
+    
     NSString *fileExtension = [url pathExtension];
-
+    
     if (newTab) {
         newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
-
+        
         // First check if links requesting to be opened in a new windows are generally blocked
         if (newBrowserWindowPolicy != getGenerallyBlocked) {
             // load link only if it's on the same host like the one of the current page
@@ -739,7 +746,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                         newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
                     }
                     [self loadURL:url];
-//                    newNavigationAction.openedWebView = self;
+                    //                    newNavigationAction.openedWebView = self;
                     return newNavigationAction;
                 }
             }
@@ -752,8 +759,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         DDLogInfo(@"Opening new window/tab URL generally blocked in current settings");
         return newNavigationAction;
     }
+    BOOL WKDownloadSupported = NO;
     if (@available(macOS 11.3, iOS 14.5, *)) {
-    } else {
+        WKDownloadSupported = YES;
+    }
+    if (![[self.browserControllerDelegate class] isEqual:SEBAbstractModernWebView.class]) {
+        WKDownloadSupported = NO;
+    }
+    if (!WKDownloadSupported) {
         if ([url.scheme isEqualToString:@"data"]) {
             NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
             DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
@@ -794,8 +807,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             newNavigationAction.policy = SEBNavigationActionPolicyCancel;
             return newNavigationAction;
         }
+
     }
-    
     // Check if this is a seb:// or sebs:// link or a .seb file link
     if (((url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) ||
         (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) ||

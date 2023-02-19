@@ -797,7 +797,7 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
-"Saved file '%@'" = "Datei '%@' speichern";
+"Saved file '%@'" = "Datei '%@' gespeichert";
 
 /* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "%@-Konfigurations-QR-Code scannen";
