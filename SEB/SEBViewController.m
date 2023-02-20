@@ -2650,11 +2650,11 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData
+- (void) openSEBConfigFromData:(NSData *)sebConfigData
 {
     [self closeSettingsBeforeOpeningSEBConfig:sebConfigData
                                      callback:self
-                                     selector:@selector(storeNewSEBSettingsFromServer:)];
+                                     selector:@selector(storeNewSEBSettingsFromData:)];
 }
 
 
@@ -2938,7 +2938,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 // Decrypt, parse and store new SEB settings and report if it was successful
-- (void) storeNewSEBSettingsFromServer:(NSData *)sebData
+- (void) storeNewSEBSettingsFromData:(NSData *)sebData
 {
     [self.configFileController storeNewSEBSettings:sebData
                                         forEditing:false

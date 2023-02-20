@@ -93,7 +93,7 @@
 - (void) reconfigureWithServerExamConfig: (NSData *)configData
 {
     DDLogInfo(@"ServerController: Reconfigure with server exam config");
-    [self.delegate storeNewSEBSettingsFromServer:configData];
+    [self.delegate storeNewSEBSettingsFromData:configData];
 }
 
 

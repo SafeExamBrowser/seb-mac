@@ -352,14 +352,14 @@ void run_on_ui_thread(dispatch_block_t block);
                                     callback:(id)callback
                                     selector:(SEL)selector;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (void) openSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
 - (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig;
 - (void) resetReceivedServerConfig;
 - (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL;
 
 - (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
-- (void) storeNewSEBSettingsFromServer:(NSData *)sebData;
+- (void) storeNewSEBSettingsFromData:(NSData *)sebData;
 - (void) storeNewSEBSettingsSuccessful:(NSError *)error;
 
 #pragma mark - Toolbar (UINavigationBar)

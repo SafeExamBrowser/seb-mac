@@ -1113,6 +1113,10 @@ static NSString *urlStrippedFragment(NSURL* url)
     
     if (!error) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+        if (suggestedFilename.length == 0) {
+            suggestedFilename = NSLocalizedString(@"Untitled", @"untitled filename");
+        }
         
         // If we got the filename from a <a download="... tag, we use that
         // as older versions of WebKit don't recognize the filename and suggest "Unknown"
@@ -1122,7 +1126,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 filename = [suggestedFilename stringByAppendingPathExtension:filename.pathExtension];
             }
         } else {
-            // If we didn't get the file name, at least set the file extension properly
+            // If we didn't get the file name, at least try to set the file extension properly
             filename = suggestedFilename;
         }
 
@@ -1149,18 +1153,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             // If downloading is allowed
             NSFileManager *fileManager = [NSFileManager defaultManager];
             int fileIndex = 1;
-#if TARGET_OS_OSX
-            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-            if (downloadPath.length == 0) {
-                //if there's no path saved in preferences, set standard path
-                downloadPath = @"~/Downloads";
-            }
-            downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
-            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
-#else
-            NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-#endif
+            NSURL *directory = self.downloadPathURL;
             NSString* filenameWithoutExtension = [filename stringByDeletingPathExtension];
             NSString* extension = [filename pathExtension];
 
@@ -1211,6 +1204,24 @@ static NSString *urlStrippedFragment(NSURL* url)
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.delegate presentDownloadError:error];
     });
+}
+
+
+- (NSURL *) downloadPathURL
+{
+#if TARGET_OS_OSX
+            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+            if (downloadPath.length == 0) {
+                //if there's no path saved in preferences, set standard path
+                downloadPath = @"~/Downloads";
+            }
+            downloadPath = [downloadPath stringByExpandingTildeInPath];
+            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
+            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
+#else
+            NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+#endif
+    return directory;
 }
 
 

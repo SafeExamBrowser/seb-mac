@@ -903,9 +903,9 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 
 
 // Decrypt, parse, store new SEB settings and if successfull, reconfigure SEB
-- (void) conditionallyOpenSEBConfigFromData:(NSData *)sebConfigData;
+- (void) openSEBConfigFromData:(NSData *)sebConfigData;
 {
-    [_sebViewController conditionallyOpenSEBConfigFromData:sebConfigData];
+    [_sebViewController openSEBConfigFromData:sebConfigData];
 }
 
 
@@ -914,6 +914,12 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
                               cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [_sebViewController.browserController downloadSEBConfigFileFromURL:url originalURL:originalURL cookies:cookies sender:self];
+}
+
+
+- (NSURL *) downloadPathURL
+{
+    return _sebViewController.browserController.downloadPathURL;
 }
 
 
@@ -996,6 +1002,13 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 - (NSString *) appVersion
 {
     return [_sebViewController appVersion];
+}
+
+
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    [_sebViewController.browserController presentAlertWithTitle:title message:message];
 }
 
 
