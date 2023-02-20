@@ -283,6 +283,26 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     }
 }
 
+@available(macOS 11.3, iOS 14.5, *)
+extension SEBOSXWKWebViewController: WKDownloadDelegate {
+    
+    public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
+        navigationDelegate?.download?(download, decideDestinationUsing: response, suggestedFilename: suggestedFilename, completionHandler: completionHandler)
+    }
+
+    public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
+        navigationDelegate?.webView?(webView, navigationAction: navigationAction, didBecome: download)
+    }
+
+    public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        navigationDelegate?.download?(download, didFailWithError: error, resumeData: resumeData)
+    }
+
+    public func downloadDidFinish(_ download: WKDownload) {
+        navigationDelegate?.downloadDidFinish?(download)
+    }
+}
+
 extension NSView {
 
     /// Find a subview corresponding to the className parameter, recursively.

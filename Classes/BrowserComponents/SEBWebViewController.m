@@ -462,7 +462,7 @@
             SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
             sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
             
-            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil];
+            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
             if (navigationAction.policy == SEBNavigationActionPolicyJSOpen) {
                 SEBAbstractWebView *newAbstractWebView = navigationAction.openedWebView;
                 DDLogInfo(@"Opening classic WebView after Javascript .open()");
@@ -1004,10 +1004,10 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
         SEBNavigationAction *delegateNavigationAction;
         if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
-            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
             delegateNavigationActionPolicy = delegateNavigationAction.policy;
         } else {
-            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:nil];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:nil downloadFilename:self.downloadFilename];
             delegateNavigationActionPolicy = delegateNavigationAction.policy;
         }
     #ifdef DEBUG
@@ -1084,7 +1084,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener
     SEBWKNavigationAction *navigationAction = [self navigationActionForActionInformation:actionInformation];
     navigationAction.writableRequest = request;
 
-    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil];
+    [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
 
     [listener ignore];
 }

@@ -1442,30 +1442,9 @@
         // Get the current config file full path
         NSURL *currentConfigFilePath = [[MyGlobals sharedMyGlobals] currentConfigURL];
         // Get the filename without extension
-        NSString *filename = currentConfigFilePath.lastPathComponent.stringByDeletingPathExtension;
-        // Get the extension (should be .seb)
-        NSString *extension = currentConfigFilePath.pathExtension;
-        if (filename.length == 0) {
-            filename = NSLocalizedString(@"untitled", @"untitled filename");
-            extension = @".seb";
-        } else {
-            NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
-            if (copyStringRange.location == NSNotFound) {
-                filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
-            } else {
-                NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
-                if (copyNumberString.length == 0) {
-                    filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
-                } else {
-                    NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
-                    if (copyNumber == 0) {
-                        filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
-                    } else {
-                        filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", copyNumber+1]];
-                    }
-                }
-            }
-        }
+        NSString *filename = currentConfigFilePath.lastPathComponent;
+        filename = [[MyGlobals sharedMyGlobals] createUniqueFilename:filename intendedExtension:SEBFileExtension];
+        NSString *extension = filename.pathExtension;
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[[[currentConfigFilePath URLByDeletingLastPathComponent] URLByAppendingPathComponent:filename] URLByAppendingPathExtension:extension]];
     } else {
         

@@ -70,7 +70,7 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
 
     private var zoomScale: CGFloat?
     private var urlFilter: SEBURLFilter?
-    
+
     public func updateZoomScale(_ contentZoomScale: Double) {
         zoomScale = sebWebView?.scrollView.zoomScale
         sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
@@ -257,5 +257,25 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     @available(iOS 15.0, *)
     public func webView(_ webView: WKWebView, decideMediaCapturePermissionsFor origin: WKSecurityOrigin, initiatedBy frame: WKFrameInfo, type: WKMediaCaptureType) async -> WKPermissionDecision {
         return (navigationDelegate?.permissionDecision?(for: type) ?? .deny)
+    }
+}
+
+@available(macOS 11.3, iOS 14.5, *)
+extension SEBiOSWKWebViewController: WKDownloadDelegate {
+    
+    public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
+        navigationDelegate?.download?(download, decideDestinationUsing: response, suggestedFilename: suggestedFilename, completionHandler: completionHandler)
+    }
+
+    public func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
+        navigationDelegate?.webView?(webView, navigationAction: navigationAction, didBecome: download)
+    }
+
+    public func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        navigationDelegate?.download?(download, didFailWithError: error, resumeData: resumeData)
+    }
+
+    public func downloadDidFinish(_ download: WKDownload) {
+        navigationDelegate?.downloadDidFinish?(download)
     }
 }

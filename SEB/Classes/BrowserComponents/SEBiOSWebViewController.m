@@ -232,32 +232,6 @@
 
 /// SEBAbstractWebViewNavigationDelegate Methods
 
-- (WKWebViewConfiguration *)wkWebViewConfiguration
-{
-    return self.navigationDelegate.wkWebViewConfiguration;
-}
-
-
-@synthesize customSEBUserAgent;
-
-- (NSString *) customSEBUserAgent
-{
-    return self.navigationDelegate.customSEBUserAgent;
-    
-}
-
-
-- (void) setLoading:(BOOL)loading
-{
-    [self.navigationDelegate setLoading:loading];
-}
-
-- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
-{
-    [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
-}
-
-
 #pragma mark -
 #pragma mark Overlay Display
 
@@ -358,6 +332,32 @@
 
 #pragma mark -
 #pragma mark SEBAbstractWebViewNavigationDelegate Methods
+
+- (WKWebViewConfiguration *)wkWebViewConfiguration
+{
+    return self.navigationDelegate.wkWebViewConfiguration;
+}
+
+
+- (void) setLoading:(BOOL)loading
+{
+    [self.navigationDelegate setLoading:loading];
+}
+
+- (void) setCanGoBack:(BOOL)canGoBack canGoForward:(BOOL)canGoForward
+{
+    [self.navigationDelegate setCanGoBack:canGoBack canGoForward:canGoForward];
+}
+
+
+@synthesize customSEBUserAgent;
+
+- (NSString *) customSEBUserAgent
+{
+    return self.navigationDelegate.customSEBUserAgent;
+    
+}
+
 
 - (void) closeWebView:(SEBAbstractWebView *)webView
 {
@@ -460,6 +460,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                   newTab:(BOOL)newTab
                                            configuration:(WKWebViewConfiguration *)configuration
+                                        downloadFilename:(nullable NSString *)downloadFilename
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
@@ -484,7 +485,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 } else {
                     sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
-                [self.navigationDelegate conditionallyOpenSEBConfigFromData:sebConfigData];
+                [self.navigationDelegate openSEBConfigFromData:sebConfigData];
             } else if (self.allowDownUploads) {
                 NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                 NSData *fileData;
@@ -493,7 +494,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 } else {
                     fileData = [[NSData alloc] initWithBase64EncodedString:fileDataString options:NSDataBase64DecodingIgnoreUnknownCharacters];
                 }
-                NSString *filename = [self saveData:fileData];
+                NSString *filename = [self saveData:fileData downloadFilename:downloadFilename];
                 if (filename) {
                     DDLogInfo(@"Successfully saved website generated data: %@", url);
                     [self.navigationDelegate.sebViewController alertWithTitle:NSLocalizedString(@"Download Finished", nil)
@@ -517,11 +518,11 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
-- (NSString *)saveData:(NSData *)data
+- (NSString *)saveData:(NSData *)data downloadFilename:(nullable NSString *)downloadFilename
 {
     // Get the path to the App's Documents directory
     NSURL *documentsDirectory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-    NSString *filename = NSLocalizedString(@"Untitled", @"untitled filename");
+    NSString *filename = downloadFilename.length > 0 ? downloadFilename : NSLocalizedString(@"Untitled", @"untitled filename");
     
     NSDate *time = [NSDate date];
     NSDateFormatter* dateFormatter = [NSDateFormatter new];
@@ -660,9 +661,21 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (NSURL *) downloadPathURL
+{
+    return self.navigationDelegate.downloadPathURL;
+}
+
+
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+}
+
+
+- (void) openSEBConfigFromData:(NSData *)sebConfigData;
+{
+    [self.navigationDelegate openSEBConfigFromData:sebConfigData];
 }
 
 
@@ -772,6 +785,13 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (NSString *) appVersion
 {
     return [self.navigationDelegate appVersion];
+}
+
+
+- (void) presentAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+{
+    [self.navigationDelegate presentAlertWithTitle:title message:message];
 }
 
 

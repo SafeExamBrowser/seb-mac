@@ -93,7 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
 + (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
-- (NSString *)createUniqueFilename:(NSString *)filename;
+- (NSString *)createUniqueFilename:(nullable NSString *)filename
+                 intendedExtension:(nullable NSString*)extension;
 
 NS_ASSUME_NONNULL_END
 
