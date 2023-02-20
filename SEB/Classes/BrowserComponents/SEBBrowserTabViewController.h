@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *visibleWebViewController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray<OpenWebpages*> *openWebpages;
-@property (nonatomic, strong) NSMutableArray *persistentWebpages;
+@property (atomic, strong) NSMutableArray *persistentWebpages;
 @property (readwrite) NSUInteger maxIndex;
 
 - (SEBAbstractWebView *) openNewTabWithURL:(NSURL *)url configuration:(nullable WKWebViewConfiguration *)configuration overrideSpellCheck:(BOOL)overrideSpellCheck;
