@@ -1170,7 +1170,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 [self storeDownloadPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path];
                 dispatch_async(dispatch_get_main_queue(), ^{
 #if TARGET_OS_OSX
-                    [self fileDownloadedSuccessfully:destinationURL.path];
+                    [self fileDownloadedSuccessfully:[directory URLByAppendingPathComponent:filename].path];
 #else
                     [self fileDownloadedSuccessfully:filename];
 #endif
@@ -1210,16 +1210,14 @@ static NSString *urlStrippedFragment(NSURL* url)
 - (NSURL *) downloadPathURL
 {
 #if TARGET_OS_OSX
-            NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-            if (downloadPath.length == 0) {
-                //if there's no path saved in preferences, set standard path
-                downloadPath = @"~/Downloads";
-            }
-            downloadPath = [downloadPath stringByExpandingTildeInPath];
-            NSURL *destinationURL = [NSURL fileURLWithPath:[downloadPath stringByAppendingPathComponent:filename] isDirectory:NO];
-            NSURL *directory = destinationURL.URLByDeletingLastPathComponent;
+    NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+    if (downloadPath.length == 0) {
+        //if there's no path saved in preferences, set standard path
+        downloadPath = @"~/Downloads";
+    }
+    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:NO];
 #else
-            NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+    NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 #endif
     return directory;
 }
@@ -1249,7 +1247,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         }
     } else {
         [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"%@ was downloaded.", nil), path]];
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
     }
 }
 
