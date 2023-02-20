@@ -9071,7 +9071,7 @@
       </trans-unit>
       <trans-unit id="Saved file '%@'" xml:space="preserve">
         <source>Saved file '%@'</source>
-        <target>Datei '%@' speichern</target>
+        <target>Datei '%@' gespeichert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
