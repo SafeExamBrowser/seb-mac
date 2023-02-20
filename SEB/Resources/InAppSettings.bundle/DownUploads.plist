@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Downloading Files</string>
 			<key>FooterText</key>
-			<string>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&apos;On My iPad/iPhone&apos; location) and by using iTunes.</string>
+			<string>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&apos;On My iPad/iPhone&apos; location) and by using iTunes.</string>
 		</dict>
 		<dict>
 			<key>Type</key>

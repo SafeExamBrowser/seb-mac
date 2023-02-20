@@ -10,7 +10,7 @@
 /* String for Titles arrays elements */
 
 /* String for FooterText elements */
-"Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." = "Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.";
+"In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." = "In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.";
 "Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." = "Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client.";
 
 /* String for IASKPlaceholder elements */
