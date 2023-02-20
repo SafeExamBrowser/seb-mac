@@ -80,8 +80,10 @@
         [webViewToClose stopMediaPlaybackWithCompletionHandler:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+                
                 SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
                 [self removeBrowserWindowWithWebView:webViewToClose];
+                [webViewToClose closeWKWebView];
                 
                 // Get the document for the web view
                 id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];

@@ -112,6 +112,13 @@
     return self.browserControllerDelegate.nativeWebView;
 }
 
+- (void) closeWKWebView
+{
+    if ([self.browserControllerDelegate respondsToSelector:@selector(closeWKWebView)]) {
+        [self.browserControllerDelegate closeWKWebView];
+    }
+}
+
 - (NSURL*)url
 {
     return [self.browserControllerDelegate url];
