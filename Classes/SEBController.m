@@ -4274,7 +4274,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Report Siri is still active every 3rd second
                 self->siriLogCounter = logReportCounter;
-                DDLogError(@"Screen sharing was activated!");
+                DDLogError(@"Siri activity detected!");
                 
                 if (self.siriCheckOverride == false) {
                     [self openLockdownWindows];
