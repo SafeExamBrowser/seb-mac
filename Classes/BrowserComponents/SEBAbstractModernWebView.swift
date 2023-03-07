@@ -766,28 +766,39 @@ import PDFKit
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
                 if #available(macOS 11.3, iOS 14.5, *) {
-                    if allowDownloads && navigationAction.shouldPerformDownload {
-                        decisionHandler(.download)
+                    if navigationAction.shouldPerformDownload {
+                        if allowDownloads {
+                            decisionHandler(.download)
+                        } else {
+                            self.navigationDelegate?.showAlertNotAllowedDownUploading?(false)
+                            decisionHandler(.cancel)
+                        }
                         return
                     }
                 } else {
                     // Fallback on earlier versions
                 }
-                if allowDownloads && !(self.downloadFilename ?? "").isEmpty {
-                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
-                    self.forceDownload = false
-                    if #available(macOS 10.13, iOS 11.0, *) {
-                        let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
-                        httpCookieStore.getAllCookies{ cookies in
-                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: cookies)
+                if !(self.downloadFilename ?? "").isEmpty {
+                    if allowDownloads {
+                        DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+                        self.forceDownload = false
+                        if #available(macOS 10.13, iOS 11.0, *) {
+                            let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+                            httpCookieStore.getAllCookies{ cookies in
+                                self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: cookies)
+                                self.downloadFilename = nil
+                            }
+                            decisionHandler(.cancel)
+                            return
+                        } else {
+                            decisionHandler(.cancel)
+                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: HTTPCookieStorage.shared.cookies ?? [])
                             self.downloadFilename = nil
+                            return
                         }
-                        decisionHandler(.cancel)
-                        return
                     } else {
+                        self.navigationDelegate?.showAlertNotAllowedDownUploading?(false)
                         decisionHandler(.cancel)
-                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: HTTPCookieStorage.shared.cookies ?? [])
-                        self.downloadFilename = nil
                         return
                     }
                 }

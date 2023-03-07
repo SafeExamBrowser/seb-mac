@@ -1102,11 +1102,16 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
     DDLogVerbose(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
 
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-    if (self.downloadFilename && _allowDownloads) {
-        DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
-        [listener download];
-        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
-        self.downloadFilename = nil;
+    if (self.downloadFilename) {
+        if (_allowDownloads) {
+            DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
+            [listener download];
+            [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
+            self.downloadFilename = nil;
+        } else {
+            [listener ignore];
+            [self.navigationDelegate showAlertNotAllowedDownUploading:NO];
+        }
         return;
     }
 

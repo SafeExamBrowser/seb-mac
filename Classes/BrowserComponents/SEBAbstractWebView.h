@@ -272,20 +272,24 @@ runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
+//- (void)download:(WKDownload *)download
+//decideDestinationUsingResponse:(NSURLResponse *)response
+//suggestedFilename:(NSString *)suggestedFilename
+//completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
+
 - (void)webView:(WKWebView *)webView
 navigationAction:(WKNavigationAction *)navigationAction
 didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
 
-- (void)download:(WKDownload *)download
-decideDestinationUsingResponse:(NSURLResponse *)response
-suggestedFilename:(NSString *)suggestedFilename
-completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
-
-- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
-
-- (void)download:(WKDownload *)download
-didFailWithError:(NSError *)error
-      resumeData:(nullable NSData *)resumeData API_AVAILABLE(macos(11.3), ios(14.5));
+//- (void)download:(WKDownload *)download
+//didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+//completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
+//
+//- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
+//
+//- (void)download:(WKDownload *)download
+//didFailWithError:(NSError *)error
+//      resumeData:(nullable NSData *)resumeData API_AVAILABLE(macos(11.3), ios(14.5));
 
 
 - (WKPermissionDecision)permissionDecisionForType:(WKMediaCaptureType)type API_AVAILABLE(macos(12.0), ios(15.0));
