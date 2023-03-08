@@ -1253,8 +1253,8 @@ bool insideMatrix(void);
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -1262,13 +1262,13 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            self.establishingSEBServerConnection = NO;
-                            [self startExamWithFallback:NO];
+                            [self closeServerViewAndRestart:self];
                             break;
                         }
                         case NSAlertSecondButtonReturn:
                         {
-                            [self closeServerViewAndRestart:self];
+                            self.establishingSEBServerConnection = NO;
+                            [self startExamWithFallback:NO];
                             break;
                         }
                         default:
