@@ -1245,11 +1245,11 @@ static NSString *urlStrippedFragment(NSURL* url)
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
+            return;
         }
-    } else {
-        [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
     }
+    [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
 }
 
 

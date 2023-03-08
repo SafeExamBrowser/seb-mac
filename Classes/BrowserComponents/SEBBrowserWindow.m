@@ -1652,6 +1652,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [self.browserController fileDownloadedSuccessfully:path];
+}
+
+
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url
 {
     [self.browserController openConfigFromSEBURL:url];
