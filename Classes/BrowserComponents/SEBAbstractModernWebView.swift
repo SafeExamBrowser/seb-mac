@@ -766,7 +766,7 @@ import PDFKit
                 }
 #endif
                 if displayPDF {
-                    newTab = true
+                    newTab = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy") != openInSameWindow
                 }
             }
             let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil, downloadFilename:self.downloadFilename)
