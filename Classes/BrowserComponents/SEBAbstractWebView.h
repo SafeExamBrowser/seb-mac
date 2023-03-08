@@ -272,25 +272,9 @@ runOpenPanelWithParameters:(id)parameters
 initiatedByFrame:(nullable WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler;
 
-//- (void)download:(WKDownload *)download
-//decideDestinationUsingResponse:(NSURLResponse *)response
-//suggestedFilename:(NSString *)suggestedFilename
-//completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
-
 - (void)webView:(WKWebView *)webView
 navigationAction:(WKNavigationAction *)navigationAction
 didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
-
-//- (void)download:(WKDownload *)download
-//didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-//completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler API_AVAILABLE(macos(11.3), ios(14.5));
-//
-//- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
-//
-//- (void)download:(WKDownload *)download
-//didFailWithError:(NSError *)error
-//      resumeData:(nullable NSData *)resumeData API_AVAILABLE(macos(11.3), ios(14.5));
-
 
 - (WKPermissionDecision)permissionDecisionForType:(WKMediaCaptureType)type API_AVAILABLE(macos(12.0), ios(15.0));
 @property (readonly) BOOL browserMediaCaptureScreen;
@@ -315,6 +299,7 @@ didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
 @property (readonly) NSURL *downloadPathURL;
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
+- (void) fileDownloadedSuccessfully:(NSString *)path;
 - (void) conditionallyDownloadAndOpenSEBConfigFromURL:(NSURL *)url;
 - (void) openSEBConfigFromData:(NSData *)sebConfigData;
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies;

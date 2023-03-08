@@ -802,7 +802,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     NSString *filename = [self saveData:fileData downloadFilename:downloadFilename];
                     if (filename) {
                         DDLogInfo(@"Successfully saved website generated data: %@", url);
-                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]];
+                        [self.navigationDelegate fileDownloadedSuccessfully:filename];
                     } else {
                         DDLogError(@"Failed to save website generated data: %@", url);
                         [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Could not save downloaded data, probably a wrong download directory was used in %@ settings.", nil), SEBShortAppName]];
@@ -864,7 +864,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
     BOOL success = [fileManager createFileAtPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path contents:data attributes:nil];
     if (success) {
-        DDLogInfo(@"%s at file path: %@", __FUNCTION__, [directory URLByAppendingPathComponent:filename isDirectory:NO].path);
+        filename = [directory URLByAppendingPathComponent:filename isDirectory:NO].path;
+        DDLogInfo(@"%s at file path: %@", __FUNCTION__, filename);
         return filename;
     } else {
         return nil;
@@ -998,6 +999,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     [self.navigationDelegate downloadFileFromURL:url filename:filename cookies:cookies];
 }
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [self.navigationDelegate fileDownloadedSuccessfully:path];
+}
+
 
 - (BOOL) downloadingInTemporaryWebView
 {
