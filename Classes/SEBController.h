@@ -224,6 +224,7 @@
 
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) lockSEBWithAttributes:(NSDictionary *)attributes;
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 //- (BOOL) rtcAudioInputEnabled;
