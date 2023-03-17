@@ -1558,6 +1558,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self.browserController.sebController removeAlertWindow:modalAlert.window];
                 };
+                completionHandler(nil);
                 [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
                 return;
             }

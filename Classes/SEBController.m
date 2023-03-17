@@ -1826,7 +1826,7 @@ bool insideMatrix(void);
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
         myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-        if ((myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || ([(NSString *)CFBridgingRelease(SCDynamicStoreCopyLocalHostName(NULL)) localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dmlydHVhbA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [(NSString *)CFBridgingRelease(SCDynamicStoreCopyComputerName(NULL, NULL)) localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"VklyVFVhbA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]])) {
+        if ((myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]]) {
             // Bit 31 is set: VMware Hypervisor running (?)
             // or gestaltX86AdditionalFeatures values of VirtualBox detected
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
