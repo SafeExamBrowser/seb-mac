@@ -524,6 +524,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"proctoringFailed" object:nil];
+    // Add an observer for the notification when SEB is locked by SEB Server
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"lockSEB" object:nil];
     // Add an observer for the notification necessary for the correct key view loop
     // for tabbing/VoiceOver through the browser window (toolbar) and Dock
     [[NSNotificationCenter defaultCenter] addObserver:self
