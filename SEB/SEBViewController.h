@@ -58,6 +58,7 @@
 
 #import "RNCryptor.h"
 #import "SEBCryptor.h"
+#import "NSData+NSDataZIPExtension.h"
 
 #import "SEBRootViewController.h"
 #import "LGSideMenuController.h"

@@ -3690,18 +3690,28 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 - (NSString * _Nullable)appSignatureKey {
-    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
+    return [self.browserController.appSignatureKey base16String];
+//    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
 }
 
 
 - (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
-    self.browserController.examSalt = [NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
-    self.browserController.connectionToken = connectionToken;
+    if (examSalt.length > 0) {
+        self.browserController.examSalt = [NSData dataWithBase16String:examSalt]; //[NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+        self.browserController.connectionToken = connectionToken;
+    } else {
+        self.browserController.examSalt = nil;
+        self.browserController.connectionToken = nil;
+    }
 }
 
 
 - (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
-    self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+    if (serverBEK.length > 0) {
+        self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+    } else {
+        self.browserController.serverBrowserExamKey = nil;
+    }
 }
 
 
