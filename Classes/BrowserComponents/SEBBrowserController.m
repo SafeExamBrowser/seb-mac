@@ -1215,7 +1215,8 @@ static NSString *urlStrippedFragment(NSURL* url)
         //if there's no path saved in preferences, set standard path
         downloadPath = @"~/Downloads";
     }
-    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:NO];
+    downloadPath = [downloadPath stringByExpandingTildeInPath];
+    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
 #else
     NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 #endif
@@ -1244,11 +1245,11 @@ static NSString *urlStrippedFragment(NSURL* url)
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
+            return;
         }
-    } else {
-        [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
     }
+    [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
 }
 
 

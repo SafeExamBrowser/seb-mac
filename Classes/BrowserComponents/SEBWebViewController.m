@@ -1004,7 +1004,7 @@ decisionListener:(id <WebPolicyDecisionListener>)listener {
         SEBNavigationActionPolicy delegateNavigationActionPolicy;
         SEBNavigationAction *delegateNavigationAction;
         if (!_allowDownloads && self.downloadFilename && (self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame)) {
-            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
+            delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != openInSameWindow) configuration:nil downloadFilename:self.downloadFilename];
             delegateNavigationActionPolicy = delegateNavigationAction.policy;
         } else {
             delegateNavigationAction = [self.navigationDelegate decidePolicyForNavigationAction:navigationAction newTab:NO configuration:nil downloadFilename:self.downloadFilename];
@@ -1100,17 +1100,25 @@ decisionListener:(id < WebPolicyDecisionListener >)listener
 {
     DDLogVerbose(@"[SEBWebViewController webView: %@ decidePolicyForMIMEType: %@ requestURL: %@ ...]", sender, type, request.URL.absoluteString);
     DDLogVerbose(@"SEBWebView.creatingWebView property: %@", sender.creatingWebView);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
     // Check if this link had the "download" attribute, then we download the linked resource and don't try to display it
-    if (self.downloadFilename && _allowDownloads) {
-        DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
-        [listener download];
-        [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
-        self.downloadFilename = nil;
-        return;
+    if (self.downloadFilename) {
+        BOOL isPDF = [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
+        if ((isPDF && !_allowDownloads) == NO) {
+            if (_allowDownloads) {
+                DDLogInfo(@"Link to resource %@ had the 'download' attribute, force download it.", request.URL.absoluteString);
+                [listener download];
+                [self.navigationDelegate downloadFileFromURL:request.URL filename:self.downloadFilename cookies:@[]];
+                self.downloadFilename = nil;
+            } else {
+                [listener ignore];
+                [self.navigationDelegate showAlertNotAllowedDownUploading:NO];
+            }
+            return;
+        }
     }
 
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];
 
     // Check if it is a data: scheme to support the W3C saveAs() FileSaver interface

@@ -931,6 +931,12 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [_sebViewController.browserController fileDownloadedSuccessfully:path];
+}
+
+
 - (BOOL) downloadingInTemporaryWebView
 {
     return _sebViewController.browserController.downloadingInTemporaryWebView;

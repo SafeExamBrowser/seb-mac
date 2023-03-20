@@ -604,6 +604,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 }
 
 
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [self.navigationDelegate fileDownloadedSuccessfully:path];
+}
+
+
 - (BOOL) downloadingInTemporaryWebView
 {
     return self.navigationDelegate.downloadingInTemporaryWebView;
