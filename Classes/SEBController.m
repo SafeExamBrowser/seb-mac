@@ -1475,7 +1475,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", nil)}];
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
@@ -4483,13 +4483,11 @@ conditionallyForWindow:(NSWindow *)window
             if (userInfo) {
                 lockReason = [userInfo valueForKey:@"lockReason"];
             }
-            DDLogError(@"%@", lockReason);
-            if (lockReason.length > 0) {
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
-                                                            Message:[NSString stringWithFormat:@"%@", lockReason]];
-                [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
-                [self openLockdownWindows];
-            }
+            DDLogError(@"Lock Reason: %@", lockReason);
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
+                                                        Message:[NSString stringWithFormat:@"%@", lockReason ? lockReason : NSLocalizedString(@"Please contact your exam support.", nil)]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
+            [self openLockdownWindows];
         }
 
     });
