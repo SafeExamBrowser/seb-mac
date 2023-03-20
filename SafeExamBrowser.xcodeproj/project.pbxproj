@@ -174,6 +174,12 @@
 		6947D89A1BB073EA00899A8A /* ZoomPageOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8961BB073EA00899A8A /* ZoomPageOut.png */; };
 		6947D89B1BB073EA00899A8A /* ZoomPageOut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6947D8971BB073EA00899A8A /* ZoomPageOut@2x.png */; };
 		694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694803921C236E7800593711 /* SEBiOSConfigFileController.m */; };
+		69489F1629AE821900F464AD /* AES256GCMCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69489F1429AE821900F464AD /* AES256GCMCryptor.h */; };
+		69489F1729AE821900F464AD /* AES256GCMCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69489F1429AE821900F464AD /* AES256GCMCryptor.h */; };
+		69489F1829AE821900F464AD /* AES256GCMCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 69489F1429AE821900F464AD /* AES256GCMCryptor.h */; };
+		69489F1929AE821900F464AD /* AES256GCMCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69489F1529AE821900F464AD /* AES256GCMCryptor.m */; };
+		69489F1A29AE821900F464AD /* AES256GCMCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69489F1529AE821900F464AD /* AES256GCMCryptor.m */; };
+		69489F1B29AE821900F464AD /* AES256GCMCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69489F1529AE821900F464AD /* AES256GCMCryptor.m */; };
 		6949A47B1D0B8D9E0040ABF1 /* SEBNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */; };
 		6949A47C1D0B8D9E0040ABF1 /* SEBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */; };
 		694A7A5F24890B8E00B45C88 /* SEBProctoringViewIcon_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5624890B8D00B45C88 /* SEBProctoringViewIcon_error@2x.png */; };
@@ -1273,6 +1279,8 @@
 		694803941C2373AD00593711 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		694803961C2373CC00593711 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		694803981C2373E900593711 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		69489F1429AE821900F464AD /* AES256GCMCryptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AES256GCMCryptor.h; sourceTree = "<group>"; };
+		69489F1529AE821900F464AD /* AES256GCMCryptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AES256GCMCryptor.m; sourceTree = "<group>"; };
 		6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBNavigationController.h; path = Classes/AdditionalViews/SEBNavigationController.h; sourceTree = "<group>"; };
 		6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBNavigationController.m; path = Classes/AdditionalViews/SEBNavigationController.m; sourceTree = "<group>"; };
 		694A7A5624890B8D00B45C88 /* SEBProctoringViewIcon_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBProctoringViewIcon_error@2x.png"; path = "Resources/Icons/Dock/SEBProctoringViewIcon_error@2x.png"; sourceTree = "<group>"; };
@@ -2819,6 +2827,8 @@
 				69F522C22146720B009F3999 /* SEBCertServices.h */,
 				69D5983614C823AE005FE98C /* MethodSwizzling.h */,
 				69F522C32146720C009F3999 /* SEBCertServices.m */,
+				69489F1429AE821900F464AD /* AES256GCMCryptor.h */,
+				69489F1529AE821900F464AD /* AES256GCMCryptor.m */,
 			);
 			name = Cryptography;
 			path = Classes/Cryptography;
@@ -3251,6 +3261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69A0721E268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */,
+				69489F1729AE821900F464AD /* AES256GCMCryptor.h in Headers */,
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
 				69A07246268A38AD00A0464B /* MscRSAKey.h in Headers */,
 				69A0722E268A38AD00A0464B /* MscCertificateRevocationList.h in Headers */,
@@ -3347,6 +3358,7 @@
 			files = (
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
+				69489F1629AE821900F464AD /* AES256GCMCryptor.h in Headers */,
 				6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */,
 				6913E5C41A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h in Headers */,
 				6992499216C3B18B00DF6B53 /* PrefsConfigFileViewController.h in Headers */,
@@ -3485,6 +3497,7 @@
 				69D3C59A27A0366400890B31 /* SEBBrowserOpenWindowWebView.h in Headers */,
 				69D3C59B27A0366400890B31 /* SEBOSXBrowserController.h in Headers */,
 				69D3C59C27A0366400890B31 /* CustomHTTPProtocol.h in Headers */,
+				69489F1829AE821900F464AD /* AES256GCMCryptor.h in Headers */,
 				69D3C59D27A0366400890B31 /* RNEncryptor.h in Headers */,
 				69D3C59E27A0366400890B31 /* PrefsBrowserViewController.h in Headers */,
 				69D3C59F27A0366400890B31 /* WebViewInternal.h in Headers */,
@@ -4461,6 +4474,7 @@
 				69E977F125F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				695EE19426D2F2F8004D8FF7 /* SEBPresetSettings.m in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
+				69489F1A29AE821900F464AD /* AES256GCMCryptor.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
 				694803931C236E7800593711 /* SEBiOSConfigFileController.m in Sources */,
 				696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */,
@@ -4635,6 +4649,7 @@
 				69D3C52E27A0366400890B31 /* SEBURLFilterExpression.m in Sources */,
 				69D3C52F27A0366400890B31 /* SEBAbstractModernWebView.swift in Sources */,
 				69D3C53027A0366400890B31 /* CacheStoragePolicy.m in Sources */,
+				69489F1B29AE821900F464AD /* AES256GCMCryptor.m in Sources */,
 				69D3C53127A0366400890B31 /* SEBBrowserController.m in Sources */,
 				69D3C53227A0366400890B31 /* SEBDockWindow.m in Sources */,
 				69D3C53327A0366400890B31 /* SEBAbstractWebView.m in Sources */,
@@ -4756,6 +4771,7 @@
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				69F5229A21467188009F3999 /* CacheStoragePolicy.m in Sources */,
+				69489F1929AE821900F464AD /* AES256GCMCryptor.m in Sources */,
 				69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
 				69B5E2A625756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
@@ -5280,7 +5296,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5379,7 +5395,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5667,7 +5683,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5731,7 +5747,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5790,7 +5806,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5834,7 +5850,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5871,7 +5887,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5914,7 +5930,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5949,7 +5965,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6010,7 +6026,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = " 9Z623UDZ5L";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -6076,7 +6092,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -6139,7 +6155,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -6214,7 +6230,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6270,7 +6286,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 14560;
+				CURRENT_PROJECT_VERSION = 14622;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
