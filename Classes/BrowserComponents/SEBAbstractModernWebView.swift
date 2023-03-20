@@ -732,7 +732,14 @@ import PDFKit
         }
 
         let allowDownloads = self.navigationDelegate?.allowDownUploads ?? false
-        
+        var WKDownloadSupported = false
+        if #available(macOS 11.3, iOS 14.5, *) {
+            WKDownloadSupported = true
+        }
+
+        let urlIsPDF = url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
+
+        // Block which translates SEBNavigationActionPolicies to WKNavigationActionPolicies
         let callDecisionHandler:() -> () = {
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
                 decisionHandler(.allow)
@@ -746,8 +753,9 @@ import PDFKit
             }
         }
 
+        // Block which handles navigation policies, especially downloads
         let proceedHandler:() -> () = {
-            if self.downloadFilename != nil && !(self.downloadFilename ?? "").isEmpty {
+            if !(self.downloadFilename ?? "").isEmpty {
                 // On iOS we currently don't support donwloading PDFs -> display it
                 var displayPDF = ((self.downloadFilename ?? "") as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
 #if os(macOS)
@@ -758,36 +766,52 @@ import PDFKit
                 }
 #endif
                 if displayPDF {
-                    newTab = true
+                    newTab = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy") != openInSameWindow
                 }
             }
             let newNavigationPolicy = self.navigationDelegate?.decidePolicy?(for: navigationAction, newTab: newTab, configuration:nil, downloadFilename:self.downloadFilename)
             navigationActionPolicy = newNavigationPolicy?.policy ?? SEBNavigationActionPolicyCancel
 
             if navigationActionPolicy != SEBNavigationActionPolicyCancel {
+                var shouldPerformWKDownload = false
+
                 if #available(macOS 11.3, iOS 14.5, *) {
-                    if allowDownloads && navigationAction.shouldPerformDownload {
-                        decisionHandler(.download)
+                    shouldPerformWKDownload = navigationAction.shouldPerformDownload
+                }
+                
+                if WKDownloadSupported && (shouldPerformWKDownload || (urlIsPDF && allowDownloads)) {
+                    if #available(macOS 11.3, iOS 14.5, *) {
+                        if allowDownloads {
+                            decisionHandler(.download)
+                        } else if !urlIsPDF {
+                            self.navigationDelegate?.showAlertNotAllowedDownUploading?(false)
+                            decisionHandler(.cancel)
+                        }
                         return
                     }
-                } else {
-                    // Fallback on earlier versions
                 }
-                if allowDownloads && !(self.downloadFilename ?? "").isEmpty {
-                    DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
-                    self.forceDownload = false
-                    if #available(macOS 10.13, iOS 11.0, *) {
-                        let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
-                        httpCookieStore.getAllCookies{ cookies in
-                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: cookies)
+                
+                if !(self.downloadFilename ?? "").isEmpty {
+                    if allowDownloads {
+                        DDLogInfo("Link to resource '\(String(describing: self.downloadFilename))' had the 'download' attribute, it will be downloaded instead of displayed.")
+                        self.forceDownload = false
+                        if #available(macOS 10.13, iOS 11.0, *) {
+                            let httpCookieStore = webView.configuration.websiteDataStore.httpCookieStore
+                            httpCookieStore.getAllCookies{ cookies in
+                                self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: cookies)
+                                self.downloadFilename = nil
+                            }
+                            decisionHandler(.cancel)
+                            return
+                        } else {
+                            decisionHandler(.cancel)
+                            self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: HTTPCookieStorage.shared.cookies ?? [])
                             self.downloadFilename = nil
+                            return
                         }
+                    } else if !urlIsPDF {
+                        self.navigationDelegate?.showAlertNotAllowedDownUploading?(false)
                         decisionHandler(.cancel)
-                        return
-                    } else {
-                        decisionHandler(.cancel)
-                        self.navigationDelegate?.downloadFile?(from: url, filename: self.downloadFilename ?? "", cookies: HTTPCookieStorage.shared.cookies ?? [])
-                        self.downloadFilename = nil
                         return
                     }
                 }
@@ -796,29 +820,25 @@ import PDFKit
             }
             callDecisionHandler()
         }
-
-        if #available(macOS 11.3, iOS 14.5, *) {
-            self.downloadFilename = nil
-            proceedHandler()
-        } else {
-            if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
-                webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
-                    if error == nil {
-                        self.downloadFilename = result as? String
-                        if !(self.downloadFilename ?? "").isEmpty {
-                            DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
-                            self.forceDownload = true
-                        }
-                    } else {
-                        DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
-                        self.downloadFilename = nil
+        
+        // Main method body continues
+        if !url.hasDirectoryPath && ((allowDownloads && !WKDownloadSupported) || (urlIsPDF && (self.downloadFilename ?? "").isEmpty)) {
+            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
+                if error == nil {
+                    self.downloadFilename = result as? String
+                    if !(self.downloadFilename ?? "").isEmpty {
+                        DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
+                        self.forceDownload = true
                     }
-                    proceedHandler()
+                } else {
+                    DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
+                    self.downloadFilename = nil
                 }
-            } else {
-                self.downloadFilename = nil
                 proceedHandler()
             }
+        } else {
+            self.downloadFilename = nil
+            proceedHandler()
         }
     }
     
@@ -1080,8 +1100,7 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
     public func downloadDidFinish(_ download: WKDownload) {
         if let url = fileDownloadDestinationURL {
             DDLogInfo("File was downloaded at \(url)")
-            navigationDelegate?.presentAlert?(withTitle: NSLocalizedString("Download Finished", comment: ""),
-                                              message: NSLocalizedString("Saved file '\(url.lastPathComponent)'", comment: ""))
+            navigationDelegate?.fileDownloadedSuccessfully?(url.path)
         }
     }
 }

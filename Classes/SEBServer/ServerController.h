@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) startBatteryMonitoringWithDelegate:(id)delegate;
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
+- (void) lockSEBWithAttributes:(NSDictionary *)attributes;
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) examineCookies:(NSArray<NSHTTPCookie *> *)cookies forURL:(NSURL *)url;
