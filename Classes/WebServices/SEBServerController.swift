@@ -578,6 +578,11 @@ public extension SEBServerController {
         return notificationNumber
     }
     
+    @objc func sendLockscreenConfirm(notificationUID: Int64) {
+        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
+        }
+    }
+    
     @objc func sendRaiseHand(message: String?) -> Int64 {
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
@@ -586,7 +591,7 @@ public extension SEBServerController {
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
-        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationNumber), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
+        sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
         }
     }
     
