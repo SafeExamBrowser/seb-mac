@@ -646,6 +646,9 @@ public extension SEBServerController {
                 self.cancelAllRequests = true
                 self.stopPingTimer()
                 self.connectionToken = nil
+                self.delegate?.didReceiveExamSalt("", connectionToken: "")
+                self.delegate?.didReceiveServerBEK("")
+
     //            if quitSessionResponse != nil  {
     //                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
     //                DDLogVerbose(responseBody as Any)
