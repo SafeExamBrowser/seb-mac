@@ -245,6 +245,13 @@
     return  [_sebServerController sendLockscreenWithMessage:message];
 }
 
+- (void) confirmLockscreensWithUIDs:(NSArray<NSNumber *> *)notificationUIDs
+{
+    for (NSNumber *notificationUID in notificationUIDs) {
+        [_sebServerController sendLockscreenConfirmWithNotificationUID:notificationUID.integerValue];
+    }
+}
+
 
 - (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
 {
