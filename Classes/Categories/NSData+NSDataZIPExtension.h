@@ -40,6 +40,9 @@
 // Returns range [start, null byte), or (NSNotFound, 0).
 - (NSRange) rangeOfNullTerminatedBytesFrom:(int)start;
 
++ (NSData *) dataWithBase16String:(NSString *)string;
+- (NSString *) base16String;
+
 // Canonical Base32 encoding/decoding.
 + (NSData *) dataWithBase32String:(NSString *)base32;
 - (NSString *) base32String;
