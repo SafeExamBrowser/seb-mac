@@ -4667,7 +4667,10 @@ conditionallyForWindow:(NSWindow *)window
         _zoomUserRetryWasUsed = NO;
         _userSwitchDetected = NO;
         _sebLockedViewController.retryButton.hidden = YES;
-        [self.sebServerPendingLockscreenEvents removeAllObjects];
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+            [self.serverController confirmLockscreensWithUIDs:self.sebServerPendingLockscreenEvents.copy];
+            [self.sebServerPendingLockscreenEvents removeAllObjects];
+        }
         
         [_sebLockedViewController.view removeFromSuperview];
         [self closeCoveringWindows:self.lockdownWindows];
