@@ -44,9 +44,6 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"%@ was downloaded." = "%@ wurde heruntergeladen.";
-
-/* No comment provided by engineer. */
 "10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
 
 /* No comment provided by engineer. */
@@ -287,6 +284,9 @@
 "Could not Export Identity" = "Konnte Identität nicht exportieren";
 
 /* No comment provided by engineer. */
+"Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.";
+
+/* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
@@ -359,6 +359,9 @@
 "Done" = "Fertig";
 
 /* No comment provided by engineer. */
+"Download Failed" = "Download fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Download Finished" = "Download beendet";
 
 /* No comment provided by engineer. */
@@ -423,6 +426,9 @@
 
 /* No comment provided by engineer. */
 "Failed" = "Fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Failed to Save Downloaded File" = "Download konnte nicht gespeichert werden";
 
 /* No comment provided by engineer. */
 "Failed to Start Single App Mode" = "Einzel-App-Modus konnte nicht gestartet werden";
@@ -980,6 +986,9 @@
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
+"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Schlüssel: %@).";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
@@ -1011,9 +1020,6 @@
 
 /* Default message of lock screen alert. */
 "Unlock %@ with the quit password, which usually exam supervision/support knows." = "Entsperren Sie SEB mit dem Beenden/Entsperren-Passwort, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
-
-/* untitled filename */
-"untitled" = "Unbenannt";
 
 /* untitled filename */
 "Untitled" = "Unbenannt";

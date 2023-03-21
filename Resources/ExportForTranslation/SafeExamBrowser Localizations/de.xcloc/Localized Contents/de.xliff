@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -588,7 +588,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1015,7 +1015,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -1477,7 +1477,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -2124,7 +2124,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -2356,7 +2356,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -2468,7 +2468,7 @@
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2725,7 +2725,7 @@
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -2922,7 +2922,7 @@
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -3494,7 +3494,7 @@
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3591,7 +3591,7 @@
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -4323,7 +4323,7 @@
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
@@ -4640,7 +4640,7 @@
   </file>
   <file original="Classes/ProcessMonitoring/Base.lproj/ProcessListView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0H1-qr-5QU.title" xml:space="preserve">
@@ -4697,7 +4697,7 @@
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="  SEB session was inactive for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
@@ -4759,11 +4759,6 @@
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
-      </trans-unit>
-      <trans-unit id="%@ was downloaded." xml:space="preserve">
-        <source>%@ was downloaded.</source>
-        <target>%@ wurde heruntergeladen.</target>
-        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)" xml:space="preserve">
         <source>(This function doesn't log you out if you are logged in on a website)</source>
@@ -5140,6 +5135,11 @@
         <target>Konnte keinen korrekten Host-Namen ermitteln. Geben Sie die Domain-URL Ihrer Institution manuell ein.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Could not save downloaded data, probably a wrong download directory was used in %@ settings." xml:space="preserve">
+        <source>Could not save downloaded data, probably a wrong download directory was used in %@ settings.</source>
+        <target>Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</source>
         <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
@@ -5265,6 +5265,11 @@
         <target>Down/Uploads</target>
         <note>Title of 'Down/Uploads' preference pane</note>
       </trans-unit>
+      <trans-unit id="Download Failed" xml:space="preserve">
+        <source>Download Failed</source>
+        <target>Download fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Download Finished" xml:space="preserve">
         <source>Download Finished</source>
         <target>Download abgeschlossen</target>
@@ -5363,6 +5368,11 @@
       <trans-unit id="Failed" xml:space="preserve">
         <source>Failed</source>
         <target>Fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to Save Downloaded File" xml:space="preserve">
+        <source>Failed to Save Downloaded File</source>
+        <target>Download konnte nicht gespeichert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Failed, retrying..." xml:space="preserve">
@@ -5745,6 +5755,11 @@
         <target>Bitte %@ Passwort zuerst bestätigen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please contact your exam support." xml:space="preserve">
+        <source>Please contact your exam support.</source>
+        <target>Bitte wenden Sie sich an Ihren Prüfungs-Support.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Please enter correct confirm password" xml:space="preserve">
         <source>Please enter correct confirm password</source>
         <target>Bitte gleiches Passwort erneut eingeben</target>
@@ -5955,6 +5970,11 @@
         <target>SEB muss im Verzeichnis '%1$@' installiert werden. Bewegen Sie die 'Safe Exam Browser' App in Ihr Verzeichnis %2$@ und stellen Sie sicher, dass Sie keine anderen Versionen von SEB auf Ihrem System installiert haben. SEB wird jetzt beendet.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="SEB is Locked!" xml:space="preserve">
+        <source>SEB is Locked!</source>
+        <target>SEB ist gesperrt!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." xml:space="preserve">
         <source>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
         <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
@@ -5988,6 +6008,11 @@
       <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
         <target>SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="SEB was locked by SEB Server. Please contact your exam support." xml:space="preserve">
+        <source>SEB was locked by SEB Server. Please contact your exam support.</source>
+        <target>SEB wurde durch SEB Server gesperrt. Bitte wenden Sie sich an Ihren Prüfungs-Support.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
@@ -6028,6 +6053,11 @@
       <trans-unit id="Save unencrypted" xml:space="preserve">
         <source>Save unencrypted</source>
         <target>Unverschlüsselt speichern</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Saved file '%@'" xml:space="preserve">
+        <source>Saved file '%@'</source>
+        <target>Datei '%@' gespeichert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Saving Settings Failed" xml:space="preserve">
@@ -6235,6 +6265,11 @@
         <target>Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
+        <source>These settings are corrupted and cannot be used (failing key: %@).</source>
+        <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Schlüssel: %@).</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
         <source>These settings are corrupted and cannot be used.</source>
         <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden.</target>
@@ -6318,7 +6353,8 @@
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
         <target>Unbenannt</target>
-        <note>Title of a new opened browser window; Untitled</note>
+        <note>Title of a new opened browser window; Untitled
+   untitled filename</note>
       </trans-unit>
       <trans-unit id="Uploading" xml:space="preserve">
         <source>Uploading</source>
@@ -6655,11 +6691,6 @@
         <target>die Webseite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="untitled" xml:space="preserve">
-        <source>untitled</source>
-        <target>Unbenannt</target>
-        <note>untitled filename</note>
-      </trans-unit>
       <trans-unit id="warn when service is not running" xml:space="preserve">
         <source>warn when service is not running</source>
         <target>Warnen, wenn der Service nicht läuft</target>
@@ -6674,7 +6705,7 @@
   </file>
   <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -6711,7 +6742,7 @@
   </file>
   <file original="en.lproj/SafeExamBrowserETH-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -6748,7 +6779,7 @@
   </file>
   <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -7040,7 +7071,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
@@ -7102,7 +7133,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Navigation" xml:space="preserve">
@@ -7284,7 +7315,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Camera Capture" xml:space="preserve">
@@ -7341,7 +7372,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/ConfigFile.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently)." xml:space="preserve">
@@ -7468,7 +7499,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Dock.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Dock Command Items" xml:space="preserve">
@@ -7535,18 +7566,13 @@
   </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Downloading" xml:space="preserve">
         <source>Allow Downloading</source>
         <target>Download erlauben</target>
         <note/>
-      </trans-unit>
-      <trans-unit id="Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." xml:space="preserve">
-        <source>Currently only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.</source>
-        <target>Derzeit können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Diese Funktion ist für die Speicherung verschlüsselter Prüfungsergebnisse gedacht, falls keine Netzwerkverbindung besteht. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') und über iTunes zugegriffen werden.</target>
-        <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." xml:space="preserve">
         <source>Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client.</source>
@@ -7563,11 +7589,16 @@
         <target>Dateien herunterladen</target>
         <note>String for Title elements</note>
       </trans-unit>
+      <trans-unit id="In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." xml:space="preserve">
+        <source>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.</source>
+        <target>Im klassischen WebView und iOS-Versionen vor 14.5 können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Diese Funktion ist für die Speicherung verschlüsselter Prüfungsergebnisse gedacht, falls keine Netzwerkverbindung besteht. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') und über iTunes zugegriffen werden.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
     </body>
   </file>
   <file original="SEB/Resources/en.lproj/Exam.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
@@ -7734,7 +7765,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/ExamKeys.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="BEK" xml:space="preserve">
@@ -7816,7 +7847,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
@@ -7893,11 +7924,6 @@
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
-      </trans-unit>
-      <trans-unit id="%@ was downloaded." xml:space="preserve">
-        <source>%@ was downloaded.</source>
-        <target>%@ wurde heruntergeladen.</target>
-        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
         <source>10.7 (this SEB: 10.11)</source>
@@ -8264,6 +8290,11 @@
         <target>Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Could not save downloaded data, probably a wrong download directory was used in %@ settings." xml:space="preserve">
+        <source>Could not save downloaded data, probably a wrong download directory was used in %@ settings.</source>
+        <target>Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." xml:space="preserve">
         <source>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</source>
         <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
@@ -8379,6 +8410,11 @@
         <target>Fertig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Download Failed" xml:space="preserve">
+        <source>Download Failed</source>
+        <target>Download fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Download Finished" xml:space="preserve">
         <source>Download Finished</source>
         <target>Download beendet</target>
@@ -8487,6 +8523,11 @@
       <trans-unit id="Failed" xml:space="preserve">
         <source>Failed</source>
         <target>Fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to Save Downloaded File" xml:space="preserve">
+        <source>Failed to Save Downloaded File</source>
+        <target>Download konnte nicht gespeichert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Failed to Start Single App Mode" xml:space="preserve">
@@ -9071,7 +9112,7 @@
       </trans-unit>
       <trans-unit id="Saved file '%@'" xml:space="preserve">
         <source>Saved file '%@'</source>
-        <target>Datei '%@' speichern</target>
+        <target>Datei '%@' gespeichert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
@@ -9328,6 +9369,11 @@
       <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
         <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
         <target>Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
+        <source>These settings are corrupted and cannot be used (failing key: %@).</source>
+        <target>Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Schlüssel: %@).</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used." xml:space="preserve">
@@ -9730,11 +9776,6 @@
         <target>die Webseite</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="untitled" xml:space="preserve">
-        <source>untitled</source>
-        <target>Unbenannt</target>
-        <note>untitled filename</note>
-      </trans-unit>
       <trans-unit id="warn when service is not running" xml:space="preserve">
         <source>warn when service is not running</source>
         <target>Warnen, wenn der Service nicht läuft</target>
@@ -9749,7 +9790,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Network.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -9766,7 +9807,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/NetworkCertificate.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -9823,7 +9864,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/NetworkFilter.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
@@ -9880,7 +9921,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoring.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="AI Proctoring" xml:space="preserve">
@@ -10047,7 +10088,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Tile View" xml:space="preserve">
@@ -10084,7 +10125,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Admin Password" xml:space="preserve">
@@ -10176,7 +10217,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -10243,7 +10284,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/SEBServer.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Connect to SEB Server" xml:space="preserve">
@@ -10295,7 +10336,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/Security.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0" xml:space="preserve">
@@ -10452,7 +10493,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLegacy.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Single App Mode" xml:space="preserve">
@@ -10484,7 +10525,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLogging.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Debug" xml:space="preserve">
@@ -10536,7 +10577,7 @@
   </file>
   <file original="SEB/Resources/en.lproj/UserInterface.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
@@ -10663,7 +10704,7 @@
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="Allow Editing" xml:space="preserve">
@@ -10715,7 +10756,7 @@
   </file>
   <file original="SEBVerificator/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="0F9-PI-gFi.title" xml:space="preserve">
@@ -10987,7 +11028,7 @@
   </file>
   <file original="SEBVerificator/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id=" 1" xml:space="preserve">
@@ -11112,7 +11153,7 @@
       </trans-unit>
       <trans-unit id="Rescanning for SEB-alike applications" xml:space="preserve">
         <source>Rescanning for SEB-alike applications</source>
-        <target>Neue Suche für SEB-Applikationen</target>
+        <target>Neue Suche nach SEB-Applikationen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SEB Verificator initialized" xml:space="preserve">
@@ -11170,6 +11211,11 @@
         <target>Die unten stehenden Programme müssen beendet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Untitled" xml:space="preserve">
+        <source>Untitled</source>
+        <target>Unbenannt</target>
+        <note>untitled filename</note>
+      </trans-unit>
       <trans-unit id="User name: %@" xml:space="preserve">
         <source>User name: %@</source>
         <target>Benutzername: %@</target>
@@ -11225,16 +11271,11 @@
         <target>beendet</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="untitled" xml:space="preserve">
-        <source>untitled</source>
-        <target>Unbenannt</target>
-        <note>untitled filename</note>
-      </trans-unit>
     </body>
   </file>
   <file original="SEBVerificator/en.lproj/SEBVerificator-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
