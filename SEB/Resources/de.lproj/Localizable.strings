@@ -434,7 +434,7 @@
 "Failed" = "Fehlgeschlagen";
 
 /* No comment provided by engineer. */
-"Failed to Save Downloaded File" = "Heruntergeladene Datei konnte nicht gespeichert werden";
+"Failed to Save Downloaded File" = "Download konnte nicht gespeichert werden";
 
 /* No comment provided by engineer. */
 "Failed to Start Single App Mode" = "Einzel-App-Modus konnte nicht gestartet werden";
