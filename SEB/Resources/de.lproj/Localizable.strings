@@ -815,7 +815,7 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
-"Saved file " = "Datei gespeichert";
+"Saved file '%@'" = "Datei '%@' gespeichert";
 
 /* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "%@-Konfigurations-QR-Code scannen";
@@ -1001,7 +1001,7 @@
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
-"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Einstellung: %@).";
+"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafte Einstellung: %@).";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
