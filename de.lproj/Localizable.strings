@@ -38,9 +38,6 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"%@ was downloaded." = "%@ wurde heruntergeladen.";
-
-/* No comment provided by engineer. */
 "10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
 
 /* No comment provided by engineer. */
@@ -287,6 +284,9 @@
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Konnte keinen korrekten Host-Namen ermitteln. Geben Sie die Domain-URL Ihrer Institution manuell ein.";
 
 /* No comment provided by engineer. */
+"Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.";
+
+/* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
@@ -365,6 +365,9 @@
 "Down/Uploads" = "Down/Uploads";
 
 /* No comment provided by engineer. */
+"Download Failed" = "Download fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Download Finished" = "Download abgeschlossen";
 
 /* No comment provided by engineer. */
@@ -420,6 +423,9 @@
 
 /* No comment provided by engineer. */
 "Failed" = "Fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Failed to Save Downloaded File" = "Download konnte nicht gespeichert werden";
 
 /* No comment provided by engineer. */
 "Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
@@ -683,6 +689,9 @@
 "Please confirm the %@ password first." = "Bitte %@ Passwort zuerst bestätigen";
 
 /* No comment provided by engineer. */
+"Please contact your exam support." = "Bitte wenden Sie sich an Ihren Prüfungs-Support.";
+
+/* No comment provided by engineer. */
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
@@ -815,6 +824,9 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
+"Saved file '%@'" = "Datei '%@' gespeichert";
+
+/* No comment provided by engineer. */
 "Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
 
 /* No comment provided by engineer. */
@@ -860,6 +872,9 @@
 "SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
+"SEB is Locked!" = "SEB ist gesperrt!";
+
+/* No comment provided by engineer. */
 "SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences." = "SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
@@ -879,6 +894,9 @@
 
 /* No comment provided by engineer. */
 "SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)";
+
+/* No comment provided by engineer. */
+"SEB was locked by SEB Server. Please contact your exam support." = "SEB wurde durch SEB Server gesperrt. Bitte wenden Sie sich an Ihren Prüfungs-Support.";
 
 /* No comment provided by engineer. */
 "SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "SEB konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).";
@@ -995,6 +1013,9 @@
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
+"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Schlüssel: %@).";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
@@ -1039,10 +1060,8 @@
 /* No comment provided by engineer. */
 "Unsaved Changes" = "Ungesicherte Änderungen";
 
-/* untitled filename */
-"untitled" = "Unbenannt";
-
-/* Title of a new opened browser window; Untitled */
+/* Title of a new opened browser window; Untitled
+   untitled filename */
 "Untitled" = "Unbenannt";
 
 /* No comment provided by engineer. */
