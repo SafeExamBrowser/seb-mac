@@ -1073,14 +1073,17 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
         var filename = suggestedFilename
         let fileManager = FileManager.default
         var fileIndex = 1
-        let downloadDirectory = self.navigationDelegate?.downloadPathURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
+        var downloadDirectory = self.navigationDelegate?.downloadPathURL
+        if downloadDirectory == nil || !fileManager.isWritableFile(atPath: downloadDirectory?.appendingPathComponent(filename).path ?? "") {
+            downloadDirectory = URL(fileURLWithPath: NSString(string: "~/Downloads").expandingTildeInPath)
+        }
         let filenameWithoutExtension = (filename as NSString).deletingPathExtension
         let fileExtension = (suggestedFilename as NSString).pathExtension
-        while fileManager.fileExists(atPath: downloadDirectory.appendingPathComponent(filename).path) {
+        while fileManager.fileExists(atPath: downloadDirectory!.appendingPathComponent(filename).path) {
             filename = filenameWithoutExtension + "-\(fileIndex)." + fileExtension
             fileIndex+=1
         }
-        fileDownloadDestinationURL = downloadDirectory.appendingPathComponent(filename)
+        fileDownloadDestinationURL = downloadDirectory!.appendingPathComponent(filename)
         completionHandler(fileDownloadDestinationURL)
     }
 
