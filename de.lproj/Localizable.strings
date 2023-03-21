@@ -431,7 +431,7 @@
 "Failed" = "Fehlgeschlagen";
 
 /* No comment provided by engineer. */
-"Failed to Save Downloaded File" = "Heruntergeladene Datei konnte nicht gespeichert werden";
+"Failed to Save Downloaded File" = "Download konnte nicht gespeichert werden";
 
 /* No comment provided by engineer. */
 "Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
@@ -836,10 +836,7 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
-"Saved file " = "Datei gespeichert";
-
-/* No comment provided by engineer. */
-"Saved file '%@'" = "Datei gespeichert";
+"Saved file '%@'" = "Datei '%@' gespeichert";
 
 /* No comment provided by engineer. */
 "Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
@@ -885,6 +882,9 @@
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
+"SEB is Locked!" = "SEB ist gesperrt!";
 
 /* No comment provided by engineer. */
 "SEB is Locked!" = "SEB ist gesperrt!";
