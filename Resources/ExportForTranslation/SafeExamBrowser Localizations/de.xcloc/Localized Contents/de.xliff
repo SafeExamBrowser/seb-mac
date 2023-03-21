@@ -5408,7 +5408,7 @@
       </trans-unit>
       <trans-unit id="Failed to Save Downloaded File" xml:space="preserve">
         <source>Failed to Save Downloaded File</source>
-        <target>Heruntergeladene Datei konnte nicht gespeichert werden</target>
+        <target>Download konnte nicht gespeichert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Failed, retrying..." xml:space="preserve">
@@ -8593,7 +8593,7 @@
       </trans-unit>
       <trans-unit id="Failed to Save Downloaded File" xml:space="preserve">
         <source>Failed to Save Downloaded File</source>
-        <target>Heruntergeladene Datei konnte nicht gespeichert werden</target>
+        <target>Download konnte nicht gespeichert werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Failed to Start Single App Mode" xml:space="preserve">
@@ -9186,9 +9186,9 @@
         <target>Unverschlüsselt speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Saved file " xml:space="preserve">
-        <source>Saved file </source>
-        <target>Datei gespeichert</target>
+      <trans-unit id="Saved file '%@'" xml:space="preserve">
+        <source>Saved file '%@'</source>
+        <target>Datei '%@' gespeichert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
