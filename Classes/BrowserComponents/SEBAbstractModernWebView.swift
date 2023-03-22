@@ -755,14 +755,16 @@ import PDFKit
 
         // Block which handles navigation policies, especially downloads
         let proceedHandler:() -> () = {
+            let downloadPDFFiles = self.navigationDelegate?.downloadPDFFiles ?? false
+            var displayPDF = true
             if !(self.downloadFilename ?? "").isEmpty {
-                // On iOS we currently don't support donwloading PDFs -> display it
-                var displayPDF = ((self.downloadFilename ?? "") as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
+                // On iOS we currently don't support downloading PDFs -> display it
+                displayPDF = ((self.downloadFilename ?? "") as NSString).pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
 #if os(macOS)
                 if displayPDF {
                     // A link to a PDF file with the "download" parameter was invoked
                     // if downloading is not allowed, we display the PDF in the browser
-                    displayPDF = !allowDownloads
+                    displayPDF = !allowDownloads && !downloadPDFFiles
                 }
 #endif
                 if displayPDF {
@@ -779,7 +781,7 @@ import PDFKit
                     shouldPerformWKDownload = navigationAction.shouldPerformDownload
                 }
                 
-                if WKDownloadSupported && (shouldPerformWKDownload || (urlIsPDF && allowDownloads)) {
+                if WKDownloadSupported && (shouldPerformWKDownload || (urlIsPDF && !displayPDF)) {
                     if #available(macOS 11.3, iOS 14.5, *) {
                         if allowDownloads {
                             decisionHandler(.download)
