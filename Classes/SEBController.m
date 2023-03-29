@@ -2958,7 +2958,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     #endif
                         if (@available(macOS 13.0, *)) {
                             if (!allowDictionaryLookup && ([appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleID] ||
-                                                           [appWithPanelBundleID isEqualToString:lookupViewServiceBundleID])) {
+                                                           [appWithPanelBundleID isEqualToString:lookupViewServiceBundleID] ||
+                                                           [appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleIDOld])) {
                                 DDLogDebug(@"Terminating process %@ as lookup is not allowed in settings.", appWithPanelBundleID);
                                 [self killProcessWithPID:windowOwnerPID];
                                 continue;
