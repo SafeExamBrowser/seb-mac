@@ -2852,16 +2852,29 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     // Check for running screen capture process
     if (!allowScreenCapture || _isAACEnabled) {
-        processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", screenCaptureAgent];
-        filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
-        
-        if (filteredProcesses.count > 0) {
-            NSDictionary *screenCaptureAgentProcessDetails = filteredProcesses[0];
-            NSNumber *PID = [screenCaptureAgentProcessDetails objectForKey:@"PID"];
-            NSInteger success = [self killProcessWithPID:PID.intValue];
-            DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", screenCaptureAgentProcessDetails, success == 0 ? @"" : @"not ", (long)success);
+        NSDictionary *processDetails = nil;
+        NSInteger success = [self runningProcessCheckForName:screenCaptureAgent inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+        if (processDetails) {
+            DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
         }
     }
+    
+    if (@available(macOS 13.0, *)) {
+        if (!allowDictionaryLookup) {
+            NSDictionary *processDetails = nil;
+            NSInteger success = [self runningProcessCheckForName:lookupQuicklookHelper inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+            if (processDetails) {
+                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
+                processDetails = nil;
+            }
+
+            success = [self runningProcessCheckForName:lookupViewService inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+            if (processDetails) {
+                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
+            }
+        }
+    }
+    
     // Check for prohibited BSD processes
     NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses.copy;
     for (NSString *executableName in prohibitedProcesses) {
@@ -2879,6 +2892,21 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     lastTimeProcessCheck = [NSDate date];
     checkingRunningProcesses = NO;
 }
+
+- (NSInteger)runningProcessCheckForName:(NSString *)name inRunningProcesses:(NSArray **)allRunningProcesses processDetails:(NSDictionary **)processDetails
+{
+    NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", name];
+    NSArray *filteredProcesses = [*allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
+
+    NSInteger success = -1;
+    if (filteredProcesses.count > 0) {
+        *processDetails = filteredProcesses[0];
+        NSNumber *PID = [*processDetails objectForKey:@"PID"];
+        success = [self killProcessWithPID:PID.intValue];
+    }
+    return success;
+}
+
 
 - (void)windowWatcher
 {
@@ -2956,16 +2984,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         CGSGetWindowWorkspace(connection, windowID, &workspace);
                         DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
     #endif
-                        if (@available(macOS 13.0, *)) {
-                            if (!allowDictionaryLookup && ([appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleID] ||
-                                                           [appWithPanelBundleID isEqualToString:lookupViewServiceBundleID] ||
-                                                           [appWithPanelBundleID isEqualToString:lookupQuicklookHelperBundleIDOld])) {
-                                DDLogDebug(@"Terminating process %@ as lookup is not allowed in settings.", appWithPanelBundleID);
-                                [self killProcessWithPID:windowOwnerPID];
-                                continue;
-                            }
-                        }
-                        
                         if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
                             if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
                                 // Application hasn't a com.apple. bundle ID prefix
