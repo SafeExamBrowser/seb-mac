@@ -76,7 +76,6 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "SEBCertServices.h"
-#import "NSData+NSDataZIPExtension.h"
 #import "NSScreen+SEBScreen.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
@@ -525,6 +524,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"proctoringFailed" object:nil];
+    // Add an observer for the notification when SEB is locked by SEB Server
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"lockSEB" object:nil];
     // Add an observer for the notification necessary for the correct key view loop
     // for tabbing/VoiceOver through the browser window (toolbar) and Dock
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1281,8 +1284,8 @@ bool insideMatrix(void);
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -1290,13 +1293,13 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            self.establishingSEBServerConnection = NO;
-                            [self startExamWithFallback:NO];
+                            [self closeServerViewAndRestart:self];
                             break;
                         }
                         case NSAlertSecondButtonReturn:
                         {
-                            [self closeServerViewAndRestart:self];
+                            self.establishingSEBServerConnection = NO;
+                            [self startExamWithFallback:NO];
                             break;
                         }
                         default:
@@ -1499,7 +1502,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", nil)}];
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
@@ -1858,31 +1861,29 @@ bool insideMatrix(void);
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
         OSErr        myErr = noErr;
-        
+
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
         myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-        if (myErr == noErr) {
-            if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
-                // Bit 31 is set: VMware Hypervisor running (?)
-                // or gestaltX86AdditionalFeatures values of VirtualBox detected
-                DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    [self quitSEBOrSession];
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
-                return;
-            } else {
-                DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
-            }
+        if ((myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]]) {
+            // Bit 31 is set: VMware Hypervisor running (?)
+            // or gestaltX86AdditionalFeatures values of VirtualBox detected
+            DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
+                [self quitSEBOrSession];
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
+            return;
+        } else {
+            DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
         }
-        
+
         bool    virtualMachine = false;
         // STR or SIDT code?
         virtualMachine = insideMatrix();
@@ -4528,13 +4529,11 @@ conditionallyForWindow:(NSWindow *)window
             if (userInfo) {
                 lockReason = [userInfo valueForKey:@"lockReason"];
             }
-            DDLogError(@"%@", lockReason);
-            if (lockReason.length > 0) {
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
-                                                            Message:[NSString stringWithFormat:@"%@", lockReason]];
-                [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
-                [self openLockdownWindows];
-            }
+            DDLogError(@"Lock Reason: %@", lockReason);
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
+                                                        Message:[NSString stringWithFormat:@"%@", lockReason ? lockReason : NSLocalizedString(@"Please contact your exam support.", nil)]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
+            [self openLockdownWindows];
         }
 
     });
