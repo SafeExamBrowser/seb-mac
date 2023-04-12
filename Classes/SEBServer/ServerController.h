@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
     @private
     NSString *lmsLoginLastUsername;
     NSString *lmsLoginBaseURL;
-    NSString *sessionIdentifier;
+    NSString *_Nullable sessionIdentifier;
 }
 
 @property (weak) id<ServerControllerDelegate> delegate;
