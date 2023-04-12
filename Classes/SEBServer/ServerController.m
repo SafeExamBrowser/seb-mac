@@ -108,6 +108,7 @@
 {
     DDLogInfo(@"ServerController: Login to exam");
     DDLogDebug(@"ServerController: Login to exam with URL %@", url);
+    sessionIdentifier = nil;
     [self.delegate loginToExam:url];
 }
 
