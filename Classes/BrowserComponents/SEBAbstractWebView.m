@@ -802,7 +802,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     NSString *filename = [self saveData:fileData downloadFilename:downloadFilename];
                     if (filename) {
                         DDLogInfo(@"Successfully saved website generated data: %@", url);
-                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]];
+                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil) message:[NSString stringWithFormat:@"%@ '%@'", NSLocalizedString(@"Saved file ", nil), filename]];
                     } else {
                         DDLogError(@"Failed to save website generated data: %@", url);
                         [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Could not save downloaded data, probably a wrong download directory was used in %@ settings.", nil), SEBShortAppName]];

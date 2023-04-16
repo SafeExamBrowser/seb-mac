@@ -433,6 +433,7 @@
                 <outlet property="passwordView" destination="vWC-gd-xPh" id="zMg-ha-awY"/>
                 <outlet property="preferencesController" destination="892" id="893"/>
                 <outlet property="raiseHandMessageTextField" destination="tJS-zI-i8V" id="0VB-0H-N33"/>
+                <outlet property="savePanelAccessoryView" destination="tb5-7k-ibf" id="yk8-zu-KTE"/>
                 <outlet property="sebDockItemBattery" destination="1qo-UV-jZh" id="RcL-pX-mkb"/>
                 <outlet property="sebDockItemTime" destination="mpZ-3o-PlN" id="NuR-Rf-Va9"/>
                 <outlet property="sebLockedViewController" destination="agr-W5-n2K" id="S5k-x9-ugM"/>
@@ -451,7 +452,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -621,7 +622,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -717,7 +718,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-wp-re5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -876,7 +877,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -1388,7 +1389,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1442,6 +1443,62 @@ DQ
             </constraints>
             <point key="canvasLocation" x="70" y="56"/>
         </customView>
+        <customView id="tb5-7k-ibf" userLabel="Save Panel Accessory View">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uf-3f-TUt">
+                    <rect key="frame" x="20" y="20" width="360" height="20"/>
+                    <subviews>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BDF-nF-otU">
+                            <rect key="frame" x="-2" y="2" width="95" height="16"/>
+                            <textFieldCell key="cell" lineBreakMode="clipping" title="Config Format:" id="4Lq-cR-TrS">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tmg-sY-zim">
+                            <rect key="frame" x="98" y="-4" width="266" height="25"/>
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="Q3c-R7-EsM" id="xCx-qW-xf8">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="3JC-aI-cH8">
+                                    <items>
+                                        <menuItem id="2UX-Pp-aCb"/>
+                                        <menuItem id="Q3c-R7-EsM"/>
+                                        <menuItem id="4LH-Je-yV4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <accessibility description="Select Browser Engine Policy"/>
+                            <connections>
+                                <binding destination="FTL-Z0-ZqI" name="contentValues" keyPath="org_safeexambrowser_SEB_shareConfigFormats" id="VNn-v7-X0v"/>
+                                <binding destination="993" name="selectedIndex" keyPath="values.org_safeexambrowser_shareConfigFormat" previousBinding="VNn-v7-X0v" id="Zos-wj-v3d"/>
+                            </connections>
+                        </popUpButton>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="6uf-3f-TUt" secondAttribute="bottom" constant="20" id="9yy-cT-6Of"/>
+                <constraint firstAttribute="trailing" secondItem="6uf-3f-TUt" secondAttribute="trailing" constant="20" id="Lo6-p7-yhz"/>
+                <constraint firstItem="6uf-3f-TUt" firstAttribute="top" secondItem="tb5-7k-ibf" secondAttribute="top" constant="20" id="P6U-R9-yv9"/>
+                <constraint firstItem="6uf-3f-TUt" firstAttribute="leading" secondItem="tb5-7k-ibf" secondAttribute="leading" constant="20" id="dO2-8s-9rT"/>
+            </constraints>
+            <point key="canvasLocation" x="79" y="215.5"/>
+        </customView>
+        <userDefaultsController id="FTL-Z0-ZqI" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>
     </objects>
     <resources>
         <image name="NSGoRightTemplate" width="10" height="14"/>

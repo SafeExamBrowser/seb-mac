@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -249,7 +249,7 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowFind" id="gwp-Xk-lPf"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
+                                                                        <button toolTip="Pressing the tab key moves focus to the next link and form control. Shift-tab moves focus to the previous control" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
                                                                             <rect key="frame" x="-2" y="65" width="130" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Tab focuses links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2BE-Ri-RWP">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1504,7 +1504,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99420289855072463" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.043478260869565188" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

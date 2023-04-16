@@ -1081,7 +1081,7 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
         if let url = fileDownloadDestinationURL {
             DDLogInfo("File was downloaded at \(url)")
             navigationDelegate?.presentAlert?(withTitle: NSLocalizedString("Download Finished", comment: ""),
-                                              message: NSLocalizedString("Saved file '\(url.lastPathComponent)'", comment: ""))
+                                              message: NSLocalizedString("Saved file ", comment: "")+"\'"+url.lastPathComponent+"\'")
         }
     }
 }

@@ -1326,13 +1326,13 @@ static NSMutableSet *browserWindowControllers;
         if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
             NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
             if (shareConfigFormat == shareConfigFormatQRCode) {
-                UIImage *qrCode = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+                UIImage *qrCode = [UIImage imageWithCIImage:[QRCodeGenerator generateQRCodeFrom:configInDataURL]];
                 if (qrCode) {
                     encryptedSEBData = UIImagePNGRepresentation(qrCode);
                 } else {
                     shareConfigFormat = shareConfigFormatFile;
                     _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
-                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
+                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
                                                                      preferredStyle:UIAlertControllerStyleAlert];
                     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

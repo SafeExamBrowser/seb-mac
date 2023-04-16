@@ -44,9 +44,6 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"%@ was downloaded." = "%@ wurde heruntergeladen.";
-
-/* No comment provided by engineer. */
 "10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
 
 /* No comment provided by engineer. */
@@ -251,6 +248,12 @@
 "Config QR Code" = "Konfigurations-QR-Code";
 
 /* No comment provided by engineer. */
+"Config Too Large for QR Code" = "Konfiguration zu umfangreich für QR-Code";
+
+/* No comment provided by engineer. */
+"Config URL" = "Konfigurations-URL";
+
+/* No comment provided by engineer. */
 "Configuring Client" = "Client konfigurieren";
 
 /* No comment provided by engineer. */
@@ -285,6 +288,9 @@
 
 /* No comment provided by engineer. */
 "Could not Export Identity" = "Konnte Identität nicht exportieren";
+
+/* No comment provided by engineer. */
+"Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.";
 
 /* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
@@ -359,6 +365,9 @@
 "Done" = "Fertig";
 
 /* No comment provided by engineer. */
+"Download Failed" = "Download fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Download Finished" = "Download beendet";
 
 /* No comment provided by engineer. */
@@ -425,6 +434,9 @@
 "Failed" = "Fehlgeschlagen";
 
 /* No comment provided by engineer. */
+"Failed to Save Downloaded File" = "Heruntergeladene Datei konnte nicht gespeichert werden";
+
+/* No comment provided by engineer. */
 "Failed to Start Single App Mode" = "Einzel-App-Modus konnte nicht gestartet werden";
 
 /* No comment provided by engineer. */
@@ -435,6 +447,9 @@
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
+
+/* No comment provided by engineer. */
+"File" = "Datei";
 
 /* No comment provided by engineer. */
 "Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams." = "Befolgen Sie die Anweisungen Ihres Prüfers, wie Sie eine Prüfung in %1$@ starten können.%2$@Wenn Sie versuchen, die %3$@-Einstellungen selbst zu bearbeiten, kann der Zugang zu Prüfungen gesperrt werden.";
@@ -710,6 +725,9 @@
 "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
+"QR Code" = "QR-Code";
+
+/* No comment provided by engineer. */
 "Quit" = "Beenden";
 
 /* No comment provided by engineer. */
@@ -797,7 +815,7 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
-"Saved file '%@'" = "Datei '%@' gespeichert";
+"Saved file " = "Datei gespeichert";
 
 /* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "%@-Konfigurations-QR-Code scannen";
@@ -879,6 +897,9 @@
 
 /* No comment provided by engineer. */
 "Share" = "Teilen";
+
+/* No comment provided by engineer. */
+"Share as Config File" = "Als Konfigurationsdatei teilen";
 
 /* No comment provided by engineer. */
 "Share settings" = "Einstellungen teilen";
@@ -980,10 +1001,16 @@
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
+"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafter Einstellung: %@).";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
 "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." = "Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen %@-Version erstellt oder sind beschädigt";
+
+/* No comment provided by engineer. */
+"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." = "Diese Konfiguration passt nicht in einen QR-Code, vielleicht wurde sie mit einer älteren %@-Version/auf einer anderen Plattform erstellt oder enthält umfangreiche Daten wie viele verbotene Prozesse, eingebettete Zertifikate oder viele URL-Filterregeln. Sie könnten versuchen, die Konfiguration manuell von Grund auf neu zu erstellen, indem Sie die Standardeinstellungen verwenden und nur die notwendigen Einstellungen ändern.";
 
 /* No comment provided by engineer. */
 "This device isn't configured for sending email." = "Dieses Gerät ist nicht für den Versand von E-Mails konfiguriert.";
@@ -1011,9 +1038,6 @@
 
 /* Default message of lock screen alert. */
 "Unlock %@ with the quit password, which usually exam supervision/support knows." = "Entsperren Sie SEB mit dem Beenden/Entsperren-Passwort, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
-
-/* untitled filename */
-"untitled" = "Unbenannt";
 
 /* untitled filename */
 "Untitled" = "Unbenannt";
@@ -1109,7 +1133,7 @@
 "You can only send log files after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+"You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
 "You can't send log files while in an exam session. Finish the exam first and try it again." = "Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.";

@@ -38,9 +38,6 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"%@ was downloaded." = "%@ wurde heruntergeladen.";
-
-/* No comment provided by engineer. */
 "10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
 
 /* No comment provided by engineer. */
@@ -244,8 +241,14 @@
 /* No comment provided by engineer. */
 "Code contributions © 2015 - 2016 Janison" = "Code-Beiträge © 2015 - 2016 Janison";
 
-/* Title of 'Config File' preference pane */
-"Config File" = "Konfiguration";
+/* No comment provided by engineer. */
+"Config Too Large for QR Code" = "Konfiguration zu umfangreich für QR-Code";
+
+/* No comment provided by engineer. */
+"Config URL" = "Konfigurations-URL";
+
+/* Title of 'Configuration' preference pane */
+"Configuration" = "Konfiguration";
 
 /* No comment provided by engineer. */
 "Configure Client" = "Client konfigurieren";
@@ -285,6 +288,9 @@
 
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Konnte keinen korrekten Host-Namen ermitteln. Geben Sie die Domain-URL Ihrer Institution manuell ein.";
+
+/* No comment provided by engineer. */
+"Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Die heruntergeladenen Daten konnten nicht gespeichert werden, wahrscheinlich wurde in den %@-Einstellungen ein falsches Download-Verzeichnis verwendet.";
 
 /* No comment provided by engineer. */
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
@@ -365,6 +371,9 @@
 "Down/Uploads" = "Down/Uploads";
 
 /* No comment provided by engineer. */
+"Download Failed" = "Download fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Download Finished" = "Download abgeschlossen";
 
 /* No comment provided by engineer. */
@@ -422,6 +431,9 @@
 "Failed" = "Fehlgeschlagen";
 
 /* No comment provided by engineer. */
+"Failed to Save Downloaded File" = "Heruntergeladene Datei konnte nicht gespeichert werden";
+
+/* No comment provided by engineer. */
 "Failed, retrying..." = "Fehlgeschlagen, erneut versuchen...";
 
 /* No comment provided by engineer. */
@@ -429,6 +441,9 @@
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
+
+/* No comment provided by engineer. */
+"File" = "Datei";
 
 /* No comment provided by engineer. */
 "File Automatically Chosen" = "Datei automatisch ausgewählt";
@@ -722,6 +737,9 @@
 "Project concept: Thomas Piendl, Daniel R. Schneider, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
+"QR Code" = "QR-Code";
+
+/* No comment provided by engineer. */
 "quit" = "beenden";
 
 /* No comment provided by engineer. */
@@ -815,6 +833,12 @@
 "Save unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
+"Saved file " = "Datei gespeichert";
+
+/* No comment provided by engineer. */
+"Saved file '%@'" = "Datei gespeichert";
+
+/* No comment provided by engineer. */
 "Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
 
 /* No comment provided by engineer. */
@@ -858,6 +882,9 @@
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
+"SEB is Locked!" = "SEB ist gesperrt!";
 
 /* No comment provided by engineer. */
 "SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences." = "SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
@@ -921,6 +948,9 @@
 
 /* No comment provided by engineer. */
 "Settings have been saved, use this file to start an exam with SEB." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.";
+
+/* No comment provided by engineer. */
+"Share as Config File" = "Als Konfigurationsdatei teilen";
 
 /* No comment provided by engineer. */
 "Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
@@ -995,6 +1025,9 @@
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
+"These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafte Einstellung: %@).";
+
+/* No comment provided by engineer. */
 "These settings are corrupted and cannot be used." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden.";
 
 /* No comment provided by engineer. */
@@ -1002,6 +1035,9 @@
 
 /* No comment provided by engineer. */
 "These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren.";
+
+/* No comment provided by engineer. */
+"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." = "Diese Konfiguration passt nicht in einen QR-Code, vielleicht wurde sie mit einer älteren %@-Version/auf einer anderen Plattform erstellt oder enthält umfangreiche Daten wie viele verbotene Prozesse, eingebettete Zertifikate oder viele URL-Filterregeln. Sie könnten versuchen, die Konfiguration manuell von Grund auf neu zu erstellen, indem Sie die Standardeinstellungen verwenden und nur die notwendigen Einstellungen ändern.";
 
 /* No comment provided by engineer. */
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
@@ -1039,10 +1075,8 @@
 /* No comment provided by engineer. */
 "Unsaved Changes" = "Ungesicherte Änderungen";
 
-/* untitled filename */
-"untitled" = "Unbenannt";
-
-/* Title of a new opened browser window; Untitled */
+/* Title of a new opened browser window; Untitled
+   untitled filename */
 "Untitled" = "Unbenannt";
 
 /* No comment provided by engineer. */
@@ -1151,7 +1185,7 @@
 "You can only reconfigure by entering the current %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+"You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
 "You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." = "Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer.";
