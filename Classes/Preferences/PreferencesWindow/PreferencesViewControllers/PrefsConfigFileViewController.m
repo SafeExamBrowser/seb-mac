@@ -53,7 +53,7 @@
 
 - (NSString *)title
 {
-	return NSLocalizedString(@"Config File", @"Title of 'Config File' preference pane");
+	return NSLocalizedString(@"Configuration", @"Title of 'Configuration' preference pane");
 }
 
 
@@ -273,7 +273,8 @@
 
 
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-- (NSData *) encryptSEBSettingsWithSelectedCredentials
+- (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                    removeDefaults:(BOOL)removeDefaults
 {
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self getSelectedConfigPurpose];
@@ -303,7 +304,7 @@
                                 passwordIsHash:self.configPasswordIsHash
                                 withIdentity:identityRef
                                 forPurpose:configPurpose
-                                removeDefaults:NO];
+                                removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     return encryptedSebData;
 }
 

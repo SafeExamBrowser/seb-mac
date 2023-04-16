@@ -7,6 +7,9 @@
 /* Class = "NSTextFieldCell"; title = "Please enter correct password!"; ObjectID = "2XV-dZ-8rd"; */
 "2XV-dZ-8rd.title" = "Bitte korrektes Passwort eingeben!";
 
+/* Class = "NSTextFieldCell"; title = "Config Format:"; ObjectID = "4Lq-cR-TrS"; */
+"4Lq-cR-TrS.title" = "Konfigurationsformat:";
+
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alle nach vorne bringen";
 
@@ -318,6 +321,9 @@
 
 /* Class = "NSMenuItem"; title = "Apply and Restart"; ObjectID = "Thx-Ic-L6f"; */
 "Thx-Ic-L6f.title" = "Anwenden und Neustart";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select Browser Engine Policy"; ObjectID = "tmg-sY-zim"; */
+"tmg-sY-zim.ibExternalAccessibilityDescription" = "Policy zum Wählen der Browser-Engine auswählen";
 
 /* Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i"; */
 "toT-ZU-d4i.title" = "Beenden/Entsperren-Passwort eingeben, um SEB zu entsperren:";

@@ -61,7 +61,7 @@
 @class SEBBrowserController;
 
 
-@interface PreferencesController : NSObject <NSWindowDelegate> {
+@interface PreferencesController : NSObject <NSWindowDelegate, NSOpenSavePanelDelegate> {
 
     IBOutlet NSMenu *settingsMenu;
     

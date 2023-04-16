@@ -6480,8 +6480,8 @@
         <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
         <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -9069,11 +9069,6 @@
         <target>Unverschlüsselt speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Saved file '%@'" xml:space="preserve">
-        <source>Saved file '%@'</source>
-        <target>Datei '%@' gespeichert</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
         <source>Scan %@ configuration QR code</source>
         <target>%@-Konfigurations-QR-Code scannen</target>
@@ -9530,8 +9525,8 @@
         <target>Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams.</source>
+      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
         <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
