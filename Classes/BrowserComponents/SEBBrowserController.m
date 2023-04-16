@@ -1251,7 +1251,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         }
     } else {
         [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
+                                     message:[NSString stringWithFormat:@"%@ '%@'", NSLocalizedString(@"Saved file ", nil), path.lastPathComponent]];
     }
 }
 

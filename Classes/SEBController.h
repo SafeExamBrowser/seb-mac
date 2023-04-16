@@ -309,6 +309,7 @@
 @property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
 @property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
 @property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
+@property (weak) IBOutlet NSView *savePanelAccessoryView;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
             forEditing:(BOOL)forEditing

@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
 - (NSString *)createUniqueFilename:(nullable NSString *)filename
                  intendedExtension:(nullable NSString*)extension;
+- (nullable NSString *)fileExtensionForConfigFormat:(ShareConfigFormat)configFormat;
 
 NS_ASSUME_NONNULL_END
 

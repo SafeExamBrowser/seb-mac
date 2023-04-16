@@ -40,6 +40,7 @@
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
+#import <CoreImage/CoreImage.h>
 
 @implementation PreferencesController
 
@@ -1000,93 +1001,136 @@
         // Get the current filename
         currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
     }
-    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSebData = [self.configFileVC encryptSEBSettingsWithSelectedCredentials];
     
-    // If SEB settings were actually read and encrypted we save them
-    if (encryptedSebData) {
-        NSURL *prefsFileURL;
-        if (!saveAs && [currentConfigFileURL isFileURL]) {
-            // "Save": Rewrite the file opened before
-            NSError *error;
-            if (![encryptedSebData writeToURL:currentConfigFileURL options:NSDataWritingAtomic error:&error]) {
-                // If the prefs file couldn't be saved
-                NSAlert *newAlert = [[NSAlert alloc] init];
-                [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
-                [newAlert setInformativeText:[error localizedDescription]];
-                [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                [newAlert setAlertStyle:NSCriticalAlertStyle];
-                [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
-                
-                [oldSettings restoreSettings];
-                return NO;
-            } else {
-                if (fileURLUpdate) {
-                    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentConfigFileURL];
-                    [self.configFileVC revertLastSavedButtonSetEnabled:self];
-                    [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                    [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-                }
-            }
-            
-        } else {
-            // "Save As": Set the default name and if there is an existing path for the file and show the panel.
-            NSSavePanel *panel = [NSSavePanel savePanel];
-            NSURL *directory = currentConfigFileURL.URLByDeletingLastPathComponent;
-            NSString *directoryString = directory.relativePath;
-            if ([directoryString isEqualToString:@"."]) {
-                NSFileManager *fileManager = [NSFileManager new];
-                directory = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0];
-            }
-            [panel setDirectoryURL:directory];
-            [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
-            [panel setAllowedFileTypes:[NSArray arrayWithObject:SEBFileExtension]];
-            NSInteger result = [panel runModal];
-            if (result == NSFileHandlingPanelOKButton) {
-                prefsFileURL = [panel URL];
-                NSError *error;
-                // Write the contents in the new format.
-                if (![encryptedSebData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
-                    //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
-                    // If the prefs file couldn't be written
-                    NSAlert *newAlert = [[NSAlert alloc] init];
-                    [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
-                    [newAlert setInformativeText:[error localizedDescription]];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                    [newAlert setAlertStyle:NSCriticalAlertStyle];
-                    [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+    NSURL *prefsFileURL = currentConfigFileURL;
+    if (configPurpose == sebConfigPurposeManagedConfiguration) {
+        prefsFileURL = [prefsFileURL.URLByDeletingPathExtension URLByAppendingPathExtension:PlistFileExtension];
+    }
 
-                    [oldSettings restoreSettings];
-                    return NO;
-                    
+    if (saveAs || ![currentConfigFileURL isFileURL]) {
+        
+        // "Save As": Set the default name and if there is an existing path for the file and show the panel.
+        NSSavePanel *panel = [NSSavePanel savePanel];
+        panel.accessoryView = configPurpose == sebConfigPurposeManagedConfiguration ? nil : _sebController.savePanelAccessoryView;
+        panel.delegate = self;
+        NSURL *directory = currentConfigFileURL.URLByDeletingLastPathComponent;
+        NSString *directoryString = directory.relativePath;
+        if ([directoryString isEqualToString:@"."]) {
+            NSFileManager *fileManager = [NSFileManager new];
+            directory = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask][0];
+        }
+        [panel setDirectoryURL:directory];
+        if (configPurpose == sebConfigPurposeManagedConfiguration) {
+            [panel setNameFieldStringValue:currentConfigFileURL.lastPathComponent];
+        } else {
+            [panel setNameFieldStringValue:[currentConfigFileURL.lastPathComponent stringByDeletingPathExtension]];
+        }
+
+        NSMutableArray *allowedFileTypes = [NSMutableArray arrayWithObjects:SEBFileExtension, PlistFileExtension, nil];
+        if (configPurpose != sebConfigPurposeManagedConfiguration) {
+            [allowedFileTypes addObjectsFromArray:[NSArray arrayWithObjects:@"txt", @"png", nil]];
+        }
+        [panel setAllowedFileTypes:allowedFileTypes.copy];
+        NSInteger result = [panel runModal];
+        if (result == NSFileHandlingPanelOKButton) {
+            prefsFileURL = [panel URL];
+        } else {
+            // Saving settings was canceled
+            [oldSettings restoreSettings];
+            return NO;
+        }
+    }
+    
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    
+    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat removeDefaults:removeDefaults];
+    if (encryptedSEBData) {
+        
+        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            if (shareConfigFormat == shareConfigFormatQRCode) {
+                CIImage *ciImage = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+                if (ciImage) {
+                    if (@available(macOS 10.13, *)) {
+                        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+                        encryptedSEBData = [[CIContext contextWithOptions:nil] PNGRepresentationOfImage:ciImage format:kCIFormatBGRA8 colorSpace:colorSpace options:NSDictionary.new];
+                    }
                 } else {
-                    // Prefs got successfully written to file
-                    // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
-                    // Store the new path as the current config file path
-                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
-                        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
-                        [self.configFileVC revertLastSavedButtonSetEnabled:self];
-                        [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
-                    }
-                    if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
-                        [[MBPreferencesController sharedController] setPreferencesWindowTitle];
-                    }
-                    if (fileURLUpdate) {
-                        NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", nil) : NSLocalizedString(@"Settings for Starting Exam", nil);
-                        NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
-                        NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
-                        [settingsSavedAlert setMessageText:settingsSavedTitle];
-                        [settingsSavedAlert setInformativeText:settingsSavedMessage];
-                        [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-                        [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+                    shareConfigFormat = shareConfigFormatFile;
+                    NSAlert *newAlert = [[NSAlert alloc] init];
+                    [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", nil)];
+                    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Config File", nil)];
+                    [newAlert setAlertStyle:NSCriticalAlertStyle];
+                    switch([newAlert runModal])
+                    {
+                        case NSAlertFirstButtonReturn:
+                            // Saving settings was canceled
+                            [oldSettings restoreSettings];
+                            return NO;
+                            
+                        case NSAlertSecondButtonReturn:
+                            break;
                     }
                 }
+                
             } else {
-                // Saving settings was canceled
-                [oldSettings restoreSettings];
-                return NO;
+                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
             }
         }
+        
+        if (configPurpose != sebConfigPurposeManagedConfiguration) {
+            NSString *fileExtension = [[MyGlobals sharedMyGlobals] fileExtensionForConfigFormat:shareConfigFormat];
+            if ([fileExtension caseInsensitiveCompare:prefsFileURL.pathExtension] != NSOrderedSame) {
+                fileURLUpdate = YES;
+            }
+            prefsFileURL = [prefsFileURL.URLByDeletingPathExtension URLByAppendingPathExtension:fileExtension];
+        }
+
+        NSError *error;
+        // Write the contents in the new format.
+        if (![encryptedSEBData writeToURL:prefsFileURL options:NSDataWritingAtomic error:&error]) {
+            //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
+            // If the prefs file couldn't be written
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
+            [newAlert setInformativeText:[error localizedDescription]];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+
+            [oldSettings restoreSettings];
+            return NO;
+            
+        } else {
+            // Prefs got successfully written to file
+            // If "Save As" or the last file didn't had a full path (wasn't stored on drive):
+            // Store the new path as the current config file path
+            if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate && (saveAs || ![currentConfigFileURL isFileURL])) {
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
+                [self.configFileVC revertLastSavedButtonSetEnabled:self];
+                [[MBPreferencesController sharedController] setSettingsFileURL:[[MyGlobals sharedMyGlobals] currentConfigURL]];
+            }
+            if (NSUserDefaults.userDefaultsPrivate && fileURLUpdate) {
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:prefsFileURL];
+                [[MBPreferencesController sharedController] setSettingsFileURL:prefsFileURL];
+                [[MBPreferencesController sharedController] setPreferencesWindowTitle];
+            }
+            if (fileURLUpdate && saveAs && configPurpose != sebConfigPurposeManagedConfiguration) {
+                NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", nil) : NSLocalizedString(@"Settings for Starting Exam", nil);
+                NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
+                NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
+                [settingsSavedAlert setMessageText:settingsSavedTitle];
+                [settingsSavedAlert setInformativeText:settingsSavedMessage];
+                [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+            }
+        }
+        
         [self.examVC displayUpdatedKeys];
 
         // When Save As with local user defaults we ask if the saved file should be edited further
@@ -1125,6 +1169,7 @@
                     [NSUserDefaults setUserDefaultsPrivate:YES];
                     
                     [self.configFileController storeIntoUserDefaults:localClientPreferences];
+                    [preferences setSecureInteger:shareConfigFormat forKey:@"org_safeexambrowser_shareConfigFormat"];
                     DDLogVerbose(@"Private preferences set: %@", privatePreferences);
                     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 
@@ -1142,13 +1187,30 @@
                 }
             }
         }
-        return YES;
-        
+
     } else {
         // This is only executed when there would be an error encrypting the SEB settings
         [oldSettings restoreSettings];
         return NO;
     }
+
+    return YES;
+}
+
+
+- (NSString *)panel:(id)sender
+userEnteredFilename:(NSString *)filename
+          confirmed:(BOOL)okFlag
+{
+    sebConfigPurposes configPurpose = [self.configFileVC getSelectedConfigPurpose];
+    if (configPurpose != sebConfigPurposeManagedConfiguration) {
+        ShareConfigFormat shareConfigFormat = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+        NSString *fileExtension = [[MyGlobals sharedMyGlobals] fileExtensionForConfigFormat:shareConfigFormat];
+        filename = [filename.stringByDeletingPathExtension stringByAppendingPathExtension:fileExtension];
+    } else if (!(filename.pathExtension && [filename.pathExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) {
+        filename = [filename.stringByDeletingPathExtension stringByAppendingPathExtension:PlistFileExtension];
+    }
+    return filename;
 }
 
 

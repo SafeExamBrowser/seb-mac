@@ -262,7 +262,7 @@
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "When using the new AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP"; */
+/* Class = "NSButton"; ibShadowedToolTip = "When using the AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP"; */
 "kwe-Gh-ELP.ibShadowedToolTip" = "Diesen verbotenen Prozess ignorieren, wenn der neue AAC-Kioskmodus benutzt wird (welcher Netzwerk- und Bildschirmzugriff für andere Prozesse verhindert)";
 
 /* Class = "NSButtonCell"; title = "Attempt to quit prohibited applications"; ObjectID = "MVu-c3-I1R"; */

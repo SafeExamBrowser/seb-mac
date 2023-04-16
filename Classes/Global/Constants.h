@@ -599,6 +599,8 @@ static NSString __unused *SEBKeyShortcutReload = @"r";
 static NSString __unused *SEBKeyShortcutFind = @"f";
 static NSString __unused *SEBKeyShortcutQuit = @"q";
 
+static NSString __unused *PlistFileExtension = @"plist";
+
 static unsigned char __unused keyUsageServerAuthentication[8] = {0x2b, 0x06, 0x01, 0x05, 0x05, 0x07, 0x03, 0x01};
 
 // The Managed app configuration dictionary pushed down from an MDM server are stored in this key.

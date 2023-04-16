@@ -86,8 +86,8 @@
 - (void) selectSettingsIdentity:(NSData *)settingsPublicKeyHash;
 - (SecIdentityRef) getSelectedIdentity;
 - (sebConfigPurposes) getSelectedConfigPurpose;
-- (NSData *) encryptSEBSettingsWithSelectedCredentials;
-
+- (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                    removeDefaults:(BOOL)removeDefaults;
 - (IBAction) changeConfigFilePurpose:(id)sender;
 
 @end

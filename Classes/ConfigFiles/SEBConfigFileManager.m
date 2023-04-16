@@ -1171,7 +1171,7 @@ static NSString *getUppercaseAdminPasswordHash()
     } else {
         // in all other cases:
         // Check if no password entered and no identity selected
-        if (settingsPassword.length == 0 && !identityRef) {
+        if (settingsPassword.length == 0 && !identityRef && configPurpose != sebConfigPurposeManagedConfiguration) {
             if ([self.delegate saveSettingsUnencrypted]) {
                 // save .seb config data unencrypted
                 return encryptedSebData;

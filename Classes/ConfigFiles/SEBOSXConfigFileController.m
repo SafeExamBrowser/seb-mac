@@ -222,7 +222,7 @@
 - (BOOL) saveSettingsUnencrypted {
     NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
-    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams.", nil)]];
+    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.", nil), NSLocalizedString(@"You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.", nil)]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [newAlert setAlertStyle:NSWarningAlertStyle];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {

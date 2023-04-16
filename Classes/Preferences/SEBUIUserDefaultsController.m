@@ -56,6 +56,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_shareConfigFormats {
+    return [NSArray arrayWithObjects:
+            [NSString stringWithFormat:@"%@ %@", SEBShortAppName, NSLocalizedString(@"File", nil)],
+            NSLocalizedString(@"Config URL", nil),
+            NSLocalizedString(@"QR Code", nil),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies {
     return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
 }
