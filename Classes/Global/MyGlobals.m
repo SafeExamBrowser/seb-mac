@@ -237,4 +237,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
+- (nullable NSString *)fileExtensionForConfigFormat:(ShareConfigFormat)configFormat
+{
+    NSString *fileExtension;
+    switch (configFormat) {
+        case shareConfigFormatFile:
+            fileExtension = SEBFileExtension;
+            break;
+            
+        case shareConfigFormatLink:
+            fileExtension = @"txt";
+            break;
+            
+        case shareConfigFormatQRCode:
+            fileExtension = @"png";
+            break;
+            
+        default:
+            break;
+    }
+    return fileExtension;
+}
+
+
 @end

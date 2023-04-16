@@ -76,6 +76,7 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "SEBCertServices.h"
+#import "NSData+NSDataZIPExtension.h"
 #import "NSScreen+SEBScreen.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
@@ -1220,6 +1221,33 @@ bool insideMatrix(void);
 - (void) storeNewSEBSettingsFromData:(NSData *)configData
 {
     [self storeNewSEBSettings:configData forEditing:NO forceConfiguringClient:NO showReconfiguredAlert:NO callback:self selector:@selector(storeNewSEBSettingsSuccessful:)];
+}
+
+
+- (NSString * _Nullable)appSignatureKey {
+    NSLog(@"appSignatureKey: %@", self.browserController.appSignatureKey);
+    return [self.browserController.appSignatureKey base16String];
+//    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
+}
+
+
+- (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
+    if (examSalt.length > 0) {
+        self.browserController.examSalt = [NSData dataWithBase16String:examSalt]; //[NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+        self.browserController.connectionToken = connectionToken;
+    } else {
+        self.browserController.examSalt = nil;
+        self.browserController.connectionToken = nil;
+    }
+}
+
+
+- (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
+    if (serverBEK.length > 0) {
+        self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+    } else {
+        self.browserController.serverBrowserExamKey = nil;
+    }
 }
 
 

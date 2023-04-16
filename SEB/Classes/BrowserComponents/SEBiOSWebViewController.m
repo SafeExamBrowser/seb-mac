@@ -498,7 +498,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                 if (filename) {
                     DDLogInfo(@"Successfully saved website generated data: %@", url);
                     [self.navigationDelegate.sebViewController alertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), filename]
+                                                                            message:[NSString stringWithFormat:@"%@ '%@'", NSLocalizedString(@"Saved file ", nil), filename]
                                                                        action1Title:NSLocalizedString(@"OK", nil)
                                                                      action1Handler:^{}
                                                                        action2Title:nil
