@@ -336,6 +336,8 @@ static NSNumber *_logLevel;
      if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
          exit(0);
      }
+#else
+    
 #endif
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
@@ -367,7 +369,11 @@ static NSNumber *_logLevel;
 - (NSDictionary *) dictionaryRepresentationSEBRemoveDefaults:(BOOL)removeDefaults
 {
     NSDictionary *sebSettings = [self dictionaryRepresentationSEB];
-    return [self removeDefaultValuesFromSettings:sebSettings];
+    if (removeDefaults) {
+        return [self removeDefaultValuesFromSettings:sebSettings];
+    } else {
+        return sebSettings;
+    }
 }
 
 
