@@ -575,9 +575,9 @@
         <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title" xml:space="preserve">
-        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
-        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
+        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
       </trans-unit>
       <trans-unit id="ztz-q9-fV1.title" xml:space="preserve">
         <source>Configure Client</source>
@@ -4835,8 +4835,8 @@
         <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -5220,8 +5220,8 @@
         <target>SEB gesperrt wegen verbotener Diktat-Funktion!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -5770,8 +5770,8 @@
         <target>SEB gesperrt wegen Fehler bei Fernüberwachung!</target>
         <note>Lockdown alert title text for proctoring failure</note>
       </trans-unit>
-      <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -5960,13 +5960,13 @@
         <target>SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
@@ -6045,8 +6045,8 @@
         <target>SEB gesperrt wegen Bildschirmfreigabe!</target>
         <note>Lockdown alert title text for screen sharing</note>
       </trans-unit>
-      <trans-unit id="Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -6145,8 +6145,8 @@
         <target>SEB gesperrt wegen Siri!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -6190,8 +6190,8 @@
         <target>Systemeinstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -6255,8 +6255,8 @@
         <target>Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
+      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
