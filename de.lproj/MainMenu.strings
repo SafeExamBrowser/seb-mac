@@ -334,7 +334,7 @@
 /* Class = "NSButtonCell"; title = "Override process security check completely"; ObjectID = "UPO-LF-2DU"; */
 "UPO-LF-2DU.title" = "Check für verbotene Prozesse ganz deaktivieren";
 
-/* Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK"; */
+/* Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK"; */
 "xDQ-P3-KpK.title" = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "XL9-tP-eEk"; */
