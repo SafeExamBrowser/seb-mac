@@ -77,7 +77,7 @@
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
 
 /* No comment provided by engineer. */
-"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
@@ -338,7 +338,7 @@
 "Device name: %@" = "Gerätename: %@";
 
 /* No comment provided by engineer. */
-"Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." = "Diktat-Funktion wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "Dictation Detected!" = "Diktat-Funktion wurde aktiviert!";
@@ -713,7 +713,7 @@
 "Proctoring Error Locked SEB!" = "SEB gesperrt wegen Fehler bei Fernüberwachung!";
 
 /* No comment provided by engineer. */
-"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." = "Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* No comment provided by engineer. */
 "Proctoring failed: " = "Fernüberwachung fehlgeschlagen:";
@@ -845,7 +845,7 @@
 "Screen Sharing Detected!" = "Bildschirmfreigabe detektiert!";
 
 /* No comment provided by engineer. */
-"Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows." = "Ein Netzwerkzugriff auf die Bildschirmfreigabe wurde detektiert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "Screen sharing is still active" = "Bildschirmfreigabe ist immer noch aktiv";
@@ -878,10 +878,10 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* No comment provided by engineer. */
-"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* Lockdown alert message text for switching the user */
-"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "SEB is Locked!" = "SEB ist gesperrt!";
@@ -953,7 +953,7 @@
 "Share as Config File" = "Als Konfigurationsdatei teilen";
 
 /* No comment provided by engineer. */
-"Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." = "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "Siri Detected!" = "Siri wurde aktiviert!";
@@ -1013,7 +1013,7 @@
 "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" = "Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?";
 
 /* No comment provided by engineer. */
-"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." = "Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.";
@@ -1043,7 +1043,7 @@
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
-"This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows." = "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows." = "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." = "Dies ist ein voreingestellter verbotener Prozess, welcher nicht entfernt werden kann. SEB fügt diesen automatisch zu jeder Konfiguration hinzu. Sie können diesen voreingestellten Prozess deaktivieren oder seine Parameter anpassen.";
