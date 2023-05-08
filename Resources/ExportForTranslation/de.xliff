@@ -1881,9 +1881,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Some video/audio content will start playing without user interaction. Some other content might not be playable without enabling this setting (but will not auto play)"; ObjectID = "OdB-3j-b2T";</note>
       </trans-unit>
       <trans-unit id="QIK-Ry-nFM.ibShadowedToolTip" xml:space="preserve">
-        <source>Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control</source>
+        <source>Pressing the tab key moves focus to the next link and form control. Shift-tab moves focus to the previous control</source>
         <target>Tabulator-Taste verschiebt den Eingabefokus auf den nächsten Link oder Formular-Eingabeelement. Shift-Tab auf das vorherige</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Pressing the tab key moves focus to the next link and form control. Shit-tab moves focus to the previous control"; ObjectID = "QIK-Ry-nFM";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Pressing the tab key moves focus to the next link and form control. Shift-tab moves focus to the previous control"; ObjectID = "QIK-Ry-nFM";</note>
       </trans-unit>
       <trans-unit id="QLJ-Tp-en0.title" xml:space="preserve">
         <source>Select Browser Engine Policy</source>
