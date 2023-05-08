@@ -3142,6 +3142,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
         if (status != noErr) {
             DDLogDebug(@"Couldn't obtain certificate info from executable %@", executablePath);
+            if (ref) {
+                CFRelease(ref);
+            }
             return NO;
         }
         
