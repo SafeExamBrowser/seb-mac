@@ -959,7 +959,7 @@
 "Settings have been saved, use this file to start an exam with SEB." = "Konfiguration wurde gespeichert, benutzen Sie diese Datei um eine Prüfung zu starten.";
 
 /* No comment provided by engineer. */
-"Share as Config File" = "Als Konfigurationsdatei teilen";
+"Share as Configuration" = "Als Konfiguration teilen";
 
 /* No comment provided by engineer. */
 "Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." = "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";

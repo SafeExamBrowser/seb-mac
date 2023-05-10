@@ -76,6 +76,7 @@
 #import "SEBKeychainManager.h"
 #import "SEBCryptor.h"
 #import "SEBCertServices.h"
+#import "NSData+NSDataZIPExtension.h"
 #import "NSScreen+SEBScreen.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
