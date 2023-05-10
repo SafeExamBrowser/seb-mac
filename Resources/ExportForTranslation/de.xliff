@@ -2194,12 +2194,12 @@
       </trans-unit>
       <trans-unit id="239.title" xml:space="preserve">
         <source>Use config file for ...</source>
-        <target>Konfigurationsdatei verwenden zum …</target>
+        <target>Konfiguration verwenden zum …</target>
         <note>Class = "NSTextFieldCell"; title = "Use config file for ..."; ObjectID = "239";</note>
       </trans-unit>
       <trans-unit id="249.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Use config file for ...</source>
-        <target>Konfigurationsdatei verwenden zum …</target>
+        <target>Konfiguration verwenden zum …</target>
         <note>Class = "NSMatrix"; ibExternalAccessibilityDescription = "Use config file for ..."; ObjectID = "249";</note>
       </trans-unit>
       <trans-unit id="249.ibShadowedToolTip" xml:space="preserve">
@@ -5070,8 +5070,8 @@
         <target>Code-Beiträge © 2015 - 2016 Janison</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Config File" xml:space="preserve">
-        <source>Config File</source>
+      <trans-unit id="Configuration" xml:space="preserve">
+        <source>Configuration</source>
         <target>Konfiguration</target>
         <note>Title of 'Config File' preference pane</note>
       </trans-unit>
@@ -7344,9 +7344,9 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="13.4.1" build-num="13F100"/>
     </header>
     <body>
-      <trans-unit id="A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently)." xml:space="preserve">
-        <source>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</source>
-        <target>Eine Konfigurationsdatei startet entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) oder ändert die lokalen Einstellungen eines SEB-Clients (permanent)</target>
+      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." xml:space="preserve">
+        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</source>
+        <target>Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent).</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow QR Code Config" xml:space="preserve">
@@ -7419,9 +7419,9 @@
         <target>SEB Konfigurations-QR-Code</target>
         <note/>
       </trans-unit>
-      <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate." xml:space="preserve">
-        <source>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate.</source>
-        <target>SEB kann automatisch ein Identitätszertifikat erstellen und es in die aktuelle Clientkonfiguration einbetten (siehe Seite Netzwerk/Zertifikate). Teilen Sie diese Client-Konfiguration und verwenden Sie sie für die Erstkonfiguration von SEB-Clients. Diese Clients sind in der Lage, die mit dem Identitätszertifikat verschlüsselten Prüfungskonfigurationsdateien zu entschlüsseln.</target>
+      <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." xml:space="preserve">
+        <source>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate.</source>
+        <target>SEB kann automatisch ein Identitätszertifikat erstellen und es in die aktuelle Clientkonfiguration einbetten (siehe Seite Netzwerk/Zertifikate). Teilen Sie diese Client-Konfiguration und verwenden Sie sie für die Erstkonfiguration von SEB-Clients. Diese Clients sind in der Lage, die mit dem Identitätszertifikat verschlüsselten Prüfungskonfigurationen zu entschlüsseln.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Settings Password" xml:space="preserve">
@@ -7434,9 +7434,9 @@
         <target>Dateiname für geteilte Konfiguration</target>
         <note>String for IASKPlaceholder elements</note>
       </trans-unit>
-      <trans-unit id="Sharing Settings as Config Files" xml:space="preserve">
-        <source>Sharing Settings as Config Files</source>
-        <target>Konfigurationsdateien teilen</target>
+      <trans-unit id="Share Configuration" xml:space="preserve">
+        <source>Share Configuration</source>
+        <target>Konfiguration teilen</target>
         <note>String for Title elements</note>
       </trans-unit>
       <trans-unit id="Show Settings In App" xml:space="preserve">
@@ -7449,13 +7449,13 @@
         <target>Prüfungen starten</target>
         <note>String for Titles arrays elements</note>
       </trans-unit>
-      <trans-unit id="Use Config File For …" xml:space="preserve">
-        <source>Use Config File For …</source>
-        <target>Konfigurationsdatei verwenden zum …</target>
+      <trans-unit id="Use Configuration For …" xml:space="preserve">
+        <source>Use Configuration For …</source>
+        <target>Konfiguration verwenden zum …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
         <target>Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfigurationsdatei zum Starten von Prüfungen geteilt wird. Die Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfigurationsdatei verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.</target>
         <note/>
       </trans-unit>
@@ -8399,9 +8399,9 @@
         <target>Einbetten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page)." xml:space="preserve">
-        <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).</source>
-        <target>Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfigurationsdateien').</target>
+      <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." xml:space="preserve">
+        <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</source>
+        <target>Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfiguration').</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Embedded Certificate" xml:space="preserve">
@@ -10092,8 +10092,8 @@
         <target>Browser-Funktionen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Config File" xml:space="preserve">
-        <source>Config File</source>
+      <trans-unit id="Configuration" xml:space="preserve">
+        <source>Configuration</source>
         <target>Konfigurationsdatei</target>
         <note/>
       </trans-unit>

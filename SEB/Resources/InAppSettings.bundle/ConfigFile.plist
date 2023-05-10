@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Sharing Settings as SEB Configuration</string>
+			<string>Share Configuration</string>
 			<key>FooterText</key>
 			<string>Use the Share button on the Settings page to export settings to start exams or configure SEB clients.</string>
 		</dict>

@@ -380,7 +380,7 @@
 "Embed" = "Einbetten";
 
 /* No comment provided by engineer. */
-"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page)." = "Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfigurationsdateien').";
+"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." = "Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfiguration').";
 
 /* No comment provided by engineer. */
 "Embedded Certificate" = "Eingebettetes Zertifikat";
@@ -899,7 +899,7 @@
 "Share" = "Teilen";
 
 /* No comment provided by engineer. */
-"Share as Config File" = "Als Konfigurationsdatei teilen";
+"Share as Configuration" = "Als Konfiguration teilen";
 
 /* No comment provided by engineer. */
 "Share settings" = "Einstellungen teilen";
