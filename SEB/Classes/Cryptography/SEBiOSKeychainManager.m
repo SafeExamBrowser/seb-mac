@@ -90,7 +90,7 @@
                                         [NSString stringWithFormat:@"%@", commonNameString] :
                                         //there is no common name: take the e-mail address (if it exists)
                                         emailAdress ? [NSString stringWithFormat:@"%@", emailAdress] : @""];
-                        // Check if there is already an identitiy with the identical name (can happen)
+                        // Check if there is already an identity with the identical name (can happen)
                         if (identityName.length == 0 || [identitiesNames containsObject:identityName]) {
                             // If yes, we need to make the name unique; we add the public key hash
                             // Get public key hash from selected identity's certificate
@@ -295,17 +295,6 @@
         }
         if (commonName) CFRelease(commonName);
         
-    } else {
-        NSData *certificateData = [self getDataForCertificate:certificateRef];
-        MscX509CommonError *error = nil;
-        MscCertificate *certificate = [[MscCertificate alloc] initWithData:certificateData error:&error];
-        if (certificate) {
-            MscX509Name* subject = certificate.subject;
-            commonNameString = subject.commonName;
-            if (!commonNameString) {
-                commonNameString = @"";
-            }
-        }
     }
     commonNameString = [commonNameString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return commonNameString;

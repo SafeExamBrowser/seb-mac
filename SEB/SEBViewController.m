@@ -1340,7 +1340,7 @@ static NSMutableSet *browserWindowControllers;
 
                     }]];
                     
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Config File", nil)
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Configuration", nil)
                                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                         self.alertController = nil;
                         [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];

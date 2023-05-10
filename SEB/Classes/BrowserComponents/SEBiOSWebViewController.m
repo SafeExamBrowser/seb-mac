@@ -230,8 +230,6 @@
 }
 
 
-/// SEBAbstractWebViewNavigationDelegate Methods
-
 #pragma mark -
 #pragma mark Overlay Display
 
@@ -601,6 +599,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [self.navigationDelegate downloadFileFromURL:url filename:filename cookies:cookies];
+}
+
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [self.navigationDelegate fileDownloadedSuccessfully:path];
 }
 
 
