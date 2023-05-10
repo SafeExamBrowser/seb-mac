@@ -791,8 +791,6 @@ import PDFKit
                         }
                         return
                     }
-                } else {
-                    // Fallback on earlier versions
                 }
                 
                 if !(self.downloadFilename ?? "").isEmpty {
@@ -843,25 +841,6 @@ import PDFKit
         } else {
             self.downloadFilename = nil
             proceedHandler()
-        } else {
-            if !url.hasDirectoryPath && (allowDownloads || (url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame && (self.downloadFilename ?? "").isEmpty)) {
-                webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
-                    if error == nil {
-                        self.downloadFilename = result as? String
-                        if !(self.downloadFilename ?? "").isEmpty {
-                            DDLogDebug("'download' attribute found with filename '\(String(describing: self.downloadFilename))'")
-                            self.forceDownload = true
-                        }
-                    } else {
-                        DDLogDebug("Attempting to get 'download' attribute from DOM failed with error '\(String(describing: error))'")
-                        self.downloadFilename = nil
-                    }
-                    proceedHandler()
-                }
-            } else {
-                self.downloadFilename = nil
-                proceedHandler()
-            }
         }
     }
     

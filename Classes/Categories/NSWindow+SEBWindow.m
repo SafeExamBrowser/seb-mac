@@ -49,10 +49,10 @@
             windowLevel = NSScreenSaverWindowLevel+1;
             DDLogVerbose(@"Window %@ level NSMainMenuWindowLevel changed to NSScreenSaverWindowLevel+1", self);
         }
-        if (windowLevel == NSModalPanelWindowLevel) {
-            windowLevel = NSMainMenuWindowLevel+6;
-            DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
-        }
+    }
+    if (windowLevel == NSModalPanelWindowLevel) {
+        windowLevel = NSMainMenuWindowLevel+6;
+        DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
     }
     [self newSetLevel:windowLevel]; //call the original(!) method
 }
