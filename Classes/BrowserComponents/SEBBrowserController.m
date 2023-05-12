@@ -170,6 +170,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     self.downloadingInTemporaryWebView = NO;
     self.temporaryWebView = nil;
+    [[MyGlobals sharedMyGlobals] setDownloadPath:[NSMutableArray new]];
+    [[MyGlobals sharedMyGlobals] setLastDownloadPath:0];
 
     self.browserExamKey = nil;
     self.configKey = nil;
@@ -1171,7 +1173,6 @@ static NSString *urlStrippedFragment(NSURL* url)
                 }
             }
             if (!error) {
-                [self storeDownloadPath:[directory URLByAppendingPathComponent:filename isDirectory:NO].path];
                 dispatch_async(dispatch_get_main_queue(), ^{
 #if TARGET_OS_OSX
                     [self fileDownloadedSuccessfully:[directory URLByAppendingPathComponent:filename].path];
@@ -1219,7 +1220,8 @@ static NSString *urlStrippedFragment(NSURL* url)
         //if there's no path saved in preferences, set standard path
         downloadPath = @"~/Downloads";
     }
-    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:NO];
+    downloadPath = [downloadPath stringByExpandingTildeInPath];
+    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
 #else
     NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 #endif
@@ -1242,17 +1244,18 @@ static NSString *urlStrippedFragment(NSURL* url)
 - (void) fileDownloadedSuccessfully:(NSString *)path
 {
     DDLogInfo(@"Download of File %@ did finish.", path);
+    [self storeDownloadPath:path];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (((path.pathExtension && [path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
+            return;
         }
-    } else {
-        [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                     message:[NSString stringWithFormat:@"%@ '%@'", NSLocalizedString(@"Saved file ", nil), path.lastPathComponent]];
     }
+    [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
 }
 
 

@@ -5739,6 +5739,11 @@
         <target>Please confirm the %@ password first.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please contact your exam support." xml:space="preserve">
+        <source>Please contact your exam support.</source>
+        <target>Please contact your exam support.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Please enter correct confirm password" xml:space="preserve">
         <source>Please enter correct confirm password</source>
         <target>Please enter correct confirm password</target>
@@ -5994,6 +5999,11 @@
         <target>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="SEB was locked by SEB Server. Please contact your exam support." xml:space="preserve">
+        <source>SEB was locked by SEB Server. Please contact your exam support.</source>
+        <target>SEB was locked by SEB Server. Please contact your exam support.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
         <source>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
         <target>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</target>
@@ -6034,9 +6044,9 @@
         <target>Save unencrypted</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Saved file " xml:space="preserve">
-        <source>Saved file </source>
-        <target>Saved file </target>
+      <trans-unit id="Saved file '%@'" xml:space="preserve">
+        <source>Saved file '%@'</source>
+        <target>Saved file '%@'</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Saving Settings Failed" xml:space="preserve">

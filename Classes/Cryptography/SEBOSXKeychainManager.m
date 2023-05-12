@@ -115,7 +115,7 @@
                                                         CFArrayGetCount(emailAddressesRef) ?
                                                         [NSString stringWithFormat:@" %@", (__bridge NSString *)CFArrayGetValueAtIndex(emailAddressesRef, 0)] :
                                                         @""];
-                                        // Check if there is already an identitiy with the identical name (can happen)
+                                        // Check if there is already an identity with the identical name (can happen)
                                         if ([identitiesNames containsObject:identityName]) {
                                             // If yes, we need to make the name unique; we add the public key hash
                                             // Get public key hash from selected identity's certificate
