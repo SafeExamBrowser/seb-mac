@@ -77,6 +77,9 @@
 		69263A9E1A2E0765006F1E31 /* SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69263A9C1A2E0765006F1E31 /* SEBWebView.h */; };
 		69263A9F1A2E0765006F1E31 /* SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69263A9D1A2E0765006F1E31 /* SEBWebView.m */; };
 		6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
+		692E48FB28415DBF0052600B /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692E48FD28415DBF0052600B /* Root.strings */; };
+		6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
+		6930D17E2A0E3746002E32F2 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
 		6930D2211C2011200087F79E /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */; };
 		6930D2251C2011580087F79E /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
@@ -1474,6 +1477,8 @@
 		69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBAbstractWebView.h; path = Classes/BrowserComponents/SEBAbstractWebView.h; sourceTree = "<group>"; };
 		69B675992038849000FA58F5 /* SEBUIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIController.h; path = Classes/AdditionalViews/SEBUIController.h; sourceTree = "<group>"; };
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
+		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ZoomSDK/libssl.dylib; sourceTree = "<group>"; };
+		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ZoomSDK/libcrypto.dylib; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
@@ -1483,7 +1488,6 @@
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
 		69CBEB541834C55C00FB0460 /* SEBSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSystemManager.h; sourceTree = "<group>"; };
 		69CBEB551834C55C00FB0460 /* SEBSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSystemManager.m; sourceTree = "<group>"; };
-		69CC09841D36A19F0051C6DE /* VectorPencilKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = VectorPencilKit.framework; path = "/Users/drs/developer/Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphoneos/VectorPencilKit.framework"; sourceTree = "<absolute>"; };
 		69CE1C151741309C0072207D /* SEBFilterTreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterTreeController.h; sourceTree = "<group>"; };
 		69CE1C161741309C0072207D /* SEBFilterTreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterTreeController.m; sourceTree = "<group>"; };
 		69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileManager.h; sourceTree = "<group>"; };
@@ -1777,6 +1781,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				696C1A0128CFCA7600AC19E2 /* WebRTC.xcframework */,
+				691188FC28CFC788007082DE /* JitsiMeetSDK.xcframework */,
+				69B8A6F92718A34C0006178D /* libssl.dylib */,
+				69B8A7022718A34C0006178D /* libcrypto.dylib */,
 				697736FD26D3E5D4000B7C0D /* libSystem.tbd */,
 				697736FB26D3E4E2000B7C0D /* libquarantine.tbd */,
 				69637420267E6DD400058E7C /* libmbedtls.a */,
@@ -1784,7 +1792,6 @@
 				699B325E2154639800EEA3E5 /* libmbedtls.a */,
 				69E0B31A21467A1C007ACF03 /* libmbedtls.a */,
 				69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */,
-				69CC09841D36A19F0051C6DE /* VectorPencilKit.framework */,
 				694803981C2373E900593711 /* CoreGraphics.framework */,
 				694803961C2373CC00593711 /* UIKit.framework */,
 				694803941C2373AD00593711 /* Foundation.framework */,
@@ -3922,6 +3929,7 @@
 				69D3C51227A0366400890B31 /* SEBBrowserWindow.m in Sources */,
 				69D3C51327A0366400890B31 /* MBPreferencesController.m in Sources */,
 				69D3C51427A0366400890B31 /* PreferencesController.m in Sources */,
+				6930D17E2A0E3746002E32F2 /* qrCodeGenerator.swift in Sources */,
 				69D3C51527A0366400890B31 /* PrefsDownUploadsViewController.m in Sources */,
 				69D3C51627A0366400890B31 /* SEBSystemManager.m in Sources */,
 				69D3C51727A0366400890B31 /* CapWindowController.m in Sources */,
@@ -4042,6 +4050,7 @@
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
+				6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				699282E419D0430A00270E86 /* CapWindowController.m in Sources */,
