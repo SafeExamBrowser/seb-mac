@@ -83,7 +83,7 @@
     DDLogInfo(@"%s, self.lockedViewController %@", __FUNCTION__, self.lockedViewController);
 #endif
     if (self.quitInsteadUnlockingButton.state == false && _sebController.noRequiredBuiltInScreenAvailable && self.overrideEnforcingBuiltinScreen.state == false) {
-        DDLogInfo(@"Quit/Unlock password or response entered in lockscreen, but a required built-in screen is not available and the override button was not selected: Don't close lockscreen.");
+        DDLogInfo(@"Quit/Unlock password entered in lockscreen, but a required built-in screen is not available and the override button was not selected: Don't close lockscreen.");
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Required built-in display is still not available!", nil)] withTime:nil];
         [self.lockedViewController abortClosingLockdownWindows];
         return;

@@ -41,10 +41,10 @@
 "174.title" = "Entweder eine kryptografische Identität, ein Passwort oder beides verwenden.";
 
 /* Class = "NSTextFieldCell"; title = "Use configuration for ..."; ObjectID = "239"; */
-"239.title" = "Konfigurationsdatei verwenden zum …";
+"239.title" = "Konfiguration verwenden zum …";
 
 /* Class = "NSMatrix"; ibExternalAccessibilityDescription = "Use configuration for ..."; ObjectID = "249"; */
-"249.ibExternalAccessibilityDescription" = "Konfigurationsdatei verwenden zum …";
+"249.ibExternalAccessibilityDescription" = "Konfiguration verwenden zum …";
 
 /* Class = "NSMatrix"; ibShadowedToolTip = "A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently). MDM Managed Configuration saves an unencrypted, uncompressed plist file"; ObjectID = "249"; */
 "249.ibShadowedToolTip" = "Eine abgespeicherte Konfigurationsdatei startet entweder die Prüfung mit ihren Einstellungen (SEB temporär konfiguriert) oder ändert die lokalen Einstellungen eines SEB-Clients (permanent). Verwaltete MDM-Konfiguration speichert eine unverschlüsselte, unkomprimierte plist-Datei";

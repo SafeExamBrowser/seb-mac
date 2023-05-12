@@ -1064,7 +1064,7 @@
                     [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", nil)];
                     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]];
                     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Config File", nil)];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", nil)];
                     [newAlert setAlertStyle:NSCriticalAlertStyle];
                     switch([newAlert runModal])
                     {

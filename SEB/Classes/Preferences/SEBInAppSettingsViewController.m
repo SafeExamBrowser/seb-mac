@@ -522,7 +522,7 @@
             SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
 
             // Show alert to choose if identity should be embedded or removed from keychain
-            NSString *identityMessage = NSLocalizedString(@"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).", nil);
+            NSString *identityMessage = NSLocalizedString(@"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).", nil);
             NSString *identityName = self.identitiesNames[indexOfSelectedIdentity];
             identityMessage = [NSString stringWithFormat:identityMessage, identityName];
             [_sebViewController alertWithTitle:NSLocalizedString(@"Identity in Keychain", nil)
