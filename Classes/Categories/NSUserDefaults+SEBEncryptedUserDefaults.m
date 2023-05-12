@@ -53,6 +53,7 @@
 #import "SEBSettings.h"
 #import "NSDictionary+Extensions.h"
 #import "NSArray+Extensions.h"
+#import <DeviceCheck/DCAppAttestService.h>
 
 
 @interface NSUserDefaults (SEBEncryptedUserDefaultsPrivate)
@@ -337,7 +338,15 @@ static NSNumber *_logLevel;
          exit(0);
      }
 #else
-    
+    if (@available(macOS 11.0, *)) {
+        if (DCAppAttestService.sharedService.isSupported) {
+            DDLogInfo(@"DCAppAttestService is available.");
+        } else {
+            DDLogWarn(@"DCAppAttestService is not available, despite running on macOS >= 11");
+        }
+    } else {
+        DDLogWarn(@"DCAppAttestService is not available, because running on macOS < 11");
+    }
 #endif
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 

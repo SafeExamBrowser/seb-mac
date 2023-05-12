@@ -361,7 +361,7 @@
     if (self.downloadFilename.length != 0) {
         BOOL displayPDF = self.downloadFilename.pathExtension && [self.downloadFilename.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame;
         if (displayPDF) {
-            newTabRequested = YES;
+            newTabRequested = [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"] != openInSameWindow;
         }
     }
 

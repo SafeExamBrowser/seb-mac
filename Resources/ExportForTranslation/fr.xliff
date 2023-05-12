@@ -2281,8 +2281,8 @@
         <source>Clear Ignored URL List</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Config File">
-        <source>Config File</source>
+      <trans-unit id="Configuration">
+        <source>Configuration</source>
         <note>Title of 'Config File' preference pane</note>
       </trans-unit>
       <trans-unit id="Continue">
