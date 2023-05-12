@@ -124,6 +124,12 @@
                           @"identifier" : @"com.runningwithcrayons.Alfred*",
                       },
                       @{
+                          @"executable" : @"AnyGPT",
+                          @"identifier" : @"me.tanmay.AnyGPT",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Safari/WebKit Networking",
                           @"identifier" : WebKitNetworkingProcessBundleID,

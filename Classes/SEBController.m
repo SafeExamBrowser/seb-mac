@@ -525,6 +525,10 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(lockSEB:)
                                                  name:@"proctoringFailed" object:nil];
+    // Add an observer for the notification when SEB is locked by SEB Server
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(lockSEB:)
+                                                 name:@"lockSEB" object:nil];
     // Add an observer for the notification necessary for the correct key view loop
     // for tabbing/VoiceOver through the browser window (toolbar) and Dock
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1281,8 +1285,8 @@ bool insideMatrix(void);
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", nil)];
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", nil) : NSLocalizedString(@"Quit Session", nil)];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -1290,13 +1294,13 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            self.establishingSEBServerConnection = NO;
-                            [self startExamWithFallback:NO];
+                            [self closeServerViewAndRestart:self];
                             break;
                         }
                         case NSAlertSecondButtonReturn:
                         {
-                            [self closeServerViewAndRestart:self];
+                            self.establishingSEBServerConnection = NO;
+                            [self startExamWithFallback:NO];
                             break;
                         }
                         default:
@@ -1499,7 +1503,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", nil)}];
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
@@ -1858,31 +1862,29 @@ bool insideMatrix(void);
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
         OSErr        myErr = noErr;
-        
+
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
         myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-        if (myErr == noErr) {
-            if ((myAttrs & (1UL << 31)) | (myAttrs == 0x209)) {
-                // Bit 31 is set: VMware Hypervisor running (?)
-                // or gestaltX86AdditionalFeatures values of VirtualBox detected
-                DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
-                void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    [self quitSEBOrSession];
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
-                return;
-            } else {
-                DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
-            }
+        if ((myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]]) {
+            // Bit 31 is set: VMware Hypervisor running (?)
+            // or gestaltX86AdditionalFeatures values of VirtualBox detected
+            DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", nil)];
+            [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", nil)];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
+                [self quitSEBOrSession];
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
+            return;
+        } else {
+            DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
         }
-        
+
         bool    virtualMachine = false;
         // STR or SIDT code?
         virtualMachine = insideMatrix();
@@ -3142,6 +3144,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
         if (status != noErr) {
             DDLogDebug(@"Couldn't obtain certificate info from executable %@", executablePath);
+            if (ref) {
+                CFRelease(ref);
+            }
             return NO;
         }
         
@@ -4222,7 +4227,7 @@ conditionallyForWindow:(NSWindow *)window
             
             // Set alert title and message strings
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
-                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
             
             DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
             [self openLockdownWindows];
@@ -4263,7 +4268,7 @@ conditionallyForWindow:(NSWindow *)window
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil),
+                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.", nil),
                                                                  NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
                                                                  ]];
             
@@ -4286,7 +4291,7 @@ conditionallyForWindow:(NSWindow *)window
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
                                                             Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                                     NSLocalizedString(@"Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil),
+                                                                     NSLocalizedString(@"Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil),
                                                                      NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
                                                                      ]];
                 
@@ -4325,11 +4330,11 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
-                                                            Message:NSLocalizedString(@"Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                 
                 // Report Siri is still active every 3rd second
                 self->siriLogCounter = logReportCounter;
-                DDLogError(@"Screen sharing was activated!");
+                DDLogError(@"Siri activity detected!");
                 
                 if (self.siriCheckOverride == false) {
                     [self openLockdownWindows];
@@ -4362,7 +4367,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
-                                                            Message:NSLocalizedString(@"Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                 
                 // Report dictation is still active every 3rd second
                 self->dictationLogCounter = logReportCounter;
@@ -4401,7 +4406,7 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
-                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                 
                 // Report processes are still active every 3rd second
                 self->prohibitedProcessesLogCounter = logReportCounter;
@@ -4436,7 +4441,7 @@ conditionallyForWindow:(NSWindow *)window
 #ifndef DEBUG
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
-                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
             // Add log string for trying to re-open a locked exam
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -4480,7 +4485,7 @@ conditionallyForWindow:(NSWindow *)window
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
                         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
-                                                                    Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.", nil)];
+                                                                    Message:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                     }
                     [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", nil)] withTime:self.didBecomeActiveTime repeated:NO];
                     
@@ -4512,7 +4517,7 @@ conditionallyForWindow:(NSWindow *)window
             // Set custom alert message string
             NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Proctoring Error Locked SEB!", @"Lockdown alert title text for proctoring failure")
-                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
             self.sebLockedViewController.retryButton.hidden = NO;
             
             // Add log string for proctoring failed
@@ -4525,13 +4530,11 @@ conditionallyForWindow:(NSWindow *)window
             if (userInfo) {
                 lockReason = [userInfo valueForKey:@"lockReason"];
             }
-            DDLogError(@"%@", lockReason);
-            if (lockReason.length > 0) {
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
-                                                            Message:[NSString stringWithFormat:@"%@", lockReason]];
-                [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
-                [self openLockdownWindows];
-            }
+            DDLogError(@"Lock Reason: %@", lockReason);
+            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
+                                                        Message:[NSString stringWithFormat:@"%@", lockReason ? lockReason : NSLocalizedString(@"Please contact your exam support.", nil)]];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
+            [self openLockdownWindows];
         }
 
     });
