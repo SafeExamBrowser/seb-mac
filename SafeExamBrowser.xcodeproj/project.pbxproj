@@ -80,6 +80,8 @@
 		692663A128B5C9780000F837 /* SEBVerificator-InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6926639F28B5C9780000F837 /* SEBVerificator-InfoPlist.strings */; };
 		6929228A19FD9F1B00B57347 /* SEBBrowserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6929228D19FD9F1B00B57347 /* SEBBrowserWindow.xib */; };
 		692E48FB28415DBF0052600B /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692E48FD28415DBF0052600B /* Root.strings */; };
+		6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
+		6930D17E2A0E3746002E32F2 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
 		6930D2211C2011200087F79E /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
 		6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */; };
 		6930D2251C2011580087F79E /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
@@ -4463,6 +4465,7 @@
 				69D3C51227A0366400890B31 /* SEBBrowserWindow.m in Sources */,
 				69D3C51327A0366400890B31 /* MBPreferencesController.m in Sources */,
 				69D3C51427A0366400890B31 /* PreferencesController.m in Sources */,
+				6930D17E2A0E3746002E32F2 /* qrCodeGenerator.swift in Sources */,
 				69D3C51527A0366400890B31 /* PrefsDownUploadsViewController.m in Sources */,
 				69D3C51627A0366400890B31 /* SEBSystemManager.m in Sources */,
 				695CA8D628E39FFD005BE4E8 /* SEBZoomController.m in Sources */,
@@ -4584,6 +4587,7 @@
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
+				6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				695CA8D528E39FFD005BE4E8 /* SEBZoomController.m in Sources */,
