@@ -731,7 +731,7 @@ import PDFKit
             return
         }
 
-        let allowDownloads = self.navigationDelegate?.allowDownUploads ?? false
+        let allowDownloads = self.navigationDelegate?.allowDownloads ?? false
         var WKDownloadSupported = false
         if #available(macOS 11.3, iOS 14.5, *) {
             WKDownloadSupported = true
