@@ -980,9 +980,14 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     return [_sebViewController.browserController webPageTitle:title orURL:url mainWebView:mainWebView];
 }
 
-- (BOOL)allowDownUploads
+- (BOOL)allowDownloads
 {
-    return _sebViewController.browserController.allowDownUploads;
+    return _sebViewController.browserController.allowDownloads;
+}
+
+- (BOOL)allowUploads
+{
+    return _sebViewController.browserController.allowUploads;
 }
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading

@@ -1193,9 +1193,14 @@
     return self.browserController.pageJavaScript;
 }
 
-- (BOOL)allowDownUploads
+- (BOOL)allowDownloads
 {
-    return self.browserController.allowDownUploads;
+    return self.browserController.allowDownloads;
+}
+
+- (BOOL)allowUploads
+{
+    return self.browserController.allowUploads;
 }
 
 - (void)showAlertNotAllowedDownUploading:(BOOL)uploading
@@ -1511,7 +1516,7 @@ initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (self.allowDownUploads) {
+    if (self.allowUploads) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
             // If the policy isn't "manually with file requester"
             // We try to choose the filename and path ourselves, it's the last dowloaded file

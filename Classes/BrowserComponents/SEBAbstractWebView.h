@@ -154,7 +154,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) webPageTitle:(NSString *)title orURL:(NSURL *)url mainWebView:(BOOL)mainWebView;
 @property (readonly, nonatomic) NSString *quitURL;
 @property (readonly, nonatomic) NSString *pageJavaScript;
-@property (readonly) BOOL allowDownUploads;
+@property (readonly) BOOL allowDownloads;
+@property (readonly) BOOL allowUploads;
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading;
 @property (readonly) BOOL downloadPDFFiles;
 @property (readonly) BOOL directConfigDownloadAttempted;
@@ -352,7 +353,6 @@ typedef NS_ENUM(NSInteger, WKDisplayCapturePermissionDecision) {
 @property (readwrite) BOOL showReloadWarning;
 @property (readwrite, nonatomic) BOOL allowSpellCheck;
 @property (readwrite, nonatomic) BOOL overrideAllowSpellCheck;
-@property (readonly) BOOL downUploadsAllowed;
 @property (readonly) BOOL downloadPDFFiles;
 @property (weak, nonatomic) SEBAbstractWebView *creatingWebView;
 @property (strong, nonatomic) NSMutableArray *notAllowedURLs;

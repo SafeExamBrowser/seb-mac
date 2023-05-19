@@ -40,14 +40,17 @@
 
 @interface PrefsDownUploadsViewController : NSViewController <MBPreferencesModule> {
 
-    IBOutlet NSPopUpButton *chooseDownloadDirectory;
-    IBOutlet NSButton *openDownloadsButton;
-    IBOutlet NSButton *allowCustomDownUploadDirectoryButton;
-    IBOutlet NSMenuItem *downloadDirectory;
-    IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
-    IBOutlet NSButton *downloadPDFFilesButton;
-    IBOutlet NSButton *allowPDFPlugInButton;
-
+    __weak IBOutlet NSButton *allowDownloadsButton;
+    __weak IBOutlet NSPopUpButton *chooseDownloadDirectory;
+    __weak IBOutlet NSButton *openDownloadsButton;
+    __weak IBOutlet NSButton *allowCustomDownUploadDirectoryButton;
+    __weak IBOutlet NSButton *useTemporaryDownUploadDirectoryButton;
+    __weak IBOutlet NSMenuItem *downloadDirectory;
+    __weak IBOutlet NSTextField *downloadDirectoryWin;
+    __weak IBOutlet NSButton *downloadPDFFilesButton;
+    __weak IBOutlet NSButton *allowPDFPlugInButton;
+    __weak IBOutlet NSButton *allowUploadsButton;
+    __weak IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
 }
 
 - (NSString *)identifier;

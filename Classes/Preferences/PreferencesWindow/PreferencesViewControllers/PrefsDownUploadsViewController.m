@@ -68,11 +68,42 @@
 {
     BOOL downUploadsAllowed = sender.state;
     
-    chooseDownloadDirectory.enabled = downUploadsAllowed;
-    openDownloadsButton.enabled = downUploadsAllowed;
-    allowCustomDownUploadDirectoryButton.enabled = downUploadsAllowed;
-    chooseFileToUploadPolicyControl.enabled = downUploadsAllowed;
-    downloadPDFFilesButton.enabled = downUploadsAllowed;
+    allowDownloadsButton.enabled = downUploadsAllowed;
+    BOOL downloadOptionButtonEnabled = downUploadsAllowed && allowDownloadsButton.state;
+    chooseDownloadDirectory.enabled = downloadOptionButtonEnabled;
+    openDownloadsButton.enabled = downloadOptionButtonEnabled;
+    downloadPDFFilesButton.enabled = downloadOptionButtonEnabled;
+    downloadDirectoryWin.enabled = downloadOptionButtonEnabled;
+    allowCustomDownUploadDirectoryButton.enabled = downloadOptionButtonEnabled;
+    useTemporaryDownUploadDirectoryButton.enabled = downloadOptionButtonEnabled;
+
+    allowUploadsButton.enabled = downUploadsAllowed;
+    chooseFileToUploadPolicyControl.enabled = downUploadsAllowed && allowUploadsButton.state;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) allowDownloadsButton:(NSButton *)sender
+{
+    BOOL downloadsAllowed = sender.state;
+    
+    chooseDownloadDirectory.enabled = downloadsAllowed;
+    openDownloadsButton.enabled = downloadsAllowed;
+    downloadPDFFilesButton.enabled = downloadsAllowed;
+    downloadDirectoryWin.enabled = downloadsAllowed;
+    allowCustomDownUploadDirectoryButton.enabled = downloadsAllowed;
+    useTemporaryDownUploadDirectoryButton.enabled = downloadsAllowed;
+}
+
+
+// Action to set the enabled property of dependent buttons
+// This is necessary because bindings don't work with private user defaults
+- (IBAction) allowUploadsButton:(NSButton *)sender
+{
+    BOOL uploadsAllowed = sender.state;
+    
+    chooseFileToUploadPolicyControl.enabled = uploadsAllowed;
 }
 
 
