@@ -187,6 +187,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
                    
+                   @YES,
+                   @"allowDownloads",
+                   
                    @NO,
                    @"allowDownUploads",
                    
@@ -246,6 +249,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowSwitchToApplications",
+                   
+                   @YES,
+                   @"allowUploads",
                    
                    @NO,
                    @"allowUserAppFolderInstall",
@@ -975,6 +981,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"urlFilterTrustedContent",
+                   
+                   @NO,
+                   @"useTemporaryDownUploadDirectory",
                    
                    @"",
                    @"blacklistURLFilter",

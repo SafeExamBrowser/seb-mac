@@ -435,9 +435,14 @@
     return self.navigationDelegate.pageJavaScript;
 }
 
-- (BOOL)allowDownUploads
+- (BOOL)allowDownloads
 {
-    return self.navigationDelegate.allowDownUploads;
+    return self.navigationDelegate.allowDownloads;
+}
+
+- (BOOL)allowUploads
+{
+    return self.navigationDelegate.allowUploads;
 }
 
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading

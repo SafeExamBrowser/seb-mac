@@ -211,7 +211,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString*_Nullable customSEBUserAgent;
 @property (strong, nonatomic) NSString* quitURL;
-@property (readonly) BOOL allowDownUploads;
+@property (readonly) BOOL allowDownloads;
+@property (readonly) BOOL allowUploads;
 
 @property (strong, nonatomic) NSArray<NSData *> *privatePasteboardItems;
 
