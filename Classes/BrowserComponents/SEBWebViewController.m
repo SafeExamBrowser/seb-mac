@@ -103,7 +103,7 @@
         }
         
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        _allowDownloads = self.navigationDelegate.allowDownUploads;
+        _allowDownloads = self.navigationDelegate.allowDownloads;
         _allowDeveloperConsole = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDeveloperConsole"];
 
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
@@ -507,7 +507,7 @@
 - (void)webView:(SEBWebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener allowMultipleFiles:(BOOL)allowMultipleFiles;
 // Choose file for upload
 {
-    if (_allowDownloads == YES) {
+    if (self.navigationDelegate.allowUploads == YES) {
         void (^completionHandler)(NSArray<NSURL *> *URLs) = ^void (NSArray<NSURL *> *URLs) {
             NSMutableArray *filenames = [NSMutableArray new];
             for (NSURL *fileURL in URLs) {

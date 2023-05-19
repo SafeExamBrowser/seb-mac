@@ -121,7 +121,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
     newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
-    _allowDownUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+    _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"];
+    _allowUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowUploads"];
 }
 
 
@@ -1155,7 +1156,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                     return;
                 }
             }
-        } else if (self.allowDownUploads) {
+        } else if (self.allowDownloads) {
             // If downloading is allowed
             NSFileManager *fileManager = [NSFileManager defaultManager];
             int fileIndex = 1;

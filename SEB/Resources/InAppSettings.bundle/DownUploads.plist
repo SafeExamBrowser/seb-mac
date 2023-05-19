@@ -24,6 +24,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Uploading</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowUploads</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>

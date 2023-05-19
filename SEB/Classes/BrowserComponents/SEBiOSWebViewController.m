@@ -674,9 +674,14 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     return _javaScriptFunctions;
 }
 
-- (BOOL)allowDownUploads
+- (BOOL)allowDownloads
 {
-    return self.navigationDelegate.allowDownUploads;
+    return self.navigationDelegate.allowDownloads;
+}
+
+- (BOOL)allowUploads
+{
+    return self.navigationDelegate.allowUploads;
 }
 
 - (BOOL) overrideAllowSpellCheck
