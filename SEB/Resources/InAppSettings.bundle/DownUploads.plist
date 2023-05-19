@@ -10,15 +10,15 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Downloading Files</string>
+			<string>Downloading/Uploading Files</string>
 			<key>FooterText</key>
-			<string>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&apos;On My iPad/iPhone&apos; location) and by using iTunes.</string>
+			<string>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app (&apos;On My iPad/iPhone&apos; location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Downloading</string>
+			<string>Allow Downloading and Uploading Files</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowDownUploads</string>
 		</dict>
@@ -26,7 +26,15 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Allow Uploading</string>
+			<string>Allow Downloading Files</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowDownloads</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Uploading Photos and Files</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowUploads</string>
 		</dict>

@@ -106,7 +106,7 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Downloads</string>
+			<string>Down/Uploads</string>
 			<key>File</key>
 			<string>DownUploads</string>
 		</dict>
