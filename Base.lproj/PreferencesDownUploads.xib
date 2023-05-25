@@ -99,6 +99,7 @@
                                                     <accessibility description="Save downloaded files to directory"/>
                                                     <connections>
                                                         <action selector="chooseDirectory:" target="-2" id="59"/>
+                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
                                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="172" id="rdu-tB-pre">
                                                             <dictionary key="options">
                                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -107,7 +108,6 @@
                                                                 <integer key="NSNullPlaceholder" value="-1"/>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
                                                     </connections>
                                                 </popUpButton>
                                             </subviews>
@@ -128,6 +128,7 @@
                                                 <font key="font" metaFont="message" size="11"/>
                                             </buttonCell>
                                             <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="184"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="184" id="sii-Vg-45I">
                                                     <dictionary key="options">
                                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -136,7 +137,6 @@
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="184"/>
                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_openDownloads" id="175"/>
                                             </connections>
                                         </button>
@@ -176,6 +176,7 @@
                                                     </textFieldCell>
                                                     <connections>
                                                         <accessibilityConnection property="title" destination="eP3-ce-aHz" id="bkt-a1-1Ov"/>
+                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="kgy-uo-RAb"/>
                                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="kgy-uo-RAb" id="Rqk-Uk-qdf">
                                                             <dictionary key="options">
                                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -184,7 +185,6 @@
                                                                 <integer key="NSNullPlaceholder" value="-1"/>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="kgy-uo-RAb"/>
                                                         <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadDirectoryWin" id="hwS-Qy-pF2">
                                                             <dictionary key="options">
                                                                 <bool key="NSContinuouslyUpdatesValue" value="YES"/>
@@ -212,6 +212,8 @@
                                                 <font key="font" metaFont="message" size="11"/>
                                             </buttonCell>
                                             <connections>
+                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownloadLocation" id="0I0-Z1-4T9"/>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="SdC-li-mQ2" id="riJ-vE-qtu">
                                                     <dictionary key="options">
                                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -220,8 +222,6 @@
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownloadLocation" id="0I0-Z1-4T9"/>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
                                             </connections>
                                         </button>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="i3z-E8-xzq">
@@ -234,6 +234,7 @@
 It is deleted when the session ends</string>
                                             </buttonCell>
                                             <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="oT4-ol-lFe"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="oT4-ol-lFe" id="MYu-Wl-jLN">
                                                     <dictionary key="options">
                                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -242,7 +243,6 @@ It is deleted when the session ends</string>
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="oT4-ol-lFe"/>
                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" id="H2L-bL-qEt"/>
                                             </connections>
                                         </button>
@@ -270,6 +270,7 @@ It is deleted when the session ends</string>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="downloadPDFFiles:" target="-2" id="2OE-0h-Fqc"/>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="187"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="187" id="Vrc-UC-Er1">
                                                     <dictionary key="options">
                                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -278,7 +279,6 @@ It is deleted when the session ends</string>
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="187"/>
                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadPDFFiles" id="181"/>
                                             </connections>
                                         </button>
@@ -384,6 +384,8 @@ It is deleted when the session ends</string>
                                             </popUpButtonCell>
                                             <accessibility description="Choose file to upload policy"/>
                                             <connections>
+                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_chooseFileToUploadPolicies" id="202"/>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="178"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowUploads" previousBinding="178" id="FE7-Hc-eQR">
                                                     <dictionary key="options">
                                                         <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -392,8 +394,6 @@ It is deleted when the session ends</string>
                                                         <integer key="NSNullPlaceholder" value="-1"/>
                                                     </dictionary>
                                                 </binding>
-                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_chooseFileToUploadPolicies" id="202"/>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="178"/>
                                                 <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_chooseFileToUploadPolicy" previousBinding="202" id="203"/>
                                             </connections>
                                         </popUpButton>
