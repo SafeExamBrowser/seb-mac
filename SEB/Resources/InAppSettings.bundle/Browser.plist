@@ -68,6 +68,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Remote Inspection</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowDeveloperConsole</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Restrictions in Exam Tab</string>
