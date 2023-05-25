@@ -155,15 +155,17 @@
         NSString * reqStr;
         
         // Public SHA1 fingerprint of the CA certificate
-        // for macOS system software signed by Apple this is the
+        // for macOS software signed by DS/LET
         // "Software Signing" certificate (use Max Inspect from App Store or similar)
         reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                   @"certificate",
                   @"leaf",
-                  @"H\"B33FF6079EE4E3",
-                  @"8BEF3BFF8AA4DC",
-                  @"4F7CD5C2250F\""
-                  ];
+                  @"H\"70E916BF7D906D",
+                  @"0AEE89AEAD1406",
+                  @"6DB3E45E511A\""
+        ];
+        NSLog(@"Requirement string: %@", reqStr);
+        
         // create the requirement to check against
         status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
         
@@ -173,14 +175,16 @@
         }
 
         if (status != noErr) {
+            // If not successful, check for old certificate
             // Public SHA1 fingerprint of the CA cert match string
             reqStr = [NSString stringWithFormat:@"%@ %@ = %@%@%@",
                       @"certificate",
                       @"leaf",
-                      @"H\"70E916BF7D906D",
-                      @"0AEE89AEAD1406",
-                      @"6DB3E45E511A\""
-            ];
+                      @"H\"B33FF6079EE4E3",
+                      @"8BEF3BFF8AA4DC",
+                      @"4F7CD5C2250F\""
+                      ];
+            NSLog(@"Requirement string: %@", reqStr);
 
             // create the requirement to check against
             status = SecRequirementCreateWithString((__bridge CFStringRef)reqStr, kSecCSDefaultFlags, &req);
@@ -202,10 +206,9 @@
 //            DDLogDebug(@"Code signature suggests that %@ isn't correctly signed macOS system software.", executablePath);
             return NO;
         }
-
 //        DDLogDebug(@"Code signature of %@ was checked and it positively identifies macOS system software.", executablePath);
-        
         return YES;
+
     } else {
 //        DDLogDebug(@"Couldn't determine executable path of process with PID %d.", runningExecutablePID);
         return NO;
