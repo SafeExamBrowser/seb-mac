@@ -175,6 +175,35 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func load(_ url: URL) {
+        if (navigationDelegate?.allowUploads ?? false) == false {
+            if #available(iOS 11, *) {
+                sebWebView?.configuration.userContentController.removeAllContentRuleLists()
+                let blockRules = """
+                 [{
+                        "trigger": {
+                            "url-filter": ".*"
+                        },
+                        "action": {
+                            "type": "css-display-none",
+                            "selector": "[type=file]"
+                        }
+                    }]
+                """
+                WKContentRuleListStore.default().compileContentRuleList(
+                    forIdentifier: "ContentBlockingRules",
+                    encodedContentRuleList: blockRules) { (contentRuleList, error) in
+                        
+                        if let error = error {
+                            DDLogError("Adding content blocking rules failed with error \(error)")
+                        } else {
+                            let configuration = self.sebWebView?.configuration
+                            configuration?.userContentController.add(contentRuleList!)
+                        }
+                        self.sebWebView?.load(URLRequest.init(url: url))
+                    }
+                return
+            }
+        }
         sebWebView?.load(URLRequest.init(url: url))
     }
     
