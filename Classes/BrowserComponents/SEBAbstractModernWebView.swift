@@ -1009,7 +1009,7 @@ import PDFKit
         }
     }
 
-    public func allowUploads() -> Bool {
+    public var allowUploads: Bool {
         return navigationDelegate?.allowUploads ?? false
     }
     
