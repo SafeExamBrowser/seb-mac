@@ -1009,6 +1009,10 @@ import PDFKit
         }
     }
 
+    public func allowUploads() -> Bool {
+        return navigationDelegate?.allowUploads ?? false
+    }
+    
     public func modifyRequest(_ request: URLRequest) -> URLRequest {
         return (navigationDelegate?.modifyRequest?(request)) ?? request
     }
