@@ -138,6 +138,7 @@
     BOOL screenCapturePermissionsRequested;
     BOOL systemPreferencesOpenedForScreenRecordingPermissions;
     NSString *currentExamStartURL;
+    NSData *currentExamConfigKey;
     BOOL fontRegistryUIAgentRunning;
     BOOL fontRegistryUIAgentDialogClosed;
     NSUInteger fontRegistryUIAgentSkipDownloadCounter;
@@ -372,7 +373,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
-- (BOOL) conditionallyLockExam:(NSString *)examURLString;
+- (BOOL) conditionallyLockExam:(NSString *)examURLString configKey:(NSData *)configKey;
 
 - (void) correctPasswordEntered;
 - (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;

@@ -53,6 +53,7 @@
 {
     if (!_lockedViewController) {
         _lockedViewController = [[SEBLockedViewController alloc] init];
+        _lockedViewController.controllerDelegate = _sebController;
         _lockedViewController.UIDelegate = self;
         _lockedViewController.boldFontAttributes = @{NSFontAttributeName:[NSFont boldSystemFontOfSize:[NSFont systemFontSize]]};
     }
@@ -62,20 +63,20 @@
 
 // Manage locking SEB if it is attempted to resume an unfinished exam
 
-- (void)addLockedExam:(NSString *)examURLString
+- (void)addLockedExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
-    [self.lockedViewController addLockedExam:examURLString];
+    [self.lockedViewController addLockedExam:examURLString configKey:configKey];
 }
 
-- (void)removeLockedExam:(NSString *)examURLString;
+- (void)removeLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 {
-    [self.lockedViewController removeLockedExam:examURLString];
+    [self.lockedViewController removeLockedExam:examURLString configKey:configKey];
 }
 
 
-- (BOOL) isStartingLockedExam:(NSString *)examURLString
+- (BOOL) isStartingLockedExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
-    return [self.lockedViewController isStartingLockedExam:examURLString];
+    return [self.lockedViewController isStartingLockedExam:examURLString configKey:configKey];
 }
 
 - (void)shouldCloseLockdownWindows {

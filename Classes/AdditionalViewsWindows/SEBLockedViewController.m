@@ -57,7 +57,7 @@ void run_block_on_main_thread(dispatch_block_t block)
 
 /// Manage locking SEB if it is attempted to resume an unfinished exam
 
-- (void) addLockedExam:(NSString *)examURLString
+- (void) addLockedExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
     currentExamURL = examURLString;
     NSString *examInfo;
@@ -67,16 +67,16 @@ void run_block_on_main_thread(dispatch_block_t block)
         examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure session was started", nil)];
     }
     // Append the new string about the started exam and create/update the persisted exam
-    [self appendErrorString:examInfo withTime:[NSDate date]];
+    [self appendErrorString:examInfo withTime:[NSDate date] configKey:configKey];
     DDLogDebug(@"%s: %@", __FUNCTION__, examInfo);
 }
 
 
-- (void) removeLockedExam:(NSString *)examURLString
+- (void) removeLockedExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:examURLString];
+    NSUInteger indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withConfigKey:configKey];
     if (indexOfLockedExamDictionary != NSNotFound) {
         NSString *examInfo = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) ? examURLString : @"";
         DDLogDebug(@"%s: Finished exam %@", __FUNCTION__, examInfo);
@@ -86,13 +86,13 @@ void run_block_on_main_thread(dispatch_block_t block)
     currentExamURL = nil;
 }
 
-- (NSUInteger) getIndexOfLockedExam:(NSArray *)lockedExams withStartURL:(NSString *)startURL
+- (NSUInteger) getIndexOfLockedExam:(NSArray *)lockedExams withConfigKey:(NSData *)configKey
 {
     NSUInteger indexOfLockedExamDictionary = [lockedExams indexOfObjectPassingTest:
                                               ^BOOL(id  _Nonnull obj,
                                                     NSUInteger idx,
                                                     BOOL * _Nonnull stop) {
-                                                  if ([[obj valueForKey:@"startURL"] isEqualToString:startURL]) {
+                                                  if ([[obj valueForKey:@"configKey"] isEqualToData:configKey]) {
                                                       *stop = YES;
                                                       return YES;
                                                   }
@@ -102,12 +102,12 @@ void run_block_on_main_thread(dispatch_block_t block)
 }
 
 
-- (BOOL) isStartingLockedExam:(NSString *)examURLString;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 {
     BOOL isStartingLockedExam = false;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
-    if ([[lockedExams valueForKey:@"startURL"] containsObject:examURLString]) {
+    if ([[lockedExams valueForKey:@"configKey"] containsObject:configKey]) {
         if (!([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle)) {
             examURLString = @"";
             [lockedExams removeAllObjects];
@@ -126,7 +126,14 @@ void run_block_on_main_thread(dispatch_block_t block)
     return alertMessage;
 }
 
+
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime
+{
+    NSData *configKey = self.controllerDelegate.configKey;
+    [self appendErrorString:errorString withTime:errorTime configKey:configKey];
+}
+
+- (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableAttributedString *logString;
@@ -144,7 +151,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         }
         lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
         // Check if an exam with this Start URL already was persisted
-        indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withStartURL:startURL];
+        indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withConfigKey:configKey];
         if (indexOfLockedExamDictionary != NSNotFound) {
             // Get the persisted log string
             NSDictionary *persistedLockedExam = lockedExams[indexOfLockedExamDictionary];
@@ -178,6 +185,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         // Add the new (modified) entry
         NSDictionary *interruptedLockedExam = @{
                                                 @"startURL" : startURL,
+                                                @"configKey" : configKey,
                                                 @"logString" : logStringArchived,
                                                 };
         [lockedExams addObject:interruptedLockedExam];

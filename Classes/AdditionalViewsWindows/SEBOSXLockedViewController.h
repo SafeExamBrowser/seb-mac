@@ -70,10 +70,10 @@
                       Message:(NSString *)newAlertMessage;
 - (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime;
 
-- (void) addLockedExam:(NSString *)examURLString;
-- (void) removeLockedExam:(NSString *)examURLString;
+- (void) addLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
+- (void) removeLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 
-- (BOOL) isStartingLockedExam:(NSString *)examURLString;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 - (void) shouldCloseLockdownWindows;
 
 @end

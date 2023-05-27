@@ -130,6 +130,7 @@
     NSDictionary *receivedServerConfig;
 
     NSString *currentStartURL;
+    NSData *currentConfigKey;
     NSString *startURLQueryParameter;
 
     NSUInteger statusBarAppearance;
