@@ -191,6 +191,13 @@ bool insideMatrix(void);
 }
 
 
+- (SEBOSXLockedViewController*)sebLockedViewController
+{
+    _sebLockedViewController.sebController = self;
+    return _sebLockedViewController;
+}
+
+
 - (ServerController *)serverController
 {
     if (!_serverController) {
@@ -1157,21 +1164,23 @@ bool insideMatrix(void);
                     [self.browserController openMainBrowserWindow];
                     
         // Persist start URL of a "secure" exam
-        [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"]];
+        [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] configKey:self.configKey];
         //        }
 
     }
 }
 
 // Persist start URL of a secure exam
-- (void) persistSecureExamStartURL:(NSString *)startURLString
+- (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
         currentExamStartURL = startURLString;
-        [self.sebLockedViewController addLockedExam:currentExamStartURL];
+        currentExamConfigKey = configKey;
+        [self.sebLockedViewController addLockedExam:currentExamStartURL configKey: currentExamConfigKey];
     } else {
         currentExamStartURL = nil;
+        currentExamConfigKey = nil;
     }
 }
 
@@ -1259,7 +1268,7 @@ bool insideMatrix(void);
 {
     NSURL *examURL = [NSURL URLWithString:url];
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
-    [self persistSecureExamStartURL:url];
+    [self persistSecureExamStartURL:url configKey:self.configKey];
     self.browserController.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
@@ -4560,9 +4569,9 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (BOOL) conditionallyLockExam:(NSString *)examURLString
+- (BOOL) conditionallyLockExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
-    if ([_sebLockedViewController isStartingLockedExam:examURLString]) {
+    if ([self.sebLockedViewController isStartingLockedExam:examURLString configKey:configKey]) {
         if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
@@ -4570,7 +4579,7 @@ conditionallyForWindow:(NSWindow *)window
         } else {
             // Remove a previously locked exam
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
-            [_sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString]];
+            [self.sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString] configKey:configKey];
         }
     }
     return NO;
@@ -4589,6 +4598,11 @@ conditionallyForWindow:(NSWindow *)window
         lockdownModalSession = [NSApp beginModalSessionForWindow:self.lockdownWindows[0]];
         [NSApp runModalSession:lockdownModalSession];
     }
+}
+
+
+- (NSData *)configKey {
+    return self.browserController.configKey;
 }
 
 
@@ -6289,8 +6303,8 @@ conditionallyForWindow:(NSWindow *)window
 
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
-    if (currentExamStartURL) {
-        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
+    if (currentExamConfigKey) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL configKey: currentExamConfigKey];
     }
     
     // Check if the running prohibited processes window is open and close it if yes
@@ -6430,8 +6444,8 @@ conditionallyForWindow:(NSWindow *)window
     
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
-    if (currentExamStartURL) {
-        [self.sebLockedViewController removeLockedExam:currentExamStartURL];
+    if (currentExamConfigKey) {
+        [self.sebLockedViewController removeLockedExam:currentExamStartURL configKey: currentExamConfigKey];
     }
     
     if (enforceMinMacOSVersion) {
