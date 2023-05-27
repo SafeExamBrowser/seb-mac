@@ -112,6 +112,12 @@
  */
 @required
 /**
+ * @brief       Config Key of the current session.
+ * @details
+ */
+@property (strong, readonly) NSData *configKey;
+
+/**
  * @brief       Time when SEB was lost active state.
  * @details
  */
@@ -203,9 +209,9 @@
 @property (nonatomic, strong) NSDictionary *boldFontAttributes;
 
 /// Manage locking SEB if it is attempted to resume an unfinished exam
-- (void) addLockedExam:(NSString *)examURLString;
-- (void) removeLockedExam:(NSString *)examURLString;
-- (BOOL) isStartingLockedExam:(NSString *)examURLString;
+- (void) addLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
+- (void) removeLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
+- (BOOL) isStartingLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 
 /// Lockview business logic
 - (NSString *) appendChallengeToMessage:(NSString *)alertMessage;

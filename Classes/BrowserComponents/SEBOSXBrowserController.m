@@ -268,7 +268,7 @@
 
 - (void) openMainBrowserWindowWithStartURL:(NSURL *)startURL
 {
-    [self.sebController conditionallyLockExam:startURL.absoluteString];
+    [self.sebController conditionallyLockExam:startURL.absoluteString configKey:self.configKey];
     
     // Log current WebKit Cookie Policy
      NSHTTPCookieAcceptPolicy cookiePolicy = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookieAcceptPolicy];
