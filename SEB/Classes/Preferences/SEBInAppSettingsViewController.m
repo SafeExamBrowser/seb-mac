@@ -485,10 +485,18 @@
         }
     }
     
+
     /// Browser Features
 
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_browserMediaAutoplay"]) {
         [self setDependentKeysForBrowserMediaAutoplay];
+    }
+   
+    
+    /// Down/Uploads
+
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_allowDownUploads"]) {
+        [self setDependentKeysForAllowDownUploads];
     }
    
     
@@ -638,6 +646,7 @@
 {
     [self setDependentKeysForSEBConfigPurpose];
     [self setDependentKeysForBrowserMediaAutoplay];
+    [self setDependentKeysForAllowDownUploads];
     [self setDependentKeysForSendBrowserExamKey];
     [self setDependentKeysForShareKeys];
     
@@ -689,6 +698,25 @@
     NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_browserMediaAutoplayVideo",
                                                  @"org_safeexambrowser_SEB_browserMediaAutoplayAudio"]];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaAutoplay"] == NO)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForAllowDownUploads
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_allowDownloads",
+                                                 @"org_safeexambrowser_SEB_allowUploads"]];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == NO)
     {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
