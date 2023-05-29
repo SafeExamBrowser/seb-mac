@@ -53,4 +53,9 @@
 }
 
 
+- (void)doesNotRecognizeSelector:(SEL)aSelector
+{
+    DDLogDebug(@"UIWebView ignoring unrecognized selector: %s", sel_getName(aSelector));
+}
+
 @end
