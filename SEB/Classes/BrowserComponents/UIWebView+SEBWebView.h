@@ -38,4 +38,11 @@
 - (NSString*)title;
 - (NSURL*)url;
 
+/**
+ Overriden to not throw exception (which would crash SEB). This method has been
+ observed to be called when pasting twice (using Cmd-V) into a certain JavaScript
+ editor (Quill), since that editor lost focus on the first paste action.
+ */
+- (void)doesNotRecognizeSelector:(SEL)aSelector;
+
 @end
