@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		02C46F77142D3F4F33790D32 /* Pods_Safe_Exam_Browser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBA63C6BFB50559A0774E4F /* Pods_Safe_Exam_Browser.framework */; };
 		190C96D899FA55AA9D865565 /* Pods_SEBVerificator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807EB1B548102C0091FC2E4B /* Pods_SEBVerificator.framework */; };
+		288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */; };
+		288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
@@ -777,6 +779,8 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1F921F5C9E302D6061D68416 /* Pods-SEBVerificator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEBVerificator.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEBVerificator/Pods-SEBVerificator.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
+		288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+UIResponderSEBDefaults.h"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.h"; sourceTree = "<group>"; };
+		288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+UIResponderSEBDefaults.m"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.m"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -2195,6 +2199,8 @@
 			children = (
 				69478CF12208985D00352CFA /* UIDragInteraction+Restrict.h */,
 				69478CF22208985D00352CFA /* UIDragInteraction+Restrict.m */,
+				288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */,
+				288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -2777,6 +2783,7 @@
 				6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB270232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC521DE29BE00DEF77D /* SEBConstants.h in Headers */,
+				288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69E977D625F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
 				69A07238268A38AD00A0464B /* MscRSAKey_OpenSSL_RSA.h in Headers */,
@@ -3691,6 +3698,7 @@
 				69A07218268A38AD00A0464B /* MscPKCS7.m in Sources */,
 				6962A3B324772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
 				69E977F125F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
+				288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */,
 				695EE19426D2F2F8004D8FF7 /* SEBPresetSettings.m in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
