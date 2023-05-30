@@ -11,7 +11,7 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     BOOL result = [self respondsToSelector:action];
-    DDLogDebug(@"NSObject default canPerformAction: %s withSender: %@ => %s", sel_getName(action), sender, result ? "YES" : "NO");
+    DDLogVerbose(@"NSObject default canPerformAction: %s withSender: %@ => %s", sel_getName(action), sender, result ? "YES" : "NO");
     return result;
 }
 
