@@ -138,7 +138,13 @@
             }
             i++;
         } else {
-            [_runningApplications removeObjectAtIndex:i];
+            if (_runningApplications.count > i) {
+                @try {
+                    [_runningApplications removeObjectAtIndex:i];
+                } @catch (NSException *exception) {
+                    DDLogError(@"Caught exception %@ when trying to remove process list element.", exception);
+                }
+            }
         }
     }
     for (NSDictionary *runningProcess in _runningProcesses) {
