@@ -52,7 +52,7 @@
         self.dockMenuView = dockMenuView;
         NSViewController *controller = [[NSViewController alloc] init];
         controller.view = dockMenuView;
-        
+
         // Create drop down button which is needed to anchor and display the NSMenu
         DropDownButton *dockMenuDropDownButton = [[DropDownButton alloc] initWithFrame:NSMakeRect(-4, 38, 0, 0)];
         self.dockMenuDropDownButton = dockMenuDropDownButton;
@@ -75,7 +75,6 @@
 {
     [super insertItem:newItem atIndex:index];
     [self setPopoverMenuSize];
-    
 }
 
 
@@ -83,6 +82,24 @@
 {
     [super removeItemAtIndex:index];
     [self setPopoverMenuSize];
+}
+
+
+- (void) menuWillOpen:(NSMenu *)menu
+{
+//    NSDictionary *userInfo = @{
+//        NSAccessibilityAnnouncementKey : NSLocalizedString(@"Open webpages menu", nil),
+//        NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh)
+//    };
+//    NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityAnnouncementRequestedNotification, userInfo);
+    
+    //    NSAccessibilityPostNotificationWithUserInfo(self, NSAccessibilityAnnouncementRequestedNotification, @{NSAccessibilityAnnouncementKey : @"Open webpages menu", NSAccessibilityPriorityKey : NSAccessibilityPriorityHigh});
+    //        element: NSApp.mainWindow as Any,
+    //        notification: .announcementRequested,
+    //        userInfo: [
+    //            .announcement: "This is a custom accessibility notification",
+    //            .priority: NSAccessibilityPriorityLevel.high.rawValue
+    //        ]
 }
 
 

@@ -140,6 +140,7 @@
         if (itemMenu) {
             self.dockMenu = itemMenu;
             itemMenu.dockItemButton = self;
+            [self setMenu:itemMenu];
         }
     }
     return self;
