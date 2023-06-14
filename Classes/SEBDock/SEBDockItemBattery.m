@@ -70,7 +70,7 @@
 }
 
 
-- (void) setPowerConnected:(BOOL)powerConnected warningLevel:(IOPSLowBatteryWarningLevel)batteryWarningLevel
+- (void) setPowerConnected:(BOOL)powerConnected warningLevel:(SEBLowBatteryWarningLevel)batteryWarningLevel
 {
     if (powerConnected) {
         batteryIconButton.image = [NSImage imageNamed:@"SEBBatteryIcon_charging"];
@@ -81,7 +81,7 @@
 }
 
 
-- (void) setBatteryColorWarningLevel:(IOPSLowBatteryWarningLevel) batteryWarningLevel
+- (void) setBatteryColorWarningLevel:(SEBLowBatteryWarningLevel) batteryWarningLevel
 {
     CGColorRef warningLevelColor;
     

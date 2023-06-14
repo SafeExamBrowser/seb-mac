@@ -5440,7 +5440,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
-                                                                   action:@selector(buttonPressed)
+                                                                   action:@selector(sebButtonPressed)
                                                           secondaryAction:nil];
             NSArray *dockButtons = [self.dockController setLeftItems:[NSArray arrayWithObjects:dockItemSEB, nil]];
             [self setUpDockLeftButtons:dockButtons];
@@ -5589,8 +5589,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void)setUpDockLeftButtons: (NSArray *)dockButtons
 {
     for (SEBDockItemButton *dockButton in dockButtons) {
-        if (dockButton.action == @selector(buttonPressed)) {
-            dockButton.accessibilityTitle = SEBFullAppNameClassic;
+        if (dockButton.action == @selector(sebButtonPressed)) {
+            dockButton.accessibilityTitle = NSLocalizedString(@"Activates SEB browser. Right click displays menu with open webpages.", nil);
         }
     }
 }
@@ -5618,7 +5618,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) buttonPressed
+- (void) sebButtonPressed
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];

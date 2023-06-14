@@ -51,14 +51,22 @@
 
         self.openBrowserWindowsWebViews = [NSMutableArray new];
 
-        // Initialize SEB dock item menu for open browser windows/WebViews
-        SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
-        self.openBrowserWindowsWebViewsMenu = dockMenu;
+        [self initSEBDockMenu];
 
         // Create a private pasteboard
         self.privatePasteboardItems = [NSArray array];
     }
     return self;
+}
+
+
+// Initialize SEB dock item menu for open browser windows/WebViews
+- (void) initSEBDockMenu
+{
+    // Initialize SEB dock item menu for open browser windows/WebViews
+    SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
+    dockMenu.accessibilityTitle = NSLocalizedString(@"Open webpages", nil);
+    self.openBrowserWindowsWebViewsMenu = dockMenu;
 }
 
 
@@ -122,9 +130,8 @@
     
     [self.openBrowserWindowsWebViews removeAllObjects];
     // Initialize SEB dock item menu for open browser windows/WebViews
-    SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
-    self.openBrowserWindowsWebViewsMenu = dockMenu;
-    
+    [self initSEBDockMenu];
+
     self.currentMainHost = nil;
     
     [super resetBrowser];
@@ -466,6 +473,7 @@
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setTitle: title];
+            [openWindowWebView setAccessibilityLabel:[NSString stringWithFormat:@"%@: %@", title, NSLocalizedString(@"Webpage.", nil)]];
             [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
         }
     }

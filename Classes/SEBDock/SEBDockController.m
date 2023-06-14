@@ -446,6 +446,16 @@
     }
     if (dockItemToMakeFirstResponder) {
         [self.window makeFirstResponder:dockItemToMakeFirstResponder];
+//        NSApp.mainWindow.accessibilityFocusedWindow = self.window;
+//        self.window.contentView.accessibilityFocused = YES;
+//        dockItemToMakeFirstResponder.accessibilityFocused = YES;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSDictionary *userInfo = @{
+//                NSAccessibilityUIElementsKey: @[self.window, dockItemToMakeFirstResponder],
+//                NSAccessibilityFocusedWindowAttribute: self.window
+//            };
+//            NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+//        });
     }
 }
 
