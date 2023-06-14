@@ -1,7 +1,10 @@
-/* Class = "NSButton"; ibShadowedToolTip = "Usually to be used with permitted third party applications for which you want to provide files to be downloaded."; ObjectID = "13"; */
+/* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm"; */
+"6rb-i4-RZm.title" = "SEB Konfigurationen herunterladen/öffnen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allows file downloads, saved in the configured directory. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "13"; */
 "13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.";
 
-/* Class = "NSButtonCell"; title = "Allow downloading and uploading files"; ObjectID = "14"; */
+/* Class = "NSButtonCell"; title = "Allow downloading files"; ObjectID = "14"; */
 "14.title" = "Download und Upload erlauben";
 
 /* Class = "NSTextFieldCell"; title = "Save downloaded files to:"; ObjectID = "23"; */
@@ -22,7 +25,7 @@
 /* Class = "NSMenuItem"; title = "Other…"; ObjectID = "36"; */
 "36.title" = "Auswählen …";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type"; ObjectID = "38"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)"; ObjectID = "38"; */
 "38.ibShadowedToolTip" = "Geladene Dateien werden mit der zugehörigen Applikation geöffnet, diese muss im System für den entsprechenden Dateityp korrekt eingestellt sein";
 
 /* Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39"; */
@@ -43,20 +46,38 @@
 /* Class = "NSTextFieldCell"; title = "Choose file to upload …"; ObjectID = "100"; */
 "100.title" = "Datei für Upload auswählen …";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265"; */
-"265.ibShadowedToolTip" = ".seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
-
-/* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266"; */
-"266.title" = "SEB Konfigurationen herunterladen/öffnen";
-
 /* Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP"; */
 "AAd-LS-TUP.ibShadowedToolTip" = "Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt";
+
+/* Class = "NSButtonCell"; title = "Allow downloading and uploading files (deprecated, start using separate settings below!)"; ObjectID = "CLg-7Q-FHe"; */
+"CLg-7Q-FHe.title" = "Download und Upload erlauben (veraltet, ab jetzt separate Einstellungen unten verwenden!)";
+
+/* Class = "NSButtonCell"; title = "Allow uploading files"; ObjectID = "Gsm-bO-2cu"; */
+"Gsm-bO-2cu.title" = "Upload erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "GVV-cO-HOP"; */
 "GVV-cO-HOP.ibShadowedToolTip" = "SEB zeigt einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann ein beliebiges lokales Dateiverzeichnis auswählen";
 
-/* Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory"; ObjectID = "I9g-6o-a5B"; */
+/* Class = "NSButtonCell"; ibShadowedToolTip = "A temporary directory is created and used as the download and upload folder.\nIt is deleted when the session ends"; ObjectID = "hy0-QR-C17"; */
+"hy0-QR-C17.ibShadowedToolTip" = "Ein temporäres Verzeichnis wird erstellt und als Download- und Upload-Ordner verwendet.\nEs wird gelöscht, wenn die Sitzung beendet wird";
+
+/* Class = "NSButtonCell"; title = "Use temporary down/upload directory (Win)"; ObjectID = "hy0-QR-C17"; */
+"hy0-QR-C17.title" = "Temporäres Down-/Upload-Verzeichnis verwenden (Win)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "i3z-E8-xzq"; */
+"i3z-E8-xzq.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
+
+/* Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory (Win)"; ObjectID = "I9g-6o-a5B"; */
 "I9g-6o-a5B.title" = "Benutzer darf Upload/Download-Verzeichnis auswählen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads"; ObjectID = "Puc-ch-f22"; */
+"Puc-ch-f22.ibShadowedToolTip" = "Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittanwendungen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allows uploading files, selected manually or automatically. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "qFU-rq-M6F"; */
+"qFU-rq-M6F.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU"; */
+"Wef-JS-4QU.ibShadowedToolTip" = ".seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
 
 /* Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF"; */
 "zhK-R4-XtF.title" = "Acrobat Reader PDF Plug-In erlauben (unsicher)";
