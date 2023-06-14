@@ -1,5 +1,5 @@
 /* No comment provided by engineer. */
-"  SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
+"SEB session was inactive for %1$ld:%2$.2ld (minutes:seconds)%ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
@@ -81,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
+
+/* No comment provided by engineer. */
+"Activates SEB browser. Right click displays menu with open webpages." = "Aktiviert den SEB-Browser. Rechtsklick zeigt Menü mit geöffneten Webseiten an.";
 
 /* No comment provided by engineer. */
 "administrator" = "Administrator";
@@ -656,6 +659,12 @@
 "open in same window" = "im selben Fenster öffnen";
 
 /* No comment provided by engineer. */
+"Open webpages" = "Offene Webseiten";
+
+/* No comment provided by engineer. */
+"Open webpages menu" = "Menü mit offenen Webseiten";
+
+/* No comment provided by engineer. */
 "Opening New Settings Failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
 
 /* No comment provided by engineer. */
@@ -882,12 +891,6 @@
 
 /* Lockdown alert message text for switching the user */
 "SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
-
-/* No comment provided by engineer. */
-"SEB is Locked!" = "SEB ist gesperrt!";
-
-/* No comment provided by engineer. */
-"SEB is Locked!" = "SEB ist gesperrt!";
 
 /* No comment provided by engineer. */
 "SEB is Locked!" = "SEB ist gesperrt!";
@@ -1134,6 +1137,9 @@
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
 
 /* No comment provided by engineer. */
+"Webpage." = "Webseite.";
+
+/* No comment provided by engineer. */
 "White on Black" = "Weiss auf Schwarz";
 
 /* No comment provided by engineer. */
@@ -1170,7 +1176,7 @@
 "Wrong quit/unlock password." = "Falsches Beenden/Entsperren-Passwort";
 
 /* No comment provided by engineer. */
-"Wrong SEB Server Fallback Password entered" = "Falsches  SEB Server Fallback-Passwort eingegeben";
+"Wrong SEB Server Fallback Password entered" = "Falsches SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
 "You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation." = "Es ist nicht erlaubt, die Diktat-Funktion zu benutzen, während SEB läuft. Starten Sie SEB neu, nachdem Sie die Diktat-Funktion deaktiviert haben.";

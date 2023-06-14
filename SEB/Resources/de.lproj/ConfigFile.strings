@@ -49,11 +49,11 @@
 /* (No Comment) */
 "Settings Password" = "Passwort";
 
-/* String for IASKPlaceholder elements */
-"Shared config file name" = "Dateiname für geteilte Konfiguration";
-
 /* String for Title elements */
 "Share Configuration" = "Konfiguration teilen";
+
+/* String for IASKPlaceholder elements */
+"Shared config file name" = "Dateiname für geteilte Konfiguration";
 
 /* (No Comment) */
 "Show Settings In App" = "Einstellungen in App anzeigen";

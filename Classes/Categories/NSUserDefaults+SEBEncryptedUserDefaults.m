@@ -333,21 +333,21 @@ static NSNumber *_logLevel;
 
     // If there were already SEB preferences, we save them back into UserDefaults
     [self storeSEBDictionary:currentUserDefaults];
-#if TARGET_OS_IPHONE
      if (![[[NSThread mainThread] threadDictionary] objectForKey:@"_mainTLS"]) {
          exit(0);
      }
-#else
-    if (@available(macOS 11.0, *)) {
+    if (@available(iOS 14.0, macOS 11.0, *)) {
         if (DCAppAttestService.sharedService.isSupported) {
             DDLogInfo(@"DCAppAttestService is available.");
+            [DCAppAttestService.sharedService generateKeyWithCompletionHandler:^(NSString * _Nullable keyId, NSError * _Nullable error) {
+                DDLogInfo(@"DCAppAttestService generateKeyWithCompletionHandler: returned with error: %@", error);
+            }];
         } else {
             DDLogWarn(@"DCAppAttestService is not available, despite running on macOS >= 11");
         }
     } else {
         DDLogWarn(@"DCAppAttestService is not available, because running on macOS < 11");
     }
-#endif
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
     // Check if originatorVersion flag is set and otherwise set it to the current SEB version
