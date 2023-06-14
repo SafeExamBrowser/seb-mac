@@ -438,6 +438,8 @@
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */; };
 		699D508526878F430026D8D9 /* SEBTextViewNonEditing.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */; };
+		699F63132A3719140040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
+		699F63142A3719160040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		69A071F3268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
 		69A07216268A38AD00A0464B /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */; };
 		69A07218268A38AD00A0464B /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F6268A38A800A0464B /* MscPKCS7.m */; };
@@ -2815,6 +2817,7 @@
 				69F522AA21467188009F3999 /* CanonicalRequest.h in Headers */,
 				696DAD431C3C2D0500397E18 /* SEBiOSWebViewController.h in Headers */,
 				698AB4172638630A00E84161 /* SEBiOSBrowserController.h in Headers */,
+				699F63142A3719160040E612 /* SEB-Bridging-Header.h in Headers */,
 				696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */,
 				6914D1242183A156004F4A4B /* SEBInAppSettingsViewController.h in Headers */,
 				69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */,
@@ -2951,6 +2954,7 @@
 				69F522B321467188009F3999 /* QNSURLSessionDemux.h in Headers */,
 				695CA8D328E39FFD005BE4E8 /* SEBZoomController.h in Headers */,
 				698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */,
+				699F63132A3719140040E612 /* SEB-Bridging-Header.h in Headers */,
 				6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */,
 				69CE9C5D17326AB90011609B /* SEBConfigFileManager.h in Headers */,
 				69CE9C6317378B9A0011609B /* SEBTextField.h in Headers */,
@@ -5104,7 +5108,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = "3.3 pre1";
+				MARKETING_VERSION = 3.3b1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5177,7 +5181,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = "3.3 pre1";
+				MARKETING_VERSION = 3.3b1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
