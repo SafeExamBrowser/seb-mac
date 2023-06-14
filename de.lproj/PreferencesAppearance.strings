@@ -163,7 +163,7 @@
 /* Class = "NSMatrix"; ibExternalAccessibilityDescription = "Browser view mode"; ObjectID = "qfl-QX-6zS"; */
 "qfl-QX-6zS.ibExternalAccessibilityDescription" = "Browser-Darstellungsmodus";
 
-/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main  window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS"; */
+/* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS"; */
 "qfl-QX-6zS.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad"; */
@@ -199,7 +199,7 @@
 /* Class = "NSComboBoxCell"; vDg-gs-M0S.ibShadowedObjectValues[3] = "800"; ObjectID = "vDg-gs-M0S"; */
 "vDg-gs-M0S.ibShadowedObjectValues[3]" = "800";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using  the View menu or alt-cmd-T"; ObjectID = "vmu-au-292"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Hide browser window toolbar by default. It can be unhidden using the View menu or alt-cmd-T"; ObjectID = "vmu-au-292"; */
 "vmu-au-292.ibShadowedToolTip" = "Browserfenster-Symbolleiste standardmässig ausblenden. Sie kann mittels Darstellung-Menü oder den Tasten alt-cmd-T (Wahl-Befehl-T) angezeigt werden.";
 
 /* Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e"; */

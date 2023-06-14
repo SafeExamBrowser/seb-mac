@@ -1118,7 +1118,7 @@
 "Wrong password! Try again to enter the quit password:" = "Falsches Passwort! Bitte das korrekte Beenden-Passwort eingeben:";
 
 /* No comment provided by engineer. */
-"Wrong SEB Server Fallback Password entered" = "Falsches  SEB Server Fallback-Passwort eingegeben";
+"Wrong SEB Server Fallback Password entered" = "Falsches SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
 "You can only edit settings after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Editieren der Einstellungen eingegeben werden:";

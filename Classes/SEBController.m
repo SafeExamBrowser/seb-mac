@@ -4261,7 +4261,7 @@ conditionallyForWindow:(NSWindow *)window
                                                        fromDate:self.didResignActiveTime
                                                          toDate:self.didBecomeActiveTime
                                                         options:NSCalendarWrapComponents];
-            NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"  SEB session was inactive for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+            NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB session was inactive for %ld:%.2ld(minutes:seconds)", nil), components.minute, components.second];
             DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
             
             // Add log string for becoming active

@@ -41,7 +41,7 @@
 "403.label" = "Proxies";
 
 /* Class = "NSButton"; ibShadowedToolTip = "When URL filtering is active and no matching block or allow expression is found), then the processed URL is discarded"; ObjectID = "454"; */
-"454.ibShadowedToolTip" = "Bei aktivem URL-Filter und wenn kein übereinstimmender 'blockieren' oder 'erlauben'  Filterausdruck gefunden wird, wird die URL verworfen";
+"454.ibShadowedToolTip" = "Bei aktivem URL-Filter und wenn kein übereinstimmender 'blockieren' oder 'erlauben' Filterausdruck gefunden wird, wird die URL verworfen";
 
 /* Class = "NSButtonCell"; title = "Activate URL filtering"; ObjectID = "455"; */
 "455.title" = "URL-Filter aktivieren";
