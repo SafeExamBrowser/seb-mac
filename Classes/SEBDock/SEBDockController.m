@@ -446,6 +446,11 @@
     }
     if (dockItemToMakeFirstResponder) {
         [self.window makeFirstResponder:dockItemToMakeFirstResponder];
+        
+//        id windowElement =  NSAccessibilityUnignoredDescendant(NSApp.mainWindow);
+//        NSArray *windowElements = [windowElement accessibilityAttributeValue:NSAccessibilityChildrenAttribute];
+//        DDLogDebug(@"NSAccessibilityUnignoredDescendant NSAccessibilityChildren: %@", windowElements);
+
 //        NSApp.mainWindow.accessibilityFocusedWindow = self.window;
 //        self.window.contentView.accessibilityFocused = YES;
 //        dockItemToMakeFirstResponder.accessibilityFocused = YES;
