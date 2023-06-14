@@ -493,7 +493,7 @@ import PDFKit
             return
         }
 #if os(macOS)
-        if let url = self.sebWebView.url, url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame {
+        if let url = self.sebWebView.url, url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame || searchForPDFView(view: sebWebView) != nil {
             if #available(macOS 11, iOS 14, *) {
                 let findConfiguration = WKFindConfiguration.init()
                 findConfiguration.backwards = backwards
@@ -503,7 +503,11 @@ import PDFKit
                     let matchFound = findResult.matchFound
                     if !matchFound {
                         let js = "window.getSelection().removeAllRanges();"
-                        self.sebWebView.evaluateJavaScript(js)
+                        self.sebWebView.evaluateJavaScript(js) { (response, error) in
+                            if let _ = error {
+                                    DDLogError(error as Any)
+                            }
+                        }
                     }
                     self.navigationDelegate?.searchTextMatchFound?(matchFound)
                 }
@@ -554,7 +558,7 @@ import PDFKit
         }
     }
     
-    private func searchForPDFView(view: Any?) -> (PDFView?) {
+    private func searchForPDFView(view: Any?) -> (Any?) {
 #if os(macOS)
         guard let subviews = (view as! NSView?)?.subviews else {
             return nil
@@ -569,6 +573,8 @@ import PDFKit
             print(subview as Any)
             if let pdfView = subview as? PDFView {
                 return pdfView
+            } else if subview.className.range(of: filenameExtensionPDF, options: .caseInsensitive) != nil {
+                return subview
             } else if subview.subviews.count > 0 {
                 if let foundPDFView = searchForPDFView(view: subview) {
                     return foundPDFView
