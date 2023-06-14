@@ -586,9 +586,9 @@
         <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title" xml:space="preserve">
-        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
-        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
+        <note>Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK";</note>
       </trans-unit>
       <trans-unit id="ztz-q9-fV1.title" xml:space="preserve">
         <source>Configure Client</source>
@@ -2112,9 +2112,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip";</note>
       </trans-unit>
       <trans-unit id="wFa-eR-NzK.ibShadowedToolTip" xml:space="preserve">
-        <source>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
-        <target>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
+        <source>Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
+        <target>Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
@@ -2385,15 +2385,20 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
+      <trans-unit id="6rb-i4-RZm.title" xml:space="preserve">
+        <source>Download and open SEB config files</source>
+        <target>Download and open SEB config files</target>
+        <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm";</note>
+      </trans-unit>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
-        <source>Usually to be used with permitted third party applications for which you want to provide files to be downloaded.</source>
-        <target>Usually to be used with permitted third party applications for which you want to provide files to be downloaded.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Usually to be used with permitted third party applications for which you want to provide files to be downloaded."; ObjectID = "13";</note>
+        <source>Allows file downloads, saved in the configured directory. Currently also setting "allow downloading and uploading files" needs to be enabled</source>
+        <target>Allows file downloads, saved in the configured directory. Currently also setting "allow downloading and uploading files" needs to be enabled</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows file downloads, saved in the configured directory. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "13";</note>
       </trans-unit>
       <trans-unit id="14.title" xml:space="preserve">
-        <source>Allow downloading and uploading files</source>
-        <target>Allow downloading and uploading files</target>
-        <note>Class = "NSButtonCell"; title = "Allow downloading and uploading files"; ObjectID = "14";</note>
+        <source>Allow downloading files</source>
+        <target>Allow downloading files</target>
+        <note>Class = "NSButtonCell"; title = "Allow downloading files"; ObjectID = "14";</note>
       </trans-unit>
       <trans-unit id="23.title" xml:space="preserve">
         <source>Save downloaded files to:</source>
@@ -2426,9 +2431,9 @@
         <note>Class = "NSMenuItem"; title = "Other…"; ObjectID = "36";</note>
       </trans-unit>
       <trans-unit id="38.ibShadowedToolTip" xml:space="preserve">
-        <source>Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type</source>
-        <target>Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type"; ObjectID = "38";</note>
+        <source>Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)</source>
+        <target>Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)"; ObjectID = "38";</note>
       </trans-unit>
       <trans-unit id="39.title" xml:space="preserve">
         <source>Open files after downloading</source>
@@ -2460,30 +2465,62 @@
         <target>Choose file to upload …</target>
         <note>Class = "NSTextFieldCell"; title = "Choose file to upload …"; ObjectID = "100";</note>
       </trans-unit>
-      <trans-unit id="265.ibShadowedToolTip" xml:space="preserve">
-        <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
-        <target>Download and open .seb config files regardless if downloading and opening other file types is allowed</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "265";</note>
-      </trans-unit>
-      <trans-unit id="266.title" xml:space="preserve">
-        <source>Download and open SEB config files</source>
-        <target>Download and open SEB config files</target>
-        <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "266";</note>
-      </trans-unit>
       <trans-unit id="AAd-LS-TUP.ibShadowedToolTip" xml:space="preserve">
         <source>The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services</source>
         <target>The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP";</note>
+      </trans-unit>
+      <trans-unit id="CLg-7Q-FHe.title" xml:space="preserve">
+        <source>Allow downloading and uploading files (deprecated, start using separate settings below!)</source>
+        <target>Allow downloading and uploading files (deprecated, start using separate settings below!)</target>
+        <note>Class = "NSButtonCell"; title = "Allow downloading and uploading files (deprecated, start using separate settings below!)"; ObjectID = "CLg-7Q-FHe";</note>
       </trans-unit>
       <trans-unit id="GVV-cO-HOP.ibShadowedToolTip" xml:space="preserve">
         <source>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</source>
         <target>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "GVV-cO-HOP";</note>
       </trans-unit>
+      <trans-unit id="Gsm-bO-2cu.title" xml:space="preserve">
+        <source>Allow uploading files</source>
+        <target>Allow uploading files</target>
+        <note>Class = "NSButtonCell"; title = "Allow uploading files"; ObjectID = "Gsm-bO-2cu";</note>
+      </trans-unit>
       <trans-unit id="I9g-6o-a5B.title" xml:space="preserve">
-        <source>Allow user to select custom down/upload directory</source>
-        <target>Allow user to select custom down/upload directory</target>
-        <note>Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory"; ObjectID = "I9g-6o-a5B";</note>
+        <source>Allow user to select custom down/upload directory (Win)</source>
+        <target>Allow user to select custom down/upload directory (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory (Win)"; ObjectID = "I9g-6o-a5B";</note>
+      </trans-unit>
+      <trans-unit id="Puc-ch-f22.ibShadowedToolTip" xml:space="preserve">
+        <source>Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads</source>
+        <target>Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads"; ObjectID = "Puc-ch-f22";</note>
+      </trans-unit>
+      <trans-unit id="Wef-JS-4QU.ibShadowedToolTip" xml:space="preserve">
+        <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
+        <target>Download and open .seb config files regardless if downloading and opening other file types is allowed</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU";</note>
+      </trans-unit>
+      <trans-unit id="hy0-QR-C17.ibShadowedToolTip" xml:space="preserve">
+        <source>A temporary directory is created and used as the download and upload folder.
+It is deleted when the session ends</source>
+        <target>A temporary directory is created and used as the download and upload folder.
+It is deleted when the session ends</target>
+        <note>Class = "NSButtonCell"; ibShadowedToolTip = "A temporary directory is created and used as the download and upload folder.\nIt is deleted when the session ends"; ObjectID = "hy0-QR-C17";</note>
+      </trans-unit>
+      <trans-unit id="hy0-QR-C17.title" xml:space="preserve">
+        <source>Use temporary down/upload directory (Win)</source>
+        <target>Use temporary down/upload directory (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Use temporary down/upload directory (Win)"; ObjectID = "hy0-QR-C17";</note>
+      </trans-unit>
+      <trans-unit id="i3z-E8-xzq.ibShadowedToolTip" xml:space="preserve">
+        <source>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</source>
+        <target>When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "i3z-E8-xzq";</note>
+      </trans-unit>
+      <trans-unit id="qFU-rq-M6F.ibShadowedToolTip" xml:space="preserve">
+        <source>Allows uploading files, selected manually or automatically. Currently also setting "allow downloading and uploading files" needs to be enabled</source>
+        <target>Allows uploading files, selected manually or automatically. Currently also setting "allow downloading and uploading files" needs to be enabled</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows uploading files, selected manually or automatically. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "qFU-rq-M6F";</note>
       </trans-unit>
       <trans-unit id="zhK-R4-XtF.title" xml:space="preserve">
         <source>Allow using Acrobat Reader PDF plugin (insecure)</source>
@@ -4799,14 +4836,19 @@
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Accessibility Permissions Needed" xml:space="preserve">
         <source>Accessibility Permissions Needed</source>
         <target>Accessibility Permissions Needed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Activates SEB browser. Right click displays menu with open webpages." xml:space="preserve">
+        <source>Activates SEB browser. Right click displays menu with open webpages.</source>
+        <target>Activates SEB browser. Right click displays menu with open webpages.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Always" xml:space="preserve">
@@ -5199,9 +5241,9 @@
         <target>Dictation Locked SEB!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Dictation activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Dictation is still active" xml:space="preserve">
@@ -5674,6 +5716,16 @@
         <target>Open edX</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Open webpages" xml:space="preserve">
+        <source>Open webpages</source>
+        <target>Open webpages</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Open webpages menu" xml:space="preserve">
+        <source>Open webpages menu</source>
+        <target>Open webpages menu</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
         <source>Opening New Settings Failed!</source>
         <target>Opening New Settings Failed!</target>
@@ -5769,9 +5821,9 @@
         <target>Proctoring Error Locked SEB!</target>
         <note>Lockdown alert title text for proctoring failure</note>
       </trans-unit>
-      <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Proctoring failed with error '%@'. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Proctoring failed: " xml:space="preserve">
@@ -5969,14 +6021,14 @@
         <target>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
       <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
@@ -6064,9 +6116,9 @@
         <target>Screen Sharing Locked SEB!</target>
         <note>Lockdown alert title text for screen sharing</note>
       </trans-unit>
-      <trans-unit id="Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Screen sharing detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen sharing is still active" xml:space="preserve">
@@ -6154,9 +6206,9 @@
         <target>Settings have been saved, use this file to start an exam with SEB.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Share as Config File" xml:space="preserve">
-        <source>Share as Config File</source>
-        <target>Share as Config File</target>
+      <trans-unit id="Share as Configuration" xml:space="preserve">
+        <source>Share as Configuration</source>
+        <target>Share as Configuration</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Siri Detected!" xml:space="preserve">
@@ -6169,9 +6221,9 @@
         <target>Siri Locked SEB!</target>
         <note>Lockdown alert title text for Siri</note>
       </trans-unit>
-      <trans-unit id="Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>Siri activity detected. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Siri is still active" xml:space="preserve">
@@ -6214,9 +6266,9 @@
         <target>System Preferences</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." xml:space="preserve">
@@ -6289,9 +6341,9 @@
         <target>This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows." xml:space="preserve">
-        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.</source>
-        <target>This exam was interrupted before and not finished properly. Enter the quit/unlock password or response, which usually exam supervision/support knows.</target>
+      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+        <target>This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." xml:space="preserve">
@@ -6413,6 +6465,11 @@
       <trans-unit id="Web Proxy (HTTP)" xml:space="preserve">
         <source>Web Proxy (HTTP)</source>
         <target>Web Proxy (HTTP)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Webpage." xml:space="preserve">
+        <source>Webpage.</source>
+        <target>Webpage.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="White on Black" xml:space="preserve">
@@ -6730,43 +6787,6 @@
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
         <source>Microphone access is required for web applications / remote proctoring.</source>
         <target>Microphone access is required for web applications / remote proctoring.</target>
-        <note>Privacy - Microphone Usage Description</note>
-      </trans-unit>
-      <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
-        <source>Safe Exam Browser Configuration</source>
-        <target>Safe Exam Browser Configuration</target>
-        <note/>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="en.lproj/SafeExamBrowserETH-InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
-    </header>
-    <body>
-      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
-        <source>Safe Exam Browser</source>
-        <target>Safe Exam Browser</target>
-        <note>Bundle display name</note>
-      </trans-unit>
-      <trans-unit id="CFBundleName" xml:space="preserve">
-        <source>SafeExamBrowser</source>
-        <target>SafeExamBrowser</target>
-        <note>Bundle name</note>
-      </trans-unit>
-      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
-        <source>Camera access is required for remote proctoring.</source>
-        <target>Camera access is required for remote proctoring.</target>
-        <note>Privacy - Camera Usage Description</note>
-      </trans-unit>
-      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
-        <note>Copyright (human-readable)</note>
-      </trans-unit>
-      <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
-        <source>Microphone access is required for remote proctoring.</source>
-        <target>Microphone access is required for remote proctoring.</target>
         <note>Privacy - Microphone Usage Description</note>
       </trans-unit>
       <trans-unit id="Safe Exam Browser Configuration" xml:space="preserve">
@@ -7374,9 +7394,9 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
     </header>
     <body>
-      <trans-unit id="A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently)." xml:space="preserve">
-        <source>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</source>
-        <target>A config file will either start an exam using these settings (temporarily) or change the settings of an SEB client (permanently).</target>
+      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." xml:space="preserve">
+        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</source>
+        <target>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow QR Code Config" xml:space="preserve">
@@ -7449,9 +7469,9 @@
         <target>SEB Config QR Code</target>
         <note/>
       </trans-unit>
-      <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate." xml:space="preserve">
-        <source>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate.</source>
-        <target>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam config files encrypted with that identity certificate.</target>
+      <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." xml:space="preserve">
+        <source>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate.</source>
+        <target>SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Settings Password" xml:space="preserve">
@@ -7459,15 +7479,15 @@
         <target>Settings Password</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Share Configuration" xml:space="preserve">
+        <source>Share Configuration</source>
+        <target>Share Configuration</target>
+        <note>String for Title elements</note>
+      </trans-unit>
       <trans-unit id="Shared config file name" xml:space="preserve">
         <source>Shared config file name</source>
         <target>Shared config file name</target>
         <note>String for IASKPlaceholder elements</note>
-      </trans-unit>
-      <trans-unit id="Sharing Settings as Config Files" xml:space="preserve">
-        <source>Sharing Settings as Config Files</source>
-        <target>Sharing Settings as Config Files</target>
-        <note>String for Title elements</note>
       </trans-unit>
       <trans-unit id="Show Settings In App" xml:space="preserve">
         <source>Show Settings In App</source>
@@ -7479,14 +7499,14 @@
         <target>Starting Exams</target>
         <note>String for Titles arrays elements</note>
       </trans-unit>
-      <trans-unit id="Use Config File For …" xml:space="preserve">
-        <source>Use Config File For …</source>
-        <target>Use Config File For …</target>
+      <trans-unit id="Use Configuration For …" xml:space="preserve">
+        <source>Use Configuration For …</source>
+        <target>Use Configuration For …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
-        <target>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identitiy certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+        <target>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." xml:space="preserve">
@@ -8444,9 +8464,9 @@
         <target>Embed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page)." xml:space="preserve">
-        <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).</source>
-        <target>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Config Files page).</target>
+      <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." xml:space="preserve">
+        <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</source>
+        <target>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Embedded Certificate" xml:space="preserve">
@@ -9129,9 +9149,9 @@
         <target>Save unencrypted</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Saved file " xml:space="preserve">
-        <source>Saved file </source>
-        <target>Saved file </target>
+      <trans-unit id="Saved file '%@'" xml:space="preserve">
+        <source>Saved file '%@'</source>
+        <target>Saved file '%@'</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
@@ -9249,9 +9269,9 @@
         <target>Share</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Share as Config File" xml:space="preserve">
-        <source>Share as Config File</source>
-        <target>Share as Config File</target>
+      <trans-unit id="Share as Configuration" xml:space="preserve">
+        <source>Share as Configuration</source>
+        <target>Share as Configuration</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Share settings" xml:space="preserve">
@@ -10166,9 +10186,9 @@
         <target>Browser Features</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Config File" xml:space="preserve">
-        <source>Config File</source>
-        <target>Config File</target>
+      <trans-unit id="Configuration" xml:space="preserve">
+        <source>Configuration</source>
+        <target>Configuration</target>
         <note/>
       </trans-unit>
       <trans-unit id="Downloads" xml:space="preserve">

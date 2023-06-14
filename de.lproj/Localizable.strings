@@ -1,5 +1,5 @@
 /* No comment provided by engineer. */
-"SEB session was inactive for %1$ld:%2$.2ld (minutes:seconds)%ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
+"SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
