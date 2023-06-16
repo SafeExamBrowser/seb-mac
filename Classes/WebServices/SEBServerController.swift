@@ -411,7 +411,7 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken!]
+                              keys.sebConnectionToken : connectionToken ?? ""]
         loadWithFallback(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange {
                 if let examSalt = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebExamSalt) == .orderedSame}))?.value {
@@ -432,7 +432,7 @@ public extension SEBServerController {
         
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken!]
+                              keys.sebConnectionToken : connectionToken ?? ""]
         loadWithFallback(examConfigResource, httpMethod: examConfigResource.httpMethod, body: examConfigResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (examConfigResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode ?? statusCodes.badRequest < statusCodes.notSuccessfullRange, let config = examConfigResponse  {
                 self.delegate?.closeServerView(completion: {
@@ -485,7 +485,7 @@ public extension SEBServerController {
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
-                              keys.sebConnectionToken : connectionToken!]
+                              keys.sebConnectionToken : connectionToken ?? ""]
         loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
 //            if handshakeCloseResponse != nil  {
 //                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
@@ -507,7 +507,7 @@ public extension SEBServerController {
             let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                                   keys.headerAuthorization : authorizationString,
-                                  keys.sebConnectionToken : connectionToken!]
+                                  keys.sebConnectionToken : connectionToken ?? ""]
             load(pingResource, httpMethod: pingResource.httpMethod, body: pingResource.body, headers: requestHeaders, withCompletion: { (pingResponse, statusCode, errorResponse, responseHeaders, attempt) in
                 self.pingInstruction = nil
                 guard let ping = pingResponse else {
@@ -540,7 +540,7 @@ public extension SEBServerController {
             let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
             let requestHeaders = [keys.headerContentType : keys.contentTypeJSON,
                                   keys.headerAuthorization : authorizationString,
-                                  keys.sebConnectionToken : connectionToken!]
+                                  keys.sebConnectionToken : connectionToken ?? ""]
             load(logResource, httpMethod: logResource.httpMethod, body: logResource.body, headers: requestHeaders, withCompletion: { (logResponse, statusCode, errorResponse, responseHeaders, attempt) in
                 loadCompletion(statusCode, errorResponse, responseHeaders, attempt)
             })
