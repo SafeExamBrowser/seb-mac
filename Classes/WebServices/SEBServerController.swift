@@ -645,7 +645,6 @@ public extension SEBServerController {
             load(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
                 self.cancelAllRequests = true
                 self.stopPingTimer()
-                self.connectionToken = nil
                 self.delegate?.didReceiveExamSalt("", connectionToken: "")
                 self.delegate?.didReceiveServerBEK("")
 
@@ -654,13 +653,14 @@ public extension SEBServerController {
     //                DDLogVerbose(responseBody as Any)
     //            }
                 self.session.invalidateAndCancel()
+                self.connectionToken = nil
                 completion(restart)
             })
         } else {
             self.cancelAllRequests = true
             self.stopPingTimer()
-            self.connectionToken = nil
             self.session.invalidateAndCancel()
+            self.connectionToken = nil
             completion(restart)
         }
     }
