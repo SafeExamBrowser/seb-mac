@@ -1240,13 +1240,12 @@ bool insideMatrix(void);
 - (NSString * _Nullable)appSignatureKey {
     NSLog(@"appSignatureKey: %@", self.browserController.appSignatureKey);
     return [self.browserController.appSignatureKey base16String];
-//    return [self.browserController.appSignatureKey base64EncodedStringWithOptions:(0)];
 }
 
 
 - (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
     if (examSalt.length > 0) {
-        self.browserController.examSalt = [NSData dataWithBase16String:examSalt]; //[NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+        self.browserController.examSalt = [NSData dataWithBase16String:examSalt];
         self.browserController.connectionToken = connectionToken;
     } else {
         self.browserController.examSalt = nil;
@@ -1257,7 +1256,7 @@ bool insideMatrix(void);
 
 - (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
     if (serverBEK.length > 0) {
-        self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+        self.browserController.serverBrowserExamKey = [NSData dataWithBase16String:serverBEK];
     } else {
         self.browserController.serverBrowserExamKey = nil;
     }

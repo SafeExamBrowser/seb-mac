@@ -3700,7 +3700,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken{
     if (examSalt.length > 0) {
-        self.browserController.examSalt = [NSData dataWithBase16String:examSalt]; //[NSData dataWithBytes:[examSalt UTF8String] length:[examSalt length]];
+        self.browserController.examSalt = [NSData dataWithBase16String:examSalt];
         self.browserController.connectionToken = connectionToken;
     } else {
         self.browserController.examSalt = nil;
@@ -3711,7 +3711,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
     if (serverBEK.length > 0) {
-        self.browserController.serverBrowserExamKey = [NSData dataWithBytes:[serverBEK UTF8String] length:[serverBEK length]];
+        self.browserController.serverBrowserExamKey = [NSData dataWithBase16String:serverBEK];
     } else {
         self.browserController.serverBrowserExamKey = nil;
     }
@@ -4609,6 +4609,7 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogError(@"%@", lockReason);
     [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date] repeated:NO];
 }
 
@@ -5057,6 +5058,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) leftDrawerKeyShortcutPress:(id)sender
 {
+//    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"%@ %@", self.sideMenuController.leftViewShowing ? NSLocalizedString(@"Hiding", nil) : NSLocalizedString(@"Showing", nil), NSLocalizedString(@"side menu", nil)]);
+//
     [self.sideMenuController toggleLeftViewAnimated];
 }
 
