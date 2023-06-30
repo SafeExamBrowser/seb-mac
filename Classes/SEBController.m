@@ -4205,8 +4205,8 @@ conditionallyForWindow:(NSWindow *)window
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
     
-    [modalAlert setMessageText:NSLocalizedString(@"Local SEB Settings Have Been Reset", nil)];
-    [modalAlert setInformativeText:NSLocalizedString(@"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.", nil)];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Local %@ Settings Have Been Reset", nil), SEBShortAppName]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly.", nil), SEBShortAppName, SEBShortAppName]];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
     [modalAlert setAlertStyle:NSCriticalAlertStyle];
     void (^preferencesCorruptedErrorOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -4235,8 +4235,8 @@ conditionallyForWindow:(NSWindow *)window
             self.userSwitchDetected = YES;
             
             // Set alert title and message strings
-            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"User Switch Locked SEB!", @"Lockdown alert title text for switching the user")
-                                                        Message: NSLocalizedString(@"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user")];
+            [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"User Switch Locked %@!", @"Lockdown alert title text for switching the user"), SEBShortAppName]
+                                                        Message: [NSString stringWithFormat:NSLocalizedString(@"%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.", @"Lockdown alert message text for switching the user"), SEBShortAppName]];
             
             DDLogError(@"SessionDidResignActive: User switch / switch to login window detected!");
             [self openLockdownWindows];
@@ -4261,7 +4261,7 @@ conditionallyForWindow:(NSWindow *)window
                                                        fromDate:self.didResignActiveTime
                                                          toDate:self.didBecomeActiveTime
                                                         options:NSCalendarWrapComponents];
-            NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB session was inactive for %ld:%.2ld(minutes:seconds)", nil), components.minute, components.second];
+            NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"%@ session was inactive for %ld:%.2ld(minutes:seconds)", nil), SEBShortAppName, components.minute, components.second];
             DDLogError(@"SessionDidBecomeActive: %@, didLockSEBTime %@, didBecomeActiveTime %@", lockedTimeInfo, self.didLockSEBTime, self.didBecomeActiveTime);
             
             // Add log string for becoming active
@@ -4278,7 +4278,7 @@ conditionallyForWindow:(NSWindow *)window
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
                                                                  NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.", nil),
-                                                                 NSLocalizedString(@"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running.", nil)
+                                                                 [NSString stringWithFormat:NSLocalizedString(@"To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running.", nil), SEBShortAppName, SEBShortAppName]
                                                                  ]];
             
             // Add log string for trying to re-open a locked exam
@@ -4298,10 +4298,10 @@ conditionallyForWindow:(NSWindow *)window
                 self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
                 
                 // Set custom alert message string
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen Sharing Locked SEB!", @"Lockdown alert title text for screen sharing")
+                [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"Screen Sharing Locked %@!", @"Lockdown alert title text for screen sharing"), SEBShortAppName]
                                                             Message:[NSString stringWithFormat:@"%@\n\n%@",
                                                                      NSLocalizedString(@"Screen sharing detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil),
-                                                                     NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil)
+                                                                     [NSString stringWithFormat:NSLocalizedString(@"To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", nil), SEBShortAppName]
                                                                      ]];
                 
                 // Report screen sharing is still active every 3rd second
@@ -4338,7 +4338,7 @@ conditionallyForWindow:(NSWindow *)window
                 self.sebLockedViewController.overrideCheckForSiri.hidden = false;
                 
                 // Set custom alert message string
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Siri Locked SEB!", @"Lockdown alert title text for Siri")
+                [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Siri Locked %@!", @"Lockdown alert title text for Siri"), SEBShortAppName]
                                                             Message:NSLocalizedString(@"Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                 
                 // Report Siri is still active every 3rd second
@@ -4375,7 +4375,7 @@ conditionallyForWindow:(NSWindow *)window
                 self.sebLockedViewController.overrideCheckForDictation.hidden = false;
                 
                 // Set custom alert message string
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Dictation Locked SEB!", @"Lockdown alert title text for Siri")
+                [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Dictation Locked %@!", @"Lockdown alert title text for Siri"), SEBShortAppName]
                                                             Message:NSLocalizedString(@"Dictation activity detected. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
                 
                 // Report dictation is still active every 3rd second
@@ -4414,8 +4414,8 @@ conditionallyForWindow:(NSWindow *)window
                 self.sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
                 
                 // Set custom alert message string
-                [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Prohibited Process Locked SEB!", @"Lockdown alert title text for prohibited process")
-                                                            Message:NSLocalizedString(@"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Prohibited Process Locked %@!", @"Lockdown alert title text for prohibited process"), SEBShortAppName]
+                                                            Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), SEBShortAppName]];
                 
                 // Report processes are still active every 3rd second
                 self->prohibitedProcessesLogCounter = logReportCounter;
@@ -4449,8 +4449,8 @@ conditionallyForWindow:(NSWindow *)window
         {
 #ifndef DEBUG
             
-            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped")
-                                                        Message:NSLocalizedString(@"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.", nil)];
+            [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"%@ Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped"), SEBShortAppName]
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), SEBShortAppName];
             // Add log string for trying to re-open a locked exam
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -4458,7 +4458,7 @@ conditionallyForWindow:(NSWindow *)window
                                                        fromDate:self->timeProcessCheckBeforeSIGSTOP
                                                          toDate:self.didBecomeActiveTime
                                                         options:NSCalendarWrapComponents];
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"SEB process was stopped for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:self.didBecomeActiveTime repeated:NO];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"%@ process was stopped for %ld:%.2ld (minutes:seconds)", nil), SEBShortAppName, components.minute, components.second]] withTime:self.didBecomeActiveTime repeated:NO];
             
             if (!self.lockdownWindows) {
                 [self openLockdownWindows];
@@ -4479,7 +4479,7 @@ conditionallyForWindow:(NSWindow *)window
                         // SEB is starting, we give the option to quit
                         NSAlert *modalAlert = [self newAlert];
                         [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", nil)];
-                        [modalAlert setInformativeText:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again.", nil)];
+                        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.", nil), SEBShortAppName]];
                         [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
                         [modalAlert setAlertStyle:NSCriticalAlertStyle];
                         void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -4525,7 +4525,7 @@ conditionallyForWindow:(NSWindow *)window
             self.proctoringFailedDetected = YES;
             // Set custom alert message string
             NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
-            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Proctoring Error Locked SEB!", @"Lockdown alert title text for proctoring failure")
+            [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Proctoring Error Locked %@!", @"Lockdown alert title text for proctoring failure"), SEBShortAppName]
                                                         Message:[NSString stringWithFormat:NSLocalizedString(@"Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), proctoringFailedErrorString]];
             self.sebLockedViewController.retryButton.hidden = NO;
             
@@ -4535,15 +4535,26 @@ conditionallyForWindow:(NSWindow *)window
             [self openLockdownWindows];
         } else {
             NSString *lockReason;
+            BOOL isDisabled = NO;
             NSDictionary *userInfo = notification.userInfo;
             if (userInfo) {
                 lockReason = [userInfo valueForKey:@"lockReason"];
+                isDisabled = [[userInfo valueForKey:@"isDisabled"] boolValue];
+            }
+            NSString *message;
+            NSString *logMessage;
+            if (isDisabled) {
+                message = [NSString stringWithFormat:NSLocalizedString(@"%@ is disabled. Enable %@ and restart %@.", nil), lockReason, lockReason, SEBShortAppName];
+                logMessage = [NSString stringWithFormat:NSLocalizedString(@"%@ is disabled!", nil), lockReason];
+            } else {
+                message = [NSString stringWithFormat:@"%@", lockReason ? lockReason : NSLocalizedString(@"Please contact your exam support.", nil)];
+                logMessage = lockReason;
             }
             DDLogError(@"Lock Reason: %@", lockReason);
-            [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"SEB is Locked!", nil)
-                                                        Message:[NSString stringWithFormat:@"%@", lockReason ? lockReason : NSLocalizedString(@"Please contact your exam support.", nil)]];
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:self.didBecomeActiveTime repeated:NO];
-            [self openLockdownWindows];
+            [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"%@ is Locked!", nil), SEBShortAppName]
+                                                        Message:message];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", logMessage] withTime:self.didBecomeActiveTime repeated:NO];
+            [self openLockdownWindowsQuitOnly:isDisabled];
         }
 
     });
@@ -4588,13 +4599,24 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) openLockdownWindows
 {
+    [self openLockdownWindowsQuitOnly:NO];
+}
+
+- (void) openLockdownWindowsQuitOnly:(BOOL)quitOnly
+{
     if (!self.lockdownWindows) {
         self.didLockSEBTime = [NSDate date];
         DDLogDebug(@"openLockdownWindows: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
 
         DDLogError(@"Locking SEB with red frontmost covering windows");
         [self openCoveringWindows];
-        
+        if (quitOnly) {
+            _sebLockedViewController.quitUnlockPasswordUI.hidden = YES;
+            _sebLockedViewController.quitOnlyButton.hidden = NO;
+        } else {
+            _sebLockedViewController.quitUnlockPasswordUI.hidden = NO;
+            _sebLockedViewController.quitOnlyButton.hidden = YES;
+        }
         lockdownModalSession = [NSApp beginModalSessionForWindow:self.lockdownWindows[0]];
         [NSApp runModalSession:lockdownModalSession];
     }
