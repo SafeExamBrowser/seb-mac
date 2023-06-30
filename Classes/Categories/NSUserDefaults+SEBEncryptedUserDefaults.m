@@ -339,14 +339,23 @@ static NSNumber *_logLevel;
     if (@available(iOS 14.0, macOS 11.0, *)) {
         if (DCAppAttestService.sharedService.isSupported) {
             DDLogInfo(@"DCAppAttestService is available.");
-            [DCAppAttestService.sharedService generateKeyWithCompletionHandler:^(NSString * _Nullable keyId, NSError * _Nullable error) {
-                DDLogInfo(@"DCAppAttestService generateKeyWithCompletionHandler: returned with error: %@", error);
-            }];
+//            [DCAppAttestService.sharedService generateKeyWithCompletionHandler:^(NSString * _Nullable keyId, NSError * _Nullable error) {
+//                DDLogInfo(@"DCAppAttestService generateKeyWithCompletionHandler: returned with error: %@", error);
+//            }];
         } else {
             DDLogWarn(@"DCAppAttestService is not available, despite running on macOS >= 11");
         }
     } else {
         DDLogWarn(@"DCAppAttestService is not available, because running on macOS < 11");
+    }
+    if (@available(macOS 10.15, *)) {
+        if (DCDevice.currentDevice.supported) {
+            DDLogInfo(@"DeviceCheck API is supported on the current device.");
+        } else {
+            DDLogInfo(@"DeviceCheck API is not supported on the current device.");
+        }
+    } else {
+        DDLogInfo(@"DeviceCheck API is not supported, because running on macOS < 10.15.");
     }
     [self setSecureObject:additionalResources forKey:@"org_safeexambrowser_additionalResources"];
 
