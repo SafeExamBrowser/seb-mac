@@ -141,6 +141,11 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Chrome Remote Desktop Host",
+                          @"identifier" : @"com.google.chrome.remote_desktop.native-messaging-host",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Brave Browser Helper",
                           @"strongKill" : @YES,
