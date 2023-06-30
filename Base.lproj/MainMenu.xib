@@ -1127,10 +1127,10 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="500" height="733"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-vY-HE2">
-                    <rect key="frame" x="20" y="445" width="460" height="280"/>
+                    <rect key="frame" x="20" y="148" width="460" height="577"/>
                     <subviews>
                         <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="256" width="464" height="24"/>
+                            <rect key="frame" x="-2" y="553" width="464" height="24"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                                 <font key="font" size="20" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1138,7 +1138,7 @@ DQ
                             </textFieldCell>
                         </textField>
                         <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="200" width="464" height="48"/>
+                            <rect key="frame" x="-2" y="497" width="464" height="48"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                                 <font key="font" metaFont="system"/>
                                 <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</string>
@@ -1147,7 +1147,7 @@ DQ
                             </textFieldCell>
                         </textField>
                         <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
-                            <rect key="frame" x="0.0" y="-188" width="460" height="380"/>
+                            <rect key="frame" x="0.0" y="109" width="460" height="380"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                                 <rect key="frame" x="1" y="1" width="458" height="378"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1185,10 +1185,10 @@ DQ
                             </scroller>
                         </scrollView>
                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o5V-2d-p9N" userLabel="QuitUnlockPasswordUI">
-                            <rect key="frame" x="0.0" y="28" width="460" height="67"/>
+                            <rect key="frame" x="0.0" y="28" width="460" height="73"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
-                                    <rect key="frame" x="45" y="51" width="370" height="16"/>
+                                    <rect key="frame" x="45" y="57" width="370" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
                                     </constraints>
@@ -1199,7 +1199,7 @@ DQ
                                     </textFieldCell>
                                 </textField>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gM7-Sy-wOH">
-                                    <rect key="frame" x="13" y="22" width="434" height="21"/>
+                                    <rect key="frame" x="13" y="28" width="434" height="21"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaS-JM-HUH">
                                             <rect key="frame" x="0.0" y="0.0" width="434" height="21"/>
@@ -1219,7 +1219,7 @@ DQ
                                                     </connections>
                                                 </secureTextField>
                                                 <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
-                                                    <rect key="frame" x="416" y="10" width="18" height="14"/>
+                                                    <rect key="frame" x="416" y="-1" width="18" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
                                                         <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
@@ -1267,10 +1267,10 @@ DQ
                                     </customSpacing>
                                 </stackView>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XYL-iY-gT2">
-                                    <rect key="frame" x="15" y="0.0" width="430" height="14"/>
+                                    <rect key="frame" x="15" y="0.0" width="430" height="20"/>
                                     <subviews>
                                         <button hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-4r-o8x">
-                                            <rect key="frame" x="344" y="-13" width="67" height="32"/>
+                                            <rect key="frame" x="344" y="-7" width="67" height="32"/>
                                             <buttonCell key="cell" type="push" title="Retry" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pZD-Yp-uUL">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -1280,49 +1280,49 @@ DQ
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
-                                            <rect key="frame" x="-1" y="-1" width="250" height="16"/>
+                                            <rect key="frame" x="-1" y="-1" width="250" height="22"/>
                                             <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
-                                            <rect key="frame" x="-1" y="-1" width="216" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="216" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="do5-oi-5WI">
-                                            <rect key="frame" x="-1" y="-1" width="200" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="200" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override enforcing built-in display" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="kbH-iY-TGy">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
-                                            <rect key="frame" x="-1" y="-1" width="155" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="155" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
-                                            <rect key="frame" x="-1" y="-1" width="184" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="184" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
-                                            <rect key="frame" x="-1" y="-1" width="278" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="278" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
                                         <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
-                                            <rect key="frame" x="-1" y="-1" width="252" height="16"/>
+                                            <rect key="frame" x="-1" y="5" width="252" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
@@ -1330,6 +1330,7 @@ DQ
                                         </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="QR5-fe-soz"/>
                                         <constraint firstAttribute="trailing" secondItem="bAu-4r-o8x" secondAttribute="trailing" constant="26" id="xVB-33-lgu"/>
                                     </constraints>
                                     <visibilityPriorities>
@@ -1369,9 +1370,8 @@ DQ
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <button verticalHuggingPriority="750" id="f1D-nX-D3M" userLabel="QuitOnlyButton">
-                            <rect key="frame" x="189" y="-7" width="82" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1D-nX-D3M" userLabel="QuitOnlyButton">
+                            <rect key="frame" x="-7" y="-7" width="474" height="32"/>
                             <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hZU-Wv-guz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -1383,6 +1383,7 @@ DQ
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="5Ez-0g-525" secondAttribute="trailing" id="9Zb-TJ-scx"/>
+                        <constraint firstItem="f1D-nX-D3M" firstAttribute="centerX" secondItem="JHq-vY-HE2" secondAttribute="centerX" id="E4c-oF-yF6"/>
                         <constraint firstItem="5sW-Md-KnP" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="JqT-2o-KB6"/>
                         <constraint firstAttribute="trailing" secondItem="o5V-2d-p9N" secondAttribute="trailing" id="Mlq-Zc-n1M"/>
                         <constraint firstItem="o5V-2d-p9N" firstAttribute="leading" secondItem="JHq-vY-HE2" secondAttribute="leading" id="bAE-cA-Pfg"/>
