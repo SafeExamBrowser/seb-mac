@@ -563,21 +563,30 @@ import PDFKit
         guard let subviews = (view as! NSView?)?.subviews else {
             return nil
         }
-        #else
+#else
         guard let subviews = (view as! UIView?)?.subviews else {
             return nil
         }
-        #endif
-
+#endif
+        
         for subview in subviews {
             print(subview as Any)
             if let pdfView = subview as? PDFView {
                 return pdfView
-            } else if subview.className.range(of: filenameExtensionPDF, options: .caseInsensitive) != nil {
-                return subview
-            } else if subview.subviews.count > 0 {
-                if let foundPDFView = searchForPDFView(view: subview) {
-                    return foundPDFView
+            } else {
+#if os(macOS)
+                if subview.className.range(of: filenameExtensionPDF, options: .caseInsensitive) != nil {
+                    return subview
+                }
+#else
+                if String(describing: subview).range(of: filenameExtensionPDF, options: .caseInsensitive) != nil {
+                    return subview
+                }
+#endif
+                if subview.subviews.count > 0 {
+                    if let foundPDFView = searchForPDFView(view: subview) {
+                        return foundPDFView
+                    }
                 }
             }
         }
