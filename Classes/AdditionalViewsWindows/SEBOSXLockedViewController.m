@@ -113,6 +113,11 @@
 }
 
 
+- (IBAction)quitOnlyButtonPressed:(id)sender {
+    [_sebController requestedExit:nil];
+}
+
+
 /// Platform specific setup for lockview
 
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
