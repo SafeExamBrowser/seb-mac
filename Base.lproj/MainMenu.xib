@@ -1127,10 +1127,10 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="500" height="733"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-vY-HE2">
-                    <rect key="frame" x="20" y="148" width="460" height="577"/>
+                    <rect key="frame" x="20" y="140" width="460" height="585"/>
                     <subviews>
                         <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="553" width="464" height="24"/>
+                            <rect key="frame" x="-2" y="561" width="464" height="24"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                                 <font key="font" size="20" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1138,7 +1138,7 @@ DQ
                             </textFieldCell>
                         </textField>
                         <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-                            <rect key="frame" x="-2" y="497" width="464" height="48"/>
+                            <rect key="frame" x="-2" y="505" width="464" height="48"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                                 <font key="font" metaFont="system"/>
                                 <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</string>
@@ -1147,7 +1147,7 @@ DQ
                             </textFieldCell>
                         </textField>
                         <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
-                            <rect key="frame" x="0.0" y="109" width="460" height="380"/>
+                            <rect key="frame" x="0.0" y="117" width="460" height="380"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                                 <rect key="frame" x="1" y="1" width="458" height="378"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1185,7 +1185,7 @@ DQ
                             </scroller>
                         </scrollView>
                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o5V-2d-p9N" userLabel="QuitUnlockPasswordUI">
-                            <rect key="frame" x="0.0" y="28" width="460" height="73"/>
+                            <rect key="frame" x="0.0" y="36" width="460" height="73"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
                                     <rect key="frame" x="45" y="57" width="370" height="16"/>
@@ -1371,10 +1371,10 @@ DQ
                             </customSpacing>
                         </stackView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1D-nX-D3M" userLabel="QuitOnlyButton">
-                            <rect key="frame" x="-7" y="-7" width="474" height="32"/>
-                            <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hZU-Wv-guz">
+                            <rect key="frame" x="-6" y="-6" width="472" height="40"/>
+                            <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hZU-Wv-guz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
+                                <font key="font" metaFont="systemBold"/>
                             </buttonCell>
                             <connections>
                                 <action selector="quitOnlyButtonPressed:" target="agr-W5-n2K" id="9LL-tS-EH4"/>
