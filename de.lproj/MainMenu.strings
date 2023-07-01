@@ -289,6 +289,9 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "nYI-e9-Ags"; */
 "nYI-e9-Ags.title" = "Abbrechen";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "OK"; ObjectID = "oDg-Su-CdJ"; */
+"oDg-Su-CdJ.ibExternalAccessibilityDescription" = "OK";
+
 /* Class = "NSButtonCell"; title = "Log In"; ObjectID = "pIH-zG-hNx"; */
 "pIH-zG-hNx.title" = "Einloggen";
 

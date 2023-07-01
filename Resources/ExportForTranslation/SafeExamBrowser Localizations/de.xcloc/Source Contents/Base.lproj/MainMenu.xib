@@ -1136,6 +1136,9 @@ DQ
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <outlet property="nextKeyView" destination="5sW-Md-KnP" id="CJe-KL-rkB"/>
+                            </connections>
                         </textField>
                         <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
                             <rect key="frame" x="-2" y="505" width="464" height="48"/>
@@ -1145,6 +1148,9 @@ DQ
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <outlet property="nextKeyView" destination="5gu-rS-ItL" id="O7i-OE-89g"/>
+                            </connections>
                         </textField>
                         <scrollView verifyAmbiguity="off" borderType="line" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZz-tz-Eao">
                             <rect key="frame" x="0.0" y="117" width="460" height="380"/>
@@ -1215,6 +1221,7 @@ DQ
                                                         </allowedInputSourceLocales>
                                                     </secureTextFieldCell>
                                                     <connections>
+                                                        <accessibilityConnection property="title" destination="d45-bx-wxa" id="LNe-ZW-adc"/>
                                                         <action selector="passwordEntered:" target="agr-W5-n2K" id="A9P-Tm-0Rt"/>
                                                     </connections>
                                                 </secureTextField>
@@ -1228,6 +1235,7 @@ DQ
                                                         <behavior key="behavior" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <accessibility description="OK"/>
                                                     <connections>
                                                         <action selector="passwordEntered:" target="agr-W5-n2K" id="S2V-hx-Lhj"/>
                                                     </connections>

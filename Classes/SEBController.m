@@ -4450,7 +4450,7 @@ conditionallyForWindow:(NSWindow *)window
 #ifndef DEBUG
             
             [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"%@ Process Was Stopped!", @"Lockdown alert title text for SEB process was stopped"), SEBShortAppName]
-                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), SEBShortAppName];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.", nil), SEBShortAppName]];
             // Add log string for trying to re-open a locked exam
             // Calculate time difference between session resigning active and becoming active again
             NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
