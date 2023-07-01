@@ -494,6 +494,9 @@
 "Go Forward" = "Vorwärts";
 
 /* No comment provided by engineer. */
+"Hiding" = "Zeige";
+
+/* No comment provided by engineer. */
 "Identity" = "Identität";
 
 /* No comment provided by engineer. */
@@ -917,7 +920,13 @@
 "Show the previous page" = "Vorherige Seite anzeigen";
 
 /* No comment provided by engineer. */
+"Showing" = "Zeige";
+
+/* No comment provided by engineer. */
 "Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" = "Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und SEB-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.";
+
+/* No comment provided by engineer. */
+"side menu" = "Seitenmenü";
 
 /* No comment provided by engineer. */
 "Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." = "Der Einzel-App-Modus konnte nicht gestartet werden. Sie müssen Ihr Gerät neu starten (iPad mit Face ID: Halten Sie eine der beiden Lautstärketasten und die obere Taste gedrückt, bis der Schieberegler zum Ausschalten erscheint. iPad mit Home-Taste: Halten Sie die obere Taste gedrückt, bis der Schieberegler zum Ausschalten angezeigt wird). Aktualisieren Sie iOS/iPadOS auf die neueste Version, um dieses Problem zu vermeiden.";
@@ -1086,6 +1095,9 @@
 
 /* No comment provided by engineer. */
 "Web Proxy (HTTP)" = "Web-Proxy (HTTP)";
+
+/* No comment provided by engineer. */
+"Webpage." = "Webseite.";
 
 /* No comment provided by engineer. */
 "White on Black" = "Weiss auf Schwarz";

@@ -241,6 +241,9 @@
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC"; */
 "HGQ-o5-kHC.title" = "Öffnen …";
 
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "hZU-Wv-guz"; */
+"hZU-Wv-guz.title" = "Beenden";
+
 /* Class = "NSMenuItem"; title = "Revert to Defaults"; ObjectID = "icu-d0-oaR"; */
 "icu-d0-oaR.title" = "Zurücksetzen auf Voreinstellungen";
 
