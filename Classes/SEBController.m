@@ -2986,15 +2986,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             NSString *windowNumber = [window objectForKey:@"kCGWindowNumber" ];
     #endif
 
-            // Close the Notification Center panel in case switching to applications is allowed
-            if (_allowSwitchToApplications &&
-                [windowName isEqualToString:@"NotificationTableWindow"] &&
+            // Close Control Center windows or the Notification Center panel (older macOS versions)
+            if (([windowOwner isEqualToString:@"Notification Center"] || [windowName isEqualToString:@"NotificationTableWindow"]) &&
                 ![_preferencesController preferencesAreOpen]) {
-                // If switching to applications is allowed and the Notification Center was opened
-                DDLogWarn(@"Notification Center panel was opened (owning process name: %@", windowOwner);
-                
-                NSRunningApplication *notificationCenter = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"][0];
-                [notificationCenter forceTerminate];
+                DDLogWarn(@"Control/Notification Center was opened (owning process name: %@", windowOwner);
+                NSArray *notificationCenterSearchResult =[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"];
+                if (notificationCenterSearchResult.count > 0) {
+                    NSRunningApplication *notificationCenter = notificationCenterSearchResult[0];
+                    [notificationCenter forceTerminate];
+                }
                 continue;
             }
             
@@ -3388,7 +3388,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // If we still don't have a screen, then useBuiltin was false and all available screens
     // (probably only one) is built-in, we just take that screen
-    if (!mainScreen) {
+    if (!mainScreen && screens.count > 0) {
         mainScreen = screens[0];
         mainScreen.inactive = false;
         [screens removeObjectAtIndex:0];
@@ -4265,6 +4265,7 @@ conditionallyForWindow:(NSWindow *)window
             
             // Add log string for becoming active
             [self appendErrorString:[NSString stringWithFormat:@"%@\n%@\n", NSLocalizedString(@"Switched back after user switch / login window", nil), lockedTimeInfo] withTime:self.didBecomeActiveTime repeated:NO];
+            [self.sebLockedViewController.view.window makeKeyAndOrderFront:self];
         }
         
         // Handler called when attempting to re-open an exam which was interrupted before
@@ -4609,6 +4610,7 @@ conditionallyForWindow:(NSWindow *)window
 
         DDLogError(@"Locking SEB with red frontmost covering windows");
         [self openCoveringWindows];
+        NSAccessibilityPostNotification(_sebLockedViewController.view.window, NSAccessibilityFocusedWindowChangedNotification);
         if (quitOnly) {
             _sebLockedViewController.quitUnlockPasswordUI.hidden = YES;
             _sebLockedViewController.quitOnlyButton.hidden = NO;
@@ -4910,7 +4912,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) regainActiveStatus: (id)sender
 {
 #ifdef DEBUG
-    DDLogInfo(@"Notification:  %@", [sender name]);
+    DDLogInfo(@"%s: Notification:  %@", __FUNCTION__, [sender name]);
 #endif
     
     NSDictionary *userInfo = [sender userInfo];
@@ -4937,6 +4939,20 @@ conditionallyForWindow:(NSWindow *)window
             [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications) withObject:NULL waitUntilDone:NO];
         }
 #endif
+        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+//        [self.browserController.mainBrowserWindow makeMainWindow];
+//        [self.browserController.mainBrowserWindow makeActiveAndOrderFront];
+//        [self.browserController.mainBrowserWindow makeContentFirstResponder];
+        DDLogDebug(@"Active window: %@", NSApp.mainWindow);
+//        NSAccessibilityPostNotification(self.browserController.mainBrowserWindow, NSAccessibilityFocusedWindowChangedNotification);
+        
+        if (NSApp.mainWindow) {
+            NSDictionary *userInfo = @{
+                NSAccessibilityUIElementsKey: @[NSApp.mainWindow],
+                NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
+            };
+            NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+        }
     }
 }
 
@@ -5007,6 +5023,14 @@ conditionallyForWindow:(NSWindow *)window
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+
+        if (NSApp.mainWindow) {
+            NSDictionary *userInfo = @{
+                NSAccessibilityUIElementsKey: @[NSApp.mainWindow],
+                NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
+            };
+            NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+        }
     }
 }
 
@@ -5371,6 +5395,14 @@ conditionallyForWindow:(NSWindow *)window
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+            
+            if (NSApp.mainWindow) {
+                NSDictionary *userInfo = @{
+                    NSAccessibilityUIElementsKey: @[NSApp.mainWindow],
+                    NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
+                };
+                NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+            }
         }
         [self.browserController.mainBrowserWindow setCalculatedFrame];
     }
@@ -5643,6 +5675,14 @@ conditionallyForWindow:(NSWindow *)window
 {
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+    
+    if (NSApp.mainWindow) {
+        NSDictionary *userInfo = @{
+            NSAccessibilityUIElementsKey: @[NSApp.mainWindow],
+            NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
+        };
+        NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+    }
 }
 
 
