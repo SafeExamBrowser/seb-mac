@@ -2987,7 +2987,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     #endif
 
             // Close Control Center windows or the Notification Center panel (older macOS versions)
-            if (([windowOwner isEqualToString:@"Notification Center"] || [windowName isEqualToString:@"NotificationTableWindow"]) &&
+            if ((([windowOwner isEqualToString:@"Notification Center"] && !_allowSwitchToApplications) || [windowName isEqualToString:@"NotificationTableWindow"]) &&
                 ![_preferencesController preferencesAreOpen]) {
                 DDLogWarn(@"Control/Notification Center was opened (owning process name: %@", windowOwner);
                 NSArray *notificationCenterSearchResult =[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"];
