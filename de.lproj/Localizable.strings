@@ -1,7 +1,4 @@
 /* No comment provided by engineer. */
-"SEB session was inactive for %ld:%.2ld (minutes:seconds)" = "SEB-Session war inaktiv für %1$ld:%2$.2ld (Minuten:Sekunden)";
-
-/* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
 
 /* No comment provided by engineer. */
@@ -32,7 +29,31 @@
 "%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
 
 /* No comment provided by engineer. */
+"%@ is disabled!" = "%@ ist deaktiviert!";
+
+/* No comment provided by engineer. */
+"%@ is disabled. Enable %@ and restart %@." = "%1$@ ist deaktiviert. Aktivieren Sie %2$@ und starten %3$@ neu.";
+
+/* No comment provided by engineer. */
+"%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." = "%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* Lockdown alert message text for switching the user */
+"%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
+"%@ is Locked!" = "%@ ist gesperrt!";
+
+/* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"%@ process was stopped for %ld:%.2ld (minutes:seconds)" = "%1$@-Prozess war unterbrochen für %2$ld:%3$.2ld (Minuten:Sekunden)";
+
+/* Lockdown alert title text for SEB process was stopped */
+"%@ Process Was Stopped!" = "%@-Prozess wurde unterbrochen!";
+
+/* No comment provided by engineer. */
+"%@ session was inactive for %ld:%.2ld(minutes:seconds)" = "  %1$@ SEB session was inactive for %2$ld:%3$.2ld (minutes:seconds)";
 
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
@@ -74,7 +95,7 @@
 "13 Ventura" = "13 Ventura";
 
 /* No comment provided by engineer. */
-"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start SEB again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie SEB erneut.";
+"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie %@ erneut.";
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
@@ -350,7 +371,7 @@
 "Dictation is still active" = "Diktat-Funktion ist immer noch aktiv.";
 
 /* Lockdown alert title text for Siri */
-"Dictation Locked SEB!" = "SEB gesperrt wegen verbotener Diktat-Funktion!";
+"Dictation Locked %@!" = "%@ gesperrt wegen verbotener Diktat-Funktion!";
 
 /* No comment provided by engineer. */
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
@@ -557,6 +578,9 @@
 "Loading Settings" = "Einstellungen werden geladen";
 
 /* No comment provided by engineer. */
+"Local %@ Settings Have Been Reset" = "Lokale %@-Client-Einstellungen wurden zurückgesetzt";
+
+/* No comment provided by engineer. */
 "Local Client Settings" = "Lokale Client-Einstellungen";
 
 /* No comment provided by engineer. */
@@ -566,10 +590,7 @@
 "Local hostname: %@" = "Lokaler Host-Name: %@";
 
 /* No comment provided by engineer. */
-"Local preferences were created by an incompatible SEB version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen SEB-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um SEB wieder korrekt zu konfigurieren.";
-
-/* No comment provided by engineer. */
-"Local SEB Settings Have Been Reset" = "Lokale Client-Einstellungen wurden zurückgesetzt";
+"Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen %1$@-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um %2$@ wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
 "Log in to" = "Einloggen";
@@ -722,7 +743,7 @@
 "Previously interrupted exam was re-opened!" = "Zuvor unterbrochene Prüfungssession wurde erneut gestartet!";
 
 /* Lockdown alert title text for proctoring failure */
-"Proctoring Error Locked SEB!" = "SEB gesperrt wegen Fehler bei Fernüberwachung!";
+"Proctoring Error Locked %@!" = "%@ gesperrt wegen Fehler bei Fernüberwachung!";
 
 /* No comment provided by engineer. */
 "Proctoring failed with error '%@'. Enter the quit/unlock password, which usually exam supervision/support knows." = "Fernüberwachung fehlgeschlagen mit Fehler '%@'. Geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
@@ -731,7 +752,7 @@
 "Proctoring failed: " = "Fernüberwachung fehlgeschlagen:";
 
 /* Lockdown alert title text for prohibited process */
-"Prohibited Process Locked SEB!" = "SEB gesperrt wegen verbotenem Prozess!";
+"Prohibited Process Locked %@!" = "%@ gesperrt wegen verbotenem Prozess!";
 
 /* No comment provided by engineer. */
 "Prohibited Processes Are Running" = "Verbotene Prozesse laufen";
@@ -860,7 +881,7 @@
 "Screen sharing is still active" = "Bildschirmfreigabe ist immer noch aktiv";
 
 /* Lockdown alert title text for screen sharing */
-"Screen Sharing Locked SEB!" = "SEB gesperrt wegen Bildschirmfreigabe!";
+"Screen Sharing Locked %@!" = "%@ gesperrt wegen Bildschirmfreigabe!";
 
 /* No comment provided by engineer. */
 "Screen sharing was activated" = "Bildschirmfreigabe wurde aktiviert";
@@ -887,15 +908,6 @@
 "SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "SEB ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
 
 /* No comment provided by engineer. */
-"SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
-
-/* Lockdown alert message text for switching the user */
-"SEB is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
-
-/* No comment provided by engineer. */
-"SEB is Locked!" = "SEB ist gesperrt!";
-
-/* No comment provided by engineer. */
 "SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences." = "SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
@@ -903,12 +915,6 @@
 
 /* No comment provided by engineer. */
 "SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." = "SEB unterstützt das Einbetten von TLS/SSL- und CA-Zertifikaten und das Zertifikat-Pinning nur auf macOS 10.9 oder neuer. Wenn Sie sicherstellen wollen, dass eingebettete Zertifikate und das Zertifikat-Pinning auf allen Prüfungsclients funktionieren, dann sollten Sie die Verwendung von mindestens macOS 10.9 in den Sicherheits-Einstellungen erzwingen. ";
-
-/* No comment provided by engineer. */
-"SEB process was stopped for %ld:%.2ld (minutes:seconds)" = "SEB-Prozess war unterbrochen für %1$ld:%2$.2ld (Minuten:Sekunden)";
-
-/* Lockdown alert title text for SEB process was stopped */
-"SEB Process Was Stopped!" = "SEB-Prozess wurde unterbrochen!";
 
 /* No comment provided by engineer. */
 "SEB Re-Configured" = "SEB neu konfiguriert";
@@ -974,7 +980,7 @@
 "Siri is still active" = "Siri ist immer noch aktiv";
 
 /* Lockdown alert title text for Siri */
-"Siri Locked SEB!" = "SEB gesperrt wegen Siri!";
+"Siri Locked %@!" = "%@ gesperrt wegen Siri!";
 
 /* No comment provided by engineer. */
 "Siri was activated" = "Siri wurde aktiviert";
@@ -1004,6 +1010,9 @@
 "System Preferences" = "Systemeinstellungen";
 
 /* No comment provided by engineer. */
+"The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." = "Der %@-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
 "The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." = "Die folgenden gestarteten Applikationen müssen vor dem Starten von SEB beendet werden. Sie können die Applikationen manuell beenden und zu SEB Verificator zurückkehren, um SEB zu starten.";
 
 /* No comment provided by engineer. */
@@ -1023,9 +1032,6 @@
 
 /* No comment provided by engineer. */
 "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" = "Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?";
-
-/* No comment provided by engineer. */
-"The SEB process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." = "Der SEB-Prozess wurde unterbrochen, was auf eine Manipulation hindeuten könnte. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ waren falsch. Bitte versuchen Sie es erneut.";
@@ -1067,7 +1073,10 @@
 "This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed." = "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn SEB in einem Benutzeraccount verwendet wird, welches mittels der macOS Kindersicherung verwaltet wird. Dabei sollten nur SEB und die gewünschten Applikationen zugelassen werden.";
 
 /* No comment provided by engineer. */
-"To avoid that SEB locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while SEB is still running." = "Um zu verhindern, dass SEB eine Prüfungssession blockiert, muss immer ein Beenden/Entsperren-Link nach Abgabe der Prüfung oder die Beenden-Taste benutzt werden. Versuchen Sie nie, Ihren Mac neu zu starten oder abzuschalten, während SEB noch läuft.";
+"To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." = "Um zu verhindern, dass %1$@ eine Prüfungssession blockiert, muss immer ein Beenden/Entsperren-Link nach Abgabe der Prüfung oder die Beenden-Taste benutzt werden. Versuchen Sie nie, Ihren Mac neu zu starten oder abzuschalten, während %2$@ noch läuft.";
+
+/* No comment provided by engineer. */
+"To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
 
 /* No comment provided by engineer. */
 "To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass SEB wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben und 'Zugang zu meinem Mac' in Systemeinstellungen/iCloud ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
@@ -1110,7 +1119,7 @@
 "User switch / switch to login window detected" = "Benutzerwechsel / Anmeldefenster detektiert";
 
 /* Lockdown alert title text for switching the user */
-"User Switch Locked SEB!" = "SEB gesperrt wegen Benutzerwechsel!";
+"User Switch Locked %@!" = "%@ gesperrt wegen Benutzerwechsel!";
 
 /* No comment provided by engineer. */
 "Verbose" = "Alles";
