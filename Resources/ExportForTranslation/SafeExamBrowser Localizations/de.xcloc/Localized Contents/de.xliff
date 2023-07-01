@@ -544,6 +544,11 @@
         <target>Seiteninhalt verkleinern</target>
         <note>Class = "NSMenuItem"; title = "Zoom Page Out"; ObjectID = "npk-yl-ONe";</note>
       </trans-unit>
+      <trans-unit id="oDg-Su-CdJ.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>OK</source>
+        <target>OK</target>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "OK"; ObjectID = "oDg-Su-CdJ";</note>
+      </trans-unit>
       <trans-unit id="pIH-zG-hNx.title" xml:space="preserve">
         <source>Log In</source>
         <target>Einloggen</target>
@@ -5829,7 +5834,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="Opening Preferences Disabled" xml:space="preserve">
         <source>Opening Preferences Disabled</source>
-        <target>Öffnen neuer Einstellungen nicht möglich</target>
+        <target>Öffnen der Einstellungen deaktiviert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening SEB Config" xml:space="preserve">
@@ -5905,6 +5910,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
         <target>Moderne in neuen Fenstern+anderem Server</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Preferences shortcut menu" xml:space="preserve">
+        <source>Preferences shortcut menu</source>
+        <target>Einstellungen Kontext-Menü</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Previously interrupted exam was re-opened!" xml:space="preserve">
