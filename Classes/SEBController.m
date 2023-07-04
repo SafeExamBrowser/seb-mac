@@ -3550,7 +3550,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Write Browser Exam Key to clipboard if enabled in prefs
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        NSData *browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
+        NSData *browserExamKey = self.browserController.browserExamKey;
         unsigned char hashedChars[32];
         [browserExamKey getBytes:hashedChars length:32];
         NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
