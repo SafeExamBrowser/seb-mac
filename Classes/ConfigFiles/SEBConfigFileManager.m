@@ -1121,11 +1121,15 @@ static NSString *getUppercaseAdminPasswordHash()
     NSMutableDictionary *filteredPrefsDict;
     filteredPrefsDict = [NSMutableDictionary dictionaryWithDictionary:[preferences dictionaryRepresentationSEBRemoveDefaults:removeDefaults]];
     
-    // Write SEB_OS_version_build version information to .seb settings
-    NSString *originatorVersion = [NSString stringWithFormat:@"SEB_iOS_%@_%@",
-                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
-                                   [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]];
-    [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];
+    if (!removeDefaults) {
+        // Write SEB_OS_version_build version information to .seb settings
+        NSString *originatorVersion = [NSString stringWithFormat:@"SEB_iOS_%@_%@",
+                                       [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                                       [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleVersion"]];
+        [filteredPrefsDict setObject:originatorVersion forKey:@"originatorVersion"];
+    } else {
+        [filteredPrefsDict removeObjectForKey:@"sebConfigPurpose"];
+    }
     
     // Remove copy Browser Exam Key to clipboard when quitting flag when saving for starting exams
     if (configPurpose == sebConfigPurposeStartingExam) {
