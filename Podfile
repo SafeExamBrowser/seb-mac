@@ -11,14 +11,6 @@ pod 'CocoaLumberjack/Swift'
 
 end
 
-target 'Safe Exam Browser ETH' do
-
-platform :osx, '10.11'
-use_frameworks!
-pod 'CocoaLumberjack/Swift'
-
-end
-
 target 'SEB' do
 
 platform :ios, '11'
