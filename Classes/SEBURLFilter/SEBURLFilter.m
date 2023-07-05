@@ -130,19 +130,10 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
         if (error) {
             [self.prohibitedList removeAllObjects];
             [self.permittedList removeAllObjects];
-            // Convert these rules and add them to the XULRunner seb keys
-            [self createSebRuleLists];
             return error;
         }
         // Add this Start URL filter expression to the permitted filter list
         [self.permittedList addObject:expression];
-    }
-    
-    if (updateSebRules) {
-        // Convert these rules and add them to the XULRunner seb keys
-        // as this changes the Browser Exam Key and Config Key,
-        // this should only be done when saving a .seb config file
-        [self createSebRuleLists];
     }
     
     // Updating filter rules worked; don't return any NSError
