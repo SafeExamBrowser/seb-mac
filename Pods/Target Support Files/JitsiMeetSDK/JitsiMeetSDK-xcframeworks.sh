@@ -26,11 +26,11 @@ variant_for_slice()
   "WebRTC.xcframework/ios-arm64")
     echo ""
     ;;
-  "WebRTC.xcframework/macos-x86_64")
-    echo ""
-    ;;
   "WebRTC.xcframework/ios-x86_64-simulator")
     echo "simulator"
+    ;;
+  "WebRTC.xcframework/macos-x86_64")
+    echo ""
     ;;
   esac
 }
@@ -47,10 +47,10 @@ archs_for_slice()
   "WebRTC.xcframework/ios-arm64")
     echo "arm64"
     ;;
-  "WebRTC.xcframework/macos-x86_64")
+  "WebRTC.xcframework/ios-x86_64-simulator")
     echo "x86_64"
     ;;
-  "WebRTC.xcframework/ios-x86_64-simulator")
+  "WebRTC.xcframework/macos-x86_64")
     echo "x86_64"
     ;;
   esac

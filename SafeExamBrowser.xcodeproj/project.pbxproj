@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02C46F77142D3F4F33790D32 /* Pods_Safe_Exam_Browser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBA63C6BFB50559A0774E4F /* Pods_Safe_Exam_Browser.framework */; };
-		190C96D899FA55AA9D865565 /* Pods_SEBVerificator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807EB1B548102C0091FC2E4B /* Pods_SEBVerificator.framework */; };
 		288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */; };
 		288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */; };
+		685E3A5E10165CEFE0705773 /* Pods_SEB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
 		6901331B19B371CB0050574D /* PreferencesWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 6901331919B371CB0050574D /* PreferencesWindow.h */; };
@@ -438,6 +437,8 @@
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */; };
 		699D508526878F430026D8D9 /* SEBTextViewNonEditing.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */; };
+		699E7FF32A52BAAD00942697 /* Pods_Safe_Exam_Browser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ECAD913A3266E7E43320427 /* Pods_Safe_Exam_Browser.framework */; };
+		699E7FF42A52BAAD00942697 /* Pods_Safe_Exam_Browser.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6ECAD913A3266E7E43320427 /* Pods_Safe_Exam_Browser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		699F63132A3719140040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		699F63142A3719160040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		69A071F3268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
@@ -729,7 +730,7 @@
 		69FC8F5028743C5C00ECD0A3 /* SEBNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */; };
 		69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */; };
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
-		EB0456BE3C9A997A6B177C5A /* Pods_SEB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAFB157188797D86F2F08970 /* Pods_SEB.framework */; };
+		BF62876A3B2E4341DA74381D /* Pods_SEBVerificator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -770,6 +771,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				699E7FF42A52BAAD00942697 /* Pods_Safe_Exam_Browser.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +783,7 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1F921F5C9E302D6061D68416 /* Pods-SEBVerificator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEBVerificator.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEBVerificator/Pods-SEBVerificator.release.xcconfig"; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
+		287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+UIResponderSEBDefaults.h"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.h"; sourceTree = "<group>"; };
 		288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+UIResponderSEBDefaults.m"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.m"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1216,6 +1219,7 @@
 		699D508026877EA80026D8D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Safe Exam Browser/Images.xcassets"; sourceTree = "<group>"; };
 		699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextViewNonEditing.m; sourceTree = "<group>"; };
 		699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextViewNonEditing.h; sourceTree = "<group>"; };
+		699E7FF52A52BF7400942697 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate_OpenSSL_X509.h; sourceTree = "<group>"; };
 		69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSubject.m; sourceTree = "<group>"; };
 		69A071F6268A38A800A0464B /* MscPKCS7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscPKCS7.m; sourceTree = "<group>"; };
@@ -1466,15 +1470,14 @@
 		69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBNetworkManager.swift; sourceTree = "<group>"; };
 		69FF14AA1A1BB10300912933 /* SEBFilterArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBFilterArrayController.h; sourceTree = "<group>"; };
 		69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBFilterArrayController.m; sourceTree = "<group>"; };
-		807EB1B548102C0091FC2E4B /* Pods_SEBVerificator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ECAD913A3266E7E43320427 /* Pods_Safe_Exam_Browser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safe_Exam_Browser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80EE4D7E5A46080D4FD1E393 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		A590779892275A246F522BAD /* Pods-Safe Exam Browser ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser ETH.release.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH.release.xcconfig"; sourceTree = "<group>"; };
-		ABBA63C6BFB50559A0774E4F /* Pods_Safe_Exam_Browser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safe_Exam_Browser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B474E1220063666921806418 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		C5810E8A6F0DC7212248BB0B /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		CE3002A77B8A1EE14BFA6C24 /* Pods-Safe Exam Browser ETH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Safe Exam Browser ETH.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH.debug.xcconfig"; sourceTree = "<group>"; };
 		D32A1D6CDEC2CF1C15F44B7B /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEB/Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
-		EAFB157188797D86F2F08970 /* Pods_SEB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0AEC1826F0E1C74E39CAA1 /* Pods_Safe_Exam_Browser_ETH.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safe_Exam_Browser_ETH.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1491,7 +1494,7 @@
 				69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */,
 				690C8AA3279C125E0038A3CA /* libSEBSupport.a in Frameworks */,
 				69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */,
-				EB0456BE3C9A997A6B177C5A /* Pods_SEB.framework in Frameworks */,
+				685E3A5E10165CEFE0705773 /* Pods_SEB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1513,7 +1516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				190C96D899FA55AA9D865565 /* Pods_SEBVerificator.framework in Frameworks */,
+				BF62876A3B2E4341DA74381D /* Pods_SEBVerificator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,10 +1544,10 @@
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
+				699E7FF32A52BAAD00942697 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
-				02C46F77142D3F4F33790D32 /* Pods_Safe_Exam_Browser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1664,6 +1667,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				699E7FF52A52BF7400942697 /* CocoaLumberjack.framework */,
 				696C1A0128CFCA7600AC19E2 /* WebRTC.xcframework */,
 				691188FC28CFC788007082DE /* JitsiMeetSDK.xcframework */,
 				69B8A6F92718A34C0006178D /* libssl.dylib */,
@@ -1687,10 +1691,10 @@
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
-				EAFB157188797D86F2F08970 /* Pods_SEB.framework */,
-				807EB1B548102C0091FC2E4B /* Pods_SEBVerificator.framework */,
-				ABBA63C6BFB50559A0774E4F /* Pods_Safe_Exam_Browser.framework */,
 				FD0AEC1826F0E1C74E39CAA1 /* Pods_Safe_Exam_Browser_ETH.framework */,
+				E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */,
+				287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */,
+				6ECAD913A3266E7E43320427 /* Pods_Safe_Exam_Browser.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3066,7 +3070,7 @@
 				69D0247D287C68E5006CEC19 /* Sources */,
 				69D0247E287C68E5006CEC19 /* Frameworks */,
 				69D0247F287C68E5006CEC19 /* Resources */,
-				5F01526E4E8F21A24776ACE5 /* [CP] Embed Pods Frameworks */,
+				5AF41581846249E412B15209 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3124,7 +3128,7 @@
 				69F7B61C14F411FB00FD0761 /* Frameworks */,
 				69F7B62114F411FB00FD0761 /* CopyFiles */,
 				69A0BF6F1660239400A866C4 /* Headers */,
-				65572542AF0A733FCC3930E0 /* [CP] Embed Pods Frameworks */,
+				F5C0383E53ADAE3DAABBD228 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3577,7 +3581,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5F01526E4E8F21A24776ACE5 /* [CP] Embed Pods Frameworks */ = {
+		5AF41581846249E412B15209 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3593,24 +3597,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SEBVerificator/Pods-SEBVerificator-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		65572542AF0A733FCC3930E0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack-macOS/CocoaLumberjack.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		69A79DA117176584005B06CD /* Run Script */ = {
@@ -3669,6 +3655,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5C0383E53ADAE3DAABBD228 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack-macOS/CocoaLumberjack.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Safe Exam Browser/Pods-Safe Exam Browser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5070,7 +5074,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "Safe Exam Browser/Safe Exam Browser.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -5108,7 +5112,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3b2;
+				MARKETING_VERSION = 3.3b3;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5121,7 +5125,7 @@
 				PRODUCT_NAME = "Safe Exam Browser";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "SEB macOS Assessment Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
@@ -5182,7 +5186,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MARKETING_VERSION = 3.3b2;
+				MARKETING_VERSION = 3.3b3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (

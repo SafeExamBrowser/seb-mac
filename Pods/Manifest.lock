@@ -13,7 +13,7 @@ DEPENDENCIES:
   - QRCodeReaderViewController (~> 4.0.2)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - CocoaLumberjack
     - JitsiMeetSDK
     - QRCodeReaderViewController
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   JitsiMeetSDK: ee41fac0c5e4157ea2d88ed9e9ca5ab1dca8311b
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
 
-PODFILE CHECKSUM: 5b9f3da4d8bb6382808dd14225fc3d2f687ca8bf
+PODFILE CHECKSUM: 8709c889ede0253ac6c760d1d080662efb711a60
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

@@ -49,7 +49,7 @@
 		233E4C22DAFF4F6BA65DEFA214F944EC /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 47309894399379AA70C1CEEC9B21CC9A /* DDDispatchQueueLogFormatter.m */; };
 		2464981C46158982CCF02FEBD33CF95E /* IASKDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BDB14F2AF4AE280E6FDA5F603A3EAED /* IASKDatePicker.m */; };
 		24D0ACCC140986D8162D1C485ABA7431 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B1851ED65BEF145CB46F963CAF5D7856 /* DDContextFilterLogFormatter.m */; };
-		2573D60417CD4BA03525DF6CE4F7F103 /* Pods-SEB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 605D9B0995D3876693B1A4ACA7117FCC /* Pods-SEB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2573D60417CD4BA03525DF6CE4F7F103 /* Pods-SEB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C4B2F699E5AA0D5965A982326523D0B /* Pods-SEB-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		257D5674865E5C0D16676E3E34801B82 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = F7AD51497CB5F10D74E731EEC57577BA /* IASKSwitch.m */; };
 		26F52ED8D8A2820B1221E016FCF76E84 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBE461B1988AF43C3739C788854DF0D7 /* IASKSpecifierValuesViewController.m */; };
 		277D59A5ADBCC61FD734B204DEB2EE83 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 53B0C99897F81BE2A335BE0C92FCE068 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -78,7 +78,6 @@
 		454313AF39193E4AD9CDBD2215BC68EF /* IASKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7983D4BB257A6169EE7FD1DB36A17135 /* IASKColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45458D7D6B1940F56BE9CC8F0715AD45 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E531AE1C5ED9AF3DAB028D5D411B71E2 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A4512E4B00716E55D3E8E8CF4D401C /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D0200AB442FE5C33CC636B7ADD4FF /* IASKAppSettingsWebViewController.m */; };
-		46E8EF0659F0C6E4107B707CA2585C13 /* Pods-Safe Exam Browser ETH-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 011B4195ECA8C42C65F68C5EA859FD3B /* Pods-Safe Exam Browser ETH-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		495B6011C6F42C2C66B25A7AE0A009B1 /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F86BF1C807B2EED8C7904E950CB34301 /* zh-Hant.lproj */; };
 		49FBF6C52CDAA130181C4E92FD4A0F98 /* DDContextFilterLogFormatter+Deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = BA16650E4B5B436EEE138853D1DAB014 /* DDContextFilterLogFormatter+Deprecated.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DEC3AD2F9C8C658A526118D8C9249BB /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C560302F684BD4DF12909CFE42ED3D0 /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,7 +85,7 @@
 		5508278AA950A03B6C6328B47F426886 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 15FB22554D48E97C8A6A717DA0316F0F /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59EEAFAED0AF13634499D11D204CEBC4 /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1305969C7678880298A3DA32E4CFBA88 /* ja.lproj */; };
 		5B1BB851EE1CAA9C94EEC8CEAEB21B5D /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F396030642F8DBD481E2AA50FDDAD2F7 /* DDTTYLogger.m */; };
-		5B26977A9158EF8544DA6CBA768B29C1 /* Pods-SEBVerificator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D30763E99E53323C295E24664A44C19 /* Pods-SEBVerificator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5B26977A9158EF8544DA6CBA768B29C1 /* Pods-SEBVerificator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DDC4404AB5C79D9B315A8AC9431076E8 /* Pods-SEBVerificator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B67F2DD5714FECC52631416575DA482 /* pt-PT.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 78DE2370D6D9C6255633246CC7264728 /* pt-PT.lproj */; };
 		5F257FC769E98745A11E718C197EDB6D /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = E9ECD097E488432AF3F560AF6788BA0F /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5FC0D1A613FEA129CEF75EE28A7C15D1 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FEE6EC91032CA6F1EC0451929958114 /* DDLog.m */; };
@@ -96,14 +95,14 @@
 		630F88C020E3036DB35AEA01A3718B06 /* IASKSettingsStoreInMemory.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF76A06D0F864030236FB37C0A15398 /* IASKSettingsStoreInMemory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63D4F93509033AA043822A3920DCC804 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F5A19B178E1C77C01F61124DD70413D /* Foundation.framework */; };
 		649F8EDB862CD44A702AE81CDE8238A0 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = DDC729D02A61242E09325713AC1F6AF5 /* CLIColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66C4B662C6258DB040ECD45D952CFA2E /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DB695E91C00283F03632F1920985CAD4 /* Pods-SEB-dummy.m */; };
+		66C4B662C6258DB040ECD45D952CFA2E /* Pods-SEB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E01F2EB155DB1E488B8D4CBB757451BC /* Pods-SEB-dummy.m */; };
 		6832049EB4E353AFCD9508390A93E2F0 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C05D09D7DFC3ED2264316499800833 /* IASKSettingsStoreFile.m */; };
 		6A3EC2DE6859E34AD0621219E97C910B /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFA5B29D81483BF4354DE1888D19EBB /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6ECAD06CB4A05CEF54964DA3DFC7F881 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D57D8C3C5F753F4A804DC7D61E7452 /* IASKTextField.m */; };
 		7190ADC56AC69E6C495B4B7790B015AD /* hu.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8519D914FA2F0B97422CB3AEBB847542 /* hu.lproj */; };
 		733C6388DBB7D2E145640B1B0711B957 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A019FDCC2E96056B03D54AB0818A743F /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		76084D8DA7223FA7BBD71B9F4F320A5C /* InAppSettingsKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3530AA1DD152AFC583BB13659C3657 /* InAppSettingsKit-dummy.m */; };
-		764B2E7121F158909D669BF1B7B0259A /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8138B0EDEA5726F07F6603F8E89EE027 /* Pods-Safe Exam Browser-dummy.m */; };
+		764B2E7121F158909D669BF1B7B0259A /* Pods-Safe Exam Browser-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC48D7A45126E12D83E40F0537BD /* Pods-Safe Exam Browser-dummy.m */; };
 		781C9AD297AAC737C62DBCB8436AE46B /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 33BAA91CC07A758E57E67A23AF1F66F5 /* es.lproj */; };
 		792F86ACF31395E277AE689F65F237B3 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 29214B4424116965F4FF99C74F9FBE78 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		79A42B586486669A98A391E18A34FD89 /* nl.lproj in Resources */ = {isa = PBXBuildFile; fileRef = D377D0DBE6AD9847AF6CC6F48519C8DD /* nl.lproj */; };
@@ -140,7 +139,7 @@
 		9EF7E9309270525C5301BFD4263EFA53 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F5A19B178E1C77C01F61124DD70413D /* Foundation.framework */; };
 		A291D43EF0F82A02D3BAD350DBF92FED /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92B9F2EAA7068E65D9D9D028142D1A /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A47005AE4D7ED01269CC023C3DF748D5 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F0954556E1424F9AB0FFA022DA42720D /* QRCodeReader.m */; };
-		A4E6B0C6894550A3031D2D3E2C6DA8A5 /* Pods-SEBVerificator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA9992386AEBC06ECA952797E0248040 /* Pods-SEBVerificator-dummy.m */; };
+		A4E6B0C6894550A3031D2D3E2C6DA8A5 /* Pods-SEBVerificator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3D13C03C154790F9BF4F5B0CDB386F /* Pods-SEBVerificator-dummy.m */; };
 		A6D91F2BBFB99B91107D8449526D0308 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = C12C4F3DDF38E5AA43F909DA01328EEB /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A764C7229F76624C985EA382C11D0487 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53811C485A9B3D961E2DA2A305B1F534 /* IASKAppSettingsViewController.m */; };
 		A84F7881EEA2CB463270BCC188FB6090 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = B1851ED65BEF145CB46F963CAF5D7856 /* DDContextFilterLogFormatter.m */; };
@@ -151,7 +150,7 @@
 		AC6BD31BCFDF6CCC95EF41A7BD17136B /* SwiftLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 53367020877D0F750373E53A5C3B7E44 /* SwiftLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD44F21B8ED9662037B77FB72362F42A /* th.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FFBC17296ACB10CDDE0A4B8AB05FAA1E /* th.lproj */; };
 		AD495466822850C7998D437ED3C6FC0C /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A2A9A0019B3B27863F27F0593CA898 /* QRCodeReaderView.m */; };
-		ADA559F03C44AD3036CDA3F028653244 /* Pods-Safe Exam Browser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AC723E3A4AFBDF44A4955E8932C101 /* Pods-Safe Exam Browser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ADA559F03C44AD3036CDA3F028653244 /* Pods-Safe Exam Browser-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A4211B070300D76ED8042F3D050E5D91 /* Pods-Safe Exam Browser-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AEE24E1625D39300E309E3001FBE64FE /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C507FBBEC3B32D101DD797AB829D1468 /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0D83901858011E8358F6EC02E1F6CC5 /* ca.lproj in Resources */ = {isa = PBXBuildFile; fileRef = F9DB97E0C500AE40A7E1077BBB44AACC /* ca.lproj */; };
 		B3040016E77208EF86B3D5A5CA4FBE00 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 340CE09772732671CC02B44611E2EB69 /* IASKTextViewCell.m */; };
@@ -182,7 +181,6 @@
 		DB2033FE4EE4EA3F7180B5EF0EC3E8D9 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = D265989984A0AA9C37E76B432D64600D /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB5318BEE75562F3564CA3495D44E7C1 /* es-MX.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 8765589F908E028DF9D13C1019427BC7 /* es-MX.lproj */; };
 		DBD8F0B618E96A7533D29595E5CD1AF7 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F18F2CCF1A1420D56F05E2B537C0DD /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCE7CDAFC75EFCF5EB83672D914D383C /* Pods-Safe Exam Browser ETH-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ABCC176C92E7902EBD86CE4AE6A557F /* Pods-Safe Exam Browser ETH-dummy.m */; };
 		DF5E52BF974CE1D2F24F21ECDB6B20AF /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B094862BB1A0D3D5535649F88A5D83 /* IASKPSSliderSpecifierViewCell.m */; };
 		E0CFE80D39D49DC5E0BF2072502C3685 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B1997F5CB18C2693F63104F782569 /* DDASLLogCapture.m */; };
 		E372D1A1F9980A1922E1DDD043222084 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FFA5B29D81483BF4354DE1888D19EBB /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -201,8 +199,7 @@
 		FCE38B1E01645C5464D04B92E5400896 /* CocoaLumberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CE1CBCDDC4FEAA34D7DA1F79788837 /* CocoaLumberjack.swift */; };
 		FDBAB8E5D53005F101F058C56AFD23B5 /* SwiftLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 53367020877D0F750373E53A5C3B7E44 /* SwiftLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FDF7DF34641F6488A43A6BCF12BAB906 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4902569697BE256490A93AF60A6398 /* IASKSettingsStore.m */; };
-		FE8F7E6755172443AD30CCD7CE60A068 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B625BD2F1DEE60ECEE150A94520E64D /* Cocoa.framework */; };
-		FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */; };
+		FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit-InAppSettingsKit in Resources */ = {isa = PBXBuildFile; fileRef = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */; };
 		FFF2BE08DEE63A72E987DED9A9156E8F /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B1997F5CB18C2693F63104F782569 /* DDASLLogCapture.m */; };
 /* End PBXBuildFile section */
 
@@ -242,13 +239,6 @@
 			remoteGlobalIDString = 0D4D088FF185F9C7CB6A3A1E004F8978;
 			remoteInfo = "CocoaLumberjack-macOS";
 		};
-		B8B132C8E6BE3CBC230922D633EAB022 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0D4D088FF185F9C7CB6A3A1E004F8978;
-			remoteInfo = "CocoaLumberjack-macOS";
-		};
 		BD5BFBAB98B0EC204796ED30E1CF102C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -266,14 +256,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		011B4195ECA8C42C65F68C5EA859FD3B /* Pods-Safe Exam Browser ETH-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Safe Exam Browser ETH-umbrella.h"; sourceTree = "<group>"; };
-		01274EBADD0A1AB1DBC9B948C8FEA0AA /* Pods-Safe Exam Browser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-acknowledgements.plist"; sourceTree = "<group>"; };
+		005AB096571EE791845BCF38F8FDD992 /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
 		027EDB6C83BEEB004203DB9A79C4CD9C /* QRCodeReaderViewController-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "QRCodeReaderViewController-Info.plist"; sourceTree = "<group>"; };
-		02E95116774B446537A2515446748ED6 /* Pods-SEBVerificator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEBVerificator.release.xcconfig"; sourceTree = "<group>"; };
 		05FA87FEBDB2523BE91CF27005820640 /* QRCodeReaderViewController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.debug.xcconfig; sourceTree = "<group>"; };
 		07FAC78A163FD48745CD3A411E8BA608 /* InAppSettingsKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "InAppSettingsKit-prefix.pch"; sourceTree = "<group>"; };
 		08A6B69F91B7296C19F03CDE16C7CA9D /* IASKColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKColor.m; path = Sources/InAppSettingsKit/Views/IASKColor.m; sourceTree = "<group>"; };
 		0C4902569697BE256490A93AF60A6398 /* IASKSettingsStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStore.m; path = Sources/InAppSettingsKit/Models/IASKSettingsStore.m; sourceTree = "<group>"; };
+		0D7974CE5D9E9DEFFA23502F4491D3CD /* Pods-SEBVerificator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SEBVerificator.modulemap"; sourceTree = "<group>"; };
 		0F9AE5599C8F8B3D041699366B96126B /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		10AAB46C37C11D879F3D04CE463B4097 /* Pods-SEBVerificator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-SEBVerificator"; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		110947CDBEAFA3BB61329CEA5600EF65 /* uk.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = uk.lproj; path = Sources/InAppSettingsKit/Resources/uk.lproj; sourceTree = "<group>"; };
@@ -287,41 +276,38 @@
 		14A2A9A0019B3B27863F27F0593CA898 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
 		15FB22554D48E97C8A6A717DA0316F0F /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		15FEF1F762D03BDDA3F65263C67C2B14 /* CocoaLumberjack-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-iOS-dummy.m"; sourceTree = "<group>"; };
-		172FFBCACCE9B77C96BFDFC5AA2D7FE9 /* Pods-SEBVerificator-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEBVerificator-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1BEF987397301544A95E5AA5C8A5B2CD /* CocoaLumberjack-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CocoaLumberjack-macOS-dummy.m"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-dummy.m"; sourceTree = "<group>"; };
 		1C4BFCBF7A0D08B7E79505E34A345156 /* InAppSettingsKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = InAppSettingsKit.modulemap; sourceTree = "<group>"; };
-		22D9718509428FF28E0E1CADE9437772 /* Pods-Safe Exam Browser ETH-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser ETH-frameworks.sh"; sourceTree = "<group>"; };
+		1DCAFC48D7A45126E12D83E40F0537BD /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
 		254B5870E930B6495E4F1FE41FA3A8AC /* DDFileLogger+Buffering.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "DDFileLogger+Buffering.m"; path = "Sources/CocoaLumberjack/Extensions/DDFileLogger+Buffering.m"; sourceTree = "<group>"; };
 		2776A6463C704B094868763B3903B7C5 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = "Sources/CocoaLumberjack/Supporting Files/CocoaLumberjack.h"; sourceTree = "<group>"; };
 		283BE60F6893961C70A5BC386E0F2BB1 /* pl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pl.lproj; path = Sources/InAppSettingsKit/Resources/pl.lproj; sourceTree = "<group>"; };
 		29214B4424116965F4FF99C74F9FBE78 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDASLLogger.h; sourceTree = "<group>"; };
 		2B625BD2F1DEE60ECEE150A94520E64D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		2C4EFFEC3AFB90B42AD69973BC10AA91 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
 		2D0496D44F3035C8C2368FC91124929D /* CocoaLumberjack-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-iOS-umbrella.h"; sourceTree = "<group>"; };
 		2F5A19B178E1C77C01F61124DD70413D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		30AD8188BBB5AC38D502892BE4D49F24 /* IASKEmbeddedDatePickerViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKEmbeddedDatePickerViewCell.h; path = Sources/InAppSettingsKit/include/IASKEmbeddedDatePickerViewCell.h; sourceTree = "<group>"; };
 		30C4CFE8E85DFD92EF25383B2385874D /* IASKSettingsReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsReader.m; path = Sources/InAppSettingsKit/Models/IASKSettingsReader.m; sourceTree = "<group>"; };
-		325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "InAppSettingsKit-InAppSettingsKit"; path = InAppSettingsKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DE472E570C576E77D4BCC9D6811F2C /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreFile.h; path = Sources/InAppSettingsKit/include/IASKSettingsStoreFile.h; sourceTree = "<group>"; };
 		33BAA91CC07A758E57E67A23AF1F66F5 /* es.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = es.lproj; path = Sources/InAppSettingsKit/Resources/es.lproj; sourceTree = "<group>"; };
 		340CE09772732671CC02B44611E2EB69 /* IASKTextViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextViewCell.m; path = Sources/InAppSettingsKit/Views/IASKTextViewCell.m; sourceTree = "<group>"; };
-		349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack-macOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "CocoaLumberjack-macOS"; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3583F72A30B8D60024852620BA9912AF /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
+		349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		362F71EEE9F08D6A7E4C5AC2E3EC2CC7 /* DDAssert.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DDAssert.swift; path = Sources/CocoaLumberjackSwift/DDAssert.swift; sourceTree = "<group>"; };
-		3BF31E64F919598A264FF10E1ACBEA7B /* Pods-Safe Exam Browser ETH-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser ETH-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3C3D298EE947FD81B216916B463E1657 /* CocoaLumberjack-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CocoaLumberjack-macOS-prefix.pch"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-prefix.pch"; sourceTree = "<group>"; };
+		3C4B2F699E5AA0D5965A982326523D0B /* Pods-SEB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEB-umbrella.h"; sourceTree = "<group>"; };
 		3EE2F73A270D326DDD90DB22AE4A2F31 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
+		423410436F5CC21DFB9776B883175F95 /* Pods-SEB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SEB.modulemap"; sourceTree = "<group>"; };
 		44C887040D9074726C961D562F72E16E /* hr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hr.lproj; path = Sources/InAppSettingsKit/Resources/hr.lproj; sourceTree = "<group>"; };
 		46135605F2BA48BE493D3258203CC93F /* WebRTC.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = Frameworks/WebRTC.xcframework; sourceTree = "<group>"; };
 		47309894399379AA70C1CEEC9B21CC9A /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Sources/CocoaLumberjack/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		4866CE983D687A5E005B98D01E725289 /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = Sources/InAppSettingsKit/Resources/Base.lproj; sourceTree = "<group>"; };
 		48EEFE0684FA716B826AD0D00D9B4CBA /* DDLoggerNames.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLoggerNames.m; path = Sources/CocoaLumberjack/DDLoggerNames.m; sourceTree = "<group>"; };
-		4AFBF924782E7D0550F1F170C10DA6B4 /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD0AA2530A2432A2AFD9B9F722A9D82 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifierValuesViewController.h; path = Sources/InAppSettingsKit/include/IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
 		4E9C889C968E115D40A7E3932707769E /* CocoaLumberjack-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CocoaLumberjack-iOS-Info.plist"; sourceTree = "<group>"; };
+		4F7D0F570C674C8E6424C9DEEE3FC0DA /* Pods-SEBVerificator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEBVerificator.release.xcconfig"; sourceTree = "<group>"; };
 		4F924678CDE9183F06F7737F95523DE9 /* JitsiMeetSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JitsiMeetSDK.debug.xcconfig; sourceTree = "<group>"; };
 		50B094862BB1A0D3D5535649F88A5D83 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSSliderSpecifierViewCell.m; path = Sources/InAppSettingsKit/Views/IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
-		5200141605C1270DD00216D6D892072A /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
 		526A8EFCC93A1BF6DCB023120CA8324D /* DDContextFilterLogFormatter+Deprecated.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "DDContextFilterLogFormatter+Deprecated.m"; path = "Sources/CocoaLumberjack/Extensions/DDContextFilterLogFormatter+Deprecated.m"; sourceTree = "<group>"; };
 		52817F07C6F1ED527537DA082C08DB78 /* CocoaLumberjack-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		52FAFC40DE1D4CAFA1DE13F91A6C02B4 /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKMultipleValueSelection.h; path = Sources/InAppSettingsKit/include/IASKMultipleValueSelection.h; sourceTree = "<group>"; };
@@ -330,51 +316,47 @@
 		53811C485A9B3D961E2DA2A305B1F534 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsViewController.m; path = Sources/InAppSettingsKit/Controllers/IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		53A0151428C48B82BB2EF3E3A6168434 /* JitsiMeetSDK-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "JitsiMeetSDK-xcframeworks.sh"; sourceTree = "<group>"; };
 		53B0C99897F81BE2A335BE0C92FCE068 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLogMacros.h; sourceTree = "<group>"; };
-		54B256B3D2F47A5949E03A2634D620B9 /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
 		5A0DE0C19D4E0D030DD6A776B1F0572E /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = Sources/InAppSettingsKit/Resources/fr.lproj; sourceTree = "<group>"; };
+		5BEDC85A89437A6928B1730B45750A83 /* Pods-SEBVerificator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEBVerificator.debug.xcconfig"; sourceTree = "<group>"; };
 		5E351CDAB7976B7223DE64A7E6DA38E6 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Sources/CocoaLumberjack/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		5E67E13A5F6FF52F1636088AD0B9654F /* CocoaLumberjack-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-macOS.release.xcconfig"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.release.xcconfig"; sourceTree = "<group>"; };
-		605D9B0995D3876693B1A4ACA7117FCC /* Pods-SEB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEB-umbrella.h"; sourceTree = "<group>"; };
+		5F3D13C03C154790F9BF4F5B0CDB386F /* Pods-SEBVerificator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEBVerificator-dummy.m"; sourceTree = "<group>"; };
+		61DD74208A92DC0A694A056131BA470F /* Pods-Safe Exam Browser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Safe Exam Browser.modulemap"; sourceTree = "<group>"; };
 		61F922071CFFF71767749EE6D1349B32 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sv.lproj; path = Sources/InAppSettingsKit/Resources/sv.lproj; sourceTree = "<group>"; };
 		63763A7A47BC02DC6C6D2D62D78C8701 /* InAppSettingsKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.release.xcconfig; sourceTree = "<group>"; };
-		63E53F5D989C510190F0390AABD2CDC3 /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		6404FBEDF73A63207327E3CFEDFBC108 /* IASKSpecifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSpecifier.m; path = Sources/InAppSettingsKit/Models/IASKSpecifier.m; sourceTree = "<group>"; };
 		69F18F2CCF1A1420D56F05E2B537C0DD /* IASKTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextField.h; path = Sources/InAppSettingsKit/include/IASKTextField.h; sourceTree = "<group>"; };
+		69F271BC89F67C5028F651A4F7A28531 /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6A5F4D4090BA02B6F47CBB29944DA19B /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Sources/CocoaLumberjack/DDFileLogger.m; sourceTree = "<group>"; };
 		6B5F5AC1D652E49740D0AED446254C28 /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreUserDefaults.h; path = Sources/InAppSettingsKit/include/IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
 		6BDB14F2AF4AE280E6FDA5F603A3EAED /* IASKDatePicker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKDatePicker.m; path = Sources/InAppSettingsKit/Views/IASKDatePicker.m; sourceTree = "<group>"; };
 		6C0622CFFAF17E40F9A0B80DB88A0173 /* IASKEmbeddedDatePickerViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKEmbeddedDatePickerViewCell.m; path = Sources/InAppSettingsKit/Views/IASKEmbeddedDatePickerViewCell.m; sourceTree = "<group>"; };
 		6C6B1997F5CB18C2693F63104F782569 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Sources/CocoaLumberjack/DDASLLogCapture.m; sourceTree = "<group>"; };
-		6D30763E99E53323C295E24664A44C19 /* Pods-SEBVerificator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEBVerificator-umbrella.h"; sourceTree = "<group>"; };
+		6C95497883A6371D3BE2950B0205BE67 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		6F038987327679133DC8EBBC33022EBB /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreUserDefaults.m; path = Sources/InAppSettingsKit/Models/IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
-		7057AE04AEA641F94629ABFCC5255561 /* Pods-SEBVerificator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-Info.plist"; sourceTree = "<group>"; };
+		6F5CEB01FE819F71745EBB24BBAAC49F /* Pods-SEB-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEB-frameworks.sh"; sourceTree = "<group>"; };
 		7294E5954A958B931FC7660912B410DD /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKPSTextFieldSpecifierViewCell.m; path = Sources/InAppSettingsKit/Views/IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
 		72BF5364E0A6B53655C52E2FB9C2DEBD /* DDFileLogger+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDFileLogger+Internal.h"; path = "Sources/CocoaLumberjack/DDFileLogger+Internal.h"; sourceTree = "<group>"; };
-		77333D166D6EF68C6E3D763E9B75EABA /* Pods-Safe Exam Browser ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser ETH.release.xcconfig"; sourceTree = "<group>"; };
 		78DE2370D6D9C6255633246CC7264728 /* pt-PT.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "pt-PT.lproj"; path = "Sources/InAppSettingsKit/Resources/pt-PT.lproj"; sourceTree = "<group>"; };
 		7983D4BB257A6169EE7FD1DB36A17135 /* IASKColor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKColor.h; path = Sources/InAppSettingsKit/include/IASKColor.h; sourceTree = "<group>"; };
 		79E605D5358B5796658E53F6BDAA69ED /* IASKDatePickerViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKDatePickerViewCell.m; path = Sources/InAppSettingsKit/Views/IASKDatePickerViewCell.m; sourceTree = "<group>"; };
+		79FDE58A2E62D96E9CD3B52A2F61137C /* Pods-SEB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.release.xcconfig"; sourceTree = "<group>"; };
 		7F3BF525B43DB8B524AA8173164F0533 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDTTYLogger.h; sourceTree = "<group>"; };
-		8138B0EDEA5726F07F6603F8E89EE027 /* Pods-Safe Exam Browser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser-dummy.m"; sourceTree = "<group>"; };
 		8519D914FA2F0B97422CB3AEBB847542 /* hu.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = hu.lproj; path = Sources/InAppSettingsKit/Resources/hu.lproj; sourceTree = "<group>"; };
 		86030ABDDEB005BFF00A4F1B50642CB8 /* IASKTextViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextViewCell.h; path = Sources/InAppSettingsKit/include/IASKTextViewCell.h; sourceTree = "<group>"; };
 		86C2F4F9E68CBB8E3D48486B63BCDA6B /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Sources/CocoaLumberjack/DDOSLogger.m; sourceTree = "<group>"; };
 		8765589F908E028DF9D13C1019427BC7 /* es-MX.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "es-MX.lproj"; path = "Sources/InAppSettingsKit/Resources/es-MX.lproj"; sourceTree = "<group>"; };
+		899AF06963F79003C703781AE416086A /* Pods-SEBVerificator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEBVerificator-frameworks.sh"; sourceTree = "<group>"; };
 		8A035895255BDB7159790F76F4191375 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
-		8A8FBA97BBC9BA940B8D2DE2F7EE577F /* Pods-Safe Exam Browser ETH.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Safe Exam Browser ETH.modulemap"; sourceTree = "<group>"; };
 		8C560302F684BD4DF12909CFE42ED3D0 /* IASKSettingsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStore.h; path = Sources/InAppSettingsKit/include/IASKSettingsStore.h; sourceTree = "<group>"; };
-		8CA044B4EB417D3C02793CD145459EFF /* Pods-Safe Exam Browser ETH-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser ETH-acknowledgements.plist"; sourceTree = "<group>"; };
 		8CDC275AEFD78133C53CEE3DD46F5B39 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = Sources/InAppSettingsKit/Resources/it.lproj; sourceTree = "<group>"; };
 		8DDE953D76C98E2900B3DDCDD9F04D83 /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKMultipleValueSelection.m; path = Sources/InAppSettingsKit/Controllers/IASKMultipleValueSelection.m; sourceTree = "<group>"; };
 		8E6D0200AB442FE5C33CC636B7ADD4FF /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKAppSettingsWebViewController.m; path = Sources/InAppSettingsKit/Controllers/IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
 		8F3530AA1DD152AFC583BB13659C3657 /* InAppSettingsKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "InAppSettingsKit-dummy.m"; sourceTree = "<group>"; };
-		90AC723E3A4AFBDF44A4955E8932C101 /* Pods-Safe Exam Browser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Safe Exam Browser-umbrella.h"; sourceTree = "<group>"; };
-		9172A521BD0ABE1E9D7481EB9D476531 /* Pods-SEBVerificator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SEBVerificator-frameworks.sh"; sourceTree = "<group>"; };
 		91E21B3EA639E7CCF3744E4CC8CC3882 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = Sources/InAppSettingsKit/Resources/ru.lproj; sourceTree = "<group>"; };
 		92C0C6E868B9E90902D314C7C7275F91 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Sources/CocoaLumberjack/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
 		9415E4DEC4D92264D42AE6F2DE1CE31C /* CocoaLumberjack-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "CocoaLumberjack-iOS.modulemap"; sourceTree = "<group>"; };
 		942D62DA4E735580295D3081825646E2 /* IASKSwitch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSwitch.h; path = Sources/InAppSettingsKit/include/IASKSwitch.h; sourceTree = "<group>"; };
-		946C3816929996B19C75A6477052D3B8 /* Pods-Safe Exam Browser ETH-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser ETH-Info.plist"; sourceTree = "<group>"; };
 		94C3B169513EFE4B4859D03F487DEEDF /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
 		9514C4288FE0B8C439AF59BB908D1A0D /* es-419.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "es-419.lproj"; path = "Sources/InAppSettingsKit/Resources/es-419.lproj"; sourceTree = "<group>"; };
 		957094264A7F4A313CFBFC223BA4A55F /* el.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = el.lproj; path = Sources/InAppSettingsKit/Resources/el.lproj; sourceTree = "<group>"; };
@@ -382,7 +364,6 @@
 		96561FAE35351C7255FA9ED4E4BD158E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		97496A0C7E308C2F850C360AB18D8C3A /* ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
 		9AA5D5C7520826868D8353E2F2417C11 /* CocoaLumberjack-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "CocoaLumberjack-macOS-Info.plist"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS-Info.plist"; sourceTree = "<group>"; };
-		9ABCC176C92E7902EBD86CE4AE6A557F /* Pods-Safe Exam Browser ETH-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Safe Exam Browser ETH-dummy.m"; sourceTree = "<group>"; };
 		9C8BAC7949CC9E542738B7C5091A85C4 /* JitsiMeetSDK.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = JitsiMeetSDK.xcframework; path = Frameworks/JitsiMeetSDK.xcframework; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DF76A06D0F864030236FB37C0A15398 /* IASKSettingsStoreInMemory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsStoreInMemory.h; path = Sources/InAppSettingsKit/include/IASKSettingsStoreInMemory.h; sourceTree = "<group>"; };
@@ -390,11 +371,16 @@
 		9FFA5B29D81483BF4354DE1888D19EBB /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Sources/CocoaLumberjack/include/CocoaLumberjack/DDLog+LOGV.h"; sourceTree = "<group>"; };
 		A019FDCC2E96056B03D54AB0818A743F /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		A02BE6ED3BDDD25BFC4BAACB5994FF52 /* DDLoggerNames.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLoggerNames.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLoggerNames.h; sourceTree = "<group>"; };
+		A137CF2C7366152EF2A4C1F1B25CAFC8 /* Pods-SEBVerificator-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEBVerificator-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A4211B070300D76ED8042F3D050E5D91 /* Pods-Safe Exam Browser-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Safe Exam Browser-umbrella.h"; sourceTree = "<group>"; };
 		A4B2B37E3A0042619034D133FE5E0B0B /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
 		A62B3F1CDE6632E9E9771CEF3BFB6635 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		A642DA71670D698B86E80F459C3D2E99 /* QRCodeReaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderView.h; path = QRCodeReaderViewController/QRCodeReaderView.h; sourceTree = "<group>"; };
+		A7D6D59F32D4E6A401D72B14DAD73F55 /* Pods-Safe Exam Browser-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-acknowledgements.plist"; sourceTree = "<group>"; };
 		A954B56A57135CEB0CE7941DA16406BA /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
 		AAEEA798EBF8AFAA4621ECEC167C5080 /* IASKSettingsStoreInMemory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSettingsStoreInMemory.m; path = Sources/InAppSettingsKit/Models/IASKSettingsStoreInMemory.m; sourceTree = "<group>"; };
+		AB26A980526AB71051AAE2E531E5E92D /* Pods-Safe Exam Browser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.debug.xcconfig"; sourceTree = "<group>"; };
+		AB504450C749362F542950E5B8CC2455 /* Pods-Safe Exam Browser-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Safe Exam Browser-frameworks.sh"; sourceTree = "<group>"; };
 		AC19246ED0E6243A2E559DBD9E50CC2B /* CocoaLumberjack-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "CocoaLumberjack-macOS.modulemap"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.modulemap"; sourceTree = "<group>"; };
 		AE92B9F2EAA7068E65D9D9D028142D1A /* IASKSettingsReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSettingsReader.h; path = Sources/InAppSettingsKit/include/IASKSettingsReader.h; sourceTree = "<group>"; };
 		AF2F9E48DA2F61E83E3CB60A50641697 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDFileLogger.h; sourceTree = "<group>"; };
@@ -405,11 +391,8 @@
 		B5316ACDEF686980774E99A6E6F11663 /* DDLog+Combine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DDLog+Combine.swift"; path = "Sources/CocoaLumberjackSwift/DDLog+Combine.swift"; sourceTree = "<group>"; };
 		B5D57D8C3C5F753F4A804DC7D61E7452 /* IASKTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextField.m; path = Sources/InAppSettingsKit/Views/IASKTextField.m; sourceTree = "<group>"; };
 		B6FF7599ED097CB316A4A288A085FF01 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsWebViewController.h; path = Sources/InAppSettingsKit/include/IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
-		B886595AD93EE41EECEB005B17C4D4C5 /* Pods-SEB-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-Info.plist"; sourceTree = "<group>"; };
+		B91E2A9E0D392FF1A240ADD2D48102A2 /* Pods-Safe Exam Browser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser.release.xcconfig"; sourceTree = "<group>"; };
 		BA16650E4B5B436EEE138853D1DAB014 /* DDContextFilterLogFormatter+Deprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDContextFilterLogFormatter+Deprecated.h"; path = "Sources/CocoaLumberjack/include/CocoaLumberjack/DDContextFilterLogFormatter+Deprecated.h"; sourceTree = "<group>"; };
-		BA58D942AFF108D2F3F545C9BE5E388E /* Pods-SEB-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SEB-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BA9992386AEBC06ECA952797E0248040 /* Pods-SEBVerificator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEBVerificator-dummy.m"; sourceTree = "<group>"; };
-		BBBEC62AA7B687CC27CA0540A41F59B3 /* Pods-SEBVerificator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SEBVerificator.modulemap"; sourceTree = "<group>"; };
 		BE4154C00B329FA2C3C13A2793C92EFF /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSSliderSpecifierViewCell.h; path = Sources/InAppSettingsKit/include/IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
 		BFB93C3476B7EE98CFEBD77E45A8B404 /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDMultiFormatter.h; sourceTree = "<group>"; };
 		BFD2F7F0ED8CA7BBA96BFE0E8A26C4AC /* IASKTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKTextView.h; path = Sources/InAppSettingsKit/include/IASKTextView.h; sourceTree = "<group>"; };
@@ -422,6 +405,7 @@
 		C507FBBEC3B32D101DD797AB829D1468 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
 		C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = QRCodeReaderViewController; path = QRCodeReaderViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5495D719C45A37E760722D94DC824B2 /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDAssertMacros.h; sourceTree = "<group>"; };
+		C6BFB36D06FA8AF9852D4DBADD48674D /* Pods-SEBVerificator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-Info.plist"; sourceTree = "<group>"; };
 		C6EE032D78CD933610F5E469C6E01C58 /* IASKSpecifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifier.h; path = Sources/InAppSettingsKit/include/IASKSpecifier.h; sourceTree = "<group>"; };
 		C8DE2D5CE46EDF5E5229918A90D80C8D /* Pods-Safe Exam Browser */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Safe Exam Browser"; path = Pods_Safe_Exam_Browser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C96B1E1DCB12D541405360317959FC83 /* CocoaLumberjack-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CocoaLumberjack-macOS.debug.xcconfig"; path = "../CocoaLumberjack-macOS/CocoaLumberjack-macOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -429,42 +413,38 @@
 		CCD6FDE598CF2A2859EA9C583E26E5D7 /* IASKSlider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSlider.m; path = Sources/InAppSettingsKit/Views/IASKSlider.m; sourceTree = "<group>"; };
 		CCFC16B3FD0D23494877B34B068E71D6 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKPSTextFieldSpecifierViewCell.h; path = Sources/InAppSettingsKit/include/IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
 		CEC7E43D8823A01F0BA1FB13E9A8E5B3 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Sources/CocoaLumberjack/DDASLLogger.m; sourceTree = "<group>"; };
-		D101583BAB74D69643093AD7E56D2565 /* Pods-Safe Exam Browser ETH */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Safe Exam Browser ETH"; path = Pods_Safe_Exam_Browser_ETH.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D25D847750471573B852632853A6A037 /* Pods-SEB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEB.debug.xcconfig"; sourceTree = "<group>"; };
 		D265989984A0AA9C37E76B432D64600D /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLog.h; sourceTree = "<group>"; };
 		D377D0DBE6AD9847AF6CC6F48519C8DD /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = Sources/InAppSettingsKit/Resources/nl.lproj; sourceTree = "<group>"; };
 		D40D513BFEAE367677B4AF651746FFCE /* InAppSettingsKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "InAppSettingsKit-Info.plist"; sourceTree = "<group>"; };
+		D62AC5324324109FB169B57A978FB709 /* Pods-SEBVerificator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-acknowledgements.plist"; sourceTree = "<group>"; };
 		D86B6FDFA0EC563AC2E5730C78BA5282 /* IASKDatePickerViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKDatePickerViewCell.h; path = Sources/InAppSettingsKit/include/IASKDatePickerViewCell.h; sourceTree = "<group>"; };
 		D87C1D1EA9716E8B9E03F86EA8115393 /* CocoaLumberjack-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-iOS-prefix.pch"; sourceTree = "<group>"; };
 		D88363801ADD9B7B15CA9BE0995B9C0E /* CLIColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CLIColor.m; path = Sources/CocoaLumberjack/CLI/CLIColor.m; sourceTree = "<group>"; };
 		D8E677AA2CF535C8F7CF01F6A8E8F8AE /* CocoaLumberjack-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CocoaLumberjack-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		D9F891F176180A95D9EC23A878FD015D /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
-		DB695E91C00283F03632F1920985CAD4 /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
-		DCAFA06353590092D8EDF47B1EBDC8B0 /* Pods-Safe Exam Browser.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Safe Exam Browser.modulemap"; sourceTree = "<group>"; };
 		DD5CC75F7F8A11D959687E41BCDDB3E3 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
+		DDC4404AB5C79D9B315A8AC9431076E8 /* Pods-SEBVerificator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SEBVerificator-umbrella.h"; sourceTree = "<group>"; };
 		DDC729D02A61242E09325713AC1F6AF5 /* CLIColor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLIColor.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/CLIColor.h; sourceTree = "<group>"; };
-		DE72EA0C3E4026339CB5CD1280E4F958 /* Pods-SEB-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-acknowledgements.plist"; sourceTree = "<group>"; };
+		DE1589323251C1E7CBD3B83574B04DE2 /* Pods-Safe Exam Browser-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Safe Exam Browser-acknowledgements.markdown"; sourceTree = "<group>"; };
 		DE9DE372FACA6D903E30603D42E8A126 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		DF1D42C8080E38E490F497373805ACDC /* pt.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = pt.lproj; path = Sources/InAppSettingsKit/Resources/pt.lproj; sourceTree = "<group>"; };
-		E2CE5AA6951C2F482DDD8226A6EBF4FC /* Pods-SEBVerificator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SEBVerificator.debug.xcconfig"; sourceTree = "<group>"; };
+		E01F2EB155DB1E488B8D4CBB757451BC /* Pods-SEB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SEB-dummy.m"; sourceTree = "<group>"; };
+		E370069FF520A956EA9BB96F2B88A5C7 /* Pods-Safe Exam Browser-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-Info.plist"; sourceTree = "<group>"; };
 		E531AE1C5ED9AF3DAB028D5D411B71E2 /* DDOSLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDOSLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDOSLogger.h; sourceTree = "<group>"; };
 		E6334B9F777DD657FF3F43C1822F37B2 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKAppSettingsViewController.h; path = Sources/InAppSettingsKit/include/IASKAppSettingsViewController.h; sourceTree = "<group>"; };
-		E8880C2EA3E632181C017C330DA95FFD /* Pods-SEB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SEB.modulemap"; sourceTree = "<group>"; };
 		E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "CocoaLumberjack-iOS"; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9ECD097E488432AF3F560AF6788BA0F /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		ED998B7472E81DE8651881CC912F97E7 /* Pods-SEBVerificator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-acknowledgements.plist"; sourceTree = "<group>"; };
 		EFCECF05D915D88D0F7698476C861DE5 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = Sources/InAppSettingsKit/Resources/en.lproj; sourceTree = "<group>"; };
 		EFD8D67F143D9DC7B931953C0955343C /* IASKTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKTextView.m; path = Sources/InAppSettingsKit/Views/IASKTextView.m; sourceTree = "<group>"; };
 		F0954556E1424F9AB0FFA022DA42720D /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
-		F1CB06C447D9EE374C098F3C9C1EC53A /* Pods-Safe Exam Browser-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Safe Exam Browser-Info.plist"; sourceTree = "<group>"; };
 		F1F144F22C11DD0915313474AC15D00C /* IASKSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSlider.h; path = Sources/InAppSettingsKit/include/IASKSlider.h; sourceTree = "<group>"; };
+		F323788B77D3322518476E0EC6EB75FB /* Pods-SEB-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEB-Info.plist"; sourceTree = "<group>"; };
 		F326A9E923EB9979786BD35B17A46513 /* JitsiMeetSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JitsiMeetSDK.release.xcconfig; sourceTree = "<group>"; };
 		F335F4D1F653D879248BD3CD20754CAC /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = Sources/InAppSettingsKit/Resources/tr.lproj; sourceTree = "<group>"; };
 		F396030642F8DBD481E2AA50FDDAD2F7 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Sources/CocoaLumberjack/DDTTYLogger.m; sourceTree = "<group>"; };
 		F7AD51497CB5F10D74E731EEC57577BA /* IASKSwitch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IASKSwitch.m; path = Sources/InAppSettingsKit/Views/IASKSwitch.m; sourceTree = "<group>"; };
 		F86BF1C807B2EED8C7904E950CB34301 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "Sources/InAppSettingsKit/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
 		F9DB97E0C500AE40A7E1077BBB44AACC /* ca.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ca.lproj; path = Sources/InAppSettingsKit/Resources/ca.lproj; sourceTree = "<group>"; };
-		FAFBD790347D0C6FF1B5AF29CF1A86E3 /* Pods-Safe Exam Browser ETH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Safe Exam Browser ETH.debug.xcconfig"; sourceTree = "<group>"; };
 		FB5BBFD259F4EAD6A03EAC80D9ED81C7 /* IASKDatePicker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKDatePicker.h; path = Sources/InAppSettingsKit/include/IASKDatePicker.h; sourceTree = "<group>"; };
 		FF4E2E62B17DDE9276C33A1940F8B700 /* InAppSettingsKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = InAppSettingsKit.debug.xcconfig; sourceTree = "<group>"; };
 		FFBC17296ACB10CDDE0A4B8AB05FAA1E /* th.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = th.lproj; path = Sources/InAppSettingsKit/Resources/th.lproj; sourceTree = "<group>"; };
@@ -492,14 +472,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63D4F93509033AA043822A3920DCC804 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		38568D579EB492B6767A62744CBA9645 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FE8F7E6755172443AD30CCD7CE60A068 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +520,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D6AAECE64B02E0F3EF551B56722BD15 /* Pods-SEB */ = {
+			isa = PBXGroup;
+			children = (
+				423410436F5CC21DFB9776B883175F95 /* Pods-SEB.modulemap */,
+				69F271BC89F67C5028F651A4F7A28531 /* Pods-SEB-acknowledgements.markdown */,
+				005AB096571EE791845BCF38F8FDD992 /* Pods-SEB-acknowledgements.plist */,
+				E01F2EB155DB1E488B8D4CBB757451BC /* Pods-SEB-dummy.m */,
+				6F5CEB01FE819F71745EBB24BBAAC49F /* Pods-SEB-frameworks.sh */,
+				F323788B77D3322518476E0EC6EB75FB /* Pods-SEB-Info.plist */,
+				3C4B2F699E5AA0D5965A982326523D0B /* Pods-SEB-umbrella.h */,
+				6C95497883A6371D3BE2950B0205BE67 /* Pods-SEB.debug.xcconfig */,
+				79FDE58A2E62D96E9CD3B52A2F61137C /* Pods-SEB.release.xcconfig */,
+			);
+			name = "Pods-SEB";
+			path = "Target Support Files/Pods-SEB";
+			sourceTree = "<group>";
+		};
 		115FFB22F4C0D2C98ED191DCD1B4D33B /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +545,23 @@
 				7E5129AD4FE42FA651D37556B0374352 /* Swift */,
 			);
 			path = CocoaLumberjack;
+			sourceTree = "<group>";
+		};
+		16913AF12B4ED1BD8AABBAB0B4E43E8E /* Pods-Safe Exam Browser */ = {
+			isa = PBXGroup;
+			children = (
+				61DD74208A92DC0A694A056131BA470F /* Pods-Safe Exam Browser.modulemap */,
+				DE1589323251C1E7CBD3B83574B04DE2 /* Pods-Safe Exam Browser-acknowledgements.markdown */,
+				A7D6D59F32D4E6A401D72B14DAD73F55 /* Pods-Safe Exam Browser-acknowledgements.plist */,
+				1DCAFC48D7A45126E12D83E40F0537BD /* Pods-Safe Exam Browser-dummy.m */,
+				AB504450C749362F542950E5B8CC2455 /* Pods-Safe Exam Browser-frameworks.sh */,
+				E370069FF520A956EA9BB96F2B88A5C7 /* Pods-Safe Exam Browser-Info.plist */,
+				A4211B070300D76ED8042F3D050E5D91 /* Pods-Safe Exam Browser-umbrella.h */,
+				AB26A980526AB71051AAE2E531E5E92D /* Pods-Safe Exam Browser.debug.xcconfig */,
+				B91E2A9E0D392FF1A240ADD2D48102A2 /* Pods-Safe Exam Browser.release.xcconfig */,
+			);
+			name = "Pods-Safe Exam Browser";
+			path = "Target Support Files/Pods-Safe Exam Browser";
 			sourceTree = "<group>";
 		};
 		26BD0799C4CCF87B4079E36270D9CF4A /* QRCodeReaderViewController */ = {
@@ -575,6 +581,16 @@
 				6F9FCCF83B64020709E82E5850D54D6D /* Support Files */,
 			);
 			path = QRCodeReaderViewController;
+			sourceTree = "<group>";
+		};
+		322CB5A0A712A0F7D6AB19027D66E1F1 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				16913AF12B4ED1BD8AABBAB0B4E43E8E /* Pods-Safe Exam Browser */,
+				0D6AAECE64B02E0F3EF551B56722BD15 /* Pods-SEB */,
+				8C6052C69ABC2E831B184B56AFAEE0CE /* Pods-SEBVerificator */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		38D02AD7E50AB6419AA18467F62FDD5E /* Resources */ = {
@@ -638,21 +654,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6DA714A48ED6FEF6BD6E9ECB0A7D7A5D /* Pods-Safe Exam Browser ETH */ = {
+		6B2BFCBE4DFEFBAC6F3F625D23616114 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A8FBA97BBC9BA940B8D2DE2F7EE577F /* Pods-Safe Exam Browser ETH.modulemap */,
-				3BF31E64F919598A264FF10E1ACBEA7B /* Pods-Safe Exam Browser ETH-acknowledgements.markdown */,
-				8CA044B4EB417D3C02793CD145459EFF /* Pods-Safe Exam Browser ETH-acknowledgements.plist */,
-				9ABCC176C92E7902EBD86CE4AE6A557F /* Pods-Safe Exam Browser ETH-dummy.m */,
-				22D9718509428FF28E0E1CADE9437772 /* Pods-Safe Exam Browser ETH-frameworks.sh */,
-				946C3816929996B19C75A6477052D3B8 /* Pods-Safe Exam Browser ETH-Info.plist */,
-				011B4195ECA8C42C65F68C5EA859FD3B /* Pods-Safe Exam Browser ETH-umbrella.h */,
-				FAFBD790347D0C6FF1B5AF29CF1A86E3 /* Pods-Safe Exam Browser ETH.debug.xcconfig */,
-				77333D166D6EF68C6E3D763E9B75EABA /* Pods-Safe Exam Browser ETH.release.xcconfig */,
+				E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */,
+				349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack.framework */,
+				C082AE78A2C795A7CD50CE6E5575AB9C /* InAppSettingsKit */,
+				325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */,
+				C8DE2D5CE46EDF5E5229918A90D80C8D /* Pods-Safe Exam Browser */,
+				126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */,
+				10AAB46C37C11D879F3D04CE463B4097 /* Pods-SEBVerificator */,
+				C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */,
 			);
-			name = "Pods-Safe Exam Browser ETH";
-			path = "Target Support Files/Pods-Safe Exam Browser ETH";
+			name = Products;
 			sourceTree = "<group>";
 		};
 		6F9FCCF83B64020709E82E5850D54D6D /* Support Files */ = {
@@ -681,34 +695,6 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		75DE19EF6B8E7A3CDDD75C7CBDC81455 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				9E87DF78002A6B2A3E5668C4704CF27C /* Pods-Safe Exam Browser */,
-				6DA714A48ED6FEF6BD6E9ECB0A7D7A5D /* Pods-Safe Exam Browser ETH */,
-				9FCEC8D9A65CD8D6DF13567D2061C219 /* Pods-SEB */,
-				7A26B23E1A883C22ACF010AE128B67FA /* Pods-SEBVerificator */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		7A26B23E1A883C22ACF010AE128B67FA /* Pods-SEBVerificator */ = {
-			isa = PBXGroup;
-			children = (
-				BBBEC62AA7B687CC27CA0540A41F59B3 /* Pods-SEBVerificator.modulemap */,
-				172FFBCACCE9B77C96BFDFC5AA2D7FE9 /* Pods-SEBVerificator-acknowledgements.markdown */,
-				ED998B7472E81DE8651881CC912F97E7 /* Pods-SEBVerificator-acknowledgements.plist */,
-				BA9992386AEBC06ECA952797E0248040 /* Pods-SEBVerificator-dummy.m */,
-				9172A521BD0ABE1E9D7481EB9D476531 /* Pods-SEBVerificator-frameworks.sh */,
-				7057AE04AEA641F94629ABFCC5255561 /* Pods-SEBVerificator-Info.plist */,
-				6D30763E99E53323C295E24664A44C19 /* Pods-SEBVerificator-umbrella.h */,
-				E2CE5AA6951C2F482DDD8226A6EBF4FC /* Pods-SEBVerificator.debug.xcconfig */,
-				02E95116774B446537A2515446748ED6 /* Pods-SEBVerificator.release.xcconfig */,
-			);
-			name = "Pods-SEBVerificator";
-			path = "Target Support Files/Pods-SEBVerificator";
-			sourceTree = "<group>";
-		};
 		7E5129AD4FE42FA651D37556B0374352 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +704,23 @@
 				53367020877D0F750373E53A5C3B7E44 /* SwiftLogLevel.h */,
 			);
 			name = Swift;
+			sourceTree = "<group>";
+		};
+		8C6052C69ABC2E831B184B56AFAEE0CE /* Pods-SEBVerificator */ = {
+			isa = PBXGroup;
+			children = (
+				0D7974CE5D9E9DEFFA23502F4491D3CD /* Pods-SEBVerificator.modulemap */,
+				A137CF2C7366152EF2A4C1F1B25CAFC8 /* Pods-SEBVerificator-acknowledgements.markdown */,
+				D62AC5324324109FB169B57A978FB709 /* Pods-SEBVerificator-acknowledgements.plist */,
+				5F3D13C03C154790F9BF4F5B0CDB386F /* Pods-SEBVerificator-dummy.m */,
+				899AF06963F79003C703781AE416086A /* Pods-SEBVerificator-frameworks.sh */,
+				C6BFB36D06FA8AF9852D4DBADD48674D /* Pods-SEBVerificator-Info.plist */,
+				DDC4404AB5C79D9B315A8AC9431076E8 /* Pods-SEBVerificator-umbrella.h */,
+				5BEDC85A89437A6928B1730B45750A83 /* Pods-SEBVerificator.debug.xcconfig */,
+				4F7D0F570C674C8E6424C9DEEE3FC0DA /* Pods-SEBVerificator.release.xcconfig */,
+			);
+			name = "Pods-SEBVerificator";
+			path = "Target Support Files/Pods-SEBVerificator";
 			sourceTree = "<group>";
 		};
 		96446E85913E0B3A18A923729A9C5B64 /* Frameworks */ = {
@@ -743,40 +746,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/InAppSettingsKit";
-			sourceTree = "<group>";
-		};
-		9E87DF78002A6B2A3E5668C4704CF27C /* Pods-Safe Exam Browser */ = {
-			isa = PBXGroup;
-			children = (
-				DCAFA06353590092D8EDF47B1EBDC8B0 /* Pods-Safe Exam Browser.modulemap */,
-				54B256B3D2F47A5949E03A2634D620B9 /* Pods-Safe Exam Browser-acknowledgements.markdown */,
-				01274EBADD0A1AB1DBC9B948C8FEA0AA /* Pods-Safe Exam Browser-acknowledgements.plist */,
-				8138B0EDEA5726F07F6603F8E89EE027 /* Pods-Safe Exam Browser-dummy.m */,
-				2C4EFFEC3AFB90B42AD69973BC10AA91 /* Pods-Safe Exam Browser-frameworks.sh */,
-				F1CB06C447D9EE374C098F3C9C1EC53A /* Pods-Safe Exam Browser-Info.plist */,
-				90AC723E3A4AFBDF44A4955E8932C101 /* Pods-Safe Exam Browser-umbrella.h */,
-				4AFBF924782E7D0550F1F170C10DA6B4 /* Pods-Safe Exam Browser.debug.xcconfig */,
-				3583F72A30B8D60024852620BA9912AF /* Pods-Safe Exam Browser.release.xcconfig */,
-			);
-			name = "Pods-Safe Exam Browser";
-			path = "Target Support Files/Pods-Safe Exam Browser";
-			sourceTree = "<group>";
-		};
-		9FCEC8D9A65CD8D6DF13567D2061C219 /* Pods-SEB */ = {
-			isa = PBXGroup;
-			children = (
-				E8880C2EA3E632181C017C330DA95FFD /* Pods-SEB.modulemap */,
-				BA58D942AFF108D2F3F545C9BE5E388E /* Pods-SEB-acknowledgements.markdown */,
-				DE72EA0C3E4026339CB5CD1280E4F958 /* Pods-SEB-acknowledgements.plist */,
-				DB695E91C00283F03632F1920985CAD4 /* Pods-SEB-dummy.m */,
-				5200141605C1270DD00216D6D892072A /* Pods-SEB-frameworks.sh */,
-				B886595AD93EE41EECEB005B17C4D4C5 /* Pods-SEB-Info.plist */,
-				605D9B0995D3876693B1A4ACA7117FCC /* Pods-SEB-umbrella.h */,
-				D25D847750471573B852632853A6A037 /* Pods-SEB.debug.xcconfig */,
-				63E53F5D989C510190F0390AABD2CDC3 /* Pods-SEB.release.xcconfig */,
-			);
-			name = "Pods-SEB";
-			path = "Target Support Files/Pods-SEB";
 			sourceTree = "<group>";
 		};
 		A2F59A5D7FB32E90424D0EA56F34B7ED /* Pods */ = {
@@ -870,8 +839,8 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				56611EAE694169DEF06D6B0DB9B7BE04 /* Frameworks */,
 				A2F59A5D7FB32E90424D0EA56F34B7ED /* Pods */,
-				F50303B26BECDD88A98337D161CF068D /* Products */,
-				75DE19EF6B8E7A3CDDD75C7CBDC81455 /* Targets Support Files */,
+				6B2BFCBE4DFEFBAC6F3F625D23616114 /* Products */,
+				322CB5A0A712A0F7D6AB19027D66E1F1 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -914,22 +883,6 @@
 				F396030642F8DBD481E2AA50FDDAD2F7 /* DDTTYLogger.m */,
 			);
 			name = Core;
-			sourceTree = "<group>";
-		};
-		F50303B26BECDD88A98337D161CF068D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */,
-				349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack-macOS */,
-				C082AE78A2C795A7CD50CE6E5575AB9C /* InAppSettingsKit */,
-				325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */,
-				C8DE2D5CE46EDF5E5229918A90D80C8D /* Pods-Safe Exam Browser */,
-				D101583BAB74D69643093AD7E56D2565 /* Pods-Safe Exam Browser ETH */,
-				126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */,
-				10AAB46C37C11D879F3D04CE463B4097 /* Pods-SEBVerificator */,
-				C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F94037707263B1991293EE75A1F29F1B /* OS X */ = {
@@ -1040,14 +993,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F2FE4BE119CB88DF6FD4718DE1D9B5EA /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				46E8EF0659F0C6E4107B707CA2585C13 /* Pods-Safe Exam Browser ETH-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F832D5642AE8469675B20A7ADAD40CC8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1095,7 +1040,7 @@
 			);
 			name = "CocoaLumberjack-macOS";
 			productName = CocoaLumberjack;
-			productReference = 349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack-macOS */;
+			productReference = 349872817A3FEBB6DA8A08B84822E18E /* CocoaLumberjack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		15CB181685796ACA898C8EEDDA4A1A49 /* Pods-SEBVerificator */ = {
@@ -1169,7 +1114,7 @@
 			);
 			name = "InAppSettingsKit-InAppSettingsKit";
 			productName = InAppSettingsKit;
-			productReference = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit.bundle */;
+			productReference = 325E862631E06444E4504511C87F1E9C /* InAppSettingsKit-InAppSettingsKit */;
 			productType = "com.apple.product-type.bundle";
 		};
 		8D1165BCE944BB911E03BF62CB52B947 /* CocoaLumberjack-iOS */ = {
@@ -1188,25 +1133,6 @@
 			name = "CocoaLumberjack-iOS";
 			productName = CocoaLumberjack;
 			productReference = E901C5286403221ADE0CA3EE8B849660 /* CocoaLumberjack-iOS */;
-			productType = "com.apple.product-type.framework";
-		};
-		A75C258854369DEE6D0EB30EA3CA27FC /* Pods-Safe Exam Browser ETH */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 73CBFD48ED80CB3A574DDB946F946651 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser ETH" */;
-			buildPhases = (
-				F2FE4BE119CB88DF6FD4718DE1D9B5EA /* Headers */,
-				123580C03B26C055967CE65DDEAA0EF3 /* Sources */,
-				38568D579EB492B6767A62744CBA9645 /* Frameworks */,
-				E080C71B6C72A6DD57722B55379AD683 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2B9233FA50A0A382B6DF462CBFFBF605 /* PBXTargetDependency */,
-			);
-			name = "Pods-Safe Exam Browser ETH";
-			productName = Pods_Safe_Exam_Browser_ETH;
-			productReference = D101583BAB74D69643093AD7E56D2565 /* Pods-Safe Exam Browser ETH */;
 			productType = "com.apple.product-type.framework";
 		};
 		B0FC5EAC42F1D72DDBB22E76E76F2064 /* Pods-SEB */ = {
@@ -1290,7 +1216,7 @@
 				"zh-Hant",
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = F50303B26BECDD88A98337D161CF068D /* Products */;
+			productRefGroup = 6B2BFCBE4DFEFBAC6F3F625D23616114 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1300,7 +1226,6 @@
 				8A996938DFC560C0A3EF0DD6CA6B032A /* InAppSettingsKit-InAppSettingsKit */,
 				5B40FBDAD0AB75D17C4760F4054BFF71 /* JitsiMeetSDK */,
 				1B33EF0F9DA1EB16E4EF5FDEC1031280 /* Pods-Safe Exam Browser */,
-				A75C258854369DEE6D0EB30EA3CA27FC /* Pods-Safe Exam Browser ETH */,
 				B0FC5EAC42F1D72DDBB22E76E76F2064 /* Pods-SEB */,
 				15CB181685796ACA898C8EEDDA4A1A49 /* Pods-SEBVerificator */,
 				C8FC4FD750AC24CAD841A7FB89CA76C6 /* QRCodeReaderViewController */,
@@ -1366,7 +1291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit.bundle in Resources */,
+				FF3D4B4390CD54DBE022DBBA3C76F5EC /* InAppSettingsKit-InAppSettingsKit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1378,13 +1303,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		D959F00AEA1C5ED9BF4E7584CC12ADAF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E080C71B6C72A6DD57722B55379AD683 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1431,14 +1349,6 @@
 				059BDF7F4551AFC3F779DFC2A70B64C0 /* QRCodeReaderViewController.m in Sources */,
 				85A9639421A59B09E5AE77B3866EB71C /* QRCodeReaderViewController-dummy.m in Sources */,
 				86753350BF4B4A7000667E308EE0F95C /* QRToggleTorchButton.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		123580C03B26C055967CE65DDEAA0EF3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DCE7CDAFC75EFCF5EB83672D914D383C /* Pods-Safe Exam Browser ETH-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1561,12 +1471,6 @@
 			target = 5B4848122435F4C22D574A5DA6D2EFB3 /* InAppSettingsKit */;
 			targetProxy = 5C8E112E636F5E7F2F9F31691B363ECC /* PBXContainerItemProxy */;
 		};
-		2B9233FA50A0A382B6DF462CBFFBF605 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "CocoaLumberjack-macOS";
-			target = 0D4D088FF185F9C7CB6A3A1E004F8978 /* CocoaLumberjack-macOS */;
-			targetProxy = B8B132C8E6BE3CBC230922D633EAB022 /* PBXContainerItemProxy */;
-		};
 		4A56662FD666657D2B5294A939B7D869 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QRCodeReaderViewController;
@@ -1624,51 +1528,12 @@
 			};
 			name = Debug;
 		};
-		0C614DCAE768FA8F06F1FBA11B677A9B /* Release */ = {
+		10547FBBDD1C06123EEADA706A4B5246 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77333D166D6EF68C6E3D763E9B75EABA /* Pods-Safe Exam Browser ETH.release.xcconfig */;
+			baseConfigurationReference = 63763A7A47BC02DC6C6D2D62D78C8701 /* InAppSettingsKit.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		1284404D315B921B2BD47570326EB6E7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF4E2E62B17DDE9276C33A1940F8B700 /* InAppSettingsKit.debug.xcconfig */;
-			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
-				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
 				IBSC_MODULE = InAppSettingsKit;
 				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
@@ -1679,11 +1544,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
 			};
-			name = Debug;
+			name = Release;
 		};
 		1855A35AFB0A472655A0B1F4441CF962 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D25D847750471573B852632853A6A037 /* Pods-SEB.debug.xcconfig */;
+			baseConfigurationReference = 6C95497883A6371D3BE2950B0205BE67 /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1719,57 +1584,18 @@
 			};
 			name = Debug;
 		};
-		190EA475129B037AA0A2DA7D9BE50B10 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAFBD790347D0C6FF1B5AF29CF1A86E3 /* Pods-Safe Exam Browser ETH.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/Pods-Safe Exam Browser ETH/Pods-Safe Exam Browser ETH.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		23E69FDDEC542844A9221D346710E193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C96B1E1DCB12D541405360317959FC83 /* CocoaLumberjack-macOS.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1868,7 +1694,7 @@
 		};
 		4D70A2643799CC3329ABC2B05E1CACD5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4AFBF924782E7D0550F1F170C10DA6B4 /* Pods-Safe Exam Browser.debug.xcconfig */;
+			baseConfigurationReference = AB26A980526AB71051AAE2E531E5E92D /* Pods-Safe Exam Browser.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2039,6 +1865,24 @@
 			};
 			name = Release;
 		};
+		676ECE4457AF44C73C111B3E2B177222 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF4E2E62B17DDE9276C33A1940F8B700 /* InAppSettingsKit.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
+				ENABLE_BITCODE = NO;
+				IBSC_MODULE = InAppSettingsKit;
+				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PRODUCT_NAME = InAppSettingsKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
 		6BA8E1997A5023AC718ACBC518C07C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2108,7 +1952,7 @@
 		};
 		6E97F24B714819CD9F4CD267598383DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2CE5AA6951C2F482DDD8226A6EBF4FC /* Pods-SEBVerificator.debug.xcconfig */;
+			baseConfigurationReference = 5BEDC85A89437A6928B1730B45750A83 /* Pods-SEBVerificator.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2147,7 +1991,7 @@
 		};
 		73E3DC1677FD62DA308D827785B7E98E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63E53F5D989C510190F0390AABD2CDC3 /* Pods-SEB.release.xcconfig */;
+			baseConfigurationReference = 79FDE58A2E62D96E9CD3B52A2F61137C /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2220,24 +2064,6 @@
 			};
 			name = Release;
 		};
-		889110C76A5BFB4C75F559A9F26983A2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63763A7A47BC02DC6C6D2D62D78C8701 /* InAppSettingsKit.release.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/InAppSettingsKit";
-				DEVELOPMENT_TEAM = 9Z623UDZ5L;
-				ENABLE_BITCODE = NO;
-				IBSC_MODULE = InAppSettingsKit;
-				INFOPLIST_FILE = "Target Support Files/InAppSettingsKit/ResourceBundle-InAppSettingsKit-InAppSettingsKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PRODUCT_NAME = InAppSettingsKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		9818C12FF45E29ED38617E49ECA8EEE1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F326A9E923EB9979786BD35B17A46513 /* JitsiMeetSDK.release.xcconfig */;
@@ -2263,12 +2089,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -2296,7 +2122,7 @@
 		};
 		F5995A555F934C4FAC7D5918D6375952 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02E95116774B446537A2515446748ED6 /* Pods-SEBVerificator.release.xcconfig */;
+			baseConfigurationReference = 4F7D0F570C674C8E6424C9DEEE3FC0DA /* Pods-SEBVerificator.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2370,7 +2196,7 @@
 		};
 		FD9C853810E4F721C7708312923217D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3583F72A30B8D60024852620BA9912AF /* Pods-Safe Exam Browser.release.xcconfig */;
+			baseConfigurationReference = B91E2A9E0D392FF1A240ADD2D48102A2 /* Pods-Safe Exam Browser.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2458,17 +2284,8 @@
 		5AAAD716F09E7050864617CA350B5B34 /* Build configuration list for PBXNativeTarget "InAppSettingsKit-InAppSettingsKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1284404D315B921B2BD47570326EB6E7 /* Debug */,
-				889110C76A5BFB4C75F559A9F26983A2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		73CBFD48ED80CB3A574DDB946F946651 /* Build configuration list for PBXNativeTarget "Pods-Safe Exam Browser ETH" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				190EA475129B037AA0A2DA7D9BE50B10 /* Debug */,
-				0C614DCAE768FA8F06F1FBA11B677A9B /* Release */,
+				676ECE4457AF44C73C111B3E2B177222 /* Debug */,
+				10547FBBDD1C06123EEADA706A4B5246 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
