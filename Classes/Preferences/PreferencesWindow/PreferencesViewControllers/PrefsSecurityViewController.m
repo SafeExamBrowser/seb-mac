@@ -66,7 +66,7 @@
     [miniOSVersionMajor addItemsWithObjectValues:@[@9, @10, @11, @12, @13, @14, @15, @16]];
     [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
-    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @16]];
+    [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @17]];
 }
 
 
