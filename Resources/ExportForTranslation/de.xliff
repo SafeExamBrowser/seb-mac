@@ -6658,9 +6658,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." xml:space="preserve">
@@ -6698,9 +6698,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
-        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.</target>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
+        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." xml:space="preserve">
@@ -9726,9 +9726,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can't send log files while in an exam session. Finish the exam first and try it again." xml:space="preserve">
@@ -9771,9 +9771,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
-        <target>Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.</target>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
+        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You will be able to work with other apps after Single App Mode is switched off by your administrator." xml:space="preserve">
