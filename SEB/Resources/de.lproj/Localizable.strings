@@ -1145,7 +1145,7 @@
 "You can only send log files after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:";
 
 /* No comment provided by engineer. */
-"You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." = "Sie können eine unverschlüsselte Konfigurationsdatei abspeichern, aber es wird nicht empfohlen, diese in Prüfungen zu verwenden, sofern Sie nicht ein System einsetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
 "You can't send log files while in an exam session. Finish the exam first and try it again." = "Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.";
@@ -1172,7 +1172,7 @@
 "You need to enter the correct quit password for this command." = "Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.";
 
 /* No comment provided by engineer. */
-"You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." = "Sie sollten entweder ein Passwort oder eine kryptografische Identität verwenden, um die SEB-Konfigurationsdatei zu verschlüsseln.";
+"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
 
 /* No comment provided by engineer. */
 "You will be able to work with other apps after Single App Mode is switched off by your administrator." = "Sie können mit anderen Apps arbeiten, nachdem der Einzel-App-Modus von Ihrem Administrator ausgeschaltet wurde.";
