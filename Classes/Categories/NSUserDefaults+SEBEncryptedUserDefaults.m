@@ -503,6 +503,52 @@ static NSNumber *_logLevel;
                         [newProcesses addObject:presetProcess];
                     }
                 }
+                if (os == operatingSystemWin) {
+                    NSString *originalName = presetProcess[@"originalName"];
+                    NSString *executable = presetProcess[@"executable"];
+                    NSArray *matches;
+                    if (originalName.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" originalName ==[cd] %@", originalName];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the prohibited process doesn't indicate an original name, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromOriginalName = processFromSettings[@"originalName"];
+                                if (processFromOriginalName.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify an original name
+                                    matchingProcess = processFromSettings;
+                                    break;
+                                }
+                            }
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowedExecutables"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
+                        if (description.length == 0) {
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+                        
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
+                    }
+                }
             }
             [newProcesses addObjectsFromArray:processesFromSettings];
             value = newProcesses.copy;

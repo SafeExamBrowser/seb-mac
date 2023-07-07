@@ -155,11 +155,29 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"additionalResources",
                    
                    @NO,
+                   @"allowApplicationLog",
+
+                   @NO,
+                   @"allowAudioCapture",
+
+                   @YES,
+                   @"audioControlEnabled",
+
+                   @NO,
+                   @"audioMute",
+
+                   @NO,
+                   @"audioSetVolumeLevel",
+
+                   [NSNumber numberWithLong:25],
+                   @"audioVolumeLevel",
+
+                   @NO,
                    @"allowBrowsingBackForward",
                    
                    @NO,
-                   @"allowCustomDownloadLocation",
-                   
+                   @"allowCustomDownUploadLocation",
+
                    @NO,
                    @"allowDeveloperConsole",
                    
@@ -232,6 +250,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"allowPreferencesWindow",
                    
+                   @NO,
+                   @"allowPrint",
+
                    @YES,
                    @"allowQuit",
                    
@@ -275,6 +296,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"autoQuitApplications",
                    
                    @NO,
+                   @"backgroundOpenSEBConfig",
+
+                   @NO,
                    @"blockPopUpWindows",
                    
                    @NO,
@@ -301,9 +325,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:120000],
                    @"browserMessagingPingTime",
                    
-                   @"ws:\\localhost:8706",
+                   @"ws://localhost:8706",
                    @"browserMessagingSocket",
                    
+                   @YES,
+                   @"browserShowFileSystemElementPath",
+
                    @NO,
                    @"browserScreenKeyboard",
                    
@@ -352,6 +379,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
                    
+                   @"",
+                   @"browserWindowTitleSuffix",
+
                    [NSNumber numberWithLong:webViewSelectPreferModernInForeignNewTabs],
                    @"browserWindowWebView",
                    
@@ -382,7 +412,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"downloadAndOpenSebConfig",
                    
-                   [NSHomeDirectory() stringByAppendingPathComponent: @"Downloads"],
+                   @"~/Downloads",
                    @"downloadDirectoryOSX",
                    
                    @"Downloads",
@@ -407,6 +437,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableDrawingEditor",
                    
                    @NO,
+                   @"enableFindPrinter",
+
+                   @NO,
                    @"enableJava",
                    
                    @YES,
@@ -418,6 +451,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"enableMacOSAAC",
                    
+                   @NO,
+                   @"enableMiddleMouse",
+
                    @YES,
                    @"enablePlugIns",
                    
@@ -436,6 +472,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"enableTouchExit",
                    
+                   @NO,
+                   @"enableURLContentFilter",
+
+                   @NO,
+                   @"enableURLFilter",
+
                    @NO,
                    @"enableWindowsUpdate",
                    
@@ -658,6 +700,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
                    
+                   @YES,
+                   @"lockOnMessageSocketClose",
+
                    @NO,
                    @"logSendingRequiresAdminPassword",
                    
@@ -778,7 +823,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"newBrowserWindowShowReloadWarning",
                    
-                   [NSNumber numberWithLong:browserWindowShowURLBeforeTitle],
+                   [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"newBrowserWindowShowURL",
                    
                    @NO,
@@ -844,7 +889,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
 
-                   @NO,
+                   @YES,
                    @"removeBrowserProfile",
                    
                    @NO,
@@ -895,7 +940,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"sebServiceIgnore",
                    
-                   [NSNumber numberWithLong:forceSebService],
+                   [NSNumber numberWithLong:indicateMissingService],
                    @"sebServicePolicy",
                    
                    @NO,
@@ -904,10 +949,13 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"setVmwareConfiguration",
                    
+                   @NO,
+                   @"showApplicationLogButton",
+                   
                    @YES,
                    @"showBackToStartButton",
                    
-                   @NO,
+                   @YES,
                    @"showInputLanguage",
                    
                    @YES,
@@ -925,7 +973,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"showReloadButton",
                                       
-                   @NO,
+                   @YES,
                    @"showReloadWarning",
                    
                    @YES,
@@ -942,6 +990,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"showTime",
+                   
+                   @"",
+                   @"startResource",
                    
                    SEBStartPage,
                    @"startURL",
@@ -979,8 +1030,11 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"urlFilterRegex",
                    
-                   @NO,
+                   @YES,
                    @"urlFilterTrustedContent",
+                   
+                   @NO,
+                   @"useAsymmetricOnlyEncryption",
                    
                    @NO,
                    @"useTemporaryDownUploadDirectory",
