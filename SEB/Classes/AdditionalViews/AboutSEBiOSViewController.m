@@ -227,8 +227,8 @@
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Issue Description Required", nil)
-                                                                              message:NSLocalizedString(@"Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.", nil)
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"GitHub Issue/Discussion Required for Log Submission", nil)
+                                                                              message:NSLocalizedString(@"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.", nil)
                                                                        preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -242,8 +242,8 @@
                 }
                 [self.sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
                 [self.sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
-                [self.sebViewController.mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):", nil)] isHTML:NO];
-                [self.sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
+                [self.sebViewController.mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):", nil)] isHTML:NO];
+//                [self.sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
                 
                 [self.sebViewController.topMostController presentViewController:self.sebViewController.mailViewController animated:YES completion:nil];
             }
