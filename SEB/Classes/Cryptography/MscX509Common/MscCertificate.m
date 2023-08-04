@@ -399,6 +399,7 @@
             return nil;
         }
     }
+    return nil;
 }
 
 -(MscKeyUsage)keyUsage {
