@@ -403,7 +403,7 @@
 		C14C6779E03D8DA6241328723630AB37 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		C2A082C2CA64C57096E24CEC12800308 /* IASKViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKViewController.h; path = Sources/InAppSettingsKit/include/IASKViewController.h; sourceTree = "<group>"; };
 		C507FBBEC3B32D101DD797AB829D1468 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
-		C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = QRCodeReaderViewController; path = QRCodeReaderViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QRCodeReaderViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5495D719C45A37E760722D94DC824B2 /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDAssertMacros.h; sourceTree = "<group>"; };
 		C6BFB36D06FA8AF9852D4DBADD48674D /* Pods-SEBVerificator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SEBVerificator-Info.plist"; sourceTree = "<group>"; };
 		C6EE032D78CD933610F5E469C6E01C58 /* IASKSpecifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IASKSpecifier.h; path = Sources/InAppSettingsKit/include/IASKSpecifier.h; sourceTree = "<group>"; };
@@ -664,7 +664,7 @@
 				C8DE2D5CE46EDF5E5229918A90D80C8D /* Pods-Safe Exam Browser */,
 				126DDCC8408526DBCAD5FCB3201F204D /* Pods-SEB */,
 				10AAB46C37C11D879F3D04CE463B4097 /* Pods-SEBVerificator */,
-				C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */,
+				C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1172,7 +1172,7 @@
 			);
 			name = QRCodeReaderViewController;
 			productName = QRCodeReaderViewController;
-			productReference = C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController */;
+			productReference = C5181F768198603CE48737DD6BAFB878 /* QRCodeReaderViewController.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1591,7 +1591,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2044,7 +2044,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2175,7 +2175,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
