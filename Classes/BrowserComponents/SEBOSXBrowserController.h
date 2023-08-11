@@ -63,11 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL openingSettings;
 
 @property (weak, nonatomic, nullable) SEBAbstractWebView *mainWebView;
-@property (strong, nonatomic, nullable) SEBBrowserWindow *mainBrowserWindow;
+@property (weak, nonatomic, nullable) SEBBrowserWindow *mainBrowserWindow;
 
 @property (weak, nonatomic) SEBBrowserWindow *activeBrowserWindow;
 @property (weak, nonatomic) SEBDockController *dockController;
-@property (strong, nonatomic) NSString *activeBrowserWindowTitle;
+@property (weak, nonatomic) NSString *activeBrowserWindowTitle;
 
 @property (strong) NSMutableArray <SEBBrowserOpenWindowWebView*> *openBrowserWindowsWebViews;
 @property (strong) SEBDockItemMenu *openBrowserWindowsWebViewsMenu;
