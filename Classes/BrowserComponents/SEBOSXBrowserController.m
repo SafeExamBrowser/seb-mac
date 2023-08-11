@@ -84,31 +84,37 @@
 
 - (void) closeWebView:(SEBAbstractWebView *)webViewToClose
 {
-    if (webViewToClose) {
-        [webViewToClose stopMediaPlaybackWithCompletionHandler:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
-                
-                SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
-                [self removeBrowserWindowWithWebView:webViewToClose];
-                [webViewToClose closeWKWebView];
-                
-                // Get the document for the web view
-                id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];
-                
-                // Close document and therefore also window
-                DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
-                
-                [myDocument close];
-                self.activeBrowserWindow = nil;
-                
-                if (webViewToClose == self.temporaryWebView) {
-                    self.downloadingInTemporaryWebView = NO;
-                    self.temporaryWebView = nil;
-                    [self openingConfigURLRoleBack];
-                }
-            });
-        }];
+    DDLogInfo(@"WebView: %@ requests to be closed.", webViewToClose);
+    
+    if (webViewToClose == _mainWebView) {
+        DDLogError(@"Web application requests the main browser window to be closed, which is not allowed in SEB and will be ignored!");
+    } else {
+        if (webViewToClose) {
+            [webViewToClose stopMediaPlaybackWithCompletionHandler:^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Remove the entry for the WebView in a browser window from the array and dock item menu of open browser windows/WebViews
+                    
+                    SEBBrowserWindow *windowToClose = (SEBBrowserWindow *)webViewToClose.window;
+                    [self removeBrowserWindowWithWebView:webViewToClose];
+                    [webViewToClose closeWKWebView];
+                    
+                    // Get the document for the web view
+                    id myDocument = [[NSDocumentController sharedDocumentController] documentForWindow:windowToClose];
+                    
+                    // Close document and therefore also window
+                    DDLogInfo(@"Now closing new document browser window with WebView: %@", webViewToClose);
+                    
+                    [myDocument close];
+                    self.activeBrowserWindow = nil;
+                    
+                    if (webViewToClose == self.temporaryWebView) {
+                        self.downloadingInTemporaryWebView = NO;
+                        self.temporaryWebView = nil;
+                        [self openingConfigURLRoleBack];
+                    }
+                });
+            }];
+        }
     }
 }
 
