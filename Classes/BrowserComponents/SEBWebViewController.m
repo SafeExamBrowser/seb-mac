@@ -495,11 +495,10 @@
 }
 
 
-/*
- - (void)orderOut:(id)sender {
- //we prevent the browser window to be hidden
- }
- */
+- (void)webViewClose:(WebView *)sender
+{
+    [self.navigationDelegate closeWebView];
+}
 
 
 // Downloading and Uploading of Files //
@@ -773,9 +772,6 @@ didReceiveResponse:(NSURLResponse *)response
  fromDataSource:(WebDataSource *)dataSource
 {
     DDLogError(@"webView: %@ resource: %@ didFailLoadingWithError: %@ fromDataSource URL: %@", sender, identifier, error.description, dataSource.unreachableURL);
-
-    // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
-//    [_browserController openingConfigURLFailed];
 }
 
 
