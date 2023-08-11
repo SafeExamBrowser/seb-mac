@@ -360,7 +360,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
         [triangleDropDownButton setMenu:self.settingsMenu];
         [triangleDropDownButton sizeToFit];
         [triangleDropDownButton setAction:@selector(dropDownAction:)];
-        triangleDropDownButton.title = NSLocalizedString(@"Preferences shortcut menu", nil);
+        triangleDropDownButton.accessibilityLabel = NSLocalizedString(@"Preferences shortcut menu", nil);
         
         [progressIndicatorHolder addSubview:triangleDropDownButton];
         [progressIndicatorHolder setFrame:triangleDropDownButton.frame];
