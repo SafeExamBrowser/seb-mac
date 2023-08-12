@@ -193,13 +193,13 @@
     }
     if (_sebViewController.aboutSEBViewDisplayed && !_sebViewController.mailViewController && !_sebViewController.alertController) {
         [_sebViewController.aboutSEBViewController dismissViewControllerAnimated:NO completion:^{
-            self->_sebViewController.aboutSEBViewDisplayed = false;
-            self->_sebViewController.aboutSEBViewController = nil;
+            self.sebViewController.aboutSEBViewDisplayed = false;
+            self.sebViewController.aboutSEBViewController = nil;
         }];
     }
     if (_sebViewController.visibleCodeReaderViewController) {
         [_sebViewController.visibleCodeReaderViewController dismissViewControllerAnimated:NO completion:^{
-            self->_sebViewController.visibleCodeReaderViewController = nil;
+            self.sebViewController.visibleCodeReaderViewController = nil;
         }];
     }
 }

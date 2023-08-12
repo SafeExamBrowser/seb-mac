@@ -78,9 +78,9 @@
                               initWithDomain:sebErrorDomain
                               code:SEBErrorASCCNoWiFi
                               userInfo:@{ NSLocalizedDescriptionKey :
-                                              NSLocalizedString(@"Wrong Institution URL", nil),
+                                              NSLocalizedString(@"Wrong Institution URL", @""),
                                           NSLocalizedFailureReasonErrorKey :
-                                              [NSString stringWithFormat:NSLocalizedString(@"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer.", nil), SEBExtraShortAppName, SEBWebsiteShort]
+                                              [NSString stringWithFormat:NSLocalizedString(@"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer.", @""), SEBExtraShortAppName, SEBWebsiteShort]
                                        }];
             [_controllerDelegate setConfigURLWrongLabelHidden:YES
                                                         error:error
@@ -147,9 +147,9 @@
                                                     initWithDomain:sebErrorDomain
                                                     code:SEBErrorASCCNoWiFi
                                                     userInfo:@{ NSLocalizedDescriptionKey :
-                                                                    NSLocalizedString(@"Not Connected to Wi-Fi or VPN", nil),
+                                                                    NSLocalizedString(@"Not Connected to Wi-Fi or VPN", @""),
                                                                 NSLocalizedFailureReasonErrorKey :
-                                                                    [NSString stringWithFormat:NSLocalizedString(@"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too.", nil), SEBExtraShortAppName]
+                                                                    [NSString stringWithFormat:NSLocalizedString(@"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too.", @""), SEBExtraShortAppName]
                                                                 }]];
         }
     }
@@ -204,9 +204,9 @@
                                                 initWithDomain:sebErrorDomain
                                                 code:SEBErrorASCCNoHostnameFound
                                                 userInfo:@{ NSLocalizedDescriptionKey :
-                                                                NSLocalizedString(@"No Hostname Found", nil),
+                                                                NSLocalizedString(@"No Hostname Found", @""),
                                                             NSLocalizedFailureReasonErrorKey :
-                                                                NSLocalizedString(@"Could not determine a correct hostname. You can enter the domain URL of your institution manually.", nil)
+                                                                NSLocalizedString(@"Could not determine a correct hostname. You can enter the domain URL of your institution manually.", @"")
                                                             }]];
     }
     return hostname;
@@ -222,9 +222,9 @@
                                                 initWithDomain:sebErrorDomain
                                                 code:SEBErrorASCCCanceled
                                                 userInfo:@{ NSLocalizedDescriptionKey :
-                                                                [NSString stringWithFormat:NSLocalizedString(@"Searching for %@ Configuration Canceled", nil), SEBShortAppName],
+                                                                [NSString stringWithFormat:NSLocalizedString(@"Searching for %@ Configuration Canceled", @""), SEBShortAppName],
                                                             NSLocalizedFailureReasonErrorKey :
-                                                                [NSString stringWithFormat:NSLocalizedString(@"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator.", nil), SEBExtraShortAppName]
+                                                                [NSString stringWithFormat:NSLocalizedString(@"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator.", @""), SEBExtraShortAppName]
                                                             }]];
 
     } else {
@@ -271,9 +271,9 @@
                                                         initWithDomain:sebErrorDomain
                                                         code:SEBErrorASCCNoConfigFound
                                                         userInfo:@{ NSLocalizedDescriptionKey :
-                                                                        [NSString stringWithFormat:NSLocalizedString(@"No %@ Configuration Found", nil), SEBShortAppName],
+                                                                        [NSString stringWithFormat:NSLocalizedString(@"No %@ Configuration Found", @""), SEBShortAppName],
                                                                     NSLocalizedFailureReasonErrorKey :
-                                                                        [NSString stringWithFormat:NSLocalizedString(@"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator.", nil), SEBExtraShortAppName]
+                                                                        [NSString stringWithFormat:NSLocalizedString(@"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator.", @""), SEBExtraShortAppName]
                                                                     }]];
                 break;
         }

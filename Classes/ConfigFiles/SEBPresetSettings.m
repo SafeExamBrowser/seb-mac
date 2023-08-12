@@ -468,8 +468,8 @@
 + (NSArray *) serverTypes
 {
     return @[
-        NSLocalizedString(@"Moodle", nil),
-        NSLocalizedString(@"Open edX", nil)
+        NSLocalizedString(@"Moodle", @""),
+        NSLocalizedString(@"Open edX", @"")
     ];
 }
 

@@ -109,8 +109,8 @@
                                                 style:UIBarButtonItemStylePlain
                                                target:self
                                                action:@selector(leftDrawerButtonPress:)];
-    dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", nil);
-    dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", nil);
+    dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", @"");
+    dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", @"");
 
     [newDockItems addObject:dockItem];
     
@@ -136,9 +136,9 @@
         // Add Scroll Lock command to slider items
         sliderScrollLockIcon = [UIImage imageNamed:@"SEBSliderScrollLockIcon"];
         sliderScrollLockIconLocked = [UIImage imageNamed:@"SEBSliderScrollLockIcon_locked"];
-        sliderScrollLockItemTitle = NSLocalizedString(@"Enable Scroll Lock", nil);
-        sliderScrollLockItemTitleLocked = NSLocalizedString(@"Disable Scroll Lock", nil);
-        _sliderScrollLockItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Activate Scroll Lock", nil)
+        sliderScrollLockItemTitle = NSLocalizedString(@"Enable Scroll Lock", @"");
+        sliderScrollLockItemTitleLocked = NSLocalizedString(@"Disable Scroll Lock", @"");
+        _sliderScrollLockItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Activate Scroll Lock", @"")
                                                             icon:sliderScrollLockIcon
                                                           target:self
                                                           action:@selector(toggleScrollLock)];
@@ -152,8 +152,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(toggleScrollLock)];
-            _scrollLockButton.accessibilityLabel = NSLocalizedString(@"Scroll Lock", nil);
-            _scrollLockButton.accessibilityHint = NSLocalizedString(@"Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements.", nil);
+            _scrollLockButton.accessibilityLabel = NSLocalizedString(@"Scroll Lock", @"");
+            _scrollLockButton.accessibilityHint = NSLocalizedString(@"Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements.", @"");
             [newDockItems addObject:_scrollLockButton];
             
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -167,21 +167,21 @@
         [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectForceClassic) {
         
         sliderIcon = [UIImage imageNamed:@"SEBSliderZoomDefaultSizeIcon"];
-        sliderZoomPageResetItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", nil)
+        sliderZoomPageResetItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Default Size", @"")
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageReset)];
         [sliderCommands addObject:sliderZoomPageResetItem];
         
         sliderIcon = [UIImage imageNamed:@"SEBSliderZoomOutSmallerSizeIcon"];
-        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", nil)
+        sliderZoomPageOutItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page Out", @"")
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageOut)];
         [sliderCommands addObject:sliderZoomPageOutItem];
         
         sliderIcon = [UIImage imageNamed:@"SEBSliderZoomInLargerSizeIcon"];
-        sliderZoomPageInItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page In", nil)
+        sliderZoomPageInItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Zoom Page In", @"")
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(zoomPageIn)];
@@ -193,7 +193,7 @@
         
         // Add Search Text command to slider items
         sliderIcon = [UIImage imageNamed:@"SEBSliderSearchIcon"];
-        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Search Text", nil)
+        sliderCommandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Search Text", @"")
                                                             icon:sliderIcon
                                                           target:self
                                                           action:@selector(searchTextOnPage)];
@@ -220,8 +220,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(backToStart)];
-            dockItem.accessibilityLabel = NSLocalizedString(@"Back to Start", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"Navigates back to the start URL or to another preset URL. Doesn't log users out", nil);
+            dockItem.accessibilityLabel = NSLocalizedString(@"Back to Start", @"");
+            dockItem.accessibilityHint = NSLocalizedString(@"Navigates back to the start URL or to another preset URL. Doesn't log users out", @"");
             //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBSliderSkipBackIcon"]];
             [newDockItems addObject:dockItem];
             
@@ -246,8 +246,8 @@
                                                        target:self
                                                        action:@selector(goBack)];
             dockItem.enabled = false;
-            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
+            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Back", @"");
+            dockItem.accessibilityHint = NSLocalizedString(@"Show the previous page", @"");
 
             [newDockItems addObject:dockItem];
             dockBackButton = dockItem;
@@ -275,8 +275,8 @@
                                                        target:self
                                                        action:@selector(goForward)];
             dockItem.enabled = false;
-            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+            dockItem.accessibilityLabel = NSLocalizedString(@"Navigate Forward", @"");
+            dockItem.accessibilityHint = NSLocalizedString(@"Show the next page", @"");
             [newDockItems addObject:dockItem];
             dockForwardButton = dockItem;
             
@@ -306,8 +306,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(reload)];
-            dockItem.accessibilityLabel = NSLocalizedString(@"Reload", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+            dockItem.accessibilityLabel = NSLocalizedString(@"Reload", @"");
+            dockItem.accessibilityHint = NSLocalizedString(@"Reload this page", @"");
             //[dockItem setLandscapeImagePhone:[UIImage imageNamed:@"SEBReloadIconLandscape"]];
             [newDockItems addObject:dockItem];
             _dockReloadButton = dockItem;
@@ -362,10 +362,10 @@
                                                        target:self
                                                        action:@selector(toggleProctoringViewVisibility)];
             dockItem.accessibilityLabel = allowToggleProctoringView ?
-            NSLocalizedString(@"Toggle Proctoring View", nil) :
-            NSLocalizedString(@"Show Remote Proctoring Information", nil);
+            NSLocalizedString(@"Toggle Proctoring View", @"") :
+            NSLocalizedString(@"Show Remote Proctoring Information", @"");
             dockItem.accessibilityHint = remoteProctoringViewShowPolicy != remoteProctoringViewShowNever ?
-            NSLocalizedString(@"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.", nil) : @"";
+            NSLocalizedString(@"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.", @"") : @"";
                     
             _proctoringViewButton = dockItem;
             [newDockItems addObject:dockItem];
@@ -390,8 +390,8 @@
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
                                                        action:@selector(scanQRCode)];
-            dockItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
-            dockItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
+            dockItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", @"");
+            dockItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", @"");
             [newDockItems addObject:dockItem];
             
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
@@ -421,8 +421,8 @@
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
         dockIcon = [UIImage imageNamed:@"SEBShutDownIcon"];
         dockItem = [[UIBarButtonItem alloc] initWithImage:[dockIcon imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(quitExamConditionally)];
-        dockItem.accessibilityLabel = NSLocalizedString(@"Quit Session", nil);
-        dockItem.accessibilityHint = NSLocalizedString(@"Ends an exam session and returns to client settings", nil);
+        dockItem.accessibilityLabel = NSLocalizedString(@"Quit Session", @"");
+        dockItem.accessibilityHint = NSLocalizedString(@"Ends an exam session and returns to client settings", @"");
         [newDockItems addObject:dockItem];
     }
     

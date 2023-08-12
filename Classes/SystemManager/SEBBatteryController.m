@@ -106,14 +106,14 @@ void powerSourceMonitoringCallbackMethod(void *context)
         int hoursRemaining = remainingTime/3600;
         int minutesRemaining = (remainingTime - hoursRemaining*3600)/60;
         additionalBatteryInformation = remainingTime == kIOPSTimeRemainingUnlimited ?
-                                        NSLocalizedString(@" (Connected to Power Source)", nil) :
+                                        NSLocalizedString(@" (Connected to Power Source)", @"") :
                                         ((remainingTime == kIOPSTimeRemainingUnknown ?
                                           @"" :
-                                          [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", nil), hoursRemaining, minutesRemaining]));
+                                          [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", @""), hoursRemaining, minutesRemaining]));
 #else
-        additionalBatteryInformation = powerSourceConnectedState ? NSLocalizedString(@" (Connected to Power Source)", nil) : @"";
+        additionalBatteryInformation = powerSourceConnectedState ? NSLocalizedString(@" (Connected to Power Source)", @"") : @"";
 #endif
-        NSString *infoString = [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", nil), batteryLevel, additionalBatteryInformation];
+        NSString *infoString = [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", @""), batteryLevel, additionalBatteryInformation];
         NSArray *currentDelegates = _delegates.copy;
         for (id <SEBBatteryControllerDelegate> delegate in currentDelegates) {
             [delegate updateBatteryLevel:batteryLevel infoString:infoString];

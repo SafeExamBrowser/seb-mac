@@ -67,17 +67,17 @@
 
 - (void)updateUIStrings
 {
-    forceQuitButton.title = self.autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", nil) : NSLocalizedString(@"Quit All Applications", nil);
+    forceQuitButton.title = self.autoQuitApplications ? NSLocalizedString(@"Force Quit All Processes", @"") : NSLocalizedString(@"Quit All Applications", @"");
 #ifdef VERIFICATOR
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.", @""), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
     if (self.autoQuitApplications) {
         quitSEBSessionButton.hidden = YES;
     } else {
         quitSEBSessionButton.hidden = NO;
-        quitSEBSessionButton.title = NSLocalizedString(@"Start SEB", nil);
+        quitSEBSessionButton.title = NSLocalizedString(@"Start SEB", @"");
     }
 #else
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", nil), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", nil) : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", nil)];
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", @""), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
 #endif
 }
 
@@ -85,9 +85,9 @@
 {
     NSString *quitSEBOrSessionString;
     if (self.delegate.quittingSession) {
-        quitSEBOrSessionString = NSLocalizedString(@"Quit Session", nil);
+        quitSEBOrSessionString = NSLocalizedString(@"Quit Session", @"");
     } else {
-        quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", nil);
+        quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", @"");
     }
     return quitSEBOrSessionString;
 }
@@ -188,11 +188,11 @@
     if ([self allProcessListElements].count > 0) {
         if (self.autoQuitApplications) {
             self.modalAlert = [self.delegate newAlert];
-            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", nil)];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", nil)];
+            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", @"")];
+            [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", @"")];
             [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             void (^forceQuitAllProcessesAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self.delegate removeAlertWindow:self.modalAlert.window];
                 switch(answer)
@@ -268,10 +268,10 @@
         } else {
             self.modalAlert = [self.delegate newAlert];
             DDLogError(@"Force quitting processes failed!");
-            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", nil)];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", nil)];
+            [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", @"")];
+            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @"")];
             [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
-            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
             void (^forceQuitAllProcessesFailedAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self.delegate removeAlertWindow:self.modalAlert.window];

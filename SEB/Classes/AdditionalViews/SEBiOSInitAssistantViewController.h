@@ -39,7 +39,6 @@
 
 @class SEBViewController;
 
-
 @interface SEBiOSInitAssistantViewController : UIViewController <SEBInitAssistantDelegate, SEBConfigURLManagerDelegate> {
     
     __weak IBOutlet UILabel *initAssistantTitle;

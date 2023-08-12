@@ -283,7 +283,7 @@
 - (NSError *) errorCorruptedSettingsForUnderlyingErrorReason:(NSString *)reason
 {
     NSMutableDictionary *errorUserInfo = [NSMutableDictionary dictionary];
-    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Parsing Settings Failed", nil);
+    errorUserInfo[NSLocalizedDescriptionKey] = NSLocalizedString(@"Parsing Settings Failed", @"");
     errorUserInfo[NSLocalizedFailureReasonErrorKey] = reason;
     NSError *underlyingError = [NSError errorWithDomain:sebErrorDomain
                                                    code:SEBErrorNoValidPrefixNoValidUnencryptedHeader
@@ -297,8 +297,8 @@
 {
     return [NSError errorWithDomain:sebErrorDomain
                                code:SEBErrorNoValidConfigData
-                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Settings Failed", nil),
-                                      NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Loaded data doesn't contain valid %@ settings.", nil), SEBShortAppName],
+                           userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Settings Failed", @""),
+                                      NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Loaded data doesn't contain valid %@ settings.", @""), SEBShortAppName],
                                       NSUnderlyingErrorKey : error}];
 }
 
@@ -346,8 +346,8 @@
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", nil),
-                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting exam settings was canceled", nil)}]];
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", @""),
+                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting exam settings was canceled", @"")}]];
         return;
     }
     
@@ -373,8 +373,8 @@
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                     code:SEBErrorDecryptingNoSettingsPasswordEntered
-                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", nil),
-                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct exam password.", nil)}]];
+                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Start Exam", @""),
+                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct exam password.", @"")}]];
             return;
         }
         
@@ -392,7 +392,7 @@
 
 
 // Get admin password hash from current settings
-static NSString *getHashedAdminPassword()
+static NSString *getHashedAdminPassword(void)
 {
     NSString *hashedAdminPassword = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     if (!hashedAdminPassword) {
@@ -405,7 +405,7 @@ static NSString *getHashedAdminPassword()
 
 
 // Get admin password hash from current settings
-static NSString *getUppercaseAdminPasswordHash()
+static NSString *getUppercaseAdminPasswordHash(void)
 {
     NSString *hashedAdminPassword = getHashedAdminPassword();
     return [hashedAdminPassword uppercaseString];
@@ -475,8 +475,8 @@ static NSString *getUppercaseAdminPasswordHash()
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", nil),
-                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", nil)}]];
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", @""),
+                                                                       NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting settings was canceled", @"")}]];
         return;
     }
     
@@ -508,8 +508,8 @@ static NSString *getUppercaseAdminPasswordHash()
             // Inform callback that storing new settings failed
             [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                     code:SEBErrorDecryptingNoSettingsPasswordEntered
-                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", nil),
-                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", nil)}]];
+                                                                userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Configure Client", @""),
+                                                                           NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"You didn't enter the correct settings password.", @"")}]];
             return;
         }
         
@@ -567,7 +567,7 @@ static NSString *getUppercaseAdminPasswordHash()
                 
                 // Allow up to 5 attempts for entering decoding password
                 attempts = 5;
-                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reconfigure by entering the current %@ administrator password:", nil), SEBShortAppName];
+                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reconfigure by entering the current %@ administrator password:", @""), SEBShortAppName];
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.delegate promptPasswordWithMessageText:enterPasswordString
@@ -590,8 +590,8 @@ static NSString *getUppercaseAdminPasswordHash()
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:[NSError errorWithDomain:sebErrorDomain
                                                                 code:SEBErrorDecryptingSettingsAdminPasswordCanceled
-                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
-                                                                       NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Entering the current %@ administrator password was canceled", nil), SEBShortAppName]}]];
+                                                            userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", @""),
+                                                                       NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Entering the current %@ administrator password was canceled", @""), SEBShortAppName]}]];
         return;
     }
 
@@ -626,8 +626,8 @@ static NSString *getUppercaseAdminPasswordHash()
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             NSError *error = [NSError errorWithDomain:sebErrorDomain
                                                  code:SEBErrorDecryptingNoAdminPasswordEntered
-                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", nil),
-                                                        NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct current %@ administrator password.", nil), SEBShortAppName]}];
+                                             userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Reconfigure Client", @""),
+                                                        NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct current %@ administrator password.", @""), SEBShortAppName]}];
             DDLogError(@"%s: %@ ", __FUNCTION__, error.userInfo);
 
             // Inform callback that storing new settings failed
@@ -745,8 +745,8 @@ static NSString *getUppercaseAdminPasswordHash()
                 
                 DDLogError(@"%s: There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session.", __FUNCTION__);
 
-                NSString *title = NSLocalizedString(@"Cannot Start Another SEB Server Session", nil);
-                NSString *informativeText = NSLocalizedString(@"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.", nil);
+                NSString *title = NSLocalizedString(@"Cannot Start Another SEB Server Session", @"");
+                NSString *informativeText = NSLocalizedString(@"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.", @"");
                 [self.delegate showAlertWithTitle:title andText:informativeText];
 
                 return;
@@ -876,8 +876,8 @@ static NSString *getUppercaseAdminPasswordHash()
 
             *error = [NSError errorWithDomain:sebErrorDomain
                                          code:SEBErrorParsingSettingsFailedValueClassMissmatch
-                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"These settings are corrupted and cannot be used (failing key: %@).", nil), key]}];
+                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", @""),
+                                                NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"These settings are corrupted and cannot be used (failing key: %@).", @""), key]}];
             
             return NO; //we abort reading the new settings here
         }
@@ -944,8 +944,8 @@ static NSString *getUppercaseAdminPasswordHash()
         }
         *error = [[NSError alloc] initWithDomain:sebErrorDomain
                                             code:SEBErrorParsingSettingsSerializingFailed
-                                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", nil),
-                                                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", nil),
+                                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", @""),
+                                                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"These settings are corrupted and cannot be used.", @""),
                                                     NSLocalizedFailureReasonErrorKey : failureReason,
                                                     NSUnderlyingErrorKey : plistError
                                                     }];
@@ -995,8 +995,8 @@ static NSString *getUppercaseAdminPasswordHash()
     
     if (!passwordsMatch) {
         //wrong password entered in 5th try: stop reading .seb file
-        NSString *title = NSLocalizedString(@"Loading Settings", nil);
-        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password used in these settings you cannot open them.", nil);
+        NSString *title = NSLocalizedString(@"Loading Settings", @"");
+        NSString *informativeText = NSLocalizedString(@"If you don't enter the right administrator password used in these settings you cannot open them.", @"");
         [self.delegate showAlertWithTitle:title andText:informativeText];
 
         DDLogError(@"%s: Loading Settings: If you don't enter the right administrator password used in these settings you cannot open them.", __FUNCTION__);
@@ -1045,8 +1045,8 @@ static NSString *getUppercaseAdminPasswordHash()
 
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
-                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", @""),
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.", @""), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;
@@ -1064,8 +1064,8 @@ static NSString *getUppercaseAdminPasswordHash()
 
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorDecryptingIdentityNotFound
-                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", nil),
-                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.", nil), SEBShortAppName]}];
+                                 userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Error Decrypting Settings", @""),
+                                            NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.", @""), SEBShortAppName]}];
         DDLogError(@"%s: %@", __FUNCTION__, [*error userInfo]);
         sebFileCredentials.publicKeyHash = nil;
         return nil;
