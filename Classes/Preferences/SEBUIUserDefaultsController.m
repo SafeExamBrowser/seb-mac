@@ -58,85 +58,85 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_shareConfigFormats {
     return [NSArray arrayWithObjects:
-            [NSString stringWithFormat:@"%@ %@", SEBShortAppName, NSLocalizedString(@"File", nil)],
-            NSLocalizedString(@"Config URL", nil),
-            NSLocalizedString(@"QR Code", nil),
+            [NSString stringWithFormat:@"%@ %@", SEBShortAppName, NSLocalizedString(@"File", @"")],
+            NSLocalizedString(@"Config URL", @""),
+            NSLocalizedString(@"QR Code", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByLinkPolicies {
-    return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", @""), NSLocalizedString(@"open in same window", @""), NSLocalizedString(@"open in new window", @""), nil];
 }
 
 - (NSArray *) org_safeexambrowser_SEB_newBrowserWindowByScriptPolicies {
-    return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", nil), NSLocalizedString(@"open in same window", nil), NSLocalizedString(@"open in new window", nil), nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"get generally blocked", @""), NSLocalizedString(@"open in same window", @""), NSLocalizedString(@"open in new window", @""), nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_browserWindowWebViewPolicies {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"Automatic", nil),
-            NSLocalizedString(@"Force Classic", nil),
-            NSLocalizedString(@"Prefer Modern in New Tab+Different Host", nil),
-            NSLocalizedString(@"Prefer Modern", nil),
+            NSLocalizedString(@"Automatic", @""),
+            NSLocalizedString(@"Force Classic", @""),
+            NSLocalizedString(@"Prefer Modern in New Tab+Different Host", @""),
+            NSLocalizedString(@"Prefer Modern", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_browserUserAgentEnvironments {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"Standard user agent", nil),
-            NSLocalizedString(@"Win: User agent for desktop mode", nil),
-            NSLocalizedString(@"Win: User agent for touch/tablet mode", nil),
-            NSLocalizedString(@"iOS User agent", nil), nil];
+            NSLocalizedString(@"Standard user agent", @""),
+            NSLocalizedString(@"Win: User agent for desktop mode", @""),
+            NSLocalizedString(@"Win: User agent for touch/tablet mode", @""),
+            NSLocalizedString(@"iOS User agent", @""), nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_chooseFileToUploadPolicies {
-    return [NSArray arrayWithObjects:NSLocalizedString(@"manually with file requester", nil), NSLocalizedString(@"by attempting to upload same file downloaded before", nil), NSLocalizedString(@"by only allowing to upload the same file downloaded before", nil), nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"manually with file requester", @""), NSLocalizedString(@"by attempting to upload same file downloaded before", @""), NSLocalizedString(@"by only allowing to upload the same file downloaded before", @""), nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_certificateTypes {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"SSL Certificate", nil),
-            NSLocalizedString(@"Identity", nil),
-            NSLocalizedString(@"CA Certificate", nil),
-            NSLocalizedString(@"Debug Certificate", nil),
+            NSLocalizedString(@"SSL Certificate", @""),
+            NSLocalizedString(@"Identity", @""),
+            NSLocalizedString(@"CA Certificate", @""),
+            NSLocalizedString(@"Debug Certificate", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_SSLCertificateTypes {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"SSL Certificate", nil),
-            NSLocalizedString(@"CA Certificate", nil),
-            NSLocalizedString(@"Debug Certificate", nil),
+            NSLocalizedString(@"SSL Certificate", @""),
+            NSLocalizedString(@"CA Certificate", @""),
+            NSLocalizedString(@"Debug Certificate", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_cryptoIdentities {
-    return [NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", nil), nil];
+    return [NSArray arrayWithObjects:NSLocalizedString(@"Fetching identities", @""), nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_browserWindowPositionings {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"Left", nil),
-            NSLocalizedString(@"Center", nil),
-            NSLocalizedString(@"Right", nil),
+            NSLocalizedString(@"Left", @""),
+            NSLocalizedString(@"Center", @""),
+            NSLocalizedString(@"Right", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_browserWindowShowURLPolicies {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"Never", nil),
-            NSLocalizedString(@"Only on load error", nil),
-            NSLocalizedString(@"Before receiving title", nil),
-            NSLocalizedString(@"Always", nil),
+            NSLocalizedString(@"Never", @""),
+            NSLocalizedString(@"Only on load error", @""),
+            NSLocalizedString(@"Before receiving title", @""),
+            NSLocalizedString(@"Always", @""),
             nil];
 }
 
@@ -146,43 +146,43 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"proxyAutoDiscoveryEnable",
              @"keyName",
-             NSLocalizedString(@"Auto Proxy Discovery", nil),
+             NSLocalizedString(@"Auto Proxy Discovery", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"proxyAutoConfigEnable",
              @"keyName",
-             NSLocalizedString(@"Automatic Proxy Configuration", nil),
+             NSLocalizedString(@"Automatic Proxy Configuration", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"HTTPEnable",
              @"keyName",
-             NSLocalizedString(@"Web Proxy (HTTP)", nil),
+             NSLocalizedString(@"Web Proxy (HTTP)", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"HTTPSEnable",
              @"keyName",
-             NSLocalizedString(@"Secure Web Proxy (HTTPS)", nil),
+             NSLocalizedString(@"Secure Web Proxy (HTTPS)", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"FTPEnable",
              @"keyName",
-             NSLocalizedString(@"FTP Proxy", nil),
+             NSLocalizedString(@"FTP Proxy", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"SOCKSEnable",
              @"keyName",
-             NSLocalizedString(@"SOCKS Proxy", nil),
+             NSLocalizedString(@"SOCKS Proxy", @""),
              @"name",
              nil],
             [NSDictionary dictionaryWithObjectsAndKeys:
              @"RTSPEnable",
              @"keyName",
-             NSLocalizedString(@"Streaming Proxy (RTSP)", nil),
+             NSLocalizedString(@"Streaming Proxy (RTSP)", @""),
              @"name",
              nil],
             nil];
@@ -191,82 +191,82 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"allow to use SEB without service", nil),
-            NSLocalizedString(@"warn when service is not running", nil),
-            NSLocalizedString(@"allow to use SEB only with service", nil),
+            NSLocalizedString(@"allow to use SEB without service", @""),
+            NSLocalizedString(@"warn when service is not running", @""),
+            NSLocalizedString(@"allow to use SEB only with service", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_URLFilterRuleActions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"block", nil),
-            NSLocalizedString(@"allow", nil),
+            NSLocalizedString(@"block", @""),
+            NSLocalizedString(@"allow", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_logLevels {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"Error", nil),
-            NSLocalizedString(@"Warning", nil),
-            NSLocalizedString(@"Info", nil),
-            NSLocalizedString(@"Debug", nil),
-            NSLocalizedString(@"Verbose", nil),
+            NSLocalizedString(@"Error", @""),
+            NSLocalizedString(@"Warning", @""),
+            NSLocalizedString(@"Info", @""),
+            NSLocalizedString(@"Debug", @""),
+            NSLocalizedString(@"Verbose", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"10.7 (this SEB: 10.11)", nil),
-            NSLocalizedString(@"10.8 (this SEB: 10.11)", nil),
-            NSLocalizedString(@"10.9 (this SEB: 10.11)", nil),
-            NSLocalizedString(@"10.10 (this SEB: 10.11)", nil),
-            NSLocalizedString(@"10.11 El Capitan", nil),
-            NSLocalizedString(@"10.12 Sierra", nil),
-            NSLocalizedString(@"10.13 High Sierra", nil),
-            NSLocalizedString(@"10.14 Mojave", nil),
-            NSLocalizedString(@"10.15 Catalina", nil),
-            NSLocalizedString(@"11 Big Sur", nil),
-            NSLocalizedString(@"12 Monterey", nil),
-            NSLocalizedString(@"13 Ventura", nil),
+            NSLocalizedString(@"10.7 (this SEB: 10.11)", @""),
+            NSLocalizedString(@"10.8 (this SEB: 10.11)", @""),
+            NSLocalizedString(@"10.9 (this SEB: 10.11)", @""),
+            NSLocalizedString(@"10.10 (this SEB: 10.11)", @""),
+            NSLocalizedString(@"10.11 El Capitan", @""),
+            NSLocalizedString(@"10.12 Sierra", @""),
+            NSLocalizedString(@"10.13 High Sierra", @""),
+            NSLocalizedString(@"10.14 Mojave", @""),
+            NSLocalizedString(@"10.15 Catalina", @""),
+            NSLocalizedString(@"11 Big Sur", @""),
+            NSLocalizedString(@"12 Monterey", @""),
+            NSLocalizedString(@"13 Ventura", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"macOS", nil),
-            NSLocalizedString(@"Win", nil),
+            NSLocalizedString(@"macOS", @""),
+            NSLocalizedString(@"Win", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_allowiOSBetaVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"None", nil),
-            NSLocalizedString(@"iOS 17", nil),
+            NSLocalizedString(@"None", @""),
+            NSLocalizedString(@"iOS 17", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearances {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"None", nil),
-            NSLocalizedString(@"White on Black", nil),
-            NSLocalizedString(@"Black on White", nil),
+            NSLocalizedString(@"None", @""),
+            NSLocalizedString(@"White on Black", @""),
+            NSLocalizedString(@"Black on White", @""),
             nil];
 }
 
 
 - (NSArray *) org_safeexambrowser_SEB_mobileStatusBarAppearancesExtended {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"None", nil),
-            NSLocalizedString(@"White on Black", nil),
-            NSLocalizedString(@"Black on White", nil),
-            NSLocalizedString(@"None - Black", nil),
-            NSLocalizedString(@"None - White", nil),
+            NSLocalizedString(@"None", @""),
+            NSLocalizedString(@"White on Black", @""),
+            NSLocalizedString(@"Black on White", @""),
+            NSLocalizedString(@"None - Black", @""),
+            NSLocalizedString(@"None - White", @""),
             nil];
 }
 

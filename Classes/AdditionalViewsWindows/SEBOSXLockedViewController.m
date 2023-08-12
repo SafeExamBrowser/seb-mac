@@ -85,7 +85,7 @@
 #endif
     if (self.quitInsteadUnlockingButton.state == false && _sebController.noRequiredBuiltInScreenAvailable && self.overrideEnforcingBuiltinScreen.state == false) {
         DDLogInfo(@"Quit/Unlock password entered in lockscreen, but a required built-in screen is not available and the override button was not selected: Don't close lockscreen.");
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Required built-in display is still not available!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Required built-in display is still not available!", @"")] withTime:nil];
         [self.lockedViewController abortClosingLockdownWindows];
         return;
     }
@@ -170,27 +170,27 @@
 {
     // Check for status of individual parameters
     if (self.overrideCheckForScreenSharing.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", @"")] withTime:nil];
     }
     
     if (self.overrideCheckForSiri.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", @"")] withTime:nil];
     }
     
     if (self.overrideCheckForDictation.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", @"")] withTime:nil];
     }
     
     if (self.overrideCheckForSpecifcProcesses.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", @"")] withTime:nil];
     }
     
     if (self.overrideCheckForAllProcesses.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", @"")] withTime:nil];
     }
     
     if (self.overrideEnforcingBuiltinScreen.state == true) {
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding required built-in display was enabled!", nil)] withTime:nil];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding required built-in display was enabled!", @"")] withTime:nil];
     }
 }
 

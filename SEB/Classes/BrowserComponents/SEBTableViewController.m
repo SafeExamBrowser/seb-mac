@@ -275,7 +275,14 @@
             UILabel *cellLabel;
             cellLabel = (UILabel *)[cell viewWithTag:2];
             
-            NSString *webpageCellLabelText = (!webpage.title || [webpage.title isEqualToString:@""]) ? (index == 0 ? NSLocalizedString(@"Exam Page", nil) : NSLocalizedString(@"Untitled Page", nil)) : webpage.title;
+            NSString *webpageCellLabelText;
+            if (!webpage.title || [webpage.title isEqualToString:@""]) {
+                webpageCellLabelText = index == 0 ? NSLocalizedString(@"Exam Page", @"") : NSLocalizedString(@"Untitled Page", @"");
+                cellLabel.accessibilityLabel = webpageCellLabelText;
+            } else {
+                webpageCellLabelText = webpage.title;
+                cellLabel.accessibilityLabel = [NSString stringWithFormat:@"%@: %@", webpage.title, NSLocalizedString(@"Webpage.", @"")];
+            }
             cellLabel.text = webpageCellLabelText;
             if (index == 0) {
                 cellLabel.textColor = [UIColor blackColor];

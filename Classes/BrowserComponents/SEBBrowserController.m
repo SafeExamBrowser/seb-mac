@@ -399,11 +399,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([self.delegate isMainBrowserWebViewActive]) {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderString = NSLocalizedString(@"the exam page", nil);
+            placeholderString = NSLocalizedString(@"the exam page", @"");
         }
     } else {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLNever) {
-            placeholderString = NSLocalizedString(@"the webpage", nil);
+            placeholderString = NSLocalizedString(@"the webpage", @"");
         }
     }
     return placeholderString;
@@ -1187,7 +1187,7 @@ static NSString *urlStrippedFragment(NSURL* url)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSError *downloadError = [NSError errorWithDomain:error.domain
                                                          code:error.code
-                                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to Save Downloaded File", nil),
+                                                     userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Failed to Save Downloaded File", @""),
                                                                 NSLocalizedFailureReasonErrorKey : error.localizedDescription}];
 
                     [self.delegate presentDownloadError:downloadError];
@@ -1255,8 +1255,8 @@ static NSString *urlStrippedFragment(NSURL* url)
             return;
         }
     }
-    [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", nil)
-                                 message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", nil), path.lastPathComponent]];
+    [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", @"")
+                                 message:[NSString stringWithFormat:NSLocalizedString(@"Saved file '%@'", @""), path.lastPathComponent]];
 }
 
 
@@ -1329,14 +1329,14 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     }
                 }
                 if ([challenge previousFailureCount] == 0) {
-                    text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", nil), text];
+                    text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Log in to", @""), text];
                     _lastUsername = @"";
                 } else {
-                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", nil), text];
+                    text = [NSString stringWithFormat:NSLocalizedString(@"The user name or password for %@ was incorrect. Please try again.", @""), text];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.delegate showEnterUsernamePasswordDialog:text
-                                                             title:NSLocalizedString(@"Authentication Required", nil)
+                                                             title:NSLocalizedString(@"Authentication Required", @"")
                                                           username:self.lastUsername
                                                      modalDelegate:self
                                                     didEndSelector:@selector(enteredUsername:password:returnCode:)];
@@ -1779,15 +1779,15 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             error = [[NSError alloc]
                         initWithDomain:sebErrorDomain
                         code:SEBErrorOpeningUniversalLinkFailed
-                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                    NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file was canceled.", nil), SEBShortAppName],
+                        userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", @""),
+                                    NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file was canceled.", @""), SEBShortAppName],
                                     }];
         } else if (!_didReconfigureWithUniversalLink) {
             error = [[NSError alloc]
                      initWithDomain:sebErrorDomain
                      code:SEBErrorOpeningUniversalLinkFailed
-                     userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", nil),
-                                 NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam.", nil), SEBShortAppName, SEBShortAppName],
+                     userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Opening Universal Link Failed", @""),
+                                 NSLocalizedRecoverySuggestionErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam.", @""), SEBShortAppName, SEBShortAppName],
                                  }];
         }
 
@@ -1809,8 +1809,8 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                           universalLink:universalLink];
     } else {
         if (!_isShowingOpeningConfigFileDialog) {
-            [_delegate showOpeningConfigFileDialog:[NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file …", nil), SEBShortAppName]
-                                             title:NSLocalizedString(@"Opening Universal Link", nil)
+            [_delegate showOpeningConfigFileDialog:[NSString stringWithFormat:NSLocalizedString(@"Searching for a valid %@ config file …", @""), SEBShortAppName]
+                                             title:NSLocalizedString(@"Opening Universal Link", @"")
                                     cancelCallback:self
                                           selector:@selector(cancelDownloadingConfigFile)];
             _isShowingOpeningConfigFileDialog = YES;

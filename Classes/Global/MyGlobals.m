@@ -218,15 +218,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     } else {
         NSRange copyStringRange = [filename rangeOfString:NSLocalizedString(@" copy", @"word indicating the duplicate of a file, same as in Finder ' copy'") options:NSBackwardsSearch];
         if (copyStringRange.location == NSNotFound) {
-            filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+            filename = [filename stringByAppendingString:NSLocalizedString(@" copy", @"")];
         } else {
             NSString *copyNumberString = [filename substringFromIndex:copyStringRange.location+copyStringRange.length];
             if (copyNumberString.length == 0) {
-                filename = [filename stringByAppendingString:NSLocalizedString(@" 1", nil)];
+                filename = [filename stringByAppendingString:NSLocalizedString(@" 1", @"")];
             } else {
                 NSInteger copyNumber = [[copyNumberString substringFromIndex:1] integerValue];
                 if (copyNumber == 0) {
-                    filename = [filename stringByAppendingString:NSLocalizedString(@" copy", nil)];
+                    filename = [filename stringByAppendingString:NSLocalizedString(@" copy", @"")];
                 } else {
                     filename = [[filename substringToIndex:copyStringRange.location+copyStringRange.length+1] stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)copyNumber+1]];
                 }

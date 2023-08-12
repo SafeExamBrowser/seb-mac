@@ -91,9 +91,9 @@
     if ([[MBPreferencesController sharedController].window isVisible] && !self.touchOptimizedWarning && browserViewModeTouchSelected && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_createNewDesktop"]) {
         self.touchOptimizedWarning = true;
         NSAlert *newAlert = [[NSAlert alloc] init];
-        [newAlert setMessageText:NSLocalizedString(@"Touch Optimized Mode Warning", nil)];
-        [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", nil)];
-        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [newAlert setMessageText:NSLocalizedString(@"Touch Optimized Mode Warning", @"")];
+        [newAlert setInformativeText:NSLocalizedString(@"Touch optimization will not work when kiosk mode is set to 'Create new desktop', please change kiosk mode to 'Disable Explorer Shell' in the Security pane.", @"")];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [newAlert setAlertStyle:NSCriticalAlertStyle];
         // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
         // which also is the minimum macOS version the Preferences window is available from

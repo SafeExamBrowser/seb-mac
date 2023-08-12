@@ -200,8 +200,8 @@
 - (void)displayMessageKeyChanged
 {
     // There are unsaved changes in private user defaults: Display message instead of Keys
-    [examKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", nil)];
-    [configKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Config Key", nil)];
+    [examKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Browser Exam Key", @"")];
+    [configKeyTextField setStringValue:NSLocalizedString(@"Save settings to display its Config Key", @"")];
 }
 
 

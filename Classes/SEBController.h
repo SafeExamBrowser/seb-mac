@@ -153,6 +153,7 @@
     BOOL checkingForWindows;
     NSDate *lastTimeProcessCheck;
     NSDate *timeProcessCheckBeforeSIGSTOP;
+    dispatch_block_t cancelableBlock;
     
     CGEventRef keyboardEventReturnKey;
     

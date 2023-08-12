@@ -72,8 +72,8 @@
 - (BOOL) isReconfiguringAllowedFromURL:(NSURL *)url
 {
     if (![super isReconfiguringAllowedFromURL:url]) {
-        [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]
-                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
+        [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", @""), SEBExtraShortAppName]
+                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
         return NO;
     } else {
         return YES;
@@ -93,13 +93,13 @@
 {
     NSString *downUploadingString;
     if (uploading) {
-        downUploadingString = NSLocalizedString(@"Uploading", nil);
+        downUploadingString = NSLocalizedString(@"Uploading", @"");
     } else {
-        downUploadingString = NSLocalizedString(@"Downloading", nil);
+        downUploadingString = NSLocalizedString(@"Downloading", @"");
     }
     DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
-    [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]
-                     andText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
+    [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", @""), downUploadingString, nil]
+                     andText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", @""), downUploadingString, SEBShortAppName]];
 }
 
 
@@ -204,7 +204,7 @@
 }
 
 - (void)presentAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message {
-    [_sebViewController alertWithTitle:title message:message action1Title:NSLocalizedString(@"OK", nil) action1Handler:^{
+    [_sebViewController alertWithTitle:title message:message action1Title:NSLocalizedString(@"OK", @"") action1Handler:^{
         self.sebViewController.alertController = nil;
     } action2Title:nil action2Handler:nil];
 }

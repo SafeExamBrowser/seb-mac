@@ -331,14 +331,14 @@ completionHandler:(void (^)(NSString *result))completionHandler
     self.uiAlertController = [UIAlertController  alertControllerWithTitle:webView.title
                                                                               message:prompt
                                                                        preferredStyle:UIAlertControllerStyleAlert];
-    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *textField = ((UIAlertController *)self.uiAlertController).textFields[0];
         completionHandler(textField.text);
         self.uiAlertController = nil;
                                                         }]];
     
-    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         completionHandler(@"");
         self.uiAlertController = nil;
@@ -460,13 +460,13 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
             browserTabTitle = url.absoluteString;
         } else {
-            browserTabTitle = NSLocalizedString(@"Exam Page", nil);
+            browserTabTitle = NSLocalizedString(@"Exam Page", @"");
         }
     } else {
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
             browserTabTitle = url.absoluteString;
         } else {
-            browserTabTitle = NSLocalizedString(@"Untitled Page", nil);
+            browserTabTitle = NSLocalizedString(@"Untitled Page", @"");
         }
     }
     [_sebViewController setToolbarTitle:browserTabTitle];

@@ -77,7 +77,7 @@
         self.window = self.dockWindow;
         [self.window setLevel:NSMainMenuWindowLevel+6];
         [self.window setAcceptsMouseMovedEvents:YES];
-        NSString *dockTitle = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", nil), SEBShortAppName];
+        NSString *dockTitle = [NSString stringWithFormat:NSLocalizedString(@"%@ Dock", @""), SEBShortAppName];
         self.window.contentView.accessibilityLabel = dockTitle;
     }
     return self;

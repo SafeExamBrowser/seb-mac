@@ -145,10 +145,10 @@
     if (!forceConfiguringClient && showReconfiguredAlert) {
         if ([[MyGlobals sharedMyGlobals] finishedInitializing]) {
             NSAlert *newAlert = [self.sebController newAlert];
-            [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Continue", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
             void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self.sebController removeAlertWindow:newAlert.window];
                 switch(answer)
@@ -198,14 +198,14 @@
 
 
 - (void) showAlertWrongPassword {
-    NSString *title = NSLocalizedString(@"Cannot Decrypt Settings", nil);
-    NSString *informativeText = NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", nil);
+    NSString *title = NSLocalizedString(@"Cannot Decrypt Settings", @"");
+    NSString *informativeText = NSLocalizedString(@"You either entered the wrong password or these settings were saved with an incompatible SEB version.", @"");
     [self showAlertWithTitle:title andText:informativeText];
 }
 
 - (void) showAlertCorruptedSettings {
-    NSString *title = NSLocalizedString(@"Opening New Settings Failed!", nil);
-    NSString *informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", nil);
+    NSString *title = NSLocalizedString(@"Opening New Settings Failed!", @"");
+    NSString *informativeText = NSLocalizedString(@"These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.", @"");
     [self showAlertWithTitle:title andText:informativeText];
 }
 
@@ -213,7 +213,7 @@
     NSAlert *newAlert = [[NSAlert alloc] init];
     [newAlert setMessageText:title];
     [newAlert setInformativeText:informativeText];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:nil];
 }
@@ -221,9 +221,9 @@
 
 - (BOOL) saveSettingsUnencrypted {
     NSAlert *newAlert = [self.sebController newAlert];
-    [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", nil)];
-    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.", nil), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", nil)]];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", @"")];
+    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [newAlert setAlertStyle:NSWarningAlertStyle];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
         [self.sebController removeAlertWindow:newAlert.window];
@@ -253,7 +253,7 @@
             }
         }
     }
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", @"")];
     NSModalResponse answer = [newAlert runModal];
     return unencryptedSaveAlertAnswerHandler(answer);
 }
