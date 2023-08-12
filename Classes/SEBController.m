@@ -6277,15 +6277,43 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
-        self.establishingSEBServerConnection = NO;
-        self.startingExamFromSEBServer = NO;
-        [self.serverController loginToExamAbortedWithCompletion:completion];
-    } else if (self.sebServerConnectionEstablished) {
-        self.sebServerConnectionEstablished = NO;
-        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
+
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Disconnecting from SEB Server", @""), SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If SEB Server doesn't respond for a while, you can forcibly close the connection", @""), SEBShortAppName, SEBShortAppName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Force Close", @"")];
+        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+
+        void (^forceCloseConnection)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            DDLogInfo(@"User decided to force close SEB Server connection");
             completion(restart);
-        }];
+        };
+        
+        void (^closeDisconnetingAlertCompletion)(BOOL) = ^void (BOOL restart) {
+            DDLogInfo(@"SEB Server connection was closed, closing Disconnecting alert.");
+            dispatch_block_cancel(self->cancelableBlock);
+            [modalAlert.window orderOut:self];
+            [self removeAlertWindow:modalAlert.window];
+            completion(restart);
+        };
+
+        cancelableBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, ^{
+            [modalAlert beginSheetModalForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))forceCloseConnection];
+        });
+        
+        dispatch_time_t dispachTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
+        dispatch_after(dispachTime, dispatch_get_main_queue(), cancelableBlock);
+
+        if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
+            self.establishingSEBServerConnection = NO;
+            self.startingExamFromSEBServer = NO;
+            [self.serverController loginToExamAbortedWithCompletion:closeDisconnetingAlertCompletion];
+        } else if (self.sebServerConnectionEstablished) {
+            self.sebServerConnectionEstablished = NO;
+            [self.serverController quitSessionWithRestart:restart completion:closeDisconnetingAlertCompletion];
+        }
     } else {
         completion(restart);
     }
