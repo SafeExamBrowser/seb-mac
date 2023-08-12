@@ -127,8 +127,8 @@
         [self conditionallyDisplayToolbar];
     }
     _javaScriptFunctions = self.browserController.pageJavaScript;
-    self.contentView.superview.accessibilityLabel = NSLocalizedString(@"Browser Window", nil);
-    self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", nil);
+    self.contentView.superview.accessibilityLabel = NSLocalizedString(@"Browser Window", @"");
+    self.contentView.accessibilityLabel = NSLocalizedString(@"Web Content", @"");
 }
 
 - (void)performFindPanelAction:(id)sender
@@ -401,10 +401,10 @@
         if (self.webView.showReloadWarning) {
             // Display warning and ask if to reload page
             NSAlert *newAlert = [self.browserController.sebController newAlert];
-            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             [newAlert setAlertStyle:NSWarningAlertStyle];
             
             void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -563,7 +563,7 @@
         switch ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_URLFilterMessage"]) {
                 
             case URLFilterMessageText:
-                message.stringValue = NSLocalizedString(@"URL Blocked!", nil);
+                message.stringValue = NSLocalizedString(@"URL Blocked!", @"");
                 [message setFont:[NSFont boldSystemFontOfSize:[NSFont smallSystemFontSize]]];
                 [message setTextColor:[NSColor redColor]];
                 break;
@@ -712,9 +712,9 @@
                         
                         // Set filter alert text depending if a URL or content was blocked
                         if (contentFilter) {
-                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:", nil);
+                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:", @"");
                         } else {
-                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"It's not allowed to open this URL! You can create a new filter rule based on the following patterns:", nil);
+                            self.URLFilterAlertText.stringValue = NSLocalizedString(@"It's not allowed to open this URL! You can create a new filter rule based on the following patterns:", @"");
                         }
                         // Set filter expression according to selected pattern in the NSMatrix radio button group
                         [self changedFilterPattern:self.filterPatternMatrix];
@@ -1304,8 +1304,8 @@
         NSAlert *modalAlert = [self.browserController.sebController newAlert];
         [modalAlert setMessageText:titleString];
         [modalAlert setInformativeText:errorMessage];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", nil)];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1355,7 +1355,7 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
     if (_browserController == nil) {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, @"");
     } else {
         [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
     }
@@ -1374,7 +1374,7 @@ completionHandler:(void (^)(void))completionHandler
     DDLogWarn(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1394,7 +1394,7 @@ runJavaScriptAlertPanelWithMessage:(NSString *)message
     DDLogWarn(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1426,8 +1426,8 @@ completionHandler:(void (^)(BOOL result))completionHandler
     DDLogInfo(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     alertResultButton = [modalAlert runModal];
     
@@ -1456,8 +1456,8 @@ runJavaScriptConfirmPanelWithMessage:(NSString *)message
     DDLogInfo(@"%s: %@", __FUNCTION__, message);
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     alertResultButton = [modalAlert runModal];
     
@@ -1537,9 +1537,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                     
                     NSAlert *modalAlert = [self.browserController.sebController newAlert];
                     DDLogInfo(@"File to upload automatically chosen");
-                    [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", nil)];
-                    [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", nil)];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                    [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", @"")];
+                    [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", @"")];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                     [modalAlert setAlertStyle:NSInformationalAlertStyle];
                     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                         [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1556,9 +1556,9 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 
                 NSAlert *modalAlert = [self.browserController.sebController newAlert];
                 DDLogError(@"File to upload (which was downloaded before) not found");
-                [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", nil)];
-                [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", nil)];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", @"")];
+                [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", @"")];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert setAlertStyle:NSCriticalAlertStyle];
                 void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self.browserController.sebController removeAlertWindow:modalAlert.window];

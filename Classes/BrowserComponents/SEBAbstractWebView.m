@@ -809,7 +809,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                         [self.navigationDelegate fileDownloadedSuccessfully:filename];
                     } else {
                         DDLogError(@"Failed to save website generated data: %@", url);
-                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Failed", nil) message:[NSString stringWithFormat:NSLocalizedString(@"Could not save downloaded data, probably a wrong download directory was used in %@ settings.", nil), SEBShortAppName]];
+                        [self.navigationDelegate presentAlertWithTitle:NSLocalizedString(@"Download Failed", @"") message:[NSString stringWithFormat:NSLocalizedString(@"Could not save downloaded data, probably a wrong download directory was used in %@ settings.", @""), SEBShortAppName]];
                     }
                 } else if (!self.allowDownloads && navigationType == WKNavigationTypeLinkActivated) {
                     [self.navigationDelegate showAlertNotAllowedDownUploading:NO];

@@ -83,7 +83,7 @@
     NSArray *names;
     NSArray *identitiesInKeychain = [self.keychainManager getIdentitiesAndNames:&names];
     self.identities = identitiesInKeychain;
-    self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"Create New…", nil)];;
+    self.identitiesNames = [NSMutableArray arrayWithObject:NSLocalizedString(@"Create New…", @"")];;
     [self.identitiesNames addObjectsFromArray:names];
     _identitiesCounter = [NSMutableArray new];
     for (NSUInteger ruleCounter = 0; ruleCounter < self.identitiesNames.count; ruleCounter++) {
@@ -91,7 +91,7 @@
     }
     _configFileIdentitiesNames = _identitiesNames.mutableCopy;
     _configFileIdentitiesCounter = _identitiesCounter.mutableCopy;
-    _configFileIdentitiesNames[0] = NSLocalizedString(@"None", nil);
+    _configFileIdentitiesNames[0] = NSLocalizedString(@"None", @"");
 }
 
 
@@ -240,19 +240,19 @@
             int type = [certificate[@"type"] intValue];
             switch (type) {
                 case certificateTypeSSL:
-                    combinedCertificateString = NSLocalizedString(@"SSL", nil);
+                    combinedCertificateString = NSLocalizedString(@"SSL", @"");
                     break;
                     
                 case certificateTypeIdentity:
-                    combinedCertificateString = NSLocalizedString(@"IDENTITY", nil);
+                    combinedCertificateString = NSLocalizedString(@"IDENTITY", @"");
                     break;
                     
                 case certificateTypeCA:
-                    combinedCertificateString = NSLocalizedString(@"CA", nil);
+                    combinedCertificateString = NSLocalizedString(@"CA", @"");
                     break;
                     
                 case certificateTypeSSLDebug:
-                    combinedCertificateString = NSLocalizedString(@"DEBUG", nil);
+                    combinedCertificateString = NSLocalizedString(@"DEBUG", @"");
                     break;
             }
             combinedCertificateString = [NSString stringWithFormat:@"%@  %@", combinedCertificateString, certificate[@"name"]];
@@ -300,7 +300,7 @@
         [_customCells setObject:cell forKey:key];
     }
     NSString *text = [[NSUserDefaults standardUserDefaults] secureObjectForKey:key] != nil ?
-    [[NSUserDefaults standardUserDefaults] secureObjectForKey:specifier.key] : NSLocalizedString(@"Share settings to see Key", nil);
+    [[NSUserDefaults standardUserDefaults] secureObjectForKey:specifier.key] : NSLocalizedString(@"Share settings to see Key", @"");
     cell.textView.text = text;
     cell.textView.delegate = self;
     [cell setNeedsLayout];
@@ -530,26 +530,26 @@
             SecIdentityRef identityRef = (__bridge SecIdentityRef)([self.identities objectAtIndex:indexOfSelectedIdentity-1]);
 
             // Show alert to choose if identity should be embedded or removed from keychain
-            NSString *identityMessage = NSLocalizedString(@"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).", nil);
+            NSString *identityMessage = NSLocalizedString(@"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).", @"");
             NSString *identityName = self.identitiesNames[indexOfSelectedIdentity];
             identityMessage = [NSString stringWithFormat:identityMessage, identityName];
-            [_sebViewController alertWithTitle:NSLocalizedString(@"Identity in Keychain", nil)
+            [_sebViewController alertWithTitle:NSLocalizedString(@"Identity in Keychain", @"")
                                        message:identityMessage
                                 preferredStyle:UIAlertControllerStyleAlert
-                                  action1Title:NSLocalizedString(@"Remove", nil)
+                                  action1Title:NSLocalizedString(@"Remove", @"")
                                   action1Style:UIAlertActionStyleDestructive
                                 action1Handler:^{
-                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Confirm Removing Identity", nil)
-                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore.", nil), identityName]
+                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Confirm Removing Identity", @"")
+                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore.", @""), identityName]
                                                             preferredStyle:UIAlertControllerStyleAlert
-                                                              action1Title:NSLocalizedString(@"Remove", nil)
+                                                              action1Title:NSLocalizedString(@"Remove", @"")
                                                               action1Style:UIAlertActionStyleDestructive
                                                             action1Handler:^{
                                                                 if (![self.keychainManager removeIdentityFromKeychain:identityRef]) {
                                                                     [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
-                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Removing Identity Failed!", nil)
-                                                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"The identity '%@' could not be removed from the Keychain.", nil), identityName]
-                                                                                              action1Title:NSLocalizedString(@"OK", nil)
+                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Removing Identity Failed!", @"")
+                                                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"The identity '%@' could not be removed from the Keychain.", @""), identityName]
+                                                                                              action1Title:NSLocalizedString(@"OK", @"")
                                                                                             action1Handler:^{
                                                                                                 [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                                                                                             }
@@ -569,7 +569,7 @@
                                                                     [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
                                                                 }
                                                             }
-                                                              action2Title:NSLocalizedString(@"Cancel", nil)
+                                                              action2Title:NSLocalizedString(@"Cancel", @"")
                                                               action2Style:UIAlertActionStyleCancel
                                                             action2Handler:^{
                                                                 [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
@@ -577,7 +577,7 @@
                                                             }];
                                     
                                 }
-                                  action2Title:NSLocalizedString(@"Embed", nil)
+                                  action2Title:NSLocalizedString(@"Embed", @"")
                                   action2Style:UIAlertActionStyleDefault
                                 action2Handler:^{
                                     NSData *identityAdminPasswordHash = [self.keychainManager retrieveKeyForIdentity:identityRef];
@@ -606,15 +606,15 @@
         NSString *certficateType = [[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_certificateTypes][certificateTypeObject.integerValue];
         
         NSString *certificateMessage = [NSString stringWithFormat:@"%@: '%@'\n%@: %@",
-                                        NSLocalizedString(@"Name", nil),
+                                        NSLocalizedString(@"Name", @""),
                                         certificateName,
-                                        NSLocalizedString(@"Type", nil),
+                                        NSLocalizedString(@"Type", @""),
                                         certficateType];
         
-        [_sebViewController alertWithTitle:NSLocalizedString(@"Embedded Certificate", nil)
+        [_sebViewController alertWithTitle:NSLocalizedString(@"Embedded Certificate", @"")
                                    message:certificateMessage
                             preferredStyle:UIAlertControllerStyleAlert
-                              action1Title:NSLocalizedString(@"Remove", nil)
+                              action1Title:NSLocalizedString(@"Remove", @"")
                               action1Style:UIAlertActionStyleDestructive
                             action1Handler:^{
                                 [embeddedCertificates removeObject:embeddedCertficate];
@@ -632,7 +632,7 @@
                                 [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                                 [self.appSettingsViewController setHiddenKeys:currentlyHiddenKeys];
                             }
-                              action2Title:NSLocalizedString(@"OK", nil)
+                              action2Title:NSLocalizedString(@"OK", @"")
                               action2Style:UIAlertActionStyleDefault
                             action2Handler:^{
                                 [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_embeddedCertificatesList"];
@@ -775,41 +775,41 @@
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Create New Identity", nil)
-                                                                             message:NSLocalizedString(@"Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.", nil)
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Create New Identity", @"")
+                                                                             message:NSLocalizedString(@"Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.", @"")
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"Identity Name", nil);
+         textField.placeholder = NSLocalizedString(@"Identity Name", @"");
          textField.text = identityName;
          textField.autocorrectionType = UITextAutocorrectionTypeNo;
      }];
     
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                NSString *identityName = self.sebViewController.alertController.textFields.firstObject.text;
                                                                                self.sebViewController.alertController = nil;
                                                                                if (identityName.length == 0) {
-                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"No Identity Name Provided", nil)
-                                                                                                              message:NSLocalizedString(@"An identity needs a unique name.", nil)
-                                                                                                         action1Title:NSLocalizedString(@"OK", nil)
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"No Identity Name Provided", @"")
+                                                                                                              message:NSLocalizedString(@"An identity needs a unique name.", @"")
+                                                                                                         action1Title:NSLocalizedString(@"OK", @"")
                                                                                                        action1Handler:^{
                                                                                                            [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
                                                                                                        }
-                                                                                                         action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                         action2Title:NSLocalizedString(@"Cancel", @"")
                                                                                                        action2Handler:^{
                                                                                                            [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                                                                                                            [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                                                                                                        }];
                                                                                } else if ([self.identitiesNames containsObject:identityName]) {
-                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Identity Name Not Unique", nil)
-                                                                                                                  message:NSLocalizedString(@"An identity with the same name is already stored in the Keychain. Please use a unique name.", nil)
-                                                                                                             action1Title:NSLocalizedString(@"OK", nil)
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Identity Name Not Unique", @"")
+                                                                                                                  message:NSLocalizedString(@"An identity with the same name is already stored in the Keychain. Please use a unique name.", @"")
+                                                                                                             action1Title:NSLocalizedString(@"OK", @"")
                                                                                                            action1Handler:^{
                                                                                                                [self createNewIdentityRequestName:[self getConfigFileIdentityName]];
                                                                                                            }
-                                                                                                             action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                             action2Title:NSLocalizedString(@"Cancel", @"")
                                                                                                            action2Handler:^{
                                                                                                                [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                                                                                                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
@@ -819,7 +819,7 @@
                                                                                }
                                                                            }]];
     
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIAlertActionStyleCancel
                                                                          handler:^(UIAlertAction *action) {
                                                                                self.sebViewController.alertController = nil;
@@ -841,7 +841,7 @@
     if (configFileName.length == 0) {
         configFileName = [NSString stringWithFormat:@"%@ Config", SEBShortAppName];
     }
-    configFileName = [NSString stringWithFormat:@"%@ %@", configFileName, NSLocalizedString(@"Identity", nil)];
+    configFileName = [NSString stringWithFormat:@"%@ %@", configFileName, NSLocalizedString(@"Identity", @"")];
     return configFileName;
 }
 
@@ -887,9 +887,9 @@
         }
     } else {
         [preferences setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
-        [self.sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", nil)
-                                       message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", nil)
-                                  action1Title:NSLocalizedString(@"OK", nil)
+        [self.sebViewController alertWithTitle:NSLocalizedString(@"Could not Export Identity", @"")
+                                       message:NSLocalizedString(@"The private key and certificate contained in the selected identity could not be exported. Try another identity.", @"")
+                                  action1Title:NSLocalizedString(@"OK", @"")
                                 action1Handler:^{}
                                   action2Title:nil
                                 action2Handler:^{}];
@@ -903,30 +903,30 @@
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Identity Admin Password", nil)
-                                                                             message:[NSString stringWithFormat:NSLocalizedString(@"This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:", nil), SEBShortAppName]
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Identity Admin Password", @"")
+                                                                             message:[NSString stringWithFormat:NSLocalizedString(@"This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:", @""), SEBShortAppName]
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
     [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-         textField.placeholder = NSLocalizedString(@"Admin Password", nil);
+         textField.placeholder = NSLocalizedString(@"Admin Password", @"");
          textField.secureTextEntry = YES;
      }];
     
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                NSString *enteredAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
                                                                                NSData *enteredAdminPasswordHash = [[self.keychainManager generateSHAHashString:enteredAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
 
                                                                                self.sebViewController.alertController = nil;
                                                                                if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
-                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", nil)
-                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", nil), SEBShortAppName]
-                                                                                                             action1Title:NSLocalizedString(@"OK", nil)
+                                                                                   [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", @"")
+                                                                                                                  message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", @""), SEBShortAppName]
+                                                                                                             action1Title:NSLocalizedString(@"OK", @"")
                                                                                                            action1Handler:^{
                                                                                                                [self embedIdentityRequestAdminPassword:(SecIdentityRef)identityRef name:(NSString *)identityName adminPasswordHash:identityAdminPasswordHash];
                                                                                                            }
-                                                                                                             action2Title:NSLocalizedString(@"Cancel", nil)
+                                                                                                             action2Title:NSLocalizedString(@"Cancel", @"")
                                                                                                            action2Handler:^{
                                                                                                                [[NSUserDefaults standardUserDefaults] setSecureInteger: -1 forKey:@"org_safeexambrowser_chooseIdentityToEmbed"];
                                                                                                                [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
@@ -936,7 +936,7 @@
                                                                                }
                                                                            }]];
     
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIAlertActionStyleCancel
                                                                          handler:^(UIAlertAction *action) {
                                                                                self.sebViewController.alertController = nil;

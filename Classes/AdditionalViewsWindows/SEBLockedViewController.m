@@ -62,9 +62,9 @@ void run_block_on_main_thread(dispatch_block_t block)
     currentExamURL = examURLString;
     NSString *examInfo;
     if ([[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] >= browserWindowShowURLBeforeTitle) {
-        examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Secure exam session was started, URL: ", nil), examURLString];
+        examInfo = [NSString stringWithFormat:@"%@%@\n", NSLocalizedString(@"Secure exam session was started, URL: ", @""), examURLString];
     } else {
-        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure session was started", nil)];
+        examInfo = [NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Secure session was started", @"")];
     }
     // Append the new string about the started exam and create/update the persisted exam
     [self appendErrorString:examInfo withTime:[NSDate date] configKey:configKey];
@@ -245,7 +245,7 @@ void run_block_on_main_thread(dispatch_block_t block)
             [self.UIDelegate setPasswordWrongLabelHidden:true];
             
             // Add log string for Correct password entered
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", nil)]
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", @"")]
                            withTime:[NSDate date]];
             
             if ([self.controllerDelegate respondsToSelector:@selector(unlockPasswordEntered)]) {
@@ -258,7 +258,7 @@ void run_block_on_main_thread(dispatch_block_t block)
             return;
         }
         DDLogError(@"Lockdown alert: Wrong quit/unlock password entered, asking to try again");
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", nil)]
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", @"")]
                        withTime:[NSDate date]];
         [self.UIDelegate setLockedAlertPassword:@""];
         [self.UIDelegate setPasswordWrongLabelHidden:false];
@@ -270,7 +270,7 @@ void run_block_on_main_thread(dispatch_block_t block)
     // Add log information about closing lockdown alert
     DDLogInfo(@"Lockdown alert: Correct password entered, closing lockdown windows");
     self.controllerDelegate.didResumeExamTime = [NSDate date];
-    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Closing lockdown windows", nil)] withTime:self.controllerDelegate.didResumeExamTime];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Closing lockdown windows", @"")] withTime:self.controllerDelegate.didResumeExamTime];
     // Calculate time difference between session resigning active and closing lockdown alert
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:NSCalendarUnitMinute | NSCalendarUnitSecond
@@ -279,7 +279,7 @@ void run_block_on_main_thread(dispatch_block_t block)
                                                 options:NSCalendarWrapComponents];
     
     DDLogInfo(@"Lockdown alert: Closing lockdown windows");
-    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second];
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", @""), components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];

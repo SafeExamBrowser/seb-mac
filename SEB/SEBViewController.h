@@ -48,7 +48,7 @@
  * @brief       Evaluate an entered string, derive a SEB config URL and act on result.
  * @details
  */
-- (void)evaluateEnteredURLString:(NSString *)inputURLString;
+- (void)evaluateEnteredURLString:(NSString *_Nonnull )inputURLString;
 
 @end
 
@@ -89,6 +89,8 @@
 #import "ServerLogger.h"
 
 #import <WebRTC.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class AppDelegate;
 @class SEBUIController;
@@ -170,11 +172,11 @@ void run_on_ui_thread(dispatch_block_t block);
 
 @property (strong, nonatomic) SEBiOSInitAssistantViewController *assistantViewController;
 
-@property (strong, nonatomic) AboutSEBiOSViewController *aboutSEBViewController;
-@property (strong, nonatomic) MFMailComposeViewController *mailViewController;
-@property (strong, nonatomic) UIViewController *rootViewController;
+@property (strong, nonatomic) AboutSEBiOSViewController *_Nullable aboutSEBViewController;
+@property (strong, nonatomic) MFMailComposeViewController *_Nullable mailViewController;
+@property (strong, nonatomic) UIViewController *_Nullable rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
-@property(strong, nonatomic) SEBBatteryController *batteryController;
+@property(strong, nonatomic) SEBBatteryController *_Nullable batteryController;
 
 /// Locking down SEB
 @property (strong, nonatomic) SEBiOSLockedViewController *sebLockedViewController;
@@ -189,29 +191,29 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 /// Settings
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+@property (nonatomic, retain) IASKAppSettingsViewController *_Nullable appSettingsViewController;
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
-@property (strong, nonatomic) NSData *configFileKeyHash;
+@property (strong, nonatomic) NSData *_Nullable configFileKeyHash;
 
 @property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
-@property (strong, nonatomic) QRCodeReaderViewController *visibleCodeReaderViewController;
+@property (strong, nonatomic) QRCodeReaderViewController *_Nullable visibleCodeReaderViewController;
 
 @property (nonatomic, strong) id <SEBConfigURLManagerDelegate> configURLManagerDelegate;
 
 /// SEB Server
-@property (strong, nonatomic) ServerController *serverController;
-@property (strong, nonatomic) SEBServerViewController *sebServerViewController;
+@property (strong, nonatomic) ServerController *_Nullable serverController;
+@property (strong, nonatomic) SEBServerViewController *_Nullable sebServerViewController;
 
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
-@property (strong, nonatomic) ProctoringImageAnalyzer *proctoringImageAnalyzer API_AVAILABLE(ios(11));
+@property (strong, nonatomic) ProctoringImageAnalyzer *_Nullable proctoringImageAnalyzer API_AVAILABLE(ios(11));
 @property (readwrite) UIInterfaceOrientation userInterfaceOrientation;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *allRTCTracks;
 @property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
 @property (strong, nonatomic) CIContext *ciContext;
-@property (strong, nonatomic) CIImage *proctoringStateIcon;
+@property (strong, nonatomic) CIImage *_Nullable proctoringStateIcon;
 
 @property(readwrite) BOOL previousSessionJitsiMeetEnabled;
 
@@ -234,7 +236,7 @@ void run_on_ui_thread(dispatch_block_t block);
 - (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
 
 /// Views and bars
-@property (strong, nonatomic) UIAlertController *alertController;
+@property (strong, nonatomic) UIAlertController *_Nullable alertController;
 @property (strong, nonatomic) UIAlertController *inactiveAlertController;
 @property (strong, nonatomic) UIAlertController *allowediOSAlertController;
 
@@ -360,15 +362,15 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) resetReceivedServerConfig;
 - (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL;
 
-- (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *)error;
+- (void) storeSEBSettingsDownloadedDirectlySuccessful:(NSError *_Nullable)error;
 - (void) storeNewSEBSettingsFromData:(NSData *)sebData;
-- (void) storeNewSEBSettingsSuccessful:(NSError *)error;
+- (void) storeNewSEBSettingsSuccessful:(NSError *_Nullable)error;
 
 #pragma mark - Toolbar (UINavigationBar)
 - (void) showToolbarNavigation:(BOOL)show;
 - (void) setToolbarTitle:(NSString *)title;
-- (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(void (^)(void))completionHandler;
-- (void) conditionallyRemoveToolbarWithCompletion:(void (^)(void))completionHandler;
+- (void) showToolbarConditionally:(BOOL)showConditionally withCompletion:(nullable void (^)(void))completionHandler;
+- (void) conditionallyRemoveToolbarWithCompletion:(nullable void (^)(void))completionHandler;
 
 #pragma mark - SEB Dock and left slider button handler
 - (void) leftDrawerButtonPress:(id)sender;
@@ -400,8 +402,8 @@ void run_on_ui_thread(dispatch_block_t block);
                 message:(NSString *)message
            action1Title:(NSString *)action1Title
          action1Handler:(void (^)(void))action1Handler
-           action2Title:(NSString *)action2Title
-         action2Handler:(void (^)(void))action2Handler;
+           action2Title:(NSString *_Nullable)action2Title
+         action2Handler:(nullable void (^)(void))action2Handler;
 
 - (void) alertWithTitle:(NSString *)title
                 message:(NSString *)message
@@ -409,7 +411,7 @@ void run_on_ui_thread(dispatch_block_t block);
            action1Title:(NSString *)action1Title
            action1Style:(UIAlertActionStyle)action1Style
          action1Handler:(void (^)(void))action1Handler
-           action2Title:(NSString *)action2Title
+           action2Title:(NSString *_Nullable)action2Title
            action2Style:(UIAlertActionStyle)action2Style
          action2Handler:(void (^)(void))action2Handler;
 
@@ -448,3 +450,4 @@ void run_on_ui_thread(dispatch_block_t block);
 
 @end
 
+NS_ASSUME_NONNULL_END

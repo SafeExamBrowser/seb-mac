@@ -132,7 +132,7 @@
             // Password fields contain actual passwords, not the placeholder for a hash value
             if (![settingsPassword isEqualToString:confirmSettingsPassword]) {
                 //if the two passwords don't match, show it in the label
-                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", nil)]);
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", @"")]);
             }
         }
     }
@@ -180,7 +180,7 @@
         self.identitiesNames = [names copy];
         [chooseIdentity removeAllItems];
         //first put "None" item in popupbutton list
-        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", @"")];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
     

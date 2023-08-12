@@ -1119,9 +1119,9 @@
         <note>Class = "NSBox"; title = "Selected Process"; ObjectID = "405";</note>
       </trans-unit>
       <trans-unit id="463.ibShadowedToolTip" xml:space="preserve">
-        <source>Add a permitted process</source>
-        <target>Erlaubten Prozess hinzufügen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process"; ObjectID = "463";</note>
+        <source>Add a permitted process (not yet supported on macOS)</source>
+        <target>Erlaubten Prozess hinzufügen (noch nicht unterstützt auf macOS)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process (not yet supported on macOS)"; ObjectID = "463";</note>
       </trans-unit>
       <trans-unit id="464.ibShadowedToolTip" xml:space="preserve">
         <source>Remove process</source>
@@ -1210,7 +1210,7 @@
       </trans-unit>
       <trans-unit id="865.ibShadowedToolTip" xml:space="preserve">
         <source>Add a command line argument for the permitted process</source>
-        <target>Kommandozeilen-Argument für erlaubten Prozess hinzufügen</target>
+        <target>Kommandozeilen-Argument für Erlaubten Prozess hinzufügen (noch nicht unterstützt auf macOS)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Add a command line argument for the permitted process"; ObjectID = "865";</note>
       </trans-unit>
       <trans-unit id="866.ibExternalAccessibilityDescription" xml:space="preserve">

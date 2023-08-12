@@ -105,7 +105,7 @@
         self.SSLCertificatesNames = [SSLCertificatesInKeychain valueForKeyPath:@"name"];
         [chooseCertificate removeAllItems];
         //first put "None" item in popupbutton list
-        [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseCertificate addItemWithTitle:NSLocalizedString(@"None", @"")];
         [chooseCertificate addItemsWithTitles: self.SSLCertificatesNames];
     }
     if (!self.caCertificatesNames)
@@ -115,7 +115,7 @@
         self.caCertificatesNames = [caCertificatesInKeychain valueForKeyPath:@"name"];
         [chooseCA removeAllItems];
         //first put "None" item in popupbutton list
-        [chooseCA addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseCA addItemWithTitle:NSLocalizedString(@"None", @"")];
         [chooseCA addItemsWithTitles: self.caCertificatesNames];
     }
     if (!self.certificates)
@@ -130,7 +130,7 @@
         self.identitiesNames = [names copy];
         [chooseIdentity removeAllItems];
         //first put "None" item in popupbutton list
-        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", nil)];
+        [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", @"")];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
 }
@@ -188,10 +188,10 @@
 - (IBAction)clearIgnoreList:(id)sender {
     // Ask user if the ignore list should really be cleared
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Clear Ignored URL List", nil)];
-    [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Clear Ignored URL List", @"")];
+    [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", @"")];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
     void (^alertAnswerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         if (answer == NSAlertSecondButtonReturn) {
@@ -396,9 +396,9 @@
         } else {
             // Display error for exporting identity not successful
             NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Exporting Identity Failed", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"Exporting Identity Failed", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [self.preferencesController.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
         }
@@ -504,9 +504,9 @@
         if (!sender || (sender && sender.state)) {
             _preferencesController.certOSWarningDisplayed = true;
             NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"macOS Support Warning", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"macOS Support Warning", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
             // which also is the minimum macOS version the Preferences window is available from
