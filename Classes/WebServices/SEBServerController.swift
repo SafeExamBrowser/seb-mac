@@ -642,7 +642,7 @@ public extension SEBServerController {
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken ?? ""]
-            load(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            loadWithFallback(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
                 self.cancelAllRequests = true
                 self.stopPingTimer()
                 self.delegate?.didReceiveExamSalt("", connectionToken: "")
