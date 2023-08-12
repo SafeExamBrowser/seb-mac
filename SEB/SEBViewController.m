@@ -145,7 +145,7 @@ static NSMutableSet *browserWindowControllers;
             QRCodeReader *codeReader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
             
             // Instantiate the view controller
-            _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+            _codeReaderViewController = [QRCodeReaderViewController readerWithCancelButtonTitle:NSLocalizedString(@"Cancel", @"")
                                                                                      codeReader:codeReader
                                                                             startScanningAtLoad:YES
                                                                          showSwitchCameraButton:NO
@@ -165,10 +165,10 @@ static NSMutableSet *browserWindowControllers;
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Camera Access Denied", nil)
-                                                                    message:NSLocalizedString(@"To scan a QR code, enable the camera in settings", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Camera Access Denied", @"")
+                                                                    message:NSLocalizedString(@"To scan a QR code, enable the camera in settings", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Settings", @"")
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                      self.alertController = nil;
                                                                      NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
@@ -176,7 +176,7 @@ static NSMutableSet *browserWindowControllers;
                                                                          [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
                                                                      }
                                                                  }]];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                                                                      self.alertController = nil;
                                                                  }]];
@@ -185,10 +185,10 @@ static NSMutableSet *browserWindowControllers;
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Camera Available", nil)
-                                                                    message:NSLocalizedString(@"To scan a QR code, your device must have a camera", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Camera Available", @"")
+                                                                    message:NSLocalizedString(@"To scan a QR code, your device must have a camera", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                      self.alertController = nil;
                                                                  }]];
@@ -234,8 +234,8 @@ static NSMutableSet *browserWindowControllers;
             }
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", nil), SEBShortAppName]
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", @"")
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.", @""), SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _allowediOSAlertController = _alertController;
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
@@ -727,7 +727,7 @@ static NSMutableSet *browserWindowControllers;
         } else {
             // Allow up to 5 attempts for entering password
             attempts = 5;
-            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reset settings after entering the %@ administrator password:", nil), SEBShortAppName];
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only reset settings after entering the %@ administrator password:", @""), SEBShortAppName];
             
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -770,8 +770,8 @@ static NSMutableSet *browserWindowControllers;
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Reset SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
             
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Reset %@ Settings", nil), SEBExtraShortAppName];
-            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Reset %@ Settings", @""), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", @""), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             _resettingSettings = NO;
             
@@ -872,12 +872,12 @@ static NSMutableSet *browserWindowControllers;
     UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
     NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
     UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
-                                                                                         localizedTitle:NSLocalizedString(@"Config QR Code", nil)
+                                                                                         localizedTitle:NSLocalizedString(@"Config QR Code", @"")
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
-    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", nil);
-    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", nil);
+    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", @"");
+    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", @"");
     return scanQRCodeShortcutItem;
 }
 
@@ -886,7 +886,7 @@ static NSMutableSet *browserWindowControllers;
 {
     [self alertWithTitle:[error.userInfo objectForKey:NSLocalizedDescriptionKey]
                  message:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]
-            action1Title:NSLocalizedString(@"OK", nil)
+            action1Title:NSLocalizedString(@"OK", @"")
           action1Handler:^{}
             action2Title:nil
           action2Handler:^{}];
@@ -1012,7 +1012,7 @@ static NSMutableSet *browserWindowControllers;
             } else {
                 // Allow up to 5 attempts for entering password
                 attempts = 5;
-                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only edit settings after entering the %@ administrator password:", nil), SEBShortAppName];
+                NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only edit settings after entering the %@ administrator password:", @""), SEBShortAppName];
                 
                 // Ask the user to enter the settings password and proceed to the callback method after this happend
                 [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -1058,8 +1058,8 @@ static NSMutableSet *browserWindowControllers;
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Edit SEB Settings: You didn't enter the correct current SEB administrator password.", __FUNCTION__);
             
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Edit %@ Settings", nil), SEBExtraShortAppName];
-            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Edit %@ Settings", @""), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", @""), SEBShortAppName];
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Continue SEB without displaying settings
@@ -1138,10 +1138,10 @@ static NSMutableSet *browserWindowControllers;
         serverConfig.count &&
         [self isReceivedServerConfigNew:serverConfig])
     {
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
-                                                                message:NSLocalizedString(@"Do you want to abort opening Settings and apply this managed configuration?", nil)
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", @"")
+                                                                message:NSLocalizedString(@"Do you want to abort opening Settings and apply this managed configuration?", @"")
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
             self->receivedServerConfig = nil;
@@ -1151,7 +1151,7 @@ static NSMutableSet *browserWindowControllers;
             }
         }]];
         
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             self.alertController = nil;
             [self showSettingsModal];
@@ -1201,8 +1201,8 @@ static NSMutableSet *browserWindowControllers;
                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                target:self
                                action:@selector(shareSettingsAction:)];
-        settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", nil);
-        settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", nil);
+        settingsShareButton.accessibilityLabel = NSLocalizedString(@"Share", @"");
+        settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", @"");
         
     }
     if (!settingsActionButton) {
@@ -1210,8 +1210,8 @@ static NSMutableSet *browserWindowControllers;
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                 target:self
                                 action:@selector(moreSettingsActions:)];
-        settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", nil);
-        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", nil);
+        settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", @"");
+        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", @"");
         
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
@@ -1300,7 +1300,7 @@ static NSMutableSet *browserWindowControllers;
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
     
-    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", nil), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
+    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", @""), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
     
     // Get password
     NSString *encryptingPassword;
@@ -1332,16 +1332,16 @@ static NSMutableSet *browserWindowControllers;
                     encryptedSEBData = UIImagePNGRepresentation(qrCode);
                 } else {
                     shareConfigFormat = shareConfigFormatFile;
-                    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", nil)
-                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]
+                    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", @"")
+                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]
                                                                      preferredStyle:UIAlertControllerStyleAlert];
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                         self.alertController = nil;
 
                     }]];
                     
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Configuration", nil)
+                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Configuration", @"")
                                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                         self.alertController = nil;
                         [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
@@ -1397,10 +1397,10 @@ static NSMutableSet *browserWindowControllers;
         NSArray *activityItems;
         
         NSString *configFilePurpose = (configPurpose == sebConfigPurposeStartingExam ?
-                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", nil), encryptedWithIdentityString] :
+                                       [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"for starting an exam", @""), encryptedWithIdentityString] :
                                        (configPurpose == sebConfigPurposeConfiguringClient ?
-                                        NSLocalizedString(@"for configuring clients", nil) :
-                                        NSLocalizedString(@"for Managed Configuration (MDM)", nil)));
+                                        NSLocalizedString(@"for configuring clients", @"") :
+                                        NSLocalizedString(@"for Managed Configuration (MDM)", @"")));
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
             ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
              [preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]))
@@ -1418,12 +1418,12 @@ static NSMutableSet *browserWindowControllers;
                  hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] == configFileShareKeysWithoutConfig) {
-                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and/or Config Keys for %@ %@ Config File %@%@", nil), _sebInAppSettingsViewController.permanentSettingsChanged ? @"MODIFIED (!)" : @"unmodified", SEBShortAppName, configFilePurpose, activityString] ];
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and/or Config Keys for %@ %@ Config File %@%@", @""), _sebInAppSettingsViewController.permanentSettingsChanged ? @"MODIFIED (!)" : @"unmodified", SEBShortAppName, configFilePurpose, activityString] ];
             } else {
-                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@%@", nil), SEBShortAppName, configFilePurpose, activityString], configFileRUL ];
+                activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@%@", @""), SEBShortAppName, configFilePurpose, activityString], configFileRUL ];
             }
         } else {
-            activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", nil), SEBShortAppName, configFilePurpose], configFileRUL ];
+            activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"%@ Config File %@", @""), SEBShortAppName, configFilePurpose], configFileRUL ];
         }
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
@@ -1454,7 +1454,7 @@ static NSMutableSet *browserWindowControllers;
                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
     if (!NSUserDefaults.userDefaultsPrivate) {
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
             
@@ -1498,7 +1498,7 @@ static NSMutableSet *browserWindowControllers;
             [self closeThenReopenSettings];
         }]];
     } else {
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", @"")
                                                              style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             self.alertController = nil;
             
@@ -1515,7 +1515,7 @@ static NSMutableSet *browserWindowControllers;
     }
     
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset to Default Settings", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset to Default Settings", @"")
                                                          style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         self.alertController = nil;
         
@@ -1528,7 +1528,7 @@ static NSMutableSet *browserWindowControllers;
         [self closeThenReopenSettings];
     }]];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         self.alertController = nil;
         
@@ -2025,9 +2025,9 @@ void run_on_ui_thread(dispatch_block_t block)
                     DDLogError(@"%@Remote proctoring not available", notAvailableRequiredRemoteProctoringService);
                     run_on_ui_thread(^{
                          
-                        [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Not Available", nil)
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", nil), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]
-                                action1Title:NSLocalizedString(@"OK", nil)
+                        [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Not Available", @"")
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]
+                                action1Title:NSLocalizedString(@"OK", @"")
                               action1Handler:^ {
                             self.alertController = nil;
                             [self sessionQuitRestart:NO];
@@ -2054,13 +2054,13 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (self.previousSessionJitsiMeetEnabled) {
                             run_on_ui_thread(startRemoteProctoringOK);
                         } else {
-                            [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", nil)
-                                         message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", nil), SEBShortAppName, SEBShortAppName]
-                                    action1Title:NSLocalizedString(@"OK", nil)
+                            [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", @"")
+                                         message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]
+                                    action1Title:NSLocalizedString(@"OK", @"")
                                   action1Handler:^ {
                                 run_on_ui_thread(startRemoteProctoringOK);
                             }
-                                    action2Title:NSLocalizedString(@"Cancel", nil)
+                                    action2Title:NSLocalizedString(@"Cancel", @"")
                                   action2Handler:^ {
                                 self.alertController = nil;
                                 [[NSNotificationCenter defaultCenter]
@@ -2084,39 +2084,39 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
-                        NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                        NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", @"") : @"";
                         NSString *camera = @"";
                         if ((proctoringSession || browserMediaCaptureCamera) && videoAuthorization != AVAuthorizationStatusAuthorized) {
-                            camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                            camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", @""), microphone.length > 0 ? NSLocalizedString(@" and ", @"") : @""];
                         }
                         NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
-                                                            proctoringSession ? NSLocalizedString(@"remote proctoring", nil) : @"",
-                                                            proctoringSession && webApplications ? NSLocalizedString(@" and ", nil) : @"",
-                                                            webApplications ? NSLocalizedString(@"web applications", nil) : @""];
+                                                            proctoringSession ? NSLocalizedString(@"remote proctoring", @"") : @"",
+                                                            proctoringSession && webApplications ? NSLocalizedString(@" and ", @"") : @"",
+                                                            webApplications ? NSLocalizedString(@"web applications", @"") : @""];
                         NSString *resolveSuggestion;
                         NSString *resolveSuggestion2;
                         NSString *message;
                         if (videoAuthorization == AVAuthorizationStatusDenied ||
                             audioAuthorization == AVAuthorizationStatusDenied) {
-                            resolveSuggestion = NSLocalizedString(@"in Settings ", nil);
-                            resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", nil);
+                            resolveSuggestion = NSLocalizedString(@"in Settings ", @"");
+                            resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", @"");
                         } else {
                             resolveSuggestion = @"";
                             resolveSuggestion2 = @"";
                         }
                         if (videoAuthorization == AVAuthorizationStatusRestricted ||
                             audioAuthorization == AVAuthorizationStatusRestricted) {
-                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", nil), camera, microphone, permissionsRequiredFor, camera, microphone];
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", @""), camera, microphone, permissionsRequiredFor, camera, microphone];
                         } else {
-                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", nil), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
+                            message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", @""), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
                         }
                         
-                        self.alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", nil), permissionsRequiredFor.localizedCapitalizedString]
+                        self.alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", @""), permissionsRequiredFor.localizedCapitalizedString]
                                                                                    message:message
                                                                             preferredStyle:UIAlertControllerStyleAlert];
                         
                         NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                                      audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", nil) : NSLocalizedString(@"OK", nil);
+                                                      audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", @"") : NSLocalizedString(@"OK", @"");
                         [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                             self.alertController = nil;
@@ -2155,7 +2155,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         }]];
                         
                         if (NSUserDefaults.userDefaultsPrivate) {
-                            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                 self.alertController = nil;
                                 [[NSNotificationCenter defaultCenter]
@@ -2425,16 +2425,16 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             target:self
                                                             action:@selector(goBack)];
         toolbarBackButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", nil);
-        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", nil);
+        toolbarBackButton.accessibilityLabel = NSLocalizedString(@"Navigate Back", @"");
+        toolbarBackButton.accessibilityHint = NSLocalizedString(@"Show the previous page", @"");
         
         toolbarForwardButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"SEBToolbarNavigateForwardIcon"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goForward)];
         toolbarForwardButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", nil);
-        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", nil);
+        toolbarForwardButton.accessibilityLabel = NSLocalizedString(@"Navigate Forward", @"");
+        toolbarForwardButton.accessibilityHint = NSLocalizedString(@"Show the next page", @"");
         
         self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:toolbarBackButton, toolbarForwardButton, nil];
         
@@ -2482,8 +2482,8 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                   action:@selector(reload)];
             
             toolbarReloadButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", nil);
-            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", nil);
+            toolbarReloadButton.accessibilityLabel = NSLocalizedString(@"Reload", @"");
+            toolbarReloadButton.accessibilityHint = NSLocalizedString(@"Reload this page", @"");
             
             [rightToolbarItems addObject:toolbarReloadButton];
         }
@@ -2502,7 +2502,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 toolbarSearchButtonDone = [[UIButton alloc] init];
                 toolbarSearchButtonDone.translatesAutoresizingMaskIntoConstraints = NO;
-                [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", nil) forState:UIControlStateNormal];
+                [toolbarSearchButtonDone setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
                 [toolbarSearchButtonDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]];
                 [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
@@ -2537,8 +2537,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 toolbarSearchButton = [[UIBarButtonItem alloc] initWithCustomView:searchButtonView];
                 toolbarSearchButton.imageInsets = UIEdgeInsetsMake(navigationBarItemsOffset, 0, 0, 0);
-                toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", nil);
-                toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", nil);
+                toolbarSearchButton.accessibilityLabel = NSLocalizedString(@"Search Text", @"");
+                toolbarSearchButton.accessibilityHint = NSLocalizedString(@"Search text on web pages", @"");
 //            } else {
 //                [self setSearchBarWidth:!_searchMatchFound];
             }
@@ -2736,10 +2736,10 @@ void run_on_ui_thread(dispatch_block_t block)
         
         if (_settingsOpen) {
             if (!_alertController && !self.appSettingsViewController.presentedViewController) {
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", nil)
-                                                                        message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", nil)
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Received Config from MDM Server", @"")
+                                                                        message:NSLocalizedString(@"Do you want to close Settings and apply this managed configuration?", @"")
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     DDLogDebug(@"%s: Received config while Settings are displayed: Closing Settings.", __FUNCTION__);
@@ -2751,7 +2751,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     }];
                 }]];
                 
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     self.didReceiveMDMConfig = NO;
@@ -3075,8 +3075,8 @@ void run_on_ui_thread(dispatch_block_t block)
             if (error.code == SEBErrorNoValidConfigData) {
                 error = [NSError errorWithDomain:sebErrorDomain
                                             code:SEBErrorNoValidConfigData
-                                        userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", nil),
-                                                   NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No valid %@ config found.", nil), SEBShortAppName],
+                                        userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Scanning Config QR Code Failed", @""),
+                                                   NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"No valid %@ config found.", @""), SEBShortAppName],
                                                    NSUnderlyingErrorKey : error}];
             }
             run_on_ui_thread(^{
@@ -3088,7 +3088,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
                                                                            message:alertMessage
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     if (!self.finishedStartingUp) {
@@ -3137,7 +3137,7 @@ void run_on_ui_thread(dispatch_block_t block)
     _alertController = [UIAlertController  alertControllerWithTitle:title
                                                             message:informativeText
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.alertController = nil;
     }]];
@@ -3166,7 +3166,7 @@ void run_on_ui_thread(dispatch_block_t block)
     _alertController = [UIAlertController alertControllerWithTitle:alertTitle
                                                            message:alertMessage
                                                     preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.alertController = nil;
         [[NSNotificationCenter defaultCenter]
@@ -3187,7 +3187,7 @@ void run_on_ui_thread(dispatch_block_t block)
     _alertController = [UIAlertController alertControllerWithTitle:error.localizedDescription
                                                             message:alertMessage
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.alertController = nil;
     }]];
@@ -3207,21 +3207,21 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_secureMode &&
             UIScreen.mainScreen.isCaptured &&
             ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
-            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", nil);
+            NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", @"");
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Capturing Screen Not Allowed", @"")
                                                                     message:alertMessageiOSVersion
                                                              preferredStyle:UIAlertControllerStyleAlert];
             
-            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 self.alertController = nil;
                 [self startExamWithFallback:fallback];
             }]];
             if (NSUserDefaults.userDefaultsPrivate) {
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
@@ -3302,7 +3302,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", @"");
             
             // Ask the user to enter the quit password and proceed to the callback method after this happend
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -3337,17 +3337,17 @@ void run_on_ui_thread(dispatch_block_t block)
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
-    _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", nil) : NSLocalizedString(@"Quit Session", nil)
-                                                            message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", nil) : NSLocalizedString(@"Are you sure you want to quit this session?", nil)
+    _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", @"") : NSLocalizedString(@"Quit Session", @"")
+                                                            message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : NSLocalizedString(@"Are you sure you want to quit this session?", @"")
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", nil) : NSLocalizedString(@"Quit", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.alertController = nil;
         DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
         [self sessionQuitRestart:restart];
     }]];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         self.alertController = nil;
         DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
@@ -3449,8 +3449,8 @@ void run_on_ui_thread(dispatch_block_t block)
             // Wrong password entered in the last allowed attempts: Stop quitting the exam
             DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
             
-            NSString *title = NSLocalizedString(@"Cannot Quit Session", nil);
-            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", nil);
+            NSString *title = NSLocalizedString(@"Cannot Quit Session", @"");
+            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", @"");
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             [self.sideMenuController hideLeftViewAnimated];
             return;
@@ -3558,8 +3558,8 @@ void run_on_ui_thread(dispatch_block_t block)
                         [self.alertController dismissViewControllerAnimated:NO completion:nil];
                     }
                     
-                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", nil)
-                                                                                message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", nil)
+                    self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", @"")
+                                                                                message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", @"")
                                                                          preferredStyle:UIAlertControllerStyleAlert];
                     self.endSAMWAlertDisplayed = true;
                     [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
@@ -3617,10 +3617,10 @@ void run_on_ui_thread(dispatch_block_t block)
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
         _clientConfigSecureModePaused = YES;
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again.", nil), SEBShortAppName, @"\n\n"]
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Exam Session Finished", @"")
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again.", @""), SEBShortAppName, @"\n\n"]
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Start Another Exam", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
             [self initSEBUIWithCompletionBlock:^{
@@ -3745,14 +3745,14 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
             [self closeServerViewWithCompletion:^{
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
-                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed", nil)
+                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed", @"")
                              message:informativeText
-                        action1Title:NSLocalizedString(@"Retry", nil)
+                        action1Title:NSLocalizedString(@"Retry", @"")
                       action1Handler:^(void){
                     self.establishingSEBServerConnection = NO;
                     [self startExamWithFallback:NO];
                 }
-                        action2Title:NSLocalizedString(@"Quit Session", nil)
+                        action2Title:NSLocalizedString(@"Quit Session", @"")
                       action2Handler:^(void){
                     [self closeServerViewAndRestart:self];
                 }];
@@ -3763,10 +3763,10 @@ void run_on_ui_thread(dispatch_block_t block)
             [self closeServerViewWithCompletion:^{
                 DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
                 NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
-                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", nil)
+                [self alertWithTitle:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", @"")
                              message:informativeText
                       preferredStyle:UIAlertControllerStyleAlert
-                        action1Title:NSLocalizedString(@"Retry", nil)
+                        action1Title:NSLocalizedString(@"Retry", @"")
                         action1Style:UIAlertActionStyleDefault
                       action1Handler:^(void){
                     DDLogInfo(@"User selected Retry option");
@@ -3774,7 +3774,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self startExamWithFallback:NO];
                 }
                  
-                        action2Title:NSLocalizedString(@"Fallback", nil)
+                        action2Title:NSLocalizedString(@"Fallback", @"")
                         action2Style:UIAlertActionStyleDefault
                       action2Handler:^(void){
                     DDLogInfo(@"User selected Fallback option");
@@ -3783,7 +3783,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     // If SEB Server fallback password is set, then restrict fallback
                     if (sebServerFallbackPasswordHash.length != 0) {
                         DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
-                        [self promptPasswordWithMessageText:NSLocalizedString(@"Enter SEB Server fallback password:", nil) title:NSLocalizedString(@"SEB Server Fallback Password Required", nil) completion:^(NSString* password) {
+                        [self promptPasswordWithMessageText:NSLocalizedString(@"Enter SEB Server fallback password:", @"") title:NSLocalizedString(@"SEB Server Fallback Password Required", @"") completion:^(NSString* password) {
                             
                             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
                             if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
@@ -3795,10 +3795,10 @@ void run_on_ui_thread(dispatch_block_t block)
                             } else {
                                 DDLogInfo(@"%@ SEB Server fallback password entered", password.length > 0 ? @"Wrong" : @"No");
                                 
-                                self.alertController = [UIAlertController  alertControllerWithTitle:password.length > 0 ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", nil) : NSLocalizedString(@"No SEB Server Fallback Password entered", nil)
-                                                                                            message:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", nil)
+                                self.alertController = [UIAlertController  alertControllerWithTitle:password.length > 0 ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", @"") : NSLocalizedString(@"No SEB Server Fallback Password entered", @"")
+                                                                                            message:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", @"")
                                                                                      preferredStyle:UIAlertControllerStyleAlert];
-                                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                     self.alertController = nil;
                                     [self didFailWithError:error fatal:fatal];
@@ -3814,7 +3814,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     }
                 }
                  
-                        action3Title:NSLocalizedString(@"Quit Session", nil)
+                        action3Title:NSLocalizedString(@"Quit Session", @"")
                         action3Style:UIAlertActionStyleDestructive
                       action3Handler:^(void){
                     DDLogInfo(@"User selected Quit option");
@@ -3839,18 +3839,18 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-        textField.placeholder = NSLocalizedString(@"Password", nil);
+        textField.placeholder = NSLocalizedString(@"Password", @"");
         textField.secureTextEntry = YES;
     }];
     
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         NSString *password = self.alertController.textFields.firstObject.text;
         self.alertController = nil;
         completion(password);
     }]];
     
-    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         self.alertController = nil;
         completion(nil);
@@ -4026,7 +4026,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (!_sebLocked) {
                     [self openLockdownWindows];
                 }
-                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", nil)] withTime:_didResignActiveTime repeated:NO];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode switched off!", @"")] withTime:_didResignActiveTime repeated:NO];
                 
             } else {
                 
@@ -4037,7 +4037,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 DDLogDebug(@"Single App Mode was switched on again.");
                 
-                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", nil)] withTime:_didBecomeActiveTime repeated:NO];
+                [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Single App Mode was switched on again.", @"")] withTime:_didBecomeActiveTime repeated:NO];
                 
                 // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
@@ -4110,11 +4110,11 @@ void run_on_ui_thread(dispatch_block_t block)
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", nil)
-                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", nil), SEBShortAppName]
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on New iOS Version Not Allowed", @"")
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Currently it isn't allowed to run %@ on the iOS version installed on this device.", @""), SEBShortAppName]
                                                              preferredStyle:UIAlertControllerStyleAlert];
             if (NSUserDefaults.userDefaultsPrivate) {
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
@@ -4161,7 +4161,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
             NSString *alertMessageiOSVersion = [NSString stringWithFormat:@"%@%@%lu%@%@",
                                                 SEBShortAppName,
-                                                NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", nil),
+                                                NSLocalizedString(@" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ", @""),
                                                 (unsigned long)allowiOSVersionMajor,
                                                 allowediOSVersionMinorString,
                                                 allowediOSVersionPatchString];
@@ -4170,11 +4170,11 @@ void run_on_ui_thread(dispatch_block_t block)
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Running on Current iOS Version Not Allowed", @"")
                                                                     message:alertMessageiOSVersion
                                                              preferredStyle:UIAlertControllerStyleAlert];
             if (NSUserDefaults.userDefaultsPrivate) {
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     DDLogInfo(@"%s: Quitting session", __FUNCTION__);
@@ -4194,10 +4194,10 @@ void run_on_ui_thread(dispatch_block_t block)
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
                   videoAuthorization == AVAuthorizationStatusAuthorized)) {
-                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", nil) : @"";
+                NSString *microphone = audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", @"") : @"";
                 NSString *camera = @"";
                 if (videoAuthorization != AVAuthorizationStatusAuthorized) {
-                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", nil), microphone.length > 0 ? NSLocalizedString(@" and ", nil) : @""];
+                    camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", @""), microphone.length > 0 ? NSLocalizedString(@" and ", @"") : @""];
                 }
                 DDLogError(@"Enabled remote proctoring require %@%@ permissions, which are not granted currently. Aborting starting this session.", camera, microphone);
                 [[NSNotificationCenter defaultCenter]
@@ -4318,17 +4318,17 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (_alertController) {
                     [_alertController dismissViewControllerAnimated:NO completion:nil];
                 }
-                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Single App Mode/Guided Access Not Allowed", nil)
-                                                                        message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.", nil)
+                _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Single App Mode/Guided Access Not Allowed", @"")
+                                                                        message:NSLocalizedString(@"Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.", @"")
                                                                  preferredStyle:UIAlertControllerStyleAlert];
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     // Check again if a single app mode is still active
                     [self requestDisablingSAM];
                 }]];
                 
-                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     [[NSNotificationCenter defaultCenter]
@@ -4371,11 +4371,11 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
-                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", nil)
-                                                                                    message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", nil)
+                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", @"")
+                                                                                    message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", @"")
                                                                              preferredStyle:UIAlertControllerStyleAlert];
                         
-                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                             self.alertController = nil;
                             DDLogInfo(@"%s User confirmed OK, quit current session.", __FUNCTION__);
@@ -4427,8 +4427,8 @@ void run_on_ui_thread(dispatch_block_t block)
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
-                                                                    message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", nil)
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", @"")
+                                                                    message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _startSAMWAlertDisplayed = true;
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
@@ -4457,10 +4457,10 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     _noSAMAlertDisplayed = YES;
     DDLogError(@"%s Showing alert 'No Kiosk Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", nil)
-                                                            message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", nil)
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", @"")
+                                                            message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"")
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
         self.alertController = nil;
@@ -4468,7 +4468,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [self conditionallyStartKioskMode];
     }]];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Cancel", __FUNCTION__);
         self.alertController = nil;
@@ -4501,8 +4501,8 @@ void run_on_ui_thread(dispatch_block_t block)
             }
             DDLogInfo(@"%s: SAM/Guided Access is not on, showing alert 'Waiting for Single App Mode – Single App Mode needs to be reactivated before %@ can continue.'", __FUNCTION__, SEBShortAppName);
             
-            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", nil)
-                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Single App Mode needs to be reactivated before %@ can continue.", nil), SEBShortAppName]
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", @"")
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"Single App Mode needs to be reactivated before %@ can continue.", @""), SEBShortAppName]
                                                              preferredStyle:UIAlertControllerStyleAlert];
             _singleAppModeActivated = YES;
             _startSAMWAlertDisplayed = YES;
@@ -4531,13 +4531,13 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: nil
-                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
+                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
             // Add log string for entering a locked exam
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", nil)] withTime:[NSDate date] repeated: NO];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", @"")] withTime:[NSDate date] repeated: NO];
         } else {
             DDLogWarn(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.");
             // Add log string for entering a previously locked exam
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", nil)] withTime:[NSDate date] repeated:NO];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.", @"")] withTime:[NSDate date] repeated:NO];
             [self.sebLockedViewController removeLockedExam:[[NSUserDefaults standardUserDefaults] secureStringForKey:examURLString] configKey:self.configKey];
         }
     }
@@ -4557,9 +4557,9 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Screen is being captured while in secure mode!");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
-                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", nil)];
+                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
             // Add log string for entering a locked exam
-            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", nil)] withTime:[NSDate date] repeated:NO];
+            [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", @"")] withTime:[NSDate date] repeated:NO];
         } else {
             NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
                                    UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
@@ -4581,7 +4581,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
-                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", nil)];
+                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", @"")];
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -4589,7 +4589,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                    fromDate:_appDidEnterBackgroundTime
                                                      toDate:_appDidBecomeActiveTime
                                                     options:NSCalendarWrapComponents];
-        [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", nil), components.minute, components.second]] withTime:_appDidBecomeActiveTime repeated:NO];
+        [self appendErrorString:[NSString stringWithFormat:@"%@\n", [NSString stringWithFormat:NSLocalizedString(@"The device was in sleep mode for %ld:%.2ld (minutes:seconds)", @""), components.minute, components.second]] withTime:_appDidBecomeActiveTime repeated:NO];
         return YES;
     } else {
         return NO;
@@ -4609,7 +4609,7 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogError(@"%@", lockReason);
     [self openLockdownWindows];
     [self.sebLockedViewController setLockdownAlertTitle:nil Message:lockReason];
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, @"");
     [self appendErrorString:[NSString stringWithFormat:@"%@\n", lockReason] withTime:[NSDate date] repeated:NO];
 }
 
@@ -4868,10 +4868,10 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
-        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Remote Proctoring Active", nil)
-                                                                message:[NSString stringWithFormat:NSLocalizedString(@"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", nil), SEBShortAppName, SEBShortAppName]
+        _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Remote Proctoring Active", @"")
+                                                                message:[NSString stringWithFormat:NSLocalizedString(@"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use.", @""), SEBShortAppName, SEBShortAppName]
                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
         }]];
@@ -5058,7 +5058,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) leftDrawerKeyShortcutPress:(id)sender
 {
-//    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"%@ %@", self.sideMenuController.leftViewShowing ? NSLocalizedString(@"Hiding", nil) : NSLocalizedString(@"Showing", nil), NSLocalizedString(@"side menu", nil)]);
+//    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"%@ %@", self.sideMenuController.leftViewShowing ? NSLocalizedString(@"Hiding", @"") : NSLocalizedString(@"Showing", @""), NSLocalizedString(@"side menu", @"")]);
 //
     [self.sideMenuController toggleLeftViewAnimated];
 }
@@ -5135,7 +5135,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;
-            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", nil);
+            NSString *enterPasswordString = NSLocalizedString(@"Enter quit password:", @"");
             
             // Ask the user to enter the quit password and proceed to the callback method after this happend
             [self.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -5147,13 +5147,13 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     // if no quit password is required, then just confirm Back to Start
     [self alertWithTitle:backToStartText
-                 message:NSLocalizedString(@"Are you sure?", nil)
-            action1Title:NSLocalizedString(@"OK", nil)
+                 message:NSLocalizedString(@"Are you sure?", @"")
+            action1Title:NSLocalizedString(@"OK", @"")
           action1Handler:^{
         [self.browserTabViewController backToStart];
         [self.sideMenuController hideLeftViewAnimated];
     }
-            action2Title:NSLocalizedString(@"Cancel", nil)
+            action2Title:NSLocalizedString(@"Cancel", @"")
           action2Handler:^{
         [self.sideMenuController hideLeftViewAnimated];
     }];
@@ -5297,7 +5297,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"%s: Couldn't go back to start: The correct quit password wasn't entered.", __FUNCTION__);
             
             NSString *title = backToStartText;
-            NSString *informativeText = NSLocalizedString(@"You need to enter the correct quit password for this command.", nil);
+            NSString *informativeText = NSLocalizedString(@"You need to enter the correct quit password for this command.", @"");
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             return;
         }
@@ -5347,11 +5347,11 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     BOOL showReloadWarning = [self.browserController showReloadWarningMainWebView:isMainBrowserWebViewActive];
     if (showReloadWarning) {
-        [self alertWithTitle:NSLocalizedString(@"Reload Page", nil)
-                     message:NSLocalizedString(@"Do you really want to reload the web page?", nil)
-                action1Title:NSLocalizedString(@"Reload", nil)
+        [self alertWithTitle:NSLocalizedString(@"Reload Page", @"")
+                     message:NSLocalizedString(@"Do you really want to reload the web page?", @"")
+                action1Title:NSLocalizedString(@"Reload", @"")
               action1Handler:action1Handler
-                action2Title:NSLocalizedString(@"Cancel", nil)
+                action2Title:NSLocalizedString(@"Cancel", @"")
               action2Handler:^{
             [self.sideMenuController hideLeftViewAnimated];
         }];
@@ -5427,7 +5427,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-        textField.placeholder = NSLocalizedString(@"User Name", nil);
+        textField.placeholder = NSLocalizedString(@"User Name", @"");
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         if (@available(iOS 11.0, *)) {
             textField.textContentType = UITextContentTypeUsername;
@@ -5441,7 +5441,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     [_alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
      {
-        textField.placeholder = NSLocalizedString(@"Password", nil);
+        textField.placeholder = NSLocalizedString(@"Password", @"");
         textField.secureTextEntry = YES;
         if (@available(iOS 11.0, *)) {
             textField.textContentType = UITextContentTypePassword;
@@ -5452,7 +5452,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
     }];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Log In", @"")
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         NSString *username = self.alertController.textFields[0].text;
         NSString *password = self.alertController.textFields[1].text;
@@ -5462,7 +5462,7 @@ void run_on_ui_thread(dispatch_block_t block)
         func(modalDelegate, didEndSelector, username, password, SEBEnterPasswordOK);
     }]];
     
-    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         NSString *username = self.alertController.textFields[0].text;
         NSString *password = self.alertController.textFields[1].text;
@@ -5495,7 +5495,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     //    [self alertWithTitle:title
     //                 message:text
-    //            action1Title:NSLocalizedString(@"Cancel", nil)
+    //            action1Title:NSLocalizedString(@"Cancel", @"")
     //          action1Handler:^{
     //              IMP imp = [callback methodForSelector:selector];
     //              void (*func)(id, SEL) = (void *)imp;

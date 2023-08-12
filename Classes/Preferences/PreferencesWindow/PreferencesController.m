@@ -331,7 +331,7 @@
     if (NSUserDefaults.userDefaultsPrivate && [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO]) {
         // There are unsaved changes
         SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlertWithText:
-                      NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
+                      NSLocalizedString(@"Edited settings have unsaved changes.", @"")];
         switch(answer)
         {
             case SEBUnsavedSettingsAnswerSave:
@@ -473,9 +473,9 @@
             DDLogError(@"%s: Loaded settings file with path %@ was empty!", __FUNCTION__, sebFileURL.absoluteString);
 
             NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Opening Settings Failed", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"Opening Settings Failed", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
             // which also is the minimum macOS version the Preferences window is available from
@@ -541,19 +541,19 @@
     
     NSString *unconfirmedPassword;
     if (self.generalVC.compareAdminPasswords) {
-        unconfirmedPassword = NSLocalizedString(@"administrator", nil);
+        unconfirmedPassword = NSLocalizedString(@"administrator", @"");
         [self alertForUnconfirmedPassword:unconfirmedPassword];
         passwordIsUnconfirmed = YES;
     }
     
     if (self.generalVC.compareQuitPasswords) {
-        unconfirmedPassword = NSLocalizedString(@"quit", nil);
+        unconfirmedPassword = NSLocalizedString(@"quit", @"");
         [self alertForUnconfirmedPassword:unconfirmedPassword];
         passwordIsUnconfirmed = YES;
     }
     
     if (self.configFileVC.compareSettingsPasswords) {
-        unconfirmedPassword = NSLocalizedString(@"settings", nil);
+        unconfirmedPassword = NSLocalizedString(@"settings", @"");
         [self alertForUnconfirmedPassword:unconfirmedPassword];
         passwordIsUnconfirmed = YES;
     }
@@ -565,9 +565,9 @@
 - (void) alertForUnconfirmedPassword:(NSString *)passwordName
 {
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Unconfirmed Password", nil)];
-    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", nil), passwordName]];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Unconfirmed Password", @"")];
+    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", @""), passwordName]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [newAlert setAlertStyle:NSInformationalAlertStyle];
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
@@ -586,19 +586,19 @@
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", nil)
-    : NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", nil);
+    ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
+    : NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", @"");
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"Override", nil)
-    : NSLocalizedString(@"Reset", nil);
+    ? NSLocalizedString(@"Override", @"")
+    : NSLocalizedString(@"Reset", @"");
     
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Opening Preferences Disabled", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Opening Preferences Disabled", @"")];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:defaultButtonText];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSCriticalAlertStyle];
     switch([newAlert runModal])
     {
@@ -615,7 +615,7 @@
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlert
 {
     return [self unsavedSettingsAlertWithText:
-            NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", nil)];
+            NSLocalizedString(@"Current settings have unsaved changes. If you don't save those first, you will loose them.", @"")];
 }
 
 - (SEBUnsavedSettingsAnswer) unsavedSettingsAlertWithText:(NSString *)informativeText
@@ -629,11 +629,11 @@
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Unsaved Changes", @"")];
     [newAlert setInformativeText:informativeText];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Changes", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Changes", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSWarningAlertStyle];
     switch([newAlert runModal])
     {
@@ -659,15 +659,15 @@
         }
     }
     NSAlert *newAlert = [[NSAlert alloc] init];
-    [newAlert setMessageText:NSLocalizedString(@"Apply Edited Settings?", nil)];
+    [newAlert setMessageText:NSLocalizedString(@"Apply Edited Settings?", @"")];
     if (NSUserDefaults.userDefaultsPrivate) {
-        [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings?", @"")];
     } else {
-        [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?", nil)];
+        [newAlert setInformativeText:NSLocalizedString(@"You edited settings. Do you want to apply them or continue using previous settings (current settings will be discarded)?", @"")];
     }
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", nil)];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Apply", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Apply", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     NSInteger answer = [newAlert runModal];
     switch(answer)
     {
@@ -714,7 +714,7 @@
     if (NSUserDefaults.userDefaultsPrivate && browserExamKeyChanged) {
         // There are unsaved changes
         SEBUnsavedSettingsAnswer answer = [self unsavedSettingsAlertWithText:
-                      NSLocalizedString(@"Edited settings have unsaved changes.", nil)];
+                      NSLocalizedString(@"Edited settings have unsaved changes.", @"")];
         switch(answer)
         {
             case SEBUnsavedSettingsAnswerSave:
@@ -1061,10 +1061,10 @@
                 } else {
                     shareConfigFormat = shareConfigFormatFile;
                     NSAlert *newAlert = [[NSAlert alloc] init];
-                    [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", nil)];
-                    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", nil), SEBShortAppName]];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", nil)];
+                    [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+                    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
                     [newAlert setAlertStyle:NSCriticalAlertStyle];
                     switch([newAlert runModal])
                     {
@@ -1097,9 +1097,9 @@
             //if (![filteredPrefsDict writeToURL:prefsFileURL atomically:YES]) {
             // If the prefs file couldn't be written
             NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", @"")];
             [newAlert setInformativeText:[error localizedDescription]];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [newAlert setAlertStyle:NSCriticalAlertStyle];
             [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 
@@ -1121,12 +1121,12 @@
                 [[MBPreferencesController sharedController] setPreferencesWindowTitle];
             }
             if (fileURLUpdate && saveAs && configPurpose != sebConfigPurposeManagedConfiguration) {
-                NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", nil) : NSLocalizedString(@"Settings for Starting Exam", nil);
-                NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", nil) : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", nil);
+                NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", @"") : NSLocalizedString(@"Settings for Starting Exam", @"");
+                NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", @"") : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", @"");
                 NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
                 [settingsSavedAlert setMessageText:settingsSavedTitle];
                 [settingsSavedAlert setInformativeText:settingsSavedMessage];
-                [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+                [settingsSavedAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [self.sebController runModalAlert:settingsSavedAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
             }
         }
@@ -1145,10 +1145,10 @@
             }
 
             NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"Edit Saved Settings?", nil)];
-            [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", nil)];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+            [newAlert setMessageText:NSLocalizedString(@"Edit Saved Settings?", @"")];
+            [newAlert setInformativeText:NSLocalizedString(@"Do you want to continue editing the saved settings file?", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Edit File", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             NSInteger answer = [newAlert runModal];
             switch(answer)
             {

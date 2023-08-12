@@ -142,7 +142,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
         let defaultAppForSEBScheme = verificationManager!.defaultApp(forURLScheme: strings.sebURLScheme)
         let defaultAppForSEBSScheme = verificationManager!.defaultApp(forURLScheme: strings.sebsURLScheme)
         for sebAlikeBundleID in allSEBAlikeBundleIDs {
-            if let sebAlikeURLs = LSCopyApplicationURLsForBundleIdentifier(sebAlikeBundleID as! CFString, nil)?.takeRetainedValue() as? [URL] {
+            if let sebAlikeURLs = LSCopyApplicationURLsForBundleIdentifier(sebAlikeBundleID as! CFString, @"")?.takeRetainedValue() as? [URL] {
                 allSEBAlikeURLs.addObjects(from: sebAlikeURLs)
                 for sebAlikeURL in sebAlikeURLs {
                     let icon = NSWorkspace.shared.icon(forFile: sebAlikeURL.path)

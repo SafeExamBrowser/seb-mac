@@ -191,7 +191,7 @@
             // Password fields contain actual passwords, not the placeholder for a hash value
             if (![adminPassword isEqualToString:confirmAdminPassword]) {
                 //if the two passwords don't match, show it in the label
-                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", nil)]);
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", @"")]);
             }
         }
     }
@@ -223,7 +223,7 @@
             // Password fields contain actual passwords, not the placeholder for a hash value
             if (![quitPassword isEqualToString:confirmQuitPassword]) {
                 //if the two passwords don't match, show it in the label
-                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", nil)]);
+                return (NSString*)([NSString stringWithString:NSLocalizedString(@"Please enter correct confirm password", @"")]);
             }
         }
     }

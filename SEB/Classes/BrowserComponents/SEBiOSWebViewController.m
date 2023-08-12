@@ -244,7 +244,7 @@
         switch (_urlFilter.urlFilterMessage) {
                 
             case URLFilterMessageText:
-                message.text = NSLocalizedString(@"URL Blocked!", nil);
+                message.text = NSLocalizedString(@"URL Blocked!", @"");
                 [message setFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
                 [message setTextColor:[UIColor redColor]];
                 
@@ -425,10 +425,10 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
         }
 
-        self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", nil)
+        self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", @"")
                                                                                   message:errorMessage
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", nil)
+        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                 NSURL *failingURL = [NSURL URLWithString:failingURLString];
                                                                 if (failingURL) {
@@ -437,7 +437,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             self.navigationDelegate.uiAlertController = nil;
                                                             }]];
         
-        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+        [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             self.navigationDelegate.uiAlertController = nil;
                                                             }]];
@@ -494,7 +494,7 @@ completionHandler:(void (^)(void))completionHandler
     self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:_sebWebView.pageTitle
                                                                                      message:message
                                                                               preferredStyle:UIAlertControllerStyleAlert];
-    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                   style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.navigationDelegate.uiAlertController = nil;
         completionHandler();
@@ -516,13 +516,13 @@ completionHandler:(void (^)(BOOL result))completionHandler
     self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:_sebWebView.pageTitle
                                                                                      message:message
                                                                               preferredStyle:UIAlertControllerStyleAlert];
-    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                   style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         self.navigationDelegate.uiAlertController = nil;
         completionHandler(YES);
     }]];
     
-    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                                   style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         self.navigationDelegate.uiAlertController = nil;
         completionHandler(NO);

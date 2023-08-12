@@ -65,7 +65,7 @@
     appName.text = SEBFullAppName;
     versionLabel.text = [aboutController version];
     copyrightLabel.text = [aboutController copyright];
-    NSString *sendLogsButtonTitle = [NSString stringWithFormat:NSLocalizedString(@"Send Logs to %@ Developers", nil), SEBExtraShortAppName];
+    NSString *sendLogsButtonTitle = [NSString stringWithFormat:NSLocalizedString(@"Send Logs to %@ Developers", @""), SEBExtraShortAppName];
     [sendLogsButton setTitle:sendLogsButtonTitle forState:UIControlStateNormal];
     [sendLogsButton setTitle:sendLogsButtonTitle forState:UIControlStateHighlighted];
 
@@ -79,8 +79,8 @@
 {
     [super viewDidDisappear:animated];
     
-    self->_sebViewController.aboutSEBViewDisplayed = false;
-    self->_sebViewController.aboutSEBViewController = nil;
+    self.sebViewController.aboutSEBViewDisplayed = false;
+    self.sebViewController.aboutSEBViewController = nil;
 }
 
 
@@ -93,9 +93,9 @@
 -(IBAction) closeAbout
 {
     [self dismissViewControllerAnimated:YES completion:^{
-        self->_sebViewController.aboutSEBViewDisplayed = false;
-        self->_sebViewController.aboutSEBViewController = nil;
-        [self->_sebViewController becomeFirstResponder];
+        self.sebViewController.aboutSEBViewDisplayed = false;
+        self.sebViewController.aboutSEBViewController = nil;
+        [self.sebViewController becomeFirstResponder];
     }];
 }
 
@@ -110,10 +110,10 @@
         if (_sebViewController.alertController) {
             [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         }
-        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", nil)
-                                                                                  message:NSLocalizedString(@"You can't send log files while in an exam session. Finish the exam first and try it again.", nil)
+        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", @"")
+                                                                                  message:NSLocalizedString(@"You can't send log files while in an exam session. Finish the exam first and try it again.", @"")
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                    self->_sebViewController.alertController = nil;
                                                                                }]];
@@ -129,7 +129,7 @@
             hashedAdminPassword.length > 0) {
             // Allow up to 5 attempts for entering password
             attempts = 5;
-            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only send log files after entering the %@ administrator password:", nil), SEBShortAppName];
+            NSString *enterPasswordString = [NSString stringWithFormat:NSLocalizedString(@"You can only send log files after entering the %@ administrator password:", @""), SEBShortAppName];
             
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [_sebViewController.configFileController promptPasswordWithMessageText:enterPasswordString
@@ -144,10 +144,10 @@
         if (_sebViewController.alertController) {
             [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         }
-        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", nil)
-                                                                                  message:NSLocalizedString(@"This device isn't configured for sending email.", nil)
+        _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Can't Send Log File", @"")
+                                                                                  message:NSLocalizedString(@"This device isn't configured for sending email.", @"")
                                                                            preferredStyle:UIAlertControllerStyleAlert];
-        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+        [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                    self->_sebViewController.alertController = nil;
                                                                                }]];
@@ -183,8 +183,8 @@
             // Wrong password entered in the last allowed attempts: Stop reading .seb file
             DDLogError(@"%s: Cannot Send SEB Logs: User didn't enter the correct SEB administrator password.", __FUNCTION__);
             
-            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Send %@ Logs", nil), SEBExtraShortAppName];
-            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", nil), SEBShortAppName];
+            NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Cannot Send %@ Logs", @""), SEBExtraShortAppName];
+            NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"You didn't enter the correct %@ administrator password.", @""), SEBShortAppName];
             [_sebViewController.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Abort sending logs
@@ -227,10 +227,10 @@
     if (_sebViewController.alertController) {
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
-    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"GitHub Issue/Discussion Required for Log Submission", nil)
-                                                                              message:NSLocalizedString(@"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.", nil)
+    _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"GitHub Issue/Discussion Required for Log Submission", @"")
+                                                                              message:NSLocalizedString(@"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.", @"")
                                                                        preferredStyle:UIAlertControllerStyleAlert];
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!self.sebViewController.mailViewController) {
@@ -241,8 +241,8 @@
                     [errorLogData appendData:errorLogFileData];
                 }
                 [self.sebViewController.mailViewController addAttachmentData:errorLogData mimeType:@"text/plain" fileName:[NSString stringWithFormat:@"%@-iOS-Client.log", SEBExtraShortAppName]];
-                [self.sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", nil), SEBShortAppName]];
-                [self.sebViewController.mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):", nil)] isHTML:NO];
+                [self.sebViewController.mailViewController setSubject:[NSString stringWithFormat:NSLocalizedString(@"Log File %@ iOS", @""), SEBShortAppName]];
+                [self.sebViewController.mailViewController setMessageBody:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):", @"")] isHTML:NO];
 //                [self.sebViewController.mailViewController setToRecipients:[NSArray arrayWithObject:SEBSupportEmail]];
                 
                 [self.sebViewController.topMostController presentViewController:self.sebViewController.mailViewController animated:YES completion:nil];

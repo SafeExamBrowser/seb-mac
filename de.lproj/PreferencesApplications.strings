@@ -46,8 +46,8 @@
 /* Class = "NSBox"; title = "Selected Process"; ObjectID = "405"; */
 "405.title" = "Ausgewählter Prozess";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Add a permitted process"; ObjectID = "463"; */
-"463.ibShadowedToolTip" = "Erlaubten Prozess hinzufügen";
+/* Class = "NSButton"; ibShadowedToolTip = "Add a permitted process (not yet supported on macOS)"; ObjectID = "463"; */
+"463.ibShadowedToolTip" = "Erlaubten Prozess hinzufügen (noch nicht unterstützt auf macOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Remove process"; ObjectID = "464"; */
 "464.ibShadowedToolTip" = "Prozess entfernen";
@@ -101,7 +101,7 @@
 "865.ibExternalAccessibilityDescription" = "Taste Argument hinzufügen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Add a command line argument for the permitted process"; ObjectID = "865"; */
-"865.ibShadowedToolTip" = "Kommandozeilen-Argument für erlaubten Prozess hinzufügen";
+"865.ibShadowedToolTip" = "Kommandozeilen-Argument für Erlaubten Prozess hinzufügen (noch nicht unterstützt auf macOS)";
 
 /* Class = "NSButton"; ibExternalAccessibilityDescription = "Remove Argument Button"; ObjectID = "866"; */
 "866.ibExternalAccessibilityDescription" = "Taste Argument entfernen";

@@ -65,7 +65,7 @@
 {
     // Initialize SEB dock item menu for open browser windows/WebViews
     SEBDockItemMenu *dockMenu = [[SEBDockItemMenu alloc] initWithTitle:@""];
-    dockMenu.accessibilityTitle = NSLocalizedString(@"Open webpages", nil);
+    dockMenu.accessibilityTitle = NSLocalizedString(@"Open webpages", @"");
     self.openBrowserWindowsWebViewsMenu = dockMenu;
 }
 
@@ -303,7 +303,7 @@
     // (this is done here, after presentation options are set,
     // because otherwise menu bar and dock are deducted from screen size)    
     DDLogInfo(@"Open MainBrowserWindow with start URL: %@", startURL.absoluteString);
-    SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL configuration:nil title:NSLocalizedString(@"Main Browser Window", nil) overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
+    SEBAbstractWebView *newBrowserWindowWebView = [self openAndShowWebViewWithURL:startURL configuration:nil title:NSLocalizedString(@"Main Browser Window", @"") overrideSpellCheck:NO mainBrowserWindow:YES temporaryWindow:NO];
     SEBBrowserWindow *newBrowserWindow = newBrowserWindowWebView.window;
     [newBrowserWindow recalculateKeyViewLoop];
 
@@ -479,7 +479,7 @@
     for (SEBBrowserOpenWindowWebView *openWindowWebView in self.openBrowserWindowsWebViews) {
         if ([openWindowWebView.webView isEqualTo:webView]) {
             [openWindowWebView setTitle: title];
-            [openWindowWebView setAccessibilityLabel:[NSString stringWithFormat:@"%@: %@", title, NSLocalizedString(@"Webpage.", nil)]];
+            [openWindowWebView setAccessibilityLabel:[NSString stringWithFormat:@"%@: %@", title, NSLocalizedString(@"Webpage.", @"")]];
             [self.openBrowserWindowsWebViewsMenu setPopoverMenuSize];
         }
     }
@@ -767,9 +767,9 @@
         // Also reset the flag for SEB starting up
         self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
-        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", nil), SEBExtraShortAppName]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", nil), SEBShortAppName, SEBShortAppName]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", @""), SEBExtraShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSCriticalAlertStyle];
         void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self.sebController removeAlertWindow:modalAlert.window];
@@ -949,7 +949,7 @@
     // Inform user that download succeeded
     [modalAlert setMessageText:title];
     [modalAlert setInformativeText:message];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.sebController removeAlertWindow:modalAlert.window];
@@ -1057,15 +1057,15 @@
 {
     NSString *downUploadingString;
     if (uploading) {
-        downUploadingString = NSLocalizedString(@"Uploading", nil);
+        downUploadingString = NSLocalizedString(@"Uploading", @"");
     } else {
-        downUploadingString = NSLocalizedString(@"Downloading", nil);
+        downUploadingString = NSLocalizedString(@"Downloading", @"");
     }
     DDLogWarn(@"Attempted %@ of files is not allowed in current %@ settings", downUploadingString, SEBShortAppName);
     NSAlert *modalAlert = [self.sebController newAlert];
-    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", nil), downUploadingString, nil]];
-    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", nil), downUploadingString, SEBShortAppName]];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", @""), downUploadingString, nil]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", @""), downUploadingString, SEBShortAppName]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert setAlertStyle:NSInformationalAlertStyle];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.sebController removeAlertWindow:modalAlert.window];
@@ -1124,8 +1124,8 @@ completionHandler:(void (^)(NSString *result))completionHandler
     NSAlert *modalAlert = [_sebController newAlert];
     [modalAlert setMessageText:webView.title];
     [modalAlert setInformativeText:prompt];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSAlertStyleInformational];
     NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
     [textInput setStringValue:defaultText];
@@ -1152,8 +1152,8 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     NSAlert *modalAlert = [_sebController newAlert];
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:prompt];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSAlertStyleInformational];
     NSTextField *textInput = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
     [textInput setStringValue:defaultText];

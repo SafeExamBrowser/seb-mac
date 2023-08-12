@@ -88,7 +88,7 @@
 - (void) menuWillOpen:(NSMenu *)menu
 {
 //    NSDictionary *userInfo = @{
-//        NSAccessibilityAnnouncementKey : NSLocalizedString(@"Open webpages menu", nil),
+//        NSAccessibilityAnnouncementKey : NSLocalizedString(@"Open webpages menu", @""),
 //        NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh)
 //    };
 //    NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityAnnouncementRequestedNotification, userInfo);

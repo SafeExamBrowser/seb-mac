@@ -576,8 +576,8 @@
         <note>Class = "NSBox"; title = "Selected Process"; ObjectID = "405";</note>
       </trans-unit>
       <trans-unit id="463.ibShadowedToolTip">
-        <source>Add a permitted process</source>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process"; ObjectID = "463";</note>
+        <source>Add a permitted process (not yet supported on macOS)</source>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process (not yet supported on macOS)"; ObjectID = "463";</note>
       </trans-unit>
       <trans-unit id="464.ibShadowedToolTip">
         <source>Remove process</source>

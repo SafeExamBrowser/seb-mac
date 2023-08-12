@@ -344,7 +344,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
     if (self.settingsFileURL) {
         filename = self.settingsFileURL.lastPathComponent;
     } else {
-        filename = NSLocalizedString(@"Local Client Settings", nil);
+        filename = NSLocalizedString(@"Local Client Settings", @"");
     }
 	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
     [self.window setRepresentedURL:self.settingsFileURL];
@@ -360,7 +360,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
         [triangleDropDownButton setMenu:self.settingsMenu];
         [triangleDropDownButton sizeToFit];
         [triangleDropDownButton setAction:@selector(dropDownAction:)];
-        triangleDropDownButton.accessibilityLabel = NSLocalizedString(@"Preferences shortcut menu", nil);
+        triangleDropDownButton.accessibilityLabel = NSLocalizedString(@"Preferences shortcut menu", @"");
         
         [progressIndicatorHolder addSubview:triangleDropDownButton];
         [progressIndicatorHolder setFrame:triangleDropDownButton.frame];
