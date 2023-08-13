@@ -6288,7 +6288,7 @@ conditionallyForWindow:(NSWindow *)window
         void (^forceCloseConnection)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             DDLogInfo(@"User decided to force close SEB Server connection");
-            completion(restart);
+            [self.serverController cancelQuitSessionWithRestart:restart completion:completion];
         };
         
         void (^closeDisconnetingAlertCompletion)(BOOL) = ^void (BOOL restart) {
