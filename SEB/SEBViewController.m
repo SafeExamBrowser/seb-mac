@@ -3374,15 +3374,40 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
-        self.establishingSEBServerConnection = NO;
-        self.startingExamFromSEBServer = NO;
-        [self.serverController loginToExamAbortedWithCompletion:completion];
-    } else if (self.sebServerConnectionEstablished) {
-        self.sebServerConnectionEstablished = NO;
-        [self.serverController quitSessionWithRestart:restart completion:^(BOOL restart) {
-            completion(restart);
-        }];
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
+        
+        UIAlertController *disconnectingAlertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Disconnecting from SEB Server", @"")
+                                                                    message:NSLocalizedString(@"If SEB Server doesn't respond for a while, you can forcibly close the connection", @"")
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+        [disconnectingAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Force Close", @"")
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            DDLogInfo(@"User decided to force close SEB Server connection");
+            [self.serverController cancelQuitSessionWithRestart:restart completion:completion];
+        }]];
+        
+        void (^closeDisconnetingAlertCompletion)(BOOL) = ^void (BOOL restart) {
+            DDLogInfo(@"SEB Server connection was closed, closing Disconnecting alert.");
+            dispatch_block_cancel(self->cancelableBlock);
+            [disconnectingAlertController dismissViewControllerAnimated:YES completion:^{
+                completion(restart);
+            }];
+        };
+
+        cancelableBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, ^{
+            [self.topMostController presentViewController:disconnectingAlertController animated:NO completion:nil];
+        });
+        
+        dispatch_time_t dispachTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
+        dispatch_after(dispachTime, dispatch_get_main_queue(), cancelableBlock);
+
+        if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
+            self.establishingSEBServerConnection = NO;
+            self.startingExamFromSEBServer = NO;
+            [self.serverController loginToExamAbortedWithCompletion:closeDisconnetingAlertCompletion];
+        } else if (self.sebServerConnectionEstablished) {
+            self.sebServerConnectionEstablished = NO;
+            [self.serverController quitSessionWithRestart:restart completion:closeDisconnetingAlertCompletion];
+        }
     } else {
         completion(restart);
     }

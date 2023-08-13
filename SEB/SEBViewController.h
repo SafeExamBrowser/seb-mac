@@ -152,6 +152,8 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat navigationBarItemsOffset;
     
     BOOL assureSAMNotActiveWaiting;
+    
+    dispatch_block_t cancelableBlock;
 }
 
 void run_on_ui_thread(dispatch_block_t block);
