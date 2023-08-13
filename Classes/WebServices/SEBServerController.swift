@@ -665,6 +665,14 @@ public extension SEBServerController {
         }
     }
     
+    @objc func cancelQuitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
+        self.cancelAllRequests = true
+        self.stopPingTimer()
+        self.session.invalidateAndCancel()
+        self.connectionToken = nil
+        completion(restart)
+    }
+    
     fileprivate func didFail(error: NSError, fatal: Bool) {
         if !cancelAllRequests {
             self.delegate?.didFail(error: error, fatal: fatal)
