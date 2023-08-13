@@ -312,6 +312,13 @@
 }
 
 
+- (void) cancelQuitSessionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    DDLogInfo(@"ServerController: Aborting Quit SEB Server session (force disconnect)");
+    [_sebServerController cancelQuitSessionWithRestart:restart completion:completion];
+}
+
+
 - (void) didCloseSEBServerConnectionRestart:(BOOL)restart
 {
     DDLogInfo(@"ServerController: Did close SEB Server connection");
