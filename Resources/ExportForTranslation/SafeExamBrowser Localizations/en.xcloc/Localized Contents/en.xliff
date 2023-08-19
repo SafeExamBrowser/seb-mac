@@ -1120,9 +1120,9 @@
         <note>Class = "NSBox"; title = "Selected Process"; ObjectID = "405";</note>
       </trans-unit>
       <trans-unit id="463.ibShadowedToolTip" xml:space="preserve">
-        <source>Add a permitted process</source>
-        <target>Add a permitted process</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process"; ObjectID = "463";</note>
+        <source>Add a permitted process (not yet supported on macOS)</source>
+        <target>Add a permitted process (not yet supported on macOS)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a permitted process (not yet supported on macOS)"; ObjectID = "463";</note>
       </trans-unit>
       <trans-unit id="464.ibShadowedToolTip" xml:space="preserve">
         <source>Remove process</source>
@@ -5301,6 +5301,11 @@ It is deleted when the session ends</target>
         <target>Dictation was activated</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
+        <source>Disconnecting from SEB Server</source>
+        <target>Disconnecting from SEB Server</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." xml:space="preserve">
         <source>Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.</source>
         <target>Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.</target>
@@ -5496,6 +5501,11 @@ It is deleted when the session ends</target>
         <target>Force Classic</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Force Close" xml:space="preserve">
+        <source>Force Close</source>
+        <target>Force Close</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
         <source>Force Quit All Processes</source>
         <target>Force Quit All Processes</target>
@@ -5539,6 +5549,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Identity" xml:space="preserve">
         <source>Identity</source>
         <target>Identity</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If SEB Server doesn't respond for a while, you can forcibly close the connection" xml:space="preserve">
+        <source>If SEB Server doesn't respond for a while, you can forcibly close the connection</source>
+        <target>If SEB Server doesn't respond for a while, you can forcibly close the connection</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
@@ -5961,6 +5976,11 @@ It is deleted when the session ends</target>
         <target>Reading Settings Failed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
         <source>Reload</source>
         <target>Reload</target>
@@ -6306,6 +6326,11 @@ It is deleted when the session ends</target>
         <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration." xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.</source>
+        <target>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
         <source>The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ proctoring server, your exam provider decides which proctoring service/server to use.</source>
         <target>The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ proctoring server, your exam provider decides which proctoring service/server to use.</target>
@@ -6602,11 +6627,6 @@ It is deleted when the session ends</target>
         <target>You can only reconfigure by entering the current %@ administrator password:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." xml:space="preserve">
         <source>You cannot enter a path to an %1$@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %2$@/developer.</source>
         <target>You cannot enter a path to an %1$@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %2$@/developer.</target>
@@ -6640,11 +6660,6 @@ It is deleted when the session ends</target>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version." xml:space="preserve">
         <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
         <target>You either entered the wrong password or these settings were saved with an incompatible SEB version.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
-        <target>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." xml:space="preserve">
@@ -6702,9 +6717,9 @@ It is deleted when the session ends</target>
         <target>get generally blocked</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 16" xml:space="preserve">
-        <source>iOS 16</source>
-        <target>iOS 16</target>
+      <trans-unit id="iOS 17" xml:space="preserve">
+        <source>iOS 17</source>
+        <target>iOS 17</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -8444,6 +8459,11 @@ It is deleted when the session ends</target>
         <target>Disable Scroll Lock</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
+        <source>Disconnecting from SEB Server</source>
+        <target>Disconnecting from SEB Server</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Displays a camera view to scan for SEB configuration QR codes" xml:space="preserve">
         <source>Displays a camera view to scan for SEB configuration QR codes</source>
         <target>Displays a camera view to scan for SEB configuration QR codes</target>
@@ -8639,6 +8659,11 @@ It is deleted when the session ends</target>
         <target>Force Classic</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Force Close" xml:space="preserve">
+        <source>Force Close</source>
+        <target>Force Close</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Full user name: %@" xml:space="preserve">
         <source>Full user name: %@</source>
         <target>Full user name: %@</target>
@@ -8647,6 +8672,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Getting Exam Config..." xml:space="preserve">
         <source>Getting Exam Config...</source>
         <target>Getting Exam Config...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GitHub Issue/Discussion Required for Log Submission" xml:space="preserve">
+        <source>GitHub Issue/Discussion Required for Log Submission</source>
+        <target>GitHub Issue/Discussion Required for Log Submission</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -8689,6 +8719,11 @@ It is deleted when the session ends</target>
         <target>Identity in Keychain</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="If SEB Server doesn't respond for a while, you can forcibly close the connection" xml:space="preserve">
+        <source>If SEB Server doesn't respond for a while, you can forcibly close the connection</source>
+        <target>If SEB Server doesn't respond for a while, you can forcibly close the connection</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
         <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
         <target>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</target>
@@ -8727,11 +8762,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Instructions for Students" xml:space="preserve">
         <source>Instructions for Students</source>
         <target>Instructions for Students</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Issue Description Required" xml:space="preserve">
-        <source>Issue Description Required</source>
-        <target>Issue Description Required</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Left" xml:space="preserve">
@@ -8984,14 +9014,14 @@ It is deleted when the session ends</target>
         <target>Please Select Your Role</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." xml:space="preserve">
-        <source>Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.</source>
-        <target>Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.</target>
+      <trans-unit id="Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" xml:space="preserve">
+        <source>Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</source>
+        <target>Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" xml:space="preserve">
-        <source>Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</source>
-        <target>Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</target>
+      <trans-unit id="Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." xml:space="preserve">
+        <source>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</source>
+        <target>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
@@ -9047,6 +9077,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Received Config from MDM Server" xml:space="preserve">
         <source>Received Config from MDM Server</source>
         <target>Received Config from MDM Server</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
@@ -9399,6 +9434,11 @@ It is deleted when the session ends</target>
         <target>Student</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
+        <target>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">
         <source>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</source>
         <target>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</target>
@@ -9669,11 +9709,6 @@ It is deleted when the session ends</target>
         <target>You can only send log files after entering the %@ administrator password:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>You can save an unencrypted settings file, but this is not recommended for use in exams, unless you're using an assessment system which is using the Config Key or Browser Exam Key to verify the configuration.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="You can't send log files while in an exam session. Finish the exam first and try it again." xml:space="preserve">
         <source>You can't send log files while in an exam session. Finish the exam first and try it again.</source>
         <target>You can't send log files while in an exam session. Finish the exam first and try it again.</target>
@@ -9712,11 +9747,6 @@ It is deleted when the session ends</target>
       <trans-unit id="You need to enter the correct quit password for this command." xml:space="preserve">
         <source>You need to enter the correct quit password for this command.</source>
         <target>You need to enter the correct quit password for this command.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file." xml:space="preserve">
-        <source>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</source>
-        <target>You should either enter a password or choose a cryptographic identity to encrypt the SEB settings file.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You will be able to work with other apps after Single App Mode is switched off by your administrator." xml:space="preserve">
@@ -9809,9 +9839,9 @@ It is deleted when the session ends</target>
         <target>get generally blocked</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 16" xml:space="preserve">
-        <source>iOS 16</source>
-        <target>iOS 16</target>
+      <trans-unit id="iOS 17" xml:space="preserve">
+        <source>iOS 17</source>
+        <target>iOS 17</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">

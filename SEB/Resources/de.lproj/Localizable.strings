@@ -350,6 +350,9 @@
 "Disable Scroll Lock" = "Scrollsperre deaktivieren";
 
 /* No comment provided by engineer. */
+"Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
+
+/* No comment provided by engineer. */
 "Displays a camera view to scan for SEB configuration QR codes" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
 
 /* No comment provided by engineer. */
@@ -476,6 +479,9 @@
 "Force Classic" = "Klassische erzwingen";
 
 /* No comment provided by engineer. */
+"Force Close" = "Schliessen erzwingen";
+
+/* No comment provided by engineer. */
 "FTP Proxy" = "FTP-Proxy";
 
 /* No comment provided by engineer. */
@@ -486,6 +492,9 @@
 
 /* No comment provided by engineer. */
 "Getting Exam Config..." = "Lade Prüfungskonfiguration...";
+
+/* No comment provided by engineer. */
+"GitHub Issue/Discussion Required for Log Submission" = "GitHub Issue/Diskussion für Log-Übermittlung erforderlich";
 
 /* No comment provided by engineer. */
 "Go Back" = "Zurück";
@@ -510,6 +519,9 @@
 
 /* No comment provided by engineer. */
 "Identity Name Not Unique" = "Name der Identität nicht einmalig";
+
+/* No comment provided by engineer. */
+"If SEB Server doesn't respond for a while, you can forcibly close the connection" = "Wenn SEB Server eine Zeit lang nicht antwortet, können Sie die Verbindung zwangsweise schliessen";
 
 /* No comment provided by engineer. */
 "If you don't enter the correct quit password, then you cannot quit the session." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie die Session nicht beenden.";
@@ -539,13 +551,10 @@
 "Instructions for Students" = "Instruktionen für Studierende";
 
 /* No comment provided by engineer. */
-"iOS 16" = "iOS 16";
+"iOS 17" = "iOS 17";
 
 /* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
-
-/* No comment provided by engineer. */
-"Issue Description Required" = "Fehlerbeschreibung notwendig";
 
 /* No comment provided by engineer. */
 "Left" = "Links";
@@ -710,10 +719,10 @@
 "Permissions Required for %@" = "Zugriffsrechte erforderlich für %@ ";
 
 /* No comment provided by engineer. */
-"Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." = "Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.";
+"Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte fügen Sie eine GitHub Issue/Diskussionsnummer/einen Link hinzu oder beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
 
 /* No comment provided by engineer. */
-"Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte beschreiben Sie das Problem, welches Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
+"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können SEB-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.";
 
 /* No comment provided by engineer. */
 "Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
@@ -750,6 +759,9 @@
 
 /* No comment provided by engineer. */
 "Received Config from MDM Server" = "Konfiguration von MDM-Server empfangen";
+
+/* No comment provided by engineer. */
+"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
 "Reload" = "Neu laden";
@@ -971,6 +983,9 @@
 "Student" = "Studierender";
 
 /* No comment provided by engineer. */
+"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
+
+/* No comment provided by engineer. */
 "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.\n";
 
 /* No comment provided by engineer. */
@@ -1145,9 +1160,6 @@
 "You can only send log files after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:";
 
 /* No comment provided by engineer. */
-"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
-
-/* No comment provided by engineer. */
 "You can't send log files while in an exam session. Finish the exam first and try it again." = "Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.";
 
 /* No comment provided by engineer. */
@@ -1170,9 +1182,6 @@
 
 /* No comment provided by engineer. */
 "You need to enter the correct quit password for this command." = "Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.";
-
-/* No comment provided by engineer. */
-"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
 
 /* No comment provided by engineer. */
 "You will be able to work with other apps after Single App Mode is switched off by your administrator." = "Sie können mit anderen Apps arbeiten, nachdem der Einzel-App-Modus von Ihrem Administrator ausgeschaltet wurde.";

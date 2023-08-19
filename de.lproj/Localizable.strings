@@ -377,6 +377,9 @@
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
+
+/* No comment provided by engineer. */
 "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.";
 
 /* No comment provided by engineer. */
@@ -491,6 +494,9 @@
 "Force Classic" = "Klassische erzwingen";
 
 /* No comment provided by engineer. */
+"Force Close" = "Schliessen erzwingen";
+
+/* No comment provided by engineer. */
 "Force Quit All Processes" = "Prozesse sofort beenden";
 
 /* No comment provided by engineer. */
@@ -524,6 +530,9 @@
 "Identity" = "Identität";
 
 /* No comment provided by engineer. */
+"If SEB Server doesn't respond for a while, you can forcibly close the connection" = "Wenn SEB Server eine Zeit lang nicht antwortet, können Sie die Verbindung zwangsweise schliessen";
+
+/* No comment provided by engineer. */
 "If you don't enter the correct quit password, then you cannot quit." = "Wenn Sie das korrekte Beenden-Passwort nicht eingeben, können Sie SEB nicht beenden.";
 
 /* No comment provided by engineer. */
@@ -548,7 +557,7 @@
 "Info" = "Info";
 
 /* No comment provided by engineer. */
-"iOS 16" = "iOS 16";
+"iOS 17" = "iOS 17";
 
 /* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
@@ -806,6 +815,9 @@
 "Reading Settings Failed" = "Lesen der Einstellungen ist fehlgeschlagen";
 
 /* No comment provided by engineer. */
+"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
+
+/* No comment provided by engineer. */
 "Reload" = "Neu laden";
 
 /* No comment provided by engineer. */
@@ -1022,6 +1034,9 @@
 "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.";
 
 /* No comment provided by engineer. */
+"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration." = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
+
+/* No comment provided by engineer. */
 "The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll.";
 
 /* No comment provided by engineer. */
@@ -1212,9 +1227,6 @@
 "You can only reconfigure by entering the current %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:";
 
 /* No comment provided by engineer. */
-"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
-
-/* No comment provided by engineer. */
 "You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." = "Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer.";
 
 /* No comment provided by engineer. */
@@ -1234,9 +1246,6 @@
 
 /* No comment provided by engineer. */
 "You either entered the wrong password or these settings were saved with an incompatible SEB version." = "Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.";
-
-/* No comment provided by engineer. */
-"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration." = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
 
 /* No comment provided by engineer. */
 "Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
