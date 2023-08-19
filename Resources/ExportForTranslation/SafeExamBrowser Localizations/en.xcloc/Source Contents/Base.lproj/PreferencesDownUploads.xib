@@ -212,7 +212,7 @@
                                                 <font key="font" metaFont="message" size="11"/>
                                             </buttonCell>
                                             <connections>
-                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownloadLocation" id="0I0-Z1-4T9"/>
+                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownUploadLocation" id="ZMg-L5-u9Q"/>
                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="SdC-li-mQ2" id="riJ-vE-qtu">
                                                     <dictionary key="options">
