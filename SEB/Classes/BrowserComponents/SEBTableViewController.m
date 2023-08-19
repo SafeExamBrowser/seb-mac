@@ -116,7 +116,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
     if (firstTableViewRow) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
+//        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
     }
 }
 
@@ -154,11 +154,13 @@
 
 - (void)sliderViewDidShow
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (firstTableViewRow) {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
-    }
+    [self accessibilityMessageForSliderShow:YES];
+    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
+//    if (firstTableViewRow) {
+//        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, firstTableViewRow);
+//    }
 }
 
 
@@ -172,6 +174,7 @@
 
 - (IBAction)closeLeftSideMenu
 {
+    [self accessibilityMessageForSliderShow:NO];
     [self.sideMenuController hideLeftViewAnimated];
 }
 
@@ -184,6 +187,12 @@
 - (void)refreshTableView:(id)sender
 {
     [self.tableView reloadData];
+}
+
+
+- (void)accessibilityMessageForSliderShow:(BOOL)show
+{
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"%@ %@", show ? NSLocalizedString(@"Showing", @"") : NSLocalizedString(@"Hiding", @""), NSLocalizedString(@"side menu", @"")]);
 }
 
 
