@@ -56,11 +56,6 @@
 			<key>orderHint</key>
 			<integer>18</integer>
 		</dict>
-		<key>Pods-Safe Exam Browser ETH.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>15</integer>
-		</dict>
 		<key>Pods-Safe Exam Browser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
