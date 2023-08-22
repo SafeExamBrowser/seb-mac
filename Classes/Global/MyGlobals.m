@@ -195,7 +195,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
     myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
     myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
-    myLogger.logFileManager.maximumNumberOfLogFiles = 7; // keep logs for 7 days
+    myLogger.logFileManager.maximumNumberOfLogFiles = 20; // keep max. 20 log files
 
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
