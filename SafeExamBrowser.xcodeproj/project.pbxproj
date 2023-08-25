@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */; };
 		288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */; };
+		5CA20A8AA5A31F56C9F42D89 /* Pods_SEBVerificator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080C3C46FF15330A26175CBE /* Pods_SEBVerificator.framework */; };
 		685E3A5E10165CEFE0705773 /* Pods_SEB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
@@ -495,7 +496,6 @@
 		69A727EB249D93CA0087B193 /* SEBScrollLock_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E8249D93CA0087B193 /* SEBScrollLock_locked@2x.png */; };
 		69A727ED249D93CA0087B193 /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E9249D93CA0087B193 /* SEBScrollLock_locked@3x.png */; };
 		69A727EF249D93CA0087B193 /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */; };
-		69A7780D2A8FE1400096F051 /* Pods_SEBVerificator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */; };
 		69A7780E2A8FE1400096F051 /* Pods_SEBVerificator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69AA20BB26EEA4A2002287A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69AA20B926EEA4A2002287A9 /* Localizable.strings */; };
 		69AEC956218A228300848945 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
@@ -791,6 +791,7 @@
 
 /* Begin PBXFileReference section */
 		05D73C9CB2F65E4E588D0D9D /* Pods-SEBVerificator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEBVerificator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEBVerificator/Pods-SEBVerificator.debug.xcconfig"; sourceTree = "<group>"; };
+		080C3C46FF15330A26175CBE /* Pods_SEBVerificator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1F921F5C9E302D6061D68416 /* Pods-SEBVerificator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEBVerificator.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEBVerificator/Pods-SEBVerificator.release.xcconfig"; sourceTree = "<group>"; };
@@ -1528,7 +1529,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69A7780D2A8FE1400096F051 /* Pods_SEBVerificator.framework in Frameworks */,
+				5CA20A8AA5A31F56C9F42D89 /* Pods_SEBVerificator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,7 +1626,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* SEB */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */,
@@ -1705,8 +1706,8 @@
 				693A94D711B68D8A0083C66D /* Carbon.framework */,
 				FD0AEC1826F0E1C74E39CAA1 /* Pods_Safe_Exam_Browser_ETH.framework */,
 				E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */,
-				287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */,
 				6ECAD913A3266E7E43320427 /* Pods_Safe_Exam_Browser.framework */,
+				080C3C46FF15330A26175CBE /* Pods_SEBVerificator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3082,8 +3083,8 @@
 				69D0247D287C68E5006CEC19 /* Sources */,
 				69D0247E287C68E5006CEC19 /* Frameworks */,
 				69D0247F287C68E5006CEC19 /* Resources */,
-				5AF41581846249E412B15209 /* [CP] Embed Pods Frameworks */,
 				69A7780F2A8FE1400096F051 /* Embed Frameworks */,
+				4CCEEA237F5FEAF61D382F22 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3218,7 +3219,7 @@
 				de,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3594,7 +3595,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5AF41581846249E412B15209 /* [CP] Embed Pods Frameworks */ = {
+		4CCEEA237F5FEAF61D382F22 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
