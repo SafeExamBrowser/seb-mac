@@ -1,5 +1,5 @@
 //
-//  Constants.h
+//  SEBConstants.h
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 29.12.11.

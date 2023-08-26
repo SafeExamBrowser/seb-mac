@@ -36,9 +36,19 @@
 #import "Constants.h"
 #if TARGET_OS_IPHONE
 #import "SEBViewController.h"
-#else
-@import CocoaLumberjack;
 #endif
+
+//#undef LOG_LEVEL_DEF
+//#define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
+// The build warning regarding ambiguous LOG_LEVEL_DEF can be avoided by commenting out
+// following lines in DDLogMacros.h and DDLog+LOGV.h
+//#ifndef LOG_LEVEL_DEF
+//    #define LOG_LEVEL_DEF ddLogLevel
+//#endif
+
+@import CocoaLumberjack;
+
+DDLogLevel ddLogLevel;
 
 @interface MyGlobals : NSObject
 

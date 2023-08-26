@@ -1121,7 +1121,7 @@ static NSNumber *_logLevel;
     } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
         if ([value boolValue] == NO) {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
-        } else {
+        } else if (_logLevel) {
             [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
         }
     }

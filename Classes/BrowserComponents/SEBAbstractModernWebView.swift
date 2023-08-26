@@ -34,6 +34,7 @@
 
 import Foundation
 import PDFKit
+import CocoaLumberjackSwift
 
 @objc public class SEBAbstractModernWebView: NSObject, SEBAbstractBrowserControllerDelegate, SEBAbstractWebViewNavigationDelegate, WKScriptMessageHandler {
     
@@ -167,6 +168,7 @@ import PDFKit
 
     @objc public init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         super.init()
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         navigationDelegate = delegate
         initWKWebViewController(configuration: configuration)
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
