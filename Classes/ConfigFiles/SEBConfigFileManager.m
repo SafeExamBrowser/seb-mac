@@ -226,7 +226,7 @@
         } else {
             // Ask the user to enter the settings password and proceed to the callback method after this happend
             [self.delegate promptPasswordWithMessageText:enterPasswordString
-                                                   title:NSLocalizedString(@"Starting Exam",nil)
+                                                   title:[NSString stringWithFormat:@"%@ (%@ %@)", NSLocalizedString(@"Starting Exam",nil), SEBShortAppName, MyGlobals.versionString]
                                                 callback:self
                                                 selector:@selector(passwordSettingsStartingExam:)];
         }
