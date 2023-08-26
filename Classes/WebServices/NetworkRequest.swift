@@ -32,6 +32,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol NetworkRequest: AnyObject {
 	associatedtype Model
@@ -55,6 +56,7 @@ extension NetworkRequest {
 extension NetworkRequest {
     fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue(keys.acceptJSON, forHTTPHeaderField: keys.headerAccept)

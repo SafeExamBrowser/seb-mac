@@ -43,8 +43,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 + (DDLogLevel)ddLogLevel
 {
-    NSUInteger newDDLogLevel = (NSUInteger)[[self sharedMyGlobals] logLevel];
-    return (DDLogLevel)newDDLogLevel;
+//    NSUInteger newDDLogLevel = (NSUInteger)[[self sharedMyGlobals] logLevel];
+//    return (DDLogLevel)newDDLogLevel;
+    return ddLogLevel;
 }
 
 
@@ -172,20 +173,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel
 {
-    if (sebLogLevel) {
-        NSArray *ddLogLevels = @[[NSNumber numberWithInt:DDLogLevelError],
-                                 [NSNumber numberWithInt:DDLogLevelWarning],
-                                 [NSNumber numberWithInt:DDLogLevelInfo],
-                                 [NSNumber numberWithInt:DDLogLevelDebug],
-                                 [NSNumber numberWithInt:DDLogLevelVerbose]];
-        if (sebLogLevel < ddLogLevels.count) {
-            _logLevel = [ddLogLevels[sebLogLevel] intValue];
-        } else {
-            _logLevel = DDLogLevelOff;
-        }
+    NSArray *ddLogLevels = @[[NSNumber numberWithInt:DDLogLevelError],
+                             [NSNumber numberWithInt:DDLogLevelWarning],
+                             [NSNumber numberWithInt:DDLogLevelInfo],
+                             [NSNumber numberWithInt:DDLogLevelDebug],
+                             [NSNumber numberWithInt:DDLogLevelVerbose]];
+    if (sebLogLevel < ddLogLevels.count) {
+        _logLevel = [ddLogLevels[sebLogLevel] intValue];
     } else {
         _logLevel = DDLogLevelOff;
     }
+    ddLogLevel = _logLevel;
 }
 
 

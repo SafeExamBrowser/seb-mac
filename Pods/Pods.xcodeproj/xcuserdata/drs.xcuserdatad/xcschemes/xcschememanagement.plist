@@ -4,16 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>CocoaLumberjack-iOS.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>CocoaLumberjack-macOS.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>InAppSettingsKit-InAppSettingsKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -30,21 +20,6 @@
 			<false/>
 		</dict>
 		<key>Pods-SEB.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-SEBVerificator.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-Safe Exam Browser.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>QRCodeReaderViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

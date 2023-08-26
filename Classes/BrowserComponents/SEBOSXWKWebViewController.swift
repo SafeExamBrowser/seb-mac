@@ -34,6 +34,7 @@
 
 import Foundation
 import WebKit
+import CocoaLumberjackSwift
 
 public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, SEBAbstractBrowserControllerDelegate, WKUIDelegatePrivateSEB {
         
@@ -82,6 +83,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         self.init()
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         webViewConfiguration = configuration
         navigationDelegate = delegate
     }
