@@ -67,8 +67,6 @@
 #import "AssessmentModeManager.h"
 #import "HUDController.h"
 
-#import "CocoaLumberjack.h"
-
 #import "ServerController.h"
 #import "SEBServerOSXViewController.h"
 #import "ServerLogger.h"

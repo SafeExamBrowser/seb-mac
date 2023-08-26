@@ -4,6 +4,7 @@
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
 #import "Constants.h"
+#import "MyGlobals.h"
 #import "SEBAbstractWebView.h"
 #import "SEBURLFilter.h"
 #import "SEBBatteryController.h"
