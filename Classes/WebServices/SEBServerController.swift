@@ -33,6 +33,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 @objc public protocol SEBServerControllerDelegate: AnyObject {
     func didEstablishSEBServerConnection()
@@ -154,6 +155,7 @@ public class PendingServerRequest : NSObject {
     }
     
     @objc public init(baseURL: URL, institution:  String, exam: String?, username: String, password: String, discoveryEndpoint: String, pingInterval: Double, delegate: SEBServerControllerDelegate) {
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         self.baseURL = baseURL
         self.institution = institution
         self.exam = exam

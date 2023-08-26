@@ -33,7 +33,6 @@
 //
 
 #import "SEBDockItem.h"
-#import <CocoaLumberjack.h>
 
 @interface SEBDockItemTime : SEBDockItem {
     

@@ -32,7 +32,6 @@
 //  Contributor(s): ______________________________________.
 //
 
-@import CocoaLumberjack;
 #import "SEBConstants.h"
 
 #ifndef SafeExamBrowser_Constants_h
