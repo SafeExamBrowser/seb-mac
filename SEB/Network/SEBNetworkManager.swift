@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import CocoaLumberjackSwift
 
 @available(iOS 14.0, *)
 @objc public class LocalNetworkAuthorizationManager: NSObject {
@@ -17,6 +18,7 @@ import Network
     
     @objc public func requestAuthorization(completion: @escaping (Bool) -> Void) {
         self.completion = completion
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         
         // Create parameters, and allow browsing over peer-to-peer link.
         let parameters = NWParameters()
