@@ -32,18 +32,7 @@
 //  Contributor(s): ______________________________________.
 //
 
-
-
 #ifdef __OBJC__
-
-#define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
-// The build warning regarding ambiguous LOG_LEVEL_DEF can be avoided by commenting out
-// following lines in DDLogMacros.h and DDLog+LOGV.h
-//#ifndef LOG_LEVEL_DEF
-//    #define LOG_LEVEL_DEF ddLogLevel
-//#endif
-
-@import CocoaLumberjack;
 
 #import "Constants.h"
 #import "MyGlobals.h"
@@ -52,7 +41,5 @@
 #import <CoreData/CoreData.h>
 
 @class MyGlobals;
-
-static DDLogLevel ddLogLevel = DDLogLevelDebug;
 
 #endif

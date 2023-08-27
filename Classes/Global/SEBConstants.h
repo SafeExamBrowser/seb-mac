@@ -32,6 +32,8 @@
 //  Contributor(s): ______________________________________.
 //
 
+#import <Foundation/Foundation.h>
+
 // RGB values in the Display P3 color space
 #define SEBTintColorRedValue 0.899
 #define SEBTintColorGreenValue 0.533

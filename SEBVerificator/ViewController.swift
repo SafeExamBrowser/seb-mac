@@ -36,7 +36,7 @@
 import Foundation
 import Cocoa
 import CoreServices
-import CocoaLumberjack
+import CocoaLumberjackSwift
 
 public struct strings {
     static let sebBundleID = "org.safeexambrowser.SafeExamBrowser"
@@ -72,6 +72,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
         super.viewDidLoad()
 
         NSApp.delegate = self
+        dynamicLogLevel = MyGlobals.ddLogLevel()
         ValueTransformer.setValueTransformer(ValidSEBColorTransformer(), forName: .validSEBColorTransformer)
 //        NSWorkspace.shared.addObserver(self, forKeyPath: "runningApplications", options: [.new, .old], context: nil)
         let appDirectoryURL = Bundle.main.bundleURL.deletingLastPathComponent()
