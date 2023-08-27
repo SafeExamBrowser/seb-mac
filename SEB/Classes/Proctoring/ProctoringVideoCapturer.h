@@ -40,6 +40,21 @@ NS_ASSUME_NONNULL_BEGIN
 @class RTCAudioTrack;
 @class RTCVideoTrack;
 
+@protocol ProctoringStreamController <NSObject>
+
+@property (strong, atomic) NSMutableArray<RTCVideoTrack *> *localRTCTracks;
+
+- (BOOL) rtcAudioInputEnabled;
+- (BOOL) rtcAudioReceivingEnabled;
+- (BOOL) rtcVideoSendingEnabled;
+- (BOOL) rtcVideoReceivingEnabled;
+- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+
+- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+
+@end
+
 
 @interface RTCCameraVideoCapturer (ProctoringVideoCapturer)
 

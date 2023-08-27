@@ -36,6 +36,8 @@
 
 #import "SEBiOSWebViewController.h"
 
+@class SEBiOSWebViewController;
+
 @interface OpenWebpages : NSObject
 
 @property (nonatomic, retain) SEBiOSWebViewController<SEBAbstractBrowserControllerDelegate> *webViewController;

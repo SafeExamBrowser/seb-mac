@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define SEBToolBarSearchBarIconWidth 24.0
 #define SEBToolBarSearchBarWidth 200.0
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -228,14 +228,15 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) startProctoringWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
-- (BOOL) rtcAudioInputEnabled;
-- (BOOL) rtcAudioReceivingEnabled;
-- (BOOL) rtcVideoSendingEnabled;
-- (BOOL) rtcVideoReceivingEnabled;
-- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
 
-- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
-- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+//- (BOOL) rtcAudioInputEnabled;
+//- (BOOL) rtcAudioReceivingEnabled;
+//- (BOOL) rtcVideoSendingEnabled;
+//- (BOOL) rtcVideoReceivingEnabled;
+//- (BOOL) rtcVideoTrackIsLocal:(RTCVideoTrack *)videoTrack;
+//
+//- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
+//- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
 
 /// Views and bars
 @property (strong, nonatomic) UIAlertController *_Nullable alertController;
