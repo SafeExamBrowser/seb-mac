@@ -35,16 +35,8 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 #if TARGET_OS_IPHONE
-#import "SEBViewController.h"
+#import "ProctoringVideoCapturer.h"
 #endif
-
-//#undef LOG_LEVEL_DEF
-//#define LOG_LEVEL_DEF [MyGlobals ddLogLevel]
-// The build warning regarding ambiguous LOG_LEVEL_DEF can be avoided by commenting out
-// following lines in DDLogMacros.h and DDLog+LOGV.h
-//#ifndef LOG_LEVEL_DEF
-//    #define LOG_LEVEL_DEF ddLogLevel
-//#endif
 
 @import CocoaLumberjack;
 
@@ -93,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(copy, readwrite) NSString *currentUserAgent;
 
 #if TARGET_OS_IPHONE
-@property(weak, nonatomic) SEBViewController *sebViewController;
+@property(weak) id <ProctoringStreamController> proctoringStreamController;
 #endif
 
 // SEB for iOS

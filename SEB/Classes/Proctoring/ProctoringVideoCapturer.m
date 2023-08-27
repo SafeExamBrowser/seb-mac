@@ -34,7 +34,7 @@
 
 #import "ProctoringVideoCapturer.h"
 #import "MethodSwizzling.h"
-
+#import "SEBViewController.h"
 
 @implementation RTCCameraVideoCapturer (ProctoringVideoCapturer)
 
@@ -48,7 +48,7 @@
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    [[[MyGlobals sharedMyGlobals] sebViewController] detectFace:sampleBuffer];
+    [[[MyGlobals sharedMyGlobals] proctoringStreamController] detectFace:sampleBuffer];
     [self newCaptureOutput:captureOutput didOutputSampleBuffer:sampleBuffer fromConnection:connection];
 }
 
@@ -66,7 +66,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void)newCapturer:(RTCVideoCapturer *)capturer didCaptureVideoFrame:(RTCVideoFrame *)frame
 {
     @synchronized(self) {
-        RTCVideoFrame *modifiedFrame = [[[MyGlobals sharedMyGlobals] sebViewController] overlayFrame:frame];
+        RTCVideoFrame *modifiedFrame = [[[MyGlobals sharedMyGlobals] proctoringStreamController] overlayFrame:frame];
         [self newCapturer:capturer didCaptureVideoFrame:modifiedFrame];
     }
 }
@@ -99,7 +99,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (BOOL)newInputAvailable
 {
-    return [[[MyGlobals sharedMyGlobals] sebViewController] rtcAudioInputEnabled];;
+    return [[[MyGlobals sharedMyGlobals] proctoringStreamController] rtcAudioInputEnabled];;
 }
 
 @end
@@ -147,7 +147,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSArray<RTCAudioTrack *> *audioTracks = [self newAudioTracks];
     if (audioTracks.count > 0) {
         RTCAudioTrack *remoteAudioTrack = audioTracks[0];
-        BOOL rtcAudioReceivingEnabled = [[[MyGlobals sharedMyGlobals] sebViewController] rtcAudioReceivingEnabled];
+        BOOL rtcAudioReceivingEnabled = [[[MyGlobals sharedMyGlobals] proctoringStreamController] rtcAudioReceivingEnabled];
         DDLogDebug(@"%@ remote RTCAudioTrack: %@", rtcAudioReceivingEnabled ? @"Unmuting" : @"Muting", remoteAudioTrack);
         [remoteAudioTrack setIsEnabled:rtcAudioReceivingEnabled];
     }
@@ -159,10 +159,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     NSArray<RTCVideoTrack *> *videoTracks = [self newVideoTracks];
     if (videoTracks.count > 0) {
         RTCVideoTrack *videoTrack = videoTracks[0];
-        BOOL isLocalVideoTrack = [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoTrackIsLocal:videoTrack];
+        BOOL isLocalVideoTrack = [[[MyGlobals sharedMyGlobals] proctoringStreamController] rtcVideoTrackIsLocal:videoTrack];
         BOOL enableVideoTrack = isLocalVideoTrack ?
-        [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoSendingEnabled] :
-        [[[MyGlobals sharedMyGlobals] sebViewController] rtcVideoReceivingEnabled];
+        [[[MyGlobals sharedMyGlobals] proctoringStreamController] rtcVideoSendingEnabled] :
+        [[[MyGlobals sharedMyGlobals] proctoringStreamController] rtcVideoReceivingEnabled];
 
         NSString *trackId = videoTrack.trackId;
         DDLogDebug(@"%@ %@ RTCVideoTrack: Id %@", enableVideoTrack ? @"Enable" : @"Disable", isLocalVideoTrack ? @"local" : @"remote", trackId);
@@ -174,7 +174,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void)newAddVideoTrack:(RTCVideoTrack *)videoTrack
 {
     DDLogDebug(@"Adding local RTCVideoTrack: %@", videoTrack);
-    [[[MyGlobals sharedMyGlobals] sebViewController].localRTCTracks addObject:videoTrack];
+    [[[MyGlobals sharedMyGlobals] proctoringStreamController].localRTCTracks addObject:videoTrack];
     [self newAddVideoTrack:videoTrack];
 }
 

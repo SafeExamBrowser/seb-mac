@@ -302,7 +302,7 @@ static NSMutableSet *browserWindowControllers;
     
     _appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     _appDelegate.sebViewController = self;
-    [[MyGlobals sharedMyGlobals] setSebViewController:self];
+    [[MyGlobals sharedMyGlobals] setProctoringStreamController:self];
     
     SEBRootViewController *rootViewController = (SEBRootViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     rootViewController.lgSideMenuController = self.sideMenuController;
