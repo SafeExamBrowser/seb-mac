@@ -123,7 +123,7 @@
 - (void) didSelectExam:(NSString *)examId url:(NSString *)url
 {
     DDLogInfo(@"ServerController: Did select exam");
-    DDLogDebug(@"ServerController: Did select exam with URL %@", url);
+    DDLogDebug(@"ServerController: Did select exam ID %@ with URL %@", examId, url);
     [self.delegate didSelectExamWithExamId:examId url:url];
 }
 
@@ -134,17 +134,21 @@
 
 
 - (void)didReceiveExamSalt:(NSString * _Nonnull)examSalt connectionToken:(NSString * _Nonnull)connectionToken {
+    DDLogDebug(@"ServerController: Did receive exam salt and connection token");
     [self.delegate didReceiveExamSalt:examSalt connectionToken:connectionToken];
 }
 
 
 - (void)didReceiveServerBEK:(NSString * _Nonnull)serverBEK {
+    DDLogDebug(@"ServerController: Did receive Server BEK");
     [self.delegate didReceiveServerBEK:serverBEK];
 }
 
 
 - (void) examSelected:(NSString * _Nonnull)examId url:(NSString * _Nonnull)url
 {
+    DDLogInfo(@"ServerController: Exam selected");
+    DDLogDebug(@"ServerController: Exam selected: ID %@ with URL %@", examId, url);
     [_sebServerController examSelected:examId url:url];
 }
 
@@ -162,6 +166,7 @@
             NSError *error = nil;
             NSDictionary* cookieKeyValues = [NSJSONSerialization JSONObjectWithData:[cookieValue dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
             NSString *openEdXUsername = [cookieKeyValues valueForKey:@"username"];
+            DDLogDebug(@"Cookie edx username: %@", openEdXUsername);
             if (openEdXUsername && ![sessionIdentifier isEqualToString:openEdXUsername]) {
                 sessionIdentifier = openEdXUsername;
                 [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
@@ -195,6 +200,7 @@
     NSString *userID = [headerFields objectForKey:@"X-LMS-USER-ID"];
     DDLogVerbose(@"Examine Headers: %@", headerFields);
     if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
+        DDLogInfo(@"ServerController: Did receive 'X-LMS' user ID");
         sessionIdentifier = userID;
         [_sebServerController startMonitoringWithUserSessionId:userID];
     }
@@ -237,18 +243,21 @@
 
 - (void) startBatteryMonitoringWithDelegate:(id)delegate
 {
+    DDLogInfo(@"ServerController: Starting battery monitoring");
     [_delegate startBatteryMonitoringWithDelegate:delegate];
 }
 
 
 - (NSInteger) sendLockscreenWithMessage:(NSString *)message
 {
+    DDLogInfo(@"ServerController: Send lock screen with message: %@", message);
     return  [_sebServerController sendLockscreenWithMessage:message];
 }
 
 - (void) confirmLockscreensWithUIDs:(NSArray<NSNumber *> *)notificationUIDs
 {
     for (NSNumber *notificationUID in notificationUIDs) {
+        DDLogInfo(@"ServerController: Confirm lock screen with UID %@", notificationUID);
         [_sebServerController sendLockscreenConfirmWithNotificationUID:notificationUID.integerValue];
     }
 }
@@ -256,11 +265,13 @@
 
 - (NSInteger) sendRaiseHandNotificationWithMessage:(NSString *)message
 {
+    DDLogInfo(@"ServerController: Send raise hand notification with message: %@", message);
     return [_sebServerController sendRaiseHandWithMessage:message];
 }
 
 - (void) sendLowerHandNotificationWithUID:(NSInteger)notificationUID
 {
+    DDLogInfo(@"ServerController: Send lower hand notification");
     [_sebServerController sendLowerHandWithNotificationUID:notificationUID];
 }
 
@@ -268,6 +279,7 @@
 - (void) executeSEBInstruction:(SEBInstruction *)sebInstruction
 {
     if (sebInstruction) {
+        DDLogInfo(@"ServerController: Received SEB instruction %@ to execute", sebInstruction);
         NSString *instruction = sebInstruction.instruction;
         
         if ([instruction isEqualToString:@"SEB_QUIT"]) {
