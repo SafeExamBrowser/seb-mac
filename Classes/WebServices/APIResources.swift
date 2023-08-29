@@ -32,6 +32,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol ApiResource {
     associatedtype Model:Decodable
@@ -59,16 +60,22 @@ struct DiscoveryResource: ApiResource {
         self.baseURL = baseURL
         self.methodPath = discoveryEndpoint
         self.queryParameters = []
+        dynamicLogLevel = MyGlobals.ddLogLevel()
     }
     
     func makeModel(data: Data) -> Discovery? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        print(String(data: data, encoding: String.Encoding.utf8)!)
-        guard let discovery = try? decoder.decode(Discovery.self, from: data) else {
-            return nil
+#if DEBUG
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
+        do {
+            let discovery = try decoder.decode(Discovery.self, from: data)
+            return discovery
+        } catch let error {
+            DDLogError("SEB Server API Discovery Resource failed: \(String(describing: error))")
         }
-        return discovery
+        return nil
     }
 }
 
@@ -84,16 +91,22 @@ struct AccessTokenResource: ApiResource {
         self.baseURL = baseURL
         self.methodPath = endpoint
         self.queryParameters = []
+        dynamicLogLevel = MyGlobals.ddLogLevel()
     }
 
     func makeModel(data: Data) -> AccessToken? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        print(String(data: data, encoding: String.Encoding.utf8)!)
-        guard let accessToken = try? decoder.decode(AccessToken.self, from: data) else {
-            return nil
+#if DEBUG
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
+        do {
+            let accessToken = try decoder.decode(AccessToken.self, from: data)
+            return accessToken
+        } catch let error {
+            DDLogError("SEB Server API Access Token Resource failed: \(String(describing: error))")
         }
-        return accessToken
+        return nil
     }
 }
 
@@ -109,16 +122,22 @@ struct HandshakeResource: ApiResource {
         self.baseURL = baseURL
         self.methodPath = endpoint
         self.queryParameters = []
+        dynamicLogLevel = MyGlobals.ddLogLevel()
     }
     
     func makeModel(data: Data) -> [Exam]? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        print(String(data: data, encoding: String.Encoding.utf8)!)
-        guard let exams = try? decoder.decode([Exam].self, from: data) else {
-            return nil
+#if DEBUG
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
+        do {
+            let exams = try decoder.decode([Exam].self, from: data)
+            return exams
+        } catch let error {
+            DDLogError("SEB Server API Handshake Resource failed: \(String(describing: error))")
         }
-        return exams
+        return nil
     }
 }
 
@@ -208,17 +227,20 @@ struct PingResource: ApiResource {
         self.baseURL = baseURL
         self.methodPath = endpoint
         self.queryParameters = []
+        dynamicLogLevel = MyGlobals.ddLogLevel()
     }
     func makeModel(data: Data) -> Ping? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         if data.count > 0 {
-            print(String(data: data, encoding: String.Encoding.utf8)!)
+#if DEBUG
+            DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
             do {
                 let ping = try decoder.decode(Ping.self, from: data)
                 return ping
             } catch let error {
-                print(error)
+                DDLogError("SEB Server API Ping Resource failed: \(String(describing: error))")
             }
         }
         return nil
