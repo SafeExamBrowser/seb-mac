@@ -121,6 +121,7 @@ public class PendingServerRequest : NSObject {
     private var fallbackAttemptInterval: Double
     private var fallbackTimeout: Double
     private var cancelAllRequests = false
+    private var lastBatteryLevel: Double = 100.0
 
     struct Queue<T> {
          var list = [T]()
@@ -167,6 +168,7 @@ public class PendingServerRequest : NSObject {
         self.maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
         self.fallbackAttemptInterval = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttemptInterval") / 1000
         self.fallbackTimeout = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackTimeout") / 1000
+        DDLogInfo("SEB Server Controller: Initialize with ping interval \(self.pingInterval), max. request attempts \(self.maxRequestAttemps), fallback attempt interval \(self.fallbackAttemptInterval) and fallback timeout \(self.fallbackTimeout).")
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = fallbackTimeout
         self.session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
@@ -188,8 +190,10 @@ public extension SEBServerController {
             pendingRequests.append(pendingRequest)
             request.load(httpMethod: httpMethod, body: body, headers: headers, session: self.session, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
                 self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
+                DDLogVerbose("SEB Server Controller: Load returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                     // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
+                    DDLogError("SEB Server Controller: Load returned with invalid token error: expired, renew if not yet exceeded max. attempts (attempt: \(attempt)).")
                     if attempt <= self.maxRequestAttemps && !cancelAllRequests {
                         DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
                             self.getServerAccessToken {
@@ -198,10 +202,12 @@ public extension SEBServerController {
                             }
                         }
                     } else {
+                        let errorDebugDescription = "Server reported Invalid Token for maxRequestAttempts"
                         let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
                             NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
-                                       NSDebugDescriptionErrorKey : "Server reported Invalid Token for maxRequestAttempts"]
+                                       NSDebugDescriptionErrorKey : errorDebugDescription]
                         let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                        DDLogError("SEB Server Controller: Load failed because \(errorDebugDescription).")
                         self.didFail(error: error, fatal: true)
                     }
                     return
@@ -216,8 +222,9 @@ public extension SEBServerController {
     fileprivate func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
+                DDLogVerbose("SEB Server Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
-                    DDLogError("Loading resource \(resource) not successful, status code: \(String(describing: statusCode)))")
+                    DDLogError("SEB Server Controller: Loading resource \(resource) with fallback not successful, status code: \(String(describing: statusCode)), attempt: \(attempt).")
                     // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
                     let currentAttempt = fallbackAttempt+1
                     if currentAttempt <= self.maxRequestAttemps {
@@ -229,6 +236,7 @@ public extension SEBServerController {
                         }
                         return
                     } //if maxRequestAttemps reached, report failure to load resource
+                    DDLogError("SEB Server Controller: Load with fallback max. request attempts reached, aborting.")
                     self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
                 }
                 if !self.cancelAllRequests {
@@ -256,13 +264,16 @@ public extension SEBServerController {
                 sebEndpoints.log.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.log.name)
 
                 self.serverAPI = sebEndpoints
-                
+                DDLogInfo("SEB Server Controller: Received server endpoints.")
+
                 self.getAccessToken()
             } else {
+                let errorDebugDescription = "Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints")"
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Server API", comment: ""),
                     NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
-                               NSDebugDescriptionErrorKey : "Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints")."]
+                               NSDebugDescriptionErrorKey : errorDebugDescription]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                DDLogError("SEB Server Controller: Cannot get server API. Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints").")
                 self.didFail(error: error, fatal: true)
             }
         }
@@ -287,12 +298,15 @@ public extension SEBServerController {
                 self.gettingAccessToken = false
                 if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
                     self.accessToken = tokenString
+                    DDLogInfo("SEB Server Controller: Received server access token.")
                 } else {
                     self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
+                    let errorDebugDescription = "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
                     let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: ", comment: "") + (errorResponse?.error ?? "unspecified"),
                         NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
-                                   NSDebugDescriptionErrorKey : "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")."]
+                                   NSDebugDescriptionErrorKey : errorDebugDescription]
                     let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                    DDLogError("SEB Server Controller: Cannot get server access token. \(errorDebugDescription).")
                     self.didFail(error: error, fatal: true)
                     return
                 }
@@ -338,26 +352,34 @@ public extension SEBServerController {
                     if let exams = handshakeResponse  {
                         self.exams = exams
                         self.examList = [];
+                        var examNames = ""
 
-                        if (exams != nil) {
+                        if exams != nil {
                             for exam in exams! {
                                 self.examList?.append(ExamObject(exam))
+                                examNames.append("\(exam.name)\n")
                             }
                         }
-                        self.serverControllerUIDelegate?.updateExamList()
-                        if self.exam != nil {
-                            self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
+                        if (exams != nil && !exams!.isEmpty) || self.exam != nil {
+                            DDLogInfo("SEB Server Controller: Received exam list: \(examNames)")
+                            self.serverControllerUIDelegate?.updateExamList()
+                            if self.exam != nil {
+                                self.delegate?.didSelectExam((exams?.first!.examId)!, url: (exams?.first!.url)!)
+                            }
+                            return
                         }
-                        return
                     }
                 }
             }
+            let errorDebugDescription = (connectionTokenSuccess && self.examList?.isEmpty ?? false) ? "Server returned empty exam list" :
+            "Server didn't return \(connectionTokenSuccess ? "exams" : "connection token"), server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
             let userInfo = [NSLocalizedDescriptionKey : connectionTokenSuccess ?
-                            NSLocalizedString("Cannot Establish Server Connection", comment: "") :
-                                NSLocalizedString("Cannot Get Exam List", comment: ""),
+                            (self.examList?.isEmpty ?? true ? NSLocalizedString("Exam List is Empty", comment: "") : NSLocalizedString("Cannot Get Exam List", comment: "")) :
+                            NSLocalizedString("Cannot Establish Server Connection", comment: ""),
                 NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
-                           NSDebugDescriptionErrorKey : "Server didn't return \(connectionTokenSuccess ? "connection token" : "exams"), server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
+                           NSDebugDescriptionErrorKey : errorDebugDescription]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+            DDLogError("SEB Server Controller: Cannot get exam list. \(errorDebugDescription).")
             self.didFail(error: error, fatal: true)
 
         })
@@ -369,6 +391,7 @@ public extension SEBServerController {
             let timer = Timer.scheduledTimer(timeInterval: self.pingInterval, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
             RunLoop.current.add(timer, forMode: .common)
             self.pingTimer = timer
+            DDLogInfo("SEB Server Controller: Started ping timer.")
         }
     }
     
@@ -376,20 +399,23 @@ public extension SEBServerController {
         if pingTimer != nil {
             pingTimer?.invalidate()
             pingTimer = nil
+            DDLogInfo("SEB Server Controller: Stopped ping timer.")
         }
     }
     
     
     private func startBatteryMonitoring() {
         self.delegate?.startBatteryMonitoring(delegate: self)
+        DDLogInfo("SEB Server Controller: Start battery monitoring.")
     }
     
     func updateBatteryLevel(_ batteryLevel: Double, infoString: String) {
+        lastBatteryLevel = batteryLevel
         sendBatteryEvent(numericValue: batteryLevel, message: infoString)
     }
     
     func setPowerConnected(_ powerConnected: Bool, warningLevel batteryWarningLevel: SEBLowBatteryWarningLevel) {
-        // Currently reporting low battery warning levels to SEB Server is not supported
+        sendBatteryEvent(numericValue: lastBatteryLevel, message: "\(powerConnected ? "Connected to" : "Disconnected from") power source.")
     }
     
 
