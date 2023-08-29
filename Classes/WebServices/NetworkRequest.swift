@@ -42,7 +42,11 @@ protocol NetworkRequest: AnyObject {
 
 extension NetworkRequest {
     fileprivate func load(_ url: URL, session: URLSession, withCompletion completion: @escaping (Model?) -> Void) {
+        dynamicLogLevel = MyGlobals.ddLogLevel()
 		let task = session.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            if error != nil {
+                DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
+            }
 			guard let receivedData = data else {
 				completion(nil)
 				return
@@ -56,7 +60,6 @@ extension NetworkRequest {
 extension NetworkRequest {
     fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         
-        dynamicLogLevel = MyGlobals.ddLogLevel()
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue(keys.acceptJSON, forHTTPHeaderField: keys.headerAccept)
