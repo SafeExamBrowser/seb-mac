@@ -224,7 +224,7 @@ public extension SEBServerController {
             load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
                 DDLogVerbose("SEB Server Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
-                    DDLogError("SEB Server Controller: Loading resource \(resource) with fallback not successful, status code: \(String(describing: statusCode)), attempt: \(attempt).")
+                    DDLogError("SEB Server Controller: Loading resource \(resource) with fallback not successful, status code: \(String(describing: statusCode)), attempt: \(fallbackAttempt).")
                     // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
                     let currentAttempt = fallbackAttempt+1
                     if currentAttempt <= self.maxRequestAttemps {
@@ -252,7 +252,7 @@ public extension SEBServerController {
         let discoveryRequest = ApiRequest(resource: discoveryResource)
         pendingRequests.append(PendingServerRequest(request: discoveryRequest))
         // ToDo: Implement timeout and sebServerFallback
-        discoveryRequest.load(self.session) { (discoveryResponse) in
+        discoveryRequest.load(self.session) { (discoveryResponse, error) in
             // ToDo: Does this if let check work, response seems to be a double optional?
             if let discovery = discoveryResponse, let serverAPIEndpoints = discovery?.api_versions[0].endpoints {
                 var sebEndpoints = SEB_Endpoints()
@@ -268,13 +268,19 @@ public extension SEBServerController {
 
                 self.getAccessToken()
             } else {
-                let errorDebugDescription = "Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints")"
-                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Server API", comment: ""),
-                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
-                               NSDebugDescriptionErrorKey : errorDebugDescription]
-                let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
-                DDLogError("SEB Server Controller: Cannot get server API. Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints").")
-                self.didFail(error: error, fatal: true)
+                var errorDebugDescription = ""
+                var returnError = error as? NSError
+                if returnError == nil {
+                    errorDebugDescription = "Server didn't return \(discoveryResponse == nil ? "discovery response" : "API endpoints")"
+                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Server API", comment: ""),
+                        NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
+                                   NSDebugDescriptionErrorKey : errorDebugDescription]
+                    returnError = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                } else {
+                    errorDebugDescription = returnError.debugDescription
+                }
+                DDLogError("SEB Server Controller: Cannot get server API. \(errorDebugDescription).")
+                self.didFail(error: returnError!, fatal: true)
             }
         }
     }
@@ -302,7 +308,7 @@ public extension SEBServerController {
                 } else {
                     self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
                     let errorDebugDescription = "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
-                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: ", comment: "") + (errorResponse?.error ?? "unspecified"),
+                    let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: ", comment: "") + (errorResponse?.error ?? errorDebugDescription),
                         NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
                                    NSDebugDescriptionErrorKey : errorDebugDescription]
                     let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
@@ -357,7 +363,7 @@ public extension SEBServerController {
                         if exams != nil {
                             for exam in exams! {
                                 self.examList?.append(ExamObject(exam))
-                                examNames.append("\(exam.name)\n")
+                                examNames.append("\(exam.name), ")
                             }
                         }
                         if (exams != nil && !exams!.isEmpty) || self.exam != nil {
@@ -376,7 +382,7 @@ public extension SEBServerController {
             let userInfo = [NSLocalizedDescriptionKey : connectionTokenSuccess ?
                             (self.examList?.isEmpty ?? true ? NSLocalizedString("Exam List is Empty", comment: "") : NSLocalizedString("Cannot Get Exam List", comment: "")) :
                             NSLocalizedString("Cannot Establish Server Connection", comment: ""),
-                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
+                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? errorDebugDescription) + ").",
                            NSDebugDescriptionErrorKey : errorDebugDescription]
             let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
             DDLogError("SEB Server Controller: Cannot get exam list. \(errorDebugDescription).")
@@ -389,9 +395,9 @@ public extension SEBServerController {
     private func startPingTimer() {
         if self.pingTimer == nil {
             let timer = Timer.scheduledTimer(timeInterval: self.pingInterval, target: self, selector: #selector(self.sendPing), userInfo: nil, repeats: true)
+            DDLogInfo("SEB Server Controller: Start ping timer.")
             RunLoop.current.add(timer, forMode: .common)
             self.pingTimer = timer
-            DDLogInfo("SEB Server Controller: Started ping timer.")
         }
     }
     
@@ -431,6 +437,7 @@ public extension SEBServerController {
 
     
     func updateConnectionHandshake() {
+        self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Opening Exam...", comment: ""), append: false)
         var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
         handshakeResource.body = keys.examId + "=" + selectedExamId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
@@ -448,8 +455,16 @@ public extension SEBServerController {
                 if let serverBEK = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebServerBEK) == .orderedSame}))?.value {
                     self.delegate?.didReceiveServerBEK(serverBEK as! String)
                 }
+                self.getExamConfig()
+            } else {
+                let errorDebugDescription = "Server didn't update connection handshake, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
+                let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Open Exam", comment: ""),
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? errorDebugDescription) + ").",
+                               NSDebugDescriptionErrorKey : errorDebugDescription]
+                let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                DDLogError("SEB Server Controller: Cannot update connection handshake: \(errorDebugDescription).")
+                self.didFail(error: error, fatal: true)
             }
-            self.getExamConfig()
         })
     }
     
@@ -467,10 +482,12 @@ public extension SEBServerController {
                     self.delegate?.reconfigureWithServerExamConfig(config ?? Data())
                 })
             } else {
+                let errorDebugDescription = "Server didn't return exam configuration, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Get Exam Config", comment: ""),
-                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? "Unspecified") + ").",
-                               NSDebugDescriptionErrorKey : "Server didn't return exam configuration, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"]
+                    NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server/exam administrator (Server error: ", comment: "") + (errorResponse?.error ?? errorDebugDescription) + ").",
+                               NSDebugDescriptionErrorKey : errorDebugDescription]
                 let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
+                DDLogError("SEB Server Controller: Cannot get exam configuration: \(errorDebugDescription).")
                 self.didFail(error: error, fatal: true)
             }
         })
@@ -494,12 +511,14 @@ public extension SEBServerController {
         loadWithFallback(moodleUserIdResource, httpMethod: moodleUserIdResource.httpMethod, body: "", headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (moodleUserIdResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode == 200 && moodleUserIdResponse != nil {
                 guard let moodleUserId = String(data: moodleUserIdResponse!!, encoding: .utf8) else {
-//                    DDLogDebug("No valid Moodle user ID found")
+                    DDLogError("SEB Server Controller: No valid Moodle user ID found, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")")
                     return
                 }
                 if moodleUserId != "0" {
                     self.delegate?.didReceiveMoodleUserId(moodleUserId)
                 }
+            } else {
+                DDLogError("SEB Server Controller: Querying Moodle user ID failed, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")")
             }
         })
     }

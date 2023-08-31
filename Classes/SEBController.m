@@ -1285,13 +1285,17 @@ bool insideMatrix(void);
 {
     BOOL optionallyAttemptFallback = fatal && !_startingExamFromSEBServer && !_sebServerConnectionEstablished;
     DDLogError(@"SEB Server connection did fail with error: %@%@", [error.userInfo objectForKey:NSDebugDescriptionErrorKey], optionallyAttemptFallback ? @", optionally attempt failback" : @" This is a non-fatal error, no fallback necessary.");
+    NSString *localizedRecoverySuggestion = [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey];
+    if (localizedRecoverySuggestion.length == 0) {
+        localizedRecoverySuggestion = NSLocalizedString(@"Contact your exam administrator", comment: "");
+    }
+    NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], localizedRecoverySuggestion];
     if (optionallyAttemptFallback) {
         if (!self.serverController.fallbackEnabled) {
             DDLogError(@"Aborting SEB Server connection as fallback isn't enabled");
             [self closeServerViewWithCompletion:^{
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", @"")];
-                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
@@ -1324,7 +1328,6 @@ bool insideMatrix(void);
                 DDLogInfo(@"Server connection failed: Querying user if fallback should be used");
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed: Fallback Option", @"")];
-                NSString *informativeText = [NSString stringWithFormat:@"%@\n%@", [error.userInfo objectForKey:NSLocalizedDescriptionKey], [error.userInfo objectForKey:NSLocalizedRecoverySuggestionErrorKey]];
                 [modalAlert setInformativeText:informativeText];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", @"")];
