@@ -36,22 +36,22 @@ import CocoaLumberjackSwift
 
 protocol NetworkRequest: AnyObject {
 	associatedtype Model
-	func load(_ session: URLSession, withCompletion completion: @escaping (Model?) -> Void)
+	func load(_ session: URLSession, withCompletion completion: @escaping (Model?, Error?) -> Void)
 	func decode(_ data: Data) -> Model?
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, session: URLSession, withCompletion completion: @escaping (Model?) -> Void) {
+    fileprivate func load(_ url: URL, session: URLSession, withCompletion completion: @escaping (Model?, Error?) -> Void) {
         dynamicLogLevel = MyGlobals.ddLogLevel()
 		let task = session.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if error != nil {
                 DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
             }
 			guard let receivedData = data else {
-				completion(nil)
+				completion(nil, error)
 				return
 			}
-			completion(self?.decode(receivedData))
+			completion(self?.decode(receivedData), error)
 		})
 		task.resume()
 	}
@@ -149,7 +149,7 @@ extension ApiRequest: NetworkRequest {
 		return resource.makeModel(data: data)
 	}
 	
-	func load(_ session: URLSession, withCompletion completion: @escaping (Resource.Model?) -> Void) {
+	func load(_ session: URLSession, withCompletion completion: @escaping (Resource.Model?, Error?) -> Void) {
         load(resource.url, session: session, withCompletion: completion)
 	}
 
@@ -171,7 +171,7 @@ extension DataRequest: NetworkRequest {
 		return data
 	}
 	
-    func load(_ session: URLSession, withCompletion completion: @escaping (Data?) -> Void) {
+    func load(_ session: URLSession, withCompletion completion: @escaping (Data?, Error?) -> Void) {
 		load(resource.url, session: session, withCompletion: completion)
 	}
     
