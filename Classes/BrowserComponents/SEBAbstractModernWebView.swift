@@ -507,7 +507,7 @@ import CocoaLumberjackSwift
                         let js = "window.getSelection().removeAllRanges();"
                         self.sebWebView.evaluateJavaScript(js) { (response, error) in
                             if let _ = error {
-                                    DDLogError(error as Any)
+                                DDLogError("\(String(describing: error))")
                             }
                         }
                     }

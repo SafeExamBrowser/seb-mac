@@ -54,7 +54,7 @@
         if (dockHeight < SEBDefaultDockHeight) dockHeight = SEBDefaultDockHeight;
 
         NSRect initialContentRect = NSMakeRect(0, 0, 1024, dockHeight);
-        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        self.dockWindow = [[SEBDockWindow alloc] initWithContentRect:initialContentRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
         self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.autorecalculatesKeyViewLoop = YES;
         self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;

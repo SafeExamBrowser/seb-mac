@@ -476,7 +476,7 @@
             [newAlert setMessageText:NSLocalizedString(@"Opening Settings Failed", @"")];
             [newAlert setInformativeText:NSLocalizedString(@"Loaded settings are empty and cannot be used.", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert setAlertStyle:NSAlertStyleCritical];
             // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
             // which also is the minimum macOS version the Preferences window is available from
             [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
@@ -568,7 +568,7 @@
     [newAlert setMessageText:NSLocalizedString(@"Unconfirmed Password", @"")];
     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Please confirm the %@ password first.", @""), passwordName]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleInformational];
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
     [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
@@ -599,7 +599,7 @@
     [newAlert addButtonWithTitle:defaultButtonText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Apply Anyways", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleCritical];
     switch([newAlert runModal])
     {
         case NSAlertFirstButtonReturn:
@@ -634,7 +634,7 @@
     [newAlert addButtonWithTitle:NSLocalizedString(@"Save Changes", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Don't Save", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    [newAlert setAlertStyle:NSWarningAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleWarning];
     switch([newAlert runModal])
     {
         case NSAlertFirstButtonReturn:
@@ -931,7 +931,7 @@
     // which also is the minimum macOS version the Preferences window is available from
     [panel beginSheetModalForWindow:self.preferencesWindow
                   completionHandler:^(NSInteger result){
-                      if (result == NSFileHandlingPanelOKButton)
+                      if (result == NSModalResponseOK)
                       {
                           NSURL *sebFileURL = [panel URL];
                           DDLogInfo(@"Loading .seb settings file with file URL %@", sebFileURL);
@@ -1032,7 +1032,7 @@
         }
         [panel setAllowedFileTypes:allowedFileTypes.copy];
         NSInteger result = [panel runModal];
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             prefsFileURL = [panel URL];
         } else {
             // Saving settings was canceled
@@ -1065,7 +1065,7 @@
                     [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]];
                     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
                     [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
-                    [newAlert setAlertStyle:NSCriticalAlertStyle];
+                    [newAlert setAlertStyle:NSAlertStyleCritical];
                     switch([newAlert runModal])
                     {
                         case NSAlertFirstButtonReturn:
@@ -1100,7 +1100,7 @@
             [newAlert setMessageText:NSLocalizedString(@"Saving Settings Failed", @"")];
             [newAlert setInformativeText:[error localizedDescription]];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert setAlertStyle:NSAlertStyleCritical];
             [self.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 
             [oldSettings restoreSettings];

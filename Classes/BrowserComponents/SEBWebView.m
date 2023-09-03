@@ -109,7 +109,7 @@
         NSString * chars = [theEvent characters];
         BOOL status = NO;
         
-        if ([theEvent modifierFlags] & NSCommandKeyMask) {
+        if ([theEvent modifierFlags] & NSEventModifierFlagCommand) {
             
             if ([chars isEqualTo:@"c"]){
                 [self privateCopy:nil];
