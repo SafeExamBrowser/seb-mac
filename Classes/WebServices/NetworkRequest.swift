@@ -81,7 +81,8 @@ extension NetworkRequest {
             }
             guard let receivedData = data else {
                 DDLogError("Network Request didn't return response data (status code: \(String(describing: statusCode)))")
-                completion(nil, statusCode, nil, [:], currentAttempt)
+                errorResponse = ErrorResponse(error: error?.localizedDescription, error_description: error.debugDescription)
+                completion(nil, statusCode, errorResponse, [:], currentAttempt)
                 return
             }
             if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
