@@ -52,7 +52,7 @@
         [HUDBackground addSubview:_progressIndicatorView];
         [_progressIndicatorView setFrameOrigin:NSMakePoint(0, 0)];
         
-        _progressIndicatorHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:false];
+        _progressIndicatorHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:false];
         _progressIndicatorHUD.backgroundColor = [NSColor clearColor];
         _progressIndicatorHUD.opaque = false;
         _progressIndicatorHUD.alphaValue = 0.75;

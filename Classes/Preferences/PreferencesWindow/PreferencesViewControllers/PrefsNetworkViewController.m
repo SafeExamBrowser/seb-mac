@@ -192,7 +192,7 @@
     [newAlert setInformativeText:NSLocalizedString(@"The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert addButtonWithTitle:NSLocalizedString(@"Clear", @"")];
-    [newAlert setAlertStyle:NSInformationalAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleInformational];
     void (^alertAnswerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         if (answer == NSAlertSecondButtonReturn) {
             [[SEBURLFilter sharedSEBURLFilter] clearIgnoreRuleList];
@@ -399,7 +399,7 @@
             [newAlert setMessageText:NSLocalizedString(@"Exporting Identity Failed", @"")];
             [newAlert setInformativeText:NSLocalizedString(@"The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert setAlertStyle:NSAlertStyleCritical];
             [self.preferencesController.sebController runModalAlert:newAlert conditionallyForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
         }
         [chooseIdentity selectItemAtIndex:0];
@@ -507,7 +507,7 @@
             [newAlert setMessageText:NSLocalizedString(@"macOS Support Warning", @"")];
             [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [newAlert setAlertStyle:NSCriticalAlertStyle];
+            [newAlert setAlertStyle:NSAlertStyleCritical];
             // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
             // which also is the minimum macOS version the Preferences window is available from
             [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];

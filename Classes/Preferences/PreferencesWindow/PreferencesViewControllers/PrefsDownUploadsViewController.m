@@ -154,7 +154,7 @@
     // which also is the minimum macOS version the Preferences window is available from
     [openFilePanel beginSheetModalForWindow:[MBPreferencesController sharedController].window
                       completionHandler:^(NSInteger result) {
-                          if (result == NSFileHandlingPanelOKButton) {
+                          if (result == NSModalResponseOK) {
                               // Get an array containing the full filenames of all
                               // files and directories selected.
                               NSArray* files = [openFilePanel URLs];

@@ -68,7 +68,7 @@
 
     // Create blue underlined link for "Paste from saved clipboard"
     NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-    [paragraphStyle setAlignment:NSRightTextAlignment];
+    [paragraphStyle setAlignment:NSTextAlignmentRight];
 
     NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 paragraphStyle, NSParagraphStyleAttributeName,
