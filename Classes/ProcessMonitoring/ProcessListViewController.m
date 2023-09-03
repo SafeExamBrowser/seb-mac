@@ -190,7 +190,7 @@
             self.modalAlert = [self.delegate newAlert];
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quit All Processes", @"")];
             [self.modalAlert setInformativeText:NSLocalizedString(@"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.", @"")];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [self.modalAlert setAlertStyle:NSAlertStyleCritical];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
             void (^forceQuitAllProcessesAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -270,7 +270,7 @@
             DDLogError(@"Force quitting processes failed!");
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", @"")];
             [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @"")];
-            [self.modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [self.modalAlert setAlertStyle:NSAlertStyleCritical];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
             void (^forceQuitAllProcessesFailedAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {

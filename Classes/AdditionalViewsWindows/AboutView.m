@@ -62,7 +62,7 @@
     // Draw it.
     [anImage drawAtPoint:drawPoint
                 fromRect:NSZeroRect
-               operation:NSCompositeSourceOver
+               operation:NSCompositingOperationSourceOver
                 fraction:1.0];
 }
 

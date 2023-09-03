@@ -873,7 +873,7 @@ bool insideMatrix(void);
                 [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
                 [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", @""), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", @""), [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
                   completionHandler:(void (^)(NSModalResponse answer))accessibilityPermissionsAlertOK];
             } else {
@@ -1010,7 +1010,7 @@ bool insideMatrix(void);
         [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
         [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
         [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", @"") : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @""))];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             if (self.startingUp) {
@@ -1299,7 +1299,7 @@ bool insideMatrix(void);
                 [modalAlert setInformativeText:informativeText];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
@@ -1332,7 +1332,7 @@ bool insideMatrix(void);
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", @"")];
                 [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
@@ -1368,7 +1368,7 @@ bool insideMatrix(void);
                                     [modalAlert setMessageText:password.length > 0 ? NSLocalizedString(@"Wrong SEB Server Fallback Password entered", @"") : NSLocalizedString(@"No SEB Server Fallback Password entered", @"")];
                                     [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.", @"")];
                                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                                    [modalAlert setAlertStyle:NSWarningAlertStyle];
+                                    [modalAlert setAlertStyle:NSAlertStyleWarning];
                                     void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
                                         [self removeAlertWindow:modalAlert.window];
                                         [self didFailWithError:error fatal:fatal];
@@ -1885,7 +1885,7 @@ bool insideMatrix(void);
             [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", @"")];
             [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
                 [self quitSEBOrSession];
@@ -1923,7 +1923,7 @@ bool insideMatrix(void);
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", @"")];
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleWarning];
         void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             [[NSNotificationCenter defaultCenter]
@@ -1945,7 +1945,7 @@ bool insideMatrix(void);
                     [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Screen Capture", @"")];
                     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security & Privacy (after quitting %@). Then restart %@ and your exam.", @""), SEBFullAppNameClassic, SEBShortAppName, SEBShortAppName]];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit Session", @"")];
-                    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                    [modalAlert setAlertStyle:NSAlertStyleCritical];
                     void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                         [self removeAlertWindow:modalAlert.window];
                         [[NSNotificationCenter defaultCenter]
@@ -1984,7 +1984,7 @@ bool insideMatrix(void);
                 [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleWarning];
                 void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
@@ -2062,7 +2062,7 @@ bool insideMatrix(void);
                 if (NSUserDefaults.userDefaultsPrivate) {
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
                 }
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
@@ -2413,7 +2413,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [modalAlert setMessageText:title];
     [modalAlert setInformativeText:text];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleCritical];
     void (^quitAlertConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         [self requestedExit:nil]; // Quit SEB
@@ -3278,11 +3278,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         BOOL isMirrored = CGDisplayIsInMirrorSet(display);
         BOOL isHWMirrored = CGDisplayIsInHWMirrorSet(display);
         BOOL isAlwaysMirrored = CGDisplayIsAlwaysInMirrorSet(display);
-        BOOL isCaptured = CGDisplayIsCaptured(display);
         uint32_t vendorID = CGDisplayVendorNumber(display);
         NSString *displayName = [NSScreen displayNameForID:display];
         
-        DDLogInfo(@"Display %@ (ID %u) from vendor %u with Resolution %f x %f\n is %sbuilt-in\n is %smain\n is %smirrored\n is %sHW mirrored\n is %salways mirrored\n is %scaptured",
+        DDLogInfo(@"Display %@ (ID %u) from vendor %u with Resolution %f x %f\n is %sbuilt-in\n is %smain\n is %smirrored\n is %sHW mirrored\n is %salways mirrored",
                   displayName,
                   display,
                   vendorID,
@@ -3292,8 +3291,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                   isMain ? "" : "not ",
                   isMirrored ? "" : "not ",
                   isHWMirrored ? "" : "not ",
-                  isAlwaysMirrored ? "" : "not ",
-                  isCaptured ? "" : "not ");
+                  isAlwaysMirrored ? "" : "not ");
         
         if (!_isAACEnabled && !_wasAACEnabled && !allowDisplayMirroring && (isMirrored || isHWMirrored)) {
             CGDisplayConfigRef displayConfigRef;
@@ -3680,7 +3678,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Running on Current macOS Version Not Allowed!", @"")]];
         [modalAlert setInformativeText:alertMessageMacOSVersion];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             self->enforceMinMacOSVersion = YES;
@@ -3745,7 +3743,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (BOOL)alternateKeyCheck
 {
     NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
-    BOOL altKeyDown = (0 != (modifierFlags & NSAlternateKeyMask));
+    BOOL altKeyDown = (0 != (modifierFlags & NSEventModifierFlagOption));
     return (altKeyDown && [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]);
 }
 
@@ -3754,7 +3752,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 - (void)appSwitcherCheck
 {
     NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
-    _cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    _cmdKeyDown = (0 != (modifierFlags & NSEventModifierFlagCommand));
     if (_cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             DDLogError(@"Command key is pressed and forbidden, SEB cannot continue");
@@ -3776,7 +3774,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", @"")];
             [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", @"")];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
             NSInteger answer = [modalAlert runModal];
@@ -3934,7 +3932,7 @@ bool insideMatrix(void){
         
         // NSRect frame = size of the current screen
         NSRect frame = [iterScreen frame];
-        NSUInteger styleMask = NSBorderlessWindowMask;
+        NSUInteger styleMask = NSWindowStyleMaskBorderless;
         NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
         
         // Set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
@@ -4036,7 +4034,7 @@ bool insideMatrix(void){
 - (CapWindow *) coverInactiveScreen:(NSScreen *)screen
 {
     NSRect frame = screen.frame;
-    NSUInteger styleMask = NSBorderlessWindowMask;
+    NSUInteger styleMask = NSWindowStyleMaskBorderless;
     NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
     
     // Set origin of the window rect to left bottom corner (important for non-main screens, since they have offsets)
@@ -4210,7 +4208,7 @@ conditionallyForWindow:(NSWindow *)window
     [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Local %@ Settings Have Been Reset", @""), SEBShortAppName]];
     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly.", @""), SEBShortAppName, SEBShortAppName]];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [modalAlert setAlertStyle:NSCriticalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleCritical];
     void (^preferencesCorruptedErrorOK)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         DDLogInfo(@"Dismissed alert for local SEB settings have been reset");
@@ -4484,7 +4482,7 @@ conditionallyForWindow:(NSWindow *)window
                         [modalAlert setMessageText:NSLocalizedString(@"No Built-In Display Available!", @"")];
                         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.", @""), SEBShortAppName]];
                         [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-                        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                        [modalAlert setAlertStyle:NSAlertStyleCritical];
                         void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                             [self removeAlertWindow:modalAlert.window];
                             [self quitSEBOrSession];
@@ -5728,7 +5726,7 @@ conditionallyForWindow:(NSWindow *)window
             [modalAlert setMessageText:restartExamText];
             [modalAlert setInformativeText:NSLocalizedString(@"Wrong quit/unlock password.", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^backToStartButtonOK)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
             };
@@ -5744,7 +5742,7 @@ conditionallyForWindow:(NSWindow *)window
                                         ]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleWarning];
         void (^backToStartConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             switch(answer)
@@ -6000,7 +5998,7 @@ conditionallyForWindow:(NSWindow *)window
                     [modalAlert setMessageText:NSLocalizedString(@"Wrong Admin Password", @"")];
                     [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", @"")];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                    [modalAlert setAlertStyle:NSWarningAlertStyle];
+                    [modalAlert setAlertStyle:NSAlertStyleWarning];
                     void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
                         [self removeAlertWindow:modalAlert.window];
                     };
@@ -6138,7 +6136,7 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction)showAbout:(id)sender
 {
     if (_alternateKeyPressed == NO) {
-        [self.aboutWindow setStyleMask:NSBorderlessWindowMask];
+        [self.aboutWindow setStyleMask:NSWindowStyleMaskBorderless];
         [self.aboutWindow center];
         //[self.aboutWindow orderFront:self];
         //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
@@ -6204,7 +6202,7 @@ conditionallyForWindow:(NSWindow *)window
                 [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", @"")];
                 [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit.", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                [modalAlert setAlertStyle:NSWarningAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleWarning];
                 void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                 };
@@ -6241,7 +6239,7 @@ conditionallyForWindow:(NSWindow *)window
     [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?", @"") : NSLocalizedString(@"Are you sure you want to quit this session?", @""))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    [modalAlert setAlertStyle:NSWarningAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleWarning];
     void (^quitSEBAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         switch(answer)
@@ -6286,7 +6284,7 @@ conditionallyForWindow:(NSWindow *)window
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Disconnecting from SEB Server", @""), SEBShortAppName]];
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If SEB Server doesn't respond for a while, you can forcibly close the connection", @""), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Force Close", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
 
         void (^forceCloseConnection)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
@@ -6434,7 +6432,7 @@ conditionallyForWindow:(NSWindow *)window
     
     // Check for command key being held down
     NSEventModifierFlags modifierFlags = [NSEvent modifierFlags];
-    BOOL cmdKeyDown = (0 != (modifierFlags & NSCommandKeyMask));
+    BOOL cmdKeyDown = (0 != (modifierFlags & NSEventModifierFlagCommand));
     if (cmdKeyDown) {
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableAppSwitcherCheck"]) {
             // Show alert that keys were hold while starting SEB
@@ -6443,7 +6441,7 @@ conditionallyForWindow:(NSWindow *)window
             [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", @"")];
             [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed, release it to continue.", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^cmdKeyHeldProceed)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
                 [self requestedRestartProcessesChecked];
@@ -6564,7 +6562,7 @@ conditionallyForWindow:(NSWindow *)window
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", @""), localizedApplicationDirectoryName]];
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", @""), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             [self applicationWillTerminateProceed];
@@ -6585,7 +6583,7 @@ conditionallyForWindow:(NSWindow *)window
             [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security & Privacy and restart %@ and your exam afterwards.", @""), SEBFullAppNameClassic, SEBShortAppName]];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Authorize Screen Recording", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-            [modalAlert setAlertStyle:NSCriticalAlertStyle];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
                 switch(answer)
@@ -6619,7 +6617,7 @@ conditionallyForWindow:(NSWindow *)window
         [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", @"")];
         [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             [self applicationWillTerminateProceed];
@@ -6652,6 +6650,7 @@ conditionallyForWindow:(NSWindow *)window
     BOOL touchBarRestoreSuccess;
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] == NO) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
+        DDLogDebug(@"Restored system settings. Restoring TouchBar settings (if available) %@", touchBarRestoreSuccess ? @"was successfull" : @"failed");
         [self killTouchBarAgent];
     }
     
@@ -6726,7 +6725,7 @@ conditionallyForWindow:(NSWindow *)window
         [modalAlert setInformativeText:NSLocalizedString(@"Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you.", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-        [modalAlert setAlertStyle:NSWarningAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleWarning];
         void (^cannotRestoreTouchBarAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             switch(answer)

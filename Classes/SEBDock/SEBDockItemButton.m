@@ -98,7 +98,7 @@
             [self.label.cell setLineBreakMode:NSLineBreakByTruncatingMiddle];
             self.label.stringValue = itemTitle;
             NSSize dockItemLabelSize = [self.label intrinsicContentSize];
-            [self.label setAlignment:NSCenterTextAlignment];
+            [self.label setAlignment:NSTextAlignmentCenter];
             CGFloat dockItemLabelWidth = dockItemLabelSize.width;
             CGFloat dockItemLabelHeight = dockItemLabelSize.height;
             CGFloat dockItemLabelYOffset;
