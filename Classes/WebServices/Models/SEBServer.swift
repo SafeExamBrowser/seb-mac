@@ -135,6 +135,11 @@ public struct SEB_Endpoints {
 public struct ErrorResponse: Codable {
     let error: String?
     let error_description: String?
+    
+    init(error: String?, error_description: String?) {
+        self.error = error
+        self.error_description = error_description
+    }
 }
 
 
