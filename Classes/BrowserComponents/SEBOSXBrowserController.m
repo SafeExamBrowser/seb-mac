@@ -329,7 +329,7 @@
     
     if (mainBrowserWindowShouldBeFullScreen) {
         [self.mainBrowserWindow setToolbar:nil];
-        [self.mainBrowserWindow setStyleMask:NSBorderlessWindowMask];
+        [self.mainBrowserWindow setStyleMask:NSWindowStyleMaskBorderless];
         [self.mainBrowserWindow setReleasedWhenClosed:YES];
     }
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -650,7 +650,7 @@
     
     if (self.mainBrowserWindow.isFullScreen) {
         [self closeAllAdditionalBrowserWindows];
-        [self.mainBrowserWindow setStyleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+        [self.mainBrowserWindow setStyleMask:NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable];
         [self.mainBrowserWindow.webView.nativeWebView removeFromSuperview];
         self.mainBrowserWindow.webView = nil;
         self.mainBrowserWindow.releasedWhenClosed = NO;
@@ -770,7 +770,7 @@
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", @""), SEBExtraShortAppName]];
         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self.sebController removeAlertWindow:modalAlert.window];
         };
@@ -950,7 +950,7 @@
     [modalAlert setMessageText:title];
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.sebController removeAlertWindow:modalAlert.window];
     };
@@ -1066,7 +1066,7 @@
     [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not Allowed!", @""), downUploadingString, nil]];
     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ files is not allowed in current %@ settings. Report this to your exam provider.", @""), downUploadingString, SEBShortAppName]];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.sebController removeAlertWindow:modalAlert.window];
     };

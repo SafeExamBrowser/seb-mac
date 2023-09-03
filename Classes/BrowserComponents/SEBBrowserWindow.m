@@ -292,10 +292,10 @@
 // in the whole WebView, even in plugins
 - (void)sendEvent:(NSEvent *)theEvent
 {
-	int controlKeyDown = [theEvent modifierFlags] & NSControlKeyMask;
+	int controlKeyDown = [theEvent modifierFlags] & NSEventModifierFlagControl;
 	// filter out right clicks
-	if (!(([theEvent type] == NSLeftMouseDown && controlKeyDown) ||
-          [theEvent type] == NSRightMouseDown)) {
+	if (!(([theEvent type] == NSEventTypeLeftMouseDown && controlKeyDown) ||
+          [theEvent type] == NSEventTypeRightMouseDown)) {
         [super sendEvent:theEvent];
     } else {
         // Allow right mouse button/context menu according to setting
@@ -326,7 +326,7 @@
         
         [progressIndicator setBezeled: NO];
         [progressIndicator setStyle: NSProgressIndicatorSpinningStyle];
-        [progressIndicator setControlSize: NSSmallControlSize];
+        [progressIndicator setControlSize: NSControlSizeSmall];
         [progressIndicator sizeToFit];
         //[progressIndicator setUsesThreadedAnimation:YES];
         
@@ -405,7 +405,7 @@
             [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-            [newAlert setAlertStyle:NSWarningAlertStyle];
+            [newAlert setAlertStyle:NSAlertStyleWarning];
             
             void (^conditionalReload)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self.browserController.sebController removeAlertWindow:newAlert.window];
@@ -581,7 +581,7 @@
         [URLBlockedButton setButtonType:NSMomentaryLightButton];
         
         NSSize messageLabelSize = [message intrinsicContentSize];
-        [message setAlignment:NSRightTextAlignment];
+        [message setAlignment:NSTextAlignmentRight];
         CGFloat messageLabelWidth = messageLabelSize.width + 2;
         CGFloat messageLabelHeight = messageLabelSize.height;
         [message setFrameSize:NSMakeSize(messageLabelWidth, messageLabelHeight)];
@@ -641,7 +641,7 @@
         [HUDBackground addSubview:_filterMessageHolder];
         [_filterMessageHolder setFrameOrigin:NSMakePoint(horizontalPadding, verticalPadding)];
         
-        _filterMessageHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:false];
+        _filterMessageHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:false];
         _filterMessageHUD.backgroundColor = [NSColor clearColor];
         _filterMessageHUD.opaque = false;
         _filterMessageHUD.alphaValue = 0.75;
@@ -1306,7 +1306,7 @@
         [modalAlert setInformativeText:errorMessage];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-        [modalAlert setAlertStyle:NSCriticalAlertStyle];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self.browserController.sebController removeAlertWindow:modalAlert.window];
             switch(answer) {
@@ -1340,7 +1340,7 @@
                                 SEBFullAppNameClassic,
                                 versionString,
                                 title];
-    CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask];
+    CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable];
     if (windowWidth > self.frame.size.width) {
         appTitleString = [NSString stringWithFormat:@"SEB %@  —  %@",
                                     [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
@@ -1355,7 +1355,7 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
     if (_browserController == nil) {
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, @"");
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
     } else {
         [self.browserController webView:webView didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
     }
@@ -1375,7 +1375,7 @@ completionHandler:(void (^)(void))completionHandler
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.browserController.sebController removeAlertWindow:modalAlert.window];
         completionHandler();
@@ -1395,7 +1395,7 @@ runJavaScriptAlertPanelWithMessage:(NSString *)message
     [modalAlert setMessageText:pageTitle];
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self.browserController.sebController removeAlertWindow:modalAlert.window];
     };
@@ -1428,7 +1428,7 @@ completionHandler:(void (^)(BOOL result))completionHandler
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     alertResultButton = [modalAlert runModal];
     
     [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1458,7 +1458,7 @@ runJavaScriptConfirmPanelWithMessage:(NSString *)message
     [modalAlert setInformativeText:message];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
     alertResultButton = [modalAlert runModal];
     
     [self.browserController.sebController removeAlertWindow:modalAlert.window];
@@ -1540,7 +1540,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                     [modalAlert setMessageText:NSLocalizedString(@"File Automatically Chosen", @"")];
                     [modalAlert setInformativeText:NSLocalizedString(@"SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", @"")];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                    [modalAlert setAlertStyle:NSInformationalAlertStyle];
+                    [modalAlert setAlertStyle:NSAlertStyleInformational];
                     void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                         [self.browserController.sebController removeAlertWindow:modalAlert.window];
                     };
@@ -1559,7 +1559,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 [modalAlert setMessageText:NSLocalizedString(@"File to Upload Not Found!", @"")];
                 [modalAlert setInformativeText:NSLocalizedString(@"SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                [modalAlert setAlertStyle:NSCriticalAlertStyle];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self.browserController.sebController removeAlertWindow:modalAlert.window];
                 };
@@ -1609,7 +1609,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
         // process the files.
         [openFilePanel beginSheetModalForWindow:self
                               completionHandler:^(NSInteger result) {
-            if (result == NSFileHandlingPanelOKButton) {
+            if (result == NSModalResponseOK) {
                 // Get an array containing the full filenames of all
                 // files and directories selected.
                 NSArray* fileURLs = [openFilePanel URLs];

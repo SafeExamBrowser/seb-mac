@@ -214,7 +214,7 @@
     [newAlert setMessageText:title];
     [newAlert setInformativeText:informativeText];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [newAlert setAlertStyle:NSCriticalAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleCritical];
     [self.sebController runModalAlert:newAlert conditionallyForWindow:self.sebController.browserController.mainBrowserWindow completionHandler:nil];
 }
 
@@ -224,7 +224,7 @@
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", @"")];
     [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-    [newAlert setAlertStyle:NSWarningAlertStyle];
+    [newAlert setAlertStyle:NSAlertStyleWarning];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
         [self.sebController removeAlertWindow:newAlert.window];
         switch(answer)

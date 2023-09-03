@@ -30,7 +30,7 @@
 - (void)showAboutWindowForSeconds:(NSInteger)seconds {
     // Show the About SEB Window
     [self.window setDelegate:self];
-    [self.window setStyleMask:NSBorderlessWindowMask];
+    [self.window setStyleMask:NSWindowStyleMaskBorderless];
     [self.window center];
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
         [self.window setLevel:NSMainMenuWindowLevel+5];
