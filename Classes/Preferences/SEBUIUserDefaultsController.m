@@ -219,18 +219,19 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"10.7 (this SEB: 10.11)", @""),
-            NSLocalizedString(@"10.8 (this SEB: 10.11)", @""),
-            NSLocalizedString(@"10.9 (this SEB: 10.11)", @""),
-            NSLocalizedString(@"10.10 (this SEB: 10.11)", @""),
-            NSLocalizedString(@"10.11 El Capitan", @""),
-            NSLocalizedString(@"10.12 Sierra", @""),
+            NSLocalizedString(@"10.7 (this SEB: 10.13)", @""),
+            NSLocalizedString(@"10.8 (this SEB: 10.13)", @""),
+            NSLocalizedString(@"10.9 (this SEB: 10.13)", @""),
+            NSLocalizedString(@"10.10 (this SEB: 10.13)", @""),
+            NSLocalizedString(@"10.11 (this SEB: 10.13)", @""),
+            NSLocalizedString(@"10.12 (this SEB: 10.13)", @""),
             NSLocalizedString(@"10.13 High Sierra", @""),
             NSLocalizedString(@"10.14 Mojave", @""),
             NSLocalizedString(@"10.15 Catalina", @""),
             NSLocalizedString(@"11 Big Sur", @""),
             NSLocalizedString(@"12 Monterey", @""),
             NSLocalizedString(@"13 Ventura", @""),
+            NSLocalizedString(@"14 Sonoma", @""),
             nil];
 }
 
