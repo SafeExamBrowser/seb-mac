@@ -534,10 +534,13 @@ public extension SEBServerController {
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken ?? ""]
         loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
-//            if handshakeCloseResponse != nil  {
-//                let responseBody = String(data: handshakeCloseResponse!, encoding: .utf8)
-//                DDLogVerbose(responseBody as Any)
-//            }
+            if handshakeCloseResponse != nil  {
+                let responseData: Data = handshakeCloseResponse!!
+                let responseBody = String(data: responseData, encoding: .utf8)
+                if !(responseBody?.isEmpty ?? true) {
+                    DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
+                }
+            }
             self.delegate?.didEstablishSEBServerConnection()
         })
     }
@@ -690,15 +693,23 @@ public extension SEBServerController {
                                   keys.headerAuthorization : authorizationString,
                                   keys.sebConnectionToken : connectionToken ?? ""]
             loadWithFallback(quitSessionResource, httpMethod: quitSessionResource.httpMethod, body: quitSessionResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (quitSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
+                var responseBody: String?
+                if quitSessionResponse != nil  {
+                    if let responseData: Data = quitSessionResponse! {
+                        responseBody = String(data: responseData, encoding: .utf8)
+                        if !(responseBody?.isEmpty ?? true) {
+                            DDLogVerbose("Quit Session request returned response: \(responseBody as Any)")
+                        }
+                    }
+                }
+                if statusCode ?? statusCodes.badRequest >= statusCodes.notSuccessfullRange {
+                    let errorDebugDescription = "Server response: \(responseBody ?? "n/a"), error response: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
+                    DDLogError("SEB Server Controller: Quit Session request failed: \(errorDebugDescription).")
+                }
                 self.cancelAllRequests = true
                 self.stopPingTimer()
                 self.delegate?.didReceiveExamSalt("", connectionToken: "")
                 self.delegate?.didReceiveServerBEK("")
-
-    //            if quitSessionResponse != nil  {
-    //                let responseBody = String(data: quitSessionResponse!, encoding: .utf8)
-    //                DDLogVerbose(responseBody as Any)
-    //            }
                 self.session.invalidateAndCancel()
                 self.connectionToken = nil
                 completion(restart)
@@ -706,6 +717,8 @@ public extension SEBServerController {
         } else {
             self.cancelAllRequests = true
             self.stopPingTimer()
+            self.delegate?.didReceiveExamSalt("", connectionToken: "")
+            self.delegate?.didReceiveServerBEK("")
             self.session.invalidateAndCancel()
             self.connectionToken = nil
             completion(restart)
