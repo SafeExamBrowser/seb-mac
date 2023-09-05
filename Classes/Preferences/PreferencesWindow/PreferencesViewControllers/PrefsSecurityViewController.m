@@ -59,11 +59,11 @@
     // Add default values (NSNumbers!) to the max displays combo box
     [maxNumberDisplays addItemsWithObjectValues:@[@1, @2, @3]];
 
-    [minMacOSVersionMajor addItemsWithObjectValues:@[@10, @11, @12, @13]];
+    [minMacOSVersionMajor addItemsWithObjectValues:@[@10, @11, @12, @13, @14]];
     [minMacOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11, @12, @13, @14, @15]];
     [minMacOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
 
-    [miniOSVersionMajor addItemsWithObjectValues:@[@9, @10, @11, @12, @13, @14, @15, @16]];
+    [miniOSVersionMajor addItemsWithObjectValues:@[@11, @12, @13, @14, @15, @16, @17]];
     [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [allowediOSBetaVersion addItemsWithObjectValues:@[@0, @17]];

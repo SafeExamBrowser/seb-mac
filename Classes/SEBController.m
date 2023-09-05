@@ -3584,18 +3584,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // Manage old check only for allowed major version
         SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
         switch (minMacOSVersion) {
-            case SEBMinMacOS10_12:
-                allowMacOSVersionMajor = 10;
-                allowMacOSVersionMinor = 12;
-                allowMacOSVersionPatch = 0;
-                break;
-                
-            case SEBMinMacOS10_13:
-                allowMacOSVersionMajor = 10;
-                allowMacOSVersionMinor = 13;
-                allowMacOSVersionPatch = 0;
-                break;
-                
             case SEBMinMacOS10_14:
                 allowMacOSVersionMajor = 10;
                 allowMacOSVersionMinor = 14;
@@ -3622,6 +3610,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 
             case SEBMinMacOS13:
                 allowMacOSVersionMajor = 13;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS14:
+                allowMacOSVersionMajor = 14;
                 allowMacOSVersionMinor = 0;
                 allowMacOSVersionPatch = 0;
                 break;
