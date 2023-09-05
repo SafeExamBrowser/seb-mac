@@ -82,7 +82,7 @@
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
 
-#define currentStableMajoriOSVersion 16
+#define currentStableMajoriOSVersion 17
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -209,7 +209,8 @@ enum {
     iOSVersion13                                = 13,
     iOSVersion14                                = 14,
     iOSVersion15                                = 15,
-    iOSVersion16                                = 16
+    iOSVersion16                                = 16,
+    iOSVersion17                                = 17
 };
 typedef NSUInteger iOSVersion;
 
@@ -475,7 +476,8 @@ enum {
     SEBMinMacOS10_15                            = 8,
     SEBMinMacOS11                               = 9,
     SEBMinMacOS12                               = 10,
-    SEBMinMacOS13                               = 11
+    SEBMinMacOS13                               = 11,
+    SEBMinMacOS14                               = 12
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
@@ -608,9 +610,9 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 // The dictionary that is sent back to the MDM server as feedback must be stored in this key.
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
-static NSInteger SEBMinMacOSVersionSupported = SEBMinOSX10_11;
+static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_13;
 static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
-static NSInteger SEBMinMacOSVersionSupportedMinor = 11;
+static NSInteger SEBMinMacOSVersionSupportedMinor = 13;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
 #endif
