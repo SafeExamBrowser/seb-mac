@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22146" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22146"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -283,6 +283,9 @@
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="sAF-ok-Vxz" userLabel="Log Level Popup Button">
                                                                             <rect key="frame" x="63" y="-4" width="307" height="25"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="300" id="DB8-sz-8wb"/>
+                                                                            </constraints>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="9eI-c3-Dbw" userLabel="Log Level Pop Up Button Cell">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
@@ -298,9 +301,6 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="300" id="DB8-sz-8wb"/>
-                                                                            </constraints>
                                                                             <connections>
                                                                                 <accessibilityConnection property="title" destination="22" id="wL9-jn-9GG"/>
                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_logLevels" id="xym-2h-sHg"/>
@@ -335,6 +335,9 @@
                                                                         </textField>
                                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                                             <rect key="frame" x="98" y="-4" width="307" height="25"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="300" id="U0c-q4-d0h"/>
+                                                                            </constraints>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                 <font key="font" metaFont="menu"/>
@@ -350,9 +353,6 @@
                                                                                     </items>
                                                                                 </menu>
                                                                             </popUpButtonCell>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="300" id="U0c-q4-d0h"/>
-                                                                            </constraints>
                                                                             <accessibility description="Save log file to directory:"/>
                                                                             <connections>
                                                                                 <action selector="chooseDirectory:" target="-2" id="59"/>

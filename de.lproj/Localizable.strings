@@ -59,22 +59,22 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"10.7 (this SEB: 10.11)" = "10.7 (dieser SEB: 10.11)";
+"10.7 (this SEB: 10.13)" = "10.7 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
-"10.8 (this SEB: 10.11)" = "10.8 (dieser SEB: 10.11)";
+"10.8 (this SEB: 10.13)" = "10.8 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
-"10.9 (this SEB: 10.11)" = "10.9 (dieser SEB: 10.11)";
+"10.9 (this SEB: 10.13)" = "10.9 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
-"10.10 (this SEB: 10.11)" = "10.10 (dieser SEB: 10.11)";
+"10.10 (this SEB: 10.13)" = "10.10 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
-"10.11 El Capitan" = "10.11 El Capitan";
+"10.11 (this SEB: 10.13)" = "10.11 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
-"10.12 Sierra" = "10.12 Sierra";
+"10.12 (this SEB: 10.13)" = "10.12 (dieser SEB: 10.13)";
 
 /* No comment provided by engineer. */
 "10.13 High Sierra" = "10.13 High Sierra";
@@ -93,6 +93,9 @@
 
 /* No comment provided by engineer. */
 "13 Ventura" = "13 Ventura";
+
+/* No comment provided by engineer. */
+"14 Sonoma" = "14 Sonoma";
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie %@ erneut.";
@@ -225,6 +228,9 @@
 
 /* No comment provided by engineer. */
 "Cannot Get Server API" = "Server API kann nicht geladen werden";
+
+/* No comment provided by engineer. */
+"Cannot Open Exam" = "Prüfung kann nicht geöffnet werden";
 
 /* No comment provided by engineer. */
 "Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
@@ -450,6 +456,9 @@
 
 /* Title of 'Exam' preference pane */
 "Exam" = "Prüfung";
+
+/* No comment provided by engineer. */
+"Exam List is Empty" = "Leere Prüfungsliste";
 
 /* No comment provided by engineer. */
 "Exporting Identity Failed" = "Exportieren des Identitätszertifikats ist fehlgeschlagen";
@@ -693,6 +702,9 @@
 
 /* No comment provided by engineer. */
 "Open webpages menu" = "Menü mit offenen Webseiten";
+
+/* No comment provided by engineer. */
+"Opening Exam..." = "Prüfung öffnen...";
 
 /* No comment provided by engineer. */
 "Opening New Settings Failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
