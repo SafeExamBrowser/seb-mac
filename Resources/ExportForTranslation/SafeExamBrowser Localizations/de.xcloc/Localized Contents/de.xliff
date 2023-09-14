@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -608,7 +608,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1035,7 +1035,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -1497,7 +1497,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -2144,7 +2144,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -2391,7 +2391,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="6rb-i4-RZm.title" xml:space="preserve">
@@ -2540,7 +2540,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2797,7 +2797,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -2994,7 +2994,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -3566,7 +3566,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3663,7 +3663,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -4395,7 +4395,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
@@ -4712,7 +4712,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Classes/ProcessMonitoring/Base.lproj/ProcessListView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0H1-qr-5QU.title" xml:space="preserve">
@@ -4769,7 +4769,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
@@ -4872,34 +4872,34 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.11)</source>
-        <target>10.7 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.7 (this SEB: 10.13)</source>
+        <target>10.7 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.11)</source>
-        <target>10.8 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.8 (this SEB: 10.13)</source>
+        <target>10.8 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.11)</source>
-        <target>10.9 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.9 (this SEB: 10.13)</source>
+        <target>10.9 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.11)</source>
-        <target>10.10 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.10 (this SEB: 10.13)</source>
+        <target>10.10 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 El Capitan" xml:space="preserve">
-        <source>10.11 El Capitan</source>
-        <target>10.11 El Capitan</target>
+      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.11 (this SEB: 10.13)</source>
+        <target>10.11 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 Sierra" xml:space="preserve">
-        <source>10.12 Sierra</source>
-        <target>10.12 Sierra</target>
+      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.12 (this SEB: 10.13)</source>
+        <target>10.12 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -4930,6 +4930,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="13 Ventura" xml:space="preserve">
         <source>13 Ventura</source>
         <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="14 Sonoma" xml:space="preserve">
+        <source>14 Sonoma</source>
+        <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." xml:space="preserve">
@@ -5105,6 +5110,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cannot Get Server API" xml:space="preserve">
         <source>Cannot Get Server API</source>
         <target>Server API kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Open Exam" xml:space="preserve">
+        <source>Cannot Open Exam</source>
+        <target>Prüfung kann nicht geöffnet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
@@ -5482,6 +5492,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Prüfung</target>
         <note>Title of 'Exam' preference pane</note>
       </trans-unit>
+      <trans-unit id="Exam List is Empty" xml:space="preserve">
+        <source>Exam List is Empty</source>
+        <target>Leere Prüfungsliste</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Exporting Identity Failed" xml:space="preserve">
         <source>Exporting Identity Failed</source>
         <target>Exportieren des Identitätszertifikats ist fehlgeschlagen</target>
@@ -5840,6 +5855,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Open webpages menu" xml:space="preserve">
         <source>Open webpages menu</source>
         <target>Menü mit offenen Webseiten</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening Exam..." xml:space="preserve">
+        <source>Opening Exam...</source>
+        <target>Prüfung öffnen...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
@@ -6862,7 +6882,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -6899,7 +6919,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -7191,7 +7211,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
@@ -7253,7 +7273,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Navigation" xml:space="preserve">
@@ -7435,7 +7455,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Camera Capture" xml:space="preserve">
@@ -7492,7 +7512,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/ConfigFile.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." xml:space="preserve">
@@ -7619,7 +7639,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Dock.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Dock Command Items" xml:space="preserve">
@@ -7686,7 +7706,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Downloading" xml:space="preserve">
@@ -7718,7 +7738,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Exam.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
@@ -7885,7 +7905,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/ExamKeys.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="BEK" xml:space="preserve">
@@ -7967,7 +7987,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
@@ -8045,34 +8065,34 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.11)</source>
-        <target>10.7 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.7 (this SEB: 10.13)</source>
+        <target>10.7 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.11)</source>
-        <target>10.8 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.8 (this SEB: 10.13)</source>
+        <target>10.8 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.11)</source>
-        <target>10.9 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.9 (this SEB: 10.13)</source>
+        <target>10.9 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.11)</source>
-        <target>10.10 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.10 (this SEB: 10.13)</source>
+        <target>10.10 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 El Capitan" xml:space="preserve">
-        <source>10.11 El Capitan</source>
-        <target>10.11 El Capitan</target>
+      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.11 (this SEB: 10.13)</source>
+        <target>10.11 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 Sierra" xml:space="preserve">
-        <source>10.12 Sierra</source>
-        <target>10.12 Sierra</target>
+      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.12 (this SEB: 10.13)</source>
+        <target>10.12 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -8103,6 +8123,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="13 Ventura" xml:space="preserve">
         <source>13 Ventura</source>
         <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="14 Sonoma" xml:space="preserve">
+        <source>14 Sonoma</source>
+        <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
@@ -8243,7 +8268,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
         <target>Abbrechen</target>
-        <note>No comment provided by engineer.</note>
+        <note>Cancel</note>
       </trans-unit>
       <trans-unit id="Cannot Configure Client" xml:space="preserve">
         <source>Cannot Configure Client</source>
@@ -8278,6 +8303,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cannot Get Server API" xml:space="preserve">
         <source>Cannot Get Server API</source>
         <target>Server API kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Open Exam" xml:space="preserve">
+        <source>Cannot Open Exam</source>
+        <target>Prüfung kann nicht geöffnet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">
@@ -8638,6 +8668,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Error Decrypting Settings" xml:space="preserve">
         <source>Error Decrypting Settings</source>
         <target>Fehler beim Entschlüsseln der Einstellungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Exam List is Empty" xml:space="preserve">
+        <source>Exam List is Empty</source>
+        <target>Leere Prüfungsliste</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Exam Page" xml:space="preserve">
@@ -9023,6 +9058,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Open edX" xml:space="preserve">
         <source>Open edX</source>
         <target>Open edX</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening Exam..." xml:space="preserve">
+        <source>Opening Exam...</source>
+        <target>Prüfung öffnen...</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
@@ -9975,7 +10015,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Network.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -9992,7 +10032,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkCertificate.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -10049,7 +10089,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkFilter.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
@@ -10106,7 +10146,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoring.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="AI Proctoring" xml:space="preserve">
@@ -10273,7 +10313,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Tile View" xml:space="preserve">
@@ -10310,7 +10350,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Admin Password" xml:space="preserve">
@@ -10402,7 +10442,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -10469,7 +10509,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SEBServer.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Connect to SEB Server" xml:space="preserve">
@@ -10521,7 +10561,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Security.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0" xml:space="preserve">
@@ -10678,7 +10718,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLegacy.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Single App Mode" xml:space="preserve">
@@ -10710,7 +10750,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLogging.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Debug" xml:space="preserve">
@@ -10762,7 +10802,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/UserInterface.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
@@ -10889,7 +10929,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Editing" xml:space="preserve">
@@ -10941,7 +10981,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0F9-PI-gFi.title" xml:space="preserve">
@@ -11213,7 +11253,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" 1" xml:space="preserve">
@@ -11460,7 +11500,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/en.lproj/SEBVerificator-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
