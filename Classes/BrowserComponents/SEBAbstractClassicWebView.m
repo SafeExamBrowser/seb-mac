@@ -461,6 +461,11 @@
 }
 
 
+- (BOOL)isUsingServerBEK
+{
+    return self.navigationDelegate.isUsingServerBEK;
+}
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [self.navigationDelegate modifyRequest:request];
