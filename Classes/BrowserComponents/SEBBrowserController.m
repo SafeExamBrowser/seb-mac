@@ -115,7 +115,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.quitURL = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+    sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] || [self isUsingServerBEK];
     self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
@@ -480,7 +480,14 @@ static NSString *urlStrippedFragment(NSURL* url)
     return _javaScriptFunctions;
 }
 
-- (NSURLRequest *)modifyRequest:(NSURLRequest *)request
+
+- (BOOL) isUsingServerBEK
+{
+    return self.serverBrowserExamKey != nil;
+}
+
+
+- (NSURLRequest *) modifyRequest:(NSURLRequest *)request
 {
     NSURL *url = request.URL;
     
@@ -682,17 +689,18 @@ static NSString *urlStrippedFragment(NSURL* url)
     // Check if the custom URL protocol needs to be activated
 #if TARGET_OS_IPHONE
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
+        || [self isUsingServerBEK]
         || usingEmbeddedCertificates)
 #else
     if (usingEmbeddedCertificates)
 #endif
     {
-        _usingCustomURLProtocol = true;
+        _usingCustomURLProtocol = YES;
         // Become delegate of and register custom SEB NSURL protocol class
         [CustomHTTPProtocol setDelegate:self];
         [CustomHTTPProtocol start];
     } else {
-        _usingCustomURLProtocol = false;
+        _usingCustomURLProtocol = NO;
         // Deactivate the protocol
         [CustomHTTPProtocol stop];
     }

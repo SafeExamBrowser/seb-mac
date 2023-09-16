@@ -108,7 +108,7 @@
 
         urlFilter = [SEBURLFilter sharedSEBURLFilter];
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+        sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] || self.navigationDelegate.isUsingServerBEK;
 #ifdef DEBUG
         // Display all MIME types the WebView can display as HTML
         NSArray* MIMETypes = [WebView MIMETypesShownAsHTML];
