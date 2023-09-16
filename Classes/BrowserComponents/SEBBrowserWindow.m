@@ -1213,6 +1213,11 @@
     return self.browserController.overrideAllowSpellCheck;
 }
 
+- (BOOL)isUsingServerBEK
+{
+    return self.browserController.isUsingServerBEK;
+}
+
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {
     return [self.browserController modifyRequest:request];

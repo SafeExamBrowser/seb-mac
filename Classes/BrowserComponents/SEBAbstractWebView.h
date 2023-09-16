@@ -161,6 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL directConfigDownloadAttempted;
 @property (readonly) BOOL allowSpellCheck;
 @property (readonly) BOOL overrideAllowSpellCheck;
+@property (readonly) BOOL isUsingServerBEK;
 - (NSURLRequest *) modifyRequest:(NSURLRequest *)request;
 - (NSString *) browserExamKeyForURL:(NSURL *)url;
 - (NSString *) configKeyForURL:(NSURL *)url;
