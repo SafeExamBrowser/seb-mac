@@ -38,7 +38,11 @@
 @class SEBActionUITableViewCell;
 @class AppDelegate;
 
-@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate>
+@interface SEBTableViewController : UIViewController  <UITableViewDelegate, UITableViewDataSource, SEBActionUITableViewCellDelegate> {
+    
+    API_AVAILABLE(ios(14.0))
+    UIListContentConfiguration *contentConfiguration;
+}
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
