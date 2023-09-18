@@ -288,12 +288,14 @@ titleForHeaderInSection:(NSInteger)section
     UIFont *scaledFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:customFont];
     
     if (@available(iOS 14.0, *)) {
-        UIListContentConfiguration *contentConfiguration = headerView.defaultContentConfiguration;
-        contentConfiguration.text = @"Commands";
-        contentConfiguration.image = [UIImage new];
-        contentConfiguration.textProperties.font = scaledFont;
-        contentConfiguration.textProperties.color = [UIColor blackColor];
-        contentConfiguration.textProperties.adjustsFontForContentSizeCategory = YES;
+        if (!contentConfiguration) {
+            contentConfiguration = headerView.defaultContentConfiguration;
+            contentConfiguration.text = @"Commands";
+            contentConfiguration.image = [UIImage new];
+            contentConfiguration.textProperties.font = scaledFont;
+            contentConfiguration.textProperties.color = [UIColor blackColor];
+            contentConfiguration.textProperties.adjustsFontForContentSizeCategory = YES;
+        }
         headerView.contentConfiguration = contentConfiguration;
     } else {
         UILabel *cellLabel = headerView.textLabel;

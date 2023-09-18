@@ -218,7 +218,7 @@
         DDLogInfo(@"Application returned to active state after it entered background state before. This usually happens when the device is put to sleep.");
         _didEnterBackground = NO;
         if (@available(iOS 13.0, *)) {
-            DDLogDebug(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
+            DDLogVerbose(@"Assertion: On iOS 13 or later, the device can only be put to sleep when not in Single App Mode.");
         } else {
             if ([_sebViewController conditionallyOpenSleepModeLockdownWindows]) {
                 return;
