@@ -61,13 +61,15 @@
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
     
+    initAssistantTitleFont = initAssistantTitle.font.copy;
     initAssistantTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Options to start an exam or configure %@ for your institution", @""), SEBFullAppName];
-    if (@available(iOS 10.0, *)) {
-        initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
-                                                                          green:SEBTintColorGreenValue
-                                                                           blue:SEBTintColorBlueValue
-                                                                          alpha:1.0];
-    }
+    initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                                      green:SEBTintColorGreenValue
+                                                                       blue:SEBTintColorBlueValue
+                                                                      alpha:1.0];
+    searchNetworkButton.titleLabel.adjustsFontForContentSizeCategory = YES;
+    moreInformationButton.titleLabel.adjustsFontForContentSizeCategory = YES;
+    [self adjustDynamicFontSizes];
     openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ exam or configuration link from Safari, Mail or a messenger app.", @""), SEBExtraShortAppName];
     automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", @""), SEBExtraShortAppName];
     scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", @""), SEBExtraShortAppName];
@@ -80,6 +82,18 @@
     if (@available(iOS 11.0, *)) {
         scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     };
+}
+
+
+- (void) traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [self adjustDynamicFontSizes];
+}
+
+
+- (void) adjustDynamicFontSizes
+{
+    initAssistantTitle.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:initAssistantTitleFont];
 }
 
 

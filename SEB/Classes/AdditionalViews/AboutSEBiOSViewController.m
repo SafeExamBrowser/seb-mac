@@ -55,15 +55,21 @@
     [super viewDidLoad];
     
     SEBAboutController *aboutController = [SEBAboutController new];
+    UIFont *appExtraShortNameFont = appExtraShortName.font.copy;
+    appExtraShortName.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:appExtraShortNameFont];
     appExtraShortName.text = SEBExtraShortAppName;
-    if (@available(iOS 10.0, *)) {
-        appExtraShortName.textColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
-                                                               green:SEBTintColorGreenValue
-                                                                blue:SEBTintColorBlueValue
-                                                               alpha:1.0];
-    }
+    appExtraShortName.textColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
+                                                           green:SEBTintColorGreenValue
+                                                            blue:SEBTintColorBlueValue
+                                                           alpha:1.0];
+    UIFont *appNameFont = appName.font.copy;
+    appName.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:appNameFont];
     appName.text = SEBFullAppName;
+    UIFont *versionLabelFont = versionLabel.font.copy;
+    versionLabel.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:versionLabelFont];
     versionLabel.text = [aboutController version];
+    UIFont *copyrightFont = copyrightLabel.font.copy;
+    copyrightLabel.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:copyrightFont];
     copyrightLabel.text = [aboutController copyright];
     NSString *sendLogsButtonTitle = [NSString stringWithFormat:NSLocalizedString(@"Send Logs to %@ Developers", @""), SEBExtraShortAppName];
     [sendLogsButton setTitle:sendLogsButtonTitle forState:UIControlStateNormal];
