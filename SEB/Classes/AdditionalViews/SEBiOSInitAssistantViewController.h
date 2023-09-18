@@ -43,11 +43,14 @@
     
     __weak IBOutlet UILabel *initAssistantTitle;
     __weak IBOutlet UIView *initAssistantTitleView;
+    UIFont *initAssistantTitleFont;
     __weak IBOutlet UIScrollView *scrollView;
     __weak IBOutlet UILabel *openSEBLinkText;
     __weak IBOutlet UILabel *automaticClientConfigText;
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
+    __weak IBOutlet UIButton *searchNetworkButton;
+    __weak IBOutlet UIButton *moreInformationButton;
     __weak IBOutlet UILabel *noConfigURLFoundLabel;
     __weak IBOutlet UILabel *scanQRConfigText;
     __weak IBOutlet UILabel *noConfigQRCodeFoundLabel;
