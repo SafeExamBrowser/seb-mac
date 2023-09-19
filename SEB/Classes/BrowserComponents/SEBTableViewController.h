@@ -42,6 +42,11 @@
     
     API_AVAILABLE(ios(14.0))
     UIListContentConfiguration *contentConfiguration;
+    
+    UIFont *cellFont;
+    UIFont *headerFont;
+    UIColor *backgroundColor;
+    UIColor *headerBackgroundColor;
 }
 
 @property (weak, nonatomic) AppDelegate *appDelegate;

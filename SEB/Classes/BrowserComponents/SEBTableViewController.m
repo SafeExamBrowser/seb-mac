@@ -147,6 +147,28 @@
             self.view.backgroundColor = [UIColor darkGrayColor];
         }
         
+        if (@available(iOS 13.0, *)) {
+            contentConfiguration = nil;
+            if (@available(iOS 13.0, *)) {
+                if (UITraitCollection.currentTraitCollection.accessibilityContrast) {
+                    backgroundColor = [UIColor colorWithWhite:0.80 alpha:1.0];
+                    headerBackgroundColor = [UIColor colorWithWhite:0.70 alpha:1.0];
+                } else {
+                    backgroundColor = [UIColor colorWithWhite:0.67 alpha:1.0];
+                    headerBackgroundColor = [UIColor colorWithWhite:0.60 alpha:1.0];
+                }
+            }
+            self.tableView.backgroundColor = backgroundColor;
+
+            if (UITraitCollection.currentTraitCollection.legibilityWeight == UILegibilityWeightBold) {
+                cellFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:[UIFont fontWithName:@"AvenirNextCondensed-DemiBold" size:20.0]];
+                headerFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:[UIFont fontWithName:@"AvenirNextCondensed-Bold" size:20.0]];
+            } else {
+                cellFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:[UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20.0]];
+                headerFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:[UIFont fontWithName:@"AvenirNextCondensed-Medium" size:20.0]];
+            }
+        }
+
         [self refreshTableView:self];
     }
 }
@@ -224,24 +246,6 @@
 }
 
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    switch (section) {
-//        case 0:
-//            return nil;
-//            break;
-//
-//        case 1:
-//            return [tableView dequeueReusableCellWithIdentifier:@"SectionHeader"];
-//            break;
-//
-//        default:
-//            return 0;
-//            break;
-//    }
-//}
-
-
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section
 {
@@ -282,24 +286,21 @@ titleForHeaderInSection:(NSInteger)section
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *)view;
-    headerView.contentView.backgroundColor = [UIColor colorWithWhite:0.60 alpha:1.0];
+    headerView.contentView.backgroundColor = headerBackgroundColor;
 
-    UIFont *customFont = [UIFont fontWithName:@"AvenirNextCondensed-Medium" size:20.0];
-    UIFont *scaledFont = [[UIFontMetrics defaultMetrics] scaledFontForFont:customFont];
-    
     if (@available(iOS 14.0, *)) {
         if (!contentConfiguration) {
             contentConfiguration = headerView.defaultContentConfiguration;
             contentConfiguration.text = @"Commands";
             contentConfiguration.image = [UIImage new];
-            contentConfiguration.textProperties.font = scaledFont;
+            contentConfiguration.textProperties.font = headerFont;
             contentConfiguration.textProperties.color = [UIColor blackColor];
             contentConfiguration.textProperties.adjustsFontForContentSizeCategory = YES;
         }
         headerView.contentConfiguration = contentConfiguration;
     } else {
         UILabel *cellLabel = headerView.textLabel;
-        cellLabel.font = scaledFont;
+        cellLabel.font = headerFont;
         cellLabel.textColor = [UIColor blackColor];
         cellLabel.adjustsFontForContentSizeCategory = YES;
     }
@@ -357,8 +358,7 @@ titleForHeaderInSection:(NSInteger)section
                                              range:NSMakeRange(0, attributedLabelText.length)];
             }
             cellLabel.attributedText = attributedLabelText.copy;
-            UIFont *customFont = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20.0];
-            cellLabel.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:customFont];
+            cellLabel.font = cellFont;
             cellLabel.adjustsFontForContentSizeCategory = YES;
 
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
@@ -387,8 +387,14 @@ titleForHeaderInSection:(NSInteger)section
             UILabel *cellLabel;
             cellLabel = (UILabel *)[cell viewWithTag:2];
             cellLabel.text = commandItem.title;
-            UIFont *customFont = [UIFont fontWithName:@"AvenirNextCondensed-Regular" size:20.0];
-            cellLabel.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:customFont];
+            if (@available(iOS 13.0, *)) {
+                if (UITraitCollection.currentTraitCollection.accessibilityContrast) {
+                    cellLabel.textColor = [UIColor blackColor];
+                } else {
+                    cellLabel.textColor = [UIColor whiteColor];
+                }
+            }
+            cellLabel.font = cellFont;
             cellLabel.adjustsFontForContentSizeCategory = YES;
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
             [closeButton setImage:commandItem.icon forState:UIControlStateNormal];
