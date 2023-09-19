@@ -8360,6 +8360,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Die Konfiguration der Serververbindung muss überprüft werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Closing QR Code scanner" xml:space="preserve">
+        <source>Closing QR Code scanner</source>
+        <target>Schliesse QR-Code Scanner</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Closing lockdown windows" xml:space="preserve">
         <source>Closing lockdown windows</source>
         <target>Lockdown-Fenster werden geschlossen</target>
@@ -9070,6 +9075,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Öffnen neuer Einstellungen fehlgeschlagen!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening QR Code scanner" xml:space="preserve">
+        <source>Opening QR Code scanner</source>
+        <target>Öffne QR-Code Scanner</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening Settings Failed" xml:space="preserve">
         <source>Opening Settings Failed</source>
         <target>Öffnen der Einstellungen fehlgeschlagen!</target>
@@ -9138,6 +9148,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="QR Code" xml:space="preserve">
         <source>QR Code</source>
         <target>QR-Code</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="QR Code scanned" xml:space="preserve">
+        <source>QR Code scanned</source>
+        <target>QR-Code wurde gescannt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit" xml:space="preserve">
@@ -9353,6 +9368,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Scroll Lock" xml:space="preserve">
         <source>Scroll Lock</source>
         <target>Scrollsperre</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Scroll Lock Active" xml:space="preserve">
+        <source>Scroll Lock Active</source>
+        <target>Scrollsperre aktiviert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Scroll Lock Inactive" xml:space="preserve">
+        <source>Scroll Lock Inactive</source>
+        <target>Scrollsperre deaktiviert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Search Text" xml:space="preserve">
