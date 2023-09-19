@@ -925,6 +925,7 @@ static NSMutableSet *browserWindowControllers;
     _visibleCodeReaderViewController = self.codeReaderViewController;
     if (_visibleCodeReaderViewController) {
         if ([QRCodeReader isAvailable]) {
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"Opening QR Code scanner", @""));
             [self.topMostController presentViewController:_visibleCodeReaderViewController animated:YES completion:NULL];
         }
     }
@@ -940,6 +941,7 @@ static NSMutableSet *browserWindowControllers;
     if (!_scannedQRCode) {
         _scannedQRCode = YES;
         [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"QR Code scanned", @""));
             self.visibleCodeReaderViewController = nil;
             [self adjustBars];
             DDLogInfo(@"Scanned QR code: %@", result);
@@ -961,6 +963,7 @@ static NSMutableSet *browserWindowControllers;
     [self.sideMenuController hideLeftView];
     [self adjustBars];
     [_visibleCodeReaderViewController dismissViewControllerAnimated:YES completion:^{
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"Closing QR Code scanner", @""));
         self.visibleCodeReaderViewController = nil;
         if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
             self.pausedSAMAlertDisplayed = false;
