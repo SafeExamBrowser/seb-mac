@@ -245,6 +245,9 @@
 "Closing lockdown windows" = "Lockdown-Fenster werden geschlossen";
 
 /* No comment provided by engineer. */
+"Closing QR Code scanner" = "Schliesse QR-Code Scanner";
+
+/* No comment provided by engineer. */
 "Code contributions © 2015 - 2016 Janison" = "Codebeiträge © 2015 - 2016 Janison";
 
 /* Config Key */
@@ -707,6 +710,9 @@
 "Opening New Settings Failed!" = "Öffnen neuer Einstellungen fehlgeschlagen!";
 
 /* No comment provided by engineer. */
+"Opening QR Code scanner" = "Öffne QR-Code Scanner";
+
+/* No comment provided by engineer. */
 "Opening Settings Failed" = "Öffnen der Einstellungen fehlgeschlagen!";
 
 /* No comment provided by engineer. */
@@ -750,6 +756,9 @@
 
 /* No comment provided by engineer. */
 "QR Code" = "QR-Code";
+
+/* No comment provided by engineer. */
+"QR Code scanned" = "QR-Code wurde gescannt";
 
 /* No comment provided by engineer. */
 "Quit" = "Beenden";
@@ -864,6 +873,12 @@
 
 /* No comment provided by engineer. */
 "Scroll Lock" = "Scrollsperre";
+
+/* No comment provided by engineer. */
+"Scroll Lock Active" = "Scrollsperre aktiviert";
+
+/* No comment provided by engineer. */
+"Scroll Lock Inactive" = "Scrollsperre deaktiviert";
 
 /* No comment provided by engineer. */
 "Search Text" = "Text suchen";
