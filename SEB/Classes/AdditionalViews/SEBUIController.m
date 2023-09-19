@@ -634,11 +634,13 @@
 - (void)updateScrollLockButtonStates
 {
     if (_sebViewController.isScrollLockActive) {
+        _scrollLockButton.accessibilityLabel = NSLocalizedString(@"Scroll Lock Active", @"");
         _scrollLockButton.image = scrollLockIconLocked;
         _scrollLockButton.tintColor = [UIColor systemYellowColor];
         _sliderScrollLockItem.icon = sliderScrollLockIconLocked;
         _sliderScrollLockItem.title = sliderScrollLockItemTitleLocked;
     } else {
+        _scrollLockButton.accessibilityLabel = NSLocalizedString(@"Scroll Lock Inactive", @"");
         _scrollLockButton.image = scrollLockIcon;
         _scrollLockButton.tintColor = nil;
         _sliderScrollLockItem.icon = sliderScrollLockIcon;
