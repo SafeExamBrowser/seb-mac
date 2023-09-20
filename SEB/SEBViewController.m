@@ -3598,7 +3598,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
                         DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
                             if (didSucceed) {
                                 DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
                                 self.ASAMActive = false;
@@ -4393,6 +4393,14 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_enableASAM) {
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
             _ASAMActive = true;
+            
+            AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+            self.assessmentModeManager = assessmentModeManager;
+            self.assessmentModeManager.delegate = self;
+            if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                [self assessmentSessionDidEndWithCallback:callback selector:selector];
+            }
+            
             UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
                 DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
                 if (didSucceed) {
