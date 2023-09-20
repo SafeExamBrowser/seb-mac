@@ -83,6 +83,8 @@
 #import "SEBiOSBrowserController.h"
 #import "SEBBrowserTabViewController.h"
 
+#import "AssessmentModeManager.h"
+
 #import "SEBBatteryController.h"
 #import "ServerController.h"
 #import "SEBServerViewController.h"
@@ -347,7 +349,9 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) didEstablishSEBServerConnection;
 
-#pragma mark - Kiosk mode
+#pragma mark - Lockdown mode
+@property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
+
 - (void) stopAutonomousSingleAppMode;
 
 #pragma mark - Lockdown windows
