@@ -748,7 +748,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
                    
-                   [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLight],
+                   [NSNumber numberWithLong:mobileStatusBarAppearanceExtendedLightOnDark],
                    @"mobileStatusBarAppearanceExtended",
                    
                    @YES,
