@@ -88,7 +88,7 @@
     // app, as the "back to" this app link in the status bar isn't blocked in AAC
     if (secureMode && (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion < 10 || (NSProcessInfo.processInfo.operatingSystemVersion.majorVersion == 14 && NSProcessInfo.processInfo.operatingSystemVersion.minorVersion < 5))) {
         _statusBarAppearance = mobileStatusBarAppearanceNone;
-        if (_statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedLight || _statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedNoneLight) {
+        if (_statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedDarkOnLight || _statusBarAppearanceExtended == mobileStatusBarAppearanceExtendedNoneLight) {
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneLight;
         } else {
             _statusBarAppearanceExtended = mobileStatusBarAppearanceExtendedNoneDark;

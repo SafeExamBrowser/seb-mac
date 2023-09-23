@@ -253,8 +253,8 @@ typedef NSUInteger mobileStatusBarAppearances;
 
 enum {
     mobileStatusBarAppearanceExtendedInferred   = 0,
-    mobileStatusBarAppearanceExtendedLight      = 1,
-    mobileStatusBarAppearanceExtendedDark       = 2,
+    mobileStatusBarAppearanceExtendedLightOnDark= 1,
+    mobileStatusBarAppearanceExtendedDarkOnLight= 2,
     mobileStatusBarAppearanceExtendedNoneDark   = 3,
     mobileStatusBarAppearanceExtendedNoneLight  = 4
 };

@@ -87,7 +87,7 @@
     if ((self.sebUIController.extendedDisplay || !self.sebUIController.browserToolbarEnabled) &&
         ((self.sebUIController.extendedDisplay && (statusBarAppearance == mobileStatusBarAppearanceNone || statusBarAppearance == mobileStatusBarAppearanceExtendedNoneDark)) ||
         statusBarAppearance == mobileStatusBarAppearanceLight ||
-        statusBarAppearance == mobileStatusBarAppearanceExtendedLight)) {
+        statusBarAppearance == mobileStatusBarAppearanceExtendedLightOnDark)) {
         return UIStatusBarStyleLightContent;
     } else {
         return UIStatusBarStyleDefault;
