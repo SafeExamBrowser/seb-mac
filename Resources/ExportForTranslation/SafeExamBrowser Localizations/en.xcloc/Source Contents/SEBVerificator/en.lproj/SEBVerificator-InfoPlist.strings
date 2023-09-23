@@ -1,0 +1,6 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "SEB Verificator";
+/* Bundle name */
+"CFBundleName" = "SEBVerificator";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "© 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
