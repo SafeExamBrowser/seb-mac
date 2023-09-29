@@ -1874,10 +1874,38 @@ bool insideMatrix(void);
         SInt32        myAttrs;
         OSErr        myErr = noErr;
 
+        SecAccessControlRef access = SecAccessControlCreateWithFlags(
+            kCFAllocatorDefault,
+            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            kSecAccessControlPrivateKeyUsage,
+            NULL); // Ignore errors.
+
+        NSDictionary* attributes =
+          @{ (id)kSecAttrKeyType: (id)kSecAttrKeyTypeECSECPrimeRandom,
+             (id)kSecAttrKeySizeInBits: @256,
+             (id)kSecAttrTokenID: (id)kSecAttrTokenIDSecureEnclave,
+             (id)kSecPrivateKeyAttrs:
+               @{ (id)kSecAttrIsPermanent: @YES,
+                  (id)kSecAttrApplicationTag:  @"org.safeexambrowser.seb",
+                  (id)kSecAttrAccessControl: (__bridge id)access,
+                },
+           };
+        
+        CFErrorRef error = NULL;
+        SecKeyRef privateKey = SecKeyCreateRandomKey((__bridge CFDictionaryRef)attributes,
+                                                     &error);
+        NSError *err = CFBridgingRelease(error); // ARC takes ownership.
+        if (!privateKey) {
+            DDLogError(@"Failed creating key pair in Secure Enclave with error: %@", err);
+        } else {
+            DDLogInfo(@"Sucessfully created key pair presumably in Secure Enclave with public key %@, error: %@", privateKey, err);
+        }
+
+
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
         myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
-        if ((myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dk1XYVJF" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"cUVtVQ==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"UEFyQWxsRWxT" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]]) {
+        if (!privateKey || (myErr == noErr && ((myAttrs & (1UL << 31)) | (myAttrs == 0x209))) || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dklyVFVhTA==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"dk1XYVJF" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"cUVtVQ==" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]] || [self.systemManager.systemInfo.sysModelID localizedCaseInsensitiveContainsString:[[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:@"UEFyQWxsRWxT" options:NSDataBase64DecodingIgnoreUnknownCharacters] encoding:NSUTF8StringEncoding]]) {
             // Bit 31 is set: VMware Hypervisor running (?)
             // or gestaltX86AdditionalFeatures values of VirtualBox detected
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
