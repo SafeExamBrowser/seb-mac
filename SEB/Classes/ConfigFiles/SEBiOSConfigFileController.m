@@ -244,7 +244,8 @@
 }
 
 
-- (BOOL) saveSettingsUnencrypted {
+- (BOOL) saveSettingsUnencryptedUncompressed:(BOOL)uncompressed;
+ {
 //    __block BOOL saveSettingsUnencrypted = true;
 //    
 //    if (_sebViewController.alertController) {

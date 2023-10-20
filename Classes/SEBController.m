@@ -6160,6 +6160,14 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (IBAction)shareConfigFormatSelected:(id)sender
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    _shareConfigUncompressedButton.hidden = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"] != shareConfigFormatFile ||
+    [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] != sebConfigPurposeStartingExam;
+}
+
+
 #pragma mark - Quitting/Restarting Sessions and SEB
 
 - (IBAction) requestedQuit:(id)sender

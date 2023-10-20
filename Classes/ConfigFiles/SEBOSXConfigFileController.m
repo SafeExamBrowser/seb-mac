@@ -219,10 +219,12 @@
 }
 
 
-- (BOOL) saveSettingsUnencrypted {
+- (BOOL) saveSettingsUnencryptedUncompressed:(BOOL)uncompressed;
+ {
     NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", @"")];
-    [newAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
+     
+     [newAlert setInformativeText:[NSString stringWithFormat:@"%@%@\n\n%@", NSLocalizedString(@"The configuration will be saved unencrypted", @""), uncompressed ? @"." : @", but compressed using gzip.", NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [newAlert setAlertStyle:NSAlertStyleWarning];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {

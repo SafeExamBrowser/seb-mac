@@ -87,6 +87,7 @@
 - (SecIdentityRef) getSelectedIdentity;
 - (sebConfigPurposes) getSelectedConfigPurpose;
 - (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                      uncompressed:(BOOL)uncompressed
                                                     removeDefaults:(BOOL)removeDefaults;
 - (IBAction) changeConfigFilePurpose:(id)sender;
 

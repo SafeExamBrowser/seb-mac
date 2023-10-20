@@ -274,6 +274,7 @@
 
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                      uncompressed:(BOOL)uncompressed
                                                     removeDefaults:(BOOL)removeDefaults
 {
     // Get selected config purpose
@@ -304,6 +305,7 @@
                                 passwordIsHash:self.configPasswordIsHash
                                 withIdentity:identityRef
                                 forPurpose:configPurpose
+                                uncompressed:uncompressed
                                 removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     return encryptedSebData;
 }
