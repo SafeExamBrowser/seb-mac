@@ -916,7 +916,7 @@ bool insideMatrix(void);
     _alternateKeyPressed = [self alternateKeyCheck];
     
     // Check if preferences window is open
-	    if ([self.preferencesController preferencesAreOpen]) {
+    if ([self.preferencesController preferencesAreOpen]) {
         
         /// Open settings file in preferences window for editing
         
@@ -962,9 +962,9 @@ bool insideMatrix(void);
             
             // Decrypt and store the .seb config file
             [self.configFileController storeNewSEBSettings:sebData
-                                             forEditing:NO
-                                               callback:self
-                                               selector:@selector(storeNewSEBSettingsSuccessful:)];
+                                                forEditing:NO
+                                                  callback:self
+                                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
         } else {
             //ToDo: Show alert for file loading error
         }
