@@ -1318,6 +1318,7 @@ static NSMutableSet *browserWindowControllers;
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
                                                                               forPurpose:configPurpose
+                                                                            uncompressed:NO
                                                                           removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     if (encryptedSEBData) {
         
