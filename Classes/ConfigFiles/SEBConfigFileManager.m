@@ -1110,12 +1110,13 @@ static NSString *getUppercaseAdminPasswordHash(void)
 
 // Read SEB settings from UserDefaults and encrypt them using provided security credentials
 - (NSData *) encryptSEBSettingsWithPassword:(NSString *)settingsPassword
-                             passwordIsHash:(BOOL) passwordIsHash
-                               withIdentity:(SecIdentityRef) identityRef
+                             passwordIsHash:(BOOL)passwordIsHash
+                               withIdentity:(SecIdentityRef)identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose
+                               uncompressed:(BOOL)uncompressed
                              removeDefaults:(BOOL)removeDefaults
 {
-
+    
     // Copy preferences to a dictionary
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *filteredPrefsDict;
@@ -1147,8 +1148,8 @@ static NSString *getUppercaseAdminPasswordHash(void)
         // Looks like there is a key with a NULL value
         DDLogError(@"%s: Serialization of the XML plist went wrong! Error: %@", __FUNCTION__, error.description);
         
-//        [self.delegate showAlertCorruptedSettings];
-
+        //        [self.delegate showAlertCorruptedSettings];
+        
         return nil;
     }
     
@@ -1176,7 +1177,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
         // in all other cases:
         // Check if no password entered and no identity selected
         if (settingsPassword.length == 0 && !identityRef && configPurpose != sebConfigPurposeManagedConfiguration) {
-            if ([self.delegate saveSettingsUnencrypted]) {
+            if ([self.delegate saveSettingsUnencryptedUncompressed:uncompressed]) {
                 // save .seb config data unencrypted
                 return encryptedSebData;
             } else {
@@ -1208,7 +1209,9 @@ static NSString *getUppercaseAdminPasswordHash(void)
     }
     
     // gzip the encrypted data
-    encryptedSebData = [encryptedSebData gzipDeflate];
+    if (!(configPurpose == sebConfigPurposeStartingExam && uncompressed)) {
+        encryptedSebData = [encryptedSebData gzipDeflate];
+    }
     
     return encryptedSebData;
 }

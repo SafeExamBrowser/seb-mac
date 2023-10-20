@@ -1031,6 +1031,11 @@
         if (configPurpose != sebConfigPurposeManagedConfiguration) {
             [allowedFileTypes addObjectsFromArray:[NSArray arrayWithObjects:@"txt", @"png", nil]];
         }
+        if (configPurpose == sebConfigPurposeStartingExam) {
+            _sebController.shareConfigUncompressedButton.hidden = NO;
+        } else {
+            _sebController.shareConfigUncompressedButton.hidden = YES;
+        }
         [panel setAllowedFileTypes:allowedFileTypes.copy];
         NSInteger result = [panel runModal];
         if (result == NSModalResponseOK) {
@@ -1046,8 +1051,11 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
-    
-    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat removeDefaults:removeDefaults];
+    BOOL uncompressed = [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] && shareConfigFormat == shareConfigFormatFile;
+
+    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
+                                                                                           uncompressed:uncompressed
+                                                                                         removeDefaults:removeDefaults];
     if (encryptedSEBData) {
         
         if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {

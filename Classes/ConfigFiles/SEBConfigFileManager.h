@@ -111,7 +111,7 @@
  * @brief       Delegate method to display an alert asking if settings should 
  *              be saved unencrypted
  */
-- (BOOL) saveSettingsUnencrypted;
+- (BOOL) saveSettingsUnencryptedUncompressed:(BOOL)uncompressed;
 
 /**
  * @brief       Delegate method to display a NSError
@@ -273,6 +273,7 @@
                              passwordIsHash:(BOOL)passwordIsHash
                                withIdentity:(SecIdentityRef)identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose
+                               uncompressed:(BOOL)uncompressed
                              removeDefaults:(BOOL)removeDefaults;
 
 
