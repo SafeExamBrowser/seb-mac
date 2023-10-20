@@ -540,20 +540,14 @@ static NSString *urlStrippedFragment(NSURL* url)
     if (self.serverBrowserExamKey) {
         [self.serverBrowserExamKey getBytes:hashedChars length:32];
     } else {
-        [self.browserExamKey getBytes:hashedChars length:32];
+        NSData *browserExamKey = self.browserExamKey;
+        [browserExamKey getBytes:hashedChars length:32];
     }
-    
-#ifdef DEBUG
-    DDLogVerbose(@"Current Browser Exam Key: %@", self.browserExamKey);
-#endif
-    
+        
     NSMutableString* browserExamKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
     for (NSUInteger i = 0 ; i < 32 ; ++i) {
         [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
     }
-#ifdef DEBUG
-    DDLogVerbose(@"Current request URL + Browser Exam Key: %@", browserExamKeyString);
-#endif
     const char *urlString = [browserExamKeyString UTF8String];
     CC_SHA256(urlString,
               (uint)strlen(urlString),
