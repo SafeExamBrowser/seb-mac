@@ -147,6 +147,7 @@
 	PrefsDownUploadsViewController *downuploads = [[PrefsDownUploadsViewController alloc]
                                                    initWithNibName:@"PreferencesDownUploads" bundle:nil];
     self.browserController.browserExamKey = nil;
+    self.browserController.browserExamKeySalt = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     self.browserController.configKey = nil;
     self.examVC = [[PrefsExamViewController alloc] initWithNibName:@"PreferencesExam" bundle:nil];
     self.examVC.preferencesController = self;
@@ -454,7 +455,7 @@
         return YES;
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    return ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
+    return settingsBeforeEditing != nil && ![settingsBeforeEditing.browserExamKey isEqualToData:[preferences secureObjectForKey:@"org_safeexambrowser_currentData"]];
 }
 
 
