@@ -6162,9 +6162,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction)shareConfigFormatSelected:(id)sender
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _shareConfigUncompressedButton.hidden = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"] != shareConfigFormatFile ||
-    [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] != sebConfigPurposeStartingExam;
+    _shareConfigUncompressedButton.hidden = !_preferencesController.canSavePlainText;
 }
 
 
