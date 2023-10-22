@@ -562,6 +562,18 @@
     return passwordIsUnconfirmed;
 }
 
+
+- (BOOL) canSavePlainText
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    BOOL configPurposeStartingExam = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam;
+    return shareConfigFormat == shareConfigFormatFile &&
+    configPurposeStartingExam &&
+    !self.configFileVC.isEncrypted;
+}
+
+
 // Show alert that the password with passed name string isn't confirmed
 - (void) alertForUnconfirmedPassword:(NSString *)passwordName
 {
@@ -1031,11 +1043,7 @@
         if (configPurpose != sebConfigPurposeManagedConfiguration) {
             [allowedFileTypes addObjectsFromArray:[NSArray arrayWithObjects:@"txt", @"png", nil]];
         }
-        if (configPurpose == sebConfigPurposeStartingExam) {
-            _sebController.shareConfigUncompressedButton.hidden = NO;
-        } else {
-            _sebController.shareConfigUncompressedButton.hidden = YES;
-        }
+        _sebController.shareConfigUncompressedButton.hidden = !self.canSavePlainText;
         [panel setAllowedFileTypes:allowedFileTypes.copy];
         NSInteger result = [panel runModal];
         if (result == NSModalResponseOK) {
@@ -1049,9 +1057,9 @@
     
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
-    BOOL uncompressed = [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] && shareConfigFormat == shareConfigFormatFile;
+    BOOL uncompressed = self.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
+    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
     NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
                                                                                            uncompressed:uncompressed
