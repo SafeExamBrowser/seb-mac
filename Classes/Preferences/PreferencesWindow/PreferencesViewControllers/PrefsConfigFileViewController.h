@@ -61,6 +61,7 @@
 @property (strong, nonatomic) NSMutableArray *identitiesNames;
 @property (strong, nonatomic) NSArray *identities;
 
+@property (readonly) BOOL isEncrypted;
 @property BOOL configPasswordIsHash;
 @property (readonly) BOOL usingPrivateDefaults;
 @property (readonly) BOOL editingSettingsFile;

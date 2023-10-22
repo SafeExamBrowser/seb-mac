@@ -224,7 +224,7 @@
     NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", @"")];
      
-     [newAlert setInformativeText:[NSString stringWithFormat:@"%@%@\n\n%@", NSLocalizedString(@"The configuration will be saved unencrypted", @""), uncompressed ? @"." : @", but compressed using gzip.", NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
+     [newAlert setInformativeText:[NSString stringWithFormat:@"%@%@\n\n%@", NSLocalizedString(@"The configuration will be saved unencrypted", @""), uncompressed ? @"." : NSLocalizedString(@", but compressed using gzip.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
     [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
     [newAlert setAlertStyle:NSAlertStyleWarning];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {

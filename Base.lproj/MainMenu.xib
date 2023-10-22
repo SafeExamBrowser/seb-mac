@@ -1497,7 +1497,7 @@ DQ
                             </textFieldCell>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tmg-sY-zim">
-                            <rect key="frame" x="98" y="-4" width="342" height="25"/>
+                            <rect key="frame" x="98" y="-4" width="376" height="25"/>
                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="Q3c-R7-EsM" id="xCx-qW-xf8">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
@@ -1519,8 +1519,9 @@ DQ
                             </connections>
                         </popUpButton>
                         <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-cz-dif">
-                            <rect key="frame" x="444" y="1" width="116" height="18"/>
-                            <buttonCell key="cell" type="check" title="uncompressed" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hUs-yu-PMc">
+                            <rect key="frame" x="478" y="1" width="82" height="18"/>
+                            <string key="toolTip">Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing</string>
+                            <buttonCell key="cell" type="check" title="plain text" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hUs-yu-PMc">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>

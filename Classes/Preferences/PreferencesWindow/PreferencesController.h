@@ -75,6 +75,7 @@
 @property BOOL currentConfigPasswordIsHash;
 @property BOOL refreshingPreferences;
 @property BOOL certOSWarningDisplayed;
+@property (readonly) BOOL canSavePlainText;
 @property (weak, nonatomic) IBOutlet SEBController *sebController;
 @property (weak, nonatomic) NSWindow *preferencesWindow;
 @property (strong, nonatomic) SEBOSXConfigFileController *configFileController;

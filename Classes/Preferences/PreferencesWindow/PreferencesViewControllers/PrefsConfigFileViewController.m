@@ -272,6 +272,12 @@
 }
 
 
+- (BOOL) isEncrypted
+{
+    return [chooseIdentity indexOfSelectedItem] || settingsPassword.length > 0;
+}
+
+
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
                                                       uncompressed:(BOOL)uncompressed
