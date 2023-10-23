@@ -1568,6 +1568,7 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self.browserController.sebController removeAlertWindow:modalAlert.window];
                 };
+                completionHandler(nil);
                 [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
                 return;
             }
@@ -1659,6 +1660,12 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (void) downloadFileFromURL:(NSURL *)url filename:(NSString *)filename cookies:(NSArray <NSHTTPCookie *>*)cookies
 {
     [self.browserController downloadFileFromURL:url filename:filename cookies:cookies sender:self];
+}
+
+
+- (void) fileDownloadedSuccessfully:(NSString *)path
+{
+    [self.browserController fileDownloadedSuccessfully:path];
 }
 
 
