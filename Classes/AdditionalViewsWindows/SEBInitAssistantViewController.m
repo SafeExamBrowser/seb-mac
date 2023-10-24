@@ -345,7 +345,7 @@
 {
     [_downloadTimer invalidate];
     if (_downloadTask) {
-        [_controllerDelegate activityIndicatorAnimate:false];
+        [_controllerDelegate activityIndicatorAnimate:NO];
         // The completion handler will be called with an NSError
         [_downloadTask cancel];
         _downloadTask = nil;
@@ -358,7 +358,7 @@
 {
     _searchingConfigCanceled = YES;
     if (_downloadTask) {
-        [_controllerDelegate activityIndicatorAnimate:false];
+        [_controllerDelegate activityIndicatorAnimate:NO];
         [_downloadTask cancel];
         _downloadTask = nil;
     }
@@ -379,22 +379,22 @@
                 return;
             }
     }
-    [_controllerDelegate activityIndicatorAnimate:false];
+    [_controllerDelegate activityIndicatorAnimate:NO];
     
     if (_searchingConfigCanceled) {
-        [_controllerDelegate setConfigURLWrongLabelHidden:true
+        [_controllerDelegate setConfigURLWrongLabelHidden:YES
                                                     error:nil
                                        forClientConfigURL:clientConfigURL];
         
     } else {
         if (!error) {
-            [_controllerDelegate setConfigURLWrongLabelHidden:true
+            [_controllerDelegate setConfigURLWrongLabelHidden:YES
                                                         error:nil
                                            forClientConfigURL:clientConfigURL];
             _controllerDelegate.configURLString = @"";
             [_controllerDelegate closeAssistantRestartSEB];
         } else {
-            [_controllerDelegate setConfigURLWrongLabelHidden:false
+            [_controllerDelegate setConfigURLWrongLabelHidden:NO
                                                         error:error
                                            forClientConfigURL:clientConfigURL];
         }
