@@ -1313,12 +1313,13 @@ static NSMutableSet *browserWindowControllers;
     // Encrypt current settings with current credentials
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
-    
+    BOOL uncompressed = self.sebInAppSettingsViewController.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
+
     NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
                                                                               forPurpose:configPurpose
-                                                                            uncompressed:NO
+                                                                            uncompressed:uncompressed
                                                                           removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     if (encryptedSEBData) {
         

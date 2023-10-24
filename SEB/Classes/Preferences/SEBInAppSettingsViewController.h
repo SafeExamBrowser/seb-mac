@@ -53,6 +53,7 @@
 
 @property (readwrite) BOOL permanentSettingsChanged;
 @property (readwrite) BOOL configModified;
+@property (readonly) BOOL canSavePlainText;
 
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesNames;
 @property (nonatomic, strong) NSMutableArray *configFileIdentitiesCounter;

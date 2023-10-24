@@ -452,11 +452,21 @@
 
     /// Config File
     
-    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"] ||
+        [changedKeys containsObject:@"org_safeexambrowser_shareConfigFormat"]) {
         [self setDependentKeysForSEBConfigPurpose];
     }
     
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"]) {
+        [self setDependentKeysForShareAs];
+    }
+    
+    if ([changedKeys containsObject:@"org_safeexambrowser_shareConfigFormat"]) {
+        [self setDependentKeysForRemoveDefaults];
+    }
+    
     if ([changedKeys containsObject:@"org_safeexambrowser_configFileIdentity"]) {
+        [self setDependentKeysForPlainText];
         [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
     }
     
@@ -484,8 +494,12 @@
             }
         }
     }
-    
 
+    if ([changedKeys containsObject:@"org_safeexambrowser_settingsPassword"]) {
+        [self setDependentKeysForPlainText];
+    }
+    
+    
     /// Browser Features
 
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_browserMediaAutoplay"]) {
@@ -645,6 +659,8 @@
 - (void)setAllDependentKeys
 {
     [self setDependentKeysForSEBConfigPurpose];
+    [self setDependentKeysForShareAs];
+    [self setDependentKeysForRemoveDefaults];
     [self setDependentKeysForBrowserMediaAutoplay];
     [self setDependentKeysForAllowDownUploads];
     [self setDependentKeysForSendBrowserExamKey];
@@ -689,6 +705,73 @@
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     }
+    [self setDependentKeysForPlainText];
+}
+
+
+- (void)setDependentKeysForShareAs
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_shareConfigFormat"]];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeManagedConfiguration)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForRemoveDefaults
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_removeDefaults"]];
+    if (shareConfigFormat != shareConfigFormatFile)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForPlainText
+{
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_shareConfigUncompressed"]];
+    if (![self canSavePlainText])
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (BOOL) canSavePlainText
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    BOOL configPurposeStartingExam = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"] == sebConfigPurposeStartingExam;
+    return shareConfigFormat == shareConfigFormatFile &&
+    configPurposeStartingExam &&
+    [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+    [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_settingsPassword"].length == 0;
 }
 
 

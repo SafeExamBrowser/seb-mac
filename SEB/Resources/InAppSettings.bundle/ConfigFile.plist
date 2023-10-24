@@ -32,7 +32,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_sebConfigPurpose</string>
 			<key>FooterText</key>
-			<string>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</string>
+			<string>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&apos;t support gzip compressed or encrypted config files or for manual editing.</string>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
@@ -53,6 +53,14 @@
 			<string>Remove Default Values</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_removeDefaults</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Plain Text</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_shareConfigUncompressed</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -236,14 +236,14 @@
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"switchToConfigFilePane" object:self];
                 // don't save the config data
-                return false;
+                return NO;
                 
             case NSAlertSecondButtonReturn:
                 // save .seb config data unencrypted
-                return true;
+                return YES;
                 
             default:
-                return false;
+                return NO;
         }
     };
     if (@available(macOS 12.0, *)) {
@@ -251,11 +251,11 @@
         if (@available(macOS 11.0, *)) {
             if (self.sebController.isAACEnabled || self.sebController.wasAACEnabled) {
                 [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:(void (^)(NSModalResponse answer))unencryptedSaveAlertAnswerHandler];
-                return true;
+                return YES;
             }
         }
     }
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save unencrypted", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Unencrypted", @"")];
     NSModalResponse answer = [newAlert runModal];
     return unencryptedSaveAlertAnswerHandler(answer);
 }
