@@ -119,17 +119,22 @@
 }
 
 
+- (IBAction) urlEnteredConfirmButton:(id)sender
+{
+    [configURLField resignFirstResponder];
+}
+
+
 - (IBAction) urlEntered:(id)sender
 {
     [_assistantController cancelDownloadingClientConfig];
 
     NSString *enteredConfigURLString = configURLField.text;
     // Hide the other "config not found" label
-    noConfigQRCodeFoundLabel.hidden = true;
+    noConfigQRCodeFoundLabel.hidden = YES;
     // Keep a reference for the URL textfield "config not found" label
     noConfigFoundLabel = noConfigURLFoundLabel;
     [self evaluateEnteredURLString:enteredConfigURLString];
-    [configURLField resignFirstResponder];
 }
 
 
@@ -137,9 +142,9 @@
 {
     [_assistantController cancelDownloadingClientConfig];
     
-    [self setConfigURLWrongLabelHidden:true
+    [self setConfigURLWrongLabelHidden:YES
                                  error:nil
-                    forClientConfigURL:false];
+                    forClientConfigURL:NO];
 }
 
 
@@ -149,7 +154,7 @@
 
     configURLField.text = @"";
     // Hide the other "config not found" label
-    noConfigURLFoundLabel.hidden = true;
+    noConfigURLFoundLabel.hidden = YES;
     // Keep a reference for the scan QR code "config not found" label
     noConfigFoundLabel = noConfigQRCodeFoundLabel;
     
@@ -165,7 +170,7 @@
     [_assistantController cancelDownloadingClientConfig];
     configURLField.text = @"";
     // Hide the other "config not found" label
-    noConfigURLFoundLabel.hidden = true;
+    noConfigURLFoundLabel.hidden = YES;
     // Keep a reference for the scan QR code "config not found" label
     noConfigFoundLabel = noConfigURLFoundLabel;
     
@@ -347,7 +352,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         [self setConfigURLString:@""];
-        self.sebViewController.initAssistantOpen = false;
+        self.sebViewController.initAssistantOpen = NO;
         [self.sebViewController storeNewSEBSettingsSuccessful:nil];
     }];
 }
