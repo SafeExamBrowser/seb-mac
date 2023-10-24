@@ -174,7 +174,7 @@
                                                                  // Return nil to callback method to indicate that cancel was pressed
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
-                                                                 func(callback, selector, @"");
+                                                                 func(callback, selector, nil);
                                                              }]];
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
