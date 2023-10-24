@@ -1380,7 +1380,7 @@ static NSMutableSet *browserWindowControllers;
         NSString *fileExtension;
         switch (shareConfigFormat) {
             case shareConfigFormatFile:
-                fileExtension = SEBFileExtension;
+                fileExtension = configPurpose == sebConfigPurposeManagedConfiguration ? PlistFileExtension : SEBFileExtension;
                 break;
                 
             case shareConfigFormatLink:
