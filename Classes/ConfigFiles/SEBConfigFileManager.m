@@ -1163,12 +1163,9 @@ static NSString *getUppercaseAdminPasswordHash(void)
     
     // Check for special case: SEB settings for Managed Configuration
     if (configPurpose == sebConfigPurposeManagedConfiguration) {
-        // Return SEB config data unencrypted and not gzip compressed
+        // Return SEB config data unencrypted and not gzip compressed, without displaying warning
         return encryptedSebData;
     }
-    
-    // gzip the serialized XML data
-    encryptedSebData = [encryptedSebData gzipDeflate];
     
     // Check for special case: SEB settings for configuring client, empty password
     if (settingsPassword.length == 0 && configPurpose == sebConfigPurposeConfiguringClient) {
@@ -1176,8 +1173,13 @@ static NSString *getUppercaseAdminPasswordHash(void)
     } else {
         // in all other cases:
         // Check if no password entered and no identity selected
-        if (settingsPassword.length == 0 && !identityRef && configPurpose != sebConfigPurposeManagedConfiguration) {
+        if (settingsPassword.length == 0 && !identityRef) {
             if ([self.delegate saveSettingsUnencryptedUncompressed:uncompressed]) {
+                // gzip the serialized XML data unless it should be saved uncompressed
+                if (!uncompressed) {
+                    encryptedSebData = [encryptedSebData gzipDeflate];
+                }
+                // Return data without encrypting it
                 return encryptedSebData;
             } else {
                 // don't save the config data
@@ -1185,6 +1187,9 @@ static NSString *getUppercaseAdminPasswordHash(void)
             }
         }
     }
+    // gzip the serialized XML data
+    encryptedSebData = [encryptedSebData gzipDeflate];
+
     // Check if password for encryption is provided and use it then
     if (settingsPassword.length > 0) {
         encryptingPassword = settingsPassword;
@@ -1208,9 +1213,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
     }
     
     // gzip the encrypted data
-    if (!(configPurpose == sebConfigPurposeStartingExam && uncompressed)) {
-        encryptedSebData = [encryptedSebData gzipDeflate];
-    }
+    encryptedSebData = [encryptedSebData gzipDeflate];
     
     return encryptedSebData;
 }
