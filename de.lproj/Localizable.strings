@@ -17,6 +17,9 @@
 " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " = " Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS";
 
 /* No comment provided by engineer. */
+", but compressed using gzip." = ", aber mit gzip komprimiert.";
+
+/* No comment provided by engineer. */
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* No comment provided by engineer. */
@@ -890,7 +893,7 @@
 "Save settings to display its Config Key" = "Einstellungen speichern, um deren Config Key anzuzeigen";
 
 /* No comment provided by engineer. */
-"Save unencrypted" = "Unverschlüsselt speichern";
+"Save Unencrypted" = "Unverschlüsselt speichern";
 
 /* No comment provided by engineer. */
 "Saved file '%@'" = "Datei '%@' gespeichert";
@@ -1046,7 +1049,7 @@
 "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.";
 
 /* No comment provided by engineer. */
-"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration." = "Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.";
+"The configuration will be saved unencrypted" = "Die Konfigurationsdatei wird unverschlüsselt gespeichert";
 
 /* No comment provided by engineer. */
 "The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." = "Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll.";
