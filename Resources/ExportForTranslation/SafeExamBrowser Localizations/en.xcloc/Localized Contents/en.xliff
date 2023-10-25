@@ -485,6 +485,11 @@
         <target>Warning!</target>
         <note>Class = "NSTextFieldCell"; title = "Warning!"; ObjectID = "f7N-eB-F22";</note>
       </trans-unit>
+      <trans-unit id="f9z-cz-dif.ibShadowedToolTip" xml:space="preserve">
+        <source>Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing</source>
+        <target>Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing"; ObjectID = "f9z-cz-dif";</note>
+      </trans-unit>
       <trans-unit id="fhi-DK-hWE.title" xml:space="preserve">
         <source>Actual Size</source>
         <target>Actual Size</target>
@@ -494,6 +499,11 @@
         <source>Save As…</source>
         <target>Save As…</target>
         <note>Class = "NSMenuItem"; title = "Save As…"; ObjectID = "gQN-UT-3wR";</note>
+      </trans-unit>
+      <trans-unit id="hUs-yu-PMc.title" xml:space="preserve">
+        <source>plain text</source>
+        <target>plain text</target>
+        <note>Class = "NSButtonCell"; title = "plain text"; ObjectID = "hUs-yu-PMc";</note>
       </trans-unit>
       <trans-unit id="hZU-Wv-guz.title" xml:space="preserve">
         <source>Quit</source>
@@ -4816,6 +4826,11 @@ It is deleted when the session ends</target>
         <target>(This function doesn't log you out if you are logged in on a website)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id=", but compressed using gzip." xml:space="preserve">
+        <source>, but compressed using gzip.</source>
+        <target>, but compressed using gzip.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
         <source>10.7 (this SEB: 10.13)</source>
         <target>10.7 (this SEB: 10.13)</target>
@@ -6146,6 +6161,11 @@ It is deleted when the session ends</target>
         <target>Save Changes</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Save Unencrypted" xml:space="preserve">
+        <source>Save Unencrypted</source>
+        <target>Save Unencrypted</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Save settings to display its Browser Exam Key" xml:space="preserve">
         <source>Save settings to display its Browser Exam Key</source>
         <target>Save settings to display its Browser Exam Key</target>
@@ -6154,11 +6174,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Save settings to display its Config Key" xml:space="preserve">
         <source>Save settings to display its Config Key</source>
         <target>Save settings to display its Config Key</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Save unencrypted" xml:space="preserve">
-        <source>Save unencrypted</source>
-        <target>Save unencrypted</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Saved file '%@'" xml:space="preserve">
@@ -6346,9 +6361,9 @@ It is deleted when the session ends</target>
         <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration." xml:space="preserve">
-        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.</source>
-        <target>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.</target>
+      <trans-unit id="The configuration will be saved unencrypted" xml:space="preserve">
+        <source>The configuration will be saved unencrypted</source>
+        <target>The configuration will be saved unencrypted</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
@@ -7459,9 +7474,9 @@ It is deleted when the session ends</target>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
-      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." xml:space="preserve">
-        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</source>
-        <target>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</target>
+      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&amp;apos;t support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
+        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&amp;apos;t support gzip compressed or encrypted config files or for manual editing.</source>
+        <target>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&amp;apos;t support gzip compressed or encrypted config files or for manual editing.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow QR Code Config" xml:space="preserve">
@@ -7469,9 +7484,9 @@ It is deleted when the session ends</target>
         <target>Allow QR Code Config</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
-        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
-        <target>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</target>
+      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
+        <target>Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Auto-Select Identity" xml:space="preserve">
@@ -7479,14 +7494,19 @@ It is deleted when the session ends</target>
         <target>Auto-Select Identity</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Config URL" xml:space="preserve">
+        <source>Config URL</source>
+        <target>Config URL</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Configuring Clients" xml:space="preserve">
         <source>Configuring Clients</source>
         <target>Configuring Clients</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Create &amp; Embed Identity" xml:space="preserve">
-        <source>Create &amp; Embed Identity</source>
-        <target>Create &amp; Embed Identity</target>
+      <trans-unit id="Create &amp;amp; Embed Identity" xml:space="preserve">
+        <source>Create &amp;amp; Embed Identity</source>
+        <target>Create &amp;amp; Embed Identity</target>
         <note/>
       </trans-unit>
       <trans-unit id="Editing Settings" xml:space="preserve">
@@ -7524,14 +7544,34 @@ It is deleted when the session ends</target>
         <target>MDM Managed Configuration</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." xml:space="preserve">
-        <source>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</source>
-        <target>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</target>
+      <trans-unit id="Plain Text" xml:space="preserve">
+        <source>Plain Text</source>
+        <target>Plain Text</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="QR Code" xml:space="preserve">
+        <source>QR Code</source>
+        <target>QR Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recommended for easier set-up and testing. Shows the &amp;apos;Edit Settings&amp;apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." xml:space="preserve">
+        <source>Recommended for easier set-up and testing. Shows the &amp;apos;Edit Settings&amp;apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.</source>
+        <target>Recommended for easier set-up and testing. Shows the &amp;apos;Edit Settings&amp;apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remove Default Values" xml:space="preserve">
+        <source>Remove Default Values</source>
+        <target>Remove Default Values</target>
         <note/>
       </trans-unit>
       <trans-unit id="SEB Config QR Code" xml:space="preserve">
         <source>SEB Config QR Code</source>
         <target>SEB Config QR Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB File" xml:space="preserve">
+        <source>SEB File</source>
+        <target>SEB File</target>
         <note/>
       </trans-unit>
       <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." xml:space="preserve">
@@ -7542,6 +7582,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Settings Password" xml:space="preserve">
         <source>Settings Password</source>
         <target>Settings Password</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share As …" xml:space="preserve">
+        <source>Share As …</source>
+        <target>Share As …</target>
         <note/>
       </trans-unit>
       <trans-unit id="Share Configuration" xml:space="preserve">
@@ -7569,15 +7614,20 @@ It is deleted when the session ends</target>
         <target>Use Configuration For …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
-        <target>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+        <target>Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." xml:space="preserve">
-        <source>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</source>
-        <target>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</target>
+      <trans-unit id="Use the Share button on the Settings page to export settings to start exams or configure SEB clients." xml:space="preserve">
+        <source>Use the Share button on the Settings page to export settings to start exams or configure SEB clients.</source>
+        <target>Use the Share button on the Settings page to export settings to start exams or configure SEB clients.</target>
         <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file." xml:space="preserve">
+        <source>You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file.</source>
+        <target>You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file.</target>
+        <note/>
       </trans-unit>
     </body>
   </file>

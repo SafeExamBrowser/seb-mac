@@ -668,7 +668,7 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <state key="normal" image="SEBToolbarNavigateForwardIcon.png"/>
                                                 <connections>
-                                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Bjm-06-rdb"/>
+                                                    <action selector="urlEnteredConfirmButton:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Eal-HI-2X4"/>
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No config found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9il-ut-H8z">
