@@ -7505,8 +7505,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfigurieren von Clients</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Create &amp; Embed Identity" xml:space="preserve">
-        <source>Create &amp; Embed Identity</source>
+      <trans-unit id="Create & Embed Identity" xml:space="preserve">
+        <source>Create & Embed Identity</source>
         <target>Identität erstellen/einbetten</target>
         <note/>
       </trans-unit>

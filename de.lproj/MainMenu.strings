@@ -229,6 +229,9 @@
 /* Class = "NSTextFieldCell"; title = "Warning!"; ObjectID = "f7N-eB-F22"; */
 "f7N-eB-F22.title" = "Warnung!";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing"; ObjectID = "f9z-cz-dif"; */
+"f9z-cz-dif.ibShadowedToolTip" = "Konfigurationsdateien zum Starten von Prüfungen können unkomprimiert als Klartext gespeichert werden, um sie in LMS/Prüfungssysteme zu importieren, die keine gzip-komprimierten oder verschlüsselten Konfigurationsdateien unterstützen, oder um sie manuell zu bearbeiten";
+
 /* Class = "NSMenuItem"; title = "Actual Size"; ObjectID = "fhi-DK-hWE"; */
 "fhi-DK-hWE.title" = "Originalgrösse";
 
@@ -240,6 +243,9 @@
 
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "HGQ-o5-kHC"; */
 "HGQ-o5-kHC.title" = "Öffnen …";
+
+/* Class = "NSButtonCell"; title = "plain text"; ObjectID = "hUs-yu-PMc"; */
+"hUs-yu-PMc.title" = "Klartext";
 
 /* Class = "NSButtonCell"; title = "Quit"; ObjectID = "hZU-Wv-guz"; */
 "hZU-Wv-guz.title" = "Beenden";
