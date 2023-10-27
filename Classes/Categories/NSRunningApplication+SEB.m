@@ -59,7 +59,7 @@
         DDLogVerbose(@"Success of terminating %@: %ld", self, (long)success);
         return success;
     } else {
-        return -99;
+        return SEBErrorKillProcessAlreadyTerminated;
     }
 }
 

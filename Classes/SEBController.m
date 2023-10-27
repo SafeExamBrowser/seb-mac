@@ -5046,7 +5046,7 @@ conditionallyForWindow:(NSWindow *)window
     };
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         NSInteger killSuccess = [application kill];
-        if (killSuccess != ERR_SUCCESS && killSuccess != ESRCH) { // ESRCH: No such process
+        if (killSuccess != ERR_SUCCESS && killSuccess != ESRCH && killSuccess != SEBErrorKillProcessAlreadyTerminated) { // ESRCH: No such process
             DDLogError(@"Couldn't terminate app with localized name (error %ld): %@, bundle or executable URL: %@", (long)killSuccess, appLocalizedName, appURL);
             [_runningProhibitedProcesses addObject:processDetails];
             [[NSNotificationCenter defaultCenter]
@@ -5111,7 +5111,9 @@ conditionallyForWindow:(NSWindow *)window
         killSuccess = (NSInteger)kill(processPID, 9);
         if (killSuccess == ESRCH) {
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld (no such process)", processDetails, (long)killSuccess);
-            
+        } else if (killSuccess == SEBErrorKillProcessAlreadyTerminated) {
+            DDLogDebug(@"Couldn't terminate application/process: %@, error code: %ld (process already terminated)", processDetails, (long)killSuccess);
+
         } else if (killSuccess != ERR_SUCCESS) {
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
             if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
