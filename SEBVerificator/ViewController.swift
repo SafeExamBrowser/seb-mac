@@ -342,7 +342,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
             DDLogInfo("Terminating running application \(runningApplication)")
             let killSuccess = runningApplication.kill()
             DDLogInfo("Success of terminating running application: \(killSuccess)")
-            if killSuccess != ESRCH && (killSuccess != ERR_SUCCESS || !runningApplication.isTerminated) { // ESRCH: No such process
+            if killSuccess != ESRCH && (killSuccess != ERR_SUCCESS || killSuccess != SEBErrorKillProcessAlreadyTerminated) { // ESRCH: No such process
                 DDLogWarn("Application \(runningApplication) did not yet terminate.")
                 notTerminatedApplications = (notTerminatedApplications ?? []) + [runningApplication]
             }
