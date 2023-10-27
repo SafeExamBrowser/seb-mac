@@ -460,6 +460,7 @@
         }
         if (newBrowserWindowPolicy == openInNewWindow) {
             SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
+            sebWKNavigationAction.writableRequest = request;
             sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
             
             SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
