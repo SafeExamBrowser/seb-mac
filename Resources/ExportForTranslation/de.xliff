@@ -4147,9 +4147,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
       </trans-unit>
       <trans-unit id="dbm-W0-7Yt.title" xml:space="preserve">
-        <source>Log file directory:</source>
-        <target>Log-Dateiverzeichnis Windows:</target>
-        <note>Class = "NSTextFieldCell"; title = "Log file directory:"; ObjectID = "dbm-W0-7Yt";</note>
+        <source>Log directory (Win):</source>
+        <target>Log-Verzeichnis (Win):</target>
+        <note>Class = "NSTextFieldCell"; title = "Log directory (Win):"; ObjectID = "dbm-W0-7Yt";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Disable Explorer Shell</source>

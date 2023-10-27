@@ -130,8 +130,8 @@
 /* Class = "NSButtonCell"; title = "Enable network connection selector"; ObjectID = "cYs-RO-IZD"; */
 "cYs-RO-IZD.title" = "Netzwerkauswahl erlauben";
 
-/* Class = "NSTextFieldCell"; title = "Log file directory:"; ObjectID = "dbm-W0-7Yt"; */
-"dbm-W0-7Yt.title" = "Log-Dateiverzeichnis Windows:";
+/* Class = "NSTextFieldCell"; title = "Log directory (Win):"; ObjectID = "dbm-W0-7Yt"; */
+"dbm-W0-7Yt.title" = "Log-Verzeichnis (Win)";
 
 /* Class = "NSBox"; title = "Special Keys (Win)"; ObjectID = "Dce-pG-aKy"; */
 "Dce-pG-aKy.title" = "Spezialtasten";
