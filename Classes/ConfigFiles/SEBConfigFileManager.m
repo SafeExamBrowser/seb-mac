@@ -166,9 +166,13 @@
     NSData *unzippedSebData = [sebData gzipInflate];
     // if unzipped data is not nil, then unzipping worked, we use unzipped data
     // if unzipped data is nil, then the source data may be an uncompressed .seb file, we proceed with it
+    BOOL uncompressed = NO;
     if (unzippedSebData) {
         sebData = unzippedSebData;
+    } else {
+        uncompressed = YES;
     }
+    MyGlobals.sharedMyGlobals.currentConfigUncompressed = uncompressed;
 
     NSString *prefixString;
     
