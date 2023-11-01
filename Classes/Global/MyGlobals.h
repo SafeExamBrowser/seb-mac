@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readwrite) NSInteger lastDownloadPath;
 
 @property(copy, readwrite) NSURL *_Nullable currentConfigURL;
+@property(readwrite) BOOL currentConfigUncompressed;
 
 @property(copy, readwrite) NSMutableString *pasteboardString;
 @property(readwrite) NSUInteger presentationOptions;
