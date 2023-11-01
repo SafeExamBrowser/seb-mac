@@ -1034,7 +1034,7 @@ Gw
                     <rect key="frame" x="20" y="87" width="460" height="292"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="poc-GF-ali">
                         <rect key="frame" x="1" y="1" width="458" height="290"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
@@ -1526,7 +1526,11 @@ DQ
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <binding destination="993" name="value" keyPath="values.org_safeexambrowser_shareConfigUncompressed" id="HR8-NW-fCO"/>
+                                <binding destination="993" name="value" keyPath="values.org_safeexambrowser_shareConfigUncompressed" id="NCE-Es-SeB">
+                                    <dictionary key="options">
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </button>
                     </subviews>

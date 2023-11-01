@@ -1026,6 +1026,9 @@
         NSSavePanel *panel = [NSSavePanel savePanel];
         panel.accessoryView = configPurpose == sebConfigPurposeManagedConfiguration ? nil : _sebController.savePanelAccessoryView;
         panel.delegate = self;
+        
+        BOOL sharePlainTextConfig = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] || MyGlobals.sharedMyGlobals.currentConfigUncompressed;
+        _sebController.shareConfigUncompressedButton.state = sharePlainTextConfig; //[[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
         NSURL *directory = currentConfigFileURL.URLByDeletingLastPathComponent;
         NSString *directoryString = directory.relativePath;
         if ([directoryString isEqualToString:@"."]) {
@@ -1058,7 +1061,10 @@
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
-    BOOL uncompressed = self.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
+    BOOL sharePlainTextConfig = _sebController.shareConfigUncompressedButton.state;
+    MyGlobals.sharedMyGlobals.currentConfigUncompressed = sharePlainTextConfig;
+    [preferences setSecureBool:sharePlainTextConfig forKey:@"org_safeexambrowser_shareConfigFormat"];
+    BOOL uncompressed = self.canSavePlainText && sharePlainTextConfig;
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
     NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
