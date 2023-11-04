@@ -1677,7 +1677,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         DDLogInfo(@"Storing downloaded SEB config data was successful");
         
         // Reset the direct download flag for the case this was a successful direct download
-        _directConfigDownloadAttempted = false;
+        _directConfigDownloadAttempted = NO;
         
         [[NSUserDefaults standardUserDefaults] setSecureString:startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         
@@ -1697,7 +1697,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             DDLogError(@"Decrypting downloaded SEB config data failed definitely, present error and role back opening URL!");
             
             // Reset the direct download flag for the case this was a successful direct download
-            _directConfigDownloadAttempted = false;
+            _directConfigDownloadAttempted = NO;
         }
     }
     [_delegate storeNewSEBSettingsSuccessfulProceed:error];
