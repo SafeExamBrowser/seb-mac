@@ -6404,9 +6404,6 @@ conditionallyForWindow:(NSWindow *)window
         [self closeProcessListWindow];
     }
 
-    // Close all browser windows (documents)
-    [self.browserController closeAllBrowserWindows];
-
     // Reset SEB Browser
     [self.browserController resetBrowser];
     

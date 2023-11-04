@@ -1028,7 +1028,7 @@
         panel.delegate = self;
         
         BOOL sharePlainTextConfig = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] || MyGlobals.sharedMyGlobals.currentConfigUncompressed;
-        _sebController.shareConfigUncompressedButton.state = sharePlainTextConfig; //[[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
+        _sebController.shareConfigUncompressedButton.state = sharePlainTextConfig;
         NSURL *directory = currentConfigFileURL.URLByDeletingLastPathComponent;
         NSString *directoryString = directory.relativePath;
         if ([directoryString isEqualToString:@"."]) {
