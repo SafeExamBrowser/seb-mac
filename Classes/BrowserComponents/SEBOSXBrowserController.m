@@ -132,6 +132,9 @@
 
 - (void) resetBrowser
 {
+    // Close all browser windows (documents)
+    [self closeAllBrowserWindows];
+
     _activeBrowserWindow = nil;
     
     [self.openBrowserWindowsWebViews removeAllObjects];
