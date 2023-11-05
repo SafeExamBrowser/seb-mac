@@ -6164,7 +6164,13 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction)shareConfigFormatSelected:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults] setSecureInteger:_shareConfigFormatPopUpButton.indexOfSelectedItem forKey:@"org_safeexambrowser_shareConfigFormat"];
     _shareConfigUncompressedButton.hidden = !_preferencesController.canSavePlainText;
+}
+
+- (IBAction)shareConfigUncompressedSelected:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setSecureBool:_shareConfigUncompressedButton.state forKey:@"org_safeexambrowser_shareConfigUncompressed"];
 }
 
 
