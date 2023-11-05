@@ -1061,9 +1061,10 @@
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    [_sebController.shareConfigFormatPopUpButton selectItemAtIndex:shareConfigFormat];
     BOOL sharePlainTextConfig = _sebController.shareConfigUncompressedButton.state;
     MyGlobals.sharedMyGlobals.currentConfigUncompressed = sharePlainTextConfig;
-    [preferences setSecureBool:sharePlainTextConfig forKey:@"org_safeexambrowser_shareConfigFormat"];
+    [preferences setSecureBool:sharePlainTextConfig forKey:@"org_safeexambrowser_shareConfigUncompressed"];
     BOOL uncompressed = self.canSavePlainText && sharePlainTextConfig;
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
