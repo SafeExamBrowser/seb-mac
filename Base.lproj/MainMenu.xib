@@ -438,6 +438,7 @@
                 <outlet property="sebDockItemTime" destination="mpZ-3o-PlN" id="NuR-Rf-Va9"/>
                 <outlet property="sebLockedViewController" destination="agr-W5-n2K" id="S5k-x9-ugM"/>
                 <outlet property="settingsMenu" destination="sdD-uM-Hx0" id="ITi-w4-GBJ"/>
+                <outlet property="shareConfigFormatPopUpButton" destination="tmg-sY-zim" id="rmf-eI-Sai"/>
                 <outlet property="shareConfigUncompressedButton" destination="f9z-cz-dif" id="xhJ-7i-sbO"/>
                 <outlet property="usernameTextField" destination="mNH-qP-q3l" id="GWN-8n-h38"/>
             </connections>
@@ -1526,6 +1527,7 @@ DQ
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
+                                <action selector="shareConfigUncompressedSelected:" target="543" id="x6A-p6-ATn"/>
                                 <binding destination="993" name="value" keyPath="values.org_safeexambrowser_shareConfigUncompressed" id="NCE-Es-SeB">
                                     <dictionary key="options">
                                         <bool key="NSValidatesImmediately" value="YES"/>

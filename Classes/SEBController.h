@@ -310,6 +310,7 @@
 @property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
 @property (weak) IBOutlet NSTextField *raiseHandMessageTextField;
 @property (weak) IBOutlet NSView *savePanelAccessoryView;
+@property (weak) IBOutlet NSPopUpButton *shareConfigFormatPopUpButton;
 @property (weak) IBOutlet NSButton *shareConfigUncompressedButton;
 
 - (void)storeNewSEBSettings:(NSData *)sebData
