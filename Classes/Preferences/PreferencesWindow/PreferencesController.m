@@ -1293,15 +1293,18 @@ userEnteredFilename:(NSString *)filename
     }
 
     // Reset UserDefaults (remove all SEB key/values)
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
-//    
-//    // Remove all values for keys with prefix "org_safeexambrowser_" besides the exam settings key
-//    for (NSString *key in prefsDict) {
-//        if ([key hasPrefix:@"org_safeexambrowser_"] && ![key isEqualToString:@"org_safeexambrowser_currentData1"]) {
-//            [preferences removeObjectForKey:key];
-//        }
-//    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (NSUserDefaults.userDefaultsPrivate) {
+        [preferences resetSEBUserDefaults];
+    } else {
+        NSDictionary *prefsDict = [preferences getSEBUserDefaultsDomains];
+        // Remove all values for keys with prefix "org_safeexambrowser_" besides the exam settings key
+        for (NSString *key in prefsDict) {
+            if ([key hasPrefix:@"org_safeexambrowser_"] && ![key isEqualToString:@"org_safeexambrowser_currentData1"]) {
+                [preferences removeObjectForKey:key];
+            }
+        }
+    }
     
     // Write just default SEB settings to UserDefaults
     NSDictionary *emptySettings = [NSDictionary dictionary];

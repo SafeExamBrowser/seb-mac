@@ -595,12 +595,16 @@ static NSNumber *_logLevel;
 {
     // Copy preferences to a dictionary
 	NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
 
     // Remove all values for keys with prefix "org_safeexambrowser_"
-    for (NSString *key in prefsDict) {
-        if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
-            [preferences removeObjectForKey:key];
+    if (_usePrivateUserDefaults) {
+        [privateUserDefaults removeAllObjects];
+    } else {
+        NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
+        for (NSString *key in prefsDict) {
+            if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
+                [preferences removeObjectForKey:key];
+            }
         }
     }
     // Update Exam Settings Key
