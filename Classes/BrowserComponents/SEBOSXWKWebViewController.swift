@@ -42,6 +42,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     
     private var _sebWebView : SEBOSXWKWebView?
     private var webViewConfiguration: WKWebViewConfiguration?
+    private var wrapperView : NSView = NSView.init()
     
     public var sebWebView : SEBOSXWKWebView? {
         if _sebWebView == nil {
@@ -51,8 +52,6 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             let fullScreenPossible = navigationDelegate?.isAACEnabled ?? false
             webViewConfiguration?.preferences._setFullScreenEnabled(fullScreenPossible)
 //            webViewConfiguration?.preferences._setShouldAllowUserInstalledFonts(false) //ToDo: Test if this controls downloading fonts
-//            webViewConfiguration?.preferences._setDeveloperExtrasEnabled(UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole"))
-//            webViewConfiguration?.preferences._setAllowsPicture(inPictureMediaPlayback: fullScreenPossible && UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback"))
 
             DDLogDebug("WKWebViewConfiguration \(String(describing: webViewConfiguration))")
             _sebWebView = SEBOSXWKWebView.init(frame: .zero, configuration: webViewConfiguration!)
