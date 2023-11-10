@@ -207,10 +207,12 @@
     newWindowWebView.creatingWebView = nil;
     browserWindow.webView = newWindowWebView;
 
-    NSView *webView = newViewController.view;
-    [browserWindow.contentView addSubview:webView];
-    [browserWindow addConstraintsToWebView:webView];
-    
+    // Add wrapper view to contentView, which is necessary for WebInspector to not flicker
+    NSView *nativeWebView = newWindowWebView.nativeWebView;
+    NSView *webViewWrapper = [(NSView *)nativeWebView superview];
+    [browserWindow.contentView addSubview:webViewWrapper];
+    [browserWindow addConstraintsToWebView:webViewWrapper];
+
     [self addBrowserWindow:(SEBBrowserWindow *)browserWindow
                withWebView:newWindowWebView
                  withTitle:title];
