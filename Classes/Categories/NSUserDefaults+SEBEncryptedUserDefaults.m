@@ -590,6 +590,16 @@ static NSNumber *_logLevel;
 }
 
 
+- (void)removeSecureObjectForKey:(NSString *)keyToRemove
+{
+    if (_usePrivateUserDefaults) {
+        [privateUserDefaults removeObjectForKey:keyToRemove];
+    } else {
+        [self removeObjectForKey:keyToRemove];
+    }
+}
+
+
 // Remove all SEB key/values from local client UserDefaults
 - (void)resetSEBUserDefaults
 {

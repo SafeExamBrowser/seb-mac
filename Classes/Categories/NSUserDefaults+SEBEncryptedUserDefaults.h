@@ -134,6 +134,8 @@
 
 - (NSString *)prefixKey:(NSString *)key;
 
+- (void)removeSecureObjectForKey:(NSString *)key;
+
 - (void)resetSEBUserDefaults;
 // Helper Method to get SEB's NSRegistrationDomain and application domain UserDefaults
 - (NSDictionary *)getSEBUserDefaultsDomains;

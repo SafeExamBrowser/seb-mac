@@ -985,7 +985,18 @@
     
     // Save current settings including Browser Exam and Config Key and their salt values for the case saving fails
     SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
+    // When saving settings, keys will change
+    self.browserController.browserExamKey = nil;
+    self.browserController.configKey = nil;
 
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if ([preferences secureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"]) {
+        // Remove this outdated key (current version: allowWlan) as it messes up ConfigKey calculation
+        [preferences removeSecureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"];
+        // Force recalculating the ConfigKeyContainedKeys dictionary
+        [preferences setSecureObject:[NSDictionary dictionary] forKey:@"org_safeexambrowser_configKeyContainedKeys"];
+    }
+    
     /// Check if local client or private settings (UserDefauls) are active
     ///
     if (!NSUserDefaults.userDefaultsPrivate) {
@@ -1014,7 +1025,8 @@
         // Get the current filename
         currentConfigFileURL = [[MyGlobals sharedMyGlobals] currentConfigURL];
     }
-    
+    self.browserController.browserExamKeySalt = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+
     NSURL *prefsFileURL = currentConfigFileURL;
     if (configPurpose == sebConfigPurposeManagedConfiguration) {
         prefsFileURL = [prefsFileURL.URLByDeletingPathExtension URLByAppendingPathExtension:PlistFileExtension];
@@ -1027,7 +1039,7 @@
         panel.accessoryView = configPurpose == sebConfigPurposeManagedConfiguration ? nil : _sebController.savePanelAccessoryView;
         panel.delegate = self;
         
-        BOOL sharePlainTextConfig = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] || MyGlobals.sharedMyGlobals.currentConfigUncompressed;
+        BOOL sharePlainTextConfig = [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"] || MyGlobals.sharedMyGlobals.currentConfigUncompressed;
         _sebController.shareConfigUncompressedButton.state = sharePlainTextConfig;
         NSURL *directory = currentConfigFileURL.URLByDeletingLastPathComponent;
         NSString *directoryString = directory.relativePath;
@@ -1059,7 +1071,6 @@
     }
     
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
     [_sebController.shareConfigFormatPopUpButton selectItemAtIndex:shareConfigFormat];
     BOOL sharePlainTextConfig = _sebController.shareConfigUncompressedButton.state;
