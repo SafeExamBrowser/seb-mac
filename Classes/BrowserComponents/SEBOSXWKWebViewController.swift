@@ -66,6 +66,12 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
             let enableZoomPage = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage")
             _sebWebView?.allowsMagnification = enableZoomPage
             urlFilter = SEBURLFilter.shared()
+            
+            // Create wrapper view which is necessary for WebInspector to not flicker
+            wrapperView.autoresizingMask = [.width, .height]
+            wrapperView.autoresizesSubviews = true
+            wrapperView.addSubview(_sebWebView!)
+//            _sebWebView?.frame = wrapperView.bounds
         }
         return _sebWebView
     }
