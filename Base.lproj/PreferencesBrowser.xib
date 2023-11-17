@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="993"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="999"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="913" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="919" width="594" height="65"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -108,13 +108,13 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="817" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="821" width="616" height="88"/>
                                         <view key="contentView" id="sga-L4-DYG">
-                                            <rect key="frame" x="3" y="3" width="610" height="68"/>
+                                            <rect key="frame" x="4" y="5" width="608" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="585">
-                                                    <rect key="frame" x="152" y="35" width="90" height="25"/>
+                                                    <rect key="frame" x="150" y="36" width="91" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="87" id="646"/>
                                                     </constraints>
@@ -135,7 +135,7 @@
                                                     </connections>
                                                 </comboBox>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="586">
-                                                    <rect key="frame" x="106" y="41" width="40" height="16"/>
+                                                    <rect key="frame" x="105" y="40" width="40" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="587">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -143,7 +143,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="570">
-                                                    <rect key="frame" x="152" y="8" width="90" height="25"/>
+                                                    <rect key="frame" x="150" y="8" width="91" height="23"/>
                                                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="4" id="591">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -161,7 +161,7 @@
                                                     </connections>
                                                 </comboBox>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="571">
-                                                    <rect key="frame" x="101" y="14" width="45" height="16"/>
+                                                    <rect key="frame" x="100" y="12" width="45" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="590">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -169,7 +169,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="568">
-                                                    <rect key="frame" x="349" y="41" width="137" height="16"/>
+                                                    <rect key="frame" x="348" y="40" width="137" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="598">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -177,7 +177,7 @@
                                                     </textFieldCell>
                                                 </textField>
                                                 <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="569">
-                                                    <rect key="frame" x="489" y="34" width="109" height="25"/>
+                                                    <rect key="frame" x="488" y="33" width="109" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="593"/>
                                                     </constraints>
@@ -224,16 +224,16 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="663" width="616" height="148"/>
+                                        <rect key="frame" x="17" y="667" width="616" height="148"/>
                                         <view key="contentView" id="guQ-Yx-amA">
-                                            <rect key="frame" x="3" y="3" width="610" height="130"/>
+                                            <rect key="frame" x="4" y="5" width="608" height="128"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pHJ-3Q-4Y4">
-                                                    <rect key="frame" x="11" y="18" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="16" width="586" height="104"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="PeV-BM-OcJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="283" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="162" height="104"/>
@@ -314,7 +314,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YTY-Kk-vXI">
-                                                            <rect key="frame" x="304" y="0.0" width="284" height="104"/>
+                                                            <rect key="frame" x="303" y="0.0" width="283" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-Mb-8DU">
                                                                     <rect key="frame" x="0.0" y="0.0" width="263" height="104"/>
@@ -420,16 +420,16 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
-                                        <rect key="frame" x="20" y="539" width="610" height="118"/>
+                                        <rect key="frame" x="20" y="541" width="610" height="120"/>
                                         <subviews>
                                             <box title="Restrictions in Exam Window" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-y6-APQ">
-                                                <rect key="frame" x="-3" y="-4" width="301" height="122"/>
+                                                <rect key="frame" x="-3" y="-4" width="301" height="124"/>
                                                 <view key="contentView" id="t5L-OU-bkz">
-                                                    <rect key="frame" x="3" y="3" width="295" height="104"/>
+                                                    <rect key="frame" x="4" y="5" width="293" height="104"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="QLm-Mg-SlE">
-                                                            <rect key="frame" x="11" y="10" width="273" height="86"/>
+                                                            <rect key="frame" x="11" y="10" width="271" height="86"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="180">
                                                                     <rect key="frame" x="-2" y="69" width="125" height="18"/>
@@ -528,13 +528,13 @@
                                                 </view>
                                             </box>
                                             <box title="Restrictions in Additional Windows" translatesAutoresizingMaskIntoConstraints="NO" id="bgd-GA-QC3">
-                                                <rect key="frame" x="312" y="-4" width="301" height="122"/>
+                                                <rect key="frame" x="312" y="-4" width="301" height="124"/>
                                                 <view key="contentView" id="odU-rO-1OG">
-                                                    <rect key="frame" x="3" y="3" width="295" height="104"/>
+                                                    <rect key="frame" x="4" y="5" width="293" height="104"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="NYs-8N-FpT">
-                                                            <rect key="frame" x="11" y="10" width="273" height="86"/>
+                                                            <rect key="frame" x="11" y="10" width="271" height="86"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="z2i-c3-hed">
                                                                     <rect key="frame" x="-2" y="69" width="125" height="18"/>
@@ -652,16 +652,16 @@
                                         </customSpacing>
                                     </stackView>
                                     <box title="Media Playback/Capture" translatesAutoresizingMaskIntoConstraints="NO" id="u8M-48-HFC">
-                                        <rect key="frame" x="17" y="389" width="616" height="140"/>
+                                        <rect key="frame" x="17" y="389" width="616" height="142"/>
                                         <view key="contentView" id="X79-ym-XJE">
-                                            <rect key="frame" x="3" y="3" width="610" height="122"/>
+                                            <rect key="frame" x="4" y="5" width="608" height="122"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="kLQ-7r-lWn">
-                                                    <rect key="frame" x="11" y="10" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="10" width="586" height="104"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DrK-xB-gdR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="283" height="104"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-3j-b2T">
                                                                     <rect key="frame" x="-2" y="87" width="119" height="18"/>
@@ -740,7 +740,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="7kt-y8-7Rd">
-                                                            <rect key="frame" x="304" y="22" width="284" height="82"/>
+                                                            <rect key="frame" x="303" y="22" width="283" height="82"/>
                                                             <subviews>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
                                                                     <rect key="frame" x="-2" y="65" width="200" height="18"/>
@@ -823,13 +823,13 @@
                                         </constraints>
                                     </box>
                                     <box title="Select Browser Engine Policy" translatesAutoresizingMaskIntoConstraints="NO" id="QLJ-Tp-en0" userLabel="Select Browser Engine Policy">
-                                        <rect key="frame" x="17" y="259" width="616" height="124"/>
+                                        <rect key="frame" x="15" y="259" width="618" height="124"/>
                                         <view key="contentView" id="B8w-xq-Rtz">
-                                            <rect key="frame" x="3" y="3" width="610" height="106"/>
+                                            <rect key="frame" x="4" y="5" width="610" height="104"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-dg-Uhp">
-                                                    <rect key="frame" x="11" y="16" width="588" height="82"/>
+                                                    <rect key="frame" x="11" y="14" width="588" height="82"/>
                                                     <subviews>
                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VNp-U5-dS4">
                                                             <rect key="frame" x="-3" y="58" width="595" height="25"/>
@@ -892,11 +892,11 @@
                                     <box autoresizesSubviews="NO" borderType="line" title="User agent" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-lX-Woj">
                                         <rect key="frame" x="17" y="52" width="616" height="201"/>
                                         <view key="contentView" id="axo-2J-CZ8">
-                                            <rect key="frame" x="3" y="3" width="610" height="183"/>
+                                            <rect key="frame" x="4" y="5" width="608" height="181"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <popUpButton toolTip="Each SEB version/device type has separate user agent settings" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="UsO-tg-591">
-                                                    <rect key="frame" x="8" y="121" width="595" height="25"/>
+                                                    <rect key="frame" x="7" y="119" width="595" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -917,7 +917,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <tabView verticalCompressionResistancePriority="1000" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WH0-5V-GCS">
-                                                    <rect key="frame" x="11" y="12" width="588" height="105"/>
+                                                    <rect key="frame" x="10" y="10" width="588" height="105"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="105" id="rSZ-FD-lbj"/>
                                                     </constraints>
@@ -1360,7 +1360,7 @@
                                                     </connections>
                                                 </tabView>
                                                 <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
-                                                    <rect key="frame" x="127" y="153" width="470" height="22"/>
+                                                    <rect key="frame" x="127" y="151" width="468" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
                                                     </constraints>
@@ -1381,7 +1381,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
-                                                    <rect key="frame" x="9" y="156" width="112" height="16"/>
+                                                    <rect key="frame" x="9" y="154" width="112" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="User agent suffix:" id="0xK-SO-5d2">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1504,7 +1504,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99420289855072463" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99430199430199429" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
