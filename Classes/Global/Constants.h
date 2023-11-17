@@ -77,7 +77,8 @@
 #define SEBErrorParsingSettingsSerializingFailed 205
 #define SEBErrorOpeningUniversalLinkFailed 300
 
-#define SEBErrorKillProcessAlreadyTerminated -99
+#define SEBErrorKillProcessFailed -99
+#define SEBErrorKillProcessAlreadyTerminated -991
 
 #define SEBServerDefaultPingInterval 1000
 #define SEBServerDefaultFallbackTimeout 30000

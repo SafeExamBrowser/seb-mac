@@ -239,7 +239,7 @@
         NSRunningApplication *runningApplication = _runningApplications[i];
         NSString *runningApplicationName = runningApplication.localizedName;
         NSString *runningApplicationIdentifier = runningApplication.bundleIdentifier;
-        if ([runningApplication kill] == ERR_SUCCESS) {
+        if ([runningApplication kill]) {
             DDLogDebug(@"Running application %@ (%@) successfully force terminated", runningApplicationName, runningApplicationIdentifier);
             [_runningApplications removeObjectAtIndex:i];
         } else {
