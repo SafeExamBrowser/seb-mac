@@ -34,10 +34,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSRunningApplication (SEB)
 
 + (BOOL)killApplicationWithBundleIdentifier:(NSString *)bundleID;
 
-- (NSInteger)kill;
+- (BOOL)kill;
+
++ (BOOL)killProcessWithPID:(pid_t)processPID error:(NSError* _Nullable *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END
