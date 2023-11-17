@@ -41,27 +41,58 @@
 + (BOOL)killApplicationWithBundleIdentifier:(NSString *)bundleID
 {
     NSArray *runningApplicationInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier:bundleID];
-    BOOL success = false;
+    BOOL success = NO;
     if (runningApplicationInstances.count != 0) {
         for (NSRunningApplication *runningApplication in runningApplicationInstances) {
             DDLogWarn(@"Terminating %@", bundleID);
-            success = success || [runningApplication kill] == ERR_SUCCESS;
+            success = success || [runningApplication kill];
         }
     }
     return success;
 }
 
 
-- (NSInteger)kill
+- (BOOL)kill
 {
     if (!self.terminated) {
-        NSInteger success = (NSInteger)kill([self processIdentifier], 9);
+        BOOL success = [NSRunningApplication killProcessWithPID:[self processIdentifier] error:nil];
         DDLogVerbose(@"Success of terminating %@: %ld", self, (long)success);
         return success;
     } else {
-        return SEBErrorKillProcessAlreadyTerminated;
+        DDLogVerbose(@"Process %@ alread terminated", self);
+        return YES;
     }
 }
 
+
++ (BOOL)killProcessWithPID:(pid_t)processPID error:(NSError* _Nullable *)error
+{
+    NSInteger killSuccess = (NSInteger)kill(processPID, 9);
+    NSString *localizedDescription;
+    NSString *debugDescription;
+    if (killSuccess == ESRCH) {
+        debugDescription = @"No such process.";
+        DDLogError(@"Couldn't terminate process: %@", debugDescription);
+        return YES;
+    } else if (killSuccess == -1) {
+        debugDescription = [NSString stringWithFormat:@"kill(9) success: %ld, errno: %ld, stderr: %@", (long)killSuccess, (long)errno, stderr];
+        localizedDescription = debugDescription;
+        DDLogError(@"%@", debugDescription);
+    } else if (killSuccess != ERR_SUCCESS) {
+        debugDescription = [NSString stringWithFormat:@"kill(9) not successful: %ld, errno: %ld, stderr: %@", (long)killSuccess, (long)errno, stderr];
+        localizedDescription = debugDescription;
+        DDLogError(@"%@", debugDescription);
+    } else {
+        DDLogVerbose(@"killProcessWithPID:%d Successfully terminated process", (int)processPID);
+        return YES;
+    }
+    if (error) {
+        *error = [NSError errorWithDomain:sebErrorDomain
+                                           code:SEBErrorKillProcessFailed
+                                       userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Couldn't terminate process: %@", @""), localizedDescription],
+                                                  NSDebugDescriptionErrorKey : [NSString stringWithFormat:@"Couldn't terminate process: %@", debugDescription]}];
+    }
+    return NO;
+}
 
 @end
