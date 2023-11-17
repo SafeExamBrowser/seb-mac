@@ -1771,7 +1771,7 @@ bool insideMatrix(void);
                 }
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithIdentifier:bundleID];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
-                    if ([runningApplication kill] != ERR_SUCCESS) {
+                    if (![runningApplication kill]) {
                         [runningApplications addObject:runningApplication];
                     }
                 } else {
@@ -1788,7 +1788,7 @@ bool insideMatrix(void);
             if (filteredProcesses.count != 0) {
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
-                    if ((NSInteger)kill(processPID, 9) != ERR_SUCCESS) {
+                    if (![NSRunningApplication killProcessWithPID:processPID error:nil]) {
                         [runningProcesses addObject:process];
                     } else {
                         NSString *executablePath = [ProcessManager getExecutablePathForPID:processPID];
@@ -2892,24 +2892,24 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     // Check for running screen capture process
     if (!allowScreenCapture || _isAACEnabled) {
         NSDictionary *processDetails = nil;
-        NSInteger success = [self runningProcessCheckForName:screenCaptureAgent inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+        NSError *error = [self runningProcessCheckForName:screenCaptureAgent inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
         if (processDetails) {
-            DDLogDebug(@"Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
+            DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
         }
     }
     
     if (@available(macOS 13.0, *)) {
         if (!allowDictionaryLookup) {
             NSDictionary *processDetails = nil;
-            NSInteger success = [self runningProcessCheckForName:lookupQuicklookHelper inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+            NSError *error = [self runningProcessCheckForName:lookupQuicklookHelper inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
             if (processDetails) {
-                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
+                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
                 processDetails = nil;
             }
 
-            success = [self runningProcessCheckForName:lookupViewService inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+            error = [self runningProcessCheckForName:lookupViewService inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
             if (processDetails) {
-                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (code: %ld)", processDetails, success == 0 ? @"" : @"not ", (long)success);
+                DDLogDebug(@"Lookup is not allowed in settings: Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
             }
         }
     }
@@ -2932,18 +2932,18 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     checkingRunningProcesses = NO;
 }
 
-- (NSInteger)runningProcessCheckForName:(NSString *)name inRunningProcesses:(NSArray **)allRunningProcesses processDetails:(NSDictionary **)processDetails
+- (NSError *)runningProcessCheckForName:(NSString *)name inRunningProcesses:(NSArray **)allRunningProcesses processDetails:(NSDictionary **)processDetails
 {
     NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", name];
     NSArray *filteredProcesses = [*allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
 
-    NSInteger success = -1;
+    NSError *error = nil;
     if (filteredProcesses.count > 0) {
         *processDetails = filteredProcesses[0];
         NSNumber *PID = [*processDetails objectForKey:@"PID"];
-        success = [self killProcessWithPID:PID.intValue];
+        error = [self killProcessWithPID:PID.intValue];
     }
-    return success;
+    return error;
 }
 
 
@@ -3484,10 +3484,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 {
     NSArray *runningAirPlayAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.AirPlayUIAgent"];
     if (runningAirPlayAgents.count != 0) {
-        NSInteger killSuccess;
         for (NSRunningApplication *airPlayAgent in runningAirPlayAgents) {
             DDLogDebug(@"Terminating AirPlayUIAgent %@", airPlayAgent);
-            killSuccess = [airPlayAgent kill];
+            BOOL killSuccess = [airPlayAgent kill];
             DDLogVerbose(@"Success of terminating AirPlayUIAgent: %ld", (long)killSuccess);
         }
     }
@@ -3499,10 +3498,9 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *runningTouchBarAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:TouchBarAgent];
     if (runningTouchBarAgents.count != 0) {
         _touchBarDetected = YES;
-        NSInteger killSuccess;
         for (NSRunningApplication *touchBarAgent in runningTouchBarAgents) {
             DDLogDebug(@"Terminating TouchBarAgent %@", touchBarAgent);
-            killSuccess = [touchBarAgent kill];
+            BOOL killSuccess = [touchBarAgent kill];
             DDLogVerbose(@"Success of terminating TouchBarAgent: %ld", (long)killSuccess);
         }
     }
@@ -5030,14 +5028,14 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (NSInteger) killApplication:(NSRunningApplication *)application
+- (BOOL) killApplication:(NSRunningApplication *)application
 {
     NSString *appLocalizedName = application.localizedName;
-    appLocalizedName = appLocalizedName ? appLocalizedName : @"";
+    appLocalizedName = appLocalizedName ? appLocalizedName : application.executableURL.path;
     NSURL *appURL = [self getBundleOrExecutableURL:application];
     appURL = appURL ? appURL : NSURL.new;
     NSString *appBundleID = application.bundleIdentifier;
-    appBundleID = appBundleID ? appBundleID : @"";
+    appBundleID = appBundleID ? appBundleID : application.bundleURL.path;
     NSDictionary *processDetails = @{
         @"name" : appLocalizedName,
         @"PID" : [NSNumber numberWithInt:application.processIdentifier],
@@ -5045,8 +5043,8 @@ conditionallyForWindow:(NSWindow *)window
         @"bundleID" : appBundleID
     };
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
-        NSInteger killSuccess = [application kill];
-        if (killSuccess != ERR_SUCCESS && killSuccess != ESRCH && killSuccess != SEBErrorKillProcessAlreadyTerminated) { // ESRCH: No such process
+        BOOL killSuccess = [application kill];
+        if (!killSuccess) {
             DDLogError(@"Couldn't terminate app with localized name (error %ld): %@, bundle or executable URL: %@", (long)killSuccess, appLocalizedName, appURL);
             [_runningProhibitedProcesses addObject:processDetails];
             [[NSNotificationCenter defaultCenter]
@@ -5065,12 +5063,12 @@ conditionallyForWindow:(NSWindow *)window
         return killSuccess;
     } else {
         DDLogWarn(@"Didn't terminate app with localized name: %@, bundle or executable URL: %@, because a user did override it with the quit/unlock password.", appLocalizedName, appURL);
-        return ERR_SUCCESS;
+        return YES;
     }
 }
 
 
-- (NSInteger) killProcessWithPID:(pid_t)processPID
+- (NSError * _Nullable) killProcessWithPID:(pid_t)processPID
 {
     NSString * processName = [self getProcessName:processPID];
     NSDictionary *processDetails = @{
@@ -5081,7 +5079,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (NSInteger) killProcess:(NSDictionary *)processDictionary
+- (NSError * _Nullable) killProcess:(NSDictionary *)processDictionary
 {
     NSNumber *PID = [processDictionary objectForKey:@"PID"];
     pid_t processPID = PID.intValue;
@@ -5106,31 +5104,26 @@ conditionallyForWindow:(NSWindow *)window
         [processDetails setValue:appURL forKey:@"URL"];
     }
 
-    NSInteger killSuccess = ERR_SUCCESS;
+    NSError *error = nil;
     if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
-        killSuccess = (NSInteger)kill(processPID, 9);
-        if (killSuccess == ESRCH) {
-            DDLogError(@"Couldn't terminate application/process: %@, error code: %ld (no such process)", processDetails, (long)killSuccess);
-        } else if (killSuccess == SEBErrorKillProcessAlreadyTerminated) {
-            DDLogDebug(@"Couldn't terminate application/process: %@, error code: %ld (process already terminated)", processDetails, (long)killSuccess);
-
-        } else if (killSuccess != ERR_SUCCESS) {
+        BOOL killSuccess = [NSRunningApplication killProcessWithPID:processPID error:&error];
+        if (killSuccess) {
+            DDLogDebug(@"Successfully terminated application/process: %@", processDetails);
+            if (appURL) {
+                [_terminatedProcessesExecutableURLs addObject:appURL];
+            }
+        } else {
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
             if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
                 [_runningProhibitedProcesses addObject:processDetails.copy];
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"detectedProhibitedProcess" object:self];
             }
-        } else {
-            DDLogDebug(@"Successfully terminated application/process: %@", processDetails);
-            if (appURL) {
-                [_terminatedProcessesExecutableURLs addObject:appURL];
-            }
         }
     } else {
         DDLogWarn(@"Didn't terminate app with localized name '%@' or process with bundle or executable URL '%@', because a user did override it with the quit/unlock password.", application.localizedName, appURL);
     }
-    return killSuccess;
+    return error;
 }
 
 
