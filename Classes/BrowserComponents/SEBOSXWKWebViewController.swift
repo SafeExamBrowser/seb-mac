@@ -96,6 +96,7 @@ public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNaviga
     public func closeWKWebView() {
         _sebWebView?.removeObserver(self, forKeyPath: #keyPath(WKWebView.title))
         _sebWebView?.removeFromSuperview()
+        wrapperView.removeFromSuperview()
         _sebWebView = nil
     }
     
