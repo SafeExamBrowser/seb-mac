@@ -299,8 +299,8 @@
         [super sendEvent:theEvent];
     } else {
         // Allow right mouse button/context menu according to setting
-        // This is the only way how to block the context menu in browser plugins
-        // and video players etc. (not on regular website elements)
+        // This is the only way how to block the context menu in WKWebView,
+        // browser plugins and video players etc. (not on regular website elements in classic WebView)
         if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableRightMouseMac"]) {
             [super sendEvent:theEvent];
         }
