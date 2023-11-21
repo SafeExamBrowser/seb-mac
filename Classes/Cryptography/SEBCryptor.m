@@ -230,26 +230,28 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                         newChecksum:(NSData **)newChecksumPtr
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Get current salt for exam key
-    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
-        
+    DDLogDebug(@"[SEBCryptor updateEncryptedUserDefaults:%d, generateNewSalt:%d newChecksum]", updateUserDefaults, generateNewSalt);
+
     // Only calculate Config Key when UserDefaults should actually be updated
     // Otherwise this method is only used to check if settings changed,
     // then we can save time as the Config Key isn't relevant in this case
     if (updateUserDefaults) {
-        BOOL noSaltDefined = [HMACKey isEqualToData:[NSData data]];
-        if (generateNewSalt || noSaltDefined) {
-            HMACKey = [self generateExamKeySalt];
-            if (noSaltDefined) {
-                DDLogInfo(@"Generated Browser Exam Key salt as there was none defined yet.");
-            }
-            // Force recalculating Config Key
-            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+        if (generateNewSalt) {
+            // Force generating a new Config Key Salt
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_configKeySalt"];
+            DDLogInfo(@"Force generating ConfigKey salt as there was none defined yet.");
         }
-        [self updateConfigKey];
     }
     
+    // Get current salt for exam key
+    NSData *HMACKey = [preferences secureDataForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    // If there was no salt yet, then we generate it in any case
+    if ([HMACKey isEqualToData:[NSData data]]) {
+        [self generateExamKeySalt];
+
+        DDLogInfo(@"Generated BrowserExamKey salt as there was none defined yet.");
+    }
+        
     // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
     NSSet *filteredPrefsSet = [preferences sebKeysSet];
     NSMutableDictionary *filteredPrefsDict = [NSMutableDictionary dictionaryWithCapacity:[filteredPrefsSet count]];
@@ -296,13 +298,21 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 
     // If both Keys are not the same, then settings changed
     if (![currentBrowserExamKey isEqualToData:HMACData]) {
+        DDLogInfo(@"Settings changed.");
+        // If we're supposed to, generate a new exam key salt
         if (generateNewSalt) {
-            DDLogInfo(@"Generated Browser Exam Key salt because of saving modified settings.");
+            HMACKey = [self generateExamKeySalt];
+            // Update salt in the filtered prefs directory
+            [filteredPrefsDict setObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+            // Generate new Browser Exam Key using new salt
+            HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
         }
-        // If we're supposed to, generate new Browser Exam Key and store it in settings
+        // If we're supposed to, store the new Browser Exam Key in settings
         if (updateUserDefaults) {
             // Store new exam key in UserDefaults
             [preferences setSecureObject:HMACData forKey:@"org_safeexambrowser_currentData"];
+            [self updateConfigKey];
+            DDLogInfo(@"Updated ConfigKey.");
         }
         // Return value: Checksum changed
         return YES;
