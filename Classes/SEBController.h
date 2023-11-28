@@ -73,6 +73,7 @@
 
 #import "SEBZoomController.h"
 
+@class SEBOSXSessionState;
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
@@ -180,6 +181,7 @@
 - (void) firstDOMElementDeselected;
 - (void) lastDOMElementDeselected;
 
+@property(strong, nonatomic) SEBOSXSessionState *sessionState;
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
@@ -242,6 +244,7 @@
 @property(strong) NSDate *didResignActiveTime;
 @property(strong) NSDate *didBecomeActiveTime;
 @property(strong) NSDate *didResumeExamTime;
+
 @property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 @property(readwrite) BOOL isAACEnabled;
@@ -249,23 +252,9 @@
 @property(readwrite) BOOL wasAACEnabled;
 @property(readwrite) BOOL allowSwitchToApplications;
 
-@property(readwrite) BOOL reOpenedExamDetected;
-@property(readwrite) BOOL userSwitchDetected;
-@property(readwrite) BOOL screenSharingDetected;
-@property(readwrite) BOOL screenSharingCheckOverride;
-@property(readwrite) BOOL processesDetected;
-@property(readwrite) BOOL processCheckSpecificOverride;
-@property(readwrite) BOOL processCheckAllOverride;
-@property(readwrite) BOOL siriDetected;
-@property(readwrite) BOOL siriCheckOverride;
-@property(readwrite) BOOL dictationCheckOverride;
-@property(readwrite) BOOL dictationDetected;
 @property(readwrite) BOOL SIGSTOPDetected;
-@property(readwrite) BOOL noRequiredBuiltInScreenAvailable;
-@property(readwrite) BOOL builtinDisplayNotAvailableDetected;
-@property(readwrite) BOOL builtinDisplayEnforceOverride;
+@property(readonly) BOOL noRequiredBuiltInScreenAvailable;
 @property(readwrite) BOOL touchBarDetected;
-@property(readwrite) BOOL proctoringFailedDetected;
 
 @property(readwrite) BOOL f3Pressed;
 @property(readwrite) BOOL alternateKeyPressed;
@@ -301,7 +290,6 @@
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
 @property(strong, nonatomic) NSMutableSet *terminatedProcessesExecutableURLs;
-@property(strong, nonatomic) NSMutableArray *overriddenProhibitedProcesses;
 
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;

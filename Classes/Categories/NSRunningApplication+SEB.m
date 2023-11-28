@@ -75,11 +75,11 @@
         DDLogError(@"Couldn't terminate process: %@", debugDescription);
         return YES;
     } else if (killSuccess == -1) {
-        debugDescription = [NSString stringWithFormat:@"kill(9) success: %ld, errno: %ld, stderr: %@", (long)killSuccess, (long)errno, stderr];
+        debugDescription = [NSString stringWithFormat:@"kill(9) success: %ld, errno: %ld, error: %s", (long)killSuccess, (long)errno, strerror(errno)];
         localizedDescription = debugDescription;
         DDLogError(@"%@", debugDescription);
     } else if (killSuccess != ERR_SUCCESS) {
-        debugDescription = [NSString stringWithFormat:@"kill(9) not successful: %ld, errno: %ld, stderr: %@", (long)killSuccess, (long)errno, stderr];
+        debugDescription = [NSString stringWithFormat:@"kill(9) not successful: %ld, errno: %ld, error: %s", (long)killSuccess, (long)errno, strerror(errno)];
         localizedDescription = debugDescription;
         DDLogError(@"%@", debugDescription);
     } else {
