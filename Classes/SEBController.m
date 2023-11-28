@@ -134,6 +134,15 @@ bool insideMatrix(void);
 @synthesize lockdownWindows;
 
 
+- (SEBOSXSessionState *) sessionState
+{
+    if (!_sessionState) {
+        _sessionState = [[SEBOSXSessionState alloc] init];
+    }
+    return _sessionState;
+}
+
+
 - (SEBOSXConfigFileController *) configFileController
 {
     if (!_configFileController) {
@@ -3082,7 +3091,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *allRunningProcesses = [self.runningProcesses copy];
     
     // Check for activated screen sharing if settings demand it
-    if (!_isAACEnabled && _wasAACEnabled == NO && !allowScreenSharing && !_screenSharingCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !allowScreenSharing && !self.sessionState.screenSharingCheckOverride &&
         ([allRunningProcesses containsProcessObject:screenSharingAgent] ||
          [allRunningProcesses containsProcessObject:AppleVNCAgent])) {
             [[NSNotificationCenter defaultCenter]
@@ -3091,7 +3100,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // Check for activated Siri if settings demand it
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowSiri && !_siriCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowSiri && !self.sessionState.siriCheckOverride &&
         [allRunningProcesses containsProcessObject:SiriService] &&
         [[preferences valueForDefaultsDomain:SiriDefaultsDomain key:SiriDefaultsKey] boolValue]) {
             [[NSNotificationCenter defaultCenter]
@@ -3099,7 +3108,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         }
     
     // Check for activated dictation if settings demand it
-    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowDictation && !_dictationCheckOverride &&
+    if (!_isAACEnabled && _wasAACEnabled == NO && !_startingUp && !allowDictation && !self.sessionState.dictationCheckOverride &&
         [allRunningProcesses containsProcessObject:DictationProcess] &&
         ([[preferences valueForDefaultsDomain:DictationDefaultsDomain key:DictationDefaultsKey] boolValue] ||
          [[preferences valueForDefaultsDomain:RemoteDictationDefaultsDomain key:RemoteDictationDefaultsKey] boolValue])) {
@@ -3342,7 +3351,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     DDLogDebug(@"All available screens: %@", screens);
     
     // Check if the the built-in display should be the main display according to settings
-    self.noRequiredBuiltInScreenAvailable = NO;
+    self.sessionState.noRequiredBuiltInScreenAvailable = NO;
     if (useBuiltin) {
         DDLogInfo(@"Use built-in option set, using display with ID %u", builtinDisplay);
         // we find the matching main screen
@@ -3362,10 +3371,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             // A built-in display is required, but not available!
             // We still have to find a main display in case of a manual override
             // of the allowedDisplayBuiltinEnforce = true setting
-            self.noRequiredBuiltInScreenAvailable = YES;
-        } else if (mainScreen && self.builtinDisplayNotAvailableDetected) {
+            self.sessionState.noRequiredBuiltInScreenAvailable = YES;
+        } else if (mainScreen && self.sessionState.builtinDisplayNotAvailableDetected == YES) {
             // Now there is again a built-in display available
-            // lockscreen might be closed (if no other lock reason active)
+            // lock screen might be closed (if no other lock reason active)
+            DDLogInfo(@"Built-in display is again available, lock screen might be closed.");
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedRequiredBuiltinDisplayMissing" object:self];
         }
@@ -3414,10 +3424,17 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     DDLogInfo(@"Move all browser windows to new main screen %@.", mainScreen);
     [self.browserController moveAllBrowserWindowsToScreen:mainScreen];
     
-    if (self.noRequiredBuiltInScreenAvailable) {
+    if (self.sessionState.noRequiredBuiltInScreenAvailable) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"detectedRequiredBuiltinDisplayMissing" object:self];
     }
+}
+
+
+- (BOOL) noRequiredBuiltInScreenAvailable
+{
+    DDLogDebug(@"%s %d", __FUNCTION__, self.sessionState.noRequiredBuiltInScreenAvailable);
+    return self.sessionState.noRequiredBuiltInScreenAvailable;
 }
 
 
@@ -4215,7 +4232,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) lockSEB:(NSNotification*) notification
 {
     self.didBecomeActiveTime = [NSDate date];
-    
+    DDLogDebug(@"lockSEB: %@", notification.name);
+        
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // Handler called when SEB resigns active state (by user switch / switch to login window)
@@ -4224,7 +4242,7 @@ conditionallyForWindow:(NSWindow *)window
              NSWorkspaceSessionDidResignActiveNotification])
         {
             self.didResignActiveTime = [NSDate date];
-            self.userSwitchDetected = YES;
+            self.sessionState.userSwitchDetected = YES;
             
             // Set alert title and message strings
             [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"User Switch Locked %@!", @"Lockdown alert title text for switching the user"), SEBShortAppName]
@@ -4266,7 +4284,7 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedReOpeningExam"])
         {
-            self.reOpenedExamDetected = YES;
+            self.sessionState.reOpenedExamDetected = YES;
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
@@ -4285,10 +4303,10 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedScreenSharing"])
         {
-            if (!self.screenSharingDetected) {
-                self.screenSharingDetected = true;
-                self.sebLockedViewController.overrideCheckForScreenSharing.state = false;
-                self.sebLockedViewController.overrideCheckForScreenSharing.hidden = false;
+            if (!self.sessionState.screenSharingDetected) {
+                self.sessionState.screenSharingDetected = YES;
+                self.sebLockedViewController.overrideCheckForScreenSharing.state = NO;
+                self.sebLockedViewController.overrideCheckForScreenSharing.hidden = NO;
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle: [NSString stringWithFormat:NSLocalizedString(@"Screen Sharing Locked %@!", @"Lockdown alert title text for screen sharing"), SEBShortAppName]
@@ -4301,7 +4319,7 @@ conditionallyForWindow:(NSWindow *)window
                 self->screenSharingLogCounter = logReportCounter;
                 DDLogError(@"Screen sharing was activated!");
                 
-                if (self.screenSharingCheckOverride == false) {
+                if (self.sessionState.screenSharingCheckOverride == NO) {
                     [self openLockdownWindows];
                 }
                 
@@ -4325,10 +4343,10 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedSiri"])
         {
-            if (!self.siriDetected) {
-                self.siriDetected = true;
-                self.sebLockedViewController.overrideCheckForSiri.state = false;
-                self.sebLockedViewController.overrideCheckForSiri.hidden = false;
+            if (!self.sessionState.siriDetected) {
+                self.sessionState.siriDetected = YES;
+                self.sebLockedViewController.overrideCheckForSiri.state = NO;
+                self.sebLockedViewController.overrideCheckForSiri.hidden = NO;
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Siri Locked %@!", @"Lockdown alert title text for Siri"), SEBShortAppName]
@@ -4338,7 +4356,7 @@ conditionallyForWindow:(NSWindow *)window
                 self->siriLogCounter = logReportCounter;
                 DDLogError(@"Siri activity detected!");
                 
-                if (self.siriCheckOverride == false) {
+                if (self.sessionState.siriCheckOverride == NO) {
                     [self openLockdownWindows];
                 }
                 
@@ -4362,10 +4380,10 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedDictation"])
         {
-            if (!self.dictationDetected) {
-                self.dictationDetected = true;
-                self.sebLockedViewController.overrideCheckForDictation.state = false;
-                self.sebLockedViewController.overrideCheckForDictation.hidden = false;
+            if (!self.sessionState.dictationDetected) {
+                self.sessionState.dictationDetected = YES;
+                self.sebLockedViewController.overrideCheckForDictation.state = NO;
+                self.sebLockedViewController.overrideCheckForDictation.hidden = NO;
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Dictation Locked %@!", @"Lockdown alert title text for Siri"), SEBShortAppName]
@@ -4375,7 +4393,7 @@ conditionallyForWindow:(NSWindow *)window
                 self->dictationLogCounter = logReportCounter;
                 DDLogError(@"Dictation was activated!");
                 
-                if (self.dictationCheckOverride == false) {
+                if (self.sessionState.dictationCheckOverride == NO) {
                     [self openLockdownWindows];
                 }
                 
@@ -4399,32 +4417,43 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedProhibitedProcess"])
         {
-            if (!self.processesDetected) {
-                self.processesDetected = true;
-                self.sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-                self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-                self.sebLockedViewController.overrideCheckForAllProcesses.state = false;
-                self.sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+            if (!self.sessionState.processesDetected) {
+                self.sessionState.processesDetected = YES;
+                self.sebLockedViewController.overrideCheckForSpecifcProcesses.state = NO;
+                self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = NO;
+                self.sebLockedViewController.overrideCheckForAllProcesses.state = NO;
+                self.sebLockedViewController.overrideCheckForAllProcesses.hidden = NO;
                 
                 // Set custom alert message string
                 [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Prohibited Process Locked %@!", @"Lockdown alert title text for prohibited process"), SEBShortAppName]
-                                                            Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.", @""), SEBShortAppName]];
+                                                            Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.", @""), SEBShortAppName]];
                 
                 // Report processes are still active every 3rd second
                 self->prohibitedProcessesLogCounter = logReportCounter;
                 DDLogError(@"Prohibited processes detected: %@", self.runningProhibitedProcesses);
                 
-                if (self.processCheckAllOverride == false) {
-                    [self openLockdownWindows];
-                }
-                if (self.overriddenProhibitedProcesses.count > 0) {
+                if (self.sessionState.processCheckAllOverride != YES) {
+                    if (self.sessionState.overriddenProhibitedProcesses.count > 0) {
+                        // If checking of some processes was overriden, check if newly reported processes are overridden
+                        for (NSDictionary* runningProhibitedProcess in self.runningProhibitedProcesses) {
+                            if (![self isOverriddenProhibitedProcess:runningProhibitedProcess]) {
+                                // Check for newly reported prohibited process was not overridden before: Open lock screen
+                                DDLogDebug(@"Check for running prohibited process %@ was not overridden before", runningProhibitedProcess);
+                                [self openLockdownWindows];
+                                break;
+                            }
+                        }
+                    } else {
+                        // Now previously overridden processes: Open lock screen
+                        [self openLockdownWindows];
+                    }
                 }
                 // Add log string for prohibited process detected
                 [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", @""), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime repeated:NO];
             } else {
                 if (!self.lockdownWindows) {
-                    self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = false;
-                    self.sebLockedViewController.overrideCheckForAllProcesses.hidden = false;
+                    self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = NO;
+                    self.sebLockedViewController.overrideCheckForAllProcesses.hidden = NO;
                     [self openLockdownWindows];
                 }
                 // Add log string for detected prohibited process
@@ -4465,7 +4494,7 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedRequiredBuiltinDisplayMissing"])
         {
-            if (!self.builtinDisplayNotAvailableDetected) {
+            if (self.sessionState.builtinDisplayNotAvailableDetected == NO) {
                 if (![self.preferencesController preferencesAreOpen] && !self.openingSettings) {
                     // Don't display the alert or lock screen while opening new settings
                     if ((self.startingUp || self.restarting)) {
@@ -4482,8 +4511,8 @@ conditionallyForWindow:(NSWindow *)window
                         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))vmDetectedHandler];
                         return;
                     }
-                    self.builtinDisplayNotAvailableDetected = true;
-                    if (self.builtinDisplayEnforceOverride == false && ![self.preferencesController preferencesAreOpen]) {
+                    self.sessionState.builtinDisplayNotAvailableDetected = YES;
+                    if (self.sessionState.builtinDisplayEnforceOverride == NO && ![self.preferencesController preferencesAreOpen]) {
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
                         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
@@ -4491,19 +4520,21 @@ conditionallyForWindow:(NSWindow *)window
                     }
                     [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"No built-in display available, although required in settings!", @"")] withTime:self.didBecomeActiveTime repeated:NO];
                     
-                    if (self.builtinDisplayEnforceOverride == false) {
+                    if (self.sessionState.builtinDisplayEnforceOverride == NO) {
                         [self openLockdownWindows];
                     }
                 }
             } else {
-                if (self.noRequiredBuiltInScreenAvailable == false) {
+                DDLogDebug(@"%s: self.sessionState.builtinDisplayNotAvailableDetected == YES", __FUNCTION__);
+                if (self.sessionState.noRequiredBuiltInScreenAvailable == NO) {
+                    DDLogDebug(@"%s: self.sessionState.noRequiredBuiltInScreenAvailable == NO", __FUNCTION__);
                     // Previously there was no built-in display detected and SEB locked, now there is one available
                     // this can happen on a MacBook when the display lid was closed and now opened again
                     // if there was no previous lock message, we can close the lockdown screen
-                    self.builtinDisplayNotAvailableDetected = false;
-                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+                    self.sessionState.builtinDisplayNotAvailableDetected = NO;
+                    self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = YES;
                     DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, self.sebLockedViewController, (long)self.sebLockedViewController.quitInsteadUnlockingButton.state);
-                    self.sebLockedViewController.quitInsteadUnlockingButton.state = false;
+                    self.sebLockedViewController.quitInsteadUnlockingButton.state = NO;
                     DDLogDebug(@"%s: _sebLockedViewController.quitInsteadUnlockingButton.state: %ld", __FUNCTION__, (long)self.sebLockedViewController.quitInsteadUnlockingButton.state);
                     [self conditionallyCloseLockdownWindows];
                 }
@@ -4515,7 +4546,7 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"proctoringFailed"])
         {
-            self.proctoringFailedDetected = YES;
+            self.sessionState.proctoringFailedDetected = YES;
             // Set custom alert message string
             NSString *proctoringFailedErrorString = [notification.userInfo objectForKey:NSLocalizedFailureReasonErrorKey];
             [self.sebLockedViewController setLockdownAlertTitle:[NSString stringWithFormat:NSLocalizedString(@"Proctoring Error Locked %@!", @"Lockdown alert title text for proctoring failure"), SEBShortAppName]
@@ -4629,7 +4660,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) successfullyRetriedToConnect
 {
-    _proctoringFailedDetected = NO;
+    self.sessionState.proctoringFailedDetected = NO;
     [self conditionallyCloseLockdownWindows];
 }
 
@@ -4651,8 +4682,8 @@ conditionallyForWindow:(NSWindow *)window
         _sebLockedViewController.overrideCheckForDictation.hidden &&
         _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden &&
         _sebLockedViewController.overrideCheckForAllProcesses.hidden &&
-        !_proctoringFailedDetected &&
-        !_userSwitchDetected) {
+        !self.sessionState.proctoringFailedDetected &&
+        !self.sessionState.userSwitchDetected) {
         DDLogDebug(@"%s: close lockdown windows", __FUNCTION__);
         [self closeLockdownWindowsAllowOverride:YES];
     }
@@ -4665,84 +4696,84 @@ conditionallyForWindow:(NSWindow *)window
 
         [NSApp endModalSession:lockdownModalSession];
 
-        if (_sebLockedViewController.overrideCheckForScreenSharing.state == true) {
+        if (_sebLockedViewController.overrideCheckForScreenSharing.state == YES) {
             DDLogInfo(@"%s: overrideCheckForScreenSharing selected", __FUNCTION__);
-            _screenSharingCheckOverride = allowOverride;
-            _sebLockedViewController.overrideCheckForScreenSharing.state = false;
-            _sebLockedViewController.overrideCheckForScreenSharing.hidden = true;
+            self.sessionState.screenSharingCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForScreenSharing.state = NO;
+            _sebLockedViewController.overrideCheckForScreenSharing.hidden = YES;
         }
 
-        if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == true) {
+        if (_sebLockedViewController.overrideEnforcingBuiltinScreen.state == YES) {
             DDLogInfo(@"%s: overrideEnforcingBuiltinScreen selected", __FUNCTION__);
             if (allowOverride) {
-                _builtinDisplayEnforceOverride = true;
-                _builtinDisplayNotAvailableDetected = false;
+                self.sessionState.builtinDisplayEnforceOverride = YES;
+                self.sessionState.builtinDisplayNotAvailableDetected = NO;
             }
-            _sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
-            _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = true;
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.state = NO;
+            _sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = YES;
         }
 
-        if (_sebLockedViewController.overrideCheckForSiri.state == true) {
+        if (_sebLockedViewController.overrideCheckForSiri.state == YES) {
             DDLogInfo(@"%s: overrideCheckForSiri selected", __FUNCTION__);
-            _siriCheckOverride = allowOverride;
-            _sebLockedViewController.overrideCheckForSiri.state = false;
-            _sebLockedViewController.overrideCheckForSiri.hidden = true;
+            self.sessionState.siriCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForSiri.state = NO;
+            _sebLockedViewController.overrideCheckForSiri.hidden = YES;
         }
         
-        if (_sebLockedViewController.overrideCheckForDictation.state == true) {
+        if (_sebLockedViewController.overrideCheckForDictation.state == YES) {
             DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-            _dictationCheckOverride = allowOverride;
-            _sebLockedViewController.overrideCheckForDictation.state = false;
-            _sebLockedViewController.overrideCheckForDictation.hidden = true;
+            self.sessionState.dictationCheckOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForDictation.state = NO;
+            _sebLockedViewController.overrideCheckForDictation.hidden = YES;
         }
         
-        if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == true) {
+        if (_sebLockedViewController.overrideCheckForSpecifcProcesses.state == YES) {
             DDLogInfo(@"%s: overrideCheckForSpecifcProcesses selected", __FUNCTION__);
             if (allowOverride) {
-                _processCheckSpecificOverride = true;
+                self.sessionState.processCheckSpecificOverride = YES;
                 if (_runningProhibitedProcesses.count > 0) {
-                    if (!_overriddenProhibitedProcesses) {
-                        _overriddenProhibitedProcesses = _runningProhibitedProcesses.mutableCopy;
+                    if (!self.sessionState.overriddenProhibitedProcesses) {
+                        self.sessionState.overriddenProhibitedProcesses = _runningProhibitedProcesses.copy;
                     } else {
-                        [_overriddenProhibitedProcesses addObjectsFromArray:_runningProhibitedProcesses];
+                        [self.sessionState.overriddenProhibitedProcesses arrayByAddingObjectsFromArray:_runningProhibitedProcesses];
                     }
                     // Check if overridden processes are prohibited BSD processes from settings
-                    // and remove them from list the periodically called process watcher checks
-                    [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:_overriddenProhibitedProcesses];
-                    DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, _overriddenProhibitedProcesses);
+                    // and remove them from the list of the periodically called process watcher checks
+                    [[ProcessManager sharedProcessManager] removeOverriddenProhibitedBSDProcesses:self.sessionState.overriddenProhibitedProcesses];
+                    DDLogInfo(@"%s: overrideCheckForSpecifcProcesses: %@", __FUNCTION__, self.sessionState.overriddenProhibitedProcesses);
                 }
             }
-            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = false;
-            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = true;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.state = NO;
+            _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = YES;
         }
         
-        if (_sebLockedViewController.overrideCheckForAllProcesses.state == true) {
+        if (_sebLockedViewController.overrideCheckForAllProcesses.state == YES) {
             DDLogInfo(@"%s: overrideCheckForAllProcesses selected", __FUNCTION__);
-            _processCheckAllOverride = allowOverride;
-            _sebLockedViewController.overrideCheckForAllProcesses.state = false;
-            _sebLockedViewController.overrideCheckForAllProcesses.hidden = true;
+            self.sessionState.processCheckAllOverride = allowOverride;
+            _sebLockedViewController.overrideCheckForAllProcesses.state = NO;
+            _sebLockedViewController.overrideCheckForAllProcesses.hidden = YES;
         }
         
-        if (_screenSharingCheckOverride == false) {
-            _screenSharingDetected = false;
+        if (self.sessionState.screenSharingCheckOverride == NO) {
+            self.sessionState.screenSharingDetected = NO;
         }
         lastTimeProcessCheck = [NSDate date];
-        _SIGSTOPDetected = false;
+        _SIGSTOPDetected = NO;
         
         if (allowOverride) {
             DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
-            if (_sebLockedViewController.quitInsteadUnlockingButton.state == true) {
+            if (_sebLockedViewController.quitInsteadUnlockingButton.state == YES) {
                 DDLogInfo(@"%s: overrideCheckForDictation selected", __FUNCTION__);
-                _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+                _sebLockedViewController.quitInsteadUnlockingButton.state = NO;
                 [self quitSEBOrSession];
             }
         } else {
-            _sebLockedViewController.quitInsteadUnlockingButton.state = false;
+            _sebLockedViewController.quitInsteadUnlockingButton.state = NO;
         }
 
-        _proctoringFailedDetected = NO;
+        self.sessionState.proctoringFailedDetected = NO;
         _zoomUserRetryWasUsed = NO;
-        _userSwitchDetected = NO;
+        self.sessionState.userSwitchDetected = NO;
         _sebLockedViewController.retryButton.hidden = YES;
         if (self.sebServerPendingLockscreenEvents.count > 0) {
             [self.serverController confirmLockscreensWithUIDs:self.sebServerPendingLockscreenEvents.copy];
@@ -4817,36 +4848,36 @@ conditionallyForWindow:(NSWindow *)window
     informationHUDLabel.textColor = [NSColor whiteColor];
     NSMutableString *informationText = [NSMutableString stringWithString:(lockedTimeInfo)];
     
-    if (_reOpenedExamDetected) {
+    if (self.sessionState.reOpenedExamDetected) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Previously interrupted exam was re-opened!", @"")]];
-        _reOpenedExamDetected = false;
+        self.sessionState.reOpenedExamDetected = NO;
     }
     
-    if (_screenSharingCheckOverride) {
+    if (self.sessionState.screenSharingCheckOverride) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Detecting screen sharing was disabled!", @"")]];
     }
     
-    if (_siriCheckOverride) {
+    if (self.sessionState.siriCheckOverride) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Detecting Siri was disabled!", @"")]];
     }
     
-    if (_dictationCheckOverride) {
+    if (self.sessionState.dictationCheckOverride) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Detecting dictation was disabled!", @"")]];
     }
     
-    if (_processCheckAllOverride) {
+    if (self.sessionState.processCheckAllOverride) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Detecting processes was completely disabled!", @"")]];
-    } else if (_processCheckSpecificOverride) {
+    } else if (self.sessionState.processCheckSpecificOverride) {
         informationHUDLabel.textColor = [NSColor redColor];
         [informationText appendString:[NSString stringWithFormat:@"\n\n%@",
                                        NSLocalizedString(@"Detecting specific processes was disabled!", @"")]];
@@ -5042,7 +5073,7 @@ conditionallyForWindow:(NSWindow *)window
         @"URL": appURL,
         @"bundleID" : appBundleID
     };
-    if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
+    if (!self.sessionState.processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         BOOL killSuccess = [application kill];
         if (!killSuccess) {
             DDLogError(@"Couldn't terminate app with localized name (error %ld): %@, bundle or executable URL: %@", (long)killSuccess, appLocalizedName, appURL);
@@ -5086,7 +5117,7 @@ conditionallyForWindow:(NSWindow *)window
     
     NSRunningApplication *application = [NSRunningApplication runningApplicationWithProcessIdentifier:processPID];
     NSURL *appURL = processDictionary[@"URL"];
-    NSMutableDictionary *processDetails = processDictionary.mutableCopy;
+    NSMutableDictionary *processDetails = [NSMutableDictionary new];
     NSString *processName = processDictionary[@"name"];
     if (processName) {
         [processDetails setValue:processName forKey:@"name"];
@@ -5105,7 +5136,7 @@ conditionallyForWindow:(NSWindow *)window
     }
 
     NSError *error = nil;
-    if (!_processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
+    if (!self.sessionState.processCheckAllOverride && ![self isOverriddenProhibitedProcess:processDetails]) {
         BOOL killSuccess = [NSRunningApplication killProcessWithPID:processPID error:&error];
         if (killSuccess) {
             DDLogDebug(@"Successfully terminated application/process: %@", processDetails);
@@ -5116,9 +5147,9 @@ conditionallyForWindow:(NSWindow *)window
             DDLogError(@"Couldn't terminate application/process: %@, error code: %ld", processDetails, (long)killSuccess);
             if (![_runningProhibitedProcesses containsObject:processDetails.copy]) {
                 [_runningProhibitedProcesses addObject:processDetails.copy];
-                [[NSNotificationCenter defaultCenter]
-                 postNotificationName:@"detectedProhibitedProcess" object:self];
             }
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"detectedProhibitedProcess" object:self];
         }
     } else {
         DDLogWarn(@"Didn't terminate app with localized name '%@' or process with bundle or executable URL '%@', because a user did override it with the quit/unlock password.", application.localizedName, appURL);
@@ -5129,8 +5160,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (BOOL) isOverriddenProhibitedProcess:(NSDictionary *)processDetails
 {
-    if (_overriddenProhibitedProcesses) {
-        NSArray *filteredOverriddenProcesses = _overriddenProhibitedProcesses.copy;
+    if (self.sessionState.overriddenProhibitedProcesses) {
+        NSArray *filteredOverriddenProcesses = self.sessionState.overriddenProhibitedProcesses.copy;
         NSString *bundleID = processDetails[@"bundleID"];
         if (bundleID) {
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"bundleID ==[cd] %@", bundleID];
@@ -6463,6 +6494,9 @@ conditionallyForWindow:(NSWindow *)window
 
     // Reopen main browser window and load start URL
     DDLogDebug(@"%s re-openMainBrowserWindow", __FUNCTION__);
+    
+    // Reset session state here, to prevent overriden lock screens for Siri etc. to appear too early
+    self.sessionState = nil;
     
     [self startExamWithFallback:NO];
 
