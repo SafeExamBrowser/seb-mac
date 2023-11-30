@@ -3051,6 +3051,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                                     [_systemProcessPIDs addObject:windowOwnerPIDString];
                                     continue;
                                 }
+#else
+                                if ([appWithPanelBundleID isEqualToString:FinderBundleID]) {
+                                    DDLogWarn(@"Application %@ is being force terminated because it displayed a window in the foreground and this might be used for previewing files!", windowOwner);
+                                    [self killProcessWithPID:windowOwnerPID];
+                                }
 #endif
                                 // There is either no bundle ID or the prefix is com.apple.
                                 // Check if application with Bundle ID com.apple. is a legit Apple system executable
