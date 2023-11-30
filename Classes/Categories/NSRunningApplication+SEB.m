@@ -77,7 +77,12 @@
     } else if (killSuccess == -1) {
         debugDescription = [NSString stringWithFormat:@"kill(9) success: %ld, errno: %ld, error: %s", (long)killSuccess, (long)errno, strerror(errno)];
         localizedDescription = debugDescription;
-        DDLogError(@"%@", debugDescription);
+        if (errno == 3) { // No such process (already terminated)
+            DDLogInfo(@"%@", debugDescription);
+            return YES;
+        } else {
+            DDLogError(@"%@", debugDescription);
+        }
     } else if (killSuccess != ERR_SUCCESS) {
         debugDescription = [NSString stringWithFormat:@"kill(9) not successful: %ld, errno: %ld, error: %s", (long)killSuccess, (long)errno, strerror(errno)];
         localizedDescription = debugDescription;
