@@ -37,6 +37,7 @@ Please complete the following information:
 Add any other context about the problem here: Is it happening on specific machines or OS versions only? How many devices are affected? Did you realize any other pattern?
 
 - Always send SEB log files (in directory ~/Library/Logs/Safe Exam Browser/ on Mac, use Settings app / SEB / Initiate Sending Logs to email log files to yourself and attach them here). 
-- Often SEB configuration file to reproduce the issue is helpful (remove SEB Quit and Admin passwords!) and compress the .seb file to ZIP to attach here.
+- On iOS/iPadOS, please activate Settings / Privacy & Security / Share iPad Analytics / Share With App Developers, especially if you observed SEB crashes. We then receive anonymized crash reports. 
+- Often a test link (send URL and if necessary login/password for a testing/demo account) or an SEB configuration file to reproduce the issue is helpful (remove SEB Quit and Admin passwords!) and compress the .seb file to ZIP to attach here.
 
 **WITHOUT THIS INFORMATION WE USUALLY CANNOT ANSWER YOUR SUPPORT REQUEST!**
