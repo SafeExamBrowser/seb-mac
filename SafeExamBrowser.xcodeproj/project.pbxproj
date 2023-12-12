@@ -441,6 +441,7 @@
 		69944809248D54870074A655 /* SEBBadgeCheckmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447FE248D54870074A655 /* SEBBadgeCheckmark.png */; };
 		699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 699731C218C8D6ED0069FE35 /* CapWindow.h */; };
 		699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 699731C318C8D6ED0069FE35 /* CapWindow.m */; };
+		69973A612B0CF29F00A64376 /* SEBOSXSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */; };
 		699AB089246DF844001BF70C /* SEBProctoringViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB086246DF843001BF70C /* SEBProctoringViewIcon.png */; };
 		699AB08B246DF844001BF70C /* SEBProctoringViewIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB087246DF844001BF70C /* SEBProctoringViewIcon@3x.png */; };
 		699AB08D246DF844001BF70C /* SEBProctoringViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB088246DF844001BF70C /* SEBProctoringViewIcon@2x.png */; };
@@ -1216,6 +1217,7 @@
 		699447FE248D54870074A655 /* SEBBadgeCheckmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeCheckmark.png; sourceTree = "<group>"; };
 		699731C218C8D6ED0069FE35 /* CapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapWindow.h; sourceTree = "<group>"; };
 		699731C318C8D6ED0069FE35 /* CapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindow.m; sourceTree = "<group>"; };
+		69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBOSXSessionState.swift; sourceTree = "<group>"; };
 		699AB086246DF843001BF70C /* SEBProctoringViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBProctoringViewIcon.png; path = Resources/Icons/Dock/SEBProctoringViewIcon.png; sourceTree = "<group>"; };
 		699AB087246DF844001BF70C /* SEBProctoringViewIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBProctoringViewIcon@3x.png"; path = "Resources/Icons/Dock/SEBProctoringViewIcon@3x.png"; sourceTree = "<group>"; };
 		699AB088246DF844001BF70C /* SEBProctoringViewIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBProctoringViewIcon@2x.png"; path = "Resources/Icons/Dock/SEBProctoringViewIcon@2x.png"; sourceTree = "<group>"; };
@@ -1577,6 +1579,7 @@
 			children = (
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
+				69973A5F2B0CF21A00A64376 /* SessionHandling */,
 				69CBEB531834C4D400FB0460 /* SystemManager */,
 				698DFD1E267E9E8A00B8F1D6 /* ProcessMonitoring */,
 				69428C97172E600000C87C58 /* Global */,
@@ -2534,6 +2537,14 @@
 				69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69973A5F2B0CF21A00A64376 /* SessionHandling */ = {
+			isa = PBXGroup;
+			children = (
+				69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */,
+			);
+			path = SessionHandling;
 			sourceTree = "<group>";
 		};
 		69A071EE268A37E700A0464B /* MscX509Common */ = {
@@ -3874,6 +3885,7 @@
 				698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
+				69973A612B0CF29F00A64376 /* SEBOSXSessionState.swift in Sources */,
 				697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */,
 				699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */,
 				698DFD1C267E9DE800B8F1D6 /* SEBDockItemBattery.m in Sources */,
@@ -5085,7 +5097,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.1rc2;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5153,7 +5165,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.3.1;
+				MARKETING_VERSION = 3.3.1rc2;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
