@@ -136,7 +136,9 @@ void run_block_on_main_thread(dispatch_block_t block)
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSMutableAttributedString *logString;
+    NSMutableAttributedString *logString = [self.UIDelegate.resignActiveLogString mutableCopy];
+    BOOL setConsoleLogString = NO;
+    NSMutableAttributedString *appendedLogString = [[NSMutableAttributedString alloc] initWithString:@""];
     NSUInteger indexOfLockedExamDictionary = 0;
     NSMutableArray *lockedExams;
     NSString *startURL;
@@ -155,10 +157,11 @@ void run_block_on_main_thread(dispatch_block_t block)
         if (indexOfLockedExamDictionary != NSNotFound) {
             // Get the persisted log string
             NSDictionary *persistedLockedExam = lockedExams[indexOfLockedExamDictionary];
+            if (logString.length == 0) {
+                setConsoleLogString = YES;
+            }
             logString = [[NSKeyedUnarchiver unarchiveObjectWithData:[persistedLockedExam objectForKey:@"logString"]] mutableCopy];
         }
-    } else {
-        logString = [self.UIDelegate.resignActiveLogString mutableCopy];
     }
     
     if (!logString) {
@@ -172,13 +175,15 @@ void run_block_on_main_thread(dispatch_block_t block)
         theTime = [timeFormat stringFromDate:errorTime];
         NSAttributedString *attributedTimeString = [[NSAttributedString alloc] initWithString:theTime];
         [logString appendAttributedString:attributedTimeString];
+        [appendedLogString appendAttributedString:attributedTimeString];
     }
     DDLogError(@"%s: %@ %@", __FUNCTION__, errorString, theTime);
     NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
     
     [attributedErrorString setAttributes:self.boldFontAttributes range:NSMakeRange(0, attributedErrorString.length)];
     [logString appendAttributedString:attributedErrorString];
-    
+    [appendedLogString appendAttributedString:attributedErrorString];
+
     if (secureExam) {
         // Persist the new log string
         NSData *logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString];
@@ -196,10 +201,13 @@ void run_block_on_main_thread(dispatch_block_t block)
         }
         
         [preferences setPersistedSecureObject:lockedExams forKey:@"org_safeexambrowser_additionalResources"];
+        if (setConsoleLogString) {
+            self.UIDelegate.resignActiveLogString = logString.copy;
+        }
     }
 
     run_block_on_main_thread(^{
-        [self.UIDelegate setResignActiveLogString:[logString copy]];
+        [self.UIDelegate setResignActiveLogString:[logString copy] logStringToAppend:appendedLogString];
         [self.UIDelegate scrollToBottom];
     });
 }
@@ -240,7 +248,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         NSString *password = [self.UIDelegate lockedAlertPassword];
         if (hashedQuitPassword.length == 0 || (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[self.keychainManager generateSHAHashString:password]] == NSOrderedSame)) {
             // Correct password entered
-            closingLockdownWindowsInProgress = true;
+            closingLockdownWindowsInProgress = YES;
             [self.UIDelegate setLockedAlertPassword:@""];
             [self.UIDelegate setPasswordWrongLabelHidden:true];
             
