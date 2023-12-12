@@ -37,6 +37,32 @@
 @implementation SEBOSXLockedViewController
 
 
+- (void)awakeFromNib
+{
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+
+    // viewBoundsDidChange catches scrolling that happens when the caret
+    // moves, and scrolling caused by pressing the scrollbar arrows.
+    [notificationCenter addObserver:self
+    selector:@selector(viewBoundsDidChangeNotification:)
+        name:NSViewBoundsDidChangeNotification object:logScrollView];
+    [self.view setPostsBoundsChangedNotifications:YES];
+
+    // viewFrameDidChange catches scrolling that happens because text
+    // is inserted or deleted.
+    // it also catches situations, where window resizing causes changes.
+    [notificationCenter addObserver:self
+        selector:@selector(viewFrameDidChangeNotification:)
+        name:NSViewFrameDidChangeNotification object:logScrollView.documentView];
+    [logScrollView.documentView setPostsFrameChangedNotifications:YES];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 - (SEBController *)sebController
 {
     return _sebController;
@@ -92,10 +118,37 @@
     [self.lockedViewController closeLockdownWindows];
 }
 
+- (float)distanceToBottom
+{
+    NSRect  visRect;
+    NSRect  boundsRect;
+    visRect = [logScrollView.documentView visibleRect];
+    boundsRect = [logScrollView.documentView bounds];
+    return (NSMaxY(visRect) - NSMaxY(boundsRect));
+}
+
+
 /// Forward calls to lockview business logic
 
-- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime {
+- (void)appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime
+{
+    wasAtBottom = [self distanceToBottom] == 0;
     [self.lockedViewController appendErrorString:errorString withTime:errorTime];
+}
+
+
+- (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString logStringToAppend:(NSAttributedString *)logStringToAppend
+{
+    [logTextView.textContainer.textView.textStorage appendAttributedString:logStringToAppend];
+}
+
+- (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString
+{
+    [logTextView.textContainer.textView.textStorage setAttributedString:resignActiveLogString];
+}
+
+- (NSAttributedString *)resignActiveLogString {
+    return logTextView.textContainer.textView.textStorage.copy;
 }
 
 
@@ -134,21 +187,38 @@
 
 #pragma mark Delegates
 
+- (void)viewBoundsDidChangeNotification:(NSNotification *)aNotification
+{
+    [self handleScrollToBottom];
+}
+
+- (void)viewFrameDidChangeNotification:(NSNotification *)aNotification
+{
+    [self handleScrollToBottom];
+}
+
+- (void)handleScrollToBottom
+{
+    if (scrollToBottomPending) {
+        scrollToBottomPending = NO;
+        [self performScrollToBottom];
+    }
+}
+
+- (void)performScrollToBottom
+{
+    if (@available(macOS 10.14, *)) {
+        [logScrollView.documentView scrollToEndOfDocument:self];
+    } else {
+        [logTextView.textContainer.textView scrollRangeToVisible:NSMakeRange(logTextView.textContainer.textView.attributedString.length, 0)];
+    }
+}
+
 - (void)scrollToBottom
 {
-    NSPoint newScrollOrigin;
-    
-    if ([[logScrollView documentView] isFlipped]) {
-        newScrollOrigin = NSMakePoint(0.0,NSMaxY([[logScrollView documentView] frame])
-                                      -NSHeight([[logScrollView contentView] bounds]));
-    } else {
-        newScrollOrigin = NSMakePoint(0.0,0.0);
+    if (wasAtBottom) {
+        scrollToBottomPending = YES;
     }
-    DDLogDebug(@"Log scroll view %@ frame: %@, y coordinate to scroll to: %f", logScrollView, 
-               (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation([[logScrollView documentView] frame])),
-               newScrollOrigin.y);
-    
-    [[logScrollView documentView] scrollPoint:newScrollOrigin];
 }
 
 
