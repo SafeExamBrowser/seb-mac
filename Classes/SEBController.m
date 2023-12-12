@@ -4422,6 +4422,19 @@ conditionallyForWindow:(NSWindow *)window
         else if ([[notification name] isEqualToString:
                   @"detectedProhibitedProcess"])
         {
+            
+            // Add log string for detected prohibited processes
+            NSArray *allRunningProhibitedProcesses = self.runningProhibitedProcesses.copy;
+            NSMutableSet *runningProhibitedProcesses = NSMutableSet.new;
+            NSMutableSet *runningOverriddenProhibitedProcesses = NSMutableSet.new;
+            for (NSDictionary* runningProhibitedProcess in allRunningProhibitedProcesses) {
+                if ([self isOverriddenProhibitedProcess:runningProhibitedProcess]) {
+                    [runningOverriddenProhibitedProcesses addObject:runningProhibitedProcess[@"name"]];
+                } else {
+                    [runningProhibitedProcesses addObject:runningProhibitedProcess];
+                }
+            }
+                        
             if (!self.sessionState.processesDetected) {
                 self.sessionState.processesDetected = YES;
                 self.sebLockedViewController.overrideCheckForSpecifcProcesses.state = NO;
@@ -4435,35 +4448,38 @@ conditionallyForWindow:(NSWindow *)window
                 
                 // Report processes are still active every 3rd second
                 self->prohibitedProcessesLogCounter = logReportCounter;
-                DDLogError(@"Prohibited processes detected: %@", self.runningProhibitedProcesses);
+                DDLogError(@"Prohibited processes detected: %@", allRunningProhibitedProcesses);
                 
-                if (self.sessionState.processCheckAllOverride != YES) {
+                if (self.sessionState.processCheckAllOverride == NO) {
                     if (self.sessionState.overriddenProhibitedProcesses.count > 0) {
                         // If checking of some processes was overriden, check if newly reported processes are overridden
-                        for (NSDictionary* runningProhibitedProcess in self.runningProhibitedProcesses) {
+                        for (NSDictionary* runningProhibitedProcess in allRunningProhibitedProcesses) {
                             if (![self isOverriddenProhibitedProcess:runningProhibitedProcess]) {
                                 // Check for newly reported prohibited process was not overridden before: Open lock screen
                                 DDLogDebug(@"Check for running prohibited process %@ was not overridden before", runningProhibitedProcess);
                                 [self openLockdownWindows];
                                 break;
+                            } else {
+                                DDLogDebug(@"Check for running prohibited process %@ was overridden before", runningProhibitedProcess);
                             }
                         }
                     } else {
-                        // Now previously overridden processes: Open lock screen
+                        // No previously overridden processes: Open lock screen
                         [self openLockdownWindows];
                     }
                 }
                 // Add log string for prohibited process detected
-                [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", @""), self.runningProhibitedProcesses] withTime:self.didBecomeActiveTime repeated:NO];
+                [self appendErrorStringsFor:runningOverriddenProhibitedProcesses runningProhibitedProcesses:runningProhibitedProcesses repeated:NO];
+                
             } else {
                 if (!self.lockdownWindows) {
                     self.sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = NO;
                     self.sebLockedViewController.overrideCheckForAllProcesses.hidden = NO;
                     [self openLockdownWindows];
                 }
-                // Add log string for detected prohibited process
+                
                 if (!self->prohibitedProcessesLogCounter--) {
-                    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Prohibited processes still running", @"")] withTime:self.didBecomeActiveTime repeated:YES];
+                    [self appendErrorStringsFor:runningOverriddenProhibitedProcesses runningProhibitedProcesses:runningProhibitedProcesses repeated:YES];
                     self->prohibitedProcessesLogCounter = logReportCounter;
                 }
             }
@@ -4589,6 +4605,7 @@ conditionallyForWindow:(NSWindow *)window
     });
 }
 
+
 - (void) appendErrorString:(NSString *)errorString withTime:(NSDate *)errorTime repeated:(BOOL)repeated
 {
     if (!repeated &&
@@ -4599,6 +4616,20 @@ conditionallyForWindow:(NSWindow *)window
     }
     [self.sebLockedViewController appendErrorString:errorString withTime:errorTime];
 }
+
+
+- (void)appendErrorStringsFor:(NSMutableSet *)runningOverriddenProhibitedProcesses
+   runningProhibitedProcesses:(NSMutableSet *)runningProhibitedProcesses
+                     repeated:(BOOL)repeated {
+    if (runningProhibitedProcesses.count > 0) {
+        NSArray *runningProhibitedProcessesArray = repeated ? [runningProhibitedProcesses valueForKey:@"name"] : [runningProhibitedProcesses allObjects];
+        [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes detected", @""), runningProhibitedProcessesArray] withTime:self.didBecomeActiveTime repeated:repeated];
+    }
+    if (runningOverriddenProhibitedProcesses.count > 0) {
+        [self appendErrorString:[NSString stringWithFormat:@"%@: %@\n", NSLocalizedString(@"Prohibited processes (check overridden) still running", @""), runningOverriddenProhibitedProcesses] withTime:self.didBecomeActiveTime repeated:repeated];
+    }
+}
+
 
 - (NSMutableArray *) sebServerPendingLockscreenEvents
 {
@@ -4740,7 +4771,7 @@ conditionallyForWindow:(NSWindow *)window
                     if (!self.sessionState.overriddenProhibitedProcesses) {
                         self.sessionState.overriddenProhibitedProcesses = _runningProhibitedProcesses.copy;
                     } else {
-                        [self.sessionState.overriddenProhibitedProcesses arrayByAddingObjectsFromArray:_runningProhibitedProcesses];
+                        self.sessionState.overriddenProhibitedProcesses = [self.sessionState.overriddenProhibitedProcesses arrayByAddingObjectsFromArray:_runningProhibitedProcesses];
                     }
                     // Check if overridden processes are prohibited BSD processes from settings
                     // and remove them from the list of the periodically called process watcher checks
@@ -4750,6 +4781,7 @@ conditionallyForWindow:(NSWindow *)window
             }
             _sebLockedViewController.overrideCheckForSpecifcProcesses.state = NO;
             _sebLockedViewController.overrideCheckForSpecifcProcesses.hidden = YES;
+            self.sessionState.processesDetected = NO;
         }
         
         if (_sebLockedViewController.overrideCheckForAllProcesses.state == YES) {

@@ -50,11 +50,14 @@
     __weak IBOutlet NSSecureTextField *lockedAlertPasswordField;
     __weak IBOutlet NSTextField *passwordWrongLabel;
     __weak IBOutlet NSScrollView *logScrollView;
+    
+    BOOL wasAtBottom;
+    BOOL scrollToBottomPending;
 }
 
 @property (strong, nonatomic) SEBLockedViewController *lockedViewController;
 @property (strong, nonatomic) SEBController *sebController;
-@property (readwrite, copy) NSAttributedString *resignActiveLogString;
+@property (weak, nonatomic) NSAttributedString *resignActiveLogString;
 
 @property (weak) IBOutlet NSStackView *quitUnlockPasswordUI;
 @property (weak) IBOutlet NSButton *quitOnlyButton;

@@ -141,7 +141,7 @@
     BOOL fontRegistryUIAgentRunning;
     BOOL fontRegistryUIAgentDialogClosed;
     NSUInteger fontRegistryUIAgentSkipDownloadCounter;
-    #define logReportCounter 11
+    #define logReportCounter (4*30)-1 //repeat log entries in lock screen console view every 30 seconds
     NSUInteger screenSharingLogCounter;
     NSUInteger siriLogCounter;
     NSUInteger dictationLogCounter;
