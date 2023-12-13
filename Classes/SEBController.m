@@ -1930,7 +1930,7 @@ bool insideMatrix(void);
         DDLogError(@"%@Remote proctoring not available", notAvailableRequiredRemoteProctoringService);
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", @"")];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName], zoomEnable == NO ? @"" : [NSString stringWithFormat:@"\n\n%@", NSLocalizedString(@"Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance.", @"")]]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSAlertStyleWarning];
         void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
