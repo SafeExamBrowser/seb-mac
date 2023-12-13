@@ -95,7 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>14907</string>
+	<string>149B3</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -107,6 +107,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Sending Apple Events is required for the Wi-Fi control to show/hide Control Center.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is required for web applications / remote proctoring.</string>
 	<key>NSCrossWebsiteTrackingUsageDescription</key>
