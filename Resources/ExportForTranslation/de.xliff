@@ -5272,7 +5272,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+      <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
         <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
@@ -8435,7 +8435,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+      <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
         <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>

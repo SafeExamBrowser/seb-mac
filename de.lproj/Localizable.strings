@@ -332,7 +332,7 @@
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
 
 /* No comment provided by engineer. */
-"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
+"Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
 "Debug" = "Debug";

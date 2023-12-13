@@ -314,7 +314,7 @@
 "Create New…" = "Neu erstellen…";
 
 /* No comment provided by engineer. */
-"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
+"Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
 "Current Settings require Single App Mode to be active to proceed." = "Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.";
