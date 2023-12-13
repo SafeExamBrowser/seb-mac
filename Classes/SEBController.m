@@ -5584,6 +5584,19 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowWlan"]) {
+            
+            SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBShutDownIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
+                                                                       toolTip:NSLocalizedString(@"Wi-Fi Control",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(wifiButtonPressed)
+                                                               secondaryAction:nil];
+            [rightDockItems addObject:dockItemShutDown];
+        }
+
         if (ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
             ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
 //            ProctoringIconDefaultState.template = YES;
@@ -5826,6 +5839,46 @@ conditionallyForWindow:(NSWindow *)window
 - (void) setReloadButtonEnabled:(BOOL)enabled
 {
     _reloadPageUIElement.enabled = enabled;
+}
+
+
+- (void) wifiButtonPressed
+{
+//    CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+//
+//    CGEventRef fnKeyDown = CGEventCreateKeyboardEvent(source, kFunctionKeyCharCode, true);
+//    CGEventRef cKeyDown = CGEventCreateKeyboardEvent(source, kVK_ANSI_C, true);
+//    CGEventRef cKeyUp = CGEventCreateKeyboardEvent(source, kVK_ANSI_C, false);
+//    CGEventRef fnKeyUp = CGEventCreateKeyboardEvent(source, kFunctionKeyCharCode, false);
+//
+////  CGEventSetFlags(f4, kCGEventFlagMaskAlternate);
+//    CGEventTapLocation location = kCGHIDEventTap;
+//
+//    CGEventPost(location, fnKeyDown);
+//    CGEventPost(location, cKeyDown);
+//    CGEventPost(location, cKeyUp);
+//    CGEventPost(location, fnKeyUp);
+//
+//    CFRelease(fnKeyUp);
+//    CFRelease(cKeyUp);
+//    CFRelease(cKeyDown);
+//    CFRelease(fnKeyDown);
+//    CFRelease(source);
+
+    NSDictionary* errorDict;
+    NSAppleEventDescriptor* returnDescriptor = NULL;
+
+    NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:
+                @"\
+                tell application \"System Events\"\n\
+                    tell process \"ControlCenter\"\n\
+                        tell menu bar item 2 of menu bar 1\n\
+                            click\n\
+                        end tell\n\
+                    end tell\n\
+                end tell"];
+
+    returnDescriptor = [scriptObject executeAndReturnError: &errorDict];
 }
 
 
