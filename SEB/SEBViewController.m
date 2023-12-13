@@ -2031,7 +2031,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     run_on_ui_thread(^{
                          
                         [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Not Available", @"")
-                                     message:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]
+                                     message:[NSString stringWithFormat:NSLocalizedString(@"Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer.", @""), notAvailableRequiredRemoteProctoringService, SEBShortAppName, SEBShortAppName]
                                 action1Title:NSLocalizedString(@"OK", @"")
                               action1Handler:^ {
                             self.alertController = nil;
