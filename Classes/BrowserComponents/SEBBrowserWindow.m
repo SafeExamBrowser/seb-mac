@@ -1208,6 +1208,11 @@
     [self.browserController showAlertNotAllowedDownUploading:uploading];
 }
 
+- (void)showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    [self.browserController showAlertNotAllowedDownloadingAndOpeningSebConfig:downloading];
+}
+
 - (BOOL)overrideAllowSpellCheck
 {
     return self.browserController.overrideAllowSpellCheck;

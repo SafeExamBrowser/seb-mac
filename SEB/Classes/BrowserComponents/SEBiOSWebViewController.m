@@ -381,6 +381,12 @@
 }
 
 
+- (void)showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    [self.navigationDelegate showAlertNotAllowedDownloadingAndOpeningSebConfig:downloading];
+}
+
+
 - (void)sebWebViewDidStartLoad
 {
     // starting the load, show the activity indicator in the status bar

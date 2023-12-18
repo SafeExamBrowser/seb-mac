@@ -733,6 +733,7 @@ import CocoaLumberjackSwift
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        DDLogWarn("webViewWebContentProcessDidTerminate")
         reload()
     }
 
