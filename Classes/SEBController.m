@@ -930,8 +930,6 @@ bool insideMatrix(void);
         /// Open settings file in preferences window for editing
         
         [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-        _openingSettings = NO;
-        return;
         
     } else {
         
@@ -940,9 +938,6 @@ bool insideMatrix(void);
         // Check if any alerts are open in SEB, abort opening if yes
         if (_modalAlertWindows.count > 0) {
             DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
-            _openingSettings = NO;
-            // We have to return YES anyways, because otherwise the system displays an error message
-            return;
         }
         
         // Check if SEB is in an exam session and reconfiguring isn't allowed
@@ -958,26 +953,31 @@ bool insideMatrix(void);
                 [self closeAboutWindow];
             }
             [self.preferencesController openSEBPrefsAtURL:sebFileURL];
-            _openingSettings = NO;
-            return;
         }
         
-        NSError *error = nil;
-        NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
-        
-        if (!error) {
-            // Save the path to the file for possible editing in the preferences window
-            [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            NSError *error = nil;
+            NSData *sebData = [NSData dataWithContentsOfURL:sebFileURL options:NSDataReadingUncached error:&error];
             
-            // Decrypt and store the .seb config file
-            [self.configFileController storeNewSEBSettings:sebData
-                                                forEditing:NO
-                                                  callback:self
-                                                  selector:@selector(storeNewSEBSettingsSuccessful:)];
+            if (!error) {
+                // Save the path to the file for possible editing in the preferences window
+                [[MyGlobals sharedMyGlobals] setCurrentConfigURL:sebFileURL];
+                
+                // Decrypt and store the .seb config file
+                [self.configFileController storeNewSEBSettings:sebData
+                                                    forEditing:NO
+                                                      callback:self
+                                                      selector:@selector(storeNewSEBSettingsSuccessful:)];
+                return;
+            } else {
+                //ToDo: Show alert for file loading error
+            }
         } else {
-            //ToDo: Show alert for file loading error
+            [self.browserController showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
         }
     }
+    _openingSettings = NO;
 }
 
 

@@ -1082,6 +1082,27 @@
 }
 
 
+- (void) showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    NSString *downloadingOpeningString = @"";
+    if (downloading) {
+        downloadingOpeningString = NSLocalizedString(@"Downloading and Opening", @"");
+    } else {
+        downloadingOpeningString = NSLocalizedString(@"Opening", @"");
+    }
+    DDLogWarn(@"Attempted %@ of %@ configurations is not allowed in current settings", downloadingOpeningString, SEBShortAppName);
+    NSAlert *modalAlert = [self.sebController newAlert];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ %@ Configurations Not Allowed!", @""), downloadingOpeningString, SEBShortAppName, nil]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ of %@ configurations is not allowed in current settings. Report this to your exam provider.", @""), downloadingOpeningString, SEBShortAppName]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.sebController removeAlertWindow:modalAlert.window];
+    };
+    [self.sebController runModalAlert:modalAlert conditionallyForWindow:self.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+}
+
+
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url
 {
     [self.sebController shouldStartLoadFormSubmittedURL:url];

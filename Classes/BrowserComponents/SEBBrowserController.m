@@ -888,57 +888,60 @@ static NSString *urlStrippedFragment(NSURL* url)
     } else {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         // Check first if opening SEB config files is allowed in settings and if no other settings are currently being opened
-        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] && !_downloadingInTemporaryWebView) {
-            // Check if reconfiguring is actually allowed
-            if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
-                // SEB isn't in exam mode: reconfiguring is allowed
-                NSURL *sebURL = url;
-                // Figure the download URL out, depending on if http or https should be used
-                url = [url URLByReplacingSEBScheme];
-                
-                void (^conditionallyDownloadConfig)(void) = ^void() {
-                    // Check if we should try to download the config file from the seb(s) URL directly
-                    // This is the case when the URL has a .seb filename extension
-                    // But we only try it when it didn't fail in a first attempt
-                    if (self.directConfigDownloadAttempted == NO) {
-                        self.directConfigDownloadAttempted = YES;
-                        self.originalURL = sebURL;
-                        [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:@[] sender:nil];
-                    } else {
-                        self.directConfigDownloadAttempted = NO;
-                        self.downloadingInTemporaryWebView = YES;
-                        self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
-                    }
-                };
+        if (!_downloadingInTemporaryWebView) {
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+                // Check if reconfiguring is actually allowed
+                if (_delegate.startingUp || [self isReconfiguringAllowedFromURL:url]) {
+                    // SEB isn't in exam mode: reconfiguring is allowed
+                    NSURL *sebURL = url;
+                    // Figure the download URL out, depending on if http or https should be used
+                    url = [url URLByReplacingSEBScheme];
+                    
+                    void (^conditionallyDownloadConfig)(void) = ^void() {
+                        // Check if we should try to download the config file from the seb(s) URL directly
+                        // This is the case when the URL has a .seb filename extension
+                        // But we only try it when it didn't fail in a first attempt
+                        if (self.directConfigDownloadAttempted == NO) {
+                            self.directConfigDownloadAttempted = YES;
+                            self.originalURL = sebURL;
+                            [self downloadSEBConfigFileFromURL:url originalURL:sebURL cookies:@[] sender:nil];
+                        } else {
+                            self.directConfigDownloadAttempted = NO;
+                            self.downloadingInTemporaryWebView = YES;
+                            self.temporaryWebView = [self.delegate openTempWebViewForDownloadingConfigFromURL:url originalURL:self.originalURL];
+                        }
+                    };
 
-                // When the URL of the SEB config file to load is on another host than the current page
-                // then we might need to clear session cookies before attempting to download the config file
-                // when the setting examSessionClearCookiesOnEnd is true
-                if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
-                    // Set the flag for cookies cleared (either they actually will be or they would have
-                    // been, but settings prevented it)
-                    examSessionCookiesAlreadyCleared = YES;
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
-                        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-                        // downloads to disk, and ensures that future requests occur on a new socket.
-                        DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
-                        [self resetAllCookiesWithCompletionHandler:^{
-                            conditionallyDownloadConfig();
-                        }];
-                        return;
+                    // When the URL of the SEB config file to load is on another host than the current page
+                    // then we might need to clear session cookies before attempting to download the config file
+                    // when the setting examSessionClearCookiesOnEnd is true
+                    if (_delegate.currentMainHost && ![url.host isEqualToString:_delegate.currentMainHost]) {
+                        // Set the flag for cookies cleared (either they actually will be or they would have
+                        // been, but settings prevented it)
+                        examSessionCookiesAlreadyCleared = YES;
+                        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionClearCookiesOnEnd"]) {
+                            // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+                            // downloads to disk, and ensures that future requests occur on a new socket.
+                            DDLogInfo(@"-[SEBBrowserController openConfigFromSEBURL:] Cookies, caches and credential stores are being reset when ending browser session (examSessionClearCookiesOnEnd = true)");
+                            [self resetAllCookiesWithCompletionHandler:^{
+                                conditionallyDownloadConfig();
+                            }];
+                            return;
+                        }
+                    } else if (!_delegate.currentMainHost) {
+                        // When currentMainHost isn't set yet, SEB was started with a config link, possibly
+                        // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
+                        // as they were anyways cleared when SEB was started
+                        examSessionCookiesAlreadyCleared = YES;
                     }
-                } else if (!_delegate.currentMainHost) {
-                    // When currentMainHost isn't set yet, SEB was started with a config link, possibly
-                    // to an authenticated server. In this case, session cookies shouldn't be cleared after logging in
-                    // as they were anyways cleared when SEB was started
-                    examSessionCookiesAlreadyCleared = YES;
+                    [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
+                    return;
                 }
-                [self transferCookiesToWKWebViewWithCompletionHandler:conditionallyDownloadConfig];
-                return;
+            } else {
+                [_delegate showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
             }
-        } else {
-            DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
         }
+        DDLogDebug(@"%s aborted,%@%@", __FUNCTION__, [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO ? @" downloading and opening settings not allowed. " : @"", _temporaryWebView ? @" temporary webview already open" : @"");
         [_delegate openingConfigURLRoleBack];
     }
 }
@@ -1157,6 +1160,11 @@ static NSString *urlStrippedFragment(NSURL* url)
                     });
                     return;
                 }
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.delegate showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
+                });
+                return;
             }
         } else if (self.allowDownloads) {
             // If downloading is allowed
@@ -1732,25 +1740,28 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     _didReconfigureWithUniversalLink = NO;
     _cancelReconfigureWithUniversalLink = NO;
-    if (universalLink &&
-        [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // Remove query and fragment parts from the Universal Link URL
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
-        urlComponents.query = nil;
-        urlComponents.fragment = nil;
-        NSURL *urlWithPartialPath = urlComponents.URL;
-        
-        if (urlWithPartialPath.pathExtension.length != 0) {
-            // If the path specified a file, remove it from the path as well
-            urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
+    if (universalLink) {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            // Remove query and fragment parts from the Universal Link URL
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:universalLink resolvingAgainstBaseURL:NO];
+            urlComponents.query = nil;
+            urlComponents.fragment = nil;
+            NSURL *urlWithPartialPath = urlComponents.URL;
+            
+            if (urlWithPartialPath.pathExtension.length != 0) {
+                // If the path specified a file, remove it from the path as well
+                urlWithPartialPath = [urlWithPartialPath URLByDeletingLastPathComponent];
+            }
+            
+            // Check for a file called "SEBSettings.seb" recursivly in the
+            // folder hierarchy specified by the original Universal Link
+            [self downloadConfigFile:SEBSettingsFilename
+                             fromURL:urlWithPartialPath
+                   universalLinkHost:urlWithPartialPath
+                       universalLink:universalLink];
+        } else {
+            [_delegate showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
         }
-        
-        // Check for a file called "SEBSettings.seb" recursivly in the
-        // folder hierarchy specified by the original Universal Link
-        [self downloadConfigFile:SEBSettingsFilename
-                         fromURL:urlWithPartialPath
-               universalLinkHost:urlWithPartialPath
-                   universalLink:universalLink];
     }
 }
 
