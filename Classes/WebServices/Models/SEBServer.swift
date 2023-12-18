@@ -75,7 +75,8 @@ public struct statusCodes {
     static let notSuccessfullRange = 300
     static let badRequest = 400
     static let unauthorized = 401
-    static let internalServerError = 500   
+    static let internalServerError = 500
+    static let urlSessionInvalidated = -99
 }
 
 public struct errors {

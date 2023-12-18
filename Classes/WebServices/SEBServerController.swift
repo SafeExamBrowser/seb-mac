@@ -65,11 +65,11 @@ public class PendingServerRequest : NSObject {
     }
 }
 
-@objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate {
+@objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate, URLSessionDelegate {
     
-    fileprivate var session: URLSession
+    fileprivate var session: URLSession?
     private let pendingRequestsQueue = dispatch_queue_concurrent_t.init(label: UUID().uuidString)
-
+    
     private var _pendingRequests: [PendingServerRequest] = []
     public var pendingRequests: [PendingServerRequest] {
         get {
@@ -79,7 +79,7 @@ public class PendingServerRequest : NSObject {
             }
             return result
         }
-
+        
         set {
             pendingRequestsQueue.async(group: nil, qos: .default, flags: .barrier) {
                 self._pendingRequests = newValue
@@ -100,10 +100,10 @@ public class PendingServerRequest : NSObject {
     fileprivate var selectedExamURL = ""
     fileprivate var pingNumber: Int64 = 0
     fileprivate var notificationNumber: Int64 = 0
-
+    
     @objc weak public var delegate: SEBServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
-
+    
     private let baseURL: URL
     private let institution: String
     private let exam: String?
@@ -122,25 +122,25 @@ public class PendingServerRequest : NSObject {
     private var fallbackTimeout: Double
     private var cancelAllRequests = false
     private var lastBatteryLevel: Double = 100.0
-
+    
     struct Queue<T> {
-         var list = [T]()
+        var list = [T]()
         
         mutating func enqueue(_ element: T) {
-              list.append(element)
+            list.append(element)
         }
         mutating func dequeue() -> T? {
-             if !list.isEmpty {
-               return list.removeFirst()
-             } else {
-               return nil
-             }
+            if !list.isEmpty {
+                return list.removeFirst()
+            } else {
+                return nil
+            }
         }
         var isEmpty: Bool {
-             return list.isEmpty
+            return list.isEmpty
         }
     }
-
+    
     struct LogEvent {
         var logLevel: String
         var timestamp: String
@@ -171,7 +171,13 @@ public class PendingServerRequest : NSObject {
         DDLogInfo("SEB Server Controller: Initialize with ping interval \(self.pingInterval), max. request attempts \(self.maxRequestAttemps), fallback attempt interval \(self.fallbackAttemptInterval) and fallback timeout \(self.fallbackTimeout).")
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = fallbackTimeout
-        self.session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
+        super.init()
+        self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
+    }
+    
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+        DDLogError("SEB Server Controller: URLSession didBecomeInvalidWithError: \(String(describing: error)).")
+        self.session = nil
     }
 }
 
@@ -251,8 +257,9 @@ public extension SEBServerController {
 
         let discoveryRequest = ApiRequest(resource: discoveryResource)
         pendingRequests.append(PendingServerRequest(request: discoveryRequest))
-        // ToDo: Implement timeout and sebServerFallback
-        discoveryRequest.load(self.session) { (discoveryResponse, error) in
+        guard let urlSession = self.session else {
+            return}
+        discoveryRequest.load(urlSession) { (discoveryResponse, error) in
             // ToDo: Does this if let check work, response seems to be a double optional?
             if let discovery = discoveryResponse, let serverAPIEndpoints = discovery?.api_versions[0].endpoints {
                 var sebEndpoints = SEB_Endpoints()
@@ -710,7 +717,7 @@ public extension SEBServerController {
                 self.stopPingTimer()
                 self.delegate?.didReceiveExamSalt("", connectionToken: "")
                 self.delegate?.didReceiveServerBEK("")
-                self.session.invalidateAndCancel()
+                self.session?.invalidateAndCancel()
                 self.connectionToken = nil
                 completion(restart)
             })
@@ -719,7 +726,7 @@ public extension SEBServerController {
             self.stopPingTimer()
             self.delegate?.didReceiveExamSalt("", connectionToken: "")
             self.delegate?.didReceiveServerBEK("")
-            self.session.invalidateAndCancel()
+            self.session?.invalidateAndCancel()
             self.connectionToken = nil
             completion(restart)
         }
@@ -728,7 +735,7 @@ public extension SEBServerController {
     @objc func cancelQuitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
         self.cancelAllRequests = true
         self.stopPingTimer()
-        self.session.invalidateAndCancel()
+        self.session?.invalidateAndCancel()
         self.connectionToken = nil
         completion(restart)
     }
