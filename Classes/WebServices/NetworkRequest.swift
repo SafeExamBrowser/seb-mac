@@ -36,14 +36,40 @@ import CocoaLumberjackSwift
 
 protocol NetworkRequest: AnyObject {
 	associatedtype Model
-	func load(_ session: URLSession, withCompletion completion: @escaping (Model?, Error?) -> Void)
+	func load(_ session: URLSession?, withCompletion completion: @escaping (Model?, Error?) -> Void)
 	func decode(_ data: Data) -> Model?
 }
 
+protocol ErrorProtocol: LocalizedError {
+
+    var title: String { get }
+    var code: Int { get }
+    var debugDescription: String? { get }
+}
+
+struct SEBError: ErrorProtocol {
+    var title: String
+    var code: Int
+    var debugDescription: String?
+    
+    init(title: String, code: Int, debugDescription: String? = nil) {
+        self.title = title
+        self.code = code
+        self.debugDescription = debugDescription
+    }
+}
+
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, session: URLSession, withCompletion completion: @escaping (Model?, Error?) -> Void) {
+    fileprivate func load(_ url: URL, session: URLSession?, withCompletion completion: @escaping (Model?, Error?) -> Void) {
         dynamicLogLevel = MyGlobals.ddLogLevel()
-		let task = session.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
+        guard let urlSession = session else {
+            let debugDescription = "URLSession was invalidated"
+            DDLogError("\(debugDescription)")
+            let error = SEBError(title: NSLocalizedString("URLSession was invalidated", comment: ""), code: statusCodes.urlSessionInvalidated, debugDescription: debugDescription)
+            completion(nil, error)
+            return
+        }
+		let task = urlSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if error != nil {
                 DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
             }
@@ -58,7 +84,7 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
@@ -71,7 +97,15 @@ extension NetworkRequest {
         request.httpBody = body.data(using: .utf8)
         let currentAttempt = attempt+1
         
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
+        guard let urlSession = session else {
+            let debugDescription = "URLSession was invalidated"
+            DDLogError("\(debugDescription)")
+            let errorResponse = ErrorResponse(error: NSLocalizedString("URLSession was invalidated", comment: ""), error_description: debugDescription)
+            completion(nil, statusCodes.urlSessionInvalidated, errorResponse, [:], currentAttempt)
+            return
+        }
+
+        let task = urlSession.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             let httpResponse = response as? HTTPURLResponse
             let statusCode = httpResponse?.statusCode
             var errorResponse: ErrorResponse? = nil
@@ -150,12 +184,19 @@ extension ApiRequest: NetworkRequest {
 		return resource.makeModel(data: data)
 	}
 	
-	func load(_ session: URLSession, withCompletion completion: @escaping (Resource.Model?, Error?) -> Void) {
+	func load(_ session: URLSession?, withCompletion completion: @escaping (Resource.Model?, Error?) -> Void) {
         load(resource.url, session: session, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
-        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, session: session, attempt: attempt, withCompletion: completion)
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+        guard let urlSession = session else {
+            let debugDescription = "URLSession was invalidated"
+            DDLogError("\(debugDescription)")
+            let errorResponse = ErrorResponse(error: NSLocalizedString("URLSession was invalidated", comment: ""), error_description: debugDescription)
+            completion(nil, statusCodes.urlSessionInvalidated, errorResponse, [:], attempt+1)
+            return
+        }
+        load(resource.url, httpMethod: httpMethod, body: body, headers: headers, session: urlSession, attempt: attempt, withCompletion: completion)
     }
 }
 
@@ -172,11 +213,11 @@ extension DataRequest: NetworkRequest {
 		return data
 	}
 	
-    func load(_ session: URLSession, withCompletion completion: @escaping (Data?, Error?) -> Void) {
+    func load(_ session: URLSession?, withCompletion completion: @escaping (Data?, Error?) -> Void) {
 		load(resource.url, session: session, withCompletion: completion)
 	}
     
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         load(resource.url, httpMethod: httpMethod, body: body, headers: headers, session: session, attempt: attempt, withCompletion: completion)
     }
 }
