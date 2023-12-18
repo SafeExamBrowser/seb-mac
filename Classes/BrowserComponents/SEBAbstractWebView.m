@@ -486,9 +486,14 @@
     return self.navigationDelegate.allowUploads;
 }
 
-- (void) showAlertNotAllowedDownUploading:(BOOL)uploading
+- (void)showAlertNotAllowedDownUploading:(BOOL)uploading
 {
     [self.navigationDelegate showAlertNotAllowedDownUploading:uploading];
+}
+
+- (void)showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    [self.navigationDelegate showAlertNotAllowedDownloadingAndOpeningSebConfig:downloading];
 }
 
 - (BOOL)overrideAllowSpellCheck
@@ -790,16 +795,19 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
                 NSString *mediaType = [[urlResourceSpecifier substringToIndex:mediaTypeRange.location] lowercaseString];
                 NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
-                if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound &&
-                    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-                    NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
-                    NSData *sebConfigData;
-                    if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
-                        sebConfigData = [sebConfigString dataUsingEncoding:NSUTF8StringEncoding];
+                if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound) {
+                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"] == NO) {
+                        [self.navigationDelegate showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
                     } else {
-                        sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                        NSString *sebConfigString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
+                        NSData *sebConfigData;
+                        if ([mediaTypeParameters indexOfObject:@"base64"] == NSNotFound) {
+                            sebConfigData = [sebConfigString dataUsingEncoding:NSUTF8StringEncoding];
+                        } else {
+                            sebConfigData = [[NSData alloc] initWithBase64EncodedString:sebConfigString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                        }
+                        [self.navigationDelegate openSEBConfigFromData:sebConfigData];
                     }
-                    [self.navigationDelegate openSEBConfigFromData:sebConfigData];
                 } else if (self.allowDownloads) {
                     NSString *fileDataString = [urlResourceSpecifier substringFromIndex:mediaTypeRange.location+1];
                     NSData *fileData;
@@ -823,17 +831,20 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             newNavigationAction.policy = SEBNavigationActionPolicyCancel;
             return newNavigationAction;
         }
-
     }
     // Check if this is a seb:// or sebs:// link or a .seb file link
     if (((url.scheme && [url.scheme caseInsensitiveCompare:SEBProtocolScheme] == NSOrderedSame) ||
         (url.scheme && [url.scheme caseInsensitiveCompare:SEBSSecureProtocolScheme] == NSOrderedSame) ||
-        (fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame)) &&
-        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
-        // If the scheme is seb(s):// or the file extension .seb,
-        // we (conditionally) download and open the linked .seb file
-        if (!self.navigationDelegate.downloadingInTemporaryWebView) {
-            [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+        (fileExtension && [fileExtension caseInsensitiveCompare:SEBFileExtension] == NSOrderedSame))) {
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadAndOpenSebConfig"]) {
+            // If the scheme is seb(s):// or the file extension .seb,
+            // we (conditionally) download and open the linked .seb file
+            if (!self.navigationDelegate.downloadingInTemporaryWebView) {
+                [self.navigationDelegate conditionallyDownloadAndOpenSEBConfigFromURL:url];
+                return newNavigationAction;
+            }
+        } else {
+            [self.navigationDelegate showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
             return newNavigationAction;
         }
     }

@@ -157,6 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) BOOL allowDownloads;
 @property (readonly) BOOL allowUploads;
 - (void) showAlertNotAllowedDownUploading:(BOOL)uploading;
+- (void) showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading;
 @property (readonly) BOOL downloadPDFFiles;
 @property (readonly) BOOL directConfigDownloadAttempted;
 @property (readonly) BOOL allowSpellCheck;

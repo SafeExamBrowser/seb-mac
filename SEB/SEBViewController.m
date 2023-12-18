@@ -2895,6 +2895,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         } else {
             _scannedQRCode = NO;
+            [self.browserController showAlertNotAllowedDownloadingAndOpeningSebConfig:YES];
             return;
         }
     }

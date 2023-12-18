@@ -995,6 +995,10 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     [_sebViewController.browserController showAlertNotAllowedDownUploading:uploading];
 }
 
+- (void)showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    [_sebViewController.browserController showAlertNotAllowedDownloadingAndOpeningSebConfig:downloading];
+}
 
 - (NSURLRequest *)modifyRequest:(NSURLRequest *)request
 {

@@ -103,6 +103,20 @@
 }
 
 
+- (void) showAlertNotAllowedDownloadingAndOpeningSebConfig:(BOOL)downloading
+{
+    NSString *downloadingOpeningString = @"";
+    if (downloading) {
+        downloadingOpeningString = NSLocalizedString(@"Downloading and Opening", @"");
+    } else {
+        downloadingOpeningString = NSLocalizedString(@"Opening", @"");
+    }
+    DDLogWarn(@"Attempted %@ of %@ configurations is not allowed in current settings", downloadingOpeningString, SEBShortAppName);
+    [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ %@ Configurations Not Allowed!", @""), downloadingOpeningString, SEBShortAppName, nil]
+                     andText:[NSString stringWithFormat:NSLocalizedString(@"%@ of %@ configurations is not allowed in current settings. Report this to your exam provider.", @""), downloadingOpeningString, SEBShortAppName]];
+}
+
+
 - (void)openDownloadedSEBConfigData:(NSData *)sebFileData fromURL:(NSURL *)url originalURL:(NSURL *)originalURL
 {
     DDLogDebug(@"%s URL: %@", __FUNCTION__, url);
