@@ -42,6 +42,23 @@
 #import "PreferencesViewController.h"
 #import <CoreImage/CoreImage.h>
 
+
+@implementation NSViewController (SEBNSViewController)
+
+- (NSScrollView *) scrollView
+{
+    NSArray *subviews = self.view.subviews;
+    for (NSView *subview in subviews) {
+        if ([subview isKindOfClass:[NSScrollView class]]) {
+            return (NSScrollView *)subview;
+        }
+    }
+    return nil;
+}
+
+@end
+
+
 @implementation PreferencesController
 
 
@@ -291,23 +308,19 @@
     NSViewController *viewController = (NSViewController *)[MBPreferencesController sharedController].currentModule;
     
     NSSize newWindowSize = [MBPreferencesController sharedController].newWindowSize;
-    if (frameSize.width == newWindowSize.width && frameSize.height != newWindowSize.height) {
-        newFrameSize = NSMakeSize(frameSize.width, frameSize.height);
-    } else {
-        if ([viewController respondsToSelector:@selector(scrollView)]) {
-            NSScrollView *scrollView = [viewController performSelector:@selector(scrollView)];
-            NSSize contentViewSize = scrollView.contentView.bounds.size;
-            NSSize fullContentSize = [scrollView documentView].fittingSize;
-            CGFloat windowBorderWidth = windowSize.width - fullContentSize.width;
-            CGFloat windowBorderHeight = windowSize.height - contentViewSize.height;
+    NSScrollView *scrollView = [viewController scrollView];
+    if (scrollView) {
+        NSSize contentViewSize = scrollView.contentView.bounds.size;
+        NSSize fullContentSize = [scrollView documentView].fittingSize;
+        CGFloat windowBorderWidth = windowSize.width - fullContentSize.width;
+        CGFloat windowBorderHeight = windowSize.height - contentViewSize.height;
 
-            newFrameSize = NSMakeSize(fullContentSize.width + windowBorderWidth, (frameSize.height < fullContentSize.height + windowBorderHeight ? frameSize.height : fullContentSize.height + windowBorderHeight));
-    #ifdef DEBUG
-            DDLogVerbose(@"New frame size for Preferences window containing a scroll view: %f, %f", newFrameSize.width, newFrameSize.height);
-    #endif
-        } else {
-            newFrameSize = newWindowSize;
-        }
+        newFrameSize = NSMakeSize(fullContentSize.width + windowBorderWidth, (frameSize.height < fullContentSize.height + windowBorderHeight ? frameSize.height : fullContentSize.height + windowBorderHeight));
+#ifdef DEBUG
+        DDLogVerbose(@"New frame size for Preferences window containing a scroll view: %f, %f", newFrameSize.width, newFrameSize.height);
+#endif
+    } else {
+        newFrameSize = newWindowSize;
     }
     return newFrameSize;
 }
