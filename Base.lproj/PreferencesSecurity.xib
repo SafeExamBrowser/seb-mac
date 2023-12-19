@@ -46,10 +46,10 @@
             <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckr-si-0T4">
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckr-si-0T4">
                     <rect key="frame" x="0.0" y="0.0" width="667" height="702"/>
                     <clipView key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y6t-H6-L0Q">
-                        <rect key="frame" x="1" y="1" width="650" height="685"/>
+                        <rect key="frame" x="1" y="1" width="650" height="700"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFT-WK-gUf">
                                 <rect key="frame" x="0.0" y="0.0" width="630" height="772"/>
@@ -2135,12 +2135,12 @@
                         </constraints>
                         <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="wAu-xd-DCA">
-                        <rect key="frame" x="1" y="686" width="650" height="15"/>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="wAu-xd-DCA">
+                        <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.8045977011494253" horizontal="NO" id="Wcn-E4-i4h">
-                        <rect key="frame" x="651" y="1" width="15" height="685"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.76388888888888884" horizontal="NO" id="Wcn-E4-i4h">
+                        <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
