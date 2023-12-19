@@ -61,6 +61,13 @@
 @class SEBBrowserController;
 
 
+@interface NSViewController (SEBNSViewController)
+
+- (NSScrollView *) scrollView;
+
+@end
+
+
 @interface PreferencesController : NSObject <NSWindowDelegate, NSOpenSavePanelDelegate> {
 
     IBOutlet NSMenu *settingsMenu;
