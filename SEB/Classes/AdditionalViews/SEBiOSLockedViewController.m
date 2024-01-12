@@ -191,7 +191,8 @@
 }
 
 
-- (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString {
+- (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString logStringToAppend:(NSAttributedString *)logStringToAppend
+{
     [logTextView setScrollEnabled:NO];
     logTextView.attributedText = resignActiveLogString;
     [logTextView sizeToFit];
@@ -200,7 +201,16 @@
 //    [logTextView becomeFirstResponder];
 }
 
-- (NSAttributedString *)resignActiveLogString {
+- (void)setResignActiveLogString:(NSAttributedString *)resignActiveLogString
+{
+    [logTextView setScrollEnabled:NO];
+    logTextView.attributedText = resignActiveLogString;
+    [logTextView sizeToFit];
+    [logTextView setScrollEnabled:YES];
+}
+
+- (NSAttributedString *)resignActiveLogString 
+{
     return logTextView.attributedText;
 }
 
