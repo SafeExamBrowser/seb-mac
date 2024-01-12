@@ -17,6 +17,9 @@
 " settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS " = "-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS ";
 
 /* No comment provided by engineer. */
+"%@ %@ Configurations Not Allowed!" = "%1$@ von %2$@-Konfigurationen nicht erlaubt!";
+
+/* No comment provided by engineer. */
 "%@ Config File %@" = "%1$@-Konfigurationsdatei %2$@";
 
 /* No comment provided by engineer. */
@@ -36,6 +39,9 @@
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." = "%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.";
 
 /* No comment provided by engineer. */
 "%@ Re-Configured" = "%@ neu konfiguriert";
@@ -386,6 +392,9 @@
 "Downloading" = "Download";
 
 /* No comment provided by engineer. */
+"Downloading and Opening" = "Download und Öffnen";
+
+/* No comment provided by engineer. */
 "Edit Settings" = "Einstellungen bearbeiten";
 
 /* No comment provided by engineer. */
@@ -702,6 +711,9 @@
 
 /* No comment provided by engineer. */
 "open in same window" = "im selben Fenster öffnen";
+
+/* No comment provided by engineer. */
+"Opening" = "Öffnen";
 
 /* No comment provided by engineer. */
 "Opening Exam..." = "Prüfung öffnen...";
@@ -1101,6 +1113,9 @@
 
 /* No comment provided by engineer. */
 "URL Blocked!" = "Blockierte URL!";
+
+/* No comment provided by engineer. */
+"URLSession was invalidated" = "URLSession nicht mehr gültig";
 
 /* No comment provided by engineer. */
 "Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." = "Verwenden Sie den Identitätsnamen, der sich aus dem Dateinamen der aktuellen Konfiguration ergibt, oder geben Sie einen anderen ein. Er muss unter allen Identitäten einmalig sein.";
