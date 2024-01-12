@@ -4798,7 +4798,7 @@
 				INFOPLIST_FILE = "SEBVerificator/SEBVerificator-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SEB Verificator";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -4862,7 +4862,7 @@
 				INFOPLIST_FILE = "SEBVerificator/SEBVerificator-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SEB Verificator";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
