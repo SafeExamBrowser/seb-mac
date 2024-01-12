@@ -4157,9 +4157,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8";</note>
       </trans-unit>
       <trans-unit id="dbm-W0-7Yt.title" xml:space="preserve">
-        <source>Log file directory:</source>
-        <target>Log-Dateiverzeichnis Windows:</target>
-        <note>Class = "NSTextFieldCell"; title = "Log file directory:"; ObjectID = "dbm-W0-7Yt";</note>
+        <source>Log directory (Win):</source>
+        <target>Log-Verzeichnis (Win)</target>
+        <note>Class = "NSTextFieldCell"; title = "Log directory (Win):"; ObjectID = "dbm-W0-7Yt";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Disable Explorer Shell</source>
@@ -4812,6 +4812,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target> Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
+        <source>%1$@ %2$@ Configurations Not Allowed!</source>
+        <target>%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ Dock" xml:space="preserve">
         <source>%@ Dock</source>
         <target>%@ Dock</target>
@@ -4852,8 +4857,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ ist deaktiviert. Aktivieren Sie %2$@ und starten %3$@ neu.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+      <trans-unit id="%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -4861,6 +4866,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
+      </trans-unit>
+      <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</source>
+        <target>%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ process was stopped for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ process was stopped for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -5292,13 +5302,18 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Couldn't terminate process: %@" xml:space="preserve">
+        <source>Couldn't terminate process: %@</source>
+        <target>Prozess konnte nicht beendet werden: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them." xml:space="preserve">
         <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
         <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+      <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -5430,6 +5445,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
         <target>Download</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading and Opening" xml:space="preserve">
+        <source>Downloading and Opening</source>
+        <target>Download und Öffnen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." xml:space="preserve">
+        <source>Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance.</source>
+        <target>Aufgrund von Zoom-Lizenzierungsfragen ist Zoom Live Proctoring nur für SEB Alliance-Mitglieder verfügbar. Bitte besuchen Sie https://safeexambrowser.org/alliance.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit File" xml:space="preserve">
@@ -5872,6 +5897,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Menü mit offenen Webseiten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening" xml:space="preserve">
+        <source>Opening</source>
+        <target>Öffnen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening Exam..." xml:space="preserve">
         <source>Opening Exam...</source>
         <target>Prüfung öffnen...</target>
@@ -5997,14 +6027,14 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Verbotene Prozesse laufen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Prohibited processes (check overridden) still running" xml:space="preserve">
+        <source>Prohibited processes (check overridden) still running</source>
+        <target>Verbotene Prozesse (Überprüfung deaktiviert) laufen noch</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Prohibited processes detected" xml:space="preserve">
         <source>Prohibited processes detected</source>
         <target>Verbotene Prozesse wurden detektiert!</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Prohibited processes still running" xml:space="preserve">
-        <source>Prohibited processes still running</source>
-        <target>Verbotene Prozesse laufen noch</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">
@@ -6537,6 +6567,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Blockierte URL!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="URLSession was invalidated" xml:space="preserve">
+        <source>URLSession was invalidated</source>
+        <target>URLSession nicht mehr gültig</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Unconfirmed Password" xml:space="preserve">
         <source>Unconfirmed Password</source>
         <target>Unbestätigtes Passwort</target>
@@ -6916,8 +6951,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
@@ -7530,8 +7565,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
-      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&amp;apos;t support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
-        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don&amp;apos;t support gzip compressed or encrypted config files or for manual editing.</source>
+      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
+        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing.</source>
         <target>Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent). Die Option Standardwerte entfernen reduziert die Grösse einer SEB-Konfiguration (wird automatisch für Config URL und QR Code verwendet). Konfigurationsdateien zum Starten von Prüfungen können unkomprimiert als Klartext gespeichert werden, um sie in LMS/Prüfungssysteme zu importieren, die keine gzip-komprimierten oder verschlüsselten Konfigurationsdateien unterstützen, oder um sie manuell zu bearbeiten.</target>
         <note/>
       </trans-unit>
@@ -7540,8 +7575,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfiguration mit QR-Code erlauben</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
-        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn&amp;apos;t running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
+      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
         <target>Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.</target>
         <note/>
       </trans-unit>
@@ -7560,8 +7595,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfigurieren von Clients</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Create &amp;amp; Embed Identity" xml:space="preserve">
-        <source>Create &amp;amp; Embed Identity</source>
+      <trans-unit id="Create &amp; Embed Identity" xml:space="preserve">
+        <source>Create &amp; Embed Identity</source>
         <target>Identität erstellen/einbetten</target>
         <note/>
       </trans-unit>
@@ -7610,8 +7645,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>QR-Code</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Recommended for easier set-up and testing. Shows the &amp;apos;Edit Settings&amp;apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." xml:space="preserve">
-        <source>Recommended for easier set-up and testing. Shows the &amp;apos;Edit Settings&amp;apos; command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.</source>
+      <trans-unit id="Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." xml:space="preserve">
+        <source>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.</source>
         <target>Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.</target>
         <note/>
       </trans-unit>
@@ -7670,8 +7705,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfiguration verwenden zum …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don&amp;apos;t have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
         <target>Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfiguration zum Starten von Prüfungen geteilt wird. Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfiguration verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.</target>
         <note/>
       </trans-unit>
@@ -8070,6 +8105,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
+        <source>%1$@ %2$@ Configurations Not Allowed!</source>
+        <target>%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ Config File %@" xml:space="preserve">
         <source>%1$@ Config File %2$@</source>
         <target>%1$@-Konfigurationsdatei %2$@</target>
@@ -8108,6 +8148,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
         <source>%@ needs to be used differently depending on your role.</source>
         <target>%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</source>
+        <target>%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
@@ -8535,8 +8580,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Aktuelle Einstellungen erfordern, dass der Einzel-App-Modus aktiviert ist, um fortzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Current settings require %@ remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+      <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
+        <source>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -8643,6 +8688,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
         <target>Download</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading and Opening" xml:space="preserve">
+        <source>Downloading and Opening</source>
+        <target>Download und Öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit Settings" xml:space="preserve">
@@ -9113,6 +9163,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Open edX" xml:space="preserve">
         <source>Open edX</source>
         <target>Open edX</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening" xml:space="preserve">
+        <source>Opening</source>
+        <target>Öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Exam..." xml:space="preserve">
@@ -9729,6 +9784,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="URL Blocked!" xml:space="preserve">
         <source>URL Blocked!</source>
         <target>Blockierte URL!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="URLSession was invalidated" xml:space="preserve">
+        <source>URLSession was invalidated</source>
+        <target>URLSession nicht mehr gültig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Unlock %@ with the quit password, which usually exam supervision/support knows." xml:space="preserve">
@@ -10551,8 +10611,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSLocalNetworkUsageDescription" xml:space="preserve">
@@ -11371,6 +11431,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Abbrechen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Couldn't terminate process: %@" xml:space="preserve">
+        <source>Couldn't terminate process: %@</source>
+        <target>Prozess konnte nicht beendet werden: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Default for opening" xml:space="preserve">
         <source>Default for opening</source>
         <target>Standard zum Öffnen</target>
@@ -11589,8 +11654,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>
