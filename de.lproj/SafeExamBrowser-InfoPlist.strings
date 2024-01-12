@@ -8,7 +8,7 @@
 "NSCameraUsageDescription" = "Kamerazugriff ist notwendig für Web-Applikationen/Fernüberwachung.";
 
 /* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen";
+"NSHumanReadableCopyright" = "© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen";
 
 /* Privacy - Microphone Usage Description */
 "NSMicrophoneUsageDescription" = "Mikrofonzugriff ist notwendig für Web-Applikationen/Fernüberwachung.";
