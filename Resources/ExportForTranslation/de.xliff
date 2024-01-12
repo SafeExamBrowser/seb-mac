@@ -6866,8 +6866,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
@@ -10406,8 +10406,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2022 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSLocalNetworkUsageDescription" xml:space="preserve">
@@ -11444,8 +11444,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2023 Daniel R. Schneider, ETH Zurich, Educational Development and Technology (LET), based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2022 Daniel R. Schneider, ETH Zürich, Lehrentwicklung und -technologie (LET), basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
+        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2024 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>
