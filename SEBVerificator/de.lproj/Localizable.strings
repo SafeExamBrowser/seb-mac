@@ -23,6 +23,9 @@
 "Cancel" = "Abbrechen";
 
 /* No comment provided by engineer. */
+"Couldn't terminate process: %@" = "Prozess konnte nicht beendet werden: %@";
+
+/* No comment provided by engineer. */
 "Default for opening" = "Standard zum Öffnen";
 
 /* No comment provided by engineer. */

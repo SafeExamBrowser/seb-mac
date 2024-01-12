@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -484,6 +484,11 @@
         <target>Warnung!</target>
         <note>Class = "NSTextFieldCell"; title = "Warning!"; ObjectID = "f7N-eB-F22";</note>
       </trans-unit>
+      <trans-unit id="f9z-cz-dif.ibShadowedToolTip" xml:space="preserve">
+        <source>Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing</source>
+        <target>Konfigurationsdateien zum Starten von Prüfungen können unkomprimiert als Klartext gespeichert werden, um sie in LMS/Prüfungssysteme zu importieren, die keine gzip-komprimierten oder verschlüsselten Konfigurationsdateien unterstützen, oder um sie manuell zu bearbeiten</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing"; ObjectID = "f9z-cz-dif";</note>
+      </trans-unit>
       <trans-unit id="fhi-DK-hWE.title" xml:space="preserve">
         <source>Actual Size</source>
         <target>Originalgrösse</target>
@@ -493,6 +498,11 @@
         <source>Save As…</source>
         <target>Sichern als …</target>
         <note>Class = "NSMenuItem"; title = "Save As…"; ObjectID = "gQN-UT-3wR";</note>
+      </trans-unit>
+      <trans-unit id="hUs-yu-PMc.title" xml:space="preserve">
+        <source>plain text</source>
+        <target>Klartext</target>
+        <note>Class = "NSButtonCell"; title = "plain text"; ObjectID = "hUs-yu-PMc";</note>
       </trans-unit>
       <trans-unit id="hZU-Wv-guz.title" xml:space="preserve">
         <source>Quit</source>
@@ -608,7 +618,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1035,7 +1045,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -1497,7 +1507,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -2144,7 +2154,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -2391,7 +2401,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="6rb-i4-RZm.title" xml:space="preserve">
@@ -2540,7 +2550,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2797,7 +2807,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -2994,7 +3004,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -3566,7 +3576,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3663,7 +3673,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -4148,7 +4158,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="dbm-W0-7Yt.title" xml:space="preserve">
         <source>Log directory (Win):</source>
-        <target>Log-Verzeichnis (Win):</target>
+        <target>Log-Verzeichnis (Win)</target>
         <note>Class = "NSTextFieldCell"; title = "Log directory (Win):"; ObjectID = "dbm-W0-7Yt";</note>
       </trans-unit>
       <trans-unit id="dpL-te-8hi.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -4395,7 +4405,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
@@ -4712,7 +4722,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Classes/ProcessMonitoring/Base.lproj/ProcessListView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0H1-qr-5QU.title" xml:space="preserve">
@@ -4769,7 +4779,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
@@ -4800,6 +4810,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id=" settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " xml:space="preserve">
         <source> settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS </source>
         <target> Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
+        <source>%1$@ %2$@ Configurations Not Allowed!</source>
+        <target>%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Dock" xml:space="preserve">
@@ -4842,8 +4857,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ ist deaktiviert. Aktivieren Sie %2$@ und starten %3$@ neu.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
+      <trans-unit id="%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
+        <source>%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -4851,6 +4866,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
         <target>%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
+      </trans-unit>
+      <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</source>
+        <target>%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ process was stopped for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ process was stopped for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -4872,34 +4892,39 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.11)</source>
-        <target>10.7 (dieser SEB: 10.11)</target>
+      <trans-unit id=", but compressed using gzip." xml:space="preserve">
+        <source>, but compressed using gzip.</source>
+        <target>, aber mit gzip komprimiert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.11)</source>
-        <target>10.8 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.7 (this SEB: 10.13)</source>
+        <target>10.7 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.11)</source>
-        <target>10.9 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.8 (this SEB: 10.13)</source>
+        <target>10.8 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.11)</source>
-        <target>10.10 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.9 (this SEB: 10.13)</source>
+        <target>10.9 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 El Capitan" xml:space="preserve">
-        <source>10.11 El Capitan</source>
-        <target>10.11 El Capitan</target>
+      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.10 (this SEB: 10.13)</source>
+        <target>10.10 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 Sierra" xml:space="preserve">
-        <source>10.12 Sierra</source>
-        <target>10.12 Sierra</target>
+      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.11 (this SEB: 10.13)</source>
+        <target>10.11 (dieser SEB: 10.13)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.12 (this SEB: 10.13)</source>
+        <target>10.12 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -4930,6 +4955,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="13 Ventura" xml:space="preserve">
         <source>13 Ventura</source>
         <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="14 Sonoma" xml:space="preserve">
+        <source>14 Sonoma</source>
+        <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." xml:space="preserve">
@@ -5107,6 +5137,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Server API kann nicht geladen werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot Open Exam" xml:space="preserve">
+        <source>Cannot Open Exam</source>
+        <target>Prüfung kann nicht geöffnet werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
         <source>Cannot Reconfigure Client</source>
         <target>Client kann nicht umkonfiguriert werden</target>
@@ -5267,13 +5302,18 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Couldn't terminate process: %@" xml:space="preserve">
+        <source>Couldn't terminate process: %@</source>
+        <target>Prozess konnte nicht beendet werden: %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Current settings have unsaved changes. If you don't save those first, you will loose them." xml:space="preserve">
         <source>Current settings have unsaved changes. If you don't save those first, you will loose them.</source>
         <target>Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <source>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -5357,6 +5397,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Diktat-Funktion wurde aktiviert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
+        <source>Disconnecting from SEB Server</source>
+        <target>Verbindung mit SEB Server trennen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." xml:space="preserve">
         <source>Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.</source>
         <target>Wollen Sie wirklich alle laufenden verbotenen Prozesse sofort beenden? Programme, die kein automatisches Speichern unterstützen, könnten ungesicherte Dokumentenänderungen verlieren.</target>
@@ -5400,6 +5445,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
         <target>Download</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading and Opening" xml:space="preserve">
+        <source>Downloading and Opening</source>
+        <target>Download und Öffnen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." xml:space="preserve">
+        <source>Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance.</source>
+        <target>Aufgrund von Zoom-Lizenzierungsfragen ist Zoom Live Proctoring nur für SEB Alliance-Mitglieder verfügbar. Bitte besuchen Sie https://safeexambrowser.org/alliance.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit File" xml:space="preserve">
@@ -5477,6 +5532,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Prüfung</target>
         <note>Title of 'Exam' preference pane</note>
       </trans-unit>
+      <trans-unit id="Exam List is Empty" xml:space="preserve">
+        <source>Exam List is Empty</source>
+        <target>Leere Prüfungsliste</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Exporting Identity Failed" xml:space="preserve">
         <source>Exporting Identity Failed</source>
         <target>Exportieren des Identitätszertifikats ist fehlgeschlagen</target>
@@ -5552,6 +5612,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Klassische erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Force Close" xml:space="preserve">
+        <source>Force Close</source>
+        <target>Schliessen erzwingen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Force Quit All Processes" xml:space="preserve">
         <source>Force Quit All Processes</source>
         <target>Prozesse sofort beenden</target>
@@ -5595,6 +5660,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Identity" xml:space="preserve">
         <source>Identity</source>
         <target>Identität</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="If SEB Server doesn't respond for a while, you can forcibly close the connection" xml:space="preserve">
+        <source>If SEB Server doesn't respond for a while, you can forcibly close the connection</source>
+        <target>Wenn SEB Server eine Zeit lang nicht antwortet, können Sie die Verbindung zwangsweise schliessen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
@@ -5827,6 +5897,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Menü mit offenen Webseiten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening" xml:space="preserve">
+        <source>Opening</source>
+        <target>Öffnen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening Exam..." xml:space="preserve">
+        <source>Opening Exam...</source>
+        <target>Prüfung öffnen...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
         <source>Opening New Settings Failed!</source>
         <target>Öffnen neuer Einstellungen fehlgeschlagen!</target>
@@ -5947,14 +6027,14 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Verbotene Prozesse laufen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Prohibited processes (check overridden) still running" xml:space="preserve">
+        <source>Prohibited processes (check overridden) still running</source>
+        <target>Verbotene Prozesse (Überprüfung deaktiviert) laufen noch</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Prohibited processes detected" xml:space="preserve">
         <source>Prohibited processes detected</source>
         <target>Verbotene Prozesse wurden detektiert!</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Prohibited processes still running" xml:space="preserve">
-        <source>Prohibited processes still running</source>
-        <target>Verbotene Prozesse laufen noch</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">
@@ -6015,6 +6095,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Reading Settings Failed" xml:space="preserve">
         <source>Reading Settings Failed</source>
         <target>Lesen der Einstellungen ist fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
@@ -6162,6 +6247,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Änderungen speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Save Unencrypted" xml:space="preserve">
+        <source>Save Unencrypted</source>
+        <target>Unverschlüsselt speichern</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Save settings to display its Browser Exam Key" xml:space="preserve">
         <source>Save settings to display its Browser Exam Key</source>
         <target>Einstellungen speichern, um deren Browser Exam Key anzuzeigen</target>
@@ -6170,11 +6260,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Save settings to display its Config Key" xml:space="preserve">
         <source>Save settings to display its Config Key</source>
         <target>Einstellungen speichern, um deren Config Key anzuzeigen</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Save unencrypted" xml:space="preserve">
-        <source>Save unencrypted</source>
-        <target>Unverschlüsselt speichern</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Saved file '%@'" xml:space="preserve">
@@ -6362,6 +6447,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The configuration will be saved unencrypted" xml:space="preserve">
+        <source>The configuration will be saved unencrypted</source>
+        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
         <source>The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ proctoring server, your exam provider decides which proctoring service/server to use.</source>
         <target>Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Dienst oder Server verwendet werden soll.</target>
@@ -6475,6 +6565,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="URL Blocked!" xml:space="preserve">
         <source>URL Blocked!</source>
         <target>Blockierte URL!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="URLSession was invalidated" xml:space="preserve">
+        <source>URLSession was invalidated</source>
+        <target>URLSession nicht mehr gültig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Unconfirmed Password" xml:space="preserve">
@@ -6658,11 +6753,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Das aktuelle %@ Administrator-Passwort muss zum Umkonfigurieren eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." xml:space="preserve">
         <source>You cannot enter a path to an %1$@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %2$@/developer.</source>
         <target>Sie können hier keinen Pfad zu einer %1$@-Konfigurationsdatei eingeben, sondern nur eine Domänen-URL Ihrer Einrichtung (Hostname mit Domäne und optional Subdomänen). Administratoren erhalten weitere Informationen zur automatischen Client-Konfiguration unter %2$@/developer.</target>
@@ -6696,11 +6786,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version." xml:space="preserve">
         <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
         <target>Sie haben entweder ein falsches Passwort eingegeben oder diese Konfiguration wurde mit einer inkompatiblen SEB-Version erstellt.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
-        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
-        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." xml:space="preserve">
@@ -6758,9 +6843,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>werden generell blockiert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 16" xml:space="preserve">
-        <source>iOS 16</source>
-        <target>iOS 16</target>
+      <trans-unit id="iOS 17" xml:space="preserve">
+        <source>iOS 17</source>
+        <target>iOS 17</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -6847,7 +6932,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -6884,7 +6969,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -7176,7 +7261,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
@@ -7238,7 +7323,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Navigation" xml:space="preserve">
@@ -7420,7 +7505,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Camera Capture" xml:space="preserve">
@@ -7477,12 +7562,12 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/ConfigFile.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
-      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." xml:space="preserve">
-        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code).</source>
-        <target>Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent).</target>
+      <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
+        <source>A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing.</source>
+        <target>Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent). Die Option Standardwerte entfernen reduziert die Grösse einer SEB-Konfiguration (wird automatisch für Config URL und QR Code verwendet). Konfigurationsdateien zum Starten von Prüfungen können unkomprimiert als Klartext gespeichert werden, um sie in LMS/Prüfungssysteme zu importieren, die keine gzip-komprimierten oder verschlüsselten Konfigurationsdateien unterstützen, oder um sie manuell zu bearbeiten.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow QR Code Config" xml:space="preserve">
@@ -7490,9 +7575,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfiguration mit QR-Code erlauben</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
-        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
-        <target>Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn die SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.</target>
+      <trans-unit id="Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." xml:space="preserve">
+        <source>Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.</source>
+        <target>Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Auto-Select Identity" xml:space="preserve">
@@ -7500,13 +7585,18 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Identität automatisch auswählen</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Config URL" xml:space="preserve">
+        <source>Config URL</source>
+        <target>Konfigurations-URL</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Configuring Clients" xml:space="preserve">
         <source>Configuring Clients</source>
         <target>Konfigurieren von Clients</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Create & Embed Identity" xml:space="preserve">
-        <source>Create & Embed Identity</source>
+      <trans-unit id="Create &amp; Embed Identity" xml:space="preserve">
+        <source>Create &amp; Embed Identity</source>
         <target>Identität erstellen/einbetten</target>
         <note/>
       </trans-unit>
@@ -7545,14 +7635,34 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Verwaltete MDM-Konfiguration</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." xml:space="preserve">
-        <source>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file.</source>
+      <trans-unit id="Plain Text" xml:space="preserve">
+        <source>Plain Text</source>
+        <target>Klartext</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="QR Code" xml:space="preserve">
+        <source>QR Code</source>
+        <target>QR-Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." xml:space="preserve">
+        <source>Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.</source>
         <target>Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Remove Default Values" xml:space="preserve">
+        <source>Remove Default Values</source>
+        <target>Standardwerte entfernen</target>
         <note/>
       </trans-unit>
       <trans-unit id="SEB Config QR Code" xml:space="preserve">
         <source>SEB Config QR Code</source>
         <target>SEB Konfigurations-QR-Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="SEB File" xml:space="preserve">
+        <source>SEB File</source>
+        <target>SEB-Datei</target>
         <note/>
       </trans-unit>
       <trans-unit id="SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." xml:space="preserve">
@@ -7563,6 +7673,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Settings Password" xml:space="preserve">
         <source>Settings Password</source>
         <target>Passwort</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share As …" xml:space="preserve">
+        <source>Share As …</source>
+        <target>Teilen als …</target>
         <note/>
       </trans-unit>
       <trans-unit id="Share Configuration" xml:space="preserve">
@@ -7590,21 +7705,26 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Konfiguration verwenden zum …</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
-        <source>Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
-        <target>Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfigurationsdatei zum Starten von Prüfungen geteilt wird. Die Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfigurationsdatei verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.</target>
+      <trans-unit id="Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." xml:space="preserve">
+        <source>Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees.</source>
+        <target>Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfiguration zum Starten von Prüfungen geteilt wird. Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfiguration verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." xml:space="preserve">
-        <source>Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients.</source>
-        <target>Verwenden Sie die Taste Teilen auf der Seite Einstellungen, um Einstellungen als SEB-Konfigurationsdatei zu exportieren, die auf einem Webserver abgelegt und mit einem seb(s)://-Link geöffnet werden kann, um Prüfungen zu starten oder SEB-Clients zu konfigurieren.</target>
+      <trans-unit id="Use the Share button on the Settings page to export settings to start exams or configure SEB clients." xml:space="preserve">
+        <source>Use the Share button on the Settings page to export settings to start exams or configure SEB clients.</source>
+        <target>Verwenden Sie die Taste Teilen auf der Seite Einstellungen zum Exportieren von Einstellungen, um Prüfungen zu starten oder SEB-Clients zu konfigurieren.</target>
         <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file." xml:space="preserve">
+        <source>You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file.</source>
+        <target>Sie können entweder eine SEB-Konfigurationsdatei exportieren, die z. B. auf einem Webserver abgelegt und mit einem seb(s)://-Link geöffnet oder über MDM verteilt werden kann. Sie können auch einen sebs://-Link in einer Textdatei erzeugen, welcher die vollständig komprimierte und optional verschlüsselte Konfiguration enthält. Oder Sie können einen QR-Code exportieren, der einfache SEB-Konfigurationen als PNG-Bilddatei enthält.</target>
+        <note/>
       </trans-unit>
     </body>
   </file>
   <file original="SEB/Resources/en.lproj/Dock.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Dock Command Items" xml:space="preserve">
@@ -7671,7 +7791,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Downloading" xml:space="preserve">
@@ -7703,7 +7823,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Exam.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
@@ -7870,7 +7990,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/ExamKeys.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="BEK" xml:space="preserve">
@@ -7952,7 +8072,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" (%d:%d Remaining)" xml:space="preserve">
@@ -7983,6 +8103,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id=" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS " xml:space="preserve">
         <source> settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS </source>
         <target>-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
+        <source>%1$@ %2$@ Configurations Not Allowed!</source>
+        <target>%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ Config File %@" xml:space="preserve">
@@ -8025,39 +8150,44 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
+        <source>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</source>
+        <target>%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.11)</source>
-        <target>10.7 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.7 (this SEB: 10.13)</source>
+        <target>10.7 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.11)</source>
-        <target>10.8 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.8 (this SEB: 10.13)</source>
+        <target>10.8 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.11)</source>
-        <target>10.9 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.9 (this SEB: 10.13)</source>
+        <target>10.9 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.11)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.11)</source>
-        <target>10.10 (dieser SEB: 10.11)</target>
+      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.10 (this SEB: 10.13)</source>
+        <target>10.10 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 El Capitan" xml:space="preserve">
-        <source>10.11 El Capitan</source>
-        <target>10.11 El Capitan</target>
+      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.11 (this SEB: 10.13)</source>
+        <target>10.11 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 Sierra" xml:space="preserve">
-        <source>10.12 Sierra</source>
-        <target>10.12 Sierra</target>
+      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
+        <source>10.12 (this SEB: 10.13)</source>
+        <target>10.12 (dieser SEB: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -8088,6 +8218,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="13 Ventura" xml:space="preserve">
         <source>13 Ventura</source>
         <target>13 Ventura</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="14 Sonoma" xml:space="preserve">
+        <source>14 Sonoma</source>
+        <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
@@ -8228,7 +8363,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
         <target>Abbrechen</target>
-        <note>No comment provided by engineer.</note>
+        <note>Cancel</note>
       </trans-unit>
       <trans-unit id="Cannot Configure Client" xml:space="preserve">
         <source>Cannot Configure Client</source>
@@ -8263,6 +8398,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cannot Get Server API" xml:space="preserve">
         <source>Cannot Get Server API</source>
         <target>Server API kann nicht geladen werden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Open Exam" xml:space="preserve">
+        <source>Cannot Open Exam</source>
+        <target>Prüfung kann nicht geöffnet werden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">
@@ -8313,6 +8453,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Check your server connection configuration." xml:space="preserve">
         <source>Check your server connection configuration.</source>
         <target>Die Konfiguration der Serververbindung muss überprüft werden.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Closing QR Code scanner" xml:space="preserve">
+        <source>Closing QR Code scanner</source>
+        <target>Schliesse QR-Code Scanner</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Closing lockdown windows" xml:space="preserve">
@@ -8436,7 +8581,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
-        <source>Current settings require %1$@ remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
+        <source>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -8500,6 +8645,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Scrollsperre deaktivieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
+        <source>Disconnecting from SEB Server</source>
+        <target>Verbindung mit SEB Server trennen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Displays a camera view to scan for SEB configuration QR codes" xml:space="preserve">
         <source>Displays a camera view to scan for SEB configuration QR codes</source>
         <target>Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen</target>
@@ -8538,6 +8688,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Downloading" xml:space="preserve">
         <source>Downloading</source>
         <target>Download</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Downloading and Opening" xml:space="preserve">
+        <source>Downloading and Opening</source>
+        <target>Download und Öffnen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit Settings" xml:space="preserve">
@@ -8620,6 +8775,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Fehler beim Entschlüsseln der Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Exam List is Empty" xml:space="preserve">
+        <source>Exam List is Empty</source>
+        <target>Leere Prüfungsliste</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Exam Page" xml:space="preserve">
         <source>Exam Page</source>
         <target>Prüfungsseite</target>
@@ -8695,6 +8855,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Klassische erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Force Close" xml:space="preserve">
+        <source>Force Close</source>
+        <target>Schliessen erzwingen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Full user name: %@" xml:space="preserve">
         <source>Full user name: %@</source>
         <target>Vollständiger Benutzername: %@</target>
@@ -8703,6 +8868,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Getting Exam Config..." xml:space="preserve">
         <source>Getting Exam Config...</source>
         <target>Lade Prüfungskonfiguration...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="GitHub Issue/Discussion Required for Log Submission" xml:space="preserve">
+        <source>GitHub Issue/Discussion Required for Log Submission</source>
+        <target>GitHub Issue/Diskussion für Log-Übermittlung erforderlich</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Go Back" xml:space="preserve">
@@ -8745,6 +8915,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Identität im Schlüsselbund</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="If SEB Server doesn't respond for a while, you can forcibly close the connection" xml:space="preserve">
+        <source>If SEB Server doesn't respond for a while, you can forcibly close the connection</source>
+        <target>Wenn SEB Server eine Zeit lang nicht antwortet, können Sie die Verbindung zwangsweise schliessen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
         <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
         <target>Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.</target>
@@ -8783,11 +8958,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Instructions for Students" xml:space="preserve">
         <source>Instructions for Students</source>
         <target>Instruktionen für Studierende</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Issue Description Required" xml:space="preserve">
-        <source>Issue Description Required</source>
-        <target>Fehlerbeschreibung notwendig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Left" xml:space="preserve">
@@ -8995,9 +9165,24 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Open edX</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening" xml:space="preserve">
+        <source>Opening</source>
+        <target>Öffnen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening Exam..." xml:space="preserve">
+        <source>Opening Exam...</source>
+        <target>Prüfung öffnen...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Opening New Settings Failed!" xml:space="preserve">
         <source>Opening New Settings Failed!</source>
         <target>Öffnen neuer Einstellungen fehlgeschlagen!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opening QR Code scanner" xml:space="preserve">
+        <source>Opening QR Code scanner</source>
+        <target>Öffne QR-Code Scanner</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Opening Settings Failed" xml:space="preserve">
@@ -9040,14 +9225,14 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Bitte wählen Sie Ihre Rolle</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description." xml:space="preserve">
-        <source>Please add a detailed description of the issue you would like to report in the mail body. Log submissions without such a description will be ignored, as most issues cannot be analyzed without a clear description.</source>
-        <target>Bitte fügen Sie eine detailierte Beschreibung des Fehlers, den Sie melden möchten, in den Mailtext ein. Einsendungen von Logdateien ohne Fehlerbeschreibung werden ignoriert, da die meisten Probleme nicht ohne eine klare Beschreibung analysiert werden können.</target>
+      <trans-unit id="Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" xml:space="preserve">
+        <source>Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</source>
+        <target>Bitte fügen Sie eine GitHub Issue/Diskussionsnummer/einen Link hinzu oder beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" xml:space="preserve">
-        <source>Please describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</source>
-        <target>Bitte beschreiben Sie das Problem, welches Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):</target>
+      <trans-unit id="Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." xml:space="preserve">
+        <source>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</source>
+        <target>Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können SEB-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
@@ -9068,6 +9253,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="QR Code" xml:space="preserve">
         <source>QR Code</source>
         <target>QR-Code</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="QR Code scanned" xml:space="preserve">
+        <source>QR Code scanned</source>
+        <target>QR-Code wurde gescannt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit" xml:space="preserve">
@@ -9103,6 +9293,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Received Config from MDM Server" xml:space="preserve">
         <source>Received Config from MDM Server</source>
         <target>Konfiguration von MDM-Server empfangen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
+        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
+        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Reload" xml:space="preserve">
@@ -9280,6 +9475,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Scrollsperre</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Scroll Lock Active" xml:space="preserve">
+        <source>Scroll Lock Active</source>
+        <target>Scrollsperre aktiviert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Scroll Lock Inactive" xml:space="preserve">
+        <source>Scroll Lock Inactive</source>
+        <target>Scrollsperre deaktiviert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Search Text" xml:space="preserve">
         <source>Search Text</source>
         <target>Text suchen</target>
@@ -9455,6 +9660,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Studierender</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
+        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">
         <source>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</source>
         <target>Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.
@@ -9574,6 +9784,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="URL Blocked!" xml:space="preserve">
         <source>URL Blocked!</source>
         <target>Blockierte URL!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="URLSession was invalidated" xml:space="preserve">
+        <source>URLSession was invalidated</source>
+        <target>URLSession nicht mehr gültig</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Unlock %@ with the quit password, which usually exam supervision/support knows." xml:space="preserve">
@@ -9726,11 +9941,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Das aktuelle %@ Administrator-Passwort muss zum Senden der Logdateien eingegeben werden:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." xml:space="preserve">
-        <source>Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.</source>
-        <target>Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="You can't send log files while in an exam session. Finish the exam first and try it again." xml:space="preserve">
         <source>You can't send log files while in an exam session. Finish the exam first and try it again.</source>
         <target>Sie können während einer Prüfungssession keine Logdateien senden. Beenden Sie zuerst die Prüfung und versuchen Sie es erneut.</target>
@@ -9769,11 +9979,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="You need to enter the correct quit password for this command." xml:space="preserve">
         <source>You need to enter the correct quit password for this command.</source>
         <target>Für diese Funktion müssen Sie das korrekte Beenden-Passwort eingeben.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
-        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
-        <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You will be able to work with other apps after Single App Mode is switched off by your administrator." xml:space="preserve">
@@ -9866,9 +10071,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>werden generell blockiert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 16" xml:space="preserve">
-        <source>iOS 16</source>
-        <target>iOS 16</target>
+      <trans-unit id="iOS 17" xml:space="preserve">
+        <source>iOS 17</source>
+        <target>iOS 17</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -9945,7 +10150,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Network.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -9962,7 +10167,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkCertificate.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -10019,7 +10224,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkFilter.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
@@ -10076,7 +10281,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoring.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="AI Proctoring" xml:space="preserve">
@@ -10243,7 +10448,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Tile View" xml:space="preserve">
@@ -10280,7 +10485,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Admin Password" xml:space="preserve">
@@ -10372,7 +10577,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -10439,7 +10644,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SEBServer.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Connect to SEB Server" xml:space="preserve">
@@ -10491,7 +10696,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/Security.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0" xml:space="preserve">
@@ -10648,7 +10853,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLegacy.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Single App Mode" xml:space="preserve">
@@ -10680,7 +10885,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLogging.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Debug" xml:space="preserve">
@@ -10732,7 +10937,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/en.lproj/UserInterface.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
@@ -10859,7 +11064,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="Allow Editing" xml:space="preserve">
@@ -10911,7 +11116,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="0F9-PI-gFi.title" xml:space="preserve">
@@ -11183,7 +11388,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id=" 1" xml:space="preserve">
@@ -11224,6 +11429,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
         <target>Abbrechen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Couldn't terminate process: %@" xml:space="preserve">
+        <source>Couldn't terminate process: %@</source>
+        <target>Prozess konnte nicht beendet werden: %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Default for opening" xml:space="preserve">
@@ -11430,7 +11640,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="SEBVerificator/en.lproj/SEBVerificator-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3.1" build-num="14E300c"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

@@ -23,6 +23,9 @@
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
 
 /* No comment provided by engineer. */
+"%@ %@ Configurations Not Allowed!" = "%1$@ von %2$@-Konfigurationen nicht erlaubt!";
+
+/* No comment provided by engineer. */
 "%@ Dock" = "%@ Dock";
 
 /* No comment provided by engineer. */
@@ -38,7 +41,7 @@
 "%@ is disabled. Enable %@ and restart %@." = "%1$@ ist deaktiviert. Aktivieren Sie %2$@ und starten %3$@ neu.";
 
 /* No comment provided by engineer. */
-"%@ is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." = "%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+"%@ is locked because a process, which isn't allowed to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows." = "%@ ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* Lockdown alert message text for switching the user */
 "%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows." = "%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
@@ -48,6 +51,9 @@
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." = "%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.";
 
 /* No comment provided by engineer. */
 "%@ process was stopped for %ld:%.2ld (minutes:seconds)" = "%1$@-Prozess war unterbrochen für %2$ld:%3$.2ld (Minuten:Sekunden)";
@@ -329,6 +335,9 @@
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
+"Couldn't terminate process: %@" = "Prozess konnte nicht beendet werden: %@";
+
+/* No comment provided by engineer. */
 "Current settings have unsaved changes. If you don't save those first, you will loose them." = "Aktuelle Einstellungen haben ungesicherte Änderungen. Wenn Sie nicht zuerst sichern, verlieren Sie diese.";
 
 /* No comment provided by engineer. */
@@ -414,6 +423,12 @@
 
 /* No comment provided by engineer. */
 "Downloading" = "Download";
+
+/* No comment provided by engineer. */
+"Downloading and Opening" = "Download und Öffnen";
+
+/* No comment provided by engineer. */
+"Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." = "Aufgrund von Zoom-Lizenzierungsfragen ist Zoom Live Proctoring nur für SEB Alliance-Mitglieder verfügbar. Bitte besuchen Sie https://safeexambrowser.org/alliance.";
 
 /* No comment provided by engineer. */
 "Edit File" = "Datei bearbeiten";
@@ -707,6 +722,9 @@
 "Open webpages menu" = "Menü mit offenen Webseiten";
 
 /* No comment provided by engineer. */
+"Opening" = "Öffnen";
+
+/* No comment provided by engineer. */
 "Opening Exam..." = "Prüfung öffnen...";
 
 /* No comment provided by engineer. */
@@ -782,13 +800,13 @@
 "Prohibited Process Locked %@!" = "%@ gesperrt wegen verbotenem Prozess!";
 
 /* No comment provided by engineer. */
+"Prohibited processes (check overridden) still running" = "Verbotene Prozesse (Überprüfung deaktiviert) laufen noch";
+
+/* No comment provided by engineer. */
 "Prohibited Processes Are Running" = "Verbotene Prozesse laufen";
 
 /* No comment provided by engineer. */
 "Prohibited processes detected" = "Verbotene Prozesse wurden detektiert!";
-
-/* No comment provided by engineer. */
-"Prohibited processes still running" = "Verbotene Prozesse laufen noch";
 
 /* No comment provided by engineer. */
 "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
@@ -1138,6 +1156,9 @@
 
 /* No comment provided by engineer. */
 "URL Blocked!" = "Blockierte URL!";
+
+/* No comment provided by engineer. */
+"URLSession was invalidated" = "URLSession nicht mehr gültig";
 
 /* No comment provided by engineer. */
 "Used third-party frameworks:" = "Benutzte Dritthersteller-Bibliotheken:";
