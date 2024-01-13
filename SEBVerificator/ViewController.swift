@@ -54,6 +54,14 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
     @IBOutlet var configsArrayController: NSArrayController!
     @IBOutlet var consoleTextView: NSTextView!
     @IBOutlet weak var startUsingConfigCheckbox: NSButton!
+    @objc var setDefaultPossible: Bool {
+        if #available(macOS 10.12, *) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     var foundSEBApplications: [SEBApplication] = []
     var sebConfigFiles: [SEBConfigFile]?
 
@@ -138,6 +146,52 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
         }
     }
 
+    func updateDefaultApps() {
+        let defaultAppForSEBFileExtension = verificationManager!.defaultApp(forFileExtension: strings.sebFileExtension)
+        let defaultAppForSEBScheme = verificationManager!.defaultApp(forURLScheme: strings.sebURLScheme)
+        let defaultAppForSEBSScheme = verificationManager!.defaultApp(forURLScheme: strings.sebsURLScheme)
+        for foundSEBApp in foundSEBApplications {
+            let sebAlikeURL = URL.init(fileURLWithPath: foundSEBApp.path, isDirectory: true)
+            var defaultFor = ""
+            if sebAlikeURL == defaultAppForSEBFileExtension {
+                defaultFor = defaultFor.setOrAppend("." + strings.sebFileExtension)
+            }
+            if sebAlikeURL == defaultAppForSEBScheme {
+                defaultFor = defaultFor.setOrAppend(strings.sebURLScheme + "://")
+            }
+            if sebAlikeURL == defaultAppForSEBSScheme {
+                defaultFor = defaultFor.setOrAppend(strings.sebsURLScheme + "://")
+            }
+            foundSEBApp.defaultFor = defaultFor
+            foundSEBApp.defaultSEB = defaultFor.count != 0
+        }
+        // Sort found SEB-alike apps so that the correct BundleID and Application folder location is first
+        foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
+            guard sebApp1.validSEB else {
+                guard sebApp2.validSEB else {
+                    return false
+                }
+                return false
+            }
+            guard sebApp2.validSEB else {
+                return true
+            }
+            return sebApp1.path.hasPrefix(strings.applicationDirectory) && sebApp1.defaultSEB
+        })
+        foundSEBApplications = foundSEBApplications.sorted(by: { sebApp1, sebApp2 in
+            guard sebApp1.bundleID != strings.sebBundleID && sebApp1.validSEB else {
+                return sebApp2.bundleID != strings.sebBundleID
+            }
+            guard sebApp2.bundleID != strings.sebBundleID && sebApp2.validSEB else {
+                return sebApp1.bundleID != strings.sebBundleID
+            }
+            return true
+        })
+        DispatchQueue.main.async {
+            self.applicationsArrayController.content = self.foundSEBApplications
+        }
+    }
+    
     func findAllSEBAlikes() -> ([NSAttributedString]) {
         let allSEBAlikeBundleIDs = NSMutableSet()
         let allSEBAlikeURLs = NSMutableSet()
@@ -358,6 +412,19 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
             }
         }
         return notTerminatedApplications
+    }
+    
+    @IBAction func setDefault(_ sender: Any) {
+        guard let selectedSEBApp = applicationsArrayController.selectedObjects[0] as? SEBApplication, selectedSEBApp.validSEB else {
+            return
+        }
+        let sebAppURL = URL.init(fileURLWithPath: selectedSEBApp.path, isDirectory: true)
+        verificationManager!.setDefaultApp(sebAppURL, forURLScheme: SEBProtocolScheme)
+        verificationManager!.setDefaultApp(sebAppURL, forURLScheme: SEBSSecureProtocolScheme)
+        verificationManager!.setDefaultApp(sebAppURL, forFileExtension: SEBFileExtension) {
+            self.updateDefaultApps()
+        }
+        
     }
     
     @IBAction func startSEBTerminatingApps(_ sender: Any) {
