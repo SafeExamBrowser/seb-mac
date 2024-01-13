@@ -11224,6 +11224,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>SEB Verificator</target>
         <note>Class = "NSWindow"; title = "SEB Verificator"; ObjectID = "IQv-IB-iLA";</note>
       </trans-unit>
+      <trans-unit id="Jou-rF-3kN.title" xml:space="preserve">
+        <source>Set Default</source>
+        <target>Als Standard setzen</target>
+        <note>Class = "NSButtonCell"; title = "Set Default"; ObjectID = "Jou-rF-3kN";</note>
+      </trans-unit>
       <trans-unit id="Kd2-mp-pUS.title" xml:space="preserve">
         <source>Show All</source>
         <target>Alle einblenden</target>
@@ -11318,6 +11323,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>Paste</source>
         <target>Einsetzen</target>
         <note>Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL";</note>
+      </trans-unit>
+      <trans-unit id="lL0-4p-BkM.ibShadowedToolTip" xml:space="preserve">
+        <source>Set selected valid SEB app as default for the .seb file type</source>
+        <target>Ausgewählte SEB-Applikation als Standard für den Dateityp .seb festlegen</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Set selected valid SEB app as default for the .seb file type"; ObjectID = "lL0-4p-BkM";</note>
       </trans-unit>
       <trans-unit id="nko-9m-cj1.headerCell.title" xml:space="preserve">
         <source>App Name</source>
