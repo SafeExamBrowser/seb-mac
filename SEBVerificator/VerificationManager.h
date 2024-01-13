@@ -40,7 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSString *> *)associatedAppsForFile:(NSURL *)fileURL;
 - (NSArray<NSString *> *)associatedAppsForFileExtension:(NSString *)pathExtension;
 - (nullable NSURL *)defaultAppForFileExtension:(NSString *)pathExtension;
+- (void)setDefaultApp:(NSURL *)url forFileExtension:(NSString *)pathExtension withCompletionHandler:(nullable void (^)(void))completionHandler;
 - (nullable NSURL *)defaultAppForURLScheme:(NSString *)mimeType;
+- (void)setDefaultApp:(NSURL *)url forURLScheme:(NSString *)urlScheme;
 - (NSArray<NSString *> *)associatedAppsForURLScheme:(NSString *)scheme;
 - (BOOL)signedSEBExecutable:(NSString *)executablePath;
 
