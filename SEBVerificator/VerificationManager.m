@@ -103,6 +103,25 @@
 }
 
 
+- (void)setDefaultApp:(NSURL *)url forFileExtension:(NSString *)pathExtension withCompletionHandler:(void (^)(void))completionHandler
+{
+    if (@available(macOS 12.0, *)) {
+        UTType *uti = [UTType typeWithTag:pathExtension
+                                 tagClass:UTTagClassFilenameExtension
+                         conformingToType:UTTypeData];
+        [NSWorkspace.sharedWorkspace setDefaultApplicationAtURL:url toOpenContentType:uti completionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                DDLogError(@"Could not set default app (%@) for file extension %@, error: %@", url, pathExtension, error);
+            } else if (completionHandler) {
+                completionHandler();
+            }
+        }];
+    } else {
+        // feature not supported on older macOS versions
+    }
+}
+
+
 - (nullable NSURL *)defaultAppForURLScheme:(NSString *)urlScheme
 {
     NSURL *appURL;
@@ -118,6 +137,25 @@
         }
 //    }
     return appURL;
+}
+
+
+- (void)setDefaultApp:(NSURL *)url forURLScheme:(NSString *)urlScheme
+{
+    CFURLRef urlRef = (__bridge CFURLRef)url;
+    if (urlRef) {
+        LSRegisterURL(urlRef, YES);
+    }
+
+    if (@available(macOS 12.0, *)) {
+        [NSWorkspace.sharedWorkspace setDefaultApplicationAtURL:url toOpenURLsWithScheme:urlScheme completionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                DDLogError(@"Could not set default app (%@) for URL scheme %@, error: %@", url, urlScheme, error);
+            }
+        }];
+    } else {
+        // feature not supported on older macOS versions
+    }
 }
 
 
