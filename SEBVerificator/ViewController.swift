@@ -94,16 +94,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
         verificationManager = VerificationManager()
         
         DDLogInfo("Scanning for SEB-alike applications")
-        let foundSEBAlikeStrings = findAllSEBAlikes()
         sebConfigFiles = findSEBConfigFiles()
         configsArrayController.content = sebConfigFiles
         tableViewSelectionDidChange(Notification.init(name: Notification.Name.init(rawValue: "NewSelection"), object: self, userInfo: nil))
         
         updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
         updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Scanning for SEB-alike applications", comment: ""), emphasized: true, error: false))
-        for sebAlikeString in foundSEBAlikeStrings {
-            updateConsole(logEntry: sebAlikeString)
-        }
+        updateSEBAlikes()
     }
         
     override func viewDidAppear() {
@@ -128,6 +125,18 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
             }
         }
     }
+    
+    func updateSEBAlikes() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let foundSEBAlikeStrings = self.findAllSEBAlikes()
+
+            DispatchQueue.main.async {
+                for sebAlikeString in foundSEBAlikeStrings {
+                    self.updateConsole(logEntry: sebAlikeString)
+                }
+            }
+        }
+    }
 
     func findAllSEBAlikes() -> ([NSAttributedString]) {
         let allSEBAlikeBundleIDs = NSMutableSet()
@@ -148,7 +157,10 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
                     let icon = NSWorkspace.shared.icon(forFile: sebAlikeURL.path)
                     let name = sebAlikeURL.deletingPathExtension().lastPathComponent
                     let version = Bundle(path: sebAlikeURL.path)?.fullVersion
-                    let validSEB = (sebAlikeBundleID as! String == strings.sebBundleID && verifySignature(path: sebAlikeURL.path))
+                    var validSEB = false
+                    if sebAlikeBundleID as! String == strings.sebBundleID {
+                        validSEB = verifySignature(path: sebAlikeURL.path)
+                    }
                     let signature = validSEB ? NSLocalizedString("OK", comment: "Signature OK") : NSLocalizedString("Invalid", comment: "Invalid signature")
                     
                     var defaultFor = ""
@@ -187,11 +199,13 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
             }
             return true
         })
-        applicationsArrayController.content = foundSEBApplications
+        DispatchQueue.main.async {
+            self.applicationsArrayController.content = self.foundSEBApplications
+        }
         for application in foundSEBApplications {
             let applicationLogEntry = "\(application.name) \(NSLocalizedString("Version", comment: "")) \(application.version), \(NSLocalizedString("Bundle ID", comment: "")): \(application.bundleID), \(NSLocalizedString("Path", comment: "")): \(application.path): \(NSLocalizedString("Signature", comment: "")) \(application.signature)" + (application.defaultSEB ? ", \(NSLocalizedString("Default for opening", comment: "")) \(application.defaultFor)" : "")
             allSEBAlikeLog.append(attributedStringFor(logEntry: applicationLogEntry, emphasized: false, error: !application.validSEB))
-            application.validSEB ? DDLogInfo("Found SEB application: " + applicationLogEntry) : DDLogError("Found invalid SEB application: " + applicationLogEntry)
+            application.validSEB ? DDLogInfo("Found SEB application: \(applicationLogEntry)") : DDLogError("Found invalid SEB application: \(applicationLogEntry)")
         }
         return allSEBAlikeLog
     }
@@ -240,15 +254,12 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
 
     @IBAction func rescanForSEBAlikes(_ sender: Any) {
         DDLogInfo("Rescanning for SEB-alike applications")
-        let foundSEBAlikeStrings = findAllSEBAlikes()
         applicationsTableView.scrollRowToVisible(0)
         configsTableView.scrollRowToVisible(0)
 
         updateConsole(logEntry: attributedStringFor(logEntry: "", emphasized: false, error: false))
         updateConsole(logEntry: attributedStringFor(logEntry: NSLocalizedString("Rescanning for SEB-alike applications", comment: ""), emphasized: true, error: false))
-        for sebAlikeString in foundSEBAlikeStrings {
-            updateConsole(logEntry: sebAlikeString)
-        }
+        updateSEBAlikes()
     }
     
     func terminateDockAppsWithCallback(selector: Selector) {
