@@ -510,8 +510,25 @@
                                                 </connections>
                                             </button>
                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sVN-3q-WA1">
-                                                <rect key="frame" x="1086" y="0.0" width="252" height="20"/>
+                                                <rect key="frame" x="896" y="0.0" width="442" height="20"/>
                                                 <subviews>
+                                                    <button toolTip="Set selected valid SEB app as default for the .seb file type" verticalHuggingPriority="750" id="lL0-4p-BkM" userLabel="Set Default">
+                                                        <rect key="frame" x="75" y="-6" width="102" height="32"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="push" title="Set Default" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jou-rF-3kN">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="setDefault:" target="XfG-lQ-9wD" id="CiC-yD-yo6"/>
+                                                            <binding destination="UqW-lH-XlF" name="enabled" keyPath="selection.validSEB" id="fYT-zx-ohY"/>
+                                                            <binding destination="XfG-lQ-9wD" name="hidden" keyPath="self.setDefaultPossible" previousBinding="fYT-zx-ohY" id="sb5-4k-qPP">
+                                                                <dictionary key="options">
+                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </button>
                                                     <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Pp-px-bvm" userLabel="Start With Config Checkbox">
                                                         <rect key="frame" x="-2" y="4" width="18" height="18"/>
                                                         <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kUA-va-jjO">
@@ -522,8 +539,8 @@
                                                             <action selector="startWithConfigAction:" target="XfG-lQ-9wD" id="cGl-go-AvM"/>
                                                         </connections>
                                                     </button>
-                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-yB-kL5" userLabel="Start SEB">
-                                                        <rect key="frame" x="-7" y="-7" width="168" height="32"/>
+                                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DfN-yB-kL5">
+                                                        <rect key="frame" x="183" y="-7" width="168" height="32"/>
                                                         <buttonCell key="cell" type="push" title="Quit Apps &amp; Start SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rvM-qA-gOk">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -534,7 +551,7 @@
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aqm-SH-59v" userLabel="Start SEB">
-                                                        <rect key="frame" x="167" y="-7" width="92" height="32"/>
+                                                        <rect key="frame" x="357" y="-7" width="92" height="32"/>
                                                         <buttonCell key="cell" type="push" title="Start SEB" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sbr-9f-jAT">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -552,8 +569,10 @@ DQ
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
                                                     <integer value="1000"/>
+                                                    <integer value="1000"/>
                                                 </visibilityPriorities>
                                                 <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>
                                                     <real value="3.4028234663852886e+38"/>

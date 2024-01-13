@@ -76,11 +76,17 @@
 /* Class = "NSWindow"; title = "SEB Verificator"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "SEB Verificator";
 
+/* Class = "NSButtonCell"; title = "Set Default"; ObjectID = "Jou-rF-3kN"; */
+"Jou-rF-3kN.title" = "Als Standard setzen";
+
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "Kd2-mp-pUS"; */
 "Kd2-mp-pUS.title" = "Alle einblenden";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "LE2-aR-0XJ"; */
 "LE2-aR-0XJ.title" = "Alle nach vorne bringen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Set selected valid SEB app as default for the .seb file type"; ObjectID = "lL0-4p-BkM"; */
+"lL0-4p-BkM.ibShadowedToolTip" = "Ausgewählte SEB-Applikation als Standard für den Dateityp .seb festlegen";
 
 /* Class = "NSTableColumn"; headerCell.title = "App Name"; ObjectID = "nko-9m-cj1"; */
 "nko-9m-cj1.headerCell.title" = "Appname";
