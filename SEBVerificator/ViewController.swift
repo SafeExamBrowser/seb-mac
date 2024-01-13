@@ -56,7 +56,7 @@ class ViewController: NSViewController, ProcessListViewControllerDelegate, NSTab
     @IBOutlet weak var startUsingConfigCheckbox: NSButton!
     @objc var setDefaultPossible: Bool {
         if #available(macOS 10.12, *) {
-            return true
+            return self.foundSEBApplications.count > 1
         } else {
             return false
         }
