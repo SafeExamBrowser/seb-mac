@@ -671,8 +671,12 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
                     DDLogError(@"%s: Saving context wasn't successful: %@", __FUNCTION__, [error userInfo]);
                 }
                 
-                [self.persistentWebpages removeObjectAtIndex:tabIndex];
-                [self.openWebpages removeObjectAtIndex:tabIndex];
+                if (tabIndex < self.persistentWebpages.count) {
+                    [self.persistentWebpages removeObjectAtIndex:tabIndex];
+                }
+                if (tabIndex < self.openWebpages.count) {
+                    [self.openWebpages removeObjectAtIndex:tabIndex];
+                }
                 
                 // Check if the user is closing the main web view (with the exam)
                 if (tabIndex == 0) {
