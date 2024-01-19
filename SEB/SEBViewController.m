@@ -3345,12 +3345,13 @@ void run_on_ui_thread(dispatch_block_t block)
     _alertController = [UIAlertController  alertControllerWithTitle:restart ? NSLocalizedString(@"Restart Session", @"") : NSLocalizedString(@"Quit Session", @"")
                                                             message:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : NSLocalizedString(@"Are you sure you want to quit this session?", @"")
                                                      preferredStyle:UIAlertControllerStyleAlert];
-    [_alertController addAction:[UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")
-                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.alertController = nil;
-        DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
-        [self sessionQuitRestart:restart];
-    }]];
+    UIAlertAction *quitOrRestartAction = [UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")
+                                                           style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+          self.alertController = nil;
+          DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
+          [self sessionQuitRestart:restart];
+      }];
+    [_alertController addAction:quitOrRestartAction];
     
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -3358,7 +3359,7 @@ void run_on_ui_thread(dispatch_block_t block)
         DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
         [self.sideMenuController hideLeftViewAnimated];
     }]];
-    
+    _alertController.preferredAction = quitOrRestartAction;
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
@@ -5229,12 +5230,13 @@ void run_on_ui_thread(dispatch_block_t block)
     _alertController = [UIAlertController alertControllerWithTitle:title
                                                            message:message
                                                     preferredStyle:controllerStyle];
-    [_alertController addAction:[UIAlertAction actionWithTitle:action1Title
-                                                         style:action1Style
-                                                       handler:^(UIAlertAction *action) {
-        self.alertController = nil;
-        action1Handler();
-    }]];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:action1Title
+                                                      style:action1Style
+                                                    handler:^(UIAlertAction *action) {
+     self.alertController = nil;
+     action1Handler();
+    }];
+    [_alertController addAction:action1];
     if (action2Title) {
         [_alertController addAction:[UIAlertAction actionWithTitle:action2Title
                                                              style:action2Style
@@ -5243,7 +5245,9 @@ void run_on_ui_thread(dispatch_block_t block)
             action2Handler();
         }]];
     }
-    
+    if (action1Style == UIAlertActionStyleDefault) {
+        _alertController.preferredAction = action1;
+    }
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
 }
 
