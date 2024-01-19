@@ -502,13 +502,19 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 
 - (NSArray<UIKeyCommand *> *)keyCommands
 {
+    UIKeyCommand *controlTab = [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)];
+    UIKeyCommand *controlShiftTab = [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)];
+    if (@available(iOS 15, *)) {
+        controlTab.wantsPriorityOverSystemBehavior = YES;
+        controlShiftTab.wantsPriorityOverSystemBehavior = YES;
+    }
     return @[
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutSideMenu modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutReload modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutFind modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutQuit modifierFlags:UIKeyModifierCommand | UIKeyModifierShift action:@selector(performKeyCommand:)],
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl action:@selector(performKeyCommand:)],
-        [UIKeyCommand keyCommandWithInput:[NSString stringWithFormat:@"%c", 9] modifierFlags:UIKeyModifierControl | UIKeyModifierShift action:@selector(performKeyCommand:)]
+        controlTab,
+        controlShiftTab
     ];
 }
 
