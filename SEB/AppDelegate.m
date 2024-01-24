@@ -107,8 +107,8 @@
     [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
         [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
         self.temporaryWebView = nil;
+        DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
     }];
-    DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
 
     [_window makeKeyAndVisible];
     
