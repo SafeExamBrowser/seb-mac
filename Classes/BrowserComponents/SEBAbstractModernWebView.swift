@@ -1097,7 +1097,7 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
         let fileManager = FileManager.default
         var fileIndex = 1
         var downloadDirectory = self.navigationDelegate?.downloadPathURL
-        if downloadDirectory == nil || !fileManager.isWritableFile(atPath: downloadDirectory?.appendingPathComponent(filename).path ?? "") {
+        if downloadDirectory == nil {
             downloadDirectory = URL(fileURLWithPath: NSString(string: "~/Downloads").expandingTildeInPath)
         }
         let filenameWithoutExtension = (filename as NSString).deletingPathExtension
@@ -1107,6 +1107,9 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
             fileIndex+=1
         }
         fileDownloadDestinationURL = downloadDirectory!.appendingPathComponent(filename)
+        if !fileManager.isWritableFile(atPath: fileDownloadDestinationURL?.path ?? "") {
+            DDLogError("Download destination is not writable!")
+        }
         completionHandler(fileDownloadDestinationURL)
     }
 
