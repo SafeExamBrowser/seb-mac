@@ -1640,7 +1640,9 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.delegate closeWebView:self.temporaryWebView];
             self.temporaryWebView = nil;
+            [self processDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
         });
+        return;
     }
     
     // Reset the pending challenge in case it was an authenticated load
