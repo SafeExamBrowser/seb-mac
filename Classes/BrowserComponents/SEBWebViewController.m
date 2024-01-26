@@ -458,21 +458,6 @@
             DDLogDebug(@"Cancel opening link from Flash plugin context menu");
             return nil; // cancel opening link
         }
-        if (newBrowserWindowPolicy == openInNewWindow) {
-            SEBWKNavigationAction *sebWKNavigationAction = [SEBWKNavigationAction new];
-            sebWKNavigationAction.writableRequest = request;
-            sebWKNavigationAction.writableNavigationType = WKNavigationTypeLinkActivated;
-            
-            SEBNavigationAction *navigationAction = [self.navigationDelegate decidePolicyForNavigationAction:sebWKNavigationAction newTab:YES configuration:nil downloadFilename:self.downloadFilename];
-            if (navigationAction.policy == SEBNavigationActionPolicyJSOpen) {
-                SEBAbstractWebView *newAbstractWebView = navigationAction.openedWebView;
-                DDLogInfo(@"Opening classic WebView after Javascript .open()");
-                SEBAbstractClassicWebView <SEBAbstractBrowserControllerDelegate> *sebAbstractClassicWebView = [[SEBAbstractClassicWebView alloc] initWithDelegate:newAbstractWebView];
-                newAbstractWebView.browserControllerDelegate = sebAbstractClassicWebView;
-                [newAbstractWebView initGeneralProperties];
-                return newAbstractWebView.nativeWebView;
-            }
-        }
         SEBWebView *tempWebView = [[SEBWebView alloc] init];
         DDLogDebug(@"Opened new temporary WebView: %@", tempWebView);
         DDLogDebug(@"Requested from %@ (self.sebWebView: %@)", sender, self.sebWebView);

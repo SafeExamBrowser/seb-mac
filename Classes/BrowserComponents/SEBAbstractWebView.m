@@ -752,7 +752,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     DDLogInfo(@"Open new window/tab URL in new window");
                     newNavigationAction.openedWebView = [self.navigationDelegate openNewTabWithURL:url configuration:(WKWebViewConfiguration *)configuration];
                     if (configuration) {
-                        // Special case of window opened with Javascript .open()
+                        // Special case of window opened with Javascript .open() in a modern WebView (WKWebView)
                         newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
                         return newNavigationAction;
                     }
@@ -762,7 +762,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
                     // Load URL request in existing tab
                     DDLogInfo(@"Open new window/tab URL in same window (selected in current settings)");
                     if (configuration) {
-                        // Special case of window opened with Javascript .open()
+                        // Special case of window opened with Javascript .open() in a modern WebView (WKWebView)
                         newNavigationAction.policy = SEBNavigationActionPolicyJSOpen;
                     }
                     [self loadURL:url];
