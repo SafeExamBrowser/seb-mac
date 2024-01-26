@@ -977,9 +977,9 @@ import CocoaLumberjackSwift
             let request = navigationAction.request
             sebWKNavigationAction.writableRequest = request
             let newNavigationAction = navigationDelegate?.decidePolicy?(for: sebWKNavigationAction, newTab: true, configuration:configuration, downloadFilename:self.downloadFilename)
-            let openedAbstractWebView = newNavigationAction?.openedWebView
 #if os(macOS)
             if newNavigationAction?.policy == SEBNavigationActionPolicyJSOpen {
+                let openedAbstractWebView = newNavigationAction?.openedWebView
                 if openedAbstractWebView != nil { // Excluding special case: Open in same window
                     DDLogInfo("Opened modern WebView after Javascript .open()")
                     let newAbstractWebView = openedAbstractWebView!
