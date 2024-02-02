@@ -932,6 +932,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBServerDefaultFallbackTimeout],
                    @"sebServerFallbackTimeout",
+                   
+                   @YES,
+                   @"sebServerLightDiscovery",
 
                    @"",
                    @"sebServerURL",
