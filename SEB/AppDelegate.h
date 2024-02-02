@@ -34,6 +34,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "SEBViewController.h"
+#import "SEBEncryptedUserDefaultsController.h"
 #import "SEBUIController.h"
 #import "SEBLockedViewController.h"
 #import "SEBiOSLockedViewController.h"

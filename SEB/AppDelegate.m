@@ -258,6 +258,8 @@
                 // for the new one to be conditionally applied
                 [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
             }
+        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"]) {
+            
         }
     }
 }
