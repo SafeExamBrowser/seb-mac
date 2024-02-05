@@ -3982,9 +3982,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version. This setting is used when the new setting \"Check full macOS version number\" is disabled"; ObjectID = "MYN-Xy-8h5";</note>
       </trans-unit>
       <trans-unit id="NRp-5r-KY5.title" xml:space="preserve">
-        <source>Ignore errors when validating displays</source>
-        <target>Fehler beim Validieren von Bildschirmen ignorieren</target>
-        <note>Class = "NSButtonCell"; title = "Ignore errors when validating displays"; ObjectID = "NRp-5r-KY5";</note>
+        <source>Ignore errors when validating displays (Win)</source>
+        <target>Fehler beim Validieren von Bildschirmen ignorieren (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Ignore errors when validating displays (Win)"; ObjectID = "NRp-5r-KY5";</note>
       </trans-unit>
       <trans-unit id="O4R-7z-oLy.title" xml:space="preserve">
         <source>Allow to use dictation</source>
