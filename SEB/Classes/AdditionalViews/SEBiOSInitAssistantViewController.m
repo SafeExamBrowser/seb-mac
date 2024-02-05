@@ -73,7 +73,7 @@
     automaticClientConfigText.text =[NSString stringWithFormat:NSLocalizedString(@"Enter the URL of an institution which supports %@", @""), SEBExtraShortAppName];
     scanQRConfigText.text = [NSString stringWithFormat:NSLocalizedString(@"Scan %@ configuration QR code", @""), SEBExtraShortAppName];
     noConfigQRCodeFoundLabel.text = [NSString stringWithFormat:NSLocalizedString(@"No %@ configuration found!", @""), SEBExtraShortAppName];
-
+    
     [configURLField addTarget:configURLField
                   action:@selector(resignFirstResponder)
         forControlEvents:UIControlEventEditingDidEndOnExit];
@@ -81,6 +81,19 @@
     if (@available(iOS 11.0, *)) {
         scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     };
+}
+
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    sebServerLightDiscoveryPolicy discoveryPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"];
+    BOOL showSEBServerLightOptions = discoveryPolicy == sebServerLightDiscoveryPolicyUserEnabled || discoveryPolicy == sebServerLightDiscoveryPolicyUserControlled;
+    sebServerLightStackview.hidden = !showSEBServerLightOptions;
+    moreInformationStackview.backgroundColor = showSEBServerLightOptions ? [UIColor clearColor] : [UIColor systemGray6Color];
+    [self updateServerDiscoveryButtons];
 }
 
 
@@ -209,6 +222,33 @@
     } else {
         completionHandler(YES);
     }
+}
+
+
+- (IBAction) searchLocalServer
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureInteger:sebServerLightDiscoveryPolicyUserEnabled forKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"];
+    [self updateServerDiscoveryButtons];
+}
+
+
+- (IBAction) stopSearchingLocalServer
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureInteger:sebServerLightDiscoveryPolicyUserControlled forKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"];
+    [self updateServerDiscoveryButtons];
+}
+
+
+- (void) updateServerDiscoveryButtons
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    sebServerLightDiscoveryPolicy discoveryPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"];
+    searchLocalServerButton.hidden = discoveryPolicy != sebServerLightDiscoveryPolicyUserControlled;
+    searchingLocalServerSwitch.hidden = discoveryPolicy != sebServerLightDiscoveryPolicyUserEnabled;
+    searchingLocalServerSwitch.on = discoveryPolicy == sebServerLightDiscoveryPolicyUserEnabled;
+    searchingLocalServerLabel.hidden =  searchingLocalServerSwitch.hidden;
 }
 
 
