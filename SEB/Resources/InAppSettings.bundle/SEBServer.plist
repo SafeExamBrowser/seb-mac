@@ -88,6 +88,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Specify Server in Settings</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_specificServerSettings</string>
+			<key>FooterText</key>
+			<string>Specify a server name if you only want to connect to that server instance</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Specific Server Name</string>

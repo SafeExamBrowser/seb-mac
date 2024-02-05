@@ -862,6 +862,11 @@ static NSMutableSet *browserWindowControllers;
         self.initAssistantOpen = true;
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         }];
+    } else {
+        [_assistantViewController dismissViewControllerAnimated:NO completion:^{
+            self.initAssistantOpen = NO;
+            [self openInitAssistant];
+        }];
     }
 }
 

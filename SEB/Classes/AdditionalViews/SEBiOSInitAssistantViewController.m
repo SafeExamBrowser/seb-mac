@@ -230,6 +230,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureInteger:sebServerLightDiscoveryPolicyUserEnabled forKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"];
     [self updateServerDiscoveryButtons];
+    [_sebViewController startSEBServerLightDiscovery];
 }
 
 
