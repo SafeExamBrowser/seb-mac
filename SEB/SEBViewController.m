@@ -2772,6 +2772,12 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) startSEBServerLightDiscovery
+{
+    
+}
+
+
 // Close settings if they are open and then execute the callback selector
 - (void) closeSettingsBeforeOpeningSEBConfig:(id)sebConfig
                                     callback:(id)callback

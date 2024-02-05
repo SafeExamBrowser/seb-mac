@@ -235,6 +235,7 @@
                 // If AAC isn't being started
                 [_sebViewController conditionallyShowSettingsModal];
             }
+            return;
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             if (!_sebViewController.ASAMActive) {
                 // If AAC isn't being started
@@ -243,23 +244,25 @@
                 // Reset the setting for initiating the reset
                 [preferences setBool:NO forKey:@"initiateResetConfig"];
             }
+            return;
         } else if ([preferences boolForKey:@"sendLogs"]) {
             [preferences setBool:NO forKey:@"sendLogs"];
             if (!_sebViewController.ASAMActive) {
                 // If AAC isn't being started
                 [_sebViewController conditionallySendLogs];
             }
-        } else {
-            // Check if we received a new configuration from an MDM server (by MDM managed configuration)
-            NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
-            if (!_openedURL && serverConfig.count > 0) {
-                DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
-                // The cached, previously received server config needs to be reset
-                // for the new one to be conditionally applied
-                [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
-            }
-        } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"]) {
-            
+            return;
+        } else if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"] == sebServerLightDiscoveryPolicyAutomatic ||
+                   [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"] == sebServerLightDiscoveryPolicyUserEnabled) {
+            [_sebViewController startSEBServerLightDiscovery];
+        }
+        // Check if we received a new configuration from an MDM server (by MDM managed configuration)
+        NSDictionary *serverConfig = [preferences dictionaryForKey:kConfigurationKey];
+        if (!_openedURL && serverConfig.count > 0) {
+            DDLogDebug(@"%s: Received MDM Managed Configuration, dictionary was present when app did become active.", __FUNCTION__);
+            // The cached, previously received server config needs to be reset
+            // for the new one to be conditionally applied
+            [_sebViewController conditionallyOpenSEBConfigFromMDMServer:serverConfig];
         }
     }
 }
