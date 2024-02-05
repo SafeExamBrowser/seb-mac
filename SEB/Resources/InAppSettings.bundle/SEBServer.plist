@@ -60,6 +60,60 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_sebServerFallback</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>SEB Server Light</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebServerLightDiscovery</string>
+			<key>FooterText</key>
+			<string>These policies control how a SEB client is looking for a nearby SEB Server Light instance. Nearby server discovery can be started by specific exam settings, by the user (in Initial Configuration Assisstant or being asked with an alert) or automatically.</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+				<integer>4</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>None</string>
+				<string>Specify Server in Settings</string>
+				<string>Ask User to Start Searching for Server</string>
+				<string>User Enabled Server Discovery</string>
+				<string>Start Discovery Automatically</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Specific Server Name</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebServerLightName</string>
+			<key>IASKPlaceholder</key>
+			<string>Exactly Matching Server Name</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Session Pin Code</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sebServerLightPin</string>
+			<key>IASKPlaceholder</key>
+			<string>Pin Code</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
 	</array>
 </dict>
 </plist>
