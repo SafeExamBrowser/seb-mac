@@ -361,6 +361,7 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) openSEBConfigFromData:(NSData *)sebConfigData;
 - (void) conditionallyOpenSEBConfigFromUniversalLink:(NSURL *)universalURL;
 - (void) conditionallyOpenSEBConfigFromMDMServer:(NSDictionary *)serverConfig;
+- (void) startSEBServerLightDiscovery;
 - (void) resetReceivedServerConfig;
 - (SEBAbstractWebView *) openTempWebViewForDownloadingConfigFromURL:(NSURL *)url originalURL:originalURL;
 
