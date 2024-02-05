@@ -382,6 +382,16 @@ typedef NSUInteger sebModes;
 
 
 enum {
+    sebServerLightDiscoveryPolicyNone               = 0,
+    sebServerLightDiscoveryPolicySettingsControlled = 1,
+    sebServerLightDiscoveryPolicyUserControlled     = 2,
+    sebServerLightDiscoveryPolicyUserEnabled        = 3,
+    sebServerLightDiscoveryPolicyAutomatic          = 4
+};
+typedef NSUInteger sebServerLightDiscoveryPolicy;
+
+
+enum {
     ignoreService                               = 0,
     indicateMissingService                      = 1,
     forceSebService                             = 2
