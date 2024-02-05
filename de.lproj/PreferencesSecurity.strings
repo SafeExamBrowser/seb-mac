@@ -283,8 +283,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Activate when using SEB inside a virtual machine, otherwise display detection will not work properly"; ObjectID = "ngP-Zu-OIN"; */
 "ngP-Zu-OIN.ibShadowedToolTip" = "Anwählen, wenn SEB in einer virtuellen Maschine benutzt wird, ansonsten funktioniert das Erkennen von Bildschirmen nicht";
 
-/* Class = "NSButtonCell"; title = "Ignore errors when validating displays"; ObjectID = "NRp-5r-KY5"; */
-"NRp-5r-KY5.title" = "Fehler beim Validieren von Bildschirmen ignorieren";
+/* Class = "NSButtonCell"; title = "Ignore errors when validating displays (Win)"; ObjectID = "NRp-5r-KY5"; */
+"NRp-5r-KY5.title" = "Fehler beim Validieren von Bildschirmen ignorieren (Win)";
 
 /* Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q"; */
 "nui-Ct-A6q.title" = "Log speichern:";
