@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -113,13 +115,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="KDY-3t-mkg"/>
                                 <exclude reference="zI1-ak-deL"/>
+                                <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="TmR-fM-hvc"/>
+                                <exclude reference="xVi-47-At1"/>
                                 <exclude reference="Tta-fx-jYS"/>
                                 <exclude reference="cZC-Wr-uvr"/>
-                                <exclude reference="xVi-47-At1"/>
                                 <exclude reference="XgE-rC-Fgh"/>
                             </mask>
                         </variation>
@@ -307,7 +309,7 @@
                                                     </state>
                                                 </button>
                                                 <label clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="1000" text="Command" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xG9-QS-xAw">
-                                                    <rect key="frame" x="34" y="3" width="73.5" height="28"/>
+                                                    <rect key="frame" x="34" y="3" width="74" height="28"/>
                                                     <viewLayoutGuide key="safeArea" id="Sqw-pt-9lx"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="20"/>
@@ -337,7 +339,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7en-4U-bc7">
-                                                    <rect key="frame" x="34" y="2" width="82.5" height="29"/>
+                                                    <rect key="frame" x="34" y="2" width="83" height="29"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -385,8 +387,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="3Ic-2x-eEQ"/>
-                                <exclude reference="Ppo-qu-mXY"/>
                                 <exclude reference="egs-oH-0Iw"/>
+                                <exclude reference="Ppo-qu-mXY"/>
                                 <exclude reference="ODx-Wd-YgI"/>
                             </mask>
                         </variation>
@@ -495,15 +497,14 @@
         <scene sceneID="4vU-jb-K1q">
             <objects>
                 <viewController storyboardIdentifier="SEBInitAssistantView" id="h8j-pm-u2W" userLabel="Init Assistant View Controller" customClass="SEBiOSInitAssistantViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleAspectFill" id="DgT-Dq-MHH">
+                    <view key="view" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="DgT-Dq-MHH">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltZ-M4-c8e">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvS-YS-Rz4">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="434"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="468.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cj0-uR-8kk">
                                                 <rect key="frame" x="0.0" y="0.0" width="834" height="64.5"/>
@@ -538,74 +539,6 @@
                                                     <constraint firstItem="ecz-EP-DY2" firstAttribute="top" secondItem="cj0-uR-8kk" secondAttribute="top" constant="10" id="zOM-k0-ZtA"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-jp-7VX">
-                                                <rect key="frame" x="0.0" y="122" width="834" height="127.5"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8e-we-2Uj">
-                                                        <rect key="frame" x="0.0" y="-0.5" width="834" height="0.5"/>
-                                                        <viewLayoutGuide key="safeArea" id="dPi-En-Cqx"/>
-                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="0.5" id="aiX-3n-XL3"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Suy-cx-d8k">
-                                                        <rect key="frame" x="0.0" y="127" width="834" height="0.5"/>
-                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="0.5" id="v7f-9R-RJW"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="Suy-cx-d8k" secondAttribute="trailing" id="12H-72-sjX"/>
-                                                    <constraint firstItem="K8e-we-2Uj" firstAttribute="bottom" secondItem="GzA-jp-7VX" secondAttribute="top" id="CJI-TQ-K23"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Suy-cx-d8k" secondAttribute="bottom" id="HQQ-2V-bX4"/>
-                                                    <constraint firstItem="K8e-we-2Uj" firstAttribute="leading" secondItem="GzA-jp-7VX" secondAttribute="leading" id="SrT-Ot-msQ"/>
-                                                    <constraint firstItem="Suy-cx-d8k" firstAttribute="leading" secondItem="GzA-jp-7VX" secondAttribute="leading" id="oK6-GJ-DU9"/>
-                                                    <constraint firstAttribute="trailing" secondItem="K8e-we-2Uj" secondAttribute="trailing" id="p4M-co-p9G"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-9D-3zr">
-                                                <rect key="frame" x="0.0" y="371" width="834" height="60"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLT-21-gLh">
-                                                        <rect key="frame" x="0.0" y="59.5" width="834" height="0.5"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="0.5" id="Zm9-gE-90f"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPL-Ey-ND1">
-                                                        <rect key="frame" x="0.0" y="-0.5" width="834" height="0.5"/>
-                                                        <viewLayoutGuide key="safeArea" id="u1O-aN-NGi"/>
-                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="0.5" id="4q7-aO-S5w"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="GLT-21-gLh" firstAttribute="leading" secondItem="iMS-9D-3zr" secondAttribute="leading" id="LU6-Wg-1gy"/>
-                                                    <constraint firstAttribute="height" constant="60" id="PPa-7E-wXc"/>
-                                                    <constraint firstAttribute="trailing" secondItem="DPL-Ey-ND1" secondAttribute="trailing" id="caa-7f-cwP"/>
-                                                    <constraint firstItem="DPL-Ey-ND1" firstAttribute="leading" secondItem="iMS-9D-3zr" secondAttribute="leading" id="d4p-J6-SaA"/>
-                                                    <constraint firstAttribute="trailing" secondItem="GLT-21-gLh" secondAttribute="trailing" id="ofK-Ua-NFD"/>
-                                                    <constraint firstAttribute="bottom" secondItem="GLT-21-gLh" secondAttribute="bottom" id="rBO-Y8-Sos"/>
-                                                    <constraint firstItem="DPL-Ey-ND1" firstAttribute="bottom" secondItem="iMS-9D-3zr" secondAttribute="top" id="yau-62-4Rv"/>
-                                                </constraints>
-                                            </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCX-Ab-h85">
-                                                <rect key="frame" x="20" y="81.5" width="8" height="20.5"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Options to start an exam or configure SafeExamBrowser for your institution" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wmj-TM-U1f">
                                                 <rect key="frame" x="20" y="24" width="704.5" height="25.5"/>
                                                 <viewLayoutGuide key="safeArea" id="pIG-My-eHk"/>
@@ -615,179 +548,272 @@
                                                 <color key="shadowColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
                                                 <size key="shadowOffset" width="1.5" height="1.5"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open an SEB exam or configuration link from Safari, Mail or a messenger app." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BE1-ZM-fgu">
-                                                <rect key="frame" x="32" y="81.5" width="611.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-e3-Pe5">
-                                                <rect key="frame" x="20" y="137" width="8" height="20.5"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the URL of an institution which supports SEB" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf7-gn-5ng">
-                                                <rect key="frame" x="32" y="137" width="400.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
-                                                <rect key="frame" x="32" y="167.5" width="768" height="34"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Enter the domain URL of an institution which supports SEB" label="URL"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
-                                                <connections>
-                                                    <action selector="typingURL:" destination="h8j-pm-u2W" eventType="editingDidBegin" id="aAV-OS-tq3"/>
-                                                    <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
-                                                </connections>
-                                            </textField>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
-                                                <rect key="frame" x="775" y="174.5" width="20" height="20"/>
-                                            </activityIndicatorView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaL-4I-bjq">
-                                                <rect key="frame" x="32" y="204.5" width="116" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Search local network for a SEB configuration (requires WiFi)" label="Search Network"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                <state key="normal" title="Search Network"/>
-                                                <connections>
-                                                    <action selector="searchNetwork:" destination="h8j-pm-u2W" eventType="touchUpInside" id="TAP-Y8-ir7"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
-                                                <rect key="frame" x="811" y="174" width="11" height="21"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Searches for a SEB configuration at the entered domain URL" label="Search for configuration"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="42S-3I-a6T" userLabel="Options Stack View">
+                                                <rect key="frame" x="0.0" y="82" width="834" height="365.5"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="qhV-mJ-8dP" userLabel="Open Link Stack View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="834" height="42.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCX-Ab-h85">
+                                                                <rect key="frame" x="20" y="2" width="10" height="20.5"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <bool key="isElement" value="NO"/>
+                                                                </accessibility>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="10" id="6zr-tS-kpE"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open an SEB exam or configuration link from Safari, Mail or a messenger app." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BE1-ZM-fgu">
+                                                                <rect key="frame" x="34" y="2" width="764" height="20.5"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="2" left="20" bottom="20" right="36"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8e-we-2Uj" userLabel="Separator View">
+                                                        <rect key="frame" x="0.0" y="42.5" width="834" height="0.5"/>
+                                                        <viewLayoutGuide key="safeArea" id="dPi-En-Cqx"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="aiX-3n-XL3"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="OZ0-nh-hSr" userLabel="ACC Stack View">
+                                                        <rect key="frame" x="0.0" y="43" width="834" height="136.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-e3-Pe5">
+                                                                <rect key="frame" x="20" y="20" width="10" height="20.5"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <bool key="isElement" value="NO"/>
+                                                                </accessibility>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="10" id="j6B-p5-9a7"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oZ3-eg-bNZ">
+                                                                <rect key="frame" x="34" y="20" width="800" height="96.5"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the URL of an institution which supports SEB" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf7-gn-5ng">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="400.5" height="20.5"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-ia-VWK">
+                                                                        <rect key="frame" x="0.0" y="30.5" width="788" height="36"/>
+                                                                        <subviews>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ov0-I9-Xri" customClass="TouchTransparentUIView" customModule="SEB" customModuleProvider="target">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="765" height="36"/>
+                                                                                <subviews>
+                                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain URL (not full URL)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-KW-3Qp">
+                                                                                        <rect key="frame" x="0.0" y="1" width="765" height="34"/>
+                                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <accessibility key="accessibilityConfiguration" hint="Enter the domain URL of an institution which supports SEB" label="URL"/>
+                                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
+                                                                                        <connections>
+                                                                                            <action selector="typingURL:" destination="h8j-pm-u2W" eventType="editingDidBegin" id="aAV-OS-tq3"/>
+                                                                                            <action selector="urlEntered:" destination="h8j-pm-u2W" eventType="editingDidEnd" id="alY-kD-P9e"/>
+                                                                                        </connections>
+                                                                                    </textField>
+                                                                                    <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fIn-8J-8FZ">
+                                                                                        <rect key="frame" x="735" y="8" width="20" height="20"/>
+                                                                                    </activityIndicatorView>
+                                                                                </subviews>
+                                                                                <color key="tintColor" name="AccentColor"/>
+                                                                                <constraints>
+                                                                                    <constraint firstItem="7o6-KW-3Qp" firstAttribute="centerY" secondItem="ov0-I9-Xri" secondAttribute="centerY" id="4HD-dx-1pA"/>
+                                                                                    <constraint firstAttribute="trailing" secondItem="7o6-KW-3Qp" secondAttribute="trailing" id="K7P-XB-XQk"/>
+                                                                                    <constraint firstItem="7o6-KW-3Qp" firstAttribute="leading" secondItem="ov0-I9-Xri" secondAttribute="leading" id="jzr-Gm-N7x"/>
+                                                                                    <constraint firstItem="fIn-8J-8FZ" firstAttribute="centerY" secondItem="7o6-KW-3Qp" secondAttribute="centerY" id="oA0-vY-NNC"/>
+                                                                                    <constraint firstItem="7o6-KW-3Qp" firstAttribute="trailing" secondItem="fIn-8J-8FZ" secondAttribute="trailing" constant="10" id="vIS-Ro-4tf"/>
+                                                                                </constraints>
+                                                                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                                                            </view>
+                                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6pO-9x-gSg">
+                                                                                <rect key="frame" x="777" y="7.5" width="11" height="21"/>
+                                                                                <accessibility key="accessibilityConfiguration" hint="Searches for a SEB configuration at the entered domain URL" label="Search for configuration"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                                <state key="normal" image="SEBToolbarNavigateForwardIcon.png"/>
+                                                                                <connections>
+                                                                                    <action selector="urlEnteredConfirmButton:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Eal-HI-2X4"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="36" id="W2p-nk-lpA"/>
+                                                                        </constraints>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="mFD-tq-GIn">
+                                                                        <rect key="frame" x="0.0" y="76.5" width="764" height="20"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="top" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaL-4I-bjq">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="764" height="20"/>
+                                                                                <accessibility key="accessibilityConfiguration" hint="Search local network for a SEB configuration (requires WiFi)" label="Search Network"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="20" id="roW-Tz-DZX"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                                <state key="normal" title="Search Network"/>
+                                                                                <connections>
+                                                                                    <action selector="searchNetwork:" destination="h8j-pm-u2W" eventType="touchUpInside" id="TAP-Y8-ir7"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No config found!" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9il-ut-H8z">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="16"/>
+                                                                                <accessibility key="accessibilityConfiguration" hint="No SEB configuration found at the entered domain URL" label="Warning: No SEB Configuration found!"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="vkK-ia-VWK" firstAttribute="leading" secondItem="oZ3-eg-bNZ" secondAttribute="leading" id="8IX-Kl-qU8"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="mFD-tq-GIn" secondAttribute="trailing" constant="36" id="bIF-kc-44V"/>
+                                                                    <constraint firstItem="mFD-tq-GIn" firstAttribute="leading" secondItem="oZ3-eg-bNZ" secondAttribute="leading" id="qMk-fr-KAK"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="vkK-ia-VWK" secondAttribute="trailing" constant="12" id="wpn-9U-z0O"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                        <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="0.0"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Suy-cx-d8k" userLabel="Separator View">
+                                                        <rect key="frame" x="0.0" y="179.5" width="834" height="0.5"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="v7f-9R-RJW"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZQK-dI-ByZ" userLabel="Scan QR-C Stack View">
+                                                        <rect key="frame" x="0.0" y="180" width="834" height="124.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-7Z-Q9L">
+                                                                <rect key="frame" x="20" y="20" width="10" height="20.5"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <bool key="isElement" value="NO"/>
+                                                                </accessibility>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="10" id="thU-eY-EXx"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FEs-Lr-xwf">
+                                                                <rect key="frame" x="34" y="20" width="766" height="84.5"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan SEB configuration QR code" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6r-Ir-cTX">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="257.5" height="20.5"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HCi-Wz-tEw">
+                                                                        <rect key="frame" x="0.0" y="30.5" width="54" height="54"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                                                                <accessibility key="accessibilityConfiguration" hint="Displays a camera view to scan for SEB configuration QR codes" label="Scan QR Code"/>
+                                                                                <state key="normal" image="SEBQRCode.png"/>
+                                                                                <connections>
+                                                                                    <action selector="scanQRCode" destination="h8j-pm-u2W" eventType="touchUpInside" id="Lnk-v2-VBP"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No SEB configuration found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fem-Ic-Pih">
+                                                                                <rect key="frame" x="0.0" y="38" width="0.0" height="16"/>
+                                                                                <accessibility key="accessibilityConfiguration" hint="The scanned QR code didn't contain an SEB configuration" label="Warning: No SEB Configuration found!"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="34"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GLT-21-gLh" userLabel="Separator View">
+                                                        <rect key="frame" x="0.0" y="304.5" width="834" height="0.5"/>
+                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="Zm9-gE-90f"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="y5C-5A-e5O" userLabel="More Information Stack View">
+                                                        <rect key="frame" x="0.0" y="305" width="834" height="60"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
+                                                                <rect key="frame" x="20" y="18" width="780" height="24"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="24" id="osj-a3-8s0"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                <state key="normal" title="More Information…"/>
+                                                                <connections>
+                                                                    <action selector="more:" destination="h8j-pm-u2W" eventType="touchUpInside" id="aN6-qz-a60"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                        <edgeInsets key="layoutMargins" top="18" left="20" bottom="18" right="34"/>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPL-Ey-ND1" userLabel="Separator View">
+                                                        <rect key="frame" x="0.0" y="365" width="834" height="0.5"/>
+                                                        <viewLayoutGuide key="safeArea" id="u1O-aN-NGi"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="0.5" id="4q7-aO-S5w"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="11" id="bj0-dq-iPp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="K8e-we-2Uj" secondAttribute="trailing" id="2yV-oX-6R7"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qhV-mJ-8dP" secondAttribute="trailing" id="4Zv-bP-9H2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DPL-Ey-ND1" secondAttribute="trailing" id="7Ba-97-fbh"/>
+                                                    <constraint firstItem="GLT-21-gLh" firstAttribute="leading" secondItem="42S-3I-a6T" secondAttribute="leading" id="O9Y-xy-aqH"/>
+                                                    <constraint firstItem="Suy-cx-d8k" firstAttribute="leading" secondItem="42S-3I-a6T" secondAttribute="leading" id="SXM-oY-6sz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="ZQK-dI-ByZ" secondAttribute="trailing" id="UDq-Rq-OL5"/>
+                                                    <constraint firstItem="DPL-Ey-ND1" firstAttribute="leading" secondItem="42S-3I-a6T" secondAttribute="leading" id="avL-b5-rzT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OZ0-nh-hSr" secondAttribute="trailing" id="cDD-wH-HI3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="y5C-5A-e5O" secondAttribute="trailing" id="e4W-Un-uWH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Suy-cx-d8k" secondAttribute="trailing" id="kvd-Yx-ddD"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GLT-21-gLh" secondAttribute="trailing" id="tuP-7g-NLH"/>
+                                                    <constraint firstItem="K8e-we-2Uj" firstAttribute="leading" secondItem="42S-3I-a6T" secondAttribute="leading" id="vhj-Ow-28X"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <state key="normal" image="SEBToolbarNavigateForwardIcon.png"/>
-                                                <connections>
-                                                    <action selector="urlEnteredConfirmButton:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Eal-HI-2X4"/>
-                                                </connections>
-                                            </button>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No config found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9il-ut-H8z">
-                                                <rect key="frame" x="698.5" y="204.5" width="101.5" height="30"/>
-                                                <accessibility key="accessibilityConfiguration" hint="No SEB configuration found at the entered domain URL" label="Warning: No SEB Configuration found!"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="KR2-7W-Vfb"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-7Z-Q9L">
-                                                <rect key="frame" x="20" y="266.5" width="8" height="20.5"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan SEB configuration QR code" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6r-Ir-cTX">
-                                                <rect key="frame" x="32" y="266.5" width="257.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLh-eI-sov">
-                                                <rect key="frame" x="32" y="297" width="54" height="54"/>
-                                                <accessibility key="accessibilityConfiguration" hint="Displays a camera view to scan for SEB configuration QR codes" label="Scan QR Code"/>
-                                                <state key="normal" image="SEBQRCode.png"/>
-                                                <connections>
-                                                    <action selector="scanQRCode" destination="h8j-pm-u2W" eventType="touchUpInside" id="Lnk-v2-VBP"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
-                                                <rect key="frame" x="665" y="383" width="137" height="36"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                <state key="normal" title="More Information…"/>
-                                                <connections>
-                                                    <action selector="more:" destination="h8j-pm-u2W" eventType="touchUpInside" id="aN6-qz-a60"/>
-                                                </connections>
-                                            </button>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No SEB configuration found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fem-Ic-Pih">
-                                                <rect key="frame" x="94" y="335" width="171.5" height="16"/>
-                                                <accessibility key="accessibilityConfiguration" hint="The scanned QR code didn't contain an SEB configuration" label="Warning: No SEB Configuration found!"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </stackView>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="Ye2-Ig-UNb"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fem-Ic-Pih" secondAttribute="trailing" constant="20" id="0HU-5z-caQ"/>
-                                            <constraint firstItem="lf7-gn-5ng" firstAttribute="leading" secondItem="GCj-e3-Pe5" secondAttribute="trailing" constant="4" id="0L5-i5-v35"/>
-                                            <constraint firstItem="9il-ut-H8z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aaL-4I-bjq" secondAttribute="trailing" constant="15" id="0Lb-Lq-Jul"/>
-                                            <constraint firstItem="TLh-eI-sov" firstAttribute="top" secondItem="z6r-Ir-cTX" secondAttribute="bottom" constant="10" id="1tr-SR-gXx"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="4MB-Cl-aQg"/>
-                                            <constraint firstItem="fIn-8J-8FZ" firstAttribute="centerY" secondItem="7o6-KW-3Qp" secondAttribute="centerY" id="4a4-dS-M41"/>
+                                            <constraint firstItem="42S-3I-a6T" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="1bi-6C-WAh"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="bottom" secondItem="cj0-uR-8kk" secondAttribute="bottom" constant="-15" id="5Da-Vv-hxF"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="1bF-7Z-Q9L" secondAttribute="top" id="5nV-Jt-6T4"/>
-                                            <constraint firstItem="GzA-jp-7VX" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="6NG-8Z-pKY"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="top" secondItem="Wmj-TM-U1f" secondAttribute="bottom" constant="32" id="7ob-8H-Hr8"/>
-                                            <constraint firstItem="lf7-gn-5ng" firstAttribute="top" secondItem="GCj-e3-Pe5" secondAttribute="top" id="8TX-8K-1wK"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="iMS-9D-3zr" secondAttribute="top" constant="12" id="95K-Gt-HdQ"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="9il-ut-H8z" secondAttribute="bottom" constant="32" id="9hw-du-DNa"/>
                                             <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Wmj-TM-U1f" secondAttribute="trailing" constant="20" id="Bbf-2P-Nbi"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BE1-ZM-fgu" secondAttribute="trailing" constant="20" id="Cji-yV-v7p"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="top" secondItem="aaL-4I-bjq" secondAttribute="bottom" constant="32" id="Cpq-JB-tbC"/>
-                                            <constraint firstItem="aaL-4I-bjq" firstAttribute="leading" secondItem="7o6-KW-3Qp" secondAttribute="leading" id="FnR-3X-5dp"/>
-                                            <constraint firstItem="9il-ut-H8z" firstAttribute="bottom" secondItem="GzA-jp-7VX" secondAttribute="bottom" constant="-15" id="GBJ-dw-dqd"/>
+                                            <constraint firstItem="42S-3I-a6T" firstAttribute="top" secondItem="cj0-uR-8kk" secondAttribute="bottom" constant="17.5" id="F83-0h-H5M"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="top" secondItem="Ye2-Ig-UNb" secondAttribute="top" priority="750" id="IZ1-XJ-hMn"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qCX-Ab-h85" secondAttribute="trailing" constant="4" id="Jsh-OP-JeP"/>
-                                            <constraint firstItem="lf7-gn-5ng" firstAttribute="top" secondItem="BE1-ZM-fgu" secondAttribute="bottom" constant="35" id="KIe-uU-4VF"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="KVV-XR-n6c"/>
-                                            <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lf7-gn-5ng" secondAttribute="trailing" constant="20" id="LQS-Z3-e15"/>
-                                            <constraint firstItem="TLh-eI-sov" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="MHz-Y8-nGM"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="trailingMargin" id="OHu-Ok-DFz"/>
-                                            <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" secondItem="6pO-9x-gSg" secondAttribute="trailing" constant="12" id="PzI-yh-pWq"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leadingMargin" id="Q2k-yN-IOs"/>
-                                            <constraint firstItem="lf7-gn-5ng" firstAttribute="top" secondItem="GzA-jp-7VX" secondAttribute="top" constant="15" id="QpU-S6-sg3"/>
-                                            <constraint firstItem="1bF-7Z-Q9L" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="VaN-t0-KoK"/>
-                                            <constraint firstAttribute="bottom" secondItem="sIk-vP-dKf" secondAttribute="bottom" constant="15" id="WPM-CG-iD3"/>
+                                            <constraint firstAttribute="trailing" secondItem="42S-3I-a6T" secondAttribute="trailing" id="Nwb-Oh-MxF"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="top" constant="15" id="YQg-B2-wVN"/>
-                                            <constraint firstItem="7o6-KW-3Qp" firstAttribute="centerY" secondItem="6pO-9x-gSg" secondAttribute="centerY" id="a08-Vh-Stn"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="a0U-dD-CYr"/>
-                                            <constraint firstItem="9il-ut-H8z" firstAttribute="trailing" secondItem="7o6-KW-3Qp" secondAttribute="trailing" id="cLo-Kt-NoU"/>
-                                            <constraint firstItem="fem-Ic-Pih" firstAttribute="bottom" secondItem="TLh-eI-sov" secondAttribute="bottom" id="dW0-dE-wSW"/>
-                                            <constraint firstItem="9il-ut-H8z" firstAttribute="top" secondItem="7o6-KW-3Qp" secondAttribute="bottom" constant="3" id="deY-NC-tl2"/>
-                                            <constraint firstAttribute="trailing" secondItem="iMS-9D-3zr" secondAttribute="trailing" id="e6b-7g-kQG"/>
-                                            <constraint firstItem="z6r-Ir-cTX" firstAttribute="leading" secondItem="1bF-7Z-Q9L" secondAttribute="trailing" constant="4" id="eSz-NK-eb6"/>
                                             <constraint firstAttribute="trailing" secondItem="cj0-uR-8kk" secondAttribute="trailing" id="eeB-uE-i9C"/>
-                                            <constraint firstItem="lf7-gn-5ng" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="f5U-t0-8QO"/>
-                                            <constraint firstItem="7o6-KW-3Qp" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="fEE-FH-7Lj"/>
-                                            <constraint firstItem="fIn-8J-8FZ" firstAttribute="trailing" secondItem="7o6-KW-3Qp" secondAttribute="trailing" constant="-5" id="fWb-SW-KX3"/>
-                                            <constraint firstItem="BE1-ZM-fgu" firstAttribute="top" secondItem="qCX-Ab-h85" secondAttribute="top" id="fYg-fw-Ggs"/>
-                                            <constraint firstItem="qCX-Ab-h85" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="fnz-7Y-wUe"/>
-                                            <constraint firstItem="7o6-KW-3Qp" firstAttribute="top" secondItem="lf7-gn-5ng" secondAttribute="bottom" constant="10" id="gB6-J2-sr6"/>
-                                            <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" secondItem="sIk-vP-dKf" secondAttribute="trailing" constant="32" id="gf2-vF-se8"/>
-                                            <constraint firstItem="fem-Ic-Pih" firstAttribute="leading" secondItem="TLh-eI-sov" secondAttribute="trailing" constant="8" symbolic="YES" id="h4I-g5-sU4"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="bottom" secondItem="iMS-9D-3zr" secondAttribute="bottom" constant="-12" id="hv1-bN-Vry"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="top" secondItem="fem-Ic-Pih" secondAttribute="bottom" constant="32" id="iw0-7q-fK3"/>
-                                            <constraint firstItem="iMS-9D-3zr" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="j5Z-qC-B3a"/>
-                                            <constraint firstItem="aaL-4I-bjq" firstAttribute="top" secondItem="7o6-KW-3Qp" secondAttribute="bottom" constant="3" id="jau-a4-BVQ"/>
-                                            <constraint firstItem="6pO-9x-gSg" firstAttribute="leading" secondItem="7o6-KW-3Qp" secondAttribute="trailing" constant="11" id="lA4-fE-NYK"/>
-                                            <constraint firstAttribute="trailing" secondItem="GzA-jp-7VX" secondAttribute="trailing" id="nzO-QV-qtS"/>
                                             <constraint firstItem="cj0-uR-8kk" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" id="qEf-pH-whq"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z6r-Ir-cTX" secondAttribute="trailing" constant="20" id="qPg-Wy-mMy"/>
-                                            <constraint firstItem="GCj-e3-Pe5" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="qU8-4p-lpp"/>
                                             <constraint firstItem="cj0-uR-8kk" firstAttribute="top" secondItem="dvS-YS-Rz4" secondAttribute="top" id="u0P-Au-HJh"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ye2-Ig-UNb" secondAttribute="leading" constant="32" id="uiY-kR-ahf"/>
+                                            <constraint firstAttribute="bottom" secondItem="42S-3I-a6T" secondAttribute="bottom" constant="21" id="zH7-hp-IYU"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="OHu-Ok-DFz"/>
-                                                <exclude reference="Q2k-yN-IOs"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -795,6 +821,7 @@
                                     <constraint firstItem="dvS-YS-Rz4" firstAttribute="top" secondItem="ltZ-M4-c8e" secondAttribute="top" id="74X-49-XUn"/>
                                     <constraint firstAttribute="bottom" secondItem="dvS-YS-Rz4" secondAttribute="bottom" id="U9h-vZ-mDv"/>
                                     <constraint firstItem="dvS-YS-Rz4" firstAttribute="leading" secondItem="ltZ-M4-c8e" secondAttribute="leading" id="hAy-bT-0th"/>
+                                    <constraint firstItem="dvS-YS-Rz4" firstAttribute="width" secondItem="ltZ-M4-c8e" secondAttribute="width" id="rXE-Lo-Lok"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -805,7 +832,6 @@
                             <constraint firstItem="ltZ-M4-c8e" firstAttribute="top" secondItem="DgT-Dq-MHH" secondAttribute="top" id="OAp-5r-K7h"/>
                             <constraint firstItem="R5v-m2-Ces" firstAttribute="trailing" secondItem="ltZ-M4-c8e" secondAttribute="trailing" id="XpW-G7-C4e"/>
                             <constraint firstItem="R5v-m2-Ces" firstAttribute="bottom" secondItem="ltZ-M4-c8e" secondAttribute="bottom" id="jok-3t-5ve"/>
-                            <constraint firstItem="dvS-YS-Rz4" firstAttribute="width" secondItem="ltZ-M4-c8e" secondAttribute="width" id="rXE-Lo-Lok"/>
                         </constraints>
                     </view>
                     <connections>
@@ -826,7 +852,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="agb-Z3-6wR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2244" y="726.35467980295573"/>
+            <point key="canvasLocation" x="-2244.3548387096776" y="726.30185348631949"/>
         </scene>
         <!--About SEB View Controller-->
         <scene sceneID="Eh1-Ww-hMf">
@@ -954,6 +980,7 @@
                                     <constraint firstAttribute="trailing" secondItem="tMF-sG-E2Z" secondAttribute="trailing" id="AG4-OO-x72"/>
                                     <constraint firstAttribute="bottom" secondItem="tMF-sG-E2Z" secondAttribute="bottom" id="VAL-8o-6bU"/>
                                     <constraint firstItem="tMF-sG-E2Z" firstAttribute="leading" secondItem="nQa-Q9-gCh" secondAttribute="leading" id="ajW-FK-g5f"/>
+                                    <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="nQa-Q9-gCh" secondAttribute="width" id="eDm-Iz-3h2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -963,7 +990,6 @@
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="bottom" secondItem="nQa-Q9-gCh" secondAttribute="bottom" id="2wh-sN-4p9"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" id="QQA-Tf-Pbq"/>
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="trailing" secondItem="nQa-Q9-gCh" secondAttribute="trailing" id="dVf-An-b4z"/>
-                            <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="nQa-Q9-gCh" secondAttribute="width" id="eDm-Iz-3h2"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="HML-YJ-N2F" secondAttribute="leading" id="o2k-bG-IrH"/>
                         </constraints>
                     </view>
@@ -997,14 +1023,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examListCell" id="7kU-4n-zRN" customClass="ExamCell">
-                                                <rect key="frame" x="0.0" y="50" width="834" height="44"/>
+                                                <rect key="frame" x="0.0" y="50" width="834" height="44.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7kU-4n-zRN" id="2ZN-V2-0ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-Xm-hMN">
-                                                            <rect key="frame" x="16" y="11" width="802" height="21"/>
+                                                            <rect key="frame" x="16" y="11" width="802" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1122,8 +1148,14 @@
         <image name="SEBSliderClosePage.png" width="20" height="20"/>
         <image name="SEBToolbarNavigateForwardIcon.png" width="11" height="20"/>
         <image name="continueCircle.png" width="28" height="28"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
