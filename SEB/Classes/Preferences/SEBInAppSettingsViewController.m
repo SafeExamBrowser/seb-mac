@@ -449,6 +449,12 @@
         // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
         // then we don't alter the Browser Exam and Config Keys
 
+    /// SEB Server
+    
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebServerLightDiscovery"]) {
+        [self setDependentKeysForSEBServerDiscoveryPolicy];
+    }
+    
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"] ||
@@ -657,6 +663,7 @@
 
 - (void)setAllDependentKeys
 {
+    [self setDependentKeysForSEBServerDiscoveryPolicy];
     [self setDependentKeysForSEBConfigPurpose];
     [self setDependentKeysForShareAs];
     [self setDependentKeysForRemoveDefaults];
@@ -674,6 +681,26 @@
 {
     NSSet *dependentKeys = [NSSet setWithArray:@[@"configModifedWarning"]];
     if (_permanentSettingsChanged == NO)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+}
+
+
+- (void)setDependentKeysForSEBServerDiscoveryPolicy
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_specificServerSettings",
+                                                 @"org_safeexambrowser_SEB_sebServerLightName",
+                                                 @"org_safeexambrowser_SEB_sebServerLightPin"]];
+    if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebServerLightDiscovery"] != sebServerLightDiscoveryPolicySettingsControlled)
     {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
