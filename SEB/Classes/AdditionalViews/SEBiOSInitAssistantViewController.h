@@ -49,12 +49,17 @@
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
     __weak IBOutlet UIButton *searchNetworkButton;
-    __weak IBOutlet UIButton *moreInformationButton;
     __weak IBOutlet UILabel *noConfigURLFoundLabel;
     __weak IBOutlet UILabel *scanQRConfigText;
     __weak IBOutlet UILabel *noConfigQRCodeFoundLabel;
     __weak IBOutlet UIButton *QRCodeScanButton;
-    
+    __weak IBOutlet UIStackView *sebServerLightStackview;
+    __weak IBOutlet UIButton *searchLocalServerButton;
+    __weak IBOutlet UISwitch *searchingLocalServerSwitch;
+    __weak IBOutlet UILabel *searchingLocalServerLabel;
+    __weak IBOutlet UIStackView *moreInformationStackview;
+    __weak IBOutlet UIButton *moreInformationButton;
+
     BOOL configURLWarningDisplayed;
     
     UILabel *noConfigFoundLabel;
