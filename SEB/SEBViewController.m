@@ -3610,7 +3610,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
                             if (didSucceed) {
                                 DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                self.ASAMActive = false;
+                                self.ASAMActive = NO;
                             }
                             else {
                                 DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
@@ -4036,7 +4036,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
 {
-    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
+    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == NO) {
         
         // Is the exam already running?
         if (_sessionRunning) {
@@ -4045,14 +4045,14 @@ void run_on_ui_thread(dispatch_block_t block)
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:^{
                     self.alertController = nil;
-                    self.startSAMWAlertDisplayed = false;
+                    self.startSAMWAlertDisplayed = NO;
                     [self singleAppModeStatusChanged];
                 }];
                 return;
             }
             
             // Exam running: Check if SAM is switched off
-            if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
                 
                 /// SAM is off
                 
@@ -4082,7 +4082,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
-                    _unlockPasswordEntered = false;
+                    _unlockPasswordEntered = NO;
                     [self.sebLockedViewController shouldCloseLockdownWindows];
                 }
             }
@@ -4091,12 +4091,12 @@ void run_on_ui_thread(dispatch_block_t block)
             /// Exam is not yet running
             
             // If Single App Mode is switched on
-            if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == YES) {
                 
                 // Dismiss the Activate SAM alert in case it still was visible
                 [_alertController dismissViewControllerAnimated:NO completion:^{
                     self.alertController = nil;
-                    self.startSAMWAlertDisplayed = false;
+                    self.startSAMWAlertDisplayed = NO;
                 }];
                 
                 // Proceed to exam
@@ -4108,8 +4108,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (_endSAMWAlertDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:^{
                         self.alertController = nil;
-                        self.endSAMWAlertDisplayed = false;
-                        self.singleAppModeActivated = false;
+                        self.endSAMWAlertDisplayed = NO;
+                        self.singleAppModeActivated = NO;
                         [self showRestartSingleAppMode];
                     }];
                     return;
@@ -4401,7 +4401,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // Is ASAM enabled in settings?
         if (_enableASAM) {
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
-            _ASAMActive = true;
+            _ASAMActive = YES;
             UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
                 DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
                 if (didSucceed) {
@@ -4448,7 +4448,7 @@ void run_on_ui_thread(dispatch_block_t block)
     UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
         if (didSucceed) {
             DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-            self.ASAMActive = false;
+            self.ASAMActive = NO;
         }
         else {
             DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
@@ -4463,15 +4463,15 @@ void run_on_ui_thread(dispatch_block_t block)
     
     if (_allowSAM) {
         // SAM is allowed
-        _singleAppModeActivated = true;
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+        _singleAppModeActivated = YES;
+        if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", @"")
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _startSAMWAlertDisplayed = true;
+            _startSAMWAlertDisplayed = YES;
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
@@ -4505,7 +4505,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
         self.alertController = nil;
-        self.noSAMAlertDisplayed = false;
+        self.noSAMAlertDisplayed = NO;
         [self conditionallyStartKioskMode];
     }]];
     
