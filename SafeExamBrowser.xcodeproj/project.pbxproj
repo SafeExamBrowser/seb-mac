@@ -601,6 +601,7 @@
 		69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C6217378B9A0011609B /* SEBTextField.m */; };
 		69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CEDCF026ACD00C0030787B /* SEBWebViewController.h */; };
 		69CEDCF326ACD00C0030787B /* SEBWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CEDCF126ACD00C0030787B /* SEBWebViewController.m */; };
+		69CEF1FC2B6D9FCE008216B7 /* SEBServerLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEF1FB2B6D9FCE008216B7 /* SEBServerLightViewController.swift */; };
 		69CF5829220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		69D02484287C68E5006CEC19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D02483287C68E5006CEC19 /* AppDelegate.swift */; };
 		69D02486287C68E5006CEC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D02485287C68E5006CEC19 /* ViewController.swift */; };
@@ -1373,6 +1374,7 @@
 		69CE9C6217378B9A0011609B /* SEBTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextField.m; sourceTree = "<group>"; };
 		69CEDCF026ACD00C0030787B /* SEBWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebViewController.h; path = Classes/BrowserComponents/SEBWebViewController.h; sourceTree = "<group>"; };
 		69CEDCF126ACD00C0030787B /* SEBWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBWebViewController.m; path = Classes/BrowserComponents/SEBWebViewController.m; sourceTree = "<group>"; };
+		69CEF1FB2B6D9FCE008216B7 /* SEBServerLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBServerLightViewController.swift; sourceTree = "<group>"; };
 		69D02481287C68E5006CEC19 /* SEBVerificator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SEBVerificator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D02483287C68E5006CEC19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69D02485287C68E5006CEC19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -2208,6 +2210,7 @@
 				69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */,
 				69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */,
 				69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */,
+				69CEF1FB2B6D9FCE008216B7 /* SEBServerLightViewController.swift */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -3900,6 +3903,7 @@
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
+				69CEF1FC2B6D9FCE008216B7 /* SEBServerLightViewController.swift in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
@@ -4419,6 +4423,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D32A1D6CDEC2CF1C15F44B7B /* Pods-SEB.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4513,6 +4518,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B474E1220063666921806418 /* Pods-SEB.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
