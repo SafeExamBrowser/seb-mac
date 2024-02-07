@@ -1,0 +1,39 @@
+
+/* Class = "UITextField"; placeholder = "Passcode"; ObjectID = "8gn-NM-en1"; */
+"8gn-NM-en1.placeholder" = "Passcode";
+
+/* Class = "UITableViewSection"; headerTitle = "Host Passcode"; ObjectID = "Cba-Ld-vRb"; */
+"Cba-Ld-vRb.headerTitle" = "Host Passcode";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "DHc-t5-TD1"; */
+"DHc-t5-TD1.text" = "Name";
+
+/* Class = "UITableViewSection"; headerTitle = "Host Game"; ObjectID = "Eba-bI-U0r"; */
+"Eba-bI-U0r.headerTitle" = "Host Game";
+
+/* Class = "UILabel"; text = "Host Game"; ObjectID = "FFT-rr-WLA"; */
+"FFT-rr-WLA.text" = "Host Game";
+
+/* Class = "UINavigationItem"; title = "Join Game"; ObjectID = "Gf7-1w-biQ"; */
+"Gf7-1w-biQ.title" = "Join Game";
+
+/* Class = "UITableViewSection"; headerTitle = "Join Game"; ObjectID = "Hgs-LZ-OK4"; */
+"Hgs-LZ-OK4.headerTitle" = "Join Game";
+
+/* Class = "UILabel"; text = "Instructions"; ObjectID = "KT9-pG-ngE"; */
+"KT9-pG-ngE.text" = "Instructions";
+
+/* Class = "UITableViewSection"; headerTitle = "Passcode"; ObjectID = "aJ5-L3-lNF"; */
+"aJ5-L3-lNF.headerTitle" = "Passcode";
+
+/* Class = "UILabel"; text = "Resign"; ObjectID = "baI-2s-16m"; */
+"baI-2s-16m.text" = "Resign";
+
+/* Class = "UILabel"; text = "Join Game"; ObjectID = "dHB-Sh-nkl"; */
+"dHB-Sh-nkl.text" = "Join Game";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "jQm-Qa-ouA"; */
+"jQm-Qa-ouA.placeholder" = "Name";
+
+/* Class = "UINavigationItem"; title = "Find Game"; ObjectID = "lZJ-0p-xSE"; */
+"lZJ-0p-xSE.title" = "Find Game";
