@@ -105,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBBatteryController;
 @class ServerController;
 @class SEBServerViewController;
+@class SEBServerLightUIViewController;
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
@@ -204,6 +205,8 @@ void run_on_ui_thread(dispatch_block_t block);
 /// SEB Server
 @property (strong, nonatomic) ServerController *_Nullable serverController;
 @property (strong, nonatomic) SEBServerViewController *_Nullable sebServerViewController;
+//@property (strong, nonatomic) SEBServerLightDiscoveryViewController *sebServerLightDiscoveryViewController;
+@property (strong, nonatomic) SEBServerLightUIViewController *_Nullable sebServerLightUIViewController;
 
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
@@ -337,6 +340,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(readwrite) BOOL sebServerConnectionEstablished;
 // The SEB Server exam list view is displayed
 @property(readwrite) BOOL sebServerViewDisplayed;
+@property(readwrite) BOOL sebServerLightViewDisplayed;
 
 - (void) didSelectExamWithExamId:(NSString *)examId url:(NSString *)url;
 - (void) closeServerViewAndRestart:(id)sender;

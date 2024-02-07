@@ -125,6 +125,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBServerLightUIViewController*)sebServerLightUIViewController
+{
+    if (!_sebServerLightUIViewController) {
+        _sebServerLightUIViewController = [[SEBServerLightUIViewController alloc] init];
+//        _sebServerLightUIViewController.delegate = self;
+    }
+    return _sebServerLightUIViewController;
+}
+
+
 - (UIViewController *)topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -835,38 +845,40 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)openInitAssistant
 {
-    if (!_initAssistantOpen) {
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
+    if (!_sebServerLightViewDisplayed) {
+        if (!_initAssistantOpen) {
+            if (_alertController) {
+                [_alertController dismissViewControllerAnimated:NO completion:^{
+                    self.alertController = nil;
+                    [self openInitAssistant];
+                }];
+                return;
+            }
+            
+            if (!_assistantViewController) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+                _assistantViewController.sebViewController = self;
+                _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+                if (@available(iOS 13.0, *)) {
+                    _assistantViewController.modalInPopover = YES;
+                }
+            }
+            //// Initialize SEB Dock, commands section in the slider view and
+            //// 3D Touch Home screen quick actions
+            
+            // Add scan QR code Home screen quick action
+            [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
+            
+            self.initAssistantOpen = true;
+            [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
+            }];
+        } else {
+            [_assistantViewController dismissViewControllerAnimated:NO completion:^{
+                self.initAssistantOpen = NO;
                 [self openInitAssistant];
             }];
-            return;
         }
-        
-        if (!_assistantViewController) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
-            _assistantViewController.sebViewController = self;
-            _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            if (@available(iOS 13.0, *)) {
-                _assistantViewController.modalInPopover = YES;
-            }
-        }
-        //// Initialize SEB Dock, commands section in the slider view and
-        //// 3D Touch Home screen quick actions
-        
-        // Add scan QR code Home screen quick action
-        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
-        
-        self.initAssistantOpen = true;
-        [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
-        }];
-    } else {
-        [_assistantViewController dismissViewControllerAnimated:NO completion:^{
-            self.initAssistantOpen = NO;
-            [self openInitAssistant];
-        }];
     }
 }
 
@@ -2779,7 +2791,21 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) startSEBServerLightDiscovery
 {
-    
+    if (!_sebServerLightUIViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"SEBServerLight" bundle:nil];
+        _sebServerLightUIViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerLightUIViewController"];
+//        _sebServerLightUIViewController.delegate = self;
+        _sebServerLightUIViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        if (@available(iOS 13.0, *)) {
+            _sebServerLightUIViewController.modalInPopover = YES;
+        }
+    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:_sebServerLightUIViewController];
+    _sebServerLightViewDisplayed = YES;
+    [self.topMostController presentViewController:navigationController animated:YES completion:^{
+    }];
+
+//    [self.sebServerLightUIViewController startDiscovery];
 }
 
 
@@ -3717,6 +3743,33 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.topMostController presentViewController:_sebServerViewController animated:YES completion:^{
         self.sebServerViewDisplayed = YES;
         [self.sebServerViewController updateExamList];
+    }];
+}
+
+
+- (void) showSEBServerLightView
+{
+    if (_sebServerLightViewDisplayed == NO) {
+        if (_alertController) {
+            [_alertController dismissViewControllerAnimated:NO completion:^{
+                self.alertController = nil;
+                [self showSEBServerLightView];
+            }];
+            return;
+        }
+        [self.sideMenuController hideLeftViewAnimated];
+    }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    _sebServerLightUIViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBServerView"];
+    _sebServerLightUIViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+//    _sebServerLightUIViewController.sebViewController = self;
+    if (@available(iOS 13.0, *)) {
+        _sebServerLightUIViewController.modalInPopover = YES;
+    }
+    
+    [self.topMostController presentViewController:_sebServerLightUIViewController animated:YES completion:^{
+        self.sebServerLightViewDisplayed = YES;
     }];
 }
 
