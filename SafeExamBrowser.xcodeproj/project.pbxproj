@@ -586,6 +586,7 @@
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
 		69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
+		69BD79692B73B91400003D3B /* SEBServerLight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69BD79672B73B91400003D3B /* SEBServerLight.storyboard */; };
 		69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */; };
 		69C3FC652A9B5EC500F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
 		69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
@@ -692,6 +693,7 @@
 		69E977FE25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */; };
 		69E9780025F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
+		69EB5F452B719CF6007680A0 /* SEBServerLightUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EB5F442B719CF6007680A0 /* SEBServerLightUIViewController.swift */; };
 		69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */; };
 		69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */; };
 		69EDAC1E1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */; };
@@ -1362,6 +1364,8 @@
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
 		69BBAE55232702BD005BC19F /* ServerLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServerLogger.m; sourceTree = "<group>"; };
+		69BD79682B73B91400003D3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SEBServerLight.storyboard; sourceTree = "<group>"; };
+		69BD796B2B73B93700003D3B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SEBServerLight.strings; sourceTree = "<group>"; };
 		69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadPageUIElement.swift; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
@@ -1452,6 +1456,7 @@
 		69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBAbstractModernWebView.swift; path = Classes/BrowserComponents/SEBAbstractModernWebView.swift; sourceTree = "<group>"; };
 		69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIWebViewController.h; path = Classes/BrowserComponents/SEBUIWebViewController.h; sourceTree = "<group>"; };
 		69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIWebViewController.m; path = Classes/BrowserComponents/SEBUIWebViewController.m; sourceTree = "<group>"; };
+		69EB5F442B719CF6007680A0 /* SEBServerLightUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBServerLightUIViewController.swift; path = Classes/AdditionalViews/SEBServerLightUIViewController.swift; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
 		69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPluginDatabase.h; sourceTree = "<group>"; };
 		69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXLockedViewController.h; sourceTree = "<group>"; };
@@ -1920,6 +1925,7 @@
 				69F9001F232309BB003A5015 /* ExamCell.m */,
 				69AF449E24699A5300F56542 /* JitsiViewController.swift */,
 				696D1D932B715651003743BD /* TouchTransparentUIView.swift */,
+				69EB5F442B719CF6007680A0 /* SEBServerLightUIViewController.swift */,
 			);
 			name = "Additional UI";
 			sourceTree = "<group>";
@@ -1970,6 +1976,7 @@
 				6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */,
 				6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */,
 				6940B9711BA0F2FB008C8CFC /* Main.storyboard */,
+				69BD79672B73B91400003D3B /* SEBServerLight.storyboard */,
 				6940B9771BA0F2FB008C8CFC /* Assets.xcassets */,
 				6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */,
 				6943C6412A99258500EC18FF /* QRCodeReaderViewController */,
@@ -3418,6 +3425,7 @@
 				696165F72844F6F100B00A2C /* SEBToolbarSearchPreviousResultIcon@2x.png in Resources */,
 				694A7A6924890B8E00B45C88 /* SEBProctoringViewIcon_error.png in Resources */,
 				69E87E3F202924E70055988F /* SEBShutDownIconLandscape.png in Resources */,
+				69BD79692B73B91400003D3B /* SEBServerLight.storyboard in Resources */,
 				69B226E31D4108BA0065B831 /* Icon-22x29.png in Resources */,
 				694055AE1CF32B310036C480 /* SEBShutDownIcon@3x.png in Resources */,
 				69633E591E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
@@ -3797,6 +3805,7 @@
 				69B1D481230D75ED005656B8 /* NetworkRequest.swift in Sources */,
 				69F90022232309BB003A5015 /* ExamCell.m in Sources */,
 				69E9780025F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */,
+				69EB5F452B719CF6007680A0 /* SEBServerLightUIViewController.swift in Sources */,
 				697852B82177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
 				69A07226268A38AD00A0464B /* MscRSAKey.m in Sources */,
 				69A07250268A38AD00A0464B /* MscCertificate.m in Sources */,
@@ -4377,6 +4386,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		69BD79672B73B91400003D3B /* SEBServerLight.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69BD79682B73B91400003D3B /* Base */,
+				69BD796B2B73B93700003D3B /* de */,
+			);
+			name = SEBServerLight.storyboard;
+			sourceTree = "<group>";
+		};
 		69D02489287C68E6006CEC19 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4448,7 +4466,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4544,7 +4562,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4828,7 +4846,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4893,7 +4911,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4954,7 +4972,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -4998,7 +5016,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5035,7 +5053,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5078,7 +5096,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5113,7 +5131,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5181,7 +5199,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5258,7 +5276,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5314,7 +5332,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15008;
+				CURRENT_PROJECT_VERSION = 15034;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
