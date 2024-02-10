@@ -5,7 +5,8 @@
 //  Created by Daniel Schneider on 05.02.24.
 //
 
-import Foundation
+import UIKit
+import Network
 
 class SEBServerLightUIViewController: UITableViewController {
     
@@ -26,6 +27,13 @@ class SEBServerLightUIViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "serverInstanceCell")
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let passcodeVC = segue.destination as? SEBServerLightPasscodeUIViewController {
+            passcodeVC.browseResult = sender as? NWBrowser.Result
+            passcodeVC.sebServerLightUIViewController = self
+        }
+    }
+
     @objc public func startDiscovery() {
         
         if sharedBrowser == nil {
@@ -127,3 +135,51 @@ extension SEBServerLightUIViewController: PeerConnectionDelegate {
     func receivedMessage(content: Data?, message: NWProtocolFramer.Message) { }
 }
 
+class SEBServerLightPasscodeUIViewController: UITableViewController {
+
+    @IBOutlet weak var passcodeField: UITextField!
+    var browseResult: NWBrowser.Result?
+    var sebServerLightUIViewController: SEBServerLightUIViewController?
+
+    var hasPlayedGame = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let browseResult = browseResult,
+            case let NWEndpoint.service(name: name, type: _, domain: _, interface: _) = browseResult.endpoint {
+            title = "Join \(name)"
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if hasPlayedGame {
+            navigationController?.popToRootViewController(animated: false)
+            hasPlayedGame = false
+        }
+    }
+
+    func joinPressed() {
+        hasPlayedGame = true
+        if let passcode = passcodeField.text,
+            let browseResult = browseResult,
+            let sebServerLightUIViewController = sebServerLightUIViewController {
+            if sharedConnection != nil {
+                sharedConnection?.cancel()
+            }
+            sharedConnection = PeerConnection(endpoint: browseResult.endpoint,
+                                              interface: browseResult.interfaces.first,
+                                              passcode: passcode,
+                                              delegate: sebServerLightUIViewController)
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            joinPressed()
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
