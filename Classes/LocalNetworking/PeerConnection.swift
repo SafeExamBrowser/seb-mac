@@ -89,6 +89,11 @@ class PeerConnection {
 			case .ready:
 				print("\(connection) established")
 
+                if let innerEndpoint = connection.currentPath?.remoteEndpoint,
+                   case .hostPort(let host, let port) = innerEndpoint {
+                    print("Connected to", "\(host):\(port)") // Here, I have the host/port information
+                }
+
 				// When the connection is ready, start receiving messages.
                 self?.receiveNextMessage()
 
@@ -112,6 +117,12 @@ class PeerConnection {
                     // Notify the delegate when the connection fails.
                     delegate.connectionFailed()
                 }
+            case .preparing:
+                if let innerEndpoint = connection.currentPath?.remoteEndpoint,
+                   case .hostPort(let host, let port) = innerEndpoint {
+                    print("Connected to", "\(host):\(port)") // Here, I have the host/port information
+                }
+
             default:
 				break
 			}
