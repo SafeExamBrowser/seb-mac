@@ -497,6 +497,13 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 }
 
 
+- (void) buildMenuWithBuilder:(id<UIMenuBuilder>)builder {
+    if (@available(iOS 17.0, *)) {
+        [builder removeMenuForIdentifier:UIMenuAutoFill];
+    }
+}
+
+
 #pragma mark -
 #pragma mark Handle hardware keyboard shortcuts
 - (BOOL)canBecomeFirstResponder
