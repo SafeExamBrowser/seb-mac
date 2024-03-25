@@ -34,6 +34,10 @@ class SEBServerLightUIViewController: UITableViewController {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     @objc public func startDiscovery() {
         
         if sharedBrowser == nil {
