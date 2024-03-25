@@ -861,7 +861,7 @@ static NSMutableSet *browserWindowControllers;
                 _assistantViewController.sebViewController = self;
                 _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
                 if (@available(iOS 13.0, *)) {
-                    _assistantViewController.modalInPopover = YES;
+                    _assistantViewController.modalInPresentation = YES;
                 }
             }
             //// Initialize SEB Dock, commands section in the slider view and
@@ -1212,7 +1212,7 @@ static NSMutableSet *browserWindowControllers;
     
     self.appSettingsViewController.showDoneButton = YES;
     if (@available(iOS 13.0, *)) {
-        self.appSettingsViewController.modalInPopover = YES;
+        self.appSettingsViewController.modalInPresentation = YES;
     }
     
     if (!settingsShareButton) {
@@ -2797,7 +2797,7 @@ void run_on_ui_thread(dispatch_block_t block)
 //        _sebServerLightUIViewController.delegate = self;
         _sebServerLightUIViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         if (@available(iOS 13.0, *)) {
-            _sebServerLightUIViewController.modalInPopover = YES;
+            _sebServerLightUIViewController.modalInPresentation = YES;
         }
     }
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:_sebServerLightUIViewController];
@@ -3734,7 +3734,7 @@ void run_on_ui_thread(dispatch_block_t block)
     _sebServerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     _sebServerViewController.sebViewController = self;
     if (@available(iOS 13.0, *)) {
-        _sebServerViewController.modalInPopover = YES;
+        _sebServerViewController.modalInPresentation = YES;
     }
     
     _sebServerViewController.sebServerController = self.serverController.sebServerController;
@@ -3765,7 +3765,7 @@ void run_on_ui_thread(dispatch_block_t block)
     _sebServerLightUIViewController.modalPresentationStyle = UIModalPresentationFormSheet;
 //    _sebServerLightUIViewController.sebViewController = self;
     if (@available(iOS 13.0, *)) {
-        _sebServerLightUIViewController.modalInPopover = YES;
+        _sebServerLightUIViewController.modalInPresentation = YES;
     }
     
     [self.topMostController presentViewController:_sebServerLightUIViewController animated:YES completion:^{
