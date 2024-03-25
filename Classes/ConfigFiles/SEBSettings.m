@@ -463,11 +463,14 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enablePrivateClipboardMacEnforce",
                                   
                    @YES,
-                   @"enableScrollLock",
-
-                   @YES,
                    @"enableSebBrowser",
                    
+                   @YES,
+                   @"enableScreenProctoring",
+
+                   @YES,
+                   @"enableScrollLock",
+
                    @NO,
                    @"enableTouchExit",
                    
@@ -947,6 +950,45 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"setVmwareConfiguration",
+                   
+                   @"",
+                   @"screenProctoringClientId",
+
+                   @"",
+                   @"screenProctoringClientSecret",
+
+                   @"",
+                   @"screenProctoringClientSessionId",
+
+                   @"",
+                   @"screenProctoringGroupId",
+
+                   [NSNumber numberWithDouble:1.0],
+                   @"screenProctoringImageDownscale",
+                   
+                   @"",
+                   @"screenProctoringImageFormat",
+
+                   [NSNumber numberWithLong:0],
+                   @"screenProctoringImageQuantization",
+
+                   @YES,
+                   @"screenProctoringMetadataActiveAppEnabled",
+                   
+                   @YES,
+                   @"screenProctoringMetadataURLEnabled",
+                   
+                   @YES,
+                   @"screenProctoringMetadataWindowTitleEnabled",
+                   
+                   @"",
+                   @"screenProctoringServiceURL",
+
+                   [NSNumber numberWithLong:5000],
+                   @"screenProctoringScreenshotMaxInterval",
+                   
+                   [NSNumber numberWithLong:1000],
+                   @"screenProctoringScreenshotMinInterval",
                    
                    @NO,
                    @"showApplicationLogButton",
