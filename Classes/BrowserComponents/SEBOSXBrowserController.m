@@ -989,7 +989,7 @@
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
         // Load start URL from the system's user defaults
-        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        NSString *urlText = [self backToStartURLString];
         DDLogInfo(@"Reloading Start URL in main browser window: %@", urlText);
         [self openURLString:urlText withSEBUserAgentInWebView:self.mainWebView];
     } else {
