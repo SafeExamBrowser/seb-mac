@@ -1636,14 +1636,14 @@
         <note>Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108";</note>
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables Java applets, which are no longer supported on current macOS versions</source>
+        <source>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</source>
         <target>Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables Java applets, which are no longer supported on current macOS versions"; ObjectID = "168";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168";</note>
       </trans-unit>
       <trans-unit id="169.title" xml:space="preserve">
-        <source>Enable Java</source>
+        <source>Reload page after connection error</source>
         <target>Java aktivieren</target>
-        <note>Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169";</note>
+        <note>Class = "NSButtonCell"; title = "Reload page after connection error"; ObjectID = "169";</note>
       </trans-unit>
       <trans-unit id="171.ibShadowedToolTip" xml:space="preserve">
         <source>Enables JavaScript. Please note that most modern websites need JavaScript for full functionality</source>
@@ -2131,9 +2131,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip";</note>
       </trans-unit>
       <trans-unit id="wFa-eR-NzK.ibShadowedToolTip" xml:space="preserve">
-        <source>Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
+        <source>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
         <target>Wenn erlaubt und der Rechtsklick nicht deaktiviert ist (siehe Sicherheit/Abgefangene Tasten/Rechte Maustaste erlauben), dann kann mittels Rechtsklick/ctrl-Linksklick auf ein Element einer Webseite der Web Inspector mittels 'Inspect Element' angezeigt werden. Win: Entwicklertools in Browserfenster-Symbolleiste anzeigen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
@@ -7336,6 +7336,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Neuladen erlauben</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Allow Remote Inspection" xml:space="preserve">
+        <source>Allow Remote Inspection</source>
+        <target>Remote Web-Debugging zulassen</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Allow Text Search" xml:space="preserve">
         <source>Allow Text Search</source>
         <target>Textsuche erlauben</target>
@@ -7449,6 +7454,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
         <target>Moderne in neuen Tabs+anderem Server</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reload Page after Connection Error" xml:space="preserve">
+        <source>Reload Page after Connection Error</source>
+        <target>Seite nach Verbindungsfehler neu laden</target>
         <note/>
       </trans-unit>
       <trans-unit id="Restrictions in Exam Tab" xml:space="preserve">
