@@ -236,7 +236,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="283" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="162" height="104"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="236" height="104"/>
                                                                     <subviews>
                                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2dw-Ko-tLl" userLabel="Allow text search">
                                                                             <rect key="frame" x="-2" y="87" width="130" height="18"/>
@@ -279,14 +279,15 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Enables Java applets, which are no longer supported on current macOS versions" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                                                            <rect key="frame" x="-2" y="-1" width="98" height="18"/>
-                                                                            <buttonCell key="cell" type="check" title="Enable Java" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
+                                                                        <button verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                                                            <rect key="frame" x="-2" y="-1" width="238" height="18"/>
+                                                                            <string key="toolTip">In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</string>
+                                                                            <buttonCell key="cell" type="check" title="Reload page after connection error" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJava" id="207"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserConnectionErrorReload" id="6hi-WR-Fs7"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -332,7 +333,7 @@
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
                                                                             <rect key="frame" x="-2" y="65" width="265" height="18"/>
-                                                                            <string key="toolTip">Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
+                                                                            <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
                                                                             <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>

@@ -1637,14 +1637,14 @@
         <note>Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108";</note>
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables Java applets, which are no longer supported on current macOS versions</source>
-        <target>Enables Java applets, which are no longer supported on current macOS versions</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables Java applets, which are no longer supported on current macOS versions"; ObjectID = "168";</note>
+        <source>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</source>
+        <target>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168";</note>
       </trans-unit>
       <trans-unit id="169.title" xml:space="preserve">
-        <source>Enable Java</source>
-        <target>Enable Java</target>
-        <note>Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169";</note>
+        <source>Reload page after connection error</source>
+        <target>Reload page after connection error</target>
+        <note>Class = "NSButtonCell"; title = "Reload page after connection error"; ObjectID = "169";</note>
       </trans-unit>
       <trans-unit id="171.ibShadowedToolTip" xml:space="preserve">
         <source>Enables JavaScript. Please note that most modern websites need JavaScript for full functionality</source>
@@ -2132,9 +2132,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Using the modern WebView, video autoplay can be controlled separately"; ObjectID = "uOh-V9-bip";</note>
       </trans-unit>
       <trans-unit id="wFa-eR-NzK.ibShadowedToolTip" xml:space="preserve">
-        <source>Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
-        <target>Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
+        <source>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</source>
+        <target>If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK";</note>
       </trans-unit>
       <trans-unit id="yW3-rB-jbe.title" xml:space="preserve">
         <source>Default strings depend on installed iOS version and therefore can differ on exam clients.</source>
@@ -7280,6 +7280,11 @@ It is deleted when the session ends</target>
         <target>Allow Reload</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Allow Remote Inspection" xml:space="preserve">
+        <source>Allow Remote Inspection</source>
+        <target>Allow Remote Inspection</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Allow Text Search" xml:space="preserve">
         <source>Allow Text Search</source>
         <target>Allow Text Search</target>
@@ -7393,6 +7398,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
         <source>Prefer Modern in New Tab+Different Host</source>
         <target>Prefer Modern in New Tab+Different Host</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Reload Page after Connection Error" xml:space="preserve">
+        <source>Reload Page after Connection Error</source>
+        <target>Reload Page after Connection Error</target>
         <note/>
       </trans-unit>
       <trans-unit id="Restrictions in Exam Tab" xml:space="preserve">
