@@ -303,6 +303,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"blockScreenShotsLegacy",
                    
+                   @NO,
+                   @"browserConnectionErrorReload",
+                   
                    @YES,
                    @"browserMediaAutoplay",
                    
