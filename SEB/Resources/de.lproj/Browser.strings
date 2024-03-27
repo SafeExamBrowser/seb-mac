@@ -5,6 +5,9 @@
 "Allow Reload" = "Neuladen erlauben";
 
 /* (No Comment) */
+"Allow Remote Inspection" = "Remote Web-Debugging zulassen";
+
+/* (No Comment) */
 "Allow Text Search" = "Textsuche erlauben";
 
 /* (No Comment) */
@@ -72,6 +75,9 @@
 
 /* (No Comment) */
 "Prefer Modern in New Tab+Different Host" = "Moderne in neuen Tabs+anderem Server";
+
+/* (No Comment) */
+"Reload Page after Connection Error" = "Seite nach Verbindungsfehler neu laden";
 
 /* (No Comment) */
 "Restrictions in Exam Tab" = "Einschränkungen im Prüfungstab";
