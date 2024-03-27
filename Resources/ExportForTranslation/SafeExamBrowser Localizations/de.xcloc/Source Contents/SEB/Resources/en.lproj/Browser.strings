@@ -8,6 +8,8 @@
 "Allow Text Search" = "Allow Text Search";
 "Block Pop-Up Windows" = "Block Pop-Up Windows";
 "Enable JavaScript" = "Enable JavaScript";
+"Reload Page after Connection Error" = "Reload Page after Connection Error";
+"Allow Remote Inspection" = "Allow Remote Inspection";
 "Restrictions in Exam Tab" = "Restrictions in Exam Tab";
 "Allow Navigation" = "Allow Navigation";
 "Allow Reload" = "Allow Reload";
