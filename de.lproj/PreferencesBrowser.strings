@@ -73,10 +73,10 @@
 /* Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108"; */
 "108.title" = "Plug-Ins aktivieren";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Enables Java applets, which are no longer supported on current macOS versions"; ObjectID = "168"; */
+/* Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168"; */
 "168.ibShadowedToolTip" = "Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8";
 
-/* Class = "NSButtonCell"; title = "Enable Java"; ObjectID = "169"; */
+/* Class = "NSButtonCell"; title = "Reload page after connection error"; ObjectID = "169"; */
 "169.title" = "Java aktivieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality"; ObjectID = "171"; */
@@ -346,7 +346,7 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select Browser Engine Policy"; ObjectID = "VNp-U5-dS4"; */
 "VNp-U5-dS4.ibExternalAccessibilityDescription" = "Policy zum Wählen der Browser-Engine auswählen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Modern WebView: Only remote inspection of debug builds with Safari possible! If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector in classic WebViews with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK"; */
+/* Class = "NSButton"; ibShadowedToolTip = "If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools."; ObjectID = "wFa-eR-NzK"; */
 "wFa-eR-NzK.ibShadowedToolTip" = "Wenn erlaubt und der Rechtsklick nicht deaktiviert ist (siehe Sicherheit/Abgefangene Tasten/Rechte Maustaste erlauben), dann kann mittels Rechtsklick/ctrl-Linksklick auf ein Element einer Webseite der Web Inspector mittels 'Inspect Element' angezeigt werden. Win: Entwicklertools in Browserfenster-Symbolleiste anzeigen";
 
 /* Class = "NSTextFieldCell"; title = "Custom user agent string (SEB appends its version number automatically). Default string depends on installed Safari/WebKit version and therefore can differ on exam clients."; ObjectID = "X0g-7e-XAl"; */
