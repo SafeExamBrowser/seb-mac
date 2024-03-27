@@ -1325,8 +1325,10 @@
                     //self.browserController.currentMainHost = nil;
                     DDLogInfo(@"Trying to reload after %s: %@, localized error: %@", __FUNCTION__, error.description, errorMessage);
                     NSURL *failingURL = [NSURL URLWithString:failingURLString];
-                    if (failingURL) {
+                    if (failingURL && ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserConnectionErrorReload"]) {
                         [self.browserControllerDelegate loadURL:failingURL];
+                    } else {
+                        [self.browserControllerDelegate reload];
                     }
                     return;
                 }

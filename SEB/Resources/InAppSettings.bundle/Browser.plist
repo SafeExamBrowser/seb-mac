@@ -70,6 +70,14 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Reload Page after Connection Error</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserConnectionErrorReload</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Allow Remote Inspection</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowDeveloperConsole</string>

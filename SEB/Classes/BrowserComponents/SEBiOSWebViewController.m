@@ -429,23 +429,25 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         if (self.navigationDelegate.uiAlertController) {
             [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
         }
-
+        
         self.navigationDelegate.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Load Error", @"")
-                                                                                  message:errorMessage
-                                                                           preferredStyle:UIAlertControllerStyleAlert];
+                                                                                         message:errorMessage
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
         [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
-                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                                                                NSURL *failingURL = [NSURL URLWithString:failingURLString];
-                                                                if (failingURL) {
-                                                                    [self loadURL:failingURL];
-                                                                }
+                                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSURL *failingURL = [NSURL URLWithString:failingURLString];
+            if (failingURL && ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserConnectionErrorReload"]) {
+                [self loadURL:failingURL];
+            } else {
+                [self reload];
+            }
             self.navigationDelegate.uiAlertController = nil;
-                                                            }]];
+        }]];
         
         [self.navigationDelegate.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
-                                                            style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                                      style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             self.navigationDelegate.uiAlertController = nil;
-                                                            }]];
+        }]];
         
         [self.navigationDelegate presentViewController:self.navigationDelegate.uiAlertController animated:NO completion:nil];
     }
