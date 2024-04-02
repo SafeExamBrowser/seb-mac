@@ -2530,8 +2530,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 [searchStackView addArrangedSubview:searchBarView];
                 [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
                 [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
+                
                 NSDictionary *views = NSDictionaryOfVariableBindings(searchStackView);
-
                 UIView *searchButtonView = [[UIView alloc] init];
                 [searchButtonView addSubview:searchStackView];
                 [searchButtonView addConstraints:
