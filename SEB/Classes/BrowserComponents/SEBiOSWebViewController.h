@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
     BOOL enableDrawingEditor;
+    UIButton *overlayViewCloseButton;
+    BOOL firstAppearance;
 }
 
 
@@ -62,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SEBURLFilter *urlFilter;
 @property (strong, nonatomic) NSString *javaScriptFunctions;
 @property (strong, nonatomic) UIView *filterMessageHolder;
+@property (strong, nonatomic) UIView *topOverlayMessageView;
 @property (nullable, strong, nonatomic) NSURL *currentURL;
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (strong, nonatomic) NSURLRequest *currentRequest;

@@ -387,6 +387,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:webViewSelectPreferModernInForeignNewTabs],
                    @"browserWindowWebView",
                    
+                   @NO,
+                   @"browserWindowWebViewClassicHideDeprecationNote",
+                   
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    

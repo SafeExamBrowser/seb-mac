@@ -51,9 +51,10 @@
         quitURLTrimmed = self.navigationDelegate.quitURL;
         // Get JavaScript code for modifying targets of hyperlinks in the webpage so can be open in new tabs
         _javaScriptFunctions = self.navigationDelegate.pageJavaScript;
-
+        
         SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:(BOOL)overrideSpellCheck delegate:self];
         _sebWebView = sebAbstractWebView;
+        firstAppearance = YES;
     }
     return self;
 }
@@ -126,7 +127,12 @@
     
     [self becomeFirstResponder];
 
-    // [_sebWebView viewDidAppear:animated];
+    if (firstAppearance && 
+        [_sebWebView.nativeWebView class] != WKWebView.class &&
+        ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
+        firstAppearance = NO;
+        [self showTopOverlayMessage:NSLocalizedString(@"Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView.", @"")];
+    }
 }
 
 
@@ -232,6 +238,106 @@
 #pragma mark -
 #pragma mark Overlay Display
 
+- (UIView *) overlayViewForLabel:(UILabel *)message {
+    [message sizeToFit];
+    
+    CGSize messageLabelSize = message.frame.size;
+    CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
+    CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
+    CGRect messageLabelFrame = CGRectMake(0, 0, messageLabelWidth, messageLabelHeight);
+    
+    UIView *overlayView = [[UIView alloc] initWithFrame:messageLabelFrame];
+    message.center = overlayView.center;
+    
+    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+        overlayView.backgroundColor = [UIColor clearColor];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        blurEffectView.frame = overlayView.bounds;
+        blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [overlayView addSubview:blurEffectView];
+        
+        UIView *backgroundTintView = [UIView new];
+        backgroundTintView.frame = overlayView.bounds;
+        backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        backgroundTintView.backgroundColor = [UIColor lightGrayColor];
+        backgroundTintView.alpha = 0.5;
+        [overlayView addSubview:backgroundTintView];
+        
+    } else {
+        overlayView.backgroundColor = UIColor.lightGrayColor;
+    }
+    [overlayView addSubview:message];
+    overlayView.layer.cornerRadius = messageLabelHeight / 2;
+    overlayView.clipsToBounds = YES;
+    return overlayView;
+}
+
+
+- (UIView *) overlayViewForLabelConstraints:(UILabel *)message {
+    [message sizeToFit];
+    
+    message.numberOfLines = 0;
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    CGSize messageLabelSize = message.frame.size;
+    CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
+    CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
+    
+    UIView *overlayView = [UIView new];
+    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    message.center = overlayView.center;
+    
+    if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+        overlayView.backgroundColor = [UIColor clearColor];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        blurEffectView.frame = overlayView.bounds;
+        blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [overlayView addSubview:blurEffectView];
+        
+        UIView *backgroundTintView = [UIView new];
+        backgroundTintView.frame = overlayView.bounds;
+        backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        backgroundTintView.backgroundColor = [UIColor lightGrayColor];
+        backgroundTintView.alpha = 0.5;
+        [overlayView addSubview:backgroundTintView];
+        
+    } else {
+        overlayView.backgroundColor = UIColor.lightGrayColor;
+    }
+    
+    overlayViewCloseButton = [[UIButton alloc] init];
+    overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [overlayViewCloseButton setImage:[UIImage imageNamed:@"Cancel"] forState:UIControlStateNormal];
+    [overlayViewCloseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [overlayViewCloseButton setAccessibilityLabel:NSLocalizedString(@"Close Message", @"")];
+    [overlayViewCloseButton addTarget:self action:@selector(closeOverlayMessage) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    UIStackView *overlayStackView = [UIStackView new];
+    overlayStackView.axis = UILayoutConstraintAxisHorizontal;
+    overlayStackView.spacing = 10;
+    overlayStackView.distribution = UIStackViewDistributionFill;
+    overlayStackView.alignment = UIStackViewAlignmentTop;
+    overlayStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [overlayStackView addArrangedSubview:message];
+    [overlayStackView addArrangedSubview:overlayViewCloseButton];
+    [overlayViewCloseButton.widthAnchor constraintEqualToConstant:overlayViewCloseButton.imageView.frame.size.width].active = YES;
+
+    [overlayView addSubview:overlayStackView];
+    [overlayStackView.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 10].active = YES;
+    [overlayStackView.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -10].active = YES;
+    [overlayStackView.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: 7].active = YES;
+    [overlayStackView.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: -7].active = YES;
+
+    overlayView.layer.cornerRadius = messageLabelHeight / 2;
+    overlayView.clipsToBounds = YES;
+    return overlayView;
+}
+
+
 - (void) showURLFilterMessage
 {
     if (!_filterMessageHolder) {
@@ -244,72 +350,32 @@
                 
             case URLFilterMessageText:
                 message.text = NSLocalizedString(@"URL Blocked!", @"");
-                [message setFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
+                [message setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
                 [message setTextColor:[UIColor redColor]];
                 
                 break;
                 
             case URLFilterMessageX:
                 message.text = @"✕";
-                [message setFont:[UIFont systemFontOfSize:20]];
+                [message setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleCallout]];
                 [message setTextColor:[UIColor darkGrayColor]];
                 break;
         }
-        
-        [message sizeToFit];
-        
-        CGSize messageLabelSize = message.frame.size;
-        CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
-        CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
-        CGRect messageLabelFrame = CGRectMake(0, 0, messageLabelWidth, messageLabelHeight);
-        
-        _filterMessageHolder = [[UIView alloc] initWithFrame:messageLabelFrame];
-        message.center = _filterMessageHolder.center;
-        
-        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-            _filterMessageHolder.backgroundColor = [UIColor clearColor];
-            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-            blurEffectView.frame = _filterMessageHolder.bounds;
-            blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            [_filterMessageHolder addSubview:blurEffectView];
+        message.adjustsFontForContentSizeCategory = YES;
 
-            UIView *backgroundTintView = [UIView new];
-            backgroundTintView.frame = _filterMessageHolder.bounds;
-            backgroundTintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            backgroundTintView.backgroundColor = [UIColor lightGrayColor];
-            backgroundTintView.alpha = 0.5;
-            [_filterMessageHolder addSubview:backgroundTintView];
-
-        } else {
-            _filterMessageHolder.backgroundColor = UIColor.lightGrayColor;
-        }
-        [_filterMessageHolder addSubview:message];
-        _filterMessageHolder.layer.cornerRadius = messageLabelHeight / 2;
-        _filterMessageHolder.clipsToBounds = YES;
+        _filterMessageHolder = [self overlayViewForLabel:message];
     }
 
     CGFloat superviewWidth = self.view.bounds.size.width;
     CGFloat messageWidth = _filterMessageHolder.frame.size.width;
     CGFloat messageHeight = _filterMessageHolder.frame.size.height;
     
-    if (@available(iOS 11.0, *)) {
         [_filterMessageHolder setFrame:CGRectMake(
                                                   superviewWidth - self.view.safeAreaInsets.right - messageWidth - 10,
                                                   self.view.safeAreaInsets.top + 10,
                                                   messageWidth,
                                                   messageHeight
                                                   )];
-    } else {
-        // Fallback on earlier versions
-        CGFloat topLayoutGuide = self.topLayoutGuide.length;
-        [_filterMessageHolder setFrame:CGRectMake(
-                                                  superviewWidth - messageWidth - 10,
-                                                  topLayoutGuide + 10,
-                                                  messageWidth,
-                                                  messageHeight
-                                                  )];
-    }
     
     // Show the message
     UIView *nativeWebView = (UIView *)[_sebWebView nativeWebView];
@@ -324,6 +390,36 @@
 - (void) hideURLFilterMessage
 {
     [_filterMessageHolder removeFromSuperview];
+}
+
+
+- (void) showTopOverlayMessage:(NSString *)text
+{
+    if (!_topOverlayMessageView) {
+        
+        UILabel *message = [UILabel new];
+        
+        message.text = text;
+        [message setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
+        message.adjustsFontForContentSizeCategory = YES;
+        [message setTextColor:[UIColor redColor]];
+
+        _topOverlayMessageView = [self overlayViewForLabelConstraints:message];
+    }
+
+    UIView *nativeWebView = (UIView *)[_sebWebView nativeWebView];
+    _topOverlayMessageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [nativeWebView insertSubview:_topOverlayMessageView aboveSubview:nativeWebView];
+    
+    [_topOverlayMessageView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10].active = YES;
+    [_topOverlayMessageView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10].active = YES;
+    [_topOverlayMessageView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10].active = YES;
+}
+
+
+- (void) closeOverlayMessage
+{
+    [_topOverlayMessageView removeFromSuperview];
 }
 
 
