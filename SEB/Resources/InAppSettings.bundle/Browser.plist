@@ -229,6 +229,22 @@
 			<string>The modern WKWebView browser engine currently doesn&apos;t support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &apos;Use Browser &amp; Config Keys&apos; option in new tabs on a different server or generally.</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>FooterText</key>
+			<string>The Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView. This warning is displayed on top of every browser tab which is using settings to enforce the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn&apos;t yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Disable Classic WebView Deprecation Warning</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>User Agent</string>
 			<key>Type</key>
