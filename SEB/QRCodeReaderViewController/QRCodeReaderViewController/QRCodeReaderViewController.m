@@ -228,7 +228,7 @@
   if (_showSwitchCameraButton && [_codeReader hasFrontDevice]) {
     _switchCameraButton = [[QRCameraSwitchButton alloc] init];
     
-    [_switchCameraButton setTranslatesAutoresizingMaskIntoConstraints:false];
+    [_switchCameraButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_switchCameraButton addTarget:self action:@selector(switchCameraAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_switchCameraButton];
   }
@@ -236,7 +236,7 @@
   if (_showTorchButton && [_codeReader isTorchAvailable]) {
     _toggleTorchButton = [[QRToggleTorchButton alloc] init];
 
-    [_toggleTorchButton setTranslatesAutoresizingMaskIntoConstraints:false];
+    [_toggleTorchButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_toggleTorchButton addTarget:self action:@selector(toggleTorchAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_toggleTorchButton];
   }
