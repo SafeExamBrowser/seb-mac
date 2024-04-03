@@ -52,7 +52,7 @@
 
 @property (nonatomic, strong) SEBViewController *sebViewController;
 @property (nonatomic, strong) SEBLockedViewController *lockedViewController;
-@property (weak, nonatomic) NSAttributedString *resignActiveLogString;
+@property (nonatomic, strong) NSAttributedString *resignActiveLogString;
 
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage;
