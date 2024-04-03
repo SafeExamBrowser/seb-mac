@@ -77,7 +77,7 @@
  * @brief       Time when exam was resumed.
  * @details
  */
-@property (weak, nonatomic) NSAttributedString *resignActiveLogString;
+@property (strong, nonatomic) NSAttributedString *resignActiveLogString;
 
 - (void) setResignActiveLogString:(NSAttributedString *)resignActiveLogString logStringToAppend:(NSAttributedString *)logStringToAppend;
 
