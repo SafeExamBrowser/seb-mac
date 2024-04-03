@@ -314,18 +314,25 @@
     [overlayViewCloseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [overlayViewCloseButton setAccessibilityLabel:NSLocalizedString(@"Close Message", @"")];
     [overlayViewCloseButton addTarget:self action:@selector(closeOverlayMessage) forControlEvents:UIControlEventTouchUpInside];
-    
+
+    UIStackView *closeButtonStackView = [UIStackView new];
+    closeButtonStackView.axis = UILayoutConstraintAxisVertical;
+    closeButtonStackView.distribution = UIStackViewDistributionFill;
+    closeButtonStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [closeButtonStackView addArrangedSubview:overlayViewCloseButton];
+    [closeButtonStackView addArrangedSubview:[UIView new]];
 
     UIStackView *overlayStackView = [UIStackView new];
     overlayStackView.axis = UILayoutConstraintAxisHorizontal;
     overlayStackView.spacing = 10;
     overlayStackView.distribution = UIStackViewDistributionFill;
-    overlayStackView.alignment = UIStackViewAlignmentTop;
     overlayStackView.translatesAutoresizingMaskIntoConstraints = NO;
     [overlayStackView addArrangedSubview:message];
-    [overlayStackView addArrangedSubview:overlayViewCloseButton];
+    [overlayStackView addArrangedSubview:closeButtonStackView]; //overlayViewCloseButton];
     [overlayViewCloseButton.widthAnchor constraintEqualToConstant:overlayViewCloseButton.imageView.frame.size.width].active = YES;
-
+    [closeButtonStackView.topAnchor constraintEqualToAnchor:overlayStackView.topAnchor].active = YES;
+    [closeButtonStackView.bottomAnchor constraintEqualToAnchor:overlayStackView.bottomAnchor].active = YES;
+    
     [overlayView addSubview:overlayStackView];
     [overlayStackView.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 10].active = YES;
     [overlayStackView.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -10].active = YES;
