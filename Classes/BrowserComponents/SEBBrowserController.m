@@ -501,35 +501,30 @@ static NSString *urlStrippedFragment(NSURL* url)
     }
     
 
-    NSDictionary *headerFields;
+    NSDictionary<NSString *, NSString *> *_Nullable headerFields;
     headerFields = [request allHTTPHeaderFields];
 //    DDLogVerbose(@"All HTTP header fields: %@", headerFields);
+        
+    NSMutableURLRequest *modifiedRequest = [request mutableCopy];
+
+    // Browser Exam Key
     
-//    if ([request valueForHTTPHeaderField:@"Origin"].length == 0) {
-//        return request;
-//    }
+    [modifiedRequest setValue:[self browserExamKeyForURL:url] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
     
-    if (sendHashKeys) {
-        
-        NSMutableURLRequest *modifiedRequest = [request mutableCopy];
-
-        // Browser Exam Key
-        
-        [modifiedRequest setValue:[self browserExamKeyForURL:url] forHTTPHeaderField:SEBBrowserExamKeyHeaderKey];
-        
-        // Config Key
-        
-        [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
-        
-        headerFields = [modifiedRequest allHTTPHeaderFields];
-//        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
-        
-        return [modifiedRequest copy];
-
-    } else {
-
-        return request;
+    // Config Key
+    
+    [modifiedRequest setValue:[self configKeyForURL:url] forHTTPHeaderField:SEBConfigKeyHeaderKey];
+    
+    // User Agent (necessary since building with iOS 17 SDK
+    
+    if ([request valueForHTTPHeaderField:UserAgentHeaderKey].length >= 0) {
+        [modifiedRequest setValue:[self customSEBUserAgent] forHTTPHeaderField:UserAgentHeaderKey];
     }
+    
+//    headerFields = [modifiedRequest allHTTPHeaderFields];
+//        DDLogVerbose(@"All HTTP header fields in modified request: %@", headerFields);
+    
+    return [modifiedRequest copy];
 }
 
 
@@ -681,9 +676,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     
     // Check if the custom URL protocol needs to be activated
 #if TARGET_OS_IPHONE
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"]
-        || [self isUsingServerBEK]
-        || usingEmbeddedCertificates)
+    if (YES) // necessary for setting UserAgent string since building with iOS 17 SDK
 #else
     if (usingEmbeddedCertificates)
 #endif
