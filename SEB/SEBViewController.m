@@ -1771,11 +1771,12 @@ void run_on_ui_thread(dispatch_block_t block)
         // Set preventing Auto-Lock according to settings
         [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
         
-        // Create browser user agent according to settings
-        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
-        // Register browser user agent for UIWebView
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+        // This doesn't work anymore when building with the iOS 17 SDK
+//        // Create browser user agent according to settings
+//        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
+//        // Register browser user agent for UIWebView
+//        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
+//        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
         
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
