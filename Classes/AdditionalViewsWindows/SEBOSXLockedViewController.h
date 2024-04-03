@@ -56,7 +56,7 @@
 
 @property (strong, nonatomic) SEBLockedViewController *lockedViewController;
 @property (strong, nonatomic) SEBController *sebController;
-@property (weak, nonatomic) NSAttributedString *resignActiveLogString;
+@property (strong, nonatomic) NSAttributedString *resignActiveLogString;
 
 @property (weak) IBOutlet NSStackView *quitUnlockPasswordUI;
 @property (weak) IBOutlet NSButton *quitOnlyButton;
