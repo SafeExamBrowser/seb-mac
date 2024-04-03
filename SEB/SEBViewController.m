@@ -557,6 +557,7 @@ static NSMutableSet *browserWindowControllers;
         BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                                  self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
         
+        // Browser Toolbar
         if (_navigationBarHeightConstraint) {
             CGFloat navigationBarHeight;
             CGFloat navigationBarOffset;
@@ -569,8 +570,13 @@ static NSMutableSet *browserWindowControllers;
                 self.additionalSafeAreaInsets = UIEdgeInsetsMake(-8, 0, 0, 0);
                 
             } else {
-                navigationBarHeight = (sideSafeAreaInsets && iPhoneXLandscape) ? 32 : 46;
-                navigationBarOffset = (sideSafeAreaInsets || !_finishedStartingUp) ? 0 : 12;
+                if (@available(iOS 17, *)) {
+                    navigationBarHeight = 46;
+                    navigationBarOffset = 0;
+                } else {
+                    navigationBarHeight = (sideSafeAreaInsets && iPhoneXLandscape) ? 32 : 46;
+                    navigationBarOffset = (sideSafeAreaInsets || !_finishedStartingUp) ? 0 : 12;
+                }
             }
             
             _navigationBarHeightConstraint.constant = navigationBarHeight;
@@ -582,6 +588,7 @@ static NSMutableSet *browserWindowControllers;
             }
         }
         
+        // Dock
         if (_toolBarHeightConstraint) {
             CGFloat toolBarHeight;
             UIEdgeInsets newSafeArea;
@@ -2278,8 +2285,13 @@ void run_on_ui_thread(dispatch_block_t block)
             
             
             // browser toolbar (NavigationBar)  height constraint depends on vertical size class (less high on iPhones in landscape)
-            CGFloat navigationBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
-                                           self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 32 : 46;
+            CGFloat navigationBarHeight;
+            if (@available(iOS 17, *)) {
+                navigationBarHeight = 46;
+            } else {
+                navigationBarHeight = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
+                                       self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) ? 32 : 46;
+            }
             _navigationBarHeightConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
                                                                           attribute:NSLayoutAttributeHeight
                                                                           relatedBy:NSLayoutRelationEqual
@@ -2298,6 +2310,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      multiplier:1.0
                                                                        constant:0];
             [constraints_V addObject:_statusBarBottomConstraint];
+            
             
             // browser tool bar top constraint to safe area guide bottom of superview
             _navigationBarBottomConstraint = [NSLayoutConstraint constraintWithItem:_navigationBarView
@@ -2360,7 +2373,7 @@ void run_on_ui_thread(dispatch_block_t block)
         CGFloat topPadding = window.safeAreaInsets.top;
         CGFloat topMargin = window.layoutMargins.top;
         CGFloat topInset = self.view.superview.safeAreaInsets.top;
-        DDLogDebug(@"%f, %f, %f, ", topPadding, topMargin, topInset);
+        DDLogDebug(@"topPadding: %f, topMargin: %f, topInset: %f, ", topPadding, topMargin, topInset);
 #endif
         
     } else {
