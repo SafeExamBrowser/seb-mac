@@ -582,6 +582,7 @@ enum {
 };
 typedef NSUInteger SEBErrorDomainErrors;
 
+static NSString __unused *UserAgentHeaderKey = @"User-Agent";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/14.0.3 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
 static NSString __unused *SEBiOSUserAgentDesktopMac = @"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15";
