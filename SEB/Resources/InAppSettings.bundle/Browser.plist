@@ -234,7 +234,7 @@
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>The Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView. This warning is displayed on top of every browser tab which is using settings to enforce the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn&apos;t yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
+			<string>The Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings enforce the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn&apos;t yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
 		</dict>
 		<dict>
 			<key>Type</key>
