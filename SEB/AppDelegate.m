@@ -496,6 +496,9 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     if (@available(iOS 17.0, *)) {
         [builder removeMenuForIdentifier:UIMenuAutoFill];
     }
+    if (@available(iOS 13, *)) {
+        [builder removeMenuForIdentifier:UIMenuShare];
+    }
 }
 
 
