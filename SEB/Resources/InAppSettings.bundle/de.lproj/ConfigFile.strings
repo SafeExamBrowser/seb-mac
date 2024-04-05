@@ -1,14 +1,17 @@
 /* (No Comment) */
-"A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code)." = "Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent).";
+"A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing." = "Mit einer Konfiguration wird entweder die Prüfung mit diesen Einstellungen (SEB temporär konfiguriert) gestartet oder die lokalen Einstellungen eines SEB-Clients geändert (permanent). Die Option Standardwerte entfernen reduziert die Grösse einer SEB-Konfiguration (wird automatisch für Config URL und QR Code verwendet). Konfigurationsdateien zum Starten von Prüfungen können unkomprimiert als Klartext gespeichert werden, um sie in LMS/Prüfungssysteme zu importieren, die keine gzip-komprimierten oder verschlüsselten Konfigurationsdateien unterstützen, oder um sie manuell zu bearbeiten.";
 
 /* (No Comment) */
 "Allow QR Code Config" = "Konfiguration mit QR-Code erlauben";
 
 /* (No Comment) */
-"Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." = "Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn die SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.";
+"Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." = "Ermöglicht den Start einer Prüfung oder die Neukonfiguration von SEB durch Scannen eines QR-Codes mit einem Link zu einer SEB-Konfigurationsdatei. Dies ist nur möglich, wenn SEB nicht im Prüfungsmodus läuft. Verwenden Sie das Seitenmenü, die Dock-Taste (falls aktiviert) oder die 3D-Touch-Schnellaktion auf dem Startbildschirm.";
 
 /* (No Comment) */
 "Auto-Select Identity" = "Identität automatisch auswählen";
+
+/* (No Comment) */
+"Config URL" = "Konfigurations-URL";
 
 /* (No Comment) */
 "Configuring Clients" = "Konfigurieren von Clients";
@@ -38,7 +41,16 @@
 "MDM Managed Configuration" = "Verwaltete MDM-Konfiguration";
 
 /* (No Comment) */
-"Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config file." = "Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.";
+"Plain Text" = "Klartext";
+
+/* (No Comment) */
+"QR Code" = "QR-Code";
+
+/* (No Comment) */
+"Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." = "Empfohlen zur einfacheren Einrichtung und zum Testen. Zeigt den Befehl 'Einstellungen bearbeiten' im linken Seitenmenü an. Wenn diese Option in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfigurationsdatei verfügbar.";
+
+/* (No Comment) */
+"Remove Default Values" = "Standardwerte entfernen";
 
 /* (No Comment) */
 "SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." = "SEB kann automatisch ein Identitätszertifikat erstellen und es in die aktuelle Clientkonfiguration einbetten (siehe Seite Netzwerk/Zertifikate). Teilen Sie diese Client-Konfiguration und verwenden Sie sie für die Erstkonfiguration von SEB-Clients. Diese Clients sind in der Lage, die mit dem Identitätszertifikat verschlüsselten Prüfungskonfigurationen zu entschlüsseln.";
@@ -47,13 +59,19 @@
 "SEB Config QR Code" = "SEB Konfigurations-QR-Code";
 
 /* (No Comment) */
+"SEB File" = "SEB-Datei";
+
+/* (No Comment) */
 "Settings Password" = "Passwort";
 
-/* String for IASKPlaceholder elements */
-"Shared config file name" = "Dateiname für geteilte Konfiguration";
+/* (No Comment) */
+"Share As …" = "Teilen als …";
 
 /* String for Title elements */
 "Share Configuration" = "Konfiguration teilen";
+
+/* String for IASKPlaceholder elements */
+"Shared config file name" = "Dateiname für geteilte Konfiguration";
 
 /* (No Comment) */
 "Show Settings In App" = "Einstellungen in App anzeigen";
@@ -65,8 +83,11 @@
 "Use Configuration For …" = "Konfiguration verwenden zum …";
 
 /* (No Comment) */
-"Use Identity Certificate or Settings Password (or both) when a config file is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." = "Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfigurationsdatei zum Starten von Prüfungen geteilt wird. Die Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfigurationsdatei verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.";
+"Use Identity Certificate or Settings Password (or both) when a configuration is shared for starting exams. Encryption prevents settings to be altered. An identity certificate prevents to access an exam on SEB clients which don't have the identity installed. A settings password prevents an exam to be accessed before communicating the password to examinees." = "Verwenden Sie ein Identitätszertifikat oder ein Passwort (oder beides), wenn eine Konfiguration zum Starten von Prüfungen geteilt wird. Verschlüsselung verhindert, dass die Einstellungen geändert werden. Ein Identitätszertifikat verhindert den Zugriff auf eine Prüfung auf SEB-Clients, auf denen die Identität nicht installiert ist. Ein Passwort für die Konfiguration verhindert, dass auf eine Prüfung zugegriffen werden kann, bevor das Passwort den Prüfungsteilnehmern mitgeteilt wurde.";
 
 /* String for FooterText elements */
-"Use the Share button on the Settings page to export settings as an SEB config file, which can be placed on a web server and opened with an seb(s):// link to start exams or configure SEB clients." = "Verwenden Sie die Taste Teilen auf der Seite Einstellungen, um Einstellungen als SEB-Konfigurationsdatei zu exportieren, die auf einem Webserver abgelegt und mit einem seb(s)://-Link geöffnet werden kann, um Prüfungen zu starten oder SEB-Clients zu konfigurieren.";
+"Use the Share button on the Settings page to export settings to start exams or configure SEB clients." = "Verwenden Sie die Taste Teilen auf der Seite Einstellungen zum Exportieren von Einstellungen, um Prüfungen zu starten oder SEB-Clients zu konfigurieren.";
+
+/* (No Comment) */
+"You can either export an SEB config file, which can for example be placed on a web server and opened with an seb(s):// link or deployed by MDM. You can also generate an sebs:// link in a text file which contains the full compressed and optionally encrypted configuration. Or you can export a QR code which contains simple SEB configurations as a PNG image file." = "Sie können entweder eine SEB-Konfigurationsdatei exportieren, die z. B. auf einem Webserver abgelegt und mit einem seb(s)://-Link geöffnet oder über MDM verteilt werden kann. Sie können auch einen sebs://-Link in einer Textdatei erzeugen, welcher die vollständig komprimierte und optional verschlüsselte Konfiguration enthält. Oder Sie können einen QR-Code exportieren, der einfache SEB-Konfigurationen als PNG-Bilddatei enthält.";
 

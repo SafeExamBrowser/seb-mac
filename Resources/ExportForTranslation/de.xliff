@@ -10260,7 +10260,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
         <source>'URL Blocked!'</source>
-        <target>'URL Blocked!'</target>
+        <target>'Blockierte URL!'</target>
         <note>String for Titles arrays elements</note>
       </trans-unit>
       <trans-unit id="'✕'" xml:space="preserve">
