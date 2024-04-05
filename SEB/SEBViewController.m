@@ -550,6 +550,7 @@ static NSMutableSet *browserWindowControllers;
         // iPad Pro 11 and 12.9 3rd generation have 50 or 42 pt calculated navigation bar height
         BOOL iPadExtendedDisplay = homeIndicatorSpaceHeight && (calculatedNavigationBarHeight == 50 ||
                                                                 calculatedNavigationBarHeight == 42 ||
+                                                                calculatedNavigationBarHeight == 66 ||
                                                                 calculatedNavigationBarHeight == -24);
         
         _bottomBackgroundView.hidden = sideSafeAreaInsets;
@@ -2514,7 +2515,6 @@ void run_on_ui_thread(dispatch_block_t block)
                 UIStackView *searchStackView = [[UIStackView alloc] init];
                 searchStackView.translatesAutoresizingMaskIntoConstraints = NO;
                 searchStackView.axis = UILayoutConstraintAxisHorizontal;
-    //            searchStackView.alignment = UIStackViewAlignmentCenter;
                 searchStackView.distribution = UIStackViewDistributionFill;
                 searchStackView.spacing = 8;
                 
@@ -2525,8 +2525,19 @@ void run_on_ui_thread(dispatch_block_t block)
                 [toolbarSearchButtonDone.titleLabel setFont:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium]];
                 [toolbarSearchButtonDone addTarget:self action:@selector(textSearchDone:) forControlEvents:UIControlEventTouchUpInside];
                 
-                UIView *searchBarView = [[UIView alloc] init];
-                [self createSearchBarInView:searchBarView];
+                toolbarSearchTextButton = [[UIButton alloc] init];
+                toolbarSearchTextButton.translatesAutoresizingMaskIntoConstraints = NO;
+                if (@available(iOS 13.0, *)) {
+                    [toolbarSearchTextButton setImage:[UIImage systemImageNamed:@"magnifyingglass"] forState:UIControlStateNormal];
+                } else {
+                    // Fallback on earlier versions
+                }
+                [toolbarSearchTextButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [toolbarSearchTextButton addTarget:self action:@selector(activateSearchField) forControlEvents:UIControlEventTouchUpInside];
+                
+                toolbarSearchBarView = [[UIView alloc] init];
+                [self createSearchBarInView:toolbarSearchBarView];
+                toolbarSearchBarView.hidden = YES;
                 
                 toolbarSearchButtonPreviousResult = [[UIButton alloc] init];
                 toolbarSearchButtonPreviousResult.translatesAutoresizingMaskIntoConstraints = NO;
@@ -2541,7 +2552,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 [toolbarSearchButtonNextResult addTarget:self action:@selector(searchTextNext) forControlEvents:UIControlEventTouchUpInside];
 
                 [searchStackView addArrangedSubview:toolbarSearchButtonDone];
-                [searchStackView addArrangedSubview:searchBarView];
+                [searchStackView addArrangedSubview:toolbarSearchTextButton];
+                [searchStackView addArrangedSubview:toolbarSearchBarView];
                 [searchStackView addArrangedSubview:toolbarSearchButtonPreviousResult];
                 [searchStackView addArrangedSubview:toolbarSearchButtonNextResult];
                 
@@ -2569,7 +2581,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)createSearchBarInView:(UIView *)searchBarView
 {
-    textSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarIconWidth, 44)];
+    textSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, SEBToolBarSearchBarWidth, 44)];
     textSearchBar.translatesAutoresizingMaskIntoConstraints = NO;
     textSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     textSearchBar.returnKeyType = UIReturnKeyDone;
@@ -2593,31 +2605,27 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)setSearchBarWidthIcon:(BOOL)iconWidth
 {
-    CGFloat width = iconWidth ? SEBToolBarSearchBarIconWidth : SEBToolBarSearchBarWidth;
-    if (!searchBarWidthConstraint) {
-        searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:textSearchBar
-                                                                      attribute:NSLayoutAttributeWidth
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:nil
-                                                                      attribute:NSLayoutAttributeNotAnAttribute
-                                                                     multiplier:1.0
-                                                                       constant:width];
-        [textSearchBar.superview addConstraint:searchBarWidthConstraint];
-    } else {
-        searchBarWidthConstraint.constant = width;
-    }
     BOOL iPhoneXLandscape = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact &&
                              self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular);
     if (iconWidth) {
-        if (@available(iOS 13.0, *)) {
-            textSearchBar.searchTextField.backgroundColor = UIColor.clearColor;
-        }
-        searchBarTopConstraint.constant = navigationBarItemsOffset == -4 ? 6 : (iPhoneXLandscape ? -4 : 2);
+        toolbarSearchBarView.hidden = YES;
         if (!_showNavigationBarTemporarily && toolbarSearchBarActiveRemovedOtherItems) {
             toolbarSearchBarActiveRemovedOtherItems = NO;
             [self restoreNavigationBarItemsConditionally:NO];
         }
     } else {
+        if (!searchBarWidthConstraint) {
+            searchBarWidthConstraint = [NSLayoutConstraint constraintWithItem:textSearchBar
+                                                                          attribute:NSLayoutAttributeWidth
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:nil
+                                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                                         multiplier:1.0
+                                                                           constant:SEBToolBarSearchBarWidth];
+            [textSearchBar.superview addConstraint:searchBarWidthConstraint];
+        }
+        
+        toolbarSearchBarView.hidden = NO;
         if (@available(iOS 13.0, *)) {
             textSearchBar.searchTextField.backgroundColor = nil;
         }
@@ -5583,6 +5591,8 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) activateSearchField
 {
     self.browserTabViewController.visibleWebViewController.openCloseSlider = NO; // This is unfortunately necessary because of reasons...
+    toolbarSearchTextButton.hidden = YES;
+    toolbarSearchBarView.hidden = NO;
     [self showToolbarConditionally:NO withCompletion:^{
         [self->textSearchBar becomeFirstResponder];
     }];
@@ -5629,11 +5639,14 @@ void run_on_ui_thread(dispatch_block_t block)
         toolbarSearchButtonDone.hidden = YES;
         toolbarSearchButtonPreviousResult.hidden = YES;
         toolbarSearchButtonNextResult.hidden = YES;
+        
         // Because minimizing the width of UISearchBar doesn't work properly, we need to remove and add it again
         UIView *searchBarView = textSearchBar.superview;
         [textSearchBar removeFromSuperview];
         textSearchBar = nil;
         [self createSearchBarInView:searchBarView];
+        toolbarSearchBarView.hidden = YES;
+        toolbarSearchTextButton.hidden = NO;
     }
 }
 
