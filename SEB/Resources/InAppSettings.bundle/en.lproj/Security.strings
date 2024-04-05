@@ -45,7 +45,7 @@
 "8" = "8";
 "9" = "9";
 "None" = "None";
-"iOS >15" = "iOS >15";
+"iOS 16" = "iOS 16";
 
 /* String for FooterText elements */
 "Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode)." = "Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode).";
