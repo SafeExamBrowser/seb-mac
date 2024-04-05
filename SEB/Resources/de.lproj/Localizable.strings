@@ -248,6 +248,12 @@
 "Check your server connection configuration." = "Die Konfiguration der Serververbindung muss überprüft werden.";
 
 /* No comment provided by engineer. */
+"Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von iOS nicht mehr vollständig unterstützt! Die verwendeten SEB-Prüfungssystem-Integrationen/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
+
+/* No comment provided by engineer. */
+"Close Warning" = "Warnung schliessen";
+
+/* No comment provided by engineer. */
 "Closing lockdown windows" = "Lockdown-Fenster werden geschlossen";
 
 /* No comment provided by engineer. */

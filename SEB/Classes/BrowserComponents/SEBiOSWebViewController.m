@@ -312,7 +312,7 @@
     overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [overlayViewCloseButton setImage:[UIImage imageNamed:@"Cancel"] forState:UIControlStateNormal];
     [overlayViewCloseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [overlayViewCloseButton setAccessibilityLabel:NSLocalizedString(@"Close Message", @"")];
+    [overlayViewCloseButton setAccessibilityLabel:NSLocalizedString(@"Close Warning", @"")];
     [overlayViewCloseButton addTarget:self action:@selector(closeOverlayMessage) forControlEvents:UIControlEventTouchUpInside];
 
     UIStackView *closeButtonStackView = [UIStackView new];
