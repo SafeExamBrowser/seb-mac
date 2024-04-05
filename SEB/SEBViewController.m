@@ -2624,7 +2624,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                            constant:SEBToolBarSearchBarWidth];
             [textSearchBar.superview addConstraint:searchBarWidthConstraint];
         }
-        
+        toolbarSearchTextButton.hidden = YES;
         toolbarSearchBarView.hidden = NO;
         if (@available(iOS 13.0, *)) {
             textSearchBar.searchTextField.backgroundColor = nil;
