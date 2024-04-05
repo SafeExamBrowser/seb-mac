@@ -139,6 +139,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIBarButtonItem *toolbarForwardButton;
     UIBarButtonItem *toolbarSearchButton;
     UIButton *toolbarSearchButtonDone;
+    UIButton *toolbarSearchTextButton;
+    UIView *toolbarSearchBarView;
     UISearchBar *textSearchBar;
     NSLayoutConstraint *searchBarWidthConstraint;
     NSLayoutConstraint *searchBarTopConstraint;
