@@ -55,7 +55,9 @@
 {
     [super viewDidLoad];
     
-    UIFont *passwordWrongFont = passwordWrongLabel.font.copy;
+    if (!passwordWrongFont) {
+        passwordWrongFont = passwordWrongLabel.font.copy;
+    }
     passwordWrongLabel.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:passwordWrongFont];
     
     [lockedAlertPasswordField addTarget:lockedAlertPasswordField
@@ -145,7 +147,9 @@
 - (void)setLockdownAlertTitle:(NSString *)newAlertTitle
                       Message:(NSString *)newAlertMessage
 {
-    UIFont *alertTitleFont = alertTitle.font.copy;
+    if (!alertTitleFont) {
+        alertTitleFont = alertTitle.font.copy;
+    }
     alertTitle.font = [[UIFontMetrics defaultMetrics] scaledFontForFont:alertTitleFont];
     if (newAlertTitle.length > 0) {
         alertTitle.text = newAlertTitle;
