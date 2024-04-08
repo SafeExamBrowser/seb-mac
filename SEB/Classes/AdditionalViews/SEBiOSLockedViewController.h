@@ -41,13 +41,16 @@
 @interface SEBiOSLockedViewController : UIViewController <SEBLockedViewUIDelegate> {
     
     SEBViewController *_sebViewController;
-
+    
     __weak IBOutlet UILabel *alertTitle;
     __weak IBOutlet UILabel *alertMessage;
     __weak IBOutlet UITextField *lockedAlertPasswordField;
     __weak IBOutlet UILabel *passwordWrongLabel;
     __weak IBOutlet UITextView *logTextView;
     
+@private
+    UIFont *passwordWrongFont;
+    UIFont *alertTitleFont;
 }
 
 @property (nonatomic, strong) SEBViewController *sebViewController;
