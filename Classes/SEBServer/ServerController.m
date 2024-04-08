@@ -278,8 +278,8 @@
 - (void) executeSEBInstruction:(SEBInstruction *)sebInstruction
 {
     if (sebInstruction) {
-        DDLogInfo(@"ServerController: Received SEB instruction %@ to execute", sebInstruction);
         NSString *instruction = sebInstruction.instruction;
+        DDLogInfo(@"ServerController: Received SEB instruction %@ to execute", instruction	);
         
         if ([instruction isEqualToString:@"SEB_QUIT"]) {
             [self.delegate serverSessionQuitRestart:NO];
