@@ -60,7 +60,9 @@
     _assistantController = [[SEBInitAssistantViewController alloc] init];
     _assistantController.controllerDelegate = self;
     
-    initAssistantTitleFont = initAssistantTitle.font.copy;
+    if (!initAssistantTitleFont) {
+        initAssistantTitleFont = initAssistantTitle.font.copy;
+    }
     initAssistantTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Options to start an exam or configure %@ for your institution", @""), SEBFullAppName];
     initAssistantTitleView.backgroundColor = [UIColor colorWithDisplayP3Red:SEBTintColorRedValue
                                                                       green:SEBTintColorGreenValue

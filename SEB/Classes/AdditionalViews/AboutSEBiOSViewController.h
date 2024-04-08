@@ -53,8 +53,13 @@
     __weak IBOutlet UIButton *closeAbout;
     __weak IBOutlet UIButton *sendLogsButton;
     
-    @private
+@private
     NSInteger attempts;
+    
+    UIFont *appExtraShortNameFont;
+    UIFont *appNameFont;
+    UIFont *versionLabelFont;
+    UIFont *copyrightFont;
 }
 
 @property (nonatomic, strong) SEBViewController *sebViewController;
