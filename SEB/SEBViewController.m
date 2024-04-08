@@ -3988,6 +3988,15 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) lockSEBWithAttributes:(NSDictionary *)attributes
+{
+    DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
+    NSString *message = attributes[@"message"];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", @"")}];
+}
+
+
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
