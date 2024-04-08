@@ -972,8 +972,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithDouble:1.0],
                    @"screenProctoringImageDownscale",
                    
-                   @"",
-                   @"screenProctoringImageFormat",
+//                   @0,
+//                   @"screenProctoringImageFormat",
 
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
