@@ -67,7 +67,7 @@ public class PendingServerRequest : NSObject {
 @objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate, URLSessionDelegate {
     
     fileprivate var session: URLSession?
-    private let pendingRequestsQueue = dispatch_queue_concurrent_t.init(label: UUID().uuidString)
+    private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
     
     private var _pendingRequests: [PendingServerRequest] = []
     public var pendingRequests: [PendingServerRequest] {
