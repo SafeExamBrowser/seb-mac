@@ -59,11 +59,43 @@
         quitURLTrimmed = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
+        _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+
 #if TARGET_OS_OSX
         // Downloading PDF files on iOS is currently unsupported, they will always be displayed
         _downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
 #endif
-        _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+        
+//        [preferences removeObjectForKey:@"NSAllowContinuousSpellChecking"];
+//        [preferences removeObjectForKey:@"NSAutomaticSpellingCorrectionEnabled"];
+//        [preferences removeObjectForKey:@"NSAutomaticTextCompletionEnabled"];
+//        [preferences removeObjectForKey:@"WebContinuousSpellCheckingEnabled"];
+//        [preferences removeObjectForKey:@"WebAutomaticSpellingCorrectionEnabled"];
+//        [preferences removeObjectForKey:@"WebGrammarCheckingEnabled"];
+//        [preferences removeObjectForKey:@"WebAutomaticTextReplacementEnabled"];
+
+//        if (_allowSpellCheck) {
+//        }
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAllowContinuousSpellChecking"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSContinuousSpellCheckingEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticSpellingCorrectionEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticTextCompletionEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAllowContinuousSpellChecking"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticSpellingCorrectionEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticTextCompletionEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"WebContinuousSpellCheckingEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"WebAutomaticSpellingCorrectionEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"WebGrammarCheckingEnabled"];
+//        [preferences setBool:_allowSpellCheck forKey:@"WebAutomaticTextReplacementEnabled"];
+
+//        } else {
+//            NSNumber *allowSpellCheckObject = [NSNumber numberWithBool:_allowSpellCheck];
+//            NSDictionary<NSString *,id> *spellCheckingDefaults = @{@"WebGrammarCheckingEnabled" : allowSpellCheckObject,
+//                                                                   @"WebAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject,
+//                                                                   @"WebContinuousSpellCheckingEnabled" : allowSpellCheckObject,
+//                                                                   @"WebAutomaticTextReplacementEnabled" : allowSpellCheckObject};
+//            [preferences registerDefaults:spellCheckingDefaults];
+//        }
 
         if (@available(macOS 10.13, iOS 11.0, *)) {
             if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
@@ -80,6 +112,16 @@
                         SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
                         self.browserControllerDelegate = sebAbstractModernWebView;
                         [self initGeneralProperties];
+                        
+//                        SEL selector = NSSelectorFromString(@"toggleContinuousSpellChecking:");
+//
+//                        id nativeWebView = [self nativeWebView];
+//                        if ([nativeWebView respondsToSelector:selector]) {
+//                            IMP imp = [self.nativeWebView methodForSelector:selector];
+//                            void (*func)(id, SEL, BOOL) = (void *)imp;
+//                            func(self.nativeWebView, selector, _allowSpellCheck);
+//                        }
+
                         return self;
                     }
                 }
@@ -90,6 +132,7 @@
         self.browserControllerDelegate = sebAbstractClassicWebView;
         [self initGeneralProperties];
     }
+    
     return self;
 }
 
