@@ -303,22 +303,12 @@ bool insideMatrix(void);
         
         // Get default WebKit browser User Agent and create
         // default SEB User Agent
-        if (@available(macOS 10.13, iOS 11.0, *)) {
-            _temporaryWebView = [WKWebView new];
-            [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
-                [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
-                self.temporaryWebView = nil;
-                DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
-            }];
-        } else {
-            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-            if (urlText.length == 0) {
-                urlText = SEBStartPage;
-            }
-            NSString *defaultUserAgent = [[WebView new] userAgentForURL:[NSURL URLWithString:urlText]];
-            [self.browserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+        _temporaryWebView = [WKWebView new];
+        [_temporaryWebView evaluateJavaScript:@"navigator.userAgent" completionHandler:^(NSString *defaultUserAgent, NSError * _Nullable error) {
+            [SEBBrowserController createSEBUserAgentFromDefaultAgent:defaultUserAgent];
+            self.temporaryWebView = nil;
             DDLogInfo(@"Default browser user agent string: %@", [[MyGlobals sharedMyGlobals] valueForKey:@"defaultUserAgent"]);
-        }
+        }];
 
         // Cache current settings for Siri and dictation
         [_systemManager cacheCurrentSystemSettings];
@@ -1172,7 +1162,7 @@ bool insideMatrix(void);
                     [self.browserController openMainBrowserWindow];
                     
         // Persist start URL of a "secure" exam
-        [self persistSecureExamStartURL:[preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"] configKey:self.configKey];
+        [self persistSecureExamStartURL:self.sessionState.startURL.absoluteString configKey:self.configKey];
         //        }
 
     }
@@ -1276,7 +1266,7 @@ bool insideMatrix(void);
     NSURL *examURL = [NSURL URLWithString:url];
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
     [self persistSecureExamStartURL:url configKey:self.configKey];
-    self.browserController.sebServerExamStartURL = examURL;
+    self.sessionState.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
 
@@ -2179,7 +2169,7 @@ bool insideMatrix(void);
                     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
                         NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
                         if (permittedDomains.count == 0) {
-                            NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+                            NSString *urlText = self.sessionState.startURL.absoluteString;
                             if (urlText.length == 0) {
                                 urlText = SEBStartPage;
                             }
@@ -2343,7 +2333,7 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     
     /// Update URL filter flags and rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
     // Update URL filter ignore rules
     [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
     
@@ -4709,6 +4699,12 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+- (NSURL *) startURL
+{
+    return self.sessionState.startURL;
+}
+
+
 - (void) conditionallyCloseLockdownWindows
 {
     if (_sebLockedViewController.overrideCheckForScreenSharing.hidden &&
@@ -6113,7 +6109,7 @@ conditionallyForWindow:(NSWindow *)window
         [self performAfterPreferencesClosedActions];
         
         // Update URL filter flags and rules
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
         // Update URL filter ignore rules
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
