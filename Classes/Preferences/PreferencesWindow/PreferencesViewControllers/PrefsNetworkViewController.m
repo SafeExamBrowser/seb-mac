@@ -251,7 +251,7 @@
         self->fragment.stringValue = expressionURL.fragment ? expressionURL.fragment : @"";
         
         // Update filter rules
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.preferencesController.sebController.startURL];
     });
 }
 
@@ -292,7 +292,7 @@
     [self setPartsForExpression:filterExpressionString];
     
     // Update filter rules
-    [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+    [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.preferencesController.sebController.startURL];
 }
 
 

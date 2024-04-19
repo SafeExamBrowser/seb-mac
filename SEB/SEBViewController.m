@@ -45,6 +45,15 @@ static NSMutableSet *browserWindowControllers;
 
 #pragma mark - Initializing
 
+- (SEBSessionState *) sessionState
+{
+    if (!_sessionState) {
+        _sessionState = [[SEBSessionState alloc] init];
+    }
+    return _sessionState;
+}
+
+
 - (IASKAppSettingsViewController*)appSettingsViewController {
     if (!appSettingsViewController) {
         appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
@@ -1787,7 +1796,7 @@ void run_on_ui_thread(dispatch_block_t block)
 //        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
         
         // Update URL filter flags and rules
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRules];
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
         // Update URL filter ignore rules
         [[SEBURLFilter sharedSEBURLFilter] updateIgnoreRuleList];
         
@@ -3776,7 +3785,7 @@ void run_on_ui_thread(dispatch_block_t block)
     NSURL *examURL = [NSURL URLWithString:url];
     [_browserTabViewController openNewTabWithURL:examURL configuration:nil];
     [self persistSecureExamStartURL:url configKey:self.configKey];
-    self.browserController.sebServerExamStartURL = examURL;
+    self.sessionState.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
 
@@ -4746,6 +4755,12 @@ void run_on_ui_thread(dispatch_block_t block)
         // If necessary show the dialog to start SAM again
         [self showRestartSingleAppMode];
     }
+}
+
+
+- (NSURL *) startURL
+{
+    return self.sessionState.startURL;
 }
 
 

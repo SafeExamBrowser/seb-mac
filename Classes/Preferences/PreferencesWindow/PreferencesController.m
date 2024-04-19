@@ -1016,7 +1016,7 @@
         /// Local Client settings are active
         
         // Update filter rules, as those might change the settings checksum
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES];
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
 
         // Update the Browser Exam Key without re-generating its salt
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
@@ -1029,7 +1029,7 @@
         /// Private settings are active
         
         // Update filter rules, as those might change the settings checksum
-        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES];
+        [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesSebRules:YES withStartURL:_sebController.startURL];
 
         // Update the Browser Exam Key with a new salt if Save As
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:saveAs];

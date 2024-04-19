@@ -7,7 +7,22 @@
 
 import Foundation
 
-@objc public class SEBOSXSessionState: NSObject {
+@objc public class SEBSessionState: NSObject {
+    
+    @objc public var sebServerExamStartURL: URL?
+    
+    @objc lazy public var startURL: URL? = {
+        var currentStartURL: URL?
+        if sebServerExamStartURL != nil {
+            currentStartURL = sebServerExamStartURL
+        } else {
+            currentStartURL = URL(string: UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"))
+        }
+        return currentStartURL
+    }()
+}
+
+@objc public class SEBOSXSessionState: SEBSessionState {
     
     @objc var isAACEnabled = false
     @objc var overrideAAC = false

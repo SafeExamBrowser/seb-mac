@@ -443,12 +443,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSString* backToStartURL;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamUseStartURL"]) {
         // Check if SEB Server started the exam and we have its Start URL
-        if (_sebServerExamStartURL) {
-            backToStartURL = _sebServerExamStartURL.absoluteString;
-        } else {
-            // Load start URL from the system's user defaults
-            backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-        }
+        backToStartURL = _delegate.startURL.absoluteString;
         DDLogInfo(@"Will load Start URL in main browser window: %@", [self urlOrPlaceholderForURL:backToStartURL]);
     } else {
         backToStartURL = [preferences secureStringForKey:@"org_safeexambrowser_SEB_restartExamURL"];
