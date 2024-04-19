@@ -121,8 +121,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     
     // If URL filtering is enabled, then
     // check if Start URL gets allowed by current filter rules and if not add a rule for the Start URL
-    NSString *startURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSURL *startURL = [NSURL URLWithString:startURLString];
+    NSString *startURLString = startURL.absoluteString;
     if (self.enableURLFilter && [self testURLAllowed:startURL] != URLFilterActionAllow) {
         // If Start URL is not allowed: Create one using the full Start URL
         id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
