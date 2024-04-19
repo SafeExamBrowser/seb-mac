@@ -800,7 +800,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
         // There were no persisted pages
         // Load start URL from the system's user defaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        NSString *urlText = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        NSString *urlText = _sebViewController.startURL.absoluteString;
         
         // Handle Deep Links
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAllowDeepLink"]) {

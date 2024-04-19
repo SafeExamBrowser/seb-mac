@@ -48,8 +48,8 @@
 
 + (SEBURLFilter *) sharedSEBURLFilter;
 
-- (NSError *) updateFilterRules;
-- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules;
+- (NSError *) updateFilterRulesWithStartURL:(NSURL *)startURL;
+- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules withStartURL:(NSURL *)startURL;
 
 - (NSError *) updateIgnoreRuleList;
 
