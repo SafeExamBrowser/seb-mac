@@ -272,7 +272,7 @@
 {
     // Load start URL from the system's user defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *urlString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+    NSString *urlString = self.startURL.absoluteString;
     
     // Handle Start URL Query String Parameter
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
@@ -939,6 +939,12 @@
                    selector:(SEL)selector
 {
     [self.sebController storeNewSEBSettings:sebData forEditing:forEditing forceConfiguringClient:forceConfiguringClient showReconfiguredAlert:showReconfiguredAlert callback:callback selector:selector];
+}
+
+
+- (NSURL *) startURL
+{
+    return _sebController.sessionState.startURL;
 }
 
 

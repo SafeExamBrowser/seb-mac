@@ -148,6 +148,12 @@
  */
 - (void) correctPasswordEntered;
 
+/**
+ * @brief       Current startURL (regardless if local/SEB Server exam).
+ * @details
+ */
+@property (readonly) NSURL *startURL;
+
 @optional
 
 /**

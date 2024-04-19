@@ -136,6 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) presentDownloadError:(NSError *)error;
 
 @property (readwrite) BOOL startingUp;
+@property (readonly) NSURL *startURL;
 
 @optional
 - (void) openDownloadedFile:(NSString *)path;
@@ -170,8 +171,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) isNavigationAllowedMainWebView:(BOOL)mainWebView;
 - (BOOL) isReloadAllowedMainWebView:(BOOL)mainWebView;
 - (BOOL) showReloadWarningMainWebView:(BOOL)mainWebView;
-
-@property (strong, nonatomic) NSURL *sebServerExamStartURL;
 
 @property (readwrite) BOOL finishedInitializing;
 @property (readwrite) BOOL directConfigDownloadAttempted;

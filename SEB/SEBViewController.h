@@ -91,6 +91,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class SEBSessionState;
 @class AppDelegate;
 @class SEBUIController;
 @class SEBiOSBrowserController;
@@ -159,6 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 void run_on_ui_thread(dispatch_block_t block);
 
+@property(strong, nonatomic) SEBSessionState *sessionState;
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;

@@ -56,14 +56,14 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 
 // Updates filter rule arrays with current settings (UserDefaults)
-- (NSError *) updateFilterRules
+- (NSError *) updateFilterRulesWithStartURL:(NSURL *)startURL
 {
-    return [self updateFilterRulesSebRules:NO];
+    return [self updateFilterRulesSebRules:NO withStartURL:startURL];
 }
 
 
 // Updates filter rule arrays with current settings (UserDefaults)
-- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules
+- (NSError *) updateFilterRulesSebRules:(BOOL)updateSebRules withStartURL:(NSURL *)startURL
 {
     if (self.prohibitedList) {
         [self.prohibitedList removeAllObjects];
