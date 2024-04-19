@@ -225,6 +225,7 @@
 		695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
+		6958C4592BD2BF3200B9F5D2 /* SEBOSXSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */; };
 		695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
 		695A8EDE1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
 		695A8EE01E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDC1E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png */; };
@@ -3744,6 +3745,7 @@
 				6975CE6F29647C4400C7ABF3 /* NSArray+Extensions.m in Sources */,
 				695370B42033921C00C638A8 /* LGSideMenuSegue.m in Sources */,
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
+				6958C4592BD2BF3200B9F5D2 /* SEBOSXSessionState.swift in Sources */,
 				69A0723A268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */,
 				69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */,
 				698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */,
