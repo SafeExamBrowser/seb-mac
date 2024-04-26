@@ -286,9 +286,9 @@
         }
         
         if ([instruction isEqualToString:@"SEB_PROCTORING"]) {
-            if ([self.delegate respondsToSelector:@selector(startProctoringWithAttributes:)]) {
+            if ([self.delegate respondsToSelector:@selector(proctoringInstructionWithAttributes:)]) {
                 NSDictionary *attributes = sebInstruction.attributes;
-                [self.delegate startProctoringWithAttributes:(NSDictionary *)attributes];
+                [self.delegate proctoringInstructionWithAttributes:(NSDictionary *)attributes];
             }
         }
         

@@ -37,6 +37,7 @@ public struct keys {
     static let headerAuthorization = "Authorization"
     static let headerContentType = "Content-Type"
     static let contentTypeFormURLEncoded = "application/x-www-form-urlencoded"
+    static let contentTypeOctetStream = "application/octet-stream"
     static let headerAccept = "Accept"
     static let acceptJSON = "application/json, */*"
     static let contentTypeJSON = "application/json;charset=UTF-8"

@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void) closeServerViewWithCompletion:(void (^)(void))completion;
 - (void) startBatteryMonitoringWithDelegate:(id)delegate;
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) lockSEBWithAttributes:(NSDictionary *)attributes;
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;

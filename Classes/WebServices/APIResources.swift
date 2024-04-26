@@ -282,6 +282,41 @@ struct QuitSessionResource: ApiResource {
     }
 }
 
+// Screen Proctoring Service (SPS)
+
+struct SPSHandshakeResource: ApiResource {
+    
+    var baseURL: URL
+    var queryParameters: [String]
+    let methodPath: String
+    let httpMethod = "POST"
+    var body = ""
+    
+    init(baseURL: URL, endpoint: String) {
+        self.baseURL = baseURL
+        self.methodPath = endpoint
+        self.queryParameters = []
+        dynamicLogLevel = MyGlobals.ddLogLevel()
+    }
+    
+    func makeModel(data: Data) -> [Exam]? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+#if DEBUG
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
+        do {
+            let exams = try decoder.decode([Exam].self, from: data)
+            return exams
+        } catch let error {
+            DDLogError("SEB Server API Handshake Resource failed: \(String(describing: error))")
+        }
+        return nil
+    }
+}
+
+
+
 
 //struct CoursesResource: ApiResource {
 //

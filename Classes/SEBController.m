@@ -216,6 +216,16 @@ bool insideMatrix(void);
 }
 
 
+- (SEBScreenProctoringController *)screenProctoringController
+{
+    if (!_screenProctoringController) {
+        _screenProctoringController = [[SEBScreenProctoringController alloc] init];
+//        _zoomController.proctoringUIDelegate = self;
+    }
+    return _screenProctoringController;
+}
+
+
 - (SEBZoomController *)zoomController
 {
     if (!_zoomController) {
@@ -1478,28 +1488,25 @@ bool insideMatrix(void);
         _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
         _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
         _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
-//        _allRTCTracks = [NSMutableArray new];
-//        _localRTCTracks = [NSMutableArray new];
-        
-        
-//        EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//        [EAGLContext setCurrentContext:eaglContext];
-//        _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
-        
-//        _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-//
-//        [_rootViewController addChildViewController:self.jitsiViewController];
-//        self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
-//        [self.jitsiViewController didMoveToParentViewController:_rootViewController];
     }
 }
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    
+    if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
+        NSString *instructionConfirm = attributes[@"instruction-confirm"];
+        if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
+            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+        }
+    } else {
+        DDLogError(@"%s: Cannot execute proctoring instruction, unknown Service Type in attributes %@!", __FUNCTION__, attributes);
+    }
 }
 
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes
@@ -1908,10 +1915,12 @@ bool insideMatrix(void);
     BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
     BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
 
+    BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
     BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
     BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+    BOOL isETHExam = [self.sessionState.startURL.host isEqualToString:@"ethz.ch"];
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
         NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
@@ -1933,7 +1942,7 @@ bool insideMatrix(void);
     }
 
     if (browserMediaCaptureScreen) {
-        if (@available(macOS 11, *)) {
+        if (@available(macOS 10.15, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
                 if (self.examSession && self.secureClientSession) {
@@ -1960,11 +1969,15 @@ bool insideMatrix(void);
         }
     }
 
-    void (^conditionallyStartProctoring)(void) =
+    void (^conditionallyStartProctoring)(void);
+    conditionallyStartProctoring =
     ^{
         // OK action handler
         void (^startRemoteProctoringOK)(void) =
         ^{
+            if (screenProctoringEnable) {
+
+            }
             if (zoomEnable) {
                 [self openZoomView];
                 [self.zoomController openZoomWithSender:self];
@@ -1972,14 +1985,58 @@ bool insideMatrix(void);
             // Continue starting the exam session
             [self conditionallyStartAACWithCallback:callback selector:selector];
         };
-        if (zoomEnable) {
-            // Check if previous SEB session already had proctoring active
-            if (self.previousSessionZoomEnabled) {
-                run_on_ui_thread(startRemoteProctoringOK);
+        
+        void (^conditionallyStartZoomProctoring)(void);
+        conditionallyStartZoomProctoring =
+        ^{
+            if (zoomEnable) {
+                // Check if previous SEB session already had proctoring active
+                if (self.previousSessionZoomEnabled) {
+                    run_on_ui_thread(startRemoteProctoringOK);
+                } else {
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+                    [modalAlert setAlertStyle:NSAlertStyleWarning];
+                    void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self removeAlertWindow:modalAlert.window];
+                        switch(answer)
+                        {
+                            case NSAlertFirstButtonReturn:
+                            {
+                                run_on_ui_thread(startRemoteProctoringOK);
+                                return;
+                            }
+                                
+                            case NSAlertSecondButtonReturn:
+                            {
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                return;
+                            }
+                                
+                            default:
+                            {
+                            }
+                        }
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+                    return;
+                }
             } else {
+                // Continue starting the exam session
+                startRemoteProctoringOK();
+            }
+        };
+        
+        if (screenProctoringEnable) {
+            // Check if previous SEB session already had proctoring active
+            if (!self.previousSessionScreenProctoringEnabled) {
                 NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]];
+                [modalAlert setMessageText:NSLocalizedString(@"Screen Proctoring Session", @"")];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -1989,7 +2046,8 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            run_on_ui_thread(startRemoteProctoringOK);
+                            self.previousSessionScreenProctoringEnabled = YES;
+                            run_on_ui_thread(conditionallyStartZoomProctoring);
                             return;
                         }
                             
@@ -2008,10 +2066,8 @@ bool insideMatrix(void);
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
                 return;
             }
-        } else {
-            // Continue starting the exam session
-            [self conditionallyStartAACWithCallback:callback selector:selector];
-        }
+        } 
+        conditionallyStartZoomProctoring();
     };
 
     if (browserMediaCaptureMicrophone ||
@@ -2128,7 +2184,7 @@ bool insideMatrix(void);
         self.previousSessionZoomEnabled = NO;
     }
     // Continue starting the exam session
-    [self conditionallyStartAACWithCallback:callback selector:selector];
+    run_on_ui_thread(conditionallyStartProctoring);
 }
     
 
@@ -5579,6 +5635,31 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+            ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
+//            ProctoringIconDefaultState.template = YES;
+            ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
+            ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [NSColor systemGreenColor];
+//            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
+            ProctoringIconWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [NSColor systemOrangeColor];
+//            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
+            ProctoringIconErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [NSColor systemRedColor];
+//            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
+
+            SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                          icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                                       toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(toggleProctoringViewVisibility)
+                                                                     secondaryAction:nil];
+            [rightDockItems addObject:dockItemProctoringView];
+        }
+        
         if (ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
             ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
 //            ProctoringIconDefaultState.template = YES;
@@ -6476,6 +6557,24 @@ conditionallyForWindow:(NSWindow *)window
         [_batteryController stopMonitoringBattery];
         _batteryController = nil;
     }
+    
+//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+//    BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
+//    [preferences removeObjectForKey:@"WebContinuousSpellCheckingEnabled"];
+//    [preferences removeObjectForKey:@"WebAutomaticSpellingCorrectionEnabled"];
+//    [preferences removeObjectForKey:@"WebGrammarCheckingEnabled"];
+//    [preferences removeObjectForKey:@"WebAutomaticTextReplacementEnabled"];
+//    [preferences removeObjectForKey:@"NSContinuousSpellCheckingEnabled"];
+//    [preferences removeObjectForKey:@"NSAutomaticSpellingCorrectionEnabled"];
+//    NSNumber *allowSpellCheckObject = [NSNumber numberWithBool:allowSpellCheck];
+//    NSDictionary<NSString *,id> *spellCheckingDefaults = @{@"WebGrammarCheckingEnabled" : allowSpellCheckObject,
+//                                                           @"WebAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject,
+//                                                           @"WebContinuousSpellCheckingEnabled" : allowSpellCheckObject,
+//                                                           @"WebAutomaticTextReplacementEnabled" : allowSpellCheckObject,
+//                                                           @"NSContinuousSpellCheckingEnabled" : allowSpellCheckObject,
+//                                                           @"NSAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject};
+//    [preferences registerDefaults:spellCheckingDefaults];
+
     
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
