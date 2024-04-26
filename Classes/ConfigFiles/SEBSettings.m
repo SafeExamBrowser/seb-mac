@@ -471,7 +471,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableSebBrowser",
                    
-                   @YES,
+                   @NO,
                    @"enableScreenProctoring",
 
                    @YES,
@@ -972,8 +972,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithDouble:1.0],
                    @"screenProctoringImageDownscale",
                    
-//                   @0,
-//                   @"screenProctoringImageFormat",
+                   [NSNumber numberWithLong:0],
+                   @"screenProctoringImageFormat",
 
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",

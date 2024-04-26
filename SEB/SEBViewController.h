@@ -212,6 +212,8 @@ void run_on_ui_thread(dispatch_block_t block);
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO
+@property(readwrite) BOOL previousSessionScreenProctoringEnabled;
+
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *_Nullable proctoringImageAnalyzer API_AVAILABLE(ios(11));
 @property (readwrite) UIInterfaceOrientation userInterfaceOrientation;
@@ -228,7 +230,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(readwrite) BOOL jitsiMeetSendVideo;
 @property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 

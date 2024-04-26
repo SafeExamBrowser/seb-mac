@@ -226,6 +226,8 @@
 		69544E521C0CEB8800D60C3E /* SEBOSXConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */; };
 		69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */; };
 		6958C4592BD2BF3200B9F5D2 /* SEBOSXSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */; };
+		6958C45B2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6958C45A2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift */; };
+		6958C45C2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6958C45A2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift */; };
 		695A8EDD1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
 		695A8EDE1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
 		695A8EE01E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDC1E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png */; };
@@ -580,6 +582,8 @@
 		69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */; };
 		69C3FC652A9B5EC500F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
 		69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
+		69C6522E2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
+		69C6522F2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C73FAC28A5A34F00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69C73FAD28A5A37B00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69CAF40D296DD4F3000E74D9 /* VerificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 691281D9287EB66000D01164 /* VerificationManager.h */; };
@@ -616,6 +620,7 @@
 		69D5CC6728A5514100A1F84E /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69D5CC6828A5514100A1F84E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
 		69D5CC6C28A5516400A1F84E /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932ABC321DE29BE00DEF77D /* SEBConstants.h */; };
+		69D659062BDC11E2006CE50D /* SampleScreenshotRGB248.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */; };
 		69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
@@ -1007,6 +1012,7 @@
 		69544E501C0CEB8800D60C3E /* SEBOSXConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXConfigFileController.h; sourceTree = "<group>"; };
 		69544E511C0CEB8800D60C3E /* SEBOSXConfigFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBOSXConfigFileController.m; sourceTree = "<group>"; };
 		69566EAA1C653E0500BBC653 /* VectorPencilKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VectorPencilKit.framework; path = Frameworks/VectorPencilKit.framework; sourceTree = "<group>"; };
+		6958C45A2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenProctoringServiceResources.swift; sourceTree = "<group>"; };
 		695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBToolbarNavigateBackIcon@2x.png"; sourceTree = "<group>"; };
 		695A8EDC1E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBToolbarNavigateForwardIcon@2x.png"; sourceTree = "<group>"; };
 		695A8EE31E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBToolbarReloadIcon@2x.png"; sourceTree = "<group>"; };
@@ -1350,6 +1356,7 @@
 		69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadPageUIElement.swift; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
+		69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenProctoringController.swift; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
 		69CBEB541834C55C00FB0460 /* SEBSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSystemManager.h; sourceTree = "<group>"; };
 		69CBEB551834C55C00FB0460 /* SEBSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSystemManager.m; sourceTree = "<group>"; };
@@ -1385,6 +1392,7 @@
 		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
+		69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SampleScreenshotRGB248.png; path = Resources/Images/SampleScreenshotRGB248.png; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
@@ -2131,6 +2139,7 @@
 			children = (
 				69B2EB851A435E2000B5AE67 /* AboutSEB.png */,
 				69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */,
+				69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -2363,6 +2372,7 @@
 			children = (
 				695CA8D128E39FFD005BE4E8 /* SEBZoomController.h */,
 				695CA8D228E39FFD005BE4E8 /* SEBZoomController.m */,
+				69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */,
 			);
 			name = Proctoring;
 			path = Classes/Proctoring;
@@ -2611,6 +2621,7 @@
 				69B1D47F230D75ED005656B8 /* NetworkRequest.swift */,
 				693FB267231D22010062E36E /* SEBServerController.swift */,
 				69B1D47E230D7598005656B8 /* Models */,
+				6958C45A2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift */,
 			);
 			name = WebServices;
 			path = Classes/WebServices;
@@ -3549,6 +3560,7 @@
 				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
 				69944805248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
 				69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */,
+				69D659062BDC11E2006CE50D /* SampleScreenshotRGB248.png in Resources */,
 				696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
 				695A8EFC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,
@@ -3729,6 +3741,7 @@
 				69358DEB1E6ECECD000539F6 /* SEBInitAssistantViewController.m in Sources */,
 				69358DE31E6E142A000539F6 /* SEBiOSInitAssistantViewController.m in Sources */,
 				693FB269231D22010062E36E /* SEBServerController.swift in Sources */,
+				69C6522F2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */,
 				69B1D47A230D7586005656B8 /* ServerController.m in Sources */,
 				69D35D23217AB4F400C6CFB9 /* SEBURLFilterRegexExpression.m in Sources */,
 				69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */,
@@ -3747,6 +3760,7 @@
 				6940B96A1BA0F2FB008C8CFC /* main.m in Sources */,
 				6958C4592BD2BF3200B9F5D2 /* SEBOSXSessionState.swift in Sources */,
 				69A0723A268A38AD00A0464B /* MscX509CommonLocalException.m in Sources */,
+				6958C45C2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift in Sources */,
 				69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */,
 				698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */,
 				6943C6572A99258600EC18FF /* QRCodeReader.m in Sources */,
@@ -3887,9 +3901,11 @@
 				69B5E2A625756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
 				6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */,
 				69F522BD21467188009F3999 /* CanonicalRequest.m in Sources */,
+				6958C45B2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift in Sources */,
 				6940A7621853B2AD00D9D00D /* NSData+NSDataZIPExtension.m in Sources */,
 				698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */,
 				693F135315767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69C6522E2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */,
 				693EB53E15EF60A800DBA0B1 /* NSUserDefaultsController+SEBEncryptedUserDefaultsController.m in Sources */,
 				69973A612B0CF29F00A64376 /* SEBOSXSessionState.swift in Sources */,
 				697919D026BD36F10002D296 /* PreferencesViewController.m in Sources */,

@@ -619,4 +619,6 @@ static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
 static NSInteger SEBMinMacOSVersionSupportedMinor = 13;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
+static NSString __unused *proctoringServiceTypeScreenProctoring = @"SCREEN_PROCTORING";
+
 #endif

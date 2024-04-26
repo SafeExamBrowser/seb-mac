@@ -193,7 +193,7 @@ public extension SEBServerController {
             let request = ApiRequest(resource: resource)
             let pendingRequest = PendingServerRequest(request: request)
             pendingRequests.append(pendingRequest)
-            request.load(httpMethod: httpMethod, body: body, headers: headers, session: self.session, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
+            request.load(httpMethod: httpMethod, body: body.data(using: .utf8) ?? Data(), headers: headers, session: self.session, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
                 self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
                 DDLogVerbose("SEB Server Controller: Load returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
@@ -203,7 +203,7 @@ public extension SEBServerController {
                         DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
                             self.getServerAccessToken {
                                 // and try to perform the request again
-                                request.load(httpMethod: httpMethod, body: body, headers: headers, session: self.session, attempt: attempt, completion: resourceLoadCompletion)
+                                request.load(httpMethod: httpMethod, body: body.data(using: .utf8) ?? Data(), headers: headers, session: self.session, attempt: attempt, completion: resourceLoadCompletion)
                             }
                         }
                     } else {

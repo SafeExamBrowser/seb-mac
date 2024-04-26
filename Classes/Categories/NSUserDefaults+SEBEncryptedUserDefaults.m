@@ -138,8 +138,10 @@ static NSNumber *_logLevel;
 {
     id value = [self valueForKey:key];
     if (!value) {
+#if TARGET_OS_OSX
         DDLogDebug(@"%s addSuiteNamed: %@", __FUNCTION__, domain);
         [self addSuiteNamed:domain];
+#endif
         value = [self valueForKey:key];
     }
     return value;

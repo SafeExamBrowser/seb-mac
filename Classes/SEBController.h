@@ -84,6 +84,7 @@
 @class ServerController;
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
+@class SEBScreenProctoringController;
 @class SEBZoomController;
 
 
@@ -211,8 +212,10 @@
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported NO
 #define ZoomProctoringSupported NO
+@property (strong, nonatomic) SEBScreenProctoringController *screenProctoringController;
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
+@property(readwrite) BOOL previousSessionScreenProctoringEnabled;
 @property(readwrite) BOOL previousSessionZoomEnabled;
 
 @property(readwrite) BOOL zoomReceiveAudio;
@@ -223,7 +226,7 @@
 
 @property(readwrite) BOOL zoomUserRetryWasUsed;
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) lockSEBWithAttributes:(NSDictionary *)attributes;
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes;

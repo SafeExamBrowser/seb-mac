@@ -2036,10 +2036,13 @@ void run_on_ui_thread(dispatch_block_t block)
             if (@available(iOS 11.0, *)) {
                 BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
                 BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
+                
+                BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
                 BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
                 BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
                 BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
                 BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+                BOOL isETHExam = [self.sessionState.startURL.host isEqualToString:@"ethz.ch"];
 
                 if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
                     NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
@@ -2060,17 +2063,40 @@ void run_on_ui_thread(dispatch_block_t block)
                     return;
                 }
                 
-                void (^conditionallyStartProctoring)(void) =
+                void (^conditionallyStartProctoring)(void);
+                conditionallyStartProctoring =
                 ^{
                     // OK action handler
                     void (^startRemoteProctoringOK)(void) =
                     ^{
+                        if (screenProctoringEnable) {
+
+                        }
                         if (jitsiMeetEnable) {
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
                         }
                         run_on_ui_thread(completionBlock);
                     };
+                    if (screenProctoringEnable) {
+                        // Check if previous SEB session already had proctoring active
+                        if (!self.previousSessionScreenProctoringEnabled) {
+                            [self alertWithTitle:NSLocalizedString(@"Screen Proctoring Session", @"")
+                                         message:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]
+                                    action1Title:NSLocalizedString(@"OK", @"")
+                                  action1Handler:^ {
+                                self.previousSessionScreenProctoringEnabled = YES;
+                                run_on_ui_thread(conditionallyStartProctoring);
+                            }
+                                    action2Title:NSLocalizedString(@"Cancel", @"")
+                                  action2Handler:^ {
+                                self.alertController = nil;
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                            }];
+                            return;
+                        }
+                    }
                     if (jitsiMeetEnable) {
                         // Check if previous SEB session already had proctoring active
                         if (self.previousSessionJitsiMeetEnabled) {
@@ -2091,7 +2117,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             return;
                         }
                     } else {
-                        run_on_ui_thread(completionBlock);
+                        startRemoteProctoringOK();
                     }
                 };
                 
@@ -4862,7 +4888,7 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 }
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
