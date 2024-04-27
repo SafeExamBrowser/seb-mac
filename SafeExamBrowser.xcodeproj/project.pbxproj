@@ -620,7 +620,6 @@
 		69D5CC6728A5514100A1F84E /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
 		69D5CC6828A5514100A1F84E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
 		69D5CC6C28A5516400A1F84E /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932ABC321DE29BE00DEF77D /* SEBConstants.h */; };
-		69D659062BDC11E2006CE50D /* SampleScreenshotRGB248.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */; };
 		69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
@@ -1392,7 +1391,6 @@
 		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
-		69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SampleScreenshotRGB248.png; path = Resources/Images/SampleScreenshotRGB248.png; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
@@ -2139,7 +2137,6 @@
 			children = (
 				69B2EB851A435E2000B5AE67 /* AboutSEB.png */,
 				69B2EB861A435E2000B5AE67 /* AboutSEB@2x.png */,
-				69D659052BDC11E2006CE50D /* SampleScreenshotRGB248.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -3560,7 +3557,6 @@
 				69433AF5268A7F37005E59A5 /* ProcessListView.xib in Resources */,
 				69944805248D54870074A655 /* SEBBadgeWarning@2x.png in Resources */,
 				69A444001B14AAAC00577693 /* SEBRestartIcon.iconset in Resources */,
-				69D659062BDC11E2006CE50D /* SampleScreenshotRGB248.png in Resources */,
 				696EB10216CAAFF600707B0F /* ApplicationsIcon.png in Resources */,
 				695A8EFC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png in Resources */,
 				696EB10516CAAFF600707B0F /* ApplicationsIcon@2x.png in Resources */,

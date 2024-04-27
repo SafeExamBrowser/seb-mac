@@ -305,7 +305,7 @@ public extension SEBScreenProctoringController {
         })
     }
     
-    fileprivate func closeSession(completionHandler: @escaping () -> Void) {
+    @objc func closeSession(completionHandler: @escaping () -> Void) {
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -329,7 +329,7 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func checkHealth(completionHandler: @escaping () -> Void) {
-        guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
+        guard let baseURL = self.serviceURL else {
             return
         }
         let healthCheckResource = SPSHealthCheckResource(baseURL: baseURL, endpoint: "/health")
