@@ -1559,6 +1559,12 @@ bool insideMatrix(void);
 
 - (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
 {
+    if (_screenProctoringController) {
+        [_screenProctoringController closeSessionWithCompletionHandler:^{
+            completionHandler();
+        }];
+        return;
+    }
     completionHandler();
 }
 

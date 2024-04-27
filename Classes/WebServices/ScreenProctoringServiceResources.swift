@@ -49,13 +49,20 @@ struct SPSScreenShotResource: ApiResource {
     var queryParameters: [String]
     let methodPath: String
     let httpMethod = "POST"
-    var body: Data
+    var body = Data()
     
     init(baseURL: URL, endpoint: String) {
         self.baseURL = baseURL
         self.methodPath = endpoint
         self.queryParameters = []
         dynamicLogLevel = MyGlobals.ddLogLevel()
+    }
+
+    func makeModel(data: Data) -> Data? {
+#if DEBUG
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+#endif
+        return data
     }
 }
 
