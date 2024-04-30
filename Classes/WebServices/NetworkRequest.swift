@@ -93,7 +93,9 @@ extension NetworkRequest {
                 request.addValue(header.value as? String ?? "", forHTTPHeaderField: header.key as? String ?? "")
             }
         }
-        request.httpBody = body
+        if !body.isEmpty {
+            request.httpBody = body
+        }
         let currentAttempt = attempt+1
         
         guard let urlSession = session else {

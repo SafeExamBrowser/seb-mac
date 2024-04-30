@@ -89,6 +89,9 @@ fileprivate struct keysSPS {
     private var cancelAllRequests = false
     
     private var currentServerHealth = 0
+    
+    private var screenShotTimer: RepeatingTimer?
+//    private var screenShotDispatchQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility)
 
     @objc public override init() {
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -111,7 +114,7 @@ fileprivate struct keysSPS {
     }
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        DDLogError("SEB Server Controller: URLSession didBecomeInvalidWithError: \(String(describing: error)).")
+        DDLogError("SEB Screen Proctoring Controller: URLSession didBecomeInvalidWithError: \(String(describing: error)).")
         self.session = nil
     }
 
@@ -142,9 +145,7 @@ fileprivate struct keysSPS {
             self.clientSecret = clientSecret
             
             getServerAccessToken {
-                if let screenShotData = self.takeScreenShot() {
-                    self.sendScreenShot(data: screenShotData, metaData: "")
-                }
+                self.startScreenProctoring()
 //                if let sampleScreenShotURL = Bundle.main.url(forResource: "SampleScreenshotRGB248", withExtension: "png") {
 //                    if let screenShotData = try? Data(contentsOf:  sampleScreenShotURL) {
 //                        self.sendScreenShot(data: screenShotData, metaData: "")
@@ -161,6 +162,7 @@ fileprivate struct keysSPS {
     }
 }
 
+
 public extension SEBScreenProctoringController {
 
     fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
@@ -170,10 +172,10 @@ public extension SEBScreenProctoringController {
             pendingRequests.append(pendingRequest)
             request.load(httpMethod: httpMethod, body: body, headers: headers, session: self.session, attempt: 0, completion: { [self] (response, statusCode, errorResponse, responseHeaders, attempt) in
                 self.pendingRequests = self.pendingRequests.filter { $0 != pendingRequest }
-                DDLogVerbose("SEB Server Controller: Load returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
+                DDLogVerbose("SEB Screen Proctoring Controller: Load returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == statusCodes.unauthorized && errorResponse?.error == errors.invalidToken {
                     // Error: Unauthorized and token expired, get new token if not yet exceeded configured max attempts
-                    DDLogError("SEB Server Controller: Load returned with invalid token error: expired, renew if not yet exceeded max. attempts (attempt: \(attempt)).")
+                    DDLogError("SEB Screen Proctoring Controller: Load returned with invalid token error: expired, renew if not yet exceeded max. attempts (attempt: \(attempt)).")
                     if attempt <= self.maxRequestAttemps && !cancelAllRequests {
                         DispatchQueue.main.asyncAfter(deadline: (.now() + fallbackAttemptInterval)) {
                             self.getServerAccessToken {
@@ -187,7 +189,7 @@ public extension SEBScreenProctoringController {
                             NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your server administrator", comment: ""),
                                        NSDebugDescriptionErrorKey : errorDebugDescription]
                         let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
-                        DDLogError("SEB Server Controller: Load failed because \(errorDebugDescription).")
+                        DDLogError("SEB Screen Proctoring Controller: Load failed because \(errorDebugDescription).")
                         self.didFail(error: error, fatal: true)
                     }
                     return
@@ -226,11 +228,6 @@ public extension SEBScreenProctoringController {
         }
     }
 
-    @objc func startScreenProctoring()
-    {
-        
-    }
-    
     fileprivate func getServerAccessToken(completionHandler: @escaping () -> Void) {
         if !gettingAccessToken {
             guard let baseURL = self.serviceURL else {
@@ -270,10 +267,23 @@ public extension SEBScreenProctoringController {
         }
     }
     
+    fileprivate func startScreenProctoring() {
+        let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
+        timer.eventHandler = {
+            if let screenShotData = self.takeScreenShot() {
+                self.sendScreenShot(data: screenShotData, metaData: "")
+            }
+        }
+        screenShotTimer = timer
+        screenShotTimer?.resume()
+    }
+    
     fileprivate func takeScreenShot() -> Data? {
         let displayID = CGMainDisplayID()
-        let imageRef = CGDisplayCreateImage(displayID)
-        let pngData = imageRef?.pngData()
+        guard let imageRef = CGDisplayCreateImage(displayID) else {
+            return nil
+        }
+        let pngData = imageRef.pngData()
         return pngData
     }
     
@@ -312,15 +322,13 @@ public extension SEBScreenProctoringController {
         let closeSessionResource = SPSCloseSessionResource(baseURL: baseURL, endpoint: "/seb-api/v1/session/\(sessionId)")
         
         let authorizationString = keysSPS.headerAuthorizationBearer + " " + (self.accessToken ?? "")
-        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
-                              keys.headerAuthorization : authorizationString]
+        let requestHeaders = [keys.headerAuthorization : authorizationString]
         
         load(closeSessionResource, httpMethod: closeSessionResource.httpMethod, body: Data(), headers: requestHeaders, withCompletion: { (closeSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if statusCode != nil || statusCode ?? 0 == statusCodes.ok {
+            if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
                 DDLogInfo("SEB Screen Proctoring Controller: Session was closed.")
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not close session with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
-                return
             }
             if !self.cancelAllRequests {
                 completionHandler()

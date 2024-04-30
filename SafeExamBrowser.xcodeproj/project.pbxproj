@@ -574,6 +574,8 @@
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
 		69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
+		69B98F802BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
+		69B98F812BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
@@ -1348,6 +1350,7 @@
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
 		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ZoomSDK/libssl.dylib; sourceTree = "<group>"; };
 		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ZoomSDK/libcrypto.dylib; sourceTree = "<group>"; };
+		69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
@@ -2370,6 +2373,7 @@
 				695CA8D128E39FFD005BE4E8 /* SEBZoomController.h */,
 				695CA8D228E39FFD005BE4E8 /* SEBZoomController.m */,
 				69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */,
+				69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */,
 			);
 			name = Proctoring;
 			path = Classes/Proctoring;
@@ -3785,6 +3789,7 @@
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				69B1D470230D7586005656B8 /* APIResources.swift in Sources */,
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
+				69B98F812BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */,
 				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
 				691CC4111BA134070020D3EC /* RNCryptor.m in Sources */,
 				69F5229B21467188009F3999 /* CacheStoragePolicy.m in Sources */,
@@ -3878,6 +3883,7 @@
 				69E977D825F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */,
 				69F7B61714F411FB00FD0761 /* SEBEncryptedUserDefaultsController.m in Sources */,
 				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
+				69B98F802BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
