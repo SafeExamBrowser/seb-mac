@@ -572,6 +572,7 @@
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
 		69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
+		69B98F852BE647F200DC06E2 /* SEBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F842BE647F200DC06E2 /* SEBApplication.swift */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69BBAE56232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
 		69BBAE57232702BD005BC19F /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
@@ -1343,6 +1344,7 @@
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
 		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ZoomSDK/libssl.dylib; sourceTree = "<group>"; };
 		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ZoomSDK/libcrypto.dylib; sourceTree = "<group>"; };
+		69B98F842BE647F200DC06E2 /* SEBApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SEBApplication.swift; path = Classes/SEBApplication.swift; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BBAE54232702BD005BC19F /* ServerLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServerLogger.h; sourceTree = "<group>"; };
@@ -1581,6 +1583,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				69B98F842BE647F200DC06E2 /* SEBApplication.swift */,
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
 				69973A5F2B0CF21A00A64376 /* SessionHandling */,
@@ -3874,6 +3877,7 @@
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				699AFE4827E9EA3300F8FE35 /* SEBGoToDockButton.m in Sources */,
 				69F7B61A14F411FB00FD0761 /* NSWindow+SEBWindow.m in Sources */,
+				69B98F852BE647F200DC06E2 /* SEBApplication.swift in Sources */,
 				69F7B61B14F411FB00FD0761 /* MethodSwizzling.m in Sources */,
 				69544E531C0CEB8800D60C3E /* SEBOSXConfigFileController.m in Sources */,
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
