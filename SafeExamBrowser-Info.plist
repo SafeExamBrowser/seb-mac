@@ -95,7 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>15175</string>
+	<string>15176</string>
 	<key>ClickToFlashOptOut</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -118,7 +118,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone access is required for web applications / remote proctoring.</string>
 	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
+	<string>$(PRODUCT_MODULE_NAME).SEBApplication</string>
 	<key>NSRequiresAquaSystemAppearance</key>
 	<true/>
 	<key>UTExportedTypeDeclarations</key>
