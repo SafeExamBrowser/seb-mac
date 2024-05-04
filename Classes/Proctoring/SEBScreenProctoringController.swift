@@ -77,7 +77,7 @@ fileprivate struct keysSPS {
     private var screenshotMaxInterval: Int?
     private var imageFormat: Int?
     private var imageQuantization: Int?
-    private var imageDownscale: Float?
+    private var imageDownscale: Double?
     
     private var metadataURLEnabled: Bool?
     private var metadataWindowTitleEnabled: Bool?
@@ -103,7 +103,10 @@ fileprivate struct keysSPS {
         self.screenshotMaxInterval = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringScreenshotMaxInterval")
         self.imageFormat = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageFormat")
         self.imageQuantization = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageQuantization")
-        self.imageDownscale = UserDefaults.standard.secureFloat(forKey: "org_safeexambrowser_SEB_screenProctoringImageDownscale")
+        self.imageDownscale = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_screenProctoringImageDownscale")
+        if self.imageDownscale == 0 {
+            self.imageDownscale = 1
+        }
         
         self.metadataURLEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
         self.metadataWindowTitleEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
@@ -204,9 +207,9 @@ public extension SEBScreenProctoringController {
     fileprivate func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
-                DDLogVerbose("SEB Server Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
+                DDLogVerbose("SEB Screen Proctoring Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if statusCode == nil || statusCode ?? 0 >= statusCodes.notSuccessfullRange {
-                    DDLogError("SEB Server Controller: Loading resource \(resource) with fallback not successful, status code: \(String(describing: statusCode)), attempt: \(fallbackAttempt).")
+                    DDLogError("SEB Screen Proctoring Controller: Loading resource \(resource) with fallback not successful, status code: \(String(describing: statusCode)), attempt: \(fallbackAttempt).")
                     // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
                     let currentAttempt = fallbackAttempt+1
                     if currentAttempt <= self.maxRequestAttemps {
@@ -218,7 +221,7 @@ public extension SEBScreenProctoringController {
                         }
                         return
                     } //if maxRequestAttemps reached, report failure to load resource
-                    DDLogError("SEB Server Controller: Load with fallback max. request attempts reached, aborting.")
+                    DDLogError("SEB Screen Proctoring Controller: Load with fallback max. request attempts reached, aborting.")
                     self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
                 }
                 if !self.cancelAllRequests {
@@ -244,7 +247,7 @@ public extension SEBScreenProctoringController {
                 self.gettingAccessToken = false
                 if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
                     self.accessToken = tokenString
-                    DDLogInfo("SEB Server Controller: Received server access token.")
+                    DDLogInfo("SEB Screen Proctoring Controller: Received server access token.")
                 } else {
                     self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
                     let errorDebugDescription = "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
@@ -252,7 +255,7 @@ public extension SEBScreenProctoringController {
                         NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
                                    NSDebugDescriptionErrorKey : errorDebugDescription]
                     let error = NSError(domain: sebErrorDomain, code: Int(SEBErrorGettingConnectionTokenFailed), userInfo: userInfo)
-                    DDLogError("SEB Server Controller: Cannot get server access token. \(errorDebugDescription).")
+                    DDLogError("SEB Screen Proctoring Controller: Cannot get server access token. \(errorDebugDescription).")
                     self.didFail(error: error, fatal: true)
                     return
                 }
@@ -269,8 +272,9 @@ public extension SEBScreenProctoringController {
     
     fileprivate func startScreenProctoring() {
         let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
+        let imageScale = 1/(self.imageDownscale ?? 1)
         timer.eventHandler = {
-            if let screenShotData = self.takeScreenShot() {
+            if let screenShotData = self.takeScreenShot(scale: imageScale) {
                 self.sendScreenShot(data: screenShotData, metaData: "")
             }
         }
@@ -278,10 +282,16 @@ public extension SEBScreenProctoringController {
         screenShotTimer?.resume()
     }
     
-    fileprivate func takeScreenShot() -> Data? {
+    fileprivate func takeScreenShot(scale: Double) -> Data? {
         let displayID = CGMainDisplayID()
-        guard let imageRef = CGDisplayCreateImage(displayID) else {
+        guard var imageRef = CGDisplayCreateImage(displayID) else {
             return nil
+        }
+        if scale != 1 {
+            guard let scaledImage = imageRef.resize(size: CGSize(width: scale, height: scale)) else {
+                return nil
+            }
+            imageRef = scaledImage
         }
         let pngData = imageRef.pngData()
         return pngData
@@ -316,6 +326,7 @@ public extension SEBScreenProctoringController {
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
+        screenShotTimer = nil
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -401,5 +412,24 @@ extension CGImage {
     
     return nil
   }
+}
+
+extension CGImage {
+    func resize(size:CGSize) -> CGImage? {
+        let width: Int = Int(size.width)
+        let height: Int = Int(size.height)
+
+        let bytesPerPixel = self.bitsPerPixel / self.bitsPerComponent
+        let destBytesPerRow = width * bytesPerPixel
+
+
+        guard let colorSpace = self.colorSpace else { return nil }
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: self.bitsPerComponent, bytesPerRow: destBytesPerRow, space: colorSpace, bitmapInfo: self.alphaInfo.rawValue) else { return nil }
+
+        context.interpolationQuality = .high
+        context.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        return context.makeImage()
+    }
 }
 
