@@ -722,8 +722,12 @@
 #pragma mark opening, saving, reverting and using edited settings
 
 // Save preferences and restart SEB with the new settings
-- (IBAction) restartSEB:(id)sender {
-
+- (IBAction) restartSEB:(id)sender 
+{
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -826,6 +830,10 @@
 // Save preferences and quit SEB
 - (IBAction) quitSEB:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     DDLogInfo(@"%s Quitting SEB while Preferences window is open", __FUNCTION__);
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
@@ -917,6 +925,10 @@
 
 - (IBAction) openSEBPrefs:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -985,6 +997,10 @@
 // with parameter indicating if the saved settings file URL should be updated
 - (BOOL) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
+    if (!self.preferencesAreOpen) {
+        return NO;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1264,6 +1280,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to default settings
 - (IBAction) revertToDefaultSettings:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1353,6 +1373,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to local client settings
 - (IBAction) revertToLocalClientSettings:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1433,6 +1457,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to the last saved or opened file
 - (IBAction) revertToLastSaved:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1511,6 +1539,10 @@ userEnteredFilename:(NSString *)filename
 // Action duplicating current preferences for editing
 - (IBAction) editDuplicate:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1589,6 +1621,10 @@ userEnteredFilename:(NSString *)filename
 // Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1670,6 +1706,10 @@ userEnteredFilename:(NSString *)filename
 // Action applying currently edited preferences, closing preferences window and restarting SEB
 - (IBAction) applyAndRestartSEB:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
