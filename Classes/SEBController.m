@@ -6101,7 +6101,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void)preferencesClosed:(NSNotification *)notification
 {
     DDLogInfo(@"Preferences window closed, no reconfiguration necessary");
-    
+    [configMenu setHidden:YES];
+
     [self updateAACAvailablility];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
@@ -6121,6 +6122,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)preferencesClosedRestartSEB:(NSNotification *)notification
 {
+    [configMenu setHidden:YES];
+    
     [self updateAACAvailablility];
     if (_startingUp) {
         [self preferencesOpenedWhileStartingUpNowClosing];
@@ -6140,6 +6143,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)preferencesOpenedWhileStartingUpNowClosing
 {
+    
     if (!quittingMyself) {
         DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
         // We need to reset this flag, as settings to be opened are already active
@@ -6153,9 +6157,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)performAfterPreferencesClosedActions
 {
-    // Hide the Config menu (in menu bar)
-    [configMenu setHidden:YES];
-    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
