@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -454,12 +454,12 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="419" width="550" height="300"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1890"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="860" customClass="AboutView">
                 <rect key="frame" x="0.0" y="0.0" width="550" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="102" translatesAutoresizingMaskIntoConstraints="NO" id="872">
+                    <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="102" translatesAutoresizingMaskIntoConstraints="NO" id="872">
                         <rect key="frame" x="322" y="194" width="110" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="Dxo-1f-sWl"/>
@@ -475,7 +475,7 @@
                         <rect key="frame" x="319" y="12" width="220" height="170"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="QVG-V8-8iz">
                             <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="5oh-B4-DAg">
                                     <rect key="frame" x="0.0" y="0.0" width="220" height="170"/>
@@ -624,7 +624,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1890"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" id="vWC-gd-xPh">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -633,7 +633,7 @@
                     <customView verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w4A-0q-NaR">
                         <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="14K-iu-K30" customClass="SEBTextField">
                                 <rect key="frame" x="18" y="75" width="376" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="18" id="eit-hR-UwU"/>
@@ -646,9 +646,6 @@
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-Dy-pUH">
                                 <rect key="frame" x="300" y="5" width="98" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="OMm-AP-8xl"/>
-                                </constraints>
                                 <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iQ5-CR-q1d">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -656,15 +653,15 @@
 DQ
 </string>
                                 </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="OMm-AP-8xl"/>
+                                </constraints>
                                 <connections>
                                     <action selector="okEnterPassword:" target="543" id="q3T-O9-vp6"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGb-Fd-rpF">
                                 <rect key="frame" x="204" y="5" width="98" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="HqM-8Y-m9g"/>
-                                </constraints>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qlt-2p-OmY">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -672,11 +669,14 @@ DQ
 Gw
 </string>
                                 </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="HqM-8Y-m9g"/>
+                                </constraints>
                                 <connections>
                                     <action selector="cancelEnterPassword:" target="543" id="MN8-6W-D4Q"/>
                                 </connections>
                             </button>
-                            <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
+                            <secureTextField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="8aH-DI-gaF">
                                 <rect key="frame" x="20" y="42" width="371" height="21"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="WHV-Hz-eSu">
                                     <font key="font" metaFont="system"/>
@@ -720,7 +720,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="107"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1890"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="107"/>
             <view key="contentView" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ee8-wp-re5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="107"/>
@@ -728,7 +728,7 @@ Gw
                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyv-Cs-67A">
                         <rect key="frame" x="20" y="14" width="372" height="79"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="eMF-Mh-wka" customClass="SEBTextField">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="eMF-Mh-wka" customClass="SEBTextField">
                                 <rect key="frame" x="-2" y="63" width="170" height="16"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Enter Raise Hand message:" id="mQ1-3N-dPK">
                                     <font key="font" metaFont="system"/>
@@ -736,7 +736,7 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tJS-zI-i8V">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tJS-zI-i8V">
                                 <rect key="frame" x="0.0" y="31" width="372" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="waN-P6-zfj">
                                     <font key="font" metaFont="system"/>
@@ -752,9 +752,6 @@ Gw
                                 <subviews>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JVW-QN-Co8">
                                         <rect key="frame" x="-7" y="-7" width="98" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="f6Y-4f-FaM"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qGd-4E-G3J">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -762,15 +759,15 @@ Gw
 Gw
 </string>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="f6Y-4f-FaM"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="cancelEnteringRaiseHandMessage:" target="543" id="J8E-Vw-Fq2"/>
                                         </connections>
                                     </button>
                                     <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iGQ-z1-kT3">
                                         <rect key="frame" x="89" y="-7" width="98" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="N43-fk-qaj"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="push" title="Send" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IHx-TC-Bz7">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -778,6 +775,9 @@ Gw
 DQ
 </string>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="N43-fk-qaj"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="sendEnteredRaiseHandMessage:" target="543" id="1fr-GQ-eJY"/>
                                         </connections>
@@ -849,7 +849,7 @@ DQ
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="nSQ-YT-olP" userLabel="Time View">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="32"/>
                     <subviews>
-                        <textField translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
+                        <textField focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-jb-hJX" userLabel="timeTextField">
                             <rect key="frame" x="3" y="9" width="45" height="17"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" alignment="center" placeholderString="09:41" id="ITD-IF-Cv9">
                                 <dateFormatter key="formatter" formatterBehavior="custom10_4" dateFormat="HH:mm" id="kfS-SN-RBm"/>
@@ -881,7 +881,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenAuxiliary="YES"/>
             <rect key="contentRect" x="340" y="419" width="412" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1890"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <value key="minSize" type="size" width="412" height="108"/>
             <view key="contentView" id="6KH-Lc-Pm5">
                 <rect key="frame" x="0.0" y="0.0" width="412" height="156"/>
@@ -892,9 +892,6 @@ DQ
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Odg-nf-m29">
                                 <rect key="frame" x="301" y="5" width="98" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="rO5-zD-xzf"/>
-                                </constraints>
                                 <buttonCell key="cell" type="push" title="Log In" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pIH-zG-hNx">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -902,6 +899,9 @@ DQ
 DQ
 </string>
                                 </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="84" id="rO5-zD-xzf"/>
+                                </constraints>
                                 <connections>
                                     <action selector="okEnterUsernamePassword:" target="543" id="uoQ-jI-Rt7"/>
                                 </connections>
@@ -919,7 +919,7 @@ Gw
                                     <action selector="cancelEnterUsernamePassword:" target="543" id="CLD-GG-NAW"/>
                                 </connections>
                             </button>
-                            <secureTextField verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="WxA-I6-hf2">
+                            <secureTextField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="371" translatesAutoresizingMaskIntoConstraints="NO" id="WxA-I6-hf2">
                                 <rect key="frame" x="90" y="42" width="302" height="21"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="l8a-6R-mRl">
                                     <font key="font" metaFont="system"/>
@@ -933,7 +933,7 @@ Gw
                                     <accessibilityConnection property="title" destination="WPU-Uw-nFp" id="qXG-yd-iH5"/>
                                 </connections>
                             </secureTextField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="62" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Uw-nFp">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="62" translatesAutoresizingMaskIntoConstraints="NO" id="WPU-Uw-nFp">
                                 <rect key="frame" x="18" y="45" width="66" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="XL9-tP-eEk">
                                     <font key="font" metaFont="system"/>
@@ -941,7 +941,7 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="302" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-qP-q3l">
+                            <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="302" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-qP-q3l">
                                 <rect key="frame" x="90" y="71" width="302" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aal-ls-xSb">
                                     <font key="font" metaFont="system"/>
@@ -952,7 +952,7 @@ Gw
                                     <accessibilityConnection property="title" destination="7iw-YD-is5" id="jZi-WS-uD1"/>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-YD-is5">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="40" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-YD-is5">
                                 <rect key="frame" x="40" y="74" width="44" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name:" id="BaL-l1-4iZ">
                                     <font key="font" metaFont="system"/>
@@ -960,7 +960,7 @@ Gw
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="XNo-Zw-SiV" customClass="SEBTextField">
+                            <textField focusRingType="none" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="372" translatesAutoresizingMaskIntoConstraints="NO" id="XNo-Zw-SiV" customClass="SEBTextField">
                                 <rect key="frame" x="18" y="105" width="376" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="36" id="ty9-mD-Gm9"/>
@@ -1011,7 +1011,7 @@ Gw
             <rect key="frame" x="0.0" y="0.0" width="500" height="500"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="149" translatesAutoresizingMaskIntoConstraints="NO" id="8UT-LK-qvz" customClass="SEBTextField">
+                <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="149" translatesAutoresizingMaskIntoConstraints="NO" id="8UT-LK-qvz" customClass="SEBTextField">
                     <rect key="frame" x="204" y="464" width="93" height="24"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Warning!" id="f7N-eB-F22">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -1019,7 +1019,7 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="JXZ-17-yJM" customClass="SEBTextField">
+                <textField focusRingType="none" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="JXZ-17-yJM" customClass="SEBTextField">
                     <rect key="frame" x="18" y="394" width="464" height="62"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="a6z-Ti-hnP"/>
@@ -1035,7 +1035,7 @@ Gw
                     <rect key="frame" x="20" y="87" width="460" height="292"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="poc-GF-ali">
                         <rect key="frame" x="1" y="1" width="458" height="290"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView editable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" findStyle="bar" allowsNonContiguousLayout="YES" id="Yge-oE-zei">
                                 <rect key="frame" x="0.0" y="0.0" width="458" height="290"/>
@@ -1074,7 +1074,7 @@ DQ
                         </connections>
                     </buttonCell>
                 </button>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-tO-um5" customClass="SEBTextField">
+                <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="267" translatesAutoresizingMaskIntoConstraints="NO" id="DHa-tO-um5" customClass="SEBTextField">
                     <rect key="frame" x="146" y="55" width="209" height="17"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This event has been recorded." id="Dex-y3-8UD">
                         <font key="font" size="14" name="HelveticaNeue-Bold"/>
@@ -1107,7 +1107,7 @@ DQ
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="seo-VR-ST1" userLabel="SEB Inactive Screen View">
             <rect key="frame" x="0.0" y="0.0" width="500" height="88"/>
             <subviews>
-                <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="fBQ-HD-9r1" customClass="SEBTextField">
+                <textField focusRingType="none" verticalHuggingPriority="750" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="fBQ-HD-9r1" customClass="SEBTextField">
                     <rect key="frame" x="134" y="20" width="232" height="48"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="This screen is disabled in current settings" id="0RK-x9-0F0">
                         <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -1131,7 +1131,7 @@ DQ
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHq-vY-HE2">
                     <rect key="frame" x="20" y="140" width="460" height="585"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
+                        <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
                             <rect key="frame" x="-2" y="561" width="464" height="24"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                                 <font key="font" size="20" name="HelveticaNeue-Bold"/>
@@ -1142,7 +1142,7 @@ DQ
                                 <outlet property="nextKeyView" destination="5sW-Md-KnP" id="CJe-KL-rkB"/>
                             </connections>
                         </textField>
-                        <textField horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
+                        <textField focusRingType="none" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
                             <rect key="frame" x="-2" y="505" width="464" height="48"/>
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                                 <font key="font" metaFont="system"/>
@@ -1158,7 +1158,7 @@ DQ
                             <rect key="frame" x="0.0" y="117" width="460" height="380"/>
                             <clipView key="contentView" copiesOnScroll="NO" id="5ua-AF-4aq">
                                 <rect key="frame" x="1" y="1" width="458" height="378"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="bar" id="zks-rs-f3E" customClass="SEBTextViewNonEditing">
                                         <rect key="frame" x="0.0" y="0.0" width="458" height="378"/>
@@ -1195,7 +1195,7 @@ DQ
                         <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o5V-2d-p9N" userLabel="QuitUnlockPasswordUI">
                             <rect key="frame" x="0.0" y="36" width="460" height="73"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
+                                <textField focusRingType="none" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="d45-bx-wxa" customClass="SEBTextField">
                                     <rect key="frame" x="45" y="57" width="370" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
@@ -1212,7 +1212,7 @@ DQ
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IaS-JM-HUH">
                                             <rect key="frame" x="0.0" y="0.0" width="434" height="21"/>
                                             <subviews>
-                                                <secureTextField verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
+                                                <secureTextField focusRingType="none" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="K91-6e-rl1">
                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="21"/>
                                                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="5pB-Oo-yvI">
                                                         <font key="font" metaFont="system"/>
@@ -1229,14 +1229,14 @@ DQ
                                                 </secureTextField>
                                                 <button verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="oDg-Su-CdJ">
                                                     <rect key="frame" x="416" y="-1" width="18" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
-                                                        <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSGoRightTemplate" imagePosition="only" alignment="center" imageScaling="axesIndependently" inset="2" id="Diq-E8-esA">
                                                         <behavior key="behavior" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="9uG-2i-dG9"/>
+                                                        <constraint firstAttribute="width" constant="18" id="EzV-RX-A8U"/>
+                                                    </constraints>
                                                     <accessibility description="OK"/>
                                                     <connections>
                                                         <action selector="passwordEntered:" target="agr-W5-n2K" id="S2V-hx-Lhj"/>
@@ -1252,7 +1252,7 @@ DQ
                                                 <real value="3.4028234663852886e+38"/>
                                             </customSpacing>
                                         </stackView>
-                                        <textField hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
+                                        <textField hidden="YES" focusRingType="none" verticalHuggingPriority="750" verifyAmbiguity="off" preferredMaxLayoutWidth="370" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-rS-ItL">
                                             <rect key="frame" x="-2" y="5" width="197" height="16"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please enter correct password!" usesSingleLineMode="YES" id="2XV-dZ-8rd">
                                                 <font key="font" metaFont="system"/>
@@ -1289,49 +1289,49 @@ DQ
                                                 <action selector="retryButtonPressed:" target="agr-W5-n2K" id="0OO-9e-gOe"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
+                                        <button verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
                                             <rect key="frame" x="-1" y="-1" width="250" height="22"/>
                                             <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2n3-Tk-TFb">
                                             <rect key="frame" x="-1" y="5" width="216" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for screen sharing" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="bsl-EU-pHD">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="do5-oi-5WI">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="do5-oi-5WI">
                                             <rect key="frame" x="-1" y="5" width="200" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override enforcing built-in display" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="kbH-iY-TGy">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yt2-Rs-d1G">
                                             <rect key="frame" x="-1" y="5" width="155" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for Siri" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="H1g-uS-wch">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Dl-Z63">
                                             <rect key="frame" x="-1" y="5" width="184" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for dictation" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7xF-1g-PGT">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-fM-8i5">
                                             <rect key="frame" x="-1" y="5" width="278" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override checking for the processes listed above" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="9TK-SC-OtA">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
                                         </button>
-                                        <button hidden="YES" verticalHuggingPriority="750" verifyAmbiguity="off" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
+                                        <button hidden="YES" verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="62k-M2-j1C">
                                             <rect key="frame" x="-1" y="5" width="252" height="16"/>
                                             <buttonCell key="cell" type="check" title="Override process security check completely" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="UPO-LF-2DU">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1428,12 +1428,12 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1890"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="94S-Ha-RmY">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA" customClass="SEBTextField">
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="j4C-Za-nAA" customClass="SEBTextField">
                         <rect key="frame" x="18" y="17" width="464" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="6w8-6M-a1v">
                             <font key="font" metaFont="system"/>
@@ -1460,14 +1460,14 @@ DQ
                 </customView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T34-Ib-434" userLabel="Battery Icon">
                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="32" id="IFT-6g-BiA"/>
-                        <constraint firstAttribute="width" constant="32" id="ewC-F3-Gu6"/>
-                    </constraints>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SEBBatteryIcon" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="LdV-Br-Bsc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="IFT-6g-BiA"/>
+                        <constraint firstAttribute="width" constant="32" id="ewC-F3-Gu6"/>
+                    </constraints>
                 </button>
             </subviews>
             <constraints>
@@ -1489,7 +1489,7 @@ DQ
                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uf-3f-TUt">
                     <rect key="frame" x="20" y="20" width="560" height="20"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BDF-nF-otU">
+                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BDF-nF-otU">
                             <rect key="frame" x="-2" y="2" width="95" height="16"/>
                             <textFieldCell key="cell" lineBreakMode="clipping" title="Config Format:" id="4Lq-cR-TrS">
                                 <font key="font" metaFont="system"/>
