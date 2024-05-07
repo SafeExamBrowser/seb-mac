@@ -283,16 +283,20 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func takeScreenShot(scale: Double) -> Data? {
-        let displayID = CGMainDisplayID()
-        guard var imageRef = CGDisplayCreateImage(displayID) else {
+//        let displayID = CGMainDisplayID()
+//        guard var imageRef = CGDisplayCreateImage(displayID) else {
+//            return nil
+//        }
+        guard let imageRef = CGWindowListCreateImage(CGRectInfinite, .optionAll, CGWindowID(), CGWindowImageOption()) else {
             return nil
         }
-        if scale != 1 {
-            guard let scaledImage = imageRef.resize(size: CGSize(width: scale, height: scale)) else {
-                return nil
-            }
-            imageRef = scaledImage
-        }
+
+//        if scale != 1 {
+//            guard let scaledImage = imageRef.resize(size: CGSize(width: scale, height: scale)) else {
+//                return nil
+//            }
+//            imageRef = scaledImage
+//        }
         let pngData = imageRef.pngData()
         return pngData
     }
