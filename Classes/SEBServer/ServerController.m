@@ -52,6 +52,7 @@
     
     if (url && institution && username && password && discoveryAPIEndpoint)
     {
+        _url = url;
         _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
                                                                 institution:institution
                                                                        exam:exam

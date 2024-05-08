@@ -1274,9 +1274,10 @@ bool insideMatrix(void);
 - (void) loginToExam:(NSString *)url
 {
     NSURL *examURL = [NSURL URLWithString:url];
+    self.sessionState.sebServerExamStartURL = examURL;
+    DDLogDebug(@"Session state: sebServerExamURL = %@", self.sessionState.sebServerExamStartURL);
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
     [self persistSecureExamStartURL:url configKey:self.configKey];
-    self.sessionState.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
 
@@ -1926,7 +1927,8 @@ bool insideMatrix(void);
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
     BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
-    BOOL isETHExam = [self.sessionState.startURL.host isEqualToString:@"ethz.ch"];
+    BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
+    [_serverController.url.host hasSuffix:@"ethz.ch"];
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
         NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
