@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 void run_on_ui_thread(dispatch_block_t block);
 
-@property(strong, nonatomic) SEBSessionState *sessionState;
+@property(strong, nonatomic) SEBSessionState *_Nullable sessionState;
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (weak) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerTopContraint;

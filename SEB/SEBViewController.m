@@ -2716,6 +2716,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
+    self.sessionState = nil;
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
     
@@ -2733,7 +2735,7 @@ void run_on_ui_thread(dispatch_block_t block)
     self.viewDidLayoutSubviewsAlreadyCalled = NO;
     
     [self.browserTabViewController closeAllTabs];
-    self.sessionRunning = false;
+    self.sessionRunning = NO;
     [self.browserController resetBrowser];
 }
 
@@ -3086,7 +3088,6 @@ void run_on_ui_thread(dispatch_block_t block)
         // If decrypting new settings was successfull
         receivedServerConfig = nil;
         self.scannedQRCode = NO;
-        [[NSUserDefaults standardUserDefaults] setSecureString:self->startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
         NSString *newSettingsFilename = [[MyGlobals sharedMyGlobals] currentConfigURL].lastPathComponent.stringByDeletingPathExtension;
@@ -3292,8 +3293,8 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
     }
-    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSURL *startURL = [NSURL URLWithString:startURLString];
+    NSURL *startURL = self.sessionState.startURL;
+    NSString *startURLString = startURL.absoluteString;
     if (startURLString.length == 0 ||
         (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
           [startURL.host hasSuffix:SEBWebsiteShort]) &&
