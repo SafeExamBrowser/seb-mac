@@ -553,6 +553,7 @@ static NSString __unused *BTouchBarAgent = @"BetterTouchTool";
 static NSString __unused *BTouchBarRestartAgent = @"BTTRelaunch";
 static NSString __unused *WebKitNetworkingProcessBundleID = @"com.apple.WebKit.Networking";
 static NSString __unused *UniversalControlBundleID = @"com.apple.universalcontrol";
+static NSString __unused *KeyboardViewerBundleID = @"com.apple.inputmethod.AssistiveControl";
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *systemPreferencesBundleID = @"com.apple.systempreferences";
