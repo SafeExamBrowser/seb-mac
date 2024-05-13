@@ -47,6 +47,12 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Keyboard Viewer (Assistive Control)",
+                          @"identifier" : KeyboardViewerBundleID,
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
