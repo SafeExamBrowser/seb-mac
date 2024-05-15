@@ -847,6 +847,30 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
     
+    NSArray <NSString *> *libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                                              NSLocalDomainMask | NSUserDomainMask,
+                                                              YES);
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+
+    for (NSString *libraryDir in libraryDirs) {
+        BOOL isDir;
+        NSString *keyBindingsFilePath = [libraryDir stringByAppendingPathComponent:KeyBindingsPath];
+        if ([fileManager fileExistsAtPath:keyBindingsFilePath isDirectory:&isDir]) {
+            DDLogError(@"Cocoa Text System key bindings file detected: at path %@", keyBindingsFilePath);
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Custom Key Binding Detected", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart SEB", @""), keyBindingsFilePath]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
+            void (^keyBindingDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
+                [self quitSEBOrSession];
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))keyBindingDetectedHandler];
+            return;
+        }
+    }
+    
     // Check if the font download alert was triggered from a web page
     // and SEB didn't had Accessibility permissions
     // and therefore was terminated to prevent a modal lock
