@@ -2048,10 +2048,17 @@ bool insideMatrix(void);
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
                   videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                
+                NSMutableArray <AVMediaType> *authorizationAccessRequests = [NSMutableArray new];
+                
                 NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", @"") : @"";
                 NSString *camera = @"";
                 if ((proctoringSession || browserMediaCaptureCamera) && videoAuthorization != AVAuthorizationStatusAuthorized) {
                     camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", @""), microphone.length > 0 ? NSLocalizedString(@" and ", @"") : @""];
+                    [authorizationAccessRequests addObject:AVMediaTypeVideo];
+                }
+                if (microphone.length > 0) {
+                    [authorizationAccessRequests addObject:AVMediaTypeAudio];
                 }
                 NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
                                                     proctoringSession ? NSLocalizedString(@"remote proctoring", @"") : @"",
@@ -2085,6 +2092,8 @@ bool insideMatrix(void);
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
                 }
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
+                
+                // Block for requesting access to camera and microphone
                 void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
@@ -2098,26 +2107,30 @@ bool insideMatrix(void);
                                  postNotificationName:@"requestQuitSEBOrSession" object:self];
                                 return;
                             }
-                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                            [AVCaptureDevice requestAccessForMediaType:authorizationAccessRequests[0] completionHandler:^(BOOL granted) {
                                 if (granted){
-                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                    DDLogInfo(@"Granted access to %@", authorizationAccessRequests[0]);
                                     
-                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                                        if (granted){
-                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                            
-                                            run_on_ui_thread(conditionallyStartProctoring);
-                                            
-                                        } else {
-                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                            [[NSNotificationCenter defaultCenter]
-                                             postNotificationName:@"requestQuitSEBOrSession" object:self];
-                                        }
-                                    }];
+                                    if (authorizationAccessRequests.count > 1) {
+                                        [AVCaptureDevice requestAccessForMediaType:authorizationAccessRequests[1] completionHandler:^(BOOL granted) {
+                                            if (granted){
+                                                DDLogInfo(@"Granted access to %@", authorizationAccessRequests[1]);
+                                                
+                                                run_on_ui_thread(conditionallyStartProctoring);
+                                                
+                                            } else {
+                                                DDLogError(@"Not granted access to %@", authorizationAccessRequests[1]);
+                                                [[NSNotificationCenter defaultCenter]
+                                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                            }
+                                        }];
+                                    } else {
+                                        run_on_ui_thread(conditionallyStartProctoring);
+                                    }
                                     return;
                                     
                                 } else {
-                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                    DDLogError(@"Not granted access to %@", authorizationAccessRequests[0]);
                                     [[NSNotificationCenter defaultCenter]
                                      postNotificationName:@"requestQuitSEBOrSession" object:self];
                                 }
@@ -2137,6 +2150,8 @@ bool insideMatrix(void);
                     }
                     
                 };
+                // End of Block
+                
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
                 return;
                 
