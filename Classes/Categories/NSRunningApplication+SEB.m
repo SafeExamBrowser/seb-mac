@@ -54,13 +54,29 @@
 - (BOOL)kill
 {
     if (!self.terminated) {
-        BOOL success = [NSRunningApplication killProcessWithPID:[self processIdentifier] error:nil];
+        NSError *error;
+        BOOL success = [NSRunningApplication killProcessWithPID:[self processIdentifier] error:&error];
         DDLogVerbose(@"Success of terminating %@: %ld", self, (long)success);
+        if (success == NO) {
+            success = [self filterKillErrors:error];
+        }
         return success;
     } else {
         DDLogVerbose(@"Process %@ alread terminated", self);
         return YES;
     }
+}
+
+
+- (BOOL)filterKillErrors:(NSError*)error
+{
+    NSInteger killSuccess = [[error.userInfo objectForKey:SEBErrorKillProcessSuccessKey] intValue];
+    long errorNumber = [[error.userInfo objectForKey:SEBErrorKillProcessErrnoKey] longValue];
+    if (killSuccess == -1 && errorNumber == 1 && [self.bundleIdentifier isEqualToString:WebKitNetworkingProcessBundleID] ) {
+        // WebKit networking process couldn't be killed because it's running with elevated user rights, ignore it
+        return YES;
+    }
+    return NO;
 }
 
 
@@ -94,7 +110,10 @@
         *error = [NSError errorWithDomain:sebErrorDomain
                                            code:SEBErrorKillProcessFailed
                                        userInfo:@{NSLocalizedDescriptionKey : [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Couldn't terminate process: %@", @""), localizedDescription],
-                                                  NSDebugDescriptionErrorKey : [NSString stringWithFormat:@"Couldn't terminate process: %@", debugDescription]}];
+                                                  NSDebugDescriptionErrorKey : [NSString stringWithFormat:@"Couldn't terminate process: %@", debugDescription],
+                                                  SEBErrorKillProcessSuccessKey: [NSNumber numberWithLong:killSuccess],
+                                                  SEBErrorKillProcessErrnoKey: [NSNumber numberWithInt:errno]  //[NSString stringWithFormat:@"%@", errno]
+                                                }];
     }
     return NO;
 }
