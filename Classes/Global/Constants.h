@@ -584,6 +584,9 @@ enum {
 };
 typedef NSUInteger SEBErrorDomainErrors;
 
+static NSString __unused *SEBErrorKillProcessSuccessKey = @"SEBErrorKillProcessSuccess";
+static NSString __unused *SEBErrorKillProcessErrnoKey = @"SEBErrorKillProcessErrno";
+
 static NSString __unused *UserAgentHeaderKey = @"User-Agent";
 static NSString __unused *SEBUserAgentDefaultBrowserSuffix = @"Version/14.0.3 Safari";
 static NSString __unused *SEBUserAgentDefaultSafariVersion = @"605.1.15";
