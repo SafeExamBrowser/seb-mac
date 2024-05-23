@@ -3635,7 +3635,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", @"")
                                                                                 message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", @"")
                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                    self.endSAMWAlertDisplayed = true;
+                    self.endSAMWAlertDisplayed = YES;
                     [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
                     return;
                 }
@@ -3644,10 +3644,10 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
                         DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
                             if (didSucceed) {
                                 DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                self.ASAMActive = false;
+                                self.ASAMActive = NO;
                             }
                             else {
                                 DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
@@ -3713,7 +3713,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector
 {
-    BOOL success = true;
+    BOOL success = YES;
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL, BOOL) = (void *)imp;
     func(callback, selector, success);

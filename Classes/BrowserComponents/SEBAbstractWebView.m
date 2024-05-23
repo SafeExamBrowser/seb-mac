@@ -80,9 +80,6 @@
 //        [preferences setBool:_allowSpellCheck forKey:@"NSContinuousSpellCheckingEnabled"];
 //        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticSpellingCorrectionEnabled"];
 //        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticTextCompletionEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAllowContinuousSpellChecking"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticSpellingCorrectionEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticTextCompletionEnabled"];
 //        [preferences setBool:_allowSpellCheck forKey:@"WebContinuousSpellCheckingEnabled"];
 //        [preferences setBool:_allowSpellCheck forKey:@"WebAutomaticSpellingCorrectionEnabled"];
 //        [preferences setBool:_allowSpellCheck forKey:@"WebGrammarCheckingEnabled"];
@@ -113,6 +110,21 @@
                         self.browserControllerDelegate = sebAbstractModernWebView;
                         [self initGeneralProperties];
                         
+//                        if ([preferences boolForKey:@"NSAllowContinuousSpellChecking"] != _allowSpellCheck) {
+//                            [NSApp.nextResponder tryToPerform:@selector(toggleContinuousSpellChecking:) with:self.nativeWebView];
+//                        }
+//                        if ([preferences boolForKey:@"NSAutomaticSpellingCorrectionEnabled"] != _allowSpellCheck) {
+//                            [NSApp.nextResponder tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:self.nativeWebView ];
+//                        }
+//                        [NSApp.mainWindow tryToPerform:@selector(toggleContinuousSpellChecking:) with:NSApp.mainWindow];
+//                        [NSApp.mainWindow tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:NSApp.mainWindow];
+
+//                        if ([preferences boolForKey:@"WebContinuousSpellCheckingEnabled"] != _allowSpellCheck) {
+//                            [NSApp.keyWindow.firstResponder tryToPerform:@selector(toggleContinuousSpellChecking:) with:self];
+//                        }
+//                        if ([preferences boolForKey:@"WebAutomaticSpellingCorrectionEnabled"] != _allowSpellCheck) {
+//                            [NSApp.keyWindow.firstResponder tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:self];
+//                        }
 //                        SEL selector = NSSelectorFromString(@"toggleContinuousSpellChecking:");
 //
 //                        id nativeWebView = [self nativeWebView];
