@@ -2423,7 +2423,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Siri is active
             DDLogError(@"Siri Detected, SEB will quit");
             [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", @"")
-                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Preferences/Siri.", @""), SEBShortAppName, SEBShortAppName]];
+                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Settings/Siri.", @""), SEBShortAppName, SEBShortAppName]];
             return;
         }
         
@@ -2435,7 +2435,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Dictation is active
             DDLogError(@"Dictation Detected, SEB will quit");
             [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", @"")
-                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Preferences/Keyboard/Dictation.", @""), SEBShortAppName, SEBShortAppName]];
+                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Settings/Keyboard/Dictation.", @""), SEBShortAppName, SEBShortAppName]];
             return;
         }
     }
