@@ -4321,7 +4321,7 @@ conditionallyForWindow:(NSWindow *)window
             
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Re-Opening Locked Exam!", @"Lockdown alert title text for re-opening a locked exam")
                                                         Message:[NSString stringWithFormat:@"%@\n\n%@",
-                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.", @""),
+                                                                 NSLocalizedString(@"This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.", @""),
                                                                  [NSString stringWithFormat:NSLocalizedString(@"To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running.", @""), SEBShortAppName, SEBShortAppName]
                                                                  ]];
             
