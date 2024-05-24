@@ -859,7 +859,7 @@ bool insideMatrix(void);
             DDLogError(@"Cocoa Text System key bindings file detected: at path %@", keyBindingsFilePath);
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Custom Key Binding Detected", @"")];
-            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart SEB", @""), keyBindingsFilePath]];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart %@", @""), SEBShortAppName, keyBindingsFilePath, SEBShortAppName]];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^keyBindingDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -893,7 +893,7 @@ bool insideMatrix(void);
             if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                 modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", NSLocalizedString(@"SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security & Privacy preferences, located in System Preferences.", @""), [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font.", @""), [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences.", @""), SEBShortAppName, SEBFullAppName], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
@@ -1536,7 +1536,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", @"")}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : [NSString stringWithFormat:NSLocalizedString(@"%@ was locked by SEB Server. Please contact your exam support.", @""), SEBShortAppName]}];
 }
 
 - (void) confirmNotificationWithAttributes:(NSDictionary *)attributes
@@ -1905,7 +1905,7 @@ bool insideMatrix(void);
             DDLogError(@"SERIOUS SECURITY ISSUE DETECTED: SEB was started up in a virtual machine! gestaltX86AdditionalFeatures = %X", myAttrs);
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Virtual Machine Detected!", @"")];
-            [modalAlert setInformativeText:NSLocalizedString(@"You are not allowed to run SEB inside a virtual machine!", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to run %@ inside a virtual machine!", @""), SEBShortAppName]];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^vmDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -2070,7 +2070,7 @@ bool insideMatrix(void);
                 if (videoAuthorization == AVAuthorizationStatusDenied ||
                     audioAuthorization == AVAuthorizationStatusDenied) {
                     resolveSuggestion = NSLocalizedString(@"in System Preferences ", @"");
-                    resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", @"");
+                    resolveSuggestion2 = [NSString stringWithFormat:NSLocalizedString(@"return to %@ and re", @""), SEBShortAppName];
                 } else {
                     resolveSuggestion = @"";
                     resolveSuggestion2 = @"";
@@ -2411,8 +2411,8 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Screen Sharing Detected, SEB will quit");
             [self showModalQuitAlertTitle:NSLocalizedString(@"Screen Sharing Detected!", @"")
                                      text:[NSString stringWithFormat:@"%@\n\n%@",
-                                           NSLocalizedString(@"You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.", @""),
-                                           NSLocalizedString(@"To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.", @"")]];
+                                           [NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have screen sharing active while running %@. Restart %@ after switching screen sharing off.", @""), SEBShortAppName, SEBShortAppName],
+                                           [NSString stringWithFormat:NSLocalizedString(@"To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.", @""), SEBShortAppName]]];
             return;
         }
         
@@ -2423,7 +2423,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Siri is active
             DDLogError(@"Siri Detected, SEB will quit");
             [self showModalQuitAlertTitle:NSLocalizedString(@"Siri Detected!", @"")
-                                     text:NSLocalizedString(@"You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.", @"")];
+                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Preferences/Siri.", @""), SEBShortAppName, SEBShortAppName]];
             return;
         }
         
@@ -2435,7 +2435,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // Dictation is active
             DDLogError(@"Dictation Detected, SEB will quit");
             [self showModalQuitAlertTitle:NSLocalizedString(@"Dictation Detected!", @"")
-                                     text:NSLocalizedString(@"You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.", @"")];
+                                     text:[NSString stringWithFormat:NSLocalizedString(@"You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Preferences/Keyboard/Dictation.", @""), SEBShortAppName, SEBShortAppName]];
             return;
         }
     }
@@ -2490,8 +2490,8 @@ void run_on_ui_thread(dispatch_block_t block)
     if ([MyGlobals sharedMyGlobals].reconfiguredWhileStarting) {
         // Show alert that SEB was reconfigured
         NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:NSLocalizedString(@"SEB Re-Configured", @"")];
-        [modalAlert setInformativeText:NSLocalizedString(@"New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?", @"")];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Re-Configured", @""), SEBShortAppName]];
+         [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"New settings have been saved, they will be used when you start %@ next time again. Do you want to continue working with %@ or quit for now?", @""), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Continue", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
         void (^reconfiguredAnswer)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -3815,7 +3815,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             DDLogError(@"Show error message and ask user to close it or quit SEB.");
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Close Force Quit Window", @"")];
-            [modalAlert setInformativeText:NSLocalizedString(@"SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.", @"")];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac.", @""), SEBShortAppName, SEBShortAppName]];
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
@@ -5599,7 +5599,7 @@ conditionallyForWindow:(NSWindow *)window
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
-                                                                       toolTip:NSLocalizedString(@"Quit SEB",nil)
+                                                                       toolTip:[NSString stringWithFormat:NSLocalizedString(@"Quit %@",nil), SEBShortAppName]
                                                                           menu:nil
                                                                         target:self
                                                                         action:@selector(quitButtonPressed)
@@ -5735,7 +5735,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     for (SEBDockItemButton *dockButton in dockButtons) {
         if (dockButton.action == @selector(sebButtonPressed)) {
-            dockButton.accessibilityTitle = NSLocalizedString(@"Activates SEB browser. Right click displays menu with open webpages.", @"");
+            dockButton.accessibilityTitle = [NSString stringWithFormat:NSLocalizedString(@"Activates %@ browser. Right click displays menu with open webpages.", @""), SEBShortAppName];
         }
     }
 }
@@ -6087,7 +6087,7 @@ conditionallyForWindow:(NSWindow *)window
                     // Wrong admin password was entered
                     NSAlert *modalAlert = [self newAlert];
                     [modalAlert setMessageText:NSLocalizedString(@"Wrong Admin Password", @"")];
-                    [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct SEB administrator password, then you cannot open preferences.", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If you don't enter the correct %@ administrator password, then you cannot open preferences.", @""), SEBShortAppName]];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                     [modalAlert setAlertStyle:NSAlertStyleWarning];
                     void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -6540,7 +6540,7 @@ conditionallyForWindow:(NSWindow *)window
             DDLogError(@"Command key is pressed while restarting SEB, show dialog asking to release it.");
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", @"")];
-            [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while restarting SEB is not allowed, release it to continue.", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Holding the Command key down while restarting %@ is not allowed, release it to continue.", @""), SEBShortAppName]];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^cmdKeyHeldProceed)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -6663,8 +6663,8 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
         NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"SEB Not in %@ Folder!", @""), localizedApplicationDirectoryName]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.", @""), localizedApplicationDirectoryName, localizedAndInternalApplicationDirectoryName]];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not in %@ Folder!", @""), SEBShortAppName, localizedApplicationDirectoryName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now.", @""), SEBShortAppName, localizedApplicationDirectoryName, SEBFullAppName, localizedAndInternalApplicationDirectoryName, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -6719,7 +6719,7 @@ conditionallyForWindow:(NSWindow *)window
         // Show alert that keys were hold while starting SEB
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Holding Command Key Not Allowed!", @"")];
-        [modalAlert setInformativeText:NSLocalizedString(@"Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.", @"")];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Holding the Command key down while starting %@ is not allowed. Restart %@ without holding any keys.", @""), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -6826,7 +6826,7 @@ conditionallyForWindow:(NSWindow *)window
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
-        [modalAlert setInformativeText:NSLocalizedString(@"Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you.", @"")];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %@ will open this System Preferences tab for you.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [modalAlert setAlertStyle:NSAlertStyleWarning];

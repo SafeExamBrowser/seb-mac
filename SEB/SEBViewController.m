@@ -4014,7 +4014,7 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", @"")}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : [NSString stringWithFormat:NSLocalizedString(@"%@ was locked by SEB Server. Please contact your exam support.", @""), SEBShortAppName]}];
 }
 
 
@@ -4618,7 +4618,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: nil
-                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.", @""), SEBShortAppName]];
             // Add log string for entering a locked exam
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", @"")] withTime:[NSDate date] repeated: NO];
         } else {
@@ -4644,7 +4644,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Screen is being captured while in secure mode!");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
-                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.", @""), SEBShortAppName]];
             // Add log string for entering a locked exam
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", @"")] withTime:[NSDate date] repeated:NO];
         } else {
@@ -4668,7 +4668,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
-                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", @"")];
+                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows.", @"")];
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];

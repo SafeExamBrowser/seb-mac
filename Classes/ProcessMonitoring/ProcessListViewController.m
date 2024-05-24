@@ -104,7 +104,7 @@
         quitSEBSessionButton.title = NSLocalizedString(@"Start SEB", @"");
     }
 #else
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", @""), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.", @""), SEBShortAppName], self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
 #endif
 }
 
@@ -114,7 +114,7 @@
     if (self.delegate.quittingSession) {
         quitSEBOrSessionString = NSLocalizedString(@"Quit Session", @"");
     } else {
-        quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", @"");
+        quitSEBOrSessionString = [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName];
     }
     return quitSEBOrSessionString;
 }
@@ -296,7 +296,7 @@
             self.modalAlert = [self.delegate newAlert];
             DDLogError(@"Force quitting processes failed!");
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", @"")];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @"")];
+            [self.modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @""), SEBShortAppName]];
             [self.modalAlert setAlertStyle:NSAlertStyleCritical];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];

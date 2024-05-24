@@ -322,8 +322,6 @@
                                             [certificateData base64EncodedStringWithOptions:(0)], @"certificateDataBase64",
                                             nil];
         [certificatesArrayController addObject:certificateToEmbed];
-        [self conditionallyShowOSCertWarning:nil];
-        
     }
 }
 
@@ -361,7 +359,6 @@
                                                     [certificateData base64EncodedStringWithOptions:(0)], @"certificateDataBase64",
                                                     nil];
                 [certificatesArrayController addObject:certificateToEmbed];
-                [self conditionallyShowOSCertWarning:nil];
                 
             }
             
@@ -490,28 +487,9 @@
                                                 nil];
 
             [certificatesArrayController addObject:certificateToEmbed];
-            [self conditionallyShowOSCertWarning:nil];
         }
     }
     [NSApp stopModal];
-}
-
-
-- (IBAction)conditionallyShowOSCertWarning:(NSButton *)sender
-{
-    if (!_preferencesController.certOSWarningDisplayed) {
-        if (!sender || (sender && sender.state)) {
-            _preferencesController.certOSWarningDisplayed = true;
-            NSAlert *newAlert = [[NSAlert alloc] init];
-            [newAlert setMessageText:NSLocalizedString(@"macOS Support Warning", @"")];
-            [newAlert setInformativeText:NSLocalizedString(@"SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.", @"")];
-            [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-            [newAlert setAlertStyle:NSAlertStyleCritical];
-            // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
-            // which also is the minimum macOS version the Preferences window is available from
-            [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
-        }
-    }
 }
 
 
