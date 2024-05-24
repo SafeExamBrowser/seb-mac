@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -71,28 +71,28 @@
                                     </button>
                                     <button toolTip="Add a filter rule" translatesAutoresizingMaskIntoConstraints="NO" id="526">
                                         <rect key="frame" x="17" y="242" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="LXq-Xr-0eI"/>
-                                            <constraint firstAttribute="height" constant="21" id="abk-IT-zqh"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" scrollable="YES" lineBreakMode="clipping" borderStyle="border" inset="2" id="532">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="LXq-Xr-0eI"/>
+                                            <constraint firstAttribute="height" constant="21" id="abk-IT-zqh"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="addExpression:" target="-2" id="S7v-Mp-KGg"/>
                                         </connections>
                                     </button>
                                     <button toolTip="Remove a filter rule" translatesAutoresizingMaskIntoConstraints="NO" id="527">
                                         <rect key="frame" x="38" y="242" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="660"/>
-                                            <constraint firstAttribute="height" constant="21" id="syy-uu-bHG"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="528">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="660"/>
+                                            <constraint firstAttribute="height" constant="21" id="syy-uu-bHG"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="remove:" target="Hmk-IV-hfb" id="TF7-wR-7my"/>
                                         </connections>
@@ -232,18 +232,18 @@
                                     <box autoresizesSubviews="NO" borderType="line" title="Selected Action" translatesAutoresizingMaskIntoConstraints="NO" id="GZd-2h-HIq">
                                         <rect key="frame" x="14" y="5" width="576" height="229"/>
                                         <view key="contentView" id="WFL-Gt-iBJ">
-                                            <rect key="frame" x="3" y="3" width="570" height="211"/>
+                                            <rect key="frame" x="4" y="5" width="568" height="209"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <button toolTip="URL filter action item is active" translatesAutoresizingMaskIntoConstraints="NO" id="jId-HY-bdq">
-                                                    <rect key="frame" x="9" y="153" width="64" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="yVm-BW-ed0"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="8" y="151" width="64" height="20"/>
                                                     <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iBm-Ni-pSi">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="yVm-BW-ed0"/>
+                                                    </constraints>
                                                     <connections>
                                                         <binding destination="Hmk-IV-hfb" name="value" keyPath="selection.active" id="MDs-mh-f1o">
                                                             <dictionary key="options">
@@ -254,14 +254,14 @@
                                                     </connections>
                                                 </button>
                                                 <button toolTip="Selected action is a regular expression" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-Ub-GkE">
-                                                    <rect key="frame" x="95" y="153" width="64" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="xfM-bO-IsX"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="94" y="151" width="64" height="20"/>
                                                     <buttonCell key="cell" type="check" title="Regex" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="f49-Sx-zE7">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="xfM-bO-IsX"/>
+                                                    </constraints>
                                                     <connections>
                                                         <action selector="regexChanged:" target="-2" id="x92-iC-jq1"/>
                                                         <binding destination="Hmk-IV-hfb" name="value" keyPath="selection.regex" id="QYz-vn-wbq">
@@ -273,7 +273,7 @@
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QmW-O8-p1C">
-                                                    <rect key="frame" x="410" y="156" width="43" height="16"/>
+                                                    <rect key="frame" x="409" y="154" width="43" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Action" id="cCY-tB-p0Y">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -288,7 +288,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1gn-Vv-xlE">
-                                                    <rect key="frame" x="102" y="102" width="19" height="16"/>
+                                                    <rect key="frame" x="101" y="100" width="19" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="://" id="uKK-FD-wnl">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -303,7 +303,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zft-nz-iLW">
-                                                    <rect key="frame" x="9" y="15" width="11" height="16"/>
+                                                    <rect key="frame" x="8" y="13" width="11" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="?" id="wOI-qb-1mB">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -318,7 +318,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qXx-hw-dUi">
-                                                    <rect key="frame" x="9" y="44" width="11" height="16"/>
+                                                    <rect key="frame" x="8" y="42" width="11" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="/" id="2io-Hc-2AG">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -333,7 +333,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lCM-go-Urk">
-                                                    <rect key="frame" x="543" y="102" width="16" height="16"/>
+                                                    <rect key="frame" x="542" y="100" width="16" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="@" id="D1T-ZJ-mqa">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -348,10 +348,7 @@
                                                     </connections>
                                                 </textField>
                                                 <popUpButton toolTip="Action when the filter rule expression matches (allow or block resource)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9du-EF-v3O">
-                                                    <rect key="frame" x="456" y="149" width="107" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="JEh-9U-yXY"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="455" y="147" width="107" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dIN-ch-gsc">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -363,6 +360,9 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="JEh-9U-yXY"/>
+                                                    </constraints>
                                                     <connections>
                                                         <accessibilityConnection property="title" destination="QmW-O8-p1C" id="QEh-VK-5No"/>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_URLFilterRuleActions" id="ezt-yw-4Ii"/>
@@ -375,7 +375,7 @@
                                                     </connections>
                                                 </popUpButton>
                                                 <textField toolTip="Full filter expression" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9hw-i2-YWH">
-                                                    <rect key="frame" x="11" y="180" width="548" height="21"/>
+                                                    <rect key="frame" x="10" y="178" width="548" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1FE-W1-TbR">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -393,7 +393,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
-                                                    <rect key="frame" x="9" y="129" width="388" height="17"/>
+                                                    <rect key="frame" x="8" y="127" width="388" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="iuH-05-SfK"/>
                                                     </constraints>
@@ -411,7 +411,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3Lb-pY-2F1">
-                                                    <rect key="frame" x="11" y="99" width="90" height="22"/>
+                                                    <rect key="frame" x="10" y="97" width="90" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="9Bj-Kt-yPn"/>
                                                         <constraint firstAttribute="height" constant="22" id="r1v-0f-a93"/>
@@ -436,7 +436,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jju-Ve-Ujz">
-                                                    <rect key="frame" x="123" y="99" width="206" height="21"/>
+                                                    <rect key="frame" x="122" y="97" width="206" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="206" id="AA5-mw-a0e"/>
                                                     </constraints>
@@ -460,7 +460,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oXf-ig-TZU">
-                                                    <rect key="frame" x="336" y="99" width="206" height="23"/>
+                                                    <rect key="frame" x="335" y="97" width="206" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="206" id="BzU-wF-LRn"/>
                                                     </constraints>
@@ -484,7 +484,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VoK-Ej-Zql">
-                                                    <rect key="frame" x="11" y="70" width="480" height="21"/>
+                                                    <rect key="frame" x="10" y="68" width="480" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="480" id="pRj-j0-0Db"/>
                                                     </constraints>
@@ -508,7 +508,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IT5-aW-zsl">
-                                                    <rect key="frame" x="23" y="41" width="536" height="21"/>
+                                                    <rect key="frame" x="22" y="39" width="536" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="536" id="hTc-nF-a8h"/>
                                                     </constraints>
@@ -532,7 +532,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1PT-7a-wz2">
-                                                    <rect key="frame" x="23" y="12" width="372" height="21"/>
+                                                    <rect key="frame" x="22" y="10" width="372" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="372" id="0sj-Df-Mty"/>
                                                     </constraints>
@@ -556,7 +556,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3fo-3Z-d4k">
-                                                    <rect key="frame" x="409" y="12" width="150" height="21"/>
+                                                    <rect key="frame" x="408" y="10" width="150" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="lKn-5I-0wh"/>
                                                     </constraints>
@@ -580,7 +580,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-V3-hmo">
-                                                    <rect key="frame" x="329" y="102" width="8" height="16"/>
+                                                    <rect key="frame" x="328" y="100" width="8" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title=":" id="tJm-ce-zDQ">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -595,7 +595,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b1s-1U-Ybg">
-                                                    <rect key="frame" x="491" y="73" width="9" height="16"/>
+                                                    <rect key="frame" x="490" y="71" width="9" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title=":" id="27i-17-3S4">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -610,7 +610,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZAH-3m-Yk0">
-                                                    <rect key="frame" x="396" y="15" width="13" height="16"/>
+                                                    <rect key="frame" x="395" y="13" width="13" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="#" id="bcq-qY-qJM">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -625,7 +625,7 @@
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kr2-YI-gaU">
-                                                    <rect key="frame" x="499" y="70" width="60" height="21"/>
+                                                    <rect key="frame" x="498" y="68" width="60" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="7oW-Ps-dSZ"/>
                                                     </constraints>
@@ -858,7 +858,7 @@
                                         <rect key="frame" x="17" y="39" width="570" height="429"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
                                             <rect key="frame" x="1" y="1" width="568" height="427"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="404"/>
@@ -928,14 +928,14 @@
                                     </scrollView>
                                     <button toolTip="Remove certificate/identity from settings" translatesAutoresizingMaskIntoConstraints="NO" id="1863">
                                         <rect key="frame" x="17" y="10" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="1867"/>
-                                            <constraint firstAttribute="width" constant="22" id="1868"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="1864">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="1867"/>
+                                            <constraint firstAttribute="width" constant="22" id="1868"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="remove:" target="1875" id="1886"/>
                                         </connections>
@@ -948,7 +948,6 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="conditionallyShowOSCertWarning:" target="-2" id="ZQ3-0F-j7Z"/>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_pinEmbeddedCertificates" id="sqA-X0-bbX">
                                                 <dictionary key="options">
                                                     <bool key="NSConditionallySetsEnabled" value="NO"/>
@@ -982,7 +981,7 @@
                                         </connections>
                                     </popUpButton>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oMT-Yl-qL1">
-                                        <rect key="frame" x="488" y="3" width="106" height="33"/>
+                                        <rect key="frame" x="489" y="3" width="105" height="33"/>
                                         <buttonCell key="cell" type="push" title="Advanced…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wrm-JO-cYX">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -2215,7 +2214,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-fd-qaY">
-                        <rect key="frame" x="18" y="80" width="153" height="16"/>
+                        <rect key="frame" x="18" y="79" width="153" height="17"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Embedd as" usesSingleLineMode="YES" id="eXh-u4-x04">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -2224,9 +2223,6 @@ Gw
                     </textField>
                     <popUpButton toolTip="TLS/SSL certificates from the default keychain. This allows to distribute self-signed certificates to exam clients" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="An4-xf-7ZG">
                         <rect key="frame" x="173" y="74" width="421" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="18" id="RVm-Uv-7WU"/>
-                        </constraints>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="vRH-jI-3R1" id="hMi-Ei-zh1">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -2236,6 +2232,9 @@ Gw
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="RVm-Uv-7WU"/>
+                        </constraints>
                         <connections>
                             <action selector="embeddCertificateTypeChanged:" target="-2" id="GZ8-DI-35Q"/>
                             <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_SSLCertificateTypes" id="lS5-3c-ZZm"/>
@@ -2315,7 +2314,7 @@ Gw
         </arrayController>
     </objects>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
     </resources>
 </document>
