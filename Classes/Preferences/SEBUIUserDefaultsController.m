@@ -190,9 +190,9 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_sebServicePolicies {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"allow to use SEB without service", @""),
+            [NSString stringWithFormat:NSLocalizedString(@"allow to use %@ without service", @""), SEBShortAppName],
             NSLocalizedString(@"warn when service is not running", @""),
-            NSLocalizedString(@"allow to use SEB only with service", @""),
+             [NSString stringWithFormat:NSLocalizedString(@"allow to use %@ only with service", @""), SEBShortAppName],
             nil];
 }
 
@@ -218,12 +218,12 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 
 - (NSArray *) org_safeexambrowser_SEB_minMacOSVersions {
     return [NSArray arrayWithObjects:
-            NSLocalizedString(@"10.7 (this SEB: 10.13)", @""),
-            NSLocalizedString(@"10.8 (this SEB: 10.13)", @""),
-            NSLocalizedString(@"10.9 (this SEB: 10.13)", @""),
-            NSLocalizedString(@"10.10 (this SEB: 10.13)", @""),
-            NSLocalizedString(@"10.11 (this SEB: 10.13)", @""),
-            NSLocalizedString(@"10.12 (this SEB: 10.13)", @""),
+            [NSString stringWithFormat:NSLocalizedString(@"10.7 (this %@: 10.13)", @""), SEBShortAppName],
+            [NSString stringWithFormat:NSLocalizedString(@"10.8 (this %@: 10.13)", @""), SEBShortAppName],
+            [NSString stringWithFormat:NSLocalizedString(@"10.9 (this %@: 10.13)", @""), SEBShortAppName],
+            [NSString stringWithFormat:NSLocalizedString(@"10.10 (this %@: 10.13)", @""), SEBShortAppName],
+            [NSString stringWithFormat:NSLocalizedString(@"10.11 (this %@: 10.13)", @""), SEBShortAppName],
+            [NSString stringWithFormat:NSLocalizedString(@"10.12 (this %@: 10.13)", @""), SEBShortAppName],
             NSLocalizedString(@"10.13 High Sierra", @""),
             NSLocalizedString(@"10.14 Mojave", @""),
             NSLocalizedString(@"10.15 Catalina", @""),

@@ -612,7 +612,7 @@
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
-    : NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", @"");
+    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", @"")
@@ -1185,7 +1185,9 @@
             }
             if (fileURLUpdate && saveAs && configPurpose != sebConfigPurposeManagedConfiguration) {
                 NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", @"") : NSLocalizedString(@"Settings for Starting Exam", @"");
-                NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", @"") : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", @"");
+                NSString *settingsSavedMessage = configPurpose ?
+                [NSString stringWithFormat:NSLocalizedString(@"Settings have been saved, use this file to configure a %@ client permanently.", @""), SEBShortAppName] :
+                [NSString stringWithFormat:NSLocalizedString(@"Settings have been saved, use this file to start an exam with %@.", @""), SEBShortAppName];
                 NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
                 [settingsSavedAlert setMessageText:settingsSavedTitle];
                 [settingsSavedAlert setInformativeText:settingsSavedMessage];

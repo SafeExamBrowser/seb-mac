@@ -807,7 +807,7 @@
     DDLogDebug(@"[SEBOSXBrowserController openTempWindowForDownloadingConfigFromURL: %@ originalURL: %@]", url, originalURL);
     
     // Create a new WebView
-    NSString *tempWindowTitle = NSLocalizedString(@"Opening SEB Config", @"Title of a temporary browser window for opening a SEB link");
+    NSString *tempWindowTitle = [NSString stringWithFormat:NSLocalizedString(@"Opening %@ Config", @"Title of a temporary browser window for opening a SEB link"), SEBShortAppName];
     SEBAbstractWebView *temporaryWebView = [self openAndShowWebViewWithURL:url configuration:nil title:tempWindowTitle overrideSpellCheck:YES mainBrowserWindow:NO temporaryWindow:YES];
     SEBBrowserWindow *temporaryBrowserWindow = temporaryWebView.window;
 
