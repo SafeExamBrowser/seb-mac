@@ -62,7 +62,7 @@
 "%@ is Locked!" = "%@ ist gesperrt!";
 
 /* No comment provided by engineer. */
-"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences." = "SEB benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
+"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences." = "%@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
@@ -83,7 +83,7 @@
 "%@ Re-Configured" = "%@ neu konfiguriert";
 
 /* No comment provided by engineer. */
-"%@ session was inactive for %ld:%.2ld(minutes:seconds)" = "  %1$@ SEB session was inactive for %2$ld:%3$.2ld (minutes:seconds)";
+"%@ session was inactive for %ld:%.2ld(minutes:seconds)" = "  %1$@ session was inactive for %2$ld:%3$.2ld (minutes:seconds)";
 
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
@@ -695,7 +695,7 @@
 "Never" = "Nie";
 
 /* No comment provided by engineer. */
-"New settings have been saved, they will also be used when you start %@ next time again. Do you want to start working with %@ or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn %1$@ das nächste Mal gestartet wird. Wollen Sie jetzt mit SEB arbeiten oder %2$@ beenden?";
+"New settings have been saved, they will also be used when you start %@ next time again. Do you want to start working with %@ or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn %1$@ das nächste Mal gestartet wird. Wollen Sie jetzt mit %2$@ arbeiten oder beenden?";
 
 /* No comment provided by engineer. */
 "New settings have been saved, they will be used when you start %@ next time again. Do you want to continue working with %@ or quit for now?" = "Neue Konfiguration wurde gespeichert, diese wird benutzt, wenn %1$@ das nächste Mal gestartet wird. Wollen Sie jetzt mit %2$@ arbeiten oder beenden?";
@@ -1004,7 +1004,7 @@
 "settings" = "Einstellungen";
 
 /* No comment provided by engineer. */
-"Settings for Configuring Client" = "Einstellungen zum Umkonfigurieren eines SEB-Clients";
+"Settings for Configuring Client" = "Einstellungen zum Umkonfigurieren eines Clients";
 
 /* No comment provided by engineer. */
 "Settings for Starting Exam" = "Einstellungen zum Starten einer Prüfung";

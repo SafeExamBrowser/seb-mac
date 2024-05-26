@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -40,7 +40,7 @@
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
                                         <rect key="frame" x="20" y="919" width="594" height="65"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
+                                            <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="biv-Ti-nzG"/>
@@ -78,13 +78,13 @@
                                             </popUpButton>
                                             <button toolTip="Hyperlinks which direct to a different host than the one of the current main page will be ignored" translatesAutoresizingMaskIntoConstraints="NO" id="101">
                                                 <rect key="frame" x="-2" y="-1" width="276" height="16"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="14" id="410"/>
-                                                </constraints>
                                                 <buttonCell key="cell" type="check" title="block when directing to a different server" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="102">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="14" id="410"/>
+                                                </constraints>
                                                 <connections>
                                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkBlockForeign" id="200"/>
                                                     <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy" id="210"/>
@@ -113,7 +113,7 @@
                                             <rect key="frame" x="4" y="5" width="608" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="585">
+                                                <comboBox toolTip="Window width in pixel or percentage of total screen width" focusRingType="none" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="585">
                                                     <rect key="frame" x="150" y="36" width="91" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="87" id="646"/>
@@ -134,7 +134,7 @@
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkWidth" id="642"/>
                                                     </connections>
                                                 </comboBox>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="586">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="586">
                                                     <rect key="frame" x="105" y="40" width="40" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="587">
                                                         <font key="font" metaFont="system"/>
@@ -142,7 +142,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="570">
+                                                <comboBox toolTip="Window height in pixel or percentage of total screen height" focusRingType="none" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="570">
                                                     <rect key="frame" x="150" y="8" width="91" height="23"/>
                                                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="4" id="591">
                                                         <font key="font" metaFont="system"/>
@@ -160,7 +160,7 @@
                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_newBrowserWindowByLinkHeight" id="641"/>
                                                     </connections>
                                                 </comboBox>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="571">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="571">
                                                     <rect key="frame" x="100" y="12" width="45" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="590">
                                                         <font key="font" metaFont="system"/>
@@ -168,7 +168,7 @@
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="568">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="568">
                                                     <rect key="frame" x="348" y="40" width="137" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="598">
                                                         <font key="font" metaFont="system"/>
@@ -178,9 +178,6 @@
                                                 </textField>
                                                 <popUpButton toolTip="Position new browser windows on the left, right or centered" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="569">
                                                     <rect key="frame" x="488" y="33" width="109" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="593"/>
-                                                    </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="592">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -192,6 +189,9 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="102" id="593"/>
+                                                    </constraints>
                                                     <accessibility description="Horizontal positioning of new browser windows"/>
                                                     <connections>
                                                         <binding destination="227" name="contentValues" keyPath="org_safeexambrowser_SEB_browserWindowPositionings" id="649"/>
@@ -466,7 +466,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Vdp-ua-0m5">
                                                                     <rect key="frame" x="0.0" y="0.0" width="113" height="20"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lUQ-gB-6sY">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lUQ-gB-6sY">
                                                                             <rect key="frame" x="-2" y="3" width="77" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Show URLs " usesSingleLineMode="YES" id="9F7-Qa-r8S">
                                                                                 <font key="font" metaFont="system"/>
@@ -571,7 +571,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="glM-GE-4yE">
                                                                     <rect key="frame" x="0.0" y="0.0" width="109" height="20"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="IVF-fJ-D37">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="IVF-fJ-D37">
                                                                             <rect key="frame" x="-2" y="3" width="73" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Show URLs" usesSingleLineMode="YES" id="YP6-xU-uXJ">
                                                                                 <font key="font" metaFont="system"/>
@@ -855,7 +855,7 @@
                                                                 <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserWindowWebView" previousBinding="goH-Ql-oOy" id="xZi-49-wQn"/>
                                                             </connections>
                                                         </popUpButton>
-                                                        <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
                                                             <rect key="frame" x="-2" y="0.0" width="592" height="56"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="ADW-iA-ngj">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -964,7 +964,7 @@
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentMac" id="4k3-RK-DGV"/>
                                                                         </connections>
                                                                     </matrix>
-                                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHC-Y1-NDD">
+                                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHC-Y1-NDD">
                                                                         <rect key="frame" x="0.0" y="39" width="588" height="22"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="22" id="Khz-aK-J2p"/>
@@ -986,7 +986,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
+                                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4N-Ge-wgZ">
                                                                         <rect key="frame" x="-2" y="7" width="592" height="28"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="X0g-7e-XAl">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -995,7 +995,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
+                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dP1-5V-zqF">
                                                                         <rect key="frame" x="82" y="86" width="506" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="509" id="ad1-AM-IRp"/>
@@ -1063,7 +1063,7 @@
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinDesktopMode" id="tBa-PL-j1j"/>
                                                                         </connections>
                                                                     </matrix>
-                                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YGc-0N-3Cu">
+                                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YGc-0N-3Cu">
                                                                         <rect key="frame" x="0.0" y="40" width="588" height="21"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="588" id="iCD-1t-EAe"/>
@@ -1084,7 +1084,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
+                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z3B-Za-z4X">
                                                                         <rect key="frame" x="134" y="86" width="454" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="456" id="nwA-PJ-FOI"/>
@@ -1095,7 +1095,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
+                                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JX-76-Lv7">
                                                                         <rect key="frame" x="-2" y="8" width="592" height="28"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="m10-X9-qlH"/>
@@ -1170,7 +1170,7 @@
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentWinTouchMode" id="YNV-gT-xXs"/>
                                                                         </connections>
                                                                     </matrix>
-                                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
+                                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34u-Jt-GbJ">
                                                                         <rect key="frame" x="0.0" y="18" width="592" height="22"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="22" id="rYC-K7-FYo"/>
@@ -1191,7 +1191,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
+                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XSw-aj-V6a">
                                                                         <rect key="frame" x="121" y="86" width="471" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="471" id="RQF-QD-cdE"/>
@@ -1202,7 +1202,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx" userLabel="User Agent Win Touch Pad">
+                                                                    <textField toolTip="Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="twb-Ov-Zlx" userLabel="User Agent Win Touch Pad">
                                                                         <rect key="frame" x="121" y="65" width="471" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iPad user agent" id="XDW-SF-gll">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -1210,7 +1210,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
+                                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tl-BN-q8i">
                                                                         <rect key="frame" x="-2" y="0.0" width="596" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default strings depend on installed SEB for Windows version and therefore can differ on exam clients." id="9wd-E4-JwC">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -1286,7 +1286,7 @@
                                                                             <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_browserUserAgentiOS" id="bml-yw-tnL"/>
                                                                         </connections>
                                                                     </matrix>
-                                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oTH-6g-3oo">
+                                                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oTH-6g-3oo">
                                                                         <rect key="frame" x="0.0" y="18" width="589" height="22"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="22" id="m2M-eU-iVb"/>
@@ -1307,7 +1307,7 @@
                                                                             </binding>
                                                                         </connections>
                                                                     </textField>
-                                                                    <textField toolTip="Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1k-Qz-pMS">
+                                                                    <textField toolTip="Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="F1k-Qz-pMS">
                                                                         <rect key="frame" x="118" y="86" width="471" height="19"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="471" id="ORT-KL-agB"/>
@@ -1318,7 +1318,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField toolTip="Mac Safari (desktop browser) user agent string" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-0l-x3s" userLabel="User Agent iOS Mac Desktop">
+                                                                    <textField toolTip="Mac Safari (desktop browser) user agent string" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0DR-0l-x3s" userLabel="User Agent iOS Mac Desktop">
                                                                         <rect key="frame" x="118" y="65" width="471" height="19"/>
                                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="iOS Mac desktop user agent" id="Bmg-9t-VQK">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -1326,7 +1326,7 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emi-HA-bH3">
+                                                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emi-HA-bH3">
                                                                         <rect key="frame" x="-2" y="0.0" width="593" height="14"/>
                                                                         <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Default strings depend on installed iOS version and therefore can differ on exam clients." id="yW3-rB-jbe">
                                                                             <font key="font" metaFont="message" size="11"/>
@@ -1360,7 +1360,7 @@
                                                         <binding destination="122" name="selectedIndex" keyPath="values.org_safeexambrowser_browserUserAgentEnvironment" id="4fH-Ky-Giv"/>
                                                     </connections>
                                                 </tabView>
-                                                <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
+                                                <textField toolTip="This string will be appended to any user agent string (independent from the other user agent settings below)" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-fI-3bu">
                                                     <rect key="frame" x="127" y="151" width="468" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="rJb-eb-Akk"/>
@@ -1381,7 +1381,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
+                                                <textField focusRingType="none" horizontalHuggingPriority="1000" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uZt-GQ-bpe">
                                                     <rect key="frame" x="9" y="154" width="112" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="User agent suffix:" id="0xK-SO-5d2">
                                                         <font key="font" metaFont="system"/>
@@ -1415,13 +1415,13 @@
                                         <subviews>
                                             <button toolTip="When the SEB browser is disabled, no browser window is opened. Use this option with specific third party applications allowed." translatesAutoresizingMaskIntoConstraints="NO" id="413">
                                                 <rect key="frame" x="-1" y="18" width="228" height="14"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="12" id="638"/>
-                                                </constraints>
                                                 <buttonCell key="cell" type="check" title="Use SEB without browser window (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="415">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="message" size="11"/>
                                                 </buttonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="12" id="638"/>
+                                                </constraints>
                                                 <connections>
                                                     <accessibilityConnection property="title" destination="447" id="buJ-eO-Mhq"/>
                                                     <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableSebBrowser" id="658">
@@ -1432,7 +1432,7 @@
                                                     </binding>
                                                 </connections>
                                             </button>
-                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="447">
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="447">
                                                 <rect key="frame" x="-2" y="0.0" width="594" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="14" id="mYD-wH-oFy"/>

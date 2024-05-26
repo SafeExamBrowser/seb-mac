@@ -531,9 +531,9 @@
         <note>Class = "NSDateFormatter"; ibShadowedDateFormat = "HH:mm"; ObjectID = "kfS-SN-RBm";</note>
       </trans-unit>
       <trans-unit id="kwi-CI-5lx.title" xml:space="preserve">
-        <source>SEB Lockdown Information</source>
-        <target>SEB Lockdown Information</target>
-        <note>Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx";</note>
+        <source>Lockdown Information</source>
+        <target>Lockdown Information</target>
+        <note>Class = "NSWindow"; title = "Lockdown Information"; ObjectID = "kwi-CI-5lx";</note>
       </trans-unit>
       <trans-unit id="lIX-w9-SMd.title" xml:space="preserve">
         <source>Revert to Client Settings</source>
@@ -581,9 +581,9 @@
         <note>Class = "NSButtonCell"; title = "Cancel"; ObjectID = "qGd-4E-G3J";</note>
       </trans-unit>
       <trans-unit id="rlJ-6q-QNz.title" xml:space="preserve">
-        <source>Quit SEB/exam session instead of unlocking</source>
-        <target>Quit SEB/exam session instead of unlocking</target>
-        <note>Class = "NSButtonCell"; title = "Quit SEB/exam session instead of unlocking"; ObjectID = "rlJ-6q-QNz";</note>
+        <source>Quit app/exam session instead of unlocking</source>
+        <target>Quit app/exam session instead of unlocking</target>
+        <note>Class = "NSButtonCell"; title = "Quit app/exam session instead of unlocking"; ObjectID = "rlJ-6q-QNz";</note>
       </trans-unit>
       <trans-unit id="sFU-ql-51U.title" xml:space="preserve">
         <source>Apply and Restart</source>
@@ -601,9 +601,9 @@
         <note>Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select Browser Engine Policy"; ObjectID = "tmg-sY-zim";</note>
       </trans-unit>
       <trans-unit id="toT-ZU-d4i.title" xml:space="preserve">
-        <source>Enter quit/unlock password to unlock SEB:</source>
-        <target>Enter quit/unlock password to unlock SEB:</target>
-        <note>Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i";</note>
+        <source>Enter quit password to unlock:</source>
+        <target>Enter quit password to unlock:</target>
+        <note>Class = "NSTextFieldCell"; title = "Enter quit password to unlock:"; ObjectID = "toT-ZU-d4i";</note>
       </trans-unit>
       <trans-unit id="xDQ-P3-KpK.title" xml:space="preserve">
         <source>SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
@@ -763,9 +763,9 @@
         <note>Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[3] = "1000"; ObjectID = "O0B-MY-YwV";</note>
       </trans-unit>
       <trans-unit id="O41-bz-cfY.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow using check spelling/grammar and 'correct spelling automatically'</source>
-        <target>Allow using check spelling/grammar and 'correct spelling automatically'</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "O41-bz-cfY";</note>
+        <source>Allow using check spelling checking (no longer supported on macOS/iOS)</source>
+        <target>Allow using check spelling checking (no longer supported on macOS/iOS)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling checking (no longer supported on macOS/iOS)"; ObjectID = "O41-bz-cfY";</note>
       </trans-unit>
       <trans-unit id="P8m-ga-H0m.ibShadowedToolTip" xml:space="preserve">
         <source>Allows to reconnect to WiFi networks which have previously been connected to</source>
@@ -888,9 +888,9 @@
         <note>Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "dLs-bX-Goa";</note>
       </trans-unit>
       <trans-unit id="eEA-et-CSR.title" xml:space="preserve">
-        <source>Allow spell checking</source>
-        <target>Allow spell checking</target>
-        <note>Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "eEA-et-CSR";</note>
+        <source>Allow spell checking (Win)</source>
+        <target>Allow spell checking (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Allow spell checking (Win)"; ObjectID = "eEA-et-CSR";</note>
       </trans-unit>
       <trans-unit id="end-3L-Lzd.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the Back to Start button, if this feature in configured in the Exam pane</source>
@@ -4771,14 +4771,39 @@ It is deleted when the session ends</target>
         <target>%@ Not Allowed!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ Not in %@ Folder!" xml:space="preserve">
+        <source>%1$@ Not in %2$@ Folder!</source>
+        <target>%1$@ Not in %2$@ Folder!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ Process Was Stopped!" xml:space="preserve">
         <source>%@ Process Was Stopped!</source>
         <target>%@ Process Was Stopped!</target>
         <note>Lockdown alert title text for SEB process was stopped</note>
       </trans-unit>
+      <trans-unit id="%@ Re-Configured" xml:space="preserve">
+        <source>%@ Re-Configured</source>
+        <target>%@ Re-Configured</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
+        <source>%1$@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %2$@. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
+        <target>%1$@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %2$@. If the window isn't open and this alert is displayed anyways, restart your Mac.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %@ and restart %@" xml:space="preserve">
+        <source>%1$@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %2$@ and restart %3$@</source>
+        <target>%1$@ doesn't allow to use custom key bindings. Please delete or rename the file at the path %2$@ and restart %3$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</source>
         <target>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now." xml:space="preserve">
+        <source>%1$@ has to be placed in the %2$@ folder in order for all features to work correctly. Move the '%3$@' app to your %4$@ folder and make sure that you don't have any other versions of %5$@ installed on your system. %6$@ will quit now.</source>
+        <target>%1$@ has to be placed in the %2$@ folder in order for all features to work correctly. Move the '%3$@' app to your %4$@ folder and make sure that you don't have any other versions of %5$@ installed on your system. %6$@ will quit now.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is Locked!" xml:space="preserve">
@@ -4789,6 +4814,11 @@ It is deleted when the session ends</target>
       <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
         <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
         <target>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." xml:space="preserve">
+        <source>%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
+        <target>%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is disabled!" xml:space="preserve">
@@ -4811,6 +4841,11 @@ It is deleted when the session ends</target>
         <target>%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
+      <trans-unit id="%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
+        <source>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy preferences, located in System Preferences.</source>
+        <target>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy preferences, located in System Preferences.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
         <source>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</source>
         <target>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</target>
@@ -4831,6 +4866,26 @@ It is deleted when the session ends</target>
         <target>%1$@ version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
       </trans-unit>
+      <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
+        <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
+        <target>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ was locked by SEB Server. Please contact your exam support." xml:space="preserve">
+        <source>%@ was locked by SEB Server. Please contact your exam support.</source>
+        <target>%@ was locked by SEB Server. Please contact your exam support.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
+        <source>%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
+        <target>%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
+        <source>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
+        <target>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)" xml:space="preserve">
         <source>(This function doesn't log you out if you are logged in on a website)</source>
         <target>(This function doesn't log you out if you are logged in on a website)</target>
@@ -4841,34 +4896,34 @@ It is deleted when the session ends</target>
         <target>, but compressed using gzip.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.13)</source>
-        <target>10.7 (this SEB: 10.13)</target>
+      <trans-unit id="10.7 (this %@: 10.13)" xml:space="preserve">
+        <source>10.7 (this %@: 10.13)</source>
+        <target>10.7 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.13)</source>
-        <target>10.8 (this SEB: 10.13)</target>
+      <trans-unit id="10.8 (this %@: 10.13)" xml:space="preserve">
+        <source>10.8 (this %@: 10.13)</source>
+        <target>10.8 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.13)</source>
-        <target>10.9 (this SEB: 10.13)</target>
+      <trans-unit id="10.9 (this %@: 10.13)" xml:space="preserve">
+        <source>10.9 (this %@: 10.13)</source>
+        <target>10.9 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.13)</source>
-        <target>10.10 (this SEB: 10.13)</target>
+      <trans-unit id="10.10 (this %@: 10.13)" xml:space="preserve">
+        <source>10.10 (this %@: 10.13)</source>
+        <target>10.10 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.11 (this SEB: 10.13)</source>
-        <target>10.11 (this SEB: 10.13)</target>
+      <trans-unit id="10.11 (this %@: 10.13)" xml:space="preserve">
+        <source>10.11 (this %@: 10.13)</source>
+        <target>10.11 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.12 (this SEB: 10.13)</source>
-        <target>10.12 (this SEB: 10.13)</target>
+      <trans-unit id="10.12 (this %@: 10.13)" xml:space="preserve">
+        <source>10.12 (this %@: 10.13)</source>
+        <target>10.12 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -4921,9 +4976,9 @@ It is deleted when the session ends</target>
         <target>Accessibility Permissions Needed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Activates SEB browser. Right click displays menu with open webpages." xml:space="preserve">
-        <source>Activates SEB browser. Right click displays menu with open webpages.</source>
-        <target>Activates SEB browser. Right click displays menu with open webpages.</target>
+      <trans-unit id="Activates %@ browser. Right click displays menu with open webpages." xml:space="preserve">
+        <source>Activates %@ browser. Right click displays menu with open webpages.</source>
+        <target>Activates %@ browser. Right click displays menu with open webpages.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Always" xml:space="preserve">
@@ -5016,9 +5071,9 @@ It is deleted when the session ends</target>
         <target>Before receiving title</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you." xml:space="preserve">
-        <source>Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you.</source>
-        <target>Before running SEB, you had the Touch Bar mode 'App Controls' set. SEB cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. SEB will open this System Preferences tab for you.</target>
+      <trans-unit id="Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %@ will open this System Preferences tab for you." xml:space="preserve">
+        <source>Before running %1$@, you had the Touch Bar mode 'App Controls' set. %2$@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %3$@ will open this System Preferences tab for you.</source>
+        <target>Before running %1$@, you had the Touch Bar mode 'App Controls' set. %2$@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %3$@ will open this System Preferences tab for you.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Black on White" xml:space="preserve">
@@ -5259,6 +5314,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." xml:space="preserve">
         <source>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</source>
         <target>Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Custom Key Binding Detected" xml:space="preserve">
+        <source>Custom Key Binding Detected</source>
+        <target>Custom Key Binding Detected</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Debug" xml:space="preserve">
@@ -5591,14 +5651,14 @@ It is deleted when the session ends</target>
         <target>Holding Command Key Not Allowed!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Holding the Command key down while restarting SEB is not allowed, release it to continue." xml:space="preserve">
-        <source>Holding the Command key down while restarting SEB is not allowed, release it to continue.</source>
-        <target>Holding the Command key down while restarting SEB is not allowed, release it to continue.</target>
+      <trans-unit id="Holding the Command key down while restarting %@ is not allowed, release it to continue." xml:space="preserve">
+        <source>Holding the Command key down while restarting %@ is not allowed, release it to continue.</source>
+        <target>Holding the Command key down while restarting %@ is not allowed, release it to continue.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys." xml:space="preserve">
-        <source>Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.</source>
-        <target>Holding the Command key down while starting SEB is not allowed. Restart SEB without holding any keys.</target>
+      <trans-unit id="Holding the Command key down while starting %@ is not allowed. Restart %@ without holding any keys." xml:space="preserve">
+        <source>Holding the Command key down while starting %1$@ is not allowed. Restart %2$@ without holding any keys.</source>
+        <target>Holding the Command key down while starting %1$@ is not allowed. Restart %2$@ without holding any keys.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Identity" xml:space="preserve">
@@ -5611,14 +5671,14 @@ It is deleted when the session ends</target>
         <target>If SEB Server doesn't respond for a while, you can forcibly close the connection</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="If you don't enter the correct %@ administrator password, then you cannot open preferences." xml:space="preserve">
+        <source>If you don't enter the correct %@ administrator password, then you cannot open preferences.</source>
+        <target>If you don't enter the correct %@ administrator password, then you cannot open preferences.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." xml:space="preserve">
         <source>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</source>
         <target>If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="If you don't enter the correct SEB administrator password, then you cannot open preferences." xml:space="preserve">
-        <source>If you don't enter the correct SEB administrator password, then you cannot open preferences.</source>
-        <target>If you don't enter the correct SEB administrator password, then you cannot open preferences.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If you don't enter the correct quit password, then you cannot quit." xml:space="preserve">
@@ -5631,9 +5691,9 @@ It is deleted when the session ends</target>
         <target>If you don't enter the right administrator password used in these settings you cannot open them.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%@' (%@) tried to download a font." xml:space="preserve">
-        <source>If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%1$@' (%2$@) tried to download a font.</source>
-        <target>If you don't grant access to SEB, you cannot use such webpages. Last time SEB was running, the webpage with the title '%1$@' (%2$@) tried to download a font.</target>
+      <trans-unit id="If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font." xml:space="preserve">
+        <source>If you don't grant access to %1$@, you cannot use such webpages. Last time %2$@ was running, the webpage with the title '%3$@' (%4$@) tried to download a font.</source>
+        <target>If you don't grant access to %1$@, you cannot use such webpages. Last time %2$@ was running, the webpage with the title '%3$@' (%4$@) tried to download a font.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." xml:space="preserve">
@@ -5696,9 +5756,9 @@ It is deleted when the session ends</target>
         <target>Local Client Settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option." xml:space="preserve">
-        <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
-        <target>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</target>
+      <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." xml:space="preserve">
+        <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.</source>
+        <target>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Local hostname: %@" xml:space="preserve">
@@ -5746,14 +5806,14 @@ It is deleted when the session ends</target>
         <target>Never</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?" xml:space="preserve">
-        <source>New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?</source>
-        <target>New settings have been saved, they will also be used when you start SEB next time again. Do you want to start working with SEB or quit for now?</target>
+      <trans-unit id="New settings have been saved, they will also be used when you start %@ next time again. Do you want to start working with %@ or quit for now?" xml:space="preserve">
+        <source>New settings have been saved, they will also be used when you start %1$@ next time again. Do you want to start working with %2$@ or quit for now?</source>
+        <target>New settings have been saved, they will also be used when you start %1$@ next time again. Do you want to start working with %2$@ or quit for now?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?" xml:space="preserve">
-        <source>New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?</source>
-        <target>New settings have been saved, they will be used when you start SEB next time again. Do you want to continue working with SEB or quit for now?</target>
+      <trans-unit id="New settings have been saved, they will be used when you start %@ next time again. Do you want to continue working with %@ or quit for now?" xml:space="preserve">
+        <source>New settings have been saved, they will be used when you start %1$@ next time again. Do you want to continue working with %2$@ or quit for now?</source>
+        <target>New settings have been saved, they will be used when you start %1$@ next time again. Do you want to continue working with %2$@ or quit for now?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No %@ Configuration Found" xml:space="preserve">
@@ -5846,6 +5906,11 @@ It is deleted when the session ends</target>
         <target>Opening</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Opening %@ Config" xml:space="preserve">
+        <source>Opening %@ Config</source>
+        <target>Opening %@ Config</target>
+        <note>Title of a temporary browser window for opening a SEB link</note>
+      </trans-unit>
       <trans-unit id="Opening Exam..." xml:space="preserve">
         <source>Opening Exam...</source>
         <target>Opening Exam...</target>
@@ -5860,11 +5925,6 @@ It is deleted when the session ends</target>
         <source>Opening Preferences Disabled</source>
         <target>Opening Preferences Disabled</target>
         <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Opening SEB Config" xml:space="preserve">
-        <source>Opening SEB Config</source>
-        <target>Opening SEB Config</target>
-        <note>Title of a temporary browser window for opening a SEB link</note>
       </trans-unit>
       <trans-unit id="Opening Settings Failed" xml:space="preserve">
         <source>Opening Settings Failed</source>
@@ -6001,14 +6061,14 @@ It is deleted when the session ends</target>
         <target>Quit</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Quit %@" xml:space="preserve">
+        <source>Quit %@</source>
+        <target>Quit %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Quit All Applications" xml:space="preserve">
         <source>Quit All Applications</source>
         <target>Quit All Applications</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Quit SEB" xml:space="preserve">
-        <source>Quit SEB</source>
-        <target>Quit SEB</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Safe Exam Browser" xml:space="preserve">
@@ -6119,61 +6179,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Running on Current macOS Version Not Allowed!" xml:space="preserve">
         <source>Running on Current macOS Version Not Allowed!</source>
         <target>Running on Current macOS Version Not Allowed!</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB Not in %@ Folder!" xml:space="preserve">
-        <source>SEB Not in %@ Folder!</source>
-        <target>SEB Not in %@ Folder!</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB Re-Configured" xml:space="preserve">
-        <source>SEB Re-Configured</source>
-        <target>SEB Re-Configured</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
-        <source>SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.</source>
-        <target>SEB cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit SEB. If the window isn't open and this alert is displayed anyways, restart your Mac.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB has to be placed in the %@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now." xml:space="preserve">
-        <source>SEB has to be placed in the %1$@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</source>
-        <target>SEB has to be placed in the %1$@ folder in order for all features to work correctly. Move the 'Safe Exam Browser' app to your %2$@ folder and make sure that you don't have any other versions of SEB installed on your system. SEB will quit now.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." xml:space="preserve">
-        <source>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
-        <target>SEB is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
-        <source>SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences.</source>
-        <target>SEB needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to Safe Exam Browser in Security &amp; Privacy preferences, located in System Preferences.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane." xml:space="preserve">
-        <source>SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.</source>
-        <target>SEB only supports embedding TLS/SSL and CA certificates and using certificate pinning if running on macOS 10.9 or later versions. If you want to make sure that embedded certificates and certificate pinning work on all exam clients, then you should enforce the minimum macOS version 10.9 in the Security pane.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
-        <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
-        <target>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB was locked by SEB Server. Please contact your exam support." xml:space="preserve">
-        <source>SEB was locked by SEB Server. Please contact your exam support.</source>
-        <target>SEB was locked by SEB Server. Please contact your exam support.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
-        <source>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
-        <target>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
-        <source>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
-        <target>SEB will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SOCKS Proxy" xml:space="preserve">
@@ -6306,14 +6311,14 @@ It is deleted when the session ends</target>
         <target>Settings for Starting Exam</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Settings have been saved, use this file to configure a SEB client permanently." xml:space="preserve">
-        <source>Settings have been saved, use this file to configure a SEB client permanently.</source>
-        <target>Settings have been saved, use this file to configure a SEB client permanently.</target>
+      <trans-unit id="Settings have been saved, use this file to configure a %@ client permanently." xml:space="preserve">
+        <source>Settings have been saved, use this file to configure a %@ client permanently.</source>
+        <target>Settings have been saved, use this file to configure a %@ client permanently.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Settings have been saved, use this file to start an exam with SEB." xml:space="preserve">
-        <source>Settings have been saved, use this file to start an exam with SEB.</source>
-        <target>Settings have been saved, use this file to start an exam with SEB.</target>
+      <trans-unit id="Settings have been saved, use this file to start an exam with %@." xml:space="preserve">
+        <source>Settings have been saved, use this file to start an exam with %@.</source>
+        <target>Settings have been saved, use this file to start an exam with %@.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Share as Configuration" xml:space="preserve">
@@ -6386,9 +6391,9 @@ It is deleted when the session ends</target>
         <target>The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." xml:space="preserve">
-        <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</source>
-        <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</target>
+      <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." xml:space="preserve">
+        <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.</source>
+        <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The configuration will be saved unencrypted" xml:space="preserve">
@@ -6436,9 +6441,9 @@ It is deleted when the session ends</target>
         <target>These settings are corrupted and cannot be used.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted." xml:space="preserve">
-        <source>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</source>
-        <target>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</target>
+      <trans-unit id="These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." xml:space="preserve">
+        <source>These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.</source>
+        <target>These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." xml:space="preserve">
@@ -6456,14 +6461,14 @@ It is deleted when the session ends</target>
         <target>This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>This exam was interrupted before and not finished properly. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
+      <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." xml:space="preserve">
+        <source>This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</source>
+        <target>This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties." xml:space="preserve">
-        <source>This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties.</source>
-        <target>This is a preset prohibited process, which cannot be removed. SEB automatically adds it to any configuration. You can deactivate this preset process or change its properties.</target>
+      <trans-unit id="This is a preset prohibited process, which cannot be removed. %@ automatically adds it to any configuration. You can deactivate this preset process or change its properties." xml:space="preserve">
+        <source>This is a preset prohibited process, which cannot be removed. %@ automatically adds it to any configuration. You can deactivate this preset process or change its properties.</source>
+        <target>This is a preset prohibited process, which cannot be removed. %@ automatically adds it to any configuration. You can deactivate this preset process or change its properties.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." xml:space="preserve">
@@ -6471,9 +6476,9 @@ It is deleted when the session ends</target>
         <target>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed." xml:space="preserve">
-        <source>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</source>
-        <target>This setting allows to switch to any application on the exam client computer. Use this option only when running SEB in a special user account managed by parental controls, with only SEB and the desired applications allowed.</target>
+      <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running %@ in a special user account, with only %@ and the desired applications allowed." xml:space="preserve">
+        <source>This setting allows to switch to any application on the exam client computer. Use this option only when running %1$@ in a special user account, with only %2$@ and the desired applications allowed.</source>
+        <target>This setting allows to switch to any application on the exam client computer. Use this option only when running %1$@ in a special user account, with only %2$@ and the desired applications allowed.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." xml:space="preserve">
@@ -6486,9 +6491,9 @@ It is deleted when the session ends</target>
         <target>To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol." xml:space="preserve">
-        <source>To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.</source>
-        <target>To avoid that SEB locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Preferences/Sharing and 'Back to My Mac' in System Preferences/iCloud. You can also ask your network administrators to block ports used for the VNC protocol.</target>
+      <trans-unit id="To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." xml:space="preserve">
+        <source>To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.</source>
+        <target>To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
@@ -6662,24 +6667,24 @@ It is deleted when the session ends</target>
         <target>Wrong quit/unlock password.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri." xml:space="preserve">
-        <source>You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.</source>
-        <target>You are not allowed to have Siri enabled while running SEB. Restart SEB after switching Siri off in System Preferences/Siri.</target>
+      <trans-unit id="You are not allowed to have Siri enabled while running %@. Restart %@ after switching Siri off in System Settings/Siri." xml:space="preserve">
+        <source>You are not allowed to have Siri enabled while running %1$@. Restart %2$@ after switching Siri off in System Settings/Siri.</source>
+        <target>You are not allowed to have Siri enabled while running %1$@. Restart %2$@ after switching Siri off in System Settings/Siri.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation." xml:space="preserve">
-        <source>You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.</source>
-        <target>You are not allowed to have dictation enabled while running SEB. Restart SEB after switching dictation off in System Preferences/Keyboard/Dictation.</target>
+      <trans-unit id="You are not allowed to have dictation enabled while running %@. Restart %@ after switching dictation off in System Settings/Keyboard/Dictation." xml:space="preserve">
+        <source>You are not allowed to have dictation enabled while running %1$@. Restart %2$@ after switching dictation off in System Settings/Keyboard/Dictation.</source>
+        <target>You are not allowed to have dictation enabled while running %1$@. Restart %2$@ after switching dictation off in System Settings/Keyboard/Dictation.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off." xml:space="preserve">
-        <source>You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.</source>
-        <target>You are not allowed to have screen sharing active while running SEB. Restart SEB after switching screen sharing off.</target>
+      <trans-unit id="You are not allowed to have screen sharing active while running %@. Restart %@ after switching screen sharing off." xml:space="preserve">
+        <source>You are not allowed to have screen sharing active while running %1$@. Restart %2$@ after switching screen sharing off.</source>
+        <target>You are not allowed to have screen sharing active while running %1$@. Restart %2$@ after switching screen sharing off.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You are not allowed to run SEB inside a virtual machine!" xml:space="preserve">
-        <source>You are not allowed to run SEB inside a virtual machine!</source>
-        <target>You are not allowed to run SEB inside a virtual machine!</target>
+      <trans-unit id="You are not allowed to run %@ inside a virtual machine!" xml:space="preserve">
+        <source>You are not allowed to run %@ inside a virtual machine!</source>
+        <target>You are not allowed to run %@ inside a virtual machine!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can also force quit these processes, but this may lead to loss of data." xml:space="preserve">
@@ -6727,9 +6732,9 @@ It is deleted when the session ends</target>
         <target>You edited settings. Do you want to apply them or continue using previous settings?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible SEB version." xml:space="preserve">
-        <source>You either entered the wrong password or these settings were saved with an incompatible SEB version.</source>
-        <target>You either entered the wrong password or these settings were saved with an incompatible SEB version.</target>
+      <trans-unit id="You either entered the wrong password or these settings were saved with an incompatible %@ version." xml:space="preserve">
+        <source>You either entered the wrong password or these settings were saved with an incompatible %@ version.</source>
+        <target>You either entered the wrong password or these settings were saved with an incompatible %@ version.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." xml:space="preserve">
@@ -6747,14 +6752,14 @@ It is deleted when the session ends</target>
         <target>allow</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="allow to use SEB only with service" xml:space="preserve">
-        <source>allow to use SEB only with service</source>
-        <target>allow to use SEB only with service</target>
+      <trans-unit id="allow to use %@ only with service" xml:space="preserve">
+        <source>allow to use %@ only with service</source>
+        <target>allow to use %@ only with service</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="allow to use SEB without service" xml:space="preserve">
-        <source>allow to use SEB without service</source>
-        <target>allow to use SEB without service</target>
+      <trans-unit id="allow to use %@ without service" xml:space="preserve">
+        <source>allow to use %@ without service</source>
+        <target>allow to use %@ without service</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="block" xml:space="preserve">
@@ -6807,11 +6812,6 @@ It is deleted when the session ends</target>
         <target>macOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="macOS Support Warning" xml:space="preserve">
-        <source>macOS Support Warning</source>
-        <target>macOS Support Warning</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="manually with file requester" xml:space="preserve">
         <source>manually with file requester</source>
         <target>manually with file requester</target>
@@ -6842,9 +6842,9 @@ It is deleted when the session ends</target>
         <target>remote proctoring</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="return to SEB and re" xml:space="preserve">
-        <source>return to SEB and re</source>
-        <target>return to SEB and re</target>
+      <trans-unit id="return to %@ and re" xml:space="preserve">
+        <source>return to %@ and re</source>
+        <target>return to %@ and re</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="settings" xml:space="preserve">
@@ -7758,9 +7758,19 @@ It is deleted when the session ends</target>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
     </header>
     <body>
-      <trans-unit id="Allow Downloading" xml:space="preserve">
-        <source>Allow Downloading</source>
-        <target>Allow Downloading</target>
+      <trans-unit id="Allow Downloading Files" xml:space="preserve">
+        <source>Allow Downloading Files</source>
+        <target>Allow Downloading Files</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Downloading and Uploading Files" xml:space="preserve">
+        <source>Allow Downloading and Uploading Files</source>
+        <target>Allow Downloading and Uploading Files</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allow Uploading Photos and Files" xml:space="preserve">
+        <source>Allow Uploading Photos and Files</source>
+        <target>Allow Uploading Photos and Files</target>
         <note/>
       </trans-unit>
       <trans-unit id="Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." xml:space="preserve">
@@ -7773,14 +7783,14 @@ It is deleted when the session ends</target>
         <target>Download &amp; Open Config Files</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Downloading Files" xml:space="preserve">
-        <source>Downloading Files</source>
-        <target>Downloading Files</target>
+      <trans-unit id="Downloading/Uploading Files" xml:space="preserve">
+        <source>Downloading/Uploading Files</source>
+        <target>Downloading/Uploading Files</target>
         <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes." xml:space="preserve">
-        <source>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.</source>
-        <target>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes.</target>
+      <trans-unit id="In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
+        <source>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
+        <target>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</target>
         <note>String for FooterText elements</note>
       </trans-unit>
     </body>
@@ -8109,6 +8119,16 @@ It is deleted when the session ends</target>
         <target>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." xml:space="preserve">
+        <source>%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</source>
+        <target>%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows." xml:space="preserve">
+        <source>%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.</source>
+        <target>%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
         <source>%@ needs to be used differently depending on your role.</source>
         <target>%@ needs to be used differently depending on your role.</target>
@@ -8124,34 +8144,44 @@ It is deleted when the session ends</target>
         <target>%1$@ version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
       </trans-unit>
-      <trans-unit id="10.7 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.7 (this SEB: 10.13)</source>
-        <target>10.7 (this SEB: 10.13)</target>
+      <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
+        <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
+        <target>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.8 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.8 (this SEB: 10.13)</source>
-        <target>10.8 (this SEB: 10.13)</target>
+      <trans-unit id="%@ was locked by SEB Server. Please contact your exam support." xml:space="preserve">
+        <source>%@ was locked by SEB Server. Please contact your exam support.</source>
+        <target>%@ was locked by SEB Server. Please contact your exam support.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.9 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.9 (this SEB: 10.13)</source>
-        <target>10.9 (this SEB: 10.13)</target>
+      <trans-unit id="10.7 (this %@: 10.13)" xml:space="preserve">
+        <source>10.7 (this %@: 10.13)</source>
+        <target>10.7 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.10 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.10 (this SEB: 10.13)</source>
-        <target>10.10 (this SEB: 10.13)</target>
+      <trans-unit id="10.8 (this %@: 10.13)" xml:space="preserve">
+        <source>10.8 (this %@: 10.13)</source>
+        <target>10.8 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.11 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.11 (this SEB: 10.13)</source>
-        <target>10.11 (this SEB: 10.13)</target>
+      <trans-unit id="10.9 (this %@: 10.13)" xml:space="preserve">
+        <source>10.9 (this %@: 10.13)</source>
+        <target>10.9 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="10.12 (this SEB: 10.13)" xml:space="preserve">
-        <source>10.12 (this SEB: 10.13)</source>
-        <target>10.12 (this SEB: 10.13)</target>
+      <trans-unit id="10.10 (this %@: 10.13)" xml:space="preserve">
+        <source>10.10 (this %@: 10.13)</source>
+        <target>10.10 (this %@: 10.13)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="10.11 (this %@: 10.13)" xml:space="preserve">
+        <source>10.11 (this %@: 10.13)</source>
+        <target>10.11 (this %@: 10.13)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="10.12 (this %@: 10.13)" xml:space="preserve">
+        <source>10.12 (this %@: 10.13)</source>
+        <target>10.12 (this %@: 10.13)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.13 High Sierra" xml:space="preserve">
@@ -8419,9 +8449,9 @@ It is deleted when the session ends</target>
         <target>Check your server connection configuration.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView." xml:space="preserve">
-        <source>Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView.</source>
-        <target>Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView.</target>
+      <trans-unit id="Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." xml:space="preserve">
+        <source>Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.</source>
+        <target>Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Close Warning" xml:space="preserve">
@@ -8622,6 +8652,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
         <source>Disconnecting from SEB Server</source>
         <target>Disconnecting from SEB Server</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Displays a camera view to scan %@ configuration QR codes" xml:space="preserve">
+        <source>Displays a camera view to scan %@ configuration QR codes</source>
+        <target>Displays a camera view to scan %@ configuration QR codes</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Displays a camera view to scan for SEB configuration QR codes" xml:space="preserve">
@@ -9204,9 +9239,9 @@ It is deleted when the session ends</target>
         <target>Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." xml:space="preserve">
-        <source>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</source>
-        <target>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</target>
+      <trans-unit id="Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." xml:space="preserve">
+        <source>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</source>
+        <target>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Prefer Modern" xml:space="preserve">
@@ -9372,21 +9407,6 @@ It is deleted when the session ends</target>
       <trans-unit id="SEB Server Fallback Password Required" xml:space="preserve">
         <source>SEB Server Fallback Password Required</source>
         <target>SEB Server Fallback Password Required</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.</source>
-        <target>SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.</source>
-        <target>SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
-        <source>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</source>
-        <target>SEB was locked (exam interrupted) for %1$ld:%2$.2ld (minutes:seconds)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="SOCKS Proxy" xml:space="preserve">
@@ -9604,9 +9624,9 @@ It is deleted when the session ends</target>
         <target>Single App Mode/Guided Access Not Allowed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
-        <source>Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.</source>
-        <target>Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.</target>
+      <trans-unit id="Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows." xml:space="preserve">
+        <source>Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows.</source>
+        <target>Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Standard user agent" xml:space="preserve">
@@ -9984,14 +10004,14 @@ It is deleted when the session ends</target>
         <target>allow</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="allow to use SEB only with service" xml:space="preserve">
-        <source>allow to use SEB only with service</source>
-        <target>allow to use SEB only with service</target>
+      <trans-unit id="allow to use %@ only with service" xml:space="preserve">
+        <source>allow to use %@ only with service</source>
+        <target>allow to use %@ only with service</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="allow to use SEB without service" xml:space="preserve">
-        <source>allow to use SEB without service</source>
-        <target>allow to use SEB without service</target>
+      <trans-unit id="allow to use %@ without service" xml:space="preserve">
+        <source>allow to use %@ without service</source>
+        <target>allow to use %@ without service</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="block" xml:space="preserve">
@@ -11394,6 +11414,11 @@ It is deleted when the session ends</target>
         <target>%1$@ version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
       </trans-unit>
+      <trans-unit id="%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
+        <source>%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
+        <target>%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Applications Must Be Terminated" xml:space="preserve">
         <source>Applications Must Be Terminated</source>
         <target>Applications Must Be Terminated</target>
@@ -11479,6 +11504,11 @@ It is deleted when the session ends</target>
         <target>Path</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Quit %@" xml:space="preserve">
+        <source>Quit %@</source>
+        <target>Quit %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Quit All Applications" xml:space="preserve">
         <source>Quit All Applications</source>
         <target>Quit All Applications</target>
@@ -11487,11 +11517,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Quit Apps &amp; Start SEB" xml:space="preserve">
         <source>Quit Apps &amp; Start SEB</source>
         <target>Quit Apps &amp; Start SEB</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Quit SEB" xml:space="preserve">
-        <source>Quit SEB</source>
-        <target>Quit SEB</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">
@@ -11507,11 +11532,6 @@ It is deleted when the session ends</target>
       <trans-unit id="SEB Verificator initialized" xml:space="preserve">
         <source>SEB Verificator initialized</source>
         <target>SEB Verificator initialized</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." xml:space="preserve">
-        <source>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</source>
-        <target>SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Scanning for SEB-alike applications" xml:space="preserve">
@@ -11549,9 +11569,9 @@ It is deleted when the session ends</target>
         <target>The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." xml:space="preserve">
-        <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</source>
-        <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.</target>
+      <trans-unit id="The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." xml:space="preserve">
+        <source>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.</source>
+        <target>The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="The following running applications must be terminated" xml:space="preserve">
