@@ -244,7 +244,7 @@
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
     }
     _sebViewController.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"GitHub Issue/Discussion Required for Log Submission", @"")
-                                                                              message:NSLocalizedString(@"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.", @"")
+                                                                              message:[NSString stringWithFormat:NSLocalizedString(@"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.", @""), SEBShortAppName]
                                                                        preferredStyle:UIAlertControllerStyleAlert];
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

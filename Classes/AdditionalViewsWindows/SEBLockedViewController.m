@@ -286,7 +286,7 @@ void run_block_on_main_thread(dispatch_block_t block)
                                                 options:NSCalendarWrapComponents];
     
     DDLogInfo(@"Lockdown alert: Closing lockdown windows");
-    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", @""), components.minute, components.second];
+    NSString *lockedTimeInfo = [NSString stringWithFormat:NSLocalizedString(@"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)", @""), SEBShortAppName, components.minute, components.second];
     
     if ([self.UIDelegate respondsToSelector:@selector(lockdownWindowsWillClose)]) {
         [self.UIDelegate lockdownWindowsWillClose];

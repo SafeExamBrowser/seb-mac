@@ -64,8 +64,8 @@
 /* Class = "NSTextFieldCell"; title = "Status Bar Appearance (iOS)"; ObjectID = "dLs-bX-Goa"; */
 "dLs-bX-Goa.title" = "Darstellung Statusleiste (iOS)";
 
-/* Class = "NSButtonCell"; title = "Allow spell checking"; ObjectID = "eEA-et-CSR"; */
-"eEA-et-CSR.title" = "Rechtschreibprüfung zulassen";
+/* Class = "NSButtonCell"; title = "Allow spell checking (Win)"; ObjectID = "eEA-et-CSR"; */
+"eEA-et-CSR.title" = "Rechtschreibprüfung zulassen (Win)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the Back to Start button, if this feature in configured in the Exam pane"; ObjectID = "end-3L-Lzd"; */
 "end-3L-Lzd.ibShadowedToolTip" = "Die 'Zurück zum Start'-Taste wird angezeigt, falls diese Funktion in den Prüfungs-Einstellungen aktiviert ist";
@@ -139,8 +139,8 @@
 /* Class = "NSComboBoxCell"; O0B-MY-YwV.ibShadowedObjectValues[3] = "1000"; ObjectID = "O0B-MY-YwV"; */
 "O0B-MY-YwV.ibShadowedObjectValues[3]" = "1000";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling/grammar and 'correct spelling automatically'"; ObjectID = "O41-bz-cfY"; */
-"O41-bz-cfY.ibShadowedToolTip" = "'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow using check spelling checking (no longer supported on macOS/iOS)"; ObjectID = "O41-bz-cfY"; */
+"O41-bz-cfY.ibShadowedToolTip" = "'Rechtschreib- und Grammatikprüfung' und 'Rechtschreibung automatisch korrigieren' zulassen (unter macOS/iOS nicht mehr unterstützt)";
 
 /* Class = "NSButtonCell"; title = "Enable page zoom"; ObjectID = "oH6-kG-mSm"; */
 "oH6-kG-mSm.title" = "Seiten-Zoom zulassen";

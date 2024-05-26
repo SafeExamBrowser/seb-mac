@@ -100,10 +100,10 @@ import CocoaLumberjackSwift
         if let pageJavaScriptCode = navigationDelegate?.pageJavaScript {
             let pageModifyUserScript = WKUserScript(source: pageJavaScriptCode, injectionTime: WKUserScriptInjectionTime.atDocumentStart, forMainFrameOnly: false)
             userContentController.addUserScript(pageModifyUserScript)
-            let allowSpellCheck = navigationDelegate?.allowSpellCheck ?? false
-            controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
-            let controlSpellCheckUserScript = WKUserScript(source: controlSpellCheckCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
-            userContentController.addUserScript(controlSpellCheckUserScript)
+//            let allowSpellCheck = navigationDelegate?.allowSpellCheck ?? false
+//            controlSpellCheckCode = "SEB_AllowSpellCheck(\(allowSpellCheck ? "true" : "false"))"
+//            let controlSpellCheckUserScript = WKUserScript(source: controlSpellCheckCode, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
+//            userContentController.addUserScript(controlSpellCheckUserScript)
         }
         userContentController.add(self, name: "updateKeys")
         userContentController.add(self, name: "firstElementBlured")

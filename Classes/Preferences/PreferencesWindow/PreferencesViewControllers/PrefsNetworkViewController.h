@@ -112,7 +112,6 @@
 - (IBAction) identitySelected:(id)sender;
 - (IBAction) certificateSelected:(id)sender;
 - (IBAction) CASelected:(id)sender;
-- (IBAction)conditionallyShowOSCertWarning:(NSButton *)sender;
 
 // Advanced Certificates sheet
 - (IBAction) showAdvancedCertificateSheet:(id)sender;

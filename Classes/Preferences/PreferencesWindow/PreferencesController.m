@@ -612,7 +612,7 @@
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
-    : NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.", @"");
+    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", @"")
@@ -722,8 +722,12 @@
 #pragma mark opening, saving, reverting and using edited settings
 
 // Save preferences and restart SEB with the new settings
-- (IBAction) restartSEB:(id)sender {
-
+- (IBAction) restartSEB:(id)sender 
+{
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -826,6 +830,10 @@
 // Save preferences and quit SEB
 - (IBAction) quitSEB:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     DDLogInfo(@"%s Quitting SEB while Preferences window is open", __FUNCTION__);
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
@@ -917,6 +925,10 @@
 
 - (IBAction) openSEBPrefs:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -985,6 +997,10 @@
 // with parameter indicating if the saved settings file URL should be updated
 - (BOOL) savePrefsAs:(BOOL)saveAs fileURLUpdate:(BOOL)fileURLUpdate
 {
+    if (!self.preferencesAreOpen) {
+        return NO;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1169,7 +1185,9 @@
             }
             if (fileURLUpdate && saveAs && configPurpose != sebConfigPurposeManagedConfiguration) {
                 NSString *settingsSavedTitle = configPurpose ? NSLocalizedString(@"Settings for Configuring Client", @"") : NSLocalizedString(@"Settings for Starting Exam", @"");
-                NSString *settingsSavedMessage = configPurpose ? NSLocalizedString(@"Settings have been saved, use this file to configure a SEB client permanently.", @"") : NSLocalizedString(@"Settings have been saved, use this file to start an exam with SEB.", @"");
+                NSString *settingsSavedMessage = configPurpose ?
+                [NSString stringWithFormat:NSLocalizedString(@"Settings have been saved, use this file to configure a %@ client permanently.", @""), SEBShortAppName] :
+                [NSString stringWithFormat:NSLocalizedString(@"Settings have been saved, use this file to start an exam with %@.", @""), SEBShortAppName];
                 NSAlert *settingsSavedAlert = [[NSAlert alloc] init];
                 [settingsSavedAlert setMessageText:settingsSavedTitle];
                 [settingsSavedAlert setInformativeText:settingsSavedMessage];
@@ -1264,6 +1282,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to default settings
 - (IBAction) revertToDefaultSettings:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1353,6 +1375,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to local client settings
 - (IBAction) revertToLocalClientSettings:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1433,6 +1459,10 @@ userEnteredFilename:(NSString *)filename
 // Action reverting preferences to the last saved or opened file
 - (IBAction) revertToLastSaved:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1511,6 +1541,10 @@ userEnteredFilename:(NSString *)filename
 // Action duplicating current preferences for editing
 - (IBAction) editDuplicate:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1589,6 +1623,10 @@ userEnteredFilename:(NSString *)filename
 // Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return
@@ -1670,6 +1708,10 @@ userEnteredFilename:(NSString *)filename
 // Action applying currently edited preferences, closing preferences window and restarting SEB
 - (IBAction) applyAndRestartSEB:(id)sender
 {
+    if (!self.preferencesAreOpen) {
+        return;
+    }
+    
     // Check if passwords are confirmed and save them if yes
     if (![self passwordsConfirmedAndSaved]) {
         // If they were not confirmed, return

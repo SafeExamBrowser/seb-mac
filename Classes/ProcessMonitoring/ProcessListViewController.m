@@ -3,6 +3,33 @@
 //  Safe Exam Browser
 //
 //  Created by Daniel R. Schneider on 29.07.20.
+//  Copyright (c) 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services,
+//  based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen
+//  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
+//  Andreas Hefti, Nadim Ritter,
+//  Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre,
+//  Brigitte Schmucki, Oliver Rahs. French localization: Nicolas Dunand
+//
+//  ``The contents of this file are subject to the Mozilla Public License
+//  Version 1.1 (the "License"); you may not use this file except in
+//  compliance with the License. You may obtain a copy of the License at
+//  http://www.mozilla.org/MPL/
+//
+//  Software distributed under the License is distributed on an "AS IS"
+//  basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+//  License for the specific language governing rights and limitations
+//  under the License.
+//
+//  The Original Code is Safe Exam Browser for Mac OS X.
+//
+//  The Initial Developer of the Original Code is Daniel R. Schneider.
+//  Portions created by Daniel R. Schneider are Copyright
+//  (c) 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services,
+//  based on the original idea of Safe Exam Browser
+//  by Stefan Schneider, University of Giessen. All Rights Reserved.
+//
+//  Contributor(s): ______________________________________.
 //
 
 #import "ProcessListViewController.h"
@@ -77,7 +104,7 @@
         quitSEBSessionButton.title = NSLocalizedString(@"Start SEB", @"");
     }
 #else
-    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam.", @""), self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
+    runningProhibitedProcessesText.stringValue = [NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.", @""), SEBShortAppName], self.autoQuitApplications ? NSLocalizedString(@"You can also force quit these processes, but this may lead to loss of data.", @"") : NSLocalizedString(@"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.", @"")];
 #endif
 }
 
@@ -87,7 +114,7 @@
     if (self.delegate.quittingSession) {
         quitSEBOrSessionString = NSLocalizedString(@"Quit Session", @"");
     } else {
-        quitSEBOrSessionString = NSLocalizedString(@"Quit SEB", @"");
+        quitSEBOrSessionString = [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName];
     }
     return quitSEBOrSessionString;
 }
@@ -269,7 +296,7 @@
             self.modalAlert = [self.delegate newAlert];
             DDLogError(@"Force quitting processes failed!");
             [self.modalAlert setMessageText:NSLocalizedString(@"Force Quitting Processes Failed", @"")];
-            [self.modalAlert setInformativeText:NSLocalizedString(@"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @"")];
+            [self.modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).", @""), SEBShortAppName]];
             [self.modalAlert setAlertStyle:NSAlertStyleCritical];
             [self.modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
             [self.modalAlert addButtonWithTitle:[self quitSEBOrSessionString]];
