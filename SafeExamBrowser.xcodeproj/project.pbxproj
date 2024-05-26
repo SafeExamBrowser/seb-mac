@@ -367,6 +367,7 @@
 		6975CE6E29647C4400C7ABF3 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6975CE6929647C4400C7ABF3 /* NSArray+Extensions.m */; };
 		6975CE6F29647C4400C7ABF3 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6975CE6929647C4400C7ABF3 /* NSArray+Extensions.m */; };
 		6975CE7129647C4400C7ABF3 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6975CE6929647C4400C7ABF3 /* NSArray+Extensions.m */; };
+		6975DA322C03882800ABBD79 /* SEBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975DA312C03882800ABBD79 /* SEBApplication.swift */; };
 		69782A4E1CCE068C00C2AA9A /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
 		69782A501CCE26AD00C2AA9A /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */; };
 		69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
@@ -1153,6 +1154,7 @@
 		6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProctoringVideoCapturer.m; sourceTree = "<group>"; };
 		6975CE6829647C4400C7ABF3 /* NSArray+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extensions.h"; sourceTree = "<group>"; };
 		6975CE6929647C4400C7ABF3 /* NSArray+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extensions.m"; sourceTree = "<group>"; };
+		6975DA312C03882800ABBD79 /* SEBApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SEBApplication.swift; path = Classes/SEBApplication.swift; sourceTree = "<group>"; };
 		697736FB26D3E4E2000B7C0D /* libquarantine.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libquarantine.tbd; path = usr/lib/system/libquarantine.tbd; sourceTree = SDKROOT; };
 		697736FD26D3E5D4000B7C0D /* libSystem.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libSystem.tbd; path = usr/lib/libSystem.tbd; sourceTree = SDKROOT; };
 		69782A4D1CCE068C00C2AA9A /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Resources/Settings.bundle; sourceTree = "<group>"; };
@@ -1590,6 +1592,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6975DA312C03882800ABBD79 /* SEBApplication.swift */,
 				69D5881F1189EB8F005AE3F1 /* SEBController.h */,
 				69D588201189EB8F005AE3F1 /* SEBController.m */,
 				69973A5F2B0CF21A00A64376 /* SessionHandling */,
@@ -3943,6 +3946,7 @@
 				69F5229F21467188009F3999 /* CustomHTTPProtocol.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
+				6975DA322C03882800ABBD79 /* SEBApplication.swift in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
@@ -5131,7 +5135,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.3.3b1;
+				MARKETING_VERSION = 3.3.4b1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5199,7 +5203,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.3.3b1;
+				MARKETING_VERSION = 3.3.4b1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (

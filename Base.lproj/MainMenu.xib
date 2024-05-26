@@ -1283,13 +1283,8 @@ DQ
                                             </connections>
                                         </button>
                                         <button verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
-<<<<<<< HEAD
-                                            <rect key="frame" x="-1" y="-1" width="250" height="22"/>
-                                            <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
-=======
                                             <rect key="frame" x="-1" y="-1" width="249" height="22"/>
                                             <buttonCell key="cell" type="check" title="Quit app/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
->>>>>>> main
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
