@@ -10,6 +10,9 @@
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
+/* No comment provided by engineer. */
+"%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "%@ konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).";
+
 /* Title for window with list of running SEB-like applications to be terminated */
 "Applications Must Be Terminated" = "Applikationen müssen beendet werden";
 
@@ -68,13 +71,13 @@
 "quit" = "beenden";
 
 /* No comment provided by engineer. */
+"Quit %@" = "%@ Beenden";
+
+/* No comment provided by engineer. */
 "Quit All Applications" = "Alle Applikationen beenden";
 
 /* No comment provided by engineer. */
 "Quit Apps & Start SEB" = "Apps beenden & SEB starten";
-
-/* No comment provided by engineer. */
-"Quit SEB" = "SEB beenden";
 
 /* No comment provided by engineer. */
 "Quit Session" = "Session beenden";
@@ -87,9 +90,6 @@
 
 /* No comment provided by engineer. */
 "SEB Verificator initialized" = "SEB Verificator initialisiert";
-
-/* No comment provided by engineer. */
-"SEB was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "SEB konnte nicht alle Prozesse sofort beenden. Möglicherweise werden Administrator-Rechte benötigt. Versuchen Sie die Aktivitätsanzeige-Applikation zu benutzen oder deinstallieren Sie Hilfsprozesse (welche teilweise vom Betriebssystem automatisch neu gestartet werden).";
 
 /* No comment provided by engineer. */
 "Signature" = "Signatur";
@@ -113,7 +113,7 @@
 "The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." = "Die folgenden gestarteten Applikationen müssen vor dem Starten von SEB beendet werden. Sie können die Applikationen manuell beenden und zu SEB Verificator zurückkehren, um SEB zu starten.";
 
 /* No comment provided by engineer. */
-"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu SEB zurück kehren, um mit der Prüfung weiterzufahren.";
+"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu %@ zurück kehren, um mit der Prüfung weiterzufahren.";
 
 /* No comment provided by engineer. */
 "The following running applications must be terminated" = "Die unten stehenden Programme müssen beendet werden";

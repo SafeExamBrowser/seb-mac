@@ -131,7 +131,7 @@
         [_sebWebView.nativeWebView class] != WKWebView.class &&
         ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
         firstAppearance = NO;
-        [self showTopOverlayMessage:NSLocalizedString(@"Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView.", @"")];
+        [self showTopOverlayMessage:[NSString stringWithFormat:NSLocalizedString(@"Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.", @""), SEBShortAppName]];
     }
 }
 

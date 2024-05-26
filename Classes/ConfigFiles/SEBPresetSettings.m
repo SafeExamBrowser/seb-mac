@@ -47,6 +47,12 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Keyboard Viewer (Assistive Control)",
+                          @"identifier" : KeyboardViewerBundleID,
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
@@ -133,6 +139,11 @@
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Safari/WebKit Networking",
                           @"identifier" : WebKitNetworkingProcessBundleID,
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
+                          @"executable" : @"Google Chrome Helper (Renderer)",
                           @"strongKill" : @YES,
                       },
                       @{

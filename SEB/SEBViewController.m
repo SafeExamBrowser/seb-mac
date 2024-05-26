@@ -2132,10 +2132,17 @@ void run_on_ui_thread(dispatch_block_t block)
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
+                        
+                        NSMutableArray <AVMediaType> *authorizationAccessRequests = [NSMutableArray new];
+                        
                         NSString *microphone = (proctoringSession || browserMediaCaptureMicrophone) && audioAuthorization != AVAuthorizationStatusAuthorized ? NSLocalizedString(@"microphone", @"") : @"";
                         NSString *camera = @"";
                         if ((proctoringSession || browserMediaCaptureCamera) && videoAuthorization != AVAuthorizationStatusAuthorized) {
                             camera = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"camera", @""), microphone.length > 0 ? NSLocalizedString(@" and ", @"") : @""];
+                            [authorizationAccessRequests addObject:AVMediaTypeVideo];
+                        }
+                        if (microphone.length > 0) {
+                            [authorizationAccessRequests addObject:AVMediaTypeAudio];
                         }
                         NSString *permissionsRequiredFor = [NSString stringWithFormat:@"%@%@%@",
                                                             proctoringSession ? NSLocalizedString(@"remote proctoring", @"") : @"",
@@ -2175,26 +2182,30 @@ void run_on_ui_thread(dispatch_block_t block)
                                  postNotificationName:@"requestQuit" object:self];
                                 return;
                             }
-                            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                            [AVCaptureDevice requestAccessForMediaType:authorizationAccessRequests[0] completionHandler:^(BOOL granted) {
                                 if (granted){
-                                    DDLogInfo(@"Granted access to %@", AVMediaTypeVideo);
+                                    DDLogInfo(@"Granted access to %@", authorizationAccessRequests[0]);
                                     
-                                    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-                                        if (granted){
-                                            DDLogInfo(@"Granted access to %@", AVMediaTypeAudio);
-                                            
-                                            run_on_ui_thread(conditionallyStartProctoring);
-                                            
-                                        } else {
-                                            DDLogError(@"Not granted access to %@", AVMediaTypeAudio);
-                                            [[NSNotificationCenter defaultCenter]
-                                             postNotificationName:@"requestQuit" object:self];
-                                        }
-                                    }];
+                                    if (authorizationAccessRequests.count > 1) {
+                                        [AVCaptureDevice requestAccessForMediaType:authorizationAccessRequests[1] completionHandler:^(BOOL granted) {
+                                            if (granted){
+                                                DDLogInfo(@"Granted access to %@", authorizationAccessRequests[1]);
+                                                
+                                                run_on_ui_thread(conditionallyStartProctoring);
+                                                
+                                            } else {
+                                                DDLogError(@"Not granted access to %@", authorizationAccessRequests[1]);
+                                                [[NSNotificationCenter defaultCenter]
+                                                 postNotificationName:@"requestQuit" object:self];
+                                            }
+                                        }];
+                                    } else {
+                                        run_on_ui_thread(conditionallyStartProctoring);
+                                    }
                                     return;
                                     
                                 } else {
-                                    DDLogError(@"Not granted access to %@", AVMediaTypeVideo);
+                                    DDLogError(@"Not granted access to %@", authorizationAccessRequests[0]);
                                     [[NSNotificationCenter defaultCenter]
                                      postNotificationName:@"requestQuit" object:self];
                                 }
@@ -2742,6 +2753,8 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) resetSEB
 {
+    self.sessionState = nil;
+
     // Reset settings view controller (so new settings are displayed)
     self.appSettingsViewController = nil;
     
@@ -2759,7 +2772,7 @@ void run_on_ui_thread(dispatch_block_t block)
     self.viewDidLayoutSubviewsAlreadyCalled = NO;
     
     [self.browserTabViewController closeAllTabs];
-    self.sessionRunning = false;
+    self.sessionRunning = NO;
     [self.browserController resetBrowser];
 }
 
@@ -3112,7 +3125,6 @@ void run_on_ui_thread(dispatch_block_t block)
         // If decrypting new settings was successfull
         receivedServerConfig = nil;
         self.scannedQRCode = NO;
-        [[NSUserDefaults standardUserDefaults] setSecureString:self->startURLQueryParameter forKey:@"org_safeexambrowser_startURLQueryParameter"];
         // If we got a valid filename from the opened config file
         // we save this for displaing in InAppSettings
         NSString *newSettingsFilename = [[MyGlobals sharedMyGlobals] currentConfigURL].lastPathComponent.stringByDeletingPathExtension;
@@ -3318,8 +3330,8 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
     }
-    NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
-    NSURL *startURL = [NSURL URLWithString:startURLString];
+    NSURL *startURL = self.sessionState.startURL;
+    NSString *startURLString = startURL.absoluteString;
     if (startURLString.length == 0 ||
         (([startURL.host hasSuffix:@"safeexambrowser.org"] ||
           [startURL.host hasSuffix:SEBWebsiteShort]) &&
@@ -3649,7 +3661,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting For Single App Mode to End", @"")
                                                                                 message:NSLocalizedString(@"You will be able to work with other apps after Single App Mode is switched off by your administrator.", @"")
                                                                          preferredStyle:UIAlertControllerStyleAlert];
-                    self.endSAMWAlertDisplayed = true;
+                    self.endSAMWAlertDisplayed = YES;
                     [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
                     return;
                 }
@@ -3658,10 +3670,10 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
                         DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                        UIAccessibilityRequestGuidedAccessSession(false, ^(BOOL didSucceed) {
+                        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
                             if (didSucceed) {
                                 DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                self.ASAMActive = false;
+                                self.ASAMActive = NO;
                             }
                             else {
                                 DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
@@ -3727,7 +3739,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // Inform the callback method if decrypting, parsing and storing new settings was successful or not
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector
 {
-    BOOL success = true;
+    BOOL success = YES;
     IMP imp = [callback methodForSelector:selector];
     void (*func)(id, SEL, BOOL) = (void *)imp;
     func(callback, selector, success);
@@ -4028,7 +4040,7 @@ void run_on_ui_thread(dispatch_block_t block)
     DDLogDebug(@"%s: attributes: %@", __FUNCTION__, attributes);
     NSString *message = attributes[@"message"];
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : NSLocalizedString(@"SEB was locked by SEB Server. Please contact your exam support.", @"")}];
+     postNotificationName:@"lockSEB" object:self userInfo:@{@"lockReason" : message ? message : [NSString stringWithFormat:NSLocalizedString(@"%@ was locked by SEB Server. Please contact your exam support.", @""), SEBShortAppName]}];
 }
 
 
@@ -4632,7 +4644,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Re-opening an exam which was locked before");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: nil
-                                                        Message:NSLocalizedString(@"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.", @""), SEBShortAppName]];
             // Add log string for entering a locked exam
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Re-opening an exam which was locked before", @"")] withTime:[NSDate date] repeated: NO];
         } else {
@@ -4658,7 +4670,7 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogError(@"Screen is being captured while in secure mode!");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
-                                                        Message:NSLocalizedString(@"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows.", @"")];
+                                                        Message:[NSString stringWithFormat:NSLocalizedString(@"%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.", @""), SEBShortAppName]];
             // Add log string for entering a locked exam
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Screen capturing/sharing was started while running in secure mode", @"")] withTime:[NSDate date] repeated:NO];
         } else {
@@ -4682,7 +4694,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileSleepModeLockScreen"]) {
         [self openLockdownWindows];
         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Device Was in Sleep Mode!", @"Lockdown alert title text for device was in sleep mode")
-                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows.", @"")];
+                                                    Message:NSLocalizedString(@"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows.", @"")];
         // Add log string for trying to re-open a locked exam
         // Calculate time difference between session resigning active and becoming active again
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
