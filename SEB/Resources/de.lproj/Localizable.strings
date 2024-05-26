@@ -31,6 +31,12 @@
 /* No comment provided by engineer. */
 "%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
 
+/* No comment provided by engineer. */
+"%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." = "%@ ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
+/* No comment provided by engineer. */
+"%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows." = "%@ ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+
 /* Default title of lock screen alert. */
 "%@ Is Locked!" = "%@ ist gesperrt!";
 
@@ -50,22 +56,28 @@
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
 
 /* No comment provided by engineer. */
-"10.7 (this SEB: 10.13)" = "10.7 (dieser SEB: 10.13)";
+"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ war gesperrt (Prüfung unterbrochen) für %2$ld:%3$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
-"10.8 (this SEB: 10.13)" = "10.8 (dieser SEB: 10.13)";
+"%@ was locked by SEB Server. Please contact your exam support." = "%@ wurde durch SEB Server gesperrt. Bitte wenden Sie sich an Ihren Prüfungs-Support.";
 
 /* No comment provided by engineer. */
-"10.9 (this SEB: 10.13)" = "10.9 (dieser SEB: 10.13)";
+"10.7 (this %@: 10.13)" = "10.7 (dieser %@: 10.13)";
 
 /* No comment provided by engineer. */
-"10.10 (this SEB: 10.13)" = "10.10 (dieser SEB: 10.13)";
+"10.8 (this %@: 10.13)" = "10.8 (dieser %@: 10.13)";
 
 /* No comment provided by engineer. */
-"10.11 (this SEB: 10.13)" = "10.11 (dieser SEB: 10.13)";
+"10.9 (this %@: 10.13)" = "10.9 (dieser %@: 10.13)";
 
 /* No comment provided by engineer. */
-"10.12 (this SEB: 10.13)" = "10.12 (dieser SEB: 10.13)";
+"10.10 (this %@: 10.13)" = "10.10 (dieser %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.11 (this %@: 10.13)" = "10.11 (dieser %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.12 (this %@: 10.13)" = "10.12 (dieser %@: 10.13)";
 
 /* No comment provided by engineer. */
 "10.13 High Sierra" = "10.13 High Sierra";
@@ -107,10 +119,10 @@
 "allow" = "erlauben";
 
 /* No comment provided by engineer. */
-"allow to use SEB only with service" = "SEB darf nur mit Service laufen";
+"allow to use %@ only with service" = "%@ darf nur mit Service laufen";
 
 /* No comment provided by engineer. */
-"allow to use SEB without service" = "SEB darf ohne Service laufen";
+"allow to use %@ without service" = "%@ darf ohne Service laufen";
 
 /* No comment provided by engineer. */
 "Always" = "Immer";
@@ -248,7 +260,7 @@
 "Check your server connection configuration." = "Die Konfiguration der Serververbindung muss überprüft werden.";
 
 /* No comment provided by engineer. */
-"Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von iOS nicht mehr vollständig unterstützt! Die verwendeten SEB-Prüfungssystem-Integrationen/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
+"Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von iOS nicht mehr vollständig unterstützt! Die verwendeten %@-Prüfungssystem-Integrationen/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
 
 /* No comment provided by engineer. */
 "Close Warning" = "Warnung schliessen";
@@ -372,6 +384,9 @@
 
 /* No comment provided by engineer. */
 "Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
+
+/* No comment provided by engineer. */
+"Displays a camera view to scan %@ configuration QR codes" = "Zeigt eine Kamera-Ansicht, um %@-Konfigurations-QR-Codes einzulesen";
 
 /* No comment provided by engineer. */
 "Displays a camera view to scan for SEB configuration QR codes" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
@@ -557,7 +572,7 @@
 "If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." = "Ohne Eingabe des korrekten SEB Server Fallback-Passwortes kann der Fallback nicht ausgeführt werden.";
 
 /* No comment provided by engineer. */
-"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten SEB Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
+"If you don't enter the right administrator password used in these settings you cannot open them." = "Ohne Eingabe des korrekten Administrator-Passwortes können die Einstellungen nicht geöffnet werden.";
 
 /* No comment provided by engineer. */
 "If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore." = "Wenn Sie die Identität '%@' aus dem Schlüsselbund entfernen und Sie keine Kopie davon haben (eingebettet in eine Konfigurationsdatei oder installiert auf einem anderen Gerät), können Sie mit dieser Identität verschlüsselte Prüfungskonfigurationsdateien nicht mehr entschlüsseln.";
@@ -758,7 +773,7 @@
 "Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Bitte fügen Sie eine GitHub Issue/Diskussionsnummer/einen Link hinzu oder beschreiben Sie das Problem, das Sie beobachtet haben (was haben Sie gemacht, als das Problem auftrat, was haben Sie erwartet und was ist tatsächlich passiert, Schritt-für-Schritt-Anweisungen, um das Problem zu reproduzieren):";
 
 /* No comment provided by engineer. */
-"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send SEB logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können SEB-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.";
+"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können %@-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.";
 
 /* No comment provided by engineer. */
 "Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
@@ -917,16 +932,7 @@
 "Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." = "Die automatische %@-Client-Konfiguration benötigt eine WLAN- oder VPN-Verbindung. Sie können die Domain-URL Ihrer Institution auch manuell eingeben.";
 
 /* No comment provided by engineer. */
-"SEB is locked because Single App Mode was switched off during the exam or the device was restarted. Unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
-
-/* No comment provided by engineer. */
-"SEB is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and unlock SEB with the quit password, which usually exam supervision/support knows." = "SEB ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
-
-/* No comment provided by engineer. */
 "SEB Server Fallback Password Required" = "SEB Server Fallback-Passwort benötigt";
-
-/* No comment provided by engineer. */
-"SEB was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "SEB war gesperrt (Prüfung unterbrochen) für %1$ld:%2$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
 "Secure exam session was started, URL: " = "Sichere Prüfungssession wurde gestartet, URL:";
@@ -1001,7 +1007,7 @@
 "Single App Mode/Guided Access Not Allowed" = "Einzel-App-Modus/Geführter Zugriff (Guided Access) nicht erlaubt";
 
 /* No comment provided by engineer. */
-"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then unlock SEB by entering the quit/unlock password, which usually exam supervision/support knows." = "Der Ruhezustand wurde aktiviert, beispielsweise durch Schliessen einer iPad-Hülle. Überprüfen Sie vor dem Entsperren, ob das Sperrbildschirm-Hintergrundbild einen Spickzettel anzeigt. Dann entsperren Sie SEB mit der Eingabe des Beenden/Entsperren-Passworts, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
+"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows." = "Der Ruhezustand wurde aktiviert, beispielsweise durch Schliessen einer iPad-Hülle. Überprüfen Sie vor dem Entsperren, ob das Sperrbildschirm-Hintergrundbild einen Spickzettel anzeigt. Dann entsperren Sie SEB mit der Eingabe des Beenden/Entsperren-Passworts, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
 
 /* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS-Proxy";

@@ -390,7 +390,7 @@
                                                        target:self
                                                        action:@selector(scanQRCode)];
             dockItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", @"");
-            dockItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Displays a camera view to scan for %@ configuration QR codes", @""), SEBShortAppName];
+            dockItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Displays a camera view to scan %@ configuration QR codes", @""), SEBShortAppName];
             [newDockItems addObject:dockItem];
             
             dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
