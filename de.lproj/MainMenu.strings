@@ -271,7 +271,7 @@
 /* Class = "NSMenuItem"; title = "Open…"; ObjectID = "KqQ-9i-HSM"; */
 "KqQ-9i-HSM.title" = "Öffnen …";
 
-/* Class = "NSWindow"; title = "SEB Lockdown Information"; ObjectID = "kwi-CI-5lx"; */
+/* Class = "NSWindow"; title = "Lockdown Information"; ObjectID = "kwi-CI-5lx"; */
 "kwi-CI-5lx.title" = "SEB-Lockdown-Information";
 
 /* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "lIX-w9-SMd"; */
@@ -316,7 +316,7 @@
 /* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "QrI-qU-IU3"; */
 "QrI-qU-IU3.title" = "Sichern als …";
 
-/* Class = "NSButtonCell"; title = "Quit SEB/exam session instead of unlocking"; ObjectID = "rlJ-6q-QNz"; */
+/* Class = "NSButtonCell"; title = "Quit app/exam session instead of unlocking"; ObjectID = "rlJ-6q-QNz"; */
 "rlJ-6q-QNz.title" = "SEB oder Prüfungssession beenden anstatt Entsperren";
 
 /* Class = "NSMenuItem"; title = "Zoom Page In"; ObjectID = "S4Y-jw-8zY"; */
@@ -337,8 +337,8 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select Browser Engine Policy"; ObjectID = "tmg-sY-zim"; */
 "tmg-sY-zim.ibExternalAccessibilityDescription" = "Policy zum Wählen der Browser-Engine auswählen";
 
-/* Class = "NSTextFieldCell"; title = "Enter quit/unlock password to unlock SEB:"; ObjectID = "toT-ZU-d4i"; */
-"toT-ZU-d4i.title" = "Beenden/Entsperren-Passwort eingeben, um SEB zu entsperren:";
+/* Class = "NSTextFieldCell"; title = "Enter quit password to unlock:"; ObjectID = "toT-ZU-d4i"; */
+"toT-ZU-d4i.title" = "Zum Entsperren Beenden-Passwort eingeben:";
 
 /* Class = "NSMenuItem"; title = "Settings"; ObjectID = "UaS-yv-Dq3"; */
 "UaS-yv-Dq3.title" = "Einstellungen";

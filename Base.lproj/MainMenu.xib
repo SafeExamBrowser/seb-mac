@@ -1193,7 +1193,7 @@ DQ
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="366" id="GTM-ss-tIj"/>
                                     </constraints>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit/unlock password to unlock SEB:" id="toT-ZU-d4i">
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Enter quit password to unlock:" id="toT-ZU-d4i">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1283,8 +1283,8 @@ DQ
                                             </connections>
                                         </button>
                                         <button verifyAmbiguity="off" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AcD-fw-97S">
-                                            <rect key="frame" x="-1" y="-1" width="250" height="22"/>
-                                            <buttonCell key="cell" type="check" title="Quit SEB/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
+                                            <rect key="frame" x="-1" y="-1" width="249" height="22"/>
+                                            <buttonCell key="cell" type="check" title="Quit app/exam session instead of unlocking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rlJ-6q-QNz">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="menu" size="11"/>
                                             </buttonCell>
@@ -1417,7 +1417,7 @@ DQ
             </constraints>
             <point key="canvasLocation" x="999" y="1124.5"/>
         </customView>
-        <window title="SEB Lockdown Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="HUDPanel">
+        <window title="Lockdown Information" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="kwi-CI-5lx" customClass="HUDPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" nonactivatingPanel="YES" HUD="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="274" width="500" height="44"/>
