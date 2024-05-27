@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+public class SEBSPMetaDataCollector {
+    
+    public func collectMetaData() -> String? {
+        
+        return nil
+    }
+}

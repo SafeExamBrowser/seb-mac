@@ -431,6 +431,8 @@
 		6992499D16C5B62000DF6B53 /* PrefsApplicationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */; };
 		699282E319D0430A00270E86 /* CapWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 699282E119D0430A00270E86 /* CapWindowController.h */; };
 		699282E419D0430A00270E86 /* CapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699282E219D0430A00270E86 /* CapWindowController.m */; };
+		6993CD5B2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6993CD5A2C047CCF00DB2088 /* SEBScreenCaptureController.swift */; };
+		6993CD5C2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6993CD5A2C047CCF00DB2088 /* SEBScreenCaptureController.swift */; };
 		699447F5248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F6248D4B840074A655 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
 		699447F8248D4B840074A655 /* SEBBadgeError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F4248D4B840074A655 /* SEBBadgeError@2x.png */; };
@@ -462,6 +464,8 @@
 		699C540815EFA1EC00B8D210 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
 		699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */; };
 		699D508526878F430026D8D9 /* SEBTextViewNonEditing.h in Headers */ = {isa = PBXBuildFile; fileRef = 699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */; };
+		699E16042C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E16032C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift */; };
+		699E16052C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E16032C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift */; };
 		699F63132A3719140040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		699F63142A3719160040E612 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
 		69A071F3268A386600A0464B /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
@@ -1220,6 +1224,7 @@
 		6992499B16C5B62000DF6B53 /* PrefsApplicationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsApplicationsViewController.m; sourceTree = "<group>"; };
 		699282E119D0430A00270E86 /* CapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapWindowController.h; sourceTree = "<group>"; };
 		699282E219D0430A00270E86 /* CapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapWindowController.m; sourceTree = "<group>"; };
+		6993CD5A2C047CCF00DB2088 /* SEBScreenCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenCaptureController.swift; sourceTree = "<group>"; };
 		699447F3248D4B840074A655 /* SEBBadgeError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeError.png; sourceTree = "<group>"; };
 		699447F4248D4B840074A655 /* SEBBadgeError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SEBBadgeError@2x.png"; sourceTree = "<group>"; };
 		699447FB248D54870074A655 /* SEBBadgeWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SEBBadgeWarning.png; sourceTree = "<group>"; };
@@ -1246,6 +1251,7 @@
 		699D508026877EA80026D8D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Safe Exam Browser/Images.xcassets"; sourceTree = "<group>"; };
 		699D508226878F420026D8D9 /* SEBTextViewNonEditing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBTextViewNonEditing.m; sourceTree = "<group>"; };
 		699D508326878F430026D8D9 /* SEBTextViewNonEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBTextViewNonEditing.h; sourceTree = "<group>"; };
+		699E16032C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBSPMetaDataCollector.swift; sourceTree = "<group>"; };
 		699E7FF52A52BF7400942697 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MscCertificate_OpenSSL_X509.h; sourceTree = "<group>"; };
 		69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MscIssuerAndSubject.m; sourceTree = "<group>"; };
@@ -2377,6 +2383,8 @@
 				695CA8D228E39FFD005BE4E8 /* SEBZoomController.m */,
 				69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */,
 				69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */,
+				6993CD5A2C047CCF00DB2088 /* SEBScreenCaptureController.swift */,
+				699E16032C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift */,
 			);
 			name = Proctoring;
 			path = Classes/Proctoring;
@@ -3792,8 +3800,10 @@
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				69B1D470230D7586005656B8 /* APIResources.swift in Sources */,
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
+				6993CD5C2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */,
 				69B98F812BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */,
 				691CC4121BA134070020D3EC /* RNDecryptor.m in Sources */,
+				699E16052C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift in Sources */,
 				691CC4111BA134070020D3EC /* RNCryptor.m in Sources */,
 				69F5229B21467188009F3999 /* CacheStoragePolicy.m in Sources */,
 				696DAD521C3C7C9A00397E18 /* Webpages.m in Sources */,
@@ -3861,6 +3871,7 @@
 				699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
+				699E16042C04AF9200BE1FA6 /* SEBSPMetaDataCollector.swift in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
@@ -3900,6 +3911,7 @@
 				698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
+				6993CD5B2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */,
 				69F5229A21467188009F3999 /* CacheStoragePolicy.m in Sources */,
 				69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
