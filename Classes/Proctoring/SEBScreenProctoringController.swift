@@ -42,6 +42,8 @@ fileprivate struct keysSPS {
     
     @objc weak public var delegate: ScreenProctoringDelegate?
     @objc weak public var spsControllerUIDelegate: SPSControllerUIDelegate?
+    
+    private lazy var screenCaptureController: ScreenCaptureController = ScreenCaptureController()
 
     fileprivate var session: URLSession?
     private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
@@ -149,11 +151,6 @@ fileprivate struct keysSPS {
             
             getServerAccessToken {
                 self.startScreenProctoring()
-//                if let sampleScreenShotURL = Bundle.main.url(forResource: "SampleScreenshotRGB248", withExtension: "png") {
-//                    if let screenShotData = try? Data(contentsOf:  sampleScreenShotURL) {
-//                        self.sendScreenShot(data: screenShotData, metaData: "")
-//                    }
-//                }
             }
         }
         
@@ -274,31 +271,12 @@ public extension SEBScreenProctoringController {
         let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
         let imageScale = 1/(self.imageDownscale ?? 1)
         timer.eventHandler = {
-            if let screenShotData = self.takeScreenShot(scale: imageScale) {
+            if let screenShotData = self.screenCaptureController.takeScreenShot(scale: imageScale) {
                 self.sendScreenShot(data: screenShotData, metaData: "")
             }
         }
         screenShotTimer = timer
         screenShotTimer?.resume()
-    }
-    
-    fileprivate func takeScreenShot(scale: Double) -> Data? {
-//        let displayID = CGMainDisplayID()
-//        guard var imageRef = CGDisplayCreateImage(displayID) else {
-//            return nil
-//        }
-        guard let imageRef = CGWindowListCreateImage(CGRectInfinite, .optionAll, CGWindowID(), CGWindowImageOption()) else {
-            return nil
-        }
-
-//        if scale != 1 {
-//            guard let scaledImage = imageRef.resize(size: CGSize(width: scale, height: scale)) else {
-//                return nil
-//            }
-//            imageRef = scaledImage
-//        }
-        let pngData = imageRef.pngData()
-        return pngData
     }
     
     fileprivate func sendScreenShot(data: Data, metaData: String) {
@@ -382,58 +360,5 @@ public extension SEBScreenProctoringController {
         }
     }
 
-}
-
-import CoreGraphics
-import CoreImage
-import ImageIO
-
-extension CIImage {
-  
-  public func convertToCGImage() -> CGImage? {
-    let context = CIContext(options: nil)
-    if let cgImage = context.createCGImage(self, from: self.extent) {
-      return cgImage
-    }
-    return nil
-  }
-  
-  public func data() -> Data? {
-    convertToCGImage()?.pngData()
-  }
-}
-
-extension CGImage {
-  
-  public func pngData() -> Data? {
-    let cfdata: CFMutableData = CFDataCreateMutable(nil, 0)
-    if let destination = CGImageDestinationCreateWithData(cfdata, kUTTypePNG as CFString, 1, nil) {
-      CGImageDestinationAddImage(destination, self, nil)
-      if CGImageDestinationFinalize(destination) {
-        return cfdata as Data
-      }
-    }
-    
-    return nil
-  }
-}
-
-extension CGImage {
-    func resize(size:CGSize) -> CGImage? {
-        let width: Int = Int(size.width)
-        let height: Int = Int(size.height)
-
-        let bytesPerPixel = self.bitsPerPixel / self.bitsPerComponent
-        let destBytesPerRow = width * bytesPerPixel
-
-
-        guard let colorSpace = self.colorSpace else { return nil }
-        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: self.bitsPerComponent, bytesPerRow: destBytesPerRow, space: colorSpace, bitmapInfo: self.alphaInfo.rawValue) else { return nil }
-
-        context.interpolationQuality = .high
-        context.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
-
-        return context.makeImage()
-    }
 }
 
