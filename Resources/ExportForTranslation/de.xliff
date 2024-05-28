@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
@@ -1638,12 +1637,12 @@
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
         <source>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</source>
-        <target>Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8</target>
+        <target>In einigen Webanwendungen führt der erneute Versuch, eine fehlgeschlagene URL nach einem Verbindungsfehler zu laden, zu Problemen. Wenn diese Option aktiviert ist, wird stattdessen die gesamte Seite neu geladen.</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168";</note>
       </trans-unit>
       <trans-unit id="169.title" xml:space="preserve">
         <source>Reload page after connection error</source>
-        <target>Java aktivieren</target>
+        <target>Seite nach Verbindungsfehler neu laden</target>
         <note>Class = "NSButtonCell"; title = "Reload page after connection error"; ObjectID = "169";</note>
       </trans-unit>
       <trans-unit id="171.ibShadowedToolTip" xml:space="preserve">
@@ -5063,9 +5062,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Bearbeitete Einstellungen anwenden?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Are you sure you want to quit Safe Exam Browser?" xml:space="preserve">
-        <source>Are you sure you want to quit Safe Exam Browser?</source>
-        <target>Sind Sie sicher, dass Sie Safe Exam Browser beenden wollen?</target>
+      <trans-unit id="Are you sure you want to quit %@?" xml:space="preserve">
+        <source>Are you sure you want to quit %@?</source>
+        <target>Sind Sie sicher, dass Sie %@ beenden wollen?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit this session?" xml:space="preserve">
@@ -6126,11 +6125,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Quit All Applications" xml:space="preserve">
         <source>Quit All Applications</source>
         <target>Alle Programme beenden</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Quit Safe Exam Browser" xml:space="preserve">
-        <source>Quit Safe Exam Browser</source>
-        <target>%@ Beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">

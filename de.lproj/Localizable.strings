@@ -179,7 +179,7 @@
 "Apply Edited Settings?" = "Bearbeitete Einstellungen anwenden?";
 
 /* No comment provided by engineer. */
-"Are you sure you want to quit Safe Exam Browser?" = "Sind Sie sicher, dass Sie Safe Exam Browser beenden wollen?";
+"Are you sure you want to quit %@?" = "Sind Sie sicher, dass Sie %@ beenden wollen?";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
@@ -861,9 +861,6 @@
 
 /* No comment provided by engineer. */
 "Quit All Applications" = "Alle Programme beenden";
-
-/* No comment provided by engineer. */
-"Quit Safe Exam Browser" = "%@ Beenden";
 
 /* No comment provided by engineer. */
 "Quit Session" = "Session beenden";
