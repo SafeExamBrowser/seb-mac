@@ -29,7 +29,7 @@
 "%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%1$@ von Dateien ist nicht erlaubt in den aktuellen %2$@-Einstellungen. Melden Sie dies Ihrem Prüfungsveranstalter.";
 
 /* No comment provided by engineer. */
-"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
+"%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
 
 /* No comment provided by engineer. */
 "%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." = "%@ ist gesperrt, weil der Einzel-App-Modus während der Prüfung ausgeschaltet oder das Gerät neu gestartet wurde. Beenden/Entsperren-Passwort eingeben, welches üblicherweise der Prüfungsaufsicht bekannt ist.";
