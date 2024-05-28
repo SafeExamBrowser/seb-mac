@@ -4811,9 +4811,9 @@ It is deleted when the session ends</target>
         <target>%@ is Locked!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
-        <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
-        <target>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
+      <trans-unit id="%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
+        <source>%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
+        <target>%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." xml:space="preserve">
@@ -5006,9 +5006,9 @@ It is deleted when the session ends</target>
         <target>Apply Edited Settings?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Are you sure you want to quit Safe Exam Browser?" xml:space="preserve">
-        <source>Are you sure you want to quit Safe Exam Browser?</source>
-        <target>Are you sure you want to quit Safe Exam Browser?</target>
+      <trans-unit id="Are you sure you want to quit %@?" xml:space="preserve">
+        <source>Are you sure you want to quit %@?</source>
+        <target>Are you sure you want to quit %@?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit this session?" xml:space="preserve">
@@ -6069,11 +6069,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Quit All Applications" xml:space="preserve">
         <source>Quit All Applications</source>
         <target>Quit All Applications</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Quit Safe Exam Browser" xml:space="preserve">
-        <source>Quit Safe Exam Browser</source>
-        <target>Quit Safe Exam Browser</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">
@@ -8114,9 +8109,9 @@ It is deleted when the session ends</target>
         <target>%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
-        <source>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
-        <target>%1$@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
+      <trans-unit id="%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." xml:space="preserve">
+        <source>%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</source>
+        <target>%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." xml:space="preserve">
