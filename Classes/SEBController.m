@@ -1031,7 +1031,7 @@ bool insideMatrix(void);
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
         [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
-        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", @"") : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @""))];
+        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppName] : NSLocalizedString(@"Quit Session", @""))];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
@@ -1319,7 +1319,7 @@ bool insideMatrix(void);
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", @"")];
                 [modalAlert setInformativeText:informativeText];
-                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppName] : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -1353,7 +1353,7 @@ bool insideMatrix(void);
                 [modalAlert setInformativeText:informativeText];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", @"")];
-                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppName] : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -6339,8 +6339,8 @@ conditionallyForWindow:(NSWindow *)window
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", @"") : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @""))];
-    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?", @"") : NSLocalizedString(@"Are you sure you want to quit this session?", @""))];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppName] : NSLocalizedString(@"Quit Session", @""))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to quit %@?", @""), SEBFullAppName] : NSLocalizedString(@"Are you sure you want to quit this session?", @""))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSAlertStyleWarning];
