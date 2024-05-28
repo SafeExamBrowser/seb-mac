@@ -72,7 +72,7 @@
 {
     if (![super isReconfiguringAllowedFromURL:url]) {
         [_sebViewController showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", @""), SEBExtraShortAppName]
-                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
+                         andText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
         return NO;
     } else {
         return YES;

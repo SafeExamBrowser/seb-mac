@@ -775,7 +775,7 @@
         self.startingUp = false;
         NSAlert *modalAlert = [_sebController newAlert];
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Loading New %@ Settings Not Allowed!", @""), SEBExtraShortAppName]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam.", @""), SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^reconfiguringNotAllowedOK)(NSModalResponse) = ^void (NSModalResponse answer) {

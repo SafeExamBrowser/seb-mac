@@ -74,10 +74,10 @@
 "108.title" = "Plug-Ins aktivieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168"; */
-"168.ibShadowedToolTip" = "Java-Applets zulassen. SEB ist nur mit Java 1.6 kompatibel, nicht mit Java 1.7 und 1.8";
+"168.ibShadowedToolTip" = "In einigen Webanwendungen führt der erneute Versuch, eine fehlgeschlagene URL nach einem Verbindungsfehler zu laden, zu Problemen. Wenn diese Option aktiviert ist, wird stattdessen die gesamte Seite neu geladen.";
 
 /* Class = "NSButtonCell"; title = "Reload page after connection error"; ObjectID = "169"; */
-"169.title" = "Java aktivieren";
+"169.title" = "Seite nach Verbindungsfehler neu laden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Enables JavaScript. Please note that most modern websites need JavaScript for full functionality"; ObjectID = "171"; */
 "171.ibShadowedToolTip" = "JavaScript aktivieren. Bitte beachten: Die meisten modernen Websites benötigen JavaScript für volle Funktionalität";

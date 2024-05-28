@@ -41,7 +41,7 @@
 "%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now." = "%1$@ muss im Verzeichnis '%2$@' installiert werden. Bewegen Sie die '%3$@' App in Ihr Verzeichnis %4$@ und stellen Sie sicher, dass Sie keine anderen Versionen von %5$@ auf Ihrem System installiert haben. %6$@ wird jetzt beendet.";
 
 /* No comment provided by engineer. */
-"%@ is already running in exam mode and it is not allowed to interupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
+"%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ läuft bereits im Prüfungsmodus und es ist nicht erlaubt, diesen durch den Start einer anderen Prüfung zu unterbrechen. Beenden Sie die Prüfungssession oder benutzen Sie die %2$@ Beenden Taste vor dem Starten einer anderen Prüfung.";
 
 /* No comment provided by engineer. */
 "%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "%@ ist so konfiguriert, dass nur eine zuvor heruntergeladene Datei heraufgeladen werden kann. Laden Sie eine Datei herunter und wenn Sie diese in einer Drittapplikation bearbeiten, speichern Sie diese mit demselben Dateinamen im gleichen Verzeichnis.";
@@ -179,7 +179,7 @@
 "Apply Edited Settings?" = "Bearbeitete Einstellungen anwenden?";
 
 /* No comment provided by engineer. */
-"Are you sure you want to quit Safe Exam Browser?" = "Sind Sie sicher, dass Sie Safe Exam Browser beenden wollen?";
+"Are you sure you want to quit %@?" = "Sind Sie sicher, dass Sie %@ beenden wollen?";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
@@ -861,9 +861,6 @@
 
 /* No comment provided by engineer. */
 "Quit All Applications" = "Alle Programme beenden";
-
-/* No comment provided by engineer. */
-"Quit Safe Exam Browser" = "%@ Beenden";
 
 /* No comment provided by engineer. */
 "Quit Session" = "Session beenden";

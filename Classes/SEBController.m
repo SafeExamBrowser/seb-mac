@@ -903,7 +903,7 @@ bool insideMatrix(void);
             if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                 modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences.", @""), SEBShortAppName, SEBFullAppName], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences.", @""), SEBShortAppName, SEBFullAppNameClassic], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
@@ -1041,7 +1041,7 @@ bool insideMatrix(void);
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[error.userInfo objectForKey:NSLocalizedDescriptionKey]];
         [modalAlert setInformativeText:[error.userInfo objectForKey:NSLocalizedFailureReasonErrorKey]];
-        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", @"") : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @""))];
+        [modalAlert addButtonWithTitle:(!_establishingSEBServerConnection && !_startingUp) ? NSLocalizedString(@"OK", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppNameClassic] : NSLocalizedString(@"Quit Session", @""))];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^storeNewSEBSettingsNotSuccessfulHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
@@ -1330,7 +1330,7 @@ bool insideMatrix(void);
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Connection to SEB Server Failed", @"")];
                 [modalAlert setInformativeText:informativeText];
-                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppNameClassic] : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -1364,7 +1364,7 @@ bool insideMatrix(void);
                 [modalAlert setInformativeText:informativeText];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Fallback", @"")];
-                [modalAlert addButtonWithTitle:!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @"")];
+                [modalAlert addButtonWithTitle:!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppNameClassic] : NSLocalizedString(@"Quit Session", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 void (^closeServerViewHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
@@ -6428,8 +6428,8 @@ conditionallyForWindow:(NSWindow *)window
     DDLogDebug(@"%s Displaying confirm quit alert", __FUNCTION__);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", @"") : (!self.quittingSession ? NSLocalizedString(@"Quit Safe Exam Browser", @"") : NSLocalizedString(@"Quit Session", @""))];
-    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : (!self.quittingSession ? NSLocalizedString(@"Are you sure you want to quit Safe Exam Browser?", @"") : NSLocalizedString(@"Are you sure you want to quit this session?", @""))];
+    [modalAlert setMessageText:restart ? NSLocalizedString(@"Restart Session", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBFullAppNameClassic] : NSLocalizedString(@"Quit Session", @""))];
+    [modalAlert setInformativeText:restart ? NSLocalizedString(@"Are you sure you want to restart this session?", @"") : (!self.quittingSession ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to quit %@?", @""), SEBFullAppNameClassic] : NSLocalizedString(@"Are you sure you want to quit this session?", @""))];
     [modalAlert addButtonWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -6606,24 +6606,6 @@ conditionallyForWindow:(NSWindow *)window
         _batteryController = nil;
     }
     
-//    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-//    BOOL allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-//    [preferences removeObjectForKey:@"WebContinuousSpellCheckingEnabled"];
-//    [preferences removeObjectForKey:@"WebAutomaticSpellingCorrectionEnabled"];
-//    [preferences removeObjectForKey:@"WebGrammarCheckingEnabled"];
-//    [preferences removeObjectForKey:@"WebAutomaticTextReplacementEnabled"];
-//    [preferences removeObjectForKey:@"NSContinuousSpellCheckingEnabled"];
-//    [preferences removeObjectForKey:@"NSAutomaticSpellingCorrectionEnabled"];
-//    NSNumber *allowSpellCheckObject = [NSNumber numberWithBool:allowSpellCheck];
-//    NSDictionary<NSString *,id> *spellCheckingDefaults = @{@"WebGrammarCheckingEnabled" : allowSpellCheckObject,
-//                                                           @"WebAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject,
-//                                                           @"WebContinuousSpellCheckingEnabled" : allowSpellCheckObject,
-//                                                           @"WebAutomaticTextReplacementEnabled" : allowSpellCheckObject,
-//                                                           @"NSContinuousSpellCheckingEnabled" : allowSpellCheckObject,
-//                                                           @"NSAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject};
-//    [preferences registerDefaults:spellCheckingDefaults];
-
-    
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
         run_on_ui_thread(^{
@@ -6771,7 +6753,7 @@ conditionallyForWindow:(NSWindow *)window
         }
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Not in %@ Folder!", @""), SEBShortAppName, localizedApplicationDirectoryName]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now.", @""), SEBShortAppName, localizedApplicationDirectoryName, SEBFullAppName, localizedAndInternalApplicationDirectoryName, SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ has to be placed in the %@ folder in order for all features to work correctly. Move the '%@' app to your %@ folder and make sure that you don't have any other versions of %@ installed on your system. %@ will quit now.", @""), SEBShortAppName, localizedApplicationDirectoryName, SEBFullAppNameClassic, localizedAndInternalApplicationDirectoryName, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert setAlertStyle:NSAlertStyleCritical];
         void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
