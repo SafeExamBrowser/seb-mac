@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if os(iOS)
+import MobileCoreServices
+#endif
 
 public class ScreenCaptureController {
     
@@ -14,10 +17,24 @@ public class ScreenCaptureController {
 //        guard var imageRef = CGDisplayCreateImage(displayID) else {
 //            return nil
 //        }
+        
+#if os(macOS)
         guard var imageRef = CGWindowListCreateImage(CGRectInfinite, .optionAll, CGWindowID(), CGWindowImageOption()) else {
             return nil
         }
-
+#elseif os(iOS)
+        guard let layer = UIApplication.shared.keyWindow?.layer else {
+            return nil
+        }
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, true, 0)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        layer.render(in: context)
+        guard var imageRef = context.makeImage() else {
+            return nil
+        }
+#endif
         if scale != 1 {
             guard let scaledImage = imageRef.resize(scale: scale) else {
                 return nil
@@ -63,6 +80,7 @@ extension CGImage {
   }
 }
 
+#if os(macOS)
 extension NSImage {
     
 //    func resize(to size:CGSize) -> NSImage? {
@@ -78,6 +96,7 @@ extension NSImage {
 //        return context.makeImage().flatMap { NSImage(cgImage: $0) }
 //    }
 }
+#endif
 
 extension CGImage {
         
