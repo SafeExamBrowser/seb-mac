@@ -134,6 +134,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBScreenProctoringController *)screenProctoringController
+{
+    if (!_screenProctoringController) {
+        _screenProctoringController = [[SEBScreenProctoringController alloc] init];
+//        _zoomController.proctoringUIDelegate = self;
+    }
+    return _screenProctoringController;
+}
+
+
 - (UIViewController *)topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -3442,7 +3452,9 @@ void run_on_ui_thread(dispatch_block_t block)
     _resettingSettings = NO;
     
     [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-        [self didCloseSEBServerConnectionRestart:restart];
+        [self stopProctoringWithCompletion:^{
+            [self didCloseSEBServerConnectionRestart:restart];
+        }];
     }];
 }
 
@@ -4906,6 +4918,15 @@ void run_on_ui_thread(dispatch_block_t block)
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    
+    if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
+        NSString *instructionConfirm = attributes[@"instruction-confirm"];
+        if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
+            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+        }
+    }
+    
     if ([serviceType isEqualToString:@"JITSI_MEET"]) {
         NSString *jitsiMeetServerURLString = attributes[@"jitsiMeetServerURL"];
         NSURL *jitsiMeetServerURL = [NSURL URLWithString:jitsiMeetServerURLString];
@@ -4972,6 +4993,18 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.jitsiViewController updateProctoringViewButtonState];
     NSString *instructionConfirm = attributes[@"instruction-confirm"];
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
+}
+
+
+- (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
+{
+    if (_screenProctoringController) {
+        [_screenProctoringController closeSessionWithCompletionHandler:^{
+            completionHandler();
+        }];
+        return;
+    }
+    completionHandler();
 }
 
 

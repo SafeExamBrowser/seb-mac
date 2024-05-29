@@ -106,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBBatteryController;
 @class ServerController;
 @class SEBServerViewController;
+@class SEBScreenProctoringController;
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
@@ -212,6 +213,7 @@ void run_on_ui_thread(dispatch_block_t block);
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO
+@property (strong, nonatomic) SEBScreenProctoringController *screenProctoringController;
 @property(readwrite) BOOL previousSessionScreenProctoringEnabled;
 
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
