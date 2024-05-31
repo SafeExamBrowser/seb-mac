@@ -1795,6 +1795,12 @@ bool insideMatrix(void);
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
     
     NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+    if (_isAACEnabled) {
+        NSArray *permittedRunningApplications = [ProcessManager sharedProcessManager].permittedRunningApplications;
+        if (permittedRunningApplications && permittedRunningApplications.count > 0) {
+            prohibitedRunningApplications = [prohibitedRunningApplications arrayByAddingObjectsFromArray:permittedRunningApplications];
+        }
+    }
     NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
     
@@ -5655,6 +5661,7 @@ conditionallyForWindow:(NSWindow *)window
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
+                                                                 bundleID:nil
                                                                      icon:[NSApp applicationIconImage]
                                                           highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil
@@ -5666,12 +5673,46 @@ conditionallyForWindow:(NSWindow *)window
             [self setUpDockLeftButtons:dockButtons];
         }
         
+        // Initialize center dock items (allowed third party applications)
+        if (_isAACEnabled) {
+            NSMutableArray *centerDockItems = [NSMutableArray array];
+            NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+            for (NSDictionary *permittedProcess in permittedProcesses) {
+                if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
+                    NSString *appName = permittedProcess[@"title"];
+                    NSString *appBundleID = permittedProcess[@"identifier"];
+                    if (appName.length == 0) {
+                        appName = permittedProcess[@"executable"];
+                    }
+                    if (appName.length == 0) {
+                        appName = appBundleID;
+                    }
+                    NSImage *appIcon = [[NSWorkspace sharedWorkspace] iconForFile:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:appBundleID]];
+
+                    SEBDockItem *dockItemApp = [[SEBDockItem alloc] initWithTitle:appName
+                                                                         bundleID:appBundleID
+                                                                             icon:appIcon
+                                                                  highlightedIcon:appIcon
+                                                                          toolTip:nil
+                                                                             menu:nil
+                                                                           target:self
+                                                                           action:@selector(appButtonPressed:)
+                                                                  secondaryAction:nil];
+                    [centerDockItems addObject:dockItemApp];
+                }
+            }
+            if (centerDockItems.count > 0) {
+                [self.dockController setCenterItems:centerDockItems.copy];
+            }
+        }
+        
         // Initialize right dock items (controlls and info widgets)
         NSMutableArray *rightDockItems = [NSMutableArray array];
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
                                                                        toolTip:[NSString stringWithFormat:NSLocalizedString(@"Quit %@",nil), SEBShortAppName]
@@ -5708,6 +5749,7 @@ conditionallyForWindow:(NSWindow *)window
 //            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                            bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                        toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
@@ -5737,6 +5779,7 @@ conditionallyForWindow:(NSWindow *)window
                                               remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                            bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                        toolTip:allowToggleProctoringView ?
@@ -5764,6 +5807,7 @@ conditionallyForWindow:(NSWindow *)window
                 RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised_yellow"];
             }
             SEBDockItem *dockItemRaiseHand = [[SEBDockItem alloc] initWithTitle:nil
+                                                                       bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                        toolTip:NSLocalizedString(@"Raise Hand",nil)
@@ -5783,6 +5827,7 @@ conditionallyForWindow:(NSWindow *)window
                 restartButtonToolTip = NSLocalizedString(@"Back to Start",nil);
             }
             SEBDockItem *dockItemSkipBack = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBSkipBackIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBSkipBackIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
@@ -5798,6 +5843,7 @@ conditionallyForWindow:(NSWindow *)window
              [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
+                                                                    bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
@@ -5816,9 +5862,6 @@ conditionallyForWindow:(NSWindow *)window
         }
         
         // Set right dock items
-        
-//        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
-        
         NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];
         [self setUpDockRightButtons:dockButtons];
         
@@ -5874,6 +5917,22 @@ conditionallyForWindow:(NSWindow *)window
             NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
         };
         NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+    }
+}
+
+
+- (void) appButtonPressed:(id)sender
+{
+    NSString *bundleID = ((SEBDockItemButton *)sender).bundleID;
+    DDLogInfo(@"Dock button pressed for app: %@", bundleID);
+    NSURL *appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:bundleID];
+    if (@available(macOS 10.15, *)) {
+        NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
+        openConfiguration.activates = YES;
+        openConfiguration.addsToRecentItems = NO;
+        [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                
+        }];
     }
 }
 

@@ -111,6 +111,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (SEL) secondaryAction;
 
 /**
+ * @brief       Bundle ID of an allowed third party app
+ */
+- (NSString *) bundleID;
+
+/**
  * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
  */
 - (NSView *) view;
