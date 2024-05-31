@@ -2052,7 +2052,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
                 BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
                 BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
-                BOOL isETHExam = [self.sessionState.startURL.host isEqualToString:@"ethz.ch"];
+                BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
+                [_serverController.url.host hasSuffix:@"ethz.ch"];
 
                 if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
                     NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
@@ -2088,47 +2089,58 @@ void run_on_ui_thread(dispatch_block_t block)
                         }
                         run_on_ui_thread(completionBlock);
                     };
+                    
+                    void (^conditionallyStartJitsiProctoring)(void);
+                    conditionallyStartJitsiProctoring =
+                    ^{
+                        if (jitsiMeetEnable) {
+                            // Check if previous SEB session already had proctoring active
+                            if (self.previousSessionJitsiMeetEnabled) {
+                                run_on_ui_thread(startRemoteProctoringOK);
+                            } else {
+                                run_on_ui_thread(^{
+                                    [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", @"")
+                                                 message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]
+                                            action1Title:NSLocalizedString(@"OK", @"")
+                                          action1Handler:^ {
+                                        run_on_ui_thread(startRemoteProctoringOK);
+                                    }
+                                            action2Title:NSLocalizedString(@"Cancel", @"")
+                                          action2Handler:^ {
+                                        self.alertController = nil;
+                                        [[NSNotificationCenter defaultCenter]
+                                         postNotificationName:@"requestQuit" object:self];
+                                    }];
+                                });
+                                return;
+                            }
+                        } else {
+                            startRemoteProctoringOK();
+                        }
+                    };
+                    
                     if (screenProctoringEnable) {
                         // Check if previous SEB session already had proctoring active
                         if (!self.previousSessionScreenProctoringEnabled) {
-                            [self alertWithTitle:NSLocalizedString(@"Screen Proctoring Session", @"")
-                                         message:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]
-                                    action1Title:NSLocalizedString(@"OK", @"")
-                                  action1Handler:^ {
-                                self.previousSessionScreenProctoringEnabled = YES;
-                                run_on_ui_thread(conditionallyStartProctoring);
-                            }
-                                    action2Title:NSLocalizedString(@"Cancel", @"")
-                                  action2Handler:^ {
-                                self.alertController = nil;
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuit" object:self];
-                            }];
+                            run_on_ui_thread(^{
+                                [self alertWithTitle:NSLocalizedString(@"Screen Proctoring Session", @"")
+                                             message:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]
+                                        action1Title:NSLocalizedString(@"OK", @"")
+                                      action1Handler:^ {
+                                    self.previousSessionScreenProctoringEnabled = YES;
+                                    run_on_ui_thread(conditionallyStartJitsiProctoring);
+                                }
+                                        action2Title:NSLocalizedString(@"Cancel", @"")
+                                      action2Handler:^ {
+                                    self.alertController = nil;
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuit" object:self];
+                                }];
+                            });
                             return;
                         }
                     }
-                    if (jitsiMeetEnable) {
-                        // Check if previous SEB session already had proctoring active
-                        if (self.previousSessionJitsiMeetEnabled) {
-                            run_on_ui_thread(startRemoteProctoringOK);
-                        } else {
-                            [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", @"")
-                                         message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]
-                                    action1Title:NSLocalizedString(@"OK", @"")
-                                  action1Handler:^ {
-                                run_on_ui_thread(startRemoteProctoringOK);
-                            }
-                                    action2Title:NSLocalizedString(@"Cancel", @"")
-                                  action2Handler:^ {
-                                self.alertController = nil;
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuit" object:self];
-                            }];
-                            return;
-                        }
-                    } else {
-                        startRemoteProctoringOK();
-                    }
+                    conditionallyStartJitsiProctoring();
                 };
                 
                 if (browserMediaCaptureMicrophone ||
@@ -2241,8 +2253,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 } else {
                     self.previousSessionJitsiMeetEnabled = NO;
                 }
+                run_on_ui_thread(conditionallyStartProctoring);
             }
-            run_on_ui_thread(completionBlock);
         }
     }
 }
