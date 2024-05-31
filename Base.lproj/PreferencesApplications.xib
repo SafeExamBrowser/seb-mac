@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,13 +31,13 @@
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5">
                                         <rect key="frame" x="15" y="607" width="279" height="18"/>
                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="n1G-IX-Eg8"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="check" title="Allow switching to third party applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="n1G-IX-Eg8"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="207"/>
@@ -50,13 +51,13 @@
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="134">
                                         <rect key="frame" x="35" y="585" width="235" height="16"/>
                                         <string key="toolTip">Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all.</string>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="pXh-9j-eb0"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="check" title="Allow Flash to switch to full screen mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="135">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="menu" size="11"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="14" id="pXh-9j-eb0"/>
+                                        </constraints>
                                         <connections>
                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowFlashFullscreen" id="166"/>
                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="IaI-5x-tWV"/>
@@ -75,7 +76,7 @@
                                         <rect key="frame" x="17" y="422" width="570" height="151"/>
                                         <clipView key="contentView" id="X70-IM-m39">
                                             <rect key="frame" x="1" y="1" width="568" height="149"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView toolTip="Permitted Processes, currently not supported for macOS" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="348" id="346">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="126"/>
@@ -179,13 +180,13 @@
                                             <subviews>
                                                 <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
                                                     <rect key="frame" x="13" y="329" width="64" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="908"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="638">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="908"/>
+                                                    </constraints>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.active" id="1165">
                                                             <dictionary key="options">
@@ -195,7 +196,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
                                                     <rect key="frame" x="219" y="333" width="31" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="642">
                                                         <font key="font" metaFont="system"/>
@@ -210,7 +211,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
+                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
                                                     <rect key="frame" x="256" y="330" width="297" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="828"/>
@@ -229,7 +230,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
                                                     <rect key="frame" x="179" y="275" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="677">
                                                         <font key="font" metaFont="system"/>
@@ -244,7 +245,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
+                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
                                                     <rect key="frame" x="256" y="272" width="297" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="676">
                                                         <font key="font" metaFont="system"/>
@@ -260,7 +261,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
                                                     <rect key="frame" x="13" y="304" width="76" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="657">
                                                         <font key="font" metaFont="system"/>
@@ -275,7 +276,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
+                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
                                                     <rect key="frame" x="95" y="301" width="458" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
                                                         <font key="font" metaFont="system"/>
@@ -291,7 +292,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
                                                     <rect key="frame" x="57" y="219" width="32" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="690">
                                                         <font key="font" metaFont="system"/>
@@ -306,7 +307,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
                                                     <rect key="frame" x="18" y="190" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Arguments" id="773">
                                                         <font key="font" metaFont="system"/>
@@ -321,7 +322,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
                                                     <rect key="frame" x="95" y="216" width="458" height="21"/>
                                                     <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
@@ -339,7 +340,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
                                                     <rect key="frame" x="256" y="244" width="297" height="21"/>
                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
@@ -361,7 +362,7 @@
                                                     <rect key="frame" x="95" y="138" width="458" height="70"/>
                                                     <clipView key="contentView" id="UYw-pC-SvI">
                                                         <rect key="frame" x="1" y="1" width="456" height="68"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
                                                                 <rect key="frame" x="0.0" y="0.0" width="456" height="68"/>
@@ -427,14 +428,14 @@
                                                 </scrollView>
                                                 <button toolTip="Add a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="865">
                                                     <rect key="frame" x="46" y="138" width="20" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="869"/>
-                                                        <constraint firstAttribute="width" constant="20" id="873"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="870">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="869"/>
+                                                        <constraint firstAttribute="width" constant="20" id="873"/>
+                                                    </constraints>
                                                     <accessibility description="Add Argument Button"/>
                                                     <connections>
                                                         <action selector="add:" target="1782" id="1788"/>
@@ -447,13 +448,13 @@
                                                 </button>
                                                 <button toolTip="Remove a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="866">
                                                     <rect key="frame" x="65" y="138" width="22" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="22" id="868"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="867">
                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="868"/>
+                                                    </constraints>
                                                     <accessibility description="Remove Argument Button"/>
                                                     <connections>
                                                         <action selector="remove:" target="1782" id="1789"/>
@@ -464,7 +465,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
                                                     <rect key="frame" x="256" y="109" width="297" height="21"/>
                                                     <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
                                                     <constraints>
@@ -486,7 +487,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
                                                     <rect key="frame" x="192" y="112" width="58" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="897">
                                                         <font key="font" metaFont="system"/>
@@ -534,13 +535,13 @@
                                                 </button>
                                                 <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
                                                     <rect key="frame" x="13" y="111" width="115" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
+                                                    </constraints>
                                                     <connections>
                                                         <binding destination="610" name="value" keyPath="selection.iconInTaskbar" id="Z8K-uf-bcZ">
                                                             <dictionary key="options">
@@ -565,7 +566,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
                                                     <rect key="frame" x="13" y="276" width="23" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1304">
                                                         <font key="font" metaFont="system"/>
@@ -583,9 +584,6 @@
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                     <rect key="frame" x="39" y="269" width="82" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
-                                                    </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -597,6 +595,9 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
+                                                    </constraints>
                                                     <accessibility description="Select operating system"/>
                                                     <connections>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1328"/>
@@ -623,7 +624,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
                                                     <rect key="frame" x="160" y="247" width="90" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
                                                         <font key="font" metaFont="system"/>
@@ -725,27 +726,27 @@
                                     </box>
                                     <button toolTip="Add a permitted process (not yet supported on macOS)" translatesAutoresizingMaskIntoConstraints="NO" id="463">
                                         <rect key="frame" x="17" y="393" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="468"/>
-                                            <constraint firstAttribute="width" constant="22" id="Nul-M8-9O7"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="469">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="468"/>
+                                            <constraint firstAttribute="width" constant="22" id="Nul-M8-9O7"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="add:" target="610" id="619"/>
                                         </connections>
                                     </button>
                                     <button toolTip="Remove process" translatesAutoresizingMaskIntoConstraints="NO" id="464">
                                         <rect key="frame" x="38" y="393" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="466"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="465">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="466"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="remove:" target="610" id="620"/>
                                         </connections>
@@ -909,13 +910,13 @@
                                             <subviews>
                                                 <button toolTip="This prohibited process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="1898">
                                                     <rect key="frame" x="14" y="153" width="64" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="1908"/>
-                                                    </constraints>
                                                     <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="1907">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="1908"/>
+                                                    </constraints>
                                                     <connections>
                                                         <binding destination="1726" name="value" keyPath="selection.active" id="1958">
                                                             <dictionary key="options">
@@ -925,7 +926,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
                                                     <rect key="frame" x="181" y="157" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                         <font key="font" metaFont="system"/>
@@ -940,7 +941,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
+                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
                                                     <rect key="frame" x="258" y="154" width="297" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
@@ -959,7 +960,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
                                                     <rect key="frame" x="14" y="128" width="74" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="1913">
                                                         <font key="font" metaFont="system"/>
@@ -974,7 +975,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                     <rect key="frame" x="94" y="125" width="461" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
@@ -991,7 +992,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
                                                     <rect key="frame" x="162" y="70" width="90" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                         <font key="font" metaFont="system"/>
@@ -1006,7 +1007,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                     <rect key="frame" x="258" y="67" width="297" height="21"/>
                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
@@ -1025,7 +1026,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                     <rect key="frame" x="258" y="96" width="297" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
@@ -1043,7 +1044,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
                                                     <rect key="frame" x="194" y="99" width="58" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                         <font key="font" metaFont="system"/>
@@ -1117,7 +1118,7 @@
                                                         <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
                                                 </stackView>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
                                                     <rect key="frame" x="14" y="99" width="23" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1906">
                                                         <font key="font" metaFont="system"/>
@@ -1135,9 +1136,6 @@
                                                 </textField>
                                                 <popUpButton toolTip="Indicates on which operating system the prohibited process runs. macOS is currently not supported." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1900">
                                                     <rect key="frame" x="40" y="92" width="82" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="ooY-Jz-CeW"/>
-                                                    </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1905" id="1901">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -1149,6 +1147,9 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="ooY-Jz-CeW"/>
+                                                    </constraints>
                                                     <accessibility description="Select operating system"/>
                                                     <connections>
                                                         <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1956"/>
@@ -1213,32 +1214,32 @@
                                     </button>
                                     <button toolTip="Add a prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
                                         <rect key="frame" x="17" y="217" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="1851"/>
-                                            <constraint firstAttribute="width" constant="22" id="1852"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="1850">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="1851"/>
+                                            <constraint firstAttribute="width" constant="22" id="1852"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="add:" target="1726" id="1960"/>
                                         </connections>
                                     </button>
                                     <button toolTip="Remove process" translatesAutoresizingMaskIntoConstraints="NO" id="1843">
                                         <rect key="frame" x="38" y="217" width="22" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="2090"/>
-                                        </constraints>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="1849">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="2090"/>
+                                        </constraints>
                                         <connections>
                                             <action selector="remove:" target="1726" id="1959"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
+                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
                                         <rect key="frame" x="15" y="613" width="318" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="System processes which are not allowed to run during exam" id="1847">
                                             <font key="font" metaFont="message" size="11"/>
