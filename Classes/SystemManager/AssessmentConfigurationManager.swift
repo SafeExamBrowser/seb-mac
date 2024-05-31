@@ -8,6 +8,27 @@
 import Foundation
 import AutomaticAssessmentConfiguration
 
+@objc public class AssessmentConfigurationManager: NSObject {
+    
+    @objc public func autostartApps(permittedApplications: Array<Dictionary<String, Any>>) {
+        if #available(macOS 12.0, *) {
+            let openConfiguration = NSWorkspace.OpenConfiguration()
+            openConfiguration.activates = false
+            openConfiguration.addsToRecentItems = false
+            openConfiguration.createsNewApplicationInstance = true
+            for permittedApplication in permittedApplications {
+                if permittedApplication["autostart"] as? Bool == true, let bundleIdentifier = permittedApplication["identifier"] as? String, bundleIdentifier.count > 0 {
+                    if let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) {
+                        NSWorkspace.shared.openApplication(at: url, configuration: openConfiguration) { app, error in
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @available(macOS 10.15.4, *)
 @objc extension AEAssessmentConfiguration {
 

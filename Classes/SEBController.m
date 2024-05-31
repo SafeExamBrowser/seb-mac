@@ -142,6 +142,15 @@ bool insideMatrix(void);
 }
 
 
+- (AssessmentConfigurationManager *) assessmentConfigurationManager
+{
+    if (!_assessmentConfigurationManager) {
+        _assessmentConfigurationManager = [AssessmentConfigurationManager new];
+    }
+    return _assessmentConfigurationManager;
+}
+
+
 - (SEBOSXConfigFileController *) configFileController
 {
     if (!_configFileController) {
@@ -2335,6 +2344,7 @@ bool insideMatrix(void);
     _wasAACEnabled = YES;
     [NSMenu setMenuBarVisible:NO];
     [self.hudController hideHUDProgressIndicator];
+    [self.assessmentConfigurationManager autostartAppsWithPermittedApplications:[ProcessManager sharedProcessManager].permittedProcesses];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
