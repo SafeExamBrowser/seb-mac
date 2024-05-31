@@ -1174,8 +1174,9 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"permittedProcesses" : @{
                       @"active" : @YES,
-                      @"allowUserToChooseApp" : @NO,
                       @"allowedExecutables" : @"",
+                      @"allowNetworkAccess" : @NO,
+                      @"allowUserToChooseApp" : @NO,
                       @"arguments" : @[],
                       @"autostart" : @NO,
                       @"description" : @"",
@@ -1186,7 +1187,6 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"originalName" : @"",
                       @"os" : @0,
                       @"path" : @"",
-                      @"allowNetworkAccess" : @NO,
                       @"runInBackground" : @NO,
                       @"strongKill" : @NO,
                       @"title" : @"",

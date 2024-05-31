@@ -148,7 +148,7 @@ static ProcessManager *sharedProcessManager = nil;
         }
     }
     
-    if (!isAACActive && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_terminateProcesses"]) {
+    if (isAACActive || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_terminateProcesses"]) {
         NSDictionary *permittedProcess;
         
         for (permittedProcess in _permittedProcesses) {

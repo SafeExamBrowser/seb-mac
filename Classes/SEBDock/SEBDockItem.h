@@ -38,6 +38,8 @@
 
 @property (strong, nonatomic) NSString *title;
 
+@property (strong, nonatomic) NSString *bundleID;
+
 @property (strong, nonatomic) NSImage *icon;
 
 @property (strong, nonatomic) NSImage *highlightedIcon;
@@ -52,6 +54,7 @@
 
 
 - (id) initWithTitle:(NSString *)newTitle
+            bundleID:(NSString *)newBundleID
                 icon:(NSImage *)newIcon
      highlightedIcon:(NSImage *)newHighlightedIcon
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
