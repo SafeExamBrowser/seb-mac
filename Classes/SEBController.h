@@ -184,6 +184,7 @@
 
 @property(strong, nonatomic) SEBOSXSessionState *sessionState;
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
+@property(strong, nonatomic) AssessmentConfigurationManager *assessmentConfigurationManager;
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
