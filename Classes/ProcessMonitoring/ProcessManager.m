@@ -95,8 +95,11 @@ static ProcessManager *sharedProcessManager = nil;
 - (void) updateMonitoredProcesses
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _prohibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
-    _permittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+    NSArray *allProhibitedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_prohibitedProcesses"];
+    NSArray *allPermittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+    NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSmacO];
+    _prohibitedProcesses = [allProhibitedProcesses filteredArrayUsingPredicate:filterProcessOS];
+    _permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
 
     if (self.prohibitedRunningApplications) {
         [self.prohibitedRunningApplications removeAllObjects];

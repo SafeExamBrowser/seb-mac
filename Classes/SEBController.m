@@ -2256,7 +2256,8 @@ bool insideMatrix(void);
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
                     self.assessmentModeManager = assessmentModeManager;
                     self.assessmentModeManager.delegate = self;
-                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                    AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:[ProcessManager sharedProcessManager].permittedProcesses];
+                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector];
                     }
                 };

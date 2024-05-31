@@ -523,6 +523,14 @@ enum {
 typedef NSUInteger SEBZoomModes;
 
 
+enum {
+    SEBSupportedOSmacO                          = 0,
+    SEBSupportedOSWindows                       = 1,
+    SEBSupportedOSiOS                           = 2
+};
+typedef NSUInteger SEBSupportedOS;
+
+
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
 static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
 static NSString __unused *screenCaptureAgent = @"screencapture";

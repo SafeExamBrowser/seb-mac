@@ -65,6 +65,7 @@ API_AVAILABLE(macos(10.15.4))
 - (instancetype)initWithCallback:(id)callback
                         selector:(SEL)selector;
 - (BOOL) beginAssessmentMode;
+- (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config;
 - (BOOL) endAssessmentModeWithCallback:(id)callback
                               selector:(SEL)selector;
 

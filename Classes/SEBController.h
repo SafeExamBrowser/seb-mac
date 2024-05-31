@@ -76,6 +76,7 @@
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
+@class AssessmentConfigurationManager;
 @class ProcessListViewController;
 @class SEBDockController;
 @class SEBOSXBrowserController;
