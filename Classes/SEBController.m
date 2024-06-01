@@ -229,7 +229,8 @@ bool insideMatrix(void);
 {
     if (!_screenProctoringController) {
         _screenProctoringController = [[SEBScreenProctoringController alloc] init];
-//        _zoomController.proctoringUIDelegate = self;
+        _screenProctoringController.delegate = self;
+        _screenProctoringController.spsControllerUIDelegate = self;
     }
     return _screenProctoringController;
 }
@@ -1760,6 +1761,32 @@ bool insideMatrix(void);
 {
     raiseHandNotification = nil;
     [NSApp stopModal];
+}
+
+
+#pragma mark - Screen Proctoring Delegate Methods
+
+- (NSString *) getScreenProctoringMetadataActiveApp
+{
+    return nil;
+}
+
+
+- (NSString *) getScreenProctoringMetadataWindowTitle
+{
+    return self.browserController.activeBrowserWindowTitle;
+}
+
+
+- (NSString *) getScreenProctoringMetadataURL
+{
+    return self.browserController.activeBrowserWindow.currentURL.absoluteString;
+}
+
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    
 }
 
 

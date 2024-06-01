@@ -11,6 +11,7 @@ import AutomaticAssessmentConfiguration
 @objc public class AssessmentConfigurationManager: NSObject {
     
     @objc public func autostartApps(permittedApplications: Array<Dictionary<String, Any>>) {
+#if os(macOS)
         if #available(macOS 12.0, *) {
             let openConfiguration = NSWorkspace.OpenConfiguration()
             openConfiguration.activates = false
@@ -26,24 +27,29 @@ import AutomaticAssessmentConfiguration
                 }
             }
         }
+        #endif
     }
 }
 
-@available(macOS 10.15.4, *)
+@available(macOS 10.15.4, iOS 13.4, *)
 @objc extension AEAssessmentConfiguration {
 
     convenience init(permittedApplications: Array<Dictionary<String, Any>>) {
         self.init()
-
-        if #available(macOS 12.0, *) {
+        
+        if #available(macOS 12.0, iOS 17.5, *) {
             for permittedApplication in permittedApplications {
                 var application: AEAssessmentApplication
                 if let bundleIdentifier = permittedApplication["identifier"] as? String, bundleIdentifier.count > 0 {
+#if os(macOS)
                     if let teamIdentifier = permittedApplication["teamIdentifier"] as? String, teamIdentifier.count > 0 {
                         application = AEAssessmentApplication(bundleIdentifier: bundleIdentifier, teamIdentifier: teamIdentifier)
                     } else {
                         application = AEAssessmentApplication(bundleIdentifier: bundleIdentifier)
                     }
+#elseif os(iOS)
+                    application = AEAssessmentApplication(bundleIdentifier: bundleIdentifier)
+#endif
                     let applicationConfig = AEAssessmentParticipantConfiguration()
                     if let allowNetworkAccess = permittedApplication["allowNetworkAccess"] as? Bool {
                         applicationConfig.allowsNetworkAccess = allowNetworkAccess

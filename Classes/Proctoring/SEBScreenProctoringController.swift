@@ -30,12 +30,21 @@ fileprivate struct keysSPS {
 
 @objc public protocol ScreenProctoringDelegate: AnyObject {
     
-    func updateStatus(string: String?, append: Bool)
+    func getScreenProctoringMetadataURL() -> String?
+    func getScreenProctoringMetadataWindowTitle() -> String?
+    func getScreenProctoringMetadataActiveApp() -> String?
+    func getScreenProctoringMetadataUserAction() -> String?
 }
 
 @objc public protocol SPSControllerUIDelegate: AnyObject {
     
     func updateStatus(string: String?, append: Bool)
+}
+
+struct MetadataSettings {
+    var urlEnabled: Bool = false
+    var activeWindowTitleEnabled: Bool = false
+    var activeAppEnabled: Bool = false
 }
 
 @objc public class SEBScreenProctoringController : NSObject, URLSessionDelegate {
@@ -44,6 +53,7 @@ fileprivate struct keysSPS {
     @objc weak public var spsControllerUIDelegate: SPSControllerUIDelegate?
     
     private lazy var screenCaptureController: ScreenCaptureController = ScreenCaptureController()
+    private lazy var metadataCollector: SEBSPMetadataCollector = SEBSPMetadataCollector(delegate: self.delegate, settings: self.metadataSettings)
 
     fileprivate var session: URLSession?
     private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
@@ -81,9 +91,7 @@ fileprivate struct keysSPS {
     private var imageQuantization: Int?
     private var imageDownscale: Double?
     
-    private var metadataURLEnabled: Bool?
-    private var metadataWindowTitleEnabled: Bool?
-    private var metadataActiveAppEnabled: Bool?
+    private var metadataSettings = MetadataSettings()
     
     private var maxRequestAttemps = 5
     private var fallbackAttemptInterval = 2000.0
@@ -110,9 +118,9 @@ fileprivate struct keysSPS {
             self.imageDownscale = 1
         }
         
-        self.metadataURLEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
-        self.metadataWindowTitleEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
-        self.metadataActiveAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
+        self.metadataSettings.urlEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
+        self.metadataSettings.activeWindowTitleEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
+        self.metadataSettings.activeAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
         
         super.init()
         self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
@@ -272,7 +280,7 @@ public extension SEBScreenProctoringController {
         let imageScale = 1/(self.imageDownscale ?? 1)
         timer.eventHandler = {
             if let screenShotData = self.screenCaptureController.takeScreenShot(scale: imageScale) {
-                self.sendScreenShot(data: screenShotData, metaData: "")
+                self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData() ?? "")
             }
         }
         screenShotTimer = timer
@@ -288,7 +296,8 @@ public extension SEBScreenProctoringController {
         let authorizationString = keysSPS.headerAuthorizationBearer + " " + (self.accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeOctetStream,
                               keys.headerAuthorization : authorizationString,
-                              keysSPS.headerTimestamp : String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)] //,
+                              keysSPS.headerTimestamp : String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000),
+                              keysSPS.headerMetaData : metaData] //,
 //                              keysSPS.headerImageFormat : "png"]
         
         load(screenShotResource, httpMethod: screenShotResource.httpMethod, body: data, headers: requestHeaders, withCompletion: { (screenShotResponse, statusCode, errorResponse, responseHeaders, attempt) in
