@@ -89,7 +89,7 @@
 @class SEBZoomController;
 
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
