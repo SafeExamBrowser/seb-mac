@@ -1766,15 +1766,65 @@ bool insideMatrix(void);
 
 #pragma mark - Screen Proctoring Delegate Methods
 
-- (NSString *) getScreenProctoringMetadataActiveApp
+- (NSDictionary<NSString *,NSString *>*) getScreenProctoringMetadataActiveAppWindow
 {
-    return nil;
-}
+    NSString *activeBrowserWindowTitle; // = self.browserController.activeBrowserWindowTitle;
 
+    // Get the process ID of the frontmost application.
+    NSRunningApplication* app = [[NSWorkspace sharedWorkspace]
+                                 frontmostApplication];
+    pid_t pid = [app processIdentifier];
+    
+    // See if we have accessibility permissions, and if not, prompt the user to
+    // visit System Preferences.
+    NSDictionary *options = @{(id)CFBridgingRelease(kAXTrustedCheckOptionPrompt): @YES};
+    Boolean appHasPermission = AXIsProcessTrustedWithOptions(
+                                                             (__bridge CFDictionaryRef)options);
+    if (!appHasPermission) {
+        // we don't have accessibility permissions
+    } else {
+        // Get the accessibility element corresponding to the frontmost application.
+        AXUIElementRef appElem = AXUIElementCreateApplication(pid);
+        if (!appElem) {
+            return nil;
+        }
+        
+        // Get the accessibility element corresponding to the frontmost window
+        // of the frontmost application.
+        AXUIElementRef window = NULL;
+        if (AXUIElementCopyAttributeValue(appElem,
+                                          kAXFocusedWindowAttribute, (CFTypeRef*)&window) != kAXErrorSuccess) {
+            CFRelease(appElem);
+            return nil;
+        } else {
+            // Finally, get the title of the frontmost window.
+            CFStringRef title = NULL;
+            AXError result = AXUIElementCopyAttributeValue(window, kAXTitleAttribute,
+                                                           (CFTypeRef*)&title);
+            
+            // At this point, we don't need window and appElem anymore.
+            CFRelease(window);
+            CFRelease(appElem);
+            
+            if (result == kAXErrorSuccess) {
+                activeBrowserWindowTitle = CFBridgingRelease(title);
+            }
+        }
+    }
+    
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@, Path: %@)", app.localizedName, app.bundleIdentifier, app.bundleURL];
+    
+    if (activeBrowserWindowTitle == nil) {
+        activeBrowserWindowTitle = @"";
+    }
+    
+//    activeAppInfo = [activeAppInfo stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+//    activeBrowserWindowTitle = [activeBrowserWindowTitle stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
-- (NSString *) getScreenProctoringMetadataWindowTitle
-{
-    return self.browserController.activeBrowserWindowTitle;
+    //    NSDictionary *activeAppWindowMetadata = @{@"activeApp": @"Active App", @"activeWindow": activeBrowserWindowTitle};
+    NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
+//    NSDictionary *activeAppWindowMetadata = @{@"activeApp": @"ActiveApp", @"activeWindow": @"WindowTitle"};
+    return activeAppWindowMetadata;
 }
 
 
