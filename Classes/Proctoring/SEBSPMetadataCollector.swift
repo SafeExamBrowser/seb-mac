@@ -29,20 +29,30 @@ public class SEBSPMetadataCollector {
     public func collectMetaData() -> String? {
         var metadata = Metadata()
 
-        if settings.activeAppEnabled {
-            metadata.screenProctoringMetadataActiveApp = delegate?.getScreenProctoringMetadataActiveApp()
+        if settings.activeAppEnabled || settings.activeWindowEnabled {
+            if let activeAppWindowMetadata = delegate?.getScreenProctoringMetadataActiveAppWindow() {
+                
+                if settings.activeAppEnabled {
+                    metadata.screenProctoringMetadataActiveApp = activeAppWindowMetadata["activeApp", default: ""]
+                }
+
+                if settings.activeWindowEnabled {
+                    metadata.screenProctoringMetadataWindowTitle = activeAppWindowMetadata["activeWindow", default: ""]
+                }
+            }
         }
-        
-        if settings.activeWindowTitleEnabled {
-            metadata.screenProctoringMetadataWindowTitle = delegate?.getScreenProctoringMetadataWindowTitle()
-        }
-        
+                
         if settings.urlEnabled {
             metadata.screenProctoringMetadataURL = delegate?.getScreenProctoringMetadataURL()
         }
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys
+//        if #available(macOS 10.15, *) {
+//            encoder.outputFormatting = .withoutEscapingSlashes
+//        } else {
+//            encoder.outputFormatting = .sortedKeys
+//        }
 
         do {
             let data = try encoder.encode(metadata)

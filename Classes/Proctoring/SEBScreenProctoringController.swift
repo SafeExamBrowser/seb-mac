@@ -31,8 +31,7 @@ fileprivate struct keysSPS {
 @objc public protocol ScreenProctoringDelegate: AnyObject {
     
     func getScreenProctoringMetadataURL() -> String?
-    func getScreenProctoringMetadataWindowTitle() -> String?
-    func getScreenProctoringMetadataActiveApp() -> String?
+    func getScreenProctoringMetadataActiveAppWindow() -> [String:String]?
     func getScreenProctoringMetadataUserAction() -> String?
 }
 
@@ -43,7 +42,7 @@ fileprivate struct keysSPS {
 
 struct MetadataSettings {
     var urlEnabled: Bool = false
-    var activeWindowTitleEnabled: Bool = false
+    var activeWindowEnabled: Bool = false
     var activeAppEnabled: Bool = false
 }
 
@@ -119,7 +118,7 @@ struct MetadataSettings {
         }
         
         self.metadataSettings.urlEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
-        self.metadataSettings.activeWindowTitleEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
+        self.metadataSettings.activeWindowEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
         self.metadataSettings.activeAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
         
         super.init()
@@ -301,7 +300,7 @@ public extension SEBScreenProctoringController {
 //                              keysSPS.headerImageFormat : "png"]
         
         load(screenShotResource, httpMethod: screenShotResource.httpMethod, body: data, headers: requestHeaders, withCompletion: { (screenShotResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if statusCode != nil || statusCode ?? 0 == statusCodes.ok {
+            if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
                 if let health = Int((responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keysSPS.responseHeaderServerHealth) == .orderedSame}))?.value as? String ?? "") {
                     self.currentServerHealth = health
                 }
