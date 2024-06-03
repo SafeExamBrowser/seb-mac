@@ -38,6 +38,7 @@ fileprivate struct keysSPS {
 @objc public protocol SPSControllerUIDelegate: AnyObject {
     
     func updateStatus(string: String?, append: Bool)
+    func setScreenProctoringButtonState(_: ScreenProctoringButtonStates)
 }
 
 struct MetadataSettings {
@@ -217,7 +218,7 @@ public extension SEBScreenProctoringController {
                     // Error: Try to load the resource again if maxRequestAttemps weren't reached yet
                     let currentAttempt = fallbackAttempt+1
                     if currentAttempt <= self.maxRequestAttemps {
-//                        self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed, retrying...", comment: ""), append: true)
+                        self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Request failed, retrying...", comment: ""), append: true)
                         DispatchQueue.main.asyncAfter(deadline: (.now() + self.fallbackAttemptInterval)) {
                             // and try to perform the request again
                             self.loadWithFallback(resource, httpMethod: httpMethod, body: body, headers: headers, fallbackAttempt: currentAttempt, withCompletion: resourceLoadCompletion)
@@ -226,7 +227,7 @@ public extension SEBScreenProctoringController {
                         return
                     } //if maxRequestAttemps reached, report failure to load resource
                     DDLogError("SEB Screen Proctoring Controller: Load with fallback max. request attempts reached, aborting.")
-                    self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
+                    self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Request failed", comment: ""), append: false)
                 }
                 if !self.cancelAllRequests {
                     resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, fallbackAttempt)
@@ -253,7 +254,7 @@ public extension SEBScreenProctoringController {
                     self.accessToken = tokenString
                     DDLogInfo("SEB Screen Proctoring Controller: Received server access token.")
                 } else {
-                    self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Failed", comment: ""), append: false)
+                    self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Request failed", comment: ""), append: false)
                     let errorDebugDescription = "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
                     let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot access server because of error: ", comment: "") + (errorResponse?.error ?? errorDebugDescription),
                         NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString("Contact your exam administrator", comment: ""),
@@ -284,6 +285,7 @@ public extension SEBScreenProctoringController {
         }
         screenShotTimer = timer
         screenShotTimer?.resume()
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateNormal)
     }
     
     fileprivate func sendScreenShot(data: Data, metaData: String) {
@@ -317,6 +319,7 @@ public extension SEBScreenProctoringController {
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
         screenShotTimer = nil
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateDefault)
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -363,6 +366,7 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func didFail(error: NSError, fatal: Bool) {
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateError)
         if !cancelAllRequests {
 //            self.delegate?.didFail(error: error, fatal: fatal)
         }

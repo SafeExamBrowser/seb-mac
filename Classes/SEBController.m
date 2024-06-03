@@ -1507,6 +1507,72 @@ bool insideMatrix(void);
 }
 
 
+#pragma mark - Screen Proctoring
+
+- (void) screenProctoringButtonAction
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+
+{
+    NSImage *remoteProctoringButtonImage;
+    NSColor *remoteProctoringButtonTintColor;
+    DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
+    switch (screenProctoringButtonState) {
+        case ScreenProctoringButtonStateNormal:
+            _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Active",nil);
+            remoteProctoringButtonImage = ProctoringIconNormalState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            break;
+            
+        case ScreenProctoringButtonStateWarning:
+            remoteProctoringButtonImage = ProctoringIconWarningState;
+            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+            break;
+            
+        case ScreenProctoringButtonStateError:
+            remoteProctoringButtonImage = ProctoringIconErrorState;
+            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+            break;
+            
+        case ScreenProctoringButtonStateInactive:
+            if (@available(macOS 10.14, *)) {
+                _dockButtonScreenProctoring.image.template = YES;
+                remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconAIInactiveState;
+            }
+            break;
+            
+        default:
+            _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Inactive",nil);
+            if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonImage.template = NO;
+                remoteProctoringButtonTintColor = nil;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconDefaultState;
+            }
+            break;
+    }
+    if (userFeedback) {
+        if (@available(macOS 10.14, *)) {
+            _dockButtonScreenProctoring.contentTintColor = remoteProctoringButtonTintColor;
+        } else {
+            _dockButtonScreenProctoring.image = remoteProctoringButtonImage;
+        }
+    }
+}
+
+
 #pragma mark - Remote Proctoring
 
 - (void) openZoomView
@@ -1831,7 +1897,7 @@ bool insideMatrix(void);
 
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append
 {
-    
+    _dockButtonScreenProctoring.toolTip = string;
 }
 
 
@@ -5827,7 +5893,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(toggleProctoringViewVisibility)
+                                                                        action:@selector(screenProctoringButtonAction)
                                                                      secondaryAction:nil];
             [rightDockItems addObject:dockItemProctoringView];
         }
@@ -5962,15 +6028,21 @@ conditionallyForWindow:(NSWindow *)window
         if (dockButton.action == @selector(reloadButtonPressed)) {
             _dockButtonReload = dockButton;
         }
+        else if (dockButton.action == @selector(screenProctoringButtonAction)) {
+            _dockButtonScreenProctoring = dockButton;
+            _dockButtonScreenProctoring.image.template = YES;
+            _dockButtonScreenProctoring.bezelStyle = NSBezelStyleInline;
+            _dockButtonScreenProctoring.bordered = NO;
+        }
         else if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
             _dockButtonProctoringView = dockButton;
-                //                _dockButtonProctoringView.image.template = YES;
+            _dockButtonProctoringView.image.template = YES;
             _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
             _dockButtonProctoringView.bordered = NO;
         }
         else if (dockButton.action == @selector(toggleRaiseHand)) {
             _dockButtonRaiseHand = dockButton;
-                //                _dockButtonRaiseHand.image.template = YES;
+            _dockButtonRaiseHand.image.template = YES;
             _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
             _dockButtonRaiseHand.bordered = NO;
         }
