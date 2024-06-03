@@ -48,11 +48,6 @@ public class SEBSPMetadataCollector {
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys
-//        if #available(macOS 10.15, *) {
-//            encoder.outputFormatting = .withoutEscapingSlashes
-//        } else {
-//            encoder.outputFormatting = .sortedKeys
-//        }
 
         do {
             let data = try encoder.encode(metadata)

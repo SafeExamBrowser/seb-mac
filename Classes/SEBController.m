@@ -1818,12 +1818,7 @@ bool insideMatrix(void);
         activeBrowserWindowTitle = @"";
     }
     
-//    activeAppInfo = [activeAppInfo stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-//    activeBrowserWindowTitle = [activeBrowserWindowTitle stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-
-    //    NSDictionary *activeAppWindowMetadata = @{@"activeApp": @"Active App", @"activeWindow": activeBrowserWindowTitle};
     NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
-//    NSDictionary *activeAppWindowMetadata = @{@"activeApp": @"ActiveApp", @"activeWindow": @"WindowTitle"};
     return activeAppWindowMetadata;
 }
 
