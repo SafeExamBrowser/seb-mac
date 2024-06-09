@@ -55,14 +55,17 @@ public class SEBSPMetadataCollector {
             let data = try encoder.encode(metadata)
             return String(data: data, encoding: String.Encoding.utf8)
         } catch let error {
-            DDLogError("SEB Server API Discovery Resource failed: \(String(describing: error))")
+            DDLogError("SEB Screen Proctoring Metadata Collector: Creating json from metadata failed: \(String(describing: error))")
         }
         return nil
     }
     
     public func monitorEvents() {
-        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
+        
+        let eventHandler = { (event: NSEvent) in
             var eventTypeString = ""
+            let location = NSEvent.mouseLocation
+            let locationString = " (at \(Int(location.x)), \(Int(location.y)))"
             switch event.type {
             case .leftMouseDown:
                 eventTypeString = "Left mouse down"
@@ -83,11 +86,11 @@ public class SEBSPMetadataCollector {
             case .mouseExited:
                 eventTypeString = "Mouse exited area"
             case .keyDown:
-                eventTypeString = "Key down"
+                eventTypeString = "Key down \(self.keyEventDesciption(event: event))"
             case .keyUp:
-                eventTypeString = "Key up"
+                eventTypeString = "Key up \(self.keyEventDesciption(event: event))"
             case .flagsChanged:
-                eventTypeString = "Modifier key pressed"
+                eventTypeString = "Modifier key pressed \(self.keyEventModifiers(event: event))"
             case .appKitDefined:
                 eventTypeString = "AppKit-related event"
             case .systemDefined:
@@ -135,8 +138,77 @@ public class SEBSPMetadataCollector {
             @unknown default:
                 eventTypeString = "Unknown event type (\(event.type))"
             }
+            eventTypeString += locationString
             DDLogDebug("Event: \(eventTypeString)")
             self.delegate?.collectedTriggerEvent(eventData: eventTypeString)
         }
+        
+        NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
+            eventHandler(event)
+            return event
+        }
+        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
+            eventHandler(event)
+        }
+    }
+    
+    
+    func keyEventDesciption(event: NSEvent) -> String {
+        let characters = event.charactersIgnoringModifiers?.replaceSpecialCharactersWithKeyName()
+        let modifiers = keyEventModifiers(event: event)
+        let resultingCharacters = event.characters?.replaceSpecialCharactersWithKeyName()
+        var keyEventDescription = ""
+        if characters != nil || resultingCharacters != nil || !modifiers.isEmpty {
+            
+            if characters != nil && !modifiers.isEmpty {
+                keyEventDescription = "\(modifiers)-\(characters!)"
+            } else if !modifiers.isEmpty {
+                keyEventDescription = modifiers
+            } else if characters != nil {
+                keyEventDescription = characters!
+            }
+
+            if resultingCharacters != nil {
+                keyEventDescription = "'\(resultingCharacters!)' (\(keyEventDescription))"
+            }
+            keyEventDescription = ": \(keyEventDescription)"
+        }
+        return keyEventDescription
+    }
+    
+    func keyEventModifiers(event: NSEvent) -> String {
+        let modifierMask = event.modifierFlags
+        var modifiers = Array<String>()
+        if modifierMask.contains(.capsLock) {
+            modifiers.append("Caps Lock")
+        }
+        if modifierMask.contains(.shift) {
+            modifiers.append("Shift")
+        }
+        if modifierMask.contains(.control) {
+            modifiers.append("Control")
+        }
+        if modifierMask.contains(.option) {
+            modifiers.append("Option/Alt")
+        }
+        if modifierMask.contains(.command) {
+            modifiers.append("Command")
+        }
+        if modifierMask.contains(.numericPad) {
+            modifiers.append("numeric keypad/arrow key")
+        }
+        if modifierMask.contains(.help) {
+            modifiers.append("Help")
+        }
+        if modifierMask.contains(.function) {
+            modifiers.append("function")
+        }
+        return modifiers.joined(separator: "-")
+    }
+}
+
+extension String {
+    public func replaceSpecialCharactersWithKeyName() -> String? {
+        self.replacingOccurrences(of: "\t", with: "Tab")
     }
 }

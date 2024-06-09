@@ -48,13 +48,13 @@ struct MetadataSettings {
     var activeAppEnabled: Bool = false
 }
 
-@objc public class SEBScreenProctoringController : NSObject, URLSessionDelegate {
+@objc public class SEBScreenProctoringController : NSObject, URLSessionDelegate, ScreenProctoringDelegate {
     
     @objc weak public var delegate: ScreenProctoringDelegate?
     @objc weak public var spsControllerUIDelegate: SPSControllerUIDelegate?
     
     private lazy var screenCaptureController: ScreenCaptureController = ScreenCaptureController()
-    private lazy var metadataCollector: SEBSPMetadataCollector = SEBSPMetadataCollector(delegate: self.delegate, settings: self.metadataSettings)
+    private lazy var metadataCollector: SEBSPMetadataCollector = SEBSPMetadataCollector(delegate: self, settings: self.metadataSettings)
 
     fileprivate var session: URLSession?
     private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
@@ -91,7 +91,8 @@ struct MetadataSettings {
     private var imageFormat: Int?
     private var imageQuantization: Int?
     private var imageDownscale: Double?
-    
+    private var imageScale = 0.5
+
     private var metadataSettings = MetadataSettings()
     
     private var maxRequestAttemps = 5
@@ -101,12 +102,28 @@ struct MetadataSettings {
     
     private var currentServerHealth = 0
     
-    private let timerQueue = DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility, attributes: .concurrent)
+    private let timerQueue = DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility)
+//    private let timerQueueMinInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MinInvervalScreenShot", qos: .utility)
+//    private let timerQueueMaxInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MaxInvervalScreenShot", qos: .utility)
     private var screenShotMinIntervalTimer: Timer?
     private var screenShotMaxIntervalTimer: Timer?
     private var sendingScreenShot = false
     private var latestTriggerEvent: String?
-    private var latestTriggerEventTimestamp: String?
+    private var latestTriggerEventTimestamp: TimeInterval?
+
+    
+    public func getScreenProctoringMetadataURL() -> String? {
+        return delegate?.getScreenProctoringMetadataURL()
+    }
+    
+    public func getScreenProctoringMetadataActiveAppWindow() -> [String : String]? {
+        return delegate?.getScreenProctoringMetadataActiveAppWindow()
+    }
+    
+    public func getScreenProctoringMetadataUserAction() -> String? {
+        return delegate?.getScreenProctoringMetadataUserAction()
+    }
+    
 
     @objc public override init() {
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -122,7 +139,8 @@ struct MetadataSettings {
         if self.imageDownscale == 0 {
             self.imageDownscale = 1
         }
-        
+        self.imageScale = 1/((self.imageDownscale ?? 1) * 2)
+
         self.metadataSettings.urlEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
         self.metadataSettings.activeWindowEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
         self.metadataSettings.activeAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
@@ -284,27 +302,34 @@ public extension SEBScreenProctoringController {
 //        let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
         startMaxIntervalTimer()
         startMinIntervalTimer()
+        metadataCollector.monitorEvents()
         spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateNormal)
     }
     
-    fileprivate func sendScreenShot(triggerMetadata: String) {
-        let imageScale = 1/(self.imageDownscale ?? 1)
-        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: imageScale) {
-            self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "")
-            self.sendingScreenShot = false
+    fileprivate func sendScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
+        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale) {
+            self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp)
         }
+        self.sendingScreenShot = false
     }
     
-    fileprivate func sendScreenShot(data: Data, metaData: String) {
+    fileprivate func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?) {
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
         let screenShotResource = SPSScreenShotResource(baseURL: baseURL, endpoint: "/seb-api/v1/session/\(sessionId)/screenshot")
         
         let authorizationString = keysSPS.headerAuthorizationBearer + " " + (self.accessToken ?? "")
+        
+        var timeInterval: TimeInterval
+        if timeStamp == nil {
+            timeInterval = NSDate().timeIntervalSince1970
+        } else {
+            timeInterval = timeStamp!
+        }
         let requestHeaders = [keys.headerContentType : keys.contentTypeOctetStream,
                               keys.headerAuthorization : authorizationString,
-                              keysSPS.headerTimestamp : String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000),
+                              keysSPS.headerTimestamp : String(format: "%.0f", timeInterval * 1000),
                               keysSPS.headerMetaData : metaData] //,
 //                              keysSPS.headerImageFormat : "png"]
         
@@ -325,58 +350,88 @@ public extension SEBScreenProctoringController {
     }
     
     private func startMaxIntervalTimer() {
-        timerQueue.async { [unowned self] in
-            if self.screenShotMaxIntervalTimer != nil {
-                self.screenShotMaxIntervalTimer?.invalidate()
-                self.screenShotMaxIntervalTimer = nil
+        if self.screenShotMaxIntervalTimer == nil {
+            timerQueue.async { [unowned self] in
+                let timer = Timer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), repeats: false, block: { Timer in
+                    self.screenShotMaxIntervallTriggered()
+                })
+                self.screenShotMaxIntervalTimer = timer
+                let currentRunLoop = RunLoop.current
+                currentRunLoop.add(timer, forMode: .common)
+                currentRunLoop.run()
             }
-            let timer = Timer(timeInterval: TimeInterval(self.screenshotMaxInterval ?? 5000/1000), repeats: false) { Timer in
-                if !self.sendingScreenShot {
-                    self.sendingScreenShot = true
-                    self.screenShotMinIntervalTimer?.invalidate()
-                    self.screenShotMinIntervalTimer = nil
-                    self.sendScreenShot(triggerMetadata: "Maximum interval of \(String(self.screenshotMaxInterval ?? 5000))ms has been reached.")
-                    self.startMinIntervalTimer()
-                    self.startMaxIntervalTimer()
-                }
-            }
-            self.screenShotMaxIntervalTimer = timer
-            RunLoop.current.add(timer, forMode: .common)
         }
     }
     
     private func startMinIntervalTimer() {
-        timerQueue.async { [unowned self] in
-            if self.screenShotMinIntervalTimer != nil {
-                self.screenShotMinIntervalTimer?.invalidate()
-                self.screenShotMinIntervalTimer = nil
+        if self.screenShotMinIntervalTimer == nil {
+            timerQueue.async { [unowned self] in
+                let timer = Timer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), repeats: false, block: { Timer in
+                    self.screenShotMinIntervallTriggered()
+                })
+                self.screenShotMinIntervalTimer = timer
+                let currentRunLoop = RunLoop.current
+                currentRunLoop.add(timer, forMode: .common)
+                currentRunLoop.run()
             }
-            let timer = Timer(timeInterval: TimeInterval(self.screenshotMinInterval ?? 1000/1000), repeats: false) { Timer in
-                if !self.sendingScreenShot && self.latestTriggerEvent != nil {
-                    self.sendingScreenShot = true
-                    self.screenShotMaxIntervalTimer?.invalidate()
-                    self.screenShotMaxIntervalTimer = nil
-                    let triggerEventString = self.latestTriggerEvent
-                    self.latestTriggerEvent = nil
-                    self.sendScreenShot(triggerMetadata: triggerEventString ?? "")
-                    self.startMinIntervalTimer()
-                    self.startMaxIntervalTimer()
-                }
-            }
-            self.screenShotMinIntervalTimer = timer
-            RunLoop.current.add(timer, forMode: .common)
         }
     }
     
-    private func startOneShotBackgroundTimer(delay_ms: Int, eventHandler: @escaping () -> Void) {
-//        queue.asyncAfter(deadline: .now() + TimeInterval(delay_ms/1000), execute: eventHandler)
+    func stopMaxIntervalTimer() {
+      timerQueue.async { [unowned self] in
+         if self.screenShotMaxIntervalTimer != nil {
+             self.screenShotMaxIntervalTimer?.invalidate()
+             self.screenShotMaxIntervalTimer = nil
+        }
+      }
+    }
+
+    func stopMinIntervalTimer() {
+      timerQueue.async { [unowned self] in
+        if self.screenShotMinIntervalTimer != nil {
+            self.screenShotMinIntervalTimer?.invalidate()
+            self.screenShotMinIntervalTimer = nil
+        }
+      }
+    }
+
+    private func screenShotMinIntervallTriggered() {
+        if !self.sendingScreenShot {
+            if self.latestTriggerEvent != nil {
+                self.sendingScreenShot = true
+                self.stopMaxIntervalTimer()
+                self.stopMinIntervalTimer()
+                let triggerEventString = self.latestTriggerEvent
+                self.latestTriggerEvent = nil
+                self.sendScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
+                self.startMinIntervalTimer()
+                self.startMaxIntervalTimer()
+            } else {
+                self.stopMinIntervalTimer()
+            }
+        }
+    }
+    
+    private func screenShotMaxIntervallTriggered() {
+        if !self.sendingScreenShot {
+            self.sendingScreenShot = true
+            self.stopMinIntervalTimer()
+            self.stopMaxIntervalTimer()
+            let triggerEventString = self.latestTriggerEvent
+            if triggerEventString == nil {
+                self.sendScreenShot(triggerMetadata: "Maximum interval of \(String(self.screenshotMaxInterval ?? 5000))ms has been reached.", timeStamp: nil)
+            } else {
+                self.latestTriggerEvent = nil
+                self.sendScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
+            }
+            self.startMaxIntervalTimer()
+            self.startMinIntervalTimer()
+        }
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
-        screenShotMinIntervalTimer?.invalidate()
-        screenShotMinIntervalTimer = nil
-        screenShotMaxIntervalTimer?.invalidate()
-        screenShotMaxIntervalTimer = nil
+        stopMinIntervalTimer()
+        stopMaxIntervalTimer()
         spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateDefault)
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
@@ -430,10 +485,15 @@ public extension SEBScreenProctoringController {
         }
     }
 
-    func collectedTriggerEvent(eventData:String?) {
+    func collectedTriggerEvent(eventData:String) {
         latestTriggerEvent = eventData
-        latestTriggerEventTimestamp = String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
-        
+        latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
+        if screenShotMinIntervalTimer == nil {
+            // The minimum interval has passed, trigger screen shot immediately
+            timerQueue.async { [unowned self] in
+                screenShotMinIntervallTriggered()
+            }
+        }
     }
 }
 

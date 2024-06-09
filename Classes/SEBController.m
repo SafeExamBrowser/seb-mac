@@ -1874,10 +1874,11 @@ bool insideMatrix(void);
             
             if (result == kAXErrorSuccess) {
                 activeBrowserWindowTitle = CFBridgingRelease(title);
+                activeBrowserWindowTitle = [activeBrowserWindowTitle stringByReplacingOccurrencesOfString:@"—" withString:@"-"];
             }
         }
     }
-    
+
     NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@, Path: %@)", app.localizedName, app.bundleIdentifier, app.bundleURL];
     
     if (activeBrowserWindowTitle == nil) {
