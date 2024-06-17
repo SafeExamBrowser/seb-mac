@@ -245,7 +245,7 @@
 "CA Certificate" = "CA-Zertifikat";
 
 /* No comment provided by engineer. */
-"camera" = "Kamera";
+"camera" = "die Kamera";
 
 /* No comment provided by engineer. */
 "Cancel" = "Abbrechen";
@@ -677,7 +677,7 @@
 "manually with file requester" = "manuell mit Dateidialog";
 
 /* No comment provided by engineer. */
-"microphone" = "Mikrofon";
+"microphone" = "das Mikrofon";
 
 /* No comment provided by engineer. */
 "Missing Connection Settings" = "Fehlende Verbindungseinstellungen";
