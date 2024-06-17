@@ -2257,15 +2257,13 @@ bool insideMatrix(void);
     };
 
     if (browserMediaCaptureMicrophone ||
-        browserMediaCaptureCamera ||
-        zoomEnable ||
-        jitsiMeetEnable) {
+        browserMediaCaptureCamera) {
         
         if (@available(macOS 10.14, *)) {
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+            if (((browserMediaCaptureMicrophone && (audioAuthorization != AVAuthorizationStatusAuthorized)) ||
+                  (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
                 
                 NSMutableArray <AVMediaType> *authorizationAccessRequests = [NSMutableArray new];
                 
@@ -2285,22 +2283,22 @@ bool insideMatrix(void);
                 NSString *resolveSuggestion;
                 NSString *resolveSuggestion2;
                 NSString *message;
-                if (videoAuthorization == AVAuthorizationStatusDenied ||
-                    audioAuthorization == AVAuthorizationStatusDenied) {
+                if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                    (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                     resolveSuggestion = NSLocalizedString(@"in System Preferences ", @"");
                     resolveSuggestion2 = [NSString stringWithFormat:NSLocalizedString(@"return to %@ and re", @""), SEBShortAppName];
                 } else {
                     resolveSuggestion = @"";
                     resolveSuggestion2 = @"";
                 }
-                if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                    audioAuthorization == AVAuthorizationStatusRestricted) {
+                if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusRestricted) ||
+                    (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusRestricted)) {
                     message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", @""), camera, microphone, permissionsRequiredFor, camera, microphone];
                 } else {
                     message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", @""), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
                 }
-                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"System Preferences", @"") : NSLocalizedString(@"OK", @"");
+                NSString *firstButtonTitle = ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                              (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) ? NSLocalizedString(@"System Preferences", @"") : NSLocalizedString(@"OK", @"");
                 
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", @""), permissionsRequiredFor.localizedCapitalizedString]];
@@ -2318,8 +2316,8 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            if (videoAuthorization == AVAuthorizationStatusDenied ||
-                                audioAuthorization == AVAuthorizationStatusDenied) {
+                            if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                                 [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuitSEBOrSession" object:self];
@@ -2360,10 +2358,15 @@ bool insideMatrix(void);
                         {
                             [[NSNotificationCenter defaultCenter]
                              postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
                         }
                             
                         default:
+                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestRestartNotification" object:self];
+                            return;
                         }
                     }
                     
