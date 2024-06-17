@@ -127,18 +127,32 @@ import CocoaLumberjackSwift
     public func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
         if message.name == "updateKeys" {
-            print(message.body as Any)
+            let frame = message.frameInfo
+            DDLogDebug("Modern WebView received updateKeys message from \(frame.isMainFrame ? "main " : "")frame with request \(frame.request)")
             let parameter = message.body as? String
-            updateKeyJSVariables(sebWebView) { response, error in
+            updateKeyJSVariables(sebWebView, frame: frame) { response, error in
                 if let _ = error {
-                    print(error as Any)
+                    DDLogDebug("Modern WebView updateJSVariables error: \(error as Any)")
                 } else {
                     guard let callback = parameter else {
                         return
                     }
-                    self.sebWebView.evaluateJavaScript(callback + "();") { (response, error) in
-                        if let _ = error {
-                            print(error as Any)
+                    if #available(macOS 11.0, iOS 14.0, *) {
+                        self.sebWebView.evaluateJavaScript(callback + "();", in: frame, in: .page, completionHandler: { (result) in
+                            var error: Error?
+                            switch result {
+                            case .success(_):
+                                DDLogDebug("Modern WebView updateJSVariables callback called successfully")
+                            case .failure(let jsError):
+                                error = jsError
+                                DDLogDebug("Modern WebView updateJSVariables callback error: \(error as Any)")
+                            }
+                        })
+                    } else {
+                        self.sebWebView.evaluateJavaScript(callback + "();") { (response, error) in
+                            if let _ = error {
+                                DDLogDebug("Modern WebView updateJSVariables callback error: \(error as Any)")
+                            }
                         }
                     }
                 }
@@ -164,6 +178,7 @@ import CocoaLumberjackSwift
     @objc weak public var navigationDelegate: SEBAbstractWebViewNavigationDelegate?
 
     private var firstLoad = true
+    private var currentFrame: WKFrameInfo?
 
     @objc public init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         super.init()
@@ -679,17 +694,39 @@ import CocoaLumberjackSwift
     }
     
     private func updateKeyJSVariables(_ webView: WKWebView) {
-        updateKeyJSVariables(webView) { response, error in
+        updateKeyJSVariables(webView, frame: currentFrame) { response, error in
             if let _ = error {
-                print(error as Any)
+                DDLogDebug("Modern WebView updateJSVariables error: \(error as Any)")
             }
         }
     }
 
-    private func updateKeyJSVariables(_ webView: WKWebView, completionHandler: ((Any?, Error?) -> Void)? = nil) {
-        if let url = webView.url {
-            let browserExamKey = navigationDelegate?.browserExamKey?(for: url)
-            let configKey = navigationDelegate?.configKey?(for: url)
+    private func updateKeyJSVariables(_ webView: WKWebView, frame: WKFrameInfo?, completionHandler: ((Any?, Error?) -> Void)? = nil) {
+        var url: URL? = nil
+        if let frameURL = frame?.request.url, frameURL.absoluteString != "" {
+            url = frameURL
+        } else if let webViewURL = webView.url {
+            url = webViewURL
+        }
+        if url != nil {
+            let browserExamKey = navigationDelegate?.browserExamKey?(for: url!)
+            let configKey = navigationDelegate?.configKey?(for: url!)
+            if frame != nil {
+                if #available(macOS 11.0, iOS 14.0, *) {
+                    webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';", in: frame, in: .page, completionHandler: { (result) in
+                        var error: Error?
+                        var response: String?
+                        switch result {
+                        case .success(let callbackResponse):
+                            response = callbackResponse as? String
+                        case .failure(let jsError):
+                            error = jsError
+                        }
+                        completionHandler?(response ?? "", error)
+                    })
+                    return
+                }
+            }
             webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
                 completionHandler?(response ?? "", error)
             }
@@ -729,6 +766,9 @@ import CocoaLumberjackSwift
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.sebWebViewDidFinishLoad?()
         sebWebView.evaluateJavaScript(controlSpellCheckCode)
+        if currentFrame != nil {
+            updateKeyJSVariables(webView, frame: currentFrame)
+        }
     }
     
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
@@ -741,6 +781,9 @@ import CocoaLumberjackSwift
         if navigationAction.targetFrame == nil {
             newTab = true
         }
+        currentFrame = navigationAction.targetFrame
+        let targetFrameURL = currentFrame?.request.url
+        DDLogDebug("webView decidePolicyFor navigationAction: Target frame \(currentFrame as Any), URL: \(targetFrameURL as Any)")
         var navigationActionPolicy = SEBNavigationActionPolicyCancel
 
         guard let url = navigationAction.request.url else {
