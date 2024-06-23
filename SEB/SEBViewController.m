@@ -2052,6 +2052,10 @@ void run_on_ui_thread(dispatch_block_t block)
                 BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
                 BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
                 BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+                if (jitsiMeetEnable || zoomEnable) {
+                    browserMediaCaptureCamera = YES;
+                    browserMediaCaptureMicrophone = YES;
+                }
                 BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
                 [_serverController.url.host hasSuffix:@"ethz.ch"];
 
@@ -2139,18 +2143,20 @@ void run_on_ui_thread(dispatch_block_t block)
                             });
                             return;
                         }
+                    } else {
+                        self.previousSessionScreenProctoringEnabled = NO;
                     }
                     conditionallyStartJitsiProctoring();
                 };
                 
                 if (browserMediaCaptureMicrophone ||
-                    browserMediaCaptureCamera ||
-                    zoomEnable ||
-                    jitsiMeetEnable) {
+                    browserMediaCaptureCamera) {
+                    
                     AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
                     AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-                    if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                          videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                    if (((browserMediaCaptureMicrophone && (audioAuthorization != AVAuthorizationStatusAuthorized)) ||
+                          (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
+
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
@@ -2173,16 +2179,16 @@ void run_on_ui_thread(dispatch_block_t block)
                         NSString *resolveSuggestion;
                         NSString *resolveSuggestion2;
                         NSString *message;
-                        if (videoAuthorization == AVAuthorizationStatusDenied ||
-                            audioAuthorization == AVAuthorizationStatusDenied) {
+                        if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                            (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                             resolveSuggestion = NSLocalizedString(@"in Settings ", @"");
-                            resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", @"");
+                            resolveSuggestion2 = [NSString stringWithFormat:NSLocalizedString(@"return to %@ and re", @""), SEBShortAppName];
                         } else {
                             resolveSuggestion = @"";
                             resolveSuggestion2 = @"";
                         }
-                        if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                            audioAuthorization == AVAuthorizationStatusRestricted) {
+                        if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusRestricted) ||
+                            (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusRestricted)) {
                             message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", @""), camera, microphone, permissionsRequiredFor, camera, microphone];
                         } else {
                             message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", @""), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
@@ -2192,13 +2198,13 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                    message:message
                                                                             preferredStyle:UIAlertControllerStyleAlert];
                         
-                        NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                                      audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", @"") : NSLocalizedString(@"OK", @"");
+                        NSString *firstButtonTitle = ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                                      (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) ? NSLocalizedString(@"Settings", @"") : NSLocalizedString(@"OK", @"");
                         [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                             self.alertController = nil;
-                            if (videoAuthorization == AVAuthorizationStatusDenied ||
-                                audioAuthorization == AVAuthorizationStatusDenied) {
+                            if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
