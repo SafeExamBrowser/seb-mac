@@ -1352,14 +1352,13 @@ bool insideMatrix(void);
                             [self closeServerViewAndRestart:self];
                             break;
                         }
+                        default:
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Retrying to connect to SEB Server.", (long)answer);
                         case NSAlertSecondButtonReturn:
                         {
                             self.establishingSEBServerConnection = NO;
                             [self startExamWithFallback:NO];
                             break;
-                        }
-                        default:
-                        {
                         }
                     }
                 };
@@ -1380,6 +1379,8 @@ bool insideMatrix(void);
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
                     {
+                        default:
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Retrying to connect to SEB Server.", (long)answer);
                         case NSAlertFirstButtonReturn:
                         {
                             DDLogInfo(@"User selected Retry option");
@@ -1430,9 +1431,6 @@ bool insideMatrix(void);
                             DDLogInfo(@"User selected Quit option");
                             [self closeServerViewAndRestart:self];
                             break;
-                        }
-                        default:
-                        {
                         }
                     }
                 };
@@ -2204,7 +2202,12 @@ bool insideMatrix(void);
                             }
                                 
                             default:
+                                // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                             {
+                                DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestRestartNotification" object:self];
+                                return;
                             }
                         }
                     };
@@ -2245,7 +2248,12 @@ bool insideMatrix(void);
                         }
                             
                         default:
+                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled screen proctoring.", (long)answer);
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestRestartNotification" object:self];
+                            return;
                         }
                     }
                 };
@@ -2364,6 +2372,7 @@ bool insideMatrix(void);
                         default:
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
                             [[NSNotificationCenter defaultCenter]
                              postNotificationName:@"requestRestartNotification" object:self];
                             return;
@@ -6148,6 +6157,8 @@ conditionallyForWindow:(NSWindow *)window
                 case NSAlertFirstButtonReturn:
                     return; //Cancel: don't restart exam
                 default:
+                    DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Not invoking Back to Start.", (long)answer);
+                case NSAlertSecondButtonReturn:
                 {
                     [self.browserController backToStartCommand];
                 }
@@ -6666,7 +6677,7 @@ conditionallyForWindow:(NSWindow *)window
                 return;
             default:
             {
-                DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
+                DDLogDebug(@"%s canceled quit alert with NSModalResponse %ld.", __FUNCTION__, (long)answer);
                 return; //Cancel: don't quit
             }
         }
@@ -7001,16 +7012,15 @@ conditionallyForWindow:(NSWindow *)window
                 {
                     case NSAlertFirstButtonReturn:
                     {
+                        DDLogDebug(@"User selected Authorize Screen Recording in System Settings");
                         [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
                         return;
                     }
-                        
+                    default:
+                        DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Quitting SEB", (long)answer);
                     case NSAlertSecondButtonReturn:
                     {
-                    }
-                        
-                    default:
-                    {
+                        DDLogDebug(@"No permissions for screen capture: Quitting");
                     }
                 }
                 [self applicationWillTerminateProceed];
@@ -7133,22 +7143,26 @@ conditionallyForWindow:(NSWindow *)window
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %@ will open this System Preferences tab for you.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Settings / Keyboard / 'Touch Bar shows'. %@ will open this System Settings tab for you.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [modalAlert setAlertStyle:NSAlertStyleWarning];
+        DDLogInfo(@"Cannot Restore Touch Bar Mode 'App Controls'");
         void (^cannotRestoreTouchBarAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
                     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
-                    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
-                    return;
+                    DDLogInfo(@"User selected to open System Settings / Keyboard / 'Touch Bar shows'");
+                    break;
                 default:
-                {
-                }
+                    DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld.", (long)answer);
+                case NSAlertSecondButtonReturn:
+                    DDLogInfo(@"Exiting SEB without opening System Settings / Keyboard / 'Touch Bar shows'");
             }
+            DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
+            return;
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))cannotRestoreTouchBarAlertOK];
     } else {

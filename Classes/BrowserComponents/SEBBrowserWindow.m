@@ -398,6 +398,7 @@
 {
     if (self.webView.isReloadAllowed) {
         if (self.webView.showReloadWarning) {
+            DDLogInfo(@"Show Reload Current Page warning.");
             // Display warning and ask if to reload page
             NSAlert *newAlert = [self.browserController.sebController newAlert];
             [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", @"")];
@@ -415,6 +416,8 @@
                     
                         
                     default:
+                        DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Not reloading.", (long)answer);
+                    case NSAlertSecondButtonReturn:
                         // Return without reloading page
                         return;
                 }
@@ -1333,7 +1336,10 @@
                     return;
                 }
                 default:
+                    DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld.", (long)answer);
+                case NSAlertSecondButtonReturn:
                     // Close a temporary browser window which might have been opened for loading a config file from a SEB URL
+                    DDLogInfo(@"User didn't select to reload after %s: %@, localized error: %@", __FUNCTION__, error.description, errorMessage);
                     [self.browserController openingConfigURLFailed];
                     return;
             }
