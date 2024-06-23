@@ -2103,6 +2103,10 @@ bool insideMatrix(void);
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
     BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+    if (jitsiMeetEnable || zoomEnable) {
+        browserMediaCaptureCamera = YES;
+        browserMediaCaptureMicrophone = YES;
+    }
     BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
     [_serverController.url.host hasSuffix:@"ethz.ch"];
     
@@ -2260,7 +2264,9 @@ bool insideMatrix(void);
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
                 return;
             }
-        } 
+        } else {
+            self.previousSessionScreenProctoringEnabled = NO;
+        }
         conditionallyStartZoomProctoring();
     };
 
