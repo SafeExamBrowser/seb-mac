@@ -141,7 +141,7 @@ public class SEBSPMetadataCollector {
             }
             eventTypeString += locationString
             DDLogDebug("Event: \(eventTypeString)")
-            self.delegate?.collectedTriggerEvent(eventData: eventTypeString)
+            self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
         }
         
         NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
