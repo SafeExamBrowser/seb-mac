@@ -32,8 +32,8 @@ fileprivate struct keysSPS {
     
     func getScreenProctoringMetadataURL() -> String?
     func getScreenProctoringMetadataActiveAppWindow() -> [String:String]?
-    func getScreenProctoringMetadataUserAction() -> String?
-    func collectedTriggerEvent(eventData: String)
+    @objc optional func getScreenProctoringMetadataUserAction() -> String?
+    @objc optional func collectedTriggerEvent(eventData: String)
 }
 
 @objc public protocol SPSControllerUIDelegate: AnyObject {
@@ -121,7 +121,7 @@ struct MetadataSettings {
     }
     
     public func getScreenProctoringMetadataUserAction() -> String? {
-        return delegate?.getScreenProctoringMetadataUserAction()
+        return delegate?.getScreenProctoringMetadataUserAction?()
     }
     
 
