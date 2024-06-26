@@ -1660,6 +1660,7 @@ bool insideMatrix(void);
 {
     if (_screenProctoringController) {
         [_screenProctoringController closeSessionWithCompletionHandler:^{
+            self.screenProctoringController = nil;
             completionHandler();
         }];
         return;
@@ -4368,7 +4369,7 @@ bool insideMatrix(void){
 // Called when changes of the screen configuration occur
 // (new display is contected or removed or display mirroring activated)
 
-- (void) adjustScreenLocking: (id)sender
+- (void) adjustScreenLocking: (id _Nullable)sender
 {
     // This should only be done when the preferences window isn't open
     if (sender) {
@@ -5242,7 +5243,7 @@ conditionallyForWindow:(NSWindow *)window
 
 // hide all other applications if not in debug build setting
 // Check if the app is listed in prohibited processes
-- (void) regainActiveStatus: (id)sender
+- (void) regainActiveStatus: (id _Nullable)sender
 {
 #ifdef DEBUG
     DDLogInfo(@"%s: Notification:  %@", __FUNCTION__, [sender name]);
@@ -6218,7 +6219,7 @@ conditionallyForWindow:(NSWindow *)window
 
 
 
-- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *_Nullable)window windowTitle:(NSString *)title
 {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
     return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window windowTitle:title];
@@ -6749,7 +6750,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedExit:(NSNotification *)notification
+- (void)requestedExit:(NSNotification *_Nullable)notification
 {
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
 
@@ -6812,7 +6813,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedRestart:(NSNotification *)notification
+- (void)requestedRestart:(NSNotification *_Nullable)notification
 {
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;

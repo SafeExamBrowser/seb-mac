@@ -5018,6 +5018,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     if (_screenProctoringController) {
         [_screenProctoringController closeSessionWithCompletionHandler:^{
+            self.screenProctoringController = nil;
             completionHandler();
         }];
         return;

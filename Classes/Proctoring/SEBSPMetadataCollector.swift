@@ -61,7 +61,8 @@ public class SEBSPMetadataCollector {
     }
     
     public func monitorEvents() {
-        
+
+#if os(macOS)
         let eventHandler = { (event: NSEvent) in
             var eventTypeString = ""
             let location = NSEvent.mouseLocation
@@ -150,9 +151,11 @@ public class SEBSPMetadataCollector {
         NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
             eventHandler(event)
         }
+        #endif
     }
     
-    
+#if os(macOS)
+
     func keyEventDesciption(event: NSEvent) -> String {
         let characters = event.charactersIgnoringModifiers?.replaceSpecialCharactersWithKeyName()
         let modifiers = keyEventModifiers(event: event)
@@ -205,6 +208,7 @@ public class SEBSPMetadataCollector {
         }
         return modifiers.joined(separator: "-")
     }
+#endif
 }
 
 extension String {
