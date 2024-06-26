@@ -242,7 +242,7 @@
                 return YES;
                 
             default:
-                DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Configuration will not be saved unencrypted.");
+                DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Configuration will not be saved unencrypted.", answer);
                 return NO;
         }
     };

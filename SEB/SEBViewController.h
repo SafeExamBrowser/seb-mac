@@ -213,7 +213,7 @@ void run_on_ui_thread(dispatch_block_t block);
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO
-@property (strong, nonatomic) SEBScreenProctoringController *screenProctoringController;
+@property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
 @property(readwrite) BOOL previousSessionScreenProctoringEnabled;
 
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;

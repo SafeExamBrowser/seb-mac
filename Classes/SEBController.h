@@ -72,6 +72,8 @@
 
 #import "SEBZoomController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SEBOSXSessionState;
 @class PreferencesController;
 @class SEBOSXConfigFileController;
@@ -182,19 +184,19 @@
 - (void) firstDOMElementDeselected;
 - (void) lastDOMElementDeselected;
 
-@property(strong, nonatomic) SEBOSXSessionState *sessionState;
+@property(strong, nonatomic) SEBOSXSessionState *_Nullable sessionState;
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(macos(10.15.4));
 @property(strong, nonatomic) AssessmentConfigurationManager *assessmentConfigurationManager;
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
 @property(strong, nonatomic) SEBBatteryController *batteryController;
-@property(strong, nonatomic) SEBDockController *dockController;
+@property(strong, nonatomic) SEBDockController *_Nullable dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;
 @property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
-@property (strong, nonatomic) WKWebView *temporaryWebView;
+@property (strong, nonatomic) WKWebView *_Nullable temporaryWebView;
 
 #pragma mark - Connecting to SEB Server
 // Waiting for user to select exam from SEB Server and to successfully log in
@@ -214,7 +216,7 @@
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported NO
 #define ZoomProctoringSupported NO
-@property (strong, nonatomic) SEBScreenProctoringController *screenProctoringController;
+@property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
 @property(readwrite) BOOL previousSessionScreenProctoringEnabled;
@@ -278,7 +280,7 @@
 @property(strong) NSURL *openingSettingsFileURL;
 
 @property(strong) NSMutableArray *capWindows;
-@property(strong) NSMutableArray *lockdownWindows;
+@property(strong) NSMutableArray *_Nullable lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
 @property(strong) NSScreen *mainScreen;
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
@@ -318,22 +320,22 @@ forceConfiguringClient:(BOOL)forceConfiguringClient
 - (void) removeAlertWindow:(NSWindow *)alertWindow;
 - (void) runModalAlert:(NSAlert *)alert
 conditionallyForWindow:(NSWindow *)window
-     completionHandler:(void (^)(NSModalResponse returnCode))handler;
+     completionHandler:(nullable void (^)(NSModalResponse returnCode))handler;
 
 - (void) closeAboutWindow;
 - (void) closeDocument:(id)sender;
 - (void) coverScreens;
 - (void) coverInactiveScreens:(NSArray *)inactiveScreens;
-- (void) adjustScreenLocking:(id)sender;
+- (void) adjustScreenLocking:(id _Nullable)sender;
 - (void) startTask;
-- (void) regainActiveStatus:(id)sender;
+- (void) regainActiveStatus:(id _Nullable)sender;
 - (void) SEBgotActive:(id)sender;
 - (void) startKioskMode;
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 
 - (NSModalResponse) showEnterPasswordDialog:(NSString *)text
-                       modalForWindow:(NSWindow *)window
+                       modalForWindow:(NSWindow *_Nullable)window
                           windowTitle:(NSString *)title;
 - (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
                                      modalForWindow:(NSWindow *)window
@@ -363,7 +365,7 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) searchTextNext:(id)sender;
 - (IBAction) searchTextPrevious:(id)sender;
 
-- (void) requestedRestart:(NSNotification *)notification;
+- (void) requestedRestart:(NSNotification *_Nullable)notification;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 
@@ -373,6 +375,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
 
-- (void) requestedExit:(NSNotification *)notification;
+- (void) requestedExit:(NSNotification *_Nullable)notification;
 
 @end
+
+NS_ASSUME_NONNULL_END
