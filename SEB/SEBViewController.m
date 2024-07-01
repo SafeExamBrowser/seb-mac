@@ -4133,7 +4133,56 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-#pragma mark - Kiosk mode
+/// Assessment Mode Delegate Methods
+
+- (void) assessmentSessionWillBegin
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+- (void) assessmentSessionWillEnd
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+- (void) assessmentSessionDidBeginWithCallback:(id)callback
+                                      selector:(SEL)selector
+{
+    [self.assessmentConfigurationManager autostartAppsWithPermittedApplications:self.permittedProcesses];
+    
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
+}
+
+- (void) assessmentSessionFailedToBeginWithError:(NSError *)error
+                                        callback:(id)callback
+                                        selector:(SEL)selector
+{
+    DDLogError(@"Could not start AAC Assessment Mode with error: %@", error);
+    self.ASAMActive = NO;
+    [self showNoKioskModeAvailable];
+}
+
+
+- (void) assessmentSessionDidEndWithCallback:(id)callback
+                                    selector:(SEL)selector
+{
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
+}
+
+- (void) assessmentSessionWasInterruptedWithError:(NSError *)error
+{
+    DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
+    [self quitSEBOrSession]; // Quit session
+}
+
+
+#pragma mark - Lockdown mode
 
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
@@ -4504,39 +4553,59 @@ void run_on_ui_thread(dispatch_block_t block)
         if (_enableASAM) {
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
             _ASAMActive = true;
-            UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
-                DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
-                if (didSucceed) {
-                    if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
-                        DDLogError(@"%s: Switching AAC/Autonomous Single App Mode on returned didSucceed, even though AAC isn't actually active! Inform user that the device needs to be restarted", __FUNCTION__);
-                        // This is an issue happening on older iOS versions:
-                        // the device needs to be restarted
-                        if (self.alertController) {
-                            [self.alertController dismissViewControllerAnimated:NO completion:nil];
-                        }
-                        self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", @"")
-                                                                                    message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", @"")
-                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
-                                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                            self.alertController = nil;
-                            DDLogInfo(@"%s User confirmed OK, quit current session.", __FUNCTION__);
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuit" object:self];
-                        }]];
-                        
-                        [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
-                        return;
-                    }
-                    DDLogInfo(@"%s: Entered AAC/Autonomous Single App Mode, proceed to open start URL", __FUNCTION__);
-                    [self startExamWithFallback:NO];
-                } else {
+            
+            if (@available(iOS 13.4, *)) {
+                AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:)];
+                self.assessmentModeManager = assessmentModeManager;
+                self.assessmentModeManager.delegate = self;
+                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                NSArray *allPermittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+                NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSiOS];
+                self.permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
+
+                AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
+                if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                     DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
                     self.ASAMActive = NO;
                     [self showNoKioskModeAvailable];
+                    [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable)];
                 }
-            });
+            } else {
+                UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
+                    DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
+                    if (didSucceed) {
+                        if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
+                            DDLogError(@"%s: Switching AAC/Autonomous Single App Mode on returned didSucceed, even though AAC isn't actually active! Inform user that the device needs to be restarted", __FUNCTION__);
+                            // This is an issue happening on older iOS versions:
+                            // the device needs to be restarted
+                            if (self.alertController) {
+                                [self.alertController dismissViewControllerAnimated:NO completion:nil];
+                            }
+                            self.alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Failed to Start Single App Mode", @"")
+                                                                                        message:NSLocalizedString(@"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.", @"")
+                                                                                 preferredStyle:UIAlertControllerStyleAlert];
+                            
+                            [self.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
+                                                                                     style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                self.alertController = nil;
+                                DDLogInfo(@"%s User confirmed OK, quit current session.", __FUNCTION__);
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuit" object:self];
+                            }]];
+                            
+                            [self.topMostController presentViewController:self.alertController animated:NO completion:nil];
+                            return;
+                        }
+                        DDLogInfo(@"%s: Entered AAC/Autonomous Single App Mode, proceed to open start URL", __FUNCTION__);
+                        [self startExamWithFallback:NO];
+                    } else {
+                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
+                        self.ASAMActive = NO;
+                        [self showNoKioskModeAvailable];
+                    }
+                });
+            }
+            
         } else {
             [self showStartSingleAppMode];
         }
@@ -4547,15 +4616,26 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) stopAutonomousSingleAppMode
 {
     DDLogInfo(@"%s: Requesting to exit AAC/Autonomous Single App Mode", __FUNCTION__);
-    UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
-        if (didSucceed) {
-            DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-            self.ASAMActive = false;
-        }
-        else {
-            DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
-        }
-    });
+    if (@available(iOS 13.4, *)) {
+        [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(aacEnded)];
+    } else {
+        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
+            if (didSucceed) {
+                DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
+                self.ASAMActive = false;
+            }
+            else {
+                DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
+            }
+        });
+    }
+}
+
+
+- (void) aacEnded
+{
+    DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
+    self.ASAMActive = false;
 }
 
 
