@@ -84,7 +84,7 @@
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
 
-#define currentStableMajoriOSVersion 17
+#define currentStableMajoriOSVersion 18
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -309,6 +309,7 @@ typedef NSUInteger SEBNavigationResponsePolicy;
 enum {
     operatingSystemMacOS                        = 0,
     operatingSystemWin                          = 1,
+    operatingSystemiOS                          = 2,
 };
 typedef NSUInteger operatingSystems;
 
