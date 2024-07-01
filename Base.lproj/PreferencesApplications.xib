@@ -178,550 +178,759 @@
                                             <rect key="frame" x="4" y="5" width="568" height="360"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
-                                                    <rect key="frame" x="13" y="329" width="64" height="20"/>
-                                                    <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="638">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-54-ERS">
+                                                    <rect key="frame" x="15" y="33" width="563" height="318"/>
+                                                    <subviews>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="144" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BY-LQ-f9Q">
+                                                            <rect key="frame" x="0.0" y="297" width="538" height="21"/>
+                                                            <subviews>
+                                                                <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
+                                                                    <rect key="frame" x="-2" y="-1" width="64" height="20"/>
+                                                                    <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="638">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="18" id="908"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="610" name="value" keyPath="selection.active" id="1165">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27x-OQ-kn3">
+                                                                    <rect key="frame" x="206" y="0.0" width="332" height="21"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
+                                                                            <rect key="frame" x="-2" y="3" width="31" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="642">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <binding destination="610" name="hidden" keyPath="selectedObjects" id="1213">
+                                                                                    <dictionary key="options">
+                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                        <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
+                                                                            <rect key="frame" x="35" y="0.0" width="297" height="21"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="297" id="828"/>
+                                                                            </constraints>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="641" id="ahK-l1-cfi"/>
+                                                                                <binding destination="610" name="value" keyPath="selection.title" id="1102">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-jB-iWG">
+                                                            <rect key="frame" x="0.0" y="273" width="536" height="21"/>
+                                                            <subviews>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
+                                                                    <rect key="frame" x="-2" y="3" width="74" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="657">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1231">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
+                                                                    <rect key="frame" x="78" y="0.0" width="458" height="21"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="653" id="2J6-KE-3Tu"/>
+                                                                        <binding destination="610" name="value" keyPath="selection.description" id="1111">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jRP-pP-ZCg">
+                                                            <rect key="frame" x="0.0" y="249" width="372" height="21"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
+                                                                    <rect key="frame" x="-2" y="3" width="71" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="677">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1237">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
+                                                                    <rect key="frame" x="75" y="0.0" width="297" height="21"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="676">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="673" id="YFR-f7-ooh"/>
+                                                                        <binding destination="610" name="value" keyPath="selection.executable" id="2130">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BD-lW-2NV">
+                                                            <rect key="frame" x="0.0" y="226" width="107" height="20"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
+                                                                    <rect key="frame" x="-2" y="4" width="23" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1304">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="1314" id="Sk5-Rt-lcn"/>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1305">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                                    <rect key="frame" x="24" y="-4" width="87" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="menu"/>
+                                                                        <menu key="menu" id="1316">
+                                                                            <items>
+                                                                                <menuItem id="1317"/>
+                                                                                <menuItem id="1318"/>
+                                                                                <menuItem state="on" id="1319"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="yd6-Ea-gPd"/>
+                                                                    </constraints>
+                                                                    <accessibility description="Select operating system"/>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1328"/>
+                                                                        <binding destination="610" name="selectedIndex" keyPath="selection.os" previousBinding="1328" id="1349">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="htN-Bd-tUY">
+                                                            <rect key="frame" x="0.0" y="202" width="391" height="21"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
+                                                                    <rect key="frame" x="-2" y="3" width="90" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="2206">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
+                                                                    <rect key="frame" x="94" y="0.0" width="297" height="21"/>
+                                                                    <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <accessibility description="Original Name for Windows process"/>
+                                                                    <connections>
+                                                                        <binding destination="610" name="value" keyPath="selection.originalName" id="Lxj-Ye-QvE">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3t-kM-gpg">
+                                                            <rect key="frame" x="0.0" y="178" width="494" height="21"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
+                                                                    <rect key="frame" x="-2" y="3" width="32" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="690">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1225">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
+                                                                    <rect key="frame" x="36" y="0.0" width="458" height="21"/>
+                                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</string>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="686" id="zyY-hh-pqy"/>
+                                                                        <binding destination="610" name="value" keyPath="selection.path" id="1299">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </textField>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qxA-HW-Abg">
+                                                            <rect key="frame" x="0.0" y="105" width="533" height="70"/>
+                                                            <subviews>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="31" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEL-uN-dOT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="67" height="68"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
+                                                                            <rect key="frame" x="-2" y="52" width="71" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Arguments" id="773">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <binding destination="610" name="hidden" keyPath="selectedObjects" id="1200">
+                                                                                    <dictionary key="options">
+                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tAB-f2-Fn4">
+                                                                            <rect key="frame" x="25" y="0.0" width="42" height="21"/>
+                                                                            <subviews>
+                                                                                <button toolTip="Add a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="865">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="21"/>
+                                                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="870">
+                                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                    </buttonCell>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="21" id="869"/>
+                                                                                        <constraint firstAttribute="width" constant="20" id="873"/>
+                                                                                    </constraints>
+                                                                                    <accessibility description="Add Argument Button"/>
+                                                                                    <connections>
+                                                                                        <action selector="add:" target="1782" id="1788"/>
+                                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1209">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
+                                                                                </button>
+                                                                                <button toolTip="Remove a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="866">
+                                                                                    <rect key="frame" x="20" y="6" width="22" height="15"/>
+                                                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="867">
+                                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                    </buttonCell>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="22" id="868"/>
+                                                                                    </constraints>
+                                                                                    <accessibility description="Remove Argument Button"/>
+                                                                                    <connections>
+                                                                                        <action selector="remove:" target="1782" id="1789"/>
+                                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1212">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
+                                                                                </button>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <scrollView verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
+                                                                    <rect key="frame" x="75" y="0.0" width="458" height="70"/>
+                                                                    <clipView key="contentView" id="UYw-pC-SvI">
+                                                                        <rect key="frame" x="1" y="1" width="456" height="68"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <tableView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="456" height="68"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                                <size key="intercellSpacing" width="3" height="2"/>
+                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                                                <tableColumns>
+                                                                                    <tableColumn width="18" minWidth="18" maxWidth="1000" id="738">
+                                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                        </tableHeaderCell>
+                                                                                        <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1295">
+                                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                        </buttonCell>
+                                                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                        <connections>
+                                                                                            <binding destination="1782" name="value" keyPath="arrangedObjects.active" id="1791"/>
+                                                                                        </connections>
+                                                                                    </tableColumn>
+                                                                                    <tableColumn width="394" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
+                                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </tableHeaderCell>
+                                                                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="1291">
+                                                                                            <font key="font" metaFont="system"/>
+                                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                        </textFieldCell>
+                                                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                                        <connections>
+                                                                                            <binding destination="1782" name="value" keyPath="arrangedObjects.argument" id="1793"/>
+                                                                                        </connections>
+                                                                                    </tableColumn>
+                                                                                </tableColumns>
+                                                                                <connections>
+                                                                                    <accessibilityConnection property="title" destination="772" id="QAg-jg-xSX"/>
+                                                                                </connections>
+                                                                            </tableView>
+                                                                        </subviews>
+                                                                    </clipView>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="70" id="oxm-hT-qU0"/>
+                                                                    </constraints>
+                                                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="735">
+                                                                        <rect key="frame" x="-100" y="-100" width="223" height="15"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                    </scroller>
+                                                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="734">
+                                                                        <rect key="frame" x="281" y="1" width="15" height="13"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                    </scroller>
+                                                                    <connections>
+                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1206">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </scrollView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="66" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7s-lR-Wir">
+                                                            <rect key="frame" x="0.0" y="81" width="538" height="21"/>
+                                                            <subviews>
+                                                                <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
+                                                                    <rect key="frame" x="-2" y="2" width="115" height="18"/>
+                                                                    <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="610" name="value" keyPath="selection.iconInTaskbar" id="Z8K-uf-bcZ">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwe-Jk-Q1r">
+                                                                    <rect key="frame" x="179" y="0.0" width="359" height="21"/>
+                                                                    <subviews>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4tq-fE-gIf">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="21"/>
+                                                                            <subviews>
+                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
+                                                                                    <rect key="frame" x="-2" y="3" width="58" height="16"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="897">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                    <connections>
+                                                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1197">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
+                                                                                </textField>
+                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
+                                                                                    <rect key="frame" x="62" y="0.0" width="297" height="21"/>
+                                                                                    <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="297" id="6g2-CO-Gor"/>
+                                                                                        <constraint firstAttribute="height" constant="21" id="NLy-Zx-d3f"/>
+                                                                                    </constraints>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="888">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="896" id="nag-Y2-AUK"/>
+                                                                                        <binding destination="610" name="value" keyPath="selection.identifier" id="1233">
+                                                                                            <dictionary key="options">
+                                                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
+                                                                                </textField>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="86" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sh-CL-G9g">
+                                                            <rect key="frame" x="0.0" y="57" width="563" height="21"/>
+                                                            <subviews>
+                                                                <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
+                                                                    <rect key="frame" x="-2" y="4" width="83" height="18"/>
+                                                                    <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="value" keyPath="selection.autostart" id="1132">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QAN-B4-SjM">
+                                                                    <rect key="frame" x="167" y="0.0" width="396" height="21"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qox-fm-s7W" userLabel="Team Identifier">
+                                                                            <rect key="frame" x="-2" y="3" width="95" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Team Identifier" id="9ep-FT-5jP" userLabel="Team Identifier">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <binding destination="610" name="hidden" keyPath="selectedObjects" id="q0K-rz-hb5">
+                                                                                    <dictionary key="options">
+                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-V9-Us6">
+                                                                            <rect key="frame" x="99" y="0.0" width="297" height="21"/>
+                                                                            <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="297" id="Qqr-JJ-IoA"/>
+                                                                                <constraint firstAttribute="height" constant="21" id="gKw-Eh-tnC"/>
+                                                                            </constraints>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="vbM-IT-BUE">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <connections>
+                                                                                <accessibilityConnection property="title" destination="Qox-fm-s7W" id="Tn9-4r-DAu"/>
+                                                                                <binding destination="610" name="value" keyPath="selection.identifier" id="UOn-nC-ETU">
+                                                                                    <dictionary key="options">
+                                                                                        <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                                    </dictionary>
+                                                                                </binding>
+                                                                            </connections>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
+                                                            <rect key="frame" x="-2" y="37" width="198" height="18"/>
+                                                            <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <binding destination="610" name="value" keyPath="selection.autohide" id="2128">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </button>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="982">
+                                                            <rect key="frame" x="-2" y="18" width="282" height="18"/>
+                                                            <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</string>
+                                                            <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <binding destination="610" name="value" keyPath="selection.allowUserToChooseApp" id="1140">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </button>
+                                                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="212" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-oa-qqf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
+                                                            <subviews>
+                                                                <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
+                                                                    <rect key="frame" x="-2" y="-1" width="196" height="18"/>
+                                                                    <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="610" name="value" keyPath="selection.strongKill" id="2256">
+                                                                            <dictionary key="options">
+                                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                                <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
+                                                                    <rect key="frame" x="-7" y="-11" width="146" height="32"/>
+                                                                    <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="908"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8sh-CL-G9g" secondAttribute="trailing" id="Kvh-h8-k38"/>
+                                                        <constraint firstItem="8sh-CL-G9g" firstAttribute="leading" secondItem="BuP-54-ERS" secondAttribute="leading" id="hYJ-0m-Jed"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.active" id="1165">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
-                                                    <rect key="frame" x="219" y="333" width="31" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="642">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1213">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
-                                                    <rect key="frame" x="256" y="330" width="297" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="297" id="828"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="641" id="ahK-l1-cfi"/>
-                                                        <binding destination="610" name="value" keyPath="selection.title" id="1102">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
-                                                    <rect key="frame" x="179" y="275" width="71" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="677">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1237">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
-                                                    <rect key="frame" x="256" y="272" width="297" height="21"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="676">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="673" id="YFR-f7-ooh"/>
-                                                        <binding destination="610" name="value" keyPath="selection.executable" id="2130">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
-                                                    <rect key="frame" x="13" y="304" width="76" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="657">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1231">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
-                                                    <rect key="frame" x="95" y="301" width="458" height="21"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="653" id="2J6-KE-3Tu"/>
-                                                        <binding destination="610" name="value" keyPath="selection.description" id="1111">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
-                                                    <rect key="frame" x="57" y="219" width="32" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="690">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1225">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
-                                                    <rect key="frame" x="18" y="190" width="71" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Arguments" id="773">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1200">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
-                                                    <rect key="frame" x="95" y="216" width="458" height="21"/>
-                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</string>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="686" id="zyY-hh-pqy"/>
-                                                        <binding destination="610" name="value" keyPath="selection.path" id="1299">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
-                                                    <rect key="frame" x="256" y="244" width="297" height="21"/>
-                                                    <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <accessibility description="Original Name for Windows process"/>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.originalName" id="Lxj-Ye-QvE">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <scrollView verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
-                                                    <rect key="frame" x="95" y="138" width="458" height="70"/>
-                                                    <clipView key="contentView" id="UYw-pC-SvI">
-                                                        <rect key="frame" x="1" y="1" width="456" height="68"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                        <subviews>
-                                                            <tableView toolTip="Arguments to append to the executable of the application when starting it. Checkbox selects if an argument is active" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="736">
-                                                                <rect key="frame" x="0.0" y="0.0" width="456" height="68"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                <size key="intercellSpacing" width="3" height="2"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                                                <tableColumns>
-                                                                    <tableColumn width="18" minWidth="18" maxWidth="1000" id="738">
-                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        </tableHeaderCell>
-                                                                        <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1295">
-                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                        </buttonCell>
-                                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                        <connections>
-                                                                            <binding destination="1782" name="value" keyPath="arrangedObjects.active" id="1791"/>
-                                                                        </connections>
-                                                                    </tableColumn>
-                                                                    <tableColumn width="394" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
-                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                                                        </tableHeaderCell>
-                                                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="1291">
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                                                        <connections>
-                                                                            <binding destination="1782" name="value" keyPath="arrangedObjects.argument" id="1793"/>
-                                                                        </connections>
-                                                                    </tableColumn>
-                                                                </tableColumns>
-                                                                <connections>
-                                                                    <accessibilityConnection property="title" destination="772" id="QAg-jg-xSX"/>
-                                                                </connections>
-                                                            </tableView>
-                                                        </subviews>
-                                                    </clipView>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="70" id="oxm-hT-qU0"/>
-                                                    </constraints>
-                                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="735">
-                                                        <rect key="frame" x="-100" y="-100" width="223" height="15"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                    </scroller>
-                                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="734">
-                                                        <rect key="frame" x="281" y="1" width="15" height="13"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                    </scroller>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1206">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </scrollView>
-                                                <button toolTip="Add a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="865">
-                                                    <rect key="frame" x="46" y="138" width="20" height="21"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="870">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="869"/>
-                                                        <constraint firstAttribute="width" constant="20" id="873"/>
-                                                    </constraints>
-                                                    <accessibility description="Add Argument Button"/>
-                                                    <connections>
-                                                        <action selector="add:" target="1782" id="1788"/>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1209">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <button toolTip="Remove a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="866">
-                                                    <rect key="frame" x="65" y="138" width="22" height="21"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="867">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="22" id="868"/>
-                                                    </constraints>
-                                                    <accessibility description="Remove Argument Button"/>
-                                                    <connections>
-                                                        <action selector="remove:" target="1782" id="1789"/>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1212">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
-                                                    <rect key="frame" x="256" y="109" width="297" height="21"/>
-                                                    <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="297" id="6g2-CO-Gor"/>
-                                                        <constraint firstAttribute="height" constant="21" id="NLy-Zx-d3f"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="888">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="896" id="nag-Y2-AUK"/>
-                                                        <binding destination="610" name="value" keyPath="selection.identifier" id="1233">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
-                                                    <rect key="frame" x="192" y="112" width="58" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="897">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1197">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="982">
-                                                    <rect key="frame" x="13" y="45" width="282" height="18"/>
-                                                    <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</string>
-                                                    <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.allowUserToChooseApp" id="1140">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                                                    <rect key="frame" x="13" y="89" width="83" height="18"/>
-                                                    <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.autostart" id="1132">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                    <rect key="frame" x="13" y="111" width="115" height="18"/>
-                                                    <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="aLJ-BZ-5BG"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.iconInTaskbar" id="Z8K-uf-bcZ">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <button toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="956">
-                                                    <rect key="frame" x="13" y="67" width="198" height="18"/>
-                                                    <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.autohide" id="2128">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
-                                                    <rect key="frame" x="13" y="276" width="23" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1304">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <accessibilityConnection property="title" destination="1314" id="Sk5-Rt-lcn"/>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="1305">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
-                                                    <rect key="frame" x="39" y="269" width="82" height="25"/>
-                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
-                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
-                                                        <menu key="menu" id="1316">
-                                                            <items>
-                                                                <menuItem id="1317"/>
-                                                                <menuItem id="1318"/>
-                                                                <menuItem state="on" id="1319"/>
-                                                            </items>
-                                                        </menu>
-                                                    </popUpButtonCell>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="75" id="yd6-Ea-gPd"/>
-                                                    </constraints>
-                                                    <accessibility description="Select operating system"/>
-                                                    <connections>
-                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1328"/>
-                                                        <binding destination="610" name="selectedIndex" keyPath="selection.os" previousBinding="1328" id="1349">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </popUpButton>
-                                                <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
-                                                    <rect key="frame" x="13" y="23" width="196" height="18"/>
-                                                    <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <binding destination="610" name="value" keyPath="selection.strongKill" id="2256">
-                                                            <dictionary key="options">
-                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </button>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
-                                                    <rect key="frame" x="160" y="247" width="90" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="610" name="hidden" keyPath="selectedObjects" id="2206">
-                                                            <dictionary key="options">
-                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
-                                                    <rect key="frame" x="414" y="17" width="146" height="32"/>
-                                                    <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                </button>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="982" secondAttribute="trailing" constant="20" symbolic="YES" id="07c-Ey-2MR"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="bottom" constant="10" id="Eib-Qh-lif"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="956" secondAttribute="trailing" constant="20" symbolic="YES" id="FS3-QW-zRx"/>
-                                                <constraint firstItem="1183" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="trailing" constant="8" symbolic="YES" id="KLo-V7-Oyh"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="948" secondAttribute="trailing" constant="20" symbolic="YES" id="Uov-WJ-Lku"/>
-                                            </constraints>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="653" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="16" id="1Bw-82-zsY"/>
-                                            <constraint firstItem="887" firstAttribute="leading" secondItem="896" secondAttribute="trailing" constant="8" symbolic="YES" id="3ps-13-ufo"/>
-                                            <constraint firstItem="641" firstAttribute="baseline" secondItem="645" secondAttribute="baseline" id="5KG-2j-hV2"/>
-                                            <constraint firstItem="637" firstAttribute="bottom" secondItem="645" secondAttribute="bottom" id="60R-Ed-CC3"/>
-                                            <constraint firstItem="1303" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="16" id="71Z-07-S5g"/>
-                                            <constraint firstItem="866" firstAttribute="bottom" secondItem="733" secondAttribute="bottom" id="88n-bY-jRb"/>
-                                            <constraint firstAttribute="trailing" secondItem="674" secondAttribute="trailing" constant="16" id="8Lw-9V-Njg"/>
-                                            <constraint firstItem="887" firstAttribute="top" secondItem="733" secondAttribute="bottom" constant="8" symbolic="YES" id="9rw-8M-vye"/>
-                                            <constraint firstItem="3ET-Le-SL5" firstAttribute="leading" secondItem="2244" secondAttribute="leading" id="ALC-Uw-ZCF"/>
-                                            <constraint firstItem="865" firstAttribute="top" secondItem="866" secondAttribute="top" id="Aoe-Ub-9c8"/>
-                                            <constraint firstItem="772" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="16" id="EXO-h8-dYY"/>
-                                            <constraint firstItem="3ET-Le-SL5" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="16" id="FdI-O5-jng"/>
-                                            <constraint firstItem="733" firstAttribute="leading" secondItem="866" secondAttribute="trailing" constant="8" symbolic="YES" id="FhG-MX-Lkg"/>
-                                            <constraint firstAttribute="trailing" secondItem="733" secondAttribute="trailing" constant="16" id="GQl-qG-cwp"/>
-                                            <constraint firstItem="1314" firstAttribute="baseline" secondItem="1303" secondAttribute="baseline" id="GwV-a7-irf"/>
-                                            <constraint firstItem="3ET-Le-SL5" firstAttribute="leading" secondItem="956" secondAttribute="leading" id="J4u-xf-x9x"/>
-                                            <constraint firstItem="1314" firstAttribute="leading" secondItem="1303" secondAttribute="trailing" constant="8" symbolic="YES" id="JXC-eR-9Mf"/>
-                                            <constraint firstItem="673" firstAttribute="baseline" secondItem="674" secondAttribute="baseline" id="KwU-Dt-gdN"/>
-                                            <constraint firstItem="956" firstAttribute="top" secondItem="948" secondAttribute="bottom" constant="6" id="LAb-4N-bg0"/>
-                                            <constraint firstItem="674" firstAttribute="leading" secondItem="645" secondAttribute="leading" id="LB4-ua-JDe"/>
                                             <constraint firstAttribute="width" constant="570" id="LFt-kV-hcU"/>
-                                            <constraint firstItem="641" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="637" secondAttribute="trailing" constant="8" symbolic="YES" id="LcQ-oi-2wm"/>
-                                            <constraint firstItem="654" firstAttribute="leading" secondItem="653" secondAttribute="trailing" constant="8" symbolic="YES" id="NLs-ca-JiU"/>
-                                            <constraint firstItem="674" firstAttribute="top" secondItem="654" secondAttribute="bottom" constant="8" id="OFn-Ru-wcy"/>
-                                            <constraint firstItem="772" firstAttribute="top" secondItem="687" secondAttribute="bottom" constant="10" id="RWj-GQ-KPu"/>
-                                            <constraint firstItem="733" firstAttribute="leading" secondItem="687" secondAttribute="leading" id="Re9-dz-g22"/>
-                                            <constraint firstItem="2202" firstAttribute="top" secondItem="674" secondAttribute="bottom" constant="7" id="Sfg-OV-wbn"/>
-                                            <constraint firstItem="733" firstAttribute="top" secondItem="687" secondAttribute="bottom" constant="8" symbolic="YES" id="TM4-A0-JW7"/>
-                                            <constraint firstAttribute="trailing" secondItem="1183" secondAttribute="trailing" constant="16" id="TcY-X1-qqD"/>
-                                            <constraint firstItem="733" firstAttribute="leading" secondItem="772" secondAttribute="trailing" constant="8" symbolic="YES" id="WZZ-ul-gFu"/>
-                                            <constraint firstItem="2202" firstAttribute="leading" secondItem="2201" secondAttribute="trailing" constant="8" symbolic="YES" id="Z5s-ms-P6l"/>
-                                            <constraint firstItem="896" firstAttribute="baseline" secondItem="3ET-Le-SL5" secondAttribute="baseline" id="akt-OZ-GsZ"/>
-                                            <constraint firstItem="2201" firstAttribute="baseline" secondItem="2202" secondAttribute="baseline" id="bYA-X1-waW"/>
-                                            <constraint firstItem="2202" firstAttribute="leading" secondItem="674" secondAttribute="leading" id="buR-cl-4XY"/>
-                                            <constraint firstItem="645" firstAttribute="top" secondItem="405" secondAttribute="top" constant="24" id="cTV-y9-lvA"/>
-                                            <constraint firstItem="948" firstAttribute="top" secondItem="3ET-Le-SL5" secondAttribute="bottom" constant="6" id="cVP-fA-6Fc"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="370" id="dAs-2H-KHi"/>
-                                            <constraint firstItem="866" firstAttribute="leading" secondItem="865" secondAttribute="trailing" constant="-1" id="dpC-ri-gMq"/>
-                                            <constraint firstItem="654" firstAttribute="top" secondItem="645" secondAttribute="bottom" constant="8" id="eOi-W2-WgB"/>
-                                            <constraint firstAttribute="trailing" secondItem="2202" secondAttribute="trailing" constant="16" id="fZR-5Q-Fx1"/>
-                                            <constraint firstItem="1183" firstAttribute="bottom" secondItem="2244" secondAttribute="bottom" id="fwD-2r-GhC"/>
-                                            <constraint firstItem="982" firstAttribute="top" secondItem="956" secondAttribute="bottom" constant="6" id="g25-IK-nln"/>
-                                            <constraint firstAttribute="trailing" secondItem="654" secondAttribute="trailing" constant="16" id="gPm-18-cRV"/>
-                                            <constraint firstItem="687" firstAttribute="top" secondItem="2202" secondAttribute="bottom" constant="7" id="hOg-uP-ugG"/>
-                                            <constraint firstItem="673" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1314" secondAttribute="trailing" constant="8" symbolic="YES" id="i27-aV-M3P"/>
-                                            <constraint firstItem="1314" firstAttribute="baseline" secondItem="673" secondAttribute="baseline" constant="-1" id="jCa-AQ-B2j"/>
-                                            <constraint firstItem="866" firstAttribute="bottom" secondItem="865" secondAttribute="bottom" id="lWE-mL-hl0"/>
-                                            <constraint firstItem="686" firstAttribute="baseline" secondItem="687" secondAttribute="baseline" id="lbG-1E-ctI"/>
-                                            <constraint firstAttribute="trailing" secondItem="687" secondAttribute="trailing" constant="16" id="n4z-2j-UhU"/>
-                                            <constraint firstAttribute="trailing" secondItem="645" secondAttribute="trailing" constant="16" id="o7I-Qq-ZdZ"/>
-                                            <constraint firstItem="686" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="60" id="pju-eH-HSD"/>
-                                            <constraint firstItem="2244" firstAttribute="top" secondItem="982" secondAttribute="bottom" constant="6" id="q55-Cg-bKr"/>
-                                            <constraint firstItem="896" firstAttribute="baseline" secondItem="887" secondAttribute="baseline" id="s1k-DP-44x"/>
-                                            <constraint firstItem="887" firstAttribute="leading" secondItem="2202" secondAttribute="leading" id="sCl-sx-1aO"/>
-                                            <constraint firstItem="645" firstAttribute="leading" secondItem="641" secondAttribute="trailing" constant="8" symbolic="YES" id="sm5-rP-lqm"/>
-                                            <constraint firstItem="896" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3ET-Le-SL5" secondAttribute="trailing" constant="15" id="uF0-58-YoX"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2244" secondAttribute="trailing" constant="16" id="uc8-uE-nOg"/>
-                                            <constraint firstItem="674" firstAttribute="leading" secondItem="673" secondAttribute="trailing" constant="8" symbolic="YES" id="vEL-Dz-9pu"/>
-                                            <constraint firstItem="687" firstAttribute="leading" secondItem="654" secondAttribute="leading" id="vQl-BP-Yfx"/>
-                                            <constraint firstAttribute="trailing" secondItem="887" secondAttribute="trailing" constant="16" id="vVC-7k-BbE"/>
-                                            <constraint firstItem="3ET-Le-SL5" firstAttribute="leading" secondItem="982" secondAttribute="leading" id="w37-Hg-joc"/>
-                                            <constraint firstItem="654" firstAttribute="baseline" secondItem="653" secondAttribute="baseline" id="wqJ-Xe-Kqn"/>
-                                            <constraint firstItem="687" firstAttribute="leading" secondItem="686" secondAttribute="trailing" constant="8" symbolic="YES" id="xyF-Wy-yl3"/>
-                                            <constraint firstItem="637" firstAttribute="leading" secondItem="405" secondAttribute="leading" constant="16" id="yvL-6f-5fn"/>
-                                            <constraint firstItem="3ET-Le-SL5" firstAttribute="leading" secondItem="948" secondAttribute="leading" id="zKb-bO-QXg"/>
-                                            <constraint firstItem="2201" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="405" secondAttribute="leading" constant="16" id="zld-Vu-4cY"/>
                                         </constraints>
                                     </box>
                                     <button toolTip="Add a permitted process (not yet supported on macOS)" translatesAutoresizingMaskIntoConstraints="NO" id="463">
@@ -926,7 +1135,7 @@
                                                         </binding>
                                                     </connections>
                                                 </button>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
                                                     <rect key="frame" x="181" y="157" width="71" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                         <font key="font" metaFont="system"/>
@@ -941,7 +1150,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
+                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
                                                     <rect key="frame" x="258" y="154" width="297" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
@@ -960,7 +1169,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
+                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
                                                     <rect key="frame" x="14" y="128" width="74" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="1913">
                                                         <font key="font" metaFont="system"/>
@@ -975,7 +1184,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                     <rect key="frame" x="94" y="125" width="461" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                         <font key="font" metaFont="system"/>
@@ -992,7 +1201,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
                                                     <rect key="frame" x="162" y="70" width="90" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                         <font key="font" metaFont="system"/>
@@ -1007,7 +1216,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                     <rect key="frame" x="258" y="67" width="297" height="21"/>
                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">
@@ -1026,7 +1235,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                     <rect key="frame" x="258" y="96" width="297" height="21"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1916">
                                                         <font key="font" metaFont="system"/>
@@ -1044,7 +1253,7 @@
                                                         </binding>
                                                     </connections>
                                                 </textField>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
                                                     <rect key="frame" x="194" y="99" width="58" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                         <font key="font" metaFont="system"/>
@@ -1118,7 +1327,7 @@
                                                         <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
                                                 </stackView>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
+                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
                                                     <rect key="frame" x="14" y="99" width="23" height="16"/>
                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1906">
                                                         <font key="font" metaFont="system"/>
@@ -1239,7 +1448,7 @@
                                             <action selector="remove:" target="1726" id="1959"/>
                                         </connections>
                                     </button>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
                                         <rect key="frame" x="15" y="613" width="318" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="System processes which are not allowed to run during exam" id="1847">
                                             <font key="font" metaFont="message" size="11"/>
