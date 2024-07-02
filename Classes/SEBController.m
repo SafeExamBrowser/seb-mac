@@ -5835,6 +5835,7 @@ conditionallyForWindow:(NSWindow *)window
         if (_isAACEnabled) {
             NSMutableArray *centerDockItems = [NSMutableArray array];
             NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+            DDLogDebug(@"AAC enabled: Check if there are permitted apps: %@", permittedProcesses);
             for (NSDictionary *permittedProcess in permittedProcesses) {
                 if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
                     NSString *appName = permittedProcess[@"title"];

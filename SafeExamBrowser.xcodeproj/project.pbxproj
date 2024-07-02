@@ -815,6 +815,7 @@
 		6901331A19B371CB0050574D /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesWindow.m; path = Classes/Preferences/PreferencesWindow/PreferencesWindow.m; sourceTree = "<group>"; };
 		6902C96C1B0BA16000715855 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesConfigFile.strings; sourceTree = "<group>"; };
 		6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBShutDownIcon.iconset; path = Resources/Icons/SEBShutDownIcon.iconset; sourceTree = "<group>"; };
+		69036D762C336A1100E8BE38 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SEB.entitlements; path = Resources/SEB.entitlements; sourceTree = "<group>"; };
 		690408EA1D4181A800A9EDDA /* SEB-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SEB-Info.plist"; path = "Resources/SEB-Info.plist"; sourceTree = "<group>"; };
 		6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+KKDomain.h"; sourceTree = "<group>"; };
@@ -874,7 +875,6 @@
 		69220708249B9FD9009F8CD1 /* SEBScrollLockIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@2x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@2x.png"; sourceTree = "<group>"; };
 		69243B7B272609750026427D /* SEBProctoringViewIcon_green.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBProctoringViewIcon_green.iconset; path = Resources/Icons/SEBProctoringViewIcon_green.iconset; sourceTree = "<group>"; };
 		69243B7D272609860026427D /* SEBRaiseHandIcon_raised_yellow.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBRaiseHandIcon_raised_yellow.iconset; path = Resources/Icons/SEBRaiseHandIcon_raised_yellow.iconset; sourceTree = "<group>"; };
-		692476F41D27343600931AD8 /* SEB.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SEB.entitlements; path = Resources/SEB.entitlements; sourceTree = "<group>"; };
 		69261B8E26BE2FE4001DE2BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesBrowser.xib; sourceTree = "<group>"; };
 		69261B9026BE2FF5001DE2BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesBrowser.strings; sourceTree = "<group>"; };
 		69263A9C1A2E0765006F1E31 /* SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBWebView.h; path = Classes/BrowserComponents/SEBWebView.h; sourceTree = "<group>"; };
@@ -2008,7 +2008,7 @@
 		6940B99C1BA0FBD6008C8CFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				692476F41D27343600931AD8 /* SEB.entitlements */,
+				69036D762C336A1100E8BE38 /* SEB.entitlements */,
 				696DAD1E1C3C2B1400397E18 /* JavaScript */,
 				6940B99D1BA0FBDF008C8CFC /* Icons */,
 				69782A4D1CCE068C00C2AA9A /* Settings.bundle */,
@@ -4450,7 +4450,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4514,7 +4514,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
@@ -4522,6 +4521,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				none = "";
 			};
 			name = Debug;
 		};
@@ -4546,11 +4546,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4616,8 +4615,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "811a29b9-5087-45e3-b672-734759be75a0";
-				PROVISIONING_PROFILE_SPECIFIER = ch.ethz.ios.sebEduAssessment;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -4626,6 +4623,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
+				none = "";
 			};
 			name = Release;
 		};
@@ -4839,7 +4837,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4904,7 +4902,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -4965,7 +4963,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5009,7 +5007,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5046,7 +5044,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5089,7 +5087,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5124,7 +5122,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5167,7 +5165,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
@@ -5192,7 +5189,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5235,7 +5232,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -5269,7 +5265,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5293,7 +5289,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
 				SWIFT_VERSION = 5.0;
@@ -5325,7 +5320,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15188;
+				CURRENT_PROJECT_VERSION = 15200;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5344,7 +5339,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PROJECT_NAME)-Swift.h";
