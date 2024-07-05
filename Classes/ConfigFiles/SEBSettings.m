@@ -748,6 +748,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"mobileEnableASAM",
                    
                    @YES,
+                   @"mobileEnableModernAAC",
+                   
+                   @YES,
                    @"mobileSleepModeLockScreen",
                    
                    @NO,
