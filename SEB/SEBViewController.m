@@ -4203,7 +4203,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
             
             // Exam running: Check if SAM is switched off
-            if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
                 
                 /// SAM is off
                 
@@ -4242,12 +4242,12 @@ void run_on_ui_thread(dispatch_block_t block)
             /// Exam is not yet running
             
             // If Single App Mode is switched on
-            if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == YES) {
                 
                 // Dismiss the Activate SAM alert in case it still was visible
                 [_alertController dismissViewControllerAnimated:NO completion:^{
                     self.alertController = nil;
-                    self.startSAMWAlertDisplayed = false;
+                    self.startSAMWAlertDisplayed = NO;
                 }];
                 
                 // Proceed to exam
@@ -4651,15 +4651,21 @@ void run_on_ui_thread(dispatch_block_t block)
     
     if (_allowSAM) {
         // SAM is allowed
-        _singleAppModeActivated = true;
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+        _singleAppModeActivated = YES;
+        BOOL assessmentSessionActive = NO;
+        if (@available(iOS 13.4, *)) {
+            if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+                assessmentSessionActive = YES;
+            }
+        }
+        if (UIAccessibilityIsGuidedAccessEnabled() == NO && assessmentSessionActive == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", @"")
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _startSAMWAlertDisplayed = true;
+            _startSAMWAlertDisplayed = YES;
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
@@ -4693,7 +4699,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
         self.alertController = nil;
-        self.noSAMAlertDisplayed = false;
+        self.noSAMAlertDisplayed = NO;
         [self conditionallyStartKioskMode];
     }]];
     
@@ -4903,7 +4909,13 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // If (new) setting don't require a kiosk mode or
     // kiosk mode is already switched on, close lockdown window
-    if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
+    BOOL assessmentSessionActive = NO;
+    if (@available(iOS 13.4, *)) {
+        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+            assessmentSessionActive = YES;
+        }
+    }
+    if (!_secureMode || (_secureMode && (UIAccessibilityIsGuidedAccessEnabled() == YES || assessmentSessionActive))) {
         [self.sebLockedViewController shouldCloseLockdownWindows];
     } else {
         // If necessary show the dialog to start SAM again
