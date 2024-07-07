@@ -4177,8 +4177,18 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error
 {
-    DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    [self quitSEBOrSession]; // Quit session
+    DDLogError(@"AAC Assessment Mode was interrupted with error: %@. Displaying lock screen", error);
+    
+    // Lock the exam down
+    
+    // Save current time for information about when Guided Access was switched off
+    _didResignActiveTime = [NSDate date];
+    
+    // If there wasn't a lockdown covering view openend yet, initialize it
+    if (!_sebLocked) {
+        [self openLockdownWindows];
+    }
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Assessment Mode was interrupted with error: %@!", @""), error] withTime:_didResignActiveTime repeated:NO];
 }
 
 
@@ -4187,7 +4197,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
 {
-    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
+    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == NO) {
         
         // Is the exam already running?
         if (_sessionRunning) {
@@ -4649,15 +4659,16 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    BOOL assessmentSessionActive = NO;
+    if (@available(iOS 13.4, *)) {
+        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+            assessmentSessionActive = YES;
+        }
+    }
+
     if (_allowSAM) {
         // SAM is allowed
         _singleAppModeActivated = YES;
-        BOOL assessmentSessionActive = NO;
-        if (@available(iOS 13.4, *)) {
-            if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
-                assessmentSessionActive = YES;
-            }
-        }
         if (UIAccessibilityIsGuidedAccessEnabled() == NO && assessmentSessionActive == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -4907,19 +4918,23 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    BOOL modernAACEnabled = NO;
+    BOOL assessmentSessionActive = NO;
     // If (new) setting don't require a kiosk mode or
     // kiosk mode is already switched on, close lockdown window
-    BOOL assessmentSessionActive = NO;
     if (@available(iOS 13.4, *)) {
         if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
             assessmentSessionActive = YES;
         }
+        modernAACEnabled = self.assessmentModeManager != nil;
     }
     if (!_secureMode || (_secureMode && (UIAccessibilityIsGuidedAccessEnabled() == YES || assessmentSessionActive))) {
         [self.sebLockedViewController shouldCloseLockdownWindows];
-    } else {
+    } else if (modernAACEnabled == NO) {
         // If necessary show the dialog to start SAM again
         [self showRestartSingleAppMode];
+    } else {
+        [self.sebLockedViewController shouldCloseLockdownWindows];
     }
 }
 

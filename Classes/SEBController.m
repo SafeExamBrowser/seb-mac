@@ -2546,7 +2546,15 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    [self requestedExit:nil]; // Quit SEB
+    
+    // Lock the exam down
+    
+    // Save current time for information about when Guided Access was switched off
+    _didResignActiveTime = [NSDate date];
+    
+    // If there wasn't a lockdown covering view openend yet, initialize it
+    [self openLockdownWindows];
+    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Assessment Mode was interrupted with error: %@!", @""), error] withTime:_didResignActiveTime repeated:NO];
 }
 
 
