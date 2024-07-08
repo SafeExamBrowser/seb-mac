@@ -2554,7 +2554,7 @@ bool insideMatrix(void);
     
     // If there wasn't a lockdown covering view openend yet, initialize it
     [self openLockdownWindows];
-    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Assessment Mode was interrupted with error: %@!", @""), error] withTime:_didResignActiveTime repeated:NO];
+    [self appendErrorString:[NSString stringWithFormat:@"%@%@!\n", NSLocalizedString(@"Assessment Mode was interrupted with error: ", @""), error] withTime:_didResignActiveTime repeated:NO];
 }
 
 

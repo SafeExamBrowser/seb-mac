@@ -3673,11 +3673,13 @@ void run_on_ui_thread(dispatch_block_t block)
             // compared to the new kiosk mode settings, also considering:
             // when we're running in SAM mode, it's not relevant if settings for ASAM differ
             // when we're running in ASAM mode, it's not relevant if settings for SAM differ
+            // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
-                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM))) {
+                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM)) ||
+                (self.ASAMActive && (self.assessmentSessionActive != [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]))) {
                 
                 // If SAM is active, we display the alert for waiting for it to be switched off
                 if (self.singleAppModeActivated) {
@@ -3699,17 +3701,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 // If ASAM is active, we stop it now and display the alert for restarting session
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
-                        DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
-                            if (didSucceed) {
-                                DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                self.ASAMActive = NO;
-                            }
-                            else {
-                                DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
-                            }
-                            [self restartExamASAM:quitting && self.secureMode];
-                        });
+                        DDLogInfo(@"Requesting to exit AAC/Autonomous Single App Mode");
+                        [self stopAssessmentModeWithCallback:self selector:@selector(restartSessionAfterStoppingAssessmentMode:) quittingToAssessmentMode:quitting];
                     } else {
                         [self restartExamASAM:quitting && self.secureMode];
                     }
@@ -3737,6 +3730,13 @@ void run_on_ui_thread(dispatch_block_t block)
             }];
         }
     });
+}
+
+
+- (void) restartSessionAfterStoppingAssessmentMode:(BOOL)quittingASAMtoSAM
+{
+    self.ASAMActive = NO;
+    [self restartExamASAM:quittingASAMtoSAM];
 }
 
 
@@ -4188,11 +4188,23 @@ void run_on_ui_thread(dispatch_block_t block)
     if (!_sebLocked) {
         [self openLockdownWindows];
     }
-    [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Assessment Mode was interrupted with error: %@!", @""), error] withTime:_didResignActiveTime repeated:NO];
+    [self appendErrorString:[NSString stringWithFormat:@"%@%@!\n", NSLocalizedString(@"Assessment Mode was interrupted with error: ", @""), error] withTime:_didResignActiveTime repeated:NO];
 }
 
 
 #pragma mark - Lockdown mode
+
+- (BOOL) assessmentSessionActive
+{
+    BOOL assessmentSessionActive = NO;
+    if (@available(iOS 13.4, *)) {
+        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+            assessmentSessionActive = YES;
+        }
+    }
+    return assessmentSessionActive;
+}
+
 
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
@@ -4441,7 +4453,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         } else {
             _appDelegate.dispatchTimeAppLaunched = 0;
-            [self conditionallyStartASAM];
+            [self conditionallyStartAssessmentMode];
         }
     }
 }
@@ -4467,7 +4479,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) assureSAMNotActive
 {
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    DDLogWarn(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    DDLogInfo(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     if (_SAMActive) {
         DDLogInfo(@"SAM or Guided Access (or AAC/ASAM because of previous crash) is already active: refuse starting a secured exam until SAM/Guided Access is switched off");
         // SAM or Guided Access (or AAC/ASAM because of previous crash) is already active:
@@ -4475,7 +4487,7 @@ void run_on_ui_thread(dispatch_block_t block)
         ASAMActiveChecked = NO;
         [self requestDisablingSAM];
     } else {
-        [self conditionallyStartASAM];
+        [self conditionallyStartAssessmentMode];
     }
 }
 
@@ -4505,7 +4517,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
                 else {
                     DDLogError(@"%s: Failed to exit Autonomous Single App Mode, SAM/Guided Access must be active", __FUNCTION__);
-                    //                _ASAMActive = false;
+                    //                _ASAMActive = NO;
                     [self requestDisablingSAM];
                 }
             });
@@ -4543,12 +4555,12 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         DDLogInfo(@"%s SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM", __FUNCTION__);
         // SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM
-        [self conditionallyStartASAM];
+        [self conditionallyStartAssessmentMode];
     }
 }
 
 
-- (void) conditionallyStartASAM
+- (void) conditionallyStartAssessmentMode
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
@@ -4562,7 +4574,7 @@ void run_on_ui_thread(dispatch_block_t block)
         // Is ASAM enabled in settings?
         if (_enableASAM) {
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
-            _ASAMActive = true;
+            _ASAMActive = YES;
             
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
@@ -4626,23 +4638,31 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) stopAutonomousSingleAppMode
-{
+- (void) stopAssessmentModeWithCallback:(id)callback
+                               selector:(SEL)selector
+                               quittingToAssessmentMode:(BOOL)quittingToAssessmentMode
+ {
+    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     DDLogInfo(@"%s: Requesting to exit AAC/Autonomous Single App Mode", __FUNCTION__);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
+    if (self.assessmentSessionActive) {
+        DDLogInfo(@"%s: Assessment Mode session is active, end it", __FUNCTION__);
         if (@available(iOS 13.4, *)) {
-            [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(aacEnded)];
+            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
         }
     } else {
         UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
             if (didSucceed) {
                 DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-                self.ASAMActive = false;
+                self.ASAMActive = NO;
             }
             else {
                 DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
             }
+            DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL, BOOL) = (void *)imp;
+            func(callback, selector, quittingToAssessmentMode);
         });
     }
 }
@@ -4659,17 +4679,10 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
-    BOOL assessmentSessionActive = NO;
-    if (@available(iOS 13.4, *)) {
-        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
-            assessmentSessionActive = YES;
-        }
-    }
-
     if (_allowSAM) {
         // SAM is allowed
         _singleAppModeActivated = YES;
-        if (UIAccessibilityIsGuidedAccessEnabled() == NO && assessmentSessionActive == NO) {
+        if (UIAccessibilityIsGuidedAccessEnabled() == NO && self.assessmentSessionActive == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }

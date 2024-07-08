@@ -360,9 +360,8 @@ void run_on_ui_thread(dispatch_block_t block);
 #pragma mark - Lockdown mode
 @property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(ios(13.4));
 @property(strong, nonatomic) AssessmentConfigurationManager *assessmentConfigurationManager;
+@property (readonly) BOOL assessmentSessionActive;
 @property (strong, nonatomic) NSArray *permittedProcesses;
-
-- (void) stopAutonomousSingleAppMode;
 
 #pragma mark - Lockdown windows
 - (void) conditionallyOpenStartExamLockdownWindows:(NSString *)examURLString;
