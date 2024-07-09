@@ -662,6 +662,13 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     }
     [*jsonStringPtr appendString:@"}"];
     
+    // We need to add default values to all sub-dictionaries
+    NSMutableDictionary *defaultDictionary = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:dictionaryKey].mutableCopy;
+    if (defaultDictionary.count > 0) {
+        [defaultDictionary addEntriesFromDictionary:filteredPrefsDict];
+        filteredPrefsDict = defaultDictionary;
+    }
+
     return [filteredPrefsDict copy];
 }
 

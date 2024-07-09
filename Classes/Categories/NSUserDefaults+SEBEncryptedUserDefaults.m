@@ -893,6 +893,58 @@ static NSNumber *_logLevel;
 }
 
 
+- (NSDictionary *) addDefaultValuesToSettings:(NSDictionary *)sourceDictionary
+{
+    // Get default settings
+    NSDictionary *defaultSettings = [self getDefaultDictionaryForKey:@"rootSettings"];
+    return [self addDefaultValuesToSettingsDictionary:sourceDictionary defaultSettingsDictionary:defaultSettings];
+}
+    
+- (NSDictionary *) addDefaultValuesToSettingsDictionary:(NSDictionary *)sourceDictionary defaultSettingsDictionary:(NSDictionary *)defaultSettings
+{
+    NSMutableDictionary *completedSettings = [NSMutableDictionary new];
+    // We need to add default values to all sub-dictionaries
+    NSMutableDictionary *defaultDictionary = defaultSettings.mutableCopy;
+    if (defaultDictionary.count > 0) {
+        [defaultDictionary addEntriesFromDictionary:sourceDictionary];
+        sourceDictionary = defaultDictionary;
+    }
+
+    // Join source settings dictionary with default values
+    for (NSString *key in sourceDictionary) {
+        id value = [sourceDictionary objectForKey:key];
+        Class valueClass = [value superclass];
+        
+        // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
+        // will cause a crash when trying to modify the dictionary
+        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
+            value = [NSMutableDictionary dictionaryWithDictionary:[self addDefaultValuesToSettingsDictionary:value defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]]];
+            if ([value count] == 0) {
+                continue;
+            }
+        }
+
+        if ([value isKindOfClass:NSArray.class] || [value isKindOfClass:NSMutableArray.class]) {
+            NSDictionary *element;
+            NSMutableArray *elementsFromSettings = ((NSArray *)value).mutableCopy;
+            NSUInteger i = 0;
+            while (i < elementsFromSettings.count) {
+                element = elementsFromSettings[i];
+                Class elementClass = [element superclass];
+                if (elementClass == NSDictionary.class || elementClass == NSMutableDictionary.class) {
+                    elementsFromSettings[i] = [self addDefaultValuesToSettingsDictionary:element defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]].mutableCopy;
+                }
+                i++;
+            }
+            value = elementsFromSettings;
+        }
+        
+        [completedSettings setObject:value forKey:key];
+    }
+    return completedSettings.copy;
+}
+
+
 - (id)persistedSecureObjectForKey:(NSString *)key
 {
     BOOL usingPrivateUserDefaults = NSUserDefaults.userDefaultsPrivate;
