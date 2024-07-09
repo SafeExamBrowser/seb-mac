@@ -708,6 +708,9 @@ import CocoaLumberjackSwift
         } else if let webViewURL = webView.url {
             url = webViewURL
         }
+        DDLogDebug("updateKeyJSVariables: Frame URL \(frame?.request.url as Any)")
+        DDLogDebug("updateKeyJSVariables: WebView URL \(webView.url as Any)")
+        DDLogDebug("updateKeyJSVariables: Chosen URL \(url as Any)")
         if url != nil {
             let browserExamKey = navigationDelegate?.browserExamKey?(for: url!)
             let configKey = navigationDelegate?.configKey?(for: url!)
@@ -760,6 +763,7 @@ import CocoaLumberjackSwift
         previousZoomLevel = 1
         setPageZoom()
         setTextSize()
+        DDLogDebug("WKWebView didCommit")
         updateKeyJSVariables(webView)
     }
     
@@ -767,6 +771,7 @@ import CocoaLumberjackSwift
         navigationDelegate?.sebWebViewDidFinishLoad?()
         sebWebView.evaluateJavaScript(controlSpellCheckCode)
         if currentFrame != nil {
+            DDLogDebug("WKWebView didFinish currentFrame: \(currentFrame as Any)")
             updateKeyJSVariables(webView, frame: currentFrame)
         }
     }
@@ -782,6 +787,7 @@ import CocoaLumberjackSwift
             newTab = true
         }
         currentFrame = navigationAction.targetFrame
+        currentFrame = currentFrame?.isMainFrame ?? true ? nil : currentFrame
         let targetFrameURL = currentFrame?.request.url
         DDLogDebug("webView decidePolicyFor navigationAction: Target frame \(currentFrame as Any), URL: \(targetFrameURL as Any)")
         var navigationActionPolicy = SEBNavigationActionPolicyCancel
