@@ -535,11 +535,19 @@ typedef NSUInteger SEBZoomModes;
 
 
 enum {
-    SEBSupportedOSmacO                          = 0,
+    SEBSupportedOSmacOS                         = 0,
     SEBSupportedOSWindows                       = 1,
     SEBSupportedOSiOS                           = 2
 };
 typedef NSUInteger SEBSupportedOS;
+
+
+enum {
+    SEBClipboardPolicyAllow                     = 0,
+    SEBClipboardPolicyBlock                     = 1,
+    SEBClipboardPolicySEBOnly                   = 2
+};
+typedef NSUInteger SEBClipboardPolicy;
 
 
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
