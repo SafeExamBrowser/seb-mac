@@ -7,6 +7,8 @@
 		<string>applinks:demo.safeexambrowser.org</string>
 		<string>applinks:seb.let.ethz.ch</string>
 	</array>
+	<key>com.apple.developer.automatic-assessment-configuration</key>
+	<true/>
 	<key>com.apple.developer.edu-assessment-mode</key>
 	<true/>
 	<key>com.apple.developer.icloud-container-identifiers</key>

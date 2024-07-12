@@ -51,13 +51,18 @@
 
 - (BOOL) beginAssessmentMode
 {
+    AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
+    return [self beginAssessmentModeWithConfiguration:config];
+}
+
+- (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config
+{
     DDLogDebug(@"%s", __FUNCTION__);
     
     if (self.assessmentSession && self.assessmentSession.active) {
         DDLogWarn(@"Assessment session is already active!");
         return NO;
     }
-    AEAssessmentConfiguration *config = [AEAssessmentConfiguration new];
     AEAssessmentSession *session = [[AEAssessmentSession alloc] initWithConfiguration:config];
     session.delegate = self;
     self.assessmentSession = session;

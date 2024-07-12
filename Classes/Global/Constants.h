@@ -84,7 +84,7 @@
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
 
-#define currentStableMajoriOSVersion 17
+#define currentStableMajoriOSVersion 18
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -218,6 +218,16 @@ typedef NSUInteger iOSVersion;
 
 
 enum {
+    ScreenProctoringButtonStateDefault          = 0,
+    ScreenProctoringButtonStateNormal           = 1,
+    ScreenProctoringButtonStateWarning          = 2,
+    ScreenProctoringButtonStateError            = 3,
+    ScreenProctoringButtonStateInactive         = 4
+};
+typedef NSInteger ScreenProctoringButtonStates;
+
+
+enum {
     remoteProctoringViewShowNever               = 0,
     remoteProctoringViewShowAllowToShow         = 1,
     remoteProctoringViewShowAllowToHide         = 2,
@@ -299,6 +309,7 @@ typedef NSUInteger SEBNavigationResponsePolicy;
 enum {
     operatingSystemMacOS                        = 0,
     operatingSystemWin                          = 1,
+    operatingSystemiOS                          = 2,
 };
 typedef NSUInteger operatingSystems;
 
@@ -523,6 +534,22 @@ enum {
 typedef NSUInteger SEBZoomModes;
 
 
+enum {
+    SEBSupportedOSmacOS                         = 0,
+    SEBSupportedOSWindows                       = 1,
+    SEBSupportedOSiOS                           = 2
+};
+typedef NSUInteger SEBSupportedOS;
+
+
+enum {
+    SEBClipboardPolicyAllow                     = 0,
+    SEBClipboardPolicyBlock                     = 1,
+    SEBClipboardPolicySEBOnly                   = 2
+};
+typedef NSUInteger SEBClipboardPolicy;
+
+
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
 static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
 static NSString __unused *screenCaptureAgent = @"screencapture";
@@ -623,5 +650,7 @@ static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_13;
 static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
 static NSInteger SEBMinMacOSVersionSupportedMinor = 13;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
+
+static NSString __unused *proctoringServiceTypeScreenProctoring = @"SCREEN_PROCTORING";
 
 #endif

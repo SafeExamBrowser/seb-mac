@@ -6830,7 +6830,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="camera" xml:space="preserve">
         <source>camera</source>
-        <target>Kamera</target>
+        <target>die Kamera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="decoding error: " xml:space="preserve">
@@ -6870,7 +6870,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="microphone" xml:space="preserve">
         <source>microphone</source>
-        <target>Mikrofon</target>
+        <target>das Mikrofon</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
@@ -10083,7 +10083,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="camera" xml:space="preserve">
         <source>camera</source>
-        <target>Kamera</target>
+        <target>die Kamera</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="decoding error: " xml:space="preserve">
@@ -10143,7 +10143,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="microphone" xml:space="preserve">
         <source>microphone</source>
-        <target>Mikrofon</target>
+        <target>das Mikrofon</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">

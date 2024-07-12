@@ -84,7 +84,7 @@ extension NetworkRequest {
 }
 
 extension NetworkRequest {
-    fileprivate func load(_ url: URL, httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    fileprivate func load(_ url: URL, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, withCompletion completion: @escaping ((Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = httpMethod
@@ -94,7 +94,9 @@ extension NetworkRequest {
                 request.addValue(header.value as? String ?? "", forHTTPHeaderField: header.key as? String ?? "")
             }
         }
-        request.httpBody = body.data(using: .utf8)
+        if !body.isEmpty {
+            request.httpBody = body
+        }
         let currentAttempt = attempt+1
         
         guard let urlSession = session else {
@@ -188,7 +190,7 @@ extension ApiRequest: NetworkRequest {
         load(resource.url, session: session, withCompletion: completion)
 	}
 
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    func load(httpMethod: String, body: Data, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Resource.Model?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         guard let urlSession = session else {
             let debugDescription = "URLSession was invalidated"
             DDLogError("\(debugDescription)")
@@ -217,7 +219,7 @@ extension DataRequest: NetworkRequest {
 		load(resource.url, session: session, withCompletion: completion)
 	}
     
-    func load(httpMethod: String, body: String, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    func load(httpMethod: String, body: Data, headers: [AnyHashable: Any]?, session: URLSession?, attempt: Int, completion: @escaping ((Data?), Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         load(resource.url, httpMethod: httpMethod, body: body, headers: headers, session: session, attempt: attempt, withCompletion: completion)
     }
 }

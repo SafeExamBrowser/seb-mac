@@ -142,6 +142,15 @@ bool insideMatrix(void);
 }
 
 
+- (AssessmentConfigurationManager *) assessmentConfigurationManager
+{
+    if (!_assessmentConfigurationManager) {
+        _assessmentConfigurationManager = [AssessmentConfigurationManager new];
+    }
+    return _assessmentConfigurationManager;
+}
+
+
 - (SEBOSXConfigFileController *) configFileController
 {
     if (!_configFileController) {
@@ -213,6 +222,17 @@ bool insideMatrix(void);
         _serverController.delegate = self;
     }
     return _serverController;
+}
+
+
+- (SEBScreenProctoringController *)screenProctoringController
+{
+    if (!_screenProctoringController) {
+        _screenProctoringController = [[SEBScreenProctoringController alloc] init];
+        _screenProctoringController.delegate = self;
+        _screenProctoringController.spsControllerUIDelegate = self;
+    }
+    return _screenProctoringController;
 }
 
 
@@ -1288,9 +1308,10 @@ bool insideMatrix(void);
 - (void) loginToExam:(NSString *)url
 {
     NSURL *examURL = [NSURL URLWithString:url];
+    self.sessionState.sebServerExamStartURL = examURL;
+    DDLogDebug(@"Session state: sebServerExamURL = %@", self.sessionState.sebServerExamStartURL);
     [self.browserController openMainBrowserWindowWithStartURL:examURL];
     [self persistSecureExamStartURL:url configKey:self.configKey];
-    self.sessionState.sebServerExamStartURL = examURL;
     _sessionRunning = YES;
 }
 
@@ -1331,14 +1352,13 @@ bool insideMatrix(void);
                             [self closeServerViewAndRestart:self];
                             break;
                         }
+                        default:
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Retrying to connect to SEB Server.", (long)answer);
                         case NSAlertSecondButtonReturn:
                         {
                             self.establishingSEBServerConnection = NO;
                             [self startExamWithFallback:NO];
                             break;
-                        }
-                        default:
-                        {
                         }
                     }
                 };
@@ -1359,6 +1379,8 @@ bool insideMatrix(void);
                     [self removeAlertWindow:modalAlert.window];
                     switch(answer)
                     {
+                        default:
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Retrying to connect to SEB Server.", (long)answer);
                         case NSAlertFirstButtonReturn:
                         {
                             DDLogInfo(@"User selected Retry option");
@@ -1409,9 +1431,6 @@ bool insideMatrix(void);
                             DDLogInfo(@"User selected Quit option");
                             [self closeServerViewAndRestart:self];
                             break;
-                        }
-                        default:
-                        {
                         }
                     }
                 };
@@ -1486,6 +1505,72 @@ bool insideMatrix(void);
 }
 
 
+#pragma mark - Screen Proctoring
+
+- (void) screenProctoringButtonAction
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+
+{
+    NSImage *remoteProctoringButtonImage;
+    NSColor *remoteProctoringButtonTintColor;
+    DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
+    switch (screenProctoringButtonState) {
+        case ScreenProctoringButtonStateNormal:
+            _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Active",nil);
+            remoteProctoringButtonImage = ProctoringIconNormalState;
+            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            break;
+            
+        case ScreenProctoringButtonStateWarning:
+            remoteProctoringButtonImage = ProctoringIconWarningState;
+            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+            break;
+            
+        case ScreenProctoringButtonStateError:
+            remoteProctoringButtonImage = ProctoringIconErrorState;
+            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+            break;
+            
+        case ScreenProctoringButtonStateInactive:
+            if (@available(macOS 10.14, *)) {
+                _dockButtonScreenProctoring.image.template = YES;
+                remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconAIInactiveState;
+            }
+            break;
+            
+        default:
+            _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Inactive",nil);
+            if (@available(macOS 10.14, *)) {
+                remoteProctoringButtonImage.template = NO;
+                remoteProctoringButtonTintColor = nil;
+            } else {
+                remoteProctoringButtonImage = ProctoringIconDefaultState;
+            }
+            break;
+    }
+    if (userFeedback) {
+        if (@available(macOS 10.14, *)) {
+            _dockButtonScreenProctoring.contentTintColor = remoteProctoringButtonTintColor;
+        } else {
+            _dockButtonScreenProctoring.image = remoteProctoringButtonImage;
+        }
+    }
+}
+
+
 #pragma mark - Remote Proctoring
 
 - (void) openZoomView
@@ -1502,28 +1587,25 @@ bool insideMatrix(void);
         _zoomSendAudio = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendAudio"];
         _zoomSendVideo = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomSendVideo"];
         _remoteProctoringViewShowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_remoteProctoringViewShow"];
-//        _allRTCTracks = [NSMutableArray new];
-//        _localRTCTracks = [NSMutableArray new];
-        
-        
-//        EAGLContext *eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-//        [EAGLContext setCurrentContext:eaglContext];
-//        _ciContext = [CIContext contextWithEAGLContext:eaglContext options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
-        
-//        _rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-//
-//        [_rootViewController addChildViewController:self.jitsiViewController];
-//        self.jitsiViewController.safeAreaLayoutGuideInsets = self.view.safeAreaInsets;
-//        [self.jitsiViewController didMoveToParentViewController:_rootViewController];
     }
 }
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    
+    if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
+        NSString *instructionConfirm = attributes[@"instruction-confirm"];
+        if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
+            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+        }
+    } else {
+        DDLogError(@"%s: Cannot execute proctoring instruction, unknown Service Type in attributes %@!", __FUNCTION__, attributes);
+    }
 }
 
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes
@@ -1576,6 +1658,13 @@ bool insideMatrix(void);
 
 - (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
 {
+    if (_screenProctoringController) {
+        [_screenProctoringController closeSessionWithCompletionHandler:^{
+            self.screenProctoringController = nil;
+            completionHandler();
+        }];
+        return;
+    }
     completionHandler();
 }
 
@@ -1740,6 +1829,78 @@ bool insideMatrix(void);
 }
 
 
+#pragma mark - Screen Proctoring Delegate Methods
+
+- (NSDictionary<NSString *,NSString *>*) getScreenProctoringMetadataActiveAppWindow
+{
+    NSString *activeBrowserWindowTitle; // = self.browserController.activeBrowserWindowTitle;
+
+    // Get the process ID of the frontmost application.
+    NSRunningApplication* app = [[NSWorkspace sharedWorkspace]
+                                 frontmostApplication];
+    pid_t pid = [app processIdentifier];
+    
+    // See if we have accessibility permissions, and if not, prompt the user to
+    // visit System Preferences.
+    NSDictionary *options = @{(id)CFBridgingRelease(kAXTrustedCheckOptionPrompt): @YES};
+    Boolean appHasPermission = AXIsProcessTrustedWithOptions(
+                                                             (__bridge CFDictionaryRef)options);
+    if (!appHasPermission) {
+        // we don't have accessibility permissions
+    } else {
+        // Get the accessibility element corresponding to the frontmost application.
+        AXUIElementRef appElem = AXUIElementCreateApplication(pid);
+        if (!appElem) {
+            return nil;
+        }
+        
+        // Get the accessibility element corresponding to the frontmost window
+        // of the frontmost application.
+        AXUIElementRef window = NULL;
+        if (AXUIElementCopyAttributeValue(appElem,
+                                          kAXFocusedWindowAttribute, (CFTypeRef*)&window) != kAXErrorSuccess) {
+            CFRelease(appElem);
+            return nil;
+        } else {
+            // Finally, get the title of the frontmost window.
+            CFStringRef title = NULL;
+            AXError result = AXUIElementCopyAttributeValue(window, kAXTitleAttribute,
+                                                           (CFTypeRef*)&title);
+            
+            // At this point, we don't need window and appElem anymore.
+            CFRelease(window);
+            CFRelease(appElem);
+            
+            if (result == kAXErrorSuccess) {
+                activeBrowserWindowTitle = CFBridgingRelease(title);
+                activeBrowserWindowTitle = [activeBrowserWindowTitle stringByReplacingOccurrencesOfString:@"—" withString:@"-"];
+            }
+        }
+    }
+
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@, Path: %@)", app.localizedName, app.bundleIdentifier, app.bundleURL];
+    
+    if (activeBrowserWindowTitle == nil) {
+        activeBrowserWindowTitle = @"";
+    }
+    
+    NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
+    return activeAppWindowMetadata;
+}
+
+
+- (NSString *) getScreenProctoringMetadataURL
+{
+    return self.browserController.activeBrowserWindow.currentURL.absoluteString;
+}
+
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    _dockButtonScreenProctoring.toolTip = string;
+}
+
+
 #pragma mark - Initialization depending on client or opened settings
 
 - (void) conditionallyInitSEBWithCallback:(id)callback
@@ -1772,6 +1933,12 @@ bool insideMatrix(void);
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
     
     NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+    if (_isAACEnabled) {
+        NSArray *permittedRunningApplications = [ProcessManager sharedProcessManager].permittedRunningApplications;
+        if (permittedRunningApplications && permittedRunningApplications.count > 0) {
+            prohibitedRunningApplications = [prohibitedRunningApplications arrayByAddingObjectsFromArray:permittedRunningApplications];
+        }
+    }
     NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
     
@@ -1932,10 +2099,17 @@ bool insideMatrix(void);
     BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
     BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
 
+    BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
     BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
     BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
     BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+    if (jitsiMeetEnable || zoomEnable) {
+        browserMediaCaptureCamera = YES;
+        browserMediaCaptureMicrophone = YES;
+    }
+    BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
+    [_serverController.url.host hasSuffix:@"ethz.ch"];
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
         NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
@@ -1957,7 +2131,7 @@ bool insideMatrix(void);
     }
 
     if (browserMediaCaptureScreen) {
-        if (@available(macOS 11, *)) {
+        if (@available(macOS 10.15, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
                 if (self.examSession && self.secureClientSession) {
@@ -1984,11 +2158,15 @@ bool insideMatrix(void);
         }
     }
 
-    void (^conditionallyStartProctoring)(void) =
+    void (^conditionallyStartProctoring)(void);
+    conditionallyStartProctoring =
     ^{
         // OK action handler
         void (^startRemoteProctoringOK)(void) =
         ^{
+            if (screenProctoringEnable) {
+
+            }
             if (zoomEnable) {
                 [self openZoomView];
                 [self.zoomController openZoomWithSender:self];
@@ -1996,14 +2174,63 @@ bool insideMatrix(void);
             // Continue starting the exam session
             [self conditionallyStartAACWithCallback:callback selector:selector];
         };
-        if (zoomEnable) {
-            // Check if previous SEB session already had proctoring active
-            if (self.previousSessionZoomEnabled) {
-                run_on_ui_thread(startRemoteProctoringOK);
+        
+        void (^conditionallyStartZoomProctoring)(void);
+        conditionallyStartZoomProctoring =
+        ^{
+            if (zoomEnable) {
+                // Check if previous SEB session already had proctoring active
+                if (self.previousSessionZoomEnabled) {
+                    run_on_ui_thread(startRemoteProctoringOK);
+                } else {
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+                    [modalAlert setAlertStyle:NSAlertStyleWarning];
+                    void (^remoteProctoringDisclaimerHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self removeAlertWindow:modalAlert.window];
+                        switch(answer)
+                        {
+                            case NSAlertFirstButtonReturn:
+                            {
+                                run_on_ui_thread(startRemoteProctoringOK);
+                                return;
+                            }
+                                
+                            case NSAlertSecondButtonReturn:
+                            {
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                                return;
+                            }
+                                
+                            default:
+                                // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
+                            {
+                                DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestRestartNotification" object:self];
+                                return;
+                            }
+                        }
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
+                    return;
+                }
             } else {
+                // Continue starting the exam session
+                startRemoteProctoringOK();
+            }
+        };
+        
+        if (screenProctoringEnable) {
+            // Check if previous SEB session already had proctoring active
+            if (!self.previousSessionScreenProctoringEnabled) {
                 NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Session", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]];
+                [modalAlert setMessageText:NSLocalizedString(@"Screen Proctoring Session", @"")];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -2013,7 +2240,8 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            run_on_ui_thread(startRemoteProctoringOK);
+                            self.previousSessionScreenProctoringEnabled = YES;
+                            run_on_ui_thread(conditionallyStartZoomProctoring);
                             return;
                         }
                             
@@ -2025,7 +2253,12 @@ bool insideMatrix(void);
                         }
                             
                         default:
+                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled screen proctoring.", (long)answer);
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestRestartNotification" object:self];
+                            return;
                         }
                     }
                 };
@@ -2033,21 +2266,19 @@ bool insideMatrix(void);
                 return;
             }
         } else {
-            // Continue starting the exam session
-            [self conditionallyStartAACWithCallback:callback selector:selector];
+            self.previousSessionScreenProctoringEnabled = NO;
         }
+        conditionallyStartZoomProctoring();
     };
 
     if (browserMediaCaptureMicrophone ||
-        browserMediaCaptureCamera ||
-        zoomEnable ||
-        jitsiMeetEnable) {
+        browserMediaCaptureCamera) {
         
         if (@available(macOS 10.14, *)) {
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-            if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                  videoAuthorization == AVAuthorizationStatusAuthorized)) {
+            if (((browserMediaCaptureMicrophone && (audioAuthorization != AVAuthorizationStatusAuthorized)) ||
+                  (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
                 
                 NSMutableArray <AVMediaType> *authorizationAccessRequests = [NSMutableArray new];
                 
@@ -2067,22 +2298,22 @@ bool insideMatrix(void);
                 NSString *resolveSuggestion;
                 NSString *resolveSuggestion2;
                 NSString *message;
-                if (videoAuthorization == AVAuthorizationStatusDenied ||
-                    audioAuthorization == AVAuthorizationStatusDenied) {
+                if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                    (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                     resolveSuggestion = NSLocalizedString(@"in System Preferences ", @"");
                     resolveSuggestion2 = [NSString stringWithFormat:NSLocalizedString(@"return to %@ and re", @""), SEBShortAppName];
                 } else {
                     resolveSuggestion = @"";
                     resolveSuggestion2 = @"";
                 }
-                if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                    audioAuthorization == AVAuthorizationStatusRestricted) {
+                if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusRestricted) ||
+                    (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusRestricted)) {
                     message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", @""), camera, microphone, permissionsRequiredFor, camera, microphone];
                 } else {
                     message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", @""), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
                 }
-                NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                              audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"System Preferences", @"") : NSLocalizedString(@"OK", @"");
+                NSString *firstButtonTitle = ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                              (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) ? NSLocalizedString(@"System Preferences", @"") : NSLocalizedString(@"OK", @"");
                 
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Permissions Required for %@", @""), permissionsRequiredFor.localizedCapitalizedString]];
@@ -2100,8 +2331,8 @@ bool insideMatrix(void);
                     {
                         case NSAlertFirstButtonReturn:
                         {
-                            if (videoAuthorization == AVAuthorizationStatusDenied ||
-                                audioAuthorization == AVAuthorizationStatusDenied) {
+                            if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                                 [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuitSEBOrSession" object:self];
@@ -2142,10 +2373,16 @@ bool insideMatrix(void);
                         {
                             [[NSNotificationCenter defaultCenter]
                              postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
                         }
                             
                         default:
+                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestRestartNotification" object:self];
+                            return;
                         }
                     }
                     
@@ -2167,7 +2404,7 @@ bool insideMatrix(void);
         self.previousSessionZoomEnabled = NO;
     }
     // Continue starting the exam session
-    [self conditionallyStartAACWithCallback:callback selector:selector];
+    run_on_ui_thread(conditionallyStartProctoring);
 }
     
 
@@ -2192,7 +2429,8 @@ bool insideMatrix(void);
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
                     self.assessmentModeManager = assessmentModeManager;
                     self.assessmentModeManager.delegate = self;
-                    if ([self.assessmentModeManager beginAssessmentMode] == NO) {
+                    AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:[ProcessManager sharedProcessManager].permittedProcesses];
+                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector];
                     }
                 };
@@ -2270,6 +2508,7 @@ bool insideMatrix(void);
     _wasAACEnabled = YES;
     [NSMenu setMenuBarVisible:NO];
     [self.hudController hideHUDProgressIndicator];
+    [self.assessmentConfigurationManager autostartAppsWithPermittedApplications:[ProcessManager sharedProcessManager].permittedProcesses];
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
 
@@ -2307,7 +2546,15 @@ bool insideMatrix(void);
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"AAC Assessment Mode was interrupted with error: %@", error);
-    [self requestedExit:nil]; // Quit SEB
+    
+    // Lock the exam down
+    
+    // Save current time for information about when Guided Access was switched off
+    _didResignActiveTime = [NSDate date];
+    
+    // If there wasn't a lockdown covering view openend yet, initialize it
+    [self openLockdownWindows];
+    [self appendErrorString:[NSString stringWithFormat:@"%@%@!\n", NSLocalizedString(@"Assessment Mode was interrupted with error: ", @""), error] withTime:_didResignActiveTime repeated:NO];
 }
 
 
@@ -4130,7 +4377,7 @@ bool insideMatrix(void){
 // Called when changes of the screen configuration occur
 // (new display is contected or removed or display mirroring activated)
 
-- (void) adjustScreenLocking: (id)sender
+- (void) adjustScreenLocking: (id _Nullable)sender
 {
     // This should only be done when the preferences window isn't open
     if (sender) {
@@ -5004,7 +5251,7 @@ conditionallyForWindow:(NSWindow *)window
 
 // hide all other applications if not in debug build setting
 // Check if the app is listed in prohibited processes
-- (void) regainActiveStatus: (id)sender
+- (void) regainActiveStatus: (id _Nullable)sender
 {
 #ifdef DEBUG
     DDLogInfo(@"%s: Notification:  %@", __FUNCTION__, [sender name]);
@@ -5580,6 +5827,7 @@ conditionallyForWindow:(NSWindow *)window
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
+                                                                 bundleID:nil
                                                                      icon:[NSApp applicationIconImage]
                                                           highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil
@@ -5591,12 +5839,47 @@ conditionallyForWindow:(NSWindow *)window
             [self setUpDockLeftButtons:dockButtons];
         }
         
+        // Initialize center dock items (allowed third party applications)
+        if (_isAACEnabled) {
+            NSMutableArray *centerDockItems = [NSMutableArray array];
+            NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+            DDLogDebug(@"AAC enabled: Check if there are permitted apps: %@", permittedProcesses);
+            for (NSDictionary *permittedProcess in permittedProcesses) {
+                if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
+                    NSString *appName = permittedProcess[@"title"];
+                    NSString *appBundleID = permittedProcess[@"identifier"];
+                    if (appName.length == 0) {
+                        appName = permittedProcess[@"executable"];
+                    }
+                    if (appName.length == 0) {
+                        appName = appBundleID;
+                    }
+                    NSImage *appIcon = [[NSWorkspace sharedWorkspace] iconForFile:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:appBundleID]];
+
+                    SEBDockItem *dockItemApp = [[SEBDockItem alloc] initWithTitle:appName
+                                                                         bundleID:appBundleID
+                                                                             icon:appIcon
+                                                                  highlightedIcon:appIcon
+                                                                          toolTip:nil
+                                                                             menu:nil
+                                                                           target:self
+                                                                           action:@selector(appButtonPressed:)
+                                                                  secondaryAction:nil];
+                    [centerDockItems addObject:dockItemApp];
+                }
+            }
+            if (centerDockItems.count > 0) {
+                [self.dockController setCenterItems:centerDockItems.copy];
+            }
+        }
+        
         // Initialize right dock items (controlls and info widgets)
         NSMutableArray *rightDockItems = [NSMutableArray array];
         
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
                                                                        toolTip:[NSString stringWithFormat:NSLocalizedString(@"Quit %@",nil), SEBShortAppName]
@@ -5618,6 +5901,32 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+            ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
+//            ProctoringIconDefaultState.template = YES;
+            ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
+            ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
+            ProctoringIconColorNormalState = [NSColor systemGreenColor];
+//            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
+            ProctoringIconWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ProctoringIconColorWarningState = [NSColor systemOrangeColor];
+//            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
+            ProctoringIconErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ProctoringIconColorErrorState = [NSColor systemRedColor];
+//            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
+
+            SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                            bundleID:nil
+                                                                          icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                                       toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(screenProctoringButtonAction)
+                                                                     secondaryAction:nil];
+            [rightDockItems addObject:dockItemProctoringView];
+        }
+        
         if (ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"]) {
             ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
 //            ProctoringIconDefaultState.template = YES;
@@ -5637,6 +5946,7 @@ conditionallyForWindow:(NSWindow *)window
                                               remoteProctoringViewShowPolicy == remoteProctoringViewShowAllowToShow);
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
+                                                                            bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                        toolTip:allowToggleProctoringView ?
@@ -5664,6 +5974,7 @@ conditionallyForWindow:(NSWindow *)window
                 RaisedHandIconRaisedState = [NSImage imageNamed:@"SEBRaiseHandIcon_raised_yellow"];
             }
             SEBDockItem *dockItemRaiseHand = [[SEBDockItem alloc] initWithTitle:nil
+                                                                       bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                        toolTip:NSLocalizedString(@"Raise Hand",nil)
@@ -5683,6 +5994,7 @@ conditionallyForWindow:(NSWindow *)window
                 restartButtonToolTip = NSLocalizedString(@"Back to Start",nil);
             }
             SEBDockItem *dockItemSkipBack = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBSkipBackIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBSkipBackIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
@@ -5698,6 +6010,7 @@ conditionallyForWindow:(NSWindow *)window
              [preferences secureBoolForKey:@"org_safeexambrowser_SEB_newBrowserWindowAllowReload"]) &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
+                                                                    bundleID:nil
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
@@ -5716,9 +6029,6 @@ conditionallyForWindow:(NSWindow *)window
         }
         
         // Set right dock items
-        
-//        [self.dockController setCenterItems:[NSArray arrayWithObjects:dockItemSEB, dockItemShutDown, nil]];
-        
         NSArray *dockButtons = [self.dockController setRightItems:rightDockItems];
         [self setUpDockRightButtons:dockButtons];
         
@@ -5747,15 +6057,21 @@ conditionallyForWindow:(NSWindow *)window
         if (dockButton.action == @selector(reloadButtonPressed)) {
             _dockButtonReload = dockButton;
         }
+        else if (dockButton.action == @selector(screenProctoringButtonAction)) {
+            _dockButtonScreenProctoring = dockButton;
+            _dockButtonScreenProctoring.image.template = YES;
+            _dockButtonScreenProctoring.bezelStyle = NSBezelStyleInline;
+            _dockButtonScreenProctoring.bordered = NO;
+        }
         else if (dockButton.action == @selector(toggleProctoringViewVisibility)) {
             _dockButtonProctoringView = dockButton;
-                //                _dockButtonProctoringView.image.template = YES;
+            _dockButtonProctoringView.image.template = YES;
             _dockButtonProctoringView.bezelStyle = NSBezelStyleInline;
             _dockButtonProctoringView.bordered = NO;
         }
         else if (dockButton.action == @selector(toggleRaiseHand)) {
             _dockButtonRaiseHand = dockButton;
-                //                _dockButtonRaiseHand.image.template = YES;
+            _dockButtonRaiseHand.image.template = YES;
             _dockButtonRaiseHand.bezelStyle = NSBezelStyleInline;
             _dockButtonRaiseHand.bordered = NO;
         }
@@ -5774,6 +6090,22 @@ conditionallyForWindow:(NSWindow *)window
             NSAccessibilityFocusedWindowAttribute: NSApp.mainWindow
         };
         NSAccessibilityPostNotificationWithUserInfo(NSApp.mainWindow, NSAccessibilityFocusedUIElementChangedNotification, userInfo);
+    }
+}
+
+
+- (void) appButtonPressed:(id)sender
+{
+    NSString *bundleID = ((SEBDockItemButton *)sender).bundleID;
+    DDLogInfo(@"Dock button pressed for app: %@", bundleID);
+    NSURL *appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:bundleID];
+    if (@available(macOS 10.15, *)) {
+        NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
+        openConfiguration.activates = YES;
+        openConfiguration.addsToRecentItems = NO;
+        [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                
+        }];
     }
 }
 
@@ -5841,6 +6173,8 @@ conditionallyForWindow:(NSWindow *)window
                 case NSAlertFirstButtonReturn:
                     return; //Cancel: don't restart exam
                 default:
+                    DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Not invoking Back to Start.", (long)answer);
+                case NSAlertSecondButtonReturn:
                 {
                     [self.browserController backToStartCommand];
                 }
@@ -5894,7 +6228,7 @@ conditionallyForWindow:(NSWindow *)window
 
 
 
-- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *_Nullable)window windowTitle:(NSString *)title
 {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
     return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window windowTitle:title];
@@ -6359,7 +6693,7 @@ conditionallyForWindow:(NSWindow *)window
                 return;
             default:
             {
-                DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
+                DDLogDebug(@"%s canceled quit alert with NSModalResponse %ld.", __FUNCTION__, (long)answer);
                 return; //Cancel: don't quit
             }
         }
@@ -6425,7 +6759,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedExit:(NSNotification *)notification
+- (void)requestedExit:(NSNotification *_Nullable)notification
 {
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
 
@@ -6488,7 +6822,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void)requestedRestart:(NSNotification *)notification
+- (void)requestedRestart:(NSNotification *_Nullable)notification
 {
     DDLogError(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
@@ -6694,16 +7028,15 @@ conditionallyForWindow:(NSWindow *)window
                 {
                     case NSAlertFirstButtonReturn:
                     {
+                        DDLogDebug(@"User selected Authorize Screen Recording in System Settings");
                         [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
                         return;
                     }
-                        
+                    default:
+                        DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Quitting SEB", (long)answer);
                     case NSAlertSecondButtonReturn:
                     {
-                    }
-                        
-                    default:
-                    {
+                        DDLogDebug(@"No permissions for screen capture: Quitting");
                     }
                 }
                 [self applicationWillTerminateProceed];
@@ -6826,22 +7159,26 @@ conditionallyForWindow:(NSWindow *)window
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Cannot Restore Touch Bar Mode",nil)];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Preferences / Keyboard / 'Touch Bar shows'. %@ will open this System Preferences tab for you.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Before running %@, you had the Touch Bar mode 'App Controls' set. %@ cannot restore this setting automatically. You either have to restart your Mac or change the setting manually in System Settings / Keyboard / 'Touch Bar shows'. %@ will open this System Settings tab for you.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
         [modalAlert setAlertStyle:NSAlertStyleWarning];
+        DDLogInfo(@"Cannot Restore Touch Bar Mode 'App Controls'");
         void (^cannotRestoreTouchBarAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
             [self removeAlertWindow:modalAlert.window];
             switch(answer)
             {
                 case NSAlertFirstButtonReturn:
                     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:pathToKeyboardPreferences isDirectory:NO]];
-                    DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
-                    return;
+                    DDLogInfo(@"User selected to open System Settings / Keyboard / 'Touch Bar shows'");
+                    break;
                 default:
-                {
-                }
+                    DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld.", (long)answer);
+                case NSAlertSecondButtonReturn:
+                    DDLogInfo(@"Exiting SEB without opening System Settings / Keyboard / 'Touch Bar shows'");
             }
+            DDLogInfo(@"---------- EXITING SEB - ENDING SESSION -------------");
+            return;
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))cannotRestoreTouchBarAlertOK];
     } else {

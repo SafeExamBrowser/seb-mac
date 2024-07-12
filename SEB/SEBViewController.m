@@ -134,6 +134,16 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (SEBScreenProctoringController *)screenProctoringController
+{
+    if (!_screenProctoringController) {
+        _screenProctoringController = [[SEBScreenProctoringController alloc] init];
+//        _zoomController.proctoringUIDelegate = self;
+    }
+    return _screenProctoringController;
+}
+
+
 - (UIViewController *)topMostController
 {
     UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
@@ -2036,10 +2046,18 @@ void run_on_ui_thread(dispatch_block_t block)
             if (@available(iOS 11.0, *)) {
                 BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
                 BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
+                
+                BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
                 BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
                 BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
                 BOOL proctoringSession = jitsiMeetEnable || zoomEnable;
                 BOOL webApplications = browserMediaCaptureCamera || browserMediaCaptureMicrophone;
+                if (jitsiMeetEnable || zoomEnable) {
+                    browserMediaCaptureCamera = YES;
+                    browserMediaCaptureMicrophone = YES;
+                }
+                BOOL isETHExam = [self.sessionState.startURL.host hasSuffix:@"ethz.ch"] ||
+                [_serverController.url.host hasSuffix:@"ethz.ch"];
 
                 if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
                     NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
@@ -2060,49 +2078,85 @@ void run_on_ui_thread(dispatch_block_t block)
                     return;
                 }
                 
-                void (^conditionallyStartProctoring)(void) =
+                void (^conditionallyStartProctoring)(void);
+                conditionallyStartProctoring =
                 ^{
                     // OK action handler
                     void (^startRemoteProctoringOK)(void) =
                     ^{
+                        if (screenProctoringEnable) {
+
+                        }
                         if (jitsiMeetEnable) {
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
                         }
                         run_on_ui_thread(completionBlock);
                     };
-                    if (jitsiMeetEnable) {
-                        // Check if previous SEB session already had proctoring active
-                        if (self.previousSessionJitsiMeetEnabled) {
-                            run_on_ui_thread(startRemoteProctoringOK);
-                        } else {
-                            [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", @"")
-                                         message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]
-                                    action1Title:NSLocalizedString(@"OK", @"")
-                                  action1Handler:^ {
+                    
+                    void (^conditionallyStartJitsiProctoring)(void);
+                    conditionallyStartJitsiProctoring =
+                    ^{
+                        if (jitsiMeetEnable) {
+                            // Check if previous SEB session already had proctoring active
+                            if (self.previousSessionJitsiMeetEnabled) {
                                 run_on_ui_thread(startRemoteProctoringOK);
+                            } else {
+                                run_on_ui_thread(^{
+                                    [self alertWithTitle:NSLocalizedString(@"Remote Proctoring Session", @"")
+                                                 message:[NSString stringWithFormat:NSLocalizedString(@"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]
+                                            action1Title:NSLocalizedString(@"OK", @"")
+                                          action1Handler:^ {
+                                        run_on_ui_thread(startRemoteProctoringOK);
+                                    }
+                                            action2Title:NSLocalizedString(@"Cancel", @"")
+                                          action2Handler:^ {
+                                        self.alertController = nil;
+                                        [[NSNotificationCenter defaultCenter]
+                                         postNotificationName:@"requestQuit" object:self];
+                                    }];
+                                });
+                                return;
                             }
-                                    action2Title:NSLocalizedString(@"Cancel", @"")
-                                  action2Handler:^ {
-                                self.alertController = nil;
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestQuit" object:self];
-                            }];
+                        } else {
+                            startRemoteProctoringOK();
+                        }
+                    };
+                    
+                    if (screenProctoringEnable) {
+                        // Check if previous SEB session already had proctoring active
+                        if (!self.previousSessionScreenProctoringEnabled) {
+                            run_on_ui_thread(^{
+                                [self alertWithTitle:NSLocalizedString(@"Screen Proctoring Session", @"")
+                                             message:[NSString stringWithFormat:NSLocalizedString(@"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@", @""), isETHExam ? @"":[NSString stringWithFormat:NSLocalizedString(@" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use.", @""), SEBShortAppName, SEBShortAppName]]
+                                        action1Title:NSLocalizedString(@"OK", @"")
+                                      action1Handler:^ {
+                                    self.previousSessionScreenProctoringEnabled = YES;
+                                    run_on_ui_thread(conditionallyStartJitsiProctoring);
+                                }
+                                        action2Title:NSLocalizedString(@"Cancel", @"")
+                                      action2Handler:^ {
+                                    self.alertController = nil;
+                                    [[NSNotificationCenter defaultCenter]
+                                     postNotificationName:@"requestQuit" object:self];
+                                }];
+                            });
                             return;
                         }
                     } else {
-                        run_on_ui_thread(completionBlock);
+                        self.previousSessionScreenProctoringEnabled = NO;
                     }
+                    conditionallyStartJitsiProctoring();
                 };
                 
                 if (browserMediaCaptureMicrophone ||
-                    browserMediaCaptureCamera ||
-                    zoomEnable ||
-                    jitsiMeetEnable) {
+                    browserMediaCaptureCamera) {
+                    
                     AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
                     AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-                    if (!(audioAuthorization == AVAuthorizationStatusAuthorized &&
-                          videoAuthorization == AVAuthorizationStatusAuthorized)) {
+                    if (((browserMediaCaptureMicrophone && (audioAuthorization != AVAuthorizationStatusAuthorized)) ||
+                          (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
+
                         if (self.alertController) {
                             [self.alertController dismissViewControllerAnimated:NO completion:nil];
                         }
@@ -2125,16 +2179,16 @@ void run_on_ui_thread(dispatch_block_t block)
                         NSString *resolveSuggestion;
                         NSString *resolveSuggestion2;
                         NSString *message;
-                        if (videoAuthorization == AVAuthorizationStatusDenied ||
-                            audioAuthorization == AVAuthorizationStatusDenied) {
+                        if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                            (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                             resolveSuggestion = NSLocalizedString(@"in Settings ", @"");
-                            resolveSuggestion2 = NSLocalizedString(@"return to SEB and re", @"");
+                            resolveSuggestion2 = [NSString stringWithFormat:NSLocalizedString(@"return to %@ and re", @""), SEBShortAppName];
                         } else {
                             resolveSuggestion = @"";
                             resolveSuggestion2 = @"";
                         }
-                        if (videoAuthorization == AVAuthorizationStatusRestricted ||
-                            audioAuthorization == AVAuthorizationStatusRestricted) {
+                        if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusRestricted) ||
+                            (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusRestricted)) {
                             message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions.", @""), camera, microphone, permissionsRequiredFor, camera, microphone];
                         } else {
                             message = [NSString stringWithFormat:NSLocalizedString(@"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session.", @""), camera, microphone, permissionsRequiredFor, camera, microphone, resolveSuggestion, resolveSuggestion2];
@@ -2144,13 +2198,13 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                                    message:message
                                                                             preferredStyle:UIAlertControllerStyleAlert];
                         
-                        NSString *firstButtonTitle = (videoAuthorization == AVAuthorizationStatusDenied ||
-                                                      audioAuthorization == AVAuthorizationStatusDenied) ? NSLocalizedString(@"Settings", @"") : NSLocalizedString(@"OK", @"");
+                        NSString *firstButtonTitle = ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                                      (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) ? NSLocalizedString(@"Settings", @"") : NSLocalizedString(@"OK", @"");
                         [self.alertController addAction:[UIAlertAction actionWithTitle:firstButtonTitle
                                                                                  style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                             self.alertController = nil;
-                            if (videoAuthorization == AVAuthorizationStatusDenied ||
-                                audioAuthorization == AVAuthorizationStatusDenied) {
+                            if ((browserMediaCaptureCamera && videoAuthorization == AVAuthorizationStatusDenied) ||
+                                (browserMediaCaptureMicrophone && audioAuthorization == AVAuthorizationStatusDenied)) {
                                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
                                 [[NSNotificationCenter defaultCenter]
                                  postNotificationName:@"requestQuit" object:self];
@@ -2205,8 +2259,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 } else {
                     self.previousSessionJitsiMeetEnabled = NO;
                 }
+                run_on_ui_thread(conditionallyStartProctoring);
             }
-            run_on_ui_thread(completionBlock);
         }
     }
 }
@@ -3416,7 +3470,9 @@ void run_on_ui_thread(dispatch_block_t block)
     _resettingSettings = NO;
     
     [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-        [self didCloseSEBServerConnectionRestart:restart];
+        [self stopProctoringWithCompletion:^{
+            [self didCloseSEBServerConnectionRestart:restart];
+        }];
     }];
 }
 
@@ -3617,11 +3673,13 @@ void run_on_ui_thread(dispatch_block_t block)
             // compared to the new kiosk mode settings, also considering:
             // when we're running in SAM mode, it's not relevant if settings for ASAM differ
             // when we're running in ASAM mode, it's not relevant if settings for SAM differ
+            // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
-                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM))) {
+                (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM)) ||
+                (self.ASAMActive && (self.assessmentSessionActive != [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]))) {
                 
                 // If SAM is active, we display the alert for waiting for it to be switched off
                 if (self.singleAppModeActivated) {
@@ -3643,17 +3701,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 // If ASAM is active, we stop it now and display the alert for restarting session
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
-                        DDLogInfo(@"Requesting to exit Autonomous Single App Mode");
-                        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
-                            if (didSucceed) {
-                                DDLogInfo(@"%s: Exited Autonomous Single App Mode", __FUNCTION__);
-                                self.ASAMActive = NO;
-                            }
-                            else {
-                                DDLogError(@"%s: Failed to exit Autonomous Single App Mode", __FUNCTION__);
-                            }
-                            [self restartExamASAM:quitting && self.secureMode];
-                        });
+                        DDLogInfo(@"Requesting to exit AAC/Autonomous Single App Mode");
+                        [self stopAssessmentModeWithCallback:self selector:@selector(restartSessionAfterStoppingAssessmentMode:) quittingToAssessmentMode:quitting];
                     } else {
                         [self restartExamASAM:quitting && self.secureMode];
                     }
@@ -3681,6 +3730,13 @@ void run_on_ui_thread(dispatch_block_t block)
             }];
         }
     });
+}
+
+
+- (void) restartSessionAfterStoppingAssessmentMode:(BOOL)quittingASAMtoSAM
+{
+    self.ASAMActive = NO;
+    [self restartExamASAM:quittingASAMtoSAM];
 }
 
 
@@ -4077,12 +4133,83 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-#pragma mark - Kiosk mode
+#pragma mark - Assessment Mode Delegate Methods
+
+- (void) assessmentSessionWillBegin
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+- (void) assessmentSessionWillEnd
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+- (void) assessmentSessionDidBeginWithCallback:(id)callback
+                                      selector:(SEL)selector
+{
+    [self.assessmentConfigurationManager autostartAppsWithPermittedApplications:self.permittedProcesses];
+    
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
+}
+
+- (void) assessmentSessionFailedToBeginWithError:(NSError *)error
+                                        callback:(id)callback
+                                        selector:(SEL)selector
+{
+    DDLogError(@"Could not start AAC Assessment Mode with error: %@", error);
+    self.ASAMActive = NO;
+    [self showNoKioskModeAvailable];
+}
+
+
+- (void) assessmentSessionDidEndWithCallback:(id)callback
+                                    selector:(SEL)selector
+{
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    IMP imp = [callback methodForSelector:selector];
+    void (*func)(id, SEL) = (void *)imp;
+    func(callback, selector);
+}
+
+- (void) assessmentSessionWasInterruptedWithError:(NSError *)error
+{
+    DDLogError(@"AAC Assessment Mode was interrupted with error: %@. Displaying lock screen", error);
+    
+    // Lock the exam down
+    
+    // Save current time for information about when Guided Access was switched off
+    _didResignActiveTime = [NSDate date];
+    
+    // If there wasn't a lockdown covering view openend yet, initialize it
+    if (!_sebLocked) {
+        [self openLockdownWindows];
+    }
+    [self appendErrorString:[NSString stringWithFormat:@"%@%@!\n", NSLocalizedString(@"Assessment Mode was interrupted with error: ", @""), error] withTime:_didResignActiveTime repeated:NO];
+}
+
+
+#pragma mark - Lockdown mode
+
+- (BOOL) assessmentSessionActive
+{
+    BOOL assessmentSessionActive = NO;
+    if (@available(iOS 13.4, *)) {
+        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+            assessmentSessionActive = YES;
+        }
+    }
+    return assessmentSessionActive;
+}
+
 
 // Called when the Single App Mode (SAM) status changes
 - (void) singleAppModeStatusChanged
 {
-    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == false) {
+    if (_finishedStartingUp && _singleAppModeActivated && _ASAMActive == NO) {
         
         // Is the exam already running?
         if (_sessionRunning) {
@@ -4098,7 +4225,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
             
             // Exam running: Check if SAM is switched off
-            if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == NO) {
                 
                 /// SAM is off
                 
@@ -4137,12 +4264,12 @@ void run_on_ui_thread(dispatch_block_t block)
             /// Exam is not yet running
             
             // If Single App Mode is switched on
-            if (UIAccessibilityIsGuidedAccessEnabled() == true) {
+            if (UIAccessibilityIsGuidedAccessEnabled() == YES) {
                 
                 // Dismiss the Activate SAM alert in case it still was visible
                 [_alertController dismissViewControllerAnimated:NO completion:^{
                     self.alertController = nil;
-                    self.startSAMWAlertDisplayed = false;
+                    self.startSAMWAlertDisplayed = NO;
                 }];
                 
                 // Proceed to exam
@@ -4326,7 +4453,7 @@ void run_on_ui_thread(dispatch_block_t block)
             }
         } else {
             _appDelegate.dispatchTimeAppLaunched = 0;
-            [self conditionallyStartASAM];
+            [self conditionallyStartAssessmentMode];
         }
     }
 }
@@ -4352,7 +4479,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) assureSAMNotActive
 {
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
-    DDLogWarn(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
+    DDLogInfo(@"%s: Single App Mode is %@active at least 2 seconds after app launch.", __FUNCTION__, _SAMActive ? @"" : @"not ");
     if (_SAMActive) {
         DDLogInfo(@"SAM or Guided Access (or AAC/ASAM because of previous crash) is already active: refuse starting a secured exam until SAM/Guided Access is switched off");
         // SAM or Guided Access (or AAC/ASAM because of previous crash) is already active:
@@ -4360,7 +4487,7 @@ void run_on_ui_thread(dispatch_block_t block)
         ASAMActiveChecked = NO;
         [self requestDisablingSAM];
     } else {
-        [self conditionallyStartASAM];
+        [self conditionallyStartAssessmentMode];
     }
 }
 
@@ -4390,7 +4517,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 }
                 else {
                     DDLogError(@"%s: Failed to exit Autonomous Single App Mode, SAM/Guided Access must be active", __FUNCTION__);
-                    //                _ASAMActive = false;
+                    //                _ASAMActive = NO;
                     [self requestDisablingSAM];
                 }
             });
@@ -4428,12 +4555,12 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         DDLogInfo(@"%s SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM", __FUNCTION__);
         // SAM/Guided Access (or ASAM because of previous crash) is no longer active: start ASAM
-        [self conditionallyStartASAM];
+        [self conditionallyStartAssessmentMode];
     }
 }
 
 
-- (void) conditionallyStartASAM
+- (void) conditionallyStartAssessmentMode
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
@@ -4447,7 +4574,29 @@ void run_on_ui_thread(dispatch_block_t block)
         // Is ASAM enabled in settings?
         if (_enableASAM) {
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
-            _ASAMActive = true;
+            _ASAMActive = YES;
+            
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
+                if (@available(iOS 13.4, *)) {
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:)];
+                    self.assessmentModeManager = assessmentModeManager;
+                    self.assessmentModeManager.delegate = self;
+                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                    NSArray *allPermittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+                    NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSiOS];
+                    self.permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
+                    
+                    AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
+                    if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
+                        DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
+                        self.ASAMActive = NO;
+                        [self showNoKioskModeAvailable];
+                        [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable)];
+                    }
+                    return;
+                }
+            }
             UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
                 DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
                 if (didSucceed) {
@@ -4481,6 +4630,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self showNoKioskModeAvailable];
                 }
             });
+
         } else {
             [self showStartSingleAppMode];
         }
@@ -4488,18 +4638,33 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) stopAutonomousSingleAppMode
-{
+- (void) stopAssessmentModeWithCallback:(id)callback
+                               selector:(SEL)selector
+                               quittingToAssessmentMode:(BOOL)quittingToAssessmentMode
+ {
+    DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     DDLogInfo(@"%s: Requesting to exit AAC/Autonomous Single App Mode", __FUNCTION__);
-    UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
-        if (didSucceed) {
-            DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-            self.ASAMActive = false;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (self.assessmentSessionActive) {
+        DDLogInfo(@"%s: Assessment Mode session is active, end it", __FUNCTION__);
+        if (@available(iOS 13.4, *)) {
+            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
         }
-        else {
-            DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
-        }
-    });
+    } else {
+        UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {
+            if (didSucceed) {
+                DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
+                self.ASAMActive = NO;
+            }
+            else {
+                DDLogError(@"%s: Failed to exit AAC/Autonomous Single App Mode", __FUNCTION__);
+            }
+            DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL, BOOL) = (void *)imp;
+            func(callback, selector, quittingToAssessmentMode);
+        });
+    }
 }
 
 
@@ -4509,15 +4674,15 @@ void run_on_ui_thread(dispatch_block_t block)
     
     if (_allowSAM) {
         // SAM is allowed
-        _singleAppModeActivated = true;
-        if (UIAccessibilityIsGuidedAccessEnabled() == false) {
+        _singleAppModeActivated = YES;
+        if (UIAccessibilityIsGuidedAccessEnabled() == NO && self.assessmentSessionActive == NO) {
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
             }
             _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Waiting for Single App Mode", @"")
                                                                     message:NSLocalizedString(@"Current Settings require Single App Mode to be active to proceed.", @"")
                                                              preferredStyle:UIAlertControllerStyleAlert];
-            _startSAMWAlertDisplayed = true;
+            _startSAMWAlertDisplayed = YES;
             [self.topMostController presentViewController:_alertController animated:NO completion:nil];
         }
     } else {
@@ -4551,7 +4716,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         DDLogDebug(@"%s: User selected Retry", __FUNCTION__);
         self.alertController = nil;
-        self.noSAMAlertDisplayed = false;
+        self.noSAMAlertDisplayed = NO;
         [self conditionallyStartKioskMode];
     }]];
     
@@ -4759,13 +4924,23 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
+    BOOL modernAACEnabled = NO;
+    BOOL assessmentSessionActive = NO;
     // If (new) setting don't require a kiosk mode or
     // kiosk mode is already switched on, close lockdown window
-    if (!_secureMode || (_secureMode && UIAccessibilityIsGuidedAccessEnabled() == true)) {
+    if (@available(iOS 13.4, *)) {
+        if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession && self.assessmentModeManager.assessmentSession.isActive) {
+            assessmentSessionActive = YES;
+        }
+        modernAACEnabled = self.assessmentModeManager != nil;
+    }
+    if (!_secureMode || (_secureMode && (UIAccessibilityIsGuidedAccessEnabled() == YES || assessmentSessionActive))) {
         [self.sebLockedViewController shouldCloseLockdownWindows];
-    } else {
+    } else if (modernAACEnabled == NO) {
         // If necessary show the dialog to start SAM again
         [self showRestartSingleAppMode];
+    } else {
+        [self.sebLockedViewController shouldCloseLockdownWindows];
     }
 }
 
@@ -4874,12 +5049,21 @@ void run_on_ui_thread(dispatch_block_t block)
     }
 }
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes
 {
     DDLogDebug(@"%s", __FUNCTION__);
     
     NSString *serviceType = attributes[@"service-type"];
     DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    
+    if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
+        NSString *instructionConfirm = attributes[@"instruction-confirm"];
+        if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
+            self.serverController.sebServerController.pingInstruction = instructionConfirm;
+            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+        }
+    }
+    
     if ([serviceType isEqualToString:@"JITSI_MEET"]) {
         NSString *jitsiMeetServerURLString = attributes[@"jitsiMeetServerURL"];
         NSURL *jitsiMeetServerURL = [NSURL URLWithString:jitsiMeetServerURLString];
@@ -4946,6 +5130,19 @@ void run_on_ui_thread(dispatch_block_t block)
     [self.jitsiViewController updateProctoringViewButtonState];
     NSString *instructionConfirm = attributes[@"instruction-confirm"];
     self.serverController.sebServerController.pingInstruction = instructionConfirm;
+}
+
+
+- (void) stopProctoringWithCompletion:(void (^)(void))completionHandler
+{
+    if (_screenProctoringController) {
+        [_screenProctoringController closeSessionWithCompletionHandler:^{
+            self.screenProctoringController = nil;
+            completionHandler();
+        }];
+        return;
+    }
+    completionHandler();
 }
 
 

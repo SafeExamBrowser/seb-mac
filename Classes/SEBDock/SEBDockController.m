@@ -224,6 +224,7 @@
                                          highlightedIcon:dockItem.highlightedIcon
                                                    title:dockItem.title
                                                     menu:dockItem.menu];
+                newDockItemButton.bundleID = dockItem.bundleID;
                 if (isLeftmostItemButton) {
                     newDockItemButton.isFirstDockItem = YES;
                     isLeftmostItemButton = NO;

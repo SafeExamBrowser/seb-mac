@@ -319,11 +319,13 @@
                         
                     case NSModalResponseAbort:
                     {
+                        DDLogInfo(@"Alert was dismissed with NSModalResponseAbort.");
                         return;
                     }
                         
                     default:
                     {
+                        DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld.", (long)answer);
                         return;
                     }
                 }
