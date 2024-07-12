@@ -36,15 +36,6 @@
         "revision" : "99c1279148c0843328263b39158bf10ea7ea469e",
         "version" : "4.4.4"
       }
-    },
-    {
-      "identity" : "swift-png",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tayloraswift/swift-png",
-      "state" : {
-        "revision" : "99c1279148c0843328263b39158bf10ea7ea469e",
-        "version" : "4.4.4"
-      }
     }
   ],
   "version" : 3

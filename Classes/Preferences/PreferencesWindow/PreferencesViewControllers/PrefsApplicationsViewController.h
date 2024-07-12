@@ -57,6 +57,15 @@
     __weak IBOutlet NSButton *forceQuitButton;
     __weak IBOutlet NSPopUpButton *osPopUpButton;
     __weak IBOutlet NSTableView *permittedProcessesTableView;
+    
+    __weak IBOutlet NSButton *chooseExecutableButton;
+    __weak IBOutlet NSStackView *prohibitedProcessIdentifierView;
+    __weak IBOutlet NSButton *currentUserButton;
+    __weak IBOutlet NSStackView *prohibitedProcessOriginalNameView;
+    __weak IBOutlet NSButton *ignoreInAACButton;
+    __weak IBOutlet NSPopUpButton *prohibitedProcessesOSPopUpButton;
+    __weak IBOutlet NSTableView *prohibitedProcessesTableView;
+    
 }
 
 - (NSString *)identifier;
@@ -64,8 +73,10 @@
 
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
 - (IBAction) chooseApplication:(id)sender;
+- (IBAction) chooseExecutable:(id)sender;
 - (void) showAlertCannotRemoveProcess;
 - (IBAction) changedOS:(id)sender;
+- (IBAction) prohibitedProcessChangedOS:(id)sender;
 
 
 @end

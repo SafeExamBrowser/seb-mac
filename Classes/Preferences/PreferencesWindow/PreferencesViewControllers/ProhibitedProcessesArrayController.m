@@ -18,18 +18,17 @@
 
 @implementation ProhibitedProcessesArrayController
 
--(id)newObject {
-    id newObject = [super newObject];
-
-    NSDictionary *prohibitedProcessDefaults = [SEBSettings sharedSEBSettings].defaultSEBSettings[@"prohibitedProcesses"];
-
-    for (NSString *key in prohibitedProcessDefaults.allKeys) {
-        [newObject setValue:[prohibitedProcessDefaults valueForKey:key] forKey:key];
-    }
-
-    return newObject;
+-(id) newObject {
+    NSDictionary *newObject = [super newObject];
+    newObject = [[NSUserDefaults standardUserDefaults] getDefaultDictionaryForKey:@"prohibitedProcesses"];
+    return newObject.mutableCopy;
 }
 
+- (void) addObject:(id)object {
+    [super addObject:object];
+    [self removeSelectedObjects:self.selectedObjects];
+    [self setSelectedObjects:@[object]];
+}
 
 - (void) remove:(id)sender
 {

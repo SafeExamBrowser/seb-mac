@@ -83,6 +83,7 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
     [self changedOS:self];
+    [self prohibitedProcessChangedOS:self];
 }
 
 - (IBAction)changedOS:(id)sender {
@@ -147,6 +148,34 @@
     }
 }
 
+
+- (IBAction)prohibitedProcessChangedOS:(id)sender {
+    [self prohibitedProcessUpdateFieldsForOS];
+}
+
+- (void) prohibitedProcessUpdateFieldsForOS {
+    if (prohibitedProcessesTableView.selectedRow != -1) {
+        NSInteger selectedOS = prohibitedProcessesOSPopUpButton.indexOfSelectedItem;
+        switch (selectedOS) {
+            case SEBSupportedOSmacOS:
+                prohibitedProcessIdentifierView.hidden = NO;
+                currentUserButton.hidden = YES;
+                prohibitedProcessOriginalNameView.hidden = YES;
+                ignoreInAACButton.hidden = NO;
+                break;
+                
+            case SEBSupportedOSWindows:
+                prohibitedProcessIdentifierView.hidden = YES;
+                currentUserButton.hidden = YES;
+                prohibitedProcessOriginalNameView.hidden = NO;
+                ignoreInAACButton.hidden = YES;
+                break;
+                
+            default:
+                break;
+        }
+    }}
+
 - (void) showAlertCannotRemoveProcess
 {
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -157,6 +186,9 @@
     // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
     // which also is the minimum macOS version the Preferences window is available from
     [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+}
+
+- (IBAction)chooseExecutable:(id)sender {
 }
 
 - (IBAction)chooseApplication:(id)sender {
