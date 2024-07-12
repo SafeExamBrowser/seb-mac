@@ -4668,13 +4668,6 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) aacEnded
-{
-    DDLogInfo(@"%s: Exited AAC/Autonomous Single App Mode", __FUNCTION__);
-    self.ASAMActive = NO;
-}
-
-
 - (void) showStartSingleAppMode
 {
     DDLogDebug(@"%s", __FUNCTION__);
