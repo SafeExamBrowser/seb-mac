@@ -18,7 +18,8 @@ import Foundation
     @objc weak public var prefsApplicationsViewController: ApplicationsPreferencesDelegate?
     
     override func newObject() -> Any {
-        let newObject: NSDictionary
+        var newObject: NSDictionary
+        newObject = super.newObject() as! NSDictionary
         newObject = UserDefaults.standard.getDefaultDictionary(forKey: "permittedProcesses") as NSDictionary
         let mutableDictionary = newObject.mutableCopy()
         return mutableDictionary
