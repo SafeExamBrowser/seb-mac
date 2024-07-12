@@ -24,6 +24,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Use Modern AAC API</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_mobileEnableModernAAC</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>
@@ -215,7 +223,7 @@
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
-				<integer>17</integer>
+				<integer>18</integer>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>

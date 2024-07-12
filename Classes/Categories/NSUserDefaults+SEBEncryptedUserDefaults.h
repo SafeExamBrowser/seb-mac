@@ -131,6 +131,9 @@
 // Write SEB default values to local preferences
 - (void)storeSEBDefaultSettings;
 
+- (NSDictionary *) addDefaultValuesToSettings:(NSDictionary *)sourceDictionary;
+- (NSDictionary *) addDefaultValuesToSettingsDictionary:(NSDictionary *)sourceDictionary defaultSettingsDictionary:(NSDictionary *)defaultSettings;
+
 - (NSString *)prefixKey:(NSString *)key;
 
 - (void)removeSecureObjectForKey:(NSString *)key;

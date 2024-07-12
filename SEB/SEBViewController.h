@@ -82,6 +82,8 @@
 #import "SEBiOSBrowserController.h"
 #import "SEBBrowserTabViewController.h"
 
+#import "AssessmentModeManager.h"
+
 #import "SEBBatteryController.h"
 #import "ServerController.h"
 #import "SEBServerViewController.h"
@@ -93,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class SEBSessionState;
 @class AppDelegate;
+@class AssessmentConfigurationManager;
 @class SEBUIController;
 @class SEBiOSBrowserController;
 @class SEBBrowserTabViewController;
@@ -106,13 +109,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBBatteryController;
 @class ServerController;
 @class SEBServerViewController;
+@class SEBScreenProctoringController;
 @class RTCVideoTrack;
 @class RTCVideoFrame;
 
 #define SEBToolBarSearchBarIconWidth 24.0
 #define SEBToolBarSearchBarWidth 200.0
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -212,6 +216,9 @@ void run_on_ui_thread(dispatch_block_t block);
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO
+@property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
+@property(readwrite) BOOL previousSessionScreenProctoringEnabled;
+
 @property (strong, nonatomic) JitsiViewController *jitsiViewController;
 @property (strong, nonatomic) ProctoringImageAnalyzer *_Nullable proctoringImageAnalyzer API_AVAILABLE(ios(11));
 @property (readwrite) UIInterfaceOrientation userInterfaceOrientation;
@@ -228,7 +235,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(readwrite) BOOL jitsiMeetSendVideo;
 @property(readwrite) NSUInteger remoteProctoringViewShowPolicy;
 
-- (void) startProctoringWithAttributes:(NSDictionary *)attributes;
+- (void) proctoringInstructionWithAttributes:(NSDictionary *)attributes;
 - (void) reconfigureWithAttributes:(NSDictionary *)attributes;
 - (void) toggleProctoringViewVisibility;
 
@@ -350,8 +357,11 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) shouldStartLoadFormSubmittedURL:(NSURL *)url;
 - (void) didEstablishSEBServerConnection;
 
-#pragma mark - Kiosk mode
-- (void) stopAutonomousSingleAppMode;
+#pragma mark - Lockdown mode
+@property(strong, nonatomic) AssessmentModeManager *assessmentModeManager API_AVAILABLE(ios(13.4));
+@property(strong, nonatomic) AssessmentConfigurationManager *assessmentConfigurationManager;
+@property (readonly) BOOL assessmentSessionActive;
+@property (strong, nonatomic) NSArray *permittedProcesses;
 
 #pragma mark - Lockdown windows
 - (void) conditionallyOpenStartExamLockdownWindows:(NSString *)examURLString;

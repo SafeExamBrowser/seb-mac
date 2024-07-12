@@ -1,0 +1,11 @@
+framework module pngquant {
+  umbrella header "pngquant.h"
+  export *
+
+  module * { export * }
+}
+
+module pngquant.Swift {
+  header "pngquant-Swift.h"
+  requires objc
+}

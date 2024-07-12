@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-API_AVAILABLE(macos(10.15.4))
+API_AVAILABLE(macos(10.15.4), ios(13.4))
 @interface AssessmentModeManager: NSObject <AEAssessmentSessionDelegate> {
     @private
     id successCallback;
@@ -65,11 +65,12 @@ API_AVAILABLE(macos(10.15.4))
 - (instancetype)initWithCallback:(id)callback
                         selector:(SEL)selector;
 - (BOOL) beginAssessmentMode;
+- (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config;
 - (BOOL) endAssessmentModeWithCallback:(id)callback
                               selector:(SEL)selector;
 
 @property (weak) id <AssessmentModeDelegate> delegate;
-@property(strong, nonatomic, nullable) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4));
+@property(strong, nonatomic, nullable) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4), ios(13.4));
 
 @end
 

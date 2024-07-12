@@ -36,18 +36,36 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "SafeExamBrowser-Swift.h"
 
-@interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule, ApplicationsPreferencesDelegate, NSTableViewDelegate> {
 
     __weak IBOutlet NSButton *allowSwitchToApplicationsButton;
     __weak IBOutlet NSButton *allowFlashFullscreen;
+    __weak IBOutlet NSButton *chooseApplicationButton;
+    __weak IBOutlet NSStackView *executableView;
+    __weak IBOutlet NSStackView *originalNameView;
+    __weak IBOutlet NSStackView *pathView;
+    __weak IBOutlet NSStackView *argumentsView;
+    __weak IBOutlet NSButton *iconInTaskbarButton;
+    __weak IBOutlet NSButton *autostartButton;
+    __weak IBOutlet NSStackView *identifierView;
+    __weak IBOutlet NSStackView *teamIdentifierView;
+    __weak IBOutlet NSButton *networkAccessButton;
+    __weak IBOutlet NSButton *runningInBackgroundButton;
+    __weak IBOutlet NSButton *userSelectLocation;
+    __weak IBOutlet NSButton *forceQuitButton;
+    __weak IBOutlet NSPopUpButton *osPopUpButton;
+    __weak IBOutlet NSTableView *permittedProcessesTableView;
 }
 
 - (NSString *)identifier;
 - (NSImage *)image;
 
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
+- (IBAction) chooseApplication:(id)sender;
 - (void) showAlertCannotRemoveProcess;
+- (IBAction) changedOS:(id)sender;
 
 
 @end

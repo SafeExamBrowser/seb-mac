@@ -239,6 +239,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"macOS", @""),
             NSLocalizedString(@"Win", @""),
+            NSLocalizedString(@"iOS", @""),
             nil];
 }
 
@@ -246,7 +247,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 - (NSArray *) org_safeexambrowser_SEB_allowiOSBetaVersions {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"None", @""),
-            NSLocalizedString(@"iOS 17", @""),
+            NSLocalizedString(@"iOS 18", @""),
             nil];
 }
 

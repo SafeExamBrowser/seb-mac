@@ -393,6 +393,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:manuallyWithFileRequester],
                    @"chooseFileToUploadPolicy",
                    
+                   [NSNumber numberWithLong:SEBClipboardPolicySEBOnly],
+                   @"clipboardPolicy",
+                   
                    [NSData data],
                    @"configKeySalt",
                    
@@ -413,6 +416,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"detectStoppedProcess",
+                   
+                   @NO,
+                   @"disableSessionChangeLockScreen",
+                   
+                   @YES,
+                   @"displayAlwaysOn",
                    
                    @YES,
                    @"downloadAndOpenSebConfig",
@@ -437,6 +446,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"enableChromeNotifications",
+                   
+                   @YES,
+                   @"enableCursorVerification",
                    
                    @NO,
                    @"enableDrawingEditor",
@@ -471,7 +483,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableSebBrowser",
                    
-                   @YES,
+                   @NO,
                    @"enableScreenProctoring",
 
                    @YES,
@@ -748,6 +760,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"mobileEnableASAM",
                    
                    @YES,
+                   @"mobileEnableModernAAC",
+                   
+                   @YES,
                    @"mobileSleepModeLockScreen",
                    
                    @NO,
@@ -972,8 +987,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithDouble:1.0],
                    @"screenProctoringImageDownscale",
                    
-//                   @0,
-//                   @"screenProctoringImageFormat",
+                   [NSNumber numberWithLong:0],
+                   @"screenProctoringImageFormat",
 
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
@@ -1049,6 +1064,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"startURLAppendQueryParameter",
+                   
+                   @NO,
+                   @"systemAlwaysOn",
                    
                    @YES,
                    @"tabFocusesLinks",
@@ -1174,21 +1192,22 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"permittedProcesses" : @{
                       @"active" : @YES,
-                      @"allowUserToChooseApp" : @NO,
                       @"allowedExecutables" : @"",
+                      @"allowNetworkAccess" : @NO,
+                      @"allowUserToChooseApp" : @NO,
                       @"arguments" : @[],
                       @"autostart" : @NO,
                       @"description" : @"",
                       @"executable" : @"",
                       @"iconInTaskbar" : @YES,
                       @"identifier" : @"",
+                      @"teamIdentifier" : @"",
                       @"originalName" : @"",
                       @"os" : @0,
                       @"path" : @"",
                       @"runInBackground" : @NO,
                       @"strongKill" : @NO,
                       @"title" : @"",
-                      @"windowHandlingProcess" : @""
                       },
               
               @"prohibitedProcesses" : @{
@@ -1202,7 +1221,8 @@ static SEBSettings *sharedSEBSettings = nil;
                       @"originalName" : @"",
                       @"os" : @0,
                       @"strongKill" : @NO,
-                      @"user" : @""
+                      @"user" : @"",
+                      @"windowHandlingProcess" : @""
                       },
               
               @"URLFilterRules" : @{
