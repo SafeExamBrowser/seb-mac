@@ -37,10 +37,5 @@ import Foundation
         if selectedObjectIndex != 0 {
             _ = self.setSelectionIndex(selectedObjectIndex-1)
         }
-    }
-    
-    override func setSelectionIndex(_ index: Int) -> Bool {
-        prefsApplicationsViewController?.selectedPermittedProccessChanged()
-        return super.setSelectionIndex(index)
-    }
+    }    
 }

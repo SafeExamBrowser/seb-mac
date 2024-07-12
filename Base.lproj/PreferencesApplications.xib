@@ -1264,7 +1264,7 @@
                                                                                                 <binding destination="1726" name="value" keyPath="arrangedObjects.executable" id="2132"/>
                                                                                             </connections>
                                                                                         </tableColumn>
-                                                                                        <tableColumn width="225" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
+                                                                                        <tableColumn width="196" minWidth="10" maxWidth="3.4028234663852886e+38" id="1931">
                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Description">
                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
