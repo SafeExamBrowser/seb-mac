@@ -59,6 +59,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
     allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];;
+    [self updateFieldsForOS];
 }
 
 
@@ -79,6 +80,73 @@
 }
 
 
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification
+{
+    [self changedOS:self];
+}
+
+- (IBAction)changedOS:(id)sender {
+    [self updateFieldsForOS];
+}
+
+- (void) updateFieldsForOS {
+    if (permittedProcessesTableView.selectedRow != -1) {
+        NSInteger selectedOS = osPopUpButton.indexOfSelectedItem;
+        switch (selectedOS) {
+            case SEBSupportedOSmacOS:
+                chooseApplicationButton.hidden = NO;
+                executableView.hidden = NO;
+                originalNameView.hidden = YES;
+                pathView.hidden = YES;
+                argumentsView.hidden = YES;
+                iconInTaskbarButton.hidden = NO;
+                autostartButton.hidden = NO;
+                identifierView.hidden = NO;
+                teamIdentifierView.hidden = NO;
+                networkAccessButton.hidden = NO;
+                runningInBackgroundButton.hidden = YES;
+                userSelectLocation.hidden = YES;
+                forceQuitButton.hidden = NO;
+                break;
+                
+            case SEBSupportedOSWindows:
+                chooseApplicationButton.hidden = YES;
+                executableView.hidden = NO;
+                originalNameView.hidden = NO;
+                pathView.hidden = NO;
+                argumentsView.hidden = NO;
+                iconInTaskbarButton.hidden = NO;
+                autostartButton.hidden = NO;
+                identifierView.hidden = YES;
+                teamIdentifierView.hidden = YES;
+                networkAccessButton.hidden = YES;
+                runningInBackgroundButton.hidden = NO;
+                userSelectLocation.hidden = NO;
+                forceQuitButton.hidden = NO;
+                break;
+                
+            case SEBSupportedOSiOS:
+                chooseApplicationButton.hidden = NO;
+                executableView.hidden = YES;
+                originalNameView.hidden = YES;
+                pathView.hidden = YES;
+                argumentsView.hidden = YES;
+                iconInTaskbarButton.hidden = YES;
+                autostartButton.hidden = YES;
+                identifierView.hidden = NO;
+                teamIdentifierView.hidden = YES;
+                networkAccessButton.hidden = NO;
+                runningInBackgroundButton.hidden = YES;
+                userSelectLocation.hidden = YES;
+                forceQuitButton.hidden = YES;
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
 - (void) showAlertCannotRemoveProcess
 {
     NSAlert *newAlert = [[NSAlert alloc] init];
@@ -91,5 +159,17 @@
     [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 }
 
+- (IBAction)chooseApplication:(id)sender {
+    
+}
+
+
+- (void)selectedPermittedProccessChanged { 
+    
+}
+
+- (BOOL)commitEditingAndReturnError:(NSError *__autoreleasing  _Nullable * _Nullable)error { 
+    return YES;
+}
 
 @end
