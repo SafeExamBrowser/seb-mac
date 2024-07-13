@@ -68,6 +68,8 @@
     
 }
 
+@property (weak) IBOutlet PermittedProcessesArrayController *permittedProcessesArrayController;
+
 - (NSString *)identifier;
 - (NSImage *)image;
 
