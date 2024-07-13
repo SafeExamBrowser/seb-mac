@@ -137,6 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL allowDictation;
     BOOL allowDictionaryLookup;
     BOOL allowOpenAndSavePanel;
+    BOOL allowShareSheet;
     BOOL detectSIGSTOP;
     BOOL screenCapturePermissionsRequested;
     BOOL systemPreferencesOpenedForScreenRecordingPermissions;

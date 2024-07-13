@@ -37,7 +37,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView horizontalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1" userLabel="Applications Preferences">
+        <customView horizontalHuggingPriority="1000" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1" userLabel="Applications Preferences">
             <rect key="frame" x="0.0" y="0.0" width="650" height="705"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gb5-wH-yKj">
@@ -94,16 +94,16 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="38" y="57" width="604" height="612"/>
+                                                <rect key="frame" x="31" y="51" width="612" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
-                                                        <rect key="frame" x="17" y="10" width="570" height="592"/>
+                                                        <rect key="frame" x="17" y="10" width="578" height="592"/>
                                                         <subviews>
                                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIv-T7-Z8n">
-                                                                <rect key="frame" x="0.0" y="576" width="570" height="16"/>
+                                                                <rect key="frame" x="0.0" y="576" width="578" height="16"/>
                                                                 <subviews>
                                                                     <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                                                        <rect key="frame" x="-2" y="-1" width="294" height="18"/>
+                                                                        <rect key="frame" x="-2" y="-1" width="161" height="18"/>
                                                                         <string key="toolTip">When using AAC Assessment Mode, SEB blocks the macOS Open File and Save As panel. Users cannot browse the file system and open files manuall in most permitted apps with AAC Multi-App Mode.</string>
                                                                         <buttonCell key="cell" type="check" title="Allow open/save panel" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -111,12 +111,33 @@
                                                                         </buttonCell>
                                                                         <connections>
                                                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="Fg8-dm-NeA"/>
-                                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="AQv-HK-qSX"/>
                                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowOpenAndSavePanel" id="ViI-Nz-hEg"/>
+                                                                            <binding destination="110" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="0KQ-HL-fNO">
+                                                                                <dictionary key="options">
+                                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                </dictionary>
+                                                                            </binding>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="k51-pu-omV" userLabel="Allow share sheet">
+                                                                        <rect key="frame" x="167" y="-1" width="133" height="18"/>
+                                                                        <string key="toolTip">When using AAC Assessment Mode, SEB blocks the macOS share sheet. Users cannot share documents in permitted apps with AAC Multi-App Mode.</string>
+                                                                        <buttonCell key="cell" type="check" title="Allow share sheet" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2Rj-SD-rgT">
+                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="allowSwitchToApplicationsButton:" target="-2" id="4gC-Op-i8V"/>
+                                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowShareSheet" id="dBB-PS-X02"/>
+                                                                            <binding destination="110" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="2RY-Lf-MT1">
+                                                                                <dictionary key="options">
+                                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </button>
                                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-0V-1sZ">
-                                                                        <rect key="frame" x="300" y="-1" width="270" height="18"/>
+                                                                        <rect key="frame" x="308" y="-1" width="270" height="18"/>
                                                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                                                         <buttonCell key="cell" type="check" title="Allow app switching (open/debug mode)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Mf8-Fd-4KH">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -125,25 +146,23 @@
                                                                         <connections>
                                                                             <action selector="allowSwitchToApplicationsButton:" target="-2" id="LkS-RF-aX6"/>
                                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowSwitchToApplications" id="k6c-js-XZq"/>
-                                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="4TC-HE-cqw">
-                                                                                <dictionary key="options">
-                                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                                                </dictionary>
-                                                                            </binding>
+                                                                            <binding destination="110" name="hidden" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="5Mp-4Q-cCP"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <visibilityPriorities>
                                                                     <integer value="1000"/>
                                                                     <integer value="1000"/>
+                                                                    <integer value="1000"/>
                                                                 </visibilityPriorities>
                                                                 <customSpacing>
+                                                                    <real value="3.4028234663852886e+38"/>
                                                                     <real value="3.4028234663852886e+38"/>
                                                                     <real value="3.4028234663852886e+38"/>
                                                                 </customSpacing>
                                                             </stackView>
                                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-Tj-UyH">
-                                                                <rect key="frame" x="0.0" y="385" width="570" height="181"/>
+                                                                <rect key="frame" x="0.0" y="385" width="578" height="181"/>
                                                                 <subviews>
                                                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="345">
                                                                         <rect key="frame" x="0.0" y="30" width="570" height="151"/>
@@ -1230,7 +1249,7 @@
                                                                         <rect key="frame" x="0.0" y="29" width="570" height="355"/>
                                                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                                                             <rect key="frame" x="1" y="1" width="568" height="353"/>
-                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="330"/>

@@ -2588,6 +2588,7 @@ void run_on_ui_thread(dispatch_block_t block)
         allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
         allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
         allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
+        allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -7234,6 +7235,12 @@ conditionallyForWindow:(NSWindow *)window
                 // Check for running Open and Save Panel Service
                 if (!allowOpenAndSavePanel && _isAACEnabled && bundleID &&
                     [bundleID isEqualToString:openAndSavePanelServiceBundleID]) {
+                    [self killApplication:startedApplication];
+                }
+                
+                // Check for Share Sheet UI
+                if (!allowShareSheet && _isAACEnabled && bundleID &&
+                    [bundleID isEqualToString:shareSheetBundleID]) {
                     [self killApplication:startedApplication];
                 }
                 

@@ -259,6 +259,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowQuit",
                    
                    @NO,
+                   @"allowShareSheet",
+                   
+                   @NO,
                    @"allowScreenCapture",
                    
                    @NO,
