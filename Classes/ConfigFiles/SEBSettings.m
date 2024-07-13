@@ -241,6 +241,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowMacOSVersionNumberPatch",
                    
                    @NO,
+                   @"allowOpenAndSavePanel",
+                   
+                   @NO,
                    @"allowPDFPlugIn",
                    
                    @NO,

@@ -2587,6 +2587,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
         allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
+        allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -7229,6 +7230,13 @@ conditionallyForWindow:(NSWindow *)window
                 } else {
                     DDLogDebug(@"Started application with bundle ID: %@", bundleID);
                 }
+                
+                // Check for running Open and Save Panel Service
+                if (!allowOpenAndSavePanel && _isAACEnabled && bundleID &&
+                    [bundleID isEqualToString:openAndSavePanelServiceBundleID]) {
+                    [self killApplication:startedApplication];
+                }
+                
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {

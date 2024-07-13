@@ -39,5 +39,18 @@ import Foundation
         if selectedObjectIndex != 0 {
             _ = self.setSelectionIndex(selectedObjectIndex-1)
         }
-    }    
+    }
+    
+    @objc public func addApp(bundle: Bundle) {
+        var newPermittedProcess: NSDictionary
+        newPermittedProcess = newObject() as! NSDictionary
+        let bundleID = bundle.bundleIdentifier
+        let infoDictionary = bundle.infoDictionary
+        let appName = bundle.object(forInfoDictionaryKey: "CFBundleDisplayName")
+        let executable = bundle.object(forInfoDictionaryKey: "CFBundleExecutable")
+        newPermittedProcess.setValue(bundleID, forKey: "identifier")
+        newPermittedProcess.setValue(appName, forKey: "title")
+        newPermittedProcess.setValue(executable, forKey: "executable")
+        addObject(newPermittedProcess)
+    }
 }
