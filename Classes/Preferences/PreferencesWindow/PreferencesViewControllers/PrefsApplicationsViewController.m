@@ -196,11 +196,23 @@
 }
 
 
-- (void)selectedPermittedProccessChanged { 
-    
+- (void)selectedPermittedProccessChanged
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->permittedProcessesTableView scrollRowToVisible:self->permittedProcessesTableView.selectedRow];
+    });
 }
+ 
 
-- (BOOL)commitEditingAndReturnError:(NSError *__autoreleasing  _Nullable * _Nullable)error { 
+- (void)selectedProhibitedProccessChanged
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->prohibitedProcessesTableView scrollRowToVisible:self->prohibitedProcessesTableView.selectedRow];
+    });
+}
+ 
+
+- (BOOL)commitEditingAndReturnError:(NSError *__autoreleasing  _Nullable * _Nullable)error {
     return YES;
 }
 

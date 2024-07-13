@@ -28,6 +28,7 @@
     [super addObject:object];
     [self removeSelectedObjects:self.selectedObjects];
     [self setSelectedObjects:@[object]];
+    [self.prefsApplicationViewController selectedProhibitedProccessChanged];
 }
 
 - (void) remove:(id)sender

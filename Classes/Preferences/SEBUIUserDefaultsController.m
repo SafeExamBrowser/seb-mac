@@ -244,6 +244,14 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_operatingSystemsMacWin {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"macOS", @""),
+            NSLocalizedString(@"Win", @""),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_allowiOSBetaVersions {
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"None", @""),
