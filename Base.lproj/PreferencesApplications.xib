@@ -93,7 +93,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="17" y="39" width="604" height="612"/>
+                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -892,9 +892,8 @@
                                                                                                                 </binding>
                                                                                                             </connections>
                                                                                                         </textField>
-                                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
+                                                                                                        <textField toolTip="Bundle identifier of the app/process in reverse domain notation" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
                                                                                                             <rect key="frame" x="62" y="0.0" width="297" height="21"/>
-                                                                                                            <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="21" id="NLy-Zx-d3f"/>
                                                                                                             </constraints>
@@ -977,9 +976,8 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-V9-Us6">
+                                                                                                <textField toolTip="Team identifier of the app's code signature" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-V9-Us6">
                                                                                                     <rect key="frame" x="57" y="0.0" width="297" height="21"/>
-                                                                                                    <string key="toolTip">Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)</string>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="21" id="gKw-Eh-tnC"/>
                                                                                                     </constraints>
@@ -1183,7 +1181,7 @@
                                         </tabViewItem>
                                         <tabViewItem label="Prohibited Processes" identifier="2" id="241">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="242">
-                                                <rect key="frame" x="17" y="39" width="604" height="607"/>
+                                                <rect key="frame" x="24" y="45" width="604" height="607"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-AJ-1Zf">
                                                         <rect key="frame" x="17" y="10" width="570" height="590"/>
@@ -1241,7 +1239,7 @@
                                                                                                 </menu>
                                                                                                 <connections>
                                                                                                     <action selector="prohibitedProcessChangedOS:" target="-2" id="u4I-yh-S6C"/>
-                                                                                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1940"/>
+                                                                                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystemsMacWin" id="NYl-QB-Ilr"/>
                                                                                                 </connections>
                                                                                             </popUpButtonCell>
                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
@@ -1571,8 +1569,8 @@
                                                                                                     <accessibility description="Select operating system"/>
                                                                                                     <connections>
                                                                                                         <action selector="prohibitedProcessChangedOS:" target="-2" id="I7T-KR-2EL"/>
-                                                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1956"/>
-                                                                                                        <binding destination="1726" name="selectedIndex" keyPath="selection.os" previousBinding="1956" id="1957">
+                                                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystemsMacWin" id="XYF-iH-PjK"/>
+                                                                                                        <binding destination="1726" name="selectedIndex" keyPath="selection.os" previousBinding="XYF-iH-PjK" id="jcS-dr-q0S">
                                                                                                             <dictionary key="options">
                                                                                                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                                                                 <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -1611,7 +1609,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                                                                <textField toolTip="Identifier of the process in reverse domain notation" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                                                                     <rect key="frame" x="62" y="0.0" width="333" height="21"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="333" id="1iF-3H-SjL"/>

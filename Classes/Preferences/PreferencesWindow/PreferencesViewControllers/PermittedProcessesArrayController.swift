@@ -11,6 +11,7 @@ import Foundation
 
 @objc public protocol ApplicationsPreferencesDelegate: AnyObject {
     func selectedPermittedProccessChanged()
+    func selectedProhibitedProccessChanged()
 }
 
 @objc class PermittedProcessesArrayController: NSArrayController {
@@ -29,6 +30,7 @@ import Foundation
         super.addObject(object)
         self.removeSelectedObjects(self.selectedObjects)
         self.setSelectedObjects([object])
+        self.prefsApplicationsViewController?.selectedPermittedProccessChanged()
     }
     
     override func remove(_ sender: Any?) {

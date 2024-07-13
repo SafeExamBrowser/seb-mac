@@ -10,8 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 @interface ProhibitedProcessesArrayController : NSArrayController
-@property (weak) IBOutlet PrefsApplicationsViewController *prefsApplicationViewController;
+@property (weak) IBOutlet PrefsApplicationsViewController <ApplicationsPreferencesDelegate> *prefsApplicationViewController;
 
 @end
 

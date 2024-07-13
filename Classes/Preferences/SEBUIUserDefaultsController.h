@@ -76,4 +76,6 @@
 
 - (NSArray *) org_safeexambrowser_SEB_operatingSystems;
 
+- (NSArray *) org_safeexambrowser_SEB_operatingSystemsMacWin;
+
 @end
