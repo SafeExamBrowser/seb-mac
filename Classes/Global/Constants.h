@@ -564,6 +564,7 @@ static NSString __unused *lookupQuicklookHelperBundleID = @"com.apple.quicklook.
 static NSString __unused *lookupViewService = @"LookupViewService";
 static NSString __unused *lookupViewServiceBundleID = @"com.apple.LookupViewService";
 static NSString __unused *openAndSavePanelServiceBundleID = @"com.apple.appkit.xpc.openAndSavePanelService";
+static NSString __unused *shareSheetBundleID = @"com.apple.sharing.ShareSheetUI";
 static NSString __unused *FinderBundleID = @"com.apple.finder";
 static NSString __unused *XcodeBundleID = @"com.apple.dt.Xcode";
 static NSString __unused *SiriService = @"SiriNCService";
