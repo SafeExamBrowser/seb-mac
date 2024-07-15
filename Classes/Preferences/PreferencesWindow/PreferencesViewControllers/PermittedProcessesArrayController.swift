@@ -45,9 +45,11 @@ import Foundation
         var newPermittedProcess: NSDictionary
         newPermittedProcess = newObject() as! NSDictionary
         let bundleID = bundle.bundleIdentifier
-        let infoDictionary = bundle.infoDictionary
-        let appName = bundle.object(forInfoDictionaryKey: "CFBundleDisplayName")
+        var appName = bundle.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
         let executable = bundle.object(forInfoDictionaryKey: "CFBundleExecutable")
+        if (appName ?? "").isEmpty {
+            appName = executable as? String
+        }
         newPermittedProcess.setValue(bundleID, forKey: "identifier")
         newPermittedProcess.setValue(appName, forKey: "title")
         newPermittedProcess.setValue(executable, forKey: "executable")

@@ -64,6 +64,8 @@ conditionallyForWindow:(NSWindow *)window
 @property (readwrite, nonatomic) dispatch_source_t processWatchTimer;
 @property (readwrite) BOOL windowOpen;
 @property (readwrite) BOOL autoQuitApplications;
+@property (readwrite) BOOL starting;
+@property (readwrite) BOOL restarting;
 
 @property (weak, nonatomic) id callback;
 @property (readwrite, nonatomic) SEL selector;
