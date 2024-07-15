@@ -1925,6 +1925,20 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
+    NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+    NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
+    
+    [self terminateApplications:prohibitedRunningApplications processes:prohibitedRunningBSDProcesses starting:YES restarting:NO callback:callback selector:selector];
+}
+
+
+- (void) terminateApplications:(NSArray *)prohibitedRunningApplications
+                     processes:(NSArray *)prohibitedRunningBSDProcesses
+                      starting:(BOOL)starting
+                    restarting:(BOOL)restarting
+                      callback:(id)callback
+                      selector:(SEL)selector
+{
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
@@ -1932,14 +1946,13 @@ bool insideMatrix(void);
     NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
     
-    NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
     if (_isAACEnabled) {
         NSArray *permittedRunningApplications = [ProcessManager sharedProcessManager].permittedRunningApplications;
         if (permittedRunningApplications && permittedRunningApplications.count > 0) {
+            DDLogInfo(@"AAC is active and there are permitted applications for AAC Multi-App Mode (which will be added to the list of apps to be quit before %@ the exam session): %@", starting ? @"starting" : @"ending", permittedRunningApplications);
             prohibitedRunningApplications = [prohibitedRunningApplications arrayByAddingObjectsFromArray:permittedRunningApplications];
         }
     }
-    NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
     
     // Check if any prohibited processes are running
@@ -1953,13 +1966,15 @@ bool insideMatrix(void);
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
             NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
             if (matchingProhibitedApplications.count != 0) {
+                DDLogInfo(@"This %@ application is running and has to be quit first before %@ the exam session: %@", starting ? @"not allowed" : @"permitted", starting ? @"starting" : @"ending", matchingProhibitedApplications);
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
-                if (appURL) {
+                if (appURL && starting) {
                     // Add the app's file URL, so we can restart it when exiting SEB
                     [_terminatedProcessesExecutableURLs addObject:appURL];
                 }
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithIdentifier:bundleID];
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
+                    DDLogInfo(@"Settings allow to force terminate this running application: %@", runningApplication);
                     if (![runningApplication kill]) {
                         [runningApplications addObject:runningApplication];
                     }
@@ -1976,6 +1991,7 @@ bool insideMatrix(void);
             NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
             if (filteredProcesses.count != 0) {
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
+                DDLogInfo(@"This not allowed process is running and has to terminated before %@ the exam session: %@", starting ? @"starting" : @"ending", prohibitedProcess);
                 if ([prohibitedProcess[@"strongKill"] boolValue] == YES) {
                     if (![NSRunningApplication killProcessWithPID:processPID error:nil]) {
                         [runningProcesses addObject:process];
@@ -2001,7 +2017,9 @@ bool insideMatrix(void);
             self.processListViewController.runningProcesses = runningProcesses;
             self.processListViewController.callback = callback;
             self.processListViewController.selector = selector;
-            
+            self.processListViewController.starting = starting;
+            self.processListViewController.restarting = restarting;
+
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             NSWindow *runningProcessesListWindow;
@@ -2022,7 +2040,11 @@ bool insideMatrix(void);
                 return;
             }
         } else {
-            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+            if (starting) {
+                [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+            } else {
+                [self sessionQuitRestartContinue:restarting];
+            }
         }
     });
 }
@@ -2429,7 +2451,25 @@ bool insideMatrix(void);
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
                     self.assessmentModeManager = assessmentModeManager;
                     self.assessmentModeManager.delegate = self;
-                    AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:[ProcessManager sharedProcessManager].permittedProcesses];
+                    NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+                    AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:permittedProcesses];
+                    if (@available(macOS 12.0, *)) {
+                        if (permittedProcesses.count > 0 &&
+                            configuration.configurationsByApplication.count != permittedProcesses.count) {
+                            // Not all permitted applications were found or could be started, inform user and quit
+                            DDLogError(@"Some permitted apps were not available, SEB will quit");
+                            [self showModalQuitAlertTitle:NSLocalizedString(@"Additional Applications Not Available", @"")
+                                                     text:[NSString stringWithFormat:@"%@\n%@\n%@", NSLocalizedString(@"This exam session requires the following additional applications to be available:", @""), [permittedProcesses valueForKeyPath:@"title"] , [NSString stringWithFormat:NSLocalizedString(@"%@ will quit now, install the required apps and then restart this exam.", @""), SEBShortAppName]]];
+                            return;
+                        }
+                        if (permittedProcesses.count > 0 &&
+                            ![self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses]) {
+                            DDLogError(@"Could not remove saved window state for permitted apps, SEB will quit");
+                            [self showModalQuitAlertTitle:NSLocalizedString(@"Could Not Access Data of Additional Apps", @"")
+                                                     text:[NSString stringWithFormat:NSLocalizedString(@"This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time.", @""), SEBShortAppName, SEBShortAppName, SEBShortAppName]];
+                            return;
+                        }
+                    }
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector];
                     }
@@ -6709,7 +6749,19 @@ conditionallyForWindow:(NSWindow *)window
 - (void) sessionQuitRestart:(BOOL)restart
 {
     _openingSettings = NO;
-    
+
+    // In case of AAC Multi-App Mode, we have to terminate running permitted applications
+    [self terminateApplications:@[] processes:@[] starting:NO restarting:restart callback:self selector:nil];
+}
+
+- (void) sessionQuitRestartContinue:(BOOL)restart
+{
+    NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+    if (permittedProcesses.count > 0) {
+        BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
+        DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
+    }
+
     [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
         [self didCloseSEBServerConnectionRestart:restart];
     }];
@@ -7281,10 +7333,16 @@ conditionallyForWindow:(NSWindow *)window
 - (void)closeProcessListWindowWithCallback:(id)callback selector:(SEL)selector
 {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    BOOL starting = self.processListViewController.starting;
+    BOOL restarting = self.processListViewController.restarting;
     [self closeProcessListWindow];
     // Continue to initializing SEB and then starting the exam session
     if (callback) {
-        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+        if (starting) {
+            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+        } else {
+            [self sessionQuitRestartContinue:restarting];
+        }
     }
 }
 
