@@ -2741,6 +2741,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
     [modalAlert setAlertStyle:NSAlertStyleCritical];
     void (^quitAlertConfirmed)(NSModalResponse) = ^void (NSModalResponse answer) {
+        DDLogDebug(@"%s: %@: NSModalResponse: %ld", __FUNCTION__, title, (long)answer);
         [self removeAlertWindow:modalAlert.window];
         [self requestedExit:nil]; // Quit SEB
     };
