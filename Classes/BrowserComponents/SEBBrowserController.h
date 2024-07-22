@@ -140,6 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void) openDownloadedFile:(NSString *)path;
+- (NSURL *) getTempDownUploadDirectory;
+- (BOOL) removeTempDownUploadDirectory;
 
 @end
 
@@ -149,6 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
     @private
     
     BOOL examSessionCookiesAlreadyCleared;
+    NSURL *downloadDirectoryURL;
     NSURL *downloadedSEBConfigDataURL;
     NSString *cachedConfigFileName;
     NSURL *cachedDownloadURL;

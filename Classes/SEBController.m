@@ -7347,4 +7347,16 @@ conditionallyForWindow:(NSWindow *)window
     }
 }
 
+
+- (NSURL *) getTempDownUploadDirectory
+{
+    return [self.systemManager getTempDownUploadDirectory];
+}
+
+- (BOOL) removeTempDownUploadDirectory
+{
+    return [self.systemManager removeTempDownUploadDirectory];
+}
+
+
 @end

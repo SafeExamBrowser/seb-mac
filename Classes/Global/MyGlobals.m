@@ -159,6 +159,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
+- (void)setDownloadPath:(NSMutableArray *)downloadPath
+{
+    [[NSUserDefaults standardUserDefaults] setPersistedSecureObject:downloadPath forKey:DownloadPathsKey];
+}
+
+- (NSMutableArray *)downloadPath
+{
+    return [[NSUserDefaults standardUserDefaults] persistedSecureObjectForKey:DownloadPathsKey];
+}
+
 // Read Info.plist values from bundle
 - (id)infoValueForKey:(NSString*)key
 {
