@@ -764,6 +764,18 @@
 }
 
 
+- (NSURL *) getTempDownUploadDirectory
+{
+    return [_sebController getTempDownUploadDirectory];
+}
+
+
+- (BOOL) removeTempDownUploadDirectory
+{
+    return [_sebController removeTempDownUploadDirectory];
+}
+
+
 #pragma mark Downloading SEB Config Files
 
 // Check if reconfiguring from exam or secure mode is allowed

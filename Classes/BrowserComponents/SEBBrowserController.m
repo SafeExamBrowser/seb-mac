@@ -122,8 +122,29 @@ void run_block_on_ui_thread(dispatch_block_t block)
     newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"];
     _allowUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowUploads"];
+    [self setDownloadDirectory];
 }
 
+
+- (void)setDownloadDirectory
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+#if TARGET_OS_OSX
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"]) {
+        downloadDirectoryURL = [self.delegate getTempDownUploadDirectory];
+    } else {
+        NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+        if (downloadPath.length == 0) {
+            //if there's no path saved in preferences, set standard path
+            downloadPath = @"~/Downloads";
+        }
+        downloadPath = [downloadPath stringByExpandingTildeInPath];
+        downloadDirectoryURL = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
+    }
+#else
+    downloadDirectoryURL = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+#endif
+}
 
 - (BOOL)isNavigationAllowedMainWebView:(BOOL)mainWebView
 {
@@ -170,6 +191,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 {
     self.downloadingInTemporaryWebView = NO;
     self.temporaryWebView = nil;
+    [self.delegate removeTempDownUploadDirectory];
     [[MyGlobals sharedMyGlobals] setDownloadPath:[NSMutableArray new]];
     [[MyGlobals sharedMyGlobals] setLastDownloadPath:0];
 
@@ -1212,18 +1234,7 @@ static NSString *urlStrippedFragment(NSURL* url)
 
 - (NSURL *) downloadPathURL
 {
-#if TARGET_OS_OSX
-    NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    if (downloadPath.length == 0) {
-        //if there's no path saved in preferences, set standard path
-        downloadPath = @"~/Downloads";
-    }
-    downloadPath = [downloadPath stringByExpandingTildeInPath];
-    NSURL *directory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
-#else
-    NSURL *directory = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-#endif
-    return directory;
+    return downloadDirectoryURL;
 }
 
 

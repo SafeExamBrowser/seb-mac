@@ -379,6 +379,9 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) requestedExit:(NSNotification *_Nullable)notification;
 
+- (NSURL *) getTempDownUploadDirectory;
+- (BOOL) removeTempDownUploadDirectory;
+
 @end
 
 NS_ASSUME_NONNULL_END

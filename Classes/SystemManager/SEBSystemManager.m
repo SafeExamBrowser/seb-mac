@@ -132,6 +132,35 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
+// Create a new random directory name
+- (NSString *)createTemporaryDirectory
+{
+    NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+    unsigned char hashedChars[32];
+    [randomData getBytes:hashedChars length:32];
+    NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
+    for (int i = 0 ; i < 32 ; ++i) {
+        [randomHexString appendFormat: @"%02x", hashedChars[i]];
+    }
+    
+    // Create the folder
+//    scTempPath = [randomHexString copy];
+    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
+        if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
+            DDLogError(@"Error: Creating folder failed %@", scFullPath);
+            // As a fallback just use the temp directory
+            scFullPath = NSTemporaryDirectory();
+        }
+    } else {
+        return [self createTemporaryDirectory];
+    }
+    return scFullPath;
+}
+
+
 - (void) preventScreenCapture
 {
     // On OS X 10.10 and later it's not necessary to redirect and delete screenshots,
@@ -147,7 +176,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     /// Check if there is a redirected sc location persistently stored
     /// What only happends when it couldn't be reset last time SEB has run
     
-    scTempPath = [self getStoredNewScreenCaptureLocation];
+    scTempPath = [self getStoredDirectoryLocationWithKey:@"newDestination"];
     if (scTempPath.length > 0) {
         
         /// There is a redirected location saved
@@ -158,7 +187,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             DDLogDebug(@"Removing persitantly saved redirected screencapture directory %@ worked.", scTempPath);
         }
         // Reset the redirected location
-        [preferences setSecureString:@"" forKey:@"newDestination"];
+        [preferences setPersistedSecureObject:@"" forKey:@"newDestination"];
         // Get the original location
         scLocation = [preferences secureStringForKey:@"currentDestination"];
         if (scLocation.length == 0) {
@@ -190,26 +219,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         [preferences setSecureString:scLocation forKey:@"currentDestination"];
         
         // Create a new random directory name
-        NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-        unsigned char hashedChars[32];
-        [randomData getBytes:hashedChars length:32];
-        NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
-        for (int i = 0 ; i < 32 ; ++i) {
-            [randomHexString appendFormat: @"%02x", hashedChars[i]];
-        }
-        
-        // Create the folder
-        scTempPath = [randomHexString copy];
-        NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
-        BOOL isDir;
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
-            if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-                DDLogError(@"Error: Creating folder failed %@", scFullPath);
-                // As a fallback just use the temp directory
-                scFullPath = NSTemporaryDirectory();
-            }
-        }
+        NSString * scFullPath = [self createTemporaryDirectory];
         
         // Restore original SC path and verify the new location
         [self changeAndVerifyScreenCaptureLocation:scFullPath];
@@ -248,7 +258,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
             // Remove temporary directory
             if ([self removeTempDirectory:scTempPath]) {
                 NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                [preferences setSecureString:@"" forKey:@"newDestination"];
+                [preferences setPersistedSecureObject:@"" forKey:@"newDestination"];
                 DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
                 return YES;
             } else {
@@ -299,10 +309,10 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 
 // Get stored redirected screencapture location
-- (NSString *) getStoredNewScreenCaptureLocation
+- (NSString *) getStoredDirectoryLocationWithKey:(NSString *)key
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *storedSCPath = [preferences secureStringForKey:@"newDestination"];
+    NSString *storedSCPath = [preferences persistedSecureObjectForKey:key];
     // We perform this check for security reasons...
     if ([storedSCPath hasPrefix:@"../"]) {
         storedSCPath = nil;
@@ -320,7 +330,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Read names of possible files contained in the temp sc directory
         NSArray *filesInTempDir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:fullTempPath error:&error];
-        DDLogDebug(@"Contents of the redirected sc directory: %@ or error when reading: %@", filesInTempDir, error.description);
+        DDLogDebug(@"Contents of the temporary directory: %@ or error when reading: %@", filesInTempDir, error.description);
         
         [[NSFileManager defaultManager] removeItemAtPath:fullTempPath error:&error];
         return error == nil;
@@ -346,7 +356,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         scTempPath = @"";
     }
     // Store scTempPath persistantly
-    [[NSUserDefaults standardUserDefaults] setSecureString:scTempPath forKey:@"newDestination"];
+    [[NSUserDefaults standardUserDefaults] setPersistedSecureObject:scTempPath forKey:@"newDestination"];
 }
 
 
@@ -363,6 +373,47 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     }
     return true;
 }
+
+
+- (NSURL *) getTempDownUploadDirectory
+{
+    /// Check if there is a temporary down/upload directory location persistently stored
+    /// What only happends when it couldn't be reset last time SEB has run
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    downUploadTempPath = [self getStoredDirectoryLocationWithKey:TempDownUploadLocation];
+    if (downUploadTempPath.length > 0) {
+        
+        /// There is a redirected location saved
+        DDLogWarn(@"There was a persistently saved temporary down/upload directory location (%@). Looks like SEB didn't quit properly when running last time.", downUploadTempPath);
+        
+    } else {
+        
+        /// No temporary down/upload directory location was persistently saved
+        
+        // Get current screencapture location
+        downUploadTempPath = [self createTemporaryDirectory];
+        [preferences setPersistedSecureObject:downUploadTempPath forKey:TempDownUploadLocation];
+        DDLogDebug(@"Current temporary down/upload directory location: %@", downUploadTempPath);
+    }
+    
+    return [NSURL fileURLWithPath:downUploadTempPath isDirectory:YES];;
+}
+
+
+- (BOOL) removeTempDownUploadDirectory
+{
+    // Remove temporary directory
+    if ([self removeTempDirectory:downUploadTempPath]) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        [preferences setPersistedSecureObject:@"" forKey:TempDownUploadLocation];
+        DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
+        return YES;
+    } else {
+        DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
+        return NO;
+    }
+}
+
 
 Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port)
 // Returns the current HTTPS proxy settings as a C string
