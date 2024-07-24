@@ -40,9 +40,9 @@
         <note>Class = "NSButtonCell"; title = "Override checking for dictation"; ObjectID = "7xF-1g-PGT";</note>
       </trans-unit>
       <trans-unit id="8GV-gd-2lK.title" xml:space="preserve">
-        <source>Edit Duplicate</source>
+        <source>Create Exam Settings</source>
         <target>Duplikat bearbeiten</target>
-        <note>Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "8GV-gd-2lK";</note>
+        <note>Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "8GV-gd-2lK";</note>
       </trans-unit>
       <trans-unit id="9NP-zj-EeW.title" xml:space="preserve">
         <source>Revert to Client Settings</source>
@@ -440,9 +440,9 @@
         <note>Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "XL9-tP-eEk";</note>
       </trans-unit>
       <trans-unit id="YC0-l9-3YS.title" xml:space="preserve">
-        <source>Edit Duplicate</source>
+        <source>Create Exam Settings</source>
         <target>Duplikat bearbeiten</target>
-        <note>Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "YC0-l9-3YS";</note>
+        <note>Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "YC0-l9-3YS";</note>
       </trans-unit>
       <trans-unit id="YeX-5O-huE.title" xml:space="preserve">
         <source>Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center.</source>
@@ -2348,9 +2348,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Create duplicate of current settings for editing"; ObjectID = "1165";</note>
       </trans-unit>
       <trans-unit id="1166.title" xml:space="preserve">
-        <source>Edit Duplicate</source>
+        <source>Create Exam Settings</source>
         <target>Duplikat bearbeiten</target>
-        <note>Class = "NSButtonCell"; title = "Edit Duplicate"; ObjectID = "1166";</note>
+        <note>Class = "NSButtonCell"; title = "Create Exam Settings"; ObjectID = "1166";</note>
       </trans-unit>
       <trans-unit id="1174.title" xml:space="preserve">
         <source>Configuration Editing:</source>

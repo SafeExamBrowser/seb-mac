@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,7 +31,7 @@
                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
                                     <rect key="frame" x="0.0" y="15" width="355" height="60"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                                        <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
                                             <rect key="frame" x="-2" y="44" width="147" height="16"/>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use configuration for ..." usesSingleLineMode="YES" id="239">
                                                 <font key="font" metaFont="system"/>
@@ -146,7 +145,7 @@
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-u1-aHh">
                             <rect key="frame" x="0.0" y="225" width="434" height="56"/>
                             <subviews>
-                                <textField verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
+                                <textField focusRingType="none" verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                                     <rect key="frame" x="-2" y="38" width="438" height="18"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity certificate to be used for encrypting SEB settings file ..." usesSingleLineMode="YES" id="75">
                                         <font key="font" metaFont="system"/>
@@ -168,7 +167,7 @@
                                     </popUpButtonCell>
                                     <accessibility description="Choose identity certificate to be used for encrypting SEB settings file"/>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
                                     <rect key="frame" x="-2" y="0.0" width="308" height="14"/>
                                     <string key="toolTip">If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
                                     <constraints>
@@ -203,7 +202,7 @@
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="naq-c2-eME">
                                     <rect key="frame" x="193" y="43" width="419" height="22"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
+                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
                                             <rect key="frame" x="-2" y="3" width="116" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
                                                 <font key="font" metaFont="system"/>
@@ -211,7 +210,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" focusRingType="none" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                             <rect key="frame" x="119" y="1" width="300" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
@@ -250,7 +249,7 @@
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-7P-OVb">
                                     <rect key="frame" x="141" y="18" width="471" height="21"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
+                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
                                             <rect key="frame" x="-2" y="3" width="167" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
                                                 <font key="font" metaFont="system"/>
@@ -258,7 +257,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                                        <secureTextField toolTip="Retype the settings password" focusRingType="none" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                             <rect key="frame" x="171" y="0.0" width="300" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="81y-1l-6VD"/>
@@ -294,7 +293,7 @@
                                         <real value="3.4028234663852886e+38"/>
                                     </customSpacing>
                                 </stackView>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
                                     <rect key="frame" x="407" y="0.0" width="207" height="14"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
                                         <font key="font" metaFont="message" size="11"/>
@@ -329,13 +328,13 @@
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-ZV-2zp">
                             <rect key="frame" x="-2" y="113" width="191" height="16"/>
                             <string key="toolTip">Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action</string>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="14" id="s9Z-Gc-JTb"/>
-                            </constraints>
                             <buttonCell key="cell" type="check" title="Allow QR code config (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="53p-kc-87m">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="s9Z-Gc-JTb"/>
+                            </constraints>
                             <connections>
                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
                             </connections>
@@ -346,7 +345,7 @@
                                 <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="s3a-rg-MhB">
                                     <rect key="frame" x="0.0" y="0.0" width="191" height="98"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
                                             <rect key="frame" x="-2" y="84" width="119" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Configuration Editing:" usesSingleLineMode="YES" id="1174">
                                                 <font key="font" metaFont="message" size="11"/>
@@ -430,7 +429,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YUG-9w-qce">
                                     <rect key="frame" x="211" y="0.0" width="190" height="98"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
                                             <rect key="frame" x="-2" y="84" width="107" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Revert Settings to…" usesSingleLineMode="YES" id="1120">
                                                 <font key="font" metaFont="message" size="11"/>
@@ -502,7 +501,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="RaO-Jh-GiT">
                                     <rect key="frame" x="421" y="0.0" width="191" height="98"/>
                                     <subviews>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
+                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
                                             <rect key="frame" x="-2" y="84" width="137" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use Current Settings to…" usesSingleLineMode="YES" id="1190">
                                                 <font key="font" metaFont="message" size="11"/>
@@ -512,12 +511,12 @@
                                         </textField>
                                         <button toolTip="Create duplicate of current settings for editing" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1165">
                                             <rect key="frame" x="-7" y="49" width="205" height="32"/>
-                                            <buttonCell key="cell" type="push" title="Edit Duplicate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1166">
+                                            <buttonCell key="cell" type="push" title="Create Exam Settings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1166">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="editDuplicate:" target="-2" id="1361"/>
+                                                <action selector="createExamSettings:" target="-2" id="1361"/>
                                                 <outlet property="nextKeyView" destination="1157" id="bAk-TC-bEV"/>
                                             </connections>
                                         </button>

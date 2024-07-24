@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -60,12 +60,33 @@
                                     </connections>
                                 </button>
                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1iI-oF-4xZ">
-                                    <rect key="frame" x="0.0" y="115" width="610" height="40"/>
+                                    <rect key="frame" x="0.0" y="46" width="610" height="109"/>
                                     <subviews>
+                                        <button toolTip="Create a temporary directory for downloading and uploading files, which is removed when quitting a session" translatesAutoresizingMaskIntoConstraints="NO" id="i3z-E8-xzq">
+                                            <rect key="frame" x="359" y="93" width="251" height="16"/>
+                                            <buttonCell key="cell" type="check" title="Use temporary down/upload directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hy0-QR-C17">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                                <string key="toolTip">A temporary directory is created and used as the download and upload folder.
+It is deleted when the session ends</string>
+                                            </buttonCell>
+                                            <connections>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="oT4-ol-lFe"/>
+                                                <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="oT4-ol-lFe" id="MYu-Wl-jLN">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                        <integer key="NSNullPlaceholder" value="-1"/>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" id="H2L-bL-qEt"/>
+                                            </connections>
+                                        </button>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xOU-lf-1Wq">
-                                            <rect key="frame" x="147" y="20" width="463" height="20"/>
+                                            <rect key="frame" x="147" y="67" width="463" height="20"/>
                                             <subviews>
-                                                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                                                <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                                                     <rect key="frame" x="-2" y="4" width="159" height="16"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save downloaded files to:" usesSingleLineMode="YES" id="23">
                                                         <font key="font" metaFont="system"/>
@@ -78,9 +99,6 @@
                                                 </textField>
                                                 <popUpButton toolTip="Choose download directory" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                     <rect key="frame" x="160" y="-4" width="307" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="248"/>
-                                                    </constraints>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                         <font key="font" metaFont="menu"/>
@@ -96,9 +114,21 @@
                                                             </items>
                                                         </menu>
                                                     </popUpButtonCell>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="248"/>
+                                                    </constraints>
                                                     <accessibility description="Save downloaded files to directory"/>
                                                     <connections>
                                                         <action selector="chooseDirectory:" target="-2" id="59"/>
+                                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" previousBinding="rdu-tB-pre" id="rU4-F4-hdX">
+                                                            <dictionary key="options">
+                                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                            </dictionary>
+                                                        </binding>
                                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
                                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="172" id="rdu-tB-pre">
                                                             <dictionary key="options">
@@ -121,7 +151,7 @@
                                             </customSpacing>
                                         </stackView>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
-                                            <rect key="frame" x="438" y="-1" width="172" height="16"/>
+                                            <rect key="frame" x="438" y="46" width="172" height="16"/>
                                             <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)</string>
                                             <buttonCell key="cell" type="check" title="Open files after downloading" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="39">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -140,44 +170,71 @@
                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_openDownloads" id="175"/>
                                             </connections>
                                         </button>
-                                    </subviews>
-                                    <visibilityPriorities>
-                                        <integer value="1000"/>
-                                        <integer value="1000"/>
-                                    </visibilityPriorities>
-                                    <customSpacing>
-                                        <real value="3.4028234663852886e+38"/>
-                                        <real value="3.4028234663852886e+38"/>
-                                    </customSpacing>
-                                </stackView>
-                                <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsz-yE-Riy">
-                                    <rect key="frame" x="0.0" y="46" width="610" height="61"/>
-                                    <subviews>
-                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-6D-gM9">
-                                            <rect key="frame" x="121" y="40" width="489" height="21"/>
+                                        <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsz-yE-Riy">
+                                            <rect key="frame" x="121" y="0.0" width="489" height="41"/>
                                             <subviews>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
-                                                    <rect key="frame" x="-2" y="3" width="185" height="16"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Download directory Windows:" id="24Q-1c-lTs">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
-                                                    <rect key="frame" x="189" y="0.0" width="300" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="300" id="zmv-ZO-ixQ"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="e6e-se-efm">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
+                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-6D-gM9">
+                                                    <rect key="frame" x="0.0" y="20" width="489" height="21"/>
+                                                    <subviews>
+                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
+                                                            <rect key="frame" x="-2" y="3" width="185" height="16"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Download directory Windows:" id="24Q-1c-lTs">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
+                                                            <rect key="frame" x="189" y="0.0" width="300" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="300" id="zmv-ZO-ixQ"/>
+                                                            </constraints>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="e6e-se-efm">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <accessibilityConnection property="title" destination="eP3-ce-aHz" id="bkt-a1-1Ov"/>
+                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="kgy-uo-RAb"/>
+                                                                <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="kgy-uo-RAb" id="Rqk-Uk-qdf">
+                                                                    <dictionary key="options">
+                                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                                        <integer key="NSNullPlaceholder" value="-1"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadDirectoryWin" id="hwS-Qy-pF2">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                                                        <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="GVV-cO-HOP">
+                                                    <rect key="frame" x="170" y="-1" width="319" height="16"/>
+                                                    <string key="toolTip">When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</string>
+                                                    <buttonCell key="cell" type="check" title="Allow user to select custom down/upload directory (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="I9g-6o-a5B">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="message" size="11"/>
+                                                    </buttonCell>
                                                     <connections>
-                                                        <accessibilityConnection property="title" destination="eP3-ce-aHz" id="bkt-a1-1Ov"/>
-                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="kgy-uo-RAb"/>
-                                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="kgy-uo-RAb" id="Rqk-Uk-qdf">
+                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownUploadLocation" id="ZMg-L5-u9Q"/>
+                                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
+                                                        <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="SdC-li-mQ2" id="riJ-vE-qtu">
                                                             <dictionary key="options">
                                                                 <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -185,15 +242,8 @@
                                                                 <integer key="NSNullPlaceholder" value="-1"/>
                                                             </dictionary>
                                                         </binding>
-                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadDirectoryWin" id="hwS-Qy-pF2">
-                                                            <dictionary key="options">
-                                                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                                <bool key="NSValidatesImmediately" value="YES"/>
-                                                                <string key="NSValueTransformerName">NSTextFieldNilToEmptyStringTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
                                                     </connections>
-                                                </textField>
+                                                </button>
                                             </subviews>
                                             <visibilityPriorities>
                                                 <integer value="1000"/>
@@ -204,55 +254,15 @@
                                                 <real value="3.4028234663852886e+38"/>
                                             </customSpacing>
                                         </stackView>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="GVV-cO-HOP">
-                                            <rect key="frame" x="291" y="19" width="319" height="16"/>
-                                            <string key="toolTip">When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</string>
-                                            <buttonCell key="cell" type="check" title="Allow user to select custom down/upload directory (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="I9g-6o-a5B">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="message" size="11"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowCustomDownUploadLocation" id="ZMg-L5-u9Q"/>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="SdC-li-mQ2"/>
-                                                <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="SdC-li-mQ2" id="riJ-vE-qtu">
-                                                    <dictionary key="options">
-                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                        <integer key="NSNullPlaceholder" value="-1"/>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </button>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="i3z-E8-xzq">
-                                            <rect key="frame" x="358" y="-1" width="252" height="16"/>
-                                            <string key="toolTip">When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system</string>
-                                            <buttonCell key="cell" type="check" title="Use temporary down/upload directory (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hy0-QR-C17">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="message" size="11"/>
-                                                <string key="toolTip">A temporary directory is created and used as the download and upload folder.
-It is deleted when the session ends</string>
-                                            </buttonCell>
-                                            <connections>
-                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="oT4-ol-lFe"/>
-                                                <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="oT4-ol-lFe" id="MYu-Wl-jLN">
-                                                    <dictionary key="options">
-                                                        <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                        <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                        <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                        <integer key="NSNullPlaceholder" value="-1"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" id="H2L-bL-qEt"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <visibilityPriorities>
                                         <integer value="1000"/>
                                         <integer value="1000"/>
                                         <integer value="1000"/>
+                                        <integer value="1000"/>
                                     </visibilityPriorities>
                                     <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
                                         <real value="3.4028234663852886e+38"/>
                                         <real value="3.4028234663852886e+38"/>
                                         <real value="3.4028234663852886e+38"/>
@@ -318,19 +328,15 @@ It is deleted when the session ends</string>
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="Tsz-yE-Riy" secondAttribute="trailing" id="WyO-Ou-PEy"/>
                                 <constraint firstAttribute="trailing" secondItem="1iI-oF-4xZ" secondAttribute="trailing" id="aaX-Y2-ZpU"/>
-                                <constraint firstItem="Tsz-yE-Riy" firstAttribute="leading" secondItem="15L-sJ-Uuf" secondAttribute="leading" id="nSP-Vs-lL2"/>
                                 <constraint firstItem="1iI-oF-4xZ" firstAttribute="leading" secondItem="15L-sJ-Uuf" secondAttribute="leading" id="yus-bb-IWv"/>
                             </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
-                                <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
-                                <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
@@ -355,7 +361,7 @@ It is deleted when the session ends</string>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9No-Am-tk3">
                                     <rect key="frame" x="0.0" y="0.0" width="610" height="42"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                             <rect key="frame" x="-2" y="26" width="147" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose file to upload …" id="100">
                                                 <font key="font" metaFont="system"/>
@@ -427,13 +433,13 @@ It is deleted when the session ends</string>
                         </stackView>
                         <button toolTip="Download and open .seb config files regardless if downloading and opening other file types is allowed" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Wef-JS-4QU">
                             <rect key="frame" x="-2" y="-1" width="245" height="16"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="14" id="VLb-Uj-sSQ"/>
-                            </constraints>
                             <buttonCell key="cell" type="check" title="Download and open SEB config files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6rb-i4-RZm">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="VLb-Uj-sSQ"/>
+                            </constraints>
                             <connections>
                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_downloadAndOpenSebConfig" id="PR9-6P-fSf"/>
                             </connections>

@@ -39,13 +39,13 @@
 
 @import CocoaLumberjack;
 
+NS_ASSUME_NONNULL_BEGIN
+
 DDLogLevel ddLogLevel;
 
 static NSString __unused *DownloadPathsKey = @"downloadPathsList";
 
 @interface MyGlobals : NSObject
-
-NS_ASSUME_NONNULL_BEGIN
 
 + (MyGlobals*)sharedMyGlobals;
 

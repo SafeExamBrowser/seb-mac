@@ -57,9 +57,13 @@
 - (void)willBeDisplayed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    allowSwitchToApplicationsButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    BOOL enableAAC = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    allowSwitchToApplicationsButton.hidden = enableAAC;
+    allowOpenSavePanelButton.hidden = !enableAAC;
+    allowShareSheetButton.hidden = !enableAAC;
     allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];;
     [self updateFieldsForOS];
+    [self conditionallyShowDependentSettingsWarning:self];
 }
 
 
@@ -191,6 +195,10 @@
 - (IBAction)chooseExecutable:(id)sender {
 }
 
+- (IBAction)showDependentSettingsWarning:(id)sender {
+    [self conditionallyPromptToUpdateSettingsForMultiAppMode];
+}
+
 - (IBAction)chooseApplication:(id)sender {
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -212,11 +220,62 @@
 
 - (void)selectedPermittedProccessChanged
 {
+    [self changedOS:self];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->permittedProcessesTableView scrollRowToVisible:self->permittedProcessesTableView.selectedRow];
+        NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSmacOS];
+        if ([self.permittedProcessesArrayController.content filteredArrayUsingPredicate:filterProcessOS].count == 1) {
+            [self conditionallyPromptToUpdateSettingsForMultiAppMode];
+        } else if ([self.permittedProcessesArrayController.content filteredArrayUsingPredicate:filterProcessOS].count == 0) {
+            self->warningDependentSettingsButton.hidden = YES;
+        }
     });
 }
- 
+
+
+- (IBAction)conditionallyShowDependentSettingsWarning:(id)sender {
+    NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSmacOS];
+    if ([self.permittedProcessesArrayController.content filteredArrayUsingPredicate:filterProcessOS].count > 0) {
+        warningDependentSettingsButton.hidden = [self checkSettingsForMultiAppMode] && [self checkSettingsForDownOpenUploadFiles];
+    }
+}
+
+
+- (void)conditionallyPromptToUpdateSettingsForMultiAppMode
+{
+    if (![self checkSettingsForMultiAppMode]) {
+        NSAlert *newAlert = [self alertUpdateSettingForMultiAppMode];
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                self->warningDependentSettingsButton.hidden = YES;
+                [self setSettingsForMultiAppMode];
+                [self conditionallyPromptToUpdateSettingsForDownOpenUploadFiles];
+            } else {
+                self->warningDependentSettingsButton.hidden = NO;
+                [self conditionallyPromptToUpdateSettingsForDownOpenUploadFiles];
+            }
+        }];
+    } else {
+        self->warningDependentSettingsButton.hidden = YES;
+        [self conditionallyPromptToUpdateSettingsForDownOpenUploadFiles];
+    }
+}
+
+- (void)conditionallyPromptToUpdateSettingsForDownOpenUploadFiles
+{
+    if (![self checkSettingsForDownOpenUploadFiles]) {
+        NSAlert *newAlert = [self alertUpdateSettingForDownOpenUploadFiles];
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:^(NSInteger result) {
+            if (result == NSAlertFirstButtonReturn) {
+                self->warningDependentSettingsButton.hidden = YES;
+                [self setSettingsForDownOpenUploadFiles];
+            } else {
+                self->warningDependentSettingsButton.hidden = NO;
+            }
+        }];
+    }
+}
+
 
 - (void)selectedProhibitedProccessChanged
 {
@@ -229,5 +288,185 @@
 - (BOOL)commitEditingAndReturnError:(NSError *__autoreleasing  _Nullable * _Nullable)error {
     return YES;
 }
+
+
+- (NSAlert *)alertUpdateSettingForMultiAppMode
+{
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Update Settings for Multi App Mode", @"")];
+    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For using permitted macOS third-party applications, AAC Assessment Mode must be enabled, file and share dialogs blocked and macOS 12 or newer enforced. Do you want to update your %@ settings accordingly?", @""), SEBShortAppName]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Update Settings", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Ignore", @"")];
+    [newAlert setAlertStyle:NSAlertStyleCritical];
+    return newAlert;
+}
+
+
+- (BOOL)checkSettingsForMultiAppMode
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL multiAppModeSettings = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"] &&
+    [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0];
+    
+    return multiAppModeSettings;
+}
+
+
+- (void)setSettingsForMultiAppMode
+{
+    // Release preferences window so bindings get synchronized properly with the new loaded values
+    [_preferencesController releasePreferencesWindow];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+    
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
+    [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+    [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+    [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    
+    // Re-initialize and open preferences window
+    [_preferencesController initPreferencesWindow];
+    [_preferencesController reopenPreferencesWindow];
+}
+
+
+- (NSAlert *)alertUpdateSettingForDownOpenUploadFiles
+{
+    NSAlert *newAlert = [[NSAlert alloc] init];
+    [newAlert setMessageText:NSLocalizedString(@"Update Settings for Download/Opening/Upload Files", @"")];
+    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"When using additional, permitted macOS third-party applications in exams, it often makes sense to allow secure download and upload of files from a web-based assessment system. %@ opens these files automatically with the according additional app after downloading. Examinees can then edit these template files in the additional app and save them with the same file name (cmd-S). When the assessment system contains an upload/choose file button, those files can be uploaded and submitted with the exam. Do you want to update your %@ settings accordingly?", @""), SEBShortAppName, SEBShortAppName]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Update Settings", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Ignore", @"")];
+    [newAlert setAlertStyle:NSAlertStyleCritical];
+    return newAlert;
+}
+
+
+- (BOOL)checkSettingsForDownOpenUploadFiles
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL downOpenUploadSettings = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowUploads"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"] &&
+    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"] &&
+    [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore;
+
+    return downOpenUploadSettings;
+}
+
+
+- (void)setSettingsForDownOpenUploadFiles
+{
+    // Release preferences window so bindings get synchronized properly with the new loaded values
+    [_preferencesController releasePreferencesWindow];
+
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowDownUploads"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowDownloads"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowUploads"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_openDownloads"];
+    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"];
+    [preferences setSecureInteger:onlyAllowUploadSameFileDownloadedBefore forKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"];
+    
+    // Re-initialize and open preferences window
+    [_preferencesController initPreferencesWindow];
+    [_preferencesController reopenPreferencesWindow];
+}
+
+
+- (BOOL)checkSettingsForMinMacOSVersionMajor:(NSUInteger)currentOSMajorVersion
+                            minor:(NSUInteger)currentOSMinorVersion
+                            patch:(NSUInteger)currentOSPatchVersion
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUInteger allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+    NSUInteger allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+    NSUInteger allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"]) {
+        // Manage old check only for allowed major version
+        SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
+        switch (minMacOSVersion) {
+            case SEBMinMacOS10_14:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 14;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS10_15:
+                allowMacOSVersionMajor = 10;
+                allowMacOSVersionMinor = 15;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS11:
+                allowMacOSVersionMajor = 11;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS12:
+                allowMacOSVersionMajor = 12;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS13:
+                allowMacOSVersionMajor = 13;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS14:
+                allowMacOSVersionMajor = 14;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            case SEBMinMacOS15:
+                allowMacOSVersionMajor = 15;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
+            default:
+                break;
+        }
+    } else {
+        // Full granular check for allowed major, minor and patch version
+        allowMacOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+        allowMacOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+        allowMacOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    }
+    
+    // Check for minimal macOS version requirements of this SEB version
+    if (allowMacOSVersionMajor < SEBMinMacOSVersionSupportedMajor) {
+        allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+        allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+        allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+    } else if (allowMacOSVersionMajor == SEBMinMacOSVersionSupportedMajor) {
+        if (allowMacOSVersionMinor < SEBMinMacOSVersionSupportedMinor) {
+            allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        } else if (allowMacOSVersionMinor == SEBMinMacOSVersionSupportedMinor && allowMacOSVersionPatch < SEBMinMacOSVersionSupportedPatch) {
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        }
+    }
+
+    return !(currentOSMajorVersion < allowMacOSVersionMajor ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion < allowMacOSVersionMinor) ||
+        (currentOSMajorVersion == allowMacOSVersionMajor &&
+         currentOSMinorVersion == allowMacOSVersionMinor &&
+         currentOSPatchVersion < allowMacOSVersionPatch)
+            );
+}
+
 
 @end
