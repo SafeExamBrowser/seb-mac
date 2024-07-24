@@ -3958,6 +3958,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                 allowMacOSVersionPatch = 0;
                 break;
                 
+            case SEBMinMacOS15:
+                allowMacOSVersionMajor = 15;
+                allowMacOSVersionMinor = 0;
+                allowMacOSVersionPatch = 0;
+                break;
+                
             default:
                 break;
         }

@@ -112,7 +112,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Create duplicate of current settings for editing"; ObjectID = "1165"; */
 "1165.ibShadowedToolTip" = "Duplikat der derzeitigen Einstellungen erstellen und bearbeiten";
 
-/* Class = "NSButtonCell"; title = "Edit Duplicate"; ObjectID = "1166"; */
+/* Class = "NSButtonCell"; title = "Create Exam Settings"; ObjectID = "1166"; */
 "1166.title" = "Duplikat bearbeiten";
 
 /* Class = "NSTextFieldCell"; title = "Configuration Editing:"; ObjectID = "1174"; */

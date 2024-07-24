@@ -169,6 +169,7 @@
     self.examVC.preferencesController = self;
 	PrefsApplicationsViewController *applications = [[PrefsApplicationsViewController alloc]
                                                      initWithNibName:@"PreferencesApplications" bundle:nil];
+    applications.preferencesController = self;
 //	PrefsResourcesViewController *resources = [[PrefsResourcesViewController alloc] initWithNibName:@"PreferencesResources" bundle:nil];
 	self.networkVC = [[PrefsNetworkViewController alloc] initWithNibName:@"PreferencesNetwork" bundle:nil];
     self.networkVC.preferencesController = self;
@@ -1538,8 +1539,8 @@ userEnteredFilename:(NSString *)filename
 }
 
 
-// Action duplicating current preferences for editing
-- (IBAction) editDuplicate:(id)sender
+// Action using current preferences to create (new) exam settings
+- (IBAction) createExamSettings:(id)sender
 {
     if (!self.preferencesAreOpen) {
         return;
@@ -1599,7 +1600,7 @@ userEnteredFilename:(NSString *)filename
         // Release preferences window so bindings get synchronized properly with the new loaded values
         [self releasePreferencesWindow];
         
-        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBClientSettingsFilename]];
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:[NSURL fileURLWithPathString:SEBExamSettingsFilename]];
         
         // Get key/values from local shared client UserDefaults
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -1611,6 +1612,8 @@ userEnteredFilename:(NSString *)filename
         
         [self.configFileController storeIntoUserDefaults:localClientPreferences];
         
+        // Switch config purpose to "starting exam"
+        [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];        
         DDLogVerbose(@"Private preferences set: %@", privatePreferences);
     }
     

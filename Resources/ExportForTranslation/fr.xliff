@@ -14,8 +14,8 @@
         <note>Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5";</note>
       </trans-unit>
       <trans-unit id="8GV-gd-2lK.title">
-        <source>Edit Duplicate</source>
-        <note>Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "8GV-gd-2lK";</note>
+        <source>Create Exam Settings</source>
+        <note>Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "8GV-gd-2lK";</note>
       </trans-unit>
       <trans-unit id="9NP-zj-EeW.title">
         <source>Revert to Client Settings</source>
@@ -358,8 +358,8 @@
         <note>Class = "NSMenuItem"; title = "Settings"; ObjectID = "UaS-yv-Dq3";</note>
       </trans-unit>
       <trans-unit id="YC0-l9-3YS.title">
-        <source>Edit Duplicate</source>
-        <note>Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "YC0-l9-3YS";</note>
+        <source>Create Exam Settings</source>
+        <note>Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "YC0-l9-3YS";</note>
       </trans-unit>
       <trans-unit id="YsN-Cb-3bf.title">
         <source>Fullscreen</source>
@@ -1138,8 +1138,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Create duplicate of current settings for editing"; ObjectID = "1165";</note>
       </trans-unit>
       <trans-unit id="1166.title">
-        <source>Edit Duplicate</source>
-        <note>Class = "NSButtonCell"; title = "Edit Duplicate"; ObjectID = "1166";</note>
+        <source>Create Exam Settings</source>
+        <note>Class = "NSButtonCell"; title = "Create Exam Settings"; ObjectID = "1166";</note>
       </trans-unit>
       <trans-unit id="1174.title">
         <source>Config File Editing:</source>

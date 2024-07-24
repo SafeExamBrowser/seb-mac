@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22154" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -273,7 +273,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGG-pk-l42">
                                                                     <rect key="frame" x="69" y="79" width="366" height="20"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                                                                             <rect key="frame" x="-2" y="4" width="62" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Log level:" usesSingleLineMode="YES" id="23">
                                                                                 <font key="font" metaFont="system"/>
@@ -325,7 +325,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wO8-yk-bSr">
                                                                     <rect key="frame" x="34" y="51" width="401" height="20"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="95" translatesAutoresizingMaskIntoConstraints="NO" id="3me-3D-EEp">
                                                                             <rect key="frame" x="-2" y="4" width="97" height="16"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save log file to:" usesSingleLineMode="YES" id="nui-Ct-A6q">
                                                                                 <font key="font" metaFont="system"/>
@@ -383,7 +383,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fpf-gC-EJ9">
                                                                     <rect key="frame" x="6" y="0.0" width="429" height="21"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9Q-8A-xab">
                                                                             <rect key="frame" x="-2" y="3" width="125" height="16"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Log directory (Win):" usesSingleLineMode="YES" id="dbm-W0-7Yt">
                                                                                 <font key="font" metaFont="system"/>
@@ -391,7 +391,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DQ-Jd-s1A">
                                                                             <rect key="frame" x="129" y="0.0" width="300" height="21"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="300" id="9Cx-c9-32A"/>
@@ -461,7 +461,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="136" id="Un0-YN-2lZ"/>
                                         </constraints>
                                     </box>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
+                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
                                         <rect key="frame" x="18" y="497" width="115" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS Specific Settings " id="ADm-4H-Zh3">
                                             <font key="font" metaFont="message" size="11"/>
@@ -636,7 +636,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Pf-QCV">
                                                                     <rect key="frame" x="0.0" y="244" width="360" height="20"/>
                                                                     <subviews>
-                                                                        <textField toolTip="Maximum allowed number of connected displays (including built-in)" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
+                                                                        <textField toolTip="Maximum allowed number of connected displays (including built-in)" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
                                                                             <rect key="frame" x="-2" y="2" width="299" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="maximum allowed number of connected displays" id="hpd-SM-vcA">
                                                                                 <font key="font" metaFont="system"/>
@@ -644,7 +644,7 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
+                                                                        <comboBox toolTip="If more displays are connected, these are blanked with an orange full screen window" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ6-sG-BWw">
                                                                             <rect key="frame" x="302" y="-2" width="61" height="23"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="57" id="AAT-5S-sGW"/>
@@ -814,7 +814,7 @@
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-rc-duP">
                                                                                         <rect key="frame" x="0.0" y="108" width="244" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SN-Be-oCc">
                                                                                                 <rect key="frame" x="-2" y="4" width="208" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Enforce minimum macOS version:" usesSingleLineMode="YES" id="Lff-Up-3Ym">
                                                                                                     <font key="font" metaFont="system"/>
@@ -880,7 +880,7 @@
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="8FR-yd-J4w">
                                                                                         <rect key="frame" x="0.0" y="56" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csJ-gw-8Zj">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csJ-gw-8Zj">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Major version number" id="ttr-Vj-MUS">
                                                                                                     <font key="font" metaFont="system"/>
@@ -888,7 +888,7 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nA0-r2-DT0">
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nA0-r2-DT0">
                                                                                                 <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="c82-zR-hFM"/>
@@ -921,7 +921,7 @@
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="AhV-fM-hdS">
                                                                                         <rect key="frame" x="0.0" y="28" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebE-XE-B7e">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebE-XE-B7e">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Minor version number" id="QDh-CB-5x6">
                                                                                                     <font key="font" metaFont="system"/>
@@ -929,7 +929,7 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Wa-1e-Fqn">
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Wa-1e-Fqn">
                                                                                                 <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="TH3-83-VVt"/>
@@ -962,7 +962,7 @@
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="w0p-Ad-k5n">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w6b-d3-hBY">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w6b-d3-hBY">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Patch version number" id="jtH-LC-r6t">
                                                                                                     <font key="font" metaFont="system"/>
@@ -970,7 +970,7 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5tm-MJ-vZb">
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5tm-MJ-vZb">
                                                                                                 <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="p1Y-fg-v1H"/>
@@ -1072,13 +1072,13 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ML-xT-OWu">
-                                                            <rect key="frame" x="15" y="117" width="574" height="313"/>
+                                                            <rect key="frame" x="15" y="94" width="574" height="336"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="h1A-i1-vyN">
-                                                                    <rect key="frame" x="0.0" y="253" width="310" height="60"/>
+                                                                    <rect key="frame" x="0.0" y="254" width="310" height="82"/>
                                                                     <subviews>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="mCE-kG-rgQ">
-                                                                            <rect key="frame" x="-2" y="43" width="312" height="18"/>
+                                                                            <rect key="frame" x="-2" y="65" width="312" height="18"/>
                                                                             <string key="toolTip">Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</string>
                                                                             <buttonCell key="cell" type="check" title="Use Assessment Mode (AAC/ASAM) if available" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="iCr-0C-5NT">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1086,6 +1086,18 @@
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mobileEnableASAM" id="h6W-du-jLj"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="iap-IZ-G2o" userLabel="Use Modern AAC API">
+                                                                            <rect key="frame" x="-2" y="43" width="154" height="18"/>
+                                                                            <string key="toolTip">Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</string>
+                                                                            <buttonCell key="cell" type="check" title="Use modern AAC API" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="I61-hI-auP">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_mobileEnableASAM" id="pfj-Ob-nLd"/>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_mobileEnableModernAAC" id="lcb-Tx-J2J"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Use Single App Mode invoked by Classroom, an MDM system or Apple Configurator instead of ASAM/AAC" translatesAutoresizingMaskIntoConstraints="NO" id="AUn-ex-rqQ">
@@ -1115,15 +1127,17 @@
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
+                                                                        <integer value="1000"/>
                                                                     </visibilityPriorities>
                                                                     <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gPp-g5-cvr">
-                                                                    <rect key="frame" x="0.0" y="173" width="204" height="60"/>
+                                                                    <rect key="frame" x="0.0" y="174" width="204" height="60"/>
                                                                     <subviews>
                                                                         <button toolTip="Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win" translatesAutoresizingMaskIntoConstraints="NO" id="c2c-ER-MY0">
                                                                             <rect key="frame" x="-2" y="43" width="178" height="18"/>
@@ -1170,18 +1184,18 @@
                                                                     </customSpacing>
                                                                 </stackView>
                                                                 <box borderType="line" title="Allow running from iOS version" translatesAutoresizingMaskIntoConstraints="NO" id="oIi-XG-JWG">
-                                                                    <rect key="frame" x="-3" y="35" width="580" height="118"/>
+                                                                    <rect key="frame" x="-3" y="36" width="580" height="118"/>
                                                                     <view key="contentView" id="Tn1-Pd-ckg">
                                                                         <rect key="frame" x="4" y="5" width="572" height="98"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-pV-kID">
-                                                                                <rect key="frame" x="11" y="15" width="552" height="73"/>
+                                                                                <rect key="frame" x="11" y="12" width="550" height="76"/>
                                                                                 <subviews>
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="vke-9s-XWR">
-                                                                                        <rect key="frame" x="0.0" y="54" width="197" height="19"/>
+                                                                                        <rect key="frame" x="0.0" y="56" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bPc-Xb-z7o">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bPc-Xb-z7o">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Major version number" id="uTC-Vm-HfF">
                                                                                                     <font key="font" metaFont="system"/>
@@ -1189,8 +1203,8 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5k-oe-ViX">
-                                                                                                <rect key="frame" x="140" y="-4" width="60" height="25"/>
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5k-oe-ViX">
+                                                                                                <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="ZGr-bU-VAF"/>
                                                                                                 </constraints>
@@ -1219,9 +1233,9 @@
                                                                                         </customSpacing>
                                                                                     </stackView>
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="08u-kM-n3I">
-                                                                                        <rect key="frame" x="0.0" y="27" width="197" height="19"/>
+                                                                                        <rect key="frame" x="0.0" y="28" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7A-Vp-Xva">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7A-Vp-Xva">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Minor version number" id="bWG-hR-Cd7">
                                                                                                     <font key="font" metaFont="system"/>
@@ -1229,8 +1243,8 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-g0-Fjz">
-                                                                                                <rect key="frame" x="140" y="-4" width="60" height="25"/>
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lid-g0-Fjz">
+                                                                                                <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="JUz-vw-VXm"/>
                                                                                                 </constraints>
@@ -1259,9 +1273,9 @@
                                                                                         </customSpacing>
                                                                                     </stackView>
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="abC-bG-sY3">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="19"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="197" height="20"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4d-ZE-3Ia">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4d-ZE-3Ia">
                                                                                                 <rect key="frame" x="-2" y="2" width="136" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Patch version number" id="tCd-Tz-DNH">
                                                                                                     <font key="font" metaFont="system"/>
@@ -1269,8 +1283,8 @@
                                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                                 </textFieldCell>
                                                                                             </textField>
-                                                                                            <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGB-Ao-RnH">
-                                                                                                <rect key="frame" x="140" y="-4" width="60" height="25"/>
+                                                                                            <comboBox focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGB-Ao-RnH">
+                                                                                                <rect key="frame" x="139" y="-2" width="61" height="23"/>
                                                                                                 <constraints>
                                                                                                     <constraint firstAttribute="width" constant="57" id="bwQ-WH-ppc"/>
                                                                                                 </constraints>
@@ -1322,9 +1336,9 @@
                                                                     </constraints>
                                                                 </box>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5Yy-BX-lXm">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="222" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="222" height="20"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GBV-fI-0RR">
+                                                                        <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GBV-fI-0RR">
                                                                             <rect key="frame" x="-2" y="2" width="161" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Allow running on iOS beta" usesSingleLineMode="YES" id="Bud-jP-Qbp">
                                                                                 <font key="font" metaFont="system"/>
@@ -1332,8 +1346,8 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <comboBox toolTip="SEB refuses to run on a major iOS beta version, unless it is allowed here" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-oB-iLU">
-                                                                            <rect key="frame" x="165" y="-4" width="60" height="25"/>
+                                                                        <comboBox toolTip="SEB refuses to run on a major iOS beta version, unless it is allowed here" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cqk-oB-iLU">
+                                                                            <rect key="frame" x="164" y="-2" width="61" height="23"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="57" id="V1z-gN-FHh"/>
                                                                             </constraints>
@@ -1418,7 +1432,7 @@
                                                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="u5p-5T-HAi">
                                                                                         <rect key="frame" x="0.0" y="50" width="552" height="39"/>
                                                                                         <subviews>
-                                                                                            <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                                                                                            <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                                                                                 <rect key="frame" x="-2" y="23" width="117" height="16"/>
                                                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SEB Service policy" id="100">
                                                                                                     <font key="font" metaFont="system"/>
@@ -1604,7 +1618,7 @@
                                                     <rect key="frame" x="10" y="33" width="604" height="438"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
+                                                        <textField focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z35-jm-R60">
                                                             <rect key="frame" x="15" y="420" width="338" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="ilN-45-5uj"/>

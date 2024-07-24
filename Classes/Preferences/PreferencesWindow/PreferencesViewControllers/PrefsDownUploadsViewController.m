@@ -69,7 +69,7 @@
     
     allowDownloadsButton.enabled = downUploadsAllowed;
     BOOL downloadOptionButtonEnabled = downUploadsAllowed && allowDownloadsButton.state;
-    chooseDownloadDirectory.enabled = downloadOptionButtonEnabled;
+    chooseDownloadDirectory.enabled = downloadOptionButtonEnabled && !useTemporaryDownUploadDirectoryButton.state;
     openDownloadsButton.enabled = downloadOptionButtonEnabled;
     downloadPDFFilesButton.enabled = downloadOptionButtonEnabled;
     downloadDirectoryWin.enabled = downloadOptionButtonEnabled;

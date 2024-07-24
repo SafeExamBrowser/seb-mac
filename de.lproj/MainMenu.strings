@@ -19,7 +19,7 @@
 /* Class = "NSButtonCell"; title = "Override checking for dictation"; ObjectID = "7xF-1g-PGT"; */
 "7xF-1g-PGT.title" = "Check für Diktieren deaktivieren";
 
-/* Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "8GV-gd-2lK"; */
+/* Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "8GV-gd-2lK"; */
 "8GV-gd-2lK.title" = "Duplikat bearbeiten";
 
 /* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "9NP-zj-EeW"; */
@@ -352,7 +352,7 @@
 /* Class = "NSTextFieldCell"; title = "Password:"; ObjectID = "XL9-tP-eEk"; */
 "XL9-tP-eEk.title" = "Passwort:";
 
-/* Class = "NSMenuItem"; title = "Edit Duplicate"; ObjectID = "YC0-l9-3YS"; */
+/* Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "YC0-l9-3YS"; */
 "YC0-l9-3YS.title" = "Duplikat bearbeiten";
 
 /* Class = "NSTextFieldCell"; title = "Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center."; ObjectID = "YeX-5O-huE"; */

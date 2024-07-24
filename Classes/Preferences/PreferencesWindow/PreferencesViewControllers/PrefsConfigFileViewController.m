@@ -378,9 +378,9 @@
 
 
 // Action duplicating current preferences for editing
-- (IBAction) editDuplicate:(id)sender
+- (IBAction) createExamSettings:(id)sender
 {
-    [self.preferencesController editDuplicate:sender];
+    [self.preferencesController createExamSettings:sender];
 }
 
 

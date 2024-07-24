@@ -125,7 +125,7 @@
 - (IBAction) revertToDefaultSettings:(id)sender;
 
 - (IBAction) applyAndRestartSEB:(id)sender;
-- (IBAction) editDuplicate:(id)sender;
+- (IBAction) createExamSettings:(id)sender;
 - (IBAction) configureClient:(id)sender;
 
 //- (int) unsavedSettingsAlertWithText:(NSString *)informativeText;
