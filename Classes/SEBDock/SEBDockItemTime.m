@@ -37,7 +37,7 @@
 
 - (id) initWithToolTip:(NSString *)newToolTip
 {
-    self = [super initWithTitle:nil bundleID:nil icon:nil highlightedIcon:nil toolTip:newToolTip menu:nil target:nil action:nil secondaryAction:nil];
+    self = [super initWithTitle:nil bundleID:nil allowManualStart:NO icon:nil highlightedIcon:nil toolTip:newToolTip menu:nil target:nil action:nil secondaryAction:nil];
     if (self) {
     }
     return self;

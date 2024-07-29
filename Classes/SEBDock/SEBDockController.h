@@ -116,6 +116,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) bundleID;
 
 /**
+ * @brief       The allowed third party app allows to be started by the user
+ */
+- (BOOL) allowManualStart;
+
+/**
  * @brief       Rectangular view to be displayed instead of an icon (when icon is nil).
  */
 - (NSView *) view;

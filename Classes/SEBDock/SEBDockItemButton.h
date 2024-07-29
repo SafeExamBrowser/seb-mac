@@ -67,6 +67,7 @@
 @property (strong) NSPopover *labelPopover;
 @property (strong) SEBDockItemMenu *dockMenu;
 @property (strong) NSString *bundleID;
+@property (readwrite) BOOL allowManualStart;
 @property (readwrite) BOOL isFirstDockItem;
 @property (readwrite) BOOL isLastDockItem;
 @property (assign, nonatomic) SEL secondaryAction;

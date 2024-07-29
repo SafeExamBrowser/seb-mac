@@ -1949,7 +1949,7 @@ bool insideMatrix(void);
     if (_isAACEnabled) {
         NSArray *permittedRunningApplications = [ProcessManager sharedProcessManager].permittedRunningApplications;
         if (permittedRunningApplications && permittedRunningApplications.count > 0) {
-            DDLogInfo(@"AAC is active and there are permitted applications for AAC Multi-App Mode (which will be added to the list of apps to be quit before %@ the exam session): %@", starting ? @"starting" : @"ending", permittedRunningApplications);
+            DDLogInfo(@"AAC is active and there are permitted applications for AAC Multi App Mode (which will be added to the list of apps to be quit before %@ the exam session): %@", starting ? @"starting" : @"ending", permittedRunningApplications);
             prohibitedRunningApplications = [prohibitedRunningApplications arrayByAddingObjectsFromArray:permittedRunningApplications];
         }
     }
@@ -5877,6 +5877,7 @@ conditionallyForWindow:(NSWindow *)window
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableSebBrowser"]) {
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
                                                                  bundleID:nil
+                                                         allowManualStart:NO
                                                                      icon:[NSApp applicationIconImage]
                                                           highlightedIcon:[NSApp applicationIconImage]
                                                                   toolTip:nil
@@ -5903,10 +5904,12 @@ conditionallyForWindow:(NSWindow *)window
                     if (appName.length == 0) {
                         appName = appBundleID;
                     }
+                    BOOL allowManualStart = [permittedProcess[@"allowManualStart"] boolValue];
                     NSImage *appIcon = [[NSWorkspace sharedWorkspace] iconForFile:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:appBundleID]];
 
                     SEBDockItem *dockItemApp = [[SEBDockItem alloc] initWithTitle:appName
                                                                          bundleID:appBundleID
+                                                                 allowManualStart:allowManualStart
                                                                              icon:appIcon
                                                                   highlightedIcon:appIcon
                                                                           toolTip:nil
@@ -5929,6 +5932,7 @@ conditionallyForWindow:(NSWindow *)window
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQuitButton"]) {
             SEBDockItem *dockItemShutDown = [[SEBDockItem alloc] initWithTitle:nil
                                                                       bundleID:nil
+                                                              allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBShutDownIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBShutDownIconHighlighted"]
                                                                        toolTip:[NSString stringWithFormat:NSLocalizedString(@"Quit %@",nil), SEBShortAppName]
@@ -5966,6 +5970,7 @@ conditionallyForWindow:(NSWindow *)window
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
                                                                             bundleID:nil
+                                                                    allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                        toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
@@ -5996,6 +6001,7 @@ conditionallyForWindow:(NSWindow *)window
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
                                                                             bundleID:nil
+                                                                    allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
                                                                        toolTip:allowToggleProctoringView ?
@@ -6024,6 +6030,7 @@ conditionallyForWindow:(NSWindow *)window
             }
             SEBDockItem *dockItemRaiseHand = [[SEBDockItem alloc] initWithTitle:nil
                                                                        bundleID:nil
+                                                               allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBRaiseHandIcon"]
                                                                        toolTip:NSLocalizedString(@"Raise Hand",nil)
@@ -6044,6 +6051,7 @@ conditionallyForWindow:(NSWindow *)window
             }
             SEBDockItem *dockItemSkipBack = [[SEBDockItem alloc] initWithTitle:nil
                                                                       bundleID:nil
+                                                              allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBSkipBackIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBSkipBackIconHighlighted"]
                                                                        toolTip:restartButtonToolTip
@@ -6060,6 +6068,7 @@ conditionallyForWindow:(NSWindow *)window
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showReloadButton"]) {
             SEBDockItem *dockItemReload = [[SEBDockItem alloc] initWithTitle:nil
                                                                     bundleID:nil
+                                                            allowManualStart:NO
                                                                           icon:[NSImage imageNamed:@"SEBReloadIcon"]
                                                                highlightedIcon:[NSImage imageNamed:@"SEBReloadIconHighlighted"]
                                                                        toolTip:NSLocalizedString(@"Reload Current Page",nil)
@@ -6145,16 +6154,33 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) appButtonPressed:(id)sender
 {
-    NSString *bundleID = ((SEBDockItemButton *)sender).bundleID;
+    SEBDockItemButton *appButton = (SEBDockItemButton *)sender;
+    NSString *bundleID = appButton.bundleID;
     DDLogInfo(@"Dock button pressed for app: %@", bundleID);
     NSURL *appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:bundleID];
-    if (@available(macOS 10.15, *)) {
-        NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
-        openConfiguration.activates = YES;
-        openConfiguration.addsToRecentItems = NO;
-        [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
-                
-        }];
+    NSArray<NSRunningApplication *> *applicationInstances = [NSRunningApplication runningApplicationsWithBundleIdentifier: bundleID];
+    if (applicationInstances.count == 1) {
+        DDLogInfo(@"Application with Bundle ID %@ (%@) was already running", bundleID, applicationInstances[0]);
+        BOOL activationSuccess = [applicationInstances[0] activateWithOptions:NSApplicationActivateAllWindows];
+        DDLogInfo(@"Activating application %@ was %@successful", applicationInstances[0], activationSuccess ? @"" : @"not ");
+    } else {
+        if (appButton.allowManualStart == YES) {
+            if (@available(macOS 10.15, *)) {
+                NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
+                openConfiguration.activates = YES;
+                openConfiguration.addsToRecentItems = NO;
+                [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                    if (error) {
+                        DDLogError(@"Application with Bundle ID %@ at %@ couldn't be opened with error %@", bundleID, appURL, error);
+                    } else {
+                        DDLogInfo(@"Application with Bundle ID %@ at %@ was opened successfully.", bundleID, appURL);
+                    }
+                }];
+            }
+        } else {
+            // Manual start not allowed, show alert (TODO)
+            DDLogInfo(@"Manually starting application with Bundle ID %@ at %@ is not allowed in current settings.", bundleID, appURL);
+        }
     }
 }
 
@@ -6757,7 +6783,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     _openingSettings = NO;
 
-    // In case of AAC Multi-App Mode, we have to terminate running permitted applications
+    // In case of AAC Multi App Mode, we have to terminate running permitted applications
     [self terminateApplications:@[] processes:@[] starting:NO restarting:restart callback:self selector:nil];
 }
 

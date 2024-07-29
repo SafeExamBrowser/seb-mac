@@ -225,6 +225,7 @@
                                                    title:dockItem.title
                                                     menu:dockItem.menu];
                 newDockItemButton.bundleID = dockItem.bundleID;
+                newDockItemButton.allowManualStart = dockItem.allowManualStart;
                 if (isLeftmostItemButton) {
                     newDockItemButton.isFirstDockItem = YES;
                     isLeftmostItemButton = NO;
