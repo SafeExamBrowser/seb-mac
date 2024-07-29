@@ -106,6 +106,7 @@
                 argumentsView.hidden = YES;
                 iconInTaskbarButton.hidden = NO;
                 autostartButton.hidden = NO;
+                allowManualStartButton.hidden = NO;
                 identifierView.hidden = NO;
                 teamIdentifierView.hidden = NO;
                 networkAccessButton.hidden = NO;
@@ -122,6 +123,7 @@
                 argumentsView.hidden = NO;
                 iconInTaskbarButton.hidden = NO;
                 autostartButton.hidden = NO;
+                allowManualStartButton.hidden = YES;
                 identifierView.hidden = YES;
                 teamIdentifierView.hidden = YES;
                 networkAccessButton.hidden = YES;
@@ -138,6 +140,7 @@
                 argumentsView.hidden = YES;
                 iconInTaskbarButton.hidden = YES;
                 autostartButton.hidden = YES;
+                allowManualStartButton.hidden = YES;
                 identifierView.hidden = NO;
                 teamIdentifierView.hidden = YES;
                 networkAccessButton.hidden = NO;

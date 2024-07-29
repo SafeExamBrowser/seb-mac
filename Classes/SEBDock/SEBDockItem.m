@@ -38,6 +38,7 @@
 
 - (id) initWithTitle:(NSString *)newTitle
             bundleID:(NSString *)newBundleID
+    allowManualStart:(BOOL)newAllowManualStart
                 icon:(NSImage *)newIcon
      highlightedIcon:(NSImage *)newHighlightedIcon
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
@@ -49,6 +50,7 @@
     if (self) {
         _title = newTitle;
         _bundleID = newBundleID;
+        _allowManualStart = newAllowManualStart;
         _icon = newIcon;
         _highlightedIcon = newHighlightedIcon;
         _toolTip = newToolTip;

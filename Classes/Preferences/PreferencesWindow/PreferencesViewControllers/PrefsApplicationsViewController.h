@@ -55,6 +55,7 @@
     __weak IBOutlet NSStackView *argumentsView;
     __weak IBOutlet NSButton *iconInTaskbarButton;
     __weak IBOutlet NSButton *autostartButton;
+    __weak IBOutlet NSButton *allowManualStartButton;
     __weak IBOutlet NSStackView *identifierView;
     __weak IBOutlet NSStackView *teamIdentifierView;
     __weak IBOutlet NSButton *networkAccessButton;

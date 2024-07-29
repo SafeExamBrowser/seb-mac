@@ -1199,6 +1199,7 @@ static SEBSettings *sharedSEBSettings = nil;
               @"permittedProcesses" : @{
                       @"active" : @YES,
                       @"allowedExecutables" : @"",
+                      @"allowManualStart" : @YES,
                       @"allowNetworkAccess" : @NO,
                       @"allowUserToChooseApp" : @NO,
                       @"arguments" : @[],

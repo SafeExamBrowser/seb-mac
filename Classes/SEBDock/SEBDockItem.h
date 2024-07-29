@@ -40,6 +40,8 @@
 
 @property (strong, nonatomic) NSString *bundleID;
 
+@property (readonly) BOOL allowManualStart;
+
 @property (strong, nonatomic) NSImage *icon;
 
 @property (strong, nonatomic) NSImage *highlightedIcon;
@@ -55,6 +57,7 @@
 
 - (id) initWithTitle:(NSString *)newTitle
             bundleID:(NSString *)newBundleID
+    allowManualStart:(BOOL)newAllowManualStart
                 icon:(NSImage *)newIcon
      highlightedIcon:(NSImage *)newHighlightedIcon
              toolTip:(NSString *)newToolTip menu:(NSMenu *)newMenu
