@@ -7056,6 +7056,7 @@ conditionallyForWindow:(NSWindow *)window
     if (self.browserController) {
         [self.browserController closeAllBrowserWindows];
     }
+    [self.systemManager removeTempDownUploadDirectory];
     
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again

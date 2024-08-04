@@ -1156,9 +1156,11 @@ extension SEBAbstractModernWebView: WKDownloadDelegate {
             fileIndex+=1
         }
         fileDownloadDestinationURL = downloadDirectory!.appendingPathComponent(filename)
+        #if DEBUG
         if !fileManager.isWritableFile(atPath: fileDownloadDestinationURL?.path ?? "") {
-            DDLogError("Download destination is not writable!")
+            DDLogError("Download destination might not be writable!")
         }
+        #endif
         completionHandler(fileDownloadDestinationURL)
     }
 

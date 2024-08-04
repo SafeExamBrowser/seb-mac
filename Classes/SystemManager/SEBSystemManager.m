@@ -135,29 +135,35 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 // Create a new random directory name
 - (NSString *)createTemporaryDirectory
 {
-    NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
-    unsigned char hashedChars[32];
-    [randomData getBytes:hashedChars length:32];
-    NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
-    for (int i = 0 ; i < 32 ; ++i) {
-        [randomHexString appendFormat: @"%02x", hashedChars[i]];
-    }
-    
-    // Create the folder
-//    scTempPath = [randomHexString copy];
-    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
+//    NSData *randomData = [RNCryptor randomDataOfLength:kCCKeySizeAES256];
+//    unsigned char hashedChars[32];
+//    [randomData getBytes:hashedChars length:32];
+//    NSMutableString *randomHexString = [NSMutableString stringWithString:@"."];
+//    for (int i = 0 ; i < 32 ; ++i) {
+//        [randomHexString appendFormat: @"%02x", hashedChars[i]];
+//    }
+//    
+//    // Create the folder
+////    scTempPath = [randomHexString copy];
+//    NSString *scFullPath = [NSTemporaryDirectory() stringByAppendingPathComponent:randomHexString];
     BOOL isDir;
+    NSError *error;
     NSFileManager *fileManager= [NSFileManager defaultManager];
-    if(![fileManager fileExistsAtPath:scFullPath isDirectory:&isDir]) {
-        if(![fileManager createDirectoryAtPath:scFullPath withIntermediateDirectories:YES attributes:nil error:NULL]) {
-            DDLogError(@"Error: Creating folder failed %@", scFullPath);
+//    NSURL *tempDirectoryURL = [fileManager.temporaryDirectory URLByAppendingPathComponent:[NSUUID UUID].UUIDString]; //[[fileManager URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error] URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    NSURL *tempDirectory = [fileManager URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:fileManager.temporaryDirectory create:YES error:&error];
+    NSURL *tempDirectoryURL = [tempDirectory URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+
+    if(![fileManager fileExistsAtPath:tempDirectoryURL.path isDirectory:&isDir]) {
+        if(![fileManager createDirectoryAtURL:tempDirectoryURL withIntermediateDirectories:YES attributes:nil error:NULL]) {
+            DDLogError(@"Error: Creating folder failed %@", tempDirectoryURL);
             // As a fallback just use the temp directory
-            scFullPath = NSTemporaryDirectory();
+            tempDirectoryURL = tempDirectory;
         }
     } else {
         return [self createTemporaryDirectory];
     }
-    return scFullPath;
+//    return scFullPath;
+    return tempDirectoryURL.path;
 }
 
 
@@ -220,6 +226,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
         
         // Create a new random directory name
         NSString * scFullPath = [self createTemporaryDirectory];
+        scTempPath = scFullPath;
         
         // Restore original SC path and verify the new location
         [self changeAndVerifyScreenCaptureLocation:scFullPath];
@@ -325,17 +332,25 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (BOOL) removeTempDirectory:(NSString *)path
 {
     if (path.length > 0) {
-        NSString *fullTempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:path];
         NSError *error = nil;
-        
         // Read names of possible files contained in the temp sc directory
-        NSArray *filesInTempDir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:fullTempPath error:&error];
+        NSArray *filesInTempDir = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
         DDLogDebug(@"Contents of the temporary directory: %@ or error when reading: %@", filesInTempDir, error.description);
         
-        [[NSFileManager defaultManager] removeItemAtPath:fullTempPath error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+        if (error) {
+            DDLogDebug(@"Could not remove temporary directory with error: %@", error);
+        }
+        path = [path stringByDeletingLastPathComponent];
+        if ([path.lastPathComponent hasPrefix:[NSString stringWithFormat:@"NSIRD_%@", SEBFullAppName]]) {
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+            if (error) {
+                DDLogDebug(@"Could not remove temporary app directory with error: %@", error);
+            }
+        }
         return error == nil;
     }
-    return NO;
+    return YES;
 }
 
 
@@ -403,15 +418,26 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (BOOL) removeTempDownUploadDirectory
 {
     // Remove temporary directory
-    if ([self removeTempDirectory:downUploadTempPath]) {
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        [preferences setPersistedSecureObject:@"" forKey:TempDownUploadLocation];
-        DDLogDebug(@"Removed redirected temp sc location %@ successfully.", scTempPath);
-        return YES;
-    } else {
-        DDLogDebug(@"Failed removing redirected temp sc location %@", scTempPath);
-        return NO;
+    if (downUploadTempPath) {
+        if ([self removeTempDirectory:downUploadTempPath]) {
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            [preferences setPersistedSecureObject:@"" forKey:TempDownUploadLocation];
+#ifdef DEBUG
+            DDLogDebug(@"Removed temp downUpload location %@ successfully.", scTempPath);
+#else
+            DDLogDebug(@"Removed temp downUpload location successfully.");
+#endif
+            return YES;
+        } else {
+#ifdef DEBUG
+            DDLogError(@"Failed removing temp downUpload location %@", downUploadTempPath);
+#else
+            DDLogDebug(@"Failed removing temp downUpload location");
+#endif
+            return NO;
+        }
     }
+    return YES;
 }
 
 
