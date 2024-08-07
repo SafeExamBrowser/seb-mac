@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Additional Apps</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_permittedProcesses</string>
+			<key>Type</key>
+			<string>IASKListGroupSpecifier</string>
+			<key>Title</key>
+			<string>Permitted Apps</string>
+			<key>FooterText</key>
+			<string>These Apps will be available along SEB during an exam session when running on iOS 17.6 or newer.</string>
+			<key>ItemSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>IASKCustomViewSpecifier</string>
+				<key>File</key>
+				<string>App</string>
+				<key>Title</key>
+				<string>App</string>
+				<key>IASKTextAlignment</key>
+				<string>IASKUITextAlignmentLeft</string>
+			</dict>
+			<key>AddSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>PSChildPaneSpecifier</string>
+				<key>File</key>
+				<string>App</string>
+				<key>Title</key>
+				<string>Add App...</string>
+				<key>Key</key>
+				<string>addAppKey</string>
+			</dict>
+			<key>Deletable</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>

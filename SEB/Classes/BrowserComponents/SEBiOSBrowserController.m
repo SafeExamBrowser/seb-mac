@@ -65,6 +65,12 @@
 }
 
 
+- (BOOL) removeTempDownUploadDirectory
+{
+    return YES;
+}
+
+
 #pragma mark Downloading SEB Config Files
 
 // Check if reconfiguring from exam or secure mode is allowed

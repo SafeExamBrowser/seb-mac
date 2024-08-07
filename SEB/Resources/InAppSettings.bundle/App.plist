@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Permitted App</string>
+			<key>FooterText</key>
+			<string>Enter the Bundle ID of the app in Identifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Active</string>
+			<key>Key</key>
+			<string>active</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Title</string>
+			<key>Key</key>
+			<string>title</string>
+			<key>IASKPlaceholder</key>
+			<string>App title for your reference</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Description</string>
+			<key>Key</key>
+			<string>description</string>
+			<key>IASKPlaceholder</key>
+			<string>Description for your reference</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>os</string>
+			<key>Title</key>
+			<string>OS</string>
+			<key>Titles</key>
+			<array>
+				<string>macOS</string>
+				<string>Win</string>
+				<string>iOS</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Identifier</string>
+			<key>Key</key>
+			<string>identifier</string>
+			<key>IASKPlaceholder</key>
+			<string>Bundle Identifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow Network Access</string>
+			<key>Key</key>
+			<string>allowNetworkAccess</string>
+		</dict>
+	</array>
+</dict>
+</plist>

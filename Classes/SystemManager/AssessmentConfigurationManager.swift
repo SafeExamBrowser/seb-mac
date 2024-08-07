@@ -74,7 +74,7 @@ import CocoaLumberjackSwift
     convenience init(permittedApplications: Array<Dictionary<String, Any>>) {
         self.init()
         
-        if #available(macOS 12.0, iOS 17.5, *) {
+        if #available(macOS 12.0, iOS 17.6, *) {
             for permittedApplication in permittedApplications {
                 var application: AEAssessmentApplication
                 if let bundleIdentifier = permittedApplication["identifier"] as? String, bundleIdentifier.count > 0 {
