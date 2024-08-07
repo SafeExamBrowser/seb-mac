@@ -3445,7 +3445,7 @@ void run_on_ui_thread(dispatch_block_t block)
     UIAlertAction *quitOrRestartAction = [UIAlertAction actionWithTitle:restart ? NSLocalizedString(@"Restart", @"") : NSLocalizedString(@"Quit", @"")
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
           self.alertController = nil;
-          DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingSession ? SEBShortAppName : @"exam session");
+          DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingExamSession ? SEBShortAppName : @"exam session");
           [self sessionQuitRestart:restart];
       }];
     [_alertController addAction:quitOrRestartAction];
@@ -3519,7 +3519,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (BOOL) quittingSession
+- (BOOL) quittingExamSession
 {
     BOOL examSession = NSUserDefaults.userDefaultsPrivate;
     return examSession;
@@ -3529,7 +3529,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) quitSEBOrSession
 {
     DDLogDebug(@"[SEBViewController quitSEBOrSession]");
-    BOOL quittingExamSession = self.quittingSession;
+    BOOL quittingExamSession = self.quittingExamSession;
     if (quittingExamSession) {
         // Switch to system's (persisted) UserDefaults
         [NSUserDefaults setUserDefaultsPrivate:NO];
@@ -3702,7 +3702,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (oldEnableASAM) {
                     if (self.ASAMActive) {
                         DDLogInfo(@"Requesting to exit AAC/Autonomous Single App Mode");
-                        [self stopAssessmentModeWithCallback:self selector:@selector(restartSessionAfterStoppingAssessmentMode:) quittingToAssessmentMode:quitting];
+                        [self stopAssessmentModeWithCallback:self selector:@selector(restartSessionAfterStoppingAssessmentMode:) quittingToAssessmentMode:quitting && self.secureMode];
                     } else {
                         [self restartExamASAM:quitting && self.secureMode];
                     }
@@ -3721,7 +3721,7 @@ void run_on_ui_thread(dispatch_block_t block)
             
         } else {
             // When no kiosk mode was active, then we can just restart SEB
-            // and switch kiosk mode on conditionally according to new settings
+            // and start kiosk mode conditionally according to new settings
             if (pasteboardString) {
                 pasteboard.string = pasteboardString;
             }
