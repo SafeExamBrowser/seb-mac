@@ -122,6 +122,16 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
+			<string>Additional Apps</string>
+			<key>File</key>
+			<string>Apps</string>
+			<key>Key</key>
+			<string>appsChildPane</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>Network</string>
 			<key>File</key>
 			<string>Network</string>

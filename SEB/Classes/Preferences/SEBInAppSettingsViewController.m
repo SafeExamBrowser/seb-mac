@@ -281,19 +281,39 @@
     if ([specifier.key isEqualToString:@"configKey"]) {
         return 44;
     }
-    return 0;
+    if ([specifier.key isEqualToString:@"customCell"]) {
+        return 44*3;
+    }
+    return UITableViewAutomaticDimension;
 }
 
 
 - (UITableViewCell*)settingsViewController:(UITableViewController<IASKViewController> *)settingsViewController cellForSpecifier:(IASKSpecifier*)specifier
  {
+     if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_permittedProcesses"]) {
+         NSDictionary *dict = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+         UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"appCell"];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"appCell"];
+         }
+         cell.textLabel.text = dict[@"title"];
+         NSUInteger os = [dict[@"os"] intValue];
+         if (os != operatingSystemiOS) {
+             cell.detailTextLabel.text = [SEBUIUserDefaultsController sharedSEBUIUserDefaultsController].org_safeexambrowser_SEB_operatingSystems[os];
+         } else {
+             cell.detailTextLabel.text = dict[@"identifier"];
+         }
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         return cell;
+     }
+     
     CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
-    
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
                                                                owner:self
                                                              options:nil] objectAtIndex:0];
     }
+     
     NSString *key = specifier.key;
     if (![_customCells objectForKey:key]) {
         [_customCells setObject:cell forKey:key];
@@ -304,6 +324,21 @@
     cell.textView.delegate = self;
     [cell setNeedsLayout];
     return cell;
+}
+
+
+- (BOOL)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController childPaneIsValidForSpecifier:(IASKSpecifier *)specifier
+             contentDictionary:(NSMutableDictionary *)contentDictionary {
+    if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_permittedProcesses"]) {
+        if (contentDictionary[@"os"] == nil) {
+            [contentDictionary setValue:[NSNumber numberWithLong:operatingSystemiOS] forKey:@"os"];
+        }
+        if (contentDictionary[@"active"] == nil) {
+            [contentDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"active"];
+        }
+        return [contentDictionary[@"title"] length] > 1 && ((([contentDictionary[@"os"] intValue] == operatingSystemiOS) && [contentDictionary[@"identifier"] length]) || (([contentDictionary[@"os"] intValue] == operatingSystemMacOS) && [contentDictionary[@"identifier"] length]));
+    }
+    return YES;
 }
 
 
@@ -652,6 +687,14 @@
                                 [self.appSettingsViewController.navigationController popViewControllerAnimated:YES];
                             }];
     }
+    
+     
+     /// Security
+
+     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_mobileEnableASAM"] ||
+         [changedKeys containsObject:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
+         [self setDependentKeysForAAC];
+     }
 }
 
 
@@ -664,6 +707,7 @@
     [self setDependentKeysForAllowDownUploads];
     [self setDependentKeysForSendBrowserExamKey];
     [self setDependentKeysForShareKeys];
+    [self setDependentKeysForAAC];
     
     // This is necessary because [self setDependentKeysForPermanentSettingsChanged] doesn't work before the Exam Keys pane is actually displayed:
     _configModified = YES;
@@ -847,6 +891,37 @@
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     }
+}
+
+
+- (void)setDependentKeysForAAC
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSMutableSet *newHiddenKeys;
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_mobileEnableModernAAC"]];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"])
+    {
+         newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        
+    } else {
+        newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+    }
+    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+
+    dependentKeys = [NSSet setWithArray:@[@"appsChildPane"]];
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"] ||
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"])
+    {
+        newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        
+    } else {
+        newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+    }
+    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
 }
 
 

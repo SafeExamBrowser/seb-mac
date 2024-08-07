@@ -12,7 +12,7 @@
 			<key>Title</key>
 			<string>Assessment Mode (AAC &amp; ASAM)</string>
 			<key>FooterText</key>
-			<string>Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode).</string>
+			<string>Uses either AAC Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC). Modern AAC API is necessay for Multi App Mode.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -216,7 +216,7 @@
 			<key>Titles</key>
 			<array>
 				<string>None</string>
-				<string>iOS 17</string>
+				<string>iOS 18</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
