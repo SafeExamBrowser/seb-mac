@@ -1258,6 +1258,11 @@ static NSString *urlStrippedFragment(NSURL* url)
     if (((path.pathExtension && [path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
+//        if (path.pathExtension && [path.pathExtension caseInsensitiveCompare:@"numbers"] == NSOrderedSame) {
+//            NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
+//            downloadedFileURL = [downloadedFileURL URLByReplacingScheme:@"com.apple.iwork.numbers-share"];
+//            path = downloadedFileURL.absoluteString;
+//        }
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
             return;
