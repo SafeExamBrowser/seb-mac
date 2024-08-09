@@ -391,8 +391,6 @@
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		69879B442991208D002B039D /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69879B432991208D002B039D /* SEBDocumentIcon.icns */; };
-		698979B12C66A4FC0099C415 /* LZ77 in Frameworks */ = {isa = PBXBuildFile; productRef = 698979B02C66A4FC0099C415 /* LZ77 */; };
-		698979B32C66A4FC0099C415 /* PNG in Frameworks */ = {isa = PBXBuildFile; productRef = 698979B22C66A4FC0099C415 /* PNG */; };
 		698AB4172638630A00E84161 /* SEBiOSBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698AB4152638630A00E84161 /* SEBiOSBrowserController.h */; };
 		698AB4192638630A00E84161 /* SEBiOSBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698AB4162638630A00E84161 /* SEBiOSBrowserController.m */; };
 		698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
@@ -1593,14 +1591,12 @@
 			files = (
 				69433AEC268A793F005E59A5 /* libmbedtls.a in Frameworks */,
 				6943C6142A991C4000EC18FF /* CocoaLumberjack in Frameworks */,
-				698979B32C66A4FC0099C415 /* PNG in Frameworks */,
 				6943C6162A991C4000EC18FF /* CocoaLumberjackSwift in Frameworks */,
 				6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */,
 				69E1F1D62A14118F00B149A4 /* libSEBSupport.a in Frameworks */,
 				6940A7671853B62000D9D00D /* libz.dylib in Frameworks */,
 				69F7B61D14F411FB00FD0761 /* WebKit.framework in Frameworks */,
 				69F7B61E14F411FB00FD0761 /* Cocoa.framework in Frameworks */,
-				698979B12C66A4FC0099C415 /* LZ77 in Frameworks */,
 				6943C6182A991C4000EC18FF /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
@@ -3244,8 +3240,6 @@
 				6943C6132A991C4000EC18FF /* CocoaLumberjack */,
 				6943C6152A991C4000EC18FF /* CocoaLumberjackSwift */,
 				6943C6172A991C4000EC18FF /* CocoaLumberjackSwiftLogBackend */,
-				698979B02C66A4FC0099C415 /* LZ77 */,
-				698979B22C66A4FC0099C415 /* PNG */,
 			);
 			productInstallPath = "$(HOME)/Applications";
 			productName = SEB;
@@ -5505,14 +5499,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6943C6122A991C4000EC18FF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
-		};
-		698979B02C66A4FC0099C415 /* LZ77 */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = LZ77;
-		};
-		698979B22C66A4FC0099C415 /* PNG */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PNG;
 		};
 /* End XCSwiftPackageProductDependency section */
 
