@@ -1133,6 +1133,9 @@ bool insideMatrix(void);
         [self coverScreens];
 
         // Block screen shots
+//        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"]) {
+//            [self killScreenCaptureAgent];
+//        }
         [self.systemManager preventScreenCapture];
     }
     // Start system monitoring and prevent to start SEB if specific
@@ -2448,7 +2451,7 @@ bool insideMatrix(void);
                 ^{
                     NSApp.presentationOptions |= (NSApplicationPresentationDisableForceQuit | NSApplicationPresentationHideDock);
                     DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == false");
-                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector];
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:callback selector:selector fallback:NO];
                     self.assessmentModeManager = assessmentModeManager;
                     self.assessmentModeManager.delegate = self;
                     NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
@@ -2471,7 +2474,7 @@ bool insideMatrix(void);
                         }
                     }
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
-                        [self assessmentSessionDidEndWithCallback:callback selector:selector];
+                        [self assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                     }
                 };
                 
@@ -2516,7 +2519,7 @@ bool insideMatrix(void);
                 return;
             } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
                 DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
-                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
+                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                 return;
             }
         } else {
@@ -2568,6 +2571,7 @@ bool insideMatrix(void);
 
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
+                    quittingToAssessmentMode:(BOOL)quittingToAssessmentMode
 {
     _wasAACEnabled = NO;
     [self.hudController hideHUDProgressIndicator];
@@ -3843,6 +3847,17 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             BOOL killSuccess = [touchBarAgent kill];
             DDLogVerbose(@"Success of terminating TouchBarAgent: %ld", (long)killSuccess);
         }
+    }
+}
+
+
+- (void)killScreenCaptureAgent
+{
+    NSArray *allRunningProcesses = [self getProcessArray];
+    NSDictionary *processDetails = nil;
+    NSError *error = [self runningProcessCheckForName:screenCaptureAgent inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+    if (processDetails) {
+        DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
     }
 }
 
@@ -7028,7 +7043,7 @@ conditionallyForWindow:(NSWindow *)window
                     [self.browserController closeAllBrowserWindows];
                 }
 
-                [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB)];
+                [self.assessmentModeManager endAssessmentModeWithCallback:self selector:@selector(terminateSEB) quittingToAssessmentMode:NO];
                 return NSTerminateCancel;
             }
         }
@@ -7157,6 +7172,7 @@ conditionallyForWindow:(NSWindow *)window
 {
     DDLogDebug(@"%s", __FUNCTION__);
 
+//    [self killScreenCaptureAgent];
     BOOL success = [self.systemManager restoreScreenCapture];
     DDLogDebug(@"Success of restoring SC: %hhd", success);
     

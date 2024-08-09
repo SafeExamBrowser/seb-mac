@@ -309,8 +309,8 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL multiAppModeSettings = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] &&
-    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
-    [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"] &&
+    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
+    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"] &&
     [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0];
     
     return multiAppModeSettings;
@@ -324,8 +324,8 @@
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
-    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
-    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     
     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
     [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];

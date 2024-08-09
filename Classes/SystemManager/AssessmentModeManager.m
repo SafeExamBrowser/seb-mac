@@ -40,11 +40,13 @@
 
 - (instancetype)initWithCallback:(id)callback
                         selector:(SEL)selector
+                        fallback:(BOOL)fallback
 {
     self = [super init];
     if (self) {
         successCallback = callback;
         successSelector = selector;
+        successFallback = fallback;
     }
     return self;
 }
@@ -74,12 +76,14 @@
 
 - (BOOL) endAssessmentModeWithCallback:(id)callback
                               selector:(SEL)selector
+              quittingToAssessmentMode:(BOOL)quittingToAssessmentMode
 {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
 
     if (self.assessmentSession && self.assessmentSession.active) {
         successCallback = callback;
         successSelector = selector;
+        successQuittingToAssessmentMode = quittingToAssessmentMode;
         DDLogDebug(@"%s: Ending assessment session, set callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self.delegate assessmentSessionWillEnd];
 
@@ -88,7 +92,7 @@
     } else {
         DDLogWarn(@"Assessment session is not active!");
         [self.delegate assessmentSessionWillEnd];
-        [self.delegate assessmentSessionDidEndWithCallback:callback selector:selector];
+        [self.delegate assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:quittingToAssessmentMode];
         return NO;
     }
 }
@@ -97,14 +101,14 @@
 - (void) assessmentSessionDidBegin:(AEAssessmentSession *)session
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    [self.delegate assessmentSessionDidBeginWithCallback:successCallback selector:successSelector];
+    [self.delegate assessmentSessionDidBeginWithCallback:successCallback selector:successSelector fallback:successFallback];
 }
 
 - (void) assessmentSession:(AEAssessmentSession *)session failedToBeginWithError:(NSError *)error
 {
     DDLogDebug(@"%s error: %@", __FUNCTION__, error);
     self.assessmentSession = nil;
-    [self.delegate assessmentSessionFailedToBeginWithError:error callback:successCallback selector:successSelector];
+    [self.delegate assessmentSessionFailedToBeginWithError:error callback:successCallback selector:successSelector fallback:successFallback];
 }
 
 - (void) assessmentSessionDidEnd:(AEAssessmentSession *)session
@@ -115,7 +119,7 @@
         id callback = successCallback;
         successCallback = nil;
         DDLogDebug(@"%s: Reset callback for delegate assessmentSessionDidEndWithCallback:selector: to %@", __FUNCTION__, successCallback);
-        [self.delegate assessmentSessionDidEndWithCallback:callback selector:successSelector];
+        [self.delegate assessmentSessionDidEndWithCallback:callback selector:successSelector quittingToAssessmentMode:successQuittingToAssessmentMode];
     }
 }
 

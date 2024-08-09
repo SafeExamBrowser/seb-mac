@@ -4147,18 +4147,20 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
                                       selector:(SEL)selector
+                                      fallback:(BOOL)fallback
 {
     [self.assessmentConfigurationManager autostartAppsWithPermittedApplications:self.permittedProcesses];
     
-    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@ fallback: %d", __FUNCTION__, callback, NSStringFromSelector(selector), fallback);
     IMP imp = [callback methodForSelector:selector];
-    void (*func)(id, SEL) = (void *)imp;
-    func(callback, selector);
+    void (*func)(id, SEL, BOOL) = (void *)imp;
+    func(callback, selector, fallback);
 }
 
 - (void) assessmentSessionFailedToBeginWithError:(NSError *)error
                                         callback:(id)callback
                                         selector:(SEL)selector
+                                        fallback:(BOOL)fallback
 {
     DDLogError(@"Could not start AAC Assessment Mode with error: %@", error);
     self.ASAMActive = NO;
@@ -4168,11 +4170,12 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void) assessmentSessionDidEndWithCallback:(id)callback
                                     selector:(SEL)selector
+                    quittingToAssessmentMode:(BOOL)quittingToAssessmentMode
 {
-    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    DDLogDebug(@"%s, continue with callback: %@ selector: %@ quitting to Assessment Mode: %d", __FUNCTION__, callback, NSStringFromSelector(selector), quittingToAssessmentMode);
     IMP imp = [callback methodForSelector:selector];
-    void (*func)(id, SEL) = (void *)imp;
-    func(callback, selector);
+    void (*func)(id, SEL, BOOL) = (void *)imp;
+    func(callback, selector, quittingToAssessmentMode);
 }
 
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error
@@ -4579,7 +4582,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
                 if (@available(iOS 13.4, *)) {
-                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:)];
+                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
                     self.assessmentModeManager = assessmentModeManager;
                     self.assessmentModeManager.delegate = self;
                     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -4592,7 +4595,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
                         self.ASAMActive = NO;
                         [self showNoKioskModeAvailable];
-                        [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable)];
+                        [self assessmentSessionDidEndWithCallback:self selector:@selector(showNoKioskModeAvailable) quittingToAssessmentMode:NO];
                     }
                     return;
                 }
@@ -4648,7 +4651,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (self.assessmentSessionActive) {
         DDLogInfo(@"%s: Assessment Mode session is active, end it", __FUNCTION__);
         if (@available(iOS 13.4, *)) {
-            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector];
+            [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:quittingToAssessmentMode];
         }
     } else {
         UIAccessibilityRequestGuidedAccessSession(NO, ^(BOOL didSucceed) {

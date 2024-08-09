@@ -222,6 +222,17 @@
     [_sebViewController storeNewSEBSettingsSuccessful:error];
 }
 
+
+- (void) openDownloadedFile:(NSString *)path
+{
+    // Open downloaded file ToDo: Doesn't work on iOS, but app is opened
+    NSURL *downloadedFileURL = [NSURL URLWithString:path];
+    [[UIApplication sharedApplication] openURL:downloadedFileURL options:@[] completionHandler:^(BOOL success) {
+        DDLogDebug(@"%s %@ %@.", __FUNCTION__, downloadedFileURL, success ? @"successfully" : @"failed");
+    }];
+}
+
+
 - (void)presentAlertWithTitle:(nonnull NSString *)title message:(nonnull NSString *)message {
     [_sebViewController alertWithTitle:title message:message action1Title:NSLocalizedString(@"OK", @"") action1Handler:^{
         self.sebViewController.alertController = nil;
