@@ -805,6 +805,8 @@ import CocoaLumberjackSwift
 
         let urlIsPDF = url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
 
+//        let urlIsNumbersSheet = url.pathExtension.caseInsensitiveCompare("numbers") == .orderedSame
+
         // Block which translates SEBNavigationActionPolicies to WKNavigationActionPolicies
         let callDecisionHandler:() -> () = {
             if navigationActionPolicy == SEBNavigationActionPolicyAllow {
@@ -846,6 +848,13 @@ import CocoaLumberjackSwift
                 if #available(macOS 11.3, iOS 14.5, *) {
                     shouldPerformWKDownload = navigationAction.shouldPerformDownload
                 }
+                
+//                if #available(macOS 11.3, iOS 14.5, *) {
+//                    if urlIsNumbersSheet {
+//                        decisionHandler(.download)
+//                        return
+//                    }
+//                }
                 
                 if WKDownloadSupported && (shouldPerformWKDownload || (urlIsPDF && !displayPDF)) {
                     if #available(macOS 11.3, iOS 14.5, *) {
