@@ -42,14 +42,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) assessmentSessionWillBegin;
 
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
-                                      selector:(SEL)selector;
+                                      selector:(SEL)selector
+                                      fallback:(BOOL)fallback;
 - (void) assessmentSessionFailedToBeginWithError:(NSError *)error
                                         callback:(id)callback
-                                        selector:(SEL)selector;
+                                        selector:(SEL)selector
+                                        fallback:(BOOL)fallback;
 - (void) assessmentSessionWillEnd;
 
 - (void) assessmentSessionDidEndWithCallback:(id)callback
-                                    selector:(SEL)selector;
+                                    selector:(SEL)selector
+                    quittingToAssessmentMode:(BOOL)quittingToAssessmentMode;
 - (void) assessmentSessionWasInterruptedWithError:(NSError *)error;
 
 @end
@@ -60,14 +63,18 @@ API_AVAILABLE(macos(10.15.4), ios(13.4))
     @private
     id successCallback;
     SEL successSelector;
+    BOOL successFallback;
+    BOOL successQuittingToAssessmentMode;
 }
 
 - (instancetype)initWithCallback:(id)callback
-                        selector:(SEL)selector;
+                        selector:(SEL)selector
+                        fallback:(BOOL)fallback;
 - (BOOL) beginAssessmentMode;
 - (BOOL) beginAssessmentModeWithConfiguration:(AEAssessmentConfiguration*)config;
 - (BOOL) endAssessmentModeWithCallback:(id)callback
-                              selector:(SEL)selector;
+                              selector:(SEL)selector
+              quittingToAssessmentMode:(BOOL)quittingToAssessmentMode;
 
 @property (weak) id <AssessmentModeDelegate> delegate;
 @property(strong, nonatomic, nullable) AEAssessmentSession *assessmentSession API_AVAILABLE(macosx(10.15.4), ios(13.4));

@@ -358,7 +358,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     // Execute the redirect script
     if ([self changeScreenCaptureLocation:scFullPath]) {
-        DDLogDebug(@"sc redirect script didn't report an error");
+        DDLogDebug(@"sc redirect didn't report an error");
     }
     
     // Get and verify the new location

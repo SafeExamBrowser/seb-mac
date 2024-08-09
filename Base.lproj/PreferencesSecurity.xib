@@ -87,28 +87,23 @@
                                                         </connections>
                                                     </button>
                                                     <button toolTip="Shows or hides SEB windows on macOS screen shots (invoked with cmd-shift-3/-4/-5)" translatesAutoresizingMaskIntoConstraints="NO" id="g34-gq-Owk">
-                                                        <rect key="frame" x="13" y="21" width="249" height="18"/>
+                                                        <rect key="frame" x="-2" y="21" width="249" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Allow window capture (screen shots)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lyl-Qv-iTq">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
                                                             <action selector="setEnableWindowCapture:" target="-2" id="TjD-fs-fAl"/>
-                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="CHP-kt-Jhr"/>
-                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
-                                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="CHP-kt-Jhr" id="eZR-9x-BbY">
+                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="ssK-gN-4In">
                                                                 <dictionary key="options">
-                                                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                                    <integer key="NSNullPlaceholder" value="-1"/>
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
+                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                                         </connections>
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="LEn-zs-oJl">
-                                                        <rect key="frame" x="28" y="-1" width="198" height="18"/>
+                                                        <rect key="frame" x="13" y="-1" width="198" height="18"/>
                                                         <string key="toolTip">Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win).</string>
                                                         <buttonCell key="cell" type="check" title="Block screen shots (Legacy)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="LHf-yE-fnG">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -138,10 +133,8 @@
                                                     </button>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="g34-gq-Owk" firstAttribute="leading" secondItem="4Z8-1t-DB7" secondAttribute="leading" constant="15" id="6bX-XY-rkD"/>
-                                                    <constraint firstItem="LEn-zs-oJl" firstAttribute="leading" secondItem="4Z8-1t-DB7" secondAttribute="leading" constant="30" id="O9X-ZB-f28"/>
+                                                    <constraint firstItem="LEn-zs-oJl" firstAttribute="leading" secondItem="4Z8-1t-DB7" secondAttribute="leading" constant="15" id="O9X-ZB-f28"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LEn-zs-oJl" secondAttribute="trailing" id="UJr-pd-qTB"/>
-                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g34-gq-Owk" secondAttribute="trailing" id="fxe-FH-Shq"/>
                                                 </constraints>
                                                 <visibilityPriorities>
                                                     <integer value="1000"/>
@@ -2153,7 +2146,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.97222222222222221" horizontal="NO" id="Wcn-E4-i4h">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.51388888888888884" horizontal="NO" id="Wcn-E4-i4h">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
