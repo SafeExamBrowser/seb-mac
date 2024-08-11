@@ -12,6 +12,9 @@ import MobileCoreServices
 
 public class ScreenCaptureController {
     
+    public init() {
+    }
+    
     public func takeScreenShot(scale: Double, quantization: ColorQuantization) -> Data? {
 //        let displayID = CGMainDisplayID()
 //        guard var imageRef = CGDisplayCreateImage(displayID) else {

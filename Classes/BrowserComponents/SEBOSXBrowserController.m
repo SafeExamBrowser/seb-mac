@@ -171,7 +171,7 @@
     SEBAbstractWebView *newWindowWebView = newBrowserWindow.webView;
     newBrowserWindow.browserControllerDelegate = newWindowWebView;
     
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
+    if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
         [newBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -455,7 +455,7 @@
     SEBBrowserWindowDocument *browserWindowDocument = [[NSDocumentController sharedDocumentController] openUntitledDocumentAndDisplay:YES error:&error];
     if (!error) {
         NSWindow *additionalBrowserWindow = browserWindowDocument.mainWindowController.window;
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
+        if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
             [additionalBrowserWindow setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [(SEBBrowserWindow *)additionalBrowserWindow setCalculatedFrame];

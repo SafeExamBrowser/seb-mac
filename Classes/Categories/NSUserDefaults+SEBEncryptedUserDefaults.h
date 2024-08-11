@@ -111,6 +111,10 @@
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;
 
+@property (readonly) BOOL allowWindowCapture;
+@property (readonly) BOOL blockScreenShotsLegacy;
+
+
 // Get SEB's default settings key/values for a specific dictionary, including all sub-dictionaries
 - (NSDictionary *) getDefaultDictionaryForKey:(NSString *)dictionaryKey;
 

@@ -57,7 +57,7 @@
         self.dockWindow.releasedWhenClosed = YES;
         self.dockWindow.autorecalculatesKeyViewLoop = YES;
         self.dockWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
+        if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
             [self.dockWindow setSharingType:NSWindowSharingNone];
         }
         self.dockWindow.height = dockHeight;
