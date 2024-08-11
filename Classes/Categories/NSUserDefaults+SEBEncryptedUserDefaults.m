@@ -237,6 +237,19 @@ static NSNumber *_logLevel;
 }
 
 
+- (BOOL) allowWindowCapture
+{
+    return [self secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] ||
+            [self secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+}
+
+- (BOOL) blockScreenShotsLegacy
+{
+    return [self secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"] ||
+            [self secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+}
+
+
 - (NSDictionary *) getDefaultDictionaryForKey:(NSString *)dictionaryKey
 {
     if (dictionaryKey.length == 0) {

@@ -1133,7 +1133,7 @@ bool insideMatrix(void);
         [self coverScreens];
 
         // Block screen shots
-//        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"]) {
+//        if ([NSUserDefaults standardUserDefaults].blockScreenShotsLegacy) {
 //            [self killScreenCaptureAgent];
 //        }
         [self.systemManager preventScreenCapture];
@@ -4327,7 +4327,7 @@ bool insideMatrix(void){
         
         [window setReleasedWhenClosed:YES];
         [window setBackgroundColor:windowColor];
-        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] == NO) {
+        if ([NSUserDefaults standardUserDefaults].allowWindowCapture == NO) {
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];

@@ -176,7 +176,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     if (floor(NSAppKitVersionNumber) < NSAppKitVersionNumber10_10) {
         blockScreenShots = YES;
     } else {
-        blockScreenShots = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_blockScreenShotsLegacy"];
+        blockScreenShots = preferences.blockScreenShotsLegacy;
     }
 
     /// Check if there is a redirected sc location persistently stored
