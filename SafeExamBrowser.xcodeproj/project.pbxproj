@@ -584,6 +584,8 @@
 		69B5E2AA25756BEF009030C2 /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */; };
 		69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */; };
+		69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */; };
 		69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
 		69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
 		69B98F802BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
@@ -786,6 +788,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6940B9651BA0F2FB008C8CFC;
 			remoteInfo = SEB;
+		};
+		69B7A4DB2C694CAE00094ED3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 69F7B5FA14F411FB00FD0761;
+			remoteInfo = "Safe Exam Browser";
 		};
 		69D02492287C68E7006CEC19 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1367,6 +1376,10 @@
 		69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBAbstractWebView.h; path = Classes/BrowserComponents/SEBAbstractWebView.h; sourceTree = "<group>"; };
 		69B675992038849000FA58F5 /* SEBUIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIController.h; path = Classes/AdditionalViews/SEBUIController.h; sourceTree = "<group>"; };
 		69B6759A2038849000FA58F5 /* SEBUIController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIController.m; path = Classes/AdditionalViews/SEBUIController.m; sourceTree = "<group>"; };
+		69B7A4D02C6948EC00094ED3 /* SEBTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEBTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenCaptureControllerTests.swift; sourceTree = "<group>"; };
+		69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeExamBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeExamBrowserTests.swift; sourceTree = "<group>"; };
 		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ZoomSDK/libssl.dylib; sourceTree = "<group>"; };
 		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ZoomSDK/libcrypto.dylib; sourceTree = "<group>"; };
 		69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
@@ -1561,6 +1574,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B7A4D42C694CAE00094ED3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D0247E287C68E5006CEC19 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1665,6 +1685,7 @@
 				69D02481287C68E5006CEC19 /* SEBVerificator.app */,
 				69D02491287C68E7006CEC19 /* SEBVerificatorTests.xctest */,
 				69D0249B287C68E7006CEC19 /* SEBVerificatorUITests.xctest */,
+				69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1676,6 +1697,7 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				6940B98F1BA0F2FB008C8CFC /* SEBUITests */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				69B7A4D82C694CAE00094ED3 /* SafeExamBrowserTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				6940B9671BA0F2FB008C8CFC /* SEB iOS */,
@@ -1686,6 +1708,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
 				5B8F06187E284248F4B5DF30 /* Pods */,
+				69B7A4D02C6948EC00094ED3 /* SEBTests-Bridging-Header.h */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -1998,6 +2021,7 @@
 		6940B9841BA0F2FB008C8CFC /* SEBTests */ = {
 			isa = PBXGroup;
 			children = (
+				69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */,
 				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
 				6940B9871BA0F2FB008C8CFC /* Info.plist */,
 			);
@@ -2682,6 +2706,14 @@
 			name = AboutSEB;
 			sourceTree = "<group>";
 		};
+		69B7A4D82C694CAE00094ED3 /* SafeExamBrowserTests */ = {
+			isa = PBXGroup;
+			children = (
+				69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */,
+			);
+			path = SafeExamBrowserTests;
+			sourceTree = "<group>";
+		};
 		69BA05A91D57E4C200C07C4F /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -3162,6 +3194,24 @@
 			productReference = 6940B98C1BA0F2FB008C8CFC /* SEBUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		69B7A4D62C694CAE00094ED3 /* SafeExamBrowserTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69B7A4DD2C694CAE00094ED3 /* Build configuration list for PBXNativeTarget "SafeExamBrowserTests" */;
+			buildPhases = (
+				69B7A4D32C694CAE00094ED3 /* Sources */,
+				69B7A4D42C694CAE00094ED3 /* Frameworks */,
+				69B7A4D52C694CAE00094ED3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				69B7A4DC2C694CAE00094ED3 /* PBXTargetDependency */,
+			);
+			name = SafeExamBrowserTests;
+			productName = SafeExamBrowserTests;
+			productReference = 69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		69D02480287C68E5006CEC19 /* SEBVerificator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69D024A9287C68E7006CEC19 /* Build configuration list for PBXNativeTarget "SEBVerificator" */;
@@ -3252,7 +3302,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					6940B9651BA0F2FB008C8CFC = {
@@ -3269,11 +3319,16 @@
 					};
 					6940B9801BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 1540;
 						TestTargetID = 6940B9651BA0F2FB008C8CFC;
 					};
 					6940B98B1BA0F2FB008C8CFC = {
 						CreatedOnToolsVersion = 7.1;
 						TestTargetID = 6940B9651BA0F2FB008C8CFC;
+					};
+					69B7A4D62C694CAE00094ED3 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 69F7B5FA14F411FB00FD0761;
 					};
 					69D02480287C68E5006CEC19 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -3319,6 +3374,7 @@
 			targets = (
 				69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */,
 				6940B9651BA0F2FB008C8CFC /* SEB */,
+				69B7A4D62C694CAE00094ED3 /* SafeExamBrowserTests */,
 				6940B9801BA0F2FB008C8CFC /* SEBTests */,
 				6940B98B1BA0F2FB008C8CFC /* SEBUITests */,
 				69D02480287C68E5006CEC19 /* SEBVerificator */,
@@ -3519,6 +3575,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		6940B98A1BA0F2FB008C8CFC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69B7A4D52C694CAE00094ED3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3847,6 +3910,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69B7A4D32C694CAE00094ED3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
+				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D0247D287C68E5006CEC19 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4024,6 +4096,11 @@
 			isa = PBXTargetDependency;
 			target = 6940B9651BA0F2FB008C8CFC /* SEB */;
 			targetProxy = 6940B98D1BA0F2FB008C8CFC /* PBXContainerItemProxy */;
+		};
+		69B7A4DC2C694CAE00094ED3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 69F7B5FA14F411FB00FD0761 /* Safe Exam Browser */;
+			targetProxy = 69B7A4DB2C694CAE00094ED3 /* PBXContainerItemProxy */;
 		};
 		69D02493287C68E7006CEC19 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4681,7 +4758,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = SEBTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4691,6 +4768,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "SEBTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEB.app/SEB";
 			};
 			name = Debug;
@@ -4725,7 +4805,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				INFOPLIST_FILE = SEBTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4735,6 +4815,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SEBTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "SEBTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SEB.app/SEB";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4833,6 +4915,93 @@
 				TEST_TARGET_NAME = SEB;
 				USES_XCTRUNNER = YES;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		69B7A4DE2C694CAE00094ED3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowserTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Safe Exam Browser.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Safe Exam Browser";
+			};
+			name = Debug;
+		};
+		69B7A4DF2C694CAE00094ED3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6F38DNSC7X;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowserTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Safe Exam Browser.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Safe Exam Browser";
 			};
 			name = Release;
 		};
@@ -5392,6 +5561,15 @@
 			buildConfigurations = (
 				6940B9971BA0F2FB008C8CFC /* Debug */,
 				6940B9981BA0F2FB008C8CFC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69B7A4DD2C694CAE00094ED3 /* Build configuration list for PBXNativeTarget "SafeExamBrowserTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B7A4DE2C694CAE00094ED3 /* Debug */,
+				69B7A4DF2C694CAE00094ED3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
