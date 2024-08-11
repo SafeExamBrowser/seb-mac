@@ -28,6 +28,16 @@ fileprivate struct keysSPS {
     static let responseHeaderServerHealth = "sps_server_health"
 }
 
+public enum ColorQuantization:Int {
+    case blackWhite
+    case grayscale2Bpp
+    case grayscale4Bpp
+    case grayscale8Bpp
+    case color8Bpp
+    case color16Bpp
+    case color24Bpp
+}
+
 @objc public protocol ScreenProctoringDelegate: AnyObject {
     
     func getScreenProctoringMetadataURL() -> String?
@@ -89,7 +99,7 @@ struct MetadataSettings {
     private var screenshotMinInterval: Int?
     private var screenshotMaxInterval: Int?
     private var imageFormat: Int?
-    private var imageQuantization: Int?
+    private var imageQuantization: ColorQuantization?
     private var imageDownscale: Double?
     private var imageScale = 0.5
 
@@ -134,7 +144,7 @@ struct MetadataSettings {
         self.screenshotMinInterval = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringScreenshotMinInterval")
         self.screenshotMaxInterval = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringScreenshotMaxInterval")
         self.imageFormat = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageFormat")
-        self.imageQuantization = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageQuantization")
+        self.imageQuantization = ColorQuantization(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageQuantization"))
         self.imageDownscale = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_screenProctoringImageDownscale")
         if self.imageDownscale == 0 {
             self.imageDownscale = 1
@@ -307,7 +317,7 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func sendScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
-        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale) {
+        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp) {
             self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp)
         }
         self.sendingScreenShot = false

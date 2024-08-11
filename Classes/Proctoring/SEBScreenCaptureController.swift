@@ -12,7 +12,7 @@ import MobileCoreServices
 
 public class ScreenCaptureController {
     
-    public func takeScreenShot(scale: Double) -> Data? {
+    public func takeScreenShot(scale: Double, quantization: ColorQuantization) -> Data? {
 //        let displayID = CGMainDisplayID()
 //        guard var imageRef = CGDisplayCreateImage(displayID) else {
 //            return nil
@@ -35,12 +35,18 @@ public class ScreenCaptureController {
             return nil
         }
 #endif
+        if quantization != .color24Bpp || quantization != .color16Bpp || quantization != .color8Bpp {
+            if let greyscaleImage = imageRef.greyscale() {
+                imageRef = greyscaleImage
+            }
+        }
         if scale != 1 {
             guard let scaledImage = imageRef.resize(scale: scale) else {
                 return nil
             }
             imageRef = scaledImage
         }
+        imageRef = imageRef.greyscale()!
         let pngData = imageRef.pngData()
         return pngData
     }
@@ -124,4 +130,16 @@ extension CGImage {
         return context.makeImage()
     }
 
+    func greyscale() -> CGImage? {
+        let imgRect = CGRect(x: 0, y: 0, width: width, height: height)
+
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue).rawValue)
+        context?.draw(self, in: imgRect)
+
+        let imageRef = context!.makeImage()
+
+        return imageRef
+    }
 }
