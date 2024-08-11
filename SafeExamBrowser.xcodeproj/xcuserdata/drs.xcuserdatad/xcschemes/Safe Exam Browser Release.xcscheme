@@ -37,6 +37,17 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "69B7A4D62C694CAE00094ED3"
+               BuildableName = "SafeExamBrowserTests.xctest"
+               BlueprintName = "SafeExamBrowserTests"
+               ReferencedContainer = "container:SafeExamBrowser.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
