@@ -34,6 +34,9 @@
 
 #import "ServerController.h"
 
+static NSString __unused *moodleUserIDEndpointETHTheme = @"/theme/boost_ethz/sebuser.php";
+static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/accessrule/sebserver/classes/external/user.php";
+
 @implementation ServerController
 
 
@@ -172,26 +175,28 @@
                 sessionIdentifier = openEdXUsername;
                 [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
             }
-        } else if ([cookie.name isEqualToString:@"MoodleSession"]) {
-            DDLogDebug(@"Cookie 'MoodleSession': %@", cookie);
+        } else if ([cookie.name hasPrefix:@"MoodleSession"]) {
+            DDLogDebug(@"Cookie '%@': %@", cookie.name, cookie);
             NSString *domain = cookie.domain;
             if ([url.absoluteString containsString:domain]) {
                 NSString *moodleSession = cookie.value;
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                 urlComponents.path = nil;
                 urlComponents.query = nil;
-                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:@"/theme/boost_ethz/sebuser.php"];
+                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:moodleUserIDEndpointSEBServerPlugin];
             }
         }
     }
 }
 
-- (void) didReceiveMoodleUserId:(NSString *)moodleUserId
+- (void) didReceiveMoodleUserId:(NSString *)moodleUserId moodleSession:(NSString * _Nonnull)moodleSession url:(NSURL * _Nonnull)url endpoint:(NSString * _Nonnull)endpoint
 {
-    if (moodleUserId.length > 0  && ![sessionIdentifier isEqualToString:moodleUserId]) {
+    if (moodleUserId.length > 0 && ![moodleUserId isEqualToString:@"0"] && ![sessionIdentifier isEqualToString:moodleUserId]) {
         DDLogInfo(@"ServerController: Did receive Moodle user ID");
        sessionIdentifier = moodleUserId;
         [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
+    } else if ([endpoint isEqualToString:moodleUserIDEndpointSEBServerPlugin]) {
+        [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:url endpoint:moodleUserIDEndpointETHTheme];
     }
 }
 
