@@ -161,6 +161,15 @@ NS_ASSUME_NONNULL_BEGIN
     
     CGEventRef keyboardEventReturnKey;
     
+    NSImage *ScreenProctoringIconInactiveState;
+    NSImage *ScreenProctoringIconActiveState;
+    NSImage *ScreenProctoringIconActiveWarningState;
+    NSImage *ScreenProctoringIconActiveErrorState;
+    NSImage *ScreenProctoringIconInactiveErrorState;
+    NSColor *ScreenProctoringIconColorActiveState;
+    NSColor *ScreenProctoringIconColorWarningState;
+    NSColor *ScreenProctoringIconColorErrorState;
+    
     NSImage *ProctoringIconDefaultState;
     NSImage *ProctoringIconAIInactiveState;
     NSImage *ProctoringIconNormalState;
