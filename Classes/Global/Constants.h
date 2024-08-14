@@ -218,11 +218,11 @@ typedef NSUInteger iOSVersion;
 
 
 enum {
-    ScreenProctoringButtonStateDefault          = 0,
-    ScreenProctoringButtonStateNormal           = 1,
-    ScreenProctoringButtonStateWarning          = 2,
-    ScreenProctoringButtonStateError            = 3,
-    ScreenProctoringButtonStateInactive         = 4
+    ScreenProctoringButtonStateInactive         = 0,
+    ScreenProctoringButtonStateActive           = 1,
+    ScreenProctoringButtonStateActiveWarning    = 2,
+    ScreenProctoringButtonStateActiveError      = 3,
+    ScreenProctoringButtonStateInactiveError    = 4
 };
 typedef NSInteger ScreenProctoringButtonStates;
 

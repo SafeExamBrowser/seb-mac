@@ -313,7 +313,7 @@ public extension SEBScreenProctoringController {
         startMaxIntervalTimer()
         startMinIntervalTimer()
         metadataCollector.monitorEvents()
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateNormal)
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
     }
     
     fileprivate func sendScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
@@ -442,7 +442,7 @@ public extension SEBScreenProctoringController {
     @objc func closeSession(completionHandler: @escaping () -> Void) {
         stopMinIntervalTimer()
         stopMaxIntervalTimer()
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateDefault)
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateInactive)
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -489,7 +489,7 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func didFail(error: NSError, fatal: Bool) {
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateError)
+        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
         if !cancelAllRequests {
 //            self.delegate?.didFail(error: error, fatal: fatal)
         }

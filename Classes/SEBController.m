@@ -1525,50 +1525,37 @@ bool insideMatrix(void);
                            userFeedback:(BOOL)userFeedback
 
 {
-    NSImage *remoteProctoringButtonImage;
-    NSColor *remoteProctoringButtonTintColor;
+    NSImage *screenProctoringButtonImage;
+    NSColor *screenProctoringButtonTintColor;
     DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
     switch (screenProctoringButtonState) {
-        case ScreenProctoringButtonStateNormal:
+        case ScreenProctoringButtonStateActive:
             _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Active",nil);
-            remoteProctoringButtonImage = ProctoringIconNormalState;
-            remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
+            screenProctoringButtonImage = ScreenProctoringIconActiveState;
+            screenProctoringButtonTintColor = ScreenProctoringIconColorActiveState;
             break;
             
-        case ScreenProctoringButtonStateWarning:
-            remoteProctoringButtonImage = ProctoringIconWarningState;
-            remoteProctoringButtonTintColor = ProctoringIconColorWarningState;
+        case ScreenProctoringButtonStateActiveWarning:
+            screenProctoringButtonImage = ProctoringIconWarningState;
+            screenProctoringButtonTintColor = ProctoringIconColorWarningState;
             break;
             
-        case ScreenProctoringButtonStateError:
-            remoteProctoringButtonImage = ProctoringIconErrorState;
-            remoteProctoringButtonTintColor = ProctoringIconColorErrorState;
+        case ScreenProctoringButtonStateActiveError:
+            screenProctoringButtonImage = ProctoringIconErrorState;
+            screenProctoringButtonTintColor = ProctoringIconColorErrorState;
             break;
             
         case ScreenProctoringButtonStateInactive:
-            if (@available(macOS 10.14, *)) {
-                _dockButtonScreenProctoring.image.template = YES;
-                remoteProctoringButtonTintColor = ProctoringIconColorNormalState;
-            } else {
-                remoteProctoringButtonImage = ProctoringIconAIInactiveState;
-            }
-            break;
-            
         default:
             _dockButtonScreenProctoring.toolTip = NSLocalizedString(@"Screen Proctoring Inactive",nil);
-            if (@available(macOS 10.14, *)) {
-                remoteProctoringButtonImage.template = NO;
-                remoteProctoringButtonTintColor = nil;
-            } else {
-                remoteProctoringButtonImage = ProctoringIconDefaultState;
-            }
+            screenProctoringButtonImage = ScreenProctoringIconInactiveState;
             break;
     }
     if (userFeedback) {
+        screenProctoringButtonImage.template = YES;
+        _dockButtonScreenProctoring.image = screenProctoringButtonImage;
         if (@available(macOS 10.14, *)) {
-            _dockButtonScreenProctoring.contentTintColor = remoteProctoringButtonTintColor;
-        } else {
-            _dockButtonScreenProctoring.image = remoteProctoringButtonImage;
+            _dockButtonScreenProctoring.contentTintColor = screenProctoringButtonTintColor;
         }
     }
 }
@@ -1598,7 +1585,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     
     NSString *serviceType = attributes[@"service-type"];
-    DDLogDebug(@"%s: Service type: %@", __FUNCTION__, serviceType);
+    DDLogInfo(@"%s: Service type: %@", __FUNCTION__, serviceType);
     
     if ([serviceType isEqualToString:proctoringServiceTypeScreenProctoring]) {
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
@@ -5970,24 +5957,26 @@ conditionallyForWindow:(NSWindow *)window
         }
 
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
-            ProctoringIconDefaultState = [NSImage imageNamed:@"SEBProctoringViewIcon"];
-//            ProctoringIconDefaultState.template = YES;
-            ProctoringIconAIInactiveState = [NSImage imageNamed:@"SEBProctoringViewIcon_green"];
-            ProctoringIconNormalState = [NSImage imageNamed:@"SEBProctoringViewIcon_checkmark"];
-            ProctoringIconColorNormalState = [NSColor systemGreenColor];
-//            ProctoringBadgeNormalState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeCheckmark"].CGImage];
-            ProctoringIconWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
-            ProctoringIconColorWarningState = [NSColor systemOrangeColor];
-//            ProctoringBadgeWarningState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeWarning"].CGImage];
-            ProctoringIconErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
-            ProctoringIconColorErrorState = [NSColor systemRedColor];
-//            ProctoringBadgeErrorState = [[CIImage alloc] initWithCGImage:[UIImage imageNamed:@"SEBBadgeError"].CGImage];
+            ScreenProctoringIconInactiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive"];
+            if (@available(macOS 10.14, *)) {
+                ScreenProctoringIconActiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active"];
+                ScreenProctoringIconInactiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive_error"];
+            } else {
+                ScreenProctoringIconActiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_green"];
+                ScreenProctoringIconInactiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive_error_red"];
+
+            }
+            ScreenProctoringIconColorActiveState = [NSColor systemGreenColor];
+            ScreenProctoringIconActiveWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
+            ScreenProctoringIconColorWarningState = [NSColor systemOrangeColor];
+            ScreenProctoringIconActiveErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
+            ScreenProctoringIconColorErrorState = [NSColor systemRedColor];
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil
                                                                             bundleID:nil
                                                                     allowManualStart:NO
-                                                                          icon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
-                                                               highlightedIcon:[NSImage imageNamed:@"SEBProctoringViewIcon"]
+                                                                          icon:ScreenProctoringIconInactiveState
+                                                               highlightedIcon:ScreenProctoringIconInactiveState
                                                                        toolTip:NSLocalizedString(@"Screen Proctoring Inactive",nil)
                                                                           menu:nil
                                                                         target:self
