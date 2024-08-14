@@ -44,7 +44,7 @@ import CocoaLumberjackSwift
     func closeServerView(completion: @escaping () -> ())
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
-    func didReceiveMoodleUserId(_ moodleUserId: String)
+    func didReceiveMoodleUserId(_ moodleUserId: String?, moodleSession: String, url: URL, endpoint: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
     func didCloseSEBServerConnectionRestart(_ restart: Bool)
@@ -516,17 +516,16 @@ public extension SEBServerController {
 
         let requestHeaders = ["Cookie" : "MoodleSession=\(moodleSession)"]
         loadWithFallback(moodleUserIdResource, httpMethod: moodleUserIdResource.httpMethod, body: "", headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (moodleUserIdResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            var moodleUserId: String?
             if statusCode == 200 && moodleUserIdResponse != nil {
-                guard let moodleUserId = String(data: moodleUserIdResponse!!, encoding: .utf8) else {
+                moodleUserId = String(data: moodleUserIdResponse!!, encoding: .utf8)
+                if moodleUserId == nil {
                     DDLogError("SEB Server Controller: No valid Moodle user ID found, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")")
-                    return
-                }
-                if moodleUserId != "0" {
-                    self.delegate?.didReceiveMoodleUserId(moodleUserId)
                 }
             } else {
                 DDLogError("SEB Server Controller: Querying Moodle user ID failed, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")")
             }
+            self.delegate?.didReceiveMoodleUserId(moodleUserId, moodleSession: moodleSession, url:url, endpoint: endpoint)
         })
     }
     
