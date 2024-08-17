@@ -16,10 +16,10 @@ public class ScreenCaptureController {
     }
     
     public func takeScreenShot(scale: Double, quantization: ColorQuantization) -> Data? {
-//        let displayID = CGMainDisplayID()
-//        guard var imageRef = CGDisplayCreateImage(displayID) else {
-//            return nil
-//        }
+        //        let displayID = CGMainDisplayID()
+        //        guard var imageRef = CGDisplayCreateImage(displayID) else {
+        //            return nil
+        //        }
         
 #if os(macOS)
         guard var imageRef = CGWindowListCreateImage(CGRectInfinite, .optionAll, CGWindowID(), CGWindowImageOption()) else {
@@ -42,6 +42,11 @@ public class ScreenCaptureController {
             if let greyscaleImage = imageRef.greyscale() {
                 imageRef = greyscaleImage
             }
+        } else {
+            let rgb5 = (quantization == .color8Bpp || quantization == .color16Bpp)
+            if let withoutAlpha = imageRef.colorImageReduceSize(rgb5: rgb5) {
+                imageRef = withoutAlpha
+            }
         }
         if scale != 1 {
             guard let scaledImage = imageRef.resize(scale: scale) else {
@@ -49,7 +54,6 @@ public class ScreenCaptureController {
             }
             imageRef = scaledImage
         }
-        imageRef = imageRef.greyscale()!
         let pngData = imageRef.pngData()
         return pngData
     }
@@ -60,55 +64,37 @@ import CoreImage
 import ImageIO
 
 extension CIImage {
-  
-  public func convertToCGImage() -> CGImage? {
-    let context = CIContext(options: nil)
-    if let cgImage = context.createCGImage(self, from: self.extent) {
-      return cgImage
+    
+    public func convertToCGImage() -> CGImage? {
+        let context = CIContext(options: nil)
+        if let cgImage = context.createCGImage(self, from: self.extent) {
+            return cgImage
+        }
+        return nil
     }
-    return nil
-  }
-  
-  public func data() -> Data? {
-    convertToCGImage()?.pngData()
-  }
+    
+    public func data() -> Data? {
+        convertToCGImage()?.pngData()
+    }
 }
 
 extension CGImage {
-  
-  public func pngData() -> Data? {
-    let cfdata: CFMutableData = CFDataCreateMutable(nil, 0)
-    if let destination = CGImageDestinationCreateWithData(cfdata, kUTTypePNG as CFString, 1, nil) {
-      CGImageDestinationAddImage(destination, self, nil)
-      if CGImageDestinationFinalize(destination) {
-        return cfdata as Data
-      }
-    }
     
-    return nil
-  }
-}
-
-#if os(macOS)
-extension NSImage {
-    
-//    func resize(to size:CGSize) -> NSImage? {
-//        let cgImage = self.cgImage
-//        let destWidth = Int(size.width)
-//        let destHeight = Int(size.height)
-//        let bitsPerComponent = 8
-//        let bytesPerPixel = cgImage.bitsPerPixel / bitsPerComponent
-//        let destBytesPerRow = destWidth * bytesPerPixel
-//        let context = CGContext(data: nil, width: destWidth, height: destHeight, bitsPerComponent: bitsPerComponent, bytesPerRow: destBytesPerRow, space: cgImage.colorSpace!, bitmapInfo: cgImage.bitmapInfo.rawValue)!
-//        context.interpolationQuality = .high
-//        context.draw(cgImage, in: CGRect(origin: CGPoint.zero, size: size))
-//        return context.makeImage().flatMap { NSImage(cgImage: $0) }
-//    }
-}
-#endif
-
-extension CGImage {
+    public func pngData() -> Data? {
+        let cfdata: CFMutableData = CFDataCreateMutable(nil, 0)
+        if let destination = CGImageDestinationCreateWithData(cfdata, kUTTypePNG as CFString, 1, nil) {
+            CGImageDestinationAddImage(destination, self, nil)
+            if CGImageDestinationFinalize(destination) {
+                return cfdata as Data
+            }
+        }
         
+        return nil
+    }
+}
+
+extension CGImage {
+    
     func resize(scale: Double) -> CGImage? {
         let width = Double(self.width)
         let height = Double(self.height)
@@ -119,30 +105,40 @@ extension CGImage {
     func resize(size:CGSize) -> CGImage? {
         let width: Int = Int(size.width)
         let height: Int = Int(size.height)
-
+        
         let bytesPerPixel = self.bitsPerPixel / self.bitsPerComponent
         let destBytesPerRow = width * bytesPerPixel
-
-
+        
+        
         guard let colorSpace = self.colorSpace else { return nil }
-        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: self.bitsPerComponent, bytesPerRow: destBytesPerRow, space: colorSpace, bitmapInfo: self.alphaInfo.rawValue) else { return nil }
-
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: self.bitsPerComponent, bytesPerRow: destBytesPerRow, space: colorSpace, bitmapInfo: self.alphaInfo.rawValue) else {
+            return nil
+        }
+        
         context.interpolationQuality = .high
         context.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
-
+        
         return context.makeImage()
     }
-
+    
     func greyscale() -> CGImage? {
         let imgRect = CGRect(x: 0, y: 0, width: width, height: height)
-
         let colorSpace = CGColorSpaceCreateDeviceGray()
-
-        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue).rawValue)
-        context?.draw(self, in: imgRect)
-
-        let imageRef = context!.makeImage()
-
+        guard let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue) else {
+            return nil
+        }
+        context.draw(self, in: imgRect)
+        let imageRef = context.makeImage()
+        return imageRef
+    }
+    
+    func colorImageReduceSize(rgb5: Bool) -> CGImage? {
+        let imgRect = CGRect(x: 0, y: 0, width: width, height: height)
+        guard let context = CGContext(data: nil, width: self.width, height: self.height, bitsPerComponent: (rgb5 ? 5 : self.bitsPerComponent), bytesPerRow: self.bytesPerRow, space: self.colorSpace!, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue) else {
+            return nil
+        }
+        context.draw(self, in: imgRect)
+        let imageRef = context.makeImage()
         return imageRef
     }
 }
