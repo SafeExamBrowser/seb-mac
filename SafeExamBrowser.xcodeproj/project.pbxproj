@@ -609,6 +609,8 @@
 		69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
 		69C6522E2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C6522F2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
+		69C6A3532C738A2600033B3E /* SEBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6A3522C738A2600033B3E /* SEBFileManager.swift */; };
+		69C6A3542C738A2600033B3E /* SEBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6A3522C738A2600033B3E /* SEBFileManager.swift */; };
 		69C73FAC28A5A34F00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69C73FAD28A5A37B00DE8BAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699D508026877EA80026D8D9 /* Images.xcassets */; };
 		69CAF40D296DD4F3000E74D9 /* VerificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 691281D9287EB66000D01164 /* VerificationManager.h */; };
@@ -1407,6 +1409,7 @@
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
 		69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenProctoringController.swift; sourceTree = "<group>"; };
+		69C6A3522C738A2600033B3E /* SEBFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBFileManager.swift; sourceTree = "<group>"; };
 		69CB8AFD136AFC6E00C08450 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Classes/Preferences/PreferencesWindow/PreferencesController.h; sourceTree = "<group>"; };
 		69CBEB541834C55C00FB0460 /* SEBSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBSystemManager.h; sourceTree = "<group>"; };
 		69CBEB551834C55C00FB0460 /* SEBSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBSystemManager.m; sourceTree = "<group>"; };
@@ -2755,6 +2758,7 @@
 				69E2E52927F68767005F33D3 /* SEBBatteryController.h */,
 				69E2E52A27F68767005F33D3 /* SEBBatteryController.m */,
 				691056002C0A223600C491DE /* AssessmentConfigurationManager.swift */,
+				69C6A3522C738A2600033B3E /* SEBFileManager.swift */,
 			);
 			name = SystemManager;
 			path = Classes/SystemManager;
@@ -3817,6 +3821,7 @@
 				69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */,
 				69E18FE82987D303007E0689 /* qrCodeGenerator.swift in Sources */,
 				698AB4272638C2B800E84161 /* NSURL+SEBURL.m in Sources */,
+				69C6A3542C738A2600033B3E /* SEBFileManager.swift in Sources */,
 				691056022C0A223600C491DE /* AssessmentConfigurationManager.swift in Sources */,
 				6943C6532A99258600EC18FF /* QRCodeReaderView.m in Sources */,
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
@@ -4025,6 +4030,7 @@
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
+				69C6A3532C738A2600033B3E /* SEBFileManager.swift in Sources */,
 				69F7B61914F411FB00FD0761 /* SEBBrowserWindowController.m in Sources */,
 				691981452C72520A00E79DA4 /* ScreenShotCache.swift in Sources */,
 				699AFE4827E9EA3300F8FE35 /* SEBGoToDockButton.m in Sources */,

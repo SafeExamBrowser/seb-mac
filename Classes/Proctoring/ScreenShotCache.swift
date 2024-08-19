@@ -33,6 +33,7 @@
 //
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol ScreenShotTransmissionDelegate {
     func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval)
@@ -41,9 +42,12 @@ protocol ScreenShotTransmissionDelegate {
 
 public class ScreenShotCache: FIFOBuffer {
     var delegate: ScreenShotTransmissionDelegate
+    private var cacheDirectoryURL: URL?
 
     init(delegate: ScreenShotTransmissionDelegate) {
         self.delegate = delegate
+        dynamicLogLevel = MyGlobals.ddLogLevel()
+        cacheDirectoryURL = SEBFileManager.createTemporaryDirectory()
     }
     
     struct CachedScreenShot {
@@ -51,7 +55,6 @@ public class ScreenShotCache: FIFOBuffer {
         var timestamp: TimeInterval
         var transmissionInverval: Int
         var filename: String?
-        var data: Data?
         
         init(metaData: String, timestamp: TimeInterval, transmissionInverval: Int) {
             self.metaData = metaData
@@ -63,23 +66,42 @@ public class ScreenShotCache: FIFOBuffer {
     
     func cacheScreenShotForSending(data: Data, metaData: String, timeStamp: TimeInterval, transmissionInterval: Int) {
         var cachedScreenShotObject = CachedScreenShot(metaData: metaData, timestamp: timeStamp, transmissionInverval: transmissionInterval)
-        let filename = "ScreenShot_\(timeStamp)"
+        let filename = "ScreenShot_\(timeStamp).png"
         cachedScreenShotObject.filename = filename
+        var fileURL: URL
+        if #available(macOS 13.0, iOS 16.0, *) {
+            fileURL = cacheDirectoryURL!.appending(path: filename)
+        } else {
+            fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
+        }
+        do {
+            try data.write(to: fileURL, options: [.atomic])
+        } catch let error {
+            DDLogError("Writing screen shot at \(fileURL) failed with error: \(error)")
+            return
+        }
         pushObject(cachedScreenShotObject)
-        // delegate.startDeferredTransmissionTimer(transmissionIntervall)
     }
     
     func transmitNextCachedScreenShot() {
         guard let screenShot = popObject() as? CachedScreenShot else {
             return
         }
-        let filename = screenShot.filename
-        // read screen shot from file system
-        // {
-        //   guard let screenShotData = screenShot.data else {
-        //   return
-        //
-        //    delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp)
-        // }
+        guard let filename = screenShot.filename else {
+            return
+        }
+        var fileURL: URL
+        if #available(macOS 13.0, iOS 16.0, *) {
+            fileURL = cacheDirectoryURL!.appending(path: filename)
+        } else {
+            fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
+        }
+        do {
+            let screenShotData = try Data(contentsOf: fileURL)
+            delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp)
+        } catch let error {
+            DDLogError("Reading screen shot at \(fileURL) failed with error: \(error)")
+            return
+        }
     }
 }
