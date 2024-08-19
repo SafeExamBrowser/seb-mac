@@ -146,7 +146,7 @@ struct HandshakeUpdateResource: ApiResource {
     var baseURL: URL
     var queryParameters: [String]
     let methodPath: String
-    let httpMethod = "PATCH"
+    let httpMethod = "PUT"
     var body = ""
     
     init(baseURL: URL, endpoint: String) {
@@ -202,7 +202,7 @@ struct HandshakeCloseResource: ApiResource {
     var baseURL: URL
     var queryParameters: [String]
     let methodPath: String
-    let httpMethod = "PUT"
+    let httpMethod = "PATCH"
     var body = ""
     
     init(baseURL: URL, endpoint: String) {
