@@ -435,11 +435,7 @@ public extension SEBServerController {
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
         selectedExamURL = url
-        if exam == nil {
-            updateConnectionHandshake()
-        } else {
-            getExamConfig()
-        }
+        updateConnectionHandshake()
     }
 
     
