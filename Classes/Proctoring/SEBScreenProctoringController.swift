@@ -58,7 +58,7 @@ struct MetadataSettings {
     var activeAppEnabled: Bool = false
 }
 
-@objc public class SEBScreenProctoringController : NSObject, URLSessionDelegate, ScreenProctoringDelegate {
+@objc public class SEBScreenProctoringController : NSObject, URLSessionDelegate, ScreenProctoringDelegate, ScreenShotTransmissionDelegate {
     
     @objc weak public var delegate: ScreenProctoringDelegate?
     @objc weak public var spsControllerUIDelegate: SPSControllerUIDelegate?
@@ -111,7 +111,11 @@ struct MetadataSettings {
     private var cancelAllRequests = false
     
     private var currentServerHealth = 0
-    
+    private var latestCaptureScreenShotTimestamp: TimeInterval?
+    private var latestTransmissionTimestamp: TimeInterval?
+    private var screenShotDeferredTransmissionIntervalTimer: Timer?
+    private lazy var screenShotCache = ScreenShotCache(delegate: self)
+
     private let timerQueue = DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility)
 //    private let timerQueueMinInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MinInvervalScreenShot", qos: .utility)
 //    private let timerQueueMaxInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MaxInvervalScreenShot", qos: .utility)
@@ -204,7 +208,7 @@ struct MetadataSettings {
 }
 
 
-public extension SEBScreenProctoringController {
+extension SEBScreenProctoringController {
 
     fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
@@ -324,12 +328,6 @@ public extension SEBScreenProctoringController {
     }
     
     fileprivate func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?) {
-        guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
-            return
-        }
-        let screenShotResource = SPSScreenShotResource(baseURL: baseURL, endpoint: "/seb-api/v1/session/\(sessionId)/screenshot")
-        
-        let authorizationString = keysSPS.headerAuthorizationBearer + " " + (self.accessToken ?? "")
         
         var timeInterval: TimeInterval
         if timeStamp == nil {
@@ -337,9 +335,39 @@ public extension SEBScreenProctoringController {
         } else {
             timeInterval = timeStamp!
         }
+        latestCaptureScreenShotTimestamp = timeInterval
+
+        if currentServerHealth == 0 {
+            transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval)
+        } else {
+            // Server health is not good, deferr transmitting screen shot and cache it to the file system
+            deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval)
+        }
+    }
+    
+    fileprivate func deferScreenShotTransmission(data: Data, metaData: String, timeStamp: TimeInterval) {
+        let transmissionInterval = (currentServerHealth + 1) * Int(NSDate().timeIntervalSince1970 - (latestCaptureScreenShotTimestamp ?? 0))
+        screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
+        startDeferredTransmissionTimer(transmissionInterval)
+    }
+    
+    fileprivate func transmitNextScreenShot() {
+        if !screenShotCache.isEmpty {
+            screenShotCache.transmitNextCachedScreenShot()
+        }
+    }
+
+    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval) {
+        guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
+            return
+        }
+        let screenShotResource = SPSScreenShotResource(baseURL: baseURL, endpoint: "/seb-api/v1/session/\(sessionId)/screenshot")
+        
+        let authorizationString = keysSPS.headerAuthorizationBearer + " " + (self.accessToken ?? "")
+        
         let requestHeaders = [keys.headerContentType : keys.contentTypeOctetStream,
                               keys.headerAuthorization : authorizationString,
-                              keysSPS.headerTimestamp : String(format: "%.0f", timeInterval * 1000),
+                              keysSPS.headerTimestamp : String(format: "%.0f", timeStamp * 1000),
                               keysSPS.headerMetaData : metaData] //,
 //                              keysSPS.headerImageFormat : "png"]
         
@@ -347,10 +375,12 @@ public extension SEBScreenProctoringController {
             if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
                 if let health = Int((responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keysSPS.responseHeaderServerHealth) == .orderedSame}))?.value as? String ?? "") {
                     self.currentServerHealth = health
+                    self.latestTransmissionTimestamp = NSDate().timeIntervalSince1970
                 }
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not upload screen shot with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
-                // ToDo: Cache screen shot and retry sending it
+                // Cache screen shot and retry sending it
+                self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp)
                 return
             }
             if !self.cancelAllRequests {
@@ -439,6 +469,35 @@ public extension SEBScreenProctoringController {
         }
     }
     
+    func startDeferredTransmissionTimer(_ interval: Int) {
+        if self.screenShotDeferredTransmissionIntervalTimer == nil {
+            timerQueue.async { [unowned self] in
+                let timer = Timer(timeInterval: TimeInterval(interval), repeats: false, block: { Timer in
+                    self.screenShotDeferredTransmissionIntervallTriggered()
+                })
+                self.screenShotDeferredTransmissionIntervalTimer = timer
+                let currentRunLoop = RunLoop.current
+                currentRunLoop.add(timer, forMode: .common)
+                currentRunLoop.run()
+            }
+        }
+    }
+    
+    func stopDeferredTransmissionIntervalTimer() {
+      timerQueue.async { [unowned self] in
+         if self.screenShotDeferredTransmissionIntervalTimer != nil {
+             self.screenShotDeferredTransmissionIntervalTimer?.invalidate()
+             self.screenShotDeferredTransmissionIntervalTimer = nil
+        }
+      }
+    }
+
+
+    private func screenShotDeferredTransmissionIntervallTriggered() {
+        self.stopDeferredTransmissionIntervalTimer()
+        screenShotCache.transmitNextCachedScreenShot()
+    }
+    
     @objc func closeSession(completionHandler: @escaping () -> Void) {
         stopMinIntervalTimer()
         stopMaxIntervalTimer()
@@ -495,7 +554,7 @@ public extension SEBScreenProctoringController {
         }
     }
 
-    func collectedTriggerEvent(eventData:String) {
+    public func collectedTriggerEvent(eventData:String) {
         latestTriggerEvent = eventData
         latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
         if screenShotMinIntervalTimer == nil {
