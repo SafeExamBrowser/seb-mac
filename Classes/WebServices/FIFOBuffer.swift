@@ -45,6 +45,7 @@ public class FIFOBuffer {
         mutating func enqueue(_ element: T) {
             list.append(element)
         }
+        
         mutating func dequeue() -> T? {
             if !list.isEmpty {
                 return list.removeFirst()
@@ -52,6 +53,15 @@ public class FIFOBuffer {
                 return nil
             }
         }
+        
+        func copyFirst() -> T? {
+            if !list.isEmpty {
+                return list.first
+            } else {
+                return nil
+            }
+        }
+        
         var isEmpty: Bool {
             return list.isEmpty
         }
@@ -70,6 +80,16 @@ public class FIFOBuffer {
     func popObject() -> Any? {
         if !(queue.isEmpty) {
             guard let object = self.queue.dequeue() else {
+                return nil
+            }
+            return object
+        }
+        return nil
+    }
+    
+    func copyObject() -> Any? {
+        if !(queue.isEmpty) {
+            guard let object = self.queue.copyFirst() else {
                 return nil
             }
             return object

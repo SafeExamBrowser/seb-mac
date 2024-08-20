@@ -36,8 +36,9 @@ import Foundation
 import CocoaLumberjackSwift
 
 protocol ScreenShotTransmissionDelegate {
-    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval)
+    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void)
     func startDeferredTransmissionTimer(_ interval: Int)
+    var currentServerHealth: Int { get }
 }
 
 public class ScreenShotCache: FIFOBuffer {
@@ -53,20 +54,27 @@ public class ScreenShotCache: FIFOBuffer {
     struct CachedScreenShot {
         var metaData: String
         var timestamp: TimeInterval
-        var transmissionInverval: Int
+        var transmissionInterval: Int
         var filename: String?
         
-        init(metaData: String, timestamp: TimeInterval, transmissionInverval: Int) {
+        init(metaData: String, timestamp: TimeInterval, transmissionInterval: Int) {
             self.metaData = metaData
             self.timestamp = timestamp
-            self.transmissionInverval = transmissionInverval
+            self.transmissionInterval = transmissionInterval
         }
     }
     
+    private func screenShotFilename(timeStamp: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeStamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss_SSS"
+        let filename = "ScreenShot_\(dateFormatter.string(from: date)).png"
+        return filename
+    }
     
     func cacheScreenShotForSending(data: Data, metaData: String, timeStamp: TimeInterval, transmissionInterval: Int) {
-        var cachedScreenShotObject = CachedScreenShot(metaData: metaData, timestamp: timeStamp, transmissionInverval: transmissionInterval)
-        let filename = "ScreenShot_\(timeStamp).png"
+        var cachedScreenShotObject = CachedScreenShot(metaData: metaData, timestamp: timeStamp, transmissionInterval: transmissionInterval)
+        let filename = screenShotFilename(timeStamp: timeStamp)
         cachedScreenShotObject.filename = filename
         var fileURL: URL
         if #available(macOS 13.0, iOS 16.0, *) {
@@ -96,12 +104,41 @@ public class ScreenShotCache: FIFOBuffer {
         } else {
             fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
         }
+        let startTimerForNextCachedScreenShot = {
+            // Copy next cached screen shot (don't remove it from queue)
+            guard let screenShot = self.copyObject() as? CachedScreenShot else {
+                return
+            }
+            var transmissionInterval = screenShot.transmissionInterval
+            if transmissionInterval == 0 {
+                transmissionInterval = 1
+            }
+            // Start timer to transmit the cached screen shot: Use the saved interval between this and the previous screen shot
+            // and the current SPS server health + 1 (to prioritize sending cached screen shots lower than current (live) screen shots.
+            self.delegate.startDeferredTransmissionTimer((self.delegate.currentServerHealth + 2) * transmissionInterval)
+        }
         do {
             let screenShotData = try Data(contentsOf: fileURL)
-            delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp)
+            delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
+                if success {
+                    let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
+                    var fileURL: URL
+                    if #available(macOS 13.0, iOS 16.0, *) {
+                        fileURL = self.cacheDirectoryURL!.appending(path: filename)
+                    } else {
+                        fileURL = self.cacheDirectoryURL!.appendingPathComponent(filename)
+                    }
+                    do {
+                        try FileManager.default.removeItem(at: fileURL)
+                    } catch let error {
+                        DDLogError("Couldn't remove screen shot at \(fileURL) with error: \(error)")
+                    }
+                }
+                startTimerForNextCachedScreenShot()
+            })
         } catch let error {
             DDLogError("Reading screen shot at \(fileURL) failed with error: \(error)")
-            return
+            startTimerForNextCachedScreenShot()
         }
     }
 }
