@@ -8,7 +8,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-fileprivate struct keysSPS {
+private struct keysSPS {
     static let screenProctoringMethod = "method"
     static let screenProctoringMethodJoin = "JOIN"
     static let screenProctoringMethodLeave = "LEAVE"
@@ -36,6 +36,11 @@ public enum ColorQuantization:Int {
     case color8Bpp
     case color16Bpp
     case color24Bpp
+}
+
+private struct SPSHealth {
+    static let GOOD = 0
+    static let BAD = 10
 }
 
 @objc public protocol ScreenProctoringDelegate: AnyObject {
@@ -66,7 +71,7 @@ struct MetadataSettings {
     private lazy var screenCaptureController: ScreenCaptureController = ScreenCaptureController()
     private lazy var metadataCollector: SEBSPMetadataCollector = SEBSPMetadataCollector(delegate: self, settings: self.metadataSettings)
 
-    fileprivate var session: URLSession?
+    private var session: URLSession?
     private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
     
     private var _pendingRequests: [PendingServerRequest] = []
@@ -85,9 +90,9 @@ struct MetadataSettings {
             }
         }
     }
-
-    fileprivate var accessToken: String?
-    fileprivate var gettingAccessToken = false
+    
+    private var accessToken: String?
+    private var gettingAccessToken = false
     
     private var serviceURL: URL?
     private var clientId: String?
@@ -110,7 +115,7 @@ struct MetadataSettings {
     private var fallbackTimeout = 30000.0
     private var cancelAllRequests = false
     
-    private var currentServerHealth = 0
+    public var currentServerHealth = SPSHealth.GOOD
     private var latestCaptureScreenShotTimestamp: TimeInterval?
     private var latestTransmissionTimestamp: TimeInterval?
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
@@ -210,7 +215,7 @@ struct MetadataSettings {
 
 extension SEBScreenProctoringController {
 
-    fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    private func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             let request = ApiRequest(resource: resource)
             let pendingRequest = PendingServerRequest(request: request)
@@ -246,7 +251,7 @@ extension SEBScreenProctoringController {
         }
     }
 
-    fileprivate func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    private func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: Data, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
                 DDLogVerbose("SEB Screen Proctoring Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
@@ -273,7 +278,7 @@ extension SEBScreenProctoringController {
         }
     }
 
-    fileprivate func getServerAccessToken(completionHandler: @escaping () -> Void) {
+    private func getServerAccessToken(completionHandler: @escaping () -> Void) {
         if !gettingAccessToken {
             guard let baseURL = self.serviceURL else {
                 return
@@ -312,7 +317,7 @@ extension SEBScreenProctoringController {
         }
     }
     
-    fileprivate func startScreenProctoring() {
+    private func startScreenProctoring() {
 //        let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
         startMaxIntervalTimer()
         startMinIntervalTimer()
@@ -320,14 +325,14 @@ extension SEBScreenProctoringController {
         spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
     }
     
-    fileprivate func sendScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
+    private func sendScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
         if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp) {
             self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp)
         }
         self.sendingScreenShot = false
     }
     
-    fileprivate func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?) {
+    private func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?) {
         
         var timeInterval: TimeInterval
         if timeStamp == nil {
@@ -337,27 +342,30 @@ extension SEBScreenProctoringController {
         }
         latestCaptureScreenShotTimestamp = timeInterval
 
-        if currentServerHealth == 0 {
-            transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval)
+        if currentServerHealth == SPSHealth.GOOD {
+            transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval, resending: false, completion: {success in })
         } else {
             // Server health is not good, deferr transmitting screen shot and cache it to the file system
             deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval)
         }
     }
     
-    fileprivate func deferScreenShotTransmission(data: Data, metaData: String, timeStamp: TimeInterval) {
-        let transmissionInterval = (currentServerHealth + 1) * Int(NSDate().timeIntervalSince1970 - (latestCaptureScreenShotTimestamp ?? 0))
+    private func deferScreenShotTransmission(data: Data, metaData: String, timeStamp: TimeInterval) {
+        var transmissionInterval = Int(NSDate().timeIntervalSince1970 - (latestCaptureScreenShotTimestamp ?? 0))
+        if transmissionInterval == 0 {
+            transmissionInterval = 1
+        }
         screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
-        startDeferredTransmissionTimer(transmissionInterval)
+        startDeferredTransmissionTimer((currentServerHealth + 1) * transmissionInterval)
     }
     
-    fileprivate func transmitNextScreenShot() {
+    private func transmitNextScreenShot() {
         if !screenShotCache.isEmpty {
             screenShotCache.transmitNextCachedScreenShot()
         }
     }
 
-    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval) {
+    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void) {
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -376,15 +384,17 @@ extension SEBScreenProctoringController {
                 if let health = Int((responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keysSPS.responseHeaderServerHealth) == .orderedSame}))?.value as? String ?? "") {
                     self.currentServerHealth = health
                     self.latestTransmissionTimestamp = NSDate().timeIntervalSince1970
+                    completion(true)
                 }
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not upload screen shot with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 // Cache screen shot and retry sending it
-                self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp)
+                self.currentServerHealth = SPSHealth.BAD
+                if !resending {
+                    self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp)
+                }
+                completion(false)
                 return
-            }
-            if !self.cancelAllRequests {
-//                completionHandler()
             }
         })
     }
@@ -480,6 +490,8 @@ extension SEBScreenProctoringController {
                 currentRunLoop.add(timer, forMode: .common)
                 currentRunLoop.run()
             }
+        } else {
+            transmitNextScreenShot()
         }
     }
     
@@ -495,7 +507,7 @@ extension SEBScreenProctoringController {
 
     private func screenShotDeferredTransmissionIntervallTriggered() {
         self.stopDeferredTransmissionIntervalTimer()
-        screenShotCache.transmitNextCachedScreenShot()
+        transmitNextScreenShot()
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
@@ -522,7 +534,7 @@ extension SEBScreenProctoringController {
         })
     }
     
-    fileprivate func checkHealth(completionHandler: @escaping () -> Void) {
+    private func checkHealth(completionHandler: @escaping () -> Void) {
         guard let baseURL = self.serviceURL else {
             return
         }
@@ -547,7 +559,7 @@ extension SEBScreenProctoringController {
         })
     }
     
-    fileprivate func didFail(error: NSError, fatal: Bool) {
+    private func didFail(error: NSError, fatal: Bool) {
         spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
         if !cancelAllRequests {
 //            self.delegate?.didFail(error: error, fatal: fatal)
