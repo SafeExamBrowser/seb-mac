@@ -54,9 +54,9 @@ class JitsiViewController: UIViewController {
     private var subject: String?
     private var token: String?
 
-    fileprivate var pipViewCoordinator: PiPViewCoordinator?
-    fileprivate var jitsiMeetView: JitsiMeetView?
-    fileprivate var jitsiMeetActive = false
+    private var pipViewCoordinator: PiPViewCoordinator?
+    private var jitsiMeetView: JitsiMeetView?
+    private var jitsiMeetActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -197,7 +197,7 @@ class JitsiViewController: UIViewController {
         updateProctoringViewButtonState()
     }
     
-    fileprivate func cleanUp() {
+    private func cleanUp() {
         jitsiMeetView?.removeFromSuperview()
         jitsiMeetView = nil
         pipViewCoordinator = nil
