@@ -57,7 +57,7 @@ import CocoaLumberjackSwift
     private var downloadFilename: String?
     private var forceDownload = false
     public var downloadingSEBConfig = false
-    fileprivate var fileDownloadDestinationURL: URL?
+    private var fileDownloadDestinationURL: URL?
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
@@ -347,7 +347,7 @@ import CocoaLumberjackSwift
         sebWebView.evaluateJavaScript("SEB_FocusLastElement()")
     }
 
-    fileprivate func setPageZoom() {
+    private func setPageZoom() {
         if (pageZoom <= WebViewMaxPageZoom && pageZoom >= WebViewMinPageZoom) {
             if #available(macOS 11.0, iOS 14.0, *) {
 #if os(iOS)
@@ -462,7 +462,7 @@ import CocoaLumberjackSwift
     }
     
 
-    fileprivate func setTextSize() {
+    private func setTextSize() {
 #if os(iOS)
         if (pageZoom == 1 && textZoom != 1 && textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
             let js = textZoomJS(zoomLevel: textZoom)

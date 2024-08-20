@@ -45,24 +45,24 @@ public class ProctoringImageAnalyzer: NSObject {
     
     @objc public var enabled: Bool
     
-    fileprivate var proctoringDetectFaceCount: Bool
-    fileprivate var proctoringDetectFaceCountDisplay: Bool
-    fileprivate var proctoringDetectFacePitch: Bool
-    fileprivate var proctoringDetectFaceYaw: Bool
-    fileprivate var proctoringDetectFaceAngleDisplay: Bool
+    private var proctoringDetectFaceCount: Bool
+    private var proctoringDetectFaceCountDisplay: Bool
+    private var proctoringDetectFacePitch: Bool
+    private var proctoringDetectFaceYaw: Bool
+    private var proctoringDetectFaceAngleDisplay: Bool
 
-    fileprivate var faceDetectionDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.FaceDetection", qos: .background)
+    private var faceDetectionDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.FaceDetection", qos: .background)
     
-    fileprivate var detectingFace = false
-    fileprivate var proctoringState = RemoteProctoringEventTypeDefault
-    fileprivate var previousProctoringState = RemoteProctoringEventTypeDefault
+    private var detectingFace = false
+    private var proctoringState = RemoteProctoringEventTypeDefault
+    private var previousProctoringState = RemoteProctoringEventTypeDefault
 
     private var detectionRequests: [VNDetectFaceRectanglesRequest]?
     private var trackingRequests: [VNTrackObjectRequest]?
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
     
-    fileprivate var trackedObjectDisappeared = false
+    private var trackedObjectDisappeared = false
     
     @objc weak public var delegate: ProctoringImageAnayzerDelegate?
     
@@ -80,7 +80,7 @@ public class ProctoringImageAnalyzer: NSObject {
         super.init()
     }
     
-    fileprivate func radiansForDegrees(_ degrees: CGFloat) -> CGFloat {
+    private func radiansForDegrees(_ degrees: CGFloat) -> CGFloat {
         return CGFloat(Double(degrees) * Double.pi / 180.0)
     }
     

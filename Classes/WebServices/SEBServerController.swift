@@ -67,7 +67,7 @@ public class PendingServerRequest : NSObject {
 
 @objc public class SEBServerController : NSObject, SEBBatteryControllerDelegate, URLSessionDelegate {
     
-    fileprivate var session: URLSession?
+    private var session: URLSession?
     private let pendingRequestsQueue = DispatchQueue.init(label: UUID().uuidString, attributes: .concurrent)
     
     private var _pendingRequests: [PendingServerRequest] = []
@@ -87,19 +87,19 @@ public class PendingServerRequest : NSObject {
         }
     }
     
-    fileprivate var serverAPI: SEB_Endpoints?
-    fileprivate var accessToken: String?
-    fileprivate var gettingAccessToken = false
-    fileprivate var connectionToken: String?
-    fileprivate var exams: [Exam]?
-    fileprivate var selectedExamId = ""
+    private var serverAPI: SEB_Endpoints?
+    private var accessToken: String?
+    private var gettingAccessToken = false
+    private var connectionToken: String?
+    private var exams: [Exam]?
+    private var selectedExamId = ""
     @objc public var clientUserId = ""
     @objc public var osName = ""
     @objc public var sebVersion = ""
     @objc public var machineName = ""
-    fileprivate var selectedExamURL = ""
-    fileprivate var pingNumber: Int64 = 0
-    fileprivate var notificationNumber: Int64 = 0
+    private var selectedExamURL = ""
+    private var pingNumber: Int64 = 0
+    private var notificationNumber: Int64 = 0
     
     @objc weak public var delegate: SEBServerControllerDelegate?
     @objc weak public var serverControllerUIDelegate: ServerControllerUIDelegate?
@@ -189,7 +189,7 @@ extension Array where Element == Endpoint {
 
 public extension SEBServerController {
 
-    fileprivate func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    private func load<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             let request = ApiRequest(resource: resource)
             let pendingRequest = PendingServerRequest(request: request)
@@ -225,7 +225,7 @@ public extension SEBServerController {
         }
     }
 
-    fileprivate func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    private func loadWithFallback<Resource: ApiResource>(_ resource: Resource, httpMethod: String, body: String, headers: [AnyHashable: Any]?, fallbackAttempt: Int, withCompletion resourceLoadCompletion: @escaping (Resource.Model?, Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if !cancelAllRequests {
             load(resource, httpMethod: httpMethod, body: body, headers: headers, withCompletion: { (response, statusCode, errorResponse, responseHeaders, attempt) in
                 DDLogVerbose("SEB Server Controller: Load with fallback returned with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
@@ -298,7 +298,7 @@ public extension SEBServerController {
         }
     }
     
-    fileprivate func getServerAccessToken(completionHandler: @escaping () -> Void) {
+    private func getServerAccessToken(completionHandler: @escaping () -> Void) {
         if !gettingAccessToken {
             gettingAccessToken = true
             let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
@@ -573,7 +573,7 @@ public extension SEBServerController {
     }
     
     
-    fileprivate func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?, withCompletion loadCompletion: @escaping (Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
+    private func sendNotification(_ type: String, timestamp: String?, numericValue: Double, text: String?, withCompletion loadCompletion: @escaping (Int?, ErrorResponse?, [AnyHashable: Any]?, Int) -> Void) {
         if serverAPI != nil && connectionToken != nil {
             let timestampString = timestamp ?? String(format: "%.0f", NSDate().timeIntervalSince1970 * 1000)
             var logResource = LogResource(baseURL: self.baseURL, endpoint: (serverAPI?.log.endpoint?.location)!)
@@ -735,7 +735,7 @@ public extension SEBServerController {
         completion(restart)
     }
     
-    fileprivate func didFail(error: NSError, fatal: Bool) {
+    private func didFail(error: NSError, fatal: Bool) {
         if !cancelAllRequests {
             self.delegate?.didFail(error: error, fatal: fatal)
         }
