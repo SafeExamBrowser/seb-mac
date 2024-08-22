@@ -537,9 +537,11 @@
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         NSDictionary *proxyDict = [[[SEBUIUserDefaultsController sharedSEBUIUserDefaultsController] org_safeexambrowser_SEB_proxyProtocols] objectAtIndex:row];
         NSString *key = [proxyDict objectForKey:@"keyName"];
-        NSMutableDictionary *proxies = [NSMutableDictionary dictionaryWithDictionary:[preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"]];
-        [proxies setObject:value forKey:key];
-        [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
+        if (key) {
+            NSMutableDictionary *proxies = [NSMutableDictionary dictionaryWithDictionary:[preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"]];
+            [proxies setValue:value forKey:key];
+            [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
+        }
     }
     [tableView reloadData];
 }
@@ -559,7 +561,7 @@
     }
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *proxies = [NSMutableDictionary dictionaryWithDictionary:[preferences secureObjectForKey:@"org_safeexambrowser_SEB_proxies"]];
-    [proxies setObject:[parsedExceptionsList copy] forKey:@"ExceptionsList"];
+    [proxies setValue:[parsedExceptionsList copy] forKey:@"ExceptionsList"];
     [preferences setSecureObject:proxies forKey:@"org_safeexambrowser_SEB_proxies"];
 }
 
