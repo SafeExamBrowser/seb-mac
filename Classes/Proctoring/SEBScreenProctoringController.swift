@@ -26,6 +26,10 @@ private struct keysSPS {
     static let headerImageFormat = "imageFormat"
     static let headerMetaData = "metaData"
     static let responseHeaderServerHealth = "sps_server_health"
+    static let dispatchQueueLabel = "org.safeexambrowser.SEB.ScreenShot"
+    
+    static let timeIntervalForHealthCheck = 15.0
+    static let maxDelayForResumeTransmitting = 3 * 60
 }
 
 public enum ColorQuantization:Int {
@@ -41,6 +45,12 @@ public enum ColorQuantization:Int {
 private struct SPSHealth {
     static let GOOD = 0
     static let BAD = 10
+}
+
+private struct SPSTransmittingState {
+    static let normal = 0
+    static let waitingForRecovery = 1
+    static let delayForResuming = 2
 }
 
 @objc public protocol ScreenProctoringDelegate: AnyObject {
@@ -116,16 +126,18 @@ struct MetadataSettings {
     private var cancelAllRequests = false
     
     public var currentServerHealth = SPSHealth.GOOD
+    private var transmittingState = SPSTransmittingState.normal
     private var latestCaptureScreenShotTimestamp: TimeInterval?
     private var latestTransmissionTimestamp: TimeInterval?
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
     private lazy var screenShotCache = ScreenShotCache(delegate: self)
 
-    private let timerQueue = DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility)
-//    private let timerQueueMinInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MinInvervalScreenShot", qos: .utility)
-//    private let timerQueueMaxInverval = DispatchQueue(label: "org.safeexambrowser.SEB.MaxInvervalScreenShot", qos: .utility)
+    private let timerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel, qos: .utility)
     private var screenShotMinIntervalTimer: Timer?
     private var screenShotMaxIntervalTimer: Timer?
+    private lazy var repeatingTimerForHealthCheck = RepeatingTimer(timeInterval: TimeInterval(keysSPS.timeIntervalForHealthCheck), queue: DispatchQueue(label: keysSPS.dispatchQueueLabel, qos: .utility))
+    private var delayForResumingTimer: DispatchWorkItem?
+    
     private var sendingScreenShot = false
     private var latestTriggerEvent: String?
     private var latestTriggerEventTimestamp: TimeInterval?
@@ -318,7 +330,6 @@ extension SEBScreenProctoringController {
     }
     
     private func startScreenProctoring() {
-//        let timer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: DispatchQueue(label: "org.safeexambrowser.SEB.ScreenShot", qos: .utility))
         startMaxIntervalTimer()
         startMinIntervalTimer()
         metadataCollector.monitorEvents()
@@ -342,21 +353,60 @@ extension SEBScreenProctoringController {
         }
         latestCaptureScreenShotTimestamp = timeInterval
 
-        if currentServerHealth == SPSHealth.GOOD {
+        if currentServerHealth == SPSHealth.BAD {
+            if transmittingState != SPSTransmittingState.waitingForRecovery {
+                if transmittingState == SPSTransmittingState.normal {
+                    transmittingState = SPSTransmittingState.waitingForRecovery
+                }
+                if transmittingState == SPSTransmittingState.delayForResuming {
+                    // Stop random timer for delay to resume sending cached screen shots
+                    transmittingState = SPSTransmittingState.waitingForRecovery
+                }
+                // Start repeating timer to check server health on separate endpoint each 15 seconds
+                repeatingTimerForHealthCheck.eventHandler = {
+                    // Check server health without sending screen shot
+                }
+                repeatingTimerForHealthCheck.resume()
+            }
+            if transmittingState == SPSTransmittingState.normal {
+                transmittingState = SPSTransmittingState.waitingForRecovery
+            }
+            if transmittingState == SPSTransmittingState.delayForResuming {
+                transmittingState = SPSTransmittingState.waitingForRecovery
+            }
+        }
+        
+        if transmittingState == SPSTransmittingState.waitingForRecovery && currentServerHealth != SPSHealth.BAD {
+            // If waiting for recovery and server health is no longer BAD, then start random delay to resume transmitting cached screen shots
+            transmittingState = SPSTransmittingState.delayForResuming
+            // Stop timer to check server health on separate endpoint and start random delay of max 3 minutes
+            repeatingTimerForHealthCheck.reset()
+            delayForResumingTimer = DispatchWorkItem { [weak self] in
+                self?.transmittingState = SPSTransmittingState.normal
+            }
+            //we just created the work item, it is safe to force unwrap in this situation
+            timerQueue.asyncAfter(deadline:.now() + 3, execute: self.delayForResumingTimer!)
+            // { after that resume transmitting cached screen shots }
+        }
+
+        if currentServerHealth == SPSHealth.GOOD && transmittingState == SPSTransmittingState.normal {
             transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval, resending: false, completion: {success in })
         } else {
             // Server health is not good, deferr transmitting screen shot and cache it to the file system
-            deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval)
+            // if waiting for recovery or in subsequent delay state, don't attempt to transmit those cached screen shots
+            deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval, transmitNextCachedScreenShot: transmittingState == SPSTransmittingState.normal)
         }
     }
     
-    private func deferScreenShotTransmission(data: Data, metaData: String, timeStamp: TimeInterval) {
+    private func deferScreenShotTransmission(data: Data, metaData: String, timeStamp: TimeInterval, transmitNextCachedScreenShot: Bool) {
         var transmissionInterval = Int(NSDate().timeIntervalSince1970 - (latestCaptureScreenShotTimestamp ?? 0))
         if transmissionInterval == 0 {
             transmissionInterval = 1
         }
         screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
-        startDeferredTransmissionTimer((currentServerHealth + 1) * transmissionInterval)
+        if transmitNextCachedScreenShot {
+            screenShotCache.transmitNextCachedScreenShot()
+        }
     }
     
     private func transmitNextScreenShot() {
@@ -391,7 +441,7 @@ extension SEBScreenProctoringController {
                 // Cache screen shot and retry sending it
                 self.currentServerHealth = SPSHealth.BAD
                 if !resending {
-                    self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp)
+                    self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp, transmitNextCachedScreenShot: false)
                 }
                 completion(false)
                 return
@@ -490,8 +540,6 @@ extension SEBScreenProctoringController {
                 currentRunLoop.add(timer, forMode: .common)
                 currentRunLoop.run()
             }
-        } else {
-            transmitNextScreenShot()
         }
     }
     
