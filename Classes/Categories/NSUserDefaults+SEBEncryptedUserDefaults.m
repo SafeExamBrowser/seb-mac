@@ -732,120 +732,122 @@ static NSNumber *_logLevel;
     
     // Join source settings dictionary with default values
     for (NSString *key in sourceDictionary) {
-        id value = [sourceDictionary objectForKey:key];
-        
-        // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
-        // will cause a crash when trying to modify the dictionary
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            value = [NSMutableDictionary dictionaryWithDictionary:value];
-        }
-        
-        // We need to join loaded prohibited processes with preset default processes
-        if ([key isEqualToString:@"prohibitedProcesses"]) {
-            NSDictionary *presetProcess;
-            NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
-            NSMutableArray *presetProcesses = ((NSArray *)[defaultSettings objectForKey:key]).mutableCopy;
-            NSMutableArray *newProcesses = [NSMutableArray new];
-            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
-                presetProcess = presetProcesses[i];
-                NSInteger os = [presetProcess[@"os"] longValue];
-                if (os == operatingSystemMacOS) {
-                    NSString *bundleID = presetProcess[@"identifier"];
-                    NSString *executable = presetProcess[@"executable"];
-                    NSArray *matches;
-                    if (bundleID.length > 0) {
-                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
-                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-                    } else {
-                        // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
-                        if (executable.length > 0) {
-                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
-                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-                            NSDictionary *matchingProcess;
-                            for (NSDictionary *processFromSettings in matches) {
-                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
-                                if (processFromSettingsBundleID.length == 0) {
-                                    // we join processes with same executable only if they both
-                                    // don't specify a bundle ID
-                                    matchingProcess = processFromSettings;
-                                    break;
-                                }
-                            }
-                            if (matchingProcess) {
-                                matches = [NSArray arrayWithObject:matchingProcess];
-                            }
-                        }
-                    }
-                    if (matches.count > 0) {
-                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
-                        [processesFromSettings removeObject:matchingProcessFromSettings];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
-                        NSString *description = matchingProcessFromSettings[@"description"];
-                        if (description.length == 0) {
-                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
-                        }
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
-                        
-                        [newProcesses addObject:matchingProcessFromSettings];
-                    } else {
-                        [newProcesses addObject:presetProcess];
-                    }
-                }
-                if (os == operatingSystemWin) {
-                    NSString *originalName = presetProcess[@"originalName"];
-                    NSString *executable = presetProcess[@"executable"];
-                    NSArray *matches;
-                    if (originalName.length > 0) {
-                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" originalName ==[cd] %@", originalName];
-                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-                    } else {
-                        // If the prohibited process doesn't indicate an original name, check for duplicate executable
-                        if (executable.length > 0) {
-                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
-                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
-                            NSDictionary *matchingProcess;
-                            for (NSDictionary *processFromSettings in matches) {
-                                NSString *processFromSettingsOriginalName = processFromSettings[@"originalName"];
-                                if (processFromSettingsOriginalName.length == 0) {
-                                    // we join processes with same executable only if they both
-                                    // don't specify an original name
-                                    matchingProcess = processFromSettings;
-                                    break;
-                                }
-                            }
-                            if (matchingProcess) {
-                                matches = [NSArray arrayWithObject:matchingProcess];
-                            }
-                        }
-                    }
-                    if (matches.count > 0) {
-                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
-                        [processesFromSettings removeObject:matchingProcessFromSettings];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowedExecutables"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
-                        NSString *description = matchingProcessFromSettings[@"description"];
-                        if (description.length == 0) {
-                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
-                        }
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
-                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
-                        
-                        [newProcesses addObject:matchingProcessFromSettings];
-                    } else {
-                        [newProcesses addObject:presetProcess];
-                    }
-                }
+        if (key) {
+            id value = [sourceDictionary objectForKey:key];
+            
+            // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
+            // will cause a crash when trying to modify the dictionary
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                value = [NSMutableDictionary dictionaryWithDictionary:value];
             }
-            [newProcesses addObjectsFromArray:processesFromSettings];
-            value = newProcesses.copy;
+            
+            // We need to join loaded prohibited processes with preset default processes
+            if ([key isEqualToString:@"prohibitedProcesses"]) {
+                NSDictionary *presetProcess;
+                NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+                NSMutableArray *presetProcesses = ((NSArray *)[defaultSettings objectForKey:key]).mutableCopy;
+                NSMutableArray *newProcesses = [NSMutableArray new];
+                for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                    presetProcess = presetProcesses[i];
+                    NSInteger os = [presetProcess[@"os"] longValue];
+                    if (os == operatingSystemMacOS) {
+                        NSString *bundleID = presetProcess[@"identifier"];
+                        NSString *executable = presetProcess[@"executable"];
+                        NSArray *matches;
+                        if (bundleID.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                        } else {
+                            // If the prohibited process doesn't indicate a bundle ID, check for duplicate executable
+                            if (executable.length > 0) {
+                                NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                                matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                                NSDictionary *matchingProcess;
+                                for (NSDictionary *processFromSettings in matches) {
+                                    NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                    if (processFromSettingsBundleID.length == 0) {
+                                        // we join processes with same executable only if they both
+                                        // don't specify a bundle ID
+                                        matchingProcess = processFromSettings;
+                                        break;
+                                    }
+                                }
+                                if (matchingProcess) {
+                                    matches = [NSArray arrayWithObject:matchingProcess];
+                                }
+                            }
+                        }
+                        if (matches.count > 0) {
+                            NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                            [processesFromSettings removeObject:matchingProcessFromSettings];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                            NSString *description = matchingProcessFromSettings[@"description"];
+                            if (description.length == 0) {
+                                [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                            }
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+                            
+                            [newProcesses addObject:matchingProcessFromSettings];
+                        } else {
+                            [newProcesses addObject:presetProcess];
+                        }
+                    }
+                    if (os == operatingSystemWin) {
+                        NSString *originalName = presetProcess[@"originalName"];
+                        NSString *executable = presetProcess[@"executable"];
+                        NSArray *matches;
+                        if (originalName.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" originalName ==[cd] %@", originalName];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                        } else {
+                            // If the prohibited process doesn't indicate an original name, check for duplicate executable
+                            if (executable.length > 0) {
+                                NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                                matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                                NSDictionary *matchingProcess;
+                                for (NSDictionary *processFromSettings in matches) {
+                                    NSString *processFromSettingsOriginalName = processFromSettings[@"originalName"];
+                                    if (processFromSettingsOriginalName.length == 0) {
+                                        // we join processes with same executable only if they both
+                                        // don't specify an original name
+                                        matchingProcess = processFromSettings;
+                                        break;
+                                    }
+                                }
+                                if (matchingProcess) {
+                                    matches = [NSArray arrayWithObject:matchingProcess];
+                                }
+                            }
+                        }
+                        if (matches.count > 0) {
+                            NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                            [processesFromSettings removeObject:matchingProcessFromSettings];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowedExecutables"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"currentUser"];
+                            NSString *description = matchingProcessFromSettings[@"description"];
+                            if (description.length == 0) {
+                                [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                            }
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"ignoreInAAC"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+                            
+                            [newProcesses addObject:matchingProcessFromSettings];
+                        } else {
+                            [newProcesses addObject:presetProcess];
+                        }
+                    }
+                }
+                [newProcesses addObjectsFromArray:processesFromSettings];
+                value = newProcesses.copy;
+            }
+            
+            [completedSettings setValue:value forKey:key];
         }
-        
-        [completedSettings setObject:value forKey:key];
     }
     return completedSettings.copy;
 }
@@ -952,7 +954,7 @@ static NSNumber *_logLevel;
             value = elementsFromSettings;
         }
         
-        [completedSettings setObject:value forKey:key];
+        [completedSettings setValue:value forKey:key];
     }
     return completedSettings.copy;
 }
@@ -1142,70 +1144,72 @@ static NSNumber *_logLevel;
 
 - (void)setSecureObject:(id)value forKey:(NSString *)key
 {
-    // Set value for key (without prefix) in cachedUserDefaults
-    // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
-    if ([key hasPrefix:sebUserDefaultsPrefix]) {
-        [_cachedUserDefaults setValue:value forKey:[key substringFromIndex:SEBUserDefaultsPrefixLength]];
-        // Update Exam Settings Key
-        [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
-    }
-
-    if (_usePrivateUserDefaults) {
-        if (value == nil) value = [NSNull null];
-        [privateUserDefaults setValue:value forKey:key];
-        //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
-        //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
-
-        DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
-
-    } else {
-        if (value == nil || key == nil) {
-            // Use non-secure method
-            [self setObject:value forKey:key];
-            
-        } else if ([self _isValidPropertyListObject:value]) {
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
-            NSError *error;
-            NSData *encryptedData;
-            
-            // Treat keys without SEB prefix separately
-            if (![key hasPrefix:sebPrivateUserDefaultsPrefix]) {
-                encryptedData = [RNEncryptor encryptData:data
-                                                    withSettings:kRNCryptorAES256Settings
-                                                        password:userDefaultsMasala
-                                                           error:&error];
-                if (error || !encryptedData) {
-                    DDLogError(@"PREFERENCES CORRUPTED ERROR after \[RNEncryptor encryptData:data withSettings:kRNCryptorAES256Settings password:userDefaultsMasala error:&error]");
-                    
-                    [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
-                    return;
-                }
-                [self setObject:encryptedData forKey:key];
-            } else {
-                encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-                if (error || !encryptedData || encryptedData.length == 0) {
-
-                    DDLogError(@"PREFERENCES CORRUPTED ERROR in [self setObject:(encrypted %@) forKey:%@]", value, key);
-
-                    [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
-                    return;
-                } else {
-                    [self setObject:encryptedData forKey:key];
-
-                    DDLogVerbose(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
-                }
-            }
-            
+    if (key) {
+        // Set value for key (without prefix) in cachedUserDefaults
+        // as long as it is a key with an "org_safeexambrowser_SEB_" prefix
+        if ([key hasPrefix:sebUserDefaultsPrefix]) {
+            [_cachedUserDefaults setValue:value forKey:[key substringFromIndex:SEBUserDefaultsPrefixLength]];
+            // Update Exam Settings Key
+            [[SEBCryptor sharedSEBCryptor] updateExamSettingsKey:_cachedUserDefaults];
         }
-    }
-    if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
-        _logLevel = value;
-        [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
-    } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
-        if ([value boolValue] == NO) {
-            [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
-        } else if (_logLevel) {
+
+        if (_usePrivateUserDefaults) {
+            if (value == nil) value = [NSNull null];
+            [privateUserDefaults setValue:value forKey:key];
+            //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
+            //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
+
+            DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+
+        } else {
+            if (value == nil) {
+                // Use non-secure method to remove the key
+                [self setValue:value forKey:key];
+                
+            } else if ([self _isValidPropertyListObject:value]) {
+                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
+                NSError *error;
+                NSData *encryptedData;
+                
+                // Treat keys without SEB prefix separately
+                if (![key hasPrefix:sebPrivateUserDefaultsPrefix]) {
+                    encryptedData = [RNEncryptor encryptData:data
+                                                        withSettings:kRNCryptorAES256Settings
+                                                            password:userDefaultsMasala
+                                                               error:&error];
+                    if (error || !encryptedData) {
+                        DDLogError(@"PREFERENCES CORRUPTED ERROR after \[RNEncryptor encryptData:data withSettings:kRNCryptorAES256Settings password:userDefaultsMasala error:&error]");
+                        
+                        [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                        return;
+                    }
+                    [self setObject:encryptedData forKey:key];
+                } else {
+                    encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
+                    if (error || !encryptedData || encryptedData.length == 0) {
+
+                        DDLogError(@"PREFERENCES CORRUPTED ERROR in [self setObject:(encrypted %@) forKey:%@]", value, key);
+
+                        [[SEBCryptor sharedSEBCryptor] presentPreferencesCorruptedError];
+                        return;
+                    } else {
+                        [self setObject:encryptedData forKey:key];
+
+                        DDLogVerbose(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+                    }
+                }
+                
+            }
+        }
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_logLevel"]) {
+            _logLevel = value;
             [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
+        } else if ([key isEqualToString:@"org_safeexambrowser_SEB_enableLogging"]) {
+            if ([value boolValue] == NO) {
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:DDLogLevelOff];
+            } else if (_logLevel) {
+                [[MyGlobals sharedMyGlobals] setDDLogLevel:_logLevel.intValue];
+            }
         }
     }
 }

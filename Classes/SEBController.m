@@ -2958,6 +2958,9 @@ void run_on_ui_thread(dispatch_block_t block)
         kinfo_proc *proc = NULL;
         proc = &mylist[k];
         NSString *processName = [NSString stringWithFormat: @"%s",proc-> kp_proc.p_comm];
+        if (processName == nil) {
+            processName = @"";
+        }
         [ ProcList setObject: processName forKey: @"name" ];
         [ ProcList setObject: [NSNumber numberWithInt:proc->kp_proc.p_pid] forKey: @"PID"];
     }
