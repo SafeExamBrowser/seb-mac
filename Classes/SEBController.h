@@ -311,6 +311,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonScreenProctoring;
+@property(strong, nonatomic) NSString *dockButtonScreenProctoringStateString;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
 @property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;

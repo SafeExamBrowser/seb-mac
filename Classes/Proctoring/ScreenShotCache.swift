@@ -93,8 +93,8 @@ public class ScreenShotCache: FIFOBuffer {
     }
     
     func transmitNextCachedScreenShot() {
-        if !transmittingCachedScreenShots {
-            transmittingCachedScreenShots = true
+//        if !transmittingCachedScreenShots {
+//            transmittingCachedScreenShots = true
             guard let screenShot = popObject() as? CachedScreenShot else {
                 return
             }
@@ -111,7 +111,7 @@ public class ScreenShotCache: FIFOBuffer {
             let startTimerForNextCachedScreenShot = {
                 // Copy next cached screen shot (don't remove it from queue)
                 guard let screenShot = self.copyObject() as? CachedScreenShot else {
-                    self.transmittingCachedScreenShots = false
+//                    self.transmittingCachedScreenShots = false
                     return
                 }
                 var transmissionInterval = screenShot.transmissionInterval
@@ -147,5 +147,5 @@ public class ScreenShotCache: FIFOBuffer {
                 startTimerForNextCachedScreenShot()
             }
         }
-    }
+//    }
 }
