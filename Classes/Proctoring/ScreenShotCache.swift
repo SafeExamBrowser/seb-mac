@@ -37,7 +37,9 @@ import CocoaLumberjackSwift
 
 protocol ScreenShotTransmissionDelegate {
     func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void)
+    func transmitNextScreenShot()
     func startDeferredTransmissionTimer(_ interval: Int)
+    func conditionallyCloseSession()
     var currentServerHealth: Int { get }
 }
 
@@ -45,7 +47,7 @@ public class ScreenShotCache: FIFOBuffer {
     var delegate: ScreenShotTransmissionDelegate
     private var cacheDirectoryURL: URL?
     private var transmittingCachedScreenShots = false
-
+    
     init(delegate: ScreenShotTransmissionDelegate) {
         self.delegate = delegate
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -92,60 +94,68 @@ public class ScreenShotCache: FIFOBuffer {
         pushObject(cachedScreenShotObject)
     }
     
-    func transmitNextCachedScreenShot() {
-//        if !transmittingCachedScreenShots {
-//            transmittingCachedScreenShots = true
-            guard let screenShot = popObject() as? CachedScreenShot else {
-                return
-            }
-            guard let filename = screenShot.filename else {
-                return
-            }
-            var fileURL: URL
-            if #available(macOS 13.0, iOS 16.0, *) {
-                fileURL = cacheDirectoryURL!.appending(path: filename)
-            } else {
-                fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
-            }
-            
-            let startTimerForNextCachedScreenShot = {
-                // Copy next cached screen shot (don't remove it from queue)
-                guard let screenShot = self.copyObject() as? CachedScreenShot else {
-//                    self.transmittingCachedScreenShots = false
-                    return
-                }
-                var transmissionInterval = screenShot.transmissionInterval
-                if transmissionInterval == 0 {
-                    transmissionInterval = 1
-                }
-                // Start timer to transmit the cached screen shot: Use the saved interval between this and the previous screen shot
-                // and the current SPS server health + 1 (to prioritize sending cached screen shots lower than current (live) screen shots.
-                self.delegate.startDeferredTransmissionTimer((self.delegate.currentServerHealth + 2) * transmissionInterval)
-            }
-            
-            do {
-                let screenShotData = try Data(contentsOf: fileURL)
-                delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
-                    if success {
-                        let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
-                        var fileURL: URL
-                        if #available(macOS 13.0, iOS 16.0, *) {
-                            fileURL = self.cacheDirectoryURL!.appending(path: filename)
-                        } else {
-                            fileURL = self.cacheDirectoryURL!.appendingPathComponent(filename)
-                        }
-                        do {
-                            try FileManager.default.removeItem(at: fileURL)
-                        } catch let error {
-                            DDLogError("Couldn't remove screen shot at \(fileURL) with error: \(error)")
-                        }
-                    }
-                    startTimerForNextCachedScreenShot()
-                })
-            } catch let error {
-                DDLogError("Reading screen shot at \(fileURL) failed with error: \(error)")
-                startTimerForNextCachedScreenShot()
-            }
+    func transmitNextCachedScreenShot(interval: Int?) {
+        guard let screenShot = popObject() as? CachedScreenShot else {
+            self.delegate.transmitNextScreenShot()
+            return
         }
-//    }
+        guard let filename = screenShot.filename else {
+            self.delegate.transmitNextScreenShot()
+            return
+        }
+        var fileURL: URL
+        if #available(macOS 13.0, iOS 16.0, *) {
+            fileURL = cacheDirectoryURL!.appending(path: filename)
+        } else {
+            fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
+        }
+        
+        let startTimerForNextCachedScreenShot = {
+            // Copy next cached screen shot (don't remove it from queue)
+            guard let screenShot = self.copyObject() as? CachedScreenShot else {
+                self.delegate.transmitNextScreenShot()
+                return
+            }
+            var transmissionInterval = screenShot.transmissionInterval
+            if transmissionInterval == 0 {
+                transmissionInterval = 1
+            }
+            var timerInterval: Int
+            if interval != nil {
+                timerInterval = interval!
+            } else {
+                timerInterval = (self.delegate.currentServerHealth + 2) * transmissionInterval
+            }
+            // Start timer to transmit the cached screen shot: Use the saved interval between this and the previous screen shot
+            // and the current SPS server health + 1 (to prioritize sending cached screen shots lower than current (live) screen shots.
+            self.delegate.startDeferredTransmissionTimer(timerInterval)
+        }
+        
+        do {
+            let screenShotData = try Data(contentsOf: fileURL)
+            delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
+                if success {
+                    let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
+                    var fileURL: URL
+                    if #available(macOS 13.0, iOS 16.0, *) {
+                        fileURL = self.cacheDirectoryURL!.appending(path: filename)
+                    } else {
+                        fileURL = self.cacheDirectoryURL!.appendingPathComponent(filename)
+                    }
+                    do {
+                        try FileManager.default.removeItem(at: fileURL)
+                    } catch let error {
+                        DDLogError("Couldn't remove screen shot at \(fileURL) with error: \(error)")
+                    }
+                } else {
+                    DDLogWarn("Cached screen shot could not be transmitted. It will be pushed back to the cache to attempt sending it later.")
+                    self.pushObject(screenShot)
+                }
+                startTimerForNextCachedScreenShot()
+            })
+        } catch let error {
+            DDLogError("Reading screen shot at \(fileURL) failed with error: \(error)")
+            startTimerForNextCachedScreenShot()
+        }
+    }
 }

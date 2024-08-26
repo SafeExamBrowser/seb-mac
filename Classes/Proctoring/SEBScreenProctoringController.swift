@@ -62,7 +62,10 @@ private struct SPSTransmittingState {
     
     func updateStatus(string: String?, append: Bool)
     func setScreenProctoringButtonState(_: ScreenProctoringButtonStates)
-    func setScreenProctoringButtonInfoString(_: String?)
+    func setScreenProctoringButtonInfoString(_: String)
+    func showTransmittingCachedScreenShotsAlert(remainingScreenShots: Int)
+    func updateTransmittingCachedScreenShotsAlert(remainingScreenShots: Int)
+    func closeTransmittingCachedScreenShotsAlert()
 }
 
 struct MetadataSettings {
@@ -119,30 +122,40 @@ struct MetadataSettings {
     private var metadataSettings = MetadataSettings()
     
     private var maxRequestAttemps = 5
-    private var fallbackAttemptInterval = 2000.0
-    private var fallbackTimeout = 30000.0
+    private var fallbackAttemptInterval = 2000.0/1000
+    private var fallbackTimeout = 30000.0/1000
     private var cancelAllRequests = false
     
     public var currentServerHealth = SPSHealth.GOOD
     private var transmittingState = SPSTransmittingState.normal
+    private var closingSession = false
+    private var closingSessionCompletionHandler: (() -> Void)?
+    
     private var latestCaptureScreenShotTimestamp: TimeInterval?
     private var latestTransmissionTimestamp: TimeInterval?
     private lazy var screenShotCache = ScreenShotCache(delegate: self)
 
-    private let timerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel, qos: .utility)
+    private let minIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
+    private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
     private var screenShotMinIntervalTimer: Timer?
     private var screenShotMaxIntervalTimer: Timer?
-    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel, qos: .utility)
+    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
+    private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
+    private var transmittingDeferredScreenShots = false
     private let timeIntervalForHealthCheck = 15.0
     private let maxDelayForResumingTransmitting = 3.0 * 60
-    private lazy var repeatingTimerForHealthCheck = RepeatingTimer(timeInterval: TimeInterval(timeIntervalForHealthCheck), queue: DispatchQueue(label: keysSPS.dispatchQueueLabel, qos: .utility))
+    private lazy var repeatingTimerForHealthCheck = RepeatingTimer(timeInterval: TimeInterval(timeIntervalForHealthCheck), queue: DispatchQueue(label: keysSPS.dispatchQueueLabel+".healthCheck", qos: .utility))
     private var delayForResumingTimer: DispatchWorkItem?
     
     private var sendingScreenShot = false
     private var latestTriggerEvent: String?
     private var latestTriggerEventTimestamp: TimeInterval?
 
+    // UI
+    private var indicateHealthAndCaching = false
+    private var screenProctoringButtonState = ScreenProctoringButtonStateInactive
+    private var screenProctoringButtonInfoString: String?
     
     public func getScreenProctoringMetadataURL() -> String? {
         return delegate?.getScreenProctoringMetadataURL()
@@ -163,6 +176,11 @@ struct MetadataSettings {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.timeoutIntervalForResource = self.fallbackTimeout
         
+        self.maxRequestAttemps = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttempts")
+        self.fallbackAttemptInterval = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackAttemptInterval") / 1000
+        self.fallbackTimeout = UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_sebServerFallbackTimeout") / 1000
+        DDLogInfo("SEB Screen Proctoring Controller: Initialize with max. request attempts \(self.maxRequestAttemps), fallback attempt interval \(self.fallbackAttemptInterval) and fallback timeout \(self.fallbackTimeout).")
+
         self.screenshotMinInterval = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringScreenshotMinInterval")
         self.screenshotMaxInterval = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringScreenshotMaxInterval")
         self.imageFormat = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringImageFormat")
@@ -176,6 +194,12 @@ struct MetadataSettings {
         self.metadataSettings.urlEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
         self.metadataSettings.activeWindowEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
         self.metadataSettings.activeAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
+        
+#if DEBUG
+        self.indicateHealthAndCaching = true
+#else
+        self.indicateHealthAndCaching = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringIndicateHealthAndCaching")
+#endif
         
         super.init()
         self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue.main)
@@ -334,7 +358,7 @@ extension SEBScreenProctoringController {
         startMaxIntervalTimer()
         startMinIntervalTimer()
         metadataCollector.monitorEvents()
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
+        self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
     }
     
     private func captureScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
@@ -362,7 +386,7 @@ extension SEBScreenProctoringController {
                     // Stop random timer for delay to resume sending cached screen shots
                     transmittingState = SPSTransmittingState.waitingForRecovery
                 }
-//                spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
+                self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
                 // Start repeating timer to check server health on separate endpoint each 15 seconds
                 repeatingTimerForHealthCheck.eventHandler = {
                     // Check server health without sending screen shot
@@ -376,11 +400,11 @@ extension SEBScreenProctoringController {
         if transmittingState == SPSTransmittingState.waitingForRecovery && currentServerHealth != SPSHealth.BAD {
             
             if currentServerHealth == SPSHealth.GOOD {
-//                spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
-                spsControllerUIDelegate?.setScreenProctoringButtonInfoString(NSLocalizedString("good server health, waiting to resume sending cached screen shots", comment: ""))
+                self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
+                setScreenProctoringButtonInfoString(NSLocalizedString("good server health, waiting to resume sending cached screen shots", comment: ""))
             } else {
-//                spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveWarning)
-                spsControllerUIDelegate?.setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, waiting to resume sending cached screen shots", comment: ""))
+                self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveWarning)
+                setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, waiting to resume sending cached screen shots", comment: ""))
             }
             // If waiting for recovery and server health is no longer BAD, then start random delay to resume transmitting cached screen shots
             transmittingState = SPSTransmittingState.delayForResuming
@@ -388,25 +412,25 @@ extension SEBScreenProctoringController {
             repeatingTimerForHealthCheck.reset()
             delayForResumingTimer = DispatchWorkItem { [weak self] in
                 self?.transmittingState = SPSTransmittingState.normal
-                self?.spsControllerUIDelegate?.setScreenProctoringButtonInfoString(NSLocalizedString("sending cached screen shots, server health \(10-(self?.currentServerHealth ?? 11)) out of 10", comment: ""))
+                self?.setScreenProctoringButtonInfoString(NSLocalizedString("sending cached screen shots, server health \(10-(self?.currentServerHealth ?? 11)) out of 10", comment: ""))
                 self?.transmitNextScreenShot()
             }
-            //we just created the work item, it is safe to force unwrap in this situation
             let randomDelay = Double.random(in: 0...maxDelayForResumingTransmitting)
-            deferredTimerQueue.asyncAfter(deadline:.now() + randomDelay, execute: self.delayForResumingTimer!)
-            // { after that resume transmitting cached screen shots }
+            DDLogInfo("SEB Screen Proctoring Controller: Start random delay of \(randomDelay/60) minutes")
+            delayForResumingTimerQueue.asyncAfter(deadline:.now() + randomDelay, execute: self.delayForResumingTimer!)
+            // After that resume transmitting cached screen shots
         }
 
         if currentServerHealth == SPSHealth.GOOD && (transmittingState == SPSTransmittingState.normal || transmittingState == SPSTransmittingState.delayForResuming) {
-//            spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
+            self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
             transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval, resending: false, completion: {success in })
         } else {
             // Server health is not good, deferr transmitting screen shot and cache it to the file system
             // if waiting for recovery or in subsequent delay state, don't attempt to transmit those cached screen shots
             if currentServerHealth == SPSHealth.BAD {
-                spsControllerUIDelegate?.setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
+                self.setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
             } else {
-                spsControllerUIDelegate?.setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
+                self.setScreenProctoringButtonInfoString(NSLocalizedString("server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
             }
             deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval, transmitNextCachedScreenShot: transmittingState == SPSTransmittingState.normal)
         }
@@ -419,16 +443,28 @@ extension SEBScreenProctoringController {
         }
         screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
         if transmitNextCachedScreenShot {
-            screenShotCache.transmitNextCachedScreenShot()
+            screenShotCache.transmitNextCachedScreenShot(interval: nil)
         }
     }
     
-    private func transmitNextScreenShot() {
+    public func transmitNextScreenShot() {
         if !screenShotCache.isEmpty {
-            screenShotCache.transmitNextCachedScreenShot()
+            let transmissionInterval = closingSession ? (currentServerHealth + 1) * ((screenshotMinInterval ?? 1000)/1000) : nil
+            screenShotCache.transmitNextCachedScreenShot(interval: transmissionInterval)
+        } else {
+            setScreenProctoringButtonInfoString("all cached screenshots transmitted")
+            conditionallyCloseSession()
         }
     }
 
+    public func conditionallyCloseSession() {
+        if closingSession {
+            setScreenProctoringButtonInfoString("closing Session")
+            let completionHandler = closingSessionCompletionHandler
+            continueClosingSession(completionHandler: completionHandler)
+        }
+    }
+    
     func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void) {
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
@@ -464,73 +500,83 @@ extension SEBScreenProctoringController {
     }
     
     private func startMaxIntervalTimer() {
-        if self.screenShotMaxIntervalTimer == nil {
-            timerQueue.async { [unowned self] in
-                let timer = Timer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), repeats: false, block: { Timer in
-                    self.screenShotMaxIntervallTriggered()
-                })
-                self.screenShotMaxIntervalTimer = timer
-                let currentRunLoop = RunLoop.current
-                currentRunLoop.add(timer, forMode: .common)
-                currentRunLoop.run()
+        if self.screenShotMaxIntervalTimer == nil && !self.closingSession {
+            maxIntervalTimerQueue.async { [unowned self] in
+                if !self.closingSession {
+                    let timer = Timer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), repeats: false, block: { Timer in
+                        self.screenShotMaxIntervallTriggered()
+                    })
+                    self.screenShotMaxIntervalTimer = timer
+                    let currentRunLoop = RunLoop.current
+                    currentRunLoop.add(timer, forMode: .common)
+                    currentRunLoop.run()
+                }
             }
         }
     }
     
     private func startMinIntervalTimer() {
-        if self.screenShotMinIntervalTimer == nil {
-            timerQueue.async { [unowned self] in
-                let timer = Timer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), repeats: false, block: { Timer in
-                    self.screenShotMinIntervallTriggered()
-                })
-                self.screenShotMinIntervalTimer = timer
-                let currentRunLoop = RunLoop.current
-                currentRunLoop.add(timer, forMode: .common)
-                currentRunLoop.run()
+        if self.screenShotMinIntervalTimer == nil && !self.closingSession {
+            minIntervalTimerQueue.async { [unowned self] in
+                if !self.closingSession {
+                    let timer = Timer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), repeats: false, block: { Timer in
+                        self.screenShotMinIntervallTriggered()
+                    })
+                    self.screenShotMinIntervalTimer = timer
+                    let currentRunLoop = RunLoop.current
+                    currentRunLoop.add(timer, forMode: .common)
+                    currentRunLoop.run()
+                }
             }
         }
     }
     
-    func stopMaxIntervalTimer() {
-      timerQueue.async { [unowned self] in
-         if self.screenShotMaxIntervalTimer != nil {
-             self.screenShotMaxIntervalTimer?.invalidate()
-             self.screenShotMaxIntervalTimer = nil
+    func stopMaxIntervalTimer(completionHandler: (() -> Void)?) {
+        maxIntervalTimerQueue.async { [unowned self] in
+            if self.screenShotMaxIntervalTimer != nil {
+                self.screenShotMaxIntervalTimer?.invalidate()
+                self.screenShotMaxIntervalTimer = nil
+            }
+            completionHandler?()
         }
-      }
     }
 
-    func stopMinIntervalTimer() {
-      timerQueue.async { [unowned self] in
-        if self.screenShotMinIntervalTimer != nil {
-            self.screenShotMinIntervalTimer?.invalidate()
-            self.screenShotMinIntervalTimer = nil
+    func stopMinIntervalTimer(completionHandler: (() -> Void)?) {
+        minIntervalTimerQueue.async { [unowned self] in
+            if self.screenShotMinIntervalTimer != nil {
+                self.screenShotMinIntervalTimer?.invalidate()
+                self.screenShotMinIntervalTimer = nil
+            }
+            completionHandler?()
         }
-      }
     }
 
     private func screenShotMinIntervallTriggered() {
-        if !self.sendingScreenShot {
+        if !self.sendingScreenShot && !self.closingSession {
             if self.latestTriggerEvent != nil {
                 self.sendingScreenShot = true
-                self.stopMaxIntervalTimer()
-                self.stopMinIntervalTimer()
+                self.stopMaxIntervalTimer(completionHandler: nil)
+                self.stopMinIntervalTimer(completionHandler: nil)
                 let triggerEventString = self.latestTriggerEvent
                 self.latestTriggerEvent = nil
                 self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
-                self.startMinIntervalTimer()
-                self.startMaxIntervalTimer()
+                if !self.closingSession {
+                    self.startMinIntervalTimer()
+                    self.startMaxIntervalTimer()
+                }
             } else {
-                self.stopMinIntervalTimer()
+                self.stopMinIntervalTimer(completionHandler: nil)
             }
+        } else {
+            self.sendingScreenShot = false
         }
     }
     
     private func screenShotMaxIntervallTriggered() {
-        if !self.sendingScreenShot {
+        if !self.sendingScreenShot && !self.closingSession {
             self.sendingScreenShot = true
-            self.stopMinIntervalTimer()
-            self.stopMaxIntervalTimer()
+            self.stopMinIntervalTimer(completionHandler: nil)
+            self.stopMaxIntervalTimer(completionHandler: nil)
             let triggerEventString = self.latestTriggerEvent
             if triggerEventString == nil {
                 self.captureScreenShot(triggerMetadata: "Maximum interval of \(String(self.screenshotMaxInterval ?? 5000))ms has been reached.", timeStamp: nil)
@@ -538,8 +584,12 @@ extension SEBScreenProctoringController {
                 self.latestTriggerEvent = nil
                 self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
             }
-            self.startMaxIntervalTimer()
-            self.startMinIntervalTimer()
+            if !self.closingSession {
+                self.startMaxIntervalTimer()
+                self.startMinIntervalTimer()
+            }
+        } else {
+            self.sendingScreenShot = false
         }
     }
     
@@ -550,33 +600,58 @@ extension SEBScreenProctoringController {
                     self.screenShotDeferredTransmissionIntervallTriggered()
                 })
                 self.screenShotDeferredTransmissionIntervalTimer = timer
+                self.transmittingDeferredScreenShots = false
                 let currentRunLoop = RunLoop.current
                 currentRunLoop.add(timer, forMode: .common)
                 currentRunLoop.run()
             }
+        } else {
+            DDLogDebug("SEB Screen Proctoring Controller startDeferredTransmissionTimer: timer was still running")
+            self.stopDeferredTransmissionIntervalTimer {
+                DDLogDebug("SEB Screen Proctoring Controller try to call startDeferredTransmissionTimer again.")
+                self.startDeferredTransmissionTimer(interval)
+            }
         }
     }
     
-    func stopDeferredTransmissionIntervalTimer() {
+    func stopDeferredTransmissionIntervalTimer(completionHandler: @escaping () -> Void) {
         deferredTimerQueue.async { [unowned self] in
-         if self.screenShotDeferredTransmissionIntervalTimer != nil {
-             self.screenShotDeferredTransmissionIntervalTimer?.invalidate()
-             self.screenShotDeferredTransmissionIntervalTimer = nil
+            if self.screenShotDeferredTransmissionIntervalTimer != nil {
+                self.screenShotDeferredTransmissionIntervalTimer?.invalidate()
+                self.screenShotDeferredTransmissionIntervalTimer = nil
+            }
+            completionHandler()
         }
-      }
     }
 
 
     private func screenShotDeferredTransmissionIntervallTriggered() {
-        self.stopDeferredTransmissionIntervalTimer()
-        transmitNextScreenShot()
+        transmittingDeferredScreenShots = true
+        stopDeferredTransmissionIntervalTimer {
+            self.transmitNextScreenShot()
+        }
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
-        stopMinIntervalTimer()
-        stopMaxIntervalTimer()
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateInactive)
+        closingSessionCompletionHandler = completionHandler
+        closingSession = true
+        stopMinIntervalTimer(completionHandler: nil)
+        stopMaxIntervalTimer(completionHandler: nil)
+        if self.screenShotCache.isEmpty {
+            self.continueClosingSession(completionHandler: completionHandler)
+        } else {
+            //                    if self.screenShotDeferredTransmissionIntervalTimer == nil && !self.transmittingDeferredScreenShots {
+            self.transmitNextScreenShot()
+            //                    }
+        }
+    }
+    
+    private func continueClosingSession(completionHandler: (() -> Void)?) {
+        closingSession = false
+        closingSessionCompletionHandler = nil
+        self.setScreenProctoringButtonState(ScreenProctoringButtonStateInactive)
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
+            completionHandler?()
             return
         }
         let closeSessionResource = SPSCloseSessionResource(baseURL: baseURL, endpoint: "/seb-api/v1/session/\(sessionId)")
@@ -590,14 +665,13 @@ extension SEBScreenProctoringController {
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not close session with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
             }
-            if !self.cancelAllRequests {
-                completionHandler()
-            }
+            completionHandler?()
         })
     }
     
     private func checkHealth(completionHandler: @escaping () -> Void) {
         guard let baseURL = self.serviceURL else {
+            completionHandler()
             return
         }
         let healthCheckResource = SPSHealthCheckResource(baseURL: baseURL, endpoint: "/health")
@@ -612,16 +686,13 @@ extension SEBScreenProctoringController {
                 }
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not get server health with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
-                return
             }
-            if !self.cancelAllRequests {
-                completionHandler()
-            }
+            completionHandler()
         })
     }
     
     private func didFail(error: NSError, fatal: Bool) {
-        spsControllerUIDelegate?.setScreenProctoringButtonState(ScreenProctoringButtonStateInactiveError)
+        self.setScreenProctoringButtonState(ScreenProctoringButtonStateInactiveError)
         if !cancelAllRequests {
 //            self.delegate?.didFail(error: error, fatal: fatal)
         }
@@ -630,12 +701,30 @@ extension SEBScreenProctoringController {
     public func collectedTriggerEvent(eventData:String) {
         latestTriggerEvent = eventData
         latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
-        if screenShotMinIntervalTimer == nil {
+        if screenShotMinIntervalTimer == nil && !closingSession {
             // The minimum interval has passed, trigger screen shot immediately
-            timerQueue.async { [unowned self] in
+            minIntervalTimerQueue.async { [unowned self] in
                 screenShotMinIntervallTriggered()
             }
         }
     }
-}
 
+    
+    // Update UI
+
+    func setScreenProctoringButtonState(_ state: ScreenProctoringButtonStates) {
+        if indicateHealthAndCaching && screenProctoringButtonState != state {
+            screenProctoringButtonState = state
+            spsControllerUIDelegate?.setScreenProctoringButtonState(state)
+        }
+    }
+    
+    func setScreenProctoringButtonInfoString(_ string: String) {
+        DDLogInfo("SEB Screen Proctoring Controller state changed: \(string)")
+        if indicateHealthAndCaching && screenProctoringButtonInfoString != string {
+            screenProctoringButtonInfoString = string
+            spsControllerUIDelegate?.setScreenProctoringButtonInfoString(string)
+        }
+    }
+
+}

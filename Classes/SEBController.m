@@ -1538,13 +1538,13 @@ bool insideMatrix(void);
                 break;
                 
             case ScreenProctoringButtonStateActiveWarning:
-                screenProctoringButtonImage = self->ProctoringIconWarningState;
-                screenProctoringButtonTintColor = self->ProctoringIconColorWarningState;
+                screenProctoringButtonImage = self->ScreenProctoringIconActiveWarningState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorWarningState;
                 break;
                 
             case ScreenProctoringButtonStateActiveError:
-                screenProctoringButtonImage = self->ProctoringIconErrorState;
-                screenProctoringButtonTintColor = self->ProctoringIconColorErrorState;
+                screenProctoringButtonImage = self->ScreenProctoringIconActiveErrorState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorErrorState;
                 break;
                 
             case ScreenProctoringButtonStateInactive:
@@ -5975,16 +5975,18 @@ conditionallyForWindow:(NSWindow *)window
             ScreenProctoringIconInactiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive"];
             if (@available(macOS 10.14, *)) {
                 ScreenProctoringIconActiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active"];
+                ScreenProctoringIconActiveWarningState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_warning"];
+                ScreenProctoringIconActiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_error"];
                 ScreenProctoringIconInactiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive_error"];
             } else {
                 ScreenProctoringIconActiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_green"];
+                ScreenProctoringIconActiveWarningState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_warning_orange"];
+                ScreenProctoringIconActiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_active_error_red"];
                 ScreenProctoringIconInactiveErrorState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive_error_red"];
 
             }
             ScreenProctoringIconColorActiveState = [NSColor systemGreenColor];
-            ScreenProctoringIconActiveWarningState = [NSImage imageNamed:@"SEBProctoringViewIcon_warning"];
             ScreenProctoringIconColorWarningState = [NSColor systemOrangeColor];
-            ScreenProctoringIconActiveErrorState = [NSImage imageNamed:@"SEBProctoringViewIcon_error"];
             ScreenProctoringIconColorErrorState = [NSColor systemRedColor];
 
             SEBDockItem *dockItemProctoringView = [[SEBDockItem alloc] initWithTitle:nil

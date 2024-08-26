@@ -999,9 +999,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
 
+                   @NO,
+                   @"screenProctoringIndicateHealthAndCaching",
+
                    @YES,
                    @"screenProctoringMetadataActiveAppEnabled",
-                   
+
                    @YES,
                    @"screenProctoringMetadataURLEnabled",
                    
