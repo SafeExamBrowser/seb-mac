@@ -449,7 +449,7 @@ extension SEBScreenProctoringController {
     
     public func transmitNextScreenShot() {
         if !screenShotCache.isEmpty {
-            let transmissionInterval = closingSession ? (currentServerHealth + 1) * ((screenshotMinInterval ?? 1000)/1000) : nil
+            let transmissionInterval = closingSession ? (currentServerHealth + 2) * ((screenshotMinInterval ?? 1000)/1000) : nil
             screenShotCache.transmitNextCachedScreenShot(interval: transmissionInterval)
         } else {
             setScreenProctoringButtonInfoString("all cached screenshots transmitted")
@@ -627,7 +627,13 @@ extension SEBScreenProctoringController {
 
     private func screenShotDeferredTransmissionIntervallTriggered() {
         transmittingDeferredScreenShots = true
+#if DEBUG
+        DDLogDebug("SEB Screen Proctoring Controller: screenShotDeferredTransmissionIntervallTriggered! Stop timer and transmit the screen shot.")
+#endif
         stopDeferredTransmissionIntervalTimer {
+#if DEBUG
+            DDLogDebug("SEB Screen Proctoring Controller: screenShotDeferredTransmissionIntervallTriggered timer stopped, now transmit the screen shot.")
+#endif
             self.transmitNextScreenShot()
         }
     }
