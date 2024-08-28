@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
 @class SEBScreenProctoringController;
+@class TransmittingCachedScreenShotsViewController;
 @class SEBZoomController;
 
 
@@ -228,6 +229,9 @@ NS_ASSUME_NONNULL_BEGIN
 #define JitsiMeetProctoringSupported NO
 #define ZoomProctoringSupported NO
 @property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
+@property (strong, nonatomic) TransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
+@property(strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
+
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
 @property(readwrite) BOOL previousSessionScreenProctoringEnabled;

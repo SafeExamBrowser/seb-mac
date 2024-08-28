@@ -236,6 +236,16 @@ bool insideMatrix(void);
 }
 
 
+- (TransmittingCachedScreenShotsViewController *) transmittingCachedScreenShotsViewController
+{
+    if (!_transmittingCachedScreenShotsViewController) {
+        _transmittingCachedScreenShotsViewController = [[TransmittingCachedScreenShotsViewController alloc] initWithNibName:@"TransmittingCachedScreenShotsView" bundle:nil];
+        _transmittingCachedScreenShotsViewController.uiDelegate = self;
+    }
+    return _transmittingCachedScreenShotsViewController;
+}
+
+
 - (SEBZoomController *)zoomController
 {
     if (!_zoomController) {
@@ -1899,7 +1909,53 @@ bool insideMatrix(void);
 
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append
 {
-    _dockButtonScreenProctoring.toolTip = string;
+    run_on_ui_thread(^{
+        self.dockButtonScreenProctoring.toolTip = string;
+    });
+}
+
+
+#pragma mark - SPSControllerUIDelegate methods
+
+- (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots
+{
+    run_on_ui_thread(^{
+        NSWindow *transmittingCachedScreenShotsWindow;
+        transmittingCachedScreenShotsWindow = [NSWindow windowWithContentViewController:self.transmittingCachedScreenShotsViewController];
+        self.transmittingCachedScreenShotsViewController.progressBar.minValue = 0;
+        self.transmittingCachedScreenShotsViewController.progressBar.maxValue = remainingScreenShots;
+        self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
+
+        [transmittingCachedScreenShotsWindow setLevel:NSMainMenuWindowLevel+5];
+        transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
+        NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:transmittingCachedScreenShotsWindow];
+        self.transmittingCachedScreenShotsWindowController = windowController;
+        [self.transmittingCachedScreenShotsWindowController showWindow:nil];
+    });
+}
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
+{
+    run_on_ui_thread(^{
+        if (self.transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
+            if (message) {
+                self.transmittingCachedScreenShotsViewController.message.stringValue = message;
+            }
+            if (operation) {
+                self.transmittingCachedScreenShotsViewController.operations.stringValue = operation;
+            }
+        }
+    });
+}
+
+- (void)closeTransmittingCachedScreenShotsWindow 
+{
+    run_on_ui_thread(^{
+        self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
+        [self.transmittingCachedScreenShotsWindowController close];
+        self.transmittingCachedScreenShotsViewController = nil;
+    });
 }
 
 
@@ -2021,7 +2077,7 @@ bool insideMatrix(void);
             self.processListViewController.selector = selector;
             self.processListViewController.starting = starting;
             self.processListViewController.restarting = restarting;
-
+            
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             
             NSWindow *runningProcessesListWindow;
@@ -2086,7 +2142,7 @@ bool insideMatrix(void);
         // Check if SEB is running inside a virtual machine
         SInt32        myAttrs;
         OSErr        myErr = noErr;
-
+        
         // Get details for the present operating environment
         // by calling Gestalt (Userland equivalent to CPUID)
         myErr = Gestalt(gestaltX86AdditionalFeatures, &myAttrs);
@@ -2108,7 +2164,7 @@ bool insideMatrix(void);
         } else {
             DDLogInfo(@"SEB is running on a native system (no VM) gestaltX86AdditionalFeatures = %X", myAttrs);
         }
-
+        
         bool    virtualMachine = false;
         // STR or SIDT code?
         virtualMachine = insideMatrix();
@@ -2122,7 +2178,7 @@ bool insideMatrix(void);
     BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
     BOOL browserMediaCaptureMicrophone = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"];
     BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
-
+    
     BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
     BOOL jitsiMeetEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"];
     BOOL zoomEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
@@ -2137,7 +2193,7 @@ bool insideMatrix(void);
     
     if ((zoomEnable && !ZoomProctoringSupported) || (jitsiMeetEnable && !JitsiMeetProctoringSupported)) {
         NSString *notAvailableRequiredRemoteProctoringService = [NSString stringWithFormat:@"%@%@", zoomEnable && !ZoomProctoringSupported ? @"Zoom " : @"",
-                                             jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @""];
+                                                                 jitsiMeetEnable && !JitsiMeetProctoringSupported ? @"Jitsi Meet " : @""];
         DDLogError(@"%@Remote proctoring not available", notAvailableRequiredRemoteProctoringService);
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Remote Proctoring Not Available", @"")];
@@ -2153,7 +2209,7 @@ bool insideMatrix(void);
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
         return;
     }
-
+    
     if (browserMediaCaptureScreen) {
         if (@available(macOS 10.15, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
@@ -2181,7 +2237,7 @@ bool insideMatrix(void);
             }
         }
     }
-
+    
     void (^conditionallyStartProctoring)(void);
     conditionallyStartProctoring =
     ^{
@@ -2189,7 +2245,7 @@ bool insideMatrix(void);
         void (^startRemoteProctoringOK)(void) =
         ^{
             if (screenProctoringEnable) {
-
+                
             }
             if (zoomEnable) {
                 [self openZoomView];
@@ -2294,7 +2350,7 @@ bool insideMatrix(void);
         }
         conditionallyStartZoomProctoring();
     };
-
+    
     if (browserMediaCaptureMicrophone ||
         browserMediaCaptureCamera) {
         
@@ -2302,7 +2358,7 @@ bool insideMatrix(void);
             AVAuthorizationStatus audioAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
             AVAuthorizationStatus videoAuthorization = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
             if (((browserMediaCaptureMicrophone && (audioAuthorization != AVAuthorizationStatusAuthorized)) ||
-                  (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
+                 (browserMediaCaptureCamera && (videoAuthorization != AVAuthorizationStatusAuthorized)))) {
                 
                 NSMutableArray <AVMediaType> *authorizationAccessRequests = [NSMutableArray new];
                 
@@ -2430,7 +2486,7 @@ bool insideMatrix(void);
     // Continue starting the exam session
     run_on_ui_thread(conditionallyStartProctoring);
 }
-    
+
 
 - (void) conditionallyStartAACWithCallback:(id)callback selector:(SEL)selector
 {
@@ -2504,7 +2560,7 @@ bool insideMatrix(void);
                             CFHostRef hostRef;
                             hostRef = CFHostCreateWithName(kCFAllocatorDefault, (__bridge CFStringRef)host);
                             if (hostRef) {
-                                 result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
+                                result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL); // pass an error instead of NULL here to find out why it failed
                                 if (result) {
                                     DDLogDebug(@"Performed DNS pre-pinning of host %@", host);
                                 } else {
@@ -2545,6 +2601,7 @@ bool insideMatrix(void);
 
 - (void) assessmentSessionDidBeginWithCallback:(id)callback
                                       selector:(SEL)selector
+                                      fallback:(BOOL)fallback
 {
     _isAACEnabled = YES;
     _wasAACEnabled = YES;
@@ -2557,6 +2614,7 @@ bool insideMatrix(void);
 - (void) assessmentSessionFailedToBeginWithError:(NSError *)error
                                         callback:(id)callback
                                         selector:(SEL)selector
+                                        fallback:(BOOL)fallback
 {
     [self.hudController hideHUDProgressIndicator];
     DDLogError(@"Could not start AAC Assessment Mode, falling back to SEB kiosk mode. Error: %@", error);
