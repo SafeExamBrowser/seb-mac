@@ -753,6 +753,8 @@
 		69F626452C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69F626412C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset */; };
 		69F626462C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning_orange.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69F626422C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning_orange.iconset */; };
 		69F626472C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_error.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69F626432C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_error.iconset */; };
+		69F626492C7DD77A00FCC544 /* TransmittingCachedScreenShotsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69F626482C7DD77A00FCC544 /* TransmittingCachedScreenShotsView.xib */; };
+		69F6264B2C7E040E00FCC544 /* TransmittingCachedScreenShotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F6264A2C7E040E00FCC544 /* TransmittingCachedScreenShotsViewController.swift */; };
 		69F7B5FC14F411FB00FD0761 /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = 69A9A22E1369AF9600840AE1 /* LICENCE */; };
 		69F7B5FD14F411FB00FD0761 /* PreferencesGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC9057136C9A00009B55CB /* PreferencesGeneral.xib */; };
 		69F7B5FE14F411FB00FD0761 /* PreferencesDownUploads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69FC905C136CA80F009B55CB /* PreferencesDownUploads.xib */; };
@@ -1547,6 +1549,8 @@
 		69F626412C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBScreenProctoringIcon_active_warning.iconset; path = Resources/Icons/SEBScreenProctoringIcon_active_warning.iconset; sourceTree = "<group>"; };
 		69F626422C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning_orange.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBScreenProctoringIcon_active_warning_orange.iconset; path = Resources/Icons/SEBScreenProctoringIcon_active_warning_orange.iconset; sourceTree = "<group>"; };
 		69F626432C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_error.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBScreenProctoringIcon_active_error.iconset; path = Resources/Icons/SEBScreenProctoringIcon_active_error.iconset; sourceTree = "<group>"; };
+		69F626482C7DD77A00FCC544 /* TransmittingCachedScreenShotsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransmittingCachedScreenShotsView.xib; sourceTree = "<group>"; };
+		69F6264A2C7E040E00FCC544 /* TransmittingCachedScreenShotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmittingCachedScreenShotsViewController.swift; sourceTree = "<group>"; };
 		69F684CA143653880091CDA7 /* SEBBrowserWindowDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserWindowDocument.h; path = Classes/BrowserComponents/SEBBrowserWindowDocument.h; sourceTree = "<group>"; };
 		69F684CB143653880091CDA7 /* SEBBrowserWindowDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserWindowDocument.m; path = Classes/BrowserComponents/SEBBrowserWindowDocument.m; sourceTree = "<group>"; };
 		69F7B62514F411FB00FD0761 /* Safe Exam Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Safe Exam Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2460,6 +2464,8 @@
 				699E16032C04AF9200BE1FA6 /* SEBSPMetadataCollector.swift */,
 				694F63392C66775300FEA23D /* PNGQuantization.swift */,
 				691981442C72520A00E79DA4 /* ScreenShotCache.swift */,
+				69F626482C7DD77A00FCC544 /* TransmittingCachedScreenShotsView.xib */,
+				69F6264A2C7E040E00FCC544 /* TransmittingCachedScreenShotsViewController.swift */,
 			);
 			name = Proctoring;
 			path = Classes/Proctoring;
@@ -3679,6 +3685,7 @@
 				69B2EB881A435E2000B5AE67 /* AboutSEB@2x.png in Resources */,
 				6947D8981BB073EA00899A8A /* ZoomPageIn.png in Resources */,
 				699C540415EFA13B00B8D210 /* SEBUIUserDefaultsController.h in Resources */,
+				69F626492C7DD77A00FCC544 /* TransmittingCachedScreenShotsView.xib in Resources */,
 				69F60FAE19AB7A7E00A5F650 /* MenuTriangleDown.png in Resources */,
 				697048E326D779D4009A822B /* SEBBatteryIcon.iconset in Resources */,
 				696A3AEC19F6FBEA00274214 /* PreferencesExam.xib in Resources */,
@@ -4026,6 +4033,7 @@
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */,
+				69F6264B2C7E040E00FCC544 /* TransmittingCachedScreenShotsViewController.swift in Sources */,
 				69F7B61214F411FB00FD0761 /* PrefsDownUploadsViewController.m in Sources */,
 				69CBEB571834C55D00FB0460 /* SEBSystemManager.m in Sources */,
 				695CA8D528E39FFD005BE4E8 /* SEBZoomController.m in Sources */,

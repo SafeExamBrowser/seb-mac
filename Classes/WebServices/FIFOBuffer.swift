@@ -65,10 +65,18 @@ public class FIFOBuffer {
         var isEmpty: Bool {
             return list.isEmpty
         }
+
+        var count: Int {
+            return list.count
+        }
     }
     
     var isEmpty: Bool {
         return queue.isEmpty
+    }
+
+    var count: Int {
+        return queue.count
     }
     
     func pushObject(_ object: Any) {
