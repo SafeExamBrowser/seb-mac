@@ -65,6 +65,7 @@ private struct SPSTransmittingState {
     func setScreenProctoringButtonInfoString(_: String)
     func showTransmittingCachedScreenShotsWindow(remainingScreenShots: Int)
     func updateTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?)
+    func allowQuit(_ allowQuit: Bool)
     func closeTransmittingCachedScreenShotsWindow()
 }
 
@@ -135,17 +136,21 @@ struct MetadataSettings {
     private var latestTransmissionTimestamp: TimeInterval?
     private lazy var screenShotCache = ScreenShotCache(delegate: self)
 
+//    private let minIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
+//    private let maxIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
     private let minIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
     private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
     private var screenShotMinIntervalTimer: Timer?
     private var screenShotMaxIntervalTimer: Timer?
-    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
+    private let deferredTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
     private var transmittingDeferredScreenShots = false
+    private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
+    private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 5
     private let timeIntervalForHealthCheck = 15.0
     private let maxDelayForResumingTransmitting = 3.0 * 60
-    private lazy var repeatingTimerForHealthCheck = RepeatingTimer(timeInterval: TimeInterval(timeIntervalForHealthCheck), queue: DispatchQueue(label: keysSPS.dispatchQueueLabel+".healthCheck", qos: .utility))
+    private var repeatingTimerForHealthCheck: RepeatingTimer?
     private var delayForResumingTimer: DispatchWorkItem?
     
     private var sendingScreenShot = false
@@ -369,6 +374,8 @@ extension SEBScreenProctoringController {
     }
     
     private func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?) {
+        DDLogDebug("SEB Screen Proctoring Controller sendScreenShot")
+
         var timeInterval: TimeInterval
         if timeStamp == nil {
             timeInterval = NSDate().timeIntervalSince1970
@@ -378,27 +385,35 @@ extension SEBScreenProctoringController {
         latestCaptureScreenShotTimestamp = timeInterval
 
         if currentServerHealth == SPSHealth.BAD {
+            DDLogDebug("SEB Screen Proctoring Controller: Server health is BAD")
             if transmittingState != SPSTransmittingState.waitingForRecovery {
                 if transmittingState == SPSTransmittingState.normal {
+                    DDLogDebug("SEB Screen Proctoring Controller: Transmitting state was normal, set to waitingForRecovery")
                     transmittingState = SPSTransmittingState.waitingForRecovery
                 }
                 if transmittingState == SPSTransmittingState.delayForResuming {
+                    DDLogDebug("SEB Screen Proctoring Controller: Transmitting state was delayForResuming, set to waitingForRecovery")
                     // Stop random timer for delay to resume sending cached screen shots
                     transmittingState = SPSTransmittingState.waitingForRecovery
                 }
                 self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
                 // Start repeating timer to check server health on separate endpoint each 15 seconds
-                repeatingTimerForHealthCheck.eventHandler = {
+                repeatingTimerForHealthCheck = timerForHealthCheck()
+                repeatingTimerForHealthCheck?.eventHandler = {
                     // Check server health without sending screen shot
+                    DDLogDebug("SEB Screen Proctoring Controller: Check server health")
                     self.checkHealth {
                     }
                 }
-                repeatingTimerForHealthCheck.resume()
+                DDLogDebug("SEB Screen Proctoring Controller: Start checking server health every \(timeIntervalForHealthCheck) seconds.")
+                repeatingTimerForHealthCheck?.resume()
+            } else {
+                
             }
         }
         
         if transmittingState == SPSTransmittingState.waitingForRecovery && currentServerHealth != SPSHealth.BAD {
-            
+            DDLogDebug("SEB Screen Proctoring Controller: Transmitting state is waitingForRecovery and server health not BAD")
             if currentServerHealth == SPSHealth.GOOD {
                 self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
                 setScreenProctoringButtonInfoString(NSLocalizedString("Good server health, waiting to resume sending cached screen shots", comment: ""))
@@ -409,8 +424,11 @@ extension SEBScreenProctoringController {
             // If waiting for recovery and server health is no longer BAD, then start random delay to resume transmitting cached screen shots
             transmittingState = SPSTransmittingState.delayForResuming
             // Stop timer to check server health on separate endpoint and start random delay of max 3 minutes
-            repeatingTimerForHealthCheck.reset()
+            DDLogDebug("SEB Screen Proctoring Controller: Stop server health check repeating timer and start delay for resuming timer.")
+            repeatingTimerForHealthCheck?.reset()
+            repeatingTimerForHealthCheck = nil
             delayForResumingTimer = DispatchWorkItem { [weak self] in
+                DDLogDebug("SEB Screen Proctoring Controller: Delay for resuming timer fired, set transmitting state to normal.")
                 self?.transmittingState = SPSTransmittingState.normal
                 self?.setScreenProctoringButtonInfoString(NSLocalizedString("Sending cached screen shots, server health \(10-(self?.currentServerHealth ?? 11)) out of 10", comment: ""))
                 self?.transmitNextScreenShot()
@@ -429,9 +447,8 @@ extension SEBScreenProctoringController {
             // if waiting for recovery or in subsequent delay state, don't attempt to transmit those cached screen shots
             if currentServerHealth == SPSHealth.BAD {
                 self.setScreenProctoringButtonInfoString(NSLocalizedString("Server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
-            } else {
-                self.setScreenProctoringButtonInfoString(NSLocalizedString("Server health \(10-currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
             }
+            DDLogDebug("SEB Screen Proctoring Controller: Server health is not good, deferr transmitting screen shot and cache it to the file system. \(transmittingState == SPSTransmittingState.normal ? "Attempt to transmit cached screen shots with a delay" : "Transmit state is waitingForRecovery or delayForResuming, so don't transmit cached screen shots yet.")")
             deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeInterval, transmitNextCachedScreenShot: transmittingState == SPSTransmittingState.normal)
         }
     }
@@ -441,6 +458,7 @@ extension SEBScreenProctoringController {
         if transmissionInterval == 0 {
             transmissionInterval = 1
         }
+        DDLogDebug("SEB Screen Proctoring Controller: Cache screen shot and defer transmission with an interval of \(transmissionInterval)")
         screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
         if transmitNextCachedScreenShot {
             screenShotCache.transmitNextCachedScreenShot(interval: nil)
@@ -450,10 +468,9 @@ extension SEBScreenProctoringController {
     public func transmitNextScreenShot() {
         if !screenShotCache.isEmpty {
             let transmissionInterval = closingSession ? (currentServerHealth + 2) * ((screenshotMinInterval ?? 1000)/1000) : nil
-            spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: screenShotCache.count, message: nil, operation: "Waiting \(transmissionInterval ?? 0) seconds and sending next screen shot.")
             screenShotCache.transmitNextCachedScreenShot(interval: transmissionInterval)
         } else {
-            setScreenProctoringButtonInfoString("All cached screenshots transmitted")
+            setScreenProctoringButtonInfoString("all cached screenshots transmitted")
             conditionallyCloseSession()
         }
     }
@@ -461,13 +478,14 @@ extension SEBScreenProctoringController {
     public func conditionallyCloseSession() {
         if closingSession {
             spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow()
-            setScreenProctoringButtonInfoString("Closing Session")
+            setScreenProctoringButtonInfoString("closing Session")
             let completionHandler = closingSessionCompletionHandler
             continueClosingSession(completionHandler: completionHandler)
         }
     }
     
     func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void) {
+        DDLogDebug("SEB Screen Proctoring Controller transmitScreenShot, resending: \(resending)")
         guard let baseURL = self.serviceURL, let sessionId = self.sessionId else {
             return
         }
@@ -481,17 +499,47 @@ extension SEBScreenProctoringController {
                               keysSPS.headerMetaData : metaData.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed) ?? ""] //,
 //                              keysSPS.headerImageFormat : "png"]
         
+        if closingSession {
+            spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: screenShotCache.count, message: nil, operation: "Transmitting screen shot")
+        }
+        
         load(screenShotResource, httpMethod: screenShotResource.httpMethod, body: data, headers: requestHeaders, withCompletion: { (screenShotResponse, statusCode, errorResponse, responseHeaders, attempt) in
             if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
+                DDLogDebug("SEB Screen Proctoring Controller: Successfully transmitted screen shot to server.")
                 if let health = Int((responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keysSPS.responseHeaderServerHealth) == .orderedSame}))?.value as? String ?? "") {
                     self.currentServerHealth = health
+                    DDLogDebug("SEB Screen Proctoring Controller: Current server health is \(10-health) out of 10")
                     self.latestTransmissionTimestamp = NSDate().timeIntervalSince1970
-                    completion(true)
+                    if self.closingSession {
+                        if self.currentServerHealth == SPSHealth.GOOD {
+                            self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
+                            self.setScreenProctoringButtonInfoString("")
+                            self.transmittingDeferredScreenShotsWhileClosingErrorCount = 0
+                            self.spsControllerUIDelegate?.allowQuit(false)
+                        } else {
+                            if self.currentServerHealth == SPSHealth.BAD {
+                                self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
+                                self.transmittingDeferredScreenShotsWhileClosingError()
+                            } else {
+                                self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveWarning)
+                                self.transmittingDeferredScreenShotsWhileClosingErrorCount = 0
+                                self.spsControllerUIDelegate?.allowQuit(false)
+                            }
+                            self.setScreenProctoringButtonInfoString(NSLocalizedString("Server health \(10-self.currentServerHealth) out of 10", comment: ""))
+                        }
+                    }
                 }
+                completion(true)
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not upload screen shot with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
+                if self.closingSession {
+                    self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: "Transmitting screen shot failed with error: \(errorResponse?.error ?? "Unspecified.")")
+                    self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
+                    self.setScreenProctoringButtonInfoString(NSLocalizedString("Server health \(10-self.currentServerHealth) out of 10, deferring sending screen shots", comment: ""))
+                }
                 // Cache screen shot and retry sending it
                 self.currentServerHealth = SPSHealth.BAD
+                self.transmittingDeferredScreenShotsWhileClosingError()
                 if !resending {
                     self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp, transmitNextCachedScreenShot: false)
                 }
@@ -499,6 +547,15 @@ extension SEBScreenProctoringController {
                 return
             }
         })
+    }
+    
+    private func transmittingDeferredScreenShotsWhileClosingError() {
+        transmittingDeferredScreenShotsWhileClosingErrorCount += 1
+        if transmittingDeferredScreenShotsWhileClosingErrorCount >= transmittingDeferredScreenShotsWhileClosingMaxErrorCount {
+            if self.closingSession {
+                self.spsControllerUIDelegate?.allowQuit(true)
+            }
+        }
     }
     
     private func startMaxIntervalTimer() {
@@ -595,8 +652,17 @@ extension SEBScreenProctoringController {
         }
     }
     
+    private func timerForHealthCheck() -> (RepeatingTimer) {
+        let repeatingTimer = RepeatingTimer(timeInterval: TimeInterval(timeIntervalForHealthCheck), queue: DispatchQueue(label: keysSPS.dispatchQueueLabel+".healthCheck", qos: .utility))
+        return repeatingTimer
+    }
+    
     func startDeferredTransmissionTimer(_ interval: Int) {
         if self.screenShotDeferredTransmissionIntervalTimer == nil {
+            DDLogDebug("SEB Screen Proctoring Controller startDeferredTransmissionTimer")
+            if closingSession {
+                spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: screenShotCache.count, message: nil, operation: "Waiting \(interval) seconds")
+            }
             deferredTimerQueue.async { [unowned self] in
                 let timer = Timer(timeInterval: TimeInterval(interval), repeats: false, block: { Timer in
                     self.screenShotDeferredTransmissionIntervallTriggered()
@@ -641,19 +707,20 @@ extension SEBScreenProctoringController {
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
+        DDLogInfo("SEB Screen Proctoring Controller: Closing Session")
         closingSessionCompletionHandler = completionHandler
         closingSession = true
         stopMinIntervalTimer(completionHandler: nil)
         stopMaxIntervalTimer(completionHandler: nil)
         if self.screenShotCache.isEmpty {
+            DDLogInfo("SEB Screen Proctoring Controller: There are no cached screen shots, continue closing session.")
             spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow()
             self.continueClosingSession(completionHandler: completionHandler)
         } else {
             let numberOfCachedScreenShots = self.screenShotCache.count
+            DDLogInfo("SEB Screen Proctoring Controller: There are \(numberOfCachedScreenShots) cached screen shots which need to be transmitted to the server before session can be closed.")
             spsControllerUIDelegate?.showTransmittingCachedScreenShotsWindow(remainingScreenShots: numberOfCachedScreenShots)
-            //                    if self.screenShotDeferredTransmissionIntervalTimer == nil && !self.transmittingDeferredScreenShots {
             self.transmitNextScreenShot()
-            //                    }
         }
     }
     

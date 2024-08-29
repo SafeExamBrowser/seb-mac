@@ -13,9 +13,14 @@ class TransmittingCachedScreenShotsViewController: NSViewController {
     @IBOutlet weak var message: NSTextField!
     @IBOutlet weak var operations: NSTextField!
     @IBOutlet weak var progressBar: NSProgressIndicator!
-       
+    @IBOutlet weak var quitButton: NSButton!
+    
     @objc weak public var uiDelegate: SPSControllerUIDelegate?
-
+    
+    @IBAction func quitButtonPressed(_ sender: Any) {
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "requestQuitNotification")))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
