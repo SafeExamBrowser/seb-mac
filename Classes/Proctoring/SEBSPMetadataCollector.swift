@@ -140,7 +140,7 @@ public class SEBSPMetadataCollector {
                 eventTypeString = "Unknown event type (\(event.type))"
             }
             eventTypeString += locationString
-            DDLogDebug("Event: \(eventTypeString)")
+            DDLogVerbose("Event: \(eventTypeString)")
             self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
         }
         

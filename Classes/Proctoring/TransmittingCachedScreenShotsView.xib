@@ -11,6 +11,7 @@
                 <outlet property="message" destination="81f-vK-OKC" id="J6k-dQ-q2k"/>
                 <outlet property="operations" destination="XLK-By-gdk" id="Uas-mB-K1h"/>
                 <outlet property="progressBar" destination="O2C-QF-CGf" id="rEe-cs-VcS"/>
+                <outlet property="quitButton" destination="kBp-vt-XEn" id="WZi-gv-iOJ"/>
                 <outlet property="view" destination="SYe-Be-5oC" id="Nd9-33-jQ7"/>
             </connections>
         </customObject>
@@ -33,21 +34,24 @@
                             </textFieldCell>
                         </textField>
                         <progressIndicator maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="O2C-QF-CGf">
-                            <rect key="frame" x="0.0" y="53" width="610" height="26"/>
+                            <rect key="frame" x="0.0" y="23" width="610" height="56"/>
                         </progressIndicator>
                         <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="660" translatesAutoresizingMaskIntoConstraints="NO" id="XLK-By-gdk">
-                            <rect key="frame" x="-2" y="30" width="614" height="14"/>
+                            <rect key="frame" x="-2" y="0.0" width="614" height="14"/>
                             <textFieldCell key="cell" selectable="YES" id="fO2-Nh-lHf">
                                 <font key="font" metaFont="smallSystem"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kBp-vt-XEn">
-                            <rect key="frame" x="557" y="-7" width="60" height="32"/>
+                        <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kBp-vt-XEn">
+                            <rect key="frame" x="-7" y="93" width="60" height="32"/>
                             <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vcu-8L-oOc">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="quitButtonPressed:" target="-2" id="AEk-Xx-VgQ"/>
+                                </connections>
                             </buttonCell>
                         </button>
                     </subviews>

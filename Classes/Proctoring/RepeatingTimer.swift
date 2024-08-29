@@ -63,6 +63,5 @@ class RepeatingTimer {
     func reset() {
         timer.cancel()
         resume()
-        
     }
 }

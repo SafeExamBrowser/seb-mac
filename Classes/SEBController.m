@@ -1578,7 +1578,11 @@ bool insideMatrix(void);
 - (void) setScreenProctoringButtonInfoString:(NSString *)infoString
 {
     run_on_ui_thread(^{
-        self.dockButtonScreenProctoring.toolTip = [NSString stringWithFormat:@"%@ (%@)", self.dockButtonScreenProctoringStateString, infoString];
+        if (infoString.length == 0) {
+            self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
+        } else {
+            self.dockButtonScreenProctoring.toolTip = [NSString stringWithFormat:@"%@ (%@)", self.dockButtonScreenProctoringStateString, infoString];
+        }
     });
 }
 
@@ -1949,7 +1953,16 @@ bool insideMatrix(void);
     });
 }
 
-- (void)closeTransmittingCachedScreenShotsWindow 
+- (void)allowQuit:(BOOL)allowQuit
+{
+    run_on_ui_thread(^{
+        if (self.transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.quitButton.hidden = !allowQuit;
+        }
+    });
+}
+
+- (void)closeTransmittingCachedScreenShotsWindow
 {
     run_on_ui_thread(^{
         self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
