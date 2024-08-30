@@ -38,5 +38,30 @@ import CocoaLumberjackSwift
         }
         return tempDirectoryURL
     }
+    
+    @objc static func removeTemporaryDirectory(url: URL) -> Bool {
+        let fileManager = FileManager.default
+        do {
+            let filesInTemporaryDirectory = try fileManager.contentsOfDirectory(atPath: url.path)
+            DDLogInfo("Contents of the temporary directory: \(filesInTemporaryDirectory)")
+        } catch let error {
+            DDLogError("Reading contents of temporary directory failed with error: \(error)")
+        }
+        do {
+            try fileManager.removeItem(atPath: url.path)
+        } catch let error {
+            DDLogError("Could not remove temporary directory with error: \(error)")
+        }
+        let parentDirectory = url.deletingLastPathComponent()
+        if parentDirectory.lastPathComponent.hasPrefix("NSIRD_\(SEBFullAppName)") {
+            do {
+                try fileManager.removeItem(atPath: parentDirectory.path)
+            } catch let error {
+                DDLogError("Could not remove temporary app directory with error: \(error)")
+                return false
+            }
+        }
+        return true
+    }
 }
     

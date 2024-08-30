@@ -230,7 +230,8 @@ NS_ASSUME_NONNULL_BEGIN
 #define ZoomProctoringSupported NO
 @property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
 @property (strong, nonatomic) TransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
-@property(strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
+@property (strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
+@property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
 
 @property (strong, nonatomic) SEBZoomController *zoomController;
 

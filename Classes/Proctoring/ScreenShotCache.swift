@@ -54,6 +54,14 @@ public class ScreenShotCache: FIFOBuffer {
         cacheDirectoryURL = SEBFileManager.createTemporaryDirectory()
     }
     
+    deinit {
+        guard let temporaryDirectoryURL = cacheDirectoryURL else {
+            return
+        }
+        let success = SEBFileManager.removeTemporaryDirectory(url: temporaryDirectoryURL)
+        DDLogInfo("Screen Shot Cache: Temporary directory \(success ? "" : "not ")removed.")
+    }
+    
     struct CachedScreenShot {
         var metaData: String
         var timestamp: TimeInterval
