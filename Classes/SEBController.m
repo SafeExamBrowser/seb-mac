@@ -1676,7 +1676,7 @@ bool insideMatrix(void);
 {
     if (_screenProctoringController) {
         [_screenProctoringController closeSessionWithCompletionHandler:^{
-            self.screenProctoringController = nil;
+            self->_screenProctoringController = nil;
             completionHandler();
         }];
         return;
@@ -1924,25 +1924,32 @@ bool insideMatrix(void);
 - (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots
 {
     run_on_ui_thread(^{
-        NSWindow *transmittingCachedScreenShotsWindow;
-        transmittingCachedScreenShotsWindow = [NSWindow windowWithContentViewController:self.transmittingCachedScreenShotsViewController];
-        self.transmittingCachedScreenShotsViewController.progressBar.minValue = 0;
-        self.transmittingCachedScreenShotsViewController.progressBar.maxValue = remainingScreenShots;
-        self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
+        if (self->_transmittingCachedScreenShotsViewController) {
+            [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil totalScreenShots:remainingScreenShots];
+        } else {
+            NSWindow *transmittingCachedScreenShotsWindow;
+            transmittingCachedScreenShotsWindow = [NSWindow windowWithContentViewController:self.transmittingCachedScreenShotsViewController];
+            self.transmittingCachedScreenShotsViewController.progressBar.minValue = 0;
+            self.transmittingCachedScreenShotsViewController.progressBar.maxValue = remainingScreenShots;
+            self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
+            self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
 
-        [transmittingCachedScreenShotsWindow setLevel:NSMainMenuWindowLevel+5];
-        transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
-        NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:transmittingCachedScreenShotsWindow];
-        self.transmittingCachedScreenShotsWindowController = windowController;
-        [self.transmittingCachedScreenShotsWindowController showWindow:nil];
+            [transmittingCachedScreenShotsWindow setLevel:NSMainMenuWindowLevel+5];
+            transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
+            NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:transmittingCachedScreenShotsWindow];
+            self.transmittingCachedScreenShotsWindowController = windowController;
+            [self.transmittingCachedScreenShotsWindowController showWindow:nil];
+        }
     });
 }
 
-- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation totalScreenShots:(NSInteger)totalScreenShots
 {
+    self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
     run_on_ui_thread(^{
-        if (self.transmittingCachedScreenShotsViewController) {
+        if (self->_transmittingCachedScreenShotsViewController) {
             self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
+            self.transmittingCachedScreenShotsViewController.progressBar.maxValue = totalScreenShots;
             if (message) {
                 self.transmittingCachedScreenShotsViewController.message.stringValue = message;
             }
@@ -1956,7 +1963,7 @@ bool insideMatrix(void);
 - (void)allowQuit:(BOOL)allowQuit
 {
     run_on_ui_thread(^{
-        if (self.transmittingCachedScreenShotsViewController) {
+        if (self->_transmittingCachedScreenShotsViewController) {
             self.transmittingCachedScreenShotsViewController.quitButton.hidden = !allowQuit;
         }
     });
