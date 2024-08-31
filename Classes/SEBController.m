@@ -1943,7 +1943,13 @@ bool insideMatrix(void);
     });
 }
 
+
 - (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation totalScreenShots:(NSInteger)totalScreenShots
+{
+    [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation append:NO totalScreenShots:totalScreenShots];
+}
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation append:(BOOL)append totalScreenShots:(NSInteger)totalScreenShots
 {
     self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
     run_on_ui_thread(^{
@@ -1954,11 +1960,17 @@ bool insideMatrix(void);
                 self.transmittingCachedScreenShotsViewController.message.stringValue = message;
             }
             if (operation) {
-                self.transmittingCachedScreenShotsViewController.operations.stringValue = operation;
+                NSString *updatedOperations = operation;
+                if (append) {
+                    updatedOperations = [NSString stringWithFormat:@"%@, %@", self.operationsString, operation];
+                }
+                self.transmittingCachedScreenShotsViewController.operations.stringValue = updatedOperations;
+                self.operationsString = updatedOperations;
             }
         }
     });
 }
+
 
 - (void)allowQuit:(BOOL)allowQuit
 {
@@ -1968,6 +1980,7 @@ bool insideMatrix(void);
         }
     });
 }
+
 
 - (void)closeTransmittingCachedScreenShotsWindow
 {

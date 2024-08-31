@@ -36,7 +36,7 @@ import Foundation
 import CocoaLumberjackSwift
 
 protocol ScreenShotTransmissionDelegate {
-    func transmitScreenShot(data: Data, metaData: String, timeStamp: TimeInterval, resending: Bool, completion: @escaping (_ success: Bool) -> Void)
+    func sendScreenShot(data: Data, metaData: String, timeStamp: TimeInterval?, resending: Bool, completion: ((_ success: Bool) -> Void)?)
     func transmitNextScreenShot()
     func startDeferredTransmissionTimer(_ interval: Int)
     func conditionallyCloseSession()
@@ -55,11 +55,7 @@ public class ScreenShotCache: FIFOBuffer {
     }
     
     deinit {
-        guard let temporaryDirectoryURL = cacheDirectoryURL else {
-            return
-        }
-        let success = SEBFileManager.removeTemporaryDirectory(url: temporaryDirectoryURL)
-        DDLogInfo("Screen Shot Cache: Temporary directory \(success ? "" : "not ")removed.")
+        DDLogDebug("SEB Screen Shot Cache: deint called")
     }
     
     struct CachedScreenShot {
@@ -95,6 +91,7 @@ public class ScreenShotCache: FIFOBuffer {
         }
         do {
             try data.write(to: fileURL, options: [.atomic])
+            DDLogInfo("Screen Shot Cache: Screen shot \(filename) saved.")
         } catch let error {
             DDLogError("Writing screen shot at \(fileURL) failed with error: \(error)")
             return
@@ -141,29 +138,39 @@ public class ScreenShotCache: FIFOBuffer {
         
         do {
             let screenShotData = try Data(contentsOf: fileURL)
-            delegate.transmitScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
+            delegate.sendScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
                 if success {
-                    let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
+//                    let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
                     var fileURL: URL
                     if #available(macOS 13.0, iOS 16.0, *) {
                         fileURL = self.cacheDirectoryURL!.appending(path: filename)
                     } else {
                         fileURL = self.cacheDirectoryURL!.appendingPathComponent(filename)
                     }
+                    DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully transmitted to SPS, remove from cache.")
                     do {
                         try FileManager.default.removeItem(at: fileURL)
                     } catch let error {
-                        DDLogError("Couldn't remove screen shot at \(fileURL) with error: \(error)")
+                        DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error)")
                     }
                 } else {
-                    DDLogWarn("Cached screen shot could not be transmitted. It will be pushed back to the cache to attempt sending it later.")
+                    DDLogWarn("Screen Shot Cache: Cached screen shot \(filename) could not be transmitted. It will be pushed back to the cache to attempt sending it later.")
                     self.pushObject(screenShot)
                 }
                 startTimerForNextCachedScreenShot()
             })
         } catch let error {
-            DDLogError("Reading screen shot at \(fileURL) failed with error: \(error)")
+            DDLogError("Screen Shot Cache: Reading screen shot at \(fileURL) failed with error: \(error)")
             startTimerForNextCachedScreenShot()
         }
+    }
+    
+    func conditionallyRemoveCacheDirectory() {
+        guard let temporaryDirectoryURL = cacheDirectoryURL else {
+            DDLogInfo("Screen Shot Cache: No temporary cache directory.")
+            return
+        }
+        let success = SEBFileManager.removeTemporaryDirectory(url: temporaryDirectoryURL)
+        DDLogInfo("Screen Shot Cache: Temporary directory \(success ? "" : "not ")removed.")
     }
 }

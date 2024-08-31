@@ -67,7 +67,7 @@ struct DiscoveryResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         do {
             let discovery = try decoder.decode(Discovery.self, from: data)
@@ -98,7 +98,7 @@ struct AccessTokenResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         do {
             let accessToken = try decoder.decode(AccessToken.self, from: data)
@@ -129,7 +129,7 @@ struct HandshakeResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         do {
             let exams = try decoder.decode([Exam].self, from: data)
@@ -234,7 +234,7 @@ struct PingResource: ApiResource {
         decoder.dateDecodingStrategy = .secondsSince1970
         if data.count > 0 {
 #if DEBUG
-            DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+            DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
             do {
                 let ping = try decoder.decode(Ping.self, from: data)
@@ -304,7 +304,7 @@ struct SPSHandshakeResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         do {
             let exams = try decoder.decode([Exam].self, from: data)

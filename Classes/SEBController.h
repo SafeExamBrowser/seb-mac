@@ -232,6 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) TransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
 @property (strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
 @property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
+@property (strong, nonatomic) NSString *_Nullable operationsString;
 
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
