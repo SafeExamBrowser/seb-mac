@@ -85,7 +85,7 @@
 {
     DDLogInfo(@"WebView: %@ requests to be closed.", webViewToClose);
     
-    if (webViewToClose == _mainWebView) {
+    if (webViewToClose == _mainWebView && !_sebController.restarting) {
         DDLogError(@"Web application requests the main browser window to be closed, which is not allowed in SEB and will be ignored!");
     } else {
         if (webViewToClose) {
