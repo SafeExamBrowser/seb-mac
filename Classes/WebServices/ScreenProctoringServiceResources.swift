@@ -31,7 +31,7 @@ struct SPSAccessTokenResource: ApiResource {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         do {
             let accessToken = try decoder.decode(AccessToken.self, from: data)
@@ -60,7 +60,7 @@ struct SPSScreenShotResource: ApiResource {
 
     func makeModel(data: Data) -> Data? {
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         return data
     }
@@ -82,7 +82,7 @@ struct SPSCloseSessionResource: ApiResource {
     
     func makeModel(data: Data) -> Data? {
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         return data
     }
@@ -104,7 +104,7 @@ struct SPSHealthCheckResource: ApiResource {
     
     func makeModel(data: Data) -> Data? {
 #if DEBUG
-        DDLogDebug(String(data: data, encoding: String.Encoding.utf8)!)
+        DDLogDebug(String(data: data, encoding: String.Encoding.utf8) ?? "")
 #endif
         return data
     }

@@ -16,10 +16,12 @@ struct Metadata: Codable {
 }
 
 public class SEBSPMetadataCollector {
-
+    
     private var delegate: ScreenProctoringDelegate?
     private var settings: MetadataSettings
-
+    private var localEventMonitor: Any?
+    private var globalEventMonitor: Any?
+    
     init(delegate: ScreenProctoringDelegate?, settings: MetadataSettings) {
         self.delegate = delegate
         self.settings = settings
@@ -28,20 +30,20 @@ public class SEBSPMetadataCollector {
     
     public func collectMetaData(triggerMetadata: String) -> String? {
         var metadata = Metadata()
-
+        
         if settings.activeAppEnabled || settings.activeWindowEnabled {
             if let activeAppWindowMetadata = delegate?.getScreenProctoringMetadataActiveAppWindow() {
                 
                 if settings.activeAppEnabled {
                     metadata.screenProctoringMetadataActiveApp = activeAppWindowMetadata["activeApp", default: ""]
                 }
-
+                
                 if settings.activeWindowEnabled {
                     metadata.screenProctoringMetadataWindowTitle = activeAppWindowMetadata["activeWindow", default: ""]
                 }
             }
         }
-                
+        
         if settings.urlEnabled {
             metadata.screenProctoringMetadataURL = delegate?.getScreenProctoringMetadataURL()
         }
@@ -50,7 +52,7 @@ public class SEBSPMetadataCollector {
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys
-
+        
         do {
             let data = try encoder.encode(metadata)
             return String(data: data, encoding: String.Encoding.utf8)
@@ -61,101 +63,115 @@ public class SEBSPMetadataCollector {
     }
     
     public func monitorEvents() {
-
+        if localEventMonitor == nil || globalEventMonitor == nil {
 #if os(macOS)
-        let eventHandler = { (event: NSEvent) in
-            var eventTypeString = ""
-            let location = NSEvent.mouseLocation
-            let locationString = " (at \(Int(location.x)), \(Int(location.y)))"
-            switch event.type {
-            case .leftMouseDown:
-                eventTypeString = "Left mouse down"
-            case .leftMouseUp:
-                eventTypeString = "Left mouse up"
-            case .rightMouseDown:
-                eventTypeString = "Right mouse down"
-            case .rightMouseUp:
-                eventTypeString = "Right mouse up"
-            case .mouseMoved:
-                eventTypeString = "Mouse moved"
-            case .leftMouseDragged:
-                eventTypeString = "Left mouse dragged"
-            case .rightMouseDragged:
-                eventTypeString = "Right mouse dragged"
-            case .mouseEntered:
-                eventTypeString = "Mouse entered area"
-            case .mouseExited:
-                eventTypeString = "Mouse exited area"
-            case .keyDown:
-                eventTypeString = "Key down \(self.keyEventDesciption(event: event))"
-            case .keyUp:
-                eventTypeString = "Key up \(self.keyEventDesciption(event: event))"
-            case .flagsChanged:
-                eventTypeString = "Modifier key pressed \(self.keyEventModifiers(event: event))"
-            case .appKitDefined:
-                eventTypeString = "AppKit-related event"
-            case .systemDefined:
-                eventTypeString = "System-related event"
-            case .applicationDefined:
-                eventTypeString = "App-defined event"
-            case .periodic:
-                eventTypeString = "Event that provides execution time to periodic tasks"
-            case .cursorUpdate:
-                eventTypeString = "Cursor was updated"
-            case .scrollWheel:
-                eventTypeString = "Scroll wheel position changed"
-            case .tabletPoint:
-                eventTypeString = "Point on a tablet touched"
-            case .tabletProximity:
-                eventTypeString = "Pencil hovering over a tablet"
-            case .otherMouseDown:
-                eventTypeString = "Middle mouse down"
-            case .otherMouseUp:
-                eventTypeString = "Middle mouse up"
-            case .otherMouseDragged:
-                eventTypeString = "Middle mouse dragged"
-            case .gesture:
-                eventTypeString = "Some gesture performed"
-            case .magnify:
-                eventTypeString = "Magnifying gesture performed"
-            case .swipe:
-                eventTypeString = "Swipe gesture performed"
-            case .rotate:
-                eventTypeString = "Rotate gesture performed"
-            case .beginGesture:
-                eventTypeString = "Gesture starting"
-            case .endGesture:
-                eventTypeString = "Gesture ending"
-            case .smartMagnify:
-                eventTypeString = "Smart zoom gesture (two-finger double tap) performed"
-            case .quickLook:
-                eventTypeString = "Quick Look request initiated"
-            case .pressure:
-                eventTypeString = "Pressure changed"
-            case .directTouch:
-                eventTypeString = "Touch bar touched"
-            case .changeMode:
-                eventTypeString = "Mode of a pencil on an iPad connected as screen changed"
-            @unknown default:
-                eventTypeString = "Unknown event type (\(event.type))"
+            let eventHandler = { (event: NSEvent) in
+                var eventTypeString = ""
+                let location = NSEvent.mouseLocation
+                let locationString = " (at \(Int(location.x)), \(Int(location.y)))"
+                switch event.type {
+                case .leftMouseDown:
+                    eventTypeString = "Left mouse down"
+                case .leftMouseUp:
+                    eventTypeString = "Left mouse up"
+                case .rightMouseDown:
+                    eventTypeString = "Right mouse down"
+                case .rightMouseUp:
+                    eventTypeString = "Right mouse up"
+                case .mouseMoved:
+                    eventTypeString = "Mouse moved"
+                case .leftMouseDragged:
+                    eventTypeString = "Left mouse dragged"
+                case .rightMouseDragged:
+                    eventTypeString = "Right mouse dragged"
+                case .mouseEntered:
+                    eventTypeString = "Mouse entered area"
+                case .mouseExited:
+                    eventTypeString = "Mouse exited area"
+                case .keyDown:
+                    eventTypeString = "Key down \(self.keyEventDesciption(event: event))"
+                case .keyUp:
+                    eventTypeString = "Key up \(self.keyEventDesciption(event: event))"
+                case .flagsChanged:
+                    eventTypeString = "Modifier key pressed \(self.keyEventModifiers(event: event))"
+                case .appKitDefined:
+                    eventTypeString = "AppKit-related event"
+                case .systemDefined:
+                    eventTypeString = "System-related event"
+                case .applicationDefined:
+                    eventTypeString = "App-defined event"
+                case .periodic:
+                    eventTypeString = "Event that provides execution time to periodic tasks"
+                case .cursorUpdate:
+                    eventTypeString = "Cursor was updated"
+                case .scrollWheel:
+                    eventTypeString = "Scroll wheel position changed"
+                case .tabletPoint:
+                    eventTypeString = "Point on a tablet touched"
+                case .tabletProximity:
+                    eventTypeString = "Pencil hovering over a tablet"
+                case .otherMouseDown:
+                    eventTypeString = "Middle mouse down"
+                case .otherMouseUp:
+                    eventTypeString = "Middle mouse up"
+                case .otherMouseDragged:
+                    eventTypeString = "Middle mouse dragged"
+                case .gesture:
+                    eventTypeString = "Some gesture performed"
+                case .magnify:
+                    eventTypeString = "Magnifying gesture performed"
+                case .swipe:
+                    eventTypeString = "Swipe gesture performed"
+                case .rotate:
+                    eventTypeString = "Rotate gesture performed"
+                case .beginGesture:
+                    eventTypeString = "Gesture starting"
+                case .endGesture:
+                    eventTypeString = "Gesture ending"
+                case .smartMagnify:
+                    eventTypeString = "Smart zoom gesture (two-finger double tap) performed"
+                case .quickLook:
+                    eventTypeString = "Quick Look request initiated"
+                case .pressure:
+                    eventTypeString = "Pressure changed"
+                case .directTouch:
+                    eventTypeString = "Touch bar touched"
+                case .changeMode:
+                    eventTypeString = "Mode of a pencil on an iPad connected as screen changed"
+                @unknown default:
+                    eventTypeString = "Unknown event type (\(event.type))"
+                }
+                eventTypeString += locationString
+                DDLogVerbose("Event: \(eventTypeString)")
+                self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
             }
-            eventTypeString += locationString
-            DDLogVerbose("Event: \(eventTypeString)")
-            self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
+            
+            localEventMonitor = NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
+                eventHandler(event)
+                return event
+            }
+            globalEventMonitor = NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
+                eventHandler(event)
+            }
+#endif
         }
-        
-        NSEvent.addLocalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
-            eventHandler(event)
-            return event
+    }
+    
+    public func stopMonitoringEvents() {
+#if os(macOS)
+        if globalEventMonitor != nil {
+            NSEvent.removeMonitor(globalEventMonitor!)
+            globalEventMonitor = nil
         }
-        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.any) { event in
-            eventHandler(event)
+        if localEventMonitor != nil {
+            NSEvent.removeMonitor(localEventMonitor!)
+            localEventMonitor = nil
         }
-        #endif
+#endif
     }
     
 #if os(macOS)
-
+    
     func keyEventDesciption(event: NSEvent) -> String {
         let characters = event.charactersIgnoringModifiers?.replaceSpecialCharactersWithKeyName()
         let modifiers = keyEventModifiers(event: event)
@@ -170,7 +186,7 @@ public class SEBSPMetadataCollector {
             } else if characters != nil {
                 keyEventDescription = characters!
             }
-
+            
             if resultingCharacters != nil {
                 keyEventDescription = "'\(resultingCharacters!)' (\(keyEventDescription))"
             }
