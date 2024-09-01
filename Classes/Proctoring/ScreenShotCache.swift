@@ -101,10 +101,12 @@ public class ScreenShotCache: FIFOBuffer {
     
     func transmitNextCachedScreenShot(interval: Int?) {
         guard let screenShot = popObject() as? CachedScreenShot else {
+            DDLogDebug("Screen Shot Cache: Couldn't pop screen shot from cache for transmission.")
             self.delegate.transmitNextScreenShot()
             return
         }
         guard let filename = screenShot.filename else {
+            DDLogDebug("Screen Shot Cache: Screen shot from cache for transmission didn't had a filename set.")
             self.delegate.transmitNextScreenShot()
             return
         }
@@ -118,6 +120,7 @@ public class ScreenShotCache: FIFOBuffer {
         let startTimerForNextCachedScreenShot = {
             // Copy next cached screen shot (don't remove it from queue)
             guard let screenShot = self.copyObject() as? CachedScreenShot else {
+                DDLogDebug("Screen Shot Cache: Couldn't copy screen shot from cache for deferred transmission.")
                 self.delegate.transmitNextScreenShot()
                 return
             }
@@ -131,6 +134,8 @@ public class ScreenShotCache: FIFOBuffer {
             } else {
                 timerInterval = (self.delegate.currentServerHealth + 2) * transmissionInterval
             }
+            let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
+            DDLogInfo("Screen Shot Cache: Started timer with interval \(timerInterval) for transmission of screen shot \(filename).")
             // Start timer to transmit the cached screen shot: Use the saved interval between this and the previous screen shot
             // and the current SPS server health + 1 (to prioritize sending cached screen shots lower than current (live) screen shots.
             self.delegate.startDeferredTransmissionTimer(timerInterval)
@@ -140,7 +145,6 @@ public class ScreenShotCache: FIFOBuffer {
             let screenShotData = try Data(contentsOf: fileURL)
             delegate.sendScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
                 if success {
-//                    let filename = self.screenShotFilename(timeStamp: screenShot.timestamp)
                     var fileURL: URL
                     if #available(macOS 13.0, iOS 16.0, *) {
                         fileURL = self.cacheDirectoryURL!.appending(path: filename)
