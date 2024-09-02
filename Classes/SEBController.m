@@ -1927,6 +1927,10 @@ bool insideMatrix(void);
         if (self->_transmittingCachedScreenShotsViewController) {
             [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil totalScreenShots:remainingScreenShots];
         } else {
+            self.lockModalWindows = [self fillScreensWithCoveringWindows:coveringWindowModalAlert
+                                                            windowLevel:NSScreenSaverWindowLevel
+                                                         excludeMenuBar:false];
+
             NSWindow *transmittingCachedScreenShotsWindow;
             transmittingCachedScreenShotsWindow = [NSWindow windowWithContentViewController:self.transmittingCachedScreenShotsViewController];
             self.transmittingCachedScreenShotsViewController.progressBar.minValue = 0;
@@ -1934,7 +1938,7 @@ bool insideMatrix(void);
             self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
             self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
 
-            [transmittingCachedScreenShotsWindow setLevel:NSMainMenuWindowLevel+5];
+            [transmittingCachedScreenShotsWindow setLevel:NSScreenSaverWindowLevel+1];
             transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
             NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:transmittingCachedScreenShotsWindow];
             self.transmittingCachedScreenShotsWindowController = windowController;
@@ -1989,6 +1993,7 @@ bool insideMatrix(void);
         self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
         [self.transmittingCachedScreenShotsWindowController close];
         self.transmittingCachedScreenShotsViewController = nil;
+        [self closeCoveringWindows:self.lockModalWindows];
     });
 }
 
@@ -4412,6 +4417,14 @@ bool insideMatrix(void){
                 window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
                 capview = [[NSView alloc] initWithFrame:rect];
                 windowColor = [NSColor redColor];
+                break;
+            }
+                
+            case coveringWindowModalAlert: {
+                window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
+                capview = [[NSView alloc] initWithFrame:rect];
+                windowColor = [NSColor blackColor];
+                ((NSWindow *)window).alphaValue = 0.2;
                 break;
             }
                 
