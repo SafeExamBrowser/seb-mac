@@ -299,6 +299,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *_Nullable lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
+@property(strong) NSMutableArray *_Nullable lockModalWindows;
 @property(strong) NSScreen *mainScreen;
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
 @property(strong, nonatomic) HUDController *hudController ;

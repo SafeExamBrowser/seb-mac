@@ -162,7 +162,7 @@ struct MetadataSettings {
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
     private var transmittingDeferredScreenShots = false
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
-    private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 5
+    private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 15
     private var numberOfCachedScreenShotsWhileClosing = 0
     private let timeIntervalForHealthCheck = 15.0
     private let maxDelayForResumingTransmitting = 3.0 * 60
