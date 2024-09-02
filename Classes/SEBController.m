@@ -1961,8 +1961,9 @@ bool insideMatrix(void);
             }
             if (operation) {
                 NSString *updatedOperations = operation;
-                if (append) {
-                    updatedOperations = [NSString stringWithFormat:@"%@, %@", self.operationsString, operation];
+                if (append && self.operationsString.length > 0) {
+                    NSString *separator = [self.operationsString hasSuffix:@"."] ? @"" : @".";
+                    updatedOperations = [NSString stringWithFormat:@"%@%@ %@", self.operationsString, separator, operation];
                 }
                 self.transmittingCachedScreenShotsViewController.operations.stringValue = updatedOperations;
                 self.operationsString = updatedOperations;
@@ -6753,7 +6754,7 @@ conditionallyForWindow:(NSWindow *)window
         [self.aboutWindow center];
         //[self.aboutWindow orderFront:self];
         //[self.aboutWindow setLevel:NSMainMenuWindowLevel];
-        [[NSApplication sharedApplication] runModalForWindow:self.aboutWindow];
+        [NSApp runModalForWindow:self.aboutWindow];
     }
 }
 
