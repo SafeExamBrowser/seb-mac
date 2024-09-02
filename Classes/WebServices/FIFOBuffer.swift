@@ -37,9 +37,13 @@ import Foundation
 public class FIFOBuffer {
     
     private lazy var fifoDispatchQueue = DispatchQueue(label: "org.safeexambrowser.SEB.\(UUID())", qos: .background)
-    private var queue: Queue<Any> = Queue()
+    private var queue: Queue<AnyHashable> = Queue()
     
-    struct Queue<T> {
+    struct Queue<T: Hashable> {
+//        static func == (lhs: FIFOBuffer.Queue<T>, rhs: FIFOBuffer.Queue<T>) -> Bool {
+//            return lhs.hashValue() == rhs.hashValue()
+//        }
+        
         var list = [T]()
         
         mutating func enqueue(_ element: T) {
@@ -51,6 +55,12 @@ public class FIFOBuffer {
                 return list.removeFirst()
             } else {
                 return nil
+            }
+        }
+        
+        mutating func remove(_ element: T) {
+            if !list.isEmpty {
+                list = list.filter {$0 != element }
             }
         }
         
@@ -79,13 +89,13 @@ public class FIFOBuffer {
         return queue.count
     }
     
-    func pushObject(_ object: Any) {
+    func pushObject(_ object: AnyHashable) {
         fifoDispatchQueue.async {
             self.queue.enqueue(object)
         }
     }
     
-    func popObject() -> Any? {
+    func popObject() -> AnyHashable? {
         if !(queue.isEmpty) {
             guard let object = self.queue.dequeue() else {
                 return nil
@@ -95,7 +105,13 @@ public class FIFOBuffer {
         return nil
     }
     
-    func copyObject() -> Any? {
+    func removeObject(_ object: AnyHashable) {
+        if !(queue.isEmpty) {
+            self.queue.remove(object)
+        }
+    }
+    
+    func copyObject() -> AnyHashable? {
         if !(queue.isEmpty) {
             guard let object = self.queue.copyFirst() else {
                 return nil

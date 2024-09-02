@@ -58,7 +58,7 @@ public class ScreenShotCache: FIFOBuffer {
         DDLogDebug("SEB Screen Shot Cache: deint called")
     }
     
-    struct CachedScreenShot {
+    struct CachedScreenShot: Equatable, Hashable {
         var metaData: String
         var timestamp: TimeInterval
         var transmissionInterval: Int
@@ -68,6 +68,14 @@ public class ScreenShotCache: FIFOBuffer {
             self.metaData = metaData
             self.timestamp = timestamp
             self.transmissionInterval = transmissionInterval
+        }
+        
+        static func == (lhs: CachedScreenShot, rhs: CachedScreenShot) -> Bool {
+            return lhs.hashValue == rhs.hashValue
+//            return lhs.metaData == rhs.metaData &&
+//            lhs.timestamp == rhs.timestamp &&
+//            lhs.transmissionInterval == rhs.transmissionInterval &&
+//            lhs.filename == rhs.filename
         }
     }
     
@@ -100,7 +108,7 @@ public class ScreenShotCache: FIFOBuffer {
     }
     
     func transmitNextCachedScreenShot(interval: Int?) {
-        guard let screenShot = popObject() as? CachedScreenShot else {
+        guard let screenShot = copyObject() as? CachedScreenShot else {
             DDLogDebug("Screen Shot Cache: Couldn't pop screen shot from cache for transmission.")
             self.delegate.transmitNextScreenShot()
             return
@@ -154,12 +162,13 @@ public class ScreenShotCache: FIFOBuffer {
                     DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully transmitted to SPS, remove from cache.")
                     do {
                         try FileManager.default.removeItem(at: fileURL)
+                        self.removeObject(screenShot)
                     } catch let error {
                         DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error)")
                     }
                 } else {
-                    DDLogWarn("Screen Shot Cache: Cached screen shot \(filename) could not be transmitted. It will be pushed back to the cache to attempt sending it later.")
-                    self.pushObject(screenShot)
+                    DDLogWarn("Screen Shot Cache: Cached screen shot \(filename) could not be transmitted. Don't remove it from the cache, attempt sending it later.")
+//                    self.pushObject(screenShot)
                 }
                 startTimerForNextCachedScreenShot()
             })
