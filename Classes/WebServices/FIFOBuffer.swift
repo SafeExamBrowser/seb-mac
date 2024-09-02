@@ -40,9 +40,6 @@ public class FIFOBuffer {
     private var queue: Queue<AnyHashable> = Queue()
     
     struct Queue<T: Hashable> {
-//        static func == (lhs: FIFOBuffer.Queue<T>, rhs: FIFOBuffer.Queue<T>) -> Bool {
-//            return lhs.hashValue() == rhs.hashValue()
-//        }
         
         var list = [T]()
         
