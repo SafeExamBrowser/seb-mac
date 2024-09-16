@@ -3675,11 +3675,15 @@ void run_on_ui_thread(dispatch_block_t block)
             // when we're running in ASAM mode, it's not relevant if settings for SAM differ
             // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
+            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+#ifdef DEBUG
+            modernAAC = NO;
+#endif
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
                 (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM)) ||
-                (self.ASAMActive && (self.assessmentSessionActive != [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]))) {
+                (self.ASAMActive && (self.assessmentSessionActive != modernAAC))) {
                 
                 // If SAM is active, we display the alert for waiting for it to be switched off
                 if (self.singleAppModeActivated) {
@@ -4580,7 +4584,12 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = YES;
             
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
+            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+#ifdef DEBUG
+            modernAAC = NO;
+#endif
+
+            if (modernAAC) {
                 if (@available(iOS 13.4, *)) {
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
                     self.assessmentModeManager = assessmentModeManager;
@@ -4981,6 +4990,45 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     return _sebServerPendingLockscreenEvents;
 }
+
+
+#pragma mark - Screen Proctoring
+
+- (void)receivedUIEvent:event
+{
+    
+    [_screenProctoringController receivedUIEvent:event view:_rootViewController.view];
+}
+
+//- (void)touchesChange:(UIEventChange)change touches:(NSSet<UITouch *> *)touches with:(UIEvent *_Nullable)event
+//{
+//    [_screenProctoringController touchesChange:change touches:touches with:event];
+//}
+
+
+//- (void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+//{
+//    [super pressesBegan:presses withEvent:event];
+//    [_screenProctoringController pressesChange:UIEventChangeBegan presses:presses with:event];
+//}
+//
+//- (void)pressesChanged:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+//{
+//    [super pressesChanged:presses withEvent:event];
+//    [_screenProctoringController pressesChange:UIEventChangeModified presses:presses with:event];
+//}
+//
+//- (void)pressesEnded:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+//{
+//    [super pressesEnded:presses withEvent:event];
+//    [_screenProctoringController pressesChange:UIEventChangeEnded presses:presses with:event];
+//}
+//
+//- (void)pressesCancelled:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+//{
+//    [super pressesCancelled:presses withEvent:event];
+//    [_screenProctoringController pressesChange:UIEventChangeCancelled presses:presses with:event];
+//}
 
 
 #pragma mark - Remote Proctoring

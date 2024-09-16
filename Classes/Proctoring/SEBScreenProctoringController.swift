@@ -29,7 +29,7 @@ private struct keysSPS {
     static let dispatchQueueLabel = "org.safeexambrowser.SEB.ScreenShot"
 }
 
-public enum ColorQuantization:Int {
+public enum ColorQuantization: Int {
     case blackWhite
     case grayscale2Bpp
     case grayscale4Bpp
@@ -54,6 +54,7 @@ private struct SPSTransmittingState {
     
     func getScreenProctoringMetadataURL() -> String?
     func getScreenProctoringMetadataActiveAppWindow() -> [String:String]?
+    func getScreenProctoringMetadataBrowser() -> String?
     @objc optional func getScreenProctoringMetadataUserAction() -> String?
     @objc optional func collectedTriggerEvent(eventData: String)
 }
@@ -63,7 +64,7 @@ private struct SPSTransmittingState {
     func updateStatus(string: String?, append: Bool)
     func setScreenProctoringButtonState(_: ScreenProctoringButtonStates)
     func setScreenProctoringButtonInfoString(_: String)
-    func showTransmittingCachedScreenShotsWindow(remainingScreenShots: Int)
+    func showTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?)
     func updateTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?, totalScreenShots: Int)
     func updateTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?, append: Bool, totalScreenShots: Int)
     func allowQuit(_ allowQuit: Bool)
@@ -131,6 +132,11 @@ struct MetadataSettings {
     public var currentServerHealth = SPSHealth.GOOD
     private var transmittingState = SPSTransmittingState.normal
     private var closingSession = false
+    @objc public var sessionIsClosing: Bool {
+        get {
+            return self.closingSession
+        }
+    }
     private var closingSessionCompletionHandler: (() -> Void)?
     
     private var latestCaptureScreenShotTimestamp: TimeInterval?
@@ -162,7 +168,7 @@ struct MetadataSettings {
     private var screenShotDeferredTransmissionIntervalTimer: Timer?
     private var transmittingDeferredScreenShots = false
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
-    private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 15
+    private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 5
     private var numberOfCachedScreenShotsWhileClosing = 0
     private let timeIntervalForHealthCheck = 15.0
     private let maxDelayForResumingTransmitting = 3.0 * 60
@@ -188,6 +194,10 @@ struct MetadataSettings {
     
     public func getScreenProctoringMetadataUserAction() -> String? {
         return delegate?.getScreenProctoringMetadataUserAction?()
+    }
+    
+    public func getScreenProctoringMetadataBrowser() -> String? {
+        return delegate?.getScreenProctoringMetadataBrowser()
     }
     
 
@@ -381,7 +391,7 @@ extension SEBScreenProctoringController {
     }
     
     private func startScreenProctoring() {
-        screenShotTimerQueue.async { [unowned self] in
+        screenShotTimerQueue.async { [self] in
             startMaxIntervalTimer()
             startMinIntervalTimer()
         }
@@ -392,10 +402,7 @@ extension SEBScreenProctoringController {
     private func captureScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
         if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp) {
             self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp, resending: false) { success in
-                self.sendingScreenShot = false
             }
-        } else {
-            self.sendingScreenShot = false
         }
     }
     
@@ -454,7 +461,7 @@ extension SEBScreenProctoringController {
                                 // When closing session, restart sending cached screeen shots
                                 self.transmitNextScreenShot()
                             }
-                        } else {
+                        } else if self.closingSession {
                             self.transmittingDeferredScreenShotsWhileClosingError()
                         }
                     }
@@ -601,13 +608,13 @@ extension SEBScreenProctoringController {
             } else {
                 DDLogError("SEB Screen Proctoring Controller: Could not upload screen shot with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if self.closingSession {
+                    self.transmittingDeferredScreenShotsWhileClosingError()
                     self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: String.localizedStringWithFormat(NSLocalizedString("Transmitting screen shot failed with error: %@", comment: ""), errorResponse?.error ?? "Unspecified."), totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
                     self.setScreenProctoringButtonState(ScreenProctoringButtonStateActiveError)
                     self.setScreenProctoringButtonInfoString(String.localizedStringWithFormat(NSLocalizedString("Server health %d out of 10, deferring sending screen shots", comment: ""), 10-self.currentServerHealth))
                 }
                 // Cache screen shot and retry sending it
                 self.currentServerHealth = SPSHealth.BAD
-                self.transmittingDeferredScreenShotsWhileClosingError()
                 if !resending {
                     self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp, transmitNextCachedScreenShot: false)
                 }
@@ -700,21 +707,22 @@ extension SEBScreenProctoringController {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered()")
 #endif
-        if !self.sendingScreenShot && !self.closingSession {
+        if !self.closingSession {
+            self.sendingScreenShot = true
             if self.latestTriggerEvent != nil {
-                self.sendingScreenShot = true
-                self.stopMaxIntervalTimer(completionHandler: nil)
                 self.stopMinIntervalTimer(completionHandler: nil)
+                self.stopMaxIntervalTimer(completionHandler: nil)
                 let triggerEventString = self.latestTriggerEvent
                 self.latestTriggerEvent = nil
                 self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
                 if !self.closingSession {
-                    self.startMinIntervalTimer()
                     self.startMaxIntervalTimer()
+                    self.startMinIntervalTimer()
                 }
             } else {
                 self.stopMinIntervalTimer(completionHandler: nil)
             }
+            self.sendingScreenShot = false
         } else {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered(): Not proceeding because \(sendingScreenShot ? "sending screen shot" : "")\(closingSession ? " closing session" : "").")
@@ -727,7 +735,7 @@ extension SEBScreenProctoringController {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller screenShotMaxIntervallTriggered()")
 #endif
-        if !self.sendingScreenShot && !self.closingSession {
+        if !self.closingSession {
             self.sendingScreenShot = true
             self.stopMinIntervalTimer(completionHandler: nil)
             self.stopMaxIntervalTimer(completionHandler: nil)
@@ -742,6 +750,7 @@ extension SEBScreenProctoringController {
                 self.startMaxIntervalTimer()
                 self.startMinIntervalTimer()
             }
+            self.sendingScreenShot = false
         } else {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller screenShotMaxIntervallTriggered(): Not proceeding because \(sendingScreenShot ? "sending screen shot" : "")\(closingSession ? " closing session" : "").")
@@ -819,7 +828,8 @@ extension SEBScreenProctoringController {
         } else {
             numberOfCachedScreenShotsWhileClosing = self.screenShotCache.count
             DDLogInfo("SEB Screen Proctoring Controller: There are \(numberOfCachedScreenShotsWhileClosing) cached screen shots which need to be transmitted to the server before session can be closed.")
-            spsControllerUIDelegate?.showTransmittingCachedScreenShotsWindow(remainingScreenShots: max(numberOfCachedScreenShotsWhileClosing, self.screenShotCache.count) )
+            spsControllerUIDelegate?.showTransmittingCachedScreenShotsWindow(remainingScreenShots: max(numberOfCachedScreenShotsWhileClosing, self.screenShotCache.count), message: nil, operation: screenProctoringButtonInfoString)
+            self.spsControllerUIDelegate?.allowQuit(false)
             self.transmitNextScreenShot()
         }
     }
@@ -827,6 +837,7 @@ extension SEBScreenProctoringController {
     private func continueClosingSession(completionHandler: (() -> Void)?) {
         closingSession = false
         closingSessionCompletionHandler = nil
+        transmittingDeferredScreenShotsWhileClosingErrorCount = 0
         metadataCollector.stopMonitoringEvents()
         screenShotCache.conditionallyRemoveCacheDirectory()
         _screenShotCache = nil
@@ -879,6 +890,20 @@ extension SEBScreenProctoringController {
         }
     }
 
+#if os(iOS)
+    @objc public func receivedUIEvent(_ event: UIEvent?, view: UIView) {
+        metadataCollector.receivedUIEvent(event, view: view)
+    }
+    
+//    @objc public func touchesChange(_ change:UIEventChange, touches: Set<UITouch>, with event: UIEvent?) {
+//        metadataCollector.touchesChange(change, touches: touches, with: event)
+//    }
+//
+//    @objc public func pressesChange(_ change:UIEventChange, presses: Set<UIPress>, with event: UIPressesEvent?) {
+//        metadataCollector.pressesChange(change, presses: presses, with: event)
+//    }
+#endif
+
     public func collectedTriggerEvent(eventData:String) {
         latestTriggerEvent = eventData
         latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
@@ -887,12 +912,12 @@ extension SEBScreenProctoringController {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Not closing session, might trigger screen shot immediately on async queue")
 #endif
-            screenShotTimerQueue.async { [unowned self] in
-                if screenShotMinIntervalTimer == nil {
+            screenShotTimerQueue.async { [weak self] in
+                if self?.screenShotMinIntervalTimer == nil {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
 #endif
-                screenShotMinIntervallTriggered()
+                    self?.screenShotMinIntervallTriggered()
                 } else {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")

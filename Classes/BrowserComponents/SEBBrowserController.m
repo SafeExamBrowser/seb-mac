@@ -238,6 +238,23 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (NSString *) openWebpagesTitlesString
+{
+    NSArray *openWebpagesTitles = [_delegate openWebpagesTitles];
+    NSString *openWebpagesTitlesMetaDataString = @"Main Window: ";
+    NSString *openWebpagesTitlesMetaDataKeyString = nil;
+    for (NSString *pageTitle in openWebpagesTitles) {
+        if (openWebpagesTitlesMetaDataKeyString) {
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingFormat:@", %@: %@", openWebpagesTitlesMetaDataKeyString, pageTitle];
+        } else {
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingString:pageTitle];
+            openWebpagesTitlesMetaDataKeyString = @"Additional Window";
+        }
+    }
+    return openWebpagesTitlesMetaDataString;
+}
+
+
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 - (NSData *)browserExamKey

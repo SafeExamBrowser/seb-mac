@@ -129,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
  *              successfully completed loading. The delegate can use this callback
  *              for example to scan the newly received HTML data is being downloaded.
  */
-- (void)sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
+- (void) sessionTaskDidCompleteSuccessfully:(NSURLSessionTask *)task;
 
 - (void) presentAlertWithTitle:(NSString *)title
                        message:(NSString *)message;
@@ -137,6 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readwrite) BOOL startingUp;
 @property (readonly) NSURL *startURL;
+@property (readonly) NSArray* openWebpagesTitles;
 
 @optional
 - (void) openDownloadedFile:(NSString *)path;
@@ -184,6 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readwrite) BOOL usingCustomURLProtocol;
 
 @property (strong, nonatomic) NSString *currentMainHost;
+@property (readonly) NSString* openWebpagesTitlesString;
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 @property (strong) NSURLCredential *enteredCredential;
