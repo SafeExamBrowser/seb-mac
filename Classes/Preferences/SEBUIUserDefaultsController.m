@@ -239,7 +239,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"macOS", @""),
             NSLocalizedString(@"Win", @""),
-            NSLocalizedString(@"iOS", @""),
+            NSLocalizedString(@"iPadOS", @""),
             nil];
 }
 

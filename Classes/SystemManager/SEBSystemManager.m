@@ -392,27 +392,31 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (NSURL *) getTempDownUploadDirectory
 {
-    // Check if there is a temporary down/upload directory location persistently stored
-    // What only happends when it couldn't be reset last time SEB has run
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    downUploadTempPath = [self getStoredDirectoryLocationWithKey:TempDownUploadLocation];
-    if (downUploadTempPath.length > 0) {
-        // There is a redirected location saved
-        DDLogDebug(@"There was a persistently saved temporary down/upload directory location (%@). Looks like SEB didn't quit properly when running last time.", downUploadTempPath);
-        // Check if this directory actually exists
-        BOOL isDir;
-        NSError *error;
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        if(![fileManager fileExistsAtPath:downUploadTempPath isDirectory:&isDir]) {
-            DDLogDebug(@"The persistently saved temporary down/upload directory at %@ doesn't actually exist anymore. Create new one.", downUploadTempPath);
-        } else {
-            return [NSURL fileURLWithPath:downUploadTempPath isDirectory:YES];;
+    DDLogDebug(@"%s", __FUNCTION__);
+    if (!downUploadTempPath) {
+        // Check if there is a temporary down/upload directory location persistently stored
+        // What only happends when it couldn't be reset last time SEB has run
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        downUploadTempPath = [self getStoredDirectoryLocationWithKey:TempDownUploadLocation];
+        if (downUploadTempPath.length > 0) {
+            // There is a redirected location saved
+            DDLogDebug(@"There was a persistently saved temporary down/upload directory location (%@). Looks like SEB didn't quit properly when running last time.", downUploadTempPath);
+            // Check if this directory actually exists
+            BOOL isDir;
+            NSFileManager *fileManager= [NSFileManager defaultManager];
+            if(![fileManager fileExistsAtPath:downUploadTempPath isDirectory:&isDir]) {
+                DDLogDebug(@"The persistently saved temporary down/upload directory at %@ doesn't actually exist anymore. Create new one.", downUploadTempPath);
+            } else {
+                return [NSURL fileURLWithPath:downUploadTempPath isDirectory:YES];;
+            }
         }
+        // No temporary down/upload directory location was persistently saved or it doesn't actually exist
+        downUploadTempPath = [self createTemporaryDirectory];
+        [preferences setPersistedSecureObject:downUploadTempPath forKey:TempDownUploadLocation];
+        DDLogDebug(@"Current temporary down/upload directory location: %@", downUploadTempPath);
+    } else {
+        DDLogDebug(@"Temporary down/upload directory location was already set: %@", downUploadTempPath);
     }
-    // No temporary down/upload directory location was persistently saved or it doesn't actually exist
-    downUploadTempPath = [self createTemporaryDirectory];
-    [preferences setPersistedSecureObject:downUploadTempPath forKey:TempDownUploadLocation];
-    DDLogDebug(@"Current temporary down/upload directory location: %@", downUploadTempPath);
 
     return [NSURL fileURLWithPath:downUploadTempPath isDirectory:YES];;
 }
@@ -420,6 +424,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 
 - (BOOL) removeTempDownUploadDirectory
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     // Remove temporary directory
     if (downUploadTempPath) {
         if ([self removeTempDirectory:downUploadTempPath]) {
@@ -437,6 +442,7 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 #else
             DDLogDebug(@"Failed removing temp downUpload location");
 #endif
+            downUploadTempPath = nil;
             return NO;
         }
     }

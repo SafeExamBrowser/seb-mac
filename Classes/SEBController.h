@@ -304,6 +304,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
 @property(strong, nonatomic) HUDController *hudController ;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
+@property(readonly) BOOL pseudoModalWindow;
 
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
@@ -355,10 +356,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (NSModalResponse) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *_Nullable)window
+                                pseudoModal:(BOOL)pseudoModal
                           windowTitle:(NSString *)title;
 - (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
-                                     modalForWindow:(NSWindow *)window
-                                        windowTitle:(NSString *)title;
+                                           modalForWindow:(NSWindow *)window
+                                              pseudoModal:(BOOL)pseudoModal
+                                              windowTitle:(NSString *)title;
 
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;

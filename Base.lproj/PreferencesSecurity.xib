@@ -94,12 +94,12 @@
                                                         </buttonCell>
                                                         <connections>
                                                             <action selector="setEnableWindowCapture:" target="-2" id="TjD-fs-fAl"/>
+                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                                             <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" id="ssK-gN-4In">
                                                                 <dictionary key="options">
                                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
-                                                            <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="UP4-x3-2HL"/>
                                                         </connections>
                                                     </button>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="LEn-zs-oJl">
@@ -2146,7 +2146,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.51388888888888884" horizontal="NO" id="Wcn-E4-i4h">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.97222222222222221" horizontal="NO" id="Wcn-E4-i4h">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

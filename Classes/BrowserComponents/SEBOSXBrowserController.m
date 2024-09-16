@@ -756,6 +756,13 @@
 }
 
 
+- (NSArray *) openWebpagesTitles
+{
+    NSArray *currentOpenWebpageTitles = [self.openBrowserWindowsWebViews valueForKeyPath:@"title"];
+    return currentOpenWebpageTitles;
+}
+
+
 // Delegate method which returns URL or placeholder text (in case settings
 // don't allow to display its URL) for active browser window
 - (NSString *) placeholderTitleOrURLForActiveWebpage

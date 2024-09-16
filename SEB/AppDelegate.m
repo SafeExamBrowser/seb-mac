@@ -163,6 +163,10 @@
         }
     }
 
+    UIGestureRecognizer *tapGesture = [[UIGestureRecognizer alloc] initWithTarget:self action:nil];
+    tapGesture.delegate = self;
+    [self.window addGestureRecognizer:tapGesture];
+    
     return shouldPerformAdditionalDelegateHandling;
 }
 
@@ -502,6 +506,12 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 }
 
 
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveEvent:(nonnull UIEvent *)event
+{
+    [_sebViewController receivedUIEvent:event];
+    return NO;
+}
+
 #pragma mark -
 #pragma mark Handle hardware keyboard shortcuts
 - (BOOL)canBecomeFirstResponder
@@ -524,7 +534,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutFind modifierFlags:UIKeyModifierCommand action:@selector(performKeyCommand:)],
         [UIKeyCommand keyCommandWithInput:SEBKeyShortcutQuit modifierFlags:UIKeyModifierCommand | UIKeyModifierShift action:@selector(performKeyCommand:)],
         controlTab,
-        controlShiftTab
+        controlShiftTab,
+        [UIKeyCommand keyCommandWithInput:@"w" modifierFlags:UIKeyModifierCommand action:@selector(handleCommandW)]
     ];
 }
 
@@ -556,6 +567,13 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         }
     }
 }
+
+
+- (void) handleCommandW
+{
+    DDLogInfo(@"Command-W pressed");
+}
+
 
 #pragma mark - Core Data stack
 

@@ -213,6 +213,10 @@ void run_on_ui_thread(dispatch_block_t block);
 @property (strong, nonatomic) ServerController *_Nullable serverController;
 @property (strong, nonatomic) SEBServerViewController *_Nullable sebServerViewController;
 
+/// Screen Proctoring
+- (void)receivedUIEvent:event;
+//- (void)touchesChange:(UIEventChange)change touches:(NSSet<UITouch *> *)touches with:(UIEvent *_Nullable)event;
+
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
 #define ZoomProctoringSupported NO

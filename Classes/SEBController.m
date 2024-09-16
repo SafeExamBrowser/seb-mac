@@ -1409,7 +1409,7 @@ bool insideMatrix(void);
                             // If SEB Server fallback password is set, then restrict fallback
                             if (sebServerFallbackPasswordHash.length != 0) {
                                 DDLogInfo(@"%s Displaying SEB Server fallback password alert", __FUNCTION__);
-                                [self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", @"") modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""];
+                                [self showEnterPasswordDialog:NSLocalizedString(@"Enter SEB Server fallback password:", @"") modalForWindow:self.browserController.mainBrowserWindow pseudoModal:NO windowTitle:@""];
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
@@ -1910,6 +1910,10 @@ bool insideMatrix(void);
     return self.browserController.activeBrowserWindow.currentURL.absoluteString;
 }
 
+- (NSString *) getScreenProctoringMetadataBrowser
+{
+    return self.browserController.openWebpagesTitlesString;
+}
 
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append
 {
@@ -1921,7 +1925,7 @@ bool insideMatrix(void);
 
 #pragma mark - SPSControllerUIDelegate methods
 
-- (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots
+- (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
 {
     run_on_ui_thread(^{
         if (self->_transmittingCachedScreenShotsViewController) {
@@ -1937,6 +1941,12 @@ bool insideMatrix(void);
             self.transmittingCachedScreenShotsViewController.progressBar.maxValue = remainingScreenShots;
             self.transmittingCachedScreenShotsViewController.progressBar.doubleValue = remainingScreenShots;
             self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
+            if (message) {
+                self.transmittingCachedScreenShotsViewController.message.stringValue = message;
+            }
+            if (operation) {
+                self.transmittingCachedScreenShotsViewController.operations.stringValue = operation;
+            }
 
             [transmittingCachedScreenShotsWindow setLevel:NSScreenSaverWindowLevel+1];
             transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
@@ -4424,7 +4434,7 @@ bool insideMatrix(void){
                 window = [[CapWindow alloc] initWithContentRect:rect styleMask:styleMask backing: NSBackingStoreBuffered defer:NO screen:iterScreen];
                 capview = [[NSView alloc] initWithFrame:rect];
                 windowColor = [NSColor blackColor];
-                ((NSWindow *)window).alphaValue = 0.2;
+                ((NSWindow *)window).alphaValue = 0.4;
                 break;
             }
                 
@@ -6334,8 +6344,9 @@ conditionallyForWindow:(NSWindow *)window
         [dialogText appendAttributedString:information];
         
         if ([self showEnterPasswordDialogAttributedText:dialogText.copy
-                           modalForWindow:self.browserController.mainBrowserWindow
-                              windowTitle:restartExamText] == SEBEnterPasswordCancel) {
+                                         modalForWindow:self.browserController.mainBrowserWindow
+                                            pseudoModal:NO
+                                            windowTitle:restartExamText] == SEBEnterPasswordCancel) {
             return;
         }
         NSString *password = [self.enterPassword stringValue];
@@ -6429,14 +6440,20 @@ conditionallyForWindow:(NSWindow *)window
 
 
 
-- (NSModalResponse) showEnterPasswordDialog:(NSString *)text modalForWindow:(NSWindow *_Nullable)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialog:(NSString *)text 
+                             modalForWindow:(NSWindow *_Nullable)window
+                                pseudoModal:(BOOL)pseudoModal
+                                windowTitle:(NSString *)title
 {
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[NSFont systemFontOfSize:NSFont.systemFontSize]}];
-    return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window windowTitle:title];
+    return [self showEnterPasswordDialogAttributedText:attributedText modalForWindow:window pseudoModal:pseudoModal windowTitle:title];
 }
     
     
-- (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text modalForWindow:(NSWindow *)window windowTitle:(NSString *)title
+- (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text 
+                                           modalForWindow:(NSWindow *)window
+                                              pseudoModal:(BOOL)pseudoModal
+                                              windowTitle:(NSString *)title
 {
     [self.enterPassword setStringValue:@""]; //reset the enterPassword NSSecureTextField
 
@@ -6474,39 +6491,64 @@ conditionallyForWindow:(NSWindow *)window
     } else if (title) {
         enterPasswordDialogWindow.title = title;
     }
-
     [enterPasswordDialog setAttributedStringValue:text];
     
-    NSWindow *windowToShowModalFor;
-    if (@available(macOS 12.0, *)) {
-    } else {
-        if (@available(macOS 11.0, *)) {
-            windowToShowModalFor = window;
+    NSInteger returnCode = NSModalResponseCancel;
+    if (!pseudoModal) {
+        _pseudoModalWindow = NO;
+        NSWindow *windowToShowModalFor;
+        if (@available(macOS 12.0, *)) {
+        } else {
+            if (@available(macOS 11.0, *)) {
+                windowToShowModalFor = window;
+            }
         }
+        [NSApp beginSheet: enterPasswordDialogWindow
+           modalForWindow: windowToShowModalFor
+            modalDelegate: nil
+           didEndSelector: nil
+              contextInfo: nil];
+        returnCode = [NSApp runModalForWindow: enterPasswordDialogWindow];
+        // Dialog is up here.
+        [NSApp endSheet: enterPasswordDialogWindow];
+        [enterPasswordDialogWindow orderOut: self];
+        [self removeAlertWindow:enterPasswordDialogWindow];
+    } else {
+        _pseudoModalWindow = YES;
+        [enterPasswordDialogWindow setLevel:NSScreenSaverWindowLevel+2];
+        NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:enterPasswordDialogWindow];
+        [windowController showWindow:nil];
+        returnCode = SEBEnterPasswordCancel;
     }
-    
-    [NSApp beginSheet: enterPasswordDialogWindow
-       modalForWindow: windowToShowModalFor
-        modalDelegate: nil
-       didEndSelector: nil
-          contextInfo: nil];
-    NSInteger returnCode = [NSApp runModalForWindow: enterPasswordDialogWindow];
-    // Dialog is up here.
-    [NSApp endSheet: enterPasswordDialogWindow];
-    [enterPasswordDialogWindow orderOut: self];
-    [self removeAlertWindow:enterPasswordDialogWindow];
-    
     return returnCode;
+}
+
+- (void) showEnterPasswordDialogClose
+{
+    NSString *password = [self.enterPassword stringValue];
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        // if the correct quit password was entered
+        DDLogInfo(@"Correct quit password entered");
+        [self exitSEB]; // Force quit SEB
+    }
 }
 
 
 - (IBAction) okEnterPassword: (id)sender {
-    [NSApp stopModalWithCode:SEBEnterPasswordOK];
+    if (!self.pseudoModalWindow) {
+        [NSApp stopModalWithCode:SEBEnterPasswordOK];
+    } else {
+        [self exitSEB];
+    }
 }
 
 
 - (IBAction) cancelEnterPassword: (id)sender {
     [NSApp stopModalWithCode:SEBEnterPasswordCancel];
+    [enterPasswordDialogWindow orderOut: self];
     [self.enterPassword setStringValue:@""];
 }
 
@@ -6612,7 +6654,7 @@ conditionallyForWindow:(NSWindow *)window
             NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
             if (![hashedAdminPW isEqualToString:@""]) {
                 // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil) modalForWindow:self.browserController.mainBrowserWindow windowTitle:@""] == SEBEnterPasswordCancel) {
+                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil) modalForWindow:self.browserController.mainBrowserWindow pseudoModal:NO windowTitle:@""] == SEBEnterPasswordCancel) {
                     return;
                 }
                 NSString *password = [self.enterPassword stringValue];
@@ -6809,7 +6851,17 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) requestedQuit:(id)sender
 {
-    DDLogDebug(@"%s", __FUNCTION__);
+    BOOL quittingFromSPSCacheUpload = NO;
+    id senderObject;
+    if ([sender respondsToSelector:@selector(object)]) {
+        senderObject = [sender object];
+        Class senderClass = [senderObject class];
+        DDLogDebug(@"%s sender.object: %@, object.class: %@", __FUNCTION__, senderObject, senderClass);
+        quittingFromSPSCacheUpload = [senderClass isEqualTo:TransmittingCachedScreenShotsViewController.class];
+    }
+    if (!quittingFromSPSCacheUpload && _screenProctoringController && _screenProctoringController.sessionIsClosing) {
+        return;
+    }
     // Load quitting preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
@@ -6822,34 +6874,49 @@ conditionallyForWindow:(NSWindow *)window
         // if quitting SEB is allowed
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
+        if (quittingFromSPSCacheUpload) {
+            currentMainWindow = nil;
+        }
+        
         if (![hashedQuitPassword isEqualToString:@""]) {
             DDLogInfo(@"%s Displaying quit password alert", __FUNCTION__);
             // if quit password is set, then restrict quitting
-            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:", @"") modalForWindow:currentMainWindow windowTitle:@""] == SEBEnterPasswordCancel) return;
+            if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter quit password:", @"") modalForWindow:currentMainWindow pseudoModal:quittingFromSPSCacheUpload windowTitle:@""] == SEBEnterPasswordCancel) return;
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
             if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
                 // if the correct quit password was entered
                 DDLogInfo(@"Correct quit password entered");
-                [self quitSEBOrSession]; // Quit SEB or the exam session
+                if (!quittingFromSPSCacheUpload) {
+                    [self quitSEBOrSession]; // Quit SEB or the exam session
+                } else {
+                    [self exitSEB]; // Force quit SEB
+                }
 
             } else {
                 // Wrong quit password was entered
                 DDLogInfo(@"Wrong quit password entered");
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", @"")];
-                [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit.", @"")];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                [modalAlert setAlertStyle:NSAlertStyleWarning];
-                void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                if (!quittingFromSPSCacheUpload) {
+                    NSAlert *modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Wrong Quit Password", @"")];
+                    [modalAlert setInformativeText:NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit.", @"")];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+                    [modalAlert setAlertStyle:NSAlertStyleWarning];
+                    void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+                        [self removeAlertWindow:modalAlert.window];
+                    };
+                    [self runModalAlert:modalAlert conditionallyForWindow:currentMainWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                }
             }
         } else {
             // If no quit password is required, then confirm quitting, with default option "Quit"
-            [self sessionQuitRestartIgnoringQuitPW:NO];
+            if (!quittingFromSPSCacheUpload) {
+                [self sessionQuitRestartIgnoringQuitPW:NO];
+            } else {
+                // Quit from uploading cached screen shots: Don't confirm quitting
+                [self sessionQuitRestart:NO];
+            }
         }
     }
 }
@@ -7320,24 +7387,24 @@ conditionallyForWindow:(NSWindow *)window
             if (error) {
                 DDLogError(@"Error %@", error);
             }
-        } else {
-            // Allocate and initialize a new NSTask
-            NSTask *task = [NSTask new];
-            
-            // Tell the NSTask what the path is to the binary it should launch
-            //        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
-            [task setLaunchPath:executableURL.path];
-            
-            [task setArguments:taskArguments];
-            
-            // Launch the process asynchronously
-            @try {
-                DDLogInfo(@"Trying to restart terminated process %@", executableURL.path);
-                [task launch];
-            }
-            @catch (NSException* error) {
-                DDLogError(@"Error %@.  Make sure you have a valid path and arguments.", error);
-            }
+//        } else {
+//            // Allocate and initialize a new NSTask
+//            NSTask *task = [NSTask new];
+//            
+//            // Tell the NSTask what the path is to the binary it should launch
+//            //        NSString *path = [executableURL.path stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+//            [task setLaunchPath:executableURL.path];
+//            
+//            [task setArguments:taskArguments];
+//            
+//            // Launch the process asynchronously
+//            @try {
+//                DDLogInfo(@"Trying to restart terminated process %@", executableURL.path);
+//                [task launch];
+//            }
+//            @catch (NSException* error) {
+//                DDLogError(@"Error %@.  Make sure you have a valid path and arguments.", error);
+//            }
         }
     }
     
