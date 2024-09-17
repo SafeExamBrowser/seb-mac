@@ -8,7 +8,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-private struct keysSPS {
+public struct keysSPS {
     static let screenProctoringMethod = "method"
     static let screenProctoringMethodJoin = "JOIN"
     static let screenProctoringMethodLeave = "LEAVE"
@@ -27,6 +27,8 @@ private struct keysSPS {
     static let headerMetaData = "metaData"
     static let responseHeaderServerHealth = "sps_server_health"
     static let dispatchQueueLabel = "org.safeexambrowser.SEB.ScreenShot"
+    
+    static let alphanumericKeyString = "alphanumeric key"
 }
 
 public enum ColorQuantization: Int {
@@ -57,6 +59,8 @@ private struct SPSTransmittingState {
     func getScreenProctoringMetadataBrowser() -> String?
     @objc optional func getScreenProctoringMetadataUserAction() -> String?
     @objc optional func collectedTriggerEvent(eventData: String)
+    @objc optional func collectedKeyboardShortcutEvent(_ eventData: String)
+    @objc optional func collectedAlphanumericKeyEvent()
 }
 
 @objc public protocol SPSControllerUIDelegate: AnyObject {
@@ -178,6 +182,8 @@ struct MetadataSettings {
     private var sendingScreenShot = false
     private var latestTriggerEvent: String?
     private var latestTriggerEventTimestamp: TimeInterval?
+    private var alphanumericKeyCount = 0
+    private var keyboardShortcuts = Array<String>()
 
     // UI
     private var indicateHealthAndCaching = false
@@ -391,7 +397,7 @@ extension SEBScreenProctoringController {
     }
     
     private func startScreenProctoring() {
-        screenShotTimerQueue.async { [self] in
+        screenShotTimerQueue.async { [unowned self] in
             startMaxIntervalTimer()
             startMinIntervalTimer()
         }
@@ -638,9 +644,9 @@ extension SEBScreenProctoringController {
         DDLogDebug("SEB Screen Proctoring Controller: startMaxIntervalTimer()")
 #endif
         if self.screenShotMaxIntervalTimer == nil && !self.closingSession {
-//#if DEBUG
-//            DDLogDebug("SEB Screen Proctoring Controller startMaxIntervalTimer() executing on async queue")
-//#endif
+#if DEBUG
+            DDLogDebug("SEB Screen Proctoring Controller startMaxIntervalTimer()")
+#endif
                 if !self.closingSession {
                     let timer = Timer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), repeats: false, block: { Timer in
                         self.screenShotMaxIntervallTriggered()
@@ -662,9 +668,9 @@ extension SEBScreenProctoringController {
         DDLogDebug("SEB Screen Proctoring Controller: startMinIntervalTimer()")
 #endif
         if self.screenShotMinIntervalTimer == nil && !self.closingSession {
-//#if DEBUG
-//            DDLogDebug("SEB Screen Proctoring Controller startMinIntervalTimer() executing on async queue")
-//#endif
+#if DEBUG
+            DDLogDebug("SEB Screen Proctoring Controller startMinIntervalTimer()")
+#endif
                 if !self.closingSession {
                     let timer = Timer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), repeats: false, block: { Timer in
                         self.screenShotMinIntervallTriggered()
@@ -703,6 +709,34 @@ extension SEBScreenProctoringController {
             completionHandler?()
     }
 
+    private func getTriggerEventString() -> String {
+        var triggerEventString = latestTriggerEvent ?? ""
+        if !triggerEventString.isEmpty {
+            triggerEventString += ". "
+        }
+        if alphanumericKeyCount > 1 {
+            let alphanumericKeysString = "\(alphanumericKeyCount) " + keysSPS.alphanumericKeyString + "s"
+            if triggerEventString.contains(keysSPS.alphanumericKeyString.firstUppercased)  {
+                triggerEventString = triggerEventString.replacingOccurrences(of: keysSPS.alphanumericKeyString.firstUppercased, with: alphanumericKeysString)
+            } else {
+                triggerEventString.append(alphanumericKeysString + " pressed.")
+            }
+            alphanumericKeyCount = 0
+        }
+        if !keyboardShortcuts.isEmpty {
+            if latestTriggerEvent == keyboardShortcuts.last {
+                // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
+                keyboardShortcuts.removeLast()
+            }
+            if !keyboardShortcuts.isEmpty {
+                triggerEventString.append(" Keyboard shortcut\(keyboardShortcuts.count > 1 ? "s" : "") pressed: \(keyboardShortcuts.joined(separator: "/"))")
+                keyboardShortcuts.removeAll()
+            }
+        }
+        latestTriggerEvent = nil
+        return triggerEventString
+    }
+    
     private func screenShotMinIntervallTriggered() {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered()")
@@ -712,9 +746,8 @@ extension SEBScreenProctoringController {
             if self.latestTriggerEvent != nil {
                 self.stopMinIntervalTimer(completionHandler: nil)
                 self.stopMaxIntervalTimer(completionHandler: nil)
-                let triggerEventString = self.latestTriggerEvent
-                self.latestTriggerEvent = nil
-                self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
+                let triggerEventString = getTriggerEventString()
+                self.captureScreenShot(triggerMetadata: triggerEventString, timeStamp: self.latestTriggerEventTimestamp)
                 if !self.closingSession {
                     self.startMaxIntervalTimer()
                     self.startMinIntervalTimer()
@@ -739,11 +772,10 @@ extension SEBScreenProctoringController {
             self.sendingScreenShot = true
             self.stopMinIntervalTimer(completionHandler: nil)
             self.stopMaxIntervalTimer(completionHandler: nil)
-            let triggerEventString = self.latestTriggerEvent
-            if triggerEventString == nil {
+            let triggerEventString = getTriggerEventString()
+            if triggerEventString.isEmpty {
                 self.captureScreenShot(triggerMetadata: "Maximum interval of \(String(self.screenshotMaxInterval ?? 5000))ms has been reached.", timeStamp: nil)
             } else {
-                self.latestTriggerEvent = nil
                 self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
             }
             if !self.closingSession {
@@ -912,12 +944,12 @@ extension SEBScreenProctoringController {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Not closing session, might trigger screen shot immediately on async queue")
 #endif
-            screenShotTimerQueue.async { [weak self] in
-                if self?.screenShotMinIntervalTimer == nil {
+            screenShotTimerQueue.async { [unowned self] in
+                if self.screenShotMinIntervalTimer == nil {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
 #endif
-                    self?.screenShotMinIntervallTriggered()
+                    self.screenShotMinIntervallTriggered()
                 } else {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
@@ -927,6 +959,13 @@ extension SEBScreenProctoringController {
         }
     }
 
+    public func collectedAlphanumericKeyEvent() {
+        alphanumericKeyCount += 1
+    }
+    
+    public func collectedKeyboardShortcutEvent(_ eventData: String) {
+        keyboardShortcuts.append(eventData)
+    }
     
     // Update UI
 

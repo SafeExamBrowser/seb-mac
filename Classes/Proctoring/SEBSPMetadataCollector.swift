@@ -225,7 +225,7 @@ public class SEBSPMetadataCollector {
 #endif
             }
         }
-        eventTypeString.firstUppercased
+        eventTypeString = eventTypeString.firstUppercased
         DDLogVerbose("Event: \(eventTypeString)")
         self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
     }
@@ -287,26 +287,30 @@ public class SEBSPMetadataCollector {
         var keyEventDescription = ""
         if let key = uiPress.key  {
             if #available(iOS 13.4, *) {
-                let characters = key.charactersIgnoringModifiers.replaceSpecialCharactersWithKeyName()
+                var characters = key.charactersIgnoringModifiers
+                if characters.replacedSpecialCharactersWithKeyName() {
+                    keyEventDescription = characters
+                }
                 let modifiers = keyModifiers(key: key)
-                let resultingCharacters = key.characters.replaceSpecialCharactersWithKeyName()
-                if characters != nil || resultingCharacters != nil || !modifiers.isEmpty {
-                    if characters != nil && !modifiers.isEmpty {
-                        keyEventDescription = "\(modifiers)-\(characters!)"
+                var resultingCharacters = key.characters
+                if resultingCharacters.replacedSpecialCharactersWithKeyName() && keyEventDescription.isEmpty {
+                    keyEventDescription = resultingCharacters
+                }
+                if !characters.isEmpty || !resultingCharacters.isEmpty || !modifiers.isEmpty {
+                    if !modifiers.isEmpty && !characters.isEmpty {
+                            keyEventDescription = "\(modifiers)-\(characters)"
+                        self.delegate?.collectedKeyboardShortcutEvent?(keyEventDescription)
                     } else if !modifiers.isEmpty {
                         keyEventDescription = modifiers
                     }
-                    if characters != nil && keyEventDescription.isEmpty {
-                        keyEventDescription = "Alphanumeric key"
-                    } else {
-                        if resultingCharacters != nil {
-            //                keyEventDescription = "'\(resultingCharacters!)' (\(keyEventDescription))"
-                            keyEventDescription = "'Alphanumeric key' (\(keyEventDescription))"
-                        }
+                    if (!characters.isEmpty || !resultingCharacters.isEmpty) && keyEventDescription.isEmpty {
+                        keyEventDescription = keysSPS.alphanumericKeyString.firstUppercased
+                        self.delegate?.collectedAlphanumericKeyEvent?()
                     }
                 }
-            } else {
-                keyEventDescription = "Alphanumeric key"
+            } else if keyEventDescription.isEmpty {
+                keyEventDescription = keysSPS.alphanumericKeyString.firstUppercased
+                self.delegate?.collectedAlphanumericKeyEvent?()
             }
         } else {
             var nonKeyboardKey = ""
@@ -318,13 +322,13 @@ public class SEBSPMetadataCollector {
             case .leftArrow:
                 nonKeyboardKey = "Left Arrow"
             case .rightArrow:
-                nonKeyboardKeys = "Right Arrow"
+                nonKeyboardKey = "Right Arrow"
             case .select:
-                nonKeyboardKeys = "Select"
+                nonKeyboardKey = "Select"
             case .menu:
-                nonKeyboardKeys = "Menu"
+                nonKeyboardKey = "Menu"
             case .playPause:
-                nonKeyboardKeys = "Play/Pause"
+                nonKeyboardKey = "Play/Pause"
             case .pageUp:
                 nonKeyboardKey = "Page Up"
             case .pageDown:
@@ -372,7 +376,7 @@ public class SEBSPMetadataCollector {
             modifiers.append("Command")
         }
         if modifierMask.contains(.numericPad) {
-            modifiers.append("numeric keypad/arrow key")
+            modifiers.append("Numeric keypad/arrow key")
         }
         return modifiers.joined(separator: "-")
     }
@@ -387,12 +391,14 @@ public class SEBSPMetadataCollector {
         let resultingCharacters = event.characters?.replaceSpecialCharactersWithKeyName()
         var keyEventDescription = ""
         if characters != nil || resultingCharacters != nil || !modifiers.isEmpty {
-            
-            if characters != nil && !modifiers.isEmpty {
-                keyEventDescription = "\(modifiers)-\(characters!)"
-            } else if !modifiers.isEmpty {
-                keyEventDescription = modifiers
-            } 
+            if !modifiers.isEmpty {
+                if characters != nil {
+                    keyEventDescription = "\(modifiers)-\(characters!)"
+                } else {
+                    keyEventDescription = modifiers
+                }
+                self.delegate?.collectedKeyboardShortcutEvent?(keyEventDescription)
+            }
             if characters != nil && keyEventDescription.isEmpty {
                 keyEventDescription = "alphanumeric key"
             } else {
@@ -440,11 +446,43 @@ public class SEBSPMetadataCollector {
 }
 
 extension String {
-    public func replaceSpecialCharactersWithKeyName() -> String? {
+    public func replaceSpecialCharactersWithKeyName() -> String {
         var newString = self.replacingOccurrences(of: "\t", with: "Tab")
         newString = newString.replacingOccurrences(of: "\r", with: "Return")
         newString = newString.replacingOccurrences(of: "\u{08}", with: "Backspace")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputEscape, with: "Escape")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputUpArrow, with: "Cursor Up")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputDownArrow, with: "Cursor Down")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputLeftArrow, with: "Cursor Left")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputRightArrow, with: "Cursor Right")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputPageUp, with: "Page Up")
+        newString = newString.replacingOccurrences(of: UIKeyCommand.inputPageDown, with: "Page Down")
+        if #available(iOS 13.4, *) {
+            newString = newString.replacingOccurrences(of: UIKeyCommand.inputHome, with: "Home")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.inputEnd, with: "End")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f1, with: "F1")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f2, with: "F2")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f3, with: "F3")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f4, with: "F4")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f5, with: "F5")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f6, with: "F6")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f7, with: "F7")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f8, with: "F8")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f9, with: "F9")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f10, with: "F10")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f11, with: "F11")
+            newString = newString.replacingOccurrences(of: UIKeyCommand.f12, with: "F12")
+        }
+        if #available(iOS 15.0, *) {
+            newString = newString.replacingOccurrences(of: UIKeyCommand.inputDelete, with: "Page Down")
+        }
         return newString
+    }
+    
+    mutating func replacedSpecialCharactersWithKeyName() -> Bool {
+        let oldString = self
+        self = self.replaceSpecialCharactersWithKeyName()
+        return oldString != self
     }
 }
 
