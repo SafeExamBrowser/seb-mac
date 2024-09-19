@@ -326,6 +326,44 @@
         }
     }
     
+    // Add Screen Proctoring slider command and dock button if enabled and dock visible
+    _dockScreenProctoringButton = nil;
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+        
+        // Functionality enabled, add to slider menu
+        ScreenProctoringSliderItemInactiveState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_inactive"];
+        ScreenProctoringSliderItemActiveState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_active"];
+        ScreenProctoringSliderItemActiveWarningState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_active_warning"];
+        ScreenProctoringSliderItemActiveErrorState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_active_error"];
+        ScreenProctoringSliderItemInactiveErrorState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_inactive_error"];
+
+        sliderIcon = ScreenProctoringSliderItemInactiveState;;
+        sliderScreenProctoringItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Screen Proctoring Inactive",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:nil];
+        [sliderCommands addObject:sliderScreenProctoringItem];
+
+        if (_dockEnabled) {
+            ScreenProctoringIconInactiveState = [UIImage imageNamed:@"SEBScreenProctoringIcon_inactive"];
+            ScreenProctoringIconActiveState = [UIImage imageNamed:@"SEBScreenProctoringIcon_active"];
+            ScreenProctoringIconActiveWarningState = [UIImage imageNamed:@"SEBScreenProctoringIcon_active_warning"];
+            ScreenProctoringIconActiveErrorState = [UIImage imageNamed:@"SEBScreenProctoringIcon_active_error"];
+            ScreenProctoringIconInactiveErrorState = [UIImage imageNamed:@"SEBScreenProctoringIcon_inactive_error"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:ScreenProctoringIconInactiveState
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(screenProctoringButtonAction)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Screen Proctoring Inactive",nil);
+            _dockScreenProctoringButton = dockItem;
+            [newDockItems addObject:dockItem];
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+        }
+    }
+    
     // Add Proctoring slider command and dock button if enabled and dock visible
     _proctoringViewButton = nil;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"]) {
@@ -563,6 +601,90 @@
     sliderZoomPageInItem.enabled = zoomEnabled;
 }
 
+
+#pragma mark - Screen Proctoring SPSControllerUIDelegate methods
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    run_on_ui_thread(^{
+        self.dockScreenProctoringButton.accessibilityLabel = string;
+        self->sliderScreenProctoringItem.title = string;
+    });
+}
+
+
+- (void) screenProctoringButtonAction
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+{
+    run_on_ui_thread(^{
+        UIImage *dockScreenProctoringButtonImage;
+        UIImage *sliderScreenProctoringItemImage;
+        UIColor *screenProctoringButtonTintColor;
+        DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
+        switch (screenProctoringButtonState) {
+            case ScreenProctoringButtonStateActive:
+                self.screenProctoringStateString = NSLocalizedString(@"Screen Proctoring Active",nil);
+                self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
+                self->sliderScreenProctoringItem.title = self.screenProctoringStateString;
+                dockScreenProctoringButtonImage = self->ScreenProctoringIconActiveState;
+                sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemActiveState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorActiveState;
+                break;
+                
+            case ScreenProctoringButtonStateActiveWarning:
+                dockScreenProctoringButtonImage = self->ScreenProctoringIconActiveWarningState;
+                sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemActiveWarningState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorWarningState;
+                break;
+                
+            case ScreenProctoringButtonStateActiveError:
+                dockScreenProctoringButtonImage = self->ScreenProctoringIconActiveErrorState;
+                sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemActiveErrorState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorErrorState;
+                break;
+                
+            case ScreenProctoringButtonStateInactive:
+            default:
+                self.screenProctoringStateString = NSLocalizedString(@"Screen Proctoring Inactive",nil);
+                self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
+                self->sliderScreenProctoringItem.title = self.screenProctoringStateString;
+                dockScreenProctoringButtonImage = self->ScreenProctoringIconInactiveState;
+                sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemInactiveState;
+                break;
+        }
+        if (userFeedback) {
+            self.dockScreenProctoringButton.image = dockScreenProctoringButtonImage;
+            self->sliderScreenProctoringItem.icon = sliderScreenProctoringItemImage;
+            self.dockScreenProctoringButton.tintColor = screenProctoringButtonTintColor;
+        }
+    });
+}
+
+
+- (void) setScreenProctoringButtonInfoString:(NSString *)infoString
+{
+    run_on_ui_thread(^{
+        if (infoString.length == 0) {
+            self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
+        } else {
+            self.dockScreenProctoringButton.accessibilityLabel = [NSString stringWithFormat:@"%@ (%@)", self.screenProctoringStateString, infoString];
+        }
+    });
+}
+
+
+#pragma mark - Remote Proctoring
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
 {

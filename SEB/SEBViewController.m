@@ -138,7 +138,8 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_screenProctoringController) {
         _screenProctoringController = [[SEBScreenProctoringController alloc] init];
-//        _zoomController.proctoringUIDelegate = self;
+        _screenProctoringController.delegate = self;
+        _screenProctoringController.spsControllerUIDelegate = self;
     }
     return _screenProctoringController;
 }
@@ -4996,39 +4997,58 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (void)receivedUIEvent:event
 {
-    
     [_screenProctoringController receivedUIEvent:event view:_rootViewController.view];
 }
 
-//- (void)touchesChange:(UIEventChange)change touches:(NSSet<UITouch *> *)touches with:(UIEvent *_Nullable)event
-//{
-//    [_screenProctoringController touchesChange:change touches:touches with:event];
-//}
+
+#pragma mark - Screen Proctoring Delegate Methods
+
+- (NSDictionary<NSString *,NSString *>*) getScreenProctoringMetadataActiveAppWindow
+{
+    NSString *activeBrowserWindowTitle = self.browserController.activeBrowserWindowTitle;
+
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@)", SEBShortAppName, [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"]];
+    
+    if (activeBrowserWindowTitle == nil) {
+        activeBrowserWindowTitle = @"";
+    }
+    
+    NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
+    return activeAppWindowMetadata;
+}
 
 
-//- (void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
-//{
-//    [super pressesBegan:presses withEvent:event];
-//    [_screenProctoringController pressesChange:UIEventChangeBegan presses:presses with:event];
-//}
-//
-//- (void)pressesChanged:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
-//{
-//    [super pressesChanged:presses withEvent:event];
-//    [_screenProctoringController pressesChange:UIEventChangeModified presses:presses with:event];
-//}
-//
-//- (void)pressesEnded:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
-//{
-//    [super pressesEnded:presses withEvent:event];
-//    [_screenProctoringController pressesChange:UIEventChangeEnded presses:presses with:event];
-//}
-//
-//- (void)pressesCancelled:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
-//{
-//    [super pressesCancelled:presses withEvent:event];
-//    [_screenProctoringController pressesChange:UIEventChangeCancelled presses:presses with:event];
-//}
+- (NSString *) getScreenProctoringMetadataURL
+{
+    return self.browserController.activeBrowserWindow.currentURL.absoluteString;
+}
+
+- (NSString *) getScreenProctoringMetadataBrowser
+{
+    return self.browserController.openWebpagesTitlesString;
+}
+
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    [self.sebUIController updateStatusWithString:string append:append];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+{
+    [self.sebUIController setScreenProctoringButtonState:screenProctoringButtonState userFeedback:userFeedback];
+}
+
+- (void) setScreenProctoringButtonInfoString:(NSString *)infoString
+{
+    [self.sebUIController setScreenProctoringButtonInfoString:infoString];
+}
 
 
 #pragma mark - Remote Proctoring

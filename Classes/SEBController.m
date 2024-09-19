@@ -1518,75 +1518,6 @@ bool insideMatrix(void);
 }
 
 
-#pragma mark - Screen Proctoring
-
-- (void) screenProctoringButtonAction
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-}
-
-
-- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
-{
-    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
-}
-
-- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
-                           userFeedback:(BOOL)userFeedback
-
-{
-    run_on_ui_thread(^{
-        NSImage *screenProctoringButtonImage;
-        NSColor *screenProctoringButtonTintColor;
-        DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
-        switch (screenProctoringButtonState) {
-            case ScreenProctoringButtonStateActive:
-                self.dockButtonScreenProctoringStateString = NSLocalizedString(@"Screen Proctoring Active",nil);
-                self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
-                screenProctoringButtonImage = self->ScreenProctoringIconActiveState;
-                screenProctoringButtonTintColor = self->ScreenProctoringIconColorActiveState;
-                break;
-                
-            case ScreenProctoringButtonStateActiveWarning:
-                screenProctoringButtonImage = self->ScreenProctoringIconActiveWarningState;
-                screenProctoringButtonTintColor = self->ScreenProctoringIconColorWarningState;
-                break;
-                
-            case ScreenProctoringButtonStateActiveError:
-                screenProctoringButtonImage = self->ScreenProctoringIconActiveErrorState;
-                screenProctoringButtonTintColor = self->ScreenProctoringIconColorErrorState;
-                break;
-                
-            case ScreenProctoringButtonStateInactive:
-            default:
-                self.dockButtonScreenProctoringStateString = NSLocalizedString(@"Screen Proctoring Inactive",nil);
-                self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
-                screenProctoringButtonImage = self->ScreenProctoringIconInactiveState;
-                break;
-        }
-        if (userFeedback) {
-            screenProctoringButtonImage.template = YES;
-            self.dockButtonScreenProctoring.image = screenProctoringButtonImage;
-            if (@available(macOS 10.14, *)) {
-                self.dockButtonScreenProctoring.contentTintColor = screenProctoringButtonTintColor;
-            }
-        }
-    });
-}
-
-
-- (void) setScreenProctoringButtonInfoString:(NSString *)infoString
-{
-    run_on_ui_thread(^{
-        if (infoString.length == 0) {
-            self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
-        } else {
-            self.dockButtonScreenProctoring.toolTip = [NSString stringWithFormat:@"%@ (%@)", self.dockButtonScreenProctoringStateString, infoString];
-        }
-    });
-}
-
-
 #pragma mark - Remote Proctoring
 
 - (void) openZoomView
@@ -1915,6 +1846,9 @@ bool insideMatrix(void);
     return self.browserController.openWebpagesTitlesString;
 }
 
+
+#pragma mark - Screen Proctoring SPSControllerUIDelegate methods
+
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append
 {
     run_on_ui_thread(^{
@@ -1923,7 +1857,71 @@ bool insideMatrix(void);
 }
 
 
-#pragma mark - SPSControllerUIDelegate methods
+- (void) screenProctoringButtonAction
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+}
+
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+{
+    run_on_ui_thread(^{
+        NSImage *screenProctoringButtonImage;
+        NSColor *screenProctoringButtonTintColor;
+        DDLogDebug(@"[SEBController setScreenProctoringButtonState: %ld userFeedback: %@]", (long)screenProctoringButtonState, userFeedback ? @"YES" : @"NO");
+        switch (screenProctoringButtonState) {
+            case ScreenProctoringButtonStateActive:
+                self.dockButtonScreenProctoringStateString = NSLocalizedString(@"Screen Proctoring Active",nil);
+                self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
+                screenProctoringButtonImage = self->ScreenProctoringIconActiveState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorActiveState;
+                break;
+                
+            case ScreenProctoringButtonStateActiveWarning:
+                screenProctoringButtonImage = self->ScreenProctoringIconActiveWarningState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorWarningState;
+                break;
+                
+            case ScreenProctoringButtonStateActiveError:
+                screenProctoringButtonImage = self->ScreenProctoringIconActiveErrorState;
+                screenProctoringButtonTintColor = self->ScreenProctoringIconColorErrorState;
+                break;
+                
+            case ScreenProctoringButtonStateInactive:
+            default:
+                self.dockButtonScreenProctoringStateString = NSLocalizedString(@"Screen Proctoring Inactive",nil);
+                self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
+                screenProctoringButtonImage = self->ScreenProctoringIconInactiveState;
+                break;
+        }
+        if (userFeedback) {
+            screenProctoringButtonImage.template = YES;
+            self.dockButtonScreenProctoring.image = screenProctoringButtonImage;
+            if (@available(macOS 10.14, *)) {
+                self.dockButtonScreenProctoring.contentTintColor = screenProctoringButtonTintColor;
+            }
+        }
+    });
+}
+
+
+- (void) setScreenProctoringButtonInfoString:(NSString *)infoString
+{
+    run_on_ui_thread(^{
+        if (infoString.length == 0) {
+            self.dockButtonScreenProctoring.toolTip = self.dockButtonScreenProctoringStateString;
+        } else {
+            self.dockButtonScreenProctoring.toolTip = [NSString stringWithFormat:@"%@ (%@)", self.dockButtonScreenProctoringStateString, infoString];
+        }
+    });
+}
+
 
 - (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
 {
