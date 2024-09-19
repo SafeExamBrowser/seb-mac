@@ -209,6 +209,13 @@
 }
 
 
+- (NSArray *) openWebpagesTitles
+{
+    NSArray *currentOpenWebpageTitles = [_sebViewController.browserTabViewController.persistentWebpages valueForKeyPath:@"title"];
+    return currentOpenWebpageTitles;
+}
+
+
 - (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector
 {
     DDLogDebug(@"%s", __FUNCTION__);

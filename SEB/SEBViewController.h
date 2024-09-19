@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define SEBToolBarSearchBarIconWidth 24.0
 #define SEBToolBarSearchBarWidth 200.0
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;

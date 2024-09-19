@@ -50,6 +50,7 @@
     SEBSliderItem *sliderBackButtonItem;
     SEBSliderItem *sliderForwardButtonItem;
     SEBSliderItem *sliderReloadButtonItem;
+    SEBSliderItem *sliderScreenProctoringItem;
     SEBSliderItem *sliderProctoringViewButtonItem;
 
     UIImage *scrollLockIcon;
@@ -59,6 +60,20 @@
     NSString *sliderScrollLockItemTitle;
     NSString *sliderScrollLockItemTitleLocked;
 
+    UIImage *ScreenProctoringIconInactiveState;
+    UIImage *ScreenProctoringIconActiveState;
+    UIImage *ScreenProctoringIconActiveWarningState;
+    UIImage *ScreenProctoringIconActiveErrorState;
+    UIImage *ScreenProctoringIconInactiveErrorState;
+    UIImage *ScreenProctoringSliderItemInactiveState;
+    UIImage *ScreenProctoringSliderItemActiveState;
+    UIImage *ScreenProctoringSliderItemActiveWarningState;
+    UIImage *ScreenProctoringSliderItemActiveErrorState;
+    UIImage *ScreenProctoringSliderItemInactiveErrorState;
+    UIColor *ScreenProctoringIconColorActiveState;
+    UIColor *ScreenProctoringIconColorWarningState;
+    UIColor *ScreenProctoringIconColorErrorState;
+    
     UIImage *ProctoringIconDefaultState;
     UIImage *ProctoringIconNormalState;
     UIImage *ProctoringIconWarningState;
@@ -80,6 +95,10 @@
 @property (nonatomic, strong) SEBSliderItem *sliderScrollLockItem;
 @property (nonatomic, strong) UIBarButtonItem *scrollLockButton;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
+@property (nonatomic, strong) UIBarButtonItem *dockScreenProctoringButton;
+@property (nonatomic, strong) SEBSliderItem *sliderScreenProctoringItem;
+@property(strong, nonatomic) NSString *screenProctoringStateString;
+
 @property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
 
@@ -107,6 +126,16 @@
 - (void) activateZoomButtons:(BOOL)zoomEnabled;
 
 - (void) updateScrollLockButtonStates;
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append;
+
+- (void)receivedUIEvent:event;
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState;
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback;
+
+- (void) setScreenProctoringButtonInfoString:(NSString *)infoString;
 
 - (void) setProctoringViewButtonState:(remoteProctoringButtonStates)remoteProctoringButtonState
                          userFeedback:(BOOL)userFeedback;

@@ -175,7 +175,8 @@
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, nil);
                                                              }]];
-    
+//    _sebViewController.alertController.view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor whiteColor];
+
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
