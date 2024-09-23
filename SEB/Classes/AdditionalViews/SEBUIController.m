@@ -330,6 +330,10 @@
     _dockScreenProctoringButton = nil;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
         
+        ScreenProctoringIconColorActiveState = [UIColor systemGreenColor];
+        ScreenProctoringIconColorWarningState = [UIColor systemOrangeColor];
+        ScreenProctoringIconColorErrorState = [UIColor systemRedColor];
+
         // Functionality enabled, add to slider menu
         ScreenProctoringSliderItemInactiveState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_inactive"];
         ScreenProctoringSliderItemActiveState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_active"];
@@ -338,11 +342,11 @@
         ScreenProctoringSliderItemInactiveErrorState = [UIImage imageNamed:@"SEBSliderScreenProctoringIcon_inactive_error"];
 
         sliderIcon = ScreenProctoringSliderItemInactiveState;;
-        sliderScreenProctoringItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Screen Proctoring Inactive",nil)
+        _sliderScreenProctoringItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Screen Proctoring Inactive",nil)
                                                             icon:sliderIcon
                                                           target:self
                                                           action:nil];
-        [sliderCommands addObject:sliderScreenProctoringItem];
+        [sliderCommands addObject:_sliderScreenProctoringItem];
 
         if (_dockEnabled) {
             ScreenProctoringIconInactiveState = [UIImage imageNamed:@"SEBScreenProctoringIcon_inactive"];
@@ -608,7 +612,7 @@
 {
     run_on_ui_thread(^{
         self.dockScreenProctoringButton.accessibilityLabel = string;
-        self->sliderScreenProctoringItem.title = string;
+        self.sliderScreenProctoringItem.title = string;
     });
 }
 
@@ -636,7 +640,7 @@
             case ScreenProctoringButtonStateActive:
                 self.screenProctoringStateString = NSLocalizedString(@"Screen Proctoring Active",nil);
                 self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
-                self->sliderScreenProctoringItem.title = self.screenProctoringStateString;
+                self.sliderScreenProctoringItem.title = self.screenProctoringStateString;
                 dockScreenProctoringButtonImage = self->ScreenProctoringIconActiveState;
                 sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemActiveState;
                 screenProctoringButtonTintColor = self->ScreenProctoringIconColorActiveState;
@@ -658,14 +662,14 @@
             default:
                 self.screenProctoringStateString = NSLocalizedString(@"Screen Proctoring Inactive",nil);
                 self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
-                self->sliderScreenProctoringItem.title = self.screenProctoringStateString;
+                self.sliderScreenProctoringItem.title = self.screenProctoringStateString;
                 dockScreenProctoringButtonImage = self->ScreenProctoringIconInactiveState;
                 sliderScreenProctoringItemImage = self->ScreenProctoringSliderItemInactiveState;
                 break;
         }
         if (userFeedback) {
             self.dockScreenProctoringButton.image = dockScreenProctoringButtonImage;
-            self->sliderScreenProctoringItem.icon = sliderScreenProctoringItemImage;
+            self.sliderScreenProctoringItem.icon = sliderScreenProctoringItemImage;
             self.dockScreenProctoringButton.tintColor = screenProctoringButtonTintColor;
         }
     });
@@ -674,12 +678,16 @@
 
 - (void) setScreenProctoringButtonInfoString:(NSString *)infoString
 {
+    
     run_on_ui_thread(^{
+        NSString *screenProctoringButtonString;
         if (infoString.length == 0) {
-            self.dockScreenProctoringButton.accessibilityLabel = self.screenProctoringStateString;
+            screenProctoringButtonString = self.screenProctoringStateString;
         } else {
-            self.dockScreenProctoringButton.accessibilityLabel = [NSString stringWithFormat:@"%@ (%@)", self.screenProctoringStateString, infoString];
+            screenProctoringButtonString = [NSString stringWithFormat:@"%@ (%@)", self.screenProctoringStateString, infoString];
         }
+        self.dockScreenProctoringButton.accessibilityLabel = screenProctoringButtonString;
+        self.sliderScreenProctoringItem.title = screenProctoringButtonString;
     });
 }
 

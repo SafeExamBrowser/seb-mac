@@ -112,6 +112,7 @@
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     UITableViewCell *firstTableViewRow = [self.tableView cellForRowAtIndexPath:indexPath];
     if (firstTableViewRow) {

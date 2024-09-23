@@ -146,6 +146,13 @@
     return self.currentTabIndex == 0;
 }
 
+- (NSArray *) openWebpagesTitles
+{
+    NSArray *currentOpenWebpageTitles = [_persistentWebpages valueForKeyPath:@"title"];
+    return currentOpenWebpageTitles;
+}
+
+
 - (void) toggleScrollLock
 {
     [_visibleWebViewController toggleScrollLock];

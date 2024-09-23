@@ -211,7 +211,7 @@
 
 - (NSArray *) openWebpagesTitles
 {
-    NSArray *currentOpenWebpageTitles = [_sebViewController.browserTabViewController.persistentWebpages valueForKeyPath:@"title"];
+    NSArray *currentOpenWebpageTitles = _sebViewController.browserTabViewController.openWebpagesTitles;
     return currentOpenWebpageTitles;
 }
 

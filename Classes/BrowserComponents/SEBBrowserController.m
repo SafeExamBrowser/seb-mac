@@ -128,8 +128,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)setDownloadDirectory
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 #if TARGET_OS_OSX
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"]) {
         downloadDirectoryURL = [self.delegate getTempDownUploadDirectory];
     } else {

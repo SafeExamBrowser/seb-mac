@@ -157,13 +157,14 @@
 //- (NSURL*)url {
 //    return _sebWebView.url;
 //}
-//
-//
-//- (NSString*)title {
-//    return _sebWebView.title;
-//}
-//
-//
+
+
+- (nullable NSString*) pageTitle
+{
+    return [_sebWebView pageTitle];
+}
+
+
 - (void)toggleScrollLock {
     [_sebWebView toggleScrollLock];
 }

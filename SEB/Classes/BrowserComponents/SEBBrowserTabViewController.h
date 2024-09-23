@@ -69,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *) documentsDirectoryPath;
 
+- (NSArray *) openWebpagesTitles;
+
 - (void) backToStart;
 
 - (void) setTitle:(NSString *)title forWebViewController:(SEBiOSWebViewController *)webViewController;

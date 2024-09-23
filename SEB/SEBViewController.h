@@ -197,7 +197,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property (readwrite, strong) NSDate *didResumeExamTime;
 @property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
 @property (readwrite, strong) NSDate *appDidBecomeActiveTime;
-@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
+@property (nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 /// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *_Nullable appSettingsViewController;
@@ -215,7 +215,11 @@ void run_on_ui_thread(dispatch_block_t block);
 
 /// Screen Proctoring
 - (void)receivedUIEvent:event;
-//- (void)touchesChange:(UIEventChange)change touches:(NSSet<UITouch *> *)touches with:(UIEvent *_Nullable)event;
+
+@property (strong, nonatomic) SEBiOSTransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
+@property(readwrite) BOOL transmittingCachedScreenShotsWindowOpen;
+@property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
+@property (strong, nonatomic) NSString *_Nullable operationsString;
 
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
