@@ -11,7 +11,7 @@ import CocoaLumberjackSwift
 struct Metadata: Codable {
     var screenProctoringMetadataURL: String?
     var screenProctoringMetadataWindowTitle: String?
-    var screenProctoringMetadataActiveApp: String?
+    var screenProctoringMetadataApplication: String?
     var screenProctoringMetadataUserAction: String?
     var screenProctoringMetadataBrowser: String?
 }
@@ -43,7 +43,7 @@ public class SEBSPMetadataCollector {
             if let activeAppWindowMetadata = delegate?.getScreenProctoringMetadataActiveAppWindow() {
                 
                 if settings.activeAppEnabled {
-                    metadata.screenProctoringMetadataActiveApp = activeAppWindowMetadata["activeApp", default: ""]
+                    metadata.screenProctoringMetadataApplication = activeAppWindowMetadata["activeApp", default: ""]
                 }
                 
                 if settings.activeWindowEnabled {
@@ -450,6 +450,7 @@ extension String {
         var newString = self.replacingOccurrences(of: "\t", with: "Tab")
         newString = newString.replacingOccurrences(of: "\r", with: "Return")
         newString = newString.replacingOccurrences(of: "\u{08}", with: "Backspace")
+#if os(iOS)
         newString = newString.replacingOccurrences(of: UIKeyCommand.inputEscape, with: "Escape")
         newString = newString.replacingOccurrences(of: UIKeyCommand.inputUpArrow, with: "Cursor Up")
         newString = newString.replacingOccurrences(of: UIKeyCommand.inputDownArrow, with: "Cursor Down")
@@ -476,6 +477,7 @@ extension String {
         if #available(iOS 15.0, *) {
             newString = newString.replacingOccurrences(of: UIKeyCommand.inputDelete, with: "Page Down")
         }
+#endif
         return newString
     }
     

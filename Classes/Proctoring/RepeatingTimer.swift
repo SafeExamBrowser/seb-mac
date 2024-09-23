@@ -9,15 +9,26 @@ class RepeatingTimer {
 
     let timeInterval: TimeInterval
     let queue: DispatchQueue
+    var repeating = true
     
     init(timeInterval: TimeInterval, queue: DispatchQueue) {
         self.timeInterval = timeInterval
         self.queue = queue
     }
     
+    init(timeInterval: TimeInterval, queue: DispatchQueue, repeating: Bool) {
+        self.timeInterval = timeInterval
+        self.queue = queue
+        self.repeating = repeating
+    }
+    
     private lazy var timer: DispatchSourceTimer = {
         let t = DispatchSource.makeTimerSource(queue: self.queue)
-        t.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)
+        if repeating {
+            t.schedule(deadline: .now() + self.timeInterval, repeating: self.timeInterval)
+        } else {
+            t.schedule(deadline: .now() + self.timeInterval, repeating: DispatchTimeInterval.never)
+        }
         t.setEventHandler(handler: { [weak self] in
             self?.eventHandler?()
         })

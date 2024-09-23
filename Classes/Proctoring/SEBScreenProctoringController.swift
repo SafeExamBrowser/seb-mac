@@ -162,14 +162,16 @@ struct MetadataSettings {
     
 //    private let minIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
 //    private let maxIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
-    private let screenShotTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".screenShot", qos: .utility)
-//    private let minIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
-//    private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
-    private var screenShotMinIntervalTimer: Timer?
-    private var screenShotMaxIntervalTimer: Timer?
-    private let deferredTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
+//    private let screenShotTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".screenShot", qos: .utility)
+//    private let screenShotTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".screenShot", qos: .utility)
+    private let minIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
+    private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
+    private var screenShotMinIntervalTimer: RepeatingTimer?
+    private var screenShotMaxIntervalTimer: RepeatingTimer?
+//    private let deferredTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
+    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
-    private var screenShotDeferredTransmissionIntervalTimer: Timer?
+    private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
     private var transmittingDeferredScreenShots = false
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
     private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 5
@@ -397,10 +399,10 @@ extension SEBScreenProctoringController {
     }
     
     private func startScreenProctoring() {
-        screenShotTimerQueue.async { [unowned self] in
+//        screenShotTimerQueue.async { [unowned self] in
             startMaxIntervalTimer()
             startMinIntervalTimer()
-        }
+//        }
         metadataCollector.monitorEvents()
         self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
     }
@@ -460,9 +462,9 @@ extension SEBScreenProctoringController {
                         }
                         if self.currentServerHealth != SPSHealth.BAD {
                             if !self.closingSession {
-                                self.screenShotTimerQueue.async { [unowned self] in
+//                                self.screenShotTimerQueue.async { [unowned self] in
                                     self.screenShotMaxIntervallTriggered()
-                                }
+//                                }
                             } else {
                                 // When closing session, restart sending cached screeen shots
                                 self.transmitNextScreenShot()
@@ -639,23 +641,26 @@ extension SEBScreenProctoringController {
         }
     }
     
+    private func getScreenShotMinIntervalTimer() -> (RepeatingTimer) {
+        let nonRepeatingTimer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), queue: minIntervalTimerQueue, repeating: false)
+        return nonRepeatingTimer
+    }
+    
+    private func getScreenShotMaxIntervalTimer() -> (RepeatingTimer) {
+        let nonRepeatingTimer = RepeatingTimer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), queue: maxIntervalTimerQueue, repeating: false)
+        return nonRepeatingTimer
+    }
+
     private func startMaxIntervalTimer() {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller: startMaxIntervalTimer()")
 #endif
-        if self.screenShotMaxIntervalTimer == nil && !self.closingSession {
-#if DEBUG
-            DDLogDebug("SEB Screen Proctoring Controller startMaxIntervalTimer()")
-#endif
-                if !self.closingSession {
-                    let timer = Timer(timeInterval: TimeInterval((self.screenshotMaxInterval ?? 5000)/1000), repeats: false, block: { Timer in
-                        self.screenShotMaxIntervallTriggered()
-                    })
-                    self.screenShotMaxIntervalTimer = timer
-                    let currentRunLoop = RunLoop.current
-                    currentRunLoop.add(timer, forMode: .common)
-                    currentRunLoop.run()
-                }
+        if screenShotMaxIntervalTimer == nil && !self.closingSession {
+            screenShotMaxIntervalTimer = getScreenShotMaxIntervalTimer()
+            screenShotMaxIntervalTimer?.eventHandler = {
+                self.screenShotMaxIntervallTriggered()
+            }
+            screenShotMaxIntervalTimer?.resume()
         } else {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller startMaxIntervalTimer(): Not proceeding because timer maybe not nil (\(self.screenShotMaxIntervalTimer as Any))\(closingSession ? " or closing session" : "").")
@@ -667,19 +672,12 @@ extension SEBScreenProctoringController {
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller: startMinIntervalTimer()")
 #endif
-        if self.screenShotMinIntervalTimer == nil && !self.closingSession {
-#if DEBUG
-            DDLogDebug("SEB Screen Proctoring Controller startMinIntervalTimer()")
-#endif
-                if !self.closingSession {
-                    let timer = Timer(timeInterval: TimeInterval((self.screenshotMinInterval ?? 1000)/1000), repeats: false, block: { Timer in
-                        self.screenShotMinIntervallTriggered()
-                    })
-                    self.screenShotMinIntervalTimer = timer
-                    let currentRunLoop = RunLoop.current
-                    currentRunLoop.add(timer, forMode: .common)
-                    currentRunLoop.run()
-                }
+        if screenShotMinIntervalTimer == nil && !self.closingSession {
+            screenShotMinIntervalTimer = getScreenShotMinIntervalTimer()
+            screenShotMinIntervalTimer?.eventHandler = {
+                self.screenShotMinIntervallTriggered()
+            }
+            screenShotMinIntervalTimer?.resume()
         } else {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller startMinIntervalTimer(): Not proceeding because timer maybe not nil (\(self.screenShotMaxIntervalTimer as Any))\(closingSession ? " or closing session" : "").")
@@ -687,26 +685,24 @@ extension SEBScreenProctoringController {
         }
     }
     
-    func stopMaxIntervalTimer(completionHandler: (() -> Void)?) {
+    func stopMaxIntervalTimer() {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller stopMaxIntervalTimer()")
 #endif
-            if self.screenShotMaxIntervalTimer != nil {
-                self.screenShotMaxIntervalTimer?.invalidate()
-                self.screenShotMaxIntervalTimer = nil
+            if screenShotMaxIntervalTimer != nil {
+                screenShotMaxIntervalTimer?.reset()
+                screenShotMaxIntervalTimer = nil
             }
-            completionHandler?()
     }
 
-    func stopMinIntervalTimer(completionHandler: (() -> Void)?) {
+    func stopMinIntervalTimer() {
 #if DEBUG
             DDLogDebug("SEB Screen Proctoring Controller stopMinIntervalTimer()")
 #endif
-            if self.screenShotMinIntervalTimer != nil {
-                self.screenShotMinIntervalTimer?.invalidate()
-                self.screenShotMinIntervalTimer = nil
+            if screenShotMinIntervalTimer != nil {
+                screenShotMinIntervalTimer?.reset()
+                screenShotMinIntervalTimer = nil
             }
-            completionHandler?()
     }
 
     private func getTriggerEventString() -> String {
@@ -724,7 +720,7 @@ extension SEBScreenProctoringController {
             alphanumericKeyCount = 0
         }
         if !keyboardShortcuts.isEmpty {
-            if latestTriggerEvent == keyboardShortcuts.last {
+            if latestTriggerEvent != nil && keyboardShortcuts.count > 0 && latestTriggerEvent!.contains(keyboardShortcuts.last!) {
                 // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
                 keyboardShortcuts.removeLast()
             }
@@ -742,25 +738,23 @@ extension SEBScreenProctoringController {
             DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered()")
 #endif
         if !self.closingSession {
-            self.sendingScreenShot = true
             if self.latestTriggerEvent != nil {
-                self.stopMinIntervalTimer(completionHandler: nil)
-                self.stopMaxIntervalTimer(completionHandler: nil)
+                stopMinIntervalTimer()
+                stopMaxIntervalTimer()
                 let triggerEventString = getTriggerEventString()
                 self.captureScreenShot(triggerMetadata: triggerEventString, timeStamp: self.latestTriggerEventTimestamp)
-                if !self.closingSession {
-                    self.startMaxIntervalTimer()
-                    self.startMinIntervalTimer()
-                }
+                self.startMaxIntervalTimer()
+                self.startMinIntervalTimer()
             } else {
-                self.stopMinIntervalTimer(completionHandler: nil)
+                self.stopMinIntervalTimer()
+#if DEBUG
+            DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered(): No new input trigger event, stop min intervall timer until next input event.")
+#endif
             }
-            self.sendingScreenShot = false
         } else {
 #if DEBUG
-            DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered(): Not proceeding because \(sendingScreenShot ? "sending screen shot" : "")\(closingSession ? " closing session" : "").")
+            DDLogDebug("SEB Screen Proctoring Controller screenShotMinIntervallTriggered(): Not proceeding because closing session")
 #endif
-//            self.sendingScreenShot = false
         }
     }
     
@@ -769,25 +763,22 @@ extension SEBScreenProctoringController {
             DDLogDebug("SEB Screen Proctoring Controller screenShotMaxIntervallTriggered()")
 #endif
         if !self.closingSession {
-            self.sendingScreenShot = true
-            self.stopMinIntervalTimer(completionHandler: nil)
-            self.stopMaxIntervalTimer(completionHandler: nil)
+            self.stopMinIntervalTimer()
+            self.stopMaxIntervalTimer()
             let triggerEventString = getTriggerEventString()
             if triggerEventString.isEmpty {
                 self.captureScreenShot(triggerMetadata: "Maximum interval of \(String(self.screenshotMaxInterval ?? 5000))ms has been reached.", timeStamp: nil)
             } else {
-                self.captureScreenShot(triggerMetadata: triggerEventString ?? "", timeStamp: self.latestTriggerEventTimestamp)
+                self.captureScreenShot(triggerMetadata: triggerEventString, timeStamp: self.latestTriggerEventTimestamp)
             }
             if !self.closingSession {
                 self.startMaxIntervalTimer()
                 self.startMinIntervalTimer()
             }
-            self.sendingScreenShot = false
         } else {
 #if DEBUG
-            DDLogDebug("SEB Screen Proctoring Controller screenShotMaxIntervallTriggered(): Not proceeding because \(sendingScreenShot ? "sending screen shot" : "")\(closingSession ? " closing session" : "").")
+            DDLogDebug("SEB Screen Proctoring Controller screenShotMaxIntervallTriggered(): Not proceeding because closing session")
 #endif
-//            self.sendingScreenShot = false
         }
     }
     
@@ -802,16 +793,13 @@ extension SEBScreenProctoringController {
             if closingSession {
                 spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: screenShotCache.count, message: nil, operation: String.localizedStringWithFormat(NSLocalizedString("Waiting %d seconds", comment: ""), interval), append: true, totalScreenShots: totalNumberOfCachedScreenShotsWhileClosing)
             }
-            deferredTimerQueue.async { [unowned self] in
-                let timer = Timer(timeInterval: TimeInterval(interval), repeats: false, block: { Timer in
-                    self.screenShotDeferredTransmissionIntervallTriggered()
-                })
-                self.screenShotDeferredTransmissionIntervalTimer = timer
-                self.transmittingDeferredScreenShots = false
-                let currentRunLoop = RunLoop.current
-                currentRunLoop.add(timer, forMode: .common)
-                currentRunLoop.run()
+            screenShotDeferredTransmissionIntervalTimer = RepeatingTimer(timeInterval: TimeInterval(interval), queue: minIntervalTimerQueue, repeating: false)
+            screenShotDeferredTransmissionIntervalTimer?.eventHandler = {
+                self.screenShotDeferredTransmissionIntervallTriggered()
             }
+            screenShotMinIntervalTimer?.resume()
+            self.transmittingDeferredScreenShots = false
+            
         } else {
             DDLogDebug("SEB Screen Proctoring Controller startDeferredTransmissionTimer: timer was still running")
             self.stopDeferredTransmissionIntervalTimer {
@@ -822,13 +810,11 @@ extension SEBScreenProctoringController {
     }
     
     func stopDeferredTransmissionIntervalTimer(completionHandler: @escaping () -> Void) {
-//        deferredTimerQueue.async { [unowned self] in
-            if self.screenShotDeferredTransmissionIntervalTimer != nil {
-                self.screenShotDeferredTransmissionIntervalTimer?.invalidate()
-                self.screenShotDeferredTransmissionIntervalTimer = nil
-            }
-            completionHandler()
-//        }
+        if self.screenShotDeferredTransmissionIntervalTimer != nil {
+            self.screenShotDeferredTransmissionIntervalTimer?.reset()
+            self.screenShotDeferredTransmissionIntervalTimer = nil
+        }
+        completionHandler()
     }
 
 
@@ -849,10 +835,8 @@ extension SEBScreenProctoringController {
         DDLogInfo("SEB Screen Proctoring Controller: Closing Session")
         closingSessionCompletionHandler = completionHandler
         closingSession = true
-        screenShotTimerQueue.async { [unowned self] in
-            stopMinIntervalTimer(completionHandler: nil)
-            stopMaxIntervalTimer(completionHandler: nil)
-        }
+        stopMinIntervalTimer()
+        stopMaxIntervalTimer()
         if self.screenShotCache.isEmpty {
             DDLogInfo("SEB Screen Proctoring Controller: There are no cached screen shots, continue closing session.")
             spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow()
@@ -936,28 +920,25 @@ extension SEBScreenProctoringController {
 //    }
 #endif
 
-    public func collectedTriggerEvent(eventData:String) {
-        latestTriggerEvent = eventData
-        latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
-        if !closingSession {
-            // The minimum interval has passed, trigger screen shot immediately
-#if DEBUG
-        DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Not closing session, might trigger screen shot immediately on async queue")
-#endif
-            screenShotTimerQueue.async { [unowned self] in
+        public func collectedTriggerEvent(eventData:String) {
+            if latestTriggerEvent != nil {
+                latestTriggerEvent = "\(latestTriggerEvent!) / \(eventData)"
+            }
+            latestTriggerEvent = eventData
+            latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
+            if !closingSession {
                 if self.screenShotMinIntervalTimer == nil {
-#if DEBUG
-        DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
-#endif
+    #if DEBUG
+                    DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
+    #endif
                     self.screenShotMinIntervallTriggered()
                 } else {
-#if DEBUG
-        DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
-#endif
+    #if DEBUG
+                    DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
+    #endif
                 }
             }
         }
-    }
 
     public func collectedAlphanumericKeyEvent() {
         alphanumericKeyCount += 1
@@ -970,9 +951,20 @@ extension SEBScreenProctoringController {
     // Update UI
 
     func setScreenProctoringButtonState(_ state: ScreenProctoringButtonStates) {
-        if indicateHealthAndCaching && screenProctoringButtonState != state {
-            screenProctoringButtonState = state
-            spsControllerUIDelegate?.setScreenProctoringButtonState(state)
+        if screenProctoringButtonState != state {
+            var newState = state
+            if !indicateHealthAndCaching {
+                switch state {
+                case ScreenProctoringButtonStateActiveWarning:
+                    newState = ScreenProctoringButtonStateActive
+                case ScreenProctoringButtonStateActiveError:
+                    newState = ScreenProctoringButtonStateActive
+                default:
+                    newState = state
+                }
+            }
+            screenProctoringButtonState = newState
+            spsControllerUIDelegate?.setScreenProctoringButtonState(newState)
         }
     }
     

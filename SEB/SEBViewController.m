@@ -878,7 +878,7 @@ static NSMutableSet *browserWindowControllers;
             _assistantViewController.sebViewController = self;
             _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             if (@available(iOS 13.0, *)) {
-                _assistantViewController.modalInPopover = YES;
+                _assistantViewController.modalInPresentation = YES;
             }
         }
         //// Initialize SEB Dock, commands section in the slider view and
@@ -887,7 +887,7 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
         
-        self.initAssistantOpen = true;
+        self.initAssistantOpen = YES;
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         }];
     }
@@ -2929,11 +2929,11 @@ void run_on_ui_thread(dispatch_block_t block)
         // Dismiss the Activate SAM alert in case it still was visible
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
-            self.startSAMWAlertDisplayed = false;
-            self.singleAppModeActivated = false;
+            self.startSAMWAlertDisplayed = NO;
+            self.singleAppModeActivated = NO;
             // Set the paused SAM alert displayed flag, because if loading settings
             // fails or is canceled, we need to restart the kiosk mode
-            self.pausedSAMAlertDisplayed = true;
+            self.pausedSAMAlertDisplayed = YES;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2950,10 +2950,10 @@ void run_on_ui_thread(dispatch_block_t block)
     } else if (_initAssistantOpen) {
         // Check if the initialize settings assistant is open
         [self dismissViewControllerAnimated:YES completion:^{
-            self.initAssistantOpen = false;
+            self.initAssistantOpen = NO;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
-            self.finishedStartingUp = false;
+            self.finishedStartingUp = NO;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -5005,9 +5005,11 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (NSDictionary<NSString *,NSString *>*) getScreenProctoringMetadataActiveAppWindow
 {
-    NSString *activeBrowserWindowTitle = self.browserController.activeBrowserWindowTitle;
+    NSString *activeBrowserWindowTitle = self.browserTabViewController.visibleWebViewController.pageTitle;
 
-    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@)", SEBShortAppName, [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"]];
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@)",
+                               [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"],
+                               [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"]];
     
     if (activeBrowserWindowTitle == nil) {
         activeBrowserWindowTitle = @"";
@@ -5020,7 +5022,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (NSString *) getScreenProctoringMetadataURL
 {
-    return self.browserController.activeBrowserWindow.currentURL.absoluteString;
+    return self.browserTabViewController.currentURL.absoluteString;
 }
 
 - (NSString *) getScreenProctoringMetadataBrowser
@@ -5048,6 +5050,89 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) setScreenProctoringButtonInfoString:(NSString *)infoString
 {
     [self.sebUIController setScreenProctoringButtonInfoString:infoString];
+}
+
+
+- (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
+{
+    run_on_ui_thread(^{
+        if (self.transmittingCachedScreenShotsWindowOpen) {
+            [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil totalScreenShots:remainingScreenShots];
+        } else {
+            if (self.alertController) {
+                [self.alertController dismissViewControllerAnimated:NO completion:^{
+                    self.alertController = nil;
+                    [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation];
+                }];
+                return;
+            }
+            
+            if (!self.transmittingCachedScreenShotsViewController) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ScreenProctoring" bundle:nil];
+                self.transmittingCachedScreenShotsViewController = [storyboard instantiateViewControllerWithIdentifier:@"TransmittingCachedScreenShotsViewController"];
+                self.transmittingCachedScreenShotsViewController.uiDelegate = self;
+                self.transmittingCachedScreenShotsViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+//                if (@available(iOS 13.0, *)) {
+//                    self.transmittingCachedScreenShotsViewController.modalInPresentation = YES;
+//                }
+                self.transmittingCachedScreenShotsViewController.windowTitle.text = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
+                [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation totalScreenShots:remainingScreenShots];
+            }
+            self.transmittingCachedScreenShotsWindowOpen = YES;
+            [self.topMostController presentViewController:self.transmittingCachedScreenShotsViewController animated:YES completion:^{
+            }];
+        }
+    });
+}
+
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation totalScreenShots:(NSInteger)totalScreenShots
+{
+    [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation append:NO totalScreenShots:totalScreenShots];
+}
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation append:(BOOL)append totalScreenShots:(NSInteger)totalScreenShots
+{
+    self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
+    run_on_ui_thread(^{
+        if (self->_transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.progressView.progress = totalScreenShots / remainingScreenShots;
+            if (message) {
+                self.transmittingCachedScreenShotsViewController.message.text = message;
+            }
+            if (operation) {
+                NSString *updatedOperations = operation;
+                if (append && self.operationsString.length > 0) {
+                    NSString *separator = [self.operationsString hasSuffix:@"."] ? @"" : @".";
+                    updatedOperations = [NSString stringWithFormat:@"%@%@ %@", self.operationsString, separator, operation];
+                }
+                self.transmittingCachedScreenShotsViewController.operations.text = updatedOperations;
+                self.operationsString = updatedOperations;
+            }
+        }
+    });
+}
+
+
+- (void)allowQuit:(BOOL)allowQuit
+{
+    run_on_ui_thread(^{
+        if (self->_transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.quitButton.hidden = !allowQuit;
+        }
+    });
+}
+
+
+- (void)closeTransmittingCachedScreenShotsWindow
+{
+    run_on_ui_thread(^{
+        [self.transmittingCachedScreenShotsViewController dismissViewControllerAnimated:YES completion:^{
+            self.transmittingCachedScreenShotsWindowOpen = NO;
+            self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
+            self.transmittingCachedScreenShotsViewController = nil;
+        }];
+    });
 }
 
 
