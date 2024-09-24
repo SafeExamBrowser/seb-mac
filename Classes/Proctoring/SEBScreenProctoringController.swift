@@ -172,7 +172,6 @@ struct MetadataSettings {
     private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
-    private var transmittingDeferredScreenShots = false
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
     private let transmittingDeferredScreenShotsWhileClosingMaxErrorCount = 5
     private var numberOfCachedScreenShotsWhileClosing = 0
@@ -797,38 +796,33 @@ extension SEBScreenProctoringController {
             screenShotDeferredTransmissionIntervalTimer?.eventHandler = {
                 self.screenShotDeferredTransmissionIntervallTriggered()
             }
-            screenShotMinIntervalTimer?.resume()
-            self.transmittingDeferredScreenShots = false
+            screenShotDeferredTransmissionIntervalTimer?.resume()
             
         } else {
             DDLogDebug("SEB Screen Proctoring Controller startDeferredTransmissionTimer: timer was still running")
-            self.stopDeferredTransmissionIntervalTimer {
-                DDLogDebug("SEB Screen Proctoring Controller try to call startDeferredTransmissionTimer again.")
-                self.startDeferredTransmissionTimer(interval)
-            }
+            stopDeferredTransmissionIntervalTimer()
+            DDLogDebug("SEB Screen Proctoring Controller try to call startDeferredTransmissionTimer again.")
+            self.startDeferredTransmissionTimer(interval)
         }
     }
     
-    func stopDeferredTransmissionIntervalTimer(completionHandler: @escaping () -> Void) {
+    func stopDeferredTransmissionIntervalTimer() {
         if self.screenShotDeferredTransmissionIntervalTimer != nil {
             self.screenShotDeferredTransmissionIntervalTimer?.reset()
             self.screenShotDeferredTransmissionIntervalTimer = nil
         }
-        completionHandler()
     }
 
 
     private func screenShotDeferredTransmissionIntervallTriggered() {
-        transmittingDeferredScreenShots = true
 #if DEBUG
         DDLogDebug("SEB Screen Proctoring Controller: screenShotDeferredTransmissionIntervallTriggered! Stop timer and transmit the screen shot.")
 #endif
-        stopDeferredTransmissionIntervalTimer {
+        stopDeferredTransmissionIntervalTimer()
 #if DEBUG
-            DDLogDebug("SEB Screen Proctoring Controller: screenShotDeferredTransmissionIntervallTriggered timer stopped, now transmit the screen shot.")
+        DDLogDebug("SEB Screen Proctoring Controller: screenShotDeferredTransmissionIntervallTriggered timer stopped, now transmit the screen shot.")
 #endif
-            self.transmitNextScreenShot()
-        }
+        transmitNextScreenShot()
     }
     
     @objc func closeSession(completionHandler: @escaping () -> Void) {
