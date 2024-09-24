@@ -343,9 +343,10 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) resetSEB;
 
 #pragma mark - Start and quit exam session
-- (void) quitExamConditionally;
+- (void) quitExamConditionally:(id)sender;
 - (void) sessionQuitRestart:(BOOL)restart;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
+@property(readwrite) BOOL quittingFromSPSCacheUpload;
 
 #pragma mark - Connecting to SEB Server
 // Waiting for user to select exam from SEB Server and to successfully log in
