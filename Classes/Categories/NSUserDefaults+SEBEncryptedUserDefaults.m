@@ -627,9 +627,14 @@ static NSNumber *_logLevel;
         NSDictionary *prefsDict = [self getSEBUserDefaultsDomains];
         for (NSString *key in prefsDict) {
             if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
+                DDLogDebug(@"resetSEBUserDefaults removing SEB key: %@", key);
                 [preferences removeObjectForKey:key];
             }
         }
+#ifdef DEBUG
+        prefsDict = [self getSEBUserDefaultsDomains];
+            DDLogDebug(@"UserDefaults after removing SEB key/values: %@", prefsDict);
+#endif
     }
     // Update Exam Settings Key
     [_cachedUserDefaults removeAllObjects];
