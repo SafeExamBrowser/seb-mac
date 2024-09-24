@@ -680,14 +680,17 @@
 {
     
     run_on_ui_thread(^{
+        NSString *screenProctoringButtonStringShort;
         NSString *screenProctoringButtonString;
         if (infoString.length == 0) {
             screenProctoringButtonString = self.screenProctoringStateString;
+            screenProctoringButtonStringShort = self.screenProctoringStateString;
         } else {
             screenProctoringButtonString = [NSString stringWithFormat:@"%@ (%@)", self.screenProctoringStateString, infoString];
+            screenProctoringButtonStringShort = infoString;
         }
         self.dockScreenProctoringButton.accessibilityLabel = screenProctoringButtonString;
-        self.sliderScreenProctoringItem.title = screenProctoringButtonString;
+        self.sliderScreenProctoringItem.title = screenProctoringButtonStringShort;
     });
 }
 
@@ -855,7 +858,7 @@
 
 - (void) quitExamConditionally
 {
-    [_sebViewController quitExamConditionally];
+    [_sebViewController quitExamConditionally:self];
 }
 
 
