@@ -300,12 +300,12 @@ public class SEBSPMetadataCollector {
                     if !modifiers.isEmpty && !characters.isEmpty && !(modifiers == "Shift" || modifiers == "Option/Alt") {
                             keyEventDescription = "\(modifiers)-\(characters)"
                         self.delegate?.collectedKeyboardShortcutEvent?(keyEventDescription)
-                    } else if !modifiers.isEmpty {
-                        keyEventDescription = modifiers
                     }
                     if (!characters.isEmpty || !resultingCharacters.isEmpty) && keyEventDescription.isEmpty {
                         keyEventDescription = keysSPS.alphanumericKeyString.firstUppercased
                         self.delegate?.collectedAlphanumericKeyEvent?()
+                    } else if !modifiers.isEmpty && keyEventDescription.isEmpty {
+                        keyEventDescription = modifiers
                     }
                 }
             } else if keyEventDescription.isEmpty {

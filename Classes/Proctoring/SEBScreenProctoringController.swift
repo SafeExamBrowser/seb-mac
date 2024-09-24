@@ -917,8 +917,9 @@ extension SEBScreenProctoringController {
         public func collectedTriggerEvent(eventData:String) {
             if latestTriggerEvent != nil {
                 latestTriggerEvent = "\(latestTriggerEvent!) / \(eventData)"
+            } else {
+                latestTriggerEvent = eventData
             }
-            latestTriggerEvent = eventData
             latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
             if !closingSession {
                 if self.screenShotMinIntervalTimer == nil {
