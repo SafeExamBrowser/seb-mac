@@ -297,7 +297,7 @@ public class SEBSPMetadataCollector {
                     keyEventDescription = resultingCharacters
                 }
                 if !characters.isEmpty || !resultingCharacters.isEmpty || !modifiers.isEmpty {
-                    if !modifiers.isEmpty && !characters.isEmpty {
+                    if !modifiers.isEmpty && !characters.isEmpty && !(modifiers == "Shift" || modifiers == "Option/Alt") {
                             keyEventDescription = "\(modifiers)-\(characters)"
                         self.delegate?.collectedKeyboardShortcutEvent?(keyEventDescription)
                     } else if !modifiers.isEmpty {
