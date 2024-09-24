@@ -360,6 +360,11 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
+    // Add an observer for the request to quit SEB with asking for quit password or confirming to quit
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(quitExamConditionally:)
+                                                 name:@"quitExamConditionally" object:nil];
+    
     // Add an observer for the request to quit SEB without asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(quitLinkDetected:)
@@ -3395,8 +3400,17 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) quitExamConditionally
+- (void) quitExamConditionally:(id)sender
 {
+    _quittingFromSPSCacheUpload = NO;
+    id senderObject;
+    if ([sender respondsToSelector:@selector(object)]) {
+        senderObject = [sender object];
+        Class senderClass = [senderObject class];
+        _quittingFromSPSCacheUpload = [senderClass isEqual:SEBiOSTransmittingCachedScreenShotsViewController.class];
+        DDLogDebug(@"%s sender.object: %@, object.class: %@ is equal to SEBiOSTransmittingCachedScreenShotsViewController.class: %d", __FUNCTION__, senderObject, senderClass, quittingFromSPSCacheUpload);
+    }
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
@@ -3414,7 +3428,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             selector:@selector(enteredQuitPassword:)];
         } else {
             // if no quit password is required, then just confirm quitting
-            [self sessionQuitRestartIgnoringQuitPW:NO];
+            [self sessionQuitRestartIgnoringQuitPW:NO quittingFromSPSCacheUpload:quittingFromSPSCacheUpload];
         }
     }
 }
@@ -3426,7 +3440,7 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-        [self sessionQuitRestartIgnoringQuitPW:restart];
+        [self sessionQuitRestartIgnoringQuitPW:restart quittingFromSPSCacheUpload:NO];
     } else {
         [self sessionQuitRestart:restart];
     }
@@ -3434,7 +3448,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 // Quit or restart session, but ask user for confirmation first
-- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
+- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart quittingFromSPSCacheUpload:(BOOL)quittingFromSPSCacheUpload
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -3447,7 +3461,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
           self.alertController = nil;
           DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingExamSession ? SEBShortAppName : @"exam session");
-          [self sessionQuitRestart:restart];
+          [self sessionQuitRestart:restart quittingFromSPSCacheUpload:quittingFromSPSCacheUpload];
       }];
     [_alertController addAction:quitOrRestartAction];
     
@@ -3465,16 +3479,27 @@ void run_on_ui_thread(dispatch_block_t block)
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
+    [self sessionQuitRestart:restart quittingFromSPSCacheUpload:NO];
+}
+
+// Quit or restart session without asking for confirmation
+- (void) sessionQuitRestart:(BOOL)restart quittingFromSPSCacheUpload:(BOOL)quittingFromSPSCacheUpload
+{
     //    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
     _scannedQRCode = NO;    
     _resettingSettings = NO;
     
-    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-        [self stopProctoringWithCompletion:^{
-            [self didCloseSEBServerConnectionRestart:restart];
+    if (quittingFromSPSCacheUpload) {
+        _quittingFromSPSCacheUpload = NO;
+        [self didCloseSEBServerConnectionRestart:restart];
+    } else {
+        [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+            [self stopProctoringWithCompletion:^{
+                [self didCloseSEBServerConnectionRestart:restart];
+            }];
         }];
-    }];
+    }
 }
 
 
@@ -3549,6 +3574,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     // Check if the cancel button was pressed
     if (!password) {
+        _quittingFromSPSCacheUpload = NO;
         [self.sideMenuController hideLeftViewAnimated];
         return;
     }
@@ -3584,6 +3610,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", @"");
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             [self.sideMenuController hideLeftViewAnimated];
+            _quittingFromSPSCacheUpload = NO;
             return;
         }
         
@@ -3599,7 +3626,7 @@ void run_on_ui_thread(dispatch_block_t block)
     run_on_ui_thread(^{
         self->receivedServerConfig = nil;
         [self.browserController quitSession];
-        [self sessionQuitRestart:NO];
+        [self sessionQuitRestart:NO quittingFromSPSCacheUpload:_quittingFromSPSCacheUpload];
     });
 }
 
@@ -5072,14 +5099,11 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.transmittingCachedScreenShotsViewController = [storyboard instantiateViewControllerWithIdentifier:@"TransmittingCachedScreenShotsViewController"];
                 self.transmittingCachedScreenShotsViewController.uiDelegate = self;
                 self.transmittingCachedScreenShotsViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-//                if (@available(iOS 13.0, *)) {
-//                    self.transmittingCachedScreenShotsViewController.modalInPresentation = YES;
-//                }
-                self.transmittingCachedScreenShotsViewController.windowTitle.text = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
-                [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation totalScreenShots:remainingScreenShots];
             }
             self.transmittingCachedScreenShotsWindowOpen = YES;
             [self.topMostController presentViewController:self.transmittingCachedScreenShotsViewController animated:YES completion:^{
+                self.transmittingCachedScreenShotsViewController.windowTitle.text = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
+                [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation totalScreenShots:remainingScreenShots];
             }];
         }
     });

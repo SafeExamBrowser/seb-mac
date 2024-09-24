@@ -563,7 +563,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
             [_sebViewController searchTextOnPage];
         }
         if ([key caseInsensitiveCompare:SEBKeyShortcutQuit] == NSOrderedSame && modifier == (UIKeyModifierCommand | UIKeyModifierShift)) {
-            [_sebViewController quitExamConditionally];
+            [_sebViewController quitExamConditionally:self];
         }
     }
 }
