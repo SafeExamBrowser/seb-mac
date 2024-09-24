@@ -230,6 +230,12 @@
 }
 
 
+- (NSURL *) startURL
+{
+    return _sebViewController.sessionState.startURL;
+}
+
+
 - (void) openDownloadedFile:(NSString *)path
 {
     // Open downloaded file ToDo: Doesn't work on iOS, but app is opened
