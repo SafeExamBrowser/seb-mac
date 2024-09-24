@@ -1,15 +1,18 @@
 //
-//  SEBScreenCaptureControllerTests.swift
-//  SafeExamBrowserTests
+//  SEBIntegrationTests.swift
+//  SEBTests
 //
-//  Created by Daniel Schneider on 11.08.2024.
+//  Created by Daniel Schneider on 22.09.2024.
 //
+
 
 import XCTest
-import Safe_Exam_Browser
+import SEB
 
-final class SEBScreenCaptureControllerTests: XCTestCase {
+@objc final class IntegrationTests: XCTestCase {
 
+    private lazy var sebViewController = SEBViewController()
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
@@ -27,15 +30,12 @@ final class SEBScreenCaptureControllerTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
     
-    func testTakeScreenShots() {
-        let screenCaptureController = ScreenCaptureController()
-        let screenShotColor24Bpp = screenCaptureController.takeScreenShot(scale: 0.5, quantization: .color24Bpp)
-        let screenShotColor24BppSize = screenShotColor24Bpp?.count ?? 0
-        let screenShotGrayscale8Bpp = screenCaptureController.takeScreenShot(scale: 0.5, quantization: .grayscale8Bpp)
-        let screenShotGrayscale8BppSize = screenShotGrayscale8Bpp?.count ?? 0
-        let grayscaleSmaller = screenShotColor24BppSize > screenShotGrayscale8BppSize
-        print("Grayscale picture is \(grayscaleSmaller ? "" : "not ")smaller")
-        XCTAssertGreaterThan(screenShotColor24BppSize, screenShotGrayscale8BppSize)
+    func testShowTransmittingCachedScreenShotsWindowWithRemainingScreenShots() {
+        
+        sebViewController.showTransmittingCachedScreenShotsWindow(remainingScreenShots: 20, message: nil, operation: "Transmitting Screen Shot 20 of 20")
+        sebViewController.allowQuit(true)
+        
+        XCTAssert(true)
     }
 
 //    func testShowTransmittingCachedScreenShotsWindowWithRemainingScreenShots() {

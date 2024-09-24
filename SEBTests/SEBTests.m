@@ -7,8 +7,14 @@
 //
 
 #import <XCTest/XCTest.h>
+//#import "SEBViewController.h"
+
+//@class SEBViewController;
+//@class SPSControllerUIDelegate;
 
 @interface SEBTests : XCTestCase
+
+//@property (strong, nonatomic) SEBViewController*_Nullable sebViewController;
 
 @end
 
@@ -24,10 +30,13 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
+//- (void)testShowTransmittingCachedScreenShotsWindowWithRemainingScreenShots {
+//    if (!_sebViewController) {
+//        _sebViewController = [SEBViewController new];
+//    }
+//    [_sebViewController showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:20  message:nil operation:@"Transmitting Screen Shot 20 of 20"];
+//    [_sebViewController allowQuit];
+//}
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
