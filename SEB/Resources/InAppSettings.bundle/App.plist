@@ -49,7 +49,7 @@
 			<array>
 				<string>macOS</string>
 				<string>Win</string>
-				<string>iOS</string>
+				<string>iPadOS</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
