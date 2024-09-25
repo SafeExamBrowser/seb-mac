@@ -301,7 +301,7 @@
          if (os != operatingSystemiOS) {
              cell.detailTextLabel.text = [SEBUIUserDefaultsController sharedSEBUIUserDefaultsController].org_safeexambrowser_SEB_operatingSystems[os];
          } else {
-             cell.detailTextLabel.text = dict[@"identifier"];
+             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", dict[@"identifier"], [dict[@"active"] boolValue] ? @"" : [NSString stringWithFormat:@" (%@)", NSLocalizedString(@"inactive", @"")]];
          }
          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
          return cell;
@@ -484,6 +484,12 @@
         // Otherwise only temporary SEB settings (prefix "org_safeexambrowser_") changed,
         // then we don't alter the Browser Exam and Config Keys
 
+    /// SEB Server
+    
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+        [self setDependentKeysForEnableScreenProctoring];
+    }
+    
     /// Config File
     
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebConfigPurpose"] ||
@@ -700,6 +706,7 @@
 
 - (void)setAllDependentKeys
 {
+    [self setDependentKeysForEnableScreenProctoring];
     [self setDependentKeysForSEBConfigPurpose];
     [self setDependentKeysForShareAs];
     [self setDependentKeysForRemoveDefaults];
@@ -711,6 +718,25 @@
     
     // This is necessary because [self setDependentKeysForPermanentSettingsChanged] doesn't work before the Exam Keys pane is actually displayed:
     _configModified = YES;
+}
+
+
+- (void)setDependentKeysForEnableScreenProctoring
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_screenProctoringIndicateHealthAndCaching"]];
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"] == NO)
+    {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys unionSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+        
+    } else {
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        [newHiddenKeys minusSet:dependentKeys];
+        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
+    }
+    [self setDependentKeysForPlainText];
 }
 
 
