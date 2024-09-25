@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
 @class SEBScreenProctoringController;
+@class TransmittingCachedScreenShotsViewController;
 @class SEBZoomController;
 
 
@@ -228,6 +229,11 @@ NS_ASSUME_NONNULL_BEGIN
 #define JitsiMeetProctoringSupported NO
 #define ZoomProctoringSupported NO
 @property (strong, nonatomic) SEBScreenProctoringController *_Nullable screenProctoringController;
+@property (strong, nonatomic) TransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
+@property (strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
+@property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
+@property (strong, nonatomic) NSString *_Nullable operationsString;
+
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
 @property(readwrite) BOOL previousSessionScreenProctoringEnabled;
@@ -293,10 +299,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong) NSMutableArray *capWindows;
 @property(strong) NSMutableArray *_Nullable lockdownWindows;
 @property(strong) NSMutableArray *inactiveScreenWindows;
+@property(strong) NSMutableArray *_Nullable lockModalWindows;
 @property(strong) NSScreen *mainScreen;
 @property(strong, atomic) NSMutableArray *modalAlertWindows;
 @property(strong, nonatomic) HUDController *hudController ;
 @property(strong) IBOutlet NSSecureTextField *enterPassword;
+@property(readonly) BOOL pseudoModalWindow;
 
 @property(strong, nonatomic) NSTimer *windowWatchTimer;
 @property(readwrite, nonatomic) dispatch_source_t processWatchTimer;
@@ -311,6 +319,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonScreenProctoring;
+@property(strong, nonatomic) NSString *dockButtonScreenProctoringStateString;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonProctoringView;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonRaiseHand;
 @property (weak) IBOutlet NSWindow *enterRaiseHandMessageWindow;
@@ -347,10 +356,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (NSModalResponse) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *_Nullable)window
+                                pseudoModal:(BOOL)pseudoModal
                           windowTitle:(NSString *)title;
 - (NSModalResponse) showEnterPasswordDialogAttributedText:(NSAttributedString *)text
-                                     modalForWindow:(NSWindow *)window
-                                        windowTitle:(NSString *)title;
+                                           modalForWindow:(NSWindow *)window
+                                              pseudoModal:(BOOL)pseudoModal
+                                              windowTitle:(NSString *)title;
 
 - (IBAction) okEnterPassword: (id)sender;
 - (IBAction) cancelEnterPassword: (id)sender;

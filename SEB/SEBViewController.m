@@ -138,7 +138,8 @@ static NSMutableSet *browserWindowControllers;
 {
     if (!_screenProctoringController) {
         _screenProctoringController = [[SEBScreenProctoringController alloc] init];
-//        _zoomController.proctoringUIDelegate = self;
+        _screenProctoringController.delegate = self;
+        _screenProctoringController.spsControllerUIDelegate = self;
     }
     return _screenProctoringController;
 }
@@ -359,6 +360,11 @@ static NSMutableSet *browserWindowControllers;
                                              selector:@selector(singleAppModeStatusChanged)
                                                  name:UIAccessibilityGuidedAccessStatusDidChangeNotification object:nil];
     
+    // Add an observer for the request to quit SEB with asking for quit password or confirming to quit
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(quitExamConditionally:)
+                                                 name:@"quitExamConditionally" object:nil];
+    
     // Add an observer for the request to quit SEB without asking quit password
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(quitLinkDetected:)
@@ -491,7 +497,8 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews 
+{
     [super viewDidLayoutSubviews];
     if (_openCloseSlider) {
         _openCloseSlider = NO;
@@ -877,7 +884,7 @@ static NSMutableSet *browserWindowControllers;
             _assistantViewController.sebViewController = self;
             _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             if (@available(iOS 13.0, *)) {
-                _assistantViewController.modalInPopover = YES;
+                _assistantViewController.modalInPresentation = YES;
             }
         }
         //// Initialize SEB Dock, commands section in the slider view and
@@ -886,7 +893,7 @@ static NSMutableSet *browserWindowControllers;
         // Add scan QR code Home screen quick action
         [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
         
-        self.initAssistantOpen = true;
+        self.initAssistantOpen = YES;
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
         }];
     }
@@ -2928,11 +2935,11 @@ void run_on_ui_thread(dispatch_block_t block)
         // Dismiss the Activate SAM alert in case it still was visible
         [_alertController dismissViewControllerAnimated:NO completion:^{
             self.alertController = nil;
-            self.startSAMWAlertDisplayed = false;
-            self.singleAppModeActivated = false;
+            self.startSAMWAlertDisplayed = NO;
+            self.singleAppModeActivated = NO;
             // Set the paused SAM alert displayed flag, because if loading settings
             // fails or is canceled, we need to restart the kiosk mode
-            self.pausedSAMAlertDisplayed = true;
+            self.pausedSAMAlertDisplayed = YES;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -2949,10 +2956,10 @@ void run_on_ui_thread(dispatch_block_t block)
     } else if (_initAssistantOpen) {
         // Check if the initialize settings assistant is open
         [self dismissViewControllerAnimated:YES completion:^{
-            self.initAssistantOpen = false;
+            self.initAssistantOpen = NO;
             // Reset the finished starting up flag, because if loading settings fails or is canceled,
             // we need to load the webpage
-            self.finishedStartingUp = false;
+            self.finishedStartingUp = NO;
             [self conditionallyOpenSEBConfig:sebConfig
                                     callback:callback
                                     selector:selector];
@@ -3394,8 +3401,17 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void) quitExamConditionally
+- (void) quitExamConditionally:(id)sender
 {
+    _quittingFromSPSCacheUpload = NO;
+    id senderObject;
+    if ([sender respondsToSelector:@selector(object)]) {
+        senderObject = [sender object];
+        Class senderClass = [senderObject class];
+        _quittingFromSPSCacheUpload = [senderClass isEqual:SEBiOSTransmittingCachedScreenShotsViewController.class];
+        DDLogDebug(@"%s sender.object: %@, object.class: %@ is equal to SEBiOSTransmittingCachedScreenShotsViewController.class: %d", __FUNCTION__, senderObject, senderClass, _quittingFromSPSCacheUpload);
+    }
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
@@ -3413,7 +3429,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             selector:@selector(enteredQuitPassword:)];
         } else {
             // if no quit password is required, then just confirm quitting
-            [self sessionQuitRestartIgnoringQuitPW:NO];
+            [self sessionQuitRestartIgnoringQuitPW:NO quittingFromSPSCacheUpload:_quittingFromSPSCacheUpload];
         }
     }
 }
@@ -3425,7 +3441,7 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
-        [self sessionQuitRestartIgnoringQuitPW:restart];
+        [self sessionQuitRestartIgnoringQuitPW:restart quittingFromSPSCacheUpload:NO];
     } else {
         [self sessionQuitRestart:restart];
     }
@@ -3433,7 +3449,7 @@ void run_on_ui_thread(dispatch_block_t block)
 
 
 // Quit or restart session, but ask user for confirmation first
-- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart
+- (void) sessionQuitRestartIgnoringQuitPW:(BOOL)restart quittingFromSPSCacheUpload:(BOOL)quittingFromSPSCacheUpload
 {
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -3446,7 +3462,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
           self.alertController = nil;
           DDLogInfo(@"Confirmed to %@ %@", restart ? @"restart" : @"quit", !self.quittingExamSession ? SEBShortAppName : @"exam session");
-          [self sessionQuitRestart:restart];
+          [self sessionQuitRestart:restart quittingFromSPSCacheUpload:quittingFromSPSCacheUpload];
       }];
     [_alertController addAction:quitOrRestartAction];
     
@@ -3464,16 +3480,27 @@ void run_on_ui_thread(dispatch_block_t block)
 // Quit or restart session without asking for confirmation
 - (void) sessionQuitRestart:(BOOL)restart
 {
+    [self sessionQuitRestart:restart quittingFromSPSCacheUpload:NO];
+}
+
+// Quit or restart session without asking for confirmation
+- (void) sessionQuitRestart:(BOOL)restart quittingFromSPSCacheUpload:(BOOL)quittingFromSPSCacheUpload
+{
     //    BOOL quittingClientConfig = ![NSUserDefaults userDefaultsPrivate];
     _openingSettings = NO;
     _scannedQRCode = NO;    
     _resettingSettings = NO;
     
-    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-        [self stopProctoringWithCompletion:^{
-            [self didCloseSEBServerConnectionRestart:restart];
+    if (quittingFromSPSCacheUpload) {
+        _quittingFromSPSCacheUpload = NO;
+        [self didCloseSEBServerConnectionRestart:restart];
+    } else {
+        [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+            [self stopProctoringWithCompletion:^{
+                [self didCloseSEBServerConnectionRestart:restart];
+            }];
         }];
-    }];
+    }
 }
 
 
@@ -3548,6 +3575,7 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     // Check if the cancel button was pressed
     if (!password) {
+        _quittingFromSPSCacheUpload = NO;
         [self.sideMenuController hideLeftViewAnimated];
         return;
     }
@@ -3583,6 +3611,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", @"");
             [self.configFileController showAlertWithTitle:title andText:informativeText];
             [self.sideMenuController hideLeftViewAnimated];
+            _quittingFromSPSCacheUpload = NO;
             return;
         }
         
@@ -3598,7 +3627,7 @@ void run_on_ui_thread(dispatch_block_t block)
     run_on_ui_thread(^{
         self->receivedServerConfig = nil;
         [self.browserController quitSession];
-        [self sessionQuitRestart:NO];
+        [self sessionQuitRestart:NO quittingFromSPSCacheUpload:self.quittingFromSPSCacheUpload];
     });
 }
 
@@ -3675,11 +3704,15 @@ void run_on_ui_thread(dispatch_block_t block)
             // when we're running in ASAM mode, it's not relevant if settings for SAM differ
             // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
+            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+#ifdef DEBUG
+            modernAAC = NO;
+#endif
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
                 (!self.ASAMActive && (self.singleAppModeActivated != self.allowSAM)) ||
-                (self.ASAMActive && (self.assessmentSessionActive != [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]))) {
+                (self.ASAMActive && (self.assessmentSessionActive != modernAAC))) {
                 
                 // If SAM is active, we display the alert for waiting for it to be switched off
                 if (self.singleAppModeActivated) {
@@ -4580,7 +4613,12 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = YES;
             
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
+            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+#ifdef DEBUG
+            modernAAC = NO;
+#endif
+
+            if (modernAAC) {
                 if (@available(iOS 13.4, *)) {
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
                     self.assessmentModeManager = assessmentModeManager;
@@ -4980,6 +5018,151 @@ void run_on_ui_thread(dispatch_block_t block)
         _sebServerPendingLockscreenEvents = [NSMutableArray new];
     }
     return _sebServerPendingLockscreenEvents;
+}
+
+
+#pragma mark - Screen Proctoring
+
+- (void)receivedUIEvent:event
+{
+    [_screenProctoringController receivedUIEvent:event view:_rootViewController.view];
+}
+
+
+#pragma mark - Screen Proctoring Delegate Methods
+
+- (NSDictionary<NSString *,NSString *>*) getScreenProctoringMetadataActiveAppWindow
+{
+    NSString *activeBrowserWindowTitle = self.browserTabViewController.visibleWebViewController.pageTitle;
+
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@)",
+                               [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleDisplayName"],
+                               [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleIdentifier"]];
+    
+    if (activeBrowserWindowTitle == nil) {
+        activeBrowserWindowTitle = @"";
+    }
+    
+    NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
+    return activeAppWindowMetadata;
+}
+
+
+- (NSString *) getScreenProctoringMetadataURL
+{
+    return self.browserTabViewController.currentURL.absoluteString;
+}
+
+- (NSString *) getScreenProctoringMetadataBrowser
+{
+    return self.browserController.openWebpagesTitlesString;
+}
+
+
+- (void) updateStatusWithString:(NSString *)string append:(BOOL)append
+{
+    [self.sebUIController updateStatusWithString:string append:append];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+{
+    [self setScreenProctoringButtonState:screenProctoringButtonState userFeedback:YES];
+}
+
+- (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
+                           userFeedback:(BOOL)userFeedback
+{
+    [self.sebUIController setScreenProctoringButtonState:screenProctoringButtonState userFeedback:userFeedback];
+}
+
+- (void) setScreenProctoringButtonInfoString:(NSString *)infoString
+{
+    [self.sebUIController setScreenProctoringButtonInfoString:infoString];
+}
+
+
+- (void)showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation
+{
+    run_on_ui_thread(^{
+        if (self.transmittingCachedScreenShotsWindowOpen) {
+            [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil totalScreenShots:remainingScreenShots];
+        } else {
+            if (self.alertController) {
+                [self.alertController dismissViewControllerAnimated:NO completion:^{
+                    self.alertController = nil;
+                    [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation];
+                }];
+                return;
+            }
+            
+            if (!self.transmittingCachedScreenShotsViewController) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"ScreenProctoring" bundle:nil];
+                self.transmittingCachedScreenShotsViewController = [storyboard instantiateViewControllerWithIdentifier:@"TransmittingCachedScreenShotsViewController"];
+                self.transmittingCachedScreenShotsViewController.uiDelegate = self;
+                self.transmittingCachedScreenShotsViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            }
+            self.transmittingCachedScreenShotsWindowOpen = YES;
+            [self.topMostController presentViewController:self.transmittingCachedScreenShotsViewController animated:YES completion:^{
+                self.transmittingCachedScreenShotsViewController.windowTitle.text = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
+                [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation totalScreenShots:remainingScreenShots];
+            }];
+        }
+    });
+}
+
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation totalScreenShots:(NSInteger)totalScreenShots
+{
+    [self updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:remainingScreenShots message:message operation:operation append:NO totalScreenShots:totalScreenShots];
+}
+
+- (void)updateTransmittingCachedScreenShotsWindowWithRemainingScreenShots:(NSInteger)remainingScreenShots message:(NSString * _Nullable)message operation:(NSString * _Nullable)operation append:(BOOL)append totalScreenShots:(NSInteger)totalScreenShots
+{
+    self.latestNumberOfCachedScreenShotsWhileClosing = remainingScreenShots;
+    run_on_ui_thread(^{
+        if (self->_transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.progressView.progress = totalScreenShots / remainingScreenShots;
+            if (message) {
+                self.transmittingCachedScreenShotsViewController.message.text = message;
+            }
+            if (operation) {
+                NSString *updatedOperations = operation;
+                if (append && self.operationsString.length > 0) {
+                    NSString *separator = [self.operationsString hasSuffix:@"."] ? @"" : @".";
+                    updatedOperations = [NSString stringWithFormat:@"%@%@ %@", self.operationsString, separator, operation];
+                }
+                self.transmittingCachedScreenShotsViewController.operations.text = updatedOperations;
+                self.operationsString = updatedOperations;
+            }
+        }
+    });
+}
+
+
+- (void)allowQuit:(BOOL)allowQuit
+{
+    run_on_ui_thread(^{
+        if (self->_transmittingCachedScreenShotsViewController) {
+            self.transmittingCachedScreenShotsViewController.quitButton.hidden = !allowQuit;
+        }
+    });
+}
+
+
+- (void)closeTransmittingCachedScreenShotsWindow:(void (^)(void))completion
+{
+    run_on_ui_thread(^{
+        if (_transmittingCachedScreenShotsViewController) {
+            [self.transmittingCachedScreenShotsViewController dismissViewControllerAnimated:YES completion:^{
+                self.transmittingCachedScreenShotsWindowOpen = NO;
+                self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
+                self.transmittingCachedScreenShotsViewController = nil;
+                completion();
+            }];
+        } else {
+            completion();
+        }
+    });
 }
 
 

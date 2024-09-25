@@ -101,7 +101,7 @@
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    self.sebViewController.initAssistantOpen = NO;
     [_assistantController cancelDownloadingClientConfig];
 }
 

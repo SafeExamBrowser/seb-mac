@@ -41,7 +41,7 @@
 @class SEBViewController;
 @class SEBUIController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIGestureRecognizerDelegate> {
     NSMutableArray *_persistentWebpages;
 }
 

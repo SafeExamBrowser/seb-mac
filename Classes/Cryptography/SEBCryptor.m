@@ -302,7 +302,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         if (generateNewSalt) {
             HMACKey = [self generateExamKeySalt];
             // Update salt in the filtered prefs directory
-            [filteredPrefsDict setObject:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
+            [filteredPrefsDict setValue:HMACKey forKey:@"org_safeexambrowser_SEB_examKeySalt"];
             // Generate new Browser Exam Key using new salt
             HMACData = [self checksumForPrefDictionary:filteredPrefsDict];
         }
@@ -550,7 +550,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                            initializeContainedKeys)) {
         // In case this key was empty, we use all current keys
         containedKeys = configKeysAlphabetically.copy;
-        [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
+        [*containedKeysPtr setValue:containedKeys forKey:dictionaryKey];
     } else if (![configKeysAlphabetically isEqualToArray:containedKeys]) {
         NSArray *newArray = [configKeysAlphabetically arrayByAddingObjectsFromArray:containedKeys];
         containedKeys = (NSArray *)[[NSSet setWithArray:newArray] allObjects];
@@ -558,7 +558,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
                                                                       sortDescriptorWithKey:@"description"
                                                                       ascending:YES
                                                                       selector:@selector(caseInsensitiveCompare:)]]].mutableCopy;
-        [*containedKeysPtr setObject:containedKeys forKey:dictionaryKey];
+        [*containedKeysPtr setValue:containedKeys forKey:dictionaryKey];
     }
     
     [*jsonStringPtr appendString:@"{"];

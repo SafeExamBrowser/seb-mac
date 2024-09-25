@@ -60,6 +60,44 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_sebServerFallback</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Screen Proctoring</string>
+			<key>FooterText</key>
+			<string>Connect to an individually configured SEB Screen Proctoring service. Currently this can only be configured using SEB Server.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Screen Proctoring</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_enableScreenProctoring</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Indicate Health and Caching</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_screenProctoringIndicateHealthAndCaching</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Remote Proctoring</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Remote Proctoring</string>
+			<key>File</key>
+			<string>RemoteProctoring</string>
+		</dict>
 	</array>
 </dict>
 </plist>

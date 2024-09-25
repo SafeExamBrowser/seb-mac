@@ -395,7 +395,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     if (filterExpressionString.length > 0) {
         id expression;
         expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpressionString error:&error];
-        if (!error || !expression) {
+        if (!error && !expression) {
             switch (action) {
                 case URLFilterActionAllow:
                     [self.permittedList addObject:expression];

@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) SEBServerController *sebServerController;
 @property (readonly, nonatomic) NSURL *url;
 
-- (NSError *) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
+- (NSError *_Nullable) connectToServer:(NSURL *)url withConfiguration:(NSDictionary *)sebServerConfiguration;
 - (BOOL) fallbackEnabled;
 - (void) startExamFromServer;
 - (void) loginToExam:(NSString * _Nonnull)url;

@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define SEBToolBarSearchBarIconWidth 24.0
 #define SEBToolBarSearchBarWidth 200.0
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -197,7 +197,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property (readwrite, strong) NSDate *didResumeExamTime;
 @property (readwrite, strong) NSDate *appDidEnterBackgroundTime;
 @property (readwrite, strong) NSDate *appDidBecomeActiveTime;
-@property(nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
+@property (nonatomic, strong) NSMutableArray <NSNumber *> *sebServerPendingLockscreenEvents;
 
 /// Settings
 @property (nonatomic, retain) IASKAppSettingsViewController *_Nullable appSettingsViewController;
@@ -212,6 +212,14 @@ void run_on_ui_thread(dispatch_block_t block);
 /// SEB Server
 @property (strong, nonatomic) ServerController *_Nullable serverController;
 @property (strong, nonatomic) SEBServerViewController *_Nullable sebServerViewController;
+
+/// Screen Proctoring
+- (void)receivedUIEvent:event;
+
+@property (strong, nonatomic) SEBiOSTransmittingCachedScreenShotsViewController *_Nullable transmittingCachedScreenShotsViewController;
+@property(readwrite) BOOL transmittingCachedScreenShotsWindowOpen;
+@property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
+@property (strong, nonatomic) NSString *_Nullable operationsString;
 
 /// Remote Proctoring
 #define JitsiMeetProctoringSupported YES
@@ -335,9 +343,10 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) resetSEB;
 
 #pragma mark - Start and quit exam session
-- (void) quitExamConditionally;
+- (void) quitExamConditionally:(id)sender;
 - (void) sessionQuitRestart:(BOOL)restart;
 - (void) quitExamWithCallback:(id)callback selector:(SEL)selector;
+@property(readwrite) BOOL quittingFromSPSCacheUpload;
 
 #pragma mark - Connecting to SEB Server
 // Waiting for user to select exam from SEB Server and to successfully log in

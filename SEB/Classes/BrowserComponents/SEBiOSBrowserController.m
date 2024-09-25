@@ -209,6 +209,13 @@
 }
 
 
+- (NSArray *) openWebpagesTitles
+{
+    NSArray *currentOpenWebpageTitles = _sebViewController.browserTabViewController.openWebpagesTitles;
+    return currentOpenWebpageTitles;
+}
+
+
 - (void)storeNewSEBSettings:(NSData *)sebData forEditing:(BOOL)forEditing forceConfiguringClient:(BOOL)forceConfiguringClient showReconfiguredAlert:(BOOL)showReconfiguredAlert callback:(id)callback selector:(SEL)selector
 {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -220,6 +227,12 @@
 {
     _sebViewController.openingSettings = NO;
     [_sebViewController storeNewSEBSettingsSuccessful:error];
+}
+
+
+- (NSURL *) startURL
+{
+    return _sebViewController.sessionState.startURL;
 }
 
 
