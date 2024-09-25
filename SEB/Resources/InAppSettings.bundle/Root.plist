@@ -42,14 +42,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>Remote Proctoring</string>
-			<key>File</key>
-			<string>RemoteProctoring</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Admin Password</string>
