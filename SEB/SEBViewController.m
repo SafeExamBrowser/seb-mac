@@ -497,7 +497,8 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
-- (void)viewDidLayoutSubviews {
+- (void)viewDidLayoutSubviews 
+{
     [super viewDidLayoutSubviews];
     if (_openCloseSlider) {
         _openCloseSlider = NO;
@@ -3408,7 +3409,7 @@ void run_on_ui_thread(dispatch_block_t block)
         senderObject = [sender object];
         Class senderClass = [senderObject class];
         _quittingFromSPSCacheUpload = [senderClass isEqual:SEBiOSTransmittingCachedScreenShotsViewController.class];
-        DDLogDebug(@"%s sender.object: %@, object.class: %@ is equal to SEBiOSTransmittingCachedScreenShotsViewController.class: %d", __FUNCTION__, senderObject, senderClass, quittingFromSPSCacheUpload);
+        DDLogDebug(@"%s sender.object: %@, object.class: %@ is equal to SEBiOSTransmittingCachedScreenShotsViewController.class: %d", __FUNCTION__, senderObject, senderClass, _quittingFromSPSCacheUpload);
     }
 
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -3428,7 +3429,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                             selector:@selector(enteredQuitPassword:)];
         } else {
             // if no quit password is required, then just confirm quitting
-            [self sessionQuitRestartIgnoringQuitPW:NO quittingFromSPSCacheUpload:quittingFromSPSCacheUpload];
+            [self sessionQuitRestartIgnoringQuitPW:NO quittingFromSPSCacheUpload:_quittingFromSPSCacheUpload];
         }
     }
 }
@@ -3626,7 +3627,7 @@ void run_on_ui_thread(dispatch_block_t block)
     run_on_ui_thread(^{
         self->receivedServerConfig = nil;
         [self.browserController quitSession];
-        [self sessionQuitRestart:NO quittingFromSPSCacheUpload:_quittingFromSPSCacheUpload];
+        [self sessionQuitRestart:NO quittingFromSPSCacheUpload:self.quittingFromSPSCacheUpload];
     });
 }
 
@@ -5148,14 +5149,19 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-- (void)closeTransmittingCachedScreenShotsWindow
+- (void)closeTransmittingCachedScreenShotsWindow:(void (^)(void))completion
 {
     run_on_ui_thread(^{
-        [self.transmittingCachedScreenShotsViewController dismissViewControllerAnimated:YES completion:^{
-            self.transmittingCachedScreenShotsWindowOpen = NO;
-            self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
-            self.transmittingCachedScreenShotsViewController = nil;
-        }];
+        if (_transmittingCachedScreenShotsViewController) {
+            [self.transmittingCachedScreenShotsViewController dismissViewControllerAnimated:YES completion:^{
+                self.transmittingCachedScreenShotsWindowOpen = NO;
+                self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
+                self.transmittingCachedScreenShotsViewController = nil;
+                completion();
+            }];
+        } else {
+            completion();
+        }
     });
 }
 

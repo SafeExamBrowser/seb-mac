@@ -31,7 +31,8 @@ class SEBiOSTransmittingCachedScreenShotsViewController: UIViewController {
     }
     
     @IBAction func quitButtonTapped(_ sender: Any) {
-        uiDelegate?.closeTransmittingCachedScreenShotsWindow()
-        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "quitExamConditionally"), object: self))
+        uiDelegate?.closeTransmittingCachedScreenShotsWindow {
+            NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "quitExamConditionally"), object: self))
+        }
     }
 }
