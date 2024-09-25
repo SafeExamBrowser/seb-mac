@@ -161,7 +161,8 @@ typedef NSUInteger browserWindowShowURLPolicies;
 
 enum {
     coveringWindowBackground                    = 0,
-    coveringWindowLockdownAlert                 = 1
+    coveringWindowLockdownAlert                 = 1,
+    coveringWindowModalAlert                    = 2
 };
 typedef NSUInteger coveringWindowKind;
 
@@ -198,7 +199,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion17                            = 17
+    iOSBetaVersion18                            = 18
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -212,7 +213,8 @@ enum {
     iOSVersion14                                = 14,
     iOSVersion15                                = 15,
     iOSVersion16                                = 16,
-    iOSVersion17                                = 17
+    iOSVersion17                                = 17,
+    iOSVersion18                                = 18
 };
 typedef NSUInteger iOSVersion;
 

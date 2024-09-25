@@ -97,8 +97,11 @@
         if (@available(macOS 10.13, iOS 11.0, *)) {
             if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
                 BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-                
-                if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"] || downloadingInTemporaryWebView) {
+                BOOL urlContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
+#ifdef DEBUG
+                urlContentFilter = NO;
+#endif
+                if (!urlContentFilter || downloadingInTemporaryWebView) {
                     
                     if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
                         (webViewSelectPolicy == webViewSelectPreferModern) ||

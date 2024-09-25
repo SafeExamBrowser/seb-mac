@@ -128,8 +128,8 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (void)setDownloadDirectory
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 #if TARGET_OS_OSX
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"]) {
         downloadDirectoryURL = [self.delegate getTempDownUploadDirectory];
     } else {
@@ -238,6 +238,23 @@ void run_block_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (NSString *) openWebpagesTitlesString
+{
+    NSArray *openWebpagesTitles = [_delegate openWebpagesTitles];
+    NSString *openWebpagesTitlesMetaDataString = @"Main Window: ";
+    NSString *openWebpagesTitlesMetaDataKeyString = nil;
+    for (NSString *pageTitle in openWebpagesTitles) {
+        if (openWebpagesTitlesMetaDataKeyString) {
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingFormat:@", %@: %@", openWebpagesTitlesMetaDataKeyString, pageTitle];
+        } else {
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingString:pageTitle];
+            openWebpagesTitlesMetaDataKeyString = @"Additional Window";
+        }
+    }
+    return openWebpagesTitlesMetaDataString;
+}
+
+
 #pragma mark - SEBAbstractWebViewNavigationDelegate Methods
 
 - (NSData *)browserExamKey
@@ -336,7 +353,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         }
 #endif
         // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.2.5 %@/3.3 %@/3.3.2 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
+        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.2.5 %@/3.3 %@/3.3.2 %@/3.3.3 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
         _customSEBUserAgent = overrideUserAgent;
     }
     return _customSEBUserAgent;

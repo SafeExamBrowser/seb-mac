@@ -277,7 +277,7 @@
                              selector:(SEL)selector
 {
     NSString *password = nil;
-    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil pseudoModal:NO windowTitle:title] == SEBEnterPasswordOK) {
         password = [self.sebController.enterPassword stringValue];
     }
     IMP imp = [callback methodForSelector:selector];
@@ -295,7 +295,7 @@
                        completionHandler:(void (^)(BOOL correctPasswordEntered))enteredPasswordHandler
 {
     NSString *password = nil;
-    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil pseudoModal:NO windowTitle:title] == SEBEnterPasswordOK) {
         password = [self.sebController.enterPassword stringValue];
     }
     IMP imp = [callback methodForSelector:selector];
@@ -308,7 +308,7 @@
                                             title:(NSString *)title
 {
     NSString *password = nil;
-    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil windowTitle:title] == SEBEnterPasswordOK) {
+    if ([self.sebController showEnterPasswordDialog:messageText modalForWindow:nil pseudoModal:NO windowTitle:title] == SEBEnterPasswordOK) {
         password = [self.sebController.enterPassword stringValue];
     }
     return password;

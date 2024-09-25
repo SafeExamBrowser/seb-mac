@@ -98,7 +98,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="24" y="45" width="604" height="612"/>
+                                                <rect key="frame" x="38" y="57" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -143,7 +143,7 @@
                                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-0V-1sZ">
                                                                         <rect key="frame" x="-2" y="-1" width="572" height="18"/>
                                                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
-                                                                        <buttonCell key="cell" type="check" title="Allow app switching (open/debug mode)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Mf8-Fd-4KH">
+                                                                        <buttonCell key="cell" type="check" title="Allow app switching (open book/debug mode)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Mf8-Fd-4KH">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
@@ -529,7 +529,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs. macOS is currently not supported" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
+                                                                                                <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
                                                                                                     <rect key="frame" x="25" y="-4" width="107" height="25"/>
                                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

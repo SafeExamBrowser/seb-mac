@@ -38,6 +38,11 @@ final class SEBScreenCaptureControllerTests: XCTestCase {
         XCTAssertGreaterThan(screenShotColor24BppSize, screenShotGrayscale8BppSize)
     }
 
+//    func testShowTransmittingCachedScreenShotsWindowWithRemainingScreenShots() {
+//        let sebViewController = SEBViewController()
+//    }
+    
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         //self.measure {

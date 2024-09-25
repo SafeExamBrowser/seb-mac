@@ -146,6 +146,13 @@
     return self.currentTabIndex == 0;
 }
 
+- (NSArray *) openWebpagesTitles
+{
+    NSArray *currentOpenWebpageTitles = [_persistentWebpages valueForKeyPath:@"title"];
+    return currentOpenWebpageTitles;
+}
+
+
 - (void) toggleScrollLock
 {
     [_visibleWebViewController toggleScrollLock];
@@ -627,7 +634,7 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
     
     // Check if the user is closing the main web view (with the exam)
     if (tabIndex == 0) {
-        [_sebViewController quitExamConditionally];
+        [_sebViewController quitExamConditionally:self];
     } else {
         [self closeTab];
     }
