@@ -72,7 +72,7 @@ private struct SPSTransmittingState {
     func updateTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?, totalScreenShots: Int)
     func updateTransmittingCachedScreenShotsWindow(remainingScreenShots: Int, message: String?, operation: String?, append: Bool, totalScreenShots: Int)
     func allowQuit(_ allowQuit: Bool)
-    func closeTransmittingCachedScreenShotsWindow()
+    func closeTransmittingCachedScreenShotsWindow(_ completion: @escaping () -> Void)
 }
 
 struct MetadataSettings {
@@ -557,10 +557,11 @@ extension SEBScreenProctoringController {
 
     public func conditionallyCloseSession() {
         if closingSession {
-            spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow()
-            setScreenProctoringButtonInfoString("closing Session")
-            let completionHandler = closingSessionCompletionHandler
-            continueClosingSession(completionHandler: completionHandler)
+            spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow {
+                self.setScreenProctoringButtonInfoString("closing Session")
+                let completionHandler = self.closingSessionCompletionHandler
+                self.continueClosingSession(completionHandler: completionHandler)
+            }
         }
     }
     
@@ -833,8 +834,9 @@ extension SEBScreenProctoringController {
         stopMaxIntervalTimer()
         if self.screenShotCache.isEmpty {
             DDLogInfo("SEB Screen Proctoring Controller: There are no cached screen shots, continue closing session.")
-            spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow()
-            self.continueClosingSession(completionHandler: completionHandler)
+            spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow {
+                self.continueClosingSession(completionHandler: completionHandler)
+            }
         } else {
             numberOfCachedScreenShotsWhileClosing = self.screenShotCache.count
             DDLogInfo("SEB Screen Proctoring Controller: There are \(numberOfCachedScreenShotsWhileClosing) cached screen shots which need to be transmitted to the server before session can be closed.")
