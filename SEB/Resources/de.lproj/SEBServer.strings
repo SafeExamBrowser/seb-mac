@@ -1,3 +1,5 @@
+"Connect to an individually configured SEB Screen Proctoring service. Currently this can only be configured using SEB Server." = "";
+
 /* (No Comment) */
 "Connect to SEB Server" = "Mit SEB Server verbinden";
 
@@ -15,6 +17,11 @@
 
 /* (No Comment) */
 "SEB Server Fallback" = "SEB Server-Fallback";
+
+"Screen Proctoring" = "Screen Proctoring";
+"Enable Screen Proctoring" = "Enable Screen Proctoring";
+"Indicate Health and Caching" = "";
+"Remote Proctoring" = "Remote Proctoring";
 
 /* (No Comment) */
 "Server Connection Settings" = "Server-Verbindungseinstellungen";
