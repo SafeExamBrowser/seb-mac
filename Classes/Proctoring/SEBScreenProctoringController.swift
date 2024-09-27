@@ -550,7 +550,7 @@ extension SEBScreenProctoringController {
             let transmissionInterval = closingSession ? (currentServerHealth + 2) * ((screenshotMinInterval ?? 1000)/1000) : nil
             screenShotCache.transmitNextCachedScreenShot(interval: transmissionInterval)
         } else {
-            setScreenProctoringButtonInfoString("all cached screenshots transmitted")
+            setScreenProctoringButtonInfoString(NSLocalizedString("All cached screenshots transmitted", comment: ""))
             conditionallyCloseSession()
         }
     }
@@ -558,7 +558,7 @@ extension SEBScreenProctoringController {
     public func conditionallyCloseSession() {
         if closingSession {
             spsControllerUIDelegate?.closeTransmittingCachedScreenShotsWindow {
-                self.setScreenProctoringButtonInfoString("closing Session")
+                self.setScreenProctoringButtonInfoString(NSLocalizedString("Closing Session", comment: ""))
                 let completionHandler = self.closingSessionCompletionHandler
                 self.continueClosingSession(completionHandler: completionHandler)
             }
