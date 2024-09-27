@@ -35,5 +35,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MyGlobals.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+
+@class MyGlobals;
 
 #endif

@@ -85,11 +85,17 @@
 /* Class = "NSButtonCell"; title = "SEB Server Fallback"; ObjectID = "413"; */
 "413.title" = "SEB Server-Fallback";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Show server/connection health and caching status in the Dock icon and its tooltip"; ObjectID = "AkZ-jj-wGy"; */
+"AkZ-jj-wGy.ibShadowedToolTip" = "Anzeige des Server-/Verbindungsstatus und des Caching-Status im Dock-Symbol und dessen Tooltip";
+
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
 "d6u-EM-bnR.ibExternalAccessibilityDescription" = "Mit SEB Server verbinden";
 
 /* Class = "NSButtonCell"; title = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
 "d6u-EM-bnR.title" = "Mit SEB Server verbinden";
+
+/* Class = "NSButtonCell"; title = "Enable Screen Proctoring"; ObjectID = "IAJ-25-gFN"; */
+"IAJ-25-gFN.title" = "Screen Proctoring aktivieren";
 
 /* Class = "NSButtonCell"; title = "Paste from saved clipboard"; ObjectID = "j7I-dg-7wv"; */
 "j7I-dg-7wv.title" = "Einfügen aus gesicherter Zwischenablage";
@@ -102,6 +108,12 @@
 
 /* Class = "NSTextFieldCell"; title = "SEB Server URL"; ObjectID = "JvD-qA-qAF"; */
 "JvD-qA-qAF.title" = "SEB Server URL";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Connect to an individually configured SEB Screen Proctoring service. Currently this can only be configured using SEB Server"; ObjectID = "KVO-eA-daR"; */
+"KVO-eA-daR.ibShadowedToolTip" = "Verbindung zu einem individuell konfigurierten SEB Screen Proctoring Service. Derzeit kann dies nur über SEB Server konfiguriert werden";
+
+/* Class = "NSButtonCell"; title = "Indicate health and caching"; ObjectID = "Qby-E3-kAV"; */
+"Qby-E3-kAV.title" = "Verbindungsstatus und Caching anzeigen";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Full SEB Server URL (starting with http:// or https://)"; ObjectID = "upZ-Jd-MXz"; */
 "upZ-Jd-MXz.ibShadowedToolTip" = "Vollständige SEB Server URL (beginnend mit http:// oder https://)";

@@ -5,6 +5,9 @@
 " (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
 /* No comment provided by engineer. */
+" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." = "%1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Screen Proctoring Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Server verwendet werden soll.";
+
+/* No comment provided by engineer. */
 " 1" = "1";
 
 /* No comment provided by engineer. */
@@ -146,6 +149,9 @@
 "Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@." = "Erkundigen Sie sich beim Anbieter Ihrer Prüfungslösung, wie Sie diese mit %1$@ verwenden können.%2$@Allgemeine Anweisungen zur Konfiguration von %3$@ finden Sie auf %4$@.";
 
 /* No comment provided by engineer. */
+"Assessment Mode was interrupted with error: " = "Der AAC-Bewertungsmodus wurde mit einem Fehler unterbrochen: ";
+
+/* No comment provided by engineer. */
 "Authentication Required" = "Authentifizierung notwendig";
 
 /* No comment provided by engineer. */
@@ -258,6 +264,9 @@
 
 /* No comment provided by engineer. */
 "Check your server connection configuration." = "Die Konfiguration der Serververbindung muss überprüft werden.";
+
+/* No comment provided by engineer. */
+"Checking server health" = "Serverstatus wird überprüft";
 
 /* No comment provided by engineer. */
 "Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von iOS nicht mehr vollständig unterstützt! Die verwendeten %@-Prüfungssystem-Integrationen/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
@@ -497,6 +506,9 @@
 "File" = "Datei";
 
 /* No comment provided by engineer. */
+"Finalizing Screen Proctoring" = "Screen Proctoring abschliessen";
+
+/* No comment provided by engineer. */
 "Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams." = "Befolgen Sie die Anweisungen Ihres Prüfers, wie Sie eine Prüfung in %1$@ starten können.%2$@Wenn Sie versuchen, die %3$@-Einstellungen selbst zu bearbeiten, kann der Zugang zu Prüfungen gesperrt werden.";
 
 /* No comment provided by engineer. */
@@ -515,7 +527,7 @@
 "For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Auf diesem Gerät ist Zugriff auf %4$@%5$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.";
 
 /* No comment provided by engineer. */
-"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie %7$@die Session starten können.";
+"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie die Session %7$@ starten können.";
 
 /* No comment provided by engineer. */
 "Force Classic" = "Klassische erzwingen";
@@ -543,6 +555,9 @@
 
 /* No comment provided by engineer. */
 "Go Forward" = "Vorwärts";
+
+/* No comment provided by engineer. */
+"Good server health, waiting until %@ to resume sending cached screen shots" = "Server-Verbindungsstatus ist gut, warten auf die Wiederaufnahme der Übertragung um %@";
 
 /* No comment provided by engineer. */
 "Hiding" = "Zeige";
@@ -584,6 +599,9 @@
 "in Settings " = "in der Einstellungen-App ";
 
 /* No comment provided by engineer. */
+"inactive" = "inaktiv";
+
+/* No comment provided by engineer. */
 "Info" = "Info";
 
 /* No comment provided by engineer. */
@@ -593,10 +611,13 @@
 "Instructions for Students" = "Instruktionen für Studierende";
 
 /* No comment provided by engineer. */
-"iOS 17" = "iOS 17";
+"iOS 18" = "iOS 18";
 
 /* No comment provided by engineer. */
 "iOS User agent" = "iOS User Agent";
+
+/* No comment provided by engineer. */
+"iPadOS" = "iPadOS";
 
 /* No comment provided by engineer. */
 "Left" = "Links";
@@ -851,6 +872,12 @@
 "Repeating Error: Invalid Token" = "Wiederholter Fehler: Ungültiges Token";
 
 /* No comment provided by engineer. */
+"Request failed" = "Request fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Request failed, retrying..." = "Request fehlgeschlagen, erneut versuchen…";
+
+/* No comment provided by engineer. */
 "Reset Settings" = "Einstellungen zurücksetzen";
 
 /* No comment provided by engineer. */
@@ -866,7 +893,7 @@
 "Retry" = "Wiederholen";
 
 /* No comment provided by engineer. */
-"return to SEB and re" = "zu SEB zurückkehren und ";
+"return to %@ and re" = "und %@ erneut";
 
 /* No comment provided by engineer. */
 "Revert to Client Settings" = "Zurücksetzen auf Client-Einstellungen";
@@ -903,6 +930,15 @@
 
 /* Lockdown alert title text for screen is being captured/shared */
 "Screen is Being Captured/Shared!" = "Bildschirm wird aufgezeichnet/geteilt!";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Active" = "Screen Proctoring Aktiv";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Inactive" = "Screen Proctoring Inaktiv";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Session" = "Screen Proctoring Session";
 
 /* No comment provided by engineer. */
 "Scroll Lock" = "Scrollsperre";
@@ -954,6 +990,18 @@
 
 /* No comment provided by engineer. */
 "Send Logs to %@ Developers" = "Logdateien an %@-Entwickler senden";
+
+/* No comment provided by engineer. */
+"Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Verbindungsstatus %d von 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10" = "Verbindungsstatus %d von 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, deferring sending screen shots" = "Verbindungsstatus %d von 10, Übertragung erfolgt verzögert";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, waiting until %@ to resume sending cached screen shots" = "Verbindungsstatus %1$d von 10, warten auf Wiederaufnahme der Übertragung um %2$@";
 
 /* No comment provided by engineer. */
 "Settings" = "Einstellungen";
@@ -1109,6 +1157,12 @@
 "Toggle Side Menu" = "Seitenmenü ein-/ausblenden";
 
 /* No comment provided by engineer. */
+"Transmitting screen shot %d of %d" = "Übertrage Bildschirmfoto %1$d von %2$d";
+
+/* No comment provided by engineer. */
+"Transmitting screen shot failed with error: %@" = "Übertragung ist fehlgeschlagen: %@";
+
+/* No comment provided by engineer. */
 "Type" = "Typ";
 
 /* Default message of lock screen alert. */
@@ -1148,10 +1202,16 @@
 "Version" = "Version";
 
 /* No comment provided by engineer. */
+"Waiting %d seconds" = "Warte %d Sekunden";
+
+/* No comment provided by engineer. */
 "Waiting for Single App Mode" = "Warten auf Einzel-App-Modus";
 
 /* No comment provided by engineer. */
 "Waiting For Single App Mode to End" = "Warten auf Ende des Einzel-App-Modus";
+
+/* No comment provided by engineer. */
+"Waiting until %@ to resume sending cached screen shots" = "Warte auf die Wiederaufnahme der Übertragung um %@";
 
 /* No comment provided by engineer. */
 "warn when service is not running" = "Warnen, wenn der Service nicht läuft";
@@ -1241,10 +1301,13 @@
 "You will be able to work with other apps after Single App Mode is switched off by your administrator." = "Sie können mit anderen Apps arbeiten, nachdem der Einzel-App-Modus von Ihrem Administrator ausgeschaltet wurde.";
 
 /* No comment provided by engineer. */
-"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again." = "Ihr Gerät ist nun entsperrt, Sie können %1$@ mit der Home-Taste oder mittels vom unteren Bildschirmrand aus nach oben wischen verlassen.%2$@Verwenden Sie die Taste unten, um eine weitere Prüfungssitzung zu starten und das Gerät wieder zu sperren.";
+"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again." = "Ihr Gerät ist nun entsperrt, Sie können %1$@ mit der Home-Taste oder mittels vom unteren Bildschirmrand aus nach oben wischen verlassen.%2$@Verwenden Sie die Taste unten, um eine weitere Prüfungssession zu starten und das Gerät wieder zu sperren.";
 
 /* No comment provided by engineer. */
 "Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Ihre Institution unterstützt die automatische %@-Client-Konfiguration möglicherweise nicht. Befolgen Sie die Anweisungen Ihres Prüfungs-Administrators.";
+
+/* No comment provided by engineer. */
+"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" = "Ihr Bildschirm wird während dieser Prüfung gemäss den Vorgaben und Datenschutzrichtlinien Ihres Prüfungsanbieters aufgezeichnet. Für Fragen hierzu wenden Sie sich bitte an Ihren Prüfungsanbieter.";
 
 /* No comment provided by engineer. */
 "Zoom Page In" = "Seiteninhalt vergrössern";

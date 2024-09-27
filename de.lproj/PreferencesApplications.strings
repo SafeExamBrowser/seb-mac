@@ -1,23 +1,29 @@
 /* Class = "NSButtonCell"; title = "Ignore in AAC"; ObjectID = "0ME-6B-zzQ"; */
 "0ME-6B-zzQ.title" = "Im AAC-Modus ignorieren";
 
+/* Class = "NSButtonCell"; title = "Allow share sheet"; ObjectID = "2Rj-SD-rgT"; */
+"2Rj-SD-rgT.title" = "Share Sheet zulassen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)"; ObjectID = "3ET-Le-SL5"; */
 "3ET-Le-SL5.ibShadowedToolTip" = "Icon der erlaubten Applikation im Dock/Taskleiste anzeigen (nicht möglich, wenn 'Als Hintergrund-Prozess zulassen' aktiviert ist)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode."; ObjectID = "5"; */
-"5.ibShadowedToolTip" = "Setzt die Sicherheit des Kiosk-Modus herab durch Zulassen des Programmumschalters cmd-Tab (Befehlstaste-Tabulator). SEB muss in einem gesicherten Benutzerkonto betrieben werden!";
+/* Class = "NSButtonCell"; title = "Allow manual start"; ObjectID = "4Gu-dy-BzM"; */
+"4Gu-dy-BzM.title" = "Manuellen Start erlauben";
 
-/* Class = "NSButtonCell"; title = "Allow switching to third party applications"; ObjectID = "6"; */
+/* Class = "NSButton"; ibShadowedToolTip = "When using AAC Assessment Mode, SEB blocks the macOS Open File and Save As panel. Users cannot browse the file system and open files manuall in most permitted apps with AAC Multi App Mode."; ObjectID = "5"; */
+"5.ibShadowedToolTip" = "Wenn Sie den AAC-Bewertungsmodus verwenden, blockiert SEB den macOS-Dialog 'Datei öffnen' und 'Speichern unter'. Benutzer können das Dateisystem nicht durchsuchen und in den meisten zugelassenen Apps mit AAC Multi-App Modus keine Dateien manuell öffnen.";
+
+/* Class = "NSButtonCell"; title = "Allow open/save panel"; ObjectID = "6"; */
 "6.title" = "Umschalten auf Drittapplikationen erlauben";
+
+/* Class = "NSTextFieldCell"; title = "Team ID"; ObjectID = "9ep-FT-5jP"; */
+"9ep-FT-5jP.title" = "Team-ID";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow user to start the additional application with its Dock icon"; ObjectID = "13k-Ch-eng"; */
+"13k-Ch-eng.ibShadowedToolTip" = "Dem Benutzer erlauben, die zusätzliche Anwendung über ihr Dock-Symbol zu starten";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents"; ObjectID = "48u-14-9LW"; */
 "48u-14-9LW.ibShadowedToolTip" = "SEB versucht verbotene Applikationen automatisch zu beenden und ihnen die Gelegenheit zum Abspeichern von ungesicherten Änderungen zu geben";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Playing videos full screen with Flash is a security problem. Better use HTML5 video instead of Flash! When switching to third party applications is disabled, Flash fullscreen mode isn't possible at all."; ObjectID = "134"; */
-"134.ibShadowedToolTip" = "Videos mittels Flash im Vollbildmodus abzuspielen ist ein Sicherheitsproblem. Deshalb wird empfohlen, HTML5-Video anstatt Flash zu benutzen (dort ist der Vollbildmodus kein Problem). Bei deaktiviertem Umschalten auf Drittapplikationen ist der Flash-Vollbildmodus grundsätzlich nicht möglich.";
-
-/* Class = "NSButtonCell"; title = "Allow Flash to switch to full screen mode"; ObjectID = "135"; */
-"135.title" = "Flash-Vollbildmodus erlauben";
 
 /* Class = "NSTabViewItem"; label = "Permitted Processes"; ObjectID = "240"; */
 "240.label" = "Erlaubte Prozesse";
@@ -109,7 +115,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Remove a command line argument for the permitted process"; ObjectID = "866"; */
 "866.ibShadowedToolTip" = "Argument entfernen";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title for tricky Win applications (Java, Acrobat etc.)"; ObjectID = "887"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Bundle identifier of the app/process in reverse domain notation"; ObjectID = "887"; */
 "887.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "897"; */
@@ -121,14 +127,14 @@
 /* Class = "NSButtonCell"; title = "Autostart"; ObjectID = "950"; */
 "950.title" = "Autostart";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "956"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted app in AAC Multi App Mode to access the network/internet"; ObjectID = "956"; */
 "956.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
 
-/* Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "957"; */
+/* Class = "NSButtonCell"; title = "Allow network access"; ObjectID = "957"; */
 "957.title" = "Als Hintergrund-Prozess zulassen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted"; ObjectID = "982"; */
-"982.ibShadowedToolTip" = "Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle Identifier, Signatur)";
+"982.ibShadowedToolTip" = "Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle-ID, Signatur)";
 
 /* Class = "NSButtonCell"; title = "Allow user to select location of application"; ObjectID = "983"; */
 "983.title" = "Benutzer erlauben, die Applikation auszuwählen";
@@ -145,7 +151,7 @@
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select operating system"; ObjectID = "1314"; */
 "1314.ibExternalAccessibilityDescription" = "Betriebssystem auswählen";
 
-/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs. macOS is currently not supported"; ObjectID = "1314"; */
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Indicates on which operating system the permitted process runs"; ObjectID = "1314"; */
 "1314.ibShadowedToolTip" = "Betriebssystem, auf welchem der erlaubte Prozess läuft";
 
 /* Class = "NSButton"; ibShadowedToolTip = "For choosing a running process which will be added to the list of permitted processes"; ObjectID = "1600"; */
@@ -187,7 +193,7 @@
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Identifier"; ObjectID = "1859"; */
 "1859.ibExternalAccessibilityDescription" = "Identifier";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation (macOS) or a (sub-)string of its main window title"; ObjectID = "1859"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "Identifier of the process in reverse domain notation"; ObjectID = "1859"; */
 "1859.ibShadowedToolTip" = "Identifier des Prozesses in der umgekehrten DNS-Notation (macOS) oder eine Teil-Zeichenkette des Titels des Hauptfensters (Win)";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Process name, usually the file name of the executable"; ObjectID = "1893"; */
@@ -262,11 +268,32 @@
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Update dependent settings for Multi App Mode and secure download/opening/upload of files in additional apps"; ObjectID = "I9H-dv-7jE"; */
+"I9H-dv-7jE.ibShadowedToolTip" = "Aktualisierung der relevanten Einstellungen für den Multi-App-Modus und sicheres Herunterladen/Öffnen/Hochladen von Dateien in zusätzlichen Anwendungen";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Team identifier of the app's code signature"; ObjectID = "JdC-V9-Us6"; */
+"JdC-V9-Us6.ibShadowedToolTip" = "Team-Identifikator der Codesignatur der Anwendung";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode."; ObjectID = "Jx8-0V-1sZ"; */
+"Jx8-0V-1sZ.ibShadowedToolTip" = "Setzt die Sicherheit des Kiosk-Modus herab durch Zulassen des Programmumschalters cmd-Tab (Befehlstaste-Tabulator). Nur für offene Prüfungen oder zum Debugging empfohlen!";
+
+/* Class = "NSButton"; ibShadowedToolTip = "When using AAC Assessment Mode, SEB blocks the macOS share sheet. Users cannot share documents in permitted apps with AAC Multi App Mode."; ObjectID = "k51-pu-omV"; */
+"k51-pu-omV.ibShadowedToolTip" = "Wenn Sie den AAC-Bewertungsmodus verwenden, blockiert SEB das macOS Share Sheet. Benutzer können keine Dokumente in erlaubten Apps mit AAC Multi-App-Modus teilen.";
+
 /* Class = "NSButton"; ibShadowedToolTip = "When using the AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP"; */
 "kwe-Gh-ELP.ibShadowedToolTip" = "Diesen verbotenen Prozess ignorieren, wenn der neue AAC-Kioskmodus benutzt wird (welcher Netzwerk- und Bildschirmzugriff für andere Prozesse verhindert)";
 
-/* Class = "NSButtonCell"; title = "Attempt to quit prohibited applications"; ObjectID = "MVu-c3-I1R"; */
+/* Class = "NSButtonCell"; title = "Allow app switching (open book/debug mode)"; ObjectID = "Mf8-Fd-4KH"; */
+"Mf8-Fd-4KH.title" = "Umschalten auf andere Applikationen erlauben (Open Book/Debug Modus)";
+
+/* Class = "NSButtonCell"; title = "Automatically quit prohibited applications"; ObjectID = "MVu-c3-I1R"; */
 "MVu-c3-I1R.title" = "Versuche verbotene Applikationen zu beenden";
+
+/* Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "NtM-si-0Ie"; */
+"NtM-si-0Ie.title" = "Als Hintergrund-Prozess zulassen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "p8v-1Y-Mnw"; */
+"p8v-1Y-Mnw.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
 
 /* Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA"; */
 "rR0-Mm-VzA.title" = "Icon in Dock/Taskleiste";

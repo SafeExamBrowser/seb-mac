@@ -1,0 +1,11 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Safe Exam Browser";
+/* Bundle name */
+"CFBundleName" = "SafeExamBrowser";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Camera access is required for web applications / remote proctoring.";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
+/* Privacy - Microphone Usage Description */
+"NSMicrophoneUsageDescription" = "Microphone access is required for web applications / remote proctoring.";
+"Safe Exam Browser Configuration" = "Safe Exam Browser Configuration";

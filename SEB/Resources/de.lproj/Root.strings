@@ -48,3 +48,4 @@
 
 /* String for FooterText elements */
 "Without Start URL, SEB displays the Initial Configuration Assistant. Always set SEB Admin Password to protect settings from being changed. SEB runs in Single App Mode only when Quit Password is set." = "Ohne Start-URL zeigt SEB den Erstkonfigurationsassistenten an. Setzen Sie immer ein Administrator-Passwort für SEB, um die Einstellungen vor Änderungen zu schützen. SEB läuft nur im Einzel-App-Modus, wenn das Beenden-Passwort gesetzt ist.";
+
