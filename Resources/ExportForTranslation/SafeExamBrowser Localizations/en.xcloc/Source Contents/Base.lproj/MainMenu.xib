@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -86,10 +86,10 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="cFX-uS-7G2"/>
-                            <menuItem title="Edit Duplicate" id="YC0-l9-3YS">
+                            <menuItem title="Create Exam Settings" id="YC0-l9-3YS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="editDuplicate:" target="892" id="rdb-N2-kWP"/>
+                                    <action selector="createExamSettings:" target="892" id="t0Q-Ae-q7K"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Configure Client" id="ztz-q9-fV1">
@@ -591,10 +591,10 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="PJ0-7z-LKw"/>
-                <menuItem title="Edit Duplicate" id="8GV-gd-2lK">
+                <menuItem title="Create Exam Settings" id="8GV-gd-2lK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="editDuplicate:" target="892" id="3zh-Cv-25s"/>
+                        <action selector="createExamSettings:" target="892" id="ZZg-ly-IkK"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Configure Client" id="LTv-Us-Cro">

@@ -3706,7 +3706,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // we deactivate the current kiosk mode
             BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
 #ifdef DEBUG
-            modernAAC = NO;
+//            modernAAC = NO;
 #endif
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
@@ -4615,7 +4615,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
 #ifdef DEBUG
-            modernAAC = NO;
+//            modernAAC = NO;
 #endif
 
             if (modernAAC) {

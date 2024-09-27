@@ -62,7 +62,7 @@
 "hy0-QR-C17.ibShadowedToolTip" = "Ein temporäres Verzeichnis wird erstellt und als Download- und Upload-Ordner verwendet.\nEs wird gelöscht, wenn die Sitzung beendet wird";
 
 /* Class = "NSButtonCell"; title = "Use temporary down/upload directory"; ObjectID = "hy0-QR-C17"; */
-"hy0-QR-C17.title" = "Temporäres Down-/Upload-Verzeichnis verwenden (Win)";
+"hy0-QR-C17.title" = "Temporäres Down-/Upload-Verzeichnis verwenden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Create a temporary directory for downloading and uploading files, which is removed when quitting a session"; ObjectID = "i3z-E8-xzq"; */
 "i3z-E8-xzq.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
