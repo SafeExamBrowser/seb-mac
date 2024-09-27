@@ -345,7 +345,7 @@
         _sliderScreenProctoringItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Screen Proctoring Inactive",nil)
                                                             icon:sliderIcon
                                                           target:self
-                                                          action:nil];
+                                                          action:@selector(screenProctoringButtonAction)];
         [sliderCommands addObject:_sliderScreenProctoringItem];
 
         if (_dockEnabled) {
