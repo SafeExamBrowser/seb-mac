@@ -59,7 +59,7 @@
 "464.ibShadowedToolTip" = "Prozess entfernen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows choosing an application (or a process executable file) which will be added to the list of permitted processes"; ObjectID = "495"; */
-"495.ibShadowedToolTip" = "Ermöglicht eine Applikation/Prozess-Executable auszuwählen, welche zur Liste der erlaubten Prozesse hinzugefügt wird.";
+"495.ibShadowedToolTip" = "Ermöglicht eine Applikation auszuwählen, welche zur Liste der erlaubten Prozesse hinzugefügt wird.";
 
 /* Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "496"; */
 "496.title" = "Applikation auswählen …";
@@ -128,10 +128,10 @@
 "950.title" = "Autostart";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted app in AAC Multi App Mode to access the network/internet"; ObjectID = "956"; */
-"956.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
+"956.ibShadowedToolTip" = "Erlaubt der zugelassenen App im AAC Multi-App Modus den Zugriff auf das Netzwerk/Internet";
 
 /* Class = "NSButtonCell"; title = "Allow network access"; ObjectID = "957"; */
-"957.title" = "Als Hintergrund-Prozess zulassen";
+"957.title" = "Netzwerkzugriff erlauben";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted"; ObjectID = "982"; */
 "982.ibShadowedToolTip" = "Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle-ID, Signatur)";

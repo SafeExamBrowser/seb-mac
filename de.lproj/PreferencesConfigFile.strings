@@ -110,10 +110,10 @@
 "1158.title" = "Client konfigurieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Create duplicate of current settings for editing"; ObjectID = "1165"; */
-"1165.ibShadowedToolTip" = "Duplikat der derzeitigen Einstellungen erstellen und bearbeiten";
+"1165.ibShadowedToolTip" = "Duplikat der derzeitigen Einstellungen erstellen und als Prüfungseinstellungen bearbeiten";
 
 /* Class = "NSButtonCell"; title = "Create Exam Settings"; ObjectID = "1166"; */
-"1166.title" = "Duplikat bearbeiten";
+"1166.title" = "Prüfungseinstellungen erstellen";
 
 /* Class = "NSTextFieldCell"; title = "Configuration Editing:"; ObjectID = "1174"; */
 "1174.title" = "Konfigurationsdatei bearbeiten:";

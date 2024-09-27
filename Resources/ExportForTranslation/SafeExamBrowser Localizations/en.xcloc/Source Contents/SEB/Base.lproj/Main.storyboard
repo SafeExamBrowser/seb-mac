@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="SEBLockedView" id="f3L-ht-oaH" userLabel="iOS Locked View Controller" customClass="SEBiOSLockedViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k2i-14-hes">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEB Is Locked!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-As-V6t">
@@ -68,7 +68,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4E-Gh-2wA">
-                                <rect key="frame" x="137" y="227" width="560" height="927"/>
+                                <rect key="frame" x="137" y="227" width="560" height="943"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="560" id="tMb-l5-M9t"/>
@@ -113,13 +113,13 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="KDY-3t-mkg"/>
                                 <exclude reference="zI1-ak-deL"/>
+                                <exclude reference="4Cf-TB-bgy"/>
                                 <exclude reference="TmR-fM-hvc"/>
+                                <exclude reference="xVi-47-At1"/>
                                 <exclude reference="Tta-fx-jYS"/>
                                 <exclude reference="cZC-Wr-uvr"/>
-                                <exclude reference="xVi-47-At1"/>
                                 <exclude reference="XgE-rC-Fgh"/>
                             </mask>
                         </variation>
@@ -141,11 +141,11 @@
             <objects>
                 <viewController id="mpe-hm-d5J" userLabel="Root View Controller" customClass="SEBRootViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bzt-N0-bRr">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K3o-1Y-ug6">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <segue destination="uRk-Nj-abt" kind="embed" id="f1z-Q6-5re"/>
@@ -165,7 +165,7 @@
             <objects>
                 <viewController storyboardIdentifier="LGSideMenuController" id="uRk-Nj-abt" customClass="LGSideMenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oO-YA-MFd">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <viewLayoutGuide key="safeArea" id="Qm8-kQ-e0v"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -195,7 +195,7 @@
             <objects>
                 <viewController title="Web Pages Side Panel" id="qX6-yp-qcn" customClass="SEBTableViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="89q-Ri-gFf">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0a6-uW-cSi" userLabel="Status Bar Background View">
@@ -225,7 +225,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="33" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yZU-Q0-ht8">
-                                <rect key="frame" x="0.0" y="20" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="20" width="834" height="1190"/>
                                 <viewLayoutGuide key="safeArea" id="09Z-pA-jDI"/>
                                 <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -385,8 +385,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="3Ic-2x-eEQ"/>
-                                <exclude reference="Ppo-qu-mXY"/>
                                 <exclude reference="egs-oH-0Iw"/>
+                                <exclude reference="Ppo-qu-mXY"/>
                                 <exclude reference="ODx-Wd-YgI"/>
                             </mask>
                         </variation>
@@ -421,11 +421,11 @@
             <objects>
                 <viewController storyboardIdentifier="SEBViewController" title="SEB View Controller" extendedLayoutIncludesOpaqueBars="YES" id="feH-Dl-T6E" customClass="SEBViewController" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dca-zC-5bL">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h56-rn-gda">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <segue destination="r54-Dr-aZy" kind="embed" identifier="WebViewController" id="o7m-aL-pHo"/>
@@ -480,7 +480,7 @@
             <objects>
                 <viewController storyboardIdentifier="WebPageViewController" title="SEB Browser Tab View Controller" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="r54-Dr-aZy" customClass="SEBBrowserTabViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BAX-6j-zcF">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="DwK-c6-M5z"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -496,11 +496,11 @@
             <objects>
                 <viewController storyboardIdentifier="SEBInitAssistantView" id="h8j-pm-u2W" userLabel="Init Assistant View Controller" customClass="SEBiOSInitAssistantViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFill" id="DgT-Dq-MHH">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltZ-M4-c8e">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1190"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvS-YS-Rz4">
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="434"/>
@@ -795,6 +795,7 @@
                                     <constraint firstItem="dvS-YS-Rz4" firstAttribute="top" secondItem="ltZ-M4-c8e" secondAttribute="top" id="74X-49-XUn"/>
                                     <constraint firstAttribute="bottom" secondItem="dvS-YS-Rz4" secondAttribute="bottom" id="U9h-vZ-mDv"/>
                                     <constraint firstItem="dvS-YS-Rz4" firstAttribute="leading" secondItem="ltZ-M4-c8e" secondAttribute="leading" id="hAy-bT-0th"/>
+                                    <constraint firstItem="dvS-YS-Rz4" firstAttribute="width" secondItem="ltZ-M4-c8e" secondAttribute="width" id="rXE-Lo-Lok"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -805,7 +806,6 @@
                             <constraint firstItem="ltZ-M4-c8e" firstAttribute="top" secondItem="DgT-Dq-MHH" secondAttribute="top" id="OAp-5r-K7h"/>
                             <constraint firstItem="R5v-m2-Ces" firstAttribute="trailing" secondItem="ltZ-M4-c8e" secondAttribute="trailing" id="XpW-G7-C4e"/>
                             <constraint firstItem="R5v-m2-Ces" firstAttribute="bottom" secondItem="ltZ-M4-c8e" secondAttribute="bottom" id="jok-3t-5ve"/>
-                            <constraint firstItem="dvS-YS-Rz4" firstAttribute="width" secondItem="ltZ-M4-c8e" secondAttribute="width" id="rXE-Lo-Lok"/>
                         </constraints>
                     </view>
                     <connections>
@@ -833,11 +833,11 @@
             <objects>
                 <viewController storyboardIdentifier="AboutSEBView" id="lcz-oo-6j2" userLabel="About SEB View Controller" customClass="AboutSEBiOSViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFill" id="TRi-6W-cpL">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Q9-gCh">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1190"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tMF-sG-E2Z" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="834" height="143"/>
@@ -954,6 +954,7 @@
                                     <constraint firstAttribute="trailing" secondItem="tMF-sG-E2Z" secondAttribute="trailing" id="AG4-OO-x72"/>
                                     <constraint firstAttribute="bottom" secondItem="tMF-sG-E2Z" secondAttribute="bottom" id="VAL-8o-6bU"/>
                                     <constraint firstItem="tMF-sG-E2Z" firstAttribute="leading" secondItem="nQa-Q9-gCh" secondAttribute="leading" id="ajW-FK-g5f"/>
+                                    <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="nQa-Q9-gCh" secondAttribute="width" id="eDm-Iz-3h2"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -963,7 +964,6 @@
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="bottom" secondItem="nQa-Q9-gCh" secondAttribute="bottom" id="2wh-sN-4p9"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="top" secondItem="TRi-6W-cpL" secondAttribute="top" id="QQA-Tf-Pbq"/>
                             <constraint firstItem="HML-YJ-N2F" firstAttribute="trailing" secondItem="nQa-Q9-gCh" secondAttribute="trailing" id="dVf-An-b4z"/>
-                            <constraint firstItem="tMF-sG-E2Z" firstAttribute="width" secondItem="nQa-Q9-gCh" secondAttribute="width" id="eDm-Iz-3h2"/>
                             <constraint firstItem="nQa-Q9-gCh" firstAttribute="leading" secondItem="HML-YJ-N2F" secondAttribute="leading" id="o2k-bG-IrH"/>
                         </constraints>
                     </view>
@@ -986,25 +986,25 @@
             <objects>
                 <viewController storyboardIdentifier="SEBServerView" id="8qk-Ml-E4B" userLabel="SEB Server View Controller" customClass="SEBServerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFill" id="GjL-c7-P7k">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9V-Xw-ODc" userLabel="Content">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1210"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gyy-Hd-KaC">
-                                        <rect key="frame" x="0.0" y="64.5" width="834" height="1129.5"/>
+                                        <rect key="frame" x="0.0" y="64.5" width="834" height="1145.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examListCell" id="7kU-4n-zRN" customClass="ExamCell">
-                                                <rect key="frame" x="0.0" y="50" width="834" height="44"/>
+                                                <rect key="frame" x="0.0" y="50" width="834" height="44.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7kU-4n-zRN" id="2ZN-V2-0ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-Xm-hMN">
-                                                            <rect key="frame" x="16" y="11" width="802" height="21"/>
+                                                            <rect key="frame" x="16" y="11" width="802" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

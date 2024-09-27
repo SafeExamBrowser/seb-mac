@@ -20,7 +20,7 @@
 "7xF-1g-PGT.title" = "Check für Diktieren deaktivieren";
 
 /* Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "8GV-gd-2lK"; */
-"8GV-gd-2lK.title" = "Duplikat bearbeiten";
+"8GV-gd-2lK.title" = "Prüfungseinstellungen erstellen";
 
 /* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "9NP-zj-EeW"; */
 "9NP-zj-EeW.title" = "Zurücksetzen auf Client-Einstellungen";
@@ -353,7 +353,7 @@
 "XL9-tP-eEk.title" = "Passwort:";
 
 /* Class = "NSMenuItem"; title = "Create Exam Settings"; ObjectID = "YC0-l9-3YS"; */
-"YC0-l9-3YS.title" = "Duplikat bearbeiten";
+"YC0-l9-3YS.title" = "Prüfungseinstellungen erstellen";
 
 /* Class = "NSTextFieldCell"; title = "Some tool tried to circumvent the SEB kiosk mode. Make sure you don't use any key combinations or trackpad gestures which might trigger such tools or the Notification Center."; ObjectID = "YeX-5O-huE"; */
 "YeX-5O-huE.title" = "Ein Hilfsprogramm hat versucht, den SEB Kiosk-Modus zu umgehen. Stellen Sie sicher, dass Sie keine Tastenkombinationen oder Trackpad-Gesten verwenden, welche solche Hilfsprogramme aktivieren könnten.";

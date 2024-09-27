@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -501,7 +501,7 @@
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LfX-Xg-yil">
                                                     <rect key="frame" x="11" y="14" width="586" height="91"/>
                                                     <subviews>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
+                                                        <button verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-ok-40e">
                                                             <rect key="frame" x="-2" y="74" width="273" height="18"/>
                                                             <string key="toolTip">Allow reconfiguring while using a secure client config (with quit password) or during an exam session by loading an SEB config file</string>
                                                             <buttonCell key="cell" type="check" title="Allow reconfiguring secure/exam session" bezelStyle="regularSquare" imagePosition="left" inset="2" id="lNW-hv-6s5">

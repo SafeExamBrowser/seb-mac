@@ -119,6 +119,9 @@
 "Administrator" = "Administrator";
 
 /* No comment provided by engineer. */
+"All cached screenshots transmitted" = "Alle zwischengespeicherten Bildschirmfotos übertragen";
+
+/* No comment provided by engineer. */
 "allow" = "erlauben";
 
 /* No comment provided by engineer. */
@@ -281,7 +284,13 @@
 "Closing QR Code scanner" = "Schliesse QR-Code Scanner";
 
 /* No comment provided by engineer. */
+"Closing Session" = "Session wird beendet";
+
+/* No comment provided by engineer. */
 "Code contributions © 2015 - 2016 Janison" = "Codebeiträge © 2015 - 2016 Janison";
+
+/* Separator in slider menu */
+"Commands" = "Funktionen";
 
 /* Config Key */
 "Config Key" = "Config Key";
@@ -557,7 +566,7 @@
 "Go Forward" = "Vorwärts";
 
 /* No comment provided by engineer. */
-"Good server health, waiting until %@ to resume sending cached screen shots" = "Server-Verbindungsstatus ist gut, warten auf die Wiederaufnahme der Übertragung um %@";
+"Good server health, waiting until %@ to resume sending cached screen shots" = "Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@";
 
 /* No comment provided by engineer. */
 "Hiding" = "Zeige";
@@ -992,16 +1001,16 @@
 "Send Logs to %@ Developers" = "Logdateien an %@-Entwickler senden";
 
 /* No comment provided by engineer. */
-"Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Verbindungsstatus %d von 10";
+"Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Verbindungsqualität %d von 10";
 
 /* No comment provided by engineer. */
 "Server health %d out of 10" = "Verbindungsstatus %d von 10";
 
 /* No comment provided by engineer. */
-"Server health %d out of 10, deferring sending screen shots" = "Verbindungsstatus %d von 10, Übertragung erfolgt verzögert";
+"Server health %d out of 10, deferring sending screen shots" = "Verbindungsqualität %d von 10, Übertragung erfolgt verzögert";
 
 /* No comment provided by engineer. */
-"Server health %d out of 10, waiting until %@ to resume sending cached screen shots" = "Verbindungsstatus %1$d von 10, warten auf Wiederaufnahme der Übertragung um %2$@";
+"Server health %d out of 10, waiting until %@ to resume sending cached screen shots" = "Verbindungsqualität %1$d von 10, warten auf Wiederaufnahme der Übertragung um %2$@";
 
 /* No comment provided by engineer. */
 "Settings" = "Einstellungen";
