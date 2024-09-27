@@ -5152,7 +5152,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void)closeTransmittingCachedScreenShotsWindow:(void (^)(void))completion
 {
     run_on_ui_thread(^{
-        if (_transmittingCachedScreenShotsViewController) {
+        if (self.transmittingCachedScreenShotsViewController) {
             [self.transmittingCachedScreenShotsViewController dismissViewControllerAnimated:YES completion:^{
                 self.transmittingCachedScreenShotsWindowOpen = NO;
                 self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
