@@ -255,7 +255,7 @@ titleForHeaderInSection:(NSInteger)section
             break;
 
         case 1:
-            return @"Commands";
+            return NSLocalizedString(@"Commands", "Separator in slider menu");
             break;
 
         default:
@@ -291,7 +291,7 @@ titleForHeaderInSection:(NSInteger)section
     if (@available(iOS 14.0, *)) {
         if (!contentConfiguration) {
             contentConfiguration = headerView.defaultContentConfiguration;
-            contentConfiguration.text = @"Commands";
+            contentConfiguration.text = NSLocalizedString(@"Commands", "Separator in slider menu");
             contentConfiguration.image = [UIImage new];
             contentConfiguration.textProperties.font = headerFont;
             contentConfiguration.textProperties.color = [UIColor blackColor];
