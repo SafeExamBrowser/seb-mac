@@ -128,8 +128,6 @@
 
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append;
 
-- (void)receivedUIEvent:event;
-
 - (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState;
 - (void) setScreenProctoringButtonState:(ScreenProctoringButtonStates)screenProctoringButtonState
                            userFeedback:(BOOL)userFeedback;
