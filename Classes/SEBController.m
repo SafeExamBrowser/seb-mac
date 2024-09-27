@@ -1994,7 +1994,7 @@ bool insideMatrix(void);
     });
 }
 
-- (void)closeTransmittingCachedScreenShotsWindow:(void (^ _Nonnull)(void))completion 
+- (void)closeTransmittingCachedScreenShotsWindow:(void (^ _Nonnull)(void))completion
 {
     run_on_ui_thread(^{
         self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
