@@ -1994,14 +1994,14 @@ bool insideMatrix(void);
     });
 }
 
-
-- (void)closeTransmittingCachedScreenShotsWindow
+- (void)closeTransmittingCachedScreenShotsWindow:(void (^ _Nonnull)(void))completion 
 {
     run_on_ui_thread(^{
         self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
         [self.transmittingCachedScreenShotsWindowController close];
         self.transmittingCachedScreenShotsViewController = nil;
         [self closeCoveringWindows:self.lockModalWindows];
+        completion();
     });
 }
 
