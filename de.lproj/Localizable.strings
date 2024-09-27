@@ -1,0 +1,45 @@
+/* No comment provided by engineer. */
+"Bundle ID: %@, executable: %@" = "Bundle-ID: %1$@, Executable: %2$@";
+
+/* No comment provided by engineer. */
+"Checking server health" = "Serverstatus wird überprüft";
+
+/* No comment provided by engineer. */
+"Finalizing Screen Proctoring" = "Screen Proctoring abschliessen";
+
+/* No comment provided by engineer. */
+"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie die Session %7$@ starten können.";
+
+/* No comment provided by engineer. */
+"Good server health, waiting until %@ to resume sending cached screen shots" = "Server-Verbindungsstatus ist gut, warten auf Wiederaufnahme der Übertragung um %@";
+
+/* No comment provided by engineer. */
+"manually with file requester" = "manuell mit Dateidialog";
+
+/* No comment provided by engineer. */
+"Request failed" = "Request fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Request failed, retrying..." = "Request fehlgeschlagen, erneut versuchen…";
+
+/* No comment provided by engineer. */
+"return to %@ and re" = "und %@ erneut";
+
+/* No comment provided by engineer. */
+"Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Qualität des Server-Verbindungsstatus ist %d von 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10" = "Verbindungsstatus %d von 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, deferring sending screen shots" = "Verbindungsstatus %d von 10, Übertragung erfolgt verzögert";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, waiting until %@ to resume sending cached screen shots" = "Verbindungsstatus %1$d von 10, warten auf Wiederaufnahme der Übertragung um %2$@";
+
+/* No comment provided by engineer. */
+"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." = "";
+
+/* No comment provided by engineer. */
+"Waiting until %@ to resume sending cached screen shots" = "Warte auf die Wiederaufnahme der Übertragung um %@";
+

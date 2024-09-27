@@ -1,0 +1,15 @@
+/* Class = "UILabel"; text = "Finalizing Screen Proctoring"; ObjectID = "Drh-JI-JlO"; */
+"Drh-JI-JlO.text" = "Screen Proctoring abschliessen";
+
+/* Class = "UILabel"; text = "Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status."; ObjectID = "NCU-dI-vgr"; */
+"NCU-dI-vgr.text" = "Bitte warten Sie, während die Bildschirmüberwachung ihre restlichen Operationen ausführt. Dies kann eine Weile dauern, je nach Status des Netzwerkes und Bildschirmüberwachungs-Dienstes.";
+
+/* Class = "UIButton"; configuration.title = "Quit"; ObjectID = "sDi-bm-uNU"; */
+"sDi-bm-uNU.configuration.title" = "Beenden";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "sDi-bm-uNU"; */
+"sDi-bm-uNU.normalTitle" = "Taste";
+
+/* Class = "UILabel"; text = "Operation"; ObjectID = "yVn-EW-xng"; */
+"yVn-EW-xng.text" = "Operation";
+

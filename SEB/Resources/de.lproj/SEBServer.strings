@@ -1,7 +1,11 @@
-"Connect to an individually configured SEB Screen Proctoring service. Currently this can only be configured using SEB Server." = "";
+/* (No Comment) */
+"Connect to an individually configured SEB Screen Proctoring service. Currently this can only be configured using SEB Server." = "Verbindung zu einem individuell konfigurierten SEB Screen Proctoring Service. Derzeit kann dies nur über SEB Server konfiguriert werden";
 
 /* (No Comment) */
 "Connect to SEB Server" = "Mit SEB Server verbinden";
+
+/* (No Comment) */
+"Enable Screen Proctoring" = "Enable Screen Proctoring";
 
 /* String for Title elements */
 "Enable SEB Server Support" = "Erlaube Benutzung von SEB Server";
@@ -9,19 +13,23 @@
 /* String for IASKPlaceholder elements */
 "Full URL" = "Vollständige URL";
 
+/* (No Comment) */
+"Indicate Health and Caching" = "Verbindungsstatus und Caching anzeigen";
+
 /* String for Titles arrays elements */
 "Load Start URL" = "Start-URL laden";
+
+/* (No Comment) */
+"Remote Proctoring" = "Remote Proctoring";
+
+/* (No Comment) */
+"Screen Proctoring" = "Screen Proctoring";
 
 /* String for FooterText elements */
 "SEB either loads a web resource from Start URL or connects to an SEB Server" = "SEB lädt entweder eine Web-Ressource von der Start-URL oder verbindet sich mit einer SEB Server-Instanz";
 
 /* (No Comment) */
 "SEB Server Fallback" = "SEB Server-Fallback";
-
-"Screen Proctoring" = "Screen Proctoring";
-"Enable Screen Proctoring" = "Enable Screen Proctoring";
-"Indicate Health and Caching" = "";
-"Remote Proctoring" = "Remote Proctoring";
 
 /* (No Comment) */
 "Server Connection Settings" = "Server-Verbindungseinstellungen";

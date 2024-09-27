@@ -61,10 +61,10 @@
 /* Class = "NSButtonCell"; ibShadowedToolTip = "A temporary directory is created and used as the download and upload folder.\nIt is deleted when the session ends"; ObjectID = "hy0-QR-C17"; */
 "hy0-QR-C17.ibShadowedToolTip" = "Ein temporäres Verzeichnis wird erstellt und als Download- und Upload-Ordner verwendet.\nEs wird gelöscht, wenn die Sitzung beendet wird";
 
-/* Class = "NSButtonCell"; title = "Use temporary down/upload directory (Win)"; ObjectID = "hy0-QR-C17"; */
+/* Class = "NSButtonCell"; title = "Use temporary down/upload directory"; ObjectID = "hy0-QR-C17"; */
 "hy0-QR-C17.title" = "Temporäres Down-/Upload-Verzeichnis verwenden (Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "When activated, SEB will show a simplified file dialog when a download is initiated. The user can navigate to any folder in the local file system"; ObjectID = "i3z-E8-xzq"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Create a temporary directory for downloading and uploading files, which is removed when quitting a session"; ObjectID = "i3z-E8-xzq"; */
 "i3z-E8-xzq.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
 
 /* Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory (Win)"; ObjectID = "I9g-6o-a5B"; */

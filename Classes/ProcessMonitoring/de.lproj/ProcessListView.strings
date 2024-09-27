@@ -14,7 +14,7 @@
 "C9P-Qf-NaI.headerCell.title" = "Dateiname (Executable)";
 
 /* Class = "NSTableColumn"; headerCell.title = "Bundle ID"; ObjectID = "e3I-eM-l5i"; */
-"e3I-eM-l5i.headerCell.title" = "Bundle ID";
+"e3I-eM-l5i.headerCell.title" = "Bundle-ID";
 
 /* Class = "NSTextFieldCell"; title = "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to SEB to continue to the exam. You can also force quit these processes, but this may lead to loss of data."; ObjectID = "jMN-hX-gi7"; */
 "jMN-hX-gi7.title" = "Die folgenden gestarteten Applikationen/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können die Applikationen manuell beenden oder Hilfsprozesse deaktivieren/deinstallieren und zu SEB zurückkehren, um zur Prüfung zu gelangen. Sie können die Prozesse auch zwangsweise sofort beenden, aber dies kann zu Datenverlust führen.";

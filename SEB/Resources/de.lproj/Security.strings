@@ -36,9 +36,17 @@
 
 /* (No Comment) */
 "12" = "12";
+
+/* (No Comment) */
 "13" = "13";
+
+/* (No Comment) */
 "14" = "14";
+
+/* (No Comment) */
 "15" = "15";
+
+/* (No Comment) */
 "16" = "16";
 
 /* (No Comment) */
@@ -89,7 +97,8 @@
 /* (No Comment) */
 "Use Assessment Mode If Available" = "Assessment-Modus verwenden";
 
-"Use Modern AAC API" = "";
+/* (No Comment) */
+"Use Modern AAC API" = "Moderne AAC API benutzen";
 
 /* String for FooterText elements */
 "Uses either AAC Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC). Modern AAC API is necessay for Multi App Mode." = "Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.";

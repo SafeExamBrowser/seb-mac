@@ -9,8 +9,6 @@
 	</array>
 	<key>com.apple.developer.automatic-assessment-configuration</key>
 	<true/>
-	<key>com.apple.developer.edu-assessment-mode</key>
-	<true/>
 	<key>com.apple.developer.icloud-container-identifiers</key>
 	<array>
 		<string>iCloud.org.safeexambrowser.ios.seb</string>
