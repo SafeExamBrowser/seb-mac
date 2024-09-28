@@ -7,7 +7,7 @@
 /* Class = "UIButton"; normalTitle = "Send Logs to SEB Developers"; ObjectID = "1cD-LV-BbY"; */
 "1cD-LV-BbY.normalTitle" = "Logdateien an SEB-Entwickler senden";
 
-/* Class = "UILabel"; accessibilityHint = "Enter the corrrect quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ"; */
+/* Class = "UILabel"; accessibilityHint = "Enter the correct quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ"; */
 "6fi-rT-cNJ.accessibilityHint" = "Korrektes Beenden/Entsperren-Passwort eingeben, um den Sperrbildschirm zu schliessen";
 
 /* Class = "UILabel"; accessibilityLabel = "Warning: Wrong password"; ObjectID = "6fi-rT-cNJ"; */

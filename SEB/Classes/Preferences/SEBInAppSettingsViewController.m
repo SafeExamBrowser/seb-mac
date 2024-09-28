@@ -867,7 +867,8 @@
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_allowDownloads",
-                                                 @"org_safeexambrowser_SEB_allowUploads"]];
+                                                 @"org_safeexambrowser_SEB_allowUploads",
+                                                 @"org_safeexambrowser_SEB_openDownloads"]];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] == NO)
     {
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];

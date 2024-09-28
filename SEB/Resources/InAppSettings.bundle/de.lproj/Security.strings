@@ -38,6 +38,18 @@
 "12" = "12";
 
 /* (No Comment) */
+"13" = "13";
+
+/* (No Comment) */
+"14" = "14";
+
+/* (No Comment) */
+"15" = "15";
+
+/* (No Comment) */
+"16" = "16";
+
+/* (No Comment) */
 "Allow Running from iOS Version" = "Erlaube Benutzung ab iOS-Version";
 
 /* (No Comment) */
@@ -50,7 +62,7 @@
 "Assessment Mode (AAC & ASAM)" = "Assessment-Modus (AAC/ASAM)";
 
 /* (No Comment) */
-"iOS 16" = "iOS 16";
+"iOS 18" = "iOS 18";
 
 /* (No Comment) */
 "Legacy Single App Mode" = "Klassischer Einzel-App-Modus";
@@ -85,6 +97,9 @@
 /* (No Comment) */
 "Use Assessment Mode If Available" = "Assessment-Modus verwenden";
 
+/* (No Comment) */
+"Use Modern AAC API" = "Moderne AAC API benutzen";
+
 /* String for FooterText elements */
-"Uses either Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over Assessment Mode)." = "Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.";
+"Uses either AAC Assessment Mode (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC). Modern AAC API is necessay for Multi App Mode." = "Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.";
 

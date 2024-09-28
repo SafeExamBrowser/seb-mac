@@ -7223,9 +7223,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "UIButton"; normalTitle = "Send Logs to SEB Developers"; ObjectID = "1cD-LV-BbY";</note>
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.accessibilityHint" xml:space="preserve">
-        <source>Enter the corrrect quit password to close the lock screen</source>
+        <source>Enter the correct quit password to close the lock screen</source>
         <target>Korrektes Beenden/Entsperren-Passwort eingeben, um den Sperrbildschirm zu schliessen</target>
-        <note>Class = "UILabel"; accessibilityHint = "Enter the corrrect quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ";</note>
+        <note>Class = "UILabel"; accessibilityHint = "Enter the correct quit password to close the lock screen"; ObjectID = "6fi-rT-cNJ";</note>
       </trans-unit>
       <trans-unit id="6fi-rT-cNJ.accessibilityLabel" xml:space="preserve">
         <source>Warning: Wrong password</source>
@@ -11215,7 +11215,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="Enable Screen Proctoring" xml:space="preserve">
         <source>Enable Screen Proctoring</source>
-        <target>Enable Screen Proctoring</target>
+        <target>Screen Proctoring aktivieren</target>
         <note/>
       </trans-unit>
       <trans-unit id="Full URL" xml:space="preserve">
@@ -11250,7 +11250,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="Screen Proctoring" xml:space="preserve">
         <source>Screen Proctoring</source>
-        <target>Screen Proctoring</target>
+        <target>Bildschirm-Fernüberwachung</target>
         <note/>
       </trans-unit>
       <trans-unit id="Server Connection Settings" xml:space="preserve">

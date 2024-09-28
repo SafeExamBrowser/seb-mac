@@ -5,7 +5,7 @@
 "Connect to SEB Server" = "Mit SEB Server verbinden";
 
 /* (No Comment) */
-"Enable Screen Proctoring" = "Enable Screen Proctoring";
+"Enable Screen Proctoring" = "Screen Proctoring aktivieren";
 
 /* String for Title elements */
 "Enable SEB Server Support" = "Erlaube Benutzung von SEB Server";
@@ -23,7 +23,7 @@
 "Remote Proctoring" = "Remote Proctoring";
 
 /* (No Comment) */
-"Screen Proctoring" = "Screen Proctoring";
+"Screen Proctoring" = "Bildschirm-Fernüberwachung";
 
 /* String for FooterText elements */
 "SEB either loads a web resource from Start URL or connects to an SEB Server" = "SEB lädt entweder eine Web-Ressource von der Start-URL oder verbindet sich mit einer SEB Server-Instanz";

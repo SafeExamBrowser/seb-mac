@@ -1,0 +1,42 @@
+/* (No Comment) */
+"Active" = "Aktiv";
+
+/* (No Comment) */
+"Allow Network Access" = "Netzwerkzugriff erlauben";
+
+/* String for IASKPlaceholder elements */
+"App title for your reference" = "App-Titel";
+
+/* (No Comment) */
+"Bundle Identifier" = "Bundle-ID";
+
+/* (No Comment) */
+"Description" = "Beschreibung";
+
+/* (No Comment) */
+"Description for your reference" = "Beschreibung (optional)";
+
+/* String for FooterText elements */
+"Enter the Bundle ID of the app in Identifier" = "Geben Sie die Bundle-ID der Anwendung unter Identifier ein";
+
+/* (No Comment) */
+"Identifier" = "Identifier";
+
+/* (No Comment) */
+"iPadOS" = "iPadOS";
+
+/* String for Titles arrays elements */
+"macOS" = "macOS";
+
+/* (No Comment) */
+"OS" = "OS";
+
+/* String for Title elements */
+"Permitted App" = "Erlaubte App";
+
+/* (No Comment) */
+"Title" = "Titel";
+
+/* (No Comment) */
+"Win" = "Win";
+
