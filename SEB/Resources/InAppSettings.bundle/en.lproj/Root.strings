@@ -5,14 +5,14 @@
 "General" = "General";
 "Start URL" = "Start URL";
 "SEB Server" = "SEB Server";
-"Remote Proctoring" = "Remote Proctoring";
 "Admin Password" = "Admin Password";
 "Quit Password" = "Quit Password";
 "Configuration" = "Configuration";
 "User Interface" = "User Interface";
 "Browser Features" = "Browser Features";
-"Downloads" = "Downloads";
+"Down/Uploads" = "Down/Uploads";
 "Exam Session" = "Exam Session";
+"Additional Apps" = "Additional Apps";
 "Network" = "Network";
 "Security" = "Security";
 

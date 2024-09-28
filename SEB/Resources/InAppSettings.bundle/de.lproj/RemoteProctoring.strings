@@ -35,7 +35,7 @@
 "Full URL" = "Vollständige URL";
 
 /* (No Comment) */
-"Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server (if used) during the exam session." = "Globale Einstellungen für den Empfang und das Senden von Audio-/Videostreams. Streams können auch von SEB Server (falls verwendet) während der Prüfungssitzung aktiviert/deaktiviert werden.";
+"Global settings for receiving and sending audio/video streams. Streams can also be enabled/disabled by SEB Server (if used) during the exam session." = "Globale Einstellungen für den Empfang und das Senden von Audio-/Videostreams. Streams können auch von SEB Server (falls verwendet) während der Prüfungssession aktiviert/deaktiviert werden.";
 
 /* (No Comment) */
 "Jitsi Meet Features" = "Jitsi Meet Funktionen";

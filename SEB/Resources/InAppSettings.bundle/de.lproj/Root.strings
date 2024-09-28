@@ -1,4 +1,7 @@
 /* (No Comment) */
+"Additional Apps" = "Zusätzliche Apps";
+
+/* (No Comment) */
 "Admin Password" = "Administrator-Passwort";
 
 /* (No Comment) */
@@ -8,7 +11,7 @@
 "Configuration" = "Konfiguration";
 
 /* (No Comment) */
-"Downloads" = "Downloads";
+"Down/Uploads" = "Downloads/Uploads";
 
 /* (No Comment) */
 "Exam Session" = "Prüfungssession";
@@ -24,9 +27,6 @@
 
 /* (No Comment) */
 "Quit Password" = "Beenden-Passwort";
-
-/* (No Comment) */
-"Remote Proctoring" = "Fernüberwachung";
 
 /* (No Comment) */
 "Restricts editing settings" = "Schränkt die Bearbeitung der Einstellungen ein";

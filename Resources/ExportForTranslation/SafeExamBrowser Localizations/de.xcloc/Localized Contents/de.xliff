@@ -11215,7 +11215,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
       <trans-unit id="Enable Screen Proctoring" xml:space="preserve">
         <source>Enable Screen Proctoring</source>
-        <target>Enable Screen Proctoring</target>
+        <target>Screen Proctoring aktivieren</target>
         <note/>
       </trans-unit>
       <trans-unit id="Full URL" xml:space="preserve">
