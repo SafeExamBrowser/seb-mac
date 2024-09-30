@@ -205,36 +205,12 @@
 			<string>BrowserMediaPlayback</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>Select Browser Engine Policy</string>
-			<key>Type</key>
-			<string>PSRadioGroupSpecifier</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_browserWindowWebView</string>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>Automatic</string>
-				<string>Force Classic</string>
-				<string>Prefer Modern in New Tab+Different Host</string>
-				<string>Prefer Modern</string>
-			</array>
-			<key>FooterText</key>
-			<string>The modern WKWebView browser engine currently doesn&apos;t support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the &apos;Use Browser &amp; Config Keys&apos; option in new tabs on a different server or generally.</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>
 			<key>FooterText</key>
-			<string>The Classic WebView is deprecated and no longer fully supported by iOS! The used SEB assessment system integration/settings need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings enforce the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn&apos;t yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
+			<string>Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn&apos;t yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
 		</dict>
 		<dict>
 			<key>Type</key>

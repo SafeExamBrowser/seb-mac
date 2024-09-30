@@ -60,85 +60,33 @@
         webViewSelectPolicies webViewSelectPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"];
         BOOL downloadingInTemporaryWebView = overrideSpellCheck;
         _allowSpellCheck = !_overrideAllowSpellCheck && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
-
-#if TARGET_OS_OSX
-        // Downloading PDF files on iOS is currently unsupported, they will always be displayed
         _downloadPDFFiles = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"];
+
+#if TARGET_OS_IPHONE
+                // Override webViewSelectPolicy
+                webViewSelectPolicy = webViewSelectPreferModern;
 #endif
-        
-//        [preferences removeObjectForKey:@"NSAllowContinuousSpellChecking"];
-//        [preferences removeObjectForKey:@"NSAutomaticSpellingCorrectionEnabled"];
-//        [preferences removeObjectForKey:@"NSAutomaticTextCompletionEnabled"];
-//        [preferences removeObjectForKey:@"WebContinuousSpellCheckingEnabled"];
-//        [preferences removeObjectForKey:@"WebAutomaticSpellingCorrectionEnabled"];
-//        [preferences removeObjectForKey:@"WebGrammarCheckingEnabled"];
-//        [preferences removeObjectForKey:@"WebAutomaticTextReplacementEnabled"];
 
-//        if (_allowSpellCheck) {
-//        }
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAllowContinuousSpellChecking"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSContinuousSpellCheckingEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticSpellingCorrectionEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"NSAutomaticTextCompletionEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"WebContinuousSpellCheckingEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"WebAutomaticSpellingCorrectionEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"WebGrammarCheckingEnabled"];
-//        [preferences setBool:_allowSpellCheck forKey:@"WebAutomaticTextReplacementEnabled"];
-
-//        } else {
-//            NSNumber *allowSpellCheckObject = [NSNumber numberWithBool:_allowSpellCheck];
-//            NSDictionary<NSString *,id> *spellCheckingDefaults = @{@"WebGrammarCheckingEnabled" : allowSpellCheckObject,
-//                                                                   @"WebAutomaticSpellingCorrectionEnabled" : allowSpellCheckObject,
-//                                                                   @"WebContinuousSpellCheckingEnabled" : allowSpellCheckObject,
-//                                                                   @"WebAutomaticTextReplacementEnabled" : allowSpellCheckObject};
-//            [preferences registerDefaults:spellCheckingDefaults];
-//        }
-
-        if (@available(macOS 10.13, iOS 11.0, *)) {
-            if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
-                BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-                BOOL urlContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
-#ifdef DEBUG
+        if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
+            BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
+            BOOL urlContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
+#if TARGET_OS_IPHONE
+                // Override urlContentFilter until we can implement it for WKWebView ToDo
                 urlContentFilter = NO;
 #endif
-                if (!urlContentFilter || downloadingInTemporaryWebView) {
+            if (!urlContentFilter || downloadingInTemporaryWebView) {
+                
+                if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                    (webViewSelectPolicy == webViewSelectPreferModern) ||
+                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                    downloadingInTemporaryWebView) {
                     
-                    if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                        (webViewSelectPolicy == webViewSelectPreferModern) ||
-                        (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
-                        downloadingInTemporaryWebView) {
-                        
-                        DDLogInfo(@"Opening modern WebView");
-                        SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
-                        self.browserControllerDelegate = sebAbstractModernWebView;
-                        [self initGeneralProperties];
-                        
-//                        if ([preferences boolForKey:@"NSAllowContinuousSpellChecking"] != _allowSpellCheck) {
-//                            [NSApp.nextResponder tryToPerform:@selector(toggleContinuousSpellChecking:) with:self.nativeWebView];
-//                        }
-//                        if ([preferences boolForKey:@"NSAutomaticSpellingCorrectionEnabled"] != _allowSpellCheck) {
-//                            [NSApp.nextResponder tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:self.nativeWebView ];
-//                        }
-//                        [NSApp.mainWindow tryToPerform:@selector(toggleContinuousSpellChecking:) with:NSApp.mainWindow];
-//                        [NSApp.mainWindow tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:NSApp.mainWindow];
-
-//                        if ([preferences boolForKey:@"WebContinuousSpellCheckingEnabled"] != _allowSpellCheck) {
-//                            [NSApp.keyWindow.firstResponder tryToPerform:@selector(toggleContinuousSpellChecking:) with:self];
-//                        }
-//                        if ([preferences boolForKey:@"WebAutomaticSpellingCorrectionEnabled"] != _allowSpellCheck) {
-//                            [NSApp.keyWindow.firstResponder tryToPerform:@selector(toggleAutomaticSpellingCorrection:) with:self];
-//                        }
-//                        SEL selector = NSSelectorFromString(@"toggleContinuousSpellChecking:");
-//
-//                        id nativeWebView = [self nativeWebView];
-//                        if ([nativeWebView respondsToSelector:selector]) {
-//                            IMP imp = [self.nativeWebView methodForSelector:selector];
-//                            void (*func)(id, SEL, BOOL) = (void *)imp;
-//                            func(self.nativeWebView, selector, _allowSpellCheck);
-//                        }
-
-                        return self;
-                    }
+                    DDLogInfo(@"Opening modern WebView");
+                    SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
+                    self.browserControllerDelegate = sebAbstractModernWebView;
+                    [self initGeneralProperties];
+                    
+                    return self;
                 }
             }
         }

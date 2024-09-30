@@ -126,12 +126,15 @@
     [super viewDidAppear:animated];
     
     [self becomeFirstResponder];
-
-    if (firstAppearance && 
-        [_sebWebView.nativeWebView class] != WKWebView.class &&
-        ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (firstAppearance) {
         firstAppearance = NO;
-        [self showTopOverlayMessage:[NSString stringWithFormat:NSLocalizedString(@"Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.", @""), SEBShortAppName]];
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectPreferModern &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
+            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
+            [self showTopOverlayMessage:[NSString stringWithFormat:NSLocalizedString(@"Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.", @""), SEBShortAppName]];
+        }
     }
 }
 
