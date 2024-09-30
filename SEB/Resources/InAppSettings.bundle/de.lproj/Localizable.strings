@@ -272,7 +272,7 @@
 "Checking server health" = "Serverstatus wird überprüft";
 
 /* No comment provided by engineer. */
-"Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von iOS nicht mehr vollständig unterstützt! Die verwendeten %@-Prüfungssystem-Integrationen/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
+"Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." = "Das klassische WebView (UIWebView) wird unter iOS/iPadOS nicht mehr unterstützt! Die %@-Integration/-Einstellungen der verwendeten Prüfungslösung funktionieren möglicherweise nicht mehr und müssen aktualisiert werden, um das moderne WebView zu unterstützen. Wenden Sie sich an den Anbieter Ihrer Prüfungslösung oder an Ihren Prüfungsveranstalter.";
 
 /* No comment provided by engineer. */
 "Close Warning" = "Warnung schliessen";

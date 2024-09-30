@@ -37,6 +37,7 @@
 
 - (NSString*)title
 {
+    
     return [self stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
