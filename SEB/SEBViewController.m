@@ -3575,8 +3575,12 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     // Check if the cancel button was pressed
     if (!password) {
-        _quittingFromSPSCacheUpload = NO;
-        [self.sideMenuController hideLeftViewAnimated];
+        if (_quittingFromSPSCacheUpload) {
+            [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil];
+        } else {
+            _quittingFromSPSCacheUpload = NO;
+            [self.sideMenuController hideLeftViewAnimated];
+        }
         return;
     }
     
@@ -3704,10 +3708,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // when we're running in ASAM mode, it's not relevant if settings for SAM differ
             // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
-            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
-#ifdef DEBUG
-//            modernAAC = NO;
-#endif
+            BOOL modernAAC = [self modernAAC];
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
@@ -4596,6 +4597,17 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (BOOL) modernAAC
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+#ifdef DEBUG
+    modernAAC = NO;
+#endif
+    return modernAAC;
+}
+
+
 - (void) conditionallyStartAssessmentMode
 {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -4613,11 +4625,7 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = YES;
             
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
-#ifdef DEBUG
-//            modernAAC = NO;
-#endif
-
+            BOOL modernAAC = [self modernAAC];
             if (modernAAC) {
                 if (@available(iOS 13.4, *)) {
                     AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
