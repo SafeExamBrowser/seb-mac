@@ -7515,9 +7515,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "UIButton"; configuration.title = "Quit"; ObjectID = "sDi-bm-uNU";</note>
       </trans-unit>
       <trans-unit id="sDi-bm-uNU.normalTitle" xml:space="preserve">
-        <source>Button</source>
-        <target>Taste</target>
-        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "sDi-bm-uNU";</note>
+        <source>Quit</source>
+        <target>Beenden</target>
+        <note>Class = "UIButton"; normalTitle = "Quit"; ObjectID = "sDi-bm-uNU";</note>
       </trans-unit>
       <trans-unit id="yVn-EW-xng.text" xml:space="preserve">
         <source>Operation</source>

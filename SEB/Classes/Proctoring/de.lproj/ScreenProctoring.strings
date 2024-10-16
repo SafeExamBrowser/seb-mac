@@ -7,8 +7,8 @@
 /* Class = "UIButton"; configuration.title = "Quit"; ObjectID = "sDi-bm-uNU"; */
 "sDi-bm-uNU.configuration.title" = "Beenden";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "sDi-bm-uNU"; */
-"sDi-bm-uNU.normalTitle" = "Taste";
+/* Class = "UIButton"; normalTitle = "Quit"; ObjectID = "sDi-bm-uNU"; */
+"sDi-bm-uNU.normalTitle" = "Beenden";
 
 /* Class = "UILabel"; text = "Operation"; ObjectID = "yVn-EW-xng"; */
 "yVn-EW-xng.text" = "Operation";
