@@ -191,10 +191,12 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
 
 - (void) didReceiveMoodleUserId:(NSString *)moodleUserId moodleSession:(NSString * _Nonnull)moodleSession url:(NSURL * _Nonnull)url endpoint:(NSString * _Nonnull)endpoint
 {
-    if (moodleUserId.length > 0 && ![moodleUserId isEqualToString:@"0"] && ![sessionIdentifier isEqualToString:moodleUserId]) {
-        DDLogInfo(@"ServerController: Did receive Moodle user ID");
-       sessionIdentifier = moodleUserId;
-        [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
+    if (moodleUserId.length > 0 && ![sessionIdentifier isEqualToString:moodleUserId]) {
+        if (![moodleUserId isEqualToString:@"0"]) {
+            DDLogInfo(@"ServerController: Did receive Moodle user ID");
+           sessionIdentifier = moodleUserId;
+            [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
+        }
     } else if ([endpoint isEqualToString:moodleUserIDEndpointSEBServerPlugin]) {
         [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:url endpoint:moodleUserIDEndpointETHTheme];
     }
