@@ -86,7 +86,7 @@
 "413.title" = "SEB Server-Fallback";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Show server/connection health and caching status in the Dock icon and its tooltip"; ObjectID = "AkZ-jj-wGy"; */
-"AkZ-jj-wGy.ibShadowedToolTip" = "Anzeige des Server-/Verbindungsstatus und des Caching-Status im Dock-Symbol und dessen Tooltip";
+"AkZ-jj-wGy.ibShadowedToolTip" = "Anzeige von Serverstatus/Verbindungsqualität und des Caching-Status im Dock-Symbol und dessen Tooltip";
 
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Connect to SEB Server"; ObjectID = "d6u-EM-bnR"; */
 "d6u-EM-bnR.ibExternalAccessibilityDescription" = "Mit SEB Server verbinden";

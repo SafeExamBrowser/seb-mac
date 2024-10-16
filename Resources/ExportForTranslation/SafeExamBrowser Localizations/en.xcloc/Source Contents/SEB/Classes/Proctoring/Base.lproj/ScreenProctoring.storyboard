@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vlr-zc-L98" userLabel="Alert View">
-                                <rect key="frame" x="242" y="485" width="350" height="240"/>
+                                <rect key="frame" x="242" y="487.5" width="350" height="235.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2cY-zv-zEK">
-                                        <rect key="frame" x="20" y="18" width="310" height="207"/>
+                                        <rect key="frame" x="20" y="18" width="310" height="202.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Finalizing Screen Proctoring" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Drh-JI-JlO">
                                                 <rect key="frame" x="0.0" y="0.0" width="310" height="20.5"/>
@@ -31,7 +31,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCU-dI-vgr">
                                                 <rect key="frame" x="0.0" y="35.5" width="310" height="72"/>
-                                                <string key="text">Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
+                                                <string key="text">Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -46,9 +46,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDi-bm-uNU">
-                                                <rect key="frame" x="0.0" y="172.5" width="310" height="34.5"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Quit"/>
+                                                <rect key="frame" x="0.0" y="172.5" width="310" height="30"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Quit"/>
                                                 <connections>
                                                     <action selector="quitButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="WPQ-EJ-j5h"/>
                                                 </connections>

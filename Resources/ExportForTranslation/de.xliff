@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
@@ -4852,6 +4853,23 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       </trans-unit>
     </body>
   </file>
+  <file original="Classes/Proctoring/Base.lproj/TransmittingCachedScreenShotsView.xib" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
+    </header>
+    <body>
+      <trans-unit id="49a-2V-epZ.title" xml:space="preserve">
+        <source>Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</source>
+        <target>Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</target>
+        <note>Class = "NSTextFieldCell"; title = "Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status."; ObjectID = "49a-2V-epZ";</note>
+      </trans-unit>
+      <trans-unit id="vcu-8L-oOc.title" xml:space="preserve">
+        <source>Quit</source>
+        <target>Quit</target>
+        <note>Class = "NSButtonCell"; title = "Quit"; ObjectID = "vcu-8L-oOc";</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.4" build-num="15F31d"/>
@@ -7505,14 +7523,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "UILabel"; text = "Finalizing Screen Proctoring"; ObjectID = "Drh-JI-JlO";</note>
       </trans-unit>
       <trans-unit id="NCU-dI-vgr.text" xml:space="preserve">
-        <source>Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</source>
+        <source>Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</source>
         <target>Bitte warten Sie, während die Bildschirmüberwachung ihre restlichen Operationen ausführt. Dies kann eine Weile dauern, je nach Status des Netzwerkes und Bildschirmüberwachungs-Dienstes.</target>
-        <note>Class = "UILabel"; text = "Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status."; ObjectID = "NCU-dI-vgr";</note>
-      </trans-unit>
-      <trans-unit id="sDi-bm-uNU.configuration.title" xml:space="preserve">
-        <source>Quit</source>
-        <target>Beenden</target>
-        <note>Class = "UIButton"; configuration.title = "Quit"; ObjectID = "sDi-bm-uNU";</note>
+        <note>Class = "UILabel"; text = "Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status."; ObjectID = "NCU-dI-vgr";</note>
       </trans-unit>
       <trans-unit id="sDi-bm-uNU.normalTitle" xml:space="preserve">
         <source>Quit</source>
@@ -7672,7 +7685,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
     <body>
       <trans-unit id="Add App..." xml:space="preserve">
         <source>Add App...</source>
-        <target>App hinzufügen…</target>
+        <target>App hinzufügen...</target>
         <note/>
       </trans-unit>
       <trans-unit id="App" xml:space="preserve">
@@ -7745,6 +7758,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Browser Features" xml:space="preserve">
         <source>Browser Features</source>
         <target>Browser-Funktionen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer)." xml:space="preserve">
+        <source>Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</source>
+        <target>Das klassische WebView (UIWebView) wird unter iOS/iPadOS nicht mehr unterstützt! Die SEB-Integration/-Einstellungen der verwendeten Prüfungslösung funktionieren möglicherweise nicht mehr und müssen aktualisiert werden, um das moderne WebView zu unterstützen. Diese Warnung wird oben an Browser-Tabs angezeigt, wenn Einstellungen das klassische WebView verlangen. Sie können die Anzeige dieser Warnung deaktivieren, aber wenn Sie der Anbieter eines Prüfungssystems sind, das noch nicht mit dem modernen WebView kompatibel ist, müssen Sie Ihre Integration jetzt aktualisieren (verwenden Sie die SEB Javascript API anstelle der HTTP-Header-Prüfung für BEK/CK, siehe safeexambrowser.org/developer).</target>
         <note/>
       </trans-unit>
       <trans-unit id="Custom" xml:space="preserve">
@@ -7871,11 +7889,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView.</source>
         <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.</target>
         <note>String for FooterText elements</note>
-      </trans-unit>
-      <trans-unit id="Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer)." xml:space="preserve">
-        <source>Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</source>
-        <target>Das klassische WebView (UIWebView) wird unter iOS/iPadOS nicht mehr unterstützt! Die SEB-Integration/-Einstellungen der verwendeten Prüfungslösung funktionieren möglicherweise nicht mehr und müssen aktualisiert werden, um das moderne WebView zu unterstützen. Diese Warnung wird oben an Browser-Tabs angezeigt, wenn Einstellungen das klassische WebView verlangen. Sie können die Anzeige dieser Warnung deaktivieren, aber wenn Sie der Anbieter eines Prüfungssystems sind, das noch nicht mit dem modernen WebView kompatibel ist, müssen Sie Ihre Integration jetzt aktualisieren (verwenden Sie die SEB Javascript API anstelle der HTTP-Header-Prüfung für BEK/CK, siehe safeexambrowser.org/developer).</target>
-        <note/>
       </trans-unit>
       <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
         <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>

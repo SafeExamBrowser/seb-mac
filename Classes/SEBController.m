@@ -1947,6 +1947,7 @@ bool insideMatrix(void);
             }
 
             [transmittingCachedScreenShotsWindow setLevel:NSScreenSaverWindowLevel+1];
+            transmittingCachedScreenShotsWindow.styleMask  &= ~(NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskResizable);
             transmittingCachedScreenShotsWindow.title = NSLocalizedString(@"Finalizing Screen Proctoring", @"");
             NSWindowController *windowController = [[NSWindowController alloc] initWithWindow:transmittingCachedScreenShotsWindow];
             self.transmittingCachedScreenShotsWindowController = windowController;
@@ -5931,7 +5932,9 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) reload:(id)sender
 {
-    [self reloadButtonPressed];
+    if (!(_screenProctoringController && _screenProctoringController.sessionIsClosing)) {
+        [self reloadButtonPressed];
+    }
 }
 
 // Customized cut, copy, paste Menu commands
@@ -6539,7 +6542,7 @@ conditionallyForWindow:(NSWindow *)window
     if (!self.pseudoModalWindow) {
         [NSApp stopModalWithCode:SEBEnterPasswordOK];
     } else {
-        [self exitSEB];
+        [self showEnterPasswordDialogClose];
     }
 }
 
@@ -6644,61 +6647,63 @@ conditionallyForWindow:(NSWindow *)window
 #pragma mark - Open/Close Preferences
 
 - (IBAction) openPreferences:(id)sender {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-        if (![self.preferencesController preferencesAreOpen]) {
-            // Load admin password from the system's user defaults database
-            NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-            if (![hashedAdminPW isEqualToString:@""]) {
-                // If admin password is set, then restrict access to the preferences window
-                if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil) modalForWindow:self.browserController.mainBrowserWindow pseudoModal:NO windowTitle:@""] == SEBEnterPasswordCancel) {
-                    return;
+    if (!(_screenProctoringController && _screenProctoringController.sessionIsClosing)) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            if (![self.preferencesController preferencesAreOpen]) {
+                // Load admin password from the system's user defaults database
+                NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
+                if (![hashedAdminPW isEqualToString:@""]) {
+                    // If admin password is set, then restrict access to the preferences window
+                    if ([self showEnterPasswordDialog:NSLocalizedString(@"Enter administrator password:",nil) modalForWindow:self.browserController.mainBrowserWindow pseudoModal:NO windowTitle:@""] == SEBEnterPasswordCancel) {
+                        return;
+                    }
+                    NSString *password = [self.enterPassword stringValue];
+                    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+                    if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
+                        //if hash of entered password is not equal to the one in preferences
+                        // Wrong admin password was entered
+                        NSAlert *modalAlert = [self newAlert];
+                        [modalAlert setMessageText:NSLocalizedString(@"Wrong Admin Password", @"")];
+                        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If you don't enter the correct %@ administrator password, then you cannot open preferences.", @""), SEBShortAppName]];
+                        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+                        [modalAlert setAlertStyle:NSAlertStyleWarning];
+                        void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+                            [self removeAlertWindow:modalAlert.window];
+                        };
+                        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
+                        return;
+                    }
                 }
-                NSString *password = [self.enterPassword stringValue];
-                SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
-                    //if hash of entered password is not equal to the one in preferences
-                    // Wrong admin password was entered
-                    NSAlert *modalAlert = [self newAlert];
-                    [modalAlert setMessageText:NSLocalizedString(@"Wrong Admin Password", @"")];
-                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If you don't enter the correct %@ administrator password, then you cannot open preferences.", @""), SEBShortAppName]];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
-                    [modalAlert setAlertStyle:NSAlertStyleWarning];
-                    void (^wrongPasswordEnteredOK)(NSModalResponse) = ^void (NSModalResponse answer) {
-                        [self removeAlertWindow:modalAlert.window];
-                    };
-                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wrongPasswordEnteredOK];
-                    return;
+                if (_isAACEnabled == NO) {
+                    // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
+                    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+                    [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+                    // Close the black background covering windows
+                    [self closeCapWindows];
+                    // Show the Config menu (in menu bar)
+                    [configMenu setHidden:NO];
                 }
+                
+                // Check if the running prohibited processes window is open and close it if yes
+                if (_processListViewController) {
+                    [self closeProcessListWindow];
+                }
+                
+                // Show preferences window
+                [self.preferencesController openPreferencesWindow];
+                
+            } else {
+                // Show preferences window
+                DDLogDebug(@"openPreferences: Preferences already open, just show Window");
+                // Release preferences window so buttons get enabled properly for the local client settings mode
+                [self.preferencesController releasePreferencesWindow];
+                // Re-initialize and open preferences window
+                [self.preferencesController initPreferencesWindow];
+                [self.preferencesController reopenPreferencesWindow];
+                [self.preferencesController showPreferencesWindow:nil];
             }
-            if (_isAACEnabled == NO) {
-                // Switch the kiosk mode temporary off and override settings for menu bar: Show it while prefs are open
-                [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-                [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
-                // Close the black background covering windows
-                [self closeCapWindows];
-                // Show the Config menu (in menu bar)
-                [configMenu setHidden:NO];
-            }
-            
-            // Check if the running prohibited processes window is open and close it if yes
-            if (_processListViewController) {
-                [self closeProcessListWindow];
-            }
-            
-            // Show preferences window
-            [self.preferencesController openPreferencesWindow];
-            
-        } else {
-            // Show preferences window
-            DDLogDebug(@"openPreferences: Preferences already open, just show Window");
-            // Release preferences window so buttons get enabled properly for the local client settings mode
-            [self.preferencesController releasePreferencesWindow];
-            // Re-initialize and open preferences window
-            [self.preferencesController initPreferencesWindow];
-            [self.preferencesController reopenPreferencesWindow];
-            [self.preferencesController showPreferencesWindow:nil];
         }
     }
 }
@@ -6913,7 +6918,10 @@ conditionallyForWindow:(NSWindow *)window
                 [self sessionQuitRestartIgnoringQuitPW:NO];
             } else {
                 // Quit from uploading cached screen shots: Don't confirm quitting
-                [self sessionQuitRestart:NO];
+                [self closeTransmittingCachedScreenShotsWindow:^{
+                    self->_screenProctoringController = nil;
+                    [self sessionQuitRestart:NO];
+                }];
             }
         }
     }
