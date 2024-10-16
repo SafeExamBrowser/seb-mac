@@ -3470,7 +3470,12 @@ void run_on_ui_thread(dispatch_block_t block)
                                                          style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         self.alertController = nil;
         DDLogDebug(@"%s canceled quit alert", __FUNCTION__);
-        [self.sideMenuController hideLeftViewAnimated];
+        if (quittingFromSPSCacheUpload) {
+            [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil];
+        } else {
+            self.quittingFromSPSCacheUpload = NO;
+            [self.sideMenuController hideLeftViewAnimated];
+        }
     }]];
     _alertController.preferredAction = quitOrRestartAction;
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
