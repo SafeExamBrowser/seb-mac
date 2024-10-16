@@ -31,7 +31,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCU-dI-vgr">
                                                 <rect key="frame" x="0.0" y="35.5" width="310" height="72"/>
-                                                <string key="text">Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
+                                                <string key="text">Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

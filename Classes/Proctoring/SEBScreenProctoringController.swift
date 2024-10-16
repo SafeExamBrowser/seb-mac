@@ -475,6 +475,9 @@ extension SEBScreenProctoringController {
                 }
                 DDLogDebug("SEB Screen Proctoring Controller: Start checking server health every \(timeIntervalForHealthCheck) seconds.")
                 repeatingTimerForHealthCheck?.resume()
+            } else if self.closingSession {
+                // If server healt is bad and we are waiting for recovery, increase the error counter with every deferred screen shot when resending while closing session
+                self.transmittingDeferredScreenShotsWhileClosingError()
             }
         }
         
@@ -513,9 +516,10 @@ extension SEBScreenProctoringController {
             // After that resume transmitting cached screen shots
         }
 
-        if currentServerHealth == SPSHealth.GOOD && (transmittingState == SPSTransmittingState.normal || transmittingState == SPSTransmittingState.delayForResuming) {
+        if (currentServerHealth == SPSHealth.GOOD && (transmittingState == SPSTransmittingState.normal || transmittingState == SPSTransmittingState.delayForResuming) ||
+            resending && currentServerHealth != SPSHealth.BAD) {
             self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
-            if !(resending && transmittingState == SPSTransmittingState.delayForResuming) {
+            if (transmittingState == SPSTransmittingState.normal) {
                 transmitScreenShot(data: data, metaData: metaData, timeStamp: timeInterval, resending: resending, completion: completion)
             }
             return

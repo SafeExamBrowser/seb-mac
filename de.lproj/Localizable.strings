@@ -1055,7 +1055,7 @@
 "Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Verbindungsqualität %d von 10";
 
 /* No comment provided by engineer. */
-"Server health %d out of 10" = "Verbindungsstatus %d von 10";
+"Server health %d out of 10" = "Verbindungsqualität %d von 10";
 
 /* No comment provided by engineer. */
 "Server health %d out of 10, deferring sending screen shots" = "Verbindungsqualität %d von 10, Übertragung erfolgt verzögert";

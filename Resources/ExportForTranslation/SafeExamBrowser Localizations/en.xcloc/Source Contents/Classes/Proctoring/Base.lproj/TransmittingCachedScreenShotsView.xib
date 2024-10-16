@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TransmittingCachedScreenShotsViewController">
+            <connections>
+                <outlet property="message" destination="81f-vK-OKC" id="J6k-dQ-q2k"/>
+                <outlet property="operations" destination="XLK-By-gdk" id="Uas-mB-K1h"/>
+                <outlet property="progressBar" destination="O2C-QF-CGf" id="rEe-cs-VcS"/>
+                <outlet property="quitButton" destination="kBp-vt-XEn" id="WZi-gv-iOJ"/>
+                <outlet property="view" destination="SYe-Be-5oC" id="Nd9-33-jQ7"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="SYe-Be-5oC">
+            <rect key="frame" x="0.0" y="0.0" width="650" height="175"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <stackView distribution="equalSpacing" orientation="vertical" alignment="trailing" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFI-l3-M9y">
+                    <rect key="frame" x="20" y="15" width="610" height="145"/>
+                    <subviews>
+                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="660" translatesAutoresizingMaskIntoConstraints="NO" id="81f-vK-OKC">
+                            <rect key="frame" x="-2" y="113" width="614" height="32"/>
+                            <textFieldCell key="cell" selectable="YES" id="49a-2V-epZ">
+                                <font key="font" metaFont="system"/>
+                                <string key="title">Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <progressIndicator maxValue="100" doubleValue="50" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="O2C-QF-CGf">
+                            <rect key="frame" x="0.0" y="82" width="610" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="18" id="tph-4Z-iFy"/>
+                            </constraints>
+                        </progressIndicator>
+                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="660" translatesAutoresizingMaskIntoConstraints="NO" id="XLK-By-gdk">
+                            <rect key="frame" x="-2" y="32" width="614" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="qqu-IZ-f0K"/>
+                            </constraints>
+                            <textFieldCell key="cell" selectable="YES" id="fO2-Nh-lHf">
+                                <font key="font" metaFont="smallSystem"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <stackView orientation="horizontal" alignment="bottom" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OH4-xg-d5J">
+                            <rect key="frame" x="0.0" y="0.0" width="610" height="20"/>
+                            <endViews>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kBp-vt-XEn">
+                                    <rect key="frame" x="557" y="-7" width="60" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vcu-8L-oOc">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                        <connections>
+                                            <action selector="quitButtonPressed:" target="-2" id="AEk-Xx-VgQ"/>
+                                        </connections>
+                                    </buttonCell>
+                                </button>
+                            </endViews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="o4V-kr-hia"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="XLK-By-gdk" secondAttribute="trailing" id="1p5-rX-tjR"/>
+                        <constraint firstItem="XLK-By-gdk" firstAttribute="leading" secondItem="dFI-l3-M9y" secondAttribute="leading" id="EMZ-7G-frx"/>
+                        <constraint firstItem="OH4-xg-d5J" firstAttribute="leading" secondItem="dFI-l3-M9y" secondAttribute="leading" id="Q5B-xS-ha1"/>
+                        <constraint firstAttribute="trailing" secondItem="OH4-xg-d5J" secondAttribute="trailing" id="bo8-5a-M3j"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="dFI-l3-M9y" firstAttribute="leading" secondItem="SYe-Be-5oC" secondAttribute="leading" constant="20" id="FIq-Ua-dh6"/>
+                <constraint firstAttribute="trailing" secondItem="dFI-l3-M9y" secondAttribute="trailing" constant="20" id="L8k-5f-Mgd"/>
+                <constraint firstItem="dFI-l3-M9y" firstAttribute="top" secondItem="SYe-Be-5oC" secondAttribute="top" constant="15" id="RWN-bT-GFj"/>
+                <constraint firstAttribute="bottom" secondItem="dFI-l3-M9y" secondAttribute="bottom" constant="15" id="z4F-Ng-HMd"/>
+            </constraints>
+            <point key="canvasLocation" x="207" y="1132"/>
+        </view>
+    </objects>
+</document>

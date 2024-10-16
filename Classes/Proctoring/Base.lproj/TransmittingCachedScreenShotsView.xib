@@ -28,7 +28,7 @@
                             <rect key="frame" x="-2" y="113" width="614" height="32"/>
                             <textFieldCell key="cell" selectable="YES" id="49a-2V-epZ">
                                 <font key="font" metaFont="system"/>
-                                <string key="title">Please wait while screen procotoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
+                                <string key="title">Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status.</string>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
