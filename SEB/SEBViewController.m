@@ -3473,7 +3473,6 @@ void run_on_ui_thread(dispatch_block_t block)
         if (quittingFromSPSCacheUpload) {
             [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil];
         } else {
-            self.quittingFromSPSCacheUpload = NO;
             [self.sideMenuController hideLeftViewAnimated];
         }
     }]];
