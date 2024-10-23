@@ -920,26 +920,22 @@ extension SEBScreenProctoringController {
 //    }
 #endif
 
-        public func collectedTriggerEvent(eventData:String) {
-            if latestTriggerEvent != nil {
-                latestTriggerEvent = "\(latestTriggerEvent!) / \(eventData)"
+    public func collectedTriggerEvent(eventData:String) {
+        latestTriggerEvent = eventData
+        latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
+        if !closingSession {
+            if self.screenShotMinIntervalTimer == nil {
+#if DEBUG
+                DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
+#endif
+                self.screenShotMinIntervallTriggered()
             } else {
-                latestTriggerEvent = eventData
-            }
-            latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
-            if !closingSession {
-                if self.screenShotMinIntervalTimer == nil {
-    #if DEBUG
-                    DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
-    #endif
-                    self.screenShotMinIntervallTriggered()
-                } else {
-    #if DEBUG
-                    DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
-    #endif
-                }
+#if DEBUG
+                DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
+#endif
             }
         }
+    }
 
     public func collectedAlphanumericKeyEvent() {
         alphanumericKeyCount += 1
