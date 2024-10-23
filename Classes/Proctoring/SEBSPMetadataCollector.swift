@@ -64,7 +64,12 @@ public class SEBSPMetadataCollector {
         
         do {
             let data = try encoder.encode(metadata)
-            return String(data: data, encoding: String.Encoding.utf8)
+            let metadataJsonString = String(data: data, encoding: String.Encoding.utf8)
+#if DEBUG
+            DDLogDebug("Metadata Collector: Coalesced metadata JSON: \(metadataJsonString as Any)")
+#endif
+            DDLogDebug("SEB Screen Proctoring Metadata Collector: Metadata length: \(metadataJsonString?.count as Any)")
+            return metadataJsonString
         } catch let error {
             DDLogError("SEB Screen Proctoring Metadata Collector: Creating json from metadata failed: \(String(describing: error))")
         }
@@ -98,11 +103,12 @@ public class SEBSPMetadataCollector {
                 case .mouseExited:
                     eventTypeString = "Mouse exited area"
                 case .keyDown:
-                    eventTypeString = "Key pressed \(self.keyEventDesciption(event: event))"
+                    eventTypeString = "Key pressed: \(self.keyEventDesciption(event: event))"
                 case .keyUp:
-                    eventTypeString = "Key released \(self.keyEventDesciption(event: event))"
+                    eventTypeString = "Key released: \(self.keyEventDesciption(event: event))"
                 case .flagsChanged:
-                    eventTypeString = "Modifier key pressed \(self.keyEventModifiers(event: event))"
+                    let modifier = self.keyEventModifiers(event: event)
+                    eventTypeString = "Modifier key pressed\(modifier.count > 0 ? ": \(modifier)" : ""))"
                 case .appKitDefined:
                     eventTypeString = "AppKit-related event"
                 case .systemDefined:
@@ -386,29 +392,27 @@ public class SEBSPMetadataCollector {
 #if os(macOS)
     
     func keyEventDesciption(event: NSEvent) -> String {
-        let characters = event.charactersIgnoringModifiers?.replaceSpecialCharactersWithKeyName()
-        let modifiers = keyEventModifiers(event: event)
-        let resultingCharacters = event.characters?.replaceSpecialCharactersWithKeyName()
         var keyEventDescription = ""
-        if characters != nil || resultingCharacters != nil || !modifiers.isEmpty {
-            if !modifiers.isEmpty {
-                if characters != nil {
-                    keyEventDescription = "\(modifiers)-\(characters!)"
-                } else {
-                    keyEventDescription = modifiers
-                }
+        var characters = event.charactersIgnoringModifiers ?? ""
+        if characters.replacedSpecialCharactersWithKeyName() {
+            keyEventDescription = characters
+        }
+        let modifiers = keyEventModifiers(event: event)
+        var resultingCharacters = event.characters ?? ""
+        if resultingCharacters.replacedSpecialCharactersWithKeyName() && keyEventDescription.isEmpty {
+            keyEventDescription = resultingCharacters
+        }
+        if !characters.isEmpty || !resultingCharacters.isEmpty || !modifiers.isEmpty {
+            if !modifiers.isEmpty && !characters.isEmpty && !(modifiers == "Shift" || modifiers == "Option/Alt") {
+                keyEventDescription = "\(modifiers)-\(characters)"
                 self.delegate?.collectedKeyboardShortcutEvent?(keyEventDescription)
             }
-            if characters != nil && keyEventDescription.isEmpty {
-                keyEventDescription = "alphanumeric key"
-            } else {
-                if resultingCharacters != nil {
-    //                keyEventDescription = "'\(resultingCharacters!)' (\(keyEventDescription))"
-                    keyEventDescription = "'alphanumeric key' (\(keyEventDescription))"
-                }
+            if (!characters.isEmpty || !resultingCharacters.isEmpty) && keyEventDescription.isEmpty {
+                keyEventDescription = keysSPS.alphanumericKeyString.firstUppercased
+                self.delegate?.collectedAlphanumericKeyEvent?()
+            } else if !modifiers.isEmpty && keyEventDescription.isEmpty {
+                keyEventDescription = modifiers
             }
-            
-            keyEventDescription = ": \(keyEventDescription)"
         }
         return keyEventDescription
     }
@@ -440,6 +444,9 @@ public class SEBSPMetadataCollector {
         if modifierMask.contains(.function) {
             modifiers.append("function")
         }
+        if modifierMask.contains(.deviceIndependentFlagsMask) {
+            modifiers.append("device-independent modifier")
+        }
         return modifiers.joined(separator: "-")
     }
 #endif
@@ -449,7 +456,19 @@ extension String {
     public func replaceSpecialCharactersWithKeyName() -> String {
         var newString = self.replacingOccurrences(of: "\t", with: "Tab")
         newString = newString.replacingOccurrences(of: "\r", with: "Return")
+        newString = newString.replacingOccurrences(of: "\u{03}", with: "Enter")
         newString = newString.replacingOccurrences(of: "\u{08}", with: "Backspace")
+        newString = newString.replacingOccurrences(of: "\u{0a}", with: "Newline")
+        newString = newString.replacingOccurrences(of: "\u{0c}", with: "Form Feed")
+        newString = newString.replacingOccurrences(of: "\u{0d}", with: "Carriage Return")
+        newString = newString.replacingOccurrences(of: "\u{19}", with: "Back Tab")
+        newString = newString.replacingOccurrences(of: "\u{7f}", with: "Delete")
+        newString = newString.replacingOccurrences(of: "\u{2028}", with: "Line Separator")
+        newString = newString.replacingOccurrences(of: "\u{2029}", with: "Paragraph Separator")
+        newString = newString.replacingOccurrences(of: "\u{2191}", with: "Cursor Up")
+        newString = newString.replacingOccurrences(of: "\u{2193}", with: "Cursor Down")
+        newString = newString.replacingOccurrences(of: "\u{2190}", with: "Cursor Left")
+        newString = newString.replacingOccurrences(of: "\u{2192}", with: "Cursor Right")
 #if os(iOS)
         newString = newString.replacingOccurrences(of: UIKeyCommand.inputEscape, with: "Escape")
         newString = newString.replacingOccurrences(of: UIKeyCommand.inputUpArrow, with: "Cursor Up")

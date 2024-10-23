@@ -1825,7 +1825,7 @@ bool insideMatrix(void);
         }
     }
 
-    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@, Path: %@)", app.localizedName, app.bundleIdentifier, app.bundleURL];
+    NSString *activeAppInfo = [NSString stringWithFormat:@"%@ (Bundle ID: %@, Path: %@)", app.localizedName, app.bundleIdentifier, app.bundleURL.path];
     
     if (activeBrowserWindowTitle == nil) {
         activeBrowserWindowTitle = @"";
@@ -6762,7 +6762,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)preferencesOpenedWhileStartingUpNowClosing
 {
-    
     if (!quittingMyself) {
         DDLogInfo(@"Preferences window was opened while starting up SEB, continue now to start up.");
         // We need to reset this flag, as settings to be opened are already active
@@ -6983,7 +6982,7 @@ conditionallyForWindow:(NSWindow *)window
     _openingSettings = NO;
 
     // In case of AAC Multi App Mode, we have to terminate running permitted applications
-    [self terminateApplications:@[] processes:@[] starting:NO restarting:restart callback:self selector:nil];
+    [self terminateApplications:[ProcessManager sharedProcessManager].permittedRunningApplications processes:@[] starting:NO restarting:restart callback:self selector:nil];
 }
 
 - (void) sessionQuitRestartContinue:(BOOL)restart
