@@ -6922,6 +6922,7 @@ conditionallyForWindow:(NSWindow *)window
             }
         } else {
             // If no quit password is required, then confirm quitting, with default option "Quit"
+            DDLogInfo(@"%s No quit password required, continue", __FUNCTION__);
             if (!quittingFromSPSCacheUpload) {
                 [self sessionQuitRestartIgnoringQuitPW:NO];
             } else {
@@ -7055,10 +7056,13 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)requestedExit:(NSNotification *_Nullable)notification
 {
+    DDLogInfo(@"%s", __FUNCTION__);
     [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+        DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
 
         // Stop/Reset proctoring
         [self stopProctoringWithCompletion:^{
+            DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
             [self exitSEB];
         }];
     }];
@@ -7066,15 +7070,18 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)exitSEB
 {
+    DDLogInfo(@"%s", __FUNCTION__);
     quittingMyself = YES; //quit SEB without asking for confirmation or password
 
     if (_browserController) {
         // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
         // downloads to disk, and ensures that future requests occur on a new socket.
         [self.browserController resetAllCookiesWithCompletionHandler:^{
+            DDLogInfo(@"%s All cookies have been reset, continue terminating", __FUNCTION__);
             [NSApp terminate: nil]; //quit (exit) SEB
         }];
     } else {
+        DDLogInfo(@"%s Continue terminating", __FUNCTION__);
         [NSApp terminate: nil]; //quit (exit) SEB
     }
 }
@@ -7086,7 +7093,9 @@ conditionallyForWindow:(NSWindow *)window
     if (self.examSession) {
         secureClientSession = self.secureClientSession;
     }
-    return !_startingUp && self.examSession && secureClientSession && !_openedURL;
+    BOOL quittingSession = !_startingUp && self.examSession && secureClientSession && !_openedURL;
+    DDLogInfo(@"%s: %d", __FUNCTION__, quittingSession);
+    return quittingSession;
 }
 
 - (BOOL) examSession
@@ -7118,7 +7127,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)requestedRestart:(NSNotification *_Nullable)notification
 {
-    DDLogError(@"---------- RESTARTING SEB SESSION -------------");
+    DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
     _conditionalInitAfterProcessesChecked = NO;
     _openedURL = NO;
@@ -7357,7 +7366,8 @@ conditionallyForWindow:(NSWindow *)window
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     } else {
-        [self applicationWillTerminateProceed];
+        // In case of AAC Multi App Mode, we have to terminate running permitted applications
+        [self terminateApplications:[ProcessManager sharedProcessManager].permittedRunningApplications processes:@[] starting:NO restarting:NO callback:self selector:@selector(applicationWillTerminateProceed)];
     }
 }
 
