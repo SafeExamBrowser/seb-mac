@@ -8,3 +8,4 @@
 #import "SEBAbstractWebView.h"
 #import "SEBURLFilter.h"
 #import "SEBBatteryController.h"
+#import "SEBSystemManager.h"

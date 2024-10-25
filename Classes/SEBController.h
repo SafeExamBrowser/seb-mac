@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class PreferencesController;
 @class SEBOSXConfigFileController;
 @class SEBSystemManager;
+@class SEBFileManager;
 @class AssessmentConfigurationManager;
 @class ProcessListViewController;
 @class SEBDockController;
@@ -202,6 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) IBOutlet PreferencesController *preferencesController;
 @property(strong, nonatomic) SEBOSXConfigFileController *configFileController;
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
+@property(strong, nonatomic) SEBFileManager *sebFileManager;
 @property(strong, nonatomic) SEBBatteryController *batteryController;
 @property(strong, nonatomic) SEBDockController *_Nullable dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
