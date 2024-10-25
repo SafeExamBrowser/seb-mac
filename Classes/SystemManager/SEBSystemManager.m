@@ -151,15 +151,19 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     NSFileManager *fileManager= [NSFileManager defaultManager];
 //    NSURL *tempDirectoryURL = [fileManager.temporaryDirectory URLByAppendingPathComponent:[NSUUID UUID].UUIDString]; //[[fileManager URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error] URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
     NSURL *tempDirectory = [fileManager URLForDirectory:NSItemReplacementDirectory inDomain:NSUserDomainMask appropriateForURL:fileManager.temporaryDirectory create:YES error:&error];
+    if (error) {
+        DDLogError(@"Error: Creating NSItemReplacementDirectory temporary folder at %@ failed with error %@", tempDirectory, error);
+    }
     NSURL *tempDirectoryURL = [tempDirectory URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
 
     if(![fileManager fileExistsAtPath:tempDirectoryURL.path isDirectory:&isDir]) {
-        if(![fileManager createDirectoryAtURL:tempDirectoryURL withIntermediateDirectories:YES attributes:nil error:NULL]) {
-            DDLogError(@"Error: Creating folder failed %@", tempDirectoryURL);
+        if(![fileManager createDirectoryAtURL:tempDirectoryURL withIntermediateDirectories:YES attributes:nil error:&error]) {
+            DDLogError(@"Error: Creating folder at %@ with error %@", tempDirectoryURL, error);
             // As a fallback just use the temp directory
             tempDirectoryURL = tempDirectory;
         }
     } else {
+        DDLogDebug(@"Temporary directory already existed at %@ (isDir: %d", tempDirectoryURL, isDir);
         return [self createTemporaryDirectory];
     }
 //    return scFullPath;
@@ -328,6 +332,25 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 }
 
 
+// Get stored directory location URL (supporting security scoped URLs)
+- (NSURL *) getStoredDirectoryURLWithKey:(NSString *)key
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSData *storedDirectoryData = [preferences persistedSecureObjectForKey:key];
+    NSError *error = nil;
+    NSURL *storedURL = [NSKeyedUnarchiver unarchivedObjectOfClass:NSURL.class fromData:storedDirectoryData error:&error];
+    if (error) {
+        DDLogDebug(@"Could not restore temporary directory URL with error: %@", error);
+    }
+    NSString *storedDirectoryPath = storedURL.path;
+    // We perform this check for security reasons...
+    if ([storedDirectoryPath hasPrefix:@"../"]) {
+        storedURL = nil;
+    }
+    return storedURL;
+}
+
+
 // Remove the temporary directory and return YES if successful
 - (BOOL) removeTempDirectory:(NSString *)path
 {
@@ -393,25 +416,25 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 - (NSURL *) getTempDownUploadDirectory
 {
     DDLogDebug(@"%s", __FUNCTION__);
-    if (!downUploadTempPath) {
+    if (!downUploadTempURL) {
         // Check if there is a temporary down/upload directory location persistently stored
         // What only happends when it couldn't be reset last time SEB has run
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        downUploadTempPath = [self getStoredDirectoryLocationWithKey:TempDownUploadLocation];
-        if (downUploadTempPath.length > 0) {
+        downUploadTempURL = [self getStoredDirectoryURLWithKey:TempDownUploadLocation];
+        if (downUploadTempURL) {
             // There is a redirected location saved
-            DDLogDebug(@"There was a persistently saved temporary down/upload directory location (%@). Looks like SEB didn't quit properly when running last time.", downUploadTempPath);
+            DDLogDebug(@"There was a persistently saved temporary down/upload directory location (%@). Looks like SEB didn't quit properly when running last time.", downUploadTempURL);
             // Check if this directory actually exists
             BOOL isDir;
             NSFileManager *fileManager= [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:downUploadTempPath isDirectory:&isDir]) {
-                DDLogDebug(@"The persistently saved temporary down/upload directory at %@ doesn't actually exist anymore. Create new one.", downUploadTempPath);
+            if(![fileManager fileExistsAtPath:downUploadTempURL.path isDirectory:&isDir]) {
+                DDLogDebug(@"The persistently saved temporary down/upload directory at %@ doesn't actually exist anymore. Create new one.", downUploadTempURL);
             } else {
-                return [NSURL fileURLWithPath:downUploadTempPath isDirectory:YES];;
+                return downUploadTempURL;
             }
         }
         // No temporary down/upload directory location was persistently saved or it doesn't actually exist
-        downUploadTempPath = [self createTemporaryDirectory];
+//        downUploadTempURL = [SEBFileManager createTemporaryDirectory];
         [preferences setPersistedSecureObject:downUploadTempPath forKey:TempDownUploadLocation];
         DDLogDebug(@"Current temporary down/upload directory location: %@", downUploadTempPath);
     } else {

@@ -151,6 +151,15 @@ bool insideMatrix(void);
 }
 
 
+- (SEBFileManager *) sebFileManager
+{
+    if (!_sebFileManager) {
+        _sebFileManager = [[SEBFileManager alloc] init];
+    }
+    return _sebFileManager;
+}
+
+
 - (SEBOSXConfigFileController *) configFileController
 {
     if (!_configFileController) {
@@ -7254,8 +7263,9 @@ conditionallyForWindow:(NSWindow *)window
     if (self.browserController) {
         [self.browserController closeAllBrowserWindows];
     }
-    [self.systemManager removeTempDownUploadDirectory];
-    
+    BOOL success = [self.sebFileManager removeTempDownUploadDirectory];
+    DDLogInfo(@"Removing temporary down/upload directory was %@successfull.", success ? @"":@"not ");
+
     // If this was a secured exam, we remove it from the list of running exams,
     // otherwise it would be locked next time it is started again
     if (currentExamConfigKey) {
@@ -7582,12 +7592,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (NSURL *) getTempDownUploadDirectory
 {
-    return [self.systemManager getTempDownUploadDirectory];
+    return [self.sebFileManager getTempDownUploadDirectoryWithConfigKey:self.configKey];
 }
 
 - (BOOL) removeTempDownUploadDirectory
 {
-    return [self.systemManager removeTempDownUploadDirectory];
+    return [self.sebFileManager removeTempDownUploadDirectory];
 }
 
 

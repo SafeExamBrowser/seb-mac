@@ -39,13 +39,14 @@
 
 @class VarSystemInfo;
 
-static NSString __unused *TempDownUploadLocation = @"tempDownUploadLocation";
+static NSString __unused *TempDownUploadLocation = @"tempDownUploadLocationURL";
 
 @interface SEBSystemManager : NSObject {
     @private
     NSString *scLocation;
     NSString *scTempPath;
     NSString *downUploadTempPath;
+    NSURL *downUploadTempURL;
 }
 
 @property (strong, nonatomic) VarSystemInfo *systemInfo;
@@ -61,6 +62,8 @@ static NSString __unused *TempDownUploadLocation = @"tempDownUploadLocation";
 - (void) preventScreenCapture;
 - (BOOL) restoreScreenCapture;
 - (void) adjustScreenCapture;
+
+- (NSURL *) getStoredDirectoryURLWithKey:(NSString *)key;
 
 - (NSURL *) getTempDownUploadDirectory;
 - (BOOL) removeTempDownUploadDirectory;
