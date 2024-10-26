@@ -2158,7 +2158,14 @@ bool insideMatrix(void);
             if (starting) {
                 [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
             } else {
-                [self sessionQuitRestartContinue:restarting];
+                if (callback == nil) {
+                    [self sessionQuitRestartContinue:restarting];
+                } else {
+                    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+                    IMP imp = [callback methodForSelector:selector];
+                    void (*func)(id, SEL) = (void *)imp;
+                    func(callback, selector);
+                }
             }
         }
     });
@@ -6992,7 +6999,7 @@ conditionallyForWindow:(NSWindow *)window
     _openingSettings = NO;
 
     // In case of AAC Multi App Mode, we have to terminate running permitted applications
-    [self terminateApplications:[ProcessManager sharedProcessManager].permittedRunningApplications processes:@[] starting:NO restarting:restart callback:self selector:nil];
+    [self terminateApplications:@[] processes:@[] starting:NO restarting:restart callback:nil selector:nil];
 }
 
 - (void) sessionQuitRestartContinue:(BOOL)restart
@@ -7366,8 +7373,12 @@ conditionallyForWindow:(NSWindow *)window
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     } else {
-        // In case of AAC Multi App Mode, we have to terminate running permitted applications
-        [self terminateApplications:[ProcessManager sharedProcessManager].permittedRunningApplications processes:@[] starting:NO restarting:NO callback:self selector:@selector(applicationWillTerminateProceed)];
+        if ([ProcessManager sharedProcessManager].permittedRunningApplications.count > 0) {
+            // In case of AAC Multi App Mode, we have to terminate running permitted applications (will be added in that method)
+            [self terminateApplications:@[] processes:@[] starting:NO restarting:NO callback:self selector:@selector(applicationWillTerminateProceed)];
+        } else {
+            [self applicationWillTerminateProceed];
+        }
     }
 }
 
