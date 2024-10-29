@@ -81,6 +81,10 @@
                           @"identifier" : @"com.tinyspeck.slackmacgap",
                       },
                       @{
+                          @"executable" : @"MSTeams",
+                          @"identifier" : @"com.microsoft.teams2",
+                      },
+                      @{
                           @"executable" : @"Teams",
                           @"identifier" : @"com.microsoft.teams",
                       },
