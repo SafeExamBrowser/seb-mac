@@ -29,7 +29,8 @@ public class SEBSPMetadataCollector {
     private var settings: MetadataSettings
     private var localEventMonitor: Any?
     private var globalEventMonitor: Any?
-    
+    private var maxJSONLength = 4000
+
     init(delegate: ScreenProctoringDelegate?, settings: MetadataSettings) {
         self.delegate = delegate
         self.settings = settings
@@ -69,6 +70,10 @@ public class SEBSPMetadataCollector {
             DDLogDebug("Metadata Collector: Coalesced metadata JSON: \(metadataJsonString as Any)")
 #endif
             DDLogDebug("SEB Screen Proctoring Metadata Collector: Metadata length: \(metadataJsonString?.count as Any)")
+            if (metadataJsonString?.count ?? 00) > maxJSONLength {
+                DDLogError("SEB Screen Proctoring Metadata Collector: JSON exceeded maximum length of \(maxJSONLength) chars and was not sent: \(String(describing: metadataJsonString))")
+                return ""
+            }
             return metadataJsonString
         } catch let error {
             DDLogError("SEB Screen Proctoring Metadata Collector: Creating json from metadata failed: \(String(describing: error))")
