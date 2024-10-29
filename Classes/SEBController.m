@@ -2155,20 +2155,25 @@ bool insideMatrix(void);
                 return;
             }
         } else {
-            if (starting) {
-                [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-            } else {
-                if (callback == nil) {
-                    [self sessionQuitRestartContinue:restarting];
-                } else {
-                    DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-                    IMP imp = [callback methodForSelector:selector];
-                    void (*func)(id, SEL) = (void *)imp;
-                    func(callback, selector);
-                }
-            }
+            [self conditionallyContinueAfterTerminatingAppsWithCallback:callback restarting:restarting selector:selector starting:starting];
         }
     });
+}
+
+
+- (void) conditionallyContinueAfterTerminatingAppsWithCallback:(id)callback restarting:(BOOL)restarting selector:(SEL)selector starting:(BOOL)starting {
+    if (starting) {
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+    } else {
+        if (callback == nil) {
+            [self sessionQuitRestartContinue:restarting];
+        } else {
+            DDLogDebug(@"%s, continue with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+            IMP imp = [callback methodForSelector:selector];
+            void (*func)(id, SEL) = (void *)imp;
+            func(callback, selector);
+        }
+    }
 }
 
 
@@ -7601,13 +7606,7 @@ conditionallyForWindow:(NSWindow *)window
     BOOL restarting = self.processListViewController.restarting;
     [self closeProcessListWindow];
     // Continue to initializing SEB and then starting the exam session
-    if (callback) {
-        if (starting) {
-            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-        } else {
-            [self sessionQuitRestartContinue:restarting];
-        }
-    }
+    [self conditionallyContinueAfterTerminatingAppsWithCallback:callback restarting:restarting selector:selector starting:starting];
 }
 
 
