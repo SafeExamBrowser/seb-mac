@@ -1362,7 +1362,7 @@ userEnteredFilename:(NSString *)filename
         [[NSUserDefaults standardUserDefaults] setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
     }
     
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+    [self resetBEKCK];
     
     // If using private defaults
     if (NSUserDefaults.userDefaultsPrivate) {
@@ -1429,8 +1429,8 @@ userEnteredFilename:(NSString *)filename
             // Update local preferences and recalculate Config Key (also its contained keys)
             [self.configFileController storeIntoUserDefaults:localClientPreferences];
             
-            [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-            
+            [self resetBEKCK];
+
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
 
             // Re-initialize and open preferences window
@@ -1615,6 +1615,8 @@ userEnteredFilename:(NSString *)filename
         // Switch config purpose to "starting exam"
         [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];        
         DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+        
+        [self resetBEKCK];
     }
     
     // Re-initialize and open preferences window
@@ -1622,6 +1624,15 @@ userEnteredFilename:(NSString *)filename
 	[self reopenPreferencesWindow];
 }
 
+
+- (void) resetBEKCK
+{
+    self.browserController.browserExamKey = nil;
+    self.browserController.configKey = nil;
+    // Force recalculating Config Key
+    [[NSUserDefaults standardUserDefaults] setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+}
 
 // Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender
