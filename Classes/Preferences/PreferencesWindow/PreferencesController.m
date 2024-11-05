@@ -1426,11 +1426,11 @@ userEnteredFilename:(NSString *)filename
             // Reset the config file encrypting identity (key) reference
             self.currentConfigFileKeyHash = nil;
             
+            [self resetBEKCK];
+
             // Update local preferences and recalculate Config Key (also its contained keys)
             [self.configFileController storeIntoUserDefaults:localClientPreferences];
             
-            [self resetBEKCK];
-
             [[MyGlobals sharedMyGlobals] setCurrentConfigURL:nil];
 
             // Re-initialize and open preferences window
@@ -1630,7 +1630,7 @@ userEnteredFilename:(NSString *)filename
     self.browserController.browserExamKey = nil;
     self.browserController.configKey = nil;
     // Force recalculating Config Key
-    [[NSUserDefaults standardUserDefaults] setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+    [[NSUserDefaults standardUserDefaults] setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
     [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
 }
 
