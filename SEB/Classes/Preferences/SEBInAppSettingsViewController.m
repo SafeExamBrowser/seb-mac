@@ -475,7 +475,7 @@
         _sebViewController.browserController.browserExamKey = nil;
         _sebViewController.browserController.configKey = nil;
         // Force recalculating Config Key
-        [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
         [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         // Display updated or current keys
         [self displayBrowserExamKey];

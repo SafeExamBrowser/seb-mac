@@ -140,7 +140,7 @@
             self.browserController.browserExamKey = nil;
             self.browserController.configKey = nil;
             // Force recalculating Config Key
-            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
             // Yes: Display message instead of Browser Exam Key
             [self displayMessageKeyChanged];
@@ -160,7 +160,7 @@
             self.browserController.browserExamKey = nil;
             self.browserController.configKey = nil;
             // Force recalculating Config Key
-            [preferences setSecureObject:nil forKey:@"org_safeexambrowser_configKey"];
+            [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
             [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
         }
         // Display updated or current keys
