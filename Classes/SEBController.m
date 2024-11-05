@@ -2279,7 +2279,7 @@ bool insideMatrix(void);
         return;
     }
     
-    if (browserMediaCaptureScreen) {
+    if (browserMediaCaptureScreen || screenProctoringEnable) {
         if (@available(macOS 10.15, *)) {
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
