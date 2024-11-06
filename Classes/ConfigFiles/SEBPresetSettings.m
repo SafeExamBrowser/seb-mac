@@ -147,7 +147,7 @@
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
-                          @"executable" : @"Google Chrome Helper (Renderer)",
+                          @"executable" : @"Google Chrome Helper",
                           @"strongKill" : @YES,
                       },
                       @{
