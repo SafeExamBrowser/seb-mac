@@ -238,7 +238,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         if (generateNewSalt) {
             // Force generating a new Config Key Salt
             [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_SEB_configKeySalt"];
-            DDLogInfo(@"Force generating ConfigKey salt as there was none defined yet.");
+            DDLogInfo(@"Force generating ConfigKey salt.");
         }
     }
     
@@ -463,7 +463,7 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     NSData *configKey = [preferences secureDataForKey:@"org_safeexambrowser_configKey"];
     // Get dictionary with keys covered by the Config Key in the settings to process
     NSDictionary *configKeyContainedKeys = [preferences secureDictionaryForKey:@"org_safeexambrowser_configKeyContainedKeys"];
-    if (!configKey || configKeyContainedKeys.count == 0) {
+    if (configKey.length == 0 || configKeyContainedKeys.count == 0) {
         // Filter dictionary so only org_safeexambrowser_SEB_ keys are included
         NSDictionary *filteredPrefsDict = [preferences dictionaryRepresentationSEB];
         
