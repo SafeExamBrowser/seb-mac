@@ -1557,7 +1557,11 @@ bool insideMatrix(void);
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
-            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+                [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+            } else {
+                DDLogError(@"%s: Received Screen Proctoring JOIN instruction, despite screen proctoring not being enabled in SEB Settings, ignoring it!", __FUNCTION__);
+            }
         }
     } else {
         DDLogError(@"%s: Cannot execute proctoring instruction, unknown Service Type in attributes %@!", __FUNCTION__, attributes);

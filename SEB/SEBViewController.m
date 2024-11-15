@@ -5258,7 +5258,11 @@ void run_on_ui_thread(dispatch_block_t block)
         NSString *instructionConfirm = attributes[@"instruction-confirm"];
         if (![instructionConfirm isEqualToString:self.serverController.sebServerController.pingInstruction]) {
             self.serverController.sebServerController.pingInstruction = instructionConfirm;
-            [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+                [self.screenProctoringController proctoringInstructionWithAttributes:attributes];
+            } else {
+                DDLogError(@"%s: Received Screen Proctoring JOIN instruction, despite screen proctoring not being enabled in SEB Settings, ignoring it!", __FUNCTION__);
+            }
         }
     }
     
