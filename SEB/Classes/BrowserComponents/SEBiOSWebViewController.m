@@ -130,8 +130,9 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (firstAppearance) {
         firstAppearance = NO;
-        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectPreferModern &&
-            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] &&
+        if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] == webViewSelectForceClassic ||
+            ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowWebView"] != webViewSelectPreferModern &&
+            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"])) &&
             ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
             [self showTopOverlayMessage:[NSString stringWithFormat:NSLocalizedString(@"Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.", @""), SEBShortAppName]];
         }
