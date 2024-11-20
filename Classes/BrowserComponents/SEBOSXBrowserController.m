@@ -204,6 +204,7 @@
 
     SEBAbstractWebView *newWindowWebView = newViewController.sebAbstractWebView;
     newWindowWebView.creatingWebView = nil;
+    browserWindow.visibleWebViewController = (SEBOSXWebViewController<SEBAbstractBrowserControllerDelegate> *) newViewController;
     browserWindow.webView = newWindowWebView;
 
     // Add wrapper view to contentView, which is necessary for WebInspector to not flicker

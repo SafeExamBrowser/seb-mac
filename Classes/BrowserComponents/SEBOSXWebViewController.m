@@ -47,6 +47,7 @@
     if (self) {
         SEBAbstractWebView *sebAbstractWebView = [[SEBAbstractWebView alloc] initNewTabMainWebView:mainWebView withCommonHost:commonHostTab configuration:configuration overrideSpellCheck:(BOOL)overrideSpellCheck delegate:delegate];
         _sebAbstractWebView = sebAbstractWebView;
+        firstAppearance = YES;
     }
     return self;
 }
@@ -76,6 +77,13 @@
 - (void)viewDidAppear
 {
     [_sebAbstractWebView viewDidAppear];
+    Class webViewClass = [_sebAbstractWebView.nativeWebView superclass];
+    if (firstAppearance &&
+        webViewClass != WKWebView.class &&
+        ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote"]) {
+        firstAppearance = NO;
+        [self showTopOverlayMessage:[NSString stringWithFormat:NSLocalizedString(@"Classic WebView is deprecated and no longer fully supported by iOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.", @""), SEBShortAppName]];
+    }
     
     [super viewDidAppear];
 }
@@ -100,5 +108,109 @@
     
     [super viewDidDisappear];
 }
+
+
+#pragma mark Overlay Messages
+
+- (void) showTopOverlayMessage:(NSString *)text
+{
+    if (!_topOverlayMessageView) {
+        
+        NSRect frameRect = NSMakeRect(0,0,155,21); // This will change based on the size you need
+        NSTextField *message = [[NSTextField alloc] initWithFrame:frameRect];
+        message.stringValue = text;
+        message.bezeled = NO;
+        message.editable = NO;
+        message.drawsBackground = NO;
+
+        NSSize messageLabelSize = [message intrinsicContentSize];
+//        [message setAlignment:NSTextAlignmentCenter];
+        CGFloat messageLabelWidth = messageLabelSize.width + 2;
+        CGFloat messageLabelHeight = messageLabelSize.height;
+        [message setFrameSize:NSMakeSize(messageLabelWidth, messageLabelHeight)];
+        
+        _topOverlayMessageView = [self overlayViewForLabelConstraints:message];
+    }
+    
+    NSView *nativeWebView = (NSView *)[_sebAbstractWebView nativeWebView];
+    _topOverlayMessageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [nativeWebView addSubview:_topOverlayMessageView positioned:NSWindowAbove relativeTo:nativeWebView];
+    
+    if (@available(macOS 11.0, *)) {
+        [_topOverlayMessageView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:10].active = YES;
+//        [_topOverlayMessageView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-10].active = YES;
+        [_topOverlayMessageView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:10].active = YES;
+    } else {
+        // Fallback on earlier versions
+    }
+}
+
+
+- (void) closeOverlayMessage
+{
+    [_topOverlayMessageView removeFromSuperview];
+}
+
+
+- (NSView *) overlayViewForLabelConstraints:(NSTextField *)message {
+    [message sizeToFit];
+    
+    message.maximumNumberOfLines = 0;
+    message.translatesAutoresizingMaskIntoConstraints = NO;
+    message.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    CGSize messageLabelSize = message.frame.size;
+//    CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
+    CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
+    
+    NSView *overlayView = [NSView new];
+    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+//    message.centerXAnchor = overlayView.centerXAnchor;
+    
+    overlayView.wantsLayer = YES;
+    overlayView.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
+    overlayView.layer.opacity = 0.75;
+    
+    overlayViewCloseButton = [NSButton buttonWithImage:[NSImage imageNamed:@"Cancel"] target:self action:@selector(closeOverlayMessage)];
+    id target = overlayViewCloseButton.target;
+    DDLogDebug(@"Overlay view close button target: %@", target);
+    [overlayViewCloseButton setBezelStyle:NSBezelStyleCircular];
+    overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [overlayViewCloseButton setAccessibilityLabel:NSLocalizedString(@"Close Warning", @"")];
+
+//    NSStackView *closeButtonStackView = [NSStackView new];
+//    closeButtonStackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+//    closeButtonStackView.distribution = NSStackViewDistributionFill;
+//    closeButtonStackView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [closeButtonStackView addArrangedSubview:overlayViewCloseButton];
+//    [closeButtonStackView addArrangedSubview:[NSView new]];
+
+    NSStackView *overlayStackView = [NSStackView new];
+    overlayStackView.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+    overlayStackView.spacing = 10;
+    overlayStackView.distribution = NSStackViewDistributionFill;
+    overlayStackView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [overlayStackView addArrangedSubview:closeButtonStackView];
+    [overlayStackView addArrangedSubview:overlayViewCloseButton];
+    [overlayStackView addArrangedSubview:message];
+//    [overlayViewCloseButton.widthAnchor constraintEqualToConstant:overlayViewCloseButton.image.size.width].active = YES;
+//    [closeButtonStackView.leadingAnchor constraintEqualToAnchor:overlayStackView.leadingAnchor].active = YES;
+//    [closeButtonStackView.trailingAnchor constraintEqualToAnchor:overlayStackView.trailingAnchor].active = YES;
+//    [closeButtonStackView.topAnchor constraintEqualToAnchor:overlayStackView.topAnchor].active = YES;
+//    [closeButtonStackView.bottomAnchor constraintEqualToAnchor:overlayStackView.bottomAnchor].active = YES;
+
+    [overlayView addSubview:overlayStackView];
+    [overlayStackView.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 15].active = YES;
+    [overlayStackView.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -15].active = YES;
+    [overlayStackView.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: 7].active = YES;
+    [overlayStackView.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: -7].active = YES;
+
+    overlayView.layer.cornerRadius = messageLabelHeight / 2;
+    overlayView.clipsToBounds = YES;
+    [overlayViewCloseButton setNextResponder:overlayView];
+    return overlayView;
+}
+
+
 
 @end
