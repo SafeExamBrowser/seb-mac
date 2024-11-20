@@ -1116,6 +1116,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
                              passwordIsHash:(BOOL)passwordIsHash
                                withIdentity:(SecIdentityRef)identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose
+                           allowUnencrypted:(BOOL)allowUnencrypted
                                uncompressed:(BOOL)uncompressed
                              removeDefaults:(BOOL)removeDefaults
 {
@@ -1177,7 +1178,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
         // in all other cases:
         // Check if no password entered and no identity selected
         if (settingsPassword.length == 0 && !identityRef) {
-            if ([self.delegate saveSettingsUnencryptedUncompressed:uncompressed]) {
+            if (allowUnencrypted || [self.delegate saveSettingsUnencryptedUncompressed:uncompressed]) {
                 // gzip the serialized XML data unless it should be saved uncompressed
                 if (!uncompressed) {
                     encryptedSebData = [encryptedSebData gzipDeflate];

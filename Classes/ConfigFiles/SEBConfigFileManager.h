@@ -272,6 +272,7 @@
                              passwordIsHash:(BOOL)passwordIsHash
                                withIdentity:(SecIdentityRef)identityRef
                                  forPurpose:(sebConfigPurposes)configPurpose
+                           allowUnencrypted:(BOOL)allowUnencrypted
                                uncompressed:(BOOL)uncompressed
                              removeDefaults:(BOOL)removeDefaults;
 
