@@ -35,6 +35,8 @@
 
 @interface HUDPanel : NSPanel
 
+@property (readwrite) BOOL closeOnClick;
+
 - (BOOL)canBecomeMainWindow;
 - (BOOL)canBecomeKeyWindow;
 

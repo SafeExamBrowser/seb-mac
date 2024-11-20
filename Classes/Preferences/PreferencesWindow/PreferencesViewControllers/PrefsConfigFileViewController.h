@@ -37,8 +37,11 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 #import "SEBKeychainManager.h"
+#import "HUDController.h"
 
 @class PreferencesController;
+@class HUDController;
+@class HUDPanel;
 
 @interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule> {
     IBOutlet NSPopUpButton *chooseIdentity;
@@ -52,6 +55,7 @@
     IBOutlet NSSecureTextField *settingsPasswordField;
     IBOutlet NSSecureTextField *confirmSettingsPasswordField;
     IBOutlet NSButton *revertLastFileButton;
+    HUDPanel *qrCodeOverlayPanel;
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
@@ -87,6 +91,7 @@
 - (SecIdentityRef) getSelectedIdentity;
 - (sebConfigPurposes) getSelectedConfigPurpose;
 - (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                  allowUnencrypted:(BOOL)allowUnencrypted
                                                       uncompressed:(BOOL)uncompressed
                                                     removeDefaults:(BOOL)removeDefaults;
 - (IBAction) changeConfigFilePurpose:(id)sender;

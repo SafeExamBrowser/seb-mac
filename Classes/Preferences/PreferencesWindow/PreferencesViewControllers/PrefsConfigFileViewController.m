@@ -279,6 +279,7 @@
 
 // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
 - (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                  allowUnencrypted:(BOOL)allowUnencrypted
                                                       uncompressed:(BOOL)uncompressed
                                                     removeDefaults:(BOOL)removeDefaults
 {
@@ -310,6 +311,7 @@
                                 passwordIsHash:self.configPasswordIsHash
                                 withIdentity:identityRef
                                 forPurpose:configPurpose
+                                allowUnencrypted:allowUnencrypted
                                 uncompressed:uncompressed
                                 removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     return encryptedSebData;
@@ -318,6 +320,35 @@
 
 #pragma mark -
 #pragma mark IBActions
+
+- (IBAction)showQRConfig:(id)sender {
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
+    NSData *qrCodePNGImageData = [self.preferencesController getConfigDataForPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
+    NSImage *qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
+    CGFloat imageWidth = qrCodeImage.size.width;
+    CGFloat imageHeigth = qrCodeImage.size.height;
+    NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
+    NSView *qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+    qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
+    qrCodeOverlayPanel.closeOnClick = YES;
+    
+    [qrCodeOverlayPanel center];
+    qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
+    [qrCodeOverlayPanel setLevel:NSMainMenuWindowLevel+5];
+    [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
+    [qrCodeOverlayPanel orderFront:self];
+    [qrCodeOverlayPanel invalidateShadow];
+}
+
+
+- (void) hideQRConfig
+{
+    [qrCodeOverlayPanel orderOut:self];
+}
+
 
 // Action if config file purpose is changed to "starting exam"
 - (IBAction) changeConfigFilePurpose:(id)sender {

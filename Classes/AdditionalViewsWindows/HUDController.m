@@ -6,15 +6,44 @@
 //
 
 #import "HUDController.h"
-#import "HUDPanel.h"
 
 @implementation HUDController
+
+
++ (HUDPanel *) createOverlayPanelWithView:(NSView *)overlayView size:(CGSize)size
+{
+    CGFloat padding = 20.0;
+;
+    NSRect backgroundRect = NSMakeRect(0, 0, size.width+padding*2, size.height+padding*2);
+    NSView *HUDBackground = [[NSView alloc] initWithFrame:backgroundRect];
+    HUDBackground.wantsLayer = YES;
+    HUDBackground.layer.cornerRadius = padding/2;
+    HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
+
+//    [overlayView setFrameOrigin:NSMakePoint(padding, padding)];
+    [HUDBackground addSubview:overlayView];
+
+    HUDBackground.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [HUDBackground.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: -padding].active = YES;
+    [HUDBackground.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: padding].active = YES;
+    [HUDBackground.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: -padding].active = YES;
+    [HUDBackground.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: padding].active = YES;
+
+    HUDPanel *overlayPanel = [[HUDPanel alloc] initWithContentRect:backgroundRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
+    overlayPanel.backgroundColor = [NSColor clearColor];
+    overlayPanel.opaque = NO;
+    overlayPanel.alphaValue = 0.75;
+
+    overlayPanel.contentView = HUDBackground;
+    return overlayPanel;
+}
+
 
 - (void) showHUDProgressIndicator
 {
     if (!_progressIndicatorHUD)
     {
-        NSRect frameRect = NSMakeRect(0,0,200,200); // This will change based on the size you need
         NSProgressIndicator *progressIndicator = [[NSProgressIndicator alloc] init];
         [progressIndicator setBezeled: NO];
         [progressIndicator setStyle: NSProgressIndicatorSpinningStyle];
@@ -25,6 +54,7 @@
 //        NSSize progressIndicatorSize = [progressIndicator intrinsicContentSize];
 //        [progressIndicator setFrameSize:progressIndicatorSize];
         
+        NSRect frameRect = NSMakeRect(0,0,200,200);
         _progressIndicatorView = [[NSView alloc] initWithFrame:frameRect];
         [_progressIndicatorView addSubview:progressIndicator];
         
@@ -70,7 +100,7 @@
     
     _progressIndicatorHUD.becomesKeyOnlyIfNeeded = YES;
     [_progressIndicatorHUD setLevel:NSModalPanelWindowLevel];
-    [_progressIndicatorHUD makeKeyAndOrderFront:nil];
+    [_progressIndicatorHUD orderFront:self];
     [_progressIndicatorHUD invalidateShadow];
 }
 

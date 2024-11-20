@@ -46,4 +46,11 @@
     return NO;
 }
 
+// When clicked into the panel, close it
+- (void)mouseDown:(NSEvent *)event {
+    if (self.closeOnClick) {
+        [self orderOut:self];
+    }
+}
+
 @end

@@ -1111,6 +1111,7 @@
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
     NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
+                                                                                       allowUnencrypted:NO
                                                                                            uncompressed:uncompressed
                                                                                          removeDefaults:removeDefaults];
     if (encryptedSEBData) {
@@ -1263,6 +1264,38 @@
     }
 
     return YES;
+}
+
+
+- (NSData *)getConfigDataForPurpose:(sebConfigPurposes)configPurpose format:(ShareConfigFormat)shareConfigFormat uncompressed:(BOOL)uncompressed removeDefaults:(BOOL)removeDefaults
+{
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+//    [_sebController.shareConfigFormatPopUpButton selectItemAtIndex:shareConfigFormat];
+    
+    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
+                                                                                       allowUnencrypted:YES
+                                                                                           uncompressed:uncompressed
+                                                                                         removeDefaults:removeDefaults];
+    if (encryptedSEBData) {
+        
+        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            if (shareConfigFormat == shareConfigFormatQRCode) {
+                CIImage *ciImage = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
+                if (ciImage) {
+                    CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+                    encryptedSEBData = [[CIContext contextWithOptions:nil] PNGRepresentationOfImage:ciImage format:kCIFormatBGRA8 colorSpace:colorSpace options:NSDictionary.new];
+                } else {
+                    DDLogInfo(@"Config too large for QR code.");
+                    return nil;
+                }
+                
+            } else {
+                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
+            }
+        }
+    }
+    return encryptedSEBData;
 }
 
 

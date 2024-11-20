@@ -578,6 +578,7 @@
 		69B539431C52974200A967B0 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
 		69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
 		69B539451C52974200A967B0 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
+		69B53EB12CEDECB2003FF643 /* SEBNSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B53EB02CEDECB2003FF643 /* SEBNSImageView.swift */; };
 		69B581771ED70CC700CE70F3 /* SEBAppIcon_256@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */; };
 		69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */; };
 		69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */; };
@@ -1457,6 +1458,7 @@
 		69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBActionUITableViewCell.m; path = Classes/AdditionalViews/SEBActionUITableViewCell.m; sourceTree = "<group>"; };
 		69B539401C52974100A967B0 /* SEBBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBBrowserController.h; path = Classes/BrowserComponents/SEBBrowserController.h; sourceTree = "<group>"; };
 		69B539411C52974100A967B0 /* SEBBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserController.m; path = Classes/BrowserComponents/SEBBrowserController.m; sourceTree = "<group>"; };
+		69B53EB02CEDECB2003FF643 /* SEBNSImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBNSImageView.swift; sourceTree = "<group>"; };
 		69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBAppIcon_256@2x.png"; path = "Resources/Icons/AboutSEB/SEBAppIcon_256@2x.png"; sourceTree = "<group>"; };
 		69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBAppIcon_256.png; path = Resources/Icons/AboutSEB/SEBAppIcon_256.png; sourceTree = "<group>"; };
 		69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutSEBiOSViewController.h; path = Classes/AdditionalViews/AboutSEBiOSViewController.h; sourceTree = "<group>"; };
@@ -2415,6 +2417,7 @@
 				69E2BBAE26FDBAA90055531A /* SEBServerOSXViewController.h */,
 				69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */,
 				69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */,
+				69B53EB02CEDECB2003FF643 /* SEBNSImageView.swift */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -4227,6 +4230,7 @@
 				69F7B60914F411FB00FD0761 /* PrefsGeneralViewController.m in Sources */,
 				699D508426878F430026D8D9 /* SEBTextViewNonEditing.m in Sources */,
 				6913E5C51A4AD5EC002CF0FE /* NSTextFieldNilToEmptyStringTransformer.m in Sources */,
+				69B53EB12CEDECB2003FF643 /* SEBNSImageView.swift in Sources */,
 				69F7B60A14F411FB00FD0761 /* main.m in Sources */,
 				699E16042C04AF9200BE1FA6 /* SEBSPMetadataCollector.swift in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
@@ -5653,7 +5657,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.4.1rc;
+				MARKETING_VERSION = 3.4.1b1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5721,7 +5725,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 3.4.1rc;
+				MARKETING_VERSION = 3.4.1b1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
