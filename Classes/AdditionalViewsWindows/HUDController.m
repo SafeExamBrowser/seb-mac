@@ -43,7 +43,7 @@
         NSRect progressIndicatorRect = _progressIndicatorView.frame;
         NSRect backgroundRect = NSMakeRect(0, 0, progressIndicatorRect.size.width, progressIndicatorRect.size.height);
         NSView *HUDBackground = [[NSView alloc] initWithFrame:backgroundRect];
-        HUDBackground.wantsLayer = true;
+        HUDBackground.wantsLayer = YES;
         HUDBackground.layer.cornerRadius = 20.0;
         if (@available(macOS 10.8, *)) {
             HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
@@ -52,9 +52,9 @@
         [HUDBackground addSubview:_progressIndicatorView];
         [_progressIndicatorView setFrameOrigin:NSMakePoint(0, 0)];
         
-        _progressIndicatorHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:false];
+        _progressIndicatorHUD = [[HUDPanel alloc] initWithContentRect:HUDBackground.bounds styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
         _progressIndicatorHUD.backgroundColor = [NSColor clearColor];
-        _progressIndicatorHUD.opaque = false;
+        _progressIndicatorHUD.opaque = NO;
         _progressIndicatorHUD.alphaValue = 0.75;
 
         _progressIndicatorHUD.contentView = HUDBackground;
