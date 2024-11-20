@@ -160,15 +160,10 @@ struct MetadataSettings {
     }
     var _screenShotCache: ScreenShotCache? = nil
     
-//    private let minIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
-//    private let maxIntervalTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
-//    private let screenShotTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".screenShot", qos: .utility)
-//    private let screenShotTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".screenShot", qos: .utility)
     private let minIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".minInterval", qos: .utility)
     private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
     private var screenShotMinIntervalTimer: RepeatingTimer?
     private var screenShotMaxIntervalTimer: RepeatingTimer?
-//    private let deferredTimerQueue = DispatchQueue.global(qos: .utility) //DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
