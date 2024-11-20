@@ -12,7 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SEBOSXWebViewController : NSViewController
+@interface SEBOSXWebViewController : NSViewController {
+    @private
+    NSButton *overlayViewCloseButton;
+    BOOL firstAppearance;
+}
+
+@property (strong, nonatomic) NSView *topOverlayMessageView;
+@property (strong, nonatomic) NSPanel *topOverlayMessageHUD;
 
 //@property (weak, nonatomic) id <SEBAbstractWebViewNavigationDelegate> navigationDelegate;
 @property (strong, nonatomic) SEBAbstractWebView *sebAbstractWebView;
