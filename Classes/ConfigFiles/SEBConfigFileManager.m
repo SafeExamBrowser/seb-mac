@@ -315,6 +315,12 @@
                                                                               error:&error];
     // If we didn't get a preferences dict back, we abort reading settings
     if (!sebPreferencesDict) {
+        if (!error) {
+            error = [NSError errorWithDomain:sebErrorDomain
+                                        code:SEBErrorDecryptingSettingsCanceled
+                                    userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot Open Settings", @""),
+                                               NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"Decrypting exam settings was canceled", @"")}];
+        }
         // Inform callback that storing new settings failed
         [self storeNewSEBSettingsSuccessful:error];
         return;
@@ -985,7 +991,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
                                                                title:NSLocalizedString(@"Loading settings",nil)];
         if (!password) {
             // If cancel was pressed, abort
-            return false;
+            return NO;
         }
         if (password.length == 0) {
             hashedPassword = @"";
