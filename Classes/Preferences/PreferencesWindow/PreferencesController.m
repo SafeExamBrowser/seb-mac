@@ -1287,7 +1287,7 @@
                     encryptedSEBData = [[CIContext contextWithOptions:nil] PNGRepresentationOfImage:ciImage format:kCIFormatBGRA8 colorSpace:colorSpace options:NSDictionary.new];
                 } else {
                     DDLogInfo(@"Config too large for QR code.");
-                    return nil;
+                    encryptedSEBData = [[NSImage imageNamed:@"SEBBadgeWarning"] TIFFRepresentation];
                 }
                 
             } else {
