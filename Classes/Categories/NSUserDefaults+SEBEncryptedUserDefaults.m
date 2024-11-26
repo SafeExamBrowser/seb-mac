@@ -271,13 +271,12 @@ static NSNumber *_logLevel;
     // Iterate keys and read all values
     for (NSString *key in configKeysAlphabetically) {
         id value = [defaultSettings objectForKey:key];
-        Class valueClass = [value superclass];
         
         // Check for sub-dictionaries, key/values of these need to be sorted alphabetically too
-        if (valueClass == [NSDictionary class]) {
+        if ([value isKindOfClass:NSDictionary.class]) {
             value = [self getDefaultDictionaryForKey:key];
         }
-        if (valueClass == [NSMutableDictionary class]) {
+        if ([value isKindOfClass:NSMutableDictionary.class]) {
             value = [[self getDefaultDictionaryForKey:key] mutableCopy];
         }
         
@@ -697,23 +696,21 @@ static NSNumber *_logLevel;
     for (NSString *key in completeSettings) {
         if (![key isEqualToString:@"originatorVersion"]) {
             id newValue = [completeSettings objectForKey:key];
-            Class newValueClass = [newValue superclass];
             id currentValue = [preferences secureObjectForKey:[preferences prefixKey:key]];
-            Class currentValueClass = [currentValue superclass];
             
-            if (newValueClass == NSDictionary.class || newValueClass == NSMutableDictionary.class) {
+            if ([newValue isKindOfClass:NSDictionary.class] || [newValue isKindOfClass:NSMutableDictionary.class]) {
                 if ([(NSDictionary *)newValue count] == 0) {
                     continue;
                 }
-                if (currentValueClass == NSDictionary.class || currentValueClass == NSMutableDictionary.class) {
+                if ([currentValue isKindOfClass:NSDictionary.class] || [currentValue isKindOfClass:NSMutableDictionary.class]) {
                     if (![currentValue containsDictionary:newValue]) {
                         return YES;
                     }
                 } else {
                     return YES;
                 }
-            } else if (newValue && currentValue && (newValueClass == NSArray.class || newValueClass == NSMutableArray.class)) {
-                if (currentValueClass == NSArray.class || currentValueClass == NSMutableArray.class) {
+            } else if (newValue && currentValue && ([newValue isKindOfClass:NSArray.class] || [newValue isKindOfClass:NSMutableArray.class])) {
+                if ([currentValue isKindOfClass:NSArray.class] || [currentValue isKindOfClass:NSMutableArray.class]) {
                     if (![currentValue containsArray:newValue]) {
                         return YES;
                     }
@@ -872,11 +869,10 @@ static NSNumber *_logLevel;
     // Join source settings dictionary with default values
     for (NSString *key in sourceDictionary) {
         id value = [sourceDictionary objectForKey:key];
-        Class valueClass = [value superclass];
         
         // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
         // will cause a crash when trying to modify the dictionary
-        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
+        if ([value isKindOfClass:NSDictionary.class] || [value isKindOfClass:NSMutableDictionary.class]) {
             value = [NSMutableDictionary dictionaryWithDictionary:[self removeDefaultValuesFromSettingsDictionary:value defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]]];
             if ([value count] == 0) {
                 continue;
@@ -890,11 +886,10 @@ static NSNumber *_logLevel;
             NSUInteger i = 0;
             while (i < elementsFromSettings.count) {
                 element = elementsFromSettings[i];
-                Class elementClass = [element superclass];
                 if ([defaultElements containsObject:element]) {
                     [elementsFromSettings removeObjectAtIndex:i];
                     continue;
-                } else if (elementClass == NSDictionary.class || elementClass == NSMutableDictionary.class) {
+                } else if ([element isKindOfClass:NSDictionary.class] || [element isKindOfClass:NSMutableDictionary.class]) {
                     elementsFromSettings[i] = [self removeDefaultValuesFromSettingsDictionary:element defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]].mutableCopy;
                 }
                 i++;
@@ -933,11 +928,10 @@ static NSNumber *_logLevel;
     // Join source settings dictionary with default values
     for (NSString *key in sourceDictionary) {
         id value = [sourceDictionary objectForKey:key];
-        Class valueClass = [value superclass];
         
         // NSDictionaries need to be converted to NSMutableDictionary, otherwise bindings
         // will cause a crash when trying to modify the dictionary
-        if (valueClass == NSDictionary.class || valueClass == NSMutableDictionary.class) {
+        if ([value isKindOfClass:NSDictionary.class] || [value isKindOfClass:NSMutableDictionary.class]) {
             value = [NSMutableDictionary dictionaryWithDictionary:[self addDefaultValuesToSettingsDictionary:value defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]]];
             if ([value count] == 0) {
                 continue;
@@ -950,8 +944,7 @@ static NSNumber *_logLevel;
             NSUInteger i = 0;
             while (i < elementsFromSettings.count) {
                 element = elementsFromSettings[i];
-                Class elementClass = [element superclass];
-                if (elementClass == NSDictionary.class || elementClass == NSMutableDictionary.class) {
+                if ([element isKindOfClass:NSDictionary.class] || [element isKindOfClass:NSMutableDictionary.class]) {
                     elementsFromSettings[i] = [self addDefaultValuesToSettingsDictionary:element defaultSettingsDictionary:[self getDefaultDictionaryForKey:key]].mutableCopy;
                 }
                 i++;
