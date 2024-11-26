@@ -324,6 +324,9 @@
 - (IBAction)showQRConfig:(id)sender {
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
+    if (configPurpose != sebConfigPurposeStartingExam || configPurpose != sebConfigPurposeConfiguringClient) {
+        configPurpose = sebConfigPurposeStartingExam;
+    }
     NSData *qrCodePNGImageData = [self.preferencesController getConfigDataForPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
     NSImage *qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
     CGFloat imageWidth = qrCodeImage.size.width;
