@@ -514,12 +514,12 @@
     if (error) {
         // Error when reading configuration data
         [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
+    } else {
+        // if successfull save the path to the file for possible editing in the preferences window
+        [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
+        
+        [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
     }
-    // if successfull save the path to the file for possible editing in the preferences window
-    [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
-    
-    [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
-
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
     [self reopenPreferencesWindow];
