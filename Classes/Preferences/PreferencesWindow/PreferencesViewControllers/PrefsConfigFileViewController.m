@@ -70,6 +70,10 @@
 
 - (void) awakeFromNib
 {
+    // Add an observer for closing the Config QR code overlay window
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideQRConfig)
+                                                 name:@"hideQRConfigOverlay" object:nil];
 }
 
 
@@ -322,6 +326,9 @@
 #pragma mark IBActions
 
 - (IBAction)showQRConfig:(id)sender {
+    if (qrCodeOverlayPanel) {
+        [self hideQRConfig];
+    }
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
     if (configPurpose != sebConfigPurposeStartingExam || configPurpose != sebConfigPurposeConfiguringClient) {
@@ -335,13 +342,16 @@
     NSView *qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
     qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
 
+    [self.preferencesController.sebController openLockModalWindows];
+
     qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
     qrCodeOverlayPanel.closeOnClick = YES;
     
     [qrCodeOverlayPanel center];
     qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
-    [qrCodeOverlayPanel setLevel:NSMainMenuWindowLevel+5];
+    [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
     [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
+    qrCodeOverlayPanel.delegate = self;
     [qrCodeOverlayPanel orderFront:self];
     [qrCodeOverlayPanel invalidateShadow];
 }
@@ -349,7 +359,17 @@
 
 - (void) hideQRConfig
 {
-    [qrCodeOverlayPanel orderOut:self];
+    if (qrCodeOverlayPanel) {
+        [self.preferencesController.sebController closeLockModalWindows];
+        [qrCodeOverlayPanel orderOut:self];
+        qrCodeOverlayPanel = nil;
+    }
+}
+
+
+- (void) windowWillClose:(NSNotification *)notification
+{
+    [self hideQRConfig];
 }
 
 

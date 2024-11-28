@@ -47,4 +47,10 @@
     return YES;
 }
 
+// When clicked into the window, close it
+- (void)mouseDown:(NSEvent *)event {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"hideQRConfigOverlay" object:self];
+}
+
 @end
