@@ -398,6 +398,9 @@ conditionallyForWindow:(NSWindow *)window
 - (void) correctPasswordEntered;
 - (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride;
 - (void) openInfoHUD:(NSString *)lockedTimeInfo;
+- (void) openLockModalWindows;
+- (void) closeLockModalWindows;
+
 
 - (void) requestedExit:(NSNotification *_Nullable)notification;
 

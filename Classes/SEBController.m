@@ -2014,7 +2014,7 @@ bool insideMatrix(void);
         self.transmittingCachedScreenShotsViewController.uiDelegate = nil;
         [self.transmittingCachedScreenShotsWindowController close];
         self.transmittingCachedScreenShotsViewController = nil;
-        [self closeCoveringWindows:self.lockModalWindows];
+        [self closeLockModalWindows];
         completion();
     });
 }
@@ -5420,6 +5420,19 @@ conditionallyForWindow:(NSWindow *)window
     [informationHUD setLevel:NSModalPanelWindowLevel];
     DDLogDebug(@"Opening info HUD: %@", informationTextFinal);
     [informationHUD makeKeyAndOrderFront:nil];
+}
+
+
+- (void) openLockModalWindows
+{
+    self.lockModalWindows = [self fillScreensWithCoveringWindows:coveringWindowModalAlert
+                                                    windowLevel:NSScreenSaverWindowLevel
+                                                 excludeMenuBar:false];
+}
+
+- (void) closeLockModalWindows
+{
+    [self closeCoveringWindows:self.lockModalWindows];
 }
 
 

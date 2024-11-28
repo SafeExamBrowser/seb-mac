@@ -43,7 +43,7 @@
 @class HUDController;
 @class HUDPanel;
 
-@interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
     IBOutlet NSPopUpButton *chooseIdentity;
 
     IBOutlet NSObjectController *controller;
@@ -95,5 +95,6 @@
                                                       uncompressed:(BOOL)uncompressed
                                                     removeDefaults:(BOOL)removeDefaults;
 - (IBAction) changeConfigFilePurpose:(id)sender;
+- (void) hideQRConfig;
 
 @end

@@ -262,6 +262,21 @@
 #pragma mark -
 #pragma mark NSWindowDelegate methods and helper method for closing preferences window
 
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    [self.configFileVC hideQRConfig];
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    [self.configFileVC hideQRConfig];
+}
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    [self.configFileVC hideQRConfig];
+}
+
 // Executed to decide if window should close
 - (BOOL)windowShouldClose:(id)sender
 {
@@ -284,6 +299,7 @@
 // Executed when preferences window is about to be closed
 - (void)windowWillClose:(NSNotification *)notification
 {
+    [self.configFileVC hideQRConfig];
     if (self.preferencesAreOpen && !self.refreshingPreferences) {
 //        self.sebController.browserController.reinforceKioskModeRequested = YES;
         // Post a notification that the preferences window closes
