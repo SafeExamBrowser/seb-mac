@@ -92,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class TransmittingCachedScreenShotsViewController;
 @class SEBZoomController;
 
+static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
 @interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate>
 {
@@ -235,6 +236,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSWindowController *transmittingCachedScreenShotsWindowController;
 @property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
 @property (strong, nonatomic) NSString *_Nullable operationsString;
+@property (strong, nonatomic) NSString *accessibilityMessageString;
 
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
