@@ -132,6 +132,9 @@ bool insideMatrix(void);
 @synthesize capWindows;
 @synthesize lockdownWindows;
 
+- (NSString *)accessibilityMessageString {
+    return [NSString stringWithFormat:@"\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility.", @""), SEBShortAppName, SEBFullAppNameClassic]];
+}
 
 - (SEBOSXSessionState *) sessionState
 {
@@ -932,7 +935,7 @@ bool insideMatrix(void);
             if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                 modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences.", @""), SEBShortAppName, SEBFullAppNameClassic], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings.", @""), SEBShortAppName, SEBFullAppNameClassic], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
@@ -1807,6 +1810,7 @@ bool insideMatrix(void);
                                                              (__bridge CFDictionaryRef)options);
     if (!appHasPermission) {
         // we don't have accessibility permissions
+        DDLogError(@"SEB is not trusted in Privacy / Accessibility, cannot read title of frontmost windows!");
     } else {
         // Get the accessibility element corresponding to the frontmost application.
         AXUIElementRef appElem = AXUIElementCreateApplication(pid);
@@ -2285,14 +2289,25 @@ bool insideMatrix(void);
     
     if (browserMediaCaptureScreen || screenProctoringEnable) {
         if (@available(macOS 10.15, *)) {
+            NSString *accessibilityPermissionsTitleString = @"";
+            NSString *accessibilityPermissionsMessageString = @"";
+            if (screenProctoringEnable) {
+                // Check if also Accessibility permissions need to be granted
+                NSDictionary *options = @{(__bridge id)
+                                          kAXTrustedCheckOptionPrompt : @NO};
+                if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+                    accessibilityPermissionsTitleString = accessibilityTitleString;
+                    accessibilityPermissionsMessageString = self.accessibilityMessageString;
+                }
+            }
             if (!CGPreflightScreenCaptureAccess()) {
                 screenCapturePermissionsRequested = YES;
                 if (self.examSession && self.secureClientSession) {
                     // When running an exam session and the client session is secure (has quit pw set), we need to quit the exam session first
                     // but the user or an exam admin will have to quit SEB from the client session manually
                     NSAlert *modalAlert = [self newAlert];
-                    [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Screen Capture", @"")];
-                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security & Privacy (after quitting %@). Then restart %@ and your exam.", @""), SEBFullAppNameClassic, SEBShortAppName, SEBShortAppName]];
+                    [modalAlert setMessageText:[NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Permissions Required for Screen Capture", @""), accessibilityPermissionsTitleString]];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam.", @""), SEBFullAppNameClassic, [NSString stringWithFormat:NSLocalizedString(@" (after quitting %@)", @""), SEBShortAppName], SEBShortAppName], accessibilityPermissionsMessageString]];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit Session", @"")];
                     [modalAlert setAlertStyle:NSAlertStyleCritical];
                     void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
@@ -2378,6 +2393,53 @@ bool insideMatrix(void);
             }
         };
         
+        void (^conditionallyStartScreenProctoring)(void);
+        conditionallyStartScreenProctoring =
+        ^{
+            if (screenProctoringEnable) {
+                NSDictionary *options = @{(__bridge id)
+                                          kAXTrustedCheckOptionPrompt : @NO};
+                NSAlert *modalAlert = nil;
+                if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+                    DDLogWarn(@"SEB is not trusted in Privacy / Accessibility, prompt the user to grant access in Settings");
+                    modalAlert = [self newAlert];
+                    [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in Security & Privacy located in System Settings and restart %@/the exam.", @""), SEBShortAppName, SEBFullAppNameClassic, SEBShortAppName]];
+                    [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+                    [modalAlert setAlertStyle:NSAlertStyleCritical];
+                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
+                      completionHandler:^(NSModalResponse returnCode) {
+                        [self removeAlertWindow:modalAlert.window];
+                        NSDictionary *options = @{(__bridge id)
+                                                  kAXTrustedCheckOptionPrompt : @YES};
+                        if (AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+                            conditionallyStartZoomProctoring();
+                        } else {
+                            // Switch the kiosk mode off and override settings for menu bar: Show it while prefs are open
+                            [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+                            [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:YES];
+                            // Close the black background covering windows
+                            [self closeCapWindows];
+                            
+                            NSAlert *modalAlert = [self newAlert];
+                            [modalAlert setMessageText:NSLocalizedString(@"Waiting for Accessibility Permissions", @"")];
+                            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in Security & Privacy located in System Settings and restart %@/the exam.", @""), SEBShortAppName, SEBFullAppNameClassic, SEBShortAppName]];
+                            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+                            [modalAlert setAlertStyle:NSAlertStyleCritical];
+                            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
+                              completionHandler:^(NSModalResponse returnCode) {
+                                [[NSNotificationCenter defaultCenter]
+                                 postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            }];
+                        }
+                    }];
+                    return;
+                }
+            }
+            conditionallyStartZoomProctoring();
+        };
+        
+
         if (screenProctoringEnable) {
             // Check if previous SEB session already had proctoring active
             if (!self.previousSessionScreenProctoringEnabled) {
@@ -2394,7 +2456,7 @@ bool insideMatrix(void);
                         case NSAlertFirstButtonReturn:
                         {
                             self.previousSessionScreenProctoringEnabled = YES;
-                            run_on_ui_thread(conditionallyStartZoomProctoring);
+                            run_on_ui_thread(conditionallyStartScreenProctoring);
                             return;
                         }
                             
@@ -2421,7 +2483,7 @@ bool insideMatrix(void);
         } else {
             self.previousSessionScreenProctoringEnabled = NO;
         }
-        conditionallyStartZoomProctoring();
+        conditionallyStartScreenProctoring();
     };
     
     if (browserMediaCaptureMicrophone ||
@@ -7343,41 +7405,53 @@ conditionallyForWindow:(NSWindow *)window
     } else if (screenCapturePermissionsRequested) {
         screenCapturePermissionsRequested = NO;
         if (@available(macOS 10.15, *)) {
+            NSString *accessibilityPermissionsTitleString = @"";
+            NSString *accessibilityPermissionsMessageString = @"";
+            if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+                // Check if also Accessibility permissions need to be granted
+                NSDictionary *options = @{(__bridge id)
+                                          kAXTrustedCheckOptionPrompt : @NO};
+                if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+                    accessibilityPermissionsTitleString = accessibilityTitleString;
+                    accessibilityPermissionsMessageString = self.accessibilityMessageString;
+                }
+            }
             if (CGRequestScreenCaptureAccess()) {
                 DDLogInfo(@"Screen capture access has been granted");
             } else {
-                DDLogError(@"User has to grant screen capture access, display authorization dialog or open System Preferences");
+                DDLogError(@"User has to grant screen capture access, display authorization dialog or open System Settings");
+                systemPreferencesOpenedForScreenRecordingPermissions = YES;
+
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:[NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Permissions Required for Screen Capture", @""), accessibilityPermissionsTitleString]];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam.", @""), SEBFullAppNameClassic, @"", SEBShortAppName], accessibilityPermissionsMessageString]];
+
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Authorize", @"")];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+                [modalAlert setAlertStyle:NSAlertStyleCritical];
+                void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            DDLogDebug(@"User selected Authorize Screen Recording%@ in System Settings", accessibilityPermissionsTitleString.length == 0 ? @"" : @" and Accessibility");
+                            [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+                            return;
+                        }
+                        default:
+                            DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Quitting SEB", (long)answer);
+                        case NSAlertSecondButtonReturn:
+                        {
+                            DDLogDebug(@"No permissions for screen capture: Quitting");
+                        }
+                    }
+                    [self applicationWillTerminateProceed];
+
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+                return;
             }
-            systemPreferencesOpenedForScreenRecordingPermissions = YES;
-
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Permissions Required for Screen Capture", @"")];
-            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security & Privacy and restart %@ and your exam afterwards.", @""), SEBFullAppNameClassic, SEBShortAppName]];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Authorize Screen Recording", @"")];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-            [modalAlert setAlertStyle:NSAlertStyleCritical];
-            void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                switch(answer)
-                {
-                    case NSAlertFirstButtonReturn:
-                    {
-                        DDLogDebug(@"User selected Authorize Screen Recording in System Settings");
-                        [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
-                        return;
-                    }
-                    default:
-                        DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Quitting SEB", (long)answer);
-                    case NSAlertSecondButtonReturn:
-                    {
-                        DDLogDebug(@"No permissions for screen capture: Quitting");
-                    }
-                }
-                [self applicationWillTerminateProceed];
-
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
-            return;
         } else {
             [self applicationWillTerminateProceed];
         }
