@@ -133,7 +133,7 @@ bool insideMatrix(void);
 @synthesize lockdownWindows;
 
 - (NSString *)accessibilityMessageString {
-    return [NSString stringWithFormat:@"\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility.", @""), SEBShortAppName, SEBFullAppNameClassic]];
+    return [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility.", @""), SEBShortAppName, SEBFullAppNameClassic];
 }
 
 - (SEBOSXSessionState *) sessionState
@@ -934,7 +934,7 @@ bool insideMatrix(void);
             };
             if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                 modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
+                [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Required", @"")];
                 [modalAlert setInformativeText:[NSString stringWithFormat:@"%@\n\n%@", [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings.", @""), SEBShortAppName, SEBFullAppNameClassic], [NSString stringWithFormat:NSLocalizedString(@"If you don't grant access to %@, you cannot use such webpages. Last time %@ was running, the webpage with the title '%@' (%@) tried to download a font.", @""), SEBShortAppName, SEBShortAppName, [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageTitleKey], [preferences persistedSecureObjectForKey:fontDownloadAttemptedOnPageURLOrPlaceholderKey]]]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleCritical];
@@ -2297,7 +2297,7 @@ bool insideMatrix(void);
                                           kAXTrustedCheckOptionPrompt : @NO};
                 if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                     accessibilityPermissionsTitleString = accessibilityTitleString;
-                    accessibilityPermissionsMessageString = self.accessibilityMessageString;
+                    accessibilityPermissionsMessageString = [NSString stringWithFormat:@"\n\n%@", self.accessibilityMessageString];
                 }
             }
             if (!CGPreflightScreenCaptureAccess()) {
@@ -2403,8 +2403,8 @@ bool insideMatrix(void);
                 if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                     DDLogWarn(@"SEB is not trusted in Privacy / Accessibility, prompt the user to grant access in Settings");
                     modalAlert = [self newAlert];
-                    [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Needed", @"")];
-                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in Security & Privacy located in System Settings and restart %@/the exam.", @""), SEBShortAppName, SEBFullAppNameClassic, SEBShortAppName]];
+                    [modalAlert setMessageText:NSLocalizedString(@"Accessibility Permissions Required", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", self.accessibilityMessageString, [NSString stringWithFormat:NSLocalizedString(@"Then restart %@/the exam.", @""), SEBShortAppName]]];
                     [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
                     [modalAlert setAlertStyle:NSAlertStyleCritical];
                     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
@@ -2423,7 +2423,7 @@ bool insideMatrix(void);
                             
                             NSAlert *modalAlert = [self newAlert];
                             [modalAlert setMessageText:NSLocalizedString(@"Waiting for Accessibility Permissions", @"")];
-                            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in Security & Privacy located in System Settings and restart %@/the exam.", @""), SEBShortAppName, SEBFullAppNameClassic, SEBShortAppName]];
+                            [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", self.accessibilityMessageString, [NSString stringWithFormat:NSLocalizedString(@"Then restart %@/the exam.", @""), SEBShortAppName]]];
                             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
                             [modalAlert setAlertStyle:NSAlertStyleCritical];
                             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow
@@ -7413,7 +7413,7 @@ conditionallyForWindow:(NSWindow *)window
                                           kAXTrustedCheckOptionPrompt : @NO};
                 if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
                     accessibilityPermissionsTitleString = accessibilityTitleString;
-                    accessibilityPermissionsMessageString = self.accessibilityMessageString;
+                    accessibilityPermissionsMessageString = [NSString stringWithFormat:@"\n\n%@", self.accessibilityMessageString];
                 }
             }
             if (CGRequestScreenCaptureAccess()) {
