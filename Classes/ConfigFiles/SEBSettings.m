@@ -390,7 +390,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"",
                    @"browserWindowTitleSuffix",
 
-                   [NSNumber numberWithLong:webViewSelectPreferModern],
+                   [NSNumber numberWithLong:webViewSelectPreferModernInForeignNewTabs],
                    @"browserWindowWebView",
                    
                    @NO,
