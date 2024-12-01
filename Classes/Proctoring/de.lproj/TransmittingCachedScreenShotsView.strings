@@ -1,6 +1,6 @@
-
 /* Class = "NSTextFieldCell"; title = "Please wait while screen proctoring is executing its remaining operations. This may take a while, depending on the network and screen proctoring service status."; ObjectID = "49a-2V-epZ"; */
 "49a-2V-epZ.title" = "Bitte warten Sie, während die Bildschirmüberwachung ihre restlichen Operationen ausführt. Dies kann eine Weile dauern, je nach Status des Netzwerkes und Bildschirmüberwachungs-Dienstes.";
 
 /* Class = "NSButtonCell"; title = "Quit"; ObjectID = "vcu-8L-oOc"; */
 "vcu-8L-oOc.title" = "Beenden";
+

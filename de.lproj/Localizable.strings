@@ -2,6 +2,9 @@
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
 
 /* No comment provided by engineer. */
+" (after quitting %@)" = "(nach Beenden von %@)";
+
+/* No comment provided by engineer. */
 " (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
 /* No comment provided by engineer. */
@@ -65,7 +68,10 @@
 "%@ is Locked!" = "%@ ist gesperrt!";
 
 /* No comment provided by engineer. */
-"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy preferences, located in System Preferences." = "%@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite eine Schriftart herunterladen will, die nicht auf dem Mac installiert ist. Erlauben Sie den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
+"%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." = "%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
+
+/* No comment provided by engineer. */
+"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. SEB verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %2$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
@@ -146,13 +152,16 @@
 "14 Sonoma" = "14 Sonoma";
 
 /* No comment provided by engineer. */
+"15 Sequoia" = "15 Sequoia";
+
+/* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie %@ erneut.";
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */
-"Accessibility Permissions Needed" = "Erlaubnis zur Steuerung mittels Bedienungshilfen benötigt";
+"Accessibility Permissions Required" = "Zugriffsrechte erforderlich für Bedienungshilfen";
 
 /* No comment provided by engineer. */
 "Activates %@ browser. Right click displays menu with open webpages." = "Aktiviert den %@-Browser. Rechtsklick zeigt Menü mit geöffneten Webseiten an.";
@@ -209,7 +218,7 @@
 "Authentication Required" = "Authentifizierung notwendig";
 
 /* No comment provided by engineer. */
-"Authorize Screen Recording" = "Bildschirmaufzeichnung autorisieren";
+"Authorize" = "Autorisieren";
 
 /* No comment provided by engineer. */
 "Auto Proxy Discovery" = "Automatische Proxy-Entdeckung";
@@ -290,6 +299,9 @@
 "Cannot Open Exam" = "Prüfung kann nicht geöffnet werden";
 
 /* No comment provided by engineer. */
+"Cannot Open Settings" = "Kann Einstellungen nicht öffnen";
+
+/* No comment provided by engineer. */
 "Cannot Reconfigure Client" = "Client kann nicht umkonfiguriert werden";
 
 /* No comment provided by engineer. */
@@ -324,6 +336,9 @@
 
 /* No comment provided by engineer. */
 "Close Force Quit Window" = "Fenster 'Programme sofort beenden' schliessen";
+
+/* No comment provided by engineer. */
+"Close Warning" = "Warnung schliessen";
 
 /* No comment provided by engineer. */
 "Closing lockdown windows" = "Lockdown-Fenster werden geschlossen";
@@ -569,16 +584,13 @@
 "Finalizing Screen Proctoring" = "Screen Proctoring abschliessen";
 
 /* No comment provided by engineer. */
-"For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security & Privacy (after quitting %@). Then restart %@ and your exam." = "Für diese Prüfungssession wird Bildschirmaufzeichnung verlangt. Sie können diese Prüfung nicht starten, bevor Bildschirmaufnahme für %1$@ in den Systemeinstellungen unter 'Sicherheit & Datenschutz' erlaubt wurde (nach Beenden von %2$@). Dann starten Sie %3$@ und die Prüfung erneut.";
+"For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam." = "Für diese Prüfungssession wird Bildschirmaufzeichnung benötigt. Sie müssen Bildschirmaufnahme für %1$@ in den Systemeinstellungen unter 'Sicherheit & Datenschutz' erlauben%2$@. Dann starten Sie %3$@ und die Prüfung erneut.";
 
 /* No comment provided by engineer. */
 "For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Auf diesem Gerät ist Zugriff auf %4$@%5$@ gesperrt. Fragen Sie Ihren IT-Support nach einem Gerät ohne diese Einschränkungen.";
 
 /* No comment provided by engineer. */
 "For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "Die aktuelle Session erfordert Zugriff auf %1$@%2$@ für %3$@. Sie müssen %6$@Zugriff auf %4$@%5$@ erlauben, bevor Sie die Session %7$@ starten können.";
-
-/* No comment provided by engineer. */
-"For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security & Privacy and restart %@ and your exam afterwards." = "Für diese Sitzung ist Bildschirmaufzeichnung erforderlich. Sie müssen Bildschirmaufzeichnung für %1$@ in den Systemeinstellungen/Sicherheit & Datenschutz autorisieren und danach %2$@ und Ihre Prüfung neu starten.";
 
 /* No comment provided by engineer. */
 "For using permitted macOS third-party applications, AAC Assessment Mode must be enabled, file and share dialogs blocked and macOS 12 or newer enforced. Do you want to update your %@ settings accordingly?" = "Um zugelassene macOS- Drittprogramme zu verwenden, muss der AAC-Bewertungsmodus aktiviert sein, Datei- und Share Sheets müssen blockiert werden und macOS 12 oder neuer muss erzwungen werden. Möchten Sie Ihre %@-Einstellungen entsprechend aktualisieren?";
@@ -1154,6 +1166,9 @@
 "the webpage" = "die Webseite";
 
 /* No comment provided by engineer. */
+"Then restart %@/the exam." = "Dannach starten Sie %@/die Prüfung neu.";
+
+/* No comment provided by engineer. */
 "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
@@ -1270,6 +1285,9 @@
 
 /* No comment provided by engineer. */
 "Waiting %d seconds" = "Warte %d Sekunden";
+
+/* No comment provided by engineer. */
+"Waiting for Accessibility Permissions" = "Warte auf Zugriffsrechte für Bedienungshilfen";
 
 /* No comment provided by engineer. */
 "Waiting until %@ to resume sending cached screen shots" = "Warte auf die Wiederaufnahme der Übertragung um %@";
