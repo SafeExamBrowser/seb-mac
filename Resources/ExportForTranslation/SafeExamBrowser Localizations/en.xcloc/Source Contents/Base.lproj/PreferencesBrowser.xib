@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,10 +35,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q2b-O7-hAO">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="999"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="1017"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1WX-zZ-3xi">
-                                        <rect key="frame" x="20" y="919" width="594" height="65"/>
+                                        <rect key="frame" x="20" y="937" width="594" height="65"/>
                                         <subviews>
                                             <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="84">
                                                 <rect key="frame" x="-2" y="48" width="598" height="17"/>
@@ -108,7 +108,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="New browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="567">
-                                        <rect key="frame" x="17" y="821" width="616" height="88"/>
+                                        <rect key="frame" x="17" y="839" width="616" height="88"/>
                                         <view key="contentView" id="sga-L4-DYG">
                                             <rect key="frame" x="4" y="5" width="608" height="68"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,7 +224,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser Features" translatesAutoresizingMaskIntoConstraints="NO" id="7nL-Z2-JAg">
-                                        <rect key="frame" x="17" y="667" width="616" height="148"/>
+                                        <rect key="frame" x="17" y="685" width="616" height="148"/>
                                         <view key="contentView" id="guQ-Yx-amA">
                                             <rect key="frame" x="4" y="5" width="608" height="128"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -421,7 +421,7 @@
                                         </constraints>
                                     </box>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="13B-3r-AKS">
-                                        <rect key="frame" x="20" y="541" width="610" height="120"/>
+                                        <rect key="frame" x="20" y="559" width="610" height="120"/>
                                         <subviews>
                                             <box title="Restrictions in Exam Window" translatesAutoresizingMaskIntoConstraints="NO" id="IEP-y6-APQ">
                                                 <rect key="frame" x="-3" y="-4" width="301" height="124"/>
@@ -653,7 +653,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box title="Media Playback/Capture" translatesAutoresizingMaskIntoConstraints="NO" id="u8M-48-HFC">
-                                        <rect key="frame" x="17" y="389" width="616" height="142"/>
+                                        <rect key="frame" x="17" y="407" width="616" height="142"/>
                                         <view key="contentView" id="X79-ym-XJE">
                                             <rect key="frame" x="4" y="5" width="608" height="122"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -824,16 +824,16 @@
                                         </constraints>
                                     </box>
                                     <box title="Select Browser Engine Policy" translatesAutoresizingMaskIntoConstraints="NO" id="QLJ-Tp-en0" userLabel="Select Browser Engine Policy">
-                                        <rect key="frame" x="15" y="259" width="618" height="124"/>
+                                        <rect key="frame" x="15" y="259" width="618" height="142"/>
                                         <view key="contentView" id="B8w-xq-Rtz">
-                                            <rect key="frame" x="4" y="5" width="610" height="104"/>
+                                            <rect key="frame" x="4" y="5" width="610" height="122"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-dg-Uhp">
-                                                    <rect key="frame" x="11" y="14" width="588" height="82"/>
+                                                    <rect key="frame" x="11" y="10" width="588" height="104"/>
                                                     <subviews>
                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VNp-U5-dS4">
-                                                            <rect key="frame" x="-3" y="58" width="595" height="25"/>
+                                                            <rect key="frame" x="-3" y="80" width="595" height="25"/>
                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="R9J-OH-7kG" id="UJv-6c-eWa">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="menu"/>
@@ -856,7 +856,7 @@
                                                             </connections>
                                                         </popUpButton>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
-                                                            <rect key="frame" x="-2" y="0.0" width="592" height="56"/>
+                                                            <rect key="frame" x="-2" y="22" width="592" height="56"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="ADW-iA-ngj">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <string key="title">The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</string>
@@ -864,6 +864,17 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
+                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fBC-Im-13G">
+                                                            <rect key="frame" x="-2" y="-1" width="303" height="18"/>
+                                                            <mutableString key="toolTip">Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</mutableString>
+                                                            <buttonCell key="cell" type="check" title="Disable classic WebView deprecation warning" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="0uJ-tI-O23">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserWindowWebViewClassicHideDeprecationNote" id="vfh-zk-iVk"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="VNp-U5-dS4" secondAttribute="trailing" id="ZMk-KX-XDq"/>
@@ -872,8 +883,10 @@
                                                     <visibilityPriorities>
                                                         <integer value="1000"/>
                                                         <integer value="1000"/>
+                                                        <integer value="1000"/>
                                                     </visibilityPriorities>
                                                     <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                         <real value="3.4028234663852886e+38"/>
                                                     </customSpacing>
@@ -1505,7 +1518,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99430199430199429" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99457994579945797" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

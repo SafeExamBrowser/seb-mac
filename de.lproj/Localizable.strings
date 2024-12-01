@@ -329,6 +329,9 @@
 "Choose" = "Auswählen";
 
 /* No comment provided by engineer. */
+"Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von macOS nicht mehr vollständig unterstützt! Die verwendete %@-Prüfungssystem-Integration/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
+
+/* No comment provided by engineer. */
 "Clear" = "Löschen";
 
 /* No comment provided by engineer. */
