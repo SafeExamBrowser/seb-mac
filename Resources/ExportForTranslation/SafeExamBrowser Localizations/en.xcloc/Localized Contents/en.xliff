@@ -1566,6 +1566,11 @@
         <target>Desktop mode default user agent</target>
         <note>Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs";</note>
       </trans-unit>
+      <trans-unit id="0uJ-tI-O23.title" xml:space="preserve">
+        <source>Disable classic WebView deprecation warning</source>
+        <target>Disable classic WebView deprecation warning</target>
+        <note>Class = "NSButtonCell"; title = "Disable classic WebView deprecation warning"; ObjectID = "0uJ-tI-O23";</note>
+      </trans-unit>
       <trans-unit id="0xK-SO-5d2.title" xml:space="preserve">
         <source>User agent suffix:</source>
         <target>User agent suffix:</target>
@@ -2086,6 +2091,11 @@
         <target>Default touch mode user agent</target>
         <note>Class = "NSTextFieldCell"; title = "Default touch mode user agent"; ObjectID = "dqB-SD-Yjy";</note>
       </trans-unit>
+      <trans-unit id="fBC-Im-13G.ibShadowedToolTip" xml:space="preserve">
+        <source>Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</source>
+        <target>Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer)."; ObjectID = "fBC-Im-13G";</note>
+      </trans-unit>
       <trans-unit id="fCI-oc-vd6.title" xml:space="preserve">
         <source>Allow screen capture</source>
         <target>Allow screen capture</target>
@@ -2417,6 +2427,16 @@
         <source>Apply and Restart SEB</source>
         <target>Apply and Restart SEB</target>
         <note>Class = "NSButtonCell"; title = "Apply and Restart SEB"; ObjectID = "1294";</note>
+      </trans-unit>
+      <trans-unit id="D5Q-ms-bFX.ibExternalAccessibilityDescription" xml:space="preserve">
+        <source>Display Config QR Code</source>
+        <target>Display Config QR Code</target>
+        <note>Class = "NSButton"; ibExternalAccessibilityDescription = "Display Config QR Code"; ObjectID = "D5Q-ms-bFX";</note>
+      </trans-unit>
+      <trans-unit id="D5Q-ms-bFX.ibShadowedToolTip" xml:space="preserve">
+        <source>Displays Config QR Code as long as current config isn't too large</source>
+        <target>Displays Config QR Code as long as current config isn't too large</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Displays Config QR Code as long as current config isn't too large"; ObjectID = "D5Q-ms-bFX";</note>
       </trans-unit>
       <trans-unit id="VYd-lj-NUe.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</source>
@@ -4833,6 +4853,11 @@ It is deleted when the session ends</target>
         <target> (Connected to Power Source)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id=" (after quitting %@)" xml:space="preserve">
+        <source> (after quitting %@)</source>
+        <target> (after quitting %@)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
         <target> 1</target>
@@ -4938,9 +4963,14 @@ It is deleted when the session ends</target>
         <target>%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
-      <trans-unit id="%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security &amp; Privacy preferences, located in System Preferences." xml:space="preserve">
-        <source>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy preferences, located in System Preferences.</source>
-        <target>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy preferences, located in System Preferences.</target>
+      <trans-unit id="%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security &amp; Privacy located in System Settings." xml:space="preserve">
+        <source>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy located in System Settings.</source>
+        <target>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy located in System Settings.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security &amp; Privacy / Accessibility." xml:space="preserve">
+        <source>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %2$@ in System Settings / Security &amp; Privacy / Accessibility.</source>
+        <target>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %2$@ in System Settings / Security &amp; Privacy / Accessibility.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
@@ -5063,6 +5093,11 @@ It is deleted when the session ends</target>
         <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="15 Sequoia" xml:space="preserve">
+        <source>15 Sequoia</source>
+        <target>15 Sequoia</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</source>
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</target>
@@ -5073,9 +5108,9 @@ It is deleted when the session ends</target>
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Accessibility Permissions Needed" xml:space="preserve">
-        <source>Accessibility Permissions Needed</source>
-        <target>Accessibility Permissions Needed</target>
+      <trans-unit id="Accessibility Permissions Required" xml:space="preserve">
+        <source>Accessibility Permissions Required</source>
+        <target>Accessibility Permissions Required</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Activates %@ browser. Right click displays menu with open webpages." xml:space="preserve">
@@ -5148,9 +5183,9 @@ It is deleted when the session ends</target>
         <target>Authentication Required</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Authorize Screen Recording" xml:space="preserve">
-        <source>Authorize Screen Recording</source>
-        <target>Authorize Screen Recording</target>
+      <trans-unit id="Authorize" xml:space="preserve">
+        <source>Authorize</source>
+        <target>Authorize</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Auto Proxy Discovery" xml:space="preserve">
@@ -5258,6 +5293,11 @@ It is deleted when the session ends</target>
         <target>Cannot Open Exam</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot Open Settings" xml:space="preserve">
+        <source>Cannot Open Settings</source>
+        <target>Cannot Open Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Cannot Reconfigure Client" xml:space="preserve">
         <source>Cannot Reconfigure Client</source>
         <target>Cannot Reconfigure Client</target>
@@ -5308,6 +5348,11 @@ It is deleted when the session ends</target>
         <target>Choose</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." xml:space="preserve">
+        <source>Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.</source>
+        <target>Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Clear" xml:space="preserve">
         <source>Clear</source>
         <target>Clear</target>
@@ -5321,6 +5366,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Close Force Quit Window" xml:space="preserve">
         <source>Close Force Quit Window</source>
         <target>Close Force Quit Window</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Close Warning" xml:space="preserve">
+        <source>Close Warning</source>
+        <target>Close Warning</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Closing Session" xml:space="preserve">
@@ -5728,9 +5778,9 @@ It is deleted when the session ends</target>
         <target>Finalizing Screen Proctoring</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %@ in System Preferences/Security &amp; Privacy (after quitting %@). Then restart %@ and your exam." xml:space="preserve">
-        <source>For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %1$@ in System Preferences/Security &amp; Privacy (after quitting %2$@). Then restart %3$@ and your exam.</source>
-        <target>For this exam session, screen capturing is required. You cannot start this exam before authorizing Screen Recording for %1$@ in System Preferences/Security &amp; Privacy (after quitting %2$@). Then restart %3$@ and your exam.</target>
+      <trans-unit id="For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security &amp; Privacy%@. Then restart %@ and your exam." xml:space="preserve">
+        <source>For this exam session, screen capturing is required. You need to authorize Screen Recording for %1$@ in System Settings / Security &amp; Privacy%2$@. Then restart %3$@ and your exam.</source>
+        <target>For this exam session, screen capturing is required. You need to authorize Screen Recording for %1$@ in System Settings / Security &amp; Privacy%2$@. Then restart %3$@ and your exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." xml:space="preserve">
@@ -5741,11 +5791,6 @@ It is deleted when the session ends</target>
       <trans-unit id="For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." xml:space="preserve">
         <source>For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.</source>
         <target>For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="For this session, screen capturing is required. You need to authorize Screen Recording for %@ in System Preferences/Security &amp; Privacy and restart %@ and your exam afterwards." xml:space="preserve">
-        <source>For this session, screen capturing is required. You need to authorize Screen Recording for %1$@ in System Preferences/Security &amp; Privacy and restart %2$@ and your exam afterwards.</source>
-        <target>For this session, screen capturing is required. You need to authorize Screen Recording for %1$@ in System Preferences/Security &amp; Privacy and restart %2$@ and your exam afterwards.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="For using permitted macOS third-party applications, AAC Assessment Mode must be enabled, file and share dialogs blocked and macOS 12 or newer enforced. Do you want to update your %@ settings accordingly?" xml:space="preserve">
@@ -6618,6 +6663,11 @@ It is deleted when the session ends</target>
         <target>The user name or password for %@ was incorrect. Please try again.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Then restart %@/the exam." xml:space="preserve">
+        <source>Then restart %@/the exam.</source>
+        <target>Then restart %@/the exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
         <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
         <target>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</target>
@@ -6812,6 +6862,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Waiting %d seconds" xml:space="preserve">
         <source>Waiting %d seconds</source>
         <target>Waiting %d seconds</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Waiting for Accessibility Permissions" xml:space="preserve">
+        <source>Waiting for Accessibility Permissions</source>
+        <target>Waiting for Accessibility Permissions</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Waiting until %@ to resume sending cached screen shots" xml:space="preserve">
@@ -8617,6 +8672,11 @@ It is deleted when the session ends</target>
         <target>14 Sonoma</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="15 Sequoia" xml:space="preserve">
+        <source>15 Sequoia</source>
+        <target>15 Sequoia</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
         <source>About %@</source>
         <target>About %@</target>
@@ -8805,6 +8865,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Cannot Open Exam" xml:space="preserve">
         <source>Cannot Open Exam</source>
         <target>Cannot Open Exam</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cannot Open Settings" xml:space="preserve">
+        <source>Cannot Open Settings</source>
+        <target>Cannot Open Settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Quit Session" xml:space="preserve">

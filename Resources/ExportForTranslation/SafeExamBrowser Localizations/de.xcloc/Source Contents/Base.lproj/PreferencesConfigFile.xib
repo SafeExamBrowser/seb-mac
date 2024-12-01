@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,65 +20,89 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Config File Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="652" height="471"/>
+            <rect key="frame" x="0.0" y="0.0" width="652" height="477"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LlI-AX-322">
-                    <rect key="frame" x="20" y="30" width="612" height="426"/>
+                    <rect key="frame" x="20" y="36" width="612" height="426"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uzi-Il-y4s">
-                            <rect key="frame" x="0.0" y="351" width="355" height="75"/>
+                            <rect key="frame" x="0.0" y="351" width="612" height="75"/>
                             <subviews>
-                                <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
-                                    <rect key="frame" x="0.0" y="15" width="355" height="60"/>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ni0-F3-HSi">
+                                    <rect key="frame" x="0.0" y="15" width="612" height="60"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
-                                            <rect key="frame" x="-2" y="44" width="147" height="16"/>
-                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use configuration for ..." usesSingleLineMode="YES" id="239">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
-                                            <rect key="frame" x="151" y="0.0" width="204" height="60"/>
-                                            <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently). MDM Managed Configuration saves an unencrypted, uncompressed plist file</string>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="60" id="zzl-F8-h4W"/>
-                                            </constraints>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="cellSize" width="460" height="18"/>
-                                            <size key="intercellSpacing" width="4" height="4"/>
-                                            <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="250">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
+                                            <rect key="frame" x="0.0" y="0.0" width="592" height="60"/>
+                                            <subviews>
+                                                <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                                                    <rect key="frame" x="-2" y="44" width="147" height="16"/>
+                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use configuration for ..." usesSingleLineMode="YES" id="239">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                </textField>
+                                                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="249">
+                                                    <rect key="frame" x="151" y="0.0" width="441" height="60"/>
+                                                    <string key="toolTip">A saved settings file will either start the exam using these settings (temporarily) or change the local settings of a SEB client (permanently). MDM Managed Configuration saves an unencrypted, uncompressed plist file</string>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="zzl-F8-h4W"/>
+                                                    </constraints>
+                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="cellSize" width="460" height="18"/>
+                                                    <size key="intercellSpacing" width="4" height="4"/>
+                                                    <buttonCell key="prototype" type="radio" imagePosition="left" alignment="left" inset="2" id="250">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <cells>
+                                                        <column>
+                                                            <buttonCell type="radio" title="starting exams" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <accessibility description="starting exams"/>
+                                                                <connections>
+                                                                    <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
+                                                                </connections>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                                <accessibility description="configuring clients"/>
+                                                            </buttonCell>
+                                                            <buttonCell type="radio" title="MDM Managed Configuration" imagePosition="left" alignment="left" inset="2" id="4WQ-Hk-K3p" userLabel="MDM Managed Configuration">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="system"/>
+                                                            </buttonCell>
+                                                        </column>
+                                                    </cells>
+                                                    <accessibility description="Use configuration for ..."/>
+                                                    <connections>
+                                                        <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
+                                                    </connections>
+                                                </matrix>
+                                            </subviews>
+                                            <visibilityPriorities>
+                                                <integer value="1000"/>
+                                                <integer value="1000"/>
+                                            </visibilityPriorities>
+                                            <customSpacing>
+                                                <real value="3.4028234663852886e+38"/>
+                                                <real value="3.4028234663852886e+38"/>
+                                            </customSpacing>
+                                        </stackView>
+                                        <button toolTip="Displays Config QR Code as long as current config isn't too large" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D5Q-ms-bFX">
+                                            <rect key="frame" x="589" y="36" width="25" height="25"/>
+                                            <buttonCell key="cell" type="help" bezelStyle="helpButton" image="SEBQRCode" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="K3t-lE-zzV">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
-                                            <cells>
-                                                <column>
-                                                    <buttonCell type="radio" title="starting exams" imagePosition="left" alignment="left" state="on" toolTip="A settings file saved with this option will start the exam with its settings, but won't change the local SEB settings" tag="1" inset="2" id="251">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <accessibility description="starting exams"/>
-                                                        <connections>
-                                                            <action selector="changeConfigFilePurpose:" target="-2" id="1426"/>
-                                                        </connections>
-                                                    </buttonCell>
-                                                    <buttonCell type="radio" title="configuring clients" imagePosition="left" alignment="left" inset="2" id="252">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <accessibility description="configuring clients"/>
-                                                    </buttonCell>
-                                                    <buttonCell type="radio" title="MDM Managed Configuration" imagePosition="left" alignment="left" inset="2" id="4WQ-Hk-K3p" userLabel="MDM Managed Configuration">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                </column>
-                                            </cells>
-                                            <accessibility description="Use configuration for ..."/>
+                                            <accessibility description="Display Config QR Code"/>
                                             <connections>
-                                                <binding destination="211" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_sebConfigPurpose" id="1087"/>
+                                                <action selector="showQRConfig:" target="-2" id="uvx-j6-P0x"/>
                                             </connections>
-                                        </matrix>
+                                        </button>
                                     </subviews>
                                     <visibilityPriorities>
                                         <integer value="1000"/>
@@ -99,6 +124,10 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="Ni0-F3-HSi" firstAttribute="leading" secondItem="uzi-Il-y4s" secondAttribute="leading" id="Pdp-yG-U0j"/>
+                                <constraint firstAttribute="trailing" secondItem="Ni0-F3-HSi" secondAttribute="trailing" id="nht-eh-gLG"/>
+                            </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
@@ -578,7 +607,9 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="uzi-Il-y4s" secondAttribute="trailing" id="M8d-nt-nD4"/>
                         <constraint firstAttribute="trailing" secondItem="DBU-0A-Xbb" secondAttribute="trailing" id="VMn-ze-cId"/>
+                        <constraint firstItem="uzi-Il-y4s" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="ch8-R0-uOB"/>
                         <constraint firstAttribute="trailing" secondItem="mYx-S8-prr" secondAttribute="trailing" id="nme-qU-nKz"/>
                         <constraint firstItem="mYx-S8-prr" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="p7t-3f-ObJ"/>
                     </constraints>
@@ -622,4 +653,7 @@
             </connections>
         </objectController>
     </objects>
+    <resources>
+        <image name="SEBQRCode" width="54" height="54"/>
+    </resources>
 </document>
