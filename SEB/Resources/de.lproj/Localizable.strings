@@ -104,6 +104,9 @@
 "14 Sonoma" = "14 Sonoma";
 
 /* No comment provided by engineer. */
+"15 Sequoia" = "15 Sequoia";
+
+/* No comment provided by engineer. */
 "About %@" = "Über %@";
 
 /* No comment provided by engineer. */
@@ -240,6 +243,9 @@
 
 /* No comment provided by engineer. */
 "Cannot Open Exam" = "Prüfung kann nicht geöffnet werden";
+
+/* No comment provided by engineer. */
+"Cannot Open Settings" = "Konfiguration kann nicht geöffmet werden";
 
 /* No comment provided by engineer. */
 "Cannot Quit Session" = "Session kann nicht beendet werden";

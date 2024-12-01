@@ -136,6 +136,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Reduces the size of an SEB configuration (automatically used for Config URL and QR Code)"; ObjectID = "bXI-JH-OrW"; */
 "bXI-JH-OrW.ibShadowedToolTip" = "Reduziert die Grösse einer SEB-Konfiguration (wird automatisch für Konfigurations-URL und QR-Code verwendet)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Displays Config QR Code as long as current config isn't too large"; ObjectID = "D5Q-ms-bFX"; */
+"D5Q-ms-bFX.ibShadowedToolTip" = "Zeigt den QR-Code der Konfiguration an, sofern die aktuellen Konfigurationsdaten nicht zu gross sind";
+
 /* Class = "NSButtonCell"; title = "Remove default values"; ObjectID = "hOC-jh-iwA"; */
 "hOC-jh-iwA.title" = "Standardwerte entfernen";
 

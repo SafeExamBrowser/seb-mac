@@ -4,6 +4,9 @@
 /* Class = "NSTextFieldCell"; title = "Desktop mode default user agent"; ObjectID = "0dZ-Z1-Pzs"; */
 "0dZ-Z1-Pzs.title" = "User Agent für Desktop-Modus";
 
+/* Class = "NSButtonCell"; title = "Disable classic WebView deprecation warning"; ObjectID = "0uJ-tI-O23"; */
+"0uJ-tI-O23.title" = "Warnung für veraltetes klassisches WebView deaktivieren";
+
 /* Class = "NSTextFieldCell"; title = "User agent suffix:"; ObjectID = "0xK-SO-5d2"; */
 "0xK-SO-5d2.title" = "User Agent Suffix:";
 
@@ -216,6 +219,9 @@
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Default string on the iOS device (depends on iOS version and device type iPhone/iPad and therefore can differ on exam clients!)"; ObjectID = "F1k-Qz-pMS"; */
 "F1k-Qz-pMS.ibShadowedToolTip" = "Standardzeichenkette auf dem iOS-Gerät (hängt von iOS-Version und Gerätetyp iPhone/iPad ab und kann deswegen auf verschiedenen Clients unterschiedlich sein)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer)."; ObjectID = "fBC-Im-13G"; */
+"fBC-Im-13G.ibShadowedToolTip" = "Das klassische WebView ist auf macOS veraltet und wird auf iOS/iPadOS nicht mehr unterstützt! Die SEB-Integration/-Einstellungen der verwendeten Prüfungslösung funktionieren möglicherweise nicht mehr und müssen aktualisiert werden, um die moderne WebView zu unterstützen. Diese Warnung wird oben in den Browserfenstern/-tabs angezeigt, wenn die Einstellungen das klassische WebView erfordern. Sie können die Anzeige dieser Warnung deaktivieren, aber wenn Sie der Anbieter eines Prüfungssystems sind, das noch nicht mit dem modernen WebView kompatibel ist, müssen Sie Ihre Integration jetzt aktualisieren (verwenden Sie die SEB Javascript API statt der HTTP-Header-Prüfung für BEK/CK, siehe safeexambrowser.org/developer).";
 
 /* Class = "NSButtonCell"; title = "Allow screen capture"; ObjectID = "fCI-oc-vd6"; */
 "fCI-oc-vd6.title" = "Bildschirmaufzeichnung erlauben";
