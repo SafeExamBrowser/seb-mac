@@ -335,11 +335,21 @@
         configPurpose = sebConfigPurposeStartingExam;
     }
     NSData *qrCodePNGImageData = [self.preferencesController getConfigDataForPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-    NSImage *qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
-    CGFloat imageWidth = qrCodeImage.size.width;
-    CGFloat imageHeigth = qrCodeImage.size.height;
-    NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
-    NSView *qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+    NSImage *qrCodeImage;
+    CGFloat imageWidth;
+    CGFloat imageHeigth;
+    NSView *qrCodeView;
+    if (qrCodePNGImageData) {
+        qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
+        imageWidth = qrCodeImage.size.width;
+        imageHeigth = qrCodeImage.size.height;
+        NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
+        qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+    } else {
+        qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+        imageWidth = 300;
+        imageHeigth = 300;
+    }
     qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self.preferencesController.sebController openLockModalWindows];
@@ -354,6 +364,28 @@
     qrCodeOverlayPanel.delegate = self;
     [qrCodeOverlayPanel orderFront:self];
     [qrCodeOverlayPanel invalidateShadow];
+}
+
+
+- (NSView *) overlayViewForLabelConstraints:(NSString *)message {
+    
+    NSView *overlayView = [NSView new];
+    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSButton *overlayViewCloseButton = [NSButton buttonWithTitle:message image:[NSImage imageNamed:@"SEBBadgeWarning"] target:self action:@selector(hideQRConfig)];
+    [overlayViewCloseButton setBezelStyle:NSBezelStyleRegularSquare];
+    overlayViewCloseButton.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
+    overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [overlayView addSubview:overlayViewCloseButton];
+    [overlayViewCloseButton.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 7].active = YES;
+    [overlayViewCloseButton.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -7].active = YES;
+    [overlayViewCloseButton.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: 7].active = YES;
+    [overlayViewCloseButton.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: -7].active = YES;
+
+    overlayView.clipsToBounds = YES;
+    [overlayViewCloseButton setNextResponder:overlayView];
+    return overlayView;
 }
 
 
