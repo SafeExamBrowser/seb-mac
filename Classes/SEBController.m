@@ -4177,6 +4177,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             default:
                 break;
         }
+        DDLogInfo(@"%s: Is running on macOS version with index %lu allowed?", __FUNCTION__, (unsigned long)minMacOSVersion);
+
     } else {
         // Full granular check for allowed major, minor and patch version
         allowMacOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
@@ -4184,6 +4186,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         allowMacOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
     }
     
+    DDLogInfo(@"%s: Is running on macOS version with allow major version %lu, minor version %lu, patch version %lu allowed?", __FUNCTION__, allowMacOSVersionMajor, allowMacOSVersionMinor, allowMacOSVersionPatch);
+
     // Check for minimal macOS version requirements of this SEB version
     if (allowMacOSVersionMajor < SEBMinMacOSVersionSupportedMajor) {
         allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
@@ -4237,6 +4241,8 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             }
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    } else {
+        DDLogInfo(@"%s: Running on current macOS version is allowed.", __FUNCTION__);
     }
 }
 
