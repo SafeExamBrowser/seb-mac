@@ -765,7 +765,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobileEnableASAM",
                    
-                   @YES,
+                   @NO,
                    @"mobileEnableModernAAC",
                    
                    @YES,
