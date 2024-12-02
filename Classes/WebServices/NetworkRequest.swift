@@ -99,6 +99,7 @@ extension NetworkRequest {
         }
         let currentAttempt = attempt+1
         
+        DDLogDebug("NetworkRequest: Get current URLSession")
         guard let urlSession = session else {
             let debugDescription = "URLSession was invalidated"
             DDLogError("\(debugDescription)")
