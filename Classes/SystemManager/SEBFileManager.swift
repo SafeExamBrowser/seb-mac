@@ -123,7 +123,8 @@ import CocoaLumberjackSwift
         let storedDirectoryURLDictionary = ["url" : url, "configKey" : configKey] as [String : Any]
         var data = Data()
         do {
-            data = try NSKeyedArchiver.archivedData(withRootObject: storedDirectoryURLDictionary, requiringSecureCoding: true)        } catch let error {
+            data = try NSKeyedArchiver.archivedData(withRootObject: storedDirectoryURLDictionary, requiringSecureCoding: true)
+        } catch let error {
             DDLogError("Could not encode stored URL dictionary with error \(error)")
         }
         UserDefaults.standard.setPersistedSecureObject(data, forKey: key)
@@ -133,28 +134,30 @@ import CocoaLumberjackSwift
         guard let storedDirectoryData = UserDefaults.standard.persistedSecureObject(forKey: key) as? Data else {
             return nil
         }
-        do {
-            guard let storedDirectoryURLDictionary = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSString.self, NSURL.self, NSData.self], from: storedDirectoryData) as? [String : Any] else {
-                return nil
+        if !storedDirectoryData.isEmpty {
+            do {
+                guard let storedDirectoryURLDictionary = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSDictionary.self, NSString.self, NSURL.self, NSData.self], from: storedDirectoryData) as? [String : Any] else {
+                    return nil
+                }
+                guard let directoryURL = storedDirectoryURLDictionary["url"] as? URL else {
+                    return nil
+                }
+                // We perform this check for security reasons...
+                if directoryURL.path.hasPrefix("../") {
+                    return nil
+                }
+                guard let directoryURLConfigKey = storedDirectoryURLDictionary["configKey"] as? Data else {
+                    return nil
+                }
+                if currentConfigKey != directoryURLConfigKey {
+                    return nil
+                }
+                return (directoryURL, directoryURLConfigKey)
+            } catch let error {
+                DDLogError("Could not decode stored URL dictionary with error \(error)")
             }
-            guard let directoryURL = storedDirectoryURLDictionary["url"] as? URL else {
-                return nil
-            }
-            // We perform this check for security reasons...
-            if directoryURL.path.hasPrefix("../") {
-                return nil
-            }
-            guard let directoryURLConfigKey = storedDirectoryURLDictionary["configKey"] as? Data else {
-                return nil
-            }
-            if currentConfigKey != directoryURLConfigKey {
-                return nil
-            }
-            return (directoryURL, directoryURLConfigKey)
-        } catch let error {
-            DDLogError("Could not decode stored URL dictionary with error \(error)")
-            return nil
         }
+        return nil
     }
 }
     
