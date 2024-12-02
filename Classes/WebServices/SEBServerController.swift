@@ -176,8 +176,8 @@ public class PendingServerRequest : NSObject {
     }
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        DDLogError("SEB Server Controller: URLSession didBecomeInvalidWithError: \(String(describing: error)).")
         self.session = nil
+        DDLogError("SEB Server Controller: URLSession didBecomeInvalidWithError: \(String(describing: error)).")
     }
 }
 
@@ -713,6 +713,7 @@ public extension SEBServerController {
                 self.delegate?.didReceiveExamSalt("", connectionToken: "")
                 self.delegate?.didReceiveServerBEK("")
                 self.session?.invalidateAndCancel()
+                self.session = nil
                 self.connectionToken = nil
                 completion(restart)
             })
@@ -722,6 +723,7 @@ public extension SEBServerController {
             self.delegate?.didReceiveExamSalt("", connectionToken: "")
             self.delegate?.didReceiveServerBEK("")
             self.session?.invalidateAndCancel()
+            self.session = nil
             self.connectionToken = nil
             completion(restart)
         }
@@ -731,6 +733,7 @@ public extension SEBServerController {
         self.cancelAllRequests = true
         self.stopPingTimer()
         self.session?.invalidateAndCancel()
+        self.session = nil
         self.connectionToken = nil
         completion(restart)
     }
