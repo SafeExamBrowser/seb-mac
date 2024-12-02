@@ -5351,6 +5351,15 @@ conditionallyForWindow:(NSWindow *)window
         lastTimeProcessCheck = [NSDate date];
         _SIGSTOPDetected = NO;
         
+        self.sessionState.proctoringFailedDetected = NO;
+        _zoomUserRetryWasUsed = NO;
+        self.sessionState.userSwitchDetected = NO;
+        _sebLockedViewController.retryButton.hidden = YES;
+        if (self.sebServerPendingLockscreenEvents.count > 0) {
+            [self.serverController confirmLockscreensWithUIDs:self.sebServerPendingLockscreenEvents.copy];
+            [self.sebServerPendingLockscreenEvents removeAllObjects];
+        }
+        
         if (allowOverride) {
             DDLogDebug(@"%s: _sebLockedViewController %@, quitInsteadUnlockingButton.state: %ld", __FUNCTION__, _sebLockedViewController, (long)_sebLockedViewController.quitInsteadUnlockingButton.state);
             if (_sebLockedViewController.quitInsteadUnlockingButton.state == YES) {
@@ -5362,15 +5371,6 @@ conditionallyForWindow:(NSWindow *)window
             _sebLockedViewController.quitInsteadUnlockingButton.state = NO;
         }
 
-        self.sessionState.proctoringFailedDetected = NO;
-        _zoomUserRetryWasUsed = NO;
-        self.sessionState.userSwitchDetected = NO;
-        _sebLockedViewController.retryButton.hidden = YES;
-        if (self.sebServerPendingLockscreenEvents.count > 0) {
-            [self.serverController confirmLockscreensWithUIDs:self.sebServerPendingLockscreenEvents.copy];
-            [self.sebServerPendingLockscreenEvents removeAllObjects];
-        }
-        
         [_sebLockedViewController.view removeFromSuperview];
         [self closeCoveringWindows:self.lockdownWindows];
         self.lockdownWindows = nil;
