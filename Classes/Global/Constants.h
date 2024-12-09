@@ -540,7 +540,7 @@ typedef NSUInteger SEBZoomModes;
 enum {
     SEBSupportedOSmacOS                         = 0,
     SEBSupportedOSWindows                       = 1,
-    SEBSupportedOSiOS                           = 2
+    SEBSupportedOSiPadOS                           = 2
 };
 typedef NSUInteger SEBSupportedOS;
 

@@ -1352,6 +1352,7 @@ static NSMutableSet *browserWindowControllers;
                                                                           passwordIsHash:NO
                                                                             withIdentity:identityRef
                                                                               forPurpose:configPurpose
+                                                                        allowUnencrypted:YES
                                                                             uncompressed:uncompressed
                                                                           removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
     if (encryptedSEBData) {
@@ -4605,8 +4606,15 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
+    if (@available(iOS 18.1, *)) {
+        DDLogDebug(@"Running on iOS 18.1 or newer, %s = %d", __FUNCTION__, modernAAC);
+    } else {
+        modernAAC = NO;
+        DDLogDebug(@"Running on iOS < 18.1, %s = %d", __FUNCTION__, modernAAC);
+    }
 #ifdef DEBUG
     modernAAC = NO;
+    DDLogDebug(@"Debug build, %s = %d", __FUNCTION__, modernAAC);
 #endif
     return modernAAC;
 }
@@ -4629,17 +4637,39 @@ void run_on_ui_thread(dispatch_block_t block)
             _ASAMActive = YES;
             
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-            BOOL modernAAC = [self modernAAC];
-            if (modernAAC) {
-                if (@available(iOS 13.4, *)) {
-                    AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
-                    self.assessmentModeManager = assessmentModeManager;
-                    self.assessmentModeManager.delegate = self;
-                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-                    NSArray *allPermittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
-                    NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSiOS];
-                    self.permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
-                    
+            if (@available(iOS 13.4, *)) {
+                AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
+                self.assessmentModeManager = assessmentModeManager;
+                self.assessmentModeManager.delegate = self;
+                NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+                NSArray *allPermittedProcesses = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+                NSPredicate *filterProcessOS = [NSPredicate predicateWithFormat:@"active == YES AND os == %d", SEBSupportedOSiPadOS];
+                self.permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
+                BOOL modernAAC = [self modernAAC];
+                
+                BOOL runningOniPadOS1771;
+                if (@available(iOS 17.71, *)) {
+                    runningOniPadOS1771 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+                } else {
+                    runningOniPadOS1771 = NO;
+                }
+                
+                BOOL runningOniPadOS181;
+                if (@available(iOS 18.1, *)) {
+                    runningOniPadOS181 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+                } else {
+                    runningOniPadOS181 = NO;
+                }
+                if (!runningOniPadOS1771) {
+                    self.permittedProcesses = @[];
+                }
+                // Use the modern AAC API if
+                // - Setting mobileEnableModernAAC = true and running on iOS >= 18.1
+                // - Settings contain iPadOS permitted processes and running on iPadOS >= 18.1 (regardless of setting mobileEnableModernAAC)
+                // - Settings contain iPadOS permitted processes, running on iPadOS >= 17.7.1 and setting mobileEnableModernAAC = true
+                if (modernAAC || 
+                    (self.permittedProcesses.count > 0 && runningOniPadOS181) ||
+                    (self.permittedProcesses.count > 0 && runningOniPadOS1771 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"])) {
                     AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);

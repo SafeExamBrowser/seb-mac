@@ -132,7 +132,7 @@
                 forceQuitButton.hidden = NO;
                 break;
                 
-            case SEBSupportedOSiOS:
+            case SEBSupportedOSiPadOS:
                 chooseApplicationButton.hidden = NO;
                 executableView.hidden = YES;
                 originalNameView.hidden = YES;
