@@ -8,5 +8,5 @@
 "Permitted Apps" = "Erlaubte Apps";
 
 /* String for FooterText elements */
-"These Apps will be available along SEB during an exam session when running on iPadOS 17.7.1 or newer." = "Diese Apps sind während einer Prüfungssession mit SEB verfügbar, wenn sie unter iPadOS 17.7.1 oder neuer laufen.";
+"These Apps will be available along SEB during an exam session when running on iPadOS 17.7.1 or newer. Before iPadOS 18.1, you also have to activate Security / 'Use Modern AAC API'" = "Diese Apps sind während einer Prüfungssession mit SEB verfügbar, wenn iPadOS 17.7.1 oder neuer benutzt wird. Vor iPadOS 18.1 müssen Sie ausserdem Sicherheit / 'Moderne AAC API benutzen' aktivieren.";
 
