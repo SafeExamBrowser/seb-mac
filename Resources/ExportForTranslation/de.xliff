@@ -7698,9 +7698,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Erlaubte Apps</target>
         <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="These Apps will be available along SEB during an exam session when running on iPadOS 17.6 or newer." xml:space="preserve">
-        <source>These Apps will be available along SEB during an exam session when running on iPadOS 17.6 or newer.</source>
-        <target>Diese Apps sind während einer Prüfungssession mit SEB verfügbar, wenn sie unter iPadOS 17.6 oder neuer laufen.</target>
+      <trans-unit id="These Apps will be available along SEB during an exam session when running on iPadOS 17.7.1 or newer." xml:space="preserve">
+        <source>These Apps will be available along SEB during an exam session when running on iPadOS 17.7.1 or newer.</source>
+        <target>Diese Apps sind während einer Prüfungssession mit SEB verfügbar, wenn sie unter iPadOS 17.7.1 oder neuer laufen.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
     </body>
