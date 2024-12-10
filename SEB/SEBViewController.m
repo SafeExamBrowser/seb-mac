@@ -4119,11 +4119,11 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *notificationType = attributes[@"type"];
     NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
     
-    //    if ([notificationType isEqualToString:@"raisehand"]) {
-    //        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
-    //            [self toggleRaiseHandLoweredByServer:YES];
-    //        }
-    //    }
+//    if ([notificationType isEqualToString:@"raisehand"]) {
+//        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
+//            [self toggleRaiseHandLoweredByServer:YES];
+//        }
+//    }
     
     if ([notificationType isEqualToString:@"lockscreen"]) {
         if (self.sebServerPendingLockscreenEvents.count > 0) {
@@ -4297,7 +4297,7 @@ void run_on_ui_thread(dispatch_block_t block)
                 
                 // Close lock windows only if the correct quit/restart password was entered already
                 if (_unlockPasswordEntered) {
-                    _unlockPasswordEntered = false;
+                    _unlockPasswordEntered = NO;
                     [self.sebLockedViewController shouldCloseLockdownWindows];
                 }
             }
@@ -5024,6 +5024,15 @@ void run_on_ui_thread(dispatch_block_t block)
         [self showRestartSingleAppMode];
     } else {
         [self.sebLockedViewController shouldCloseLockdownWindows];
+    }
+}
+
+
+- (void) closeLockdownWindowsAllowOverride:(BOOL)allowOverride
+{
+    if (self.sebServerPendingLockscreenEvents.count > 0) {
+        [self.serverController confirmLockscreensWithUIDs:self.sebServerPendingLockscreenEvents.copy];
+        [self.sebServerPendingLockscreenEvents removeAllObjects];
     }
 }
 
