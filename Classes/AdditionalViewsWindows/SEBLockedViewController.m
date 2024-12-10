@@ -103,7 +103,7 @@ void run_block_on_main_thread(dispatch_block_t block)
 
 - (BOOL) isStartingLockedExam:(NSString *)examURLString configKey:(NSData *)configKey;
 {
-    BOOL isStartingLockedExam = false;
+    BOOL isStartingLockedExam = NO;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSMutableArray *lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
     if ([[lockedExams valueForKey:@"configKey"] containsObject:configKey]) {
@@ -249,14 +249,14 @@ void run_block_on_main_thread(dispatch_block_t block)
             // Correct password entered
             closingLockdownWindowsInProgress = YES;
             [self.UIDelegate setLockedAlertPassword:@""];
-            [self.UIDelegate setPasswordWrongLabelHidden:true];
+            [self.UIDelegate setPasswordWrongLabelHidden:YES];
             
             // Add log string for Correct password entered
             [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Correct password entered", @"")]
                            withTime:[NSDate date]];
             
             if ([self.controllerDelegate respondsToSelector:@selector(unlockPasswordEntered)]) {
-                self.controllerDelegate.unlockPasswordEntered = true;
+                self.controllerDelegate.unlockPasswordEntered = YES;
             }
 #ifdef DEBUG
             DDLogInfo(@"%s, [self.controllerDelegate (%@) correctPasswordEntered]", __FUNCTION__, self.controllerDelegate);
@@ -268,7 +268,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Wrong password entered!", @"")]
                        withTime:[NSDate date]];
         [self.UIDelegate setLockedAlertPassword:@""];
-        [self.UIDelegate setPasswordWrongLabelHidden:false];
+        [self.UIDelegate setPasswordWrongLabelHidden:NO];
     }
 }
 
@@ -303,15 +303,15 @@ void run_block_on_main_thread(dispatch_block_t block)
         [self.controllerDelegate openInfoHUD:lockedTimeInfo];
     }
     if ([self.controllerDelegate respondsToSelector:@selector(sebLocked)]) {
-        self.controllerDelegate.sebLocked = false;
+        self.controllerDelegate.sebLocked = NO;
     }
-    closingLockdownWindowsInProgress = false;
+    closingLockdownWindowsInProgress = NO;
 }
 
 
 - (void) abortClosingLockdownWindows
 {
-    closingLockdownWindowsInProgress = false;
+    closingLockdownWindowsInProgress = NO;
 }
 
 

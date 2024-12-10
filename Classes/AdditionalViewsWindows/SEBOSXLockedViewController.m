@@ -238,27 +238,27 @@
 - (void) lockdownWindowsWillClose
 {
     // Check for status of individual parameters
-    if (self.overrideCheckForScreenSharing.state == true) {
+    if (self.overrideCheckForScreenSharing.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting screen sharing was disabled!", @"")] withTime:nil];
     }
     
-    if (self.overrideCheckForSiri.state == true) {
+    if (self.overrideCheckForSiri.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting Siri was disabled!", @"")] withTime:nil];
     }
     
-    if (self.overrideCheckForDictation.state == true) {
+    if (self.overrideCheckForDictation.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting dictation was disabled!", @"")] withTime:nil];
     }
     
-    if (self.overrideCheckForSpecifcProcesses.state == true) {
+    if (self.overrideCheckForSpecifcProcesses.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting the processes listed above was disabled!", @"")] withTime:nil];
     }
     
-    if (self.overrideCheckForAllProcesses.state == true) {
+    if (self.overrideCheckForAllProcesses.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Detecting processes was completely disabled!", @"")] withTime:nil];
     }
     
-    if (self.overrideEnforcingBuiltinScreen.state == true) {
+    if (self.overrideEnforcingBuiltinScreen.state == YES) {
         [self appendErrorString:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Overriding required built-in display was enabled!", @"")] withTime:nil];
     }
 }
