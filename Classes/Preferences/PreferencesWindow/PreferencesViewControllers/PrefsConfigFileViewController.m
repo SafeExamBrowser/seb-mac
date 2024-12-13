@@ -331,39 +331,48 @@
     }
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
-    if (configPurpose != sebConfigPurposeStartingExam || configPurpose != sebConfigPurposeConfiguringClient) {
+    if (configPurpose != sebConfigPurposeStartingExam && configPurpose != sebConfigPurposeConfiguringClient) {
         configPurpose = sebConfigPurposeStartingExam;
     }
-    NSData *qrCodePNGImageData = [self.preferencesController getConfigDataForPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-    NSImage *qrCodeImage;
-    CGFloat imageWidth;
-    CGFloat imageHeigth;
-    NSView *qrCodeView;
-    if (qrCodePNGImageData) {
-        qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
-        imageWidth = qrCodeImage.size.width;
-        imageHeigth = qrCodeImage.size.height;
-        NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
-        qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+    NSData *encryptedSEBData = [self encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormatQRCode
+                                                                                       allowUnencrypted:YES
+                                                                                           uncompressed:NO
+                                                                                         removeDefaults:YES];
+    if (encryptedSEBData) {
+        NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
+        NSImage *qrCodeImage;
+        CGFloat imageWidth;
+        CGFloat imageHeigth;
+        NSView *qrCodeView;
+        if (qrCodePNGImageData) {
+            qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
+            imageWidth = qrCodeImage.size.width;
+            imageHeigth = qrCodeImage.size.height;
+            NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
+            qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+        } else {
+            qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+            imageWidth = 300;
+            imageHeigth = 300;
+        }
+        qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        [self.preferencesController.sebController openLockModalWindows];
+
+        qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
+        qrCodeOverlayPanel.closeOnClick = YES;
+        
+        [qrCodeOverlayPanel center];
+        qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
+        [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
+        [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
+        qrCodeOverlayPanel.delegate = self;
+        [qrCodeOverlayPanel orderFront:self];
+        [qrCodeOverlayPanel invalidateShadow];
     } else {
-        qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
-        imageWidth = 300;
-        imageHeigth = 300;
+        DDLogError(@"%s: Failed to generate config data", __FUNCTION__);
     }
-    qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self.preferencesController.sebController openLockModalWindows];
-
-    qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
-    qrCodeOverlayPanel.closeOnClick = YES;
-    
-    [qrCodeOverlayPanel center];
-    qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
-    [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
-    [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
-    qrCodeOverlayPanel.delegate = self;
-    [qrCodeOverlayPanel orderFront:self];
-    [qrCodeOverlayPanel invalidateShadow];
 }
 
 

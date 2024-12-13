@@ -303,6 +303,12 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"backgroundOpenSEBConfig",
 
+                   [NSNumber numberWithDouble:0.1],
+                   @"batteryChargeThresholdCritical",
+                   
+                   [NSNumber numberWithDouble:0.2],
+                   @"batteryChargeThresholdLow",
+                   
                    @NO,
                    @"blockPopUpWindows",
                    

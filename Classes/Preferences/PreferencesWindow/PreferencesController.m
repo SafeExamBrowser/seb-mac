@@ -1126,43 +1126,33 @@
     BOOL uncompressed = self.canSavePlainText && sharePlainTextConfig;
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
-    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+    NSData *encryptedConfigData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
                                                                                        allowUnencrypted:NO
                                                                                            uncompressed:uncompressed
                                                                                          removeDefaults:removeDefaults];
-    if (encryptedSEBData) {
-        
-        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
-            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
-            if (shareConfigFormat == shareConfigFormatQRCode) {
-                CIImage *ciImage = [QRCodeGenerator generateQRCodeFrom:configInDataURL];
-                if (ciImage) {
-                    if (@available(macOS 10.13, *)) {
-                        CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-                        encryptedSEBData = [[CIContext contextWithOptions:nil] PNGRepresentationOfImage:ciImage format:kCIFormatBGRA8 colorSpace:colorSpace options:NSDictionary.new];
-                    }
-                } else {
-                    shareConfigFormat = shareConfigFormatFile;
-                    NSAlert *newAlert = [[NSAlert alloc] init];
-                    [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", @"")];
-                    [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
-                    [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
-                    [newAlert setAlertStyle:NSAlertStyleCritical];
-                    switch([newAlert runModal])
-                    {
-                        case NSAlertFirstButtonReturn:
-                            // Saving settings was canceled
-                            [oldSettings restoreSettings];
-                            return NO;
-                            
-                        case NSAlertSecondButtonReturn:
-                            break;
-                    }
-                }
-                
-            } else {
-                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
+    if (encryptedConfigData) {
+
+        NSData *encryptedSEBData = [self encodeConfigData:encryptedConfigData forPurpose:configPurpose format:shareConfigFormat uncompressed:uncompressed removeDefaults:removeDefaults];
+
+        if (shareConfigFormat == shareConfigFormatQRCode && encryptedSEBData == nil) {
+            shareConfigFormat = shareConfigFormatFile;
+            encryptedSEBData = encryptedConfigData;
+            NSAlert *newAlert = [[NSAlert alloc] init];
+            [newAlert setMessageText:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+            [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+            [newAlert addButtonWithTitle:NSLocalizedString(@"Share as Configuration", @"")];
+            [newAlert setAlertStyle:NSAlertStyleCritical];
+            switch([newAlert runModal])
+            {
+                case NSAlertFirstButtonReturn:
+                    // Saving settings was canceled
+                    [oldSettings restoreSettings];
+                    return NO;
+                    
+                case NSAlertSecondButtonReturn:
+                    break;
             }
         }
         
@@ -1283,15 +1273,12 @@
 }
 
 
-- (NSData *)getConfigDataForPurpose:(sebConfigPurposes)configPurpose format:(ShareConfigFormat)shareConfigFormat uncompressed:(BOOL)uncompressed removeDefaults:(BOOL)removeDefaults
+- (NSData *)encodeConfigData:(NSData *)encryptedSEBData
+                        forPurpose:(sebConfigPurposes)configPurpose
+                            format:(ShareConfigFormat)shareConfigFormat
+                      uncompressed:(BOOL)uncompressed
+                    removeDefaults:(BOOL)removeDefaults
 {
-    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-//    [_sebController.shareConfigFormatPopUpButton selectItemAtIndex:shareConfigFormat];
-    
-    NSData *encryptedSEBData = [self.configFileVC encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
-                                                                                       allowUnencrypted:YES
-                                                                                           uncompressed:uncompressed
-                                                                                         removeDefaults:removeDefaults];
     if (encryptedSEBData) {
         
         if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
