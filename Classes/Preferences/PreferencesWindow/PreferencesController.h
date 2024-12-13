@@ -113,10 +113,11 @@
 - (void) restoreStoredSettings;
 - (BOOL) settingsChanged;
 
-- (NSData *)getConfigDataForPurpose:(sebConfigPurposes)configPurpose
-                             format:(ShareConfigFormat)shareConfigFormat
-                       uncompressed:(BOOL)uncompressed
-                     removeDefaults:(BOOL)removeDefaults;
+- (NSData *)encodeConfigData:(NSData *)encryptedConfigData
+               forPurpose:(sebConfigPurposes)configPurpose
+                   format:(ShareConfigFormat)shareConfigFormat
+             uncompressed:(BOOL)uncompressed
+           removeDefaults:(BOOL)removeDefaults;
 
 - (IBAction) restartSEB:(id)sender;
 - (IBAction) quitSEB:(id)sender;

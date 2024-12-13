@@ -120,6 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
+    UIBarButtonItem *settingsQRCodeButton;
     UIBarButtonItem *settingsActionButton;
 
 @private
@@ -183,6 +184,9 @@ void run_on_ui_thread(dispatch_block_t block);
 
 @property (strong, nonatomic) AboutSEBiOSViewController *_Nullable aboutSEBViewController;
 @property (strong, nonatomic) MFMailComposeViewController *_Nullable mailViewController;
+
+@property (strong, nonatomic) UIViewController *_Nullable qrConfigViewController;
+
 @property (strong, nonatomic) UIViewController *_Nullable rootViewController;
 @property (strong, nonatomic) SEBiOSConfigFileController *configFileController;
 @property(strong, nonatomic) SEBBatteryController *_Nullable batteryController;

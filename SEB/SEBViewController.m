@@ -1241,6 +1241,17 @@ static NSMutableSet *browserWindowControllers;
         settingsShareButton.accessibilityHint = NSLocalizedString(@"Share settings", @"");
         
     }
+    if (!settingsQRCodeButton) {
+        settingsQRCodeButton = [[UIBarButtonItem alloc]
+                                initWithImage:[[UIImage imageNamed:@"SEBQRCodeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                style:UIBarButtonItemStylePlain
+                                target:self
+                                action:@selector(showQRConfig)];
+//        settingsQRCodeButton.tintColor = self.view.tintColor;
+        settingsQRCodeButton.accessibilityLabel = NSLocalizedString(@"Show Config QR Code", @"");
+        settingsQRCodeButton.accessibilityHint = NSLocalizedString(@"Show Config QR Code", @"");
+        
+    }
     if (!settingsActionButton) {
         settingsActionButton = [[UIBarButtonItem alloc]
                                 initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
@@ -1250,7 +1261,7 @@ static NSMutableSet *browserWindowControllers;
         settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", @"");
         
     }
-    self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsActionButton];
+    self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsQRCodeButton, settingsActionButton];
     
     // Register notification for changed keys
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1312,50 +1323,25 @@ static NSMutableSet *browserWindowControllers;
 {
     DDLogInfo(@"Share settings button pressed");
     
-    // Update entered passwords and save their hashes to SEB settings
-    // as long as the passwords were really entered and don't contain the hash placeholders
-    [self updateEnteredPasswords];
-    
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // Get selected config purpose
     sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
-    
-    // If this config is for starting an exam
-    if (configPurpose == sebConfigPurposeStartingExam &&
-        // Check if the option "Auto-Select Identity" was enabled in client config
-        [preferences persistedSecureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"] &&
-        // If yes and no identity was manually selected
-        [preferences secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
-        self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
-        // Select the latest identity added to settings
-        [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
-    }
+    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
+    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
+    BOOL uncompressed = self.sebInAppSettingsViewController.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
     
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
-    
     NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", @""), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
-    
-    // Get password
-    NSString *encryptingPassword;
-    // Is there one saved from the currently open config file?
-    encryptingPassword = [preferences secureStringForKey:@"org_safeexambrowser_settingsPassword"];
-    
-    // Encrypt current settings with current credentials
-    BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
-    ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
-    BOOL uncompressed = self.sebInAppSettingsViewController.canSavePlainText && [preferences secureBoolForKey:@"org_safeexambrowser_shareConfigUncompressed"];
 
-    NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
-                                                                          passwordIsHash:NO
-                                                                            withIdentity:identityRef
-                                                                              forPurpose:configPurpose
-                                                                        allowUnencrypted:YES
-                                                                            uncompressed:uncompressed
-                                                                          removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
-    if (encryptedSEBData) {
+    // Encrypt current settings with current credentials
+    NSData *encryptedConfigData = [self encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormat
+                                                                             allowUnencrypted:NO
+                                                                                 uncompressed:uncompressed
+                                                                               removeDefaults:removeDefaults];
+    if (encryptedConfigData) {
         
         if (_alertController) {
             [_alertController dismissViewControllerAnimated:NO completion:^{
@@ -1363,35 +1349,29 @@ static NSMutableSet *browserWindowControllers;
             }];
         }
         
-        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
-            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
-            if (shareConfigFormat == shareConfigFormatQRCode) {
-                UIImage *qrCode = [UIImage imageWithCIImage:[QRCodeGenerator generateQRCodeFrom:configInDataURL]];
-                if (qrCode) {
-                    encryptedSEBData = UIImagePNGRepresentation(qrCode);
-                } else {
-                    shareConfigFormat = shareConfigFormatFile;
-                    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", @"")
-                                                                            message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
-                                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                        self.alertController = nil;
-
-                    }]];
-                    
-                    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Configuration", @"")
-                                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                        self.alertController = nil;
-                        [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
-                    }]];
-                    
-                    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-                    return;
-                }
-            } else {
-                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
-            }
+        NSData *encryptedSEBData = [self encodeConfigData:encryptedConfigData forPurpose:configPurpose format:shareConfigFormat uncompressed:uncompressed removeDefaults:removeDefaults];
+        
+        if (shareConfigFormat == shareConfigFormatQRCode && encryptedSEBData == nil) {
+            shareConfigFormat = shareConfigFormatFile;
+            encryptedSEBData = encryptedConfigData;
+            
+            _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"Config Too Large for QR Code", @"")
+                                                                    message:[NSString stringWithFormat:NSLocalizedString(@"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.", @""), SEBShortAppName]
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
+                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                self.alertController = nil;
+                
+            }]];
+            
+            [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Share as Configuration", @"")
+                                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                self.alertController = nil;
+                [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
+            }]];
+            
+            [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+            return;
         }
         [self shareEncryptedSettings:encryptedSEBData encryptedWithIdentity:encryptedWithIdentityString forConfigPurpose:configPurpose shareConfigFormat:shareConfigFormat];
     }
@@ -1471,6 +1451,83 @@ static NSMutableSet *browserWindowControllers;
     }
 
 
+// Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+- (NSData *) encryptSEBSettingsWithSelectedCredentialsConfigFormat:(ShareConfigFormat)shareConfigFormat
+                                                  allowUnencrypted:(BOOL)allowUnencrypted
+                                                      uncompressed:(BOOL)uncompressed
+                                                    removeDefaults:(BOOL)removeDefaults
+{
+    // Update entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
+    [self updateEnteredPasswords];
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    
+    // If this config is for starting an exam
+    if (configPurpose == sebConfigPurposeStartingExam &&
+        // Check if the option "Auto-Select Identity" was enabled in client config
+        [preferences persistedSecureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"] &&
+        // If yes and no identity was manually selected
+        [preferences secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+        self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+        // Select the latest identity added to settings
+        [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
+    }
+    
+    // Get SecIdentityRef for selected identity
+    SecIdentityRef identityRef;
+    identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
+    
+    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", @""), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
+    
+    // Get password
+    NSString *encryptingPassword;
+    // Is there one saved from the currently open config file?
+    encryptingPassword = [preferences secureStringForKey:@"org_safeexambrowser_settingsPassword"];
+    
+    // Encrypt current settings with current credentials
+    NSData *encryptedSEBData = [self.configFileController encryptSEBSettingsWithPassword:encryptingPassword
+                                                                          passwordIsHash:NO
+                                                                            withIdentity:identityRef
+                                                                              forPurpose:configPurpose
+                                                                        allowUnencrypted:YES
+                                                                            uncompressed:uncompressed
+                                                                          removeDefaults:removeDefaults || shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode];
+    return encryptedSEBData;
+}
+
+
+- (NSData *)encodeConfigData:(NSData *)encryptedSEBData
+                        forPurpose:(sebConfigPurposes)configPurpose
+                            format:(ShareConfigFormat)shareConfigFormat
+                      uncompressed:(BOOL)uncompressed
+                    removeDefaults:(BOOL)removeDefaults
+{
+    if (encryptedSEBData) {
+        
+        if (configPurpose != sebConfigPurposeManagedConfiguration && (shareConfigFormat == shareConfigFormatLink || shareConfigFormat == shareConfigFormatQRCode)) {
+            NSString *configInDataURL = [NSString stringWithFormat:@"%@://%@;base64,%@", SEBSSecureProtocolScheme, SEBConfigMIMEType, [encryptedSEBData base64EncodedStringWithOptions:(0)]];
+            if (shareConfigFormat == shareConfigFormatQRCode) {
+                UIImage *qrCode = [UIImage imageWithCIImage:[QRCodeGenerator generateQRCodeFrom:configInDataURL]];
+                if (qrCode) {
+                    encryptedSEBData = UIImagePNGRepresentation(qrCode);
+                } else {
+                    DDLogInfo(@"Config too large for QR code.");
+                    return nil;
+                }
+                
+            } else {
+                encryptedSEBData = [configInDataURL dataUsingEncoding:NSUTF8StringEncoding];
+            }
+        }
+    }
+    return encryptedSEBData;
+}
+
+
 - (NSString *)base16StringForHashKey:(NSData *)hashKey
 {
     unsigned char hashedChars[32];
@@ -1480,6 +1537,60 @@ static NSMutableSet *browserWindowControllers;
         [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
     }
     return hashedConfigKeyString.copy;
+}
+
+
+- (void)showQRConfig
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self showQRConfig];
+        }];
+        return;
+    }
+    [self.sideMenuController hideLeftViewAnimated];
+    _qrConfigViewController = [UIViewController new];
+    
+    DDLogInfo(@"Show QR Config button pressed");
+    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    if (configPurpose != sebConfigPurposeStartingExam && configPurpose != sebConfigPurposeConfiguringClient) {
+        configPurpose = sebConfigPurposeStartingExam;
+    }
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+    NSData *encryptedSEBData = [self encryptSEBSettingsWithSelectedCredentialsConfigFormat:shareConfigFormatQRCode
+                                                                                       allowUnencrypted:YES
+                                                                                           uncompressed:NO
+                                                                                         removeDefaults:YES];
+    if (encryptedSEBData) {
+        NSData *qrCodePNGImageData = [self encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
+        UIImage *qrCodeImage;
+        CGFloat imageWidth;
+        CGFloat imageHeigth;
+        UIView *qrCodeView;
+        if (qrCodePNGImageData) {
+            qrCodeImage = [[UIImage alloc] initWithData:qrCodePNGImageData];
+//            imageWidth = qrCodeImage.size.width;
+//            imageHeigth = qrCodeImage.size.height;
+//            CGRect frameRect = CGMakeRect(0, 0, imageWidth, imageHeigth);
+            qrCodeView = [[UIImageView alloc] initWithImage:qrCodeImage];
+        } else {
+//            qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+            imageWidth = 300;
+            imageHeigth = 300;
+        }
+        qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
+        _qrConfigViewController.view = qrCodeView;
+        _qrConfigViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        
+        [self.topMostController presentViewController:_qrConfigViewController animated:YES completion:^{
+            //        self.aboutSEBViewDisplayed = true;
+        }];
+    }
 }
 
 
