@@ -1242,12 +1242,10 @@ static NSMutableSet *browserWindowControllers;
         
     }
     if (!settingsQRCodeButton) {
-        settingsQRCodeButton = [[UIBarButtonItem alloc]
-                                initWithImage:[[UIImage imageNamed:@"SEBQRCodeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                style:UIBarButtonItemStylePlain
-                                target:self
-                                action:@selector(showQRConfig)];
-//        settingsQRCodeButton.tintColor = self.view.tintColor;
+        settingsQRCodeButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"SEBSliderQRCodeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+                                                                      style:UIBarButtonItemStylePlain
+                                                                     target:self
+                                                                     action:@selector(showQRConfig)];
         settingsQRCodeButton.accessibilityLabel = NSLocalizedString(@"Show Config QR Code", @"");
         settingsQRCodeButton.accessibilityHint = NSLocalizedString(@"Show Config QR Code", @"");
         
@@ -1569,28 +1567,52 @@ static NSMutableSet *browserWindowControllers;
     if (encryptedSEBData) {
         NSData *qrCodePNGImageData = [self encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
         UIImage *qrCodeImage;
-        CGFloat imageWidth;
-        CGFloat imageHeigth;
         UIView *qrCodeView;
         if (qrCodePNGImageData) {
             qrCodeImage = [[UIImage alloc] initWithData:qrCodePNGImageData];
-//            imageWidth = qrCodeImage.size.width;
-//            imageHeigth = qrCodeImage.size.height;
-//            CGRect frameRect = CGMakeRect(0, 0, imageWidth, imageHeigth);
-            qrCodeView = [[UIImageView alloc] initWithImage:qrCodeImage];
+            UIButton *overlayViewCloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [overlayViewCloseButton setImage:qrCodeImage forState:UIControlStateNormal];
+            [overlayViewCloseButton addTarget:self action:@selector(dismissQRConfigView) forControlEvents:UIControlEventTouchDown];
+            overlayViewCloseButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            qrCodeView = overlayViewCloseButton;
         } else {
-//            qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
-            imageWidth = 300;
-            imageHeigth = 300;
+            qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
         }
         qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
+                
         _qrConfigViewController.view = qrCodeView;
         _qrConfigViewController.modalPresentationStyle = UIModalPresentationFormSheet;
         
         [self.topMostController presentViewController:_qrConfigViewController animated:YES completion:^{
-            //        self.aboutSEBViewDisplayed = true;
         }];
     }
+}
+
+- (void)dismissQRConfigView
+{
+    [_qrConfigViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIView *) overlayViewForLabelConstraints:(NSString *)message {
+    
+    UIView *overlayView = [UIView new];
+    overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UIButton *overlayViewCloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSAttributedString *warningText = [[NSAttributedString alloc] initWithString:message
+                                                                            attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:UIFont.systemFontSize]}];
+    overlayViewCloseButton.titleLabel.attributedText = warningText;
+    [overlayViewCloseButton setImage:[UIImage imageNamed:@"SEBBadgeWarning"] forState:UIControlStateNormal];
+    overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [overlayView addSubview:overlayViewCloseButton];
+    [overlayViewCloseButton.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 7].active = YES;
+    [overlayViewCloseButton.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -7].active = YES;
+    [overlayViewCloseButton.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: 7].active = YES;
+    [overlayViewCloseButton.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: -7].active = YES;
+
+    overlayView.clipsToBounds = YES;
+    return overlayView;
 }
 
 
