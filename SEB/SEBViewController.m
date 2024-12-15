@@ -1576,7 +1576,17 @@ static NSMutableSet *browserWindowControllers;
             overlayViewCloseButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
             qrCodeView = overlayViewCloseButton;
         } else {
-            qrCodeView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+            UIButton *overlayViewCloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [overlayViewCloseButton addTarget:self action:@selector(dismissQRConfigView) forControlEvents:UIControlEventTouchDown];
+            overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
+            UIView *warningView = [self overlayViewForLabelConstraints:NSLocalizedString(@"Config Too Large for QR Code", @"")];
+            [warningView setUserInteractionEnabled:NO];
+            [overlayViewCloseButton addSubview:warningView];
+            [overlayViewCloseButton.leadingAnchor constraintEqualToAnchor:warningView.leadingAnchor constant: 0].active = YES;
+            [overlayViewCloseButton.trailingAnchor constraintEqualToAnchor:warningView.trailingAnchor constant: 0].active = YES;
+            [overlayViewCloseButton.topAnchor constraintEqualToAnchor:warningView.topAnchor constant: 0].active = YES;
+            [overlayViewCloseButton.bottomAnchor constraintEqualToAnchor:warningView.bottomAnchor constant: 0].active = YES;
+            qrCodeView = overlayViewCloseButton;
         }
         qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
                 
@@ -1597,21 +1607,32 @@ static NSMutableSet *browserWindowControllers;
     
     UIView *overlayView = [UIView new];
     overlayView.translatesAutoresizingMaskIntoConstraints = NO;
+    overlayView.backgroundColor = [UIColor whiteColor];
     
     UIButton *overlayViewCloseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSAttributedString *warningText = [[NSAttributedString alloc] initWithString:message
-                                                                            attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:UIFont.systemFontSize]}];
-    overlayViewCloseButton.titleLabel.attributedText = warningText;
     [overlayViewCloseButton setImage:[UIImage imageNamed:@"SEBBadgeWarning"] forState:UIControlStateNormal];
+    [overlayViewCloseButton addTarget:self action:@selector(dismissQRConfigView) forControlEvents:UIControlEventTouchDown];
     overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-    [overlayView addSubview:overlayViewCloseButton];
-    [overlayViewCloseButton.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 7].active = YES;
-    [overlayViewCloseButton.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -7].active = YES;
-    [overlayViewCloseButton.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: 7].active = YES;
-    [overlayViewCloseButton.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: -7].active = YES;
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSAttributedString *warningText = [[NSAttributedString alloc] initWithString:message
+                                                                      attributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:UIFont.systemFontSize]}];
+    messageLabel.attributedText = warningText;
+    messageLabel.numberOfLines = 0;
 
-    overlayView.clipsToBounds = YES;
+    UIStackView *overlayViewStackView = [UIStackView new];
+    overlayViewStackView.axis = UILayoutConstraintAxisVertical;
+    overlayViewStackView.distribution = UIStackViewDistributionFillEqually;
+    overlayViewStackView.spacing = 5;
+    overlayViewStackView.alignment = UIStackViewAlignmentCenter;
+    overlayViewStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    [overlayViewStackView addArrangedSubview:overlayViewCloseButton];
+    [overlayViewStackView addArrangedSubview:messageLabel];
+
+    [overlayView addSubview:overlayViewStackView];
+    [overlayViewStackView.centerXAnchor constraintEqualToAnchor:overlayView.centerXAnchor constant: 0].active = YES;
+    [overlayViewStackView.centerYAnchor constraintEqualToAnchor:overlayView.centerYAnchor constant: 0].active = YES;
+
     return overlayView;
 }
 

@@ -60,7 +60,8 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
             zoomScale = _sebWebView?.scrollView.zoomScale
             _sebWebView?.uiDelegate = self
             _sebWebView?.navigationDelegate = self
-            _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)            
+            //ToDo: This triggers a warning:
+            _sebWebView?.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
 
             _sebWebView?.customUserAgent = navigationDelegate?.customSEBUserAgent
             urlFilter = SEBURLFilter.shared()
