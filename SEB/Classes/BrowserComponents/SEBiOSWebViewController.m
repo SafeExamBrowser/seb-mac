@@ -333,7 +333,7 @@
     overlayStackView.distribution = UIStackViewDistributionFill;
     overlayStackView.translatesAutoresizingMaskIntoConstraints = NO;
     [overlayStackView addArrangedSubview:message];
-    [overlayStackView addArrangedSubview:closeButtonStackView]; //overlayViewCloseButton];
+    [overlayStackView addArrangedSubview:closeButtonStackView];
     [overlayViewCloseButton.widthAnchor constraintEqualToConstant:overlayViewCloseButton.imageView.frame.size.width].active = YES;
     [closeButtonStackView.topAnchor constraintEqualToAnchor:overlayStackView.topAnchor].active = YES;
     [closeButtonStackView.bottomAnchor constraintEqualToAnchor:overlayStackView.bottomAnchor].active = YES;
