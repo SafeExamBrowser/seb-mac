@@ -237,6 +237,11 @@ static NSNumber *_logLevel;
 }
 
 
+- (BOOL) secureSession
+{
+    return [self secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+}
+
 - (BOOL) allowWindowCapture
 {
     return [self secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"] ||

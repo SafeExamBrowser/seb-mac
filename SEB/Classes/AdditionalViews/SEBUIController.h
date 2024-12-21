@@ -59,6 +59,15 @@
     NSString *sliderScrollLockItemTitle;
     NSString *sliderScrollLockItemTitleLocked;
 
+    NSInteger raiseHandUID;
+    NSString *raiseHandNotification;
+    UIColor *RaisedHandIconColorDefaultState;
+    UIColor *RaisedHandIconColorRaisedState;
+    UIImage *RaisedHandIconDefaultState;
+    UIImage *RaisedHandIconRaisedState;
+    UIImage *RaisedHandSliderItemDefaultState;
+    UIImage *RaisedHandSliderItemRaisedState;
+
     UIImage *ScreenProctoringIconInactiveState;
     UIImage *ScreenProctoringIconActiveState;
     UIImage *ScreenProctoringIconActiveWarningState;
@@ -94,9 +103,12 @@
 @property (nonatomic, strong) SEBSliderItem *sliderScrollLockItem;
 @property (nonatomic, strong) UIBarButtonItem *scrollLockButton;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
+@property (nonatomic, strong) UIBarButtonItem *dockButtonRaiseHand;
 @property (nonatomic, strong) UIBarButtonItem *dockScreenProctoringButton;
 @property (nonatomic, strong) SEBSliderItem *sliderScreenProctoringItem;
 @property(strong, nonatomic) NSString *screenProctoringStateString;
+
+@property(readwrite) BOOL raiseHandRaised;
 
 @property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
@@ -125,6 +137,13 @@
 - (void) activateZoomButtons:(BOOL)zoomEnabled;
 
 - (void) updateScrollLockButtonStates;
+
+#pragma mark - Raise Hand Feature
+
+- (void) raiseHandNotificationReceived:(NSInteger)notficationID;
+
+
+#pragma mark - Screen Proctoring SPSControllerUIDelegate methods
 
 - (void) updateStatusWithString:(NSString *)string append:(BOOL)append;
 

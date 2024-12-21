@@ -33,6 +33,7 @@
 #import <WebKit/WebKit.h>
 #import "Constants.h"
 #import "UIViewController+LGSideMenuController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 #import "SEBViewController.h"
 
@@ -1646,6 +1647,19 @@ static NSMutableSet *browserWindowControllers;
                                                             message:nil
                                                      preferredStyle:UIAlertControllerStyleActionSheet];
     
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (!preferences.secureSession) {
+        [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open Config File", @"")
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            self.alertController = nil;
+            DDLogInfo(@"Open Config File");
+            
+            NSArray *documentTypes = @[@"org.safeexambrowser.seb", @"org.gnu.gnu-zip-archive"];
+            UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
+            documentPicker.delegate = self;
+            [self.topMostController presentViewController:documentPicker animated:YES completion:nil];
+        }]];    }
+    
     if (!NSUserDefaults.userDefaultsPrivate) {
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -1731,6 +1745,21 @@ static NSMutableSet *browserWindowControllers;
     _alertController.popoverPresentationController.sourceView = self.view;
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls 
+{
+    NSURL *selectedURL = urls.firstObject;
+    DDLogInfo(@"Selected file URL: %@", selectedURL);
+    if (selectedURL) {
+        [self saveOrDownloadSEBConfigFromURL:selectedURL];
+    }
+}
+
+// Called when the user cancels the document picker
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
+    DDLogInfo(@"Document picker was cancelled");
 }
 
 
@@ -1999,7 +2028,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Add scan QR code command/Home screen quick action/dock button
         // if SEB isn't running in exam mode (= no quit pw)
-        BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+        BOOL examSession = preferences.secureSession;
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
@@ -3322,9 +3351,14 @@ void run_on_ui_thread(dispatch_block_t block)
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
         run_on_ui_thread(^{
-            [self restartExamQuitting:NO];
-            self.isReconfiguringToMDMConfig = NO;
-            self.didReceiveMDMConfig = NO;
+            if (_settingsOpen) {
+                // Close then reopen settings view controller (so new settings are displayed)
+                [self closeThenReopenSettings];
+            } else {
+                [self restartExamQuitting:NO];
+                self.isReconfiguringToMDMConfig = NO;
+                self.didReceiveMDMConfig = NO;
+            }
         });
         
     } else {
@@ -4273,11 +4307,9 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *notificationType = attributes[@"type"];
     NSNumber *notificationIDNumber = [attributes objectForKey:@"id"];
     
-//    if ([notificationType isEqualToString:@"raisehand"]) {
-//        if (_raiseHandRaised && raiseHandUID == notificationIDNumber.integerValue) {
-//            [self toggleRaiseHandLoweredByServer:YES];
-//        }
-//    }
+    if ([notificationType isEqualToString:@"raisehand"]) {
+        [self.sebUIController raiseHandNotificationReceived:notificationIDNumber.integerValue];
+    }
     
     if ([notificationType isEqualToString:@"lockscreen"]) {
         if (self.sebServerPendingLockscreenEvents.count > 0) {
@@ -4660,7 +4692,7 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
     // First check if a quit password is set = run SEB in secure mode
-    _secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    _secureMode = preferences.secureSession;
     
     // Is ASAM/AAC enabled in current settings?
     _enableASAM = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"];
