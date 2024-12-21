@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define SEBToolBarSearchBarIconWidth 24.0
 #define SEBToolBarSearchBarWidth 200.0
 
-@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate>
+@interface SEBViewController : UIViewController <IASKSettingsDelegate, AssessmentModeDelegate, SEBLockedViewControllerDelegate, QRCodeReaderDelegate, LGSideMenuDelegate, NSURLSessionDelegate, SEBBatteryControllerDelegate, ServerControllerDelegate, ServerLoggerDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, ProctoringStreamController, ProctoringImageAnayzerDelegate, UISearchBarDelegate, UIDocumentPickerDelegate>
 {
     UIBarButtonItem *leftButton;
     UIBarButtonItem *settingsShareButton;
@@ -259,6 +259,7 @@ void run_on_ui_thread(dispatch_block_t block);
 //
 //- (void) detectFace:(CMSampleBufferRef)sampleBuffer;
 //- (RTCVideoFrame *) overlayFrame:(RTCVideoFrame *)frame;
+
 
 /// Views and bars
 @property (strong, nonatomic) UIAlertController *_Nullable alertController;

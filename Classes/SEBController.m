@@ -1705,6 +1705,8 @@ bool insideMatrix(void);
 }
 
 
+#pragma mark - Raise Hand Feature
+
 - (void) toggleRaiseHand
 {
     [self toggleRaiseHandLoweredByServer:NO];
@@ -6259,7 +6261,6 @@ conditionallyForWindow:(NSWindow *)window
         
         if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
             _establishingSEBServerConnection || _sebServerConnectionEstablished) &&
-            ZoomProctoringSupported && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"] &&
             [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
             RaisedHandIconDefaultState = [NSImage imageNamed:@"SEBRaiseHandIcon"];
             RaisedHandIconColorDefaultState = nil;

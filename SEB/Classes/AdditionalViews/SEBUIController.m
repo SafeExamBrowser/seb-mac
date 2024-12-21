@@ -81,7 +81,7 @@
     _statusBarAppearance = [self statusBarAppearanceForDevice];
     
     // Check if a quit password is set = run SEB in secure mode
-    BOOL secureMode = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL secureMode = preferences.secureSession;
 
     // In iOS 9 we have to disable the status bar when SEB was started up by another
     // app, as the "back to" this app link in the status bar isn't blocked in AAC
@@ -326,6 +326,42 @@
         }
     }
     
+    // Add Raise Hand slider command and dock button if enabled and dock visible
+    if (([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
+        _sebViewController.establishingSEBServerConnection || _sebViewController.sebServerConnectionEstablished) &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonShow"]) {
+        
+        RaisedHandIconColorDefaultState = nil;
+        RaisedHandIconColorRaisedState = [UIColor systemYellowColor];
+
+        // Functionality enabled, add to slider menu
+        RaisedHandSliderItemDefaultState = [UIImage imageNamed:@"SEBRaiseHandIcon"];
+        RaisedHandSliderItemRaisedState = [UIImage imageNamed:@"SEBRaiseHandIcon_raised"];
+        sliderIcon = RaisedHandSliderItemDefaultState;;
+        _sliderScreenProctoringItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Raise Hand",nil)
+                                                            icon:sliderIcon
+                                                          target:self
+                                                          action:@selector(toggleRaiseHand)];
+        [sliderCommands addObject:_sliderScreenProctoringItem];
+
+        if (_dockEnabled) {
+            RaisedHandIconDefaultState = [UIImage imageNamed:@"SEBRaiseHandIcon"];
+            RaisedHandIconRaisedState = [UIImage imageNamed:@"SEBRaiseHandIcon_raised"];
+            dockItem = [[UIBarButtonItem alloc] initWithImage:ScreenProctoringIconInactiveState
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(toggleRaiseHand)];
+            //                                                                secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
+            dockItem.accessibilityLabel = NSLocalizedString(@"Raise Hand",nil);
+            _dockScreenProctoringButton = dockItem;
+            [newDockItems addObject:dockItem];
+            
+            dockItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+            dockItem.width = 0;
+            [newDockItems addObject:dockItem];
+        }
+    }
+
     // Add Screen Proctoring slider command and dock button if enabled and dock visible
     _dockScreenProctoringButton = nil;
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
@@ -419,7 +455,7 @@
     
     // Add scan QR code command/Home screen quick action/dock button
     // if SEB isn't running in exam mode (= no quit pw)
-    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL examSession = preferences.secureSession;
     BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
         ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
@@ -603,6 +639,98 @@
     sliderZoomPageResetItem.enabled = zoomEnabled;
     sliderZoomPageOutItem.enabled = zoomEnabled;
     sliderZoomPageInItem.enabled = zoomEnabled;
+}
+
+
+#pragma mark - Raise Hand Feature
+
+- (void) raiseHandNotificationReceived:(NSInteger)notficationID
+{
+    if (_raiseHandRaised && raiseHandUID == notficationID) {
+        [self toggleRaiseHandLoweredByServer:YES];
+    }
+}
+
+- (void) toggleRaiseHand
+{
+    [self toggleRaiseHandLoweredByServer:NO];
+}
+
+- (void) toggleRaiseHandLoweredByServer:(BOOL)loweredByServer
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    
+    if (_raiseHandRaised) {
+        _raiseHandRaised = NO;
+        _dockButtonRaiseHand.image = RaisedHandIconDefaultState;
+        _dockButtonRaiseHand.tintColor = RaisedHandIconColorDefaultState;
+        if (!loweredByServer) {
+            [self.sebViewController.serverController sendLowerHandNotificationWithUID:raiseHandUID];
+        }
+        
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_raiseHandButtonAlwaysPromptMessage"]) {
+            [self showEnterRaiseHandMessageWindow];
+        } else {
+            [self raiseHand];
+        }
+    }
+}
+
+- (void) raiseHand
+{
+    if (!_raiseHandRaised) {
+        _raiseHandRaised = YES;
+        _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
+        if (@available(macOS 10.14, *)) {
+            _dockButtonRaiseHand.tintColor = RaisedHandIconColorRaisedState;
+        }
+        raiseHandUID = [self.sebViewController.serverController sendRaiseHandNotificationWithMessage:raiseHandNotification];
+        raiseHandNotification = @"";
+    }
+}
+
+
+- (void) showEnterRaiseHandMessageWindow
+{
+    if (!_raiseHandRaised) {
+//        NSWindow *windowToShowModalFor;
+//
+//        if (@available(macOS 12.0, *)) {
+//        } else {
+//            if (@available(macOS 11.0, *)) {
+//                if (_isAACEnabled || _wasAACEnabled) {
+//                    windowToShowModalFor = self.browserController.mainBrowserWindow;
+//                }
+//            }
+//        }
+//
+//        [NSApp beginSheet: _enterRaiseHandMessageWindow
+//           modalForWindow: windowToShowModalFor
+//            modalDelegate: nil
+//           didEndSelector: nil
+//              contextInfo: nil];
+//        [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
+//        // Dialog is up here.
+//        [NSApp endSheet: _enterRaiseHandMessageWindow];
+//        self.raiseHandMessageTextField.stringValue = @"";
+//        [_enterRaiseHandMessageWindow orderOut: self];
+//        [self removeAlertWindow:_enterRaiseHandMessageWindow];
+        if (raiseHandNotification) {
+            [self raiseHand];
+        }
+    }
+}
+
+
+- (IBAction)sendEnteredRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = @""; //self.raiseHandMessageTextField.stringValue;
+}
+
+- (IBAction)cancelEnteringRaiseHandMessage:(id)sender
+{
+    raiseHandNotification = nil;
 }
 
 

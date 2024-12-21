@@ -653,7 +653,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     // then check if the reconfigure config file URL matches the setting
     // examSessionReconfigureConfigURL (where the wildcard character '*' can be used)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL secureSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL secureSession = preferences.secureSession;
     BOOL secureSessionReconfigureAllow = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
     BOOL secureSessionReconfigureURLMatch = NO;
     if (url && secureSession && secureSessionReconfigureAllow) {

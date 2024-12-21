@@ -111,6 +111,7 @@
 // Get SEB's default settings key/values
 - (NSDictionary *)sebDefaultSettings;
 
+@property (readonly) BOOL secureSession;
 @property (readonly) BOOL allowWindowCapture;
 @property (readonly) BOOL blockScreenShotsLegacy;
 

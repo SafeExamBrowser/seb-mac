@@ -119,7 +119,7 @@
 - (IBAction)sendLogsByEmail
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL examSession = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length > 0;
+    BOOL examSession = preferences.secureSession;
 
     if (examSession) {
         
