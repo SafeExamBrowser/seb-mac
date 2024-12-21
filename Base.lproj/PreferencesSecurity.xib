@@ -1083,7 +1083,7 @@
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="iap-IZ-G2o" userLabel="Use Modern AAC API">
                                                                             <rect key="frame" x="-2" y="43" width="154" height="18"/>
-                                                                            <string key="toolTip">Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)</string>
+                                                                            <string key="toolTip">Enable Modern AAC API for Multi App Mode on iPadOS 17.7.1 - 18. On iPadOS 18.1 or newer it is activated automatically if permitted processes for iPadOS are configured.</string>
                                                                             <buttonCell key="cell" type="check" title="Use modern AAC API" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="I61-hI-auP">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>

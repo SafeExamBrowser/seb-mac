@@ -98,7 +98,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="38" y="57" width="604" height="612"/>
+                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -1037,7 +1037,7 @@
                                                                                         </button>
                                                                                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="982">
                                                                                             <rect key="frame" x="-2" y="4" width="282" height="18"/>
-                                                                                            <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted</string>
+                                                                                            <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, signature) are accepted</string>
                                                                                             <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1131,8 +1131,9 @@
                                                                                                 </binding>
                                                                                             </connections>
                                                                                         </button>
-                                                                                        <button toolTip="Allow user to start the additional application with its Dock icon" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13k-Ch-eng" userLabel="Allow manual start">
+                                                                                        <button horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13k-Ch-eng" userLabel="Allow manual start">
                                                                                             <rect key="frame" x="400" y="-1" width="138" height="18"/>
+                                                                                            <string key="toolTip">Allow user to start the additional application with its Dock icon. Otherwise the app can be started by downloading and opening its documents</string>
                                                                                             <buttonCell key="cell" type="check" title="Allow manual start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4Gu-dy-BzM">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1295,7 +1296,7 @@
                                                                         <rect key="frame" x="0.0" y="29" width="570" height="355"/>
                                                                         <clipView key="contentView" id="dAi-vy-Xqu">
                                                                             <rect key="frame" x="1" y="1" width="568" height="353"/>
-                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" autosaveName="" headerView="1926" id="1924">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="330"/>
