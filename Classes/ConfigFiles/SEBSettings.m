@@ -780,6 +780,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"mobileShowSettings",
                    
+                   @YES,
+                   @"mobileShowEditConfigShortcutItem",
+                   
                    [NSNumber numberWithLong:mobileStatusBarAppearanceLight],
                    @"mobileStatusBarAppearance",
                    

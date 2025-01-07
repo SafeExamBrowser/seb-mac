@@ -312,6 +312,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(readwrite) BOOL resettingSettings;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL settingsDidClose;
+@property(readwrite) BOOL editingConfigFile;
 @property(readwrite) BOOL scannedQRCode;
 
 
