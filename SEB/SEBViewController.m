@@ -250,7 +250,7 @@ static NSMutableSet *browserWindowControllers;
     {
         if (_alertController) {
             if (_alertController == _allowediOSAlertController) {
-                return false;
+                return NO;
             }
             [_alertController dismissViewControllerAnimated:NO completion:nil];
         }
@@ -259,9 +259,9 @@ static NSMutableSet *browserWindowControllers;
                                                          preferredStyle:UIAlertControllerStyleAlert];
         _allowediOSAlertController = _alertController;
         [self.topMostController presentViewController:_alertController animated:NO completion:nil];
-        return false;
+        return NO;
     } else {
-        return true;
+        return YES;
     }
 }
 
@@ -427,7 +427,7 @@ static NSMutableSet *browserWindowControllers;
             // Close settings
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
-                self.settingsOpen = false;
+                self.settingsOpen = NO;
                 [self conditionallyDownloadAndOpenSEBConfigFromURL:self.appDelegate.sebFileURL];
                 
                 // Set flag that SEB is initialized to prevent applying the client config
@@ -557,7 +557,7 @@ static NSMutableSet *browserWindowControllers;
 - (void)adjustBars
 {
     if (@available(iOS 11.0, *)) {
-        BOOL sideSafeAreaInsets = false;
+        BOOL sideSafeAreaInsets = NO;
         CGFloat calculatedNavigationBarHeight = 0;
         CGFloat calculatedToolbarHeight = 0;
         navigationBarItemsOffset = 0;
@@ -741,7 +741,7 @@ static NSMutableSet *browserWindowControllers;
         } else if (self.appSettingsViewController) {
             [self.appSettingsViewController dismissViewControllerAnimated:YES completion:^{
                 self.appSettingsViewController = nil;
-                self.settingsOpen = false;
+                self.settingsOpen = NO;
                 [self conditionallyResetSettings];
             }];
             return;
@@ -891,8 +891,8 @@ static NSMutableSet *browserWindowControllers;
         //// Initialize SEB Dock, commands section in the slider view and
         //// 3D Touch Home screen quick actions
         
-        // Add scan QR code Home screen quick action
-        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
+//        // Add scan QR code Home screen quick action
+//        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
         
         self.initAssistantOpen = YES;
         [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
@@ -905,14 +905,44 @@ static NSMutableSet *browserWindowControllers;
 {
     UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithTemplateImageName:@"SEBQuickActionQRCodeIcon"];
     NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
-    UIApplicationShortcutItem *scanQRCodeShortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
+    UIApplicationShortcutItem *shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
                                                                                          localizedTitle:NSLocalizedString(@"Config QR Code", @"")
                                                                                       localizedSubtitle:nil
                                                                                                    icon:shortcutItemIcon
                                                                                                userInfo:nil];
-    scanQRCodeShortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", @"");
-    scanQRCodeShortcutItem.accessibilityHint = NSLocalizedString(@"Displays a camera view to scan for SEB configuration QR codes", @"");
-    return scanQRCodeShortcutItem;
+    shortcutItem.accessibilityLabel = NSLocalizedString(@"Scan QR Code", @"");
+    shortcutItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Displays a camera view to scan for %@ configuration QR codes", @""), SEBShortAppName];
+    return shortcutItem;
+}
+
+
+- (UIApplicationShortcutItem *)editConfigFileShortcutItem
+{
+    UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
+    NSString *shortcutItemType = [NSString stringWithFormat:@"%@.EditConfigFile", [NSBundle mainBundle].bundleIdentifier];
+    UIApplicationShortcutItem *shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
+                                                                                         localizedTitle:NSLocalizedString(@"Edit Config File", @"")
+                                                                                      localizedSubtitle:nil
+                                                                                                   icon:shortcutItemIcon
+                                                                                               userInfo:nil];
+    shortcutItem.accessibilityLabel = NSLocalizedString(@"Edit Config File", @"");
+    shortcutItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Edit %@ configuration files", @""), SEBShortAppName];
+    return shortcutItem;
+}
+
+
+- (UIApplicationShortcutItem *)shareLogFileShortcutItem
+{
+    UIApplicationShortcutIcon *shortcutItemIcon = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeShare];
+    NSString *shortcutItemType = [NSString stringWithFormat:@"%@.ShareLogFile", [NSBundle mainBundle].bundleIdentifier];
+    UIApplicationShortcutItem *shortcutItem = [[UIApplicationShortcutItem alloc] initWithType:shortcutItemType
+                                                                                         localizedTitle:NSLocalizedString(@"Share Log File", @"")
+                                                                                      localizedSubtitle:nil
+                                                                                                   icon:shortcutItemIcon
+                                                                                               userInfo:nil];
+    shortcutItem.accessibilityLabel = NSLocalizedString(@"Share Log File", @"");
+    shortcutItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Share %@ log file for debugging", @""), SEBShortAppName];
+    return shortcutItem;
 }
 
 
@@ -931,15 +961,36 @@ static NSMutableSet *browserWindowControllers;
 
 - (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)shortcutItem
 {
-    BOOL handled = false;
+    BOOL handled = NO;
     
     NSString *scanQRCodeConfigItemType = [NSString stringWithFormat:@"%@.ScanQRCodeConfig", [NSBundle mainBundle].bundleIdentifier];
-    
     if ([shortcutItem.type isEqualToString:scanQRCodeConfigItemType]) {
-        handled = true;
+        handled = YES;
         [self scanQRCode];
     }
+    NSString *editConfigFileItemType = [NSString stringWithFormat:@"%@.EditConfigFile", [NSBundle mainBundle].bundleIdentifier];
+    if ([shortcutItem.type isEqualToString:editConfigFileItemType]) {
+        handled = YES;
+        [self editConfigFile];
+    }
+    NSString *shareLogFileItemType = [NSString stringWithFormat:@"%@.ShareLogFile", [NSBundle mainBundle].bundleIdentifier];
+    if ([shortcutItem.type isEqualToString:editConfigFileItemType]) {
+        handled = YES;
+        [self shareLogFile];
+    }
     return handled;
+}
+
+
+- (void)editConfigFile
+{
+    _editingConfigFile = YES;
+    [self openConfigFile];
+}
+
+
+- (void)shareLogFile
+{
 }
 
 
@@ -1000,7 +1051,7 @@ static NSMutableSet *browserWindowControllers;
         UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(@"Closing QR Code scanner", @""));
         self.visibleCodeReaderViewController = nil;
         if (!self.finishedStartingUp || self.pausedSAMAlertDisplayed) {
-            self.pausedSAMAlertDisplayed = false;
+            self.pausedSAMAlertDisplayed = NO;
             // Continue starting up SEB without resetting settings
             // but user interface might need to be re-initialized
             [self initSEBUIWithCompletionBlock:^{
@@ -1156,7 +1207,7 @@ static NSMutableSet *browserWindowControllers;
     _aboutSEBViewController.modalPresentationStyle = UIModalPresentationFormSheet;
     
     [self.topMostController presentViewController:_aboutSEBViewController animated:YES completion:^{
-        self.aboutSEBViewDisplayed = true;
+        self.aboutSEBViewDisplayed = YES;
     }];
 }
 
@@ -1204,7 +1255,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)showSettingsModal
 {
-    _settingsOpen = true;
+    _settingsOpen = YES;
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -1212,12 +1263,12 @@ static NSMutableSet *browserWindowControllers;
     NSString *hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
     NSString *placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"adminPassword"];
-    adminPasswordPlaceholder = true;
+    adminPasswordPlaceholder = YES;
     
     hashedPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     placeholder = [self placeholderStringForHashedPassword:hashedPassword];
     [preferences setSecureString:placeholder forKey:@"quitPassword"];
-    quitPasswordPlaceholder = true;
+    quitPasswordPlaceholder = YES;
     
     // Dismiss an alert in case one is open
     if (_alertController) {
@@ -1287,11 +1338,11 @@ static NSMutableSet *browserWindowControllers;
     NSArray *changedKeys = [notification.userInfo allKeys];
     
     if ([changedKeys containsObject:@"adminPassword"]) {
-        adminPasswordPlaceholder = false;
+        adminPasswordPlaceholder = NO;
     }
     
     if ([changedKeys containsObject:@"quitPassword"]) {
-        quitPasswordPlaceholder = false;
+        quitPasswordPlaceholder = NO;
     }
 }
 
@@ -1446,7 +1497,7 @@ static NSMutableSet *browserWindowControllers;
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
         activityVC.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
         activityVC.popoverPresentationController.barButtonItem = settingsShareButton;
-        [self.appSettingsViewController presentViewController:activityVC animated:TRUE completion:nil];
+        [self.appSettingsViewController presentViewController:activityVC animated:YES completion:nil];
     }
 
 
@@ -1640,6 +1691,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)moreSettingsActions:(id)sender
 {
+    DDLogInfo(@"%f", __FUNCTION__);
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
@@ -1652,12 +1704,7 @@ static NSMutableSet *browserWindowControllers;
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open Config File", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
-            DDLogInfo(@"Open Config File");
-            
-            NSArray *documentTypes = @[@"org.safeexambrowser.seb", @"org.gnu.gnu-zip-archive"];
-            UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
-            documentPicker.delegate = self;
-            [self.topMostController presentViewController:documentPicker animated:YES completion:nil];
+            [self openConfigFile];
         }]];    }
     
     if (!NSUserDefaults.userDefaultsPrivate) {
@@ -1748,6 +1795,15 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)openConfigFile
+{
+    DDLogInfo(@"Open Config File");
+    NSArray *documentTypes = @[@"org.safeexambrowser.seb", @"org.gnu.gnu-zip-archive"];
+    UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
+    documentPicker.delegate = self;
+    [self.topMostController presentViewController:documentPicker animated:YES completion:nil];
+}
+
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls 
 {
     NSURL *selectedURL = urls.firstObject;
@@ -1760,15 +1816,20 @@ static NSMutableSet *browserWindowControllers;
 // Called when the user cancels the document picker
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
     DDLogInfo(@"Document picker was cancelled");
+    _editingConfigFile = NO;
 }
 
 
 - (void)closeThenReopenSettings
 {
-    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
-        self.appSettingsViewController = nil;
-        [self showSettingsModalCheckMDMSettingsReceived];
-    }];
+    if (_settingsOpen) {
+        [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+            self.appSettingsViewController = nil;
+            [self showSettingsModalCheckMDMSettingsReceived];
+        }];
+    } else {
+        [self conditionallyShowSettingsModal];
+    }
 }
 
 
@@ -1780,7 +1841,7 @@ static NSMutableSet *browserWindowControllers;
     // as long as the passwords were really entered and don't contain the hash placeholders
     [self updateEnteredPasswords];
     
-    _settingsOpen = false;
+    _settingsOpen = NO;
     
     NSMutableString *pasteboardString = NSMutableString.new;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -2030,19 +2091,29 @@ void run_on_ui_thread(dispatch_block_t block)
         // if SEB isn't running in exam mode (= no quit pw)
         BOOL examSession = preferences.secureSession;
         BOOL allowReconfiguring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_examSessionReconfigureAllow"];
+        
+        NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
+
+        // Add share log file Home screen quick action
+        [shortcutItems addObject:[self shareLogFileShortcutItem]];
+
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileShowEditConfigShortcutItem"]) {
+            
+            // Add edit config file Home screen quick action
+            [shortcutItems addObject:[self editConfigFileShortcutItem]];
+        }
+        
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileAllowQRCodeConfig"] &&
             ((!examSession && !NSUserDefaults.userDefaultsPrivate) ||
              (!examSession && NSUserDefaults.userDefaultsPrivate && allowReconfiguring) ||
              (examSession && allowReconfiguring))) {
             
             // Add scan QR code Home screen quick action
-            NSMutableArray *shortcutItems = [UIApplication sharedApplication].shortcutItems.mutableCopy;
             [shortcutItems addObject:[self scanQRCodeShortcutItem]];
-            [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
-        } else {
-            [UIApplication sharedApplication].shortcutItems = nil;
         }
         
+        [UIApplication sharedApplication].shortcutItems = shortcutItems.copy;
+
         /// If dock is enabled, register items to UIToolbar
         
         if (self.sebUIController.dockEnabled) {
@@ -2159,7 +2230,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     } else {
                         self.toolBarView.backgroundColor = [UIColor lightGrayColor];
                     }
-                    self.toolBarView.hidden = false;
+                    self.toolBarView.hidden = NO;
                     
                     NSArray *bottomBackgroundViewConstraints_H = [NSLayoutConstraint constraintsWithVisualFormat: @"H:|-0-[bottomBackgroundView]-0-|"
                                                                                                          options: 0
@@ -2181,7 +2252,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                  backgroundTintStyle:SEBBackgroundTintStyleNone];
                         }
                     }
-                    BOOL sideSafeAreaInsets = false;
+                    BOOL sideSafeAreaInsets = NO;
                     
                     UIWindow *window = UIApplication.sharedApplication.keyWindow;
                     CGFloat leftPadding = window.safeAreaInsets.left;
@@ -2596,7 +2667,7 @@ void run_on_ui_thread(dispatch_block_t block)
             } else {
                 _navigationBarView.backgroundColor = [UIColor lightGrayColor];
             }
-            _navigationBarView.hidden = false;
+            _navigationBarView.hidden = NO;
             
         } else {
             CGFloat statusBarBottomOffset = 0;
@@ -3086,7 +3157,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                         DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
                         self.appSettingsViewController = nil;
-                        self.settingsOpen = false;
+                        self.settingsOpen = NO;
                         [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
                     }];
                 }
@@ -3096,11 +3167,11 @@ void run_on_ui_thread(dispatch_block_t block)
             [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
                 DDLogDebug(@"%s: Received config while Settings are displayed: Settings closed.", __FUNCTION__);
                 self.appSettingsViewController = nil;
-                self.settingsOpen = false;
+                self.settingsOpen = NO;
                 [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
             }];
         } else {
-            _settingsOpen = false;
+            _settingsOpen = NO;
             DDLogDebug(@"%s: Received config while Settings were apparently displayed, but in the meantime closed.", __FUNCTION__);
             [self conditionallyOpenSEBConfig:sebConfig callback:callback selector:selector];
         }
@@ -3296,7 +3367,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) storeNewSEBSettingsFromData:(NSData *)sebData
 {
     [self.configFileController storeNewSEBSettings:sebData
-                                        forEditing:false
+                                        forEditing:NO
                                           callback:self
                                           selector:@selector(storeNewSEBSettingsSuccessful:)];
 }
@@ -3351,9 +3422,10 @@ void run_on_ui_thread(dispatch_block_t block)
             [[NSUserDefaults standardUserDefaults] setSecureString:newSettingsFilename forKey:@"configFileName"];
         }
         run_on_ui_thread(^{
-            if (_settingsOpen) {
+            if (self.settingsOpen || self.editingConfigFile) {
                 // Close then reopen settings view controller (so new settings are displayed)
                 [self closeThenReopenSettings];
+                self.editingConfigFile = NO;
             } else {
                 [self restartExamQuitting:NO];
                 self.isReconfiguringToMDMConfig = NO;
@@ -4446,7 +4518,7 @@ void run_on_ui_thread(dispatch_block_t block)
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:^{
                     self.alertController = nil;
-                    self.startSAMWAlertDisplayed = false;
+                    self.startSAMWAlertDisplayed = NO;
                     [self singleAppModeStatusChanged];
                 }];
                 return;
@@ -4509,8 +4581,8 @@ void run_on_ui_thread(dispatch_block_t block)
                 if (_endSAMWAlertDisplayed) {
                     [_alertController dismissViewControllerAnimated:NO completion:^{
                         self.alertController = nil;
-                        self.endSAMWAlertDisplayed = false;
-                        self.singleAppModeActivated = false;
+                        self.endSAMWAlertDisplayed = NO;
+                        self.singleAppModeActivated = NO;
                         [self showRestartSingleAppMode];
                     }];
                     return;
@@ -4646,7 +4718,7 @@ void run_on_ui_thread(dispatch_block_t block)
                  postNotificationName:@"requestQuit" object:self];
             }
         }
-        _finishedStartingUp = true;
+        _finishedStartingUp = YES;
         
         if (_secureMode) {
             // Clear Pasteboard
@@ -4996,7 +5068,7 @@ void run_on_ui_thread(dispatch_block_t block)
         self.noSAMAlertDisplayed = NO;
         self.establishingSEBServerConnection = NO;
         // We didn't actually succeed to switch a kiosk mode on
-        // self.secureMode = false;
+        // self.secureMode = NO;
         // removed because in this case the alert "Exam Session Finished" should be displayed if these are client settings
         DDLogInfo(@"%s: Quitting session", __FUNCTION__);
         [[NSNotificationCenter defaultCenter]
@@ -5184,7 +5256,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                constant:0]];
         [_rootViewController.view addConstraints:constraints];
         
-        _sebLocked = true;
+        _sebLocked = YES;
     }
 }
 
