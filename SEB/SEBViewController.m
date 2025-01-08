@@ -4906,12 +4906,14 @@ void run_on_ui_thread(dispatch_block_t block)
                 BOOL modernAAC = [self modernAAC];
                 
                 BOOL runningOniPadOS1771;
-                if (@available(iOS 17.71, *)) {
+                if (@available(iOS 17.7.1, *)) {
                     runningOniPadOS1771 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
                 } else {
                     runningOniPadOS1771 = NO;
                 }
-                
+                if (@available(iOS 18, *)) {
+                    runningOniPadOS1771 = NO;
+                }
                 BOOL runningOniPadOS181;
                 if (@available(iOS 18.1, *)) {
                     runningOniPadOS181 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
