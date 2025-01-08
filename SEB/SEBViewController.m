@@ -1298,8 +1298,8 @@ static NSMutableSet *browserWindowControllers;
                                                                       style:UIBarButtonItemStylePlain
                                                                      target:self
                                                                      action:@selector(showQRConfig)];
-        settingsQRCodeButton.accessibilityLabel = NSLocalizedString(@"Show Config QR Code", @"");
-        settingsQRCodeButton.accessibilityHint = NSLocalizedString(@"Show Config QR Code", @"");
+        settingsQRCodeButton.accessibilityLabel = NSLocalizedString(@"Display Config QR Code", @"");
+        settingsQRCodeButton.accessibilityHint = NSLocalizedString(@"Display Config QR Code", @"");
         
     }
     if (!settingsActionButton) {
