@@ -163,6 +163,7 @@ public class ScreenShotCache: FIFOBuffer {
                     do {
                         try FileManager.default.removeItem(at: fileURL)
                         self.removeObject(screenShot)
+                        DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully removed from cache.")
                     } catch let error {
                         DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error)")
                     }
