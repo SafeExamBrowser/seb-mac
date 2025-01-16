@@ -71,7 +71,7 @@ extension NetworkRequest {
         }
 		let task = urlSession.dataTask(with: url, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if error != nil {
-                DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
+                DDLogError("NetworkRequest: URLSession.dataTask returned error: \(String(describing: error))")
             }
 			guard let receivedData = data else {
 				completion(nil, error)
@@ -99,7 +99,6 @@ extension NetworkRequest {
         }
         let currentAttempt = attempt+1
         
-        DDLogDebug("NetworkRequest: Get current URLSession")
         guard let urlSession = session else {
             let debugDescription = "URLSession was invalidated"
             DDLogError("\(debugDescription)")
@@ -107,6 +106,7 @@ extension NetworkRequest {
             completion(nil, statusCodes.urlSessionInvalidated, errorResponse, [:], currentAttempt)
             return
         }
+        DDLogVerbose("NetworkRequest: Got current URLSession")
 
         let task = urlSession.dataTask(with: request as URLRequest, completionHandler: { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Void in
             let httpResponse = response as? HTTPURLResponse
@@ -114,7 +114,7 @@ extension NetworkRequest {
             var errorResponse: ErrorResponse? = nil
             let responseHeaders = httpResponse?.allHeaderFields
             if error != nil {
-                DDLogError("URLSession.dataTask returned error: \(String(describing: error))")
+                DDLogError("NetworkRequest: URLSession.dataTask returned error: \(String(describing: error))")
             }
             guard let receivedData = data else {
                 DDLogError("Network Request didn't return response data (status code: \(String(describing: statusCode)))")
