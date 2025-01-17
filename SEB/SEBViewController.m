@@ -984,8 +984,10 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)editConfigFile
 {
-    _editingConfigFile = YES;
-    [self openConfigFile];
+    if (!_editingConfigFile) {
+        _editingConfigFile = YES;
+        [self openConfigFile];
+    }
 }
 
 
