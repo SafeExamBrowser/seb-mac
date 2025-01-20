@@ -107,14 +107,23 @@ public class ScreenShotCache: FIFOBuffer {
         pushObject(cachedScreenShotObject)
     }
     
+    fileprivate func removeFromQueue(_ screenShot: CachedScreenShot) {
+        let removeSuccess = self.removeObject(screenShot)
+        if removeSuccess {
+            DDLogInfo("Removing screen shot from queue was successful")
+        } else {
+            DDLogError("Removing screen shot from queue failed, as it was empty")
+        }
+    }
+    
     func transmitNextCachedScreenShot(interval: Int?) {
         guard let screenShot = copyObject() as? CachedScreenShot else {
-            DDLogDebug("Screen Shot Cache: Couldn't pop screen shot from cache for transmission.")
+            DDLogError("Screen Shot Cache: Couldn't pop screen shot from cache for transmission.")
             self.delegate.transmitNextScreenShot()
             return
         }
         guard let filename = screenShot.filename else {
-            DDLogDebug("Screen Shot Cache: Screen shot from cache for transmission didn't had a filename set.")
+            DDLogError("Screen Shot Cache: Screen shot from cache for transmission didn't had a filename set.")
             self.delegate.transmitNextScreenShot()
             return
         }
@@ -128,7 +137,7 @@ public class ScreenShotCache: FIFOBuffer {
         let startTimerForNextCachedScreenShot = {
             // Copy next cached screen shot (don't remove it from queue)
             guard let screenShot = self.copyObject() as? CachedScreenShot else {
-                DDLogDebug("Screen Shot Cache: Couldn't copy screen shot from cache for deferred transmission.")
+                DDLogError("Screen Shot Cache: Couldn't copy screen shot from cache for deferred transmission.")
                 self.delegate.transmitNextScreenShot()
                 return
             }
@@ -162,19 +171,24 @@ public class ScreenShotCache: FIFOBuffer {
                     DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully transmitted to SPS, remove from cache.")
                     do {
                         try FileManager.default.removeItem(at: fileURL)
-                        self.removeObject(screenShot)
                         DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully removed from cache.")
                     } catch let error {
-                        DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error)")
+                        DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error). Removing it from queue anyways.")
                     }
+                    self.removeFromQueue(screenShot)
                 } else {
                     DDLogWarn("Screen Shot Cache: Cached screen shot \(filename) could not be transmitted. Don't remove it from the cache, attempt sending it later.")
-//                    self.pushObject(screenShot)
                 }
                 startTimerForNextCachedScreenShot()
             })
         } catch let error {
             DDLogError("Screen Shot Cache: Reading screen shot at \(fileURL) failed with error: \(error)")
+
+            let nsError = error as NSError
+            if nsError.domain == NSCocoaErrorDomain && nsError.code == 260 {
+                DDLogError("Screen Shot Cache: Cached screen shot didn't exist anymore, removing it from queue.")
+                self.removeFromQueue(screenShot)
+            }
             startTimerForNextCachedScreenShot()
         }
     }

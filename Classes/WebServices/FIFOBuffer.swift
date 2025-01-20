@@ -55,10 +55,12 @@ public class FIFOBuffer {
             }
         }
         
-        mutating func remove(_ element: T) {
+        mutating func remove(_ element: T) -> Bool {
             if !list.isEmpty {
                 list = list.filter {$0 != element }
+                return true
             }
+            return false
         }
         
         func copyFirst() -> T? {
@@ -93,28 +95,20 @@ public class FIFOBuffer {
     }
     
     func popObject() -> AnyHashable? {
-        if !(queue.isEmpty) {
-            guard let object = self.queue.dequeue() else {
-                return nil
-            }
-            return object
+        guard let object = self.queue.dequeue() else {
+            return nil
         }
-        return nil
+        return object
     }
     
-    func removeObject(_ object: AnyHashable) {
-        if !(queue.isEmpty) {
-            self.queue.remove(object)
-        }
+    func removeObject(_ object: AnyHashable) -> Bool {
+        return self.queue.remove(object)
     }
     
     func copyObject() -> AnyHashable? {
-        if !(queue.isEmpty) {
-            guard let object = self.queue.copyFirst() else {
-                return nil
-            }
-            return object
+        guard let object = self.queue.copyFirst() else {
+            return nil
         }
-        return nil
+        return object
     }
 }
