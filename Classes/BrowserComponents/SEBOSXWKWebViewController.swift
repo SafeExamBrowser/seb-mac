@@ -32,7 +32,7 @@
 //
 
 import Foundation
-import WebKit
+@preconcurrency import WebKit
 import CocoaLumberjackSwift
 
 public class SEBOSXWKWebViewController: NSViewController, WKUIDelegate, WKNavigationDelegate, SEBAbstractBrowserControllerDelegate, WKUIDelegatePrivateSEB {
