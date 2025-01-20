@@ -433,11 +433,11 @@ extension SEBScreenProctoringController {
             DDLogDebug("SEB Screen Proctoring Controller: Server health is BAD")
             if transmittingState != SPSTransmittingState.waitingForRecovery {
                 if transmittingState == SPSTransmittingState.normal {
-                    DDLogDebug("SEB Screen Proctoring Controller: Transmitting state was normal, set to waitingForRecovery")
+                    DDLogInfo("SEB Screen Proctoring Controller: Transmitting state was normal, set to waitingForRecovery")
                     transmittingState = SPSTransmittingState.waitingForRecovery
                 }
                 if transmittingState == SPSTransmittingState.delayForResuming {
-                    DDLogDebug("SEB Screen Proctoring Controller: Transmitting state was delayForResuming, set to waitingForRecovery")
+                    DDLogInfo("SEB Screen Proctoring Controller: Transmitting state was delayForResuming, set to waitingForRecovery")
                     // Stop random timer for delay to resume sending cached screen shots
                     transmittingState = SPSTransmittingState.waitingForRecovery
                 }
@@ -468,7 +468,7 @@ extension SEBScreenProctoringController {
                         }
                     }
                 }
-                DDLogDebug("SEB Screen Proctoring Controller: Start checking server health every \(timeIntervalForHealthCheck) seconds.")
+                DDLogInfo("SEB Screen Proctoring Controller: Start checking server health every \(timeIntervalForHealthCheck) seconds.")
                 repeatingTimerForHealthCheck?.resume()
             } else if self.closingSession {
                 // If server healt is bad and we are waiting for recovery, increase the error counter with every deferred screen shot when resending while closing session
@@ -481,11 +481,11 @@ extension SEBScreenProctoringController {
             // If waiting for recovery and server health is no longer BAD, then start random delay to resume transmitting cached screen shots
             transmittingState = SPSTransmittingState.delayForResuming
             // Stop timer to check server health on separate endpoint and start random delay of max 3 minutes
-            DDLogDebug("SEB Screen Proctoring Controller: Stop server health check repeating timer and start delay for resuming timer.")
+            DDLogInfo("SEB Screen Proctoring Controller: Stop server health check repeating timer and start delay for resuming timer.")
             repeatingTimerForHealthCheck?.reset()
             repeatingTimerForHealthCheck = nil
             delayForResumingTimer = DispatchWorkItem { [weak self] in
-                DDLogDebug("SEB Screen Proctoring Controller: Delay for resuming timer fired, set transmitting state to normal.")
+                DDLogInfo("SEB Screen Proctoring Controller: Delay for resuming timer fired, set transmitting state to normal.")
                 self?.transmittingState = SPSTransmittingState.normal
                 self?.setScreenProctoringButtonInfoString(String.localizedStringWithFormat(NSLocalizedString("Sending cached screen shots, server health %d out of 10", comment: ""), 10-(self?.currentServerHealth ?? 11)))
                 self?.transmitNextScreenShot()
