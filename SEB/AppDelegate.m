@@ -205,6 +205,12 @@
             self.sebViewController.visibleCodeReaderViewController = nil;
         }];
     }
+    if (_sebViewController.documentPickerViewController) {
+        [_sebViewController.documentPickerViewController dismissViewControllerAnimated:NO completion:^{
+            self.sebViewController.editingConfigFile = NO;
+            self.sebViewController.documentPickerViewController = nil;
+        }];
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

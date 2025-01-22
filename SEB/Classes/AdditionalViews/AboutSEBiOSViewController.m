@@ -121,7 +121,7 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL examSession = preferences.secureSession;
 
-    if (examSession) {
+    if (examSession && _sebViewController.finishedStartingUp && !_sebViewController.clientConfigSecureModePaused) {
         
         if (_sebViewController.alertController) {
             [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
@@ -169,6 +169,7 @@
                                                                                }]];
         
         [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
+        _sebViewController.sendingLogs = NO;
     }
 }
 
@@ -178,6 +179,7 @@
     // Check if the cancel button was pressed
     if (!password) {
         // Abort sending logs
+        _sebViewController.sendingLogs = NO;
         return;
     }
     
@@ -204,6 +206,7 @@
             [_sebViewController.configFileController showAlertWithTitle:title andText:informativeText];
             
             // Abort sending logs
+            _sebViewController.sendingLogs = NO;
             return;
         }
         
@@ -289,8 +292,13 @@
 - (void)mailComposeController:(MFMailComposeViewController *)mailer didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [self becomeFirstResponder];
-    [mailer dismissViewControllerAnimated:YES completion:nil];
-    _sebViewController.mailViewController = nil;
+    [mailer dismissViewControllerAnimated:YES completion:^{
+        run_on_ui_thread(^{
+            self.sebViewController.mailViewController = nil;
+            self.sebViewController.sendingLogs = NO;
+            [self.sebViewController conditionallyInitSEBUI];
+        });
+    }];
 }
 
 

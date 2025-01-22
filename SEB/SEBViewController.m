@@ -461,7 +461,9 @@ static NSMutableSet *browserWindowControllers;
     [self becomeFirstResponder];
 
     [self adjustJitsiPiPDragBoundInsets];
-    
+
+    DDLogDebug(@"%s", __FUNCTION__);
+
     if ([self allowediOSVersion]) {
         // Check if we received new settings from an MDM server
         //    [self readDefaultsValues];
@@ -472,18 +474,29 @@ static NSMutableSet *browserWindowControllers;
             [preferences setBool:NO forKey:@"allowEditingConfig"];
             if (!_ASAMActive) {
                 [self conditionallyShowSettingsModal];
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+                return;
             }
         } else if ([preferences boolForKey:@"initiateResetConfig"]) {
             if (!_ASAMActive) {
                 [self conditionallyResetSettings];
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+                return;
             }
         } else if ([preferences boolForKey:@"sendLogs"]) {
             [preferences setBool:NO forKey:@"sendLogs"];
             if (!_ASAMActive) {
                 // If AAC isn't being started
                 [self conditionallySendLogs];
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+                return;
             }
-        } else if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
+        }
+        
+        if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
             // Initialize UI using client UI/browser settings
@@ -850,6 +863,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)conditionallySendLogs
 {
+    _sendingLogs = YES;
     // Check if an alert is open and dismiss it
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:^{
@@ -974,7 +988,7 @@ static NSMutableSet *browserWindowControllers;
         [self editConfigFile];
     }
     NSString *shareLogFileItemType = [NSString stringWithFormat:@"%@.ShareLogFile", [NSBundle mainBundle].bundleIdentifier];
-    if ([shortcutItem.type isEqualToString:editConfigFileItemType]) {
+    if ([shortcutItem.type isEqualToString:shareLogFileItemType]) {
         handled = YES;
         [self shareLogFile];
     }
@@ -993,6 +1007,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)shareLogFile
 {
+    [self conditionallySendLogs];
 }
 
 
@@ -1693,7 +1708,7 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)moreSettingsActions:(id)sender
 {
-    DDLogInfo(@"%f", __FUNCTION__);
+    DDLogInfo(@"%s", __FUNCTION__);
     if (_alertController) {
         [_alertController dismissViewControllerAnimated:NO completion:nil];
     }
@@ -1801,9 +1816,9 @@ static NSMutableSet *browserWindowControllers;
 {
     DDLogInfo(@"Open Config File");
     NSArray *documentTypes = @[@"org.safeexambrowser.seb", @"org.gnu.gnu-zip-archive"];
-    UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
-    documentPicker.delegate = self;
-    [self.topMostController presentViewController:documentPicker animated:YES completion:nil];
+    _documentPickerViewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
+    _documentPickerViewController.delegate = self;
+    [self.topMostController presentViewController:_documentPickerViewController animated:YES completion:nil];
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls 
@@ -1812,6 +1827,11 @@ static NSMutableSet *browserWindowControllers;
     DDLogInfo(@"Selected file URL: %@", selectedURL);
     if (selectedURL) {
         [self saveOrDownloadSEBConfigFromURL:selectedURL];
+    } else if (_editingConfigFile) {
+        // If SEB was started with homescreen shortcut item for editing config file
+        // and no file is selected, we might have to initialize SEB
+        DDLogInfo(@"No file selected in document picker.");
+        [self documentPickerWasCancelled:_documentPickerViewController];
     }
 }
 
@@ -1819,6 +1839,8 @@ static NSMutableSet *browserWindowControllers;
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
     DDLogInfo(@"Document picker was cancelled");
     _editingConfigFile = NO;
+    _documentPickerViewController = nil;
+    [self conditionallyInitSEBUI];
 }
 
 
@@ -2027,6 +2049,21 @@ void run_on_ui_thread(dispatch_block_t block)
         block();
     else
         dispatch_sync(dispatch_get_main_queue(), block);
+}
+
+
+- (void) conditionallyInitSEBUI
+{
+    if (!sebUIInitialized) {
+        // Initialize UI using client UI/browser settings
+        [self initSEBUIWithCompletionBlock:^{
+            [self conditionallyStartKioskMode];
+        }];
+    } else if (!_finishedStartingUp) {
+        [self conditionallyStartKioskMode];
+    } else if (_clientConfigSecureModePaused) {
+        [self sessionQuitRestart:YES];
+    }
 }
 
 
@@ -3222,6 +3259,11 @@ void run_on_ui_thread(dispatch_block_t block)
                                     selector:selector];
         }];
         return;
+    } else if (_documentPickerViewController) {
+        [_documentPickerViewController dismissViewControllerAnimated:NO completion:^{
+            self.editingConfigFile = NO;
+            self.documentPickerViewController = nil;
+        }];
     } else if (_sebServerViewDisplayed) {
         [self dismissViewControllerAnimated:YES completion:^{
             self.sebServerViewDisplayed = NO;
@@ -4606,7 +4648,7 @@ void run_on_ui_thread(dispatch_block_t block)
     BOOL allowEditingConfig = [preferences boolForKey:@"allowEditingConfig"];
     BOOL initiateResetConfig = [preferences boolForKey:@"initiateResetConfig"];
     DDLogDebug(@"%s: allowEditingConfig: %d, initiateResetConfig: %d", __FUNCTION__, allowEditingConfig, initiateResetConfig);
-    if (!_openingSettings && !_resettingSettings && !_settingsOpen) {
+    if (!_openingSettings && !_resettingSettings && !_sendingLogs && !_settingsOpen) {
         // Check if running on iOS 11.x earlier than 11.2.5
         if (![self allowediOSVersion]) {
             DDLogError(@"%s Running on not allowed iOS 11.x version earlier than 11.2.5, don't start kiosk mode", __FUNCTION__);

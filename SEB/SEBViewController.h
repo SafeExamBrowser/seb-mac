@@ -208,6 +208,8 @@ void run_on_ui_thread(dispatch_block_t block);
 @property (nonatomic, retain) SEBInAppSettingsViewController *sebInAppSettingsViewController;
 @property (strong, nonatomic) NSData *_Nullable configFileKeyHash;
 
+@property (strong, nonatomic) UIDocumentPickerViewController *_Nullable documentPickerViewController;
+
 @property (strong, nonatomic) QRCodeReaderViewController *codeReaderViewController;
 @property (strong, nonatomic) QRCodeReaderViewController *_Nullable visibleCodeReaderViewController;
 
@@ -310,6 +312,7 @@ void run_on_ui_thread(dispatch_block_t block);
 @property(readwrite) BOOL initAssistantOpen;
 @property(readwrite) BOOL openingSettings;
 @property(readwrite) BOOL resettingSettings;
+@property(readwrite) BOOL sendingLogs;
 @property(readwrite) BOOL settingsOpen;
 @property(readwrite) BOOL settingsDidClose;
 @property(readwrite) BOOL editingConfigFile;
@@ -328,6 +331,7 @@ void run_on_ui_thread(dispatch_block_t block);
 - (void) scanQRCode;
 
 #pragma mark - Init, reconfigure and reset SEB
+- (void) conditionallyInitSEBUI;
 - (void) conditionallyShowSettingsModal;
 - (void) conditionallyResetSettings;
 - (void) conditionallySendLogs;
