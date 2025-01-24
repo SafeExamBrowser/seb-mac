@@ -199,7 +199,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion18                            = 18
+    iOSBetaVersion18                            = 19
 };
 typedef NSUInteger iOSBetaVersion;
 
@@ -651,9 +651,9 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 // The dictionary that is sent back to the MDM server as feedback must be stored in this key.
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
-static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_13;
+static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_15;
 static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
-static NSInteger SEBMinMacOSVersionSupportedMinor = 13;
+static NSInteger SEBMinMacOSVersionSupportedMinor = 15;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
 static NSString __unused *proctoringServiceTypeScreenProctoring = @"SCREEN_PROCTORING";
