@@ -45,11 +45,13 @@ protocol ScreenShotTransmissionDelegate {
 
 public class ScreenShotCache: FIFOBuffer {
     var delegate: ScreenShotTransmissionDelegate
+    private var encryptSecret: String?
     private var cacheDirectoryURL: URL?
     private var transmittingCachedScreenShots = false
     
-    init(delegate: ScreenShotTransmissionDelegate) {
+    init(delegate: ScreenShotTransmissionDelegate, encryptSecret: String?) {
         self.delegate = delegate
+        self.encryptSecret = encryptSecret
         dynamicLogLevel = MyGlobals.ddLogLevel()
         cacheDirectoryURL = SEBFileManager.createTemporaryDirectory()
     }
@@ -98,7 +100,20 @@ public class ScreenShotCache: FIFOBuffer {
             fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
         }
         do {
-            try data.write(to: fileURL, options: [.atomic])
+            var cacheData = data
+            if #available(macOS 10.15.0, iOS 13.0, *) {
+                if let keyString = self.encryptSecret {
+                    if let symmetricKey = SEBGCMCryptor.symmetricKey(string: keyString) {
+                        do {
+                            let encryptedData = try SEBGCMCryptor.encryptData(data: data, key: symmetricKey)
+                                cacheData = encryptedData
+                        } catch let error {
+                            DDLogError("Encrypting screen shot failed with error: \(error)")
+                        }
+                    }
+                }
+            }
+            try cacheData.write(to: fileURL, options: [.atomic])
             DDLogInfo("Screen Shot Cache: Screen shot \(filename) saved.")
         } catch let error {
             DDLogError("Writing screen shot at \(fileURL) failed with error: \(error)")
@@ -159,7 +174,19 @@ public class ScreenShotCache: FIFOBuffer {
         }
         
         do {
-            let screenShotData = try Data(contentsOf: fileURL)
+            var screenShotData = try Data(contentsOf: fileURL)
+            if #available(macOS 10.15.0, iOS 13.0, *) {
+                if let keyString = self.encryptSecret {
+                    if let symmetricKey = SEBGCMCryptor.symmetricKey(string: keyString) {
+                        do {
+                            let decryptedData = try SEBGCMCryptor.decryptData(ciphertext: screenShotData, key: symmetricKey)
+                                screenShotData = decryptedData
+                        } catch let error {
+                            DDLogError("Decrypting screen shot failed with error: \(error)")
+                        }
+                    }
+                }
+            }
             delegate.sendScreenShot(data: screenShotData, metaData: screenShot.metaData, timeStamp: screenShot.timestamp, resending: true, completion: {success in
                 if success {
                     var fileURL: URL

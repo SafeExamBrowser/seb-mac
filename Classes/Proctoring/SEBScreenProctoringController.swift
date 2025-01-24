@@ -17,6 +17,7 @@ public struct keysSPS {
     static let screenProctoringClientSecret = "screenProctoringClientSecret"
     static let screenProctoringGroupId = "screenProctoringGroupId"
     static let screenProctoringClientSessionId = "screenProctoringClientSessionId"
+    static let screenProctoringEncryptSecret = "screenProctoringEncryptSecret"
     
     static let accessTokenEndpoint = "/oauth/token"
     static let accessTokenEndpointAuthorization = "Basic"
@@ -118,6 +119,7 @@ struct MetadataSettings {
     private var groupId: String?
     private var sessionId: String?
     private var instructionConfirm: String?
+    private var encryptSecret: String?
     
     private var screenshotMinInterval: Int?
     private var screenshotMaxInterval: Int?
@@ -150,7 +152,7 @@ struct MetadataSettings {
     private var screenShotCache: ScreenShotCache {
         get {
             if _screenShotCache == nil {
-                _screenShotCache = ScreenShotCache(delegate: self)
+                _screenShotCache = ScreenShotCache(delegate: self, encryptSecret: encryptSecret)
             }
             return _screenShotCache!
         }
@@ -273,7 +275,8 @@ struct MetadataSettings {
             self.serviceURL = URL(string: serviceURL)
             self.clientId = clientId
             self.clientSecret = clientSecret
-            
+            self.encryptSecret = attributes[keysSPS.screenProctoringEncryptSecret]
+
             getServerAccessToken {
                 self.startScreenProctoring()
             }
@@ -393,10 +396,8 @@ extension SEBScreenProctoringController {
     }
     
     private func startScreenProctoring() {
-//        screenShotTimerQueue.async { [unowned self] in
             startMaxIntervalTimer()
             startMinIntervalTimer()
-//        }
         metadataCollector.monitorEvents()
         self.setScreenProctoringButtonState(ScreenProctoringButtonStateActive)
     }

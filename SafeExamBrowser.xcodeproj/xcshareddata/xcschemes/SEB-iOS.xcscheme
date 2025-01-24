@@ -46,7 +46,7 @@
       enableASanStackUseAfterReturn = "YES"
       disableMainThreadChecker = "YES"
       disablePerformanceAntipatternChecker = "YES"
-      launchStyle = "1"
+      launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
