@@ -987,6 +987,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"setVmwareConfiguration",
                    
+                   [NSNumber numberWithLong:500],
+                   @"screenProctoringCacheSize",
+
                    @"",
                    @"screenProctoringClientId",
 
