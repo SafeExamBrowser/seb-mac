@@ -112,7 +112,8 @@ struct MetadataSettings {
     
     private var accessToken: String?
     private var gettingAccessToken = false
-    
+    private var gotAccessToken = false
+
     private var serviceURL: URL?
     private var clientId: String?
     private var clientSecret: String?
@@ -152,7 +153,7 @@ struct MetadataSettings {
     private var screenShotCache: ScreenShotCache {
         get {
             if _screenShotCache == nil {
-                _screenShotCache = ScreenShotCache(delegate: self, encryptSecret: encryptSecret)
+                _screenShotCache = ScreenShotCache(delegate: self, encryptSecret: encryptSecret, maxCacheSizeMB: self.screenProctoringCacheSize ?? 0)
             }
             return _screenShotCache!
         }
@@ -166,6 +167,7 @@ struct MetadataSettings {
     private let maxIntervalTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".maxInterval", qos: .utility)
     private var screenShotMinIntervalTimer: RepeatingTimer?
     private var screenShotMaxIntervalTimer: RepeatingTimer?
+    private var screenProctoringCacheSize: Int?
     private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
@@ -229,6 +231,8 @@ struct MetadataSettings {
         self.metadataSettings.urlEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataURLEnabled")
         self.metadataSettings.activeWindowEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataWindowTitleEnabled")
         self.metadataSettings.activeAppEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_screenProctoringMetadataActiveAppEnabled")
+        
+        self.screenProctoringCacheSize = UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_screenProctoringCacheSize")
         
 #if DEBUG
         self.indicateHealthAndCaching = true
@@ -311,6 +315,7 @@ extension SEBScreenProctoringController {
                                 request.load(httpMethod: httpMethod, body: body, headers: headers, session: self.session, attempt: attempt, completion: resourceLoadCompletion)
                             }
                         }
+                        return
                     } else {
                         let errorDebugDescription = "Server reported Invalid Token for maxRequestAttempts"
                         let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Repeating Error: Invalid Token", comment: ""),
@@ -321,6 +326,14 @@ extension SEBScreenProctoringController {
                         self.didFail(error: error, fatal: true)
                     }
                     return
+                } else if self.gotAccessToken {
+                    // Access Token was successfully renewed, there might be cached screen shots
+                    self.gotAccessToken = false
+                    DDLogInfo("SEB Screen Proctoring Controller: Verified that expired token was renewed successfully")
+                    if (transmittingState == SPSTransmittingState.normal) {
+                        DDLogInfo("SEB Screen Proctoring Controller: Attempt to send screen shots which have been cached while token was expired")
+                        self.transmitNextScreenShot()
+                    }
                 }
                 if !cancelAllRequests {
                     resourceLoadCompletion(response, statusCode, errorResponse, responseHeaders, attempt)
@@ -357,7 +370,7 @@ extension SEBScreenProctoringController {
     }
 
     private func getServerAccessToken(completionHandler: @escaping () -> Void) {
-        if !gettingAccessToken {
+        if !gettingAccessToken && !gotAccessToken {
             guard let baseURL = self.serviceURL else {
                 return
             }
@@ -369,10 +382,11 @@ extension SEBScreenProctoringController {
                                   keys.headerAuthorization : authorizationString]
             
             load(accessTokenResource, httpMethod: accessTokenResource.httpMethod, body: accessTokenResource.body ?? Data(), headers: requestHeaders, withCompletion: { (accessTokenResponse, statusCode, errorResponse, responseHeaders, attempt) in
-                self.gettingAccessToken = false
                 if let accessToken = accessTokenResponse, let tokenString = accessToken?.access_token {
+                    self.gotAccessToken = true
                     self.accessToken = tokenString
                     DDLogInfo("SEB Screen Proctoring Controller: Received server access token.")
+                    self.gettingAccessToken = false
                 } else {
                     self.spsControllerUIDelegate?.updateStatus(string: NSLocalizedString("Request failed", comment: ""), append: false)
                     let errorDebugDescription = "Server didn't return \(accessTokenResponse == nil ? "access token response" : "access token") because of error \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
@@ -538,7 +552,7 @@ extension SEBScreenProctoringController {
         if transmissionInterval == 0 {
             transmissionInterval = 1
         }
-        DDLogDebug("SEB Screen Proctoring Controller: Cache screen shot and defer transmission with an interval of \(transmissionInterval)")
+        DDLogDebug("SEB Screen Proctoring Controller: Cache screen shot and defer transmission with an interval of \(transmissionInterval) s")
         screenShotCache.cacheScreenShotForSending(data: data, metaData: metaData, timeStamp: timeStamp, transmissionInterval: transmissionInterval)
         if transmitNextCachedScreenShot {
             screenShotCache.transmitNextCachedScreenShot(interval: nil)
@@ -587,8 +601,10 @@ extension SEBScreenProctoringController {
         }
         
         load(screenShotResource, httpMethod: screenShotResource.httpMethod, body: data, headers: requestHeaders, withCompletion: { (screenShotResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            let filename = self.screenShotCache.screenShotFilename(timeStamp: timeStamp)
+            let size = "size: \(data.count/1000)kB"
             if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
-                DDLogDebug("SEB Screen Proctoring Controller: Successfully transmitted screen shot to server.")
+                DDLogDebug("SEB Screen Proctoring Controller: Successfully transmitted screen shot to server (\(filename), \(size)).")
                 if let health = Int((responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keysSPS.responseHeaderServerHealth) == .orderedSame}))?.value as? String ?? "") {
                     self.currentServerHealth = health
                     DDLogDebug("SEB Screen Proctoring Controller: Current server health is \(10-health) out of 10")
@@ -614,7 +630,7 @@ extension SEBScreenProctoringController {
                 }
                 completion?(true)
             } else {
-                DDLogError("SEB Screen Proctoring Controller: Could not upload screen shot with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
+                DDLogError("SEB Screen Proctoring Controller: Could not upload \(filename) with status code \(String(describing: statusCode)), error response \(String(describing: errorResponse)).")
                 if self.closingSession {
                     self.transmittingDeferredScreenShotsWhileClosingError()
                     self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: String.localizedStringWithFormat(NSLocalizedString("Transmitting screen shot failed with error: %@", comment: ""), errorResponse?.error ?? "Unspecified."), totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
@@ -622,7 +638,9 @@ extension SEBScreenProctoringController {
                     self.setScreenProctoringButtonInfoString(String.localizedStringWithFormat(NSLocalizedString("Server health %d out of 10, deferring sending screen shots", comment: ""), 10-self.currentServerHealth))
                 }
                 // Cache screen shot and retry sending it
-                self.currentServerHealth = SPSHealth.BAD
+                if !self.gettingAccessToken && !self.gotAccessToken {
+                    self.currentServerHealth = SPSHealth.BAD
+                }
                 if !resending {
                     self.deferScreenShotTransmission(data: data, metaData: metaData, timeStamp: timeStamp, transmitNextCachedScreenShot: false)
                 }

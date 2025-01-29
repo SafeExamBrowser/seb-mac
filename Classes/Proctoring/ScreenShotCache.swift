@@ -46,12 +46,15 @@ protocol ScreenShotTransmissionDelegate {
 public class ScreenShotCache: FIFOBuffer {
     var delegate: ScreenShotTransmissionDelegate
     private var encryptSecret: String?
+    private var maxCacheSize: Int
     private var cacheDirectoryURL: URL?
     private var transmittingCachedScreenShots = false
+    private var cacheSize = 0
     
-    init(delegate: ScreenShotTransmissionDelegate, encryptSecret: String?) {
+    init(delegate: ScreenShotTransmissionDelegate, encryptSecret: String?, maxCacheSizeMB: Int) {
         self.delegate = delegate
         self.encryptSecret = encryptSecret
+        self.maxCacheSize = maxCacheSizeMB * 1000 * 1000
         dynamicLogLevel = MyGlobals.ddLogLevel()
         cacheDirectoryURL = SEBFileManager.createTemporaryDirectory()
     }
@@ -81,7 +84,14 @@ public class ScreenShotCache: FIFOBuffer {
         }
     }
     
-    private func screenShotFilename(timeStamp: TimeInterval) -> String {
+    private var cacheSizeString: String {
+        let cacheSizekB = cacheSize/1000
+        let cacheSizeMB = cacheSizekB/1000
+        let cacheSizeString = cacheSizeMB > 0 ? "\(cacheSizeMB)MB" : "\(cacheSizekB)kB"
+        return cacheSizeString
+    }
+    
+    public func screenShotFilename(timeStamp: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: timeStamp)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss_SSS"
@@ -90,36 +100,44 @@ public class ScreenShotCache: FIFOBuffer {
     }
     
     func cacheScreenShotForSending(data: Data, metaData: String, timeStamp: TimeInterval, transmissionInterval: Int) {
-        var cachedScreenShotObject = CachedScreenShot(metaData: metaData, timestamp: timeStamp, transmissionInterval: transmissionInterval)
         let filename = screenShotFilename(timeStamp: timeStamp)
-        cachedScreenShotObject.filename = filename
-        var fileURL: URL
-        if #available(macOS 13.0, iOS 16.0, *) {
-            fileURL = cacheDirectoryURL!.appending(path: filename)
-        } else {
-            fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
-        }
-        do {
-            var cacheData = data
-            if #available(macOS 10.15.0, iOS 13.0, *) {
-                if let keyString = self.encryptSecret {
-                    if let symmetricKey = SEBGCMCryptor.symmetricKey(string: keyString) {
-                        do {
-                            let encryptedData = try SEBGCMCryptor.encryptData(data: data, key: symmetricKey)
+        let size = "size: \(data.count/1000)kB"
+        
+        if (cacheSize + data.count) <= maxCacheSize {
+            var cachedScreenShotObject = CachedScreenShot(metaData: metaData, timestamp: timeStamp, transmissionInterval: transmissionInterval)
+            cachedScreenShotObject.filename = filename
+            var fileURL: URL
+            if #available(macOS 13.0, iOS 16.0, *) {
+                fileURL = cacheDirectoryURL!.appending(path: filename)
+            } else {
+                fileURL = cacheDirectoryURL!.appendingPathComponent(filename)
+            }
+            do {
+                var cacheData = data
+                if #available(macOS 10.15.0, iOS 13.0, *) {
+                    if let keyString = self.encryptSecret {
+                        if let symmetricKey = SEBGCMCryptor.symmetricKey(string: keyString) {
+                            do {
+                                let encryptedData = try SEBGCMCryptor.encryptData(data: data, key: symmetricKey)
                                 cacheData = encryptedData
-                        } catch let error {
-                            DDLogError("Encrypting screen shot failed with error: \(error)")
+                            } catch let error {
+                                DDLogError("Encrypting screen shot failed with error: \(error)")
+                            }
                         }
                     }
                 }
+                try cacheData.write(to: fileURL, options: [.atomic])
+                DDLogInfo("Screen Shot Cache: Screen shot \(filename) (\(size)) saved.")
+                cacheSize += data.count
+                DDLogDebug("Current cache size: \(self.cacheSizeString)")
+            } catch let error {
+                DDLogError("Writing screen shot at \(fileURL) failed with error: \(error)")
+                return
             }
-            try cacheData.write(to: fileURL, options: [.atomic])
-            DDLogInfo("Screen Shot Cache: Screen shot \(filename) saved.")
-        } catch let error {
-            DDLogError("Writing screen shot at \(fileURL) failed with error: \(error)")
-            return
+            pushObject(cachedScreenShotObject)
+        } else {
+            DDLogWarn("Screen Shot Cache: Discarding screen shot \(filename) (\(size)) because max. cache size of \(maxCacheSize/(1000*1000)) MB reached.")
         }
-        pushObject(cachedScreenShotObject)
     }
     
     fileprivate func removeFromQueue(_ screenShot: CachedScreenShot) {
@@ -199,6 +217,13 @@ public class ScreenShotCache: FIFOBuffer {
                     do {
                         try FileManager.default.removeItem(at: fileURL)
                         DDLogInfo("Screen Shot Cache: Screen shot \(filename) successfully removed from cache.")
+                        self.cacheSize -= screenShotData.count
+                        if self.cacheSize < 0 {
+                            DDLogDebug("Screen Shot Cache: Calculated cache size went below zero: \(self.cacheSizeString)")
+                            self.cacheSize = 0
+                        }
+                        DDLogDebug("Screen Shot Cache: Current cache size: \(self.cacheSizeString)")
+                        
                     } catch let error {
                         DDLogError("Screen Shot Cache: Couldn't remove screen shot at \(fileURL) with error: \(error). Removing it from queue anyways.")
                     }

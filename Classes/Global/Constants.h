@@ -83,6 +83,7 @@
 #define SEBServerDefaultFallbackTimeout 30000
 #define SEBErrorConnectionSettingsInvalid 400
 #define SEBErrorGettingConnectionTokenFailed 401
+#define SEBScreenProctoringCacheSizeDefault 500
 
 #define currentStableMajoriOSVersion 18
 
