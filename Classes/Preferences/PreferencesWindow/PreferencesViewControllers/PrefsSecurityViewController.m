@@ -122,7 +122,7 @@
     aacDnsPrePinningButton.enabled = !AACDisabled;
     allowScreenCaptureButton.enabled = AACDisabled;
     allowWindowCaptureButton.enabled = AACDisabled;
-    blockScreenShotsButton.enabled = AACDisabled && allowWindowCaptureButton.state;
+    blockScreenShotsButton.enabled = AACDisabled;
     allowScreenSharingButton.enabled =AACDisabled;
     screenSharingMacEnforceButton.enabled = AACDisabled;
     enableAppSwitcherButton.enabled = AACDisabled;
