@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -110,8 +110,7 @@
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
                                                         <connections>
-                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowScreenCapture" id="ezh-c8-Zhz"/>
-                                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" previousBinding="ezh-c8-Zhz" id="vg0-9n-uJh">
+                                                            <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowWindowCapture" id="IWU-p4-gjS">
                                                                 <dictionary key="options">
                                                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                                     <integer key="NSNoSelectionPlaceholder" value="-1"/>
@@ -120,13 +119,12 @@
                                                                 </dictionary>
                                                             </binding>
                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_blockScreenShotsLegacy" id="9kj-yX-N2C"/>
-                                                            <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="vg0-9n-uJh" id="hpj-9G-YjJ">
+                                                            <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_enableMacOSAAC" previousBinding="IWU-p4-gjS" id="hdJ-FX-Vj9">
                                                                 <dictionary key="options">
                                                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                                                     <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                                                     <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                                                     <integer key="NSNullPlaceholder" value="-1"/>
-                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                                 </dictionary>
                                                             </binding>
                                                         </connections>
@@ -278,7 +276,7 @@
                                                                             <rect key="frame" x="63" y="-4" width="307" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="9eI-c3-Dbw" userLabel="Log Level Pop Up Button Cell">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" id="aE1-I0-zZi">
                                                                                     <items>
                                                                                         <menuItem title="Directory" id="FaM-aF-JR1" userLabel="Menu Item"/>
@@ -330,7 +328,7 @@
                                                                             <rect key="frame" x="98" y="-4" width="307" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" enabled="NO" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" id="34">
                                                                                     <items>
                                                                                         <menuItem title="Directory" id="35"/>
@@ -820,7 +818,7 @@
                                                                                                 <string key="toolTip">SEB refuses to run on an older system version. This setting is used when the new setting "Check full macOS version number" is disabled</string>
                                                                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="0hJ-dB-9wR" userLabel="Log Level Pop Up Button Cell">
                                                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                    <font key="font" metaFont="menu"/>
+                                                                                                    <font key="font" metaFont="message"/>
                                                                                                     <menu key="menu" id="USv-AB-Ysf">
                                                                                                         <items>
                                                                                                             <menuItem id="xPf-Jo-eb3" userLabel="Menu Item"/>
@@ -1437,7 +1435,7 @@
                                                                                                 <rect key="frame" x="-3" y="-4" width="559" height="25"/>
                                                                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                                                                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                    <font key="font" metaFont="menu"/>
+                                                                                                    <font key="font" metaFont="message"/>
                                                                                                     <menu key="menu" id="95">
                                                                                                         <items>
                                                                                                             <menuItem id="97"/>
