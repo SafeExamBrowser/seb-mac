@@ -81,7 +81,7 @@ import CocoaLumberjackSwift
                 DDLogDebug("There was a persistently saved temporary down/upload directory location\(storedDownUploadDirectoryURL!.path) with ConfigKey \(storedDownUploadDirectoryConfigKey as Any). Looks like SEB didn't quit properly when running last time.")
                 // Check if this directory actually exists
                 if !FileManager.default.fileExists(atPath: storedDownUploadDirectoryURL!.path) {
-                    DDLogDebug("The persistently saved temporary down/upload directory at \(downUploadTempURL!.path) doesn't actually exist anymore. Create new one.")
+                    DDLogDebug("The persistently saved temporary down/upload directory doesn't actually exist anymore. Create new one.")
                 } else {
                     downUploadTempURL = storedDownUploadDirectoryURL
                     return downUploadTempURL!
