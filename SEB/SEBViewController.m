@@ -3802,14 +3802,23 @@ void run_on_ui_thread(dispatch_block_t block)
     
     if (quittingFromSPSCacheUpload) {
         _quittingFromSPSCacheUpload = NO;
-        [self didCloseSEBServerConnectionRestart:restart];
+        [self.screenProctoringController continueClosingSessionWithCompletionHandler:^{
+            [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+                [self didCloseSEBServerConnectionRestart:restart];
+            }];
+        }];
     } else {
-        [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-            [self stopProctoringWithCompletion:^{
+        [self stopProctoringWithCompletion:^{
+            [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
                 [self didCloseSEBServerConnectionRestart:restart];
             }];
         }];
     }
+}
+
+// Quit from uploading cached screen shots and don't confirm quitting SEB/Session
+- (void) quitFromTransmittingCachedScreenShots
+{
 }
 
 

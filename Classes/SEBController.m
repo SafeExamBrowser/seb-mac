@@ -7001,10 +7001,7 @@ conditionallyForWindow:(NSWindow *)window
                     [self quitSEBOrSession]; // Quit SEB or the exam session
                 } else {
                     // Quit from uploading cached screen shots: Don't confirm quitting
-                    [self closeTransmittingCachedScreenShotsWindow:^{
-                        self->_screenProctoringController = nil;
-                        [self sessionQuitRestart:NO];
-                    }];
+                    [self quitFromTransmittingCachedScreenShots];
                 }
 
             } else {
@@ -7029,13 +7026,21 @@ conditionallyForWindow:(NSWindow *)window
                 [self sessionQuitRestartIgnoringQuitPW:NO];
             } else {
                 // Quit from uploading cached screen shots: Don't confirm quitting
-                [self closeTransmittingCachedScreenShotsWindow:^{
-                    self->_screenProctoringController = nil;
-                    [self sessionQuitRestart:NO];
-                }];
+                [self quitFromTransmittingCachedScreenShots];
             }
         }
     }
+}
+
+// Quit from uploading cached screen shots and don't confirm quitting SEB/Session
+- (void) quitFromTransmittingCachedScreenShots
+{
+    [self closeTransmittingCachedScreenShotsWindow:^{
+        [self.screenProctoringController continueClosingSessionWithCompletionHandler:^{
+            self->_screenProctoringController = nil;
+            [self sessionQuitRestart:NO];
+        }];
+    }];
 }
 
 
@@ -7104,113 +7109,12 @@ conditionallyForWindow:(NSWindow *)window
         BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
         DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
     }
-
-    [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
-        [self didCloseSEBServerConnectionRestart:restart];
-    }];
-}
-
-
-- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
-{
-    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
-
-        NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Disconnecting from SEB Server", @""), SEBShortAppName]];
-        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If SEB Server doesn't respond for a while, you can forcibly close the connection", @""), SEBShortAppName, SEBShortAppName]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"Force Close", @"")];
-        [modalAlert setAlertStyle:NSAlertStyleCritical];
-
-        void (^forceCloseConnection)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self removeAlertWindow:modalAlert.window];
-            DDLogInfo(@"User decided to force close SEB Server connection");
-            [self.serverController cancelQuitSessionWithRestart:restart completion:completion];
-        };
-        
-        void (^closeDisconnetingAlertCompletion)(BOOL) = ^void (BOOL restart) {
-            DDLogInfo(@"SEB Server connection was closed, closing Disconnecting alert.");
-            dispatch_block_cancel(self->cancelableBlock);
-            [modalAlert.window orderOut:self];
-            [self removeAlertWindow:modalAlert.window];
-            completion(restart);
-        };
-
-        cancelableBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, ^{
-            [modalAlert beginSheetModalForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))forceCloseConnection];
-        });
-        
-        dispatch_time_t dispachTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
-        dispatch_after(dispachTime, dispatch_get_main_queue(), cancelableBlock);
-
-        if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
-            self.establishingSEBServerConnection = NO;
-            self.startingExamFromSEBServer = NO;
-            [self.serverController loginToExamAbortedWithCompletion:closeDisconnetingAlertCompletion];
-        } else if (self.sebServerConnectionEstablished) {
-            self.sebServerConnectionEstablished = NO;
-            [self.serverController quitSessionWithRestart:restart completion:closeDisconnetingAlertCompletion];
-        }
+    _establishingSEBServerConnection = NO;
+    if (restart) {
+        [self requestedRestart:nil];
     } else {
-        completion(restart);
+        [self quitSEBOrSession];
     }
-}
-
-
-- (void)requestedExit:(NSNotification *_Nullable)notification
-{
-    DDLogInfo(@"%s", __FUNCTION__);
-    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
-        DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
-
-        // Stop/Reset proctoring
-        [self stopProctoringWithCompletion:^{
-            DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
-            [self exitSEB];
-        }];
-    }];
-}
-
-- (void)exitSEB
-{
-    DDLogInfo(@"%s", __FUNCTION__);
-    quittingMyself = YES; //quit SEB without asking for confirmation or password
-
-    if (_browserController) {
-        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
-        // downloads to disk, and ensures that future requests occur on a new socket.
-        [self.browserController resetAllCookiesWithCompletionHandler:^{
-            DDLogInfo(@"%s All cookies have been reset, continue terminating", __FUNCTION__);
-            [NSApp terminate: nil]; //quit (exit) SEB
-        }];
-    } else {
-        DDLogInfo(@"%s Continue terminating", __FUNCTION__);
-        [NSApp terminate: nil]; //quit (exit) SEB
-    }
-}
-
-
-- (BOOL) quittingSession
-{
-    BOOL secureClientSession = NO;
-    if (self.examSession) {
-        secureClientSession = self.secureClientSession;
-    }
-    BOOL quittingSession = !_startingUp && self.examSession && secureClientSession && !_openedURL;
-    DDLogInfo(@"%s: %d", __FUNCTION__, quittingSession);
-    return quittingSession;
-}
-
-- (BOOL) examSession
-{
-    return NSUserDefaults.userDefaultsPrivate;
-}
-
-- (BOOL) secureClientSession
-{
-    [NSUserDefaults setUserDefaultsPrivate:NO];
-    BOOL secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
-    [NSUserDefaults setUserDefaultsPrivate:YES];
-    return secureClientSession;
 }
 
 
@@ -7227,6 +7131,8 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+/// Restart SEB
+///
 - (void)requestedRestart:(NSNotification *_Nullable)notification
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
@@ -7258,13 +7164,18 @@ conditionallyForWindow:(NSWindow *)window
     
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
-        run_on_ui_thread(^{
-            // Re-Initialize file logger if logging enabled
-            [self initializeLogger];
-            [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
-        });
+        DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+            run_on_ui_thread(^{
+                // Re-Initialize file logger if logging enabled
+                [self initializeLogger];
+                [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
+            });
+        }];
     }];
 }
+
 
 - (void)requestedRestartProcessesChecked
 {
@@ -7327,6 +7238,110 @@ conditionallyForWindow:(NSWindow *)window
     //        }
     //    }
     _restarting = NO;
+}
+
+
+- (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
+{
+    if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
+
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Disconnecting from SEB Server", @""), SEBShortAppName]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"If SEB Server doesn't respond for a while, you can forcibly close the connection", @""), SEBShortAppName, SEBShortAppName]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Force Close", @"")];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
+
+        void (^forceCloseConnection)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            DDLogInfo(@"User decided to force close SEB Server connection");
+            [self.serverController cancelQuitSessionWithRestart:restart completion:completion];
+        };
+        
+        void (^closeDisconnetingAlertCompletion)(BOOL) = ^void (BOOL restart) {
+            DDLogInfo(@"SEB Server connection was closed, closing Disconnecting alert.");
+            dispatch_block_cancel(self->cancelableBlock);
+            [modalAlert.window orderOut:self];
+            [self removeAlertWindow:modalAlert.window];
+            completion(restart);
+        };
+
+        cancelableBlock = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, ^{
+            [modalAlert beginSheetModalForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))forceCloseConnection];
+        });
+        
+        dispatch_time_t dispachTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC));
+        dispatch_after(dispachTime, dispatch_get_main_queue(), cancelableBlock);
+
+        if (self.startingExamFromSEBServer || self.establishingSEBServerConnection) {
+            self.establishingSEBServerConnection = NO;
+            self.startingExamFromSEBServer = NO;
+            [self.serverController loginToExamAbortedWithCompletion:closeDisconnetingAlertCompletion];
+        } else if (self.sebServerConnectionEstablished) {
+            self.sebServerConnectionEstablished = NO;
+            [self.serverController quitSessionWithRestart:restart completion:closeDisconnetingAlertCompletion];
+        }
+    } else {
+        completion(restart);
+    }
+}
+
+
+- (BOOL) quittingSession
+{
+    BOOL secureClientSession = NO;
+    if (self.examSession) {
+        secureClientSession = self.secureClientSession;
+    }
+    BOOL quittingSession = !_startingUp && self.examSession && secureClientSession && !_openedURL;
+    DDLogInfo(@"%s: %d", __FUNCTION__, quittingSession);
+    return quittingSession;
+}
+
+- (BOOL) examSession
+{
+    return NSUserDefaults.userDefaultsPrivate;
+}
+
+- (BOOL) secureClientSession
+{
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    BOOL secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    return secureClientSession;
+}
+
+
+/// Exit SEB
+///
+- (void)requestedExit:(NSNotification *_Nullable)notification
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    // Stop/Reset proctoring
+    [self stopProctoringWithCompletion:^{
+        DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+            [self exitSEB];
+        }];
+    }];
+}
+
+- (void)exitSEB
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    quittingMyself = YES; //quit SEB without asking for confirmation or password
+
+    if (_browserController) {
+        // Empties all cookies, caches and credential stores, removes disk files, flushes in-progress
+        // downloads to disk, and ensures that future requests occur on a new socket.
+        [self.browserController resetAllCookiesWithCompletionHandler:^{
+            DDLogInfo(@"%s All cookies have been reset, continue terminating", __FUNCTION__);
+            [NSApp terminate: nil]; //quit (exit) SEB
+        }];
+    } else {
+        DDLogInfo(@"%s Continue terminating", __FUNCTION__);
+        [NSApp terminate: nil]; //quit (exit) SEB
+    }
 }
 
 
