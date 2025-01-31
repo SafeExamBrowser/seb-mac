@@ -7000,7 +7000,11 @@ conditionallyForWindow:(NSWindow *)window
                 if (!quittingFromSPSCacheUpload) {
                     [self quitSEBOrSession]; // Quit SEB or the exam session
                 } else {
-                    [self exitSEB]; // Force quit SEB
+                    // Quit from uploading cached screen shots: Don't confirm quitting
+                    [self closeTransmittingCachedScreenShotsWindow:^{
+                        self->_screenProctoringController = nil;
+                        [self sessionQuitRestart:NO];
+                    }];
                 }
 
             } else {
