@@ -864,7 +864,7 @@ extension SEBScreenProctoringController {
         }
     }
     
-    private func continueClosingSession(completionHandler: (() -> Void)?) {
+    @objc func continueClosingSession(completionHandler: (() -> Void)?) {
         closingSession = false
         closingSessionCompletionHandler = nil
         transmittingDeferredScreenShotsWhileClosingErrorCount = 0
