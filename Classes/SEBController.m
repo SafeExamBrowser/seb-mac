@@ -7109,12 +7109,17 @@ conditionallyForWindow:(NSWindow *)window
         BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
         DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
     }
-    _establishingSEBServerConnection = NO;
-    if (restart) {
-        [self requestedRestart:nil];
-    } else {
-        [self quitSEBOrSession];
-    }
+    // Stop/Reset proctoring
+    [self stopProctoringWithCompletion:^{
+        DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+            self.establishingSEBServerConnection = NO;
+            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+            run_on_ui_thread(^{
+                [self didCloseSEBServerConnectionRestart:restart];
+            });
+        }];
+    }];
 }
 
 
@@ -7162,18 +7167,9 @@ conditionallyForWindow:(NSWindow *)window
         _batteryController = nil;
     }
     
-    // Stop/Reset proctoring
-    [self stopProctoringWithCompletion:^{
-        DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
-        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
-            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
-            run_on_ui_thread(^{
-                // Re-Initialize file logger if logging enabled
-                [self initializeLogger];
-                [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
-            });
-        }];
-    }];
+    // Re-Initialize file logger if logging enabled
+    [self initializeLogger];
+    [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
 }
 
 
@@ -7320,6 +7316,7 @@ conditionallyForWindow:(NSWindow *)window
     [self stopProctoringWithCompletion:^{
         DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
         [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+            self.establishingSEBServerConnection = NO;
             DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
             [self exitSEB];
         }];
