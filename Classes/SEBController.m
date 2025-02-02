@@ -778,13 +778,6 @@ bool insideMatrix(void);
     // a font download dialog which might be opened on some webpages
     keyboardEventReturnKey = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)36, true);
     
-    if (@available(macOS 10.13, *)) {
-        DDLogDebug(@"Installing get URL event handler is not necessary, as running on macOS >= 10.13");
-    } else {
-        [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleGetURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-        DDLogDebug(@"Installed get URL event handler");
-    }
-
     [[[NSWorkspace sharedWorkspace] notificationCenter]
      addObserver:self
      selector:@selector(lockSEB:)
@@ -828,32 +821,6 @@ bool insideMatrix(void);
         return YES;
     } else {
         return NO;
-    }
-}
-
-
-
-- (void)handleGetURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent
-{
-    DDLogDebug(@"%s", __FUNCTION__);
-    
-    // Check if any alerts are open in SEB, abort opening if yes
-    if (_modalAlertWindows.count) {
-        DDLogError(@"%lu Modal window(s) displayed, aborting before opening new settings.", (unsigned long)_modalAlertWindows.count);
-        return;
-    }
-    
-    NSString *urlString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-    if (urlString) {
-        NSURL *url = [NSURL URLWithString:urlString];
-        if (url && !_openingSettings) {
-            // If we have any URL, we try to download and open (conditionally) a .seb file
-            // hopefully linked by this URL (also supporting redirections and authentification)
-            _openingSettings = YES;
-            _openedURL = YES;
-            DDLogInfo(@"Get URL event: Loading .seb settings file with URL %@", urlString);
-            [self.browserController openConfigFromSEBURL:url];
-        }
     }
 }
 
