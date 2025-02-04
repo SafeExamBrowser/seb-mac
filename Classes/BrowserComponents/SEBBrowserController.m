@@ -240,14 +240,19 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSString *) openWebpagesTitlesString
 {
+    // SEB Screen Proctoring metadata is not localized
     NSArray *openWebpagesTitles = [_delegate openWebpagesTitles];
     NSString *openWebpagesTitlesMetaDataString = @"Main Window: ";
     NSString *openWebpagesTitlesMetaDataKeyString = nil;
     for (NSString *pageTitle in openWebpagesTitles) {
+        NSString *sanitizedPageTitle = @"";
+        if ([pageTitle isKindOfClass:[NSString class]]) {
+            sanitizedPageTitle = [NSString stringWithFormat:@"%@", pageTitle.length > 0 ? pageTitle : @"Untitled"];
+        }
         if (openWebpagesTitlesMetaDataKeyString) {
-            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingFormat:@", %@: %@", openWebpagesTitlesMetaDataKeyString, pageTitle];
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingFormat:@", %@: %@", openWebpagesTitlesMetaDataKeyString, sanitizedPageTitle];
         } else {
-            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingString:pageTitle];
+            openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingString:sanitizedPageTitle];
             openWebpagesTitlesMetaDataKeyString = @"Additional Window";
         }
     }
