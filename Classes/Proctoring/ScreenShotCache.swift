@@ -3,7 +3,7 @@
 //  SafeExamBrowser
 //
 //  Created by Daniel Schneider on 18.08.2024.
-//  Copyright (c) 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
