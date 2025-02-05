@@ -487,26 +487,28 @@ extension SEBScreenProctoringController {
                 // Start repeating timer to check server health on separate endpoint each 15 seconds
                 repeatingTimerForHealthCheck = timerForHealthCheck()
                 repeatingTimerForHealthCheck?.eventHandler = {
-                    // Check server health without sending screen shot
-                    DDLogDebug("SEB Screen Proctoring Controller: Check server health")
-                    if self.closingSession {
-                        self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: NSLocalizedString("Checking server health", comment: ""), totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
-                    }
-                    self.checkHealth {
+                    if !self.cancelAllRequests {
+                        // Check server health without sending screen shot
+                        DDLogDebug("SEB Screen Proctoring Controller: Check server health")
                         if self.closingSession {
-                            self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: String.localizedStringWithFormat(NSLocalizedString("Server health %d out of 10", comment: ""), 10-self.currentServerHealth), append: true, totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
+                            self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: NSLocalizedString("Checking server health", comment: ""), totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
                         }
-                        if self.currentServerHealth != SPSHealth.BAD {
-                            if !self.closingSession {
-//                                self.screenShotTimerQueue.async { [unowned self] in
-                                    self.screenShotMaxIntervallTriggered()
-//                                }
-                            } else {
-                                // When closing session, restart sending cached screeen shots
-                                self.transmitNextScreenShot()
+                        self.checkHealth {
+                            if self.closingSession {
+                                self.spsControllerUIDelegate?.updateTransmittingCachedScreenShotsWindow(remainingScreenShots: self.screenShotCache.count, message: nil, operation: String.localizedStringWithFormat(NSLocalizedString("Server health %d out of 10", comment: ""), 10-self.currentServerHealth), append: true, totalScreenShots: self.totalNumberOfCachedScreenShotsWhileClosing)
                             }
-                        } else if self.closingSession {
-                            self.transmittingDeferredScreenShotsWhileClosingError()
+                            if self.currentServerHealth != SPSHealth.BAD {
+                                if !self.closingSession {
+    //                                self.screenShotTimerQueue.async { [unowned self] in
+                                        self.screenShotMaxIntervallTriggered()
+    //                                }
+                                } else {
+                                    // When closing session, restart sending cached screeen shots
+                                    self.transmitNextScreenShot()
+                                }
+                            } else if self.closingSession {
+                                self.transmittingDeferredScreenShotsWhileClosingError()
+                            }
                         }
                     }
                 }
@@ -527,10 +529,12 @@ extension SEBScreenProctoringController {
             repeatingTimerForHealthCheck?.reset()
             repeatingTimerForHealthCheck = nil
             delayForResumingTimer = DispatchWorkItem { [weak self] in
-                DDLogInfo("SEB Screen Proctoring Controller: Delay for resuming timer fired, set transmitting state to normal.")
-                self?.transmittingState = SPSTransmittingState.normal
-                self?.setScreenProctoringButtonInfoString(String.localizedStringWithFormat(NSLocalizedString("Sending cached screen shots, server health %d out of 10", comment: ""), 10-(self?.currentServerHealth ?? 11)))
-                self?.transmitNextScreenShot()
+                if !(self?.cancelAllRequests ?? false) {
+                    DDLogInfo("SEB Screen Proctoring Controller: Delay for resuming timer fired, set transmitting state to normal.")
+                    self?.transmittingState = SPSTransmittingState.normal
+                    self?.setScreenProctoringButtonInfoString(String.localizedStringWithFormat(NSLocalizedString("Sending cached screen shots, server health %d out of 10", comment: ""), 10-(self?.currentServerHealth ?? 11)))
+                    self?.transmitNextScreenShot()
+                }
             }
             let randomDelay = Double.random(in: 0...(closingSession ? (currentServerHealth == SPSHealth.GOOD ? maxDelayForResumingTransmitting/3 : maxDelayForResumingTransmitting/2) : maxDelayForResumingTransmitting))
             let dateFormatter : DateFormatter = DateFormatter()
@@ -892,10 +896,13 @@ extension SEBScreenProctoringController {
     }
     
     @objc func continueClosingSession(completionHandler: (() -> Void)?) {
-        closingSession = false
         closingSessionCompletionHandler = nil
-        transmittingDeferredScreenShotsWhileClosingErrorCount = 0
+        delayForResumingTimer?.cancel()
+        repeatingTimerForHealthCheck?.reset()
+        repeatingTimerForHealthCheck = nil
         metadataCollector.stopMonitoringEvents()
+        closingSession = false
+        transmittingDeferredScreenShotsWhileClosingErrorCount = 0
         screenShotCache.conditionallyRemoveCacheDirectory()
         _screenShotCache = nil
         self.setScreenProctoringButtonState(ScreenProctoringButtonStateInactive)
@@ -909,6 +916,7 @@ extension SEBScreenProctoringController {
         let requestHeaders = [keys.headerAuthorization : authorizationString]
         
         load(closeSessionResource, httpMethod: closeSessionResource.httpMethod, body: Data(), headers: requestHeaders, withCompletion: { (closeSessionResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            self.cancelAllRequests = true
             if statusCode != nil && statusCode ?? 0 == statusCodes.ok {
                 DDLogInfo("SEB Screen Proctoring Controller: Session was closed.")
             } else {
