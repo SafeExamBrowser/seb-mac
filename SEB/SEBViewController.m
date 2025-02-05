@@ -3740,6 +3740,61 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
+- (void) enteredQuitPassword:(NSString *)password
+{
+    // Check if the cancel button was pressed
+    if (!password) {
+        if (_quittingFromSPSCacheUpload) {
+            [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil];
+        } else {
+            _quittingFromSPSCacheUpload = NO;
+            [self.sideMenuController hideLeftViewAnimated];
+        }
+        return;
+    }
+    
+    // Get quit password hash from current client settings
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
+    hashedQuitPassword = [hashedQuitPassword uppercaseString];
+    
+    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
+    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
+    hashedPassword = [hashedPassword uppercaseString];
+    
+    attempts--;
+    
+    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+        // wrong password entered, are there still attempts left?
+        if (attempts > 0) {
+            // Let the user try it again
+            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
+            // Ask the user to enter the settings password and proceed to the callback method after this happend
+            [self.configFileController promptPasswordWithMessageText:enterPasswordString
+                                                               title:NSLocalizedString(@"Quit Session",nil)
+                                                            callback:self
+                                                            selector:@selector(enteredQuitPassword:)];
+            return;
+            
+        } else {
+            // Wrong password entered in the last allowed attempts: Stop quitting the exam
+            DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
+            
+            NSString *title = NSLocalizedString(@"Cannot Quit Session", @"");
+            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", @"");
+            [self.configFileController showAlertWithTitle:title andText:informativeText];
+            [self.sideMenuController hideLeftViewAnimated];
+            _quittingFromSPSCacheUpload = NO;
+            return;
+        }
+        
+    } else {
+        // The correct quit password was entered
+        [self quitExam];
+    }
+}
+
+
 - (void)quitLinkDetected:(NSNotification *)notification
 {
     DDLogInfo(@"Quit Link invoked");
@@ -3803,6 +3858,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (quittingFromSPSCacheUpload) {
         _quittingFromSPSCacheUpload = NO;
         [self.screenProctoringController continueClosingSessionWithCompletionHandler:^{
+            self.screenProctoringController = nil;
             [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
                 [self didCloseSEBServerConnectionRestart:restart];
             }];
@@ -3888,60 +3944,6 @@ void run_on_ui_thread(dispatch_block_t block)
              pasteboardString:nil];
 }
 
-
-- (void) enteredQuitPassword:(NSString *)password
-{
-    // Check if the cancel button was pressed
-    if (!password) {
-        if (_quittingFromSPSCacheUpload) {
-            [self showTransmittingCachedScreenShotsWindowWithRemainingScreenShots:self.latestNumberOfCachedScreenShotsWhileClosing message:nil operation:nil];
-        } else {
-            _quittingFromSPSCacheUpload = NO;
-            [self.sideMenuController hideLeftViewAnimated];
-        }
-        return;
-    }
-    
-    // Get quit password hash from current client settings
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
-    SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
-    attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
-        // wrong password entered, are there still attempts left?
-        if (attempts > 0) {
-            // Let the user try it again
-            NSString *enterPasswordString = NSLocalizedString(@"Wrong password! Try again to enter the quit password:",nil);
-            // Ask the user to enter the settings password and proceed to the callback method after this happend
-            [self.configFileController promptPasswordWithMessageText:enterPasswordString
-                                                               title:NSLocalizedString(@"Quit Session",nil)
-                                                            callback:self
-                                                            selector:@selector(enteredQuitPassword:)];
-            return;
-            
-        } else {
-            // Wrong password entered in the last allowed attempts: Stop quitting the exam
-            DDLogError(@"%s: Couldn't quit the session: The correct quit password wasn't entered.", __FUNCTION__);
-            
-            NSString *title = NSLocalizedString(@"Cannot Quit Session", @"");
-            NSString *informativeText = NSLocalizedString(@"If you don't enter the correct quit password, then you cannot quit the session.", @"");
-            [self.configFileController showAlertWithTitle:title andText:informativeText];
-            [self.sideMenuController hideLeftViewAnimated];
-            _quittingFromSPSCacheUpload = NO;
-            return;
-        }
-        
-    } else {
-        // The correct quit password was entered
-        [self quitExam];
-    }
-}
 
 
 - (void) quitExam

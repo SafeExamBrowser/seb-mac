@@ -58,7 +58,12 @@ import CocoaLumberjackSwift
             DDLogError("Could not remove temporary directory with error: \(error)")
         }
         let parentDirectory = url.deletingLastPathComponent()
-        if parentDirectory.lastPathComponent.hasPrefix("NSIRD_\(SEBFullAppName)") {
+#if os(macOS)
+        let directoryPrefix = "NSIRD_\(SEBFullAppName)"
+#elseif os(iOS)
+        let directoryPrefix = "NSIRD_\(SEBShortAppName)"
+#endif
+        if parentDirectory.lastPathComponent.hasPrefix(directoryPrefix) {
             do {
                 try fileManager.removeItem(atPath: parentDirectory.path)
             } catch let error {
