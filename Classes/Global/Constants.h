@@ -200,7 +200,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion18                            = 19
+    iOSBetaVersion19                            = 19
 };
 typedef NSUInteger iOSBetaVersion;
 
