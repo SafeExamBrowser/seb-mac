@@ -190,7 +190,7 @@
 {
     NSMutableString *expressionString = [NSMutableString new];
     NSString *part;
-    [expressionString appendString:@"^"];
+//    [expressionString appendString:@"^"];
     
     /// Scheme
     if (_scheme) {
@@ -263,7 +263,7 @@
         [expressionString appendFormat:@"#%@", [self stringForRegexFilter:_fragment]];
     }
     
-    [expressionString appendString:@"$"];
+//    [expressionString appendString:@"$"];
     
     return expressionString;
 }
