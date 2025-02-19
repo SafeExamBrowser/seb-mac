@@ -36,21 +36,50 @@
 @implementation SEBURLFilterRegexExpression
 
 
-+ (SEBURLFilterRegexExpression *) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error
++ (NSArray<SEBURLFilterRegexExpression*>*) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error
 {
     SEBURLFilterRegexExpression *filterExpression = [SEBURLFilterRegexExpression new];
+    SEBURLFilterRegexExpression *filterExpression2;
+    SEBURLFilterRegexExpression *filterExpression3;
+    SEBURLFilterRegexExpression *filterExpression4;
     SEBURLFilterExpression *URLFromString = [SEBURLFilterExpression filterExpressionWithString:filterExpressionString];
     
     filterExpression.scheme = [self regexForFilterString:URLFromString.scheme error:error];
     filterExpression.user = [self regexForFilterString:URLFromString.user error:error];
     filterExpression.password = [self regexForFilterString:URLFromString.password error:error];
-    filterExpression.host = [self regexForHostFilterString:URLFromString.host error:error];
     filterExpression.port = URLFromString.port;
-    filterExpression.path = [self regexForPathFilterString:URLFromString.path error:error];
     filterExpression.query = [self regexForQueryFilterString:URLFromString.query error:error];
     filterExpression.fragment = [self regexForFilterString:URLFromString.fragment error:error];
+
+    NSArray<NSRegularExpression *>*hostRegexFilterStrings = [self regexForHostFilterString:URLFromString.host error:error];
+    if (hostRegexFilterStrings.count > 1) {
+        filterExpression2 = filterExpression;
+        filterExpression2.host = hostRegexFilterStrings[1];
+    }
+    filterExpression.host = hostRegexFilterStrings[0];
     
-    return filterExpression;
+    NSArray<NSRegularExpression *>*pathRegexFilterStrings = [self regexForPathFilterString:URLFromString.path error:error];
+    if (pathRegexFilterStrings.count > 1) {
+        if (filterExpression2) {
+            filterExpression3 = filterExpression;
+            filterExpression4 = filterExpression2;
+            filterExpression.path = pathRegexFilterStrings[0];
+            filterExpression2.path = pathRegexFilterStrings[0];
+            filterExpression3.path = pathRegexFilterStrings[1];
+            filterExpression4.path = pathRegexFilterStrings[1];
+        } else {
+            filterExpression2 = filterExpression;
+            filterExpression.path = pathRegexFilterStrings[0];
+            filterExpression2.path = pathRegexFilterStrings[1];
+        }
+    } else {
+        if (filterExpression2) {
+            filterExpression2.path = pathRegexFilterStrings[0];
+        }
+        filterExpression.path = pathRegexFilterStrings[0];
+    }
+    NSMutableArray<NSRegularExpression*>* regexFilterExpressions = [NSMutableArray arrayWithObjects:filterExpression, filterExpression2, filterExpression3, filterExpression4, nil];
+    return regexFilterExpressions.copy;
 }
 
 
@@ -71,7 +100,7 @@
 }
 
 
-+ (NSRegularExpression *) regexForHostFilterString:(NSString *)filterString error:(NSError **)error
++ (NSArray<NSRegularExpression *>*) regexForHostFilterString:(NSString *)filterString error:(NSError **)error
 {
     if (filterString.length == 0) {
         
@@ -83,20 +112,23 @@
             // Get host string without the "." prefix
             filterString = [filterString substringFromIndex:1];
             // Get regex for host <*://example.com> (without possible subdomains)
-            return [self regexForFilterString:filterString error:error];
+            return @[[self regexForFilterString:filterString error:error]];
         }
-        // Allow subdomain matching: Create combined regex for <example.com> and <*.example.com>
+        // Allow subdomain matching: Create two regex strings for <example.com> and <*.example.com>
         NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
         regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
+        
         // Add regex command characters for matching at start and end of a line (part)
-        regexString = [NSString stringWithFormat:@"^((%@)|(.*?\\.%@))$", regexString, regexString];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
-        return regex;
+        NSString *regexString1 = [NSString stringWithFormat:@"^%@$", regexString];
+        NSString *regexString2 = [NSString stringWithFormat:@"^(.*?\\.%@)$", regexString];
+        NSRegularExpression *regex1 = [NSRegularExpression regularExpressionWithPattern:regexString1 options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+        NSRegularExpression *regex2 = [NSRegularExpression regularExpressionWithPattern:regexString2 options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+        return @[regex1, regex2];
     }
 }
 
 
-+ (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error
++ (NSArray<NSRegularExpression *>*) regexForPathFilterString:(NSString *)filterString error:(NSError **)error
 {
     // Trim a possible trailing slash "/", we will instead add a rule to also match paths to directories without trailing slash
     filterString = [filterString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
@@ -113,6 +145,7 @@
             // Get path string without the "/*" suffix
             NSString *filterStringDirectory = [filterString substringToIndex:filterString.length-2];
             
+            // Create two regex strings, to match with or without the trailing slash
             NSString *regexString = [NSRegularExpression escapedPatternForString:filterString];
             regexString = [regexString stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
             
@@ -120,12 +153,14 @@
             regexStringDir = [regexStringDir stringByReplacingOccurrencesOfString:@"\\*" withString:@".*?"];
             
             // Add regex command characters for matching at start and end of a line (part)
-            regexString = [NSString stringWithFormat:@"^((%@)|(%@))$", regexString, regexStringDir];
+            NSString *regexString1 = [NSString stringWithFormat:@"^%@$", regexString];
+            NSString *regexString2 = [NSString stringWithFormat:@"^%@$", regexStringDir];
             
-            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
-            return regex;
+            NSRegularExpression *regex1 = [NSRegularExpression regularExpressionWithPattern:regexString1 options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+            NSRegularExpression *regex2 = [NSRegularExpression regularExpressionWithPattern:regexString2 options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:error];
+            return @[regex1, regex2];
         } else {
-            return [self regexForFilterString:filterString error:error];
+            return @[[self regexForFilterString:filterString error:error]];
         }
     }
 }
@@ -195,9 +230,9 @@
     }
     
     // When there is a host, but no path
-    if (_host && !_path) {
-        hostPort = [NSString stringWithFormat:@"((%@)|(%@\\/.*?))", hostPort, hostPort];
-    }
+//    if (_host && !_path) {
+//        hostPort = [NSString stringWithFormat:@"((%@)|(%@\\/.*?))", hostPort, hostPort];
+//    }
     
     [expressionString appendString:hostPort];
     
@@ -212,16 +247,16 @@
     }
     
     /// Query
-    if (_query) {
-        // Check for special case Query = "?." which means no query string is allowed
-        if ([[self stringForRegexFilter:_query] isEqualToString:@"."]) {
-            [expressionString appendFormat:@"[^\\?]"];
-        } else {
-            [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
-        }
-    } else {
-        [expressionString appendFormat:@"(()|(\\?.*?))"];
-    }
+//    if (_query) {
+//        // Check for special case Query = "?." which means no query string is allowed
+//        if ([[self stringForRegexFilter:_query] isEqualToString:@"."]) {
+//            [expressionString appendFormat:@"[^\\?]"];
+//        } else {
+//            [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
+//        }
+//    } else {
+//        [expressionString appendFormat:@"(()|(\\?.*?))"];
+//    }
     
     /// Fragment
     if (_fragment) {

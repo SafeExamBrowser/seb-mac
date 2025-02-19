@@ -35,6 +35,8 @@
 #import <Foundation/Foundation.h>
 #import "SEBURLFilterExpression.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SEBURLFilter : NSObject
 
 @property (readwrite) BOOL enableURLFilter;
@@ -44,6 +46,8 @@
 @property (strong) NSMutableArray *permittedList;
 @property (strong) NSMutableArray *prohibitedList;
 @property (strong) NSMutableArray *ignoreList;
+@property (strong, nonatomic) NSArray<NSString*>*regexAllowList;
+@property (strong, nonatomic) NSArray<NSString*>*regexBlockList;
 
 
 + (SEBURLFilter *) sharedSEBURLFilter;
@@ -64,3 +68,5 @@
 - (NSArray <NSString*>*)permittedDomains;
 
 @end
+
+NS_ASSUME_NONNULL_END

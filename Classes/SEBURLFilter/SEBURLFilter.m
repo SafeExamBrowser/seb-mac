@@ -92,13 +92,13 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             
             NSString *expressionString = URLFilterRule[@"expression"];
             if (expressionString.length > 0) {
-                id expression;
+                NSMutableArray *expressions = [NSMutableArray new];
                 
                 BOOL regex = [URLFilterRule[@"regex"] boolValue];
                 if (regex) {
-                    expression = [NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error];
+                    [expressions addObject:[NSRegularExpression regularExpressionWithPattern:expressionString options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines error:&error]];
                 } else {
-                    expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
+                    [expressions addObjectsFromArray:[SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error]];
                 }
                 if (error) {
                     [self.prohibitedList removeAllObjects];
@@ -108,11 +108,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
                 int action = [URLFilterRule[@"action"] intValue];
                 switch (action) {
                     case URLFilterActionBlock:
-                        [self.prohibitedList addObject:expression];
+                        [self.prohibitedList addObjectsFromArray:expressions];
                         break;
                         
                     case URLFilterActionAllow:
-                        [self.permittedList addObject:expression];
+                        [self.permittedList addObjectsFromArray:expressions];
                         break;
                 }
             }
@@ -124,14 +124,14 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSString *startURLString = startURL.absoluteString;
     if (self.enableURLFilter && [self testURLAllowed:startURL] != URLFilterActionAllow) {
         // If Start URL is not allowed: Create one using the full Start URL
-        id expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
+        NSArray *expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:startURLString error:&error];
         if (error) {
             [self.prohibitedList removeAllObjects];
             [self.permittedList removeAllObjects];
             return error;
         }
         // Add this Start URL filter expression to the permitted filter list
-        [self.permittedList addObject:expression];
+        [self.permittedList addObjectsFromArray:expressions];
     }
     
     // Updating filter rules worked; don't return any NSError
@@ -154,11 +154,11 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSArray *URLFilterIgnoreRules = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"];
     NSError *error;
     NSString *expressionString;
-    SEBURLFilterRegexExpression *expression;
+    NSArray<SEBURLFilterRegexExpression*>*expressions;
     
     for (expressionString in URLFilterIgnoreRules) {
-        expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
-        [self.ignoreList addObject:expression];
+        expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:expressionString error:&error];
+        [self.ignoreList addObjectsFromArray:expressions];
         if (error) {
             [self.ignoreList removeAllObjects];
             return error;
@@ -200,35 +200,40 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 
 - (NSString *) sebRuleStringForSEBURLFilterRuleList:(NSMutableArray *)filterRuleList
 {
+    NSArray *regexFilterRuleStrings = [self regexFilterRuleStringsForSEBURLFilterRuleList:filterRuleList];
+    return [regexFilterRuleStrings componentsJoinedByString:@";"];
+}
+
+
+- (NSArray<NSString*>*) regexFilterRuleStringsForSEBURLFilterRuleList:(NSArray*)filterRuleList
+{
     if (filterRuleList.count == 0) {
         // No rules defined
-        return @"";
+        return @[];
     }
-    
     id expression;
-    NSMutableString *sebRuleString = [NSMutableString new];
+    NSMutableArray *regexFilterRuleStrings = [NSMutableArray new];
     for (expression in filterRuleList) {
         if (expression) {
             
             if ([expression isKindOfClass:[NSRegularExpression class]]) {
-                if (sebRuleString.length == 0) {
-                    [sebRuleString appendString:[expression pattern]];
-                } else {
-                    [sebRuleString appendFormat:@";%@", [expression pattern]];
-                }
+                [regexFilterRuleStrings addObject:[expression pattern]];
             }
             
             if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
-                if (sebRuleString.length == 0) {
-                    [sebRuleString appendString:[expression string]];
-                } else {
-                    [sebRuleString appendFormat:@";%@", [expression string]];
-                }
+                [regexFilterRuleStrings addObject:[expression string]];
             }
         }
     }
-    
-    return [NSString stringWithString:sebRuleString];
+    return regexFilterRuleStrings.copy;
+}
+
+- (NSArray<NSString*>*)regexAllowList {
+    return [self regexFilterRuleStringsForSEBURLFilterRuleList:self.permittedList];
+}
+
+- (NSArray<NSString*>*)regexBlockList {
+    return [self regexFilterRuleStringsForSEBURLFilterRuleList:self.prohibitedList];
 }
 
 
@@ -393,21 +398,21 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
     NSError *error;
     NSString *filterExpressionString = filterExpression.string;
     if (filterExpressionString.length > 0) {
-        id expression;
-        expression = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpressionString error:&error];
-        if (!error && !expression) {
+        NSArray *expressions;
+        expressions = [SEBURLFilterRegexExpression regexFilterExpressionWithString:filterExpressionString error:&error];
+        if (!error && expressions.count > 0) {
             switch (action) {
                 case URLFilterActionAllow:
-                    [self.permittedList addObject:expression];
+                    [self.permittedList addObjectsFromArray:expressions];
                     break;
                     
                 case URLFilterActionBlock:
-                    [self.prohibitedList addObject:expression];
+                    [self.prohibitedList addObjectsFromArray:expressions];
                     break;
                     
                 case URLFilterActionIgnore: {
                     // Add an filter rule expression to the ignore list
-                    [self.ignoreList addObject:expression];
+                    [self.ignoreList addObjectsFromArray:expressions];
                     // And to settings
                     NSMutableArray *URLFilterRules = [NSMutableArray arrayWithArray:[preferences secureArrayForKey:@"org_safeexambrowser_SEB_URLFilterIgnoreList"]];
                     [URLFilterRules addObject:filterExpression.string];

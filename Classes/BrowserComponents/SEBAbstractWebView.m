@@ -69,7 +69,7 @@
 
         if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-            BOOL urlContentFilter = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
+            BOOL urlContentFilter = NO; //[preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"];
 #if TARGET_OS_IPHONE
                 // Override urlContentFilter until we can implement it for WKWebView ToDo
                 urlContentFilter = NO;

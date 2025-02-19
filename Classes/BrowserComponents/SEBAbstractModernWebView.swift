@@ -41,7 +41,13 @@ import CocoaLumberjackSwift
         let webView = nativeWebView() as! WKWebView
         return webView
     }
+
+    private let urlFilter: SEBURLFilter = SEBURLFilter.shared()
     
+    private var urlContentFilter: Bool {
+        return urlFilter.enableURLFilter && urlFilter.enableContentFilter
+    }
+
     private let defaultPageZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomPage") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultPageZoomLevel") : WebViewDefaultPageZoom
     private let defaultTextZoom = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_enableZoomText") ? UserDefaults.standard.secureDouble(forKey: "org_safeexambrowser_SEB_defaultTextZoomLevel") : WebViewDefaultTextZoom
     private let browserMediaCaptureCamera = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_browserMediaCaptureCamera")
@@ -332,6 +338,25 @@ import CocoaLumberjackSwift
     }
     
     public func load(_ url: URL) {
+        if urlContentFilter {
+            let contentRuleListCreator = SEBWKContentRuleListCreator(allowUploads: self.allowUploads)
+            let contentRuleList = contentRuleListCreator.contentRuleList(allowFilterStrings: urlFilter.regexAllowList, blockFilterStrings: urlFilter.regexBlockList)
+            WKContentRuleListStore.default().compileContentRuleList(
+                forIdentifier: "URLContentBlockingRules",
+                encodedContentRuleList: contentRuleList) { (compiledContentRuleList, error) in
+                    
+                    if let error = error {
+                        DDLogError("Compiling content blocking rules failed with error \(error)")
+                        DDLogDebug("Failed content blocking rule list: \n\(String(describing: contentRuleList))")
+                    } else {
+                        let configuration = self.sebWebView.configuration
+                        configuration.userContentController.removeAllContentRuleLists()
+                        configuration.userContentController.add(compiledContentRuleList!)
+                    }
+                    self.browserControllerDelegate?.load?(url)
+                }
+            return
+        }
         browserControllerDelegate?.load?(url)
     }
     

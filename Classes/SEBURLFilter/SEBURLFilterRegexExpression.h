@@ -46,15 +46,7 @@
 @property NSRegularExpression *fragment;
 
 
-+ (SEBURLFilterRegexExpression *) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error;
-
-+ (NSRegularExpression *) regexForFilterString:(NSString *)filterString error:(NSError **)error;
-
-+ (NSRegularExpression *) regexForHostFilterString:(NSString *)filterString error:(NSError **)error;
-
-+ (NSRegularExpression *) regexForPathFilterString:(NSString *)filterString error:(NSError **)error;
-
-+ (NSRegularExpression *) regexForQueryFilterString:(NSString *)filterString error:(NSError **)error;
++ (NSArray<SEBURLFilterRegexExpression*>*) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error;
 
 - (NSString *) string;
 
