@@ -9,3 +9,4 @@
 #import "SEBURLFilter.h"
 #import "SEBBatteryController.h"
 #import "SEBSystemManager.h"
+#import "SEBURLFilter.h"
