@@ -221,7 +221,7 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
             }
             
             if ([expression isKindOfClass:[SEBURLFilterRegexExpression class]]) {
-                [regexFilterRuleStrings addObject:[expression string]];
+                [regexFilterRuleStrings addObjectsFromArray:[expression strings]];
             }
         }
     }

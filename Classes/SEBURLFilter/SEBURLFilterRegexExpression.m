@@ -190,7 +190,7 @@
 {
     NSMutableString *expressionString = [NSMutableString new];
     NSString *part;
-//    [expressionString appendString:@"^"];
+    [expressionString appendString:@"^"];
     
     /// Scheme
     if (_scheme) {
@@ -230,9 +230,9 @@
     }
     
     // When there is a host, but no path
-//    if (_host && !_path) {
-//        hostPort = [NSString stringWithFormat:@"((%@)|(%@\\/.*?))", hostPort, hostPort];
-//    }
+    if (_host && !_path) {
+        hostPort = [NSString stringWithFormat:@"((%@)|(%@\\/.*?))", hostPort, hostPort];
+    }
     
     [expressionString appendString:hostPort];
     
@@ -247,25 +247,133 @@
     }
     
     /// Query
-//    if (_query) {
-//        // Check for special case Query = "?." which means no query string is allowed
-//        if ([[self stringForRegexFilter:_query] isEqualToString:@"."]) {
-//            [expressionString appendFormat:@"[^\\?]"];
-//        } else {
-//            [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
-//        }
-//    } else {
-//        [expressionString appendFormat:@"(()|(\\?.*?))"];
-//    }
+    if (_query) {
+        // Check for special case Query = "?." which means no query string is allowed
+        if ([[self stringForRegexFilter:_query] isEqualToString:@"."]) {
+            [expressionString appendFormat:@"[^\\?]"];
+        } else {
+            [expressionString appendFormat:@"\\?%@", [self stringForRegexFilter:_query]];
+        }
+    } else {
+        [expressionString appendFormat:@"(()|(\\?.*?))"];
+    }
     
     /// Fragment
     if (_fragment) {
         [expressionString appendFormat:@"#%@", [self stringForRegexFilter:_fragment]];
     }
     
-//    [expressionString appendString:@"$"];
+    [expressionString appendString:@"$"];
     
     return expressionString;
+}
+
+
+- (NSArray<NSString*>*) strings
+{
+    NSMutableString *expressionString = [NSMutableString new];
+    NSMutableString *expressionString2 = [NSMutableString new];
+    NSMutableString *expressionString3 = [NSMutableString new];
+    NSMutableString *expressionString4 = [NSMutableString new];
+    NSString *part;
+//    [expressionString appendString:@"^"];
+    
+    /// Scheme
+    if (_scheme) {
+        // If there is a regex filter for scheme
+        // get stripped regex pattern
+        part = [self stringForRegexFilter:_scheme];
+    } else {
+        // otherwise use the regex wildcard pattern for scheme
+        part = @".*?";
+    }
+    [expressionString appendFormat:@"%@:\\/\\/", part];
+    
+    /// User/Password
+    if (_user) {
+        part = [self stringForRegexFilter:_user];
+        
+        [expressionString appendString:part];
+        
+        if (_password) {
+            [expressionString appendFormat:@":%@@", [self stringForRegexFilter:_password]];
+        } else {
+            [expressionString appendString:@"@"];
+        }
+    }
+    
+    /// Host
+    NSString *hostPortRegexFilter = @"";
+    if (_host) {
+        hostPortRegexFilter = [self stringForRegexFilter:_host];
+    } else {
+        hostPortRegexFilter = @".*?";
+    }
+    
+    /// Port
+    if (_port && (_port.integerValue > 0) && (_port.integerValue <= 65535)) {
+        hostPortRegexFilter = [NSString stringWithFormat:@"%@:%@", hostPortRegexFilter, _port.stringValue];
+    }
+    
+    // When there is a host, but no path
+    if (_host && !_path) {
+        NSString *hostPortRegexFilter2 = [NSString stringWithFormat:@"%@\\/.*?", hostPortRegexFilter];
+        expressionString2 = expressionString;
+        [expressionString2 appendString:hostPortRegexFilter2];
+    }
+    [expressionString appendString:hostPortRegexFilter];
+    
+    /// Path
+    if (_path) {
+        NSString *pathRegex = [self stringForRegexFilter:_path];
+        if ([pathRegex hasPrefix:@"\\/"]) {
+            [expressionString appendString:pathRegex];
+            [expressionString2 appendString:pathRegex];
+        } else {
+            NSString *pathRegexFilter = [NSString stringWithFormat:@"\\/%@", pathRegex];
+            [expressionString appendString:pathRegexFilter];
+            [expressionString2 appendString:pathRegexFilter];
+        }
+    }
+    
+    /// Query
+    if (_query) {
+        // Check for special case Query = "?." which means no query string is allowed
+        NSString *queryRegex = [self stringForRegexFilter:_query];
+        if ([queryRegex isEqualToString:@"."]) {
+            [expressionString appendFormat:@"[^\\?]"];
+            [expressionString2 appendFormat:@"[^\\?]"];
+        } else {
+            NSString *queryRegexFilter = [NSString stringWithFormat:@"\\?%@", queryRegex];
+            [expressionString appendString: queryRegexFilter];
+            [expressionString2 appendString: queryRegexFilter];
+        }
+    } else {
+        NSString *anyQueryRegexFilter = @"(\\?.*?)";
+        if (expressionString2) {
+            expressionString3 = expressionString;
+            expressionString4 = expressionString2;
+            [expressionString3 appendString:anyQueryRegexFilter];
+            [expressionString4 appendString:anyQueryRegexFilter];
+        } else {
+            expressionString2 = expressionString;
+            [expressionString2 appendString:anyQueryRegexFilter];
+        }
+    }
+    
+    /// Fragment
+    if (_fragment) {
+        NSString *fragmentRegexFilter = [NSString stringWithFormat:@"#%@", [self stringForRegexFilter:_fragment]];
+        [expressionString appendString:fragmentRegexFilter];
+        [expressionString2 appendString:fragmentRegexFilter];
+        [expressionString3 appendString:fragmentRegexFilter];
+        [expressionString4 appendString:fragmentRegexFilter];
+    }
+    
+//    [expressionString appendString:@"$"];
+    
+    NSMutableArray<NSRegularExpression*>* expressionStrings = [NSMutableArray arrayWithObjects:expressionString, expressionString2, expressionString3, expressionString4, nil];
+    return expressionStrings.copy;
 }
 
 

@@ -49,6 +49,6 @@
 + (NSArray<SEBURLFilterRegexExpression*>*) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error;
 
 - (NSString *) string;
-
+- (NSArray<NSString*>*) strings;
 
 @end
