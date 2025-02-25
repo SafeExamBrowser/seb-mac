@@ -1806,7 +1806,6 @@ bool insideMatrix(void);
             
             if (result == kAXErrorSuccess) {
                 activeBrowserWindowTitle = CFBridgingRelease(title);
-                activeBrowserWindowTitle = [activeBrowserWindowTitle stringByReplacingOccurrencesOfString:@"—" withString:@"-"];
             }
         }
     }
@@ -1815,6 +1814,13 @@ bool insideMatrix(void);
     
     if (activeBrowserWindowTitle == nil) {
         activeBrowserWindowTitle = @"";
+    }
+    
+    if (sebPID == pid) {
+        NSUInteger sebVersionWindowTitelSeparatorLocation = [activeBrowserWindowTitle rangeOfString:@" – "].location;
+        if (sebVersionWindowTitelSeparatorLocation != NSNotFound) {
+            activeBrowserWindowTitle = [activeBrowserWindowTitle substringFromIndex:MIN(sebVersionWindowTitelSeparatorLocation+3, activeBrowserWindowTitle.length-1)];
+        }
     }
     
     NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
