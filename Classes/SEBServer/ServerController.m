@@ -183,13 +183,13 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                 urlComponents.path = nil;
                 urlComponents.query = nil;
-                [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:urlComponents.URL endpoint:moodleUserIDEndpointSEBServerPlugin];
+                [_sebServerController getMoodleUserIdWithMoodleCookie:cookie url:urlComponents.URL endpoint:moodleUserIDEndpointSEBServerPlugin];
             }
         }
     }
 }
 
-- (void) didReceiveMoodleUserId:(NSString *)moodleUserId moodleSession:(NSString * _Nonnull)moodleSession url:(NSURL * _Nonnull)url endpoint:(NSString * _Nonnull)endpoint
+- (void) didReceiveMoodleUserId:(NSString *)moodleUserId moodleCookie:(NSHTTPCookie * _Nonnull)moodleCookie url:(NSURL * _Nonnull)url endpoint:(NSString * _Nonnull)endpoint
 {
     if (moodleUserId.length > 0 && ![sessionIdentifier isEqualToString:moodleUserId]) {
         if (![moodleUserId isEqualToString:@"0"]) {
@@ -198,7 +198,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
             [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
         }
     } else if ([endpoint isEqualToString:moodleUserIDEndpointSEBServerPlugin]) {
-        [_sebServerController getMoodleUserIdWithMoodleSession:moodleSession url:url endpoint:moodleUserIDEndpointETHTheme];
+        [_sebServerController getMoodleUserIdWithMoodleCookie:moodleCookie url:url endpoint:moodleUserIDEndpointETHTheme];
     }
 }
 
