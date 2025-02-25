@@ -36,6 +36,21 @@
 @implementation SEBURLFilterRegexExpression
 
 
+- (SEBURLFilterRegexExpression *) copyWithZone:(NSZone *)zone
+{
+    SEBURLFilterRegexExpression *copy = [SEBURLFilterRegexExpression new];
+    copy.scheme = self.scheme;
+    copy.user = self.user;
+    copy.password = self.password;
+    copy.host = self.host;
+    copy.port = self.port;
+    copy.path = self.path;
+    copy.query = self.query;
+    copy.fragment = self.fragment;
+    return copy;
+}
+
+
 + (NSArray<SEBURLFilterRegexExpression*>*) regexFilterExpressionWithString:(NSString *)filterExpressionString error:(NSError **)error
 {
     SEBURLFilterRegexExpression *filterExpression = [SEBURLFilterRegexExpression new];
@@ -53,7 +68,7 @@
 
     NSArray<NSRegularExpression *>*hostRegexFilterStrings = [self regexForHostFilterString:URLFromString.host error:error];
     if (hostRegexFilterStrings.count > 1) {
-        filterExpression2 = filterExpression;
+        filterExpression2 = filterExpression.copy;
         filterExpression2.host = hostRegexFilterStrings[1];
     }
     filterExpression.host = hostRegexFilterStrings[0];
@@ -61,14 +76,14 @@
     NSArray<NSRegularExpression *>*pathRegexFilterStrings = [self regexForPathFilterString:URLFromString.path error:error];
     if (pathRegexFilterStrings.count > 1) {
         if (filterExpression2) {
-            filterExpression3 = filterExpression;
-            filterExpression4 = filterExpression2;
+            filterExpression3 = filterExpression.copy;
+            filterExpression4 = filterExpression2.copy;
             filterExpression.path = pathRegexFilterStrings[0];
             filterExpression2.path = pathRegexFilterStrings[0];
             filterExpression3.path = pathRegexFilterStrings[1];
             filterExpression4.path = pathRegexFilterStrings[1];
         } else {
-            filterExpression2 = filterExpression;
+            filterExpression2 = filterExpression.copy;
             filterExpression.path = pathRegexFilterStrings[0];
             filterExpression2.path = pathRegexFilterStrings[1];
         }
@@ -276,7 +291,7 @@
     NSMutableString *expressionString3 = [NSMutableString new];
     NSMutableString *expressionString4 = [NSMutableString new];
     NSString *part;
-//    [expressionString appendString:@"^"];
+    [expressionString appendString:@"^"];
     
     /// Scheme
     if (_scheme) {
@@ -318,8 +333,10 @@
     // When there is a host, but no path
     if (_host && !_path) {
         NSString *hostPortRegexFilter2 = [NSString stringWithFormat:@"%@\\/.*?", hostPortRegexFilter];
-        expressionString2 = expressionString;
-        [expressionString2 appendString:hostPortRegexFilter2];
+        expressionString2 = expressionString.mutableCopy;
+        if (expressionString2) {
+            [expressionString2 appendString:hostPortRegexFilter2];
+        }
     }
     [expressionString appendString:hostPortRegexFilter];
     
@@ -328,11 +345,15 @@
         NSString *pathRegex = [self stringForRegexFilter:_path];
         if ([pathRegex hasPrefix:@"\\/"]) {
             [expressionString appendString:pathRegex];
-            [expressionString2 appendString:pathRegex];
+            if (expressionString2) {
+                [expressionString2 appendString:pathRegex];
+            }
         } else {
             NSString *pathRegexFilter = [NSString stringWithFormat:@"\\/%@", pathRegex];
             [expressionString appendString:pathRegexFilter];
-            [expressionString2 appendString:pathRegexFilter];
+            if (expressionString2) {
+                [expressionString2 appendString:pathRegexFilter];
+            }
         }
     }
     
@@ -342,21 +363,25 @@
         NSString *queryRegex = [self stringForRegexFilter:_query];
         if ([queryRegex isEqualToString:@"."]) {
             [expressionString appendFormat:@"[^\\?]"];
-            [expressionString2 appendFormat:@"[^\\?]"];
+            if (expressionString2) {
+                [expressionString2 appendFormat:@"[^\\?]"];
+            }
         } else {
             NSString *queryRegexFilter = [NSString stringWithFormat:@"\\?%@", queryRegex];
             [expressionString appendString: queryRegexFilter];
-            [expressionString2 appendString: queryRegexFilter];
+            if (expressionString2) {
+                [expressionString2 appendString: queryRegexFilter];
+            }
         }
     } else {
         NSString *anyQueryRegexFilter = @"(\\?.*?)";
         if (expressionString2) {
-            expressionString3 = expressionString;
-            expressionString4 = expressionString2;
+            expressionString3 = expressionString.mutableCopy;
+            expressionString4 = expressionString2.mutableCopy;
             [expressionString3 appendString:anyQueryRegexFilter];
             [expressionString4 appendString:anyQueryRegexFilter];
         } else {
-            expressionString2 = expressionString;
+            expressionString2 = expressionString.mutableCopy;
             [expressionString2 appendString:anyQueryRegexFilter];
         }
     }
@@ -370,7 +395,7 @@
         [expressionString4 appendString:fragmentRegexFilter];
     }
     
-//    [expressionString appendString:@"$"];
+    [expressionString appendString:@"$"];
     
     NSMutableArray<NSRegularExpression*>* expressionStrings = [NSMutableArray arrayWithObjects:expressionString, expressionString2, expressionString3, expressionString4, nil];
     return expressionStrings.copy;
