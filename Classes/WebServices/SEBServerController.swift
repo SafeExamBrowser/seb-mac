@@ -44,7 +44,7 @@ import CocoaLumberjackSwift
     func closeServerView(completion: @escaping () -> ())
     func startBatteryMonitoring(delegate: Any)
     func loginToExam(_ url: String)
-    func didReceiveMoodleUserId(_ moodleUserId: String?, moodleSession: String, url: URL, endpoint: String)
+    func didReceiveMoodleUserId(_ moodleUserId: String?, moodleCookie: HTTPCookie, url: URL, endpoint: String)
     func reconfigureWithServerExamConfig(_ configData: Data)
     func executeSEBInstruction(_ sebInstruction: SEBInstruction)
     func didCloseSEBServerConnectionRestart(_ restart: Bool)
@@ -507,10 +507,12 @@ public extension SEBServerController {
     }
     
     
-    @objc func getMoodleUserId(moodleSession: String, url: URL, endpoint: String) {
+    @objc func getMoodleUserId(moodleCookie: HTTPCookie, url: URL, endpoint: String) {
         let moodleUserIdResource = MoodleUserIdResource(baseURL: url, endpoint: endpoint)
 
-        let requestHeaders = ["Cookie" : "MoodleSession=\(moodleSession)"]
+        let moodleCookieName = moodleCookie.name
+        let moodleSession = moodleCookie.value
+        let requestHeaders = ["Cookie" : "\(moodleCookieName)=\(moodleSession)"]
         loadWithFallback(moodleUserIdResource, httpMethod: moodleUserIdResource.httpMethod, body: "", headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (moodleUserIdResponse, statusCode, errorResponse, responseHeaders, attempt) in
             var moodleUserId: String?
             if statusCode == 200 && moodleUserIdResponse != nil {
@@ -521,7 +523,7 @@ public extension SEBServerController {
             } else {
                 DDLogError("SEB Server Controller: Querying Moodle user ID failed, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")")
             }
-            self.delegate?.didReceiveMoodleUserId(moodleUserId, moodleSession: moodleSession, url:url, endpoint: endpoint)
+            self.delegate?.didReceiveMoodleUserId(moodleUserId, moodleCookie: moodleCookie, url:url, endpoint: endpoint)
         })
     }
     
