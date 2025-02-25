@@ -1837,9 +1837,9 @@
         <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
-        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk &gt; URL Filter &gt; Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
+        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
       </trans-unit>
       <trans-unit id="Afc-A3-r3P.title" xml:space="preserve">
         <source>Media autoplay</source>
@@ -6195,13 +6195,13 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Bitte gleiches Passwort erneut eingeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Prefer Modern" xml:space="preserve">
-        <source>Prefer Modern</source>
+      <trans-unit id="Force Modern" xml:space="preserve">
+        <source>Force Modern</source>
         <target>Modern bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
-        <source>Prefer Modern in New Tab+Different Host</source>
+      <trans-unit id="Force Modern in New Tab+Different Host" xml:space="preserve">
+        <source>Force Modern in New Tab+Different Host</source>
         <target>Modern in neuen Fenstern+anderem Server bevorzugen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -7840,13 +7840,13 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>im selben Tab öffnen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Prefer Modern" xml:space="preserve">
-        <source>Prefer Modern</source>
-        <target>Moderne bevorzugen</target>
+      <trans-unit id="Force Modern" xml:space="preserve">
+        <source>Force Modern</source>
+        <target>Moderne erzwingen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
-        <source>Prefer Modern in New Tab+Different Host</source>
+      <trans-unit id="Force Modern in New Tab+Different Host" xml:space="preserve">
+        <source>Force Modern in New Tab+Different Host</source>
         <target>Moderne in neuen Tabs+anderem Server</target>
         <note/>
       </trans-unit>
@@ -7890,9 +7890,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
-        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk &gt; URL Filter &gt; Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+      <trans-unit id="The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
+        <source>The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
         <note/>
       </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">
@@ -9734,13 +9734,13 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können %@-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Prefer Modern" xml:space="preserve">
-        <source>Prefer Modern</source>
-        <target>Moderne bevorzugen</target>
+      <trans-unit id="Force Modern" xml:space="preserve">
+        <source>Force Modern</source>
+        <target>Moderne erzwingen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Prefer Modern in New Tab+Different Host" xml:space="preserve">
-        <source>Prefer Modern in New Tab+Different Host</source>
+      <trans-unit id="Force Modern in New Tab+Different Host" xml:space="preserve">
+        <source>Force Modern in New Tab+Different Host</source>
         <target>Moderne in neuen Fenstern+anderem Server</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>

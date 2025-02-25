@@ -77,10 +77,10 @@
 "Open in Same Tab" = "im selben Tab öffnen";
 
 /* (No Comment) */
-"Prefer Modern" = "Moderne bevorzugen";
+"Force Modern" = "Moderne erzwingen";
 
 /* (No Comment) */
-"Prefer Modern in New Tab+Different Host" = "Moderne in neuen Tabs+anderem Server";
+"Force Modern in New Tab+Different Host" = "Moderne in neuen Tabs+anderem Server";
 
 /* (No Comment) */
 "Reload Page after Connection Error" = "Seite nach Verbindungsfehler neu laden";
@@ -107,7 +107,7 @@
 "Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." = "Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.";
 
 /* (No Comment) */
-"The modern WKWebView browser engine currently doesn't support URL content filters (Network > URL Filter > Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt momentan keine URL-Filter für eingebetteten Inhalt (Netzwerk > URL Filter > Eingebetteten Inhalt ebenfalls filtern) und das Senden des Browser Exam und Config Key in HTTP-Headern ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn eine dieser Optionen aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne bevorzugen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
+"The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";
 
 /* (No Comment) */
 "User Agent" = "User Agent";

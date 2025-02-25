@@ -863,10 +863,10 @@
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
 
 /* No comment provided by engineer. */
-"Prefer Modern" = "Modern bevorzugen";
+"Force Modern" = "Modern bevorzugen";
 
 /* No comment provided by engineer. */
-"Prefer Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+"Force Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
 
 /* No comment provided by engineer. */
 "Preferences shortcut menu" = "Einstellungen Kontext-Menü";

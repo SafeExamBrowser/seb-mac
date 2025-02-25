@@ -77,8 +77,8 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"Automatic", @""),
             NSLocalizedString(@"Force Classic", @""),
-            NSLocalizedString(@"Prefer Modern in New Tab+Different Host", @""),
-            NSLocalizedString(@"Prefer Modern", @""),
+            NSLocalizedString(@"Force Modern in New Tab+Different Host", @""),
+            NSLocalizedString(@"Force Modern", @""),
             nil];
 }
 
