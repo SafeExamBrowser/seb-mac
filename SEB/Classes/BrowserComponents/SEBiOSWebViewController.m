@@ -287,7 +287,6 @@
     message.lineBreakMode = NSLineBreakByWordWrapping;
     
     CGSize messageLabelSize = message.frame.size;
-    CGFloat messageLabelWidth = messageLabelSize.width + messageLabelSize.height;
     CGFloat messageLabelHeight = messageLabelSize.height * 1.5;
     
     UIView *overlayView = [UIView new];
@@ -334,10 +333,13 @@
     overlayStackView.translatesAutoresizingMaskIntoConstraints = NO;
     [overlayStackView addArrangedSubview:message];
     [overlayStackView addArrangedSubview:closeButtonStackView];
-    [overlayViewCloseButton.widthAnchor constraintEqualToConstant:overlayViewCloseButton.imageView.frame.size.width].active = YES;
+    CGFloat closeButtonWidth = overlayViewCloseButton.imageView.image.size.width;
+    [overlayViewCloseButton.widthAnchor constraintEqualToConstant:closeButtonWidth].active = YES;
+    [overlayViewCloseButton.leadingAnchor constraintEqualToAnchor:overlayViewCloseButton.superview.leadingAnchor].active = YES;
+    [overlayViewCloseButton.trailingAnchor constraintEqualToAnchor:overlayViewCloseButton.superview.trailingAnchor].active = YES;
     [closeButtonStackView.topAnchor constraintEqualToAnchor:overlayStackView.topAnchor].active = YES;
     [closeButtonStackView.bottomAnchor constraintEqualToAnchor:overlayStackView.bottomAnchor].active = YES;
-    
+
     [overlayView addSubview:overlayStackView];
     [overlayStackView.leadingAnchor constraintEqualToAnchor:overlayView.leadingAnchor constant: 10].active = YES;
     [overlayStackView.trailingAnchor constraintEqualToAnchor:overlayView.trailingAnchor constant: -10].active = YES;
