@@ -69,20 +69,17 @@
 
         if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
-            if (downloadingInTemporaryWebView) {
+            if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
+                (webViewSelectPolicy == webViewSelectPreferModern) ||
+                (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                downloadingInTemporaryWebView) {
                 
-                if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                    (webViewSelectPolicy == webViewSelectPreferModern) ||
-                    (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
-                    downloadingInTemporaryWebView) {
-                    
-                    DDLogInfo(@"Opening modern WebView");
-                    SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
-                    self.browserControllerDelegate = sebAbstractModernWebView;
-                    [self initGeneralProperties];
-                    
-                    return self;
-                }
+                DDLogInfo(@"Opening modern WebView");
+                SEBAbstractModernWebView *sebAbstractModernWebView = [[SEBAbstractModernWebView alloc] initWithDelegate:self configuration:configuration];
+                self.browserControllerDelegate = sebAbstractModernWebView;
+                [self initGeneralProperties];
+                
+                return self;
             }
         }
         DDLogInfo(@"Opening classic WebView");
