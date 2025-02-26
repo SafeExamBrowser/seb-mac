@@ -3414,6 +3414,12 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             }
         }
     }
+    // Kill Passwords menu bar extra if running
+    NSDictionary *processDetails = nil;
+    NSError *error = [self runningProcessCheckForName:PasswordsMenuBarExtraExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+    if (processDetails) {
+        DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
+    }
     
     // Check for prohibited BSD processes
     NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses.copy;
@@ -3615,7 +3621,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     checkingForWindows = false;
     
-    // Check if TouchBar Tool is running
+    // Kill TouchBar Tool if it's running
     NSArray *runningProcessInstances = [allRunningProcesses containsProcessObject:BTouchBarRestartAgent];
     if (runningProcessInstances.count > 0) {
         [self killProcess:runningProcessInstances[0]];
@@ -7506,9 +7512,9 @@ conditionallyForWindow:(NSWindow *)window
     
     for (NSURL *executableURL in _terminatedProcessesExecutableURLs) {
         
-        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
+//        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
-        if ([executableURL.pathExtension isEqualToString:@"app"]) {
+        if ([executableURL.pathExtension isEqualToString:@"app"] && ![executableURL.path.lastPathComponent isEqualToString:PasswordsMenuBarExtraApp]) {
             NSError *error;
             DDLogInfo(@"Trying to restart terminated process with bundle URL %@", executableURL.path);
             [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
