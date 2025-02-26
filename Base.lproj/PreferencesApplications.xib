@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,8 +14,6 @@
                 <outlet property="allowSwitchToApplicationsButton" destination="Jx8-0V-1sZ" id="JLK-iK-oMH"/>
                 <outlet property="argumentsView" destination="qxA-HW-Abg" id="rsS-a4-hIT"/>
                 <outlet property="autostartButton" destination="948" id="Oi1-fU-MHu"/>
-                <outlet property="chooseApplicationButton" destination="495" id="kaP-La-2vG"/>
-                <outlet property="chooseExecutableButton" destination="1845" id="Pjs-Cl-gzB"/>
                 <outlet property="currentUserButton" destination="1856" id="818-ot-fHX"/>
                 <outlet property="executableView" destination="jRP-pP-ZCg" id="erO-7b-dwX"/>
                 <outlet property="forceQuitButton" destination="2244" id="Qkk-HA-Skx"/>
@@ -30,6 +28,7 @@
                 <outlet property="permittedProcessesTableView" destination="346" id="4kz-Yu-mp9"/>
                 <outlet property="prohibitedProcessIdentifierView" destination="QAG-dD-QvM" id="fbT-Xj-EjZ"/>
                 <outlet property="prohibitedProcessOriginalNameView" destination="veH-f6-uyK" id="eqo-fZ-3vf"/>
+                <outlet property="prohibitedProcessesArrayController" destination="1726" id="7o5-hC-VXS"/>
                 <outlet property="prohibitedProcessesOSPopUpButton" destination="1900" id="gqv-za-Fwg"/>
                 <outlet property="prohibitedProcessesTableView" destination="1924" id="Oiz-Je-Mtk"/>
                 <outlet property="runningInBackgroundButton" destination="p8v-1Y-Mnw" id="NZm-wS-sRw"/>
@@ -98,7 +97,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
+                                                <rect key="frame" x="17" y="39" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -202,7 +201,7 @@
                                                                                             </tableHeaderCell>
                                                                                             <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1329">
                                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                <font key="font" metaFont="menu"/>
+                                                                                                <font key="font" metaFont="message"/>
                                                                                                 <menu key="menu" id="1330">
                                                                                                     <items>
                                                                                                         <menuItem id="1331"/>
@@ -533,7 +532,7 @@
                                                                                                     <rect key="frame" x="25" y="-4" width="107" height="25"/>
                                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                        <font key="font" metaFont="menu"/>
+                                                                                                        <font key="font" metaFont="message"/>
                                                                                                         <menu key="menu" id="1316">
                                                                                                             <items>
                                                                                                                 <menuItem id="1317"/>
@@ -1276,7 +1275,7 @@
                                         </tabViewItem>
                                         <tabViewItem label="Prohibited Processes" identifier="2" id="241">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="242">
-                                                <rect key="frame" x="17" y="39" width="604" height="607"/>
+                                                <rect key="frame" x="38" y="57" width="604" height="607"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-AJ-1Zf">
                                                         <rect key="frame" x="17" y="10" width="570" height="590"/>
@@ -1326,7 +1325,7 @@
                                                                                             </tableHeaderCell>
                                                                                             <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="1933">
                                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                <font key="font" metaFont="menu"/>
+                                                                                                <font key="font" metaFont="message"/>
                                                                                                 <menu key="menu" id="1934">
                                                                                                     <items>
                                                                                                         <menuItem id="1935"/>
@@ -1397,10 +1396,10 @@
                                                                         </tableHeaderView>
                                                                     </scrollView>
                                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="isQ-Zj-fPR">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="215" height="22"/>
                                                                         <subviews>
-                                                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2DS-7e-hPw">
-                                                                                <rect key="frame" x="0.0" y="1" width="44" height="21"/>
+                                                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2DS-7e-hPw">
+                                                                                <rect key="frame" x="0.0" y="1" width="55" height="21"/>
                                                                                 <subviews>
                                                                                     <button toolTip="Add a prohibited process" translatesAutoresizingMaskIntoConstraints="NO" id="1842">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="22" height="21"/>
@@ -1417,7 +1416,7 @@
                                                                                         </connections>
                                                                                     </button>
                                                                                     <button toolTip="Remove process" translatesAutoresizingMaskIntoConstraints="NO" id="1843">
-                                                                                        <rect key="frame" x="22" y="0.0" width="22" height="21"/>
+                                                                                        <rect key="frame" x="33" y="0.0" width="22" height="21"/>
                                                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="1849">
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                             <font key="font" metaFont="system"/>
@@ -1446,14 +1445,14 @@
                                                                                     <real value="3.4028234663852886e+38"/>
                                                                                 </customSpacing>
                                                                             </stackView>
-                                                                            <button hidden="YES" toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
-                                                                                <rect key="frame" x="-7" y="-5" width="162" height="32"/>
-                                                                                <buttonCell key="cell" type="push" title="Choose Executable..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
+                                                                            <button toolTip="Allows choosing the process executable file (or application) which will be added to the list of prohibited processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1845">
+                                                                                <rect key="frame" x="59" y="-5" width="163" height="32"/>
+                                                                                <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1846">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
                                                                                 </buttonCell>
                                                                                 <connections>
-                                                                                    <action selector="chooseExecutable:" target="-2" id="N5V-ny-F03"/>
+                                                                                    <action selector="chooseProhibitedApplication:" target="-2" id="fpt-U4-8J9"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <button hidden="YES" toolTip="For choosing a running process which will be added to the list of prohibited processes." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1841">
@@ -1649,7 +1648,7 @@
                                                                                                     <rect key="frame" x="20" y="-4" width="107" height="25"/>
                                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1905" id="1901">
                                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                                        <font key="font" metaFont="menu"/>
+                                                                                                        <font key="font" metaFont="message"/>
                                                                                                         <menu key="menu" id="1902">
                                                                                                             <items>
                                                                                                                 <menuItem id="1903"/>

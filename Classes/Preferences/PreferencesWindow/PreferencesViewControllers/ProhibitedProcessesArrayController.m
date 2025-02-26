@@ -78,6 +78,22 @@
 }
 
 
+- (void) addAppWithBundle: (NSBundle *)bundle
+{
+    NSDictionary *newProhibitedProcess = [self newObject];
+    NSString *bundleID = bundle.bundleIdentifier;
+    NSString *appName = [bundle objectForInfoDictionaryKey: @"CFBundleDisplayName"];
+    NSString *executable = [bundle objectForInfoDictionaryKey: @"CFBundleExecutable"];
+    if (appName.length == 0) {
+        appName = executable;
+    }
+    [newProhibitedProcess setValue:bundleID forKey: @"identifier"];
+    [newProhibitedProcess setValue:appName forKey: @"title"];
+    [newProhibitedProcess setValue:executable forKey: @"executable"];
+    [self addObject:newProhibitedProcess];
+}
+
+
 - (NSDictionary *) defaultProhibitedProcessWithKey:(NSString *)key andValue:(NSString *)value
 {
     NSString *predicateFormatString = [NSString stringWithFormat:@"%@ ==[cd] \%%@", key];

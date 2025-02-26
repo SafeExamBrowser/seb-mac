@@ -8,11 +8,15 @@
 #import <Cocoa/Cocoa.h>
 #import "PrefsApplicationsViewController.h"
 
+@class PrefsApplicationsViewController;
+
 NS_ASSUME_NONNULL_BEGIN
 
 
 @interface ProhibitedProcessesArrayController : NSArrayController
-@property (weak) IBOutlet PrefsApplicationsViewController <ApplicationsPreferencesDelegate> *prefsApplicationViewController;
+@property (weak) IBOutlet PrefsApplicationsViewController *prefsApplicationViewController;
+
+- (void) addAppWithBundle: (NSBundle *)bundle;
 
 @end
 
