@@ -37,6 +37,16 @@
 @implementation NSURL (SEBURL)
 
 
++ (NSURL *) validatedURLWithURLString:(NSString *)urlString
+{
+    NSURL *validatedStartURL = [NSURL URLWithString:urlString];
+   if (!validatedStartURL || !validatedStartURL.host || urlString.length == 0) {
+       return nil;
+    }
+    return validatedStartURL;
+}
+
+
 + (NSURL *) URLWithScheme:(NSString *)scheme user:(NSString *)user password:(NSString *)password host:(NSString *)host port:(NSNumber *)port path:(NSString *)path query:(NSString *)query fragment:(NSString *)fragment
 {
 //    NSURL *newURL;
