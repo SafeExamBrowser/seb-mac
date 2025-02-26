@@ -214,6 +214,14 @@
     [self setPartsForExpression:sender.stringValue];
 }
 
+- (void) controlTextDidEndEditing:(NSNotification *)notification
+{
+    NSTextField *textField = notification.object;
+    if (textField) {
+        [self selectedExpression:textField];
+    }
+}
+
 
 - (IBAction) regexChanged:(NSButton *)sender
 {
