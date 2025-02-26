@@ -38,8 +38,10 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 #import "SafeExamBrowser-Swift.h"
+#import "ProhibitedProcessesArrayController.h"
 
 @class PreferencesController;
+@class ProhibitedProcessesArrayController;
 
 @interface PrefsApplicationsViewController : NSViewController <MBPreferencesModule, ApplicationsPreferencesDelegate, NSTableViewDelegate> {
 
@@ -77,6 +79,7 @@
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
 @property (weak) IBOutlet PermittedProcessesArrayController *permittedProcessesArrayController;
+@property (weak) IBOutlet ProhibitedProcessesArrayController *prohibitedProcessesArrayController;
 
 - (NSString *)identifier;
 - (NSImage *)image;
@@ -84,7 +87,6 @@
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
 - (IBAction) chooseApplication:(id)sender;
 - (IBAction) showDependentSettingsWarning:(id)sender;
-- (IBAction) chooseExecutable:(id)sender;
 - (void) showAlertCannotRemoveProcess;
 - (IBAction) changedOS:(id)sender;
 - (IBAction) prohibitedProcessChangedOS:(id)sender;

@@ -195,9 +195,6 @@
     [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
 }
 
-- (IBAction)chooseExecutable:(id)sender {
-}
-
 - (IBAction)showDependentSettingsWarning:(id)sender {
     [self conditionallyPromptToUpdateSettingsForMultiAppMode];
 }
@@ -216,6 +213,25 @@
                           NSBundle *appBundle = [NSBundle bundleWithURL:appURL];
                           DDLogInfo(@"Selected app with file URL %@", appURL);
                           [self.permittedProcessesArrayController addAppWithBundle:appBundle];
+                      }
+                  }];
+}
+
+
+- (IBAction)chooseProhibitedApplication:(id)sender {
+    // Set the default name for the file and show the panel.
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    NSError *error;
+    panel.directoryURL = [NSFileManager.defaultManager URLForDirectory:NSApplicationDirectory inDomain:NSLocalDomainMask appropriateForURL:nil create:NO error:&error];
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"app"]];
+    [panel beginSheetModalForWindow:self.view.window
+                  completionHandler:^(NSInteger result){
+                      if (result == NSModalResponseOK)
+                      {
+                          NSURL *appURL = [panel URL];
+                          NSBundle *appBundle = [NSBundle bundleWithURL:appURL];
+                          DDLogInfo(@"Selected prohibited app with file URL %@", appURL);
+                          [self.prohibitedProcessesArrayController addAppWithBundle:appBundle];
                       }
                   }];
 }
