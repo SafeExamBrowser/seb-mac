@@ -274,7 +274,9 @@
     // Load start URL from the system's user defaults
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *urlString = self.startURL.absoluteString;
-    
+    if (!urlString) {
+        urlString = @"";
+    }
     // Handle Start URL Query String Parameter
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_startURLAppendQueryParameter"]) {
         NSString *queryString = [preferences secureStringForKey:@"org_safeexambrowser_startURLQueryParameter"];

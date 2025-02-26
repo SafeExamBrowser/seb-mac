@@ -150,6 +150,9 @@ void run_block_on_main_thread(dispatch_block_t block)
         } else {
             startURL = self.controllerDelegate.startURL.absoluteString;
         }
+        if (!startURL) {
+            startURL = @"";
+        }
         lockedExams = [NSMutableArray arrayWithArray:[preferences persistedSecureObjectForKey:@"org_safeexambrowser_additionalResources"]];
         // Check if an exam with this Start URL already was persisted
         indexOfLockedExamDictionary = [self getIndexOfLockedExam:lockedExams withConfigKey:configKey];
