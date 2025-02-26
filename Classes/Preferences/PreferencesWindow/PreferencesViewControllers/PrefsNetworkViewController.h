@@ -40,7 +40,7 @@
 
 @class PreferencesController;
 
-@interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate> {
+@interface PrefsNetworkViewController : NSViewController <MBPreferencesModule, NSTableViewDelegate, NSTextFieldDelegate> {
 
     IBOutlet NSTabView *networkTabView;
     IBOutlet NSTabViewItem *urlFilterTab;

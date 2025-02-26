@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -160,7 +160,7 @@
                                                             </tableHeaderCell>
                                                             <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="IsM-ED-WeJ">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="menu"/>
+                                                                <font key="font" metaFont="message"/>
                                                                 <menu key="menu" id="xPR-2O-w0D">
                                                                     <items>
                                                                         <menuItem id="egv-X8-A5H">
@@ -351,7 +351,7 @@
                                                     <rect key="frame" x="455" y="147" width="107" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dIN-ch-gsc">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="message"/>
                                                         <menu key="menu" id="NhP-7L-y3h">
                                                             <items>
                                                                 <menuItem id="rBw-Ge-oBv"/>
@@ -390,6 +390,7 @@
                                                                 <bool key="NSValidatesImmediately" value="YES"/>
                                                             </dictionary>
                                                         </binding>
+                                                        <outlet property="delegate" destination="-2" id="e7b-pt-ydT"/>
                                                     </connections>
                                                 </textField>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="63j-33-Jdu">
@@ -858,7 +859,7 @@
                                         <rect key="frame" x="17" y="39" width="570" height="429"/>
                                         <clipView key="contentView" id="bNG-6J-vDW">
                                             <rect key="frame" x="1" y="1" width="568" height="427"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" autosaveName="" rowHeight="14" headerView="1834" id="1832" userLabel="Certificates Table View">
                                                     <rect key="frame" x="0.0" y="0.0" width="568" height="404"/>
@@ -2097,7 +2098,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="163" y="199" width="610" height="573"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2056" height="1285"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1865"/>
             <view key="contentView" id="Oww-cu-u71">
                 <rect key="frame" x="0.0" y="0.0" width="610" height="573"/>
                 <autoresizingMask key="autoresizingMask"/>
