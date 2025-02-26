@@ -154,6 +154,27 @@
 }
 
 
+- (void) controlTextDidEndEditing:(NSNotification *)notification
+{
+    NSTextField *textField = notification.object;
+    if (textField == startURL) {
+        NSURL *validatedStartURL = [NSURL validatedURLWithURLString:textField.stringValue];
+        if (!validatedStartURL) {
+            textField.stringValue = @"";
+            [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_SEB_startURL"];
+        }
+    }
+    if (textField == sebServerURL) {
+        NSURL *validatedStartURL = [NSURL validatedURLWithURLString:textField.stringValue];
+        if (!validatedStartURL) {
+            textField.stringValue = @"";
+            [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        }
+    }
+}
+
+
+
 // Definitition of the dependent keys for comparing admin passwords
 + (NSSet *)keyPathsForValuesAffectingCompareAdminPasswords {
     return [NSSet setWithObjects:@"adminPassword", @"confirmAdminPassword", nil];
@@ -179,7 +200,7 @@
             {
                 // and when the password texts aren't the same anymore, this means the user tries to edit the password
                 // (which is only the placeholder right now), we have to clear the placeholder from the textFields
-                adminPasswordIsHash = false;
+                adminPasswordIsHash = NO;
                 [self setValue:nil forKey:@"adminPassword"];
                 [self setValue:nil forKey:@"confirmAdminPassword"];
                 [adminPasswordField setStringValue:@""];

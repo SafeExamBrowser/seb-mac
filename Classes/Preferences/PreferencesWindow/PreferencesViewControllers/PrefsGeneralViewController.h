@@ -43,7 +43,7 @@
 
 @class PreferencesController;
 
-@interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
+@interface PrefsGeneralViewController : NSViewController <MBPreferencesModule, NSWindowDelegate, NSTextFieldDelegate> {
 
     IBOutlet NSTextField *startURL;
     IBOutlet NSTextField *sebServerURL;
