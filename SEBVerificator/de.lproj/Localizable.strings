@@ -115,9 +115,6 @@
 /* No comment provided by engineer. */
 "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." = "Die untenstehenden Programme/Prozesse müssen beendet werden, bevor die Prüfung gestartet werden kann. Sie können Programme selber beenden oder Hilfsprozesse deaktivieren/deinstallieren und danach zu %@ zurück kehren, um mit der Prüfung weiterzufahren.";
 
-/* No comment provided by engineer. */
-"The following running applications must be terminated" = "Die unten stehenden Programme müssen beendet werden";
-
 /* untitled filename */
 "Untitled" = "Unbenannt";
 

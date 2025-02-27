@@ -49,6 +49,12 @@
 /* (No Comment) */
 "Force Classic" = "Klassische erzwingen";
 
+/* (No Comment) */
+"Force Modern" = "Moderne erzwingen";
+
+/* (No Comment) */
+"Force Modern in New Tab+Different Host" = "Moderne in neuen Tabs+anderem Server";
+
 /* String for Titles arrays elements */
 "Get Generally Blocked" = "werden generell blockiert";
 
@@ -75,12 +81,6 @@
 
 /* (No Comment) */
 "Open in Same Tab" = "im selben Tab öffnen";
-
-/* (No Comment) */
-"Force Modern" = "Moderne erzwingen";
-
-/* (No Comment) */
-"Force Modern in New Tab+Different Host" = "Moderne in neuen Tabs+anderem Server";
 
 /* (No Comment) */
 "Reload Page after Connection Error" = "Seite nach Verbindungsfehler neu laden";

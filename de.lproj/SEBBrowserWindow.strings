@@ -73,7 +73,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Add a block filter rule for the current URL/resource based on the selected pattern"; ObjectID = "cja-1x-YEa"; */
 "cja-1x-YEa.ibShadowedToolTip" = "Eine 'blockieren' Filterregel für die aktuelle URL/Ressource hinzufügen, basierend auf dem angewählten Schema. Sollte nur selten notwendig sein, weil alle nicht explizit erlaubten URLs vom Filter sowieso blockiert werden";
 
-/* Class = "NSButtonCell"; title = "www.host.com/directory/*"; ObjectID = "fhn-de-60C"; */
+/* Class = "NSButtonCell"; title = "www.host.com/directory/ *"; ObjectID = "fhn-de-60C"; */
 "fhn-de-60C.title" = "www.host.com/directory/*";
 
 /* Class = "NSSegmentedControl"; ibExternalAccessibilityDescription = "Search previous or next match"; ObjectID = "FOw-Up-15U"; */

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -58,7 +58,7 @@
                                                 <rect key="frame" x="-3" y="17" width="601" height="25"/>
                                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="89" id="86">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="menu"/>
+                                                    <font key="font" metaFont="message"/>
                                                     <menu key="menu" id="87">
                                                         <items>
                                                             <menuItem id="90"/>
@@ -180,7 +180,7 @@
                                                     <rect key="frame" x="488" y="33" width="109" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="592">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="message"/>
                                                         <menu key="menu" id="594">
                                                             <items>
                                                                 <menuItem id="597"/>
@@ -478,7 +478,7 @@
                                                                             <rect key="frame" x="78" y="-4" width="39" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="47Q-9G-OO8">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" id="6q7-Gf-fa9">
                                                                                     <items>
                                                                                         <menuItem id="UdR-9e-fcf"/>
@@ -583,7 +583,7 @@
                                                                             <rect key="frame" x="74" y="-4" width="39" height="25"/>
                                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="gLQ-HQ-mev">
                                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                                <font key="font" metaFont="menu"/>
+                                                                                <font key="font" metaFont="message"/>
                                                                                 <menu key="menu" id="tHw-qH-1Eq">
                                                                                     <items>
                                                                                         <menuItem id="JoM-dA-SQS"/>
@@ -824,19 +824,19 @@
                                         </constraints>
                                     </box>
                                     <box title="Select Browser Engine Policy" translatesAutoresizingMaskIntoConstraints="NO" id="QLJ-Tp-en0" userLabel="Select Browser Engine Policy">
-                                        <rect key="frame" x="15" y="259" width="618" height="142"/>
+                                        <rect key="frame" x="17" y="259" width="616" height="142"/>
                                         <view key="contentView" id="B8w-xq-Rtz">
-                                            <rect key="frame" x="4" y="5" width="610" height="122"/>
+                                            <rect key="frame" x="4" y="5" width="608" height="122"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eR7-dg-Uhp">
-                                                    <rect key="frame" x="11" y="10" width="588" height="104"/>
+                                                    <rect key="frame" x="11" y="10" width="586" height="104"/>
                                                     <subviews>
                                                         <popUpButton verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VNp-U5-dS4">
-                                                            <rect key="frame" x="-3" y="80" width="595" height="25"/>
+                                                            <rect key="frame" x="-3" y="80" width="593" height="25"/>
                                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="R9J-OH-7kG" id="UJv-6c-eWa">
                                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="menu"/>
+                                                                <font key="font" metaFont="message"/>
                                                                 <menu key="menu" id="ZMK-ZY-sxa">
                                                                     <items>
                                                                         <menuItem id="jUE-fy-l4a"/>
@@ -856,17 +856,17 @@
                                                             </connections>
                                                         </popUpButton>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
-                                                            <rect key="frame" x="-2" y="22" width="592" height="56"/>
+                                                            <rect key="frame" x="-2" y="22" width="588" height="56"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="ADW-iA-ngj">
                                                                 <font key="font" metaFont="smallSystem"/>
-                                                                <string key="title">The modern WKWebView browser engine currently doesn't support URL content filters (Network &gt; URL Filter &gt; Filter Embedded Content) and sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If one of these settings is enabled, the classic WebView is used in the Automatic policy. Prefer Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</string>
+                                                                <string key="title">The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fBC-Im-13G">
                                                             <rect key="frame" x="-2" y="-1" width="303" height="18"/>
-                                                            <mutableString key="toolTip">Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</mutableString>
+                                                            <string key="toolTip">Classic WebView is deprecated on macOS and no longer supported on iOS/iPadOS! The used SEB assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. This warning is displayed on top of browser windows/tabs when settings require the classic WebView. You can disable this warning being displayed, but if you are the vendor of an assessment system which isn't yet compatible with the modern WebView, you need to update your integration now (use SEB Javascript API instead of HTTP header check for BEK/CK, see safeexambrowser.org/developer).</string>
                                                             <buttonCell key="cell" type="check" title="Disable classic WebView deprecation warning" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="0uJ-tI-O23">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -913,7 +913,7 @@
                                                     <rect key="frame" x="7" y="119" width="595" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="50h-rm-tb3">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="message"/>
                                                         <menu key="menu" id="QQL-bQ-Umm">
                                                             <items>
                                                                 <menuItem id="iaF-sM-Iau"/>

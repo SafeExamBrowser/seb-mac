@@ -605,6 +605,12 @@
 "Force Close" = "Schliessen erzwingen";
 
 /* No comment provided by engineer. */
+"Force Modern" = "Modern bevorzugen";
+
+/* No comment provided by engineer. */
+"Force Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
+
+/* No comment provided by engineer. */
 "Force Quit All Processes" = "Prozesse sofort beenden";
 
 /* No comment provided by engineer. */
@@ -861,12 +867,6 @@
 
 /* No comment provided by engineer. */
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
-
-/* No comment provided by engineer. */
-"Force Modern" = "Modern bevorzugen";
-
-/* No comment provided by engineer. */
-"Force Modern in New Tab+Different Host" = "Modern in neuen Fenstern+anderem Server bevorzugen";
 
 /* No comment provided by engineer. */
 "Preferences shortcut menu" = "Einstellungen Kontext-Menü";
@@ -1241,7 +1241,7 @@
 "Unsaved Changes" = "Ungesicherte Änderungen";
 
 /* Title of a new opened browser window; Untitled
-   untitled filename */
+untitled filename */
 "Untitled" = "Unbenannt";
 
 /* No comment provided by engineer. */
