@@ -294,9 +294,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
     
     // Get current Browser Exam Key
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
+    NSData *currentConfigKey = [preferences secureDataForKey:@"org_safeexambrowser_configKey"];
 
     // If both Keys are not the same, then settings changed
-    if (![currentBrowserExamKey isEqualToData:HMACData]) {
+    if (![currentBrowserExamKey isEqualToData:HMACData] || (updateUserDefaults && (currentConfigKey == nil || currentConfigKey == [NSData data]))) {
         DDLogInfo(@"Settings changed.");
         // If we're supposed to, generate a new exam key salt
         if (generateNewSalt) {

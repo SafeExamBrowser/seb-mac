@@ -1035,8 +1035,8 @@
     self.browserController.browserExamKey = nil;
     self.browserController.configKey = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    // Force recalculating Config Key
-    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+//    // Force recalculating Config Key
+//    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
 
     if ([preferences secureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"]) {
         // Remove this outdated key (current version: allowWlan) as it messes up ConfigKey calculation
