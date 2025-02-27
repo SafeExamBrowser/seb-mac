@@ -133,6 +133,7 @@
 {
     if (_wasLoaded) {
         [self savePasswords:self];
+        [self validateEntries];
         _wasLoaded = NO;
     }
 }
@@ -143,6 +144,7 @@
     if ([[MBPreferencesController sharedController].window isVisible]) {
         if (_wasLoaded) {
             [self savePasswords:self];	//save admin and quit passwords
+            [self validateEntries];
             _wasLoaded = NO;
         }
     }
@@ -157,22 +159,32 @@
 - (void) controlTextDidEndEditing:(NSNotification *)notification
 {
     NSTextField *textField = notification.object;
+    [self validateEntryInTextField:textField];
+}
+
+- (void) validateEntryInTextField:(NSTextField *)textField
+{
     if (textField == startURL) {
-        NSURL *validatedStartURL = [NSURL validatedURLWithURLString:textField.stringValue];
-        if (!validatedStartURL) {
-            textField.stringValue = @"";
-            [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_SEB_startURL"];
+        NSString *validatedURLString = [NSURL validatedURLString:textField.stringValue];
+        if (![validatedURLString isEqualToString:textField.stringValue]) {
+            textField.stringValue = validatedURLString;
+            [[NSUserDefaults standardUserDefaults] setSecureString:validatedURLString forKey:@"org_safeexambrowser_SEB_startURL"];
         }
     }
     if (textField == sebServerURL) {
-        NSURL *validatedStartURL = [NSURL validatedURLWithURLString:textField.stringValue];
-        if (!validatedStartURL) {
-            textField.stringValue = @"";
-            [[NSUserDefaults standardUserDefaults] setSecureString:@"" forKey:@"org_safeexambrowser_SEB_sebServerURL"];
+        NSString *validatedURLString = [NSURL validatedURLString:textField.stringValue];
+        if (![validatedURLString isEqualToString:textField.stringValue]) {
+            textField.stringValue = validatedURLString;
+            [[NSUserDefaults standardUserDefaults] setSecureString:validatedURLString forKey:@"org_safeexambrowser_SEB_sebServerURL"];
         }
     }
 }
 
+- (void) validateEntries
+{
+    [self validateEntryInTextField:startURL];
+    [self validateEntryInTextField:sebServerURL];
+}
 
 
 // Definitition of the dependent keys for comparing admin passwords

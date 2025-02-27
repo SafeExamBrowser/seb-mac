@@ -37,13 +37,17 @@
 @implementation NSURL (SEBURL)
 
 
-+ (NSURL *) validatedURLWithURLString:(NSString *)urlString
++ (NSString *) validatedURLString:(NSString *)urlString
 {
     NSURL *validatedStartURL = [NSURL URLWithString:urlString];
-   if (!validatedStartURL || !validatedStartURL.host || urlString.length == 0) {
-       return nil;
+    if (urlString.length > 0 && validatedStartURL && !validatedStartURL.host && !validatedStartURL.scheme) {
+        urlString = [NSString stringWithFormat:@"https://%@", urlString];
+        validatedStartURL = [NSURL URLWithString:urlString];
     }
-    return validatedStartURL;
+    if (!validatedStartURL || !validatedStartURL.host || urlString.length == 0) {
+        return @"";
+    }
+    return validatedStartURL.absoluteString;
 }
 
 
