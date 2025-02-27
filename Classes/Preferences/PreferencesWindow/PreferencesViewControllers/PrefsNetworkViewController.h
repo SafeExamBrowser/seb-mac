@@ -74,6 +74,9 @@
     __weak IBOutlet NSPopUpButton *chooseEmbeddCertificateType;
     __weak IBOutlet NSTextField *overrideCommonName;
     __weak IBOutlet NSTextField *overrideCommonNameLabel;
+    
+    @private
+    BOOL _wasLoaded;
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;
@@ -101,6 +104,7 @@
 - (NSImage *)image;
 
 - (void) removeObservers;
+- (void) windowWillClose:(NSNotification *)notification;
 
 // Filter Section
 - (IBAction) updateExpressionFromParts:(NSTextField *)sender;

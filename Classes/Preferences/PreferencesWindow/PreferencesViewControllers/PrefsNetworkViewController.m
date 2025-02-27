@@ -132,6 +132,32 @@
         [chooseIdentity addItemWithTitle:NSLocalizedString(@"None", @"")];
         [chooseIdentity addItemsWithTitles: self.identitiesNames];
     }
+    _wasLoaded = YES;
+}
+
+
+// Method invoked when switching from this one to another tab
+- (void)willBeHidden
+{
+    if (_wasLoaded) {
+        [self validateEntryInTextField:selectedExpression];
+        _wasLoaded = NO;
+    }
+}
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if ([[MBPreferencesController sharedController].window isVisible]) {
+        if (_wasLoaded) {
+            if (filterArrayController.selectedObjects.count > 0) {
+                NSUInteger selectionIndex = filterArrayController.selectionIndex;
+                DDLogDebug(@"Selection index: %lu", (unsigned long)selectionIndex);
+                [filterTableView deselectAll:self];
+            }
+            _wasLoaded = NO;
+        }
+    }
 }
 
 
@@ -217,6 +243,11 @@
 - (void) controlTextDidEndEditing:(NSNotification *)notification
 {
     NSTextField *textField = notification.object;
+    [self validateEntryInTextField:textField];
+}
+
+- (void) validateEntryInTextField:(NSTextField *)textField
+{
     if (textField) {
         [self selectedExpression:textField];
     }
