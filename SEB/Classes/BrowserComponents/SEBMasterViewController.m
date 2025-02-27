@@ -2,7 +2,7 @@
 //  SEBMasterViewController.m
 //
 //  Created by Daniel R. Schneider on 06/01/16.
-//  Copyright (c) 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services,
+//  Copyright (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen
 //  Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel,
@@ -23,7 +23,7 @@
 //
 //  The Initial Developer of the Original Code is Daniel R. Schneider.
 //  Portions created by Daniel R. Schneider are Copyright
-//  (c) 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services,
+//  (c) 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services,
 //  based on the original idea of Safe Exam Browser
 //  by Stefan Schneider, University of Giessen. All Rights Reserved.
 //

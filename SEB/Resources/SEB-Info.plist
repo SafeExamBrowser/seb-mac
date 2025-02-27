@@ -82,7 +82,7 @@
 	<key>NSCrossWebsiteTrackingUsageDescription</key>
 	<string>Allow Cross-Website Tracking/SSO</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<string>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.</string>
 	<key>NSMicrophoneUsageDescription</key>
