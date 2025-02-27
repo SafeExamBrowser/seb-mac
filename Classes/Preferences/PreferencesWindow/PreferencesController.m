@@ -353,7 +353,8 @@
     
     // Save settings in the General pane
     [self.generalVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
-    
+    [self.networkVC windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 
