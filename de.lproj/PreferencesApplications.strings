@@ -19,7 +19,7 @@
 /* Class = "NSTextFieldCell"; title = "Team ID"; ObjectID = "9ep-FT-5jP"; */
 "9ep-FT-5jP.title" = "Team-ID";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow user to start the additional application with its Dock icon"; ObjectID = "13k-Ch-eng"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allow user to start the additional application with its Dock icon. Otherwise the app can be started by downloading and opening its documents"; ObjectID = "13k-Ch-eng"; */
 "13k-Ch-eng.ibShadowedToolTip" = "Dem Benutzer erlauben, die zusätzliche Anwendung über ihr Dock-Symbol zu starten";
 
 /* Class = "NSButton"; ibShadowedToolTip = "SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents"; ObjectID = "48u-14-9LW"; */
@@ -133,7 +133,7 @@
 /* Class = "NSButtonCell"; title = "Allow network access"; ObjectID = "957"; */
 "957.title" = "Netzwerkzugriff erlauben";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, bundle identifier, signature) are accepted"; ObjectID = "982"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, signature) are accepted"; ObjectID = "982"; */
 "982.ibShadowedToolTip" = "Drittapplikationen dürfen vom Benutzer mittels Dateidialog ausgewählt werden, falls sie nicht am angegebenen Pfad gefunden werden. Nur Applikationen können ausgewählt werden, die den anderen spezifizierten Kriterien entsprechen (Executable, Bundle-ID, Signatur)";
 
 /* Class = "NSButtonCell"; title = "Allow user to select location of application"; ObjectID = "983"; */
@@ -175,7 +175,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Allows choosing the process executable file (or application) which will be added to the list of prohibited processes"; ObjectID = "1845"; */
 "1845.ibShadowedToolTip" = "Auswählen der Applikation oder der ausführbaren Datei des Prozesses, die zu den verbotenen Prozessen hinzugefügt wird";
 
-/* Class = "NSButtonCell"; title = "Choose Executable..."; ObjectID = "1846"; */
+/* Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "1846"; */
 "1846.title" = "Executable auswählen …";
 
 /* Class = "NSTextFieldCell"; title = "System processes which are not allowed to run during exam"; ObjectID = "1847"; */

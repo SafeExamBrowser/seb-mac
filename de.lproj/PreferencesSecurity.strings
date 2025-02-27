@@ -202,7 +202,7 @@
 /* Class = "NSButtonCell"; title = "Use modern AAC API"; ObjectID = "I61-hI-auP"; */
 "I61-hI-auP.title" = "Moderne AAC API benutzen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)"; ObjectID = "iap-IZ-G2o"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Enable Modern AAC API for Multi App Mode on iPadOS 17.7.1 - 18. On iPadOS 18.1 or newer it is activated automatically if permitted processes for iPadOS are configured."; ObjectID = "iap-IZ-G2o"; */
 "iap-IZ-G2o.ibShadowedToolTip" = "Benutzt entweder AAC (für BYOD) oder benötigt ein betreutes Gerät, auf dem SEB als autorisierte App konfiguriert ist, um den autonomen Einzel-App-Modus (ASAM) ohne Rückfrage aktivieren zu können ";
 
 /* Class = "NSButtonCell"; title = "Use Assessment Mode (AAC/ASAM) if available"; ObjectID = "iCr-0C-5NT"; */

@@ -92,7 +92,7 @@
                                                 <real value="3.4028234663852886e+38"/>
                                             </customSpacing>
                                         </stackView>
-                                        <button toolTip="Displays Config QR Code as long as current config isn't too large" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D5Q-ms-bFX">
+                                        <button toolTip="Displays Config QR Code as long as current config isn't too large" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D5Q-ms-bFX" userLabel="QR Code Config Button">
                                             <rect key="frame" x="589" y="36" width="25" height="25"/>
                                             <buttonCell key="cell" type="help" bezelStyle="helpButton" image="SEBQRCode" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="K3t-lE-zzV">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

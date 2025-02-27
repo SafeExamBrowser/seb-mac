@@ -410,10 +410,13 @@
 "Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
 
 /* No comment provided by engineer. */
+"Display Config QR Code" = "Konfigurations-QR-Code anzeigen";
+
+/* No comment provided by engineer. */
 "Displays a camera view to scan %@ configuration QR codes" = "Zeigt eine Kamera-Ansicht, um %@-Konfigurations-QR-Codes einzulesen";
 
 /* No comment provided by engineer. */
-"Displays a camera view to scan for SEB configuration QR codes" = "Zeigt eine Kamera-Ansicht, um SEB-Konfigurations-QR-Codes einzulesen";
+"Displays a camera view to scan for %@ configuration QR codes" = "Zeigt eine Kamera-Ansicht, um %@-Konfigurations-QR-Codes einzulesen";
 
 /* No comment provided by engineer. */
 "Do you really want to reload the web page?" = "Wollen Sie die Seite wirklich neu laden?";
@@ -438,6 +441,12 @@
 
 /* No comment provided by engineer. */
 "Downloading and Opening" = "Download und Öffnen";
+
+/* No comment provided by engineer. */
+"Edit %@ configuration files" = "%@-Einstellungen bearbeiten";
+
+/* No comment provided by engineer. */
+"Edit Config File" = "Konfigurationsdatei  bearbeiten";
 
 /* No comment provided by engineer. */
 "Edit Settings" = "Einstellungen bearbeiten";
@@ -549,6 +558,12 @@
 
 /* No comment provided by engineer. */
 "Force Close" = "Schliessen erzwingen";
+
+/* No comment provided by engineer. */
+"Force Modern" = "Moderne erzwingen";
+
+/* No comment provided by engineer. */
+"Force Modern in New Tab+Different Host" = "Moderne in neuen Fenstern+anderem Server";
 
 /* No comment provided by engineer. */
 "FTP Proxy" = "FTP-Proxy";
@@ -761,6 +776,9 @@
 "Open %@ exam or configuration link from Safari, Mail or a messenger app." = "%@-Prüfungs- oder Konfigurations-Link in Safari, Mail oder einer Nachrichten-App öffnen.";
 
 /* No comment provided by engineer. */
+"Open Config File" = "Konfigurationsdatei bearbeiten";
+
+/* No comment provided by engineer. */
 "Open edX" = "Open edX";
 
 /* No comment provided by engineer. */
@@ -815,12 +833,6 @@
 "Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
 
 /* No comment provided by engineer. */
-"Force Modern" = "Moderne erzwingen";
-
-/* No comment provided by engineer. */
-"Force Modern in New Tab+Different Host" = "Moderne in neuen Fenstern+anderem Server";
-
-/* No comment provided by engineer. */
 "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
 
 /* No comment provided by engineer. */
@@ -834,6 +846,9 @@
 
 /* No comment provided by engineer. */
 "Quit Session" = "Session beenden";
+
+/* No comment provided by engineer. */
+"Raise Hand" = "Hand heben";
 
 /* No comment provided by engineer. */
 "Re-enter Identity Admin Password" = "Admin-Passwort der Identität erneut eingeben";
@@ -1028,7 +1043,13 @@
 "Share" = "Teilen";
 
 /* No comment provided by engineer. */
+"Share %@ log file for debugging" = "%@-Logdatei für Debugging teilen";
+
+/* No comment provided by engineer. */
 "Share as Configuration" = "Als Konfiguration teilen";
+
+/* No comment provided by engineer. */
+"Share Log File" = "Loggdatei teilen";
 
 /* No comment provided by engineer. */
 "Share settings" = "Einstellungen teilen";
