@@ -1353,15 +1353,17 @@
     title = [self.browserController webPageTitle:title orURL:self.webView.url mainWebView:self.webView.isMainBrowserWebView];
     [self.browserController setTitle: title forWindow:self withWebView:self.webView];
     NSString* versionString = [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"];
-    NSString* appTitleString = [NSString stringWithFormat:@"%@ %@  —  %@",
+    NSString* appTitleString = [NSString stringWithFormat:@"%@ %@%@%@",
                                 SEBFullAppNameClassic,
                                 versionString,
+                                browserWindowTitleSeparator,
                                 title];
     CGFloat windowWidth = [NSWindow minFrameWidthWithTitle:appTitleString styleMask:NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable];
     if (windowWidth > self.frame.size.width) {
-        appTitleString = [NSString stringWithFormat:@"%@ %@  —  %@",
+        appTitleString = [NSString stringWithFormat:@"%@ %@%@%@",
                           SEBShortAppName,
                           [[MyGlobals sharedMyGlobals] infoValueForKey:@"CFBundleShortVersionString"],
+                          browserWindowTitleSeparator,
                           title];
     }
     DDLogInfo(@"BrowserWindow %@: Title of current Page: %@", self, appTitleString);

@@ -554,6 +554,7 @@ enum {
 typedef NSUInteger SEBClipboardPolicy;
 
 
+static NSString __unused *browserWindowTitleSeparator = @"  —  ";
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
 static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
 static NSString __unused *screenCaptureAgent = @"screencapture";
