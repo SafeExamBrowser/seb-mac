@@ -263,9 +263,9 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSString *) windowTitleByRemovingSEBVersionString:(NSString *)browserWindowTitle
 {
-    NSUInteger sebVersionWindowTitelSeparatorLocation = [browserWindowTitle rangeOfString:@" – "].location;
+    NSUInteger sebVersionWindowTitelSeparatorLocation = [browserWindowTitle rangeOfString:browserWindowTitleSeparator].location;
     if (sebVersionWindowTitelSeparatorLocation != NSNotFound) {
-        browserWindowTitle = [browserWindowTitle substringFromIndex:MIN(sebVersionWindowTitelSeparatorLocation+3, browserWindowTitle.length-1)];
+        browserWindowTitle = [browserWindowTitle substringFromIndex:MIN(sebVersionWindowTitelSeparatorLocation+5, browserWindowTitle.length-1)];
     }
     return browserWindowTitle;
 }

@@ -346,7 +346,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
     } else {
         filename = NSLocalizedString(@"Local Client Settings", @"");
     }
-	[self.window setTitle:[NSString stringWithFormat:@"%@  —  %@", filename, _currentModule.title]];
+    [self.window setTitle:[NSString stringWithFormat:@"%@%@%@", filename, browserWindowTitleSeparator, _currentModule.title]];
     [self.window setRepresentedURL:self.settingsFileURL];
     
     if (!progressIndicatorHolder) {
