@@ -245,10 +245,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSString *openWebpagesTitlesMetaDataString = @"Main Window: ";
     NSString *openWebpagesTitlesMetaDataKeyString = nil;
     for (NSString *pageTitle in openWebpagesTitles) {
-        NSString *sanitizedPageTitle = @"";
+        NSString *sanitizedPageTitle = @"Untitled";
         if ([pageTitle isKindOfClass:[NSString class]]) {
-            sanitizedPageTitle = [NSString stringWithFormat:@"%@", pageTitle.length > 0 ? pageTitle : @"Untitled"];
+            sanitizedPageTitle = [NSString stringWithFormat:@"%@", pageTitle.length > 0 ? pageTitle : sanitizedPageTitle];
         }
+        sanitizedPageTitle = [self windowTitleByRemovingSEBVersionString:sanitizedPageTitle];
         if (openWebpagesTitlesMetaDataKeyString) {
             openWebpagesTitlesMetaDataString = [openWebpagesTitlesMetaDataString stringByAppendingFormat:@", %@: %@", openWebpagesTitlesMetaDataKeyString, sanitizedPageTitle];
         } else {
@@ -257,6 +258,16 @@ void run_block_on_ui_thread(dispatch_block_t block)
         }
     }
     return openWebpagesTitlesMetaDataString;
+}
+
+
+- (NSString *) windowTitleByRemovingSEBVersionString:(NSString *)browserWindowTitle
+{
+    NSUInteger sebVersionWindowTitelSeparatorLocation = [browserWindowTitle rangeOfString:@" – "].location;
+    if (sebVersionWindowTitelSeparatorLocation != NSNotFound) {
+        browserWindowTitle = [browserWindowTitle substringFromIndex:MIN(sebVersionWindowTitelSeparatorLocation+3, browserWindowTitle.length-1)];
+    }
+    return browserWindowTitle;
 }
 
 

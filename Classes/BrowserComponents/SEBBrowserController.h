@@ -186,6 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) NSString *currentMainHost;
 @property (readonly) NSString* openWebpagesTitlesString;
+
+- (NSString *) windowTitleByRemovingSEBVersionString:(NSString *)browserWindowTitle;
+
 @property (strong) NSURLAuthenticationChallenge *pendingChallenge;
 
 @property (strong) NSURLCredential *enteredCredential;

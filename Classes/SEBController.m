@@ -1817,10 +1817,7 @@ bool insideMatrix(void);
     }
     
     if (sebPID == pid) {
-        NSUInteger sebVersionWindowTitelSeparatorLocation = [activeBrowserWindowTitle rangeOfString:@" – "].location;
-        if (sebVersionWindowTitelSeparatorLocation != NSNotFound) {
-            activeBrowserWindowTitle = [activeBrowserWindowTitle substringFromIndex:MIN(sebVersionWindowTitelSeparatorLocation+3, activeBrowserWindowTitle.length-1)];
-        }
+        activeBrowserWindowTitle = [self.browserController windowTitleByRemovingSEBVersionString:activeBrowserWindowTitle];
     }
     
     NSDictionary *activeAppWindowMetadata = @{@"activeApp": activeAppInfo, @"activeWindow": activeBrowserWindowTitle};
