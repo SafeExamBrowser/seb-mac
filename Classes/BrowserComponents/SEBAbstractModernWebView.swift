@@ -338,9 +338,18 @@ import CocoaLumberjackSwift
     }
     
     public func load(_ url: URL) {
-        if urlContentFilter {
+        var runningOniOS = false
+#if os(iOS)
+        runningOniOS = true
+#endif
+        if urlContentFilter || runningOniOS {
             let contentRuleListCreator = SEBWKContentRuleListCreator(allowUploads: self.allowUploads)
-            let contentRuleList = contentRuleListCreator.contentRuleList(allowFilterStrings: urlFilter.regexAllowList, blockFilterStrings: urlFilter.regexBlockList)
+            var contentRuleList = ""
+            if urlContentFilter {
+                contentRuleList = contentRuleListCreator.contentRuleList(allowFilterStrings: urlFilter.regexAllowList, blockFilterStrings: urlFilter.regexBlockList)
+            } else {
+                contentRuleList = contentRuleListCreator.contentRuleList(allowFilterStrings: [], blockFilterStrings: [])
+            }
             WKContentRuleListStore.default().compileContentRuleList(
                 forIdentifier: "URLContentBlockingRules",
                 encodedContentRuleList: contentRuleList) { (compiledContentRuleList, error) in
