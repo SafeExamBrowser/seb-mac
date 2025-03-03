@@ -65,19 +65,22 @@ private struct ActionType: Codable {
 
     @objc public func contentRuleList(allowFilterStrings: [String], blockFilterStrings: [String]) -> String {
         
-        let ruleStruct = Rule(trigger: Trigger(urlFilter: ".*"), action: Action(type: ActionType.block))
-        var contentRuleString = encodeRule(ruleStruct)
-        
-        for allowFilterString in allowFilterStrings {
-            let ruleStruct = Rule(trigger: Trigger(urlFilter: allowFilterString), action: Action(type: ActionType.allow))
-            let ruleStringAsJSONString = encodeRule(ruleStruct)
-            contentRuleString += joinString + ruleStringAsJSONString
-        }
-        
-        for blockFilterString in blockFilterStrings {
-            let ruleStruct = Rule(trigger: Trigger(urlFilter: blockFilterString), action: Action(type: ActionType.block))
-            let ruleStringAsJSONString = encodeRule(ruleStruct)
-            contentRuleString += joinString + ruleStringAsJSONString
+        var contentRuleString = ""
+        if !(allowFilterStrings.isEmpty && blockFilterStrings.isEmpty) {
+            let ruleStruct = Rule(trigger: Trigger(urlFilter: ".*"), action: Action(type: ActionType.block))
+            contentRuleString = encodeRule(ruleStruct)
+            
+            for allowFilterString in allowFilterStrings {
+                let ruleStruct = Rule(trigger: Trigger(urlFilter: allowFilterString), action: Action(type: ActionType.allow))
+                let ruleStringAsJSONString = encodeRule(ruleStruct)
+                contentRuleString += joinString + ruleStringAsJSONString
+            }
+            
+            for blockFilterString in blockFilterStrings {
+                let ruleStruct = Rule(trigger: Trigger(urlFilter: blockFilterString), action: Action(type: ActionType.block))
+                let ruleStringAsJSONString = encodeRule(ruleStruct)
+                contentRuleString += joinString + ruleStringAsJSONString
+            }
         }
         
 //        let blockRules = """
