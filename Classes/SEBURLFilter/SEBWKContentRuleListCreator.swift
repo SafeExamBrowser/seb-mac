@@ -83,22 +83,11 @@ private struct ActionType: Codable {
             }
         }
         
-//        let blockRules = """
-//         [{
-//                "trigger": {
-//                    "url-filter": ".*"
-//                },
-//                "action": {
-//                    "type": "css-display-none",
-//                    "selector": "[type=file]"
-//                }
-//            }]
-//        """
-        
 #if os(iOS)
         if !allowUploads {
             let blockChooseFileRuleStruct = Rule(trigger: Trigger(urlFilter: ".*"), action: Action(type: ActionType.cssDisplayNone, selector: "[type=file]"))
-            contentRuleString += joinString + encodeRule(blockChooseFileRuleStruct)
+            contentRuleString += contentRuleString.isEmpty ? "" : joinString
+            contentRuleString += encodeRule(blockChooseFileRuleStruct)
         }
 #endif
         contentRuleString = "[" + contentRuleString + "]"
