@@ -3418,6 +3418,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
     }
     
+    if (@available(macOS 15.1, *)) {
+        // Kill AI Writing Tools if running
+        processDetails = nil;
+        error = [self runningProcessCheckForName:WritingToolsExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+        if (processDetails) {
+            DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
+        }
+    }
+    
     // Check for prohibited BSD processes
     NSArray *prohibitedProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses.copy;
     for (NSString *executableName in prohibitedProcesses) {
