@@ -590,6 +590,7 @@ static NSString __unused *UniversalControlBundleID = @"com.apple.universalcontro
 static NSString __unused *KeyboardViewerBundleID = @"com.apple.inputmethod.AssistiveControl";
 static NSString __unused *PasswordsMenuBarExtraExecutable = @"PasswordsMenuBarExtra";
 static NSString __unused *PasswordsMenuBarExtraApp = @"PasswordsMenuBarExtra.app";
+static NSString __unused *WritingToolsExecutable = @"WritingToolsViewService";
 static NSString __unused *KeyBindingsPath = @"/KeyBindings/DefaultKeyBinding.dict";
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
