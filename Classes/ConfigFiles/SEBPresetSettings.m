@@ -53,6 +53,10 @@
                           @"ignoreInAAC" : @NO,
                       },
                       @{
+                          @"executable" : @"AppleSpell",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
