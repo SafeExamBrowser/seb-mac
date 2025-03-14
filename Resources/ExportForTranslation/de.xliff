@@ -1345,7 +1345,7 @@
       </trans-unit>
       <trans-unit id="1846.title" xml:space="preserve">
         <source>Choose Application...</source>
-        <target>Executable auswählen …</target>
+        <target>Applikation auswählen …</target>
         <note>Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "1846";</note>
       </trans-unit>
       <trans-unit id="1847.title" xml:space="preserve">
