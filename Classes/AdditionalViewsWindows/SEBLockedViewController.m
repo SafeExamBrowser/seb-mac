@@ -179,7 +179,7 @@ void run_block_on_main_thread(dispatch_block_t block)
         [logString appendAttributedString:attributedTimeString];
         [appendedLogString appendAttributedString:attributedTimeString];
     }
-    DDLogError(@"%s: %@ %@", __FUNCTION__, errorString, theTime);
+    DDLogInfo(@"%s: %@ %@", __FUNCTION__, errorString, theTime);
     NSMutableAttributedString *attributedErrorString = [[NSMutableAttributedString alloc] initWithString:errorString];
     
     [attributedErrorString setAttributes:self.boldFontAttributes range:NSMakeRange(0, attributedErrorString.length)];

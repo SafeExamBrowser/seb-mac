@@ -718,6 +718,18 @@
 		69D5CC6828A5514100A1F84E /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
 		69D5CC6C28A5516400A1F84E /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932ABC321DE29BE00DEF77D /* SEBConstants.h */; };
 		69D6A807280987F900E1375B /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
+		69D72CD52D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD02D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png */; };
+		69D72CD62D78EA3C00D776CB /* SEBRaiseHandIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CCF2D78EA3C00D776CB /* SEBRaiseHandIcon.png */; };
+		69D72CD72D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD22D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png */; };
+		69D72CD82D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD12D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png */; };
+		69D72CD92D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD32D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png */; };
+		69D72CDA2D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD42D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png */; };
+		69D72CE12D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDD2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png */; };
+		69D72CE22D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDB2D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png */; };
+		69D72CE32D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CE02D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png */; };
+		69D72CE42D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDE2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png */; };
+		69D72CE52D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDC2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png */; };
+		69D72CE62D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDF2D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png */; };
 		69D817E518017DDB00EB7885 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
 		69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
 		69DA91251C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */; };
@@ -1562,6 +1574,18 @@
 		69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@2x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@2x.png"; sourceTree = "<group>"; };
 		69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCodeIcon@3x.png"; path = "Resources/Icons/Dock/SEBQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		69D5CC6D28A556E400A1F84E /* SEBVerificator-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SEBVerificator-Info.plist"; sourceTree = "<group>"; };
+		69D72CCF2D78EA3C00D776CB /* SEBRaiseHandIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBRaiseHandIcon.png; path = Resources/Icons/Dock/SEBRaiseHandIcon.png; sourceTree = "<group>"; };
+		69D72CD02D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBRaiseHandIcon_raised.png; path = Resources/Icons/Dock/SEBRaiseHandIcon_raised.png; sourceTree = "<group>"; };
+		69D72CD12D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRaiseHandIcon_raised@2x.png"; path = "Resources/Icons/Dock/SEBRaiseHandIcon_raised@2x.png"; sourceTree = "<group>"; };
+		69D72CD22D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRaiseHandIcon_raised@3x.png"; path = "Resources/Icons/Dock/SEBRaiseHandIcon_raised@3x.png"; sourceTree = "<group>"; };
+		69D72CD32D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRaiseHandIcon@2x.png"; path = "Resources/Icons/Dock/SEBRaiseHandIcon@2x.png"; sourceTree = "<group>"; };
+		69D72CD42D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBRaiseHandIcon@3x.png"; path = "Resources/Icons/Dock/SEBRaiseHandIcon@3x.png"; sourceTree = "<group>"; };
+		69D72CDB2D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderRaiseHandIcon.png; path = Resources/Icons/Slider/SEBSliderRaiseHandIcon.png; sourceTree = "<group>"; };
+		69D72CDC2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderRaiseHandIcon_raised.png; path = Resources/Icons/Slider/SEBSliderRaiseHandIcon_raised.png; sourceTree = "<group>"; };
+		69D72CDD2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRaiseHandIcon_raised@2x.png"; path = "Resources/Icons/Slider/SEBSliderRaiseHandIcon_raised@2x.png"; sourceTree = "<group>"; };
+		69D72CDE2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRaiseHandIcon_raised@3x.png"; path = "Resources/Icons/Slider/SEBSliderRaiseHandIcon_raised@3x.png"; sourceTree = "<group>"; };
+		69D72CDF2D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRaiseHandIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderRaiseHandIcon@2x.png"; sourceTree = "<group>"; };
+		69D72CE02D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderRaiseHandIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderRaiseHandIcon@3x.png"; sourceTree = "<group>"; };
 		69D817E318017DDB00EB7885 /* SEBURLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilter.h; sourceTree = "<group>"; };
 		69D817E418017DDB00EB7885 /* SEBURLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilter.m; sourceTree = "<group>"; };
 		69D9A1651AEFAD06005680FF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencesAppearance.strings; sourceTree = "<group>"; };
@@ -2021,6 +2045,12 @@
 				69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */,
 				69A727E8249D93CA0087B193 /* SEBScrollLock_locked@2x.png */,
 				69A727E9249D93CA0087B193 /* SEBScrollLock_locked@3x.png */,
+				69D72CCF2D78EA3C00D776CB /* SEBRaiseHandIcon.png */,
+				69D72CD32D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png */,
+				69D72CD42D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png */,
+				69D72CD02D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png */,
+				69D72CD12D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png */,
+				69D72CD22D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png */,
 				69B253F11E4E275D000B4A6D /* SEBSkipBackIcon.png */,
 				69B253F21E4E275D000B4A6D /* SEBSkipBackIcon@2x.png */,
 				69B253F31E4E275D000B4A6D /* SEBSkipBackIcon@3x.png */,
@@ -2636,6 +2666,12 @@
 				69A727D6249D6DD70087B193 /* SEBSliderScrollLockIcon_locked.png */,
 				69A727D7249D6DD70087B193 /* SEBSliderScrollLockIcon_locked@2x.png */,
 				69A727DA249D6DD80087B193 /* SEBSliderScrollLockIcon_locked@3x.png */,
+				69D72CDB2D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png */,
+				69D72CDC2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png */,
+				69D72CDD2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png */,
+				69D72CDE2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png */,
+				69D72CDF2D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png */,
+				69D72CE02D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png */,
 				69B253DC1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png */,
 				69B253DD1E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png */,
 				69B253DE1E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png */,
@@ -3598,6 +3634,12 @@
 				694055A81CF32B030036C480 /* SEBRestartIcon.png in Resources */,
 				696166052844F70800B00A2C /* SEBSliderSearchIcon.png in Resources */,
 				69718AE6284170D000623060 /* ConfigFile.strings in Resources */,
+				69D72CD52D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png in Resources */,
+				69D72CD62D78EA3C00D776CB /* SEBRaiseHandIcon.png in Resources */,
+				69D72CD72D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png in Resources */,
+				69D72CD82D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png in Resources */,
+				69D72CD92D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png in Resources */,
+				69D72CDA2D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png in Resources */,
 				696DAD211C3C2B1400397E18 /* ModifyPages.js in Resources */,
 				69CB3A712C9A2432006B7E5E /* SEBSliderScreenProctoringIcon_active_error.png in Resources */,
 				696165F52844F6F100B00A2C /* SEBToolbarSearchNextResultIcon@2x.png in Resources */,
@@ -3651,6 +3693,12 @@
 				694A7A6524890B8E00B45C88 /* SEBProctoringViewIcon_checkmark.png in Resources */,
 				69331F011C10AC1B0038BD31 /* continueCircle.png in Resources */,
 				69B581791ED70CC700CE70F3 /* SEBAppIcon_256.png in Resources */,
+				69D72CE12D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png in Resources */,
+				69D72CE22D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png in Resources */,
+				69D72CE32D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png in Resources */,
+				69D72CE42D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png in Resources */,
+				69D72CE52D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png in Resources */,
+				69D72CE62D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png in Resources */,
 				69E87E45202926080055988F /* SEBReloadIconLandscape@2x.png in Resources */,
 				69E87E4B202926080055988F /* SEBReloadIconLandscape@3x.png in Resources */,
 				690FA7EA2CA5EF100004F4E0 /* App.strings in Resources */,
@@ -4863,7 +4911,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -4966,7 +5014,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5262,7 +5310,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5309,7 +5357,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5351,7 +5399,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5416,7 +5464,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5477,7 +5525,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5521,7 +5569,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5558,7 +5606,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5601,7 +5649,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5636,7 +5684,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5705,7 +5753,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5782,7 +5830,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5837,7 +5885,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15477;
+				CURRENT_PROJECT_VERSION = 15499;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
