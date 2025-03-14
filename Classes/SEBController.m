@@ -3839,7 +3839,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         
         // Has the display the built-in flag set?
         if (isBuiltin) {
-            DDLogInfo(@"Display %@ (ID %u) is claming to be built-in", displayName, display);
+            DDLogInfo(@"Display %@ (ID %u) is claiming to be built-in", displayName, display);
             // Check if we already found another display which claims (maybe untruthfully) to be built-in
             if (builtinDisplay != kCGNullDirectDisplay) {
                 // Another display claimed to be built-in, check if this one has the Apple vendor number
