@@ -98,12 +98,15 @@
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) SEBViewController *sebViewController;
 
+@property(readwrite) BOOL uiInitialized;
+
 @property (nonatomic, strong) NSArray *leftSliderCommands;
 @property (nonatomic, strong) NSArray *dockItems;
 @property (nonatomic, strong) SEBSliderItem *sliderScrollLockItem;
 @property (nonatomic, strong) UIBarButtonItem *scrollLockButton;
 @property (nonatomic, strong) UIBarButtonItem *dockReloadButton;
 @property (nonatomic, strong) UIBarButtonItem *dockButtonRaiseHand;
+@property (nonatomic, strong) SEBSliderItem *sliderRaiseHandItem;
 @property (nonatomic, strong) UIBarButtonItem *dockScreenProctoringButton;
 @property (nonatomic, strong) SEBSliderItem *sliderScreenProctoringItem;
 @property(strong, nonatomic) NSString *screenProctoringStateString;
@@ -119,6 +122,7 @@
 @property (readwrite) BOOL browserToolbarEnabled;
 @property (readwrite) BOOL dockEnabled;
 
+- (void)initUI;
 
 // Check if running on a device like iPhone X
 - (BOOL)extendedDisplay;

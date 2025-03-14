@@ -51,6 +51,8 @@
 - (SEBUIController *)sebUIController {
     if (!_sebUIController) {
         _sebUIController = [[SEBUIController alloc] init];
+    } else if (_sebUIController.uiInitialized == NO) {
+        [_sebUIController initUI];
     }
     return _sebUIController;
 }
