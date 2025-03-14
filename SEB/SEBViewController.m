@@ -68,9 +68,11 @@ static NSMutableSet *browserWindowControllers;
 
 
 - (SEBUIController *)sebUIController {
-    SEBUIController *uiController = _appDelegate.sebUIController;
-    uiController.sebViewController = self;
-    return uiController;
+    if (!_sebUIController) {
+        _sebUIController = _appDelegate.sebUIController;
+        _sebUIController.sebViewController = self;
+    }
+    return _sebUIController;
 }
 
 
@@ -2079,7 +2081,7 @@ void run_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (!_showNavigationBarTemporarily && !_updateTemporaryNavigationBarVisibilty) {
         if (sebUIInitialized) {
-            _appDelegate.sebUIController = nil;
+            self.sebUIController.uiInitialized = NO;
         } else {
             sebUIInitialized = YES;
         }
@@ -3096,7 +3098,7 @@ void run_on_ui_thread(dispatch_block_t block)
         [self textSearchDone:self];
     }
     
-    self.appDelegate.sebUIController = nil;
+    self.sebUIController.uiInitialized = NO;
     
     self.viewDidLayoutSubviewsAlreadyCalled = NO;
     
@@ -4894,6 +4896,7 @@ void run_on_ui_thread(dispatch_block_t block)
                                                                      style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.alertController = nil;
                     // Check again if a single app mode is still active
+                    self->ASAMActiveChecked = NO;
                     [self requestDisablingSAM];
                 }]];
                 
@@ -4917,7 +4920,6 @@ void run_on_ui_thread(dispatch_block_t block)
 
 - (BOOL) modernAAC
 {
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL modernAAC = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"];
     if (@available(iOS 18.1, *)) {
         DDLogDebug(@"Running on iOS 18.1 or newer, %s = %d", __FUNCTION__, modernAAC);
@@ -4949,7 +4951,6 @@ void run_on_ui_thread(dispatch_block_t block)
             DDLogInfo(@"%s Requesting AAC/Autonomous Single App Mode", __FUNCTION__);
             _ASAMActive = YES;
             
-            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             if (@available(iOS 13.4, *)) {
                 AssessmentModeManager *assessmentModeManager = [[AssessmentModeManager alloc] initWithCallback:self selector:@selector(startExamWithFallback:) fallback:NO];
                 self.assessmentModeManager = assessmentModeManager;
