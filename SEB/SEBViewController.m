@@ -3801,7 +3801,10 @@ void run_on_ui_thread(dispatch_block_t block)
 {
     DDLogInfo(@"Quit Link invoked");
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    BOOL restart = NO;
+    if (!(self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished)) {
+        restart = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLRestart"];
+    }
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_quitURLConfirm"]) {
         [self sessionQuitRestartIgnoringQuitPW:restart quittingFromSPSCacheUpload:NO];
     } else {
