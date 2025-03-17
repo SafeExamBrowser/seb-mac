@@ -39,6 +39,7 @@
 
 @class AppDelegate;
 @class SEBViewController;
+@class KeyboardToolbarController;
 
 @interface SEBUIController : NSObject <ProctoringUIDelegate> {
     
@@ -97,6 +98,7 @@
 
 @property (weak, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) SEBViewController *sebViewController;
+@property (strong, nonatomic) KeyboardToolbarController *keyboardToolbarController;
 
 @property(readwrite) BOOL uiInitialized;
 
@@ -146,6 +148,7 @@
 
 - (void) raiseHandNotificationReceived:(NSInteger)notficationID;
 
+- (void) promptTextWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector;
 
 #pragma mark - Screen Proctoring SPSControllerUIDelegate methods
 
