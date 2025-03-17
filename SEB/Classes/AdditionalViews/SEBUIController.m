@@ -343,7 +343,7 @@
             _sliderRaiseHandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Raise Hand",nil)
                                                                 icon:sliderIcon
                                                               target:self
-                                                              action:@selector(toggleRaiseHand)];
+                                                                 action:@selector(toggleRaiseHand:forEvent:)];
             [sliderCommands addObject:_sliderRaiseHandItem];
 
             if (_dockEnabled) {
@@ -352,7 +352,7 @@
                 dockItem = [[UIBarButtonItem alloc] initWithImage:RaisedHandIconDefaultState
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
-                                                           action:@selector(toggleRaiseHand)];
+                                                           action:@selector(toggleRaiseHand:forEvent:)];
                 //                                                                secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
                 dockItem.accessibilityLabel = NSLocalizedString(@"Raise Hand",nil);
                 _dockButtonRaiseHand = dockItem;
@@ -654,9 +654,18 @@
     }
 }
 
-- (void) toggleRaiseHand
+- (void) toggleRaiseHand:(UIBarButtonItem *)sender forEvent:(UIEvent *)event
 {
-    [self toggleRaiseHandLoweredByServer:NO];
+    NSSet *allTouches = event.allTouches;
+    UITouch *touch = allTouches.allObjects.firstObject;
+    
+    if (touch.tapCount == 1) {
+        // Handle tap
+        [self toggleRaiseHandLoweredByServer:NO];
+    } else if (touch.tapCount == 0) {
+        // Handle long press
+        [self showEnterRaiseHandMessageWindow];
+    }
 }
 
 - (void) toggleRaiseHandLoweredByServer:(BOOL)loweredByServer
@@ -697,43 +706,65 @@
 - (void) showEnterRaiseHandMessageWindow
 {
     if (!_raiseHandRaised) {
-//        NSWindow *windowToShowModalFor;
-//
-//        if (@available(macOS 12.0, *)) {
-//        } else {
-//            if (@available(macOS 11.0, *)) {
-//                if (_isAACEnabled || _wasAACEnabled) {
-//                    windowToShowModalFor = self.browserController.mainBrowserWindow;
-//                }
-//            }
-//        }
-//
-//        [NSApp beginSheet: _enterRaiseHandMessageWindow
-//           modalForWindow: windowToShowModalFor
-//            modalDelegate: nil
-//           didEndSelector: nil
-//              contextInfo: nil];
-//        [NSApp runModalForWindow: _enterRaiseHandMessageWindow];
-//        // Dialog is up here.
-//        [NSApp endSheet: _enterRaiseHandMessageWindow];
-//        self.raiseHandMessageTextField.stringValue = @"";
-//        [_enterRaiseHandMessageWindow orderOut: self];
-//        [self removeAlertWindow:_enterRaiseHandMessageWindow];
-        if (raiseHandNotification) {
-            [self raiseHand];
-        }
+        
+        [self promptTextWithMessageText:NSLocalizedString(@"Enter Raise Hand message:", @"Prompting user to enter message for SEB Server Raise Hand feature")
+                                                           title:NSLocalizedString(@"Raise Hand",nil)
+                                                        callback:self
+                               selector:@selector(enteredRaiseHandText:)];
+    }
+}
+
+- (void) enteredRaiseHandText:(NSString *)text
+{
+    raiseHandNotification = text;
+    if (raiseHandNotification) {
+        [self raiseHand];
     }
 }
 
 
-- (IBAction)sendEnteredRaiseHandMessage:(id)sender
+- (void) promptTextWithMessageText:(NSString *)messageText title:(NSString *)titleString callback:(id)callback selector:(SEL)selector
 {
-    raiseHandNotification = @""; //self.raiseHandMessageTextField.stringValue;
-}
+    if (_sebViewController.alertController) {
+        [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _sebViewController.alertController = [UIAlertController alertControllerWithTitle:titleString
+                                                                message:messageText
+                                                         preferredStyle:UIAlertControllerStyleAlert];
+    
+    [_sebViewController.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+//         textField.placeholder = NSLocalizedString(@"", @"");
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.spellCheckingType = UITextSpellCheckingTypeNo;
+        if (@available(iOS 17.0, *)) {
+            textField.inlinePredictionType = UITextInlinePredictionTypeNo;
+        }
+     }];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Send", @"")
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                                                                 NSString *text = self->_sebViewController.alertController.textFields.firstObject.text;
+                                                                 if (!text) {
+                                                                     text = @"";
+                                                                 }
+                                                                 self->_sebViewController.alertController = nil;
+                                                                 IMP imp = [callback methodForSelector:selector];
+                                                                 void (*func)(id, SEL, NSString*) = (void *)imp;
+                                                                 func(callback, selector, text);
+                                                             }]];
+    
+    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
+                                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                 self->_sebViewController.alertController = nil;
+                                                                 // Return nil to callback method to indicate that cancel was pressed
+                                                                 IMP imp = [callback methodForSelector:selector];
+                                                                 void (*func)(id, SEL, NSString*) = (void *)imp;
+                                                                 func(callback, selector, nil);
+                                                             }]];
+//    _sebViewController.alertController.view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor whiteColor];
 
-- (IBAction)cancelEnteringRaiseHandMessage:(id)sender
-{
-    raiseHandNotification = nil;
+    [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 
 
