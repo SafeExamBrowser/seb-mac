@@ -207,7 +207,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"allowDownloads",
                    
-                   @NO,
+                   @YES,
                    @"allowDownUploads",
                    
                    @YES,
@@ -276,7 +276,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowSwitchToApplications",
                    
-                   @YES,
+                   @NO,
                    @"allowUploads",
                    
                    @NO,
