@@ -339,22 +339,27 @@
             // Functionality enabled, add to slider menu
             RaisedHandSliderItemDefaultState = [UIImage imageNamed:@"SEBSliderRaiseHandIcon"];
             RaisedHandSliderItemRaisedState = [UIImage imageNamed:@"SEBSliderRaiseHandIcon_raised"];
+            sliderRaiseHandItemTitle = NSLocalizedString(@"Raise Hand", @"");
+            sliderRaiseHandItemTitleRaised = NSLocalizedString(@"Lower Hand", @"");
+            raiseHandAccessibilityLabel = NSLocalizedString(@"Hand is not raised", @"");
+            raiseHandAccessibilityLabelRaised = NSLocalizedString(@"Hand is raised", @"");
             sliderIcon = RaisedHandSliderItemDefaultState;;
-            _sliderRaiseHandItem = [[SEBSliderItem alloc] initWithTitle:NSLocalizedString(@"Raise Hand",nil)
+            _sliderRaiseHandItem = [[SEBSliderItem alloc] initWithTitle:sliderRaiseHandItemTitle
                                                                 icon:sliderIcon
                                                               target:self
-                                                                 action:@selector(toggleRaiseHand:forEvent:)];
+                                                                 action:@selector(toggleRaiseHand)
+                                                        secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
             [sliderCommands addObject:_sliderRaiseHandItem];
 
             if (_dockEnabled) {
                 RaisedHandIconDefaultState = [UIImage imageNamed:@"SEBRaiseHandIcon"];
-                RaisedHandIconRaisedState = [UIImage imageNamed:@"SEBRaiseHandIcon_raised"];
+                RaisedHandIconRaisedState = [[UIImage imageNamed:@"SEBRaiseHandIcon_raised"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                 dockItem = [[UIBarButtonItem alloc] initWithImage:RaisedHandIconDefaultState
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
-                                                           action:@selector(toggleRaiseHand:forEvent:)];
-                //                                                                secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
-                dockItem.accessibilityLabel = NSLocalizedString(@"Raise Hand",nil);
+                                                           action:@selector(toggleRaiseHand)
+                                                  secondaryAction:@selector(showEnterRaiseHandMessageWindow)];
+                dockItem.accessibilityLabel = raiseHandAccessibilityLabel;
                 _dockButtonRaiseHand = dockItem;
                 [newDockItems addObject:dockItem];
                 
@@ -654,18 +659,9 @@
     }
 }
 
-- (void) toggleRaiseHand:(UIBarButtonItem *)sender forEvent:(UIEvent *)event
+- (void) toggleRaiseHand
 {
-    NSSet *allTouches = event.allTouches;
-    UITouch *touch = allTouches.allObjects.firstObject;
-    
-    if (touch.tapCount == 1) {
-        // Handle tap
-        [self toggleRaiseHandLoweredByServer:NO];
-    } else if (touch.tapCount == 0) {
-        // Handle long press
-        [self showEnterRaiseHandMessageWindow];
-    }
+    [self toggleRaiseHandLoweredByServer:NO];
 }
 
 - (void) toggleRaiseHandLoweredByServer:(BOOL)loweredByServer
@@ -674,9 +670,7 @@
     
     if (_raiseHandRaised) {
         _raiseHandRaised = NO;
-        _dockButtonRaiseHand.image = RaisedHandIconDefaultState;
-        _dockButtonRaiseHand.tintColor = RaisedHandIconColorDefaultState;
-        _sliderRaiseHandItem.icon = RaisedHandSliderItemDefaultState;
+        [self updateRaiseHandButtonStates];
         if (!loweredByServer) {
             [self.sebViewController.serverController sendLowerHandNotificationWithUID:raiseHandUID];
         }
@@ -694,22 +688,40 @@
 {
     if (!_raiseHandRaised) {
         _raiseHandRaised = YES;
-        _dockButtonRaiseHand.image = RaisedHandIconRaisedState;
-        _dockButtonRaiseHand.tintColor = RaisedHandIconColorRaisedState;
-        _sliderRaiseHandItem.icon = RaisedHandSliderItemRaisedState;
+        [self updateRaiseHandButtonStates];
         raiseHandUID = [self.sebViewController.serverController sendRaiseHandNotificationWithMessage:raiseHandNotification];
         raiseHandNotification = @"";
     }
 }
 
 
+- (void)updateRaiseHandButtonStates
+{
+    if (_raiseHandRaised) {
+        _dockButtonRaiseHand.accessibilityLabel = raiseHandAccessibilityLabelRaised;
+        [_dockButtonRaiseHand setImage:RaisedHandIconRaisedState tintColor: RaisedHandIconColorRaisedState];
+        _sliderRaiseHandItem.icon = RaisedHandSliderItemRaisedState;
+        _sliderRaiseHandItem.title = sliderRaiseHandItemTitleRaised;
+    } else {
+        _dockButtonRaiseHand.accessibilityLabel = raiseHandAccessibilityLabel;
+        [_dockButtonRaiseHand setImage:RaisedHandIconDefaultState tintColor:RaisedHandIconColorDefaultState];
+        _sliderRaiseHandItem.icon = RaisedHandSliderItemDefaultState;
+        _sliderRaiseHandItem.title = sliderRaiseHandItemTitle;
+    }
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"refreshSlider" object:self];
+}
+
+
+
+
 - (void) showEnterRaiseHandMessageWindow
 {
-    if (!_raiseHandRaised) {
-        
+    if (!_raiseHandRaised && !_raiseHandMessageAlertDisplayed) {
+        _raiseHandMessageAlertDisplayed = YES;
         [self promptTextWithMessageText:NSLocalizedString(@"Enter Raise Hand message:", @"Prompting user to enter message for SEB Server Raise Hand feature")
-                                                           title:NSLocalizedString(@"Raise Hand",nil)
-                                                        callback:self
+                                  title:sliderRaiseHandItemTitle
+                               callback:self
                                selector:@selector(enteredRaiseHandText:)];
     }
 }
@@ -720,6 +732,7 @@
     if (raiseHandNotification) {
         [self raiseHand];
     }
+    _raiseHandMessageAlertDisplayed = NO;
 }
 
 
@@ -742,7 +755,7 @@
         }
      }];
     
-    [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Send", @"")
+    UIAlertAction *actionSend = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                  NSString *text = self->_sebViewController.alertController.textFields.firstObject.text;
                                                                  if (!text) {
@@ -752,7 +765,8 @@
                                                                  IMP imp = [callback methodForSelector:selector];
                                                                  void (*func)(id, SEL, NSString*) = (void *)imp;
                                                                  func(callback, selector, text);
-                                                             }]];
+                                                             }];
+    [_sebViewController.alertController addAction:actionSend];
     
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"")
                                                              style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -764,6 +778,7 @@
                                                              }]];
 //    _sebViewController.alertController.view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor whiteColor];
 
+    _sebViewController.alertController.preferredAction = actionSend;
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
 }
 

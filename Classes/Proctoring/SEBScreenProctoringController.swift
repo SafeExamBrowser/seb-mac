@@ -140,6 +140,7 @@ struct MetadataSettings {
     private var accessToken: String?
     private var gettingAccessToken = false
     private var gotAccessToken = false
+    private var accessTokenWasRenewed = false
 
     private var serviceURL: URL?
     private var clientId: String?
@@ -359,6 +360,7 @@ extension SEBScreenProctoringController {
                     DDLogInfo("SEB Screen Proctoring Controller: Verified that expired token was renewed successfully")
                     if (transmittingState == SPSTransmittingState.normal) {
                         DDLogInfo("SEB Screen Proctoring Controller: Attempt to send screen shots which have been cached while token was expired")
+                        self.accessTokenWasRenewed = true
                         self.transmitNextScreenShot()
                     }
                 }
@@ -595,7 +597,12 @@ extension SEBScreenProctoringController {
             let transmissionInterval = closingSession ? (currentServerHealth + 2) * ((screenshotMinInterval ?? 1000)/1000) : nil
             screenShotCache.transmitNextCachedScreenShot(interval: transmissionInterval)
         } else {
-            setScreenProctoringButtonInfoString(NSLocalizedString("All cached screenshots transmitted", comment: ""))
+            if accessTokenWasRenewed {
+                setScreenProctoringButtonInfoString("")
+                accessTokenWasRenewed = false
+            } else {
+                setScreenProctoringButtonInfoString(NSLocalizedString("All cached screenshots transmitted", comment: ""))
+            }
             conditionallyCloseSession()
         }
     }

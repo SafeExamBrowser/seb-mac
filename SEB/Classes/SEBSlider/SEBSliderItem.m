@@ -41,12 +41,26 @@
               target:(id)newTarget
               action:(SEL)newAction
 {
+    return [self initWithTitle:newTitle
+                          icon:newIcon
+                        target:newTarget
+                        action:newAction
+               secondaryAction:nil];
+}
+
+- (id) initWithTitle:(NSString *)newTitle
+                icon:(UIImage *)newIcon
+              target:(id)newTarget
+              action:(SEL)newAction
+     secondaryAction:(SEL)newSecondaryAction
+{
     self = [super init];
     if (self) {
         _title = newTitle;
         _icon = newIcon;
         _target = newTarget;
         _action = newAction;
+        _secondaryAction = newSecondaryAction;
         _enabled = true;
     }
     return self;

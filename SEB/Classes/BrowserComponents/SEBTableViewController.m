@@ -83,6 +83,11 @@
     if (@available(iOS 15.0, *)) {
         self.tableView.sectionHeaderTopPadding = 0.0;
     }
+    
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action: @selector(handleSecondaryAction:)];
+    longGesture.minimumPressDuration = 0.35;
+    [self.tableView addGestureRecognizer:longGesture];
+
 }
 
 
@@ -398,7 +403,7 @@ titleForHeaderInSection:(NSInteger)section
             cellLabel.adjustsFontForContentSizeCategory = YES;
             UIButton *closeButton = (UIButton *)[cell viewWithTag:1];
             [closeButton setImage:commandItem.icon forState:UIControlStateNormal];
-            [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
+//            [closeButton addTarget:cell action:@selector(fireAction:) forControlEvents:UIControlEventTouchUpInside];
             closeButton.enabled = commandItem.enabled;
             
             return cell;
@@ -432,7 +437,7 @@ titleForHeaderInSection:(NSInteger)section
             break;
             
         case 1:
-            [self didFireActionForIndexPath:indexPath];
+            [self didFireActionForIndexPath:indexPath secondaryAction:NO];
             break;
             
         default:
@@ -454,11 +459,23 @@ titleForHeaderInSection:(NSInteger)section
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (!indexPath) return;
     
-    [self didFireActionForIndexPath:indexPath];
+    [self didFireActionForIndexPath:indexPath secondaryAction:NO];
 }
 
 
--(void)didFireActionForIndexPath:(NSIndexPath *)indexPath
+-(void)handleSecondaryAction:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        CGPoint touchPoint = [sender locationInView:self.tableView];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:touchPoint];
+        if (indexPath) {
+            [self didFireActionForIndexPath:indexPath secondaryAction:YES];
+        }
+    }
+}
+
+
+-(void)didFireActionForIndexPath:(NSIndexPath *)indexPath secondaryAction:(BOOL)secondaryAction
 {
     NSInteger section = indexPath.section;
     NSInteger index = indexPath.row;
@@ -488,11 +505,18 @@ titleForHeaderInSection:(NSInteger)section
             if (index < _commandItems.count) {
                 SEBSliderItem *item = _commandItems[index];
                 id callback = item.target;
-                SEL selector = item.action;
-                IMP imp = [callback methodForSelector:selector];
-                void (*func)(id, SEL) = (void *)imp;
-                // Execute action on target
-                func(callback, selector);
+                SEL selector;
+                if (!secondaryAction) {
+                    selector = item.action;
+                } else {
+                    selector = item.secondaryAction;
+                }
+                if (selector) {
+                    IMP imp = [callback methodForSelector:selector];
+                    void (*func)(id, SEL) = (void *)imp;
+                    // Execute action on target
+                    func(callback, selector);
+                }
             }
         }
             break;
