@@ -41,6 +41,7 @@
 
 @property (weak, nonatomic) id target;
 @property (assign, nonatomic) SEL action;
+@property (assign, nonatomic) SEL secondaryAction;
 
 @property (assign, nonatomic) BOOL enabled;
 
@@ -49,5 +50,11 @@
                 icon:(UIImage *)newIcon
               target:(id)newTarget
               action:(SEL)newAction;
+
+- (id) initWithTitle:(NSString *)newTitle
+                icon:(UIImage *)newIcon
+              target:(id)newTarget
+              action:(SEL)newAction
+     secondaryAction:(SEL)newSecondaryAction;
 
 @end

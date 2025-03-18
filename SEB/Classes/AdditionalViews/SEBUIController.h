@@ -68,6 +68,10 @@
     UIImage *RaisedHandIconRaisedState;
     UIImage *RaisedHandSliderItemDefaultState;
     UIImage *RaisedHandSliderItemRaisedState;
+    NSString *sliderRaiseHandItemTitle;
+    NSString *sliderRaiseHandItemTitleRaised;
+    NSString *raiseHandAccessibilityLabel;
+    NSString *raiseHandAccessibilityLabelRaised;
 
     UIImage *ScreenProctoringIconInactiveState;
     UIImage *ScreenProctoringIconActiveState;
@@ -114,6 +118,7 @@
 @property(strong, nonatomic) NSString *screenProctoringStateString;
 
 @property(readwrite) BOOL raiseHandRaised;
+@property(readwrite) BOOL raiseHandMessageAlertDisplayed;
 
 @property (nonatomic, strong) UIBarButtonItem *proctoringViewButton;
 
