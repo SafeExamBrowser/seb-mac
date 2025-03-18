@@ -54,6 +54,7 @@ class SEBApplication: NSApplication {
         UserDefaults.standard.setValue(false, forKey:"NSAllowContinuousSpellChecking")
         UserDefaults.standard.setValue(false, forKey:"NSAutomaticSpellingCorrectionEnabled")
         UserDefaults.standard.setValue(false, forKey:"NSAutomaticTextCompletionEnabled")
+        UserDefaults.standard.setValue(false, forKey:"NSAutomaticInlinePredictionEnabled")
         UserDefaults.standard.setValue(false, forKey:"WebContinuousSpellCheckingEnabled")
         UserDefaults.standard.setValue(false, forKey:"WebAutomaticSpellingCorrectionEnabled")
         UserDefaults.standard.setValue(false, forKey:"WebGrammarCheckingEnabled")
