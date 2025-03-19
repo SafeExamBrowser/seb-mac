@@ -1298,7 +1298,7 @@ static NSMutableSet *browserWindowControllers;
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
     
-    self.appSettingsViewController.showDoneButton = YES;
+    self.appSettingsViewController.showDoneButton = NO;
     if (@available(iOS 13.0, *)) {
         self.appSettingsViewController.modalInPopover = YES;
     }
@@ -1322,16 +1322,48 @@ static NSMutableSet *browserWindowControllers;
         
     }
     if (!settingsActionButton) {
-        settingsActionButton = [[UIBarButtonItem alloc]
-                                initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                target:self
-                                action:@selector(moreSettingsActions:)];
+        if (@available(iOS 13.0, *)) {
+            settingsActionButton = [[UIBarButtonItem alloc]
+                                    initWithImage:[UIImage systemImageNamed:@"ellipsis.circle"]
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(moreSettingsActions:)];
+        } else {
+            settingsActionButton = [[UIBarButtonItem alloc]
+                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                    target:self
+                                    action:@selector(moreSettingsActions:)];
+        }
         settingsActionButton.accessibilityLabel = NSLocalizedString(@"Settings Actions", @"");
-        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for creating or resetting settings", @"");
+        settingsActionButton.accessibilityHint = NSLocalizedString(@"Actions for opening, creating or resetting settings", @"");
         
     }
     self.appSettingsViewController.navigationItem.leftBarButtonItems = @[settingsShareButton, settingsQRCodeButton, settingsActionButton];
     
+    NSMutableArray *rightBarButtonItems = [NSMutableArray new];
+    
+    settingsApplyButton = [[UIBarButtonItem alloc]
+                           initWithTitle :NSLocalizedString(@"Apply", @"")
+                           style:UIBarButtonItemStylePlain
+                           target:self
+                           action:@selector(applySettings)];
+    settingsApplyButton.accessibilityLabel = NSLocalizedString(@"Apply Settings", @"");
+    settingsApplyButton.accessibilityHint = NSLocalizedString(@"Restart session using settings currently being edited", @"");
+    [rightBarButtonItems addObject:settingsApplyButton];
+
+    if (NSUserDefaults.userDefaultsPrivate) {
+        settingsDiscardButton = [[UIBarButtonItem alloc]
+                                 initWithTitle :NSLocalizedString(@"Discard", @"")
+                                 style:UIBarButtonItemStylePlain
+                                 target:self
+                                 action:@selector(discardSettings)];
+        settingsDiscardButton.accessibilityLabel = NSLocalizedString(@"Discard Settings", @"");
+        settingsDiscardButton.accessibilityHint = NSLocalizedString(@"Discard settings currently being edited and restart with client settings", @"");
+        [rightBarButtonItems addObject:settingsDiscardButton];        
+    }
+    
+    self.appSettingsViewController.navigationItem.rightBarButtonItems = rightBarButtonItems;
+
     // Register notification for changed keys
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(inAppSettingsChanged:)
@@ -1859,6 +1891,15 @@ static NSMutableSet *browserWindowControllers;
 }
 
 
+- (void)applySettings
+{
+    [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
+        DDLogDebug(@"%s: Settings closed.", __FUNCTION__);
+        self.appSettingsViewController = nil;
+        [self settingsViewControllerDidEnd:self.appSettingsViewController];
+    }];
+}
+
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController *)sender
 {
     [self becomeFirstResponder];
@@ -1905,6 +1946,18 @@ static NSMutableSet *browserWindowControllers;
     // before re-initializing SEB with new settings
     _settingsDidClose = YES;
     [self restartExamQuitting:NO quittingClientConfig:NO pasteboardString:pasteboardString.copy];
+}
+
+
+-(void)discardSettings
+{
+    // Switch to system's UserDefaults (persisted)
+    [NSUserDefaults setUserDefaultsPrivate:NO];
+    
+    // Reset config file hash (client config isn't encrypted using an identity)
+    self.configFileKeyHash = nil;
+
+    [self applySettings];
 }
 
 
