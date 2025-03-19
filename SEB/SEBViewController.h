@@ -122,6 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIBarButtonItem *settingsShareButton;
     UIBarButtonItem *settingsQRCodeButton;
     UIBarButtonItem *settingsActionButton;
+    UIBarButtonItem *settingsApplyButton;
+    UIBarButtonItem *settingsDiscardButton;
 
 @private
     NSInteger attempts;
