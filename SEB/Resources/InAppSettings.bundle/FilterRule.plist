@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>App</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Filter Rule</string>
+			<key>FooterText</key>
+			<string>Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Active</string>
+			<key>Key</key>
+			<string>active</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Regex</string>
+			<key>Key</key>
+			<string>regex</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Expression</string>
+			<key>Key</key>
+			<string>expression</string>
+			<key>IASKPlaceholder</key>
+			<string>Filter expression</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>action</string>
+			<key>Title</key>
+			<string>Action</string>
+			<key>Titles</key>
+			<array>
+				<string>block</string>
+				<string>allow</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>

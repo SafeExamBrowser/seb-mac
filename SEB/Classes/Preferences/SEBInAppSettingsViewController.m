@@ -307,6 +307,31 @@
          return cell;
      }
      
+     if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_URLFilterRules"]) {
+         NSDictionary *dict = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+         UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"filterCell"];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"filterCell"];
+         }
+         cell.textLabel.text = dict[@"expression"];
+         NSMutableArray *properties = [NSMutableArray new];
+         if (![dict[@"active"] boolValue]) {
+             [properties addObject:NSLocalizedString(@"inactive", @"")];
+         }
+         if ([dict[@"regex"] boolValue]) {
+             [properties addObject:NSLocalizedString(@"regex", @"")];
+         }
+         NSString *propertiesString = [properties componentsJoinedByString:@" "];
+         if (propertiesString.length > 0) {
+             propertiesString = [NSString stringWithFormat:@"(%@) ", propertiesString];
+         }
+         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", propertiesString,
+                                      [dict[@"action"] intValue] == URLFilterActionAllow ? NSLocalizedString(@"allow", @"") :
+                                      [dict[@"action"] intValue] == URLFilterActionBlock ? NSLocalizedString(@"block", @"") : @""];
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         return cell;
+     }
+     
     CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -337,6 +362,15 @@
             [contentDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"active"];
         }
         return [contentDictionary[@"title"] length] > 1 && ((([contentDictionary[@"os"] intValue] == operatingSystemiOS) && [contentDictionary[@"identifier"] length]) || (([contentDictionary[@"os"] intValue] == operatingSystemMacOS) && [contentDictionary[@"identifier"] length]));
+    }
+    if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_URLFilterRules"]) {
+        if (contentDictionary[@"active"] == nil) {
+            [contentDictionary setValue:[NSNumber numberWithBool:YES] forKey:@"active"];
+        }
+        if (contentDictionary[@"action"] == nil) {
+            [contentDictionary setValue:[NSNumber numberWithLong:URLFilterActionAllow] forKey:@"action"];
+        }
+        return YES;
     }
     return YES;
 }
