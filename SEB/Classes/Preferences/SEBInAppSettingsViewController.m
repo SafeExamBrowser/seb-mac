@@ -928,19 +928,6 @@
     NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_SEB_mobileEnableModernAAC"]];
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"])
     {
-         newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
-        [newHiddenKeys unionSet:dependentKeys];
-        
-    } else {
-        newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
-        [newHiddenKeys minusSet:dependentKeys];
-    }
-    [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-
-    dependentKeys = [NSSet setWithArray:@[@"appsChildPane"]];
-    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableASAM"] ||
-        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"])
-    {
         newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
         
