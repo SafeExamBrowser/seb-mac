@@ -1908,11 +1908,10 @@ static NSMutableSet *browserWindowControllers;
 // Called when the user cancels the document picker
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
     DDLogInfo(@"Document picker was cancelled");
-    _editingConfigFile = NO;
     _documentPickerViewController = nil;
     
     [self alertWithTitle:NSLocalizedString(@"Edit New Configuration", @"")
-                 message:[NSString stringWithFormat:NSLocalizedString(@"Do you want to create a new configuration from %@ default settings?", @""), SEBShortAppName]
+                 message:[NSString stringWithFormat:NSLocalizedString(@"Do you want to create a new configuration with default %@ settings?", @""), SEBShortAppName]
             action1Title:NSLocalizedString(@"OK", @"")
           action1Handler:^ {
         self.alertController = nil;
@@ -1922,6 +1921,7 @@ static NSMutableSet *browserWindowControllers;
             action2Title:NSLocalizedString(@"Cancel", @"")
           action2Handler:^ {
         self.alertController = nil;
+        self.editingConfigFile = NO;
         [self conditionallyInitSEBUI];
     }];
 }
