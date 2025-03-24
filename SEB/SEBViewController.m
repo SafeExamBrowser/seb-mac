@@ -1758,46 +1758,28 @@ static NSMutableSet *browserWindowControllers;
             [self openConfigFile];
         }]];    }
     
+    [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Default Exam Settings", @"")
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+
+        [self createExamSettingsFromDefaults];
+        
+        // Close then reopen settings view controller (so new settings are displayed)
+        [self closeThenReopenSettings];
+    }]];
+
     if (!NSUserDefaults.userDefaultsPrivate) {
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Create Exam Settings", @"")
                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             self.alertController = nil;
-            
-            DDLogInfo(@"Create Exam Settings");
-            
-            // Update entered passwords and save their hashes to SEB settings
-            // as long as the passwords were really entered and don't contain the hash placeholders
-            [self updateEnteredPasswords];
-            
-            // Get key/values from local shared client UserDefaults
+            DDLogInfo(@"Create Exam Settings from current client settings");
+
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+            // Get key/values from local shared client UserDefaults
             NSDictionary *localClientPreferences = [preferences dictionaryRepresentationSEB];
             
-            // Cache the option "Auto-Select Identity"
-            BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
-            
-            // Reset config file hash, so the auto-select option can do its job
-            self.configFileKeyHash = nil;
-            
-            // Switch to private UserDefaults (saved non-persistently in memory)
-            NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
-            [NSUserDefaults setUserDefaultsPrivate:YES];
-            
-            [self.configFileController storeIntoUserDefaults:localClientPreferences];
-            
-            DDLogVerbose(@"Private preferences set: %@", privatePreferences);
-            
-            // Switch config purpose to "starting exam"
-            [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
-            
-            // Check if the option "Auto-Select Identity" was enabled in client config
-            if (configFileEncryptUsingIdentity &&
-                [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
-                self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
-                // Select the last identity certificate from the list
-                [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
-            }
-            //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
+            [self createExamSettings:localClientPreferences];
             
             // Close then reopen settings view controller (so new settings are displayed)
             [self closeThenReopenSettings];
@@ -1806,7 +1788,8 @@ static NSMutableSet *browserWindowControllers;
         [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Revert to Client Settings", @"")
                                                              style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
             self.alertController = nil;
-            
+            DDLogInfo(@"Revert to Client Settings");
+
             // Switch to system's UserDefaults (persisted)
             [NSUserDefaults setUserDefaultsPrivate:NO];
             //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
@@ -1823,7 +1806,8 @@ static NSMutableSet *browserWindowControllers;
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Reset to Default Settings", @"")
                                                          style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         self.alertController = nil;
-        
+        DDLogInfo(@"Reset to Default Settings");
+
         // Write just default SEB settings to UserDefaults
         NSDictionary *emptySettings = [NSDictionary dictionary];
         [self.configFileController storeIntoUserDefaults:emptySettings];
@@ -1843,6 +1827,58 @@ static NSMutableSet *browserWindowControllers;
     _alertController.popoverPresentationController.sourceView = self.view;
     
     [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+- (void)createExamSettingsFromDefaults
+{
+    DDLogInfo(@"Create Exam Settings from default settings");
+
+    // Switch to private UserDefaults (saved non-persistently in memory)
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    
+    // Write just default SEB settings to UserDefaults
+    NSDictionary *emptySettings = [NSDictionary dictionary];
+
+    [self createExamSettings:emptySettings];
+}
+
+
+- (void)createExamSettings:(NSDictionary *)settings
+{
+    DDLogInfo(@"Create Exam Settings");
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Update entered passwords and save their hashes to SEB settings
+    // as long as the passwords were really entered and don't contain the hash placeholders
+    [self updateEnteredPasswords];
+    
+    // Cache the option "Auto-Select Identity"
+    BOOL configFileEncryptUsingIdentity = ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_configFileEncryptUsingIdentity"]);
+    
+    // Reset config file hash, so the auto-select option can do its job
+    self.configFileKeyHash = nil;
+    
+    // Switch to private UserDefaults (saved non-persistently in memory)
+    NSMutableDictionary *privatePreferences = [NSUserDefaults privateUserDefaults]; //the mutable dictionary has to be created here, otherwise the preferences values will not be saved!
+    [NSUserDefaults setUserDefaultsPrivate:YES];
+    
+    [self.configFileController storeIntoUserDefaults:settings];
+    
+    DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+    
+    // Switch config purpose to "starting exam"
+    [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    
+    // Check if the option "Auto-Select Identity" was enabled in client config
+    if (configFileEncryptUsingIdentity &&
+        [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_configFileIdentity"] == 0 &&
+        self.sebInAppSettingsViewController.identitiesCounter.count > 0) {
+        // Select the last identity certificate from the list
+        [self.sebInAppSettingsViewController selectLatestSettingsIdentity];
+    }
+    //                                                                 [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:YES];
 }
 
 
@@ -1874,7 +1910,20 @@ static NSMutableSet *browserWindowControllers;
     DDLogInfo(@"Document picker was cancelled");
     _editingConfigFile = NO;
     _documentPickerViewController = nil;
-    [self conditionallyInitSEBUI];
+    
+    [self alertWithTitle:NSLocalizedString(@"Edit New Configuration", @"")
+                 message:[NSString stringWithFormat:NSLocalizedString(@"Do you want to create a new configuration from %@ default settings?", @""), SEBShortAppName]
+            action1Title:NSLocalizedString(@"OK", @"")
+          action1Handler:^ {
+        self.alertController = nil;
+        [self createExamSettingsFromDefaults];
+        [self storeNewSEBSettingsSuccessful:nil];
+    }
+            action2Title:NSLocalizedString(@"Cancel", @"")
+          action2Handler:^ {
+        self.alertController = nil;
+        [self conditionallyInitSEBUI];
+    }];
 }
 
 
