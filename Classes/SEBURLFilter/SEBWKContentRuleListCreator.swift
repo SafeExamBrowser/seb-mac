@@ -88,6 +88,10 @@ private struct ActionType: Codable {
             let blockChooseFileRuleStruct = Rule(trigger: Trigger(urlFilter: ".*"), action: Action(type: ActionType.cssDisplayNone, selector: "[type=file]"))
             contentRuleString += contentRuleString.isEmpty ? "" : joinString
             contentRuleString += encodeRule(blockChooseFileRuleStruct)
+            // This is a specific filter to block the class of a drag-and-drop/choose file for upload box in Ans
+            let blockFileSelectorButtonRuleStruct = Rule(trigger: Trigger(urlFilter: ".*"), action: Action(type: ActionType.cssDisplayNone, selector: ".upload-redactor-box"))
+            contentRuleString += contentRuleString.isEmpty ? "" : joinString
+            contentRuleString += encodeRule(blockFileSelectorButtonRuleStruct)
         }
 #endif
         contentRuleString = "[" + contentRuleString + "]"
