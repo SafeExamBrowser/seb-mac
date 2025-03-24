@@ -49,6 +49,7 @@
     __weak IBOutlet UITextField *configURLField;
     __weak IBOutlet UIActivityIndicatorView *loadingConfig;
     __weak IBOutlet UIButton *searchNetworkButton;
+    __weak IBOutlet UIButton *quitSessionButton;
     __weak IBOutlet UIButton *moreInformationButton;
     __weak IBOutlet UILabel *noConfigURLFoundLabel;
     __weak IBOutlet UILabel *scanQRConfigText;

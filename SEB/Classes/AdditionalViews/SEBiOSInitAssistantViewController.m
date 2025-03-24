@@ -69,6 +69,7 @@
                                                                        blue:SEBTintColorBlueValue
                                                                       alpha:1.0];
     searchNetworkButton.titleLabel.adjustsFontForContentSizeCategory = YES;
+    quitSessionButton.titleLabel.adjustsFontForContentSizeCategory = YES;
     moreInformationButton.titleLabel.adjustsFontForContentSizeCategory = YES;
     [self adjustDynamicFontSizes];
     openSEBLinkText.text = [NSString stringWithFormat:NSLocalizedString(@"Open %@ exam or configuration link from Safari, Mail or a messenger app.", @""), SEBExtraShortAppName];
@@ -86,6 +87,13 @@
 }
 
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    quitSessionButton.hidden = !NSUserDefaults.userDefaultsPrivate;
+    [super viewWillAppear:animated];
+    
+}
+
 - (void) traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
     [self adjustDynamicFontSizes];
@@ -101,6 +109,8 @@
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [self setConfigURLString:@""];
     self.sebViewController.initAssistantOpen = NO;
     [_assistantController cancelDownloadingClientConfig];
 }
@@ -275,6 +285,15 @@
     
     [_sebViewController.topMostController presentViewController:_sebViewController.alertController animated:NO completion:nil];
     
+}
+
+
+- (IBAction) quitSession:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"requestQuit" object:self];
+    }];
 }
 
 

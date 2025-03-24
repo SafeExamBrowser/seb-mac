@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mpe-hm-d5J">
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -458,13 +459,11 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F0X-iW-mMS">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="a6E-u8-okf">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </toolbar>
@@ -705,6 +704,14 @@
                                                     <action selector="scanQRCode" destination="h8j-pm-u2W" eventType="touchUpInside" id="Lnk-v2-VBP"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEH-zL-g3I">
+                                                <rect key="frame" x="32" y="385" width="91" height="32"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                <state key="normal" title="Quit Session"/>
+                                                <connections>
+                                                    <action selector="quitSession:" destination="h8j-pm-u2W" eventType="touchUpInside" id="Rtz-Nf-gd2"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-vP-dKf">
                                                 <rect key="frame" x="665" y="383" width="137" height="36"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -752,6 +759,7 @@
                                             <constraint firstItem="Ye2-Ig-UNb" firstAttribute="trailing" secondItem="6pO-9x-gSg" secondAttribute="trailing" constant="12" id="PzI-yh-pWq"/>
                                             <constraint firstItem="BE1-ZM-fgu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="leadingMargin" id="Q2k-yN-IOs"/>
                                             <constraint firstItem="lf7-gn-5ng" firstAttribute="top" secondItem="GzA-jp-7VX" secondAttribute="top" constant="15" id="QpU-S6-sg3"/>
+                                            <constraint firstItem="oEH-zL-g3I" firstAttribute="leading" secondItem="Ye2-Ig-UNb" secondAttribute="leading" constant="32" id="Qta-pm-yZP"/>
                                             <constraint firstItem="1bF-7Z-Q9L" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="VaN-t0-KoK"/>
                                             <constraint firstAttribute="bottom" secondItem="sIk-vP-dKf" secondAttribute="bottom" constant="15" id="WPM-CG-iD3"/>
                                             <constraint firstItem="Wmj-TM-U1f" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dvS-YS-Rz4" secondAttribute="top" constant="15" id="YQg-B2-wVN"/>
@@ -762,6 +770,7 @@
                                             <constraint firstItem="9il-ut-H8z" firstAttribute="top" secondItem="7o6-KW-3Qp" secondAttribute="bottom" constant="3" id="deY-NC-tl2"/>
                                             <constraint firstAttribute="trailing" secondItem="iMS-9D-3zr" secondAttribute="trailing" id="e6b-7g-kQG"/>
                                             <constraint firstItem="z6r-Ir-cTX" firstAttribute="leading" secondItem="1bF-7Z-Q9L" secondAttribute="trailing" constant="4" id="eSz-NK-eb6"/>
+                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="centerY" secondItem="oEH-zL-g3I" secondAttribute="centerY" id="eZc-cI-fA8"/>
                                             <constraint firstAttribute="trailing" secondItem="cj0-uR-8kk" secondAttribute="trailing" id="eeB-uE-i9C"/>
                                             <constraint firstItem="lf7-gn-5ng" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="f5U-t0-8QO"/>
                                             <constraint firstItem="7o6-KW-3Qp" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="32" id="fEE-FH-7Lj"/>
@@ -781,7 +790,6 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z6r-Ir-cTX" secondAttribute="trailing" constant="20" id="qPg-Wy-mMy"/>
                                             <constraint firstItem="GCj-e3-Pe5" firstAttribute="leading" secondItem="dvS-YS-Rz4" secondAttribute="leading" constant="20" id="qU8-4p-lpp"/>
                                             <constraint firstItem="cj0-uR-8kk" firstAttribute="top" secondItem="dvS-YS-Rz4" secondAttribute="top" id="u0P-Au-HJh"/>
-                                            <constraint firstItem="sIk-vP-dKf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ye2-Ig-UNb" secondAttribute="leading" constant="32" id="uiY-kR-ahf"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -820,6 +828,7 @@
                         <outlet property="noConfigQRCodeFoundLabel" destination="fem-Ic-Pih" id="oh9-gt-NO8"/>
                         <outlet property="noConfigURLFoundLabel" destination="9il-ut-H8z" id="cD9-rU-0E5"/>
                         <outlet property="openSEBLinkText" destination="BE1-ZM-fgu" id="SOb-tM-jc4"/>
+                        <outlet property="quitSessionButton" destination="oEH-zL-g3I" id="O3v-1o-5ht"/>
                         <outlet property="scanQRConfigText" destination="z6r-Ir-cTX" id="vCC-NP-1Ly"/>
                         <outlet property="scrollView" destination="ltZ-M4-c8e" id="GGj-C1-NXz"/>
                         <outlet property="searchNetworkButton" destination="aaL-4I-bjq" id="rq0-h5-uZ1"/>
@@ -998,14 +1007,14 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="examListCell" id="7kU-4n-zRN" customClass="ExamCell">
-                                                <rect key="frame" x="0.0" y="50" width="834" height="44"/>
+                                                <rect key="frame" x="0.0" y="50" width="834" height="44.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7kU-4n-zRN" id="2ZN-V2-0ax">
-                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="834" height="44.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOX-Xm-hMN">
-                                                            <rect key="frame" x="16" y="11" width="802" height="21"/>
+                                                            <rect key="frame" x="16" y="11" width="802" height="21.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
