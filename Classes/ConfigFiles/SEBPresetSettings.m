@@ -68,6 +68,10 @@
                           @"identifier" : @"com.hnc.Discord*",
                       },
                       @{
+                          @"executable" : @"Discord Lite",
+                          @"identifier" : @"com.dosdude1.Discord-Lite",
+                      },
+                      @{
                           @"executable" : @"Element (Riot)",
                           @"identifier" : @"im.riot.app",
                       },
@@ -89,6 +93,10 @@
                       @{
                           @"executable" : @"GoToMeeting",
                           @"identifier" : @"com.logmein.GoToMeeting",
+                      },
+                      @{
+                          @"executable" : @"Guilded",
+                          @"identifier" : @"com.electron.guilded",
                       },
                       @{
                           @"executable" : @"Join.me",
@@ -157,6 +165,10 @@
                           @"identifier" : @"com.mersive.solstice.client",
                       },
                       @{
+                          @"executable" : @"Swiftcord",
+                          @"identifier" : @"io.cryptoalgo.swiftcord",
+                      },
+                      @{
                           @"executable" : @"Teams",
                           @"identifier" : @"com.microsoft.teams",
                       },
@@ -183,8 +195,16 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"VLC",
+                          @"identifier" : @"org.videolan.vlc",
+                      },
+                      @{
                           @"executable" : @"vncserver",
                           @"description" : @"The user will have to deactivate/uninstall RealVNC server to use SEB.",
+                      },
+                      @{
+                          @"executable" : @"Voxa",
+                          @"identifier" : @"lol.peril.voxa",
                       },
                       @{
                           @"executable" : @"webexmta",
