@@ -746,7 +746,7 @@
 "No Identity Name Provided" = "Kein Name für Identität angegeben";
 
 /* No comment provided by engineer. */
-"No Kiosk Mode Available" = "Kein Kioskmodus verfügbar";
+"No Assessment Mode Available" = "Kein Prüfungsmodus verfügbar";
 
 /* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
