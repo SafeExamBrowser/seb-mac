@@ -5196,7 +5196,7 @@ void run_on_ui_thread(dispatch_block_t block)
 }
 
 
-// No kiosk mode available: SEB refuses to start the exam
+// No Assessment Mode Available: SEB refuses to start the exam
 - (void) showNoKioskModeAvailable
 {
     DDLogDebug(@"%s", __FUNCTION__);
@@ -5212,8 +5212,8 @@ void run_on_ui_thread(dispatch_block_t block)
         [self.topMostController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
     _noSAMAlertDisplayed = YES;
-    DDLogError(@"%s Showing alert 'No Kiosk Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
-    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Kiosk Mode Available", @"")
+    DDLogError(@"%s Showing alert 'No Assessment Mode Available – Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.'", __FUNCTION__);
+    _alertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"No Assessment Mode Available", @"")
                                                             message:NSLocalizedString(@"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.", @"")
                                                      preferredStyle:UIAlertControllerStyleAlert];
     [_alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")

@@ -9693,9 +9693,9 @@ untitled filename</note>
         <target>Kein Name für Identität angegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="No Kiosk Mode Available" xml:space="preserve">
-        <source>No Kiosk Mode Available</source>
-        <target>Kein Kioskmodus verfügbar</target>
+      <trans-unit id="No Assessment Mode Available" xml:space="preserve">
+        <source>No Assessment Mode Available</source>
+        <target>Kein Prüfungsmodus verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
