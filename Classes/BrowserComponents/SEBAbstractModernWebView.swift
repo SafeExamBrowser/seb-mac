@@ -350,21 +350,23 @@ import CocoaLumberjackSwift
             } else {
                 contentRuleList = contentRuleListCreator.contentRuleList(allowFilterStrings: [], blockFilterStrings: [])
             }
-            WKContentRuleListStore.default().compileContentRuleList(
-                forIdentifier: "URLContentBlockingRules",
-                encodedContentRuleList: contentRuleList) { (compiledContentRuleList, error) in
-                    
-                    if let error = error {
-                        DDLogError("Compiling content blocking rules failed with error \(error)")
-                        DDLogDebug("Failed content blocking rule list: \n\(String(describing: contentRuleList))")
-                    } else {
-                        let configuration = self.sebWebView.configuration
-                        configuration.userContentController.removeAllContentRuleLists()
-                        configuration.userContentController.add(compiledContentRuleList!)
+            if !contentRuleList.isEmpty {
+                WKContentRuleListStore.default().compileContentRuleList(
+                    forIdentifier: "URLContentBlockingRules",
+                    encodedContentRuleList: contentRuleList) { (compiledContentRuleList, error) in
+                        
+                        if let error = error {
+                            DDLogError("Compiling content blocking rules failed with error \(error)")
+                            DDLogDebug("Failed content blocking rule list: \n\(String(describing: contentRuleList))")
+                        } else {
+                            let configuration = self.sebWebView.configuration
+                            configuration.userContentController.removeAllContentRuleLists()
+                            configuration.userContentController.add(compiledContentRuleList!)
+                        }
+                        self.browserControllerDelegate?.load?(url)
                     }
-                    self.browserControllerDelegate?.load?(url)
-                }
-            return
+                return
+            }
         }
         browserControllerDelegate?.load?(url)
     }
