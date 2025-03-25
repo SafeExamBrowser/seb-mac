@@ -30,7 +30,7 @@
 /* String for FooterText elements */
 "On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled." = "On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.";
 "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." = "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.";
-"Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.";
+"Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.";
 "In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled." = "In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.";
 
 /* String for IASKPlaceholder elements */

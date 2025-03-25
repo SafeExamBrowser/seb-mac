@@ -1,4 +1,7 @@
 /* No comment provided by engineer. */
+"" = "";
+
+/* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d Remaining)";
 
 /* No comment provided by engineer. */
@@ -110,7 +113,7 @@
 "About %@" = "About %@";
 
 /* No comment provided by engineer. */
-"Actions for creating or resetting settings" = "Actions for creating or resetting settings";
+"Actions for opening, creating or resetting settings" = "Actions for opening, creating or resetting settings";
 
 /* No comment provided by engineer. */
 "Activate Scroll Lock" = "Activate Scroll Lock";
@@ -141,6 +144,12 @@
 
 /* No comment provided by engineer. */
 "An identity with the same name is already stored in the Keychain. Please use a unique name." = "An identity with the same name is already stored in the Keychain. Please use a unique name.";
+
+/* No comment provided by engineer. */
+"Apply" = "Apply";
+
+/* No comment provided by engineer. */
+"Apply Settings" = "Apply Settings";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Are you sure you want to quit this session?";
@@ -353,6 +362,9 @@
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.";
 
 /* No comment provided by engineer. */
+"Create Default Exam Settings" = "Create Default Exam Settings";
+
+/* No comment provided by engineer. */
 "Create Exam Settings" = "Create Exam Settings";
 
 /* No comment provided by engineer. */
@@ -407,6 +419,15 @@
 "Disable Scroll Lock" = "Disable Scroll Lock";
 
 /* No comment provided by engineer. */
+"Discard" = "Discard";
+
+/* No comment provided by engineer. */
+"Discard Settings" = "Discard Settings";
+
+/* No comment provided by engineer. */
+"Discard settings currently being edited and restart with client settings" = "Discard settings currently being edited and restart with client settings";
+
+/* No comment provided by engineer. */
 "Disconnecting from SEB Server" = "Disconnecting from SEB Server";
 
 /* No comment provided by engineer. */
@@ -428,6 +449,9 @@
 "Do you want to close Settings and apply this managed configuration?" = "Do you want to close Settings and apply this managed configuration?";
 
 /* No comment provided by engineer. */
+"Do you want to create a new configuration with default %@ settings?" = "Do you want to create a new configuration with default %@ settings?";
+
+/* No comment provided by engineer. */
 "Done" = "Done";
 
 /* No comment provided by engineer. */
@@ -447,6 +471,9 @@
 
 /* No comment provided by engineer. */
 "Edit Config File" = "Edit Config File";
+
+/* No comment provided by engineer. */
+"Edit New Configuration" = "Edit New Configuration";
 
 /* No comment provided by engineer. */
 "Edit Settings" = "Edit Settings";
@@ -480,6 +507,9 @@
 
 /* No comment provided by engineer. */
 "Enter quit password:" = "Enter quit password:";
+
+/* Prompting user to enter message for SEB Server Raise Hand feature */
+"Enter Raise Hand message:" = "Enter Raise Hand message:";
 
 /* No comment provided by engineer. */
 "Enter SEB Server fallback password:" = "Enter SEB Server fallback password:";
@@ -590,6 +620,12 @@
 "Good server health, waiting until %@ to resume sending cached screen shots" = "Good server health, waiting until %@ to resume sending cached screen shots";
 
 /* No comment provided by engineer. */
+"Hand is not raised" = "Hand is not raised";
+
+/* No comment provided by engineer. */
+"Hand is raised" = "Hand is raised";
+
+/* No comment provided by engineer. */
 "Hiding" = "Hiding";
 
 /* No comment provided by engineer. */
@@ -686,6 +722,9 @@
 "Log in to" = "Log in to";
 
 /* No comment provided by engineer. */
+"Lower Hand" = "Lower Hand";
+
+/* No comment provided by engineer. */
 "macOS" = "macOS";
 
 /* No comment provided by engineer. */
@@ -734,6 +773,9 @@
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.";
 
 /* No comment provided by engineer. */
+"No Assessment Mode Available" = "No Assessment Mode Available";
+
+/* No comment provided by engineer. */
 "No Camera Available" = "No Camera Available";
 
 /* No comment provided by engineer. */
@@ -744,9 +786,6 @@
 
 /* No comment provided by engineer. */
 "No Identity Name Provided" = "No Identity Name Provided";
-
-/* No comment provided by engineer. */
-"No Kiosk Mode Available" = "No Kiosk Mode Available";
 
 /* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "No SEB Server Fallback Password entered";
@@ -869,6 +908,9 @@
 "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.";
 
 /* No comment provided by engineer. */
+"regex" = "regex";
+
+/* No comment provided by engineer. */
 "Reload" = "Reload";
 
 /* No comment provided by engineer. */
@@ -918,6 +960,9 @@
 
 /* No comment provided by engineer. */
 "Restart Session" = "Restart Session";
+
+/* No comment provided by engineer. */
+"Restart session using settings currently being edited" = "Restart session using settings currently being edited";
 
 /* No comment provided by engineer. */
 "Retry" = "Retry";
@@ -1011,6 +1056,9 @@
 
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Select Exam";
+
+/* No comment provided by engineer. */
+"Send" = "Send";
 
 /* No comment provided by engineer. */
 "Send %@ Logfiles" = "Send %@ Logfiles";

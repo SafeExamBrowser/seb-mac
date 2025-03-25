@@ -1,0 +1,12 @@
+/* (No Comment) */
+"Add Filter Rule ..." = "Filterregel hinzufügen …";
+
+/* (No Comment) */
+"Filter Rule" = "Filterregel";
+
+/* String for Title elements */
+"Filter Rules" = "Filterregeln";
+
+/* String for FooterText elements */
+"Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings." = "Wischen Sie nach links, um eine Regel zu löschen. Der URL-Filter verarbeitet immer zuerst Regeln mit der Block-Aktion, wenn eine übereinstimmt, wird der entsprechende http-Request verworfen. Wenn keine Block-Regel zutrifft, werden Regeln mit der Zulassen-Aktion abgearbeitet. Wenn eine davon zutrifft, wird der Request geladen. Wenn keine Zulassen-Regel übereinstimmt, wird der Request verworfen. SEB erstellt automatisch eine Zulassen-Regel für die genaue Adresse der in diesen Einstellungen definierten Start-URL.";
+

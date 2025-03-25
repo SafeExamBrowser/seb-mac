@@ -18,6 +18,8 @@
 "Allow QR Code Config" = "Allow QR Code Config";
 "Editing Settings" = "Editing Settings";
 "Show Settings In App" = "Show Settings In App";
+"Home Screen Quick Action" = "Home Screen Quick Action";
+"Show 'Edit Config File' Quick Action" = "Show 'Edit Config File' Quick Action";
 
 /* String for Titles arrays elements */
 "Starting Exams" = "Starting Exams";
@@ -35,6 +37,7 @@
 "SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate." = "SEB can automatically create an identity certificate and embed it into the current client config (see Network/Certificates page). Share and use that client config for the initial configuration of SEB clients. Those clients will be able to decrypt exam configurations encrypted with that identity certificate.";
 "Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action." = "Allows to start an exam or to reconfigure SEB by scanning a QR code containing an SEB configuration or a link to an SEB config file. This is only possible while SEB isn't running in exam mode. Use slider menu, dock button (if enabled) or 3D touch Home screen quick action.";
 "Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration." = "Recommended for easier set-up and testing. Shows the 'Edit Settings' command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam configuration.";
+"Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings." = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings.";
 
 /* String for IASKPlaceholder elements */
 "Shared config file name" = "Shared config file name";

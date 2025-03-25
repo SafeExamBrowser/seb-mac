@@ -104,7 +104,7 @@
 "Show URLs" = "URLs anzeigen";
 
 /* String for FooterText elements */
-"Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." = "Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien. Das Blockieren von Pop-up-Fenstern und das Deaktivieren von JavaScript funktioniert nur im modernen WebView.";
+"Text search currently only works on web pages, not in PDF files." = "Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien.";
 
 /* (No Comment) */
 "The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session > Use Browser & Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser & Config Keys' option in new tabs on a different server or generally." = "Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung > Browser & Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser & Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.";

@@ -5,15 +5,14 @@
 "Downloading/Uploading Files" = "Downloading/Uploading Files";
 "Allow Downloading and Uploading Files" = "Allow Downloading and Uploading Files";
 "Allow Downloading Files" = "Allow Downloading Files";
-"Open App for Downloaded File" = "Open App for Downloaded File";
 "Allow Uploading Photos and Files" = "Allow Uploading Photos and Files";
 "Download & Open Config Files" = "Download & Open Config Files";
 
 /* String for Titles arrays elements */
 
 /* String for FooterText elements */
-"In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!";
-"Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!";
+"In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!";
+"Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!";
 "Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." = "Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client.";
 
 /* String for IASKPlaceholder elements */
