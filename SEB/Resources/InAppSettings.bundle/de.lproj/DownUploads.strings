@@ -17,11 +17,11 @@
 "Downloading/Uploading Files" = "Dateidownload/Upload";
 
 /* String for FooterText elements */
-"In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Im klassischen WebView und iOS-Versionen vor 14.5 können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Diese Funktion ist für die Speicherung verschlüsselter Prüfungsergebnisse gedacht, falls keine Netzwerkverbindung besteht. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') und über iTunes zugegriffen werden.";
+"In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "In iOS-Versionen vor 14.5 können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') zugegriffen werden. Upload erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!";
 
 /* (No Comment) */
 "Open App for Downloaded File" = "App für heruntergeladene Datei öffnen";
 
 /* (No Comment) */
-"Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Upload im modernen WebView erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!";
+"Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Upload erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!";
 

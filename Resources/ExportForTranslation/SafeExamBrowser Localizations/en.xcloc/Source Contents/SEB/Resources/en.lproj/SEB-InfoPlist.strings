@@ -10,7 +10,7 @@
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "Camera is needed to scan QR codes, for web applications and remote proctoring.";
 /* Copyright (human-readable) */
-"NSHumanReadableCopyright" = "© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
+"NSHumanReadableCopyright" = "© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
 /* Privacy - Local Network Usage Description */
 "NSLocalNetworkUsageDescription" = "Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.";
 /* Privacy - Microphone Usage Description */

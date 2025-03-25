@@ -7202,8 +7202,8 @@ untitled filename</note>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
+        <source>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSMicrophoneUsageDescription" xml:space="preserve">
@@ -7473,6 +7473,11 @@ untitled filename</note>
         <target>Enter the URL of an institution which supports SEB</target>
         <note>Class = "UILabel"; text = "Enter the URL of an institution which supports SEB"; ObjectID = "lf7-gn-5ng";</note>
       </trans-unit>
+      <trans-unit id="oEH-zL-g3I.normalTitle" xml:space="preserve">
+        <source>Quit Session</source>
+        <target>Quit Session</target>
+        <note>Class = "UIButton"; normalTitle = "Quit Session"; ObjectID = "oEH-zL-g3I";</note>
+      </trans-unit>
       <trans-unit id="qCX-Ab-h85.text" xml:space="preserve">
         <source>•</source>
         <target>•</target>
@@ -7534,6 +7539,85 @@ untitled filename</note>
         <source>Operation</source>
         <target>Operation</target>
         <note>Class = "UILabel"; text = "Operation"; ObjectID = "yVn-EW-xng";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/FilterRule.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="Action" xml:space="preserve">
+        <source>Action</source>
+        <target>Action</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Active" xml:space="preserve">
+        <source>Active</source>
+        <target>Active</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed." xml:space="preserve">
+        <source>Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed.</source>
+        <target>Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Expression" xml:space="preserve">
+        <source>Expression</source>
+        <target>Expression</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rule" xml:space="preserve">
+        <source>Filter Rule</source>
+        <target>Filter Rule</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Filter expression" xml:space="preserve">
+        <source>Filter expression</source>
+        <target>Filter expression</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Regex" xml:space="preserve">
+        <source>Regex</source>
+        <target>Regex</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="allow" xml:space="preserve">
+        <source>allow</source>
+        <target>allow</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="block" xml:space="preserve">
+        <source>block</source>
+        <target>block</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/en.lproj/FilterRules.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="Add Filter Rule ..." xml:space="preserve">
+        <source>Add Filter Rule ...</source>
+        <target>Add Filter Rule ...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rule" xml:space="preserve">
+        <source>Filter Rule</source>
+        <target>Filter Rule</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rules" xml:space="preserve">
+        <source>Filter Rules</source>
+        <target>Filter Rules</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings." xml:space="preserve">
+        <source>Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings.</source>
+        <target>Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings.</target>
+        <note>String for FooterText elements</note>
       </trans-unit>
     </body>
   </file>
@@ -7883,9 +7967,9 @@ untitled filename</note>
         <target>Show URLs</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView." xml:space="preserve">
-        <source>Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView.</source>
-        <target>Text search currently only works on web pages, not in PDF files. Blocking pop-up windows and disabling JavaScript only works in modern WebView.</target>
+      <trans-unit id="Text search currently only works on web pages, not in PDF files." xml:space="preserve">
+        <source>Text search currently only works on web pages, not in PDF files.</source>
+        <target>Text search currently only works on web pages, not in PDF files.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
@@ -8027,6 +8111,11 @@ untitled filename</note>
         <target>File Name</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Home Screen Quick Action" xml:space="preserve">
+        <source>Home Screen Quick Action</source>
+        <target>Home Screen Quick Action</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Identity Certificate" xml:space="preserve">
         <source>Identity Certificate</source>
         <target>Identity Certificate</target>
@@ -8092,9 +8181,19 @@ untitled filename</note>
         <target>Shared config file name</target>
         <note>String for IASKPlaceholder elements</note>
       </trans-unit>
+      <trans-unit id="Show 'Edit Config File' Quick Action" xml:space="preserve">
+        <source>Show 'Edit Config File' Quick Action</source>
+        <target>Show 'Edit Config File' Quick Action</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Show Settings In App" xml:space="preserve">
         <source>Show Settings In App</source>
         <target>Show Settings In App</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings." xml:space="preserve">
+        <source>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings.</source>
+        <target>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Starting Exams" xml:space="preserve">
@@ -8226,19 +8325,14 @@ untitled filename</note>
         <target>Downloading/Uploading Files</target>
         <note>String for Title elements</note>
       </trans-unit>
-      <trans-unit id="In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
-        <source>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
-        <target>In the classic WebView and on iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. This feature is meant for saving encrypted exam results in case there is no network connection. Those files can be accessed in the Files app ('On My iPad/iPhone' location) and by using iTunes. Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</target>
+      <trans-unit id="In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
+        <source>In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
+        <target>In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="Open App for Downloaded File" xml:space="preserve">
-        <source>Open App for Downloaded File</source>
-        <target>Open App for Downloaded File</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
-        <source>Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
-        <target>Uploading in the modern WebView allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</target>
+      <trans-unit id="Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
+        <source>Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
+        <target>Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</target>
         <note/>
       </trans-unit>
     </body>
@@ -8682,9 +8776,9 @@ untitled filename</note>
         <target>About %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Actions for creating or resetting settings" xml:space="preserve">
-        <source>Actions for creating or resetting settings</source>
-        <target>Actions for creating or resetting settings</target>
+      <trans-unit id="Actions for opening, creating or resetting settings" xml:space="preserve">
+        <source>Actions for opening, creating or resetting settings</source>
+        <target>Actions for opening, creating or resetting settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Activate Scroll Lock" xml:space="preserve">
@@ -8720,6 +8814,16 @@ untitled filename</note>
       <trans-unit id="An identity with the same name is already stored in the Keychain. Please use a unique name." xml:space="preserve">
         <source>An identity with the same name is already stored in the Keychain. Please use a unique name.</source>
         <target>An identity with the same name is already stored in the Keychain. Please use a unique name.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Apply" xml:space="preserve">
+        <source>Apply</source>
+        <target>Apply</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Apply Settings" xml:space="preserve">
+        <source>Apply Settings</source>
+        <target>Apply Settings</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit this session?" xml:space="preserve">
@@ -9052,6 +9156,11 @@ untitled filename</note>
         <target>Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Create Default Exam Settings" xml:space="preserve">
+        <source>Create Default Exam Settings</source>
+        <target>Create Default Exam Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Create Exam Settings" xml:space="preserve">
         <source>Create Exam Settings</source>
         <target>Create Exam Settings</target>
@@ -9137,6 +9246,21 @@ untitled filename</note>
         <target>Disable Scroll Lock</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Discard" xml:space="preserve">
+        <source>Discard</source>
+        <target>Discard</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Discard Settings" xml:space="preserve">
+        <source>Discard Settings</source>
+        <target>Discard Settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Discard settings currently being edited and restart with client settings" xml:space="preserve">
+        <source>Discard settings currently being edited and restart with client settings</source>
+        <target>Discard settings currently being edited and restart with client settings</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
         <source>Disconnecting from SEB Server</source>
         <target>Disconnecting from SEB Server</target>
@@ -9172,6 +9296,11 @@ untitled filename</note>
         <target>Do you want to close Settings and apply this managed configuration?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Do you want to create a new configuration with default %@ settings?" xml:space="preserve">
+        <source>Do you want to create a new configuration with default %@ settings?</source>
+        <target>Do you want to create a new configuration with default %@ settings?</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Done" xml:space="preserve">
         <source>Done</source>
         <target>Done</target>
@@ -9205,6 +9334,11 @@ untitled filename</note>
       <trans-unit id="Edit Config File" xml:space="preserve">
         <source>Edit Config File</source>
         <target>Edit Config File</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Edit New Configuration" xml:space="preserve">
+        <source>Edit New Configuration</source>
+        <target>Edit New Configuration</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Edit Settings" xml:space="preserve">
@@ -9246,6 +9380,11 @@ untitled filename</note>
         <source>Enter Identity Admin Password</source>
         <target>Enter Identity Admin Password</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enter Raise Hand message:" xml:space="preserve">
+        <source>Enter Raise Hand message:</source>
+        <target>Enter Raise Hand message:</target>
+        <note>Prompting user to enter message for SEB Server Raise Hand feature</note>
       </trans-unit>
       <trans-unit id="Enter SEB Server fallback password:" xml:space="preserve">
         <source>Enter SEB Server fallback password:</source>
@@ -9417,6 +9556,16 @@ untitled filename</note>
         <target>Good server health, waiting until %@ to resume sending cached screen shots</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Hand is not raised" xml:space="preserve">
+        <source>Hand is not raised</source>
+        <target>Hand is not raised</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Hand is raised" xml:space="preserve">
+        <source>Hand is raised</source>
+        <target>Hand is raised</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Hiding" xml:space="preserve">
         <source>Hiding</source>
         <target>Hiding</target>
@@ -9552,6 +9701,11 @@ untitled filename</note>
         <target>Log in to</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Lower Hand" xml:space="preserve">
+        <source>Lower Hand</source>
+        <target>Lower Hand</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Missing Connection Settings" xml:space="preserve">
         <source>Missing Connection Settings</source>
         <target>Missing Connection Settings</target>
@@ -9617,6 +9771,11 @@ untitled filename</note>
         <target>No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="No Assessment Mode Available" xml:space="preserve">
+        <source>No Assessment Mode Available</source>
+        <target>No Assessment Mode Available</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="No Camera Available" xml:space="preserve">
         <source>No Camera Available</source>
         <target>No Camera Available</target>
@@ -9635,11 +9794,6 @@ untitled filename</note>
       <trans-unit id="No Identity Name Provided" xml:space="preserve">
         <source>No Identity Name Provided</source>
         <target>No Identity Name Provided</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="No Kiosk Mode Available" xml:space="preserve">
-        <source>No Kiosk Mode Available</source>
-        <target>No Kiosk Mode Available</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
@@ -9912,6 +10066,11 @@ untitled filename</note>
         <target>Restart Session</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Restart session using settings currently being edited" xml:space="preserve">
+        <source>Restart session using settings currently being edited</source>
+        <target>Restart session using settings currently being edited</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Retry" xml:space="preserve">
         <source>Retry</source>
         <target>Retry</target>
@@ -10076,6 +10235,11 @@ untitled filename</note>
         <source>Select Exam</source>
         <target>Select Exam</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
+      </trans-unit>
+      <trans-unit id="Send" xml:space="preserve">
+        <source>Send</source>
+        <target>Send</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Send %@ Logfiles" xml:space="preserve">
         <source>Send %@ Logfiles</source>
@@ -10717,6 +10881,11 @@ untitled filename</note>
         <target>open in same window</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="regex" xml:space="preserve">
+        <source>regex</source>
+        <target>regex</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="remote proctoring" xml:space="preserve">
         <source>remote proctoring</source>
         <target>remote proctoring</target>
@@ -10873,9 +11042,9 @@ untitled filename</note>
         <target>Filter only links or all embedded resources and XMLHTTPRequests.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." xml:space="preserve">
-        <source>List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</source>
-        <target>List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.</target>
+      <trans-unit id="Show and edit filter rules. You can also use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules." xml:space="preserve">
+        <source>Show and edit filter rules. You can also use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules.</source>
+        <target>Show and edit filter rules. You can also use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules.</target>
         <note/>
       </trans-unit>
       <trans-unit id="This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped." xml:space="preserve">
@@ -11217,8 +11386,8 @@ untitled filename</note>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
+        <source>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
       <trans-unit id="NSLocalNetworkUsageDescription" xml:space="preserve">
@@ -11701,6 +11870,11 @@ untitled filename</note>
         <target>Status/Tool Bar/SEB Dock</target>
         <note>String for Title elements</note>
       </trans-unit>
+      <trans-unit id="Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." xml:space="preserve">
+        <source>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</source>
+        <target>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="White on Black" xml:space="preserve">
         <source>White on Black</source>
         <target>White on Black</target>
@@ -11709,11 +11883,6 @@ untitled filename</note>
       <trans-unit id="With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." xml:space="preserve">
         <source>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</source>
         <target>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." xml:space="preserve">
-        <source>Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</source>
-        <target>Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</target>
         <note/>
       </trans-unit>
     </body>
@@ -12315,8 +12484,8 @@ untitled filename</note>
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
-        <target>© 2010-2024 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
+        <source>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
+        <target>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</target>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>

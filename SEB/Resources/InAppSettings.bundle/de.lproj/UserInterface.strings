@@ -68,5 +68,5 @@
 "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." = "Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern.";
 
 /* (No Comment) */
-"Zoom is only supported in modern WebView. Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Zoom wird nur in modernen WebViews unterstützt. Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.";
+"Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.";
 

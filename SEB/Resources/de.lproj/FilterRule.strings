@@ -1,0 +1,27 @@
+/* (No Comment) */
+"Action" = "Aktion";
+
+/* (No Comment) */
+"Active" = "Aktiv";
+
+/* (No Comment) */
+"allow" = "erlauben";
+
+/* String for Titles arrays elements */
+"block" = "blockieren";
+
+/* String for FooterText elements */
+"Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed." = "Geben Sie einen gültigen Filterausdruck ein, entweder im Format eines regulären Ausdrucks (Regex) oder einen einfacheren Filterausdruck, der das Platzhalterzeichen * enthalten kann. Bei der Verwendung regulärer Ausdrücke ist nur die von WKWebView/Safari Content Filters unterstützte Teilmenge zulässig.";
+
+/* (No Comment) */
+"Expression" = "Ausdruck";
+
+/* String for IASKPlaceholder elements */
+"Filter expression" = "Filter-Ausdruck";
+
+/* String for Title elements */
+"Filter Rule" = "Filterregel";
+
+/* (No Comment) */
+"Regex" = "Regex";
+

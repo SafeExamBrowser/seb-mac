@@ -16,6 +16,6 @@
 /* String for FooterText elements */
 "Filter only links or all embedded resources and XMLHTTPRequests." = "Filter only links or all embedded resources and XMLHTTPRequests.";
 "This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped." = "This message is shortly displayed in the upper right display corner when a link blocked by the URL filter rules is tapped.";
-"List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character." = "List of filter rules, currently these can only be edited in SEB desktop versions. Use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules. Format explanation: √: Active / ☒: Inactive, R: Regular expression,  A: Allow / B: Block. The filter expression can contain a * wildcard character.";
+"Show and edit filter rules. You can also use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules." = "Show and edit filter rules. You can also use the 'Teach SEB allowed/blocked URLs' feature in SEB for macOS to easily create URL filter rules.";
 
 /* String for IASKPlaceholder elements */

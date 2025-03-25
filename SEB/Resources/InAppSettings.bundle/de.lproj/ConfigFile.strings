@@ -35,6 +35,9 @@
 "File Name" = "Dateiname";
 
 /* (No Comment) */
+"Home Screen Quick Action" = "Home-Bildschirm Schnellaktion";
+
+/* (No Comment) */
 "Identity Certificate" = "Identitätszertifikat";
 
 /* (No Comment) */
@@ -74,7 +77,13 @@
 "Shared config file name" = "Dateiname für geteilte Konfiguration";
 
 /* (No Comment) */
+"Show 'Edit Config File' Quick Action" = "Schnellaktion 'Konfiguration bearbeiten'";
+
+/* (No Comment) */
 "Show Settings In App" = "Einstellungen in App anzeigen";
+
+/* (No Comment) */
+"Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings." = "Zeigt eine Schnellaktion zum Bearbeiten von Konfigurationsdateien auf dem Home-Bildschirm an (berühren und halten Sie das App-Symbol). Sie können eine Konfigurationsdatei in der Dateiauswahl öffnen oder, wenn Sie die Auswahl schliessen, eine neue Konfiguration mit Voreinstellungen erstellen.";
 
 /* String for Titles arrays elements */
 "Starting Exams" = "Prüfungen starten";

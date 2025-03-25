@@ -110,7 +110,7 @@
 "About %@" = "Über %@";
 
 /* No comment provided by engineer. */
-"Actions for creating or resetting settings" = "Aktionen zum Erstellen oder Zurücksetzen von Einstellungen";
+"Actions for opening, creating or resetting settings" = "Funktionen zum Öffnen, Erstellen oder Zurücksetzen von Einstellungen";
 
 /* No comment provided by engineer. */
 "Activate Scroll Lock" = "Scrollsperre aktivieren";
@@ -141,6 +141,12 @@
 
 /* No comment provided by engineer. */
 "An identity with the same name is already stored in the Keychain. Please use a unique name." = "Ein Identitätszertifikat mit demselben Namen ist bereits im Schlüsselbund gespeichert. Bitte benutzen Sie einen einmaligen Namen.";
+
+/* No comment provided by engineer. */
+"Apply" = "Anwenden";
+
+/* No comment provided by engineer. */
+"Apply Settings" = "Einstellungen anwenden";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
@@ -353,6 +359,9 @@
 "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Auf das zum Entschlüsseln dieser Einstellungen notwendige Identitätszertifikat kannn nicht zugegriffen werden. %@ wurde möglicherweise nicht korrekt für Ihre Institution konfiguriert.";
 
 /* No comment provided by engineer. */
+"Create Default Exam Settings" = "Prüfungs-Voreinstellungen erstellen";
+
+/* No comment provided by engineer. */
 "Create Exam Settings" = "Prüfungseinstellungen erstellen";
 
 /* No comment provided by engineer. */
@@ -407,6 +416,15 @@
 "Disable Scroll Lock" = "Scrollsperre deaktivieren";
 
 /* No comment provided by engineer. */
+"Discard" = "Verwerfen";
+
+/* No comment provided by engineer. */
+"Discard Settings" = "Einstellungen verwerfen";
+
+/* No comment provided by engineer. */
+"Discard settings currently being edited and restart with client settings" = "Verwerfen der Einstellungen, die gerade bearbeitet werden, und Neustart mit Client-Einstellungen";
+
+/* No comment provided by engineer. */
 "Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
 
 /* No comment provided by engineer. */
@@ -428,6 +446,9 @@
 "Do you want to close Settings and apply this managed configuration?" = "Möchten Sie die Einstellungen schliessen und diese (MDM-)verwaltete Konfiguration anwenden?";
 
 /* No comment provided by engineer. */
+"Do you want to create a new configuration with default %@ settings?" = "Möchten Sie eine neue Konfiguration mit den %@-Voreinstellungen erstellen?";
+
+/* No comment provided by engineer. */
 "Done" = "Fertig";
 
 /* No comment provided by engineer. */
@@ -446,7 +467,10 @@
 "Edit %@ configuration files" = "%@-Einstellungen bearbeiten";
 
 /* No comment provided by engineer. */
-"Edit Config File" = "Konfigurationsdatei  bearbeiten";
+"Edit Config File" = "Konfigurationsdatei bearbeiten";
+
+/* No comment provided by engineer. */
+"Edit New Configuration" = "Neue Konfiguration bearbeiten";
 
 /* No comment provided by engineer. */
 "Edit Settings" = "Einstellungen bearbeiten";
@@ -480,6 +504,9 @@
 
 /* No comment provided by engineer. */
 "Enter quit password:" = "Beenden-Passwort eingeben:";
+
+/* Prompting user to enter message for SEB Server Raise Hand feature */
+"Enter Raise Hand message:" = "Wortmeldung/Nachricht eingeben:";
 
 /* No comment provided by engineer. */
 "Enter SEB Server fallback password:" = "SEB Server Fallback-Passwort eingeben:";
@@ -590,6 +617,12 @@
 "Good server health, waiting until %@ to resume sending cached screen shots" = "Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@";
 
 /* No comment provided by engineer. */
+"Hand is not raised" = "Hand gesenkt";
+
+/* No comment provided by engineer. */
+"Hand is raised" = "Hand gehoben";
+
+/* No comment provided by engineer. */
 "Hiding" = "Zeige";
 
 /* No comment provided by engineer. */
@@ -686,6 +719,9 @@
 "Log in to" = "Einloggen";
 
 /* No comment provided by engineer. */
+"Lower Hand" = "Hand senken";
+
+/* No comment provided by engineer. */
 "macOS" = "macOS";
 
 /* No comment provided by engineer. */
@@ -734,6 +770,9 @@
 "No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "An der angegebenen URL wurden keine %1$@ Einstellungen gefunden. Benutzen Sie einen korrekten Link, um %2$@ zu konfigurieren oder eine Prüfung zu starten";
 
 /* No comment provided by engineer. */
+"No Assessment Mode Available" = "Kein Prüfungsmodus verfügbar";
+
+/* No comment provided by engineer. */
 "No Camera Available" = "Keine Kamera verfügbar";
 
 /* No comment provided by engineer. */
@@ -744,9 +783,6 @@
 
 /* No comment provided by engineer. */
 "No Identity Name Provided" = "Kein Name für Identität angegeben";
-
-/* No comment provided by engineer. */
-"No Assessment Mode Available" = "Kein Prüfungsmodus verfügbar";
 
 /* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
@@ -869,6 +905,9 @@
 "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Für höhere Sicherheit wird empfohlen, ein System einzusetzen, welches den Config Key oder Browser Exam Key überprüfen kann.";
 
 /* No comment provided by engineer. */
+"regex" = "regex";
+
+/* No comment provided by engineer. */
 "Reload" = "Neu laden";
 
 /* No comment provided by engineer. */
@@ -918,6 +957,9 @@
 
 /* No comment provided by engineer. */
 "Restart Session" = "Session neu starten";
+
+/* No comment provided by engineer. */
+"Restart session using settings currently being edited" = "Session neustarten mit den Einstellungen, die gerade bearbeitet werden";
 
 /* No comment provided by engineer. */
 "Retry" = "Wiederholen";
@@ -1011,6 +1053,9 @@
 
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Prüfung auswählen";
+
+/* No comment provided by engineer. */
+"Send" = "Senden";
 
 /* No comment provided by engineer. */
 "Send %@ Logfiles" = "%@ Logdateien senden";

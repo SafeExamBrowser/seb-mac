@@ -139,6 +139,9 @@
 /* Class = "UILabel"; text = "SEB"; ObjectID = "NvO-V8-xMf"; */
 "NvO-V8-xMf.text" = "SEB";
 
+/* Class = "UIButton"; normalTitle = "Quit Session"; ObjectID = "oEH-zL-g3I"; */
+"oEH-zL-g3I.normalTitle" = "Session beenden";
+
 /* Class = "UILabel"; text = "•"; ObjectID = "qCX-Ab-h85"; */
 "qCX-Ab-h85.text" = "•";
 
