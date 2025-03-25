@@ -64,6 +64,12 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"DataDetectorsViewService",
+                          @"identifier" : @"com.apple.DataDetectorsViewService",
+                          @"ignoreInAAC" : @NO,
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Discord",
                           @"identifier" : @"com.hnc.Discord*",
                       },
