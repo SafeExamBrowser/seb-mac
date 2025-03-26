@@ -94,7 +94,9 @@ private struct ActionType: Codable {
             contentRuleString += encodeRule(blockFileSelectorButtonRuleStruct)
         }
 #endif
-        contentRuleString = "[" + contentRuleString + "]"
+        if !contentRuleString.isEmpty {
+            contentRuleString = "[" + contentRuleString + "]"
+        }
         return contentRuleString
     }
 }
