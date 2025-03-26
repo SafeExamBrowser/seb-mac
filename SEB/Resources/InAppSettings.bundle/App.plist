@@ -76,6 +76,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Custom Scheme</string>
+			<key>Key</key>
+			<string>path</string>
+			<key>IASKPlaceholder</key>
+			<string>Custom Protocol Scheme</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Allow Network Access</string>
