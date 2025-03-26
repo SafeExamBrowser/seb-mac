@@ -332,6 +332,19 @@
          return cell;
      }
      
+     if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_downloadFileTypes"]) {
+         NSDictionary *dict = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+         UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"fileTypeCell"];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"fileTypeCell"];
+         }
+         cell.textLabel.text = dict[@"extension"];
+         NSUInteger os = [dict[@"os"] intValue];
+         cell.detailTextLabel.text = [SEBUIUserDefaultsController sharedSEBUIUserDefaultsController].org_safeexambrowser_SEB_operatingSystems[os];
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         return cell;
+     }
+     
     CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -369,6 +382,12 @@
         }
         if (contentDictionary[@"action"] == nil) {
             [contentDictionary setValue:[NSNumber numberWithLong:URLFilterActionAllow] forKey:@"action"];
+        }
+        return YES;
+    }
+    if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_downloadFileTypes"]) {
+        if (contentDictionary[@"os"] == nil) {
+            [contentDictionary setValue:[NSNumber numberWithLong:operatingSystemiOS] forKey:@"os"];
         }
         return YES;
     }
