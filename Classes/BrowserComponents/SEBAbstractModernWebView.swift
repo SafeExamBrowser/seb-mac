@@ -342,7 +342,7 @@ import CocoaLumberjackSwift
 #if os(iOS)
         runningOniOS = true
 #endif
-        if urlContentFilter || runningOniOS {
+        if urlContentFilter || (runningOniOS && !self.allowUploads) {
             let contentRuleListCreator = SEBWKContentRuleListCreator(allowUploads: self.allowUploads)
             var contentRuleList = ""
             if urlContentFilter {
