@@ -155,34 +155,34 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowApplicationLog",
-
+                   
                    @NO,
                    @"allowAudioCapture",
-
+                   
                    @YES,
                    @"audioControlEnabled",
-
+                   
                    @NO,
                    @"audioMute",
-
+                   
                    @NO,
                    @"audioSetVolumeLevel",
-
+                   
                    [NSNumber numberWithLong:25],
                    @"audioVolumeLevel",
-
+                   
                    @NO,
                    @"allowBrowsingBackForward",
                    
                    @NO,
                    @"allowCustomDownUploadLocation",
-
+                   
                    @NO,
                    @"allowDeveloperConsole",
                    
                    @NO,
                    @"allowDictation",
-
+                   
                    @NO,
                    @"allowDictionaryLookup",
                    
@@ -197,10 +197,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowedDisplayBuiltinExceptDesktop",
-
+                   
                    @NO,
                    @"allowedDisplaysIgnoreFailure",
-
+                   
                    [NSNumber numberWithLong:1],
                    @"allowedDisplaysMaxNumber",
                    
@@ -254,7 +254,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowPrint",
-
+                   
                    @YES,
                    @"allowQuit",
                    
@@ -302,7 +302,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"backgroundOpenSEBConfig",
-
+                   
                    [NSNumber numberWithDouble:0.1],
                    @"batteryChargeThresholdCritical",
                    
@@ -344,7 +344,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"browserShowFileSystemElementPath",
-
+                   
                    @NO,
                    @"browserScreenKeyboard",
                    
@@ -395,7 +395,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @"",
                    @"browserWindowTitleSuffix",
-
+                   
                    [NSNumber numberWithLong:webViewSelectPreferModernInForeignNewTabs],
                    @"browserWindowWebView",
                    
@@ -444,6 +444,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"Downloads",
                    @"downloadDirectoryWin",
                    
+                   [NSArray array],
+                   @"downloadFileTypes",
+                   
                    @NO,
                    @"downloadPDFFiles",
                    
@@ -467,7 +470,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"enableFindPrinter",
-
+                   
                    @NO,
                    @"enableJava",
                    
@@ -482,7 +485,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"enableMiddleMouse",
-
+                   
                    @YES,
                    @"enablePlugIns",
                    
@@ -491,31 +494,31 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enablePrivateClipboardMacEnforce",
-                                  
+                   
                    @YES,
                    @"enableSebBrowser",
                    
                    @NO,
                    @"enableScreenProctoring",
-
+                   
                    @YES,
                    @"enableScrollLock",
-
+                   
                    @NO,
                    @"enableTouchExit",
                    
                    @NO,
                    @"enableURLContentFilter",
-
+                   
                    @NO,
                    @"enableURLFilter",
-
+                   
                    @NO,
                    @"enableWindowsUpdate",
                    
                    @YES,
                    @"enableEsc",
-
+                   
                    @NO,
                    @"enableCtrlEsc",
                    
@@ -734,7 +737,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"lockOnMessageSocketClose",
-
+                   
                    @NO,
                    @"logSendingRequiresAdminPassword",
                    
@@ -755,13 +758,13 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"mobileAllowPictureInPictureMediaPlayback",
-
+                   
                    @NO,
                    @"mobileAllowQRCodeConfig",
                    
                    @NO,
                    @"mobileAllowSingleAppMode",
-                                      
+                   
                    @NO,
                    @"mobileCompactAllowInlineMediaPlayback",
                    
@@ -926,7 +929,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:remoteProctoringViewShowNever],
                    @"remoteProctoringViewShow",
-
+                   
                    @YES,
                    @"removeBrowserProfile",
                    
@@ -962,16 +965,16 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:2000],
                    @"sebServerFallbackAttemptInterval",
-
+                   
                    [NSNumber numberWithLong:5],
                    @"sebServerFallbackAttempts",
-
+                   
                    @"",
                    @"sebServerFallbackPasswordHash",
                    
                    [NSNumber numberWithLong:SEBServerDefaultFallbackTimeout],
                    @"sebServerFallbackTimeout",
-
+                   
                    @"",
                    @"sebServerURL",
                    
@@ -989,34 +992,34 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBScreenProctoringCacheSizeDefault],
                    @"screenProctoringCacheSize",
-
+                   
                    @"",
                    @"screenProctoringClientId",
-
+                   
                    @"",
                    @"screenProctoringClientSecret",
-
+                   
                    @"",
                    @"screenProctoringClientSessionId",
-
+                   
                    @"",
                    @"screenProctoringGroupId",
-
+                   
                    [NSNumber numberWithDouble:1.0],
                    @"screenProctoringImageDownscale",
                    
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageFormat",
-
+                   
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
-
+                   
                    @NO,
                    @"screenProctoringIndicateHealthAndCaching",
-
+                   
                    @YES,
                    @"screenProctoringMetadataActiveAppEnabled",
-
+                   
                    @YES,
                    @"screenProctoringMetadataURLEnabled",
                    
@@ -1025,7 +1028,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @"",
                    @"screenProctoringServiceURL",
-
+                   
                    [NSNumber numberWithLong:5000],
                    @"screenProctoringScreenshotMaxInterval",
                    
@@ -1055,7 +1058,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"showReloadButton",
-                                      
+                   
                    @YES,
                    @"showReloadWarning",
                    
@@ -1200,116 +1203,122 @@ static SEBSettings *sharedSEBSettings = nil;
                    nil],
               
               @"additionalResources" : @{
-                      @"active" : @YES,
-                      @"additionalResources" : @[],
-                      @"autoOpen" : @NO,
-                      @"identifier" : @"",
-                      @"title" : @"",
-                      @"URL" : @"",
-                      @"URLFilterRules" :  @[],
-                      @"resourceData" : @"",
-                      @"resourceIcons" : @[],
-                      },
+                  @"active" : @YES,
+                  @"additionalResources" : @[],
+                  @"autoOpen" : @NO,
+                  @"identifier" : @"",
+                  @"title" : @"",
+                  @"URL" : @"",
+                  @"URLFilterRules" :  @[],
+                  @"resourceData" : @"",
+                  @"resourceIcons" : @[],
+              },
+              
+              @"downloadFileTypes" : @{
+                  @"associatedAppId" : @"",
+                  @"extension" : @"",
+                  @"os" : @2,
+              },
               
               @"permittedProcesses" : @{
-                      @"active" : @YES,
-                      @"allowedExecutables" : @"",
-                      @"allowManualStart" : @YES,
-                      @"allowNetworkAccess" : @NO,
-                      @"allowUserToChooseApp" : @NO,
-                      @"arguments" : @[],
-                      @"autostart" : @NO,
-                      @"description" : @"",
-                      @"executable" : @"",
-                      @"iconInTaskbar" : @YES,
-                      @"identifier" : @"",
-                      @"teamIdentifier" : @"",
-                      @"originalName" : @"",
-                      @"os" : @0,
-                      @"path" : @"",
-                      @"runInBackground" : @NO,
-                      @"strongKill" : @NO,
-                      @"title" : @"",
-                      },
+                  @"active" : @YES,
+                  @"allowedExecutables" : @"",
+                  @"allowManualStart" : @YES,
+                  @"allowNetworkAccess" : @NO,
+                  @"allowUserToChooseApp" : @NO,
+                  @"arguments" : @[],
+                  @"autostart" : @NO,
+                  @"description" : @"",
+                  @"executable" : @"",
+                  @"iconInTaskbar" : @YES,
+                  @"identifier" : @"",
+                  @"teamIdentifier" : @"",
+                  @"originalName" : @"",
+                  @"os" : @0,
+                  @"path" : @"",
+                  @"runInBackground" : @NO,
+                  @"strongKill" : @NO,
+                  @"title" : @"",
+              },
               
               @"prohibitedProcesses" : @{
-                      @"active" : @YES,
-                      @"allowedExecutables" : @"",
-                      @"currentUser" : @NO,
-                      @"description" : @"",
-                      @"executable" : @"",
-                      @"identifier" : @"",
-                      @"ignoreInAAC" : @YES,
-                      @"originalName" : @"",
-                      @"os" : @0,
-                      @"strongKill" : @NO,
-                      @"user" : @"",
-                      @"windowHandlingProcess" : @""
-                      },
+                  @"active" : @YES,
+                  @"allowedExecutables" : @"",
+                  @"currentUser" : @NO,
+                  @"description" : @"",
+                  @"executable" : @"",
+                  @"identifier" : @"",
+                  @"ignoreInAAC" : @YES,
+                  @"originalName" : @"",
+                  @"os" : @0,
+                  @"strongKill" : @NO,
+                  @"user" : @"",
+                  @"windowHandlingProcess" : @""
+              },
               
               @"URLFilterRules" : @{
-                      @"action" : [NSNumber numberWithLong:URLFilterActionAllow],
-                      @"active" : @YES,
-                      @"expression" : @"",
-                      @"regex" : @NO
-                      },
+                  @"action" : [NSNumber numberWithLong:URLFilterActionAllow],
+                  @"active" : @YES,
+                  @"expression" : @"",
+                  @"regex" : @NO
+              },
               
               @"embeddedCertificates" : @{
-                      @"certificateData" : [NSData data],
-                      @"certificateDataBase64" : @"",
-                      @"name" : @"",
-                      @"type" : [NSNumber numberWithLong:certificateTypeSSL],
-                      },
+                  @"certificateData" : [NSData data],
+                  @"certificateDataBase64" : @"",
+                  @"name" : @"",
+                  @"type" : [NSNumber numberWithLong:certificateTypeSSL],
+              },
               
               @"proxies" : @{
-                      @"AutoConfigurationEnabled" : @NO,
-                      @"AutoConfigurationJavaScript" : @"",
-                      @"AutoConfigurationURL" : @"",
-                      @"AutoDiscoveryEnabled" : @NO,
-                      @"ExceptionsList" : @[],
-                      @"ExcludeSimpleHostnames" : @NO,
-                      @"FTPEnable" : @NO,
-                      @"FTPPassive" : @YES,
-                      @"FTPPassword" : @"",
-                      @"FTPPort" : @21,
-                      @"FTPProxy" : @"",
-                      @"FTPRequiresPassword" : @NO,
-                      @"FTPUsername" : @"",
-                      @"HTTPEnable" : @NO,
-                      @"HTTPPassword" : @"",
-                      @"HTTPPort" : @80,
-                      @"HTTPProxy" : @"",
-                      @"HTTPRequiresPassword" : @NO,
-                      @"HTTPSEnable" : @NO,
-                      @"HTTPSPassword" : @"",
-                      @"HTTPSPort" : @443,
-                      @"HTTPSProxy" : @"",
-                      @"HTTPSRequiresPassword" : @NO,
-                      @"HTTPSUsername" : @"",
-                      @"HTTPUsername" : @"",
-                      @"RTSPEnable" : @NO,
-                      @"RTSPPassword" : @"",
-                      @"RTSPPort" : @554,
-                      @"RTSPProxy" : @"",
-                      @"RTSPRequiresPassword" : @NO,
-                      @"RTSPUsername" : @"",
-                      @"SOCKSEnable" : @NO,
-                      @"SOCKSPassword" : @"",
-                      @"SOCKSPort" : @1080,
-                      @"SOCKSProxy" : @"",
-                      @"SOCKSRequiresPassword" : @NO,
-                      @"SOCKSUsername" : @""
-                      },
+                  @"AutoConfigurationEnabled" : @NO,
+                  @"AutoConfigurationJavaScript" : @"",
+                  @"AutoConfigurationURL" : @"",
+                  @"AutoDiscoveryEnabled" : @NO,
+                  @"ExceptionsList" : @[],
+                  @"ExcludeSimpleHostnames" : @NO,
+                  @"FTPEnable" : @NO,
+                  @"FTPPassive" : @YES,
+                  @"FTPPassword" : @"",
+                  @"FTPPort" : @21,
+                  @"FTPProxy" : @"",
+                  @"FTPRequiresPassword" : @NO,
+                  @"FTPUsername" : @"",
+                  @"HTTPEnable" : @NO,
+                  @"HTTPPassword" : @"",
+                  @"HTTPPort" : @80,
+                  @"HTTPProxy" : @"",
+                  @"HTTPRequiresPassword" : @NO,
+                  @"HTTPSEnable" : @NO,
+                  @"HTTPSPassword" : @"",
+                  @"HTTPSPort" : @443,
+                  @"HTTPSProxy" : @"",
+                  @"HTTPSRequiresPassword" : @NO,
+                  @"HTTPSUsername" : @"",
+                  @"HTTPUsername" : @"",
+                  @"RTSPEnable" : @NO,
+                  @"RTSPPassword" : @"",
+                  @"RTSPPort" : @554,
+                  @"RTSPProxy" : @"",
+                  @"RTSPRequiresPassword" : @NO,
+                  @"RTSPUsername" : @"",
+                  @"SOCKSEnable" : @NO,
+                  @"SOCKSPassword" : @"",
+                  @"SOCKSPort" : @1080,
+                  @"SOCKSProxy" : @"",
+                  @"SOCKSRequiresPassword" : @NO,
+                  @"SOCKSUsername" : @""
+              },
               
               @"sebServerConfiguration" : @{
-                      @"institution" : @"",
-                      @"clientName" : @"",
-                      @"clientSecret" : @"",
-                      @"apiDiscovery" : @"",
-                      @"pingInterval" : [NSNumber numberWithLong:SEBServerDefaultPingInterval]
-                      }
+                  @"institution" : @"",
+                  @"clientName" : @"",
+                  @"clientSecret" : @"",
+                  @"apiDiscovery" : @"",
+                  @"pingInterval" : [NSNumber numberWithLong:SEBServerDefaultPingInterval]
+              }
               
-              };
+    };
 }
 
 

@@ -64,6 +64,7 @@ import CocoaLumberjackSwift
     private var forceDownload = false
     public var downloadingSEBConfig = false
     private var fileDownloadDestinationURL: URL?
+    private var downloadFileExtensions: Set<String> = []
     
     public var wkWebViewConfiguration: WKWebViewConfiguration {
         let webViewConfiguration = navigationDelegate?.wkWebViewConfiguration
@@ -194,6 +195,18 @@ import CocoaLumberjackSwift
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
         sebWebView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
         
+        if let downloadFileTypes = UserDefaults.standard.secureArray(forKey: "org_safeexambrowser_SEB_downloadFileTypes") {
+#if os(iOS)
+            let runningOnOS = SEBSupportedOSiPadOS
+#elseif os(macOS)
+            let runningOnOS = SEBSupportedOSmacOS
+#endif
+
+            let filterFileTypesOS = NSPredicate(format: "os == %d", runningOnOS)
+            let osFilteredFileTypes = (downloadFileTypes as NSArray).filtered(using: filterFileTypesOS) as? [[String: Any]] ?? []
+            downloadFileExtensions = Set(osFilteredFileTypes.map { $0["extension"] } as! [String])
+        }
+
         pageZoom = defaultPageZoom
         textZoom = defaultTextZoom
     }
@@ -841,7 +854,7 @@ import CocoaLumberjackSwift
 
         let urlIsPDF = url.pathExtension.caseInsensitiveCompare(filenameExtensionPDF) == .orderedSame
 
-//        let urlIsNumbersSheet = url.pathExtension.caseInsensitiveCompare("numbers") == .orderedSame
+        let urlShouldBeDownloaded = !(downloadFileExtensions.filter { $0.localizedCaseInsensitiveContains(url.pathExtension) }).isEmpty
 
         // Block which translates SEBNavigationActionPolicies to WKNavigationActionPolicies
         let callDecisionHandler:() -> () = {
@@ -885,12 +898,12 @@ import CocoaLumberjackSwift
                     shouldPerformWKDownload = navigationAction.shouldPerformDownload
                 }
                 
-//                if #available(macOS 11.3, iOS 14.5, *) {
-//                    if urlIsNumbersSheet {
-//                        decisionHandler(.download)
-//                        return
-//                    }
-//                }
+                if #available(macOS 11.3, iOS 14.5, *) {
+                    if urlShouldBeDownloaded {
+                        decisionHandler(.download)
+                        return
+                    }
+                }
                 
                 if WKDownloadSupported && (shouldPerformWKDownload || (urlIsPDF && !displayPDF)) {
                     if #available(macOS 11.3, iOS 14.5, *) {

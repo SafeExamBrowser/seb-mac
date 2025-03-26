@@ -34,11 +34,29 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Open App for Downloaded File</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_openDownloads</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Allow Uploading Photos and Files</string>
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowUploads</string>
 			<key>FooterText</key>
 			<string>Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Download File Types</string>
+			<key>File</key>
+			<string>DownloadFileTypes</string>
+			<key>Key</key>
+			<string>downloadFileTypesChildPane</string>
 		</dict>
 		<dict>
 			<key>Type</key>

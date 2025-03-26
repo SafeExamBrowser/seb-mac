@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>DownloadFileType</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>File Type</string>
+			<key>FooterText</key>
+			<string>Enter file extension and optionally Bundle ID of the associated additional app in Identifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>File Extension</string>
+			<key>Key</key>
+			<string>extension</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>os</string>
+			<key>Title</key>
+			<string>OS</string>
+			<key>Titles</key>
+			<array>
+				<string>macOS</string>
+				<string>Win</string>
+				<string>iOS</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>App Identifier</string>
+			<key>Key</key>
+			<string>associatedAppId</string>
+			<key>IASKPlaceholder</key>
+			<string>Bundle Identifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>
