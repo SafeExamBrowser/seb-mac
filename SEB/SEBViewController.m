@@ -5066,22 +5066,22 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
                 BOOL modernAAC = [self modernAAC];
                 
-                BOOL runningOniPadOS1771;
+                BOOL runningOniPadOS1771OrNewer;
                 if (@available(iOS 17.7.1, *)) {
-                    runningOniPadOS1771 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+                    runningOniPadOS1771OrNewer = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
                 } else {
-                    runningOniPadOS1771 = NO;
+                    runningOniPadOS1771OrNewer = NO;
                 }
                 if (@available(iOS 18, *)) {
-                    runningOniPadOS1771 = NO;
+                    runningOniPadOS1771OrNewer = NO;
                 }
-                BOOL runningOniPadOS181;
+                BOOL runningOniPadOS181OrNewer;
                 if (@available(iOS 18.1, *)) {
-                    runningOniPadOS181 = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+                    runningOniPadOS181OrNewer = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
                 } else {
-                    runningOniPadOS181 = NO;
+                    runningOniPadOS181OrNewer = NO;
                 }
-                if (!runningOniPadOS1771) {
+                if (!(runningOniPadOS1771OrNewer || runningOniPadOS181OrNewer)) {
                     self.permittedProcesses = @[];
                 }
                 // Use the modern AAC API if
@@ -5089,8 +5089,10 @@ void run_on_ui_thread(dispatch_block_t block)
                 // - Settings contain iPadOS permitted processes and running on iPadOS >= 18.1 (regardless of setting mobileEnableModernAAC)
                 // - Settings contain iPadOS permitted processes, running on iPadOS >= 17.7.1 and setting mobileEnableModernAAC = true
                 if (modernAAC || 
-                    (self.permittedProcesses.count > 0 && runningOniPadOS181) ||
-                    (self.permittedProcesses.count > 0 && runningOniPadOS1771 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"])) {
+                    (self.permittedProcesses.count > 0 && runningOniPadOS181OrNewer) ||
+                    (self.permittedProcesses.count > 0 && runningOniPadOS1771OrNewer && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobileEnableModernAAC"])) {
+                    
+                    DDLogInfo(@"%s Starting AAC using modern API with additional apps: %@", __FUNCTION__, self.permittedProcesses);
                     AEAssessmentConfiguration *configuration = [[AEAssessmentConfiguration alloc] initWithPermittedApplications:self.permittedProcesses];
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         DDLogError(@"%s: Failed to enter AAC/Autonomous Single App Mode", __FUNCTION__);
@@ -5101,6 +5103,7 @@ void run_on_ui_thread(dispatch_block_t block)
                     return;
                 }
             }
+            DDLogInfo(@"%s Starting AAC using classic API", __FUNCTION__);
             UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed) {
                 DDLogDebug(@"%s UIAccessibilityRequestGuidedAccessSession(YES, ^(BOOL didSucceed = %d)", __FUNCTION__, didSucceed);
                 if (didSucceed) {
