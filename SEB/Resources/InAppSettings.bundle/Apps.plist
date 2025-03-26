@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>StringsTable</key>
-	<string>AdditionalApps</string>
+	<string>Apps</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
