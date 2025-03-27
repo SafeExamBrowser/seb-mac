@@ -2471,7 +2471,7 @@
     <body>
       <trans-unit id="6rb-i4-RZm.title" xml:space="preserve">
         <source>Download and open SEB config files</source>
-        <target>SEB Konfigurationen herunterladen/öffnen</target>
+        <target>SEB Konfig herunterladen/öffnen</target>
         <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm";</note>
       </trans-unit>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -2581,7 +2581,7 @@
       </trans-unit>
       <trans-unit id="Wef-JS-4QU.ibShadowedToolTip" xml:space="preserve">
         <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
-        <target>.seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
+        <target>.seb Konfig herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU";</note>
       </trans-unit>
       <trans-unit id="hy0-QR-C17.ibShadowedToolTip" xml:space="preserve">
@@ -8358,12 +8358,12 @@ untitled filename</note>
       </trans-unit>
       <trans-unit id="Allow Downloading and Uploading Files" xml:space="preserve">
         <source>Allow Downloading and Uploading Files</source>
-        <target>Download und Upload von Dateien erlauben</target>
+        <target>Download und Upload erlauben</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow Uploading Photos and Files" xml:space="preserve">
         <source>Allow Uploading Photos and Files</source>
-        <target>Upload von Fotos und Dateien erlauben</target>
+        <target>Upload (Fotos/Dateien) erlauben</target>
         <note/>
       </trans-unit>
       <trans-unit id="Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." xml:space="preserve">
@@ -8373,7 +8373,7 @@ untitled filename</note>
       </trans-unit>
       <trans-unit id="Download &amp; Open Config Files" xml:space="preserve">
         <source>Download &amp; Open Config Files</source>
-        <target>Konfigurationen herunterladen/öffnen</target>
+        <target>Konfig herunterladen/öffnen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Downloading/Uploading Files" xml:space="preserve">

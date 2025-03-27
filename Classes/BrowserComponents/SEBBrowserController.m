@@ -36,6 +36,7 @@
 #import "SEBCertServices.h"
 #include "x509_crt.h"
 #import "NSURL+SEBURL.h"
+#import "SafeExamBrowser-Swift.h"
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
 
@@ -1288,14 +1289,19 @@ static NSString *urlStrippedFragment(NSURL* url)
     DDLogInfo(@"Download of File %@ did finish.", path);
     [self storeDownloadPath:path];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if (((path.pathExtension && [path.pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
+    NSString *pathExtension = path.pathExtension;
+    if (((pathExtension && [pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
-//        if (path.pathExtension && [path.pathExtension caseInsensitiveCompare:@"numbers"] == NSOrderedSame) {
-//            NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
-//            downloadedFileURL = [downloadedFileURL URLByReplacingScheme:@"com.apple.iwork.numbers-share"];
-//            path = downloadedFileURL.absoluteString;
-//        }
+        NSString *bundleId = [AdditionalApplicationsController appBundleIdentifierWithFileExtension:pathExtension];
+        if (bundleId) {
+            NSString *appScheme = [AdditionalApplicationsController appSchemeWithBundleIdentifier:bundleId];
+            if (appScheme) {
+                NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
+                downloadedFileURL = [downloadedFileURL URLByReplacingScheme:appScheme];
+                path = downloadedFileURL.absoluteString;
+            }
+        }
         if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
             [self.delegate openDownloadedFile:path];
             return;
