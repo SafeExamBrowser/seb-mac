@@ -1,5 +1,5 @@
 /* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm"; */
-"6rb-i4-RZm.title" = "SEB Konfigurationen herunterladen/öffnen";
+"6rb-i4-RZm.title" = "SEB Konfig herunterladen/öffnen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows file downloads, saved in the configured directory. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "13"; */
 "13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.";
@@ -77,7 +77,7 @@
 "qFU-rq-M6F.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU"; */
-"Wef-JS-4QU.ibShadowedToolTip" = ".seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
+"Wef-JS-4QU.ibShadowedToolTip" = ".seb Konfig herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
 
 /* Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF"; */
 "zhK-R4-XtF.title" = "Acrobat Reader PDF Plug-In erlauben (unsicher)";

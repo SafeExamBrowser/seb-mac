@@ -11,8 +11,10 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>File Type</string>
+			<key>IASKPlaceholder</key>
+			<string>Extension without leading .</string>
 			<key>FooterText</key>
-			<string>Enter file extension and optionally Bundle ID of the associated additional app in Identifier</string>
+			<string>Enter file extension and optionally Bundle ID of the associated additional app</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -6,8 +6,6 @@
 //
 
 import Foundation
-//import Cocoa
-//import AppKit
 
 @objc public protocol ApplicationsPreferencesDelegate: AnyObject {
     func selectedPermittedProccessChanged()

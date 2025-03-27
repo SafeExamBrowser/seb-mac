@@ -39,6 +39,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SEBURLFilter;
+@class AdditionalApplicationsController;
 
 /**
  * @protocol    SEBBrowserControllerDelegate
