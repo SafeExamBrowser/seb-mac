@@ -8413,7 +8413,7 @@ untitled filename</note>
       </trans-unit>
       <trans-unit id="Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above." xml:space="preserve">
         <source>Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above.</source>
-        <target>Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option „App für heruntergeladene Datei öffnen“ oben verwenden.</target>
+        <target>Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option 'App für heruntergeladene Datei öffnen' oben verwenden.</target>
         <note/>
       </trans-unit>
       <trans-unit id="Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
