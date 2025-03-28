@@ -26,7 +26,7 @@
 "Open App for Downloaded File" = "App für heruntergeladene Datei öffnen";
 
 /* (No Comment) */
-"Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above." = "Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option „App für heruntergeladene Datei öffnen“ oben verwenden.";
+"Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above." = "Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option 'App für heruntergeladene Datei öffnen' oben verwenden.";
 
 /* (No Comment) */
 "Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" = "Upload erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!";
