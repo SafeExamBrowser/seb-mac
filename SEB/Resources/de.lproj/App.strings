@@ -11,6 +11,12 @@
 "Bundle Identifier" = "Bundle-ID";
 
 /* (No Comment) */
+"Custom Protocol Scheme" = "Benutzerdefiniertes URL-Schema";
+
+/* (No Comment) */
+"Custom Scheme" = "Benutzerdefiniertes Schema";
+
+/* (No Comment) */
 "Description" = "Beschreibung";
 
 /* (No Comment) */

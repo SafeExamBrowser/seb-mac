@@ -50,9 +50,17 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+			<key>FooterText</key>
+			<string>Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option &apos;Open App for Downloaded File&apos; above.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>Download File Types</string>
+			<string>File Types</string>
 			<key>File</key>
 			<string>DownloadFileTypes</string>
 			<key>Key</key>

@@ -10,9 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>File Type</string>
-			<key>IASKPlaceholder</key>
-			<string>Extension without leading .</string>
+			<string>File Type to be Downloaded</string>
 			<key>FooterText</key>
 			<string>Enter file extension and optionally Bundle ID of the associated additional app</string>
 		</dict>
@@ -23,6 +21,8 @@
 			<string>File Extension</string>
 			<key>Key</key>
 			<string>extension</string>
+			<key>IASKPlaceholder</key>
+			<string>Extension without leading .</string>
 		</dict>
 		<dict>
 			<key>Key</key>

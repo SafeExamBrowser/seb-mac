@@ -7,6 +7,9 @@
 /* String for IASKPlaceholder elements */
 "App title for your reference" = "App-Titel";
 
+"Custom Scheme" = "Benutzerdefiniertes Schema";
+"Custom Protocol Scheme" = "Benutzerdefiniertes URL-Schema";
+
 /* (No Comment) */
 "Bundle Identifier" = "Bundle-ID";
 

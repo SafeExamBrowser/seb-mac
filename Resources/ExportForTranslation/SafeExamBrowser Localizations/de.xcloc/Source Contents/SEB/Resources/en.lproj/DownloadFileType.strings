@@ -2,25 +2,19 @@
 /* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
 
 /* String for Title elements */
-"Permitted App" = "Permitted App";
-"Active" = "Active";
-"Title" = "Title";
-"Description" = "Description";
+"File Type to be Downloaded" = "File Type to be Downloaded";
+"File Extension" = "File Extension";
 "OS" = "OS";
-"Identifier" = "Identifier";
-"Custom Scheme" = "Custom Scheme";
-"Allow Network Access" = "Allow Network Access";
+"App Identifier" = "App Identifier";
 
 /* String for Titles arrays elements */
 "macOS" = "macOS";
 "Win" = "Win";
-"iPadOS" = "iPadOS";
+"iOS" = "iOS";
 
 /* String for FooterText elements */
-"Enter the Bundle ID of the app in Identifier" = "Enter the Bundle ID of the app in Identifier";
+"Enter file extension and optionally Bundle ID of the associated additional app" = "Enter file extension and optionally Bundle ID of the associated additional app";
 
 /* String for IASKPlaceholder elements */
-"App title for your reference" = "App title for your reference";
-"Description for your reference" = "Description for your reference";
+"Extension without leading ." = "Extension without leading .";
 "Bundle Identifier" = "Bundle Identifier";
-"Custom Protocol Scheme" = "Custom Protocol Scheme";

@@ -2471,7 +2471,7 @@
     <body>
       <trans-unit id="6rb-i4-RZm.title" xml:space="preserve">
         <source>Download and open SEB config files</source>
-        <target>SEB Konfigurationen herunterladen/öffnen</target>
+        <target>SEB Konfig herunterladen/öffnen</target>
         <note>Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm";</note>
       </trans-unit>
       <trans-unit id="13.ibShadowedToolTip" xml:space="preserve">
@@ -2581,7 +2581,7 @@
       </trans-unit>
       <trans-unit id="Wef-JS-4QU.ibShadowedToolTip" xml:space="preserve">
         <source>Download and open .seb config files regardless if downloading and opening other file types is allowed</source>
-        <target>.seb Konfigurationen herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
+        <target>.seb Konfig herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU";</note>
       </trans-unit>
       <trans-unit id="hy0-QR-C17.ibShadowedToolTip" xml:space="preserve">
@@ -7598,85 +7598,6 @@ untitled filename</note>
       </trans-unit>
     </body>
   </file>
-  <file original="SEB/en.lproj/FilterRule.strings" source-language="en" target-language="de" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
-    </header>
-    <body>
-      <trans-unit id="Action" xml:space="preserve">
-        <source>Action</source>
-        <target>Aktion</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Active" xml:space="preserve">
-        <source>Active</source>
-        <target>Aktiv</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed." xml:space="preserve">
-        <source>Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed.</source>
-        <target>Geben Sie einen gültigen Filterausdruck ein, entweder im Format eines regulären Ausdrucks (Regex) oder einen einfacheren Filterausdruck, der das Platzhalterzeichen * enthalten kann. Bei der Verwendung regulärer Ausdrücke ist nur die von WKWebView/Safari Content Filters unterstützte Teilmenge zulässig.</target>
-        <note>String for FooterText elements</note>
-      </trans-unit>
-      <trans-unit id="Expression" xml:space="preserve">
-        <source>Expression</source>
-        <target>Ausdruck</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Filter Rule" xml:space="preserve">
-        <source>Filter Rule</source>
-        <target>Filterregel</target>
-        <note>String for Title elements</note>
-      </trans-unit>
-      <trans-unit id="Filter expression" xml:space="preserve">
-        <source>Filter expression</source>
-        <target>Filter-Ausdruck</target>
-        <note>String for IASKPlaceholder elements</note>
-      </trans-unit>
-      <trans-unit id="Regex" xml:space="preserve">
-        <source>Regex</source>
-        <target>Regex</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="allow" xml:space="preserve">
-        <source>allow</source>
-        <target>erlauben</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="block" xml:space="preserve">
-        <source>block</source>
-        <target>blockieren</target>
-        <note>String for Titles arrays elements</note>
-      </trans-unit>
-    </body>
-  </file>
-  <file original="SEB/en.lproj/FilterRules.strings" source-language="en" target-language="de" datatype="plaintext">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
-    </header>
-    <body>
-      <trans-unit id="Add Filter Rule ..." xml:space="preserve">
-        <source>Add Filter Rule ...</source>
-        <target>Filterregel hinzufügen …</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Filter Rule" xml:space="preserve">
-        <source>Filter Rule</source>
-        <target>Filterregel</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Filter Rules" xml:space="preserve">
-        <source>Filter Rules</source>
-        <target>Filterregeln</target>
-        <note>String for Title elements</note>
-      </trans-unit>
-      <trans-unit id="Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings." xml:space="preserve">
-        <source>Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings.</source>
-        <target>Wischen Sie nach links, um eine Regel zu löschen. Der URL-Filter verarbeitet immer zuerst Regeln mit der Block-Aktion, wenn eine übereinstimmt, wird der entsprechende http-Request verworfen. Wenn keine Block-Regel zutrifft, werden Regeln mit der Zulassen-Aktion abgearbeitet. Wenn eine davon zutrifft, wird der Request geladen. Wenn keine Zulassen-Regel übereinstimmt, wird der Request verworfen. SEB erstellt automatisch eine Zulassen-Regel für die genaue Adresse der in diesen Einstellungen definierten Start-URL.</target>
-        <note>String for FooterText elements</note>
-      </trans-unit>
-    </body>
-  </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
@@ -7762,6 +7683,16 @@ untitled filename</note>
       <trans-unit id="Bundle Identifier" xml:space="preserve">
         <source>Bundle Identifier</source>
         <target>Bundle-ID</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom Protocol Scheme" xml:space="preserve">
+        <source>Custom Protocol Scheme</source>
+        <target>Benutzerdefiniertes URL-Schema</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Custom Scheme" xml:space="preserve">
+        <source>Custom Scheme</source>
+        <target>Benutzerdefiniertes Schema</target>
         <note/>
       </trans-unit>
       <trans-unit id="Description" xml:space="preserve">
@@ -8346,6 +8277,90 @@ untitled filename</note>
       </trans-unit>
     </body>
   </file>
+  <file original="SEB/Resources/en.lproj/DownloadFileType.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="App Identifier" xml:space="preserve">
+        <source>App Identifier</source>
+        <target>App-Identifier</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Bundle Identifier" xml:space="preserve">
+        <source>Bundle Identifier</source>
+        <target>Bundle-ID</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enter file extension and optionally Bundle ID of the associated additional app" xml:space="preserve">
+        <source>Enter file extension and optionally Bundle ID of the associated additional app</source>
+        <target>Geben Sie die Dateierweiterung und optional die Bundle-ID der zugehörigen zusätzlichen App ein</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Extension without leading ." xml:space="preserve">
+        <source>Extension without leading .</source>
+        <target>Dateierweiterung ohne .</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="File Extension" xml:space="preserve">
+        <source>File Extension</source>
+        <target>Dateierweiterung</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="File Type to be Downloaded" xml:space="preserve">
+        <source>File Type to be Downloaded</source>
+        <target>Herunterzuladender Dateityp</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="OS" xml:space="preserve">
+        <source>OS</source>
+        <target>OS</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Win" xml:space="preserve">
+        <source>Win</source>
+        <target>Win</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="iOS" xml:space="preserve">
+        <source>iOS</source>
+        <target>iOS</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="macOS" xml:space="preserve">
+        <source>macOS</source>
+        <target>macOS</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/Resources/en.lproj/DownloadFileTypes.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="Add File Type ..." xml:space="preserve">
+        <source>Add File Type ...</source>
+        <target>Dateityp hinzufügen …</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="File Type" xml:space="preserve">
+        <source>File Type</source>
+        <target>Dateityp</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="File Types to be Downloaded" xml:space="preserve">
+        <source>File Types to be Downloaded</source>
+        <target>Herunterzuladende Dateitypen</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="File Types which will be downloaded instead of displayed by the browser. If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. On iPadOS you have to open the downloaded file manually in the additional app (location 'On My iPad / SEB')." xml:space="preserve">
+        <source>File Types which will be downloaded instead of displayed by the browser. If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. On iPadOS you have to open the downloaded file manually in the additional app (location 'On My iPad / SEB').</source>
+        <target>Dateitypen, die heruntergeladen und nicht vom Browser angezeigt werden. Wenn Sie den Identifier einer zusätzlichen App eingeben, die ein benutzerdefiniertes URL-Schema hat, wird diese App nach Abschluss des Downloads geöffnet. Unter iPadOS müssen Sie die heruntergeladene Datei manuell in der zusätzlichen App öffnen (Ort 'Auf meinem iPad / SEB').</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
@@ -8358,12 +8373,12 @@ untitled filename</note>
       </trans-unit>
       <trans-unit id="Allow Downloading and Uploading Files" xml:space="preserve">
         <source>Allow Downloading and Uploading Files</source>
-        <target>Download und Upload von Dateien erlauben</target>
+        <target>Download und Upload erlauben</target>
         <note/>
       </trans-unit>
       <trans-unit id="Allow Uploading Photos and Files" xml:space="preserve">
         <source>Allow Uploading Photos and Files</source>
-        <target>Upload von Fotos und Dateien erlauben</target>
+        <target>Upload (Fotos/Dateien) erlauben</target>
         <note/>
       </trans-unit>
       <trans-unit id="Disable to prevent that SEB config files and seb(s):// links can start exams with individual settings or reconfigure the client." xml:space="preserve">
@@ -8373,7 +8388,7 @@ untitled filename</note>
       </trans-unit>
       <trans-unit id="Download &amp; Open Config Files" xml:space="preserve">
         <source>Download &amp; Open Config Files</source>
-        <target>Konfigurationen herunterladen/öffnen</target>
+        <target>Konfig herunterladen/öffnen</target>
         <note/>
       </trans-unit>
       <trans-unit id="Downloading/Uploading Files" xml:space="preserve">
@@ -8381,10 +8396,25 @@ untitled filename</note>
         <target>Dateidownload/Upload</target>
         <note>String for Title elements</note>
       </trans-unit>
+      <trans-unit id="File Types" xml:space="preserve">
+        <source>File Types</source>
+        <target>Dateitypen</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
         <source>In iOS versions prior to 14.5 only website generated files (using the data: scheme) can be downloaded. Those files can be accessed in the Files app ('On My iPad/iPhone' location). Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
         <target>In iOS-Versionen vor 14.5 können nur von einer Website generierte Dateien (die das data:-Schema benutzen) heruntergeladen werden. Auf diese Dateien kann über die App 'Dateien' (Speicherort 'Auf meinem iPad/iPhone') zugegriffen werden. Upload erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!</target>
         <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Open App for Downloaded File" xml:space="preserve">
+        <source>Open App for Downloaded File</source>
+        <target>App für heruntergeladene Datei öffnen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above." xml:space="preserve">
+        <source>Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open App for Downloaded File' above.</source>
+        <target>Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option „App für heruntergeladene Datei öffnen“ oben verwenden.</target>
+        <note/>
       </trans-unit>
       <trans-unit id="Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" xml:space="preserve">
         <source>Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</source>
@@ -8638,6 +8668,85 @@ untitled filename</note>
       <trans-unit id="When you modify settings (change one of the permanent setting options), Browser Exam and Config Key are recalculated using the full set of settings this version of SEB supports. Then you have to share these modified settings as a config file if you want to use it with other versions of SEB (which are also using the Browser Exam or Config Key)." xml:space="preserve">
         <source>When you modify settings (change one of the permanent setting options), Browser Exam and Config Key are recalculated using the full set of settings this version of SEB supports. Then you have to share these modified settings as a config file if you want to use it with other versions of SEB (which are also using the Browser Exam or Config Key).</source>
         <target>Wenn Sie Einstellungen modifizieren (eine der permanenten Einstellungsoptionen ändern), werden der Browser Exam Key und der Config Key neu berechnet, wobei der gesamte Satz von Einstellungen verwendet wird, den diese SEB-Version unterstützt. Dann müssen Sie diese geänderten Einstellungen als Konfigurationsdatei weitergeben, wenn Sie diese mit anderen SEB-Versionen (die ebenfalls Browser Exam Key und Config Key benutzen) verwenden möchten.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/Resources/en.lproj/FilterRule.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="Action" xml:space="preserve">
+        <source>Action</source>
+        <target>Aktion</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Active" xml:space="preserve">
+        <source>Active</source>
+        <target>Aktiv</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed." xml:space="preserve">
+        <source>Enter a valid filtering expression, either in a regular expression (Regex) format or a simpler filter expression, which can contain the * wildcard character. If using regular expressions, only the subset supported by WKWebView/Safari Content Filters is allowed.</source>
+        <target>Geben Sie einen gültigen Filterausdruck ein, entweder im Format eines regulären Ausdrucks (Regex) oder einen einfacheren Filterausdruck, der das Platzhalterzeichen * enthalten kann. Bei der Verwendung regulärer Ausdrücke ist nur die von WKWebView/Safari Content Filters unterstützte Teilmenge zulässig.</target>
+        <note>String for FooterText elements</note>
+      </trans-unit>
+      <trans-unit id="Expression" xml:space="preserve">
+        <source>Expression</source>
+        <target>Ausdruck</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rule" xml:space="preserve">
+        <source>Filter Rule</source>
+        <target>Filterregel</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Filter expression" xml:space="preserve">
+        <source>Filter expression</source>
+        <target>Filter-Ausdruck</target>
+        <note>String for IASKPlaceholder elements</note>
+      </trans-unit>
+      <trans-unit id="Regex" xml:space="preserve">
+        <source>Regex</source>
+        <target>Regex</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="allow" xml:space="preserve">
+        <source>allow</source>
+        <target>erlauben</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="block" xml:space="preserve">
+        <source>block</source>
+        <target>blockieren</target>
+        <note>String for Titles arrays elements</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="SEB/Resources/en.lproj/FilterRules.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.2" build-num="16C5032a"/>
+    </header>
+    <body>
+      <trans-unit id="Add Filter Rule ..." xml:space="preserve">
+        <source>Add Filter Rule ...</source>
+        <target>Filterregel hinzufügen …</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rule" xml:space="preserve">
+        <source>Filter Rule</source>
+        <target>Filterregel</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Filter Rules" xml:space="preserve">
+        <source>Filter Rules</source>
+        <target>Filterregeln</target>
+        <note>String for Title elements</note>
+      </trans-unit>
+      <trans-unit id="Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings." xml:space="preserve">
+        <source>Swipe left to delete a rule. The URL filter always first processes rules with the block action, if one matches, then the according http request is discarded. If no block rule matched, then rules with an allow action are processed. If one matches, then the request is loaded. If no allow rule matched, then the request is discarded. SEB automatically creates an allow filter rule for the exact address of the Start URL defined in these settings.</source>
+        <target>Wischen Sie nach links, um eine Regel zu löschen. Der URL-Filter verarbeitet immer zuerst Regeln mit der Block-Aktion, wenn eine übereinstimmt, wird der entsprechende http-Request verworfen. Wenn keine Block-Regel zutrifft, werden Regeln mit der Zulassen-Aktion abgearbeitet. Wenn eine davon zutrifft, wird der Request geladen. Wenn keine Zulassen-Regel übereinstimmt, wird der Request verworfen. SEB erstellt automatisch eine Zulassen-Regel für die genaue Adresse der in diesen Einstellungen definierten Start-URL.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
     </body>

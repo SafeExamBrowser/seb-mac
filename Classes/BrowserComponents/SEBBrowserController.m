@@ -1300,11 +1300,11 @@ static NSString *urlStrippedFragment(NSURL* url)
                 NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
                 downloadedFileURL = [downloadedFileURL URLByReplacingScheme:appScheme];
                 path = downloadedFileURL.absoluteString;
+                if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
+                    [self.delegate openDownloadedFile:path];
+                    return;
+                }
             }
-        }
-        if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
-            [self.delegate openDownloadedFile:path];
-            return;
         }
     }
     [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", @"")
