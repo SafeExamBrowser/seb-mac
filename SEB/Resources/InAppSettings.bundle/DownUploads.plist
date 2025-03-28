@@ -44,7 +44,7 @@
 			<key>Title</key>
 			<string>Allow Uploading Photos and Files</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_allowUploads</string>
+			<string>org_safeexambrowser_SEB_allowUploadsiOS</string>
 			<key>FooterText</key>
 			<string>Uploading allows to access camera, the full photo library and iCloud Drive and therefore is insecure!</string>
 		</dict>

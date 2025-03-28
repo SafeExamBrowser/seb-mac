@@ -280,6 +280,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowUploads",
                    
                    @NO,
+                   @"allowUploadsiOS",
+                   
+                   @NO,
                    @"allowUserAppFolderInstall",
                    
                    @YES,
