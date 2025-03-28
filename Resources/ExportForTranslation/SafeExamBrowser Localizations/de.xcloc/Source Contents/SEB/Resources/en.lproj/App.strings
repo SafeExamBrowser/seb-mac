@@ -8,6 +8,7 @@
 "Description" = "Description";
 "OS" = "OS";
 "Identifier" = "Identifier";
+"Custom Scheme" = "Custom Scheme";
 "Allow Network Access" = "Allow Network Access";
 
 /* String for Titles arrays elements */
@@ -22,3 +23,4 @@
 "App title for your reference" = "App title for your reference";
 "Description for your reference" = "Description for your reference";
 "Bundle Identifier" = "Bundle Identifier";
+"Custom Protocol Scheme" = "Custom Protocol Scheme";

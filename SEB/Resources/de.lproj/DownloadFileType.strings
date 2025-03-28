@@ -1,0 +1,30 @@
+/* (No Comment) */
+"App Identifier" = "App-Identifier";
+
+/* (No Comment) */
+"Bundle Identifier" = "Bundle-ID";
+
+/* String for FooterText elements */
+"Enter file extension and optionally Bundle ID of the associated additional app" = "Geben Sie die Dateierweiterung und optional die Bundle-ID der zugehörigen zusätzlichen App ein";
+
+/* String for IASKPlaceholder elements */
+"Extension without leading ." = "Dateierweiterung ohne .";
+
+/* (No Comment) */
+"File Extension" = "Dateierweiterung";
+
+/* String for Title elements */
+"File Type to be Downloaded" = "Herunterzuladender Dateityp";
+
+/* (No Comment) */
+"iOS" = "iOS";
+
+/* String for Titles arrays elements */
+"macOS" = "macOS";
+
+/* (No Comment) */
+"OS" = "OS";
+
+/* (No Comment) */
+"Win" = "Win";
+

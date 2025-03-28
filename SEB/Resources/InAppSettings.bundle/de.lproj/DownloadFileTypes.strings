@@ -1,0 +1,12 @@
+/* (No Comment) */
+"Add File Type ..." = "Dateityp hinzufügen …";
+
+/* (No Comment) */
+"File Type" = "Dateityp";
+
+/* String for Title elements */
+"File Types to be Downloaded" = "Herunterzuladende Dateitypen";
+
+/* String for FooterText elements */
+"File Types which will be downloaded instead of displayed by the browser. If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. On iPadOS you have to open the downloaded file manually in the additional app (location 'On My iPad / SEB')." = "Dateitypen, die heruntergeladen und nicht vom Browser angezeigt werden. Wenn Sie den Identifier einer zusätzlichen App eingeben, die ein benutzerdefiniertes URL-Schema hat, wird diese App nach Abschluss des Downloads geöffnet. Unter iPadOS müssen Sie die heruntergeladene Datei manuell in der zusätzlichen App öffnen (Ort 'Auf meinem iPad / SEB').";
+

@@ -120,6 +120,8 @@
 		69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
 		693425722D933EF100BCBF0B /* FilterRules.strings in Resources */ = {isa = PBXBuildFile; fileRef = 693425702D933EF100BCBF0B /* FilterRules.strings */; };
 		693425762D94712200BCBF0B /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 693425752D94712200BCBF0B /* InAppSettingsKit */; };
+		693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
+		693425792D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
 		69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
 		69358DD51E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
 		69358DD71E6E0D5F000539F6 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
@@ -622,6 +624,8 @@
 		69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */; };
 		69C3FC652A9B5EC500F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
 		69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
+		69C59B142D96B51D0060E01A /* DownloadFileTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B112D96B51D0060E01A /* DownloadFileTypes.strings */; };
+		69C59B182D96B5610060E01A /* DownloadFileType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B152D96B5610060E01A /* DownloadFileType.strings */; };
 		69C6522E2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C6522F2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C6A3532C738A2600033B3E /* SEBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6A3522C738A2600033B3E /* SEBFileManager.swift */; };
@@ -1029,6 +1033,7 @@
 		69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBLockedViewController.m; sourceTree = "<group>"; };
 		693425712D933EF100BCBF0B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/FilterRules.strings; sourceTree = "<group>"; };
 		693425732D933F0A00BCBF0B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/FilterRules.strings; sourceTree = "<group>"; };
+		693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalApplicationsController.swift; sourceTree = "<group>"; };
 		69358DD11E6E0D5F000539F6 /* SEBQRCode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBQRCode.png; path = SEB/Resources/Icons/SEBQRCode.png; sourceTree = SOURCE_ROOT; };
 		69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@2x.png"; path = "SEB/Resources/Icons/SEBQRCode@2x.png"; sourceTree = SOURCE_ROOT; };
 		69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBQRCode@3x.png"; path = "SEB/Resources/Icons/SEBQRCode@3x.png"; sourceTree = SOURCE_ROOT; };
@@ -1519,6 +1524,10 @@
 		69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadPageUIElement.swift; sourceTree = "<group>"; };
 		69C52802136AFDBD00F9F000 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PreferencesController.m; path = Classes/Preferences/PreferencesWindow/PreferencesController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		69C52805136AFE9500F9F000 /* PrefsDownUploadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsDownUploadsViewController.m; sourceTree = "<group>"; };
+		69C59B122D96B51D0060E01A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/DownloadFileTypes.strings; sourceTree = "<group>"; };
+		69C59B132D96B51D0060E01A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/DownloadFileTypes.strings; sourceTree = "<group>"; };
+		69C59B162D96B5610060E01A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/DownloadFileType.strings; sourceTree = "<group>"; };
+		69C59B172D96B5610060E01A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/DownloadFileType.strings; sourceTree = "<group>"; };
 		69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenProctoringController.swift; sourceTree = "<group>"; };
 		69C6A3522C738A2600033B3E /* SEBFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBFileManager.swift; sourceTree = "<group>"; };
 		69CB3A2E2C9A229D006B7E5E /* SEBScreenProctoringIcon_active_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBScreenProctoringIcon_active_warning.png; path = Resources/Icons/Dock/SEBScreenProctoringIcon_active_warning.png; sourceTree = "<group>"; };
@@ -2263,6 +2272,8 @@
 				69718AC92841662100623060 /* Browser.strings */,
 				69718ADF284170AF00623060 /* BrowserMediaPlayback.strings */,
 				69718AEF284170E000623060 /* DownUploads.strings */,
+				69C59B112D96B51D0060E01A /* DownloadFileTypes.strings */,
+				69C59B152D96B5610060E01A /* DownloadFileType.strings */,
 				69718B282842C4EE00623060 /* Exam.strings */,
 				69718AF4284170EE00623060 /* ExamKeys.strings */,
 				693425702D933EF100BCBF0B /* FilterRules.strings */,
@@ -2493,6 +2504,7 @@
 				697852B42177AC7200E93AD8 /* SEBSettings.m */,
 				695EE19226D2F2F8004D8FF7 /* SEBPresetSettings.h */,
 				695EE19126D2F2F8004D8FF7 /* SEBPresetSettings.m */,
+				693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */,
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
@@ -3788,6 +3800,7 @@
 				691018D81CF26A9C00AB8803 /* SEBReloadIcon@2x.png in Resources */,
 				69E87E54202927330055988F /* SEBDockIconLandscape@2x.png in Resources */,
 				691018C51CF1B33900AB8803 /* SEBShutDownIcon@2x.png in Resources */,
+				69C59B182D96B5610060E01A /* DownloadFileType.strings in Resources */,
 				69718B1F2841716A00623060 /* SecurityLogging.strings in Resources */,
 				6940B9781BA0F2FB008C8CFC /* Assets.xcassets in Resources */,
 				693A39651E60AC6C005030B0 /* SEBNavigateForwardIcon@3x.png in Resources */,
@@ -3844,6 +3857,7 @@
 				69B253DF1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png in Resources */,
 				69CB3A522C9A229F006B7E5E /* SEBScreenProctoringIcon_active@3x.png in Resources */,
 				69B253E11E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png in Resources */,
+				69C59B142D96B51D0060E01A /* DownloadFileTypes.strings in Resources */,
 				69718AF2284170EE00623060 /* ExamKeys.strings in Resources */,
 				6966F87C1D1C081300684182 /* SEBSliderShutDownIcon@2x.png in Resources */,
 				69E87E48202926080055988F /* SEBReloadIconLandscape.png in Resources */,
@@ -4241,6 +4255,7 @@
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				69B1D470230D7586005656B8 /* APIResources.swift in Sources */,
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
+				693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */,
 				691981432C723B7500E79DA4 /* FIFOBuffer.swift in Sources */,
 				69036BD82C32902100E8BE38 /* AssessmentModeManager.m in Sources */,
 				6993CD5C2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */,
@@ -4355,6 +4370,7 @@
 				690C6EE719E29E3600EDE103 /* SEBOSXBrowserController.m in Sources */,
 				69B98F802BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */,
 				699731C518C8D6ED0069FE35 /* CapWindow.m in Sources */,
+				693425792D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */,
 				69F7B61814F411FB00FD0761 /* WebKit+WebKitExtensions.m in Sources */,
 				69627F911A1A46D000E9F2A8 /* NSURL+SEBURL.m in Sources */,
 				69C6A3532C738A2600033B3E /* SEBFileManager.swift in Sources */,
@@ -4873,6 +4889,24 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		69C59B112D96B51D0060E01A /* DownloadFileTypes.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69C59B122D96B51D0060E01A /* de */,
+				69C59B132D96B51D0060E01A /* en */,
+			);
+			name = DownloadFileTypes.strings;
+			sourceTree = "<group>";
+		};
+		69C59B152D96B5610060E01A /* DownloadFileType.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69C59B162D96B5610060E01A /* de */,
+				69C59B172D96B5610060E01A /* en */,
+			);
+			name = DownloadFileType.strings;
+			sourceTree = "<group>";
+		};
 		69D02489287C68E6006CEC19 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4963,7 +4997,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5066,7 +5100,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5362,7 +5396,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5409,7 +5443,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5451,7 +5485,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5516,7 +5550,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5577,7 +5611,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5621,7 +5655,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5658,7 +5692,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5701,7 +5735,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5736,7 +5770,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5805,7 +5839,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5882,7 +5916,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5937,7 +5971,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15580;
+				CURRENT_PROJECT_VERSION = 15591;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

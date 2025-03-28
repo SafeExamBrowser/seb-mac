@@ -12,7 +12,7 @@
 			<key>Type</key>
 			<string>IASKListGroupSpecifier</string>
 			<key>Title</key>
-			<string>File Types</string>
+			<string>File Types to be Downloaded</string>
 			<key>FooterText</key>
 			<string>File Types which will be downloaded instead of displayed by the browser. If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. On iPadOS you have to open the downloaded file manually in the additional app (location &apos;On My iPad / SEB&apos;).</string>
 			<key>ItemSpecifier</key>
