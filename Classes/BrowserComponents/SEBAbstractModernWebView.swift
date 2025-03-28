@@ -194,18 +194,7 @@ import CocoaLumberjackSwift
         initWKWebViewController(configuration: configuration)
         let developerExtrasEnabled = UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_allowDeveloperConsole")
         sebWebView.setValue(developerExtrasEnabled, forKey: "allowsRemoteInspection")
-        
-        if let downloadFileTypes = UserDefaults.standard.secureArray(forKey: "org_safeexambrowser_SEB_downloadFileTypes") {
-#if os(iOS)
-            let runningOnOS = SEBSupportedOSiPadOS
-#elseif os(macOS)
-            let runningOnOS = SEBSupportedOSmacOS
-#endif
-
-            let filterFileTypesOS = NSPredicate(format: "os == %d", runningOnOS)
-            let osFilteredFileTypes = (downloadFileTypes as NSArray).filtered(using: filterFileTypesOS) as? [[String: Any]] ?? []
-            downloadFileExtensions = Set(osFilteredFileTypes.map { $0["extension"] } as! [String])
-        }
+        downloadFileExtensions = AdditionalApplicationsController.downloadFileTypesExtensions()
 
         pageZoom = defaultPageZoom
         textZoom = defaultTextZoom
