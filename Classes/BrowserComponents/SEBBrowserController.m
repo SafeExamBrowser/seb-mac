@@ -122,7 +122,11 @@ void run_block_on_ui_thread(dispatch_block_t block)
     webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
     newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"];
+#if TARGET_OS_OSX
     _allowUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowUploads"];
+#else
+    _allowUploads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowUploadsiOS"];
+#endif
     [self setDownloadDirectory];
 }
 
