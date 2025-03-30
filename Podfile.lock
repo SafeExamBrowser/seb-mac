@@ -1,28 +1,16 @@
 PODS:
-  - InAppSettingsKit (3.3.6)
   - JitsiMeetSDK (3.9.0)
 
 DEPENDENCIES:
-  - InAppSettingsKit (from `https://github.com/SafeExamBrowser/InAppSettingsKit.git`)
   - JitsiMeetSDK (~> 3.9.0)
 
 SPEC REPOS:
   trunk:
     - JitsiMeetSDK
 
-EXTERNAL SOURCES:
-  InAppSettingsKit:
-    :git: https://github.com/SafeExamBrowser/InAppSettingsKit.git
-
-CHECKOUT OPTIONS:
-  InAppSettingsKit:
-    :commit: 15f73b8350f303ca6b7bb66f598f124c986eed81
-    :git: https://github.com/SafeExamBrowser/InAppSettingsKit.git
-
 SPEC CHECKSUMS:
-  InAppSettingsKit: 37df0b44132380d4c7db6fc7cded92997e29873a
   JitsiMeetSDK: ee41fac0c5e4157ea2d88ed9e9ca5ab1dca8311b
 
-PODFILE CHECKSUM: d71b81de45fc70597f2c3f13aaba0b71bec5a576
+PODFILE CHECKSUM: fbffe0a4050ae5a7bc63e2a07cf2f1d0e293837c
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2
