@@ -15,7 +15,6 @@ target 'SEB' do
 
 platform :ios, '11'
 use_frameworks!
-pod 'InAppSettingsKit', :git => 'https://github.com/SafeExamBrowser/InAppSettingsKit.git'#, :branch => 'Crash_after_selection'
 pod 'JitsiMeetSDK', '~> 3.9.0'#, :git => 'https://github.com/jitsi/jitsi-meet-ios-sdk-releases.git'
 
 end

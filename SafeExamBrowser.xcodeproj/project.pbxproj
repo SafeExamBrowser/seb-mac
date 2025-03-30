@@ -119,7 +119,6 @@
 		69331F0C1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
 		69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
 		693425722D933EF100BCBF0B /* FilterRules.strings in Resources */ = {isa = PBXBuildFile; fileRef = 693425702D933EF100BCBF0B /* FilterRules.strings */; };
-		693425762D94712200BCBF0B /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 693425752D94712200BCBF0B /* InAppSettingsKit */; };
 		693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
 		693425792D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
 		69358DD41E6E0D5F000539F6 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
@@ -549,6 +548,7 @@
 		69A727EB249D93CA0087B193 /* SEBScrollLock_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E8249D93CA0087B193 /* SEBScrollLock_locked@2x.png */; };
 		69A727ED249D93CA0087B193 /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E9249D93CA0087B193 /* SEBScrollLock_locked@3x.png */; };
 		69A727EF249D93CA0087B193 /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */; };
+		69A9859C2D98BE1800B89451 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 69A9859B2D98BE1800B89451 /* InAppSettingsKit */; };
 		69AEC956218A228300848945 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
 		69AEC95A218A228300848945 /* SEBFilteredURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AEC955218A228300848945 /* SEBFilteredURLCache.m */; };
 		69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AF449E24699A5300F56542 /* JitsiViewController.swift */; };
@@ -1741,7 +1741,7 @@
 				69A223421C20E45A00766354 /* libz.tbd in Frameworks */,
 				69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */,
 				69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */,
-				693425762D94712200BCBF0B /* InAppSettingsKit in Frameworks */,
+				69A9859C2D98BE1800B89451 /* InAppSettingsKit in Frameworks */,
 				690C8AA3279C125E0038A3CA /* libSEBSupport.a in Frameworks */,
 				69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */,
 				6943C6202A99246400EC18FF /* CocoaLumberjack in Frameworks */,
@@ -3424,7 +3424,7 @@
 				6943C61F2A99246400EC18FF /* CocoaLumberjack */,
 				6943C6212A99246400EC18FF /* CocoaLumberjackSwift */,
 				6943C6232A99246400EC18FF /* CocoaLumberjackSwiftLogBackend */,
-				693425752D94712200BCBF0B /* InAppSettingsKit */,
+				69A9859B2D98BE1800B89451 /* InAppSettingsKit */,
 			);
 			productName = SEB;
 			productReference = 6940B9661BA0F2FB008C8CFC /* SEB.app */;
@@ -3639,7 +3639,7 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* SEB */;
 			packageReferences = (
 				6943C6122A991C4000EC18FF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
-				693425742D94712200BCBF0B /* XCRemoteSwiftPackageReference "InAppSettingsKit" */,
+				69A9859A2D98BE1800B89451 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */,
 			);
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
@@ -4120,13 +4120,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/InAppSettingsKit/InAppSettingsKit.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/WebRTC.framework/WebRTC",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InAppSettingsKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 			);
@@ -4997,7 +4995,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5043,8 +5041,6 @@
 					"$(inherited)",
 					"-framework",
 					"\"AVFoundation\"",
-					"-framework",
-					"\"InAppSettingsKit\"",
 					"-framework",
 					"\"JitsiMeetSDK\"",
 					"-framework",
@@ -5100,7 +5096,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5147,8 +5143,6 @@
 					"$(inherited)",
 					"-framework",
 					"\"AVFoundation\"",
-					"-framework",
-					"\"InAppSettingsKit\"",
 					"-framework",
 					"\"JitsiMeetSDK\"",
 					"-framework",
@@ -5396,7 +5390,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5443,7 +5437,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5485,7 +5479,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5550,7 +5544,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5611,7 +5605,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5655,7 +5649,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5692,7 +5686,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5735,7 +5729,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5770,7 +5764,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5839,7 +5833,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5916,7 +5910,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5971,7 +5965,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15595;
+				CURRENT_PROJECT_VERSION = 15598;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6085,14 +6079,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		693425742D94712200BCBF0B /* XCRemoteSwiftPackageReference "InAppSettingsKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/futuretap/InAppSettingsKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.8.5;
-			};
-		};
 		6943C6122A991C4000EC18FF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -6101,14 +6087,17 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		69A9859A2D98BE1800B89451 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/futuretap/InAppSettingsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		693425752D94712200BCBF0B /* InAppSettingsKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 693425742D94712200BCBF0B /* XCRemoteSwiftPackageReference "InAppSettingsKit" */;
-			productName = InAppSettingsKit;
-		};
 		6943C6132A991C4000EC18FF /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6943C6122A991C4000EC18FF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
@@ -6153,6 +6142,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6943C6122A991C4000EC18FF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		69A9859B2D98BE1800B89451 /* InAppSettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69A9859A2D98BE1800B89451 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */;
+			productName = InAppSettingsKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

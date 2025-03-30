@@ -1,10 +1,10 @@
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 EXCLUDED_ARCHS[sdk=iphonesimulator*] = arm64
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit" "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/JitsiMeetSDK/Frameworks" "${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/InAppSettingsKit/InAppSettingsKit.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "InAppSettingsKit" -framework "JitsiMeetSDK" -framework "MessageUI" -framework "UIKit" -framework "WebRTC"
+OTHER_LDFLAGS = $(inherited) -framework "JitsiMeetSDK" -framework "WebRTC"
+OTHER_MODULE_VERIFIER_FLAGS = $(inherited) "-F${PODS_CONFIGURATION_BUILD_DIR}/JitsiMeetSDK"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
