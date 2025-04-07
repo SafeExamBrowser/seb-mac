@@ -421,6 +421,9 @@
 /* No comment provided by engineer. */
 "Custom Key Binding Detected" = "Custom Key Binding Detected";
 
+/* Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App */
+"Custom Scheme" = "Custom Scheme";
+
 /* No comment provided by engineer. */
 "Debug" = "Debug";
 
@@ -677,6 +680,9 @@
 "Info" = "Info";
 
 /* No comment provided by engineer. */
+"iOS" = "iOS";
+
+/* No comment provided by engineer. */
 "iOS 18" = "iOS 18";
 
 /* No comment provided by engineer. */
@@ -852,6 +858,9 @@
 
 /* No comment provided by engineer. */
 "Paste from saved clipboard" = "Paste from saved clipboard";
+
+/* Label for path property of a Windows permitted process */
+"Path" = "Path";
 
 /* No comment provided by engineer. */
 "Permissions Required for %@" = "Permissions Required for %@";

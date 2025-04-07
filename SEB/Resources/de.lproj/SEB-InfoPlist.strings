@@ -4,7 +4,7 @@
 /* Bundle name */
 "CFBundleName" = "SEB";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "Gzip Archive (SEB files are gzipped)" = "Gzip-Archiv (SEB-Dateien sind mittels Gzip komprimiert)";
 
 /* Privacy - Bluetooth Peripheral Usage Description */
@@ -31,6 +31,6 @@
 /* Privacy - Photo Library Usage Description */
 "NSPhotoLibraryUsageDescription" = "Der integrierte Webbrowser benötigt die Erlaubnis, auf Fotos aus Ihrer Fotobibliothek zuzugreifen, wenn Sie auf einer Webseite die Schaltfläche \"Datei auswählen\"/Hochladen verwenden.";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "Safe Exam Browser Configuration" = "Safe Exam Browser Konfiguration";
 

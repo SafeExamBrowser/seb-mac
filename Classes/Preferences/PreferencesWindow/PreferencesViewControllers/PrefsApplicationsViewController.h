@@ -54,6 +54,7 @@
     __weak IBOutlet NSStackView *executableView;
     __weak IBOutlet NSStackView *originalNameView;
     __weak IBOutlet NSStackView *pathView;
+    __weak IBOutlet NSTextField *pathLabel;
     __weak IBOutlet NSStackView *argumentsView;
     __weak IBOutlet NSButton *iconInTaskbarButton;
     __weak IBOutlet NSButton *autostartButton;

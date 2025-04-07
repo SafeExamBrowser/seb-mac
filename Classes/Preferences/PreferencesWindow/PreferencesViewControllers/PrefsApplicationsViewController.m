@@ -120,6 +120,7 @@
                 executableView.hidden = NO;
                 originalNameView.hidden = NO;
                 pathView.hidden = NO;
+                pathLabel.stringValue = NSLocalizedString(@"Path", @"Label for path property of a Windows permitted process");
                 argumentsView.hidden = NO;
                 iconInTaskbarButton.hidden = NO;
                 autostartButton.hidden = NO;
@@ -136,7 +137,8 @@
                 chooseApplicationButton.hidden = NO;
                 executableView.hidden = YES;
                 originalNameView.hidden = YES;
-                pathView.hidden = YES;
+                pathView.hidden = NO;
+                pathLabel.stringValue = NSLocalizedString(@"Custom Scheme", @"Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App");
                 argumentsView.hidden = YES;
                 iconInTaskbarButton.hidden = YES;
                 autostartButton.hidden = YES;

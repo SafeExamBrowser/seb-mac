@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,6 +23,7 @@
                 <outlet property="networkAccessButton" destination="956" id="Gbt-QW-TIw"/>
                 <outlet property="originalNameView" destination="NsW-zB-Bw1" id="MRY-Ck-SWz"/>
                 <outlet property="osPopUpButton" destination="1314" id="KCb-HB-S5p"/>
+                <outlet property="pathLabel" destination="686" id="ajZ-HT-5zG"/>
                 <outlet property="pathView" destination="mWQ-ro-37J" id="Mm5-2r-3ck"/>
                 <outlet property="permittedProcessesArrayController" destination="610" id="wY8-Vh-fES"/>
                 <outlet property="permittedProcessesTableView" destination="346" id="4kz-Yu-mp9"/>
@@ -97,7 +98,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="17" y="39" width="604" height="612"/>
+                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -209,7 +210,7 @@
                                                                                                 </menu>
                                                                                                 <connections>
                                                                                                     <action selector="changedOS:" target="-2" id="mAl-kp-cwF"/>
-                                                                                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1336"/>
+                                                                                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystemsiPad" id="MTh-fr-K3F"/>
                                                                                                 </connections>
                                                                                             </popUpButtonCell>
                                                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
@@ -547,8 +548,8 @@
                                                                                                     <accessibility description="Select operating system"/>
                                                                                                     <connections>
                                                                                                         <action selector="changedOS:" target="-2" id="YpN-Nb-Vtp"/>
-                                                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="1328"/>
-                                                                                                        <binding destination="610" name="selectedIndex" keyPath="selection.os" previousBinding="1328" id="1349">
+                                                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystemsiPad" id="07m-GM-USe"/>
+                                                                                                        <binding destination="610" name="selectedIndex" keyPath="selection.os" previousBinding="07m-GM-USe" id="OQ9-MO-puc">
                                                                                                             <dictionary key="options">
                                                                                                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                                                                 <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -706,7 +707,7 @@
                                                                                                 </textField>
                                                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
                                                                                                     <rect key="frame" x="36" y="0.0" width="458" height="21"/>
-                                                                                                    <string key="toolTip">Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications</string>
+                                                                                                    <string key="toolTip">If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. Win: Filesystem path to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1275,7 +1276,7 @@
                                         </tabViewItem>
                                         <tabViewItem label="Prohibited Processes" identifier="2" id="241">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="242">
-                                                <rect key="frame" x="38" y="57" width="604" height="607"/>
+                                                <rect key="frame" x="17" y="39" width="604" height="607"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-AJ-1Zf">
                                                         <rect key="frame" x="17" y="10" width="570" height="590"/>
@@ -1994,7 +1995,7 @@
                         <bool key="NSHandlesContentAsCompoundValue" value="YES"/>
                     </dictionary>
                 </binding>
-                <outlet property="prefsApplicationsViewController" destination="-2" id="7xz-aw-IqK"/>
+                <outlet property="prefsApplicationsDelegate" destination="-2" id="3v2-NU-pg4"/>
             </connections>
         </arrayController>
         <arrayController avoidsEmptySelection="NO" id="1782" userLabel="Permitted Processes Arguments AC">

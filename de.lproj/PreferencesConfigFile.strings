@@ -7,8 +7,11 @@
 /* Class = "NSButtonCell"; title = "MDM Managed Configuration"; ObjectID = "4WQ-Hk-K3p"; */
 "4WQ-Hk-K3p.title" = "Verwaltete MDM-Konfiguration";
 
-/* Class = "NSButtonCell"; title = "Allow QR code config (iOS)"; ObjectID = "53p-kc-87m"; */
-"53p-kc-87m.title" = "Konfiguration mit QR-Code erlauben (iOS)";
+/* Class = "NSButtonCell"; title = "Show 'Edit Config File' Quick Action"; ObjectID = "7KN-IV-lyH"; */
+"7KN-IV-lyH.title" = "Schnellaktion 'Konfiguration bearbeiten'";
+
+/* Class = "NSButtonCell"; title = "Allow QR code config"; ObjectID = "53p-kc-87m"; */
+"53p-kc-87m.title" = "Konfiguration mit QR-Code erlauben";
 
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Choose identity certificate to be used for encrypting SEB settings file"; ObjectID = "69"; */
 "69.ibExternalAccessibilityDescription" = "Identität zur Verschlüsselung der SEB Konfigurationsdatei auswählen";
@@ -127,8 +130,8 @@
 /* Class = "NSButtonCell"; title = "Apply and Restart SEB"; ObjectID = "1294"; */
 "1294.title" = "Anwenden und Neustart";
 
-/* Class = "NSButtonCell"; title = "Show settings in app (iOS)"; ObjectID = "b4O-Hy-kCT"; */
-"b4O-Hy-kCT.title" = "Einstellungen innerhalb der App anzeigen (iOS)";
+/* Class = "NSButtonCell"; title = "Show settings in app"; ObjectID = "b4O-Hy-kCT"; */
+"b4O-Hy-kCT.title" = "Einstellungen innerhalb der App anzeigen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action"; ObjectID = "bjh-ZV-2zp"; */
 "bjh-ZV-2zp.ibShadowedToolTip" = "Erlaubt das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes, mit Befehl im Seitenmenü, Dock-Taste (wenn in den Benutzeroberfläche-Einstellungen aktiviert) oder Home-Bildschirm Schnellaktion";
@@ -144,6 +147,12 @@
 
 /* Class = "NSButtonCell"; title = "Remove default values"; ObjectID = "hOC-jh-iwA"; */
 "hOC-jh-iwA.title" = "Standardwerte entfernen";
+
+/* Class = "NSBox"; title = "iOS Settings"; ObjectID = "Skz-8h-R96"; */
+"Skz-8h-R96.title" = "iOS-Einstellungen";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings"; ObjectID = "vsD-Tt-Wm6"; */
+"vsD-Tt-Wm6.ibShadowedToolTip" = "Zeigt eine Schnellaktion zum Bearbeiten von Konfigurationsdateien auf dem Home-Bildschirm an (berühren und halten Sie das App-Symbol). Sie können eine Konfigurationsdatei in der Dateiauswahl öffnen oder, wenn Sie die Auswahl schliessen, eine neue Konfiguration mit Voreinstellungen erstellen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe"; */
 "VYd-lj-NUe.ibShadowedToolTip" = "Zeigt die 'Einstellungen bearbeiten'-Option im linken Seitenmenü an. Wenn diese Einstellung in der Client-Konfiguration aktiviert ist, sind die In-App-Einstellungen auch nach dem Öffnen einer Prüfungskonfiguration verfügbar";
