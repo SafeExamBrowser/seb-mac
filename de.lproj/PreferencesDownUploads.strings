@@ -1,5 +1,11 @@
+/* Class = "NSBox"; title = "File Types to be Downloaded"; ObjectID = "1Wh-Uz-Gas"; */
+"1Wh-Uz-Gas.title" = "Herunterzuladende Dateitypen";
+
 /* Class = "NSButtonCell"; title = "Download and open SEB config files"; ObjectID = "6rb-i4-RZm"; */
 "6rb-i4-RZm.title" = "SEB Konfig herunterladen/öffnen";
+
+/* Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "9Zv-oc-2jg"; */
+"9Zv-oc-2jg.title" = "Applikation auswählen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows file downloads, saved in the configured directory. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "13"; */
 "13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.";
@@ -31,6 +37,9 @@
 /* Class = "NSButtonCell"; title = "Open files after downloading"; ObjectID = "39"; */
 "39.title" = "Dateien nach Download öffnen";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Remove file type"; ObjectID = "61e-33-cai"; */
+"61e-33-cai.ibShadowedToolTip" = "Dateityp entfernen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "PDF files will not be displayed by SEB but downloaded and opened (if 'Open files after downloading' is active!) by the application set in Finder (usually Preview or Adobe Acrobat)."; ObjectID = "76"; */
 "76.ibShadowedToolTip" = "PDF-Dateien werden nicht von SEB angezeigt, sondern heruntergeladenen und geöffnet (wenn 'Dateien nach dem Laden öffnen' aktiviert ist) und zwar mit der im Finder eingestellten Applikation (üblicherweise Vorschau oder Adobe Acrobat)";
 
@@ -49,8 +58,26 @@
 /* Class = "NSButton"; ibShadowedToolTip = "The Adobe Acrobat Reader browser plugin should only be used on secured managed Mac computers, as it allows to access the file system and cloud services"; ObjectID = "AAd-LS-TUP"; */
 "AAd-LS-TUP.ibShadowedToolTip" = "Das Adobe Acrobat Reader Browser Plug-In sollte nur auf abgesicherten verwalteten Computern verwendet werden, weil es begrenzten Zugriff auf das Dateisystem und unbegrenzten auf Cloud-Dienste erlaubt";
 
+/* Class = "NSTableColumn"; headerCell.title = "App Identifier"; ObjectID = "AjU-AR-KNK"; */
+"AjU-AR-KNK.headerCell.title" = "App-Identifier";
+
 /* Class = "NSButtonCell"; title = "Allow downloading and uploading files (deprecated, start using separate settings below!)"; ObjectID = "CLg-7Q-FHe"; */
 "CLg-7Q-FHe.title" = "Download und Upload erlauben (veraltet, ab jetzt separate Einstellungen unten verwenden!)";
+
+/* Class = "NSTextFieldCell"; title = "OS"; ObjectID = "evx-LJ-AQv"; */
+"evx-LJ-AQv.title" = "OS";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allows choosing the application to extract its supported file types"; ObjectID = "fRJ-Jw-oD4"; */
+"fRJ-Jw-oD4.ibShadowedToolTip" = "Applikation auswählen, um ihre unterstützten Dateitypen zu extrahieren";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Uploading on iOS allows to access camera, the full photo library and iCloud Drive and therefore is insecure!"; ObjectID = "fSx-ha-DwV"; */
+"fSx-ha-DwV.ibShadowedToolTip" = "Upload auf iOS erlaubt den Zugriff auf die Kamera, die gesamte Fotomediathek und iCloud Drive und ist daher unsicher!";
+
+/* Class = "NSTextFieldCell"; title = "Identifier"; ObjectID = "fuO-ob-aYr"; */
+"fuO-ob-aYr.title" = "Identifier";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Bundle Identifier"; ObjectID = "gPg-xY-Ns2"; */
+"gPg-xY-Ns2.placeholderString" = "Bundle-ID";
 
 /* Class = "NSButtonCell"; title = "Allow uploading files"; ObjectID = "Gsm-bO-2cu"; */
 "Gsm-bO-2cu.title" = "Upload erlauben";
@@ -70,14 +97,56 @@
 /* Class = "NSButtonCell"; title = "Allow user to select custom down/upload directory (Win)"; ObjectID = "I9g-6o-a5B"; */
 "I9g-6o-a5B.title" = "Benutzer darf Upload/Download-Verzeichnis auswählen";
 
+/* Class = "NSTableColumn"; headerCell.title = "OS"; ObjectID = "ibS-rF-PtX"; */
+"ibS-rF-PtX.headerCell.title" = "OS";
+
+/* Class = "NSTableColumn"; headerCell.title = "File Extension"; ObjectID = "IVS-Z2-wj1"; */
+"IVS-Z2-wj1.headerCell.title" = "Dateierweiterung";
+
+/* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Select operating system"; ObjectID = "jCp-pQ-H3m"; */
+"jCp-pQ-H3m.ibExternalAccessibilityDescription" = "Betriebssystem auswählen";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Operating system on which the file type should be downloaded. This feature might not be supported on all platforms"; ObjectID = "jCp-pQ-H3m"; */
+"jCp-pQ-H3m.ibShadowedToolTip" = "Betriebssystem, auf welchem der Dateityp heruntergeladen werden soll. Diese Funktion ist möglicherweise nicht auf allen Plattformen verfügbar";
+
+/* Class = "NSButtonCell"; title = "Allow uploading photos and files (iOS)"; ObjectID = "N2R-WA-ciM"; */
+"N2R-WA-ciM.title" = "Upload (Fotos/Dateien) auf iOS erlauben";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Extension without leading ."; ObjectID = "pgn-wC-9uD"; */
+"pgn-wC-9uD.placeholderString" = "Dateierweiterung ohne .";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads"; ObjectID = "Puc-ch-f22"; */
 "Puc-ch-f22.ibShadowedToolTip" = "Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittanwendungen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden";
+
+/* Class = "NSScrollView"; ibShadowedToolTip = "Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open files after downloading' above. This feature might not be supported on all platforms"; ObjectID = "Q5A-oO-lwh"; */
+"Q5A-oO-lwh.ibShadowedToolTip" = "Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option 'App für heruntergeladene Datei öffnen' oben verwenden. Diese Funktion ist möglicherweise nicht auf allen Plattformen verfügbar";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows uploading files, selected manually or automatically. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "qFU-rq-M6F"; */
 "qFU-rq-M6F.ibShadowedToolTip" = "Wenn aktiviert, zeigt SEB einen vereinfachten Dateidialog an, wenn ein Download gestartet wird. Der Benutzer kann zu einem beliebigen Ordner im lokalen Dateisystem navigieren";
 
+/* Class = "NSTextFieldCell"; title = "File Extension"; ObjectID = "typ-vO-dYB"; */
+"typ-vO-dYB.title" = "Dateierweiterung";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Download and open .seb config files regardless if downloading and opening other file types is allowed"; ObjectID = "Wef-JS-4QU"; */
 "Wef-JS-4QU.ibShadowedToolTip" = ".seb Konfig herunterladen/öffnen, unabhängig davon ob der Download und das Öffnen von anderen Dateitypen erlaubt ist";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Identifier"; ObjectID = "WQ1-a8-qQK"; */
+"WQ1-a8-qQK.ibExternalAccessibilityDescription" = "Identifier";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "Optional Bundle Identifier of the associated additional app (permitted process)"; ObjectID = "WQ1-a8-qQK"; */
+"WQ1-a8-qQK.ibShadowedToolTip" = "Optionale Bundle-ID der zugehörigen zusätzlichen App (Erlaubter Prozess)";
+
+/* Class = "NSTextField"; ibExternalAccessibilityDescription = "Description"; ObjectID = "Ws8-1S-X3h"; */
+"Ws8-1S-X3h.ibExternalAccessibilityDescription" = "Beschreibung";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "File extension without a leading period ."; ObjectID = "Ws8-1S-X3h"; */
+"Ws8-1S-X3h.ibShadowedToolTip" = "Dateierweiterung ohne Punkt .";
+
+/* Class = "NSBox"; title = "Selected File Type"; ObjectID = "wYd-zI-1kB"; */
+"wYd-zI-1kB.title" = "Ausgewählter Dateityp";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Add a file type"; ObjectID = "Xao-R9-3Rp"; */
+"Xao-R9-3Rp.ibShadowedToolTip" = "Dateityp hinzufügen";
 
 /* Class = "NSButtonCell"; title = "Allow using Acrobat Reader PDF plugin (insecure)"; ObjectID = "zhK-R4-XtF"; */
 "zhK-R4-XtF.title" = "Acrobat Reader PDF Plug-In erlauben (unsicher)";

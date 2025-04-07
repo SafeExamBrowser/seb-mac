@@ -36,8 +36,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MBPreferencesController.h"
+#import "SafeExamBrowser-Swift.h"
 
-@interface PrefsDownUploadsViewController : NSViewController <MBPreferencesModule> {
+@interface PrefsDownUploadsViewController : NSViewController <MBPreferencesModule, DownUploadsPreferencesDelegate, NSTableViewDelegate> {
 
     __weak IBOutlet NSButton *allowDownloadsButton;
     __weak IBOutlet NSPopUpButton *chooseDownloadDirectory;
@@ -50,6 +51,7 @@
     __weak IBOutlet NSButton *allowPDFPlugInButton;
     __weak IBOutlet NSButton *allowUploadsButton;
     __weak IBOutlet NSPopUpButton *chooseFileToUploadPolicyControl;
+    __weak IBOutlet NSTableView *downloadFileTypesTableView;
 }
 
 - (NSString *)identifier;
@@ -59,5 +61,6 @@
 
 - (IBAction) chooseDirectory:(id)sender;
 
+@property (weak) IBOutlet DownloadFileTypesArrayController *downloadFileTypesArrayController;
 
 @end

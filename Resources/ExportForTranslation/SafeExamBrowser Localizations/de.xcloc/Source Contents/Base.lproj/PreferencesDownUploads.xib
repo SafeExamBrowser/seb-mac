@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +16,8 @@
                 <outlet property="chooseFileToUploadPolicyControl" destination="93" id="gjm-C7-4c6"/>
                 <outlet property="downloadDirectory" destination="35" id="58"/>
                 <outlet property="downloadDirectoryWin" destination="fKA-Ye-zQz" id="52I-NJ-JvD"/>
+                <outlet property="downloadFileTypesArrayController" destination="7Ca-d8-k6R" id="ncL-vC-DKs"/>
+                <outlet property="downloadFileTypesTableView" destination="81p-Cv-RiF" id="hfh-by-E2w"/>
                 <outlet property="downloadPDFFilesButton" destination="76" id="ZCN-UD-F6H"/>
                 <outlet property="openDownloadsButton" destination="38" id="TOc-Ph-xun"/>
                 <outlet property="useTemporaryDownUploadDirectoryButton" destination="i3z-E8-xzq" id="5Gf-ab-upa"/>
@@ -25,14 +27,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Down/Uploads Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="650" height="360"/>
+            <rect key="frame" x="0.0" y="0.0" width="652" height="724"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalCompressionResistancePriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OSs-RE-heb">
-                    <rect key="frame" x="20" y="22" width="610" height="323"/>
+                    <rect key="frame" x="20" y="20" width="612" height="689"/>
                     <subviews>
                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Puc-ch-f22">
-                            <rect key="frame" x="-2" y="306" width="564" height="18"/>
+                            <rect key="frame" x="-2" y="672" width="564" height="18"/>
                             <string key="toolTip">Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads</string>
                             <buttonCell key="cell" type="check" title="Allow downloading and uploading files (deprecated, start using separate settings below!)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="CLg-7Q-FHe">
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -44,7 +46,7 @@
                             </connections>
                         </button>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15L-sJ-Uuf">
-                            <rect key="frame" x="0.0" y="112" width="610" height="179"/>
+                            <rect key="frame" x="0.0" y="478" width="612" height="179"/>
                             <subviews>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="13">
                                     <rect key="frame" x="-2" y="162" width="168" height="18"/>
@@ -60,10 +62,10 @@
                                     </connections>
                                 </button>
                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="1000" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1iI-oF-4xZ">
-                                    <rect key="frame" x="0.0" y="46" width="610" height="109"/>
+                                    <rect key="frame" x="0.0" y="46" width="612" height="109"/>
                                     <subviews>
                                         <button toolTip="Create a temporary directory for downloading and uploading files, which is removed when quitting a session" translatesAutoresizingMaskIntoConstraints="NO" id="i3z-E8-xzq">
-                                            <rect key="frame" x="359" y="93" width="251" height="16"/>
+                                            <rect key="frame" x="361" y="93" width="251" height="16"/>
                                             <buttonCell key="cell" type="check" title="Use temporary down/upload directory" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hy0-QR-C17">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -84,7 +86,7 @@ It is deleted when the session ends</string>
                                             </connections>
                                         </button>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xOU-lf-1Wq">
-                                            <rect key="frame" x="147" y="67" width="463" height="20"/>
+                                            <rect key="frame" x="149" y="67" width="463" height="20"/>
                                             <subviews>
                                                 <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                                                     <rect key="frame" x="-2" y="4" width="159" height="16"/>
@@ -101,7 +103,7 @@ It is deleted when the session ends</string>
                                                     <rect key="frame" x="160" y="-4" width="307" height="25"/>
                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="33">
                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="menu"/>
+                                                        <font key="font" metaFont="message"/>
                                                         <menu key="menu" id="34">
                                                             <items>
                                                                 <menuItem title="Directory" id="35"/>
@@ -120,15 +122,6 @@ It is deleted when the session ends</string>
                                                     <accessibility description="Save downloaded files to directory"/>
                                                     <connections>
                                                         <action selector="chooseDirectory:" target="-2" id="59"/>
-                                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" previousBinding="rdu-tB-pre" id="rU4-F4-hdX">
-                                                            <dictionary key="options">
-                                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
-                                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
-                                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
-                                                                <integer key="NSNullPlaceholder" value="-1"/>
-                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                            </dictionary>
-                                                        </binding>
                                                         <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="172"/>
                                                         <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowDownloads" previousBinding="172" id="rdu-tB-pre">
                                                             <dictionary key="options">
@@ -136,6 +129,15 @@ It is deleted when the session ends</string>
                                                                 <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                                                 <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                                                 <integer key="NSNullPlaceholder" value="-1"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                        <binding destination="110" name="enabled3" keyPath="values.org_safeexambrowser_SEB_useTemporaryDownUploadDirectory" previousBinding="rdu-tB-pre" id="rU4-F4-hdX">
+                                                            <dictionary key="options">
+                                                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                                                <integer key="NSNullPlaceholder" value="-1"/>
+                                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -151,7 +153,7 @@ It is deleted when the session ends</string>
                                             </customSpacing>
                                         </stackView>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
-                                            <rect key="frame" x="438" y="46" width="172" height="16"/>
+                                            <rect key="frame" x="440" y="46" width="172" height="16"/>
                                             <string key="toolTip">Downloaded files will be opened with the according application, which has to be set correctly in the system for each used file type. Usually to be used with permitted third party applications (currently only supported without kiosk mode on Mac)</string>
                                             <buttonCell key="cell" type="check" title="Open files after downloading" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="39">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -171,7 +173,7 @@ It is deleted when the session ends</string>
                                             </connections>
                                         </button>
                                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsz-yE-Riy">
-                                            <rect key="frame" x="121" y="0.0" width="489" height="41"/>
+                                            <rect key="frame" x="123" y="0.0" width="489" height="41"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-6D-gM9">
                                                     <rect key="frame" x="0.0" y="20" width="489" height="21"/>
@@ -187,6 +189,7 @@ It is deleted when the session ends</string>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
                                                             <rect key="frame" x="189" y="0.0" width="300" height="21"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="m3W-Ov-cMI"/>
                                                                 <constraint firstAttribute="width" constant="300" id="zmv-ZO-ixQ"/>
                                                             </constraints>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="e6e-se-efm">
@@ -343,23 +346,48 @@ It is deleted when the session ends</string>
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSi-w8-z23">
-                            <rect key="frame" x="0.0" y="30" width="610" height="66"/>
+                            <rect key="frame" x="0.0" y="396" width="612" height="66"/>
                             <subviews>
-                                <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-rq-M6F">
-                                    <rect key="frame" x="-2" y="49" width="151" height="18"/>
-                                    <string key="toolTip">Allows uploading files, selected manually or automatically. Currently also setting "allow downloading and uploading files" needs to be enabled</string>
-                                    <buttonCell key="cell" type="check" title="Allow uploading files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Gsm-bO-2cu">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="allowUploadsButton:" target="-2" id="5DJ-bT-8zk"/>
-                                        <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="pbo-xK-bqR"/>
-                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUploads" id="XSO-Hb-ZHg"/>
-                                    </connections>
-                                </button>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3q-DX-BnJ">
+                                    <rect key="frame" x="0.0" y="50" width="612" height="16"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="qFU-rq-M6F">
+                                            <rect key="frame" x="-2" y="-1" width="359" height="18"/>
+                                            <string key="toolTip">Allows uploading files, selected manually or automatically. Currently also setting "allow downloading and uploading files" needs to be enabled</string>
+                                            <buttonCell key="cell" type="check" title="Allow uploading files" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Gsm-bO-2cu">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="allowUploadsButton:" target="-2" id="5DJ-bT-8zk"/>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="pbo-xK-bqR"/>
+                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUploads" id="XSO-Hb-ZHg"/>
+                                            </connections>
+                                        </button>
+                                        <button toolTip="Uploading on iOS allows to access camera, the full photo library and iCloud Drive and therefore is insecure!" horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fSx-ha-DwV">
+                                            <rect key="frame" x="355" y="-1" width="257" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Allow uploading photos and files (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="N2R-WA-ciM">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="allowUploadsButton:" target="-2" id="C4G-A7-0rn"/>
+                                                <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="3Ky-Fg-8S7"/>
+                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_allowUploadsiOS" id="hhI-dF-OgV"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9No-Am-tk3">
-                                    <rect key="frame" x="0.0" y="0.0" width="610" height="42"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="612" height="42"/>
                                     <subviews>
                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                             <rect key="frame" x="-2" y="26" width="147" height="16"/>
@@ -373,11 +401,11 @@ It is deleted when the session ends</string>
                                             </connections>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="93">
-                                            <rect key="frame" x="-3" y="-4" width="617" height="25"/>
+                                            <rect key="frame" x="-3" y="-4" width="619" height="25"/>
                                             <string key="toolTip">SEB can let users choose the file to upload or automatically use the same file which was downloaded before. If not found, a file requester or an error is presented depending on this setting.</string>
                                             <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxY" altersStateOfSelectedItem="NO" id="94">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
+                                                <font key="font" metaFont="message"/>
                                                 <menu key="menu" id="95">
                                                     <items>
                                                         <menuItem id="97"/>
@@ -421,6 +449,8 @@ It is deleted when the session ends</string>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="9No-Am-tk3" secondAttribute="trailing" id="TbY-fq-90z"/>
                                 <constraint firstItem="9No-Am-tk3" firstAttribute="leading" secondItem="MSi-w8-z23" secondAttribute="leading" id="ViN-oe-bEk"/>
+                                <constraint firstItem="j3q-DX-BnJ" firstAttribute="leading" secondItem="MSi-w8-z23" secondAttribute="leading" id="gb1-G3-tnG"/>
+                                <constraint firstAttribute="trailing" secondItem="j3q-DX-BnJ" secondAttribute="trailing" id="xQT-ZV-Uk1"/>
                             </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
@@ -428,6 +458,380 @@ It is deleted when the session ends</string>
                             </visibilityPriorities>
                             <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ad-EJ-KME">
+                            <rect key="frame" x="0.0" y="30" width="612" height="350"/>
+                            <subviews>
+                                <box borderType="line" title="File Types to be Downloaded" translatesAutoresizingMaskIntoConstraints="NO" id="1Wh-Uz-Gas">
+                                    <rect key="frame" x="-3" y="-4" width="618" height="354"/>
+                                    <view key="contentView" id="7Sq-TN-LUq">
+                                        <rect key="frame" x="4" y="5" width="610" height="334"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EV7-WG-7kw">
+                                                <rect key="frame" x="15" y="10" width="580" height="314"/>
+                                                <subviews>
+                                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q5A-oO-lwh">
+                                                        <rect key="frame" x="0.0" y="127" width="580" height="187"/>
+                                                        <string key="toolTip">Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open files after downloading' above. This feature might not be supported on all platforms</string>
+                                                        <clipView key="contentView" id="0LO-ps-4CB">
+                                                            <rect key="frame" x="1" y="1" width="578" height="185"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="QM4-wR-6nF" id="81p-Cv-RiF">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="578" height="157"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <size key="intercellSpacing" width="3" height="2"/>
+                                                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                                                    <tableColumns>
+                                                                        <tableColumn width="180" minWidth="40" maxWidth="1000" id="IVS-Z2-wj1">
+                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="File Extension">
+                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            </tableHeaderCell>
+                                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="bpS-Sf-BkS">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                            <connections>
+                                                                                <binding destination="7Ca-d8-k6R" name="value" keyPath="arrangedObjects.extension" id="zxb-fu-vQ3"/>
+                                                                            </connections>
+                                                                        </tableColumn>
+                                                                        <tableColumn width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="ibS-rF-PtX">
+                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
+                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                            </tableHeaderCell>
+                                                                            <popUpButtonCell key="dataCell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="bezel" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" id="j3U-VH-NcI">
+                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                <font key="font" metaFont="message"/>
+                                                                                <menu key="menu" id="rTe-xf-X4Z">
+                                                                                    <items>
+                                                                                        <menuItem id="2Sp-tA-DLP"/>
+                                                                                    </items>
+                                                                                </menu>
+                                                                                <connections>
+                                                                                    <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="xDg-IB-QOW"/>
+                                                                                </connections>
+                                                                            </popUpButtonCell>
+                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                            <connections>
+                                                                                <binding destination="7Ca-d8-k6R" name="selectedIndex" keyPath="arrangedObjects.os" id="APg-Ia-Tmk"/>
+                                                                            </connections>
+                                                                        </tableColumn>
+                                                                        <tableColumn width="300" minWidth="10" maxWidth="3.4028234663852886e+38" id="AjU-AR-KNK">
+                                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="App Identifier">
+                                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                                            </tableHeaderCell>
+                                                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="xYO-wj-iBm">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                            <connections>
+                                                                                <binding destination="7Ca-d8-k6R" name="value" keyPath="arrangedObjects.associatedAppId" id="Dyd-Nz-x8m"/>
+                                                                            </connections>
+                                                                        </tableColumn>
+                                                                    </tableColumns>
+                                                                </tableView>
+                                                            </subviews>
+                                                        </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="KBR-m7-Hk5">
+                                                            <rect key="frame" x="1" y="344" width="346" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="lnv-g8-ekr">
+                                                            <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
+                                                        <tableHeaderView key="headerView" wantsLayer="YES" id="QM4-wR-6nF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="578" height="28"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableHeaderView>
+                                                    </scrollView>
+                                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjP-7x-Alq">
+                                                        <rect key="frame" x="0.0" y="95" width="55" height="22"/>
+                                                        <subviews>
+                                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qym-R8-Gpl">
+                                                                <rect key="frame" x="0.0" y="1" width="55" height="21"/>
+                                                                <subviews>
+                                                                    <button toolTip="Add a file type" translatesAutoresizingMaskIntoConstraints="NO" id="Xao-R9-3Rp">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="22" height="21"/>
+                                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="CRL-BL-5UB">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="22" id="fyC-SX-K7C"/>
+                                                                            <constraint firstAttribute="height" constant="21" id="jRX-pC-CCL"/>
+                                                                        </constraints>
+                                                                        <connections>
+                                                                            <action selector="add:" target="7Ca-d8-k6R" id="bCf-se-0ux"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button toolTip="Remove file type" translatesAutoresizingMaskIntoConstraints="NO" id="61e-33-cai">
+                                                                        <rect key="frame" x="33" y="0.0" width="22" height="21"/>
+                                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="F66-UE-1aJ">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="22" id="vbO-kb-Gny"/>
+                                                                            <constraint firstAttribute="height" constant="21" id="z4W-e0-Z1L"/>
+                                                                        </constraints>
+                                                                        <connections>
+                                                                            <action selector="remove:" target="7Ca-d8-k6R" id="76a-wG-zCi"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="Xao-R9-3Rp" firstAttribute="top" secondItem="qym-R8-Gpl" secondAttribute="top" id="Gze-vS-NBR"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="61e-33-cai" secondAttribute="bottom" id="mSf-6R-omW"/>
+                                                                    <constraint firstItem="61e-33-cai" firstAttribute="top" secondItem="qym-R8-Gpl" secondAttribute="top" id="obf-Z0-ocV"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Xao-R9-3Rp" secondAttribute="bottom" id="sad-U4-vUv"/>
+                                                                </constraints>
+                                                                <visibilityPriorities>
+                                                                    <integer value="1000"/>
+                                                                    <integer value="1000"/>
+                                                                </visibilityPriorities>
+                                                                <customSpacing>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                    <real value="3.4028234663852886e+38"/>
+                                                                </customSpacing>
+                                                            </stackView>
+                                                            <button hidden="YES" toolTip="Allows choosing the application to extract its supported file types" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fRJ-Jw-oD4">
+                                                                <rect key="frame" x="-7" y="-5" width="163" height="32"/>
+                                                                <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Zv-oc-2jg">
+                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                    <font key="font" metaFont="system"/>
+                                                                </buttonCell>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="22" id="51A-AZ-4HT"/>
+                                                        </constraints>
+                                                        <visibilityPriorities>
+                                                            <integer value="1000"/>
+                                                            <integer value="1000"/>
+                                                        </visibilityPriorities>
+                                                        <customSpacing>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                            <real value="3.4028234663852886e+38"/>
+                                                        </customSpacing>
+                                                    </stackView>
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Selected File Type" translatesAutoresizingMaskIntoConstraints="NO" id="wYd-zI-1kB">
+                                                        <rect key="frame" x="-3" y="-4" width="586" height="89"/>
+                                                        <view key="contentView" id="RpA-He-12y">
+                                                            <rect key="frame" x="4" y="5" width="578" height="69"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8a-rj-qdp">
+                                                                    <rect key="frame" x="15" y="10" width="548" height="50"/>
+                                                                    <subviews>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qlV-Oj-A5G">
+                                                                            <rect key="frame" x="0.0" y="29" width="548" height="21"/>
+                                                                            <subviews>
+                                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d5T-o3-53B">
+                                                                                    <rect key="frame" x="-2" y="3" width="88" height="16"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Extension" id="typ-vO-dYB">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <textField toolTip="File extension without a leading period ." focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ws8-1S-X3h">
+                                                                                    <rect key="frame" x="92" y="0.0" width="456" height="21"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Extension without leading ." drawsBackground="YES" id="pgn-wC-9uD">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                    <accessibility description="Description"/>
+                                                                                    <connections>
+                                                                                        <accessibilityConnection property="title" destination="d5T-o3-53B" id="UnV-81-BJ2"/>
+                                                                                        <binding destination="7Ca-d8-k6R" name="value" keyPath="selection.extension" id="CbF-Lb-LTf"/>
+                                                                                    </connections>
+                                                                                </textField>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hYX-Qv-tiQ">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="538" height="21"/>
+                                                                            <subviews>
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktp-u5-Bap">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="123" height="20"/>
+                                                                                    <subviews>
+                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nqg-Js-ybM">
+                                                                                            <rect key="frame" x="-2" y="4" width="23" height="16"/>
+                                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="evx-LJ-AQv">
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                            </textFieldCell>
+                                                                                            <connections>
+                                                                                                <accessibilityConnection property="title" destination="jCp-pQ-H3m" id="W1e-S4-RoW"/>
+                                                                                            </connections>
+                                                                                        </textField>
+                                                                                        <popUpButton toolTip="Operating system on which the file type should be downloaded. This feature might not be supported on all platforms" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jCp-pQ-H3m">
+                                                                                            <rect key="frame" x="20" y="-4" width="107" height="25"/>
+                                                                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="V5h-3y-xOB" id="ja1-WP-GfC">
+                                                                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                                <font key="font" metaFont="message"/>
+                                                                                                <menu key="menu" id="5RS-78-9aH">
+                                                                                                    <items>
+                                                                                                        <menuItem id="k56-LG-Isz"/>
+                                                                                                        <menuItem id="waQ-a2-uaV"/>
+                                                                                                        <menuItem state="on" id="V5h-3y-xOB"/>
+                                                                                                    </items>
+                                                                                                </menu>
+                                                                                            </popUpButtonCell>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="100" id="oQV-Dk-Pcy"/>
+                                                                                            </constraints>
+                                                                                            <accessibility description="Select operating system"/>
+                                                                                            <connections>
+                                                                                                <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="wyQ-Qy-83U"/>
+                                                                                                <binding destination="7Ca-d8-k6R" name="selectedIndex" keyPath="selection.os" previousBinding="wyQ-Qy-83U" id="3vq-yQ-cpk"/>
+                                                                                            </connections>
+                                                                                        </popUpButton>
+                                                                                    </subviews>
+                                                                                    <constraints>
+                                                                                        <constraint firstItem="jCp-pQ-H3m" firstAttribute="leading" secondItem="Nqg-Js-ybM" secondAttribute="trailing" constant="4" id="krC-zN-xzg"/>
+                                                                                    </constraints>
+                                                                                    <visibilityPriorities>
+                                                                                        <integer value="1000"/>
+                                                                                        <integer value="1000"/>
+                                                                                    </visibilityPriorities>
+                                                                                    <customSpacing>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                    </customSpacing>
+                                                                                </stackView>
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="km4-T8-LWv">
+                                                                                    <rect key="frame" x="143" y="0.0" width="395" height="21"/>
+                                                                                    <subviews>
+                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s9E-MH-ntf">
+                                                                                            <rect key="frame" x="-2" y="3" width="58" height="16"/>
+                                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="fuO-ob-aYr">
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                            </textFieldCell>
+                                                                                        </textField>
+                                                                                        <textField toolTip="Optional Bundle Identifier of the associated additional app (permitted process)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WQ1-a8-qQK">
+                                                                                            <rect key="frame" x="62" y="0.0" width="333" height="21"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="333" id="Lhr-dF-tUq"/>
+                                                                                            </constraints>
+                                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Bundle Identifier" drawsBackground="YES" id="gPg-xY-Ns2">
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                                            </textFieldCell>
+                                                                                            <accessibility description="Identifier"/>
+                                                                                            <connections>
+                                                                                                <accessibilityConnection property="title" destination="s9E-MH-ntf" id="Kki-cb-sQu"/>
+                                                                                                <binding destination="7Ca-d8-k6R" name="value" keyPath="selection.associatedAppId" id="lRM-nq-6bC"/>
+                                                                                            </connections>
+                                                                                        </textField>
+                                                                                    </subviews>
+                                                                                    <visibilityPriorities>
+                                                                                        <integer value="1000"/>
+                                                                                        <integer value="1000"/>
+                                                                                    </visibilityPriorities>
+                                                                                    <customSpacing>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                    </customSpacing>
+                                                                                </stackView>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="qlV-Oj-A5G" secondAttribute="trailing" id="1iL-B6-TPr"/>
+                                                                        <constraint firstItem="qlV-Oj-A5G" firstAttribute="leading" secondItem="C8a-rj-qdp" secondAttribute="leading" id="Ner-tA-Aks"/>
+                                                                        <constraint firstItem="hYX-Qv-tiQ" firstAttribute="leading" secondItem="C8a-rj-qdp" secondAttribute="leading" id="ZxF-Ub-sU7"/>
+                                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hYX-Qv-tiQ" secondAttribute="trailing" id="lCb-zS-WN5"/>
+                                                                    </constraints>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="C8a-rj-qdp" secondAttribute="trailing" constant="15" id="321-uC-jv5"/>
+                                                                <constraint firstItem="C8a-rj-qdp" firstAttribute="leading" secondItem="RpA-He-12y" secondAttribute="leading" constant="15" id="E8P-Ct-w7g"/>
+                                                                <constraint firstItem="C8a-rj-qdp" firstAttribute="top" secondItem="RpA-He-12y" secondAttribute="top" constant="9" id="iNz-lr-Zd6"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="85" id="LcR-M6-9iv"/>
+                                                        </constraints>
+                                                    </box>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="wYd-zI-1kB" firstAttribute="leading" secondItem="EV7-WG-7kw" secondAttribute="leading" id="4kQ-Dh-QRv"/>
+                                                    <constraint firstAttribute="trailing" secondItem="wYd-zI-1kB" secondAttribute="trailing" id="POM-48-T2a"/>
+                                                </constraints>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="EV7-WG-7kw" secondAttribute="trailing" constant="15" id="48L-2n-Nfh"/>
+                                            <constraint firstItem="EV7-WG-7kw" firstAttribute="leading" secondItem="7Sq-TN-LUq" secondAttribute="leading" constant="15" id="Xh9-5O-3vY"/>
+                                            <constraint firstItem="EV7-WG-7kw" firstAttribute="top" secondItem="7Sq-TN-LUq" secondAttribute="top" constant="10" id="ciu-zx-glA"/>
+                                            <constraint firstAttribute="bottom" secondItem="EV7-WG-7kw" secondAttribute="bottom" constant="10" id="oQS-ut-irP"/>
+                                        </constraints>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="350" id="rap-Ov-DzA"/>
+                                    </constraints>
+                                </box>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="1Wh-Uz-Gas" secondAttribute="trailing" id="ekT-5G-mei"/>
+                                <constraint firstItem="1Wh-Uz-Gas" firstAttribute="leading" secondItem="1Ad-EJ-KME" secondAttribute="leading" id="hVU-Hx-way"/>
+                            </constraints>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
@@ -447,11 +851,14 @@ It is deleted when the session ends</string>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="MSi-w8-z23" secondAttribute="trailing" id="FNE-bz-wu5"/>
+                        <constraint firstItem="1Ad-EJ-KME" firstAttribute="leading" secondItem="OSs-RE-heb" secondAttribute="leading" id="QMk-Ib-IVl"/>
                         <constraint firstItem="15L-sJ-Uuf" firstAttribute="leading" secondItem="OSs-RE-heb" secondAttribute="leading" id="YaM-IH-yWt"/>
                         <constraint firstAttribute="trailing" secondItem="15L-sJ-Uuf" secondAttribute="trailing" id="a44-lf-gSu"/>
+                        <constraint firstAttribute="trailing" secondItem="1Ad-EJ-KME" secondAttribute="trailing" id="d5c-Ub-7aC"/>
                         <constraint firstItem="MSi-w8-z23" firstAttribute="leading" secondItem="OSs-RE-heb" secondAttribute="leading" id="pfB-V0-K3K"/>
                     </constraints>
                     <visibilityPriorities>
+                        <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -462,17 +869,28 @@ It is deleted when the session ends</string>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
                     </customSpacing>
                 </stackView>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="OSs-RE-heb" secondAttribute="bottom" constant="20" symbolic="YES" id="D1F-Ae-NUX"/>
                 <constraint firstItem="OSs-RE-heb" firstAttribute="top" secondItem="1" secondAttribute="top" constant="15" id="fMs-2e-Vvz"/>
                 <constraint firstAttribute="trailing" secondItem="OSs-RE-heb" secondAttribute="trailing" constant="20" id="r8h-Xg-mMJ"/>
                 <constraint firstItem="OSs-RE-heb" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="tkM-Pd-dAy"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OSs-RE-heb" secondAttribute="bottom" constant="15" id="wQ3-Ja-2YJ"/>
             </constraints>
-            <point key="canvasLocation" x="140" y="154"/>
+            <point key="canvasLocation" x="140" y="28"/>
         </customView>
+        <arrayController avoidsEmptySelection="NO" id="7Ca-d8-k6R" userLabel="Download File Types Array Controller" customClass="DownloadFileTypesArrayController" customModule="Safe_Exam_Browser" customModuleProvider="target">
+            <connections>
+                <binding destination="110" name="contentArray" keyPath="values.org_safeexambrowser_SEB_downloadFileTypes" id="ieP-Sz-nI5">
+                    <dictionary key="options">
+                        <bool key="NSHandlesContentAsCompoundValue" value="YES"/>
+                    </dictionary>
+                </binding>
+                <outlet property="prefsDownUploadsDelegate" destination="-2" id="A9k-NX-Nfx"/>
+            </connections>
+        </arrayController>
         <objectController automaticallyPreparesContent="YES" id="49">
             <declaredKeys>
                 <string>downloadDirectory</string>
@@ -485,4 +903,8 @@ It is deleted when the session ends</string>
         <userDefaultsController id="110" userLabel="SEB User Defaults Controller" customClass="SEBEncryptedUserDefaultsController"/>
         <userDefaultsController id="191" userLabel="SEB UI User Defaults Controller" customClass="SEBUIUserDefaultsController"/>
     </objects>
+    <resources>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
+    </resources>
 </document>

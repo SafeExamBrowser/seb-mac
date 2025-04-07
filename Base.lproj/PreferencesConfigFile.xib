@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,14 +20,14 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="Config File Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="652" height="477"/>
+            <rect key="frame" x="0.0" y="0.0" width="652" height="491"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="LlI-AX-322">
-                    <rect key="frame" x="20" y="36" width="612" height="426"/>
+                    <rect key="frame" x="20" y="16" width="612" height="460"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uzi-Il-y4s">
-                            <rect key="frame" x="0.0" y="351" width="612" height="75"/>
+                            <rect key="frame" x="0.0" y="385" width="612" height="75"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ni0-F3-HSi">
                                     <rect key="frame" x="0.0" y="15" width="612" height="60"/>
@@ -138,10 +138,10 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
-                            <rect key="frame" x="0.0" y="297" width="288" height="38"/>
+                            <rect key="frame" x="0.0" y="353" width="612" height="16"/>
                             <subviews>
                                 <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
-                                    <rect key="frame" x="-2" y="21" width="290" height="18"/>
+                                    <rect key="frame" x="-2" y="-1" width="290" height="18"/>
                                     <buttonCell key="cell" type="check" title="Allow to open Preferences window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -150,29 +150,16 @@
                                         <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
-                                    <rect key="frame" x="-2" y="-1" width="187" height="18"/>
-                                    <string key="toolTip">Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</string>
-                                    <buttonCell key="cell" type="check" title="Show settings in app (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileShowSettings" id="HFx-dG-knS"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <visibilityPriorities>
-                                <integer value="1000"/>
                                 <integer value="1000"/>
                             </visibilityPriorities>
                             <customSpacing>
                                 <real value="3.4028234663852886e+38"/>
-                                <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-u1-aHh">
-                            <rect key="frame" x="0.0" y="225" width="434" height="56"/>
+                            <rect key="frame" x="0.0" y="281" width="434" height="56"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                                     <rect key="frame" x="-2" y="38" width="438" height="18"/>
@@ -226,7 +213,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DBU-0A-Xbb">
-                            <rect key="frame" x="0.0" y="144" width="612" height="65"/>
+                            <rect key="frame" x="0.0" y="200" width="612" height="65"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="naq-c2-eME">
                                     <rect key="frame" x="193" y="43" width="419" height="22"/>
@@ -354,20 +341,95 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-ZV-2zp">
-                            <rect key="frame" x="-2" y="113" width="191" height="16"/>
-                            <string key="toolTip">Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action</string>
-                            <buttonCell key="cell" type="check" title="Allow QR code config (iOS)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="53p-kc-87m">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
+                        <box borderType="line" title="iOS Settings" translatesAutoresizingMaskIntoConstraints="NO" id="Skz-8h-R96">
+                            <rect key="frame" x="-3" y="110" width="618" height="74"/>
+                            <view key="contentView" id="uYt-bb-t9R">
+                                <rect key="frame" x="4" y="5" width="610" height="54"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WDL-gl-Vvd">
+                                        <rect key="frame" x="10" y="10" width="590" height="36"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bjh-ZV-2zp">
+                                                <rect key="frame" x="-2" y="21" width="156" height="16"/>
+                                                <string key="toolTip">Allows to start an exam or to reconfigure SEB by scanning a QR code with a link to an SEB Config File. Use slider menu, dock button (if enabled in the User Interface Dock sub-pane) or Home screen quick action</string>
+                                                <buttonCell key="cell" type="check" title="Allow QR code config" bezelStyle="regularSquare" imagePosition="left" inset="2" id="53p-kc-87m">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="14" id="s9Z-Gc-JTb"/>
+                                                </constraints>
+                                                <connections>
+                                                    <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
+                                                </connections>
+                                            </button>
+                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q96-px-ZAo">
+                                                <rect key="frame" x="0.0" y="0.0" width="590" height="16"/>
+                                                <subviews>
+                                                    <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
+                                                        <rect key="frame" x="-2" y="-1" width="335" height="18"/>
+                                                        <string key="toolTip">Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</string>
+                                                        <buttonCell key="cell" type="check" title="Show settings in app" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileShowSettings" id="HFx-dG-knS"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Tt-Wm6">
+                                                        <rect key="frame" x="347" y="1" width="243" height="16"/>
+                                                        <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</string>
+                                                        <buttonCell key="cell" type="check" title="Show 'Edit Config File' Quick Action" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7KN-IV-lyH">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                            <connections>
+                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileShowEditConfigShortcutItem" id="Ryk-hj-Ufl"/>
+                                                            </connections>
+                                                        </buttonCell>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="14" id="tRB-x1-Pfk"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="iZF-lf-ygU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <visibilityPriorities>
+                                                    <integer value="1000"/>
+                                                    <integer value="1000"/>
+                                                </visibilityPriorities>
+                                                <customSpacing>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                    <real value="3.4028234663852886e+38"/>
+                                                </customSpacing>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="q96-px-ZAo" secondAttribute="trailing" id="XPa-Vi-TBU"/>
+                                            <constraint firstItem="q96-px-ZAo" firstAttribute="leading" secondItem="WDL-gl-Vvd" secondAttribute="leading" id="j1g-nN-o3w"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="WDL-gl-Vvd" firstAttribute="leading" secondItem="uYt-bb-t9R" secondAttribute="leading" constant="10" id="Dzb-Do-rvI"/>
+                                    <constraint firstItem="WDL-gl-Vvd" firstAttribute="top" secondItem="uYt-bb-t9R" secondAttribute="top" constant="8" id="JcY-Fl-1qv"/>
+                                    <constraint firstAttribute="trailing" secondItem="WDL-gl-Vvd" secondAttribute="trailing" constant="10" id="dF4-Vn-0Dx"/>
+                                </constraints>
+                            </view>
                             <constraints>
-                                <constraint firstAttribute="height" constant="14" id="s9Z-Gc-JTb"/>
+                                <constraint firstAttribute="height" constant="70" id="Sj5-aM-QOV"/>
                             </constraints>
-                            <connections>
-                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
-                            </connections>
-                        </button>
+                        </box>
                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="mYx-S8-prr">
                             <rect key="frame" x="0.0" y="0.0" width="612" height="98"/>
                             <subviews>
@@ -607,11 +669,15 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="gk8-DP-i3l" secondAttribute="trailing" id="Ewf-1Q-6Wr"/>
                         <constraint firstAttribute="trailing" secondItem="uzi-Il-y4s" secondAttribute="trailing" id="M8d-nt-nD4"/>
+                        <constraint firstItem="gk8-DP-i3l" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="P6y-Xh-0ZE"/>
                         <constraint firstAttribute="trailing" secondItem="DBU-0A-Xbb" secondAttribute="trailing" id="VMn-ze-cId"/>
                         <constraint firstItem="uzi-Il-y4s" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="ch8-R0-uOB"/>
+                        <constraint firstAttribute="trailing" secondItem="Skz-8h-R96" secondAttribute="trailing" id="gec-ch-CKB"/>
                         <constraint firstAttribute="trailing" secondItem="mYx-S8-prr" secondAttribute="trailing" id="nme-qU-nKz"/>
                         <constraint firstItem="mYx-S8-prr" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="p7t-3f-ObJ"/>
+                        <constraint firstItem="Skz-8h-R96" firstAttribute="leading" secondItem="LlI-AX-322" secondAttribute="leading" id="vPi-qC-DCc"/>
                     </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>

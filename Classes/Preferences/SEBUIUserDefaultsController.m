@@ -240,6 +240,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
     return [NSArray arrayWithObjects:
             NSLocalizedString(@"macOS", @""),
             NSLocalizedString(@"Win", @""),
+            NSLocalizedString(@"iOS", @""),
+            nil];
+}
+
+
+- (NSArray *) org_safeexambrowser_SEB_operatingSystemsiPad {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"macOS", @""),
+            NSLocalizedString(@"Win", @""),
             NSLocalizedString(@"iPadOS", @""),
             nil];
 }

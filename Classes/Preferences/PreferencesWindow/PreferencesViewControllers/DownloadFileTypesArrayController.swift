@@ -7,19 +7,18 @@
 
 import Foundation
 
-@objc public protocol ApplicationsPreferencesDelegate: AnyObject {
-    func selectedPermittedProccessChanged()
-    func selectedProhibitedProccessChanged()
+@objc public protocol DownUploadsPreferencesDelegate: AnyObject {
+    func selectedFileTypeChanged()
 }
 
-@objc class PermittedProcessesArrayController: NSArrayController {
+@objc class DownloadFileTypesArrayController: NSArrayController {
     
-    @IBOutlet weak var prefsApplicationsDelegate: ApplicationsPreferencesDelegate?
+    @IBOutlet weak var prefsDownUploadsDelegate: DownUploadsPreferencesDelegate?
     
     override func newObject() -> Any {
         var newObject: NSDictionary
         newObject = super.newObject() as! NSDictionary
-        newObject = UserDefaults.standard.getDefaultDictionary(forKey: "permittedProcesses") as NSDictionary
+        newObject = UserDefaults.standard.getDefaultDictionary(forKey: "downloadFileTypes") as NSDictionary
         let mutableDictionary = newObject.mutableCopy()
         return mutableDictionary
     }
@@ -28,7 +27,7 @@ import Foundation
         super.addObject(object)
         self.removeSelectedObjects(self.selectedObjects)
         self.setSelectedObjects([object])
-        self.prefsApplicationsDelegate?.selectedPermittedProccessChanged()
+        self.prefsDownUploadsDelegate?.selectedFileTypeChanged()
     }
     
     override func remove(_ sender: Any?) {

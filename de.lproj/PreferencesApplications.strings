@@ -91,7 +91,7 @@
 /* Class = "NSTextFieldCell"; title = "Executable"; ObjectID = "677"; */
 "677.title" = "Executable";
 
-/* Class = "NSTextField"; ibShadowedToolTip = "Filesystem path (formatted system specific) to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications"; ObjectID = "687"; */
+/* Class = "NSTextField"; ibShadowedToolTip = "If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. Win: Filesystem path to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications."; ObjectID = "687"; */
 "687.ibShadowedToolTip" = "Dateisystem-Pfad (systemspezifisch formatiert) zum Verzeichnis des Prozess-Executables (ohne Dateiname). Wenn der Pfad nicht angegeben oder relativ ist, sucht SEB die Systempfade für Applikationen ab";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "690"; */
