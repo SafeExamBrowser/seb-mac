@@ -73,7 +73,9 @@ import Foundation
         if let additionalApplications = UserDefaults.standard.secureArray(forKey: "org_safeexambrowser_SEB_permittedProcesses") {
             let filterAppBundleId = NSPredicate(format: "os == %d AND identifier == %@", runningOnOS, bundleIdentifier)
             if let bundleIdOSFilteredApps = (additionalApplications as NSArray).filtered(using: filterAppBundleId) as? [[String: Any]] {
-                appScheme = bundleIdOSFilteredApps.first?["path"] as? String
+                if let additionalAppScheme = bundleIdOSFilteredApps.first?["path"] as? String, additionalAppScheme.isEmpty == false {
+                    appScheme = additionalAppScheme
+                }
             }
         }
         return appScheme

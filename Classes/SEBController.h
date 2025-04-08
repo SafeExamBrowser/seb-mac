@@ -358,6 +358,10 @@ conditionallyForWindow:(NSWindow *)window
 
 - (NSRect) visibleFrameForScreen:(NSScreen *)screen;
 
+- (void) openURLs:(NSArray<NSURL *> *)urls
+     withAppAtURL:(NSURL *_Nullable)appURL
+         bundleID:(NSString *)bundleID;
+
 - (NSModalResponse) showEnterPasswordDialog:(NSString *)text
                        modalForWindow:(NSWindow *_Nullable)window
                                 pseudoModal:(BOOL)pseudoModal

@@ -6021,6 +6021,10 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+#pragma mark - Handling Additional Apps
+
+
+
 #pragma mark - Setup Main User Interface
 
 - (IBAction) reload:(id)sender
@@ -6116,10 +6120,10 @@ conditionallyForWindow:(NSWindow *)window
         }
         
         // Initialize center dock items (allowed third party applications)
-        if (_isAACEnabled) {
+        if (_isAACEnabled || _allowSwitchToApplications) {
             NSMutableArray *centerDockItems = [NSMutableArray array];
             NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
-            DDLogDebug(@"AAC enabled: Check if there are permitted apps: %@", permittedProcesses);
+            DDLogDebug(@"%@%@ enabled: Check if there are permitted apps: %@", _isAACEnabled ? @"AAC" : @"", _allowSwitchToApplications ? @"Switching to applications" : @"", permittedProcesses);
             for (NSDictionary *permittedProcess in permittedProcesses) {
                 if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
                     NSString *appName = permittedProcess[@"title"];
@@ -6398,6 +6402,7 @@ conditionallyForWindow:(NSWindow *)window
                 NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
                 openConfiguration.activates = YES;
                 openConfiguration.addsToRecentItems = NO;
+                openConfiguration.allowsRunningApplicationSubstitution = NO;
                 [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
                     if (error) {
                         DDLogError(@"Application with Bundle ID %@ at %@ couldn't be opened with error %@", bundleID, appURL, error);
@@ -6531,6 +6536,38 @@ conditionallyForWindow:(NSWindow *)window
     [self.browserController.activeBrowserWindow searchTextPrevious];
 }
 
+
+- (void) openURLs:(NSArray<NSURL *> *)urls withAppAtURL:(NSURL *)appURL bundleID:(NSString *)bundleID
+{
+    if (@available(macOS 10.15, *)) {
+        if (!appURL) {
+            appURL = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:bundleID];
+        }
+        if (appURL) {
+            NSWorkspaceOpenConfiguration *openConfiguration = [NSWorkspaceOpenConfiguration new];
+            openConfiguration.activates = YES;
+            openConfiguration.addsToRecentItems = NO;
+            openConfiguration.allowsRunningApplicationSubstitution = NO;
+            if (urls.count > 0) {
+                [[NSWorkspace sharedWorkspace] openURLs:urls withApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                    if (error) {
+                        DDLogError(@"URLs %@ couldn't be opened with application Bundle ID %@ at %@! Error: %@", urls, bundleID, appURL, error);
+                    } else {
+                        DDLogInfo(@"URLs %@ were opened successfully with application Bundle ID %@ at %@.", urls, bundleID, appURL);
+                    }
+                }];
+            } else {
+                [[NSWorkspace sharedWorkspace] openApplicationAtURL:appURL configuration:openConfiguration completionHandler:^(NSRunningApplication * _Nullable app, NSError * _Nullable error) {
+                    if (error) {
+                        DDLogError(@"Application with Bundle ID %@ at %@ couldn't be opened with error %@", bundleID, appURL, error);
+                    } else {
+                        DDLogInfo(@"Application with Bundle ID %@ at %@ was opened successfully.", bundleID, appURL);
+                    }
+                }];
+            }
+        }
+    }
+}
 
 
 - (NSModalResponse) showEnterPasswordDialog:(NSString *)text 

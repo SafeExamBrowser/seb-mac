@@ -1294,6 +1294,7 @@ static NSString *urlStrippedFragment(NSURL* url)
     [self storeDownloadPath:path];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *pathExtension = path.pathExtension;
+    NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
     if (((pathExtension && [pathExtension caseInsensitiveCompare:filenameExtensionPDF] == NSOrderedSame) && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_downloadPDFFiles"]) ||
         [preferences secureBoolForKey:@"org_safeexambrowser_SEB_openDownloads"]) {
         // Open downloaded file
@@ -1301,14 +1302,18 @@ static NSString *urlStrippedFragment(NSURL* url)
         if (bundleId) {
             NSString *appScheme = [AdditionalApplicationsController appSchemeWithBundleIdentifier:bundleId];
             if (appScheme) {
-                NSURL *downloadedFileURL = [NSURL fileURLWithPath:path];
+                DDLogInfo(@"Custom protocol scheme %@ is configured for downloaded file.", appScheme);
                 downloadedFileURL = [downloadedFileURL URLByReplacingScheme:appScheme];
-                path = downloadedFileURL.absoluteString;
-                if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
-                    [self.delegate openDownloadedFile:path];
+            } else {
+                if ([self.delegate respondsToSelector:@selector(openDownloadedFile:withAppBundleId:)]) {
+                    [self.delegate openDownloadedFile:downloadedFileURL withAppBundleId:bundleId];
                     return;
                 }
             }
+        }
+        if ([self.delegate respondsToSelector:@selector(openDownloadedFile:)]) {
+            [self.delegate openDownloadedFile:downloadedFileURL];
+            return;
         }
     }
     [self.delegate presentAlertWithTitle:NSLocalizedString(@"Download Finished", @"")

@@ -970,10 +970,17 @@
 }
 
 
-- (void) openDownloadedFile:(NSString *)path
+- (void) openDownloadedFile:(NSURL *)fileURL
 {
-    // Open downloaded file
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:path isDirectory:NO]];
+    DDLogInfo(@"Attempting to open downloaded file at %@.", fileURL);
+    [[NSWorkspace sharedWorkspace] openURL:fileURL];
+}
+
+
+- (void) openDownloadedFile:(NSURL *)fileURL withAppBundleId:(NSString *)bundleId
+{
+    DDLogInfo(@"Attempting to open downloaded file at %@ with app bundle ID %@.", fileURL, bundleId);
+    [self.sebController openURLs:@[fileURL] withAppAtURL:nil bundleID:bundleId];
 }
 
 

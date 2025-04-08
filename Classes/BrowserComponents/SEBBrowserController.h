@@ -141,7 +141,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray* openWebpagesTitles;
 
 @optional
-- (void) openDownloadedFile:(NSString *)path;
+- (void) openDownloadedFile:(NSURL *)fileURL;
+- (void) openDownloadedFile:(NSURL *)fileURL withAppBundleId:(NSString *)bundleId;
 - (NSURL *) getTempDownUploadDirectory;
 - (BOOL) removeTempDownUploadDirectory;
 
