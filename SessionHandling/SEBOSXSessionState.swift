@@ -44,6 +44,9 @@ import Foundation
             currentStartURL = sebServerExamStartURL
         } else {
             currentStartURL = URL(string: UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"))
+            if currentStartURL == nil {
+                currentStartURL = URL(string: SEBStartPage)
+            }
         }
         return currentStartURL
     }()
