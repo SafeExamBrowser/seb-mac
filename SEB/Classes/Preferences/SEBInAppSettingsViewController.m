@@ -789,7 +789,6 @@
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     }
-    [self setDependentKeysForPlainText];
 }
 
 
