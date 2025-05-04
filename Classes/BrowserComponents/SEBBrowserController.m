@@ -374,7 +374,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         }
 #endif
         // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.4 %@/3.4.1 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
+        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.4 %@/3.4.1 %@/3.5 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
         _customSEBUserAgent = overrideUserAgent;
     }
     return _customSEBUserAgent;
