@@ -5038,7 +5038,7 @@
 					"$(PROJECT_DIR)/SEB/Frameworks",
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -5140,7 +5140,7 @@
 					"$(PROJECT_DIR)/SEB/Frameworks",
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 3.5;
+				MARKETING_VERSION = 3.5.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
