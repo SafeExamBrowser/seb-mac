@@ -853,14 +853,15 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     ShareConfigFormat shareConfigFormat = [preferences secureIntegerForKey:@"org_safeexambrowser_shareConfigFormat"];
     NSSet *dependentKeys = [NSSet setWithArray:@[@"org_safeexambrowser_removeDefaults"]];
+    NSSet *currentHiddenKeys = self.appSettingsViewController.hiddenKeys;
     if (shareConfigFormat != shareConfigFormatFile)
     {
-        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentHiddenKeys];
         [newHiddenKeys unionSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
         
     } else {
-        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
+        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:currentHiddenKeys];
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
     }
