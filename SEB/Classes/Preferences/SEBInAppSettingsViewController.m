@@ -525,12 +525,9 @@
         }
         [preferences setSecureObject:[NSDictionary dictionary]
                               forKey:@"org_safeexambrowser_configKeyContainedKeys"];
-        _sebViewController.browserController.browserExamKey = nil;
-        _sebViewController.browserController.configKey = nil;
-        // Force recalculating Config Key
-        [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
-        [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
-        // Display updated or current keys
+
+        [_sebViewController.browserController resetBEKCK];
+        // Display updated keys
         [self displayBrowserExamKey];
         [self displayConfigKey];
     }
