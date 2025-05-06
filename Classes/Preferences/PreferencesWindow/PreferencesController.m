@@ -1666,12 +1666,9 @@ userEnteredFilename:(NSString *)filename
 
 - (void) resetBEKCK
 {
-    self.browserController.browserExamKey = nil;
-    self.browserController.configKey = nil;
-    // Force recalculating Config Key
-    [[NSUserDefaults standardUserDefaults] setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
-    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+    [self.browserController resetBEKCK];
 }
+
 
 // Action configuring client with currently edited preferences
 - (IBAction) configureClient:(id)sender

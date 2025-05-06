@@ -168,6 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL newWebPageShowURLAlways;
 }
 
+- (void) resetBEKCK;
 - (void) quitSession;
 - (void) resetBrowser;
 + (void) createSEBUserAgentFromDefaultAgent:(NSString *)defaultUserAgent;

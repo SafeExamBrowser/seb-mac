@@ -1929,6 +1929,11 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)closeThenReopenSettings
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    self.browserController.configKey = [preferences secureDataForKey:@"org_safeexambrowser_configKey"];
+    self.browserController.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
+    self.browserController.browserExamKey = currentBrowserExamKey;
     if (_settingsOpen) {
         [self.appSettingsViewController dismissViewControllerAnimated:NO completion:^{
             self.appSettingsViewController = nil;

@@ -36,6 +36,7 @@
 #import "SEBCertServices.h"
 #include "x509_crt.h"
 #import "NSURL+SEBURL.h"
+#import "SEBCryptor.h"
 #import "SafeExamBrowser-Swift.h"
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
@@ -116,9 +117,10 @@ void run_block_on_ui_thread(dispatch_block_t block)
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     self.quitURL = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] || [self isUsingServerBEK];
-    self.browserExamKey = [preferences secureObjectForKey:@"org_safeexambrowser_currentData"];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
+    NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
+    self.browserExamKey = currentBrowserExamKey;
     webPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_browserWindowShowURL"] == browserWindowShowURLAlways);
     newWebPageShowURLAlways = ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowShowURL"] == browserWindowShowURLAlways);
     _allowDownloads = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"];
@@ -150,6 +152,17 @@ void run_block_on_ui_thread(dispatch_block_t block)
     downloadDirectoryURL = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 #endif
 }
+
+
+- (void) resetBEKCK
+{
+    _browserExamKey = nil;
+    _configKey = nil;
+    // Force recalculating Config Key
+    [[NSUserDefaults standardUserDefaults] setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
+    [[SEBCryptor sharedSEBCryptor] updateEncryptedUserDefaults:YES updateSalt:NO];
+}
+
 
 - (BOOL)isNavigationAllowedMainWebView:(BOOL)mainWebView
 {
@@ -280,7 +293,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSData *)browserExamKey
 {
-    if (!_browserExamKey) {
+    if (_browserExamKey.length == 0) {
         self.browserExamKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_currentData"];
     }
     return _browserExamKey;
@@ -288,7 +301,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 
 - (NSData *)configKey
 {
-    if (!_configKey) {
+    if (_configKey.length == 0) {
         self.configKey = [[NSUserDefaults standardUserDefaults] secureObjectForKey:@"org_safeexambrowser_configKey"];
     }
     return _configKey;
