@@ -197,6 +197,9 @@ static NSNumber *_logLevel;
                                         @"org_safeexambrowser_configKeyContainedKeys",
                                         
                                         @NO,
+                                        @"org_safeexambrowser_copyConfigKeyToClipboardWhenQuitting",
+                                        
+                                        @NO,
                                         @"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting",
                                         
                                         @NO,

@@ -4,8 +4,8 @@
 /* Class = "NSTextField"; ibShadowedToolTip = "Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed"; ObjectID = "2Rr-y4-nE8"; */
 "2Rr-y4-nE8.ibShadowedToolTip" = "Vollständige URL (beginnend mit http:// oder https://) der Seite, die mittels der Taste 'Zurück zum Start' geöffnet werden soll";
 
-/* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W"; */
-"3dP-gi-x4W.ibShadowedToolTip" = "Der Browser Exam Key wird an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren";
+/* Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API"; ObjectID = "3dP-gi-x4W"; */
+"3dP-gi-x4W.ibShadowedToolTip" = "Die Browser Exam und Config Keys werden mit HTTP-Requests an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren. Diese Einstellung ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt";
 
 /* Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v"; */
 "3Wv-pu-d1v.title" = "Zu Beginn der Session löschen";
@@ -64,8 +64,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL"; ObjectID = "EZa-c9-03S"; */
 "EZa-c9-03S.ibShadowedToolTip" = "Wenn ein seb(s):// Link eine zusätzliche Query-Zeichenkette beinhaltet, hängt SEB diese an die Start URL der Prüfung an";
 
-/* Class = "NSButtonCell"; title = "Use Browser & Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
-"gk0-kD-QIq.title" = "Browser & Config Key benutzen (im HTTP-Header senden)";
+/* Class = "NSButtonCell"; title = "Send Browser & Config Keys in HTTP Header (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
+"gk0-kD-QIq.title" = "Browser und Config Keys im HTTP-Header senden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB"; ObjectID = "HG9-Qt-FY9"; */
 "HG9-Qt-FY9.ibShadowedToolTip" = "Prüfungssession wird neu gestartet anstatt SEB zu beenden, nachdem die Beenden-URL erkannt wurde";

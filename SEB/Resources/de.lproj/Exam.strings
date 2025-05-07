@@ -80,7 +80,7 @@
 "Share Keys" = "Schlüssel/Keys teilen";
 
 /* String for FooterText elements */
-"The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings." = "Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann.";
+"The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API." = "Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann. Das Senden dieser Schlüssel in HTTP-Requests ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt.";
 
 /* (No Comment) */
 "The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL." = "Der seb(s):// Link zur Konfigurationsdatei kann eine zusätzliche Query-Zeichenkette beinhalten, mittels '?' oder '??' (wenn die URL selber keine Query enthält) von der Haupt-URL getrennt. SEB wird dann diesen Query-Parameter an die Start URL anhängen.";
@@ -89,7 +89,7 @@
 "This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). " = "Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben.";
 
 /* (No Comment) */
-"Use Browser & Config Keys" = "Browser und Config Keys verwenden";
+"Send Browser & Config Keys in HTTP Header" = "Browser und Config Keys im HTTP-Header senden";
 
 /* (No Comment) */
 "Use Start URL" = "Start-URL verwenden";

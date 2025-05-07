@@ -2764,9 +2764,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v";</note>
       </trans-unit>
       <trans-unit id="3dP-gi-x4W.ibShadowedToolTip" xml:space="preserve">
-        <source>When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
-        <target>Der Browser Exam Key wird an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
+        <source>When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API</source>
+        <target>Die Browser Exam und Config Keys werden mit HTTP-Requests an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren. Diese Einstellung ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API"; ObjectID = "3dP-gi-x4W";</note>
       </trans-unit>
       <trans-unit id="4aU-eM-mgd.title" xml:space="preserve">
         <source>Query String Parameter</source>
@@ -8708,9 +8708,9 @@ untitled filename</note>
         <target>Schlüssel/Keys teilen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings." xml:space="preserve">
-        <source>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</source>
-        <target>Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann.</target>
+      <trans-unit id="The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API." xml:space="preserve">
+        <source>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API.</source>
+        <target>Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann. Das Senden dieser Schlüssel in HTTP-Requests ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL." xml:space="preserve">

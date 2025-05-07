@@ -606,11 +606,6 @@
     
     /// Exam Session
     
-    // Check if "Use Browser and Config Keys" was selected
-    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sendBrowserExamKey"]) {
-        [self setDependentKeysForSendBrowserExamKey];
-    }
-    
     if ([changedKeys containsObject:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
         [changedKeys containsObject:@"org_safeexambrowser_configFileShareConfigKey"]) {
         [self setDependentKeysForShareKeys];
@@ -762,7 +757,6 @@
     [self setDependentKeysForRemoveDefaults];
     [self setDependentKeysForBrowserMediaAutoplay];
     [self setDependentKeysForAllowDownUploads];
-    [self setDependentKeysForSendBrowserExamKey];
     [self setDependentKeysForShareKeys];
     [self setDependentKeysForAAC];
     
@@ -926,25 +920,6 @@
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
         
     } else {
-        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
-        [newHiddenKeys minusSet:dependentKeys];
-        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-    }
-}
-
-
-- (void)setDependentKeysForSendBrowserExamKey
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSSet *dependentKeys = [NSSet setWithArray:@[@"examKeysChildPane"]];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] == NO)
-    {
-        NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
-        [newHiddenKeys unionSet:dependentKeys];
-        [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
-        
-    } else {
-        [self setDependentKeysForPermanentSettingsChanged];
         NSMutableSet *newHiddenKeys = [NSMutableSet setWithSet:self.appSettingsViewController.hiddenKeys];
         [newHiddenKeys minusSet:dependentKeys];
         [self.appSettingsViewController setHiddenKeys:newHiddenKeys];
