@@ -12,15 +12,7 @@
 			<key>Title</key>
 			<string>Browser &amp; Config Keys</string>
 			<key>FooterText</key>
-			<string>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Use Browser &amp; Config Keys</string>
-			<key>Key</key>
-			<string>org_safeexambrowser_SEB_sendBrowserExamKey</string>
+			<string>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -31,6 +23,14 @@
 			<string>ExamKeys</string>
 			<key>Key</key>
 			<string>examKeysChildPane</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Send Browser &amp; Config Keys in HTTP Header</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_sendBrowserExamKey</string>
 		</dict>
 		<dict>
 			<key>Type</key>

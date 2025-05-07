@@ -39,27 +39,15 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                                    <rect key="frame" x="11" y="14" width="586" height="191"/>
+                                                    <rect key="frame" x="11" y="16" width="586" height="189"/>
                                                     <subviews>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                                            <rect key="frame" x="-2" y="174" width="332" height="18"/>
-                                                            <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
-                                                            <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
-                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
-                                                            </connections>
-                                                        </button>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
-                                                            <rect key="frame" x="0.0" y="94" width="586" height="72"/>
+                                                            <rect key="frame" x="0.0" y="117" width="586" height="72"/>
                                                             <subviews>
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
                                                                     <rect key="frame" x="0.0" y="56" width="586" height="16"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
                                                                             <rect key="frame" x="-2" y="0.0" width="269" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
                                                                                 <font key="font" metaFont="system"/>
@@ -75,7 +63,6 @@
                                                                                 <font key="font" metaFont="message" size="11"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
                                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
                                                                             </connections>
                                                                         </button>
@@ -89,7 +76,7 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                                                                     <rect key="frame" x="0.0" y="31" width="586" height="22"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="22" id="kQx-xb-xrE"/>
@@ -101,10 +88,9 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <accessibilityConnection property="title" destination="Ohm-vb-HPc" id="Q4d-BI-7HN"/>
-                                                                        <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="A4R-q9-m1B"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="33">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -132,17 +118,41 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="586" height="85"/>
+                                                            <rect key="frame" x="0.0" y="23" width="586" height="85"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
-                                                                    <rect key="frame" x="-2" y="69" width="70" height="16"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
+                                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="I6u-uO-65x">
+                                                                    <rect key="frame" x="0.0" y="69" width="553" height="16"/>
+                                                                    <subviews>
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
+                                                                            <rect key="frame" x="-2" y="0.0" width="276" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="TxI-K9-Ko0">
+                                                                            <rect key="frame" x="280" y="-1" width="273" height="16"/>
+                                                                            <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
+                                                                            <buttonCell key="cell" type="check" title="Copy Config Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="4hW-uq-7wx">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyConfigKeyToClipboardWhenQuitting" id="77y-aM-TL4"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
                                                                     <rect key="frame" x="0.0" y="45" width="586" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
                                                                         <font key="font" metaFont="system"/>
@@ -152,10 +162,9 @@
                                                                     <accessibility description="Config Key"/>
                                                                     <connections>
                                                                         <accessibilityConnection property="title" destination="LZ0-8d-pGk" id="eHU-2a-SIz"/>
-                                                                        <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="K70-6q-gBR">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -182,6 +191,18 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
+                                                            <rect key="frame" x="-1" y="-1" width="379" height="16"/>
+                                                            <string key="toolTip">When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API</string>
+                                                            <buttonCell key="cell" type="check" title="Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gk0-kD-QIq">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
+                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="2B4-0z-l6Z" firstAttribute="leading" secondItem="q3M-yD-lYv" secondAttribute="leading" id="cpo-os-xo4"/>
@@ -224,7 +245,7 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="BME-1F-4b7">
                                                             <rect key="frame" x="0.0" y="25" width="586" height="52"/>
                                                             <subviews>
-                                                                <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" focusRingType="none" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
+                                                                <textField toolTip="If a Quit Link is entered, it works regardless of other quit settings in the General pane" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="688">
                                                                     <rect key="frame" x="0.0" y="31" width="586" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="689">
                                                                         <font key="font" metaFont="system"/>
@@ -243,7 +264,7 @@
                                                                         <outlet property="delegate" destination="-2" id="1029"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="441">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="28"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="443">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -355,7 +376,7 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-t0-bFm">
                                                             <rect key="frame" x="0.0" y="72" width="586" height="38"/>
                                                             <subviews>
-                                                                <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
+                                                                <textField toolTip="Full URL (starting with http:// or https://) of the page to open when the Back to Start Button is pressed" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-y4-nE8">
                                                                     <rect key="frame" x="0.0" y="17" width="586" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="URL starting with http:// or https://" drawsBackground="YES" id="bTx-tu-6Av">
                                                                         <font key="font" metaFont="system"/>
@@ -379,7 +400,7 @@
                                                                         <outlet property="delegate" destination="-2" id="cBd-P3-GHs"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QQD-LY-egj">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="14"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Enter custom URL or select &quot;Use Start URL&quot; to display the Back to Start Button in the SEB dock/taskbar." usesSingleLineMode="YES" id="bGJ-Qs-OiP">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -406,7 +427,7 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-zg-Iff">
                                                             <rect key="frame" x="0.0" y="25" width="586" height="38"/>
                                                             <subviews>
-                                                                <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
+                                                                <textField toolTip="This text is displayed as the title of the password entering/confirming dialog window and tooltip for the Back to Start Button" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qei-df-hVI">
                                                                     <rect key="frame" x="0.0" y="17" width="586" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Back to Start" drawsBackground="YES" id="sY9-Fu-u2Z">
                                                                         <font key="font" metaFont="system"/>
@@ -425,7 +446,7 @@
                                                                         <outlet property="delegate" destination="-2" id="hlp-Xq-oZ2"/>
                                                                     </connections>
                                                                 </textField>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="obm-ub-zDL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="14"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Dialog title/tool tip text of the Back to Start Button (leave empty for localized standard text)" id="pdT-tX-Sdp">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -519,7 +540,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="NPS-ca-73o">
                                                                     <rect key="frame" x="0.0" y="45" width="586" height="21"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pHV-jf-Gb3">
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pHV-jf-Gb3">
                                                                             <rect key="frame" x="-2" y="3" width="118" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Reconfiguring URL" id="Xhp-ON-YK2">
                                                                                 <font key="font" metaFont="system"/>
@@ -527,7 +548,7 @@
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
-                                                                        <textField toolTip="The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-Me-HJd">
+                                                                        <textField toolTip="The URL of the seb(s) link which invokes reconfiguring a secure session has to be matched by this string" verticalHuggingPriority="750" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZFB-Me-HJd">
                                                                             <rect key="frame" x="124" y="0.0" width="462" height="21"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Match URL" drawsBackground="YES" id="SdD-R8-hNc">
                                                                                 <font key="font" metaFont="system"/>
@@ -560,7 +581,7 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLU-GH-U2z">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLU-GH-U2z">
                                                                     <rect key="frame" x="0.0" y="0.0" width="586" height="42"/>
                                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="dN3-5O-Rpi">
                                                                         <font key="font" metaFont="message" size="11"/>
@@ -655,7 +676,7 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-Dn-8pj">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-Dn-8pj">
                                                             <rect key="frame" x="0.0" y="0.0" width="586" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="XHR-6b-cHs">
                                                                 <font key="font" metaFont="message" size="11"/>
@@ -712,7 +733,7 @@
                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_startURLAppendQueryParameter" id="UrK-qf-mhu"/>
                                                             </connections>
                                                         </button>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uR7-ht-MIe">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uR7-ht-MIe">
                                                             <rect key="frame" x="0.0" y="0.0" width="586" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="2GO-IF-iYo">
                                                                 <font key="font" metaFont="message" size="11"/>
@@ -767,7 +788,7 @@
                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_startURLAllowDeepLink" id="rSt-rE-m64"/>
                                                             </connections>
                                                         </button>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZX-3b-7tg">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZX-3b-7tg">
                                                             <rect key="frame" x="0.0" y="0.0" width="586" height="28"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Vfv-tN-rLa">
                                                                 <font key="font" metaFont="message" size="11"/>

@@ -99,7 +99,7 @@ enum {
     webViewSelectAutomatic                      = 0,
     webViewSelectForceClassic                   = 1,
     webViewSelectPreferModernInForeignNewTabs   = 2,
-    webViewSelectPreferModern                   = 3
+    webViewSelectForceModern                   = 3
 };
 typedef NSUInteger webViewSelectPolicies;
 

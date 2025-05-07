@@ -4085,15 +4085,22 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     
     // Write Browser Exam Key to clipboard if enabled in prefs
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"]) {
-        NSData *browserExamKey = self.browserController.browserExamKey;
-        unsigned char hashedChars[32];
-        [browserExamKey getBytes:hashedChars length:32];
-        NSMutableString* browserExamKeyString = [[NSMutableString alloc] init];
-        for (int i = 0 ; i < 32 ; ++i) {
-            [browserExamKeyString appendFormat: @"%02x", hashedChars[i]];
-        }
-        [pasteboard writeObjects:[NSArray arrayWithObject:browserExamKeyString]];
+    NSData *hashKey;
+    NSMutableArray *pasteboardStrings = NSMutableArray.new;
+    BOOL copyBrowserExamKeyToClipboard = [preferences secureBoolForKey:@"org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting"];
+    BOOL copyConfigKeyToClipboard = [preferences secureBoolForKey:@"org_safeexambrowser_copyConfigKeyToClipboardWhenQuitting"];
+    BOOL moreThanOneKey = copyBrowserExamKeyToClipboard && copyConfigKeyToClipboard;
+    if (copyBrowserExamKeyToClipboard) {
+        hashKey = self.browserController.browserExamKey;
+        [pasteboardStrings addObject:[NSString stringWithFormat:@"%@%@", (moreThanOneKey ? @"Browser Exam Key: " : @""), [hashKey base16String]]];
+    }
+    if (copyConfigKeyToClipboard) {
+        hashKey = self.configKey;
+        [pasteboardStrings addObject:[NSString stringWithFormat:@"%@%@", (moreThanOneKey ? @"Config Key: " : @""), [hashKey base16String]]];
+    }
+
+    if (pasteboardStrings.count > 0) {
+        [pasteboard writeObjects:[NSArray arrayWithObject:[pasteboardStrings componentsJoinedByString:@"\n"]]];
     }
 }
 

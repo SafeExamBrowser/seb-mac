@@ -1530,12 +1530,12 @@ static NSMutableSet *browserWindowControllers;
             if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"]) {
                 hashKey = self.browserController.browserExamKey;
                 [activityString appendFormat:@"%@",
-                 hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [self base16StringForHashKey:hashKey]] : nil];
+                 hashKey ? [NSString stringWithFormat:@"\nBrowser Exam Key: %@", [hashKey base16String]] : @""];
             }
             if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]) {
                 hashKey = self.configKey;
                 [activityString appendFormat:@"%@",
-                 hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [self base16StringForHashKey:hashKey]] : nil];
+                 hashKey ? [NSString stringWithFormat:@"\nConfig Key: %@", [hashKey base16String]] : @""];
             }
             if ([preferences secureIntegerForKey:@"org_safeexambrowser_configFileShareKeys"] == configFileShareKeysWithoutConfig) {
                 activityItems = @[ [NSString stringWithFormat:NSLocalizedString(@"Browser Exam and/or Config Keys for %@ %@ Config File %@%@", @""), _sebInAppSettingsViewController.permanentSettingsChanged ? @"MODIFIED (!)" : @"unmodified", SEBShortAppName, configFilePurpose, activityString] ];
@@ -1581,9 +1581,7 @@ static NSMutableSet *browserWindowControllers;
     // Get SecIdentityRef for selected identity
     SecIdentityRef identityRef;
     identityRef = [_sebInAppSettingsViewController getSelectedIdentity];
-    
-    NSString *encryptedWithIdentityString = (identityRef && configPurpose != sebConfigPurposeManagedConfiguration) ? [NSString stringWithFormat:@", %@ '%@'", NSLocalizedString(@"encrypted with identity certificate ", @""), [self.sebInAppSettingsViewController getSelectedIdentityName]] : @"";
-    
+
     // Get password
     NSString *encryptingPassword;
     // Is there one saved from the currently open config file?
@@ -1626,18 +1624,6 @@ static NSMutableSet *browserWindowControllers;
         }
     }
     return encryptedSEBData;
-}
-
-
-- (NSString *)base16StringForHashKey:(NSData *)hashKey
-{
-    unsigned char hashedChars[32];
-    [hashKey getBytes:hashedChars length:32];
-    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
-    for (NSUInteger i = 0 ; i < 32 ; ++i) {
-        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
-    }
-    return hashedConfigKeyString.copy;
 }
 
 
@@ -1974,7 +1960,7 @@ static NSMutableSet *browserWindowControllers;
         NSString *browserExamKey;
         if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareBrowserExamKey"]) {
             hashKey = self.browserController.browserExamKey;
-            browserExamKey = [self base16StringForHashKey:hashKey];
+            browserExamKey = [hashKey base16String];
         }
         if ([preferences secureBoolForKey:@"org_safeexambrowser_configFileShareConfigKey"]) {
             hashKey = self.configKey;
@@ -1984,7 +1970,7 @@ static NSMutableSet *browserWindowControllers;
                  browserExamKey,
                  NSLocalizedString(@"Config Key", @"Config Key")];
             }
-            [pasteboardString appendFormat:@"%@", [self base16StringForHashKey:hashKey]];
+            [pasteboardString appendFormat:@"%@", [hashKey base16String]];
         } else {
             browserExamKey ? [pasteboardString appendFormat:@"%@", browserExamKey] : nil;
         }

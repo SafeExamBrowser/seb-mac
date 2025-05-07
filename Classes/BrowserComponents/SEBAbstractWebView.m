@@ -64,13 +64,13 @@
 
 #if TARGET_OS_IPHONE
                 // Override webViewSelectPolicy
-                webViewSelectPolicy = webViewSelectPreferModern;
+                webViewSelectPolicy = webViewSelectForceModern;
 #endif
 
         if (webViewSelectPolicy != webViewSelectForceClassic || downloadingInTemporaryWebView) {
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
             if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
-                (webViewSelectPolicy == webViewSelectPreferModern) ||
+                (webViewSelectPolicy == webViewSelectForceModern) ||
                 (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
                 downloadingInTemporaryWebView) {
                 
