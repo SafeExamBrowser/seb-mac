@@ -121,7 +121,7 @@
     NSString *downloadPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     if (!downloadPath) {
         //if there's no path saved in preferences, set standard path
-        downloadPath = @"~/Downloads";
+        downloadPath = @"";
         [preferences setSecureObject:[downloadPath stringByAbbreviatingWithTildeInPath] forKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
     }    
     // display the download directory path in the menu

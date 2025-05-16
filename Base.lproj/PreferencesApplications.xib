@@ -98,7 +98,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
+                                                <rect key="frame" x="24" y="45" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -1002,32 +1002,17 @@
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>
                                                                                 </stackView>
-                                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sh-CL-G9g">
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sh-CL-G9g">
                                                                                     <rect key="frame" x="0.0" y="48" width="538" height="21"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Allow the permitted app in AAC Multi App Mode to access the network/internet" translatesAutoresizingMaskIntoConstraints="NO" id="956">
-                                                                                            <rect key="frame" x="-2" y="2" width="166" height="18"/>
+                                                                                            <rect key="frame" x="-2" y="2" width="176" height="18"/>
                                                                                             <buttonCell key="cell" type="check" title="Allow network access" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
                                                                                             </buttonCell>
                                                                                             <connections>
                                                                                                 <binding destination="610" name="value" keyPath="selection.allowNetworkAccess" id="baT-4v-S3h">
-                                                                                                    <dictionary key="options">
-                                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                                                                    </dictionary>
-                                                                                                </binding>
-                                                                                            </connections>
-                                                                                        </button>
-                                                                                        <button hidden="YES" toolTip="Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="p8v-1Y-Mnw">
-                                                                                            <rect key="frame" x="-2" y="4" width="198" height="18"/>
-                                                                                            <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NtM-si-0Ie">
-                                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                                <font key="font" metaFont="system"/>
-                                                                                            </buttonCell>
-                                                                                            <connections>
-                                                                                                <binding destination="610" name="value" keyPath="selection.autohide" id="NgR-8S-xK6">
                                                                                                     <dictionary key="options">
                                                                                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                                                         <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -1104,20 +1089,18 @@
                                                                                         <integer value="1000"/>
                                                                                         <integer value="1000"/>
                                                                                         <integer value="1000"/>
-                                                                                        <integer value="1000"/>
                                                                                     </visibilityPriorities>
                                                                                     <customSpacing>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
-                                                                                        <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>
                                                                                 </stackView>
-                                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="urk-QT-Wpo">
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="urk-QT-Wpo">
                                                                                     <rect key="frame" x="0.0" y="24" width="538" height="16"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                                                                                            <rect key="frame" x="-2" y="-1" width="404" height="18"/>
+                                                                                            <rect key="frame" x="-2" y="-1" width="394" height="18"/>
                                                                                             <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1157,17 +1140,32 @@
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>
                                                                                 </stackView>
-                                                                                <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="212" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-oa-qqf">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-oa-qqf">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="538" height="16"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
-                                                                                            <rect key="frame" x="-2" y="-1" width="196" height="18"/>
+                                                                                            <rect key="frame" x="-2" y="-1" width="540" height="18"/>
                                                                                             <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
                                                                                             </buttonCell>
                                                                                             <connections>
                                                                                                 <binding destination="610" name="value" keyPath="selection.strongKill" id="2256">
+                                                                                                    <dictionary key="options">
+                                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                                                    </dictionary>
+                                                                                                </binding>
+                                                                                            </connections>
+                                                                                        </button>
+                                                                                        <button hidden="YES" toolTip="Allow the permitted process to already be running when SEB starts (won't be terminated)" translatesAutoresizingMaskIntoConstraints="NO" id="p8v-1Y-Mnw">
+                                                                                            <rect key="frame" x="-2" y="-1" width="198" height="18"/>
+                                                                                            <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NtM-si-0Ie">
+                                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                            </buttonCell>
+                                                                                            <connections>
+                                                                                                <binding destination="610" name="value" keyPath="selection.runInBackground" id="zIe-fl-RuI">
                                                                                                     <dictionary key="options">
                                                                                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                                                         <bool key="NSConditionallySetsHidden" value="YES"/>
@@ -1186,16 +1184,20 @@
                                                                                     <visibilityPriorities>
                                                                                         <integer value="1000"/>
                                                                                         <integer value="1000"/>
+                                                                                        <integer value="1000"/>
                                                                                     </visibilityPriorities>
                                                                                     <customSpacing>
+                                                                                        <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                             </subviews>
                                                                             <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="GR2-oa-qqf" secondAttribute="trailing" id="2no-bT-5o7"/>
                                                                                 <constraint firstItem="qxA-HW-Abg" firstAttribute="leading" secondItem="BuP-54-ERS" secondAttribute="leading" id="CWw-gT-nV3"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="VMi-jB-iWG" secondAttribute="trailing" id="Dw7-cD-QT1"/>
+                                                                                <constraint firstItem="GR2-oa-qqf" firstAttribute="leading" secondItem="BuP-54-ERS" secondAttribute="leading" id="Edk-9C-0oW"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="8sh-CL-G9g" secondAttribute="trailing" id="Kvh-h8-k38"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="2BY-LQ-f9Q" secondAttribute="trailing" id="LwL-zW-239"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="urk-QT-Wpo" secondAttribute="trailing" id="WEO-Ll-qyT"/>
