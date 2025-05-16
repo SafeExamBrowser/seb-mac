@@ -91,7 +91,7 @@ static ProcessManager *sharedProcessManager = nil;
 
 
 #ifndef VERIFICATOR
-// Updates process arrays with current settings (UserDefaults)
+// Updates process arrays with current settings (UserDefaults) for processes and applications which should be monitored
 - (void) updateMonitoredProcesses
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -101,16 +101,16 @@ static ProcessManager *sharedProcessManager = nil;
     _prohibitedProcesses = [allProhibitedProcesses filteredArrayUsingPredicate:filterProcessOS];
     _permittedProcesses = [allPermittedProcesses filteredArrayUsingPredicate:filterProcessOS];
 
-    if (self.prohibitedRunningApplications) {
-        [self.prohibitedRunningApplications removeAllObjects];
+    if (self.prohibitedApplications) {
+        [self.prohibitedApplications removeAllObjects];
     } else {
-        self.prohibitedRunningApplications = [NSMutableArray new];
+        self.prohibitedApplications = [NSMutableArray new];
     }
     
-    if (self.permittedRunningApplications) {
-        [self.permittedRunningApplications removeAllObjects];
+    if (self.permittedApplications) {
+        [self.permittedApplications removeAllObjects];
     } else {
-        self.permittedRunningApplications = [NSMutableArray new];
+        self.permittedApplications = [NSMutableArray new];
     }
 
     if (self.prohibitedBSDProcesses) {
@@ -136,31 +136,24 @@ static ProcessManager *sharedProcessManager = nil;
     
     for (prohibitedProcess in _prohibitedProcesses) {
         
-        if ([prohibitedProcess[@"active"] boolValue] == YES &&
-            !(isAACActive && [prohibitedProcess[@"ignoreInAAC"] boolValue] == YES)) {
-            
+        if (!(isAACActive && [prohibitedProcess[@"ignoreInAAC"] boolValue] == YES)) {
             NSString *bundleID = prohibitedProcess[@"identifier"];
             if (bundleID.length > 0) {
-                [self.prohibitedRunningApplications addObject:bundleID];
+                [self.prohibitedApplications addObject:bundleID];
             } else {
                 [self.prohibitedBSDProcesses addObject:prohibitedProcess[@"executable"]];
             }
         }
     }
     
-    if (isAACActive || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_terminateProcesses"]) {
-        NSDictionary *permittedProcess;
-        
-        for (permittedProcess in _permittedProcesses) {
-            
-            if ([permittedProcess[@"active"] boolValue] == YES) {
-                
-                NSString *bundleID = permittedProcess[@"identifier"];
-                if (bundleID.length > 0) {
-                    [self.permittedRunningApplications addObject:bundleID];
-                } else {
-                    [self.permittedBSDProcesses addObject:permittedProcess[@"executable"]];
-                }
+    NSDictionary *permittedProcess;
+    for (permittedProcess in _permittedProcesses) {
+        if ([permittedProcess[@"runInBackground"] boolValue] == NO) {
+            NSString *bundleID = permittedProcess[@"identifier"];
+            if (bundleID.length > 0) {
+                [self.permittedApplications addObject:bundleID];
+            } else {
+                [self.permittedBSDProcesses addObject:permittedProcess[@"executable"]];
             }
         }
     }

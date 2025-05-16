@@ -110,7 +110,7 @@
                 identifierView.hidden = NO;
                 teamIdentifierView.hidden = NO;
                 networkAccessButton.hidden = NO;
-                runningInBackgroundButton.hidden = YES;
+                runningInBackgroundButton.hidden = NO;
                 userSelectLocation.hidden = YES;
                 forceQuitButton.hidden = NO;
                 break;

@@ -2020,15 +2020,15 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
-    NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
-    NSArray *prohibitedRunningBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
+    NSArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;
+    NSArray *prohibitedBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     
-    [self terminateApplications:prohibitedRunningApplications processes:prohibitedRunningBSDProcesses starting:YES restarting:NO callback:callback selector:selector];
+    [self terminateApplications:prohibitedApplications processes:prohibitedBSDProcesses starting:YES restarting:NO callback:callback selector:selector];
 }
 
 
-- (void) terminateApplications:(NSArray *)prohibitedRunningApplications
-                     processes:(NSArray *)prohibitedRunningBSDProcesses
+- (void) terminateApplications:(NSArray *)prohibitedApplications
+                     processes:(NSArray *)prohibitedBSDProcesses
                       starting:(BOOL)starting
                     restarting:(BOOL)restarting
                       callback:(id)callback
@@ -2041,12 +2041,10 @@ bool insideMatrix(void);
     NSMutableArray <NSRunningApplication *>*runningApplications = [NSMutableArray new];
     NSMutableArray <NSDictionary *>*runningProcesses = [NSMutableArray new];
     
-    if (_isAACEnabled) {
-        NSArray *permittedRunningApplications = [ProcessManager sharedProcessManager].permittedRunningApplications;
-        if (permittedRunningApplications && permittedRunningApplications.count > 0) {
-            DDLogInfo(@"AAC is active and there are permitted applications for AAC Multi App Mode (which will be added to the list of apps to be quit before %@ the exam session): %@", starting ? @"starting" : @"ending", permittedRunningApplications);
-            prohibitedRunningApplications = [prohibitedRunningApplications arrayByAddingObjectsFromArray:permittedRunningApplications];
-        }
+    NSArray *permittedApplications = [ProcessManager sharedProcessManager].permittedApplications;
+    if (permittedApplications && permittedApplications.count > 0) {
+        DDLogInfo(@"There are permitted additional applications (which will be added to the list of apps to be quit before %@ the exam session): %@", starting ? @"starting" : @"ending", permittedApplications);
+        prohibitedApplications = [prohibitedApplications arrayByAddingObjectsFromArray:permittedApplications];
     }
     BOOL autoQuitApplications = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_autoQuitApplications"];
     
@@ -2059,7 +2057,7 @@ bool insideMatrix(void);
         if (bundleID) {
             // NSRunningApplication
             NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
-            NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+            NSArray *matchingProhibitedApplications = [prohibitedApplications filteredArrayUsingPredicate:processFilter];
             if (matchingProhibitedApplications.count != 0) {
                 DDLogInfo(@"This %@ application is running and has to be quit first before %@ the exam session: %@", starting ? @"not allowed" : @"permitted", starting ? @"starting" : @"ending", matchingProhibitedApplications);
                 NSURL *appURL = [self getBundleOrExecutableURL:runningApplication];
@@ -2083,7 +2081,7 @@ bool insideMatrix(void);
         } else {
             // BSD process
             NSPredicate *processNameFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", process[@"name"]];
-            NSArray *filteredProcesses = [prohibitedRunningBSDProcesses filteredArrayUsingPredicate:processNameFilter];
+            NSArray *filteredProcesses = [prohibitedBSDProcesses filteredArrayUsingPredicate:processNameFilter];
             if (filteredProcesses.count != 0) {
                 NSDictionary *prohibitedProcess = [[ProcessManager sharedProcessManager] prohibitedProcessWithExecutable:process[@"name"]];
                 DDLogInfo(@"This not allowed process is running and has to terminated before %@ the exam session: %@", starting ? @"starting" : @"ending", prohibitedProcess);
@@ -5615,7 +5613,7 @@ conditionallyForWindow:(NSWindow *)window
         DDLogError(@"An app was started and switched the Space. SEB will force terminate it! (app localized name: %@, executable URL: %@)", [launchedApplication localizedName], [launchedApplication executableURL]);
         
         DDLogDebug(@"Reinforcing the kiosk mode was requested");
-        // Switch the strict kiosk mode temporary off
+        // Switch the strict kiosk mode temporarily off
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
         [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
@@ -7524,8 +7522,8 @@ conditionallyForWindow:(NSWindow *)window
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     } else {
-        if ([ProcessManager sharedProcessManager].permittedRunningApplications.count > 0) {
-            // In case of AAC Multi App Mode, we have to terminate running permitted applications (will be added in that method)
+        if ([ProcessManager sharedProcessManager].permittedApplications.count > 0) {
+            // In case of permitted additional applications, we have to terminate running permitted applications (will be added in that method)
             [self terminateApplications:@[] processes:@[] starting:NO restarting:NO callback:self selector:@selector(applicationWillTerminateProceed)];
         } else {
             [self applicationWillTerminateProceed];
@@ -7673,7 +7671,6 @@ conditionallyForWindow:(NSWindow *)window
             return;
         }
         // Current Presentation Options changed, so make SEB active and reset them
-        // If plugins are enabled and there is a Flash view in the webview ...
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
         if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentRunning) {
@@ -7689,8 +7686,10 @@ conditionallyForWindow:(NSWindow *)window
     } else if ([keyPath isEqualToString:@"runningApplications"]) {
         NSArray *startedProcesses = [change objectForKey:@"new"];
         if (startedProcesses.count > 0) {
-            NSArray *prohibitedRunningApplications = [ProcessManager sharedProcessManager].prohibitedRunningApplications;
+            NSArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;
+            
             for (NSRunningApplication *startedApplication in startedProcesses) {
+                
                 NSString *bundleID = startedApplication.bundleIdentifier;
                 if (bundleID && ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] ||
                                  [bundleID isEqualToString:UniversalControlBundleID])) {
@@ -7712,7 +7711,8 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
-                NSArray *matchingProhibitedApplications = [prohibitedRunningApplications filteredArrayUsingPredicate:processFilter];
+                
+                NSArray *matchingProhibitedApplications = [prohibitedApplications filteredArrayUsingPredicate:processFilter];
                 if (matchingProhibitedApplications.count != 0) {
                     if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID]) {
                         pid_t processPID = startedApplication.processIdentifier;

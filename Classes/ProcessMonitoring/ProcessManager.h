@@ -38,8 +38,8 @@
 
 @property (strong, nonatomic) NSArray *prohibitedProcesses;
 @property (strong, nonatomic) NSArray *permittedProcesses;
-@property (strong, nonatomic) NSMutableArray *prohibitedRunningApplications;
-@property (strong, nonatomic) NSMutableArray *permittedRunningApplications;
+@property (strong, nonatomic) NSMutableArray *prohibitedApplications;
+@property (strong, nonatomic) NSMutableArray *permittedApplications;
 @property (strong, nonatomic) NSMutableArray *prohibitedBSDProcesses;
 @property (strong, nonatomic) NSMutableArray *permittedBSDProcesses;
 
