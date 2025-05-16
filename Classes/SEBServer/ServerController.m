@@ -179,7 +179,6 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
             DDLogDebug(@"Cookie '%@': %@", cookie.name, cookie);
             NSString *domain = cookie.domain;
             if ([url.absoluteString containsString:domain]) {
-                NSString *moodleSession = cookie.value;
                 NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
                 urlComponents.path = nil;
                 urlComponents.query = nil;
