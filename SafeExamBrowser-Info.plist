@@ -95,9 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1562F</string>
-	<key>ClickToFlashOptOut</key>
-	<true/>
+	<string>15663</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.education</string>
 	<key>LSMinimumSystemVersion</key>
@@ -111,6 +109,10 @@
 	<string>Camera access is required for web applications / remote proctoring.</string>
 	<key>NSCrossWebsiteTrackingUsageDescription</key>
 	<string>Cross-website tracking may be needed by some web applications.</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>Downloads or log files may be saved to the Desktop folder.</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Downloaded files are by default saved to the Downloads folder.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSMainNibFile</key>

@@ -2299,6 +2299,15 @@ bool insideMatrix(void);
     void (^conditionallyStartProctoring)(void);
     conditionallyStartProctoring =
     ^{
+        // Check for access control privacy permissions to access download and log folders
+        NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
+        BOOL isAccessible = [self.browserController directoryIsAccessible:downloadDirectory];
+        if (isAccessible) {
+            DDLogInfo(@"Configured download directory %@", downloadDirectory);
+        } else {
+            DDLogError(@"Can not access configured download directory %@!", downloadDirectory);
+        }
+        
         // OK action handler
         void (^startRemoteProctoringOK)(void) =
         ^{
