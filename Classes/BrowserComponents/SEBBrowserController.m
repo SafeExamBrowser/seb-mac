@@ -37,6 +37,7 @@
 #include "x509_crt.h"
 #import "NSURL+SEBURL.h"
 #import "SEBCryptor.h"
+#import "dirent.h"
 #import "SafeExamBrowser-Swift.h"
 
 void mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(unsigned char **block, unsigned int *len);
@@ -140,17 +141,49 @@ void run_block_on_ui_thread(dispatch_block_t block)
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_useTemporaryDownUploadDirectory"]) {
         downloadDirectoryURL = [self.delegate getTempDownUploadDirectory];
     } else {
-        NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-        if (downloadPath.length == 0) {
-            //if there's no path saved in preferences, set standard path
-            downloadPath = @"~/Downloads";
-        }
-        downloadPath = [downloadPath stringByExpandingTildeInPath];
-        downloadDirectoryURL = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
+        downloadDirectoryURL = [self downloadDirectoryURL];
     }
 #else
     downloadDirectoryURL = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 #endif
+}
+
+- (NSURL *)downloadDirectoryURL
+{
+    NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
+    downloadPath = [downloadPath stringByExpandingTildeInPath];
+    NSURL *downloadDirectory;
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    BOOL isDir;
+
+    if (downloadPath.length == 0 || [downloadPath isEqualToString:@"~/Downloads"] || !([fileManager fileExistsAtPath:downloadPath isDirectory:&isDir] && isDir)) {
+        // If there's no path saved in preferences or a non-existing directory, use Downloads directory
+        NSError *error;
+        downloadDirectory = [fileManager URLForDirectory:NSDownloadsDirectory inDomain:NSUserDomainMask appropriateForURL:fileManager.homeDirectoryForCurrentUser create:NO error:&error];
+        DDLogInfo(@"Default Downloads directory set.");
+    } else {
+        downloadDirectory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
+    }
+    return downloadDirectory;
+}
+
+- (BOOL) directoryIsAccessible:(NSURL *)directoryURL
+{
+    BOOL isAccessible = NO;
+    NSUInteger counter = 20;
+    if (directoryURL) {
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        NSError *error;
+        do {
+            NSArray<NSURL *> *downloadDirectoryContents = [fileManager contentsOfDirectoryAtURL:directoryURL includingPropertiesForKeys:nil options:0 error:&error];
+            DDLogInfo(@"Download directory can %@be accessed%@.", downloadDirectoryContents ? @"" : @"not ", error ? [NSString stringWithFormat:@" with error: %@", error] : @"");
+            if (error == nil) {
+                isAccessible = YES;
+                break;
+            }
+        } while (error.code == 257 && counter-- > 0);
+    }
+    return isAccessible;
 }
 
 
