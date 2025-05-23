@@ -237,6 +237,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property (readwrite) NSUInteger latestNumberOfCachedScreenShotsWhileClosing;
 @property (strong, nonatomic) NSString *_Nullable operationsString;
 @property (strong, nonatomic) NSString *accessibilityMessageString;
+@property (strong, nonatomic) NSString *privacyFilesFoldersMessageString;
 
 @property (strong, nonatomic) SEBZoomController *zoomController;
 
