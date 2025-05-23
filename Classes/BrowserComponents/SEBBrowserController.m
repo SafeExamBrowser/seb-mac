@@ -167,25 +167,6 @@ void run_block_on_ui_thread(dispatch_block_t block)
     return downloadDirectory;
 }
 
-- (BOOL) directoryIsAccessible:(NSURL *)directoryURL
-{
-    BOOL isAccessible = NO;
-    NSUInteger counter = 20;
-    if (directoryURL) {
-        NSFileManager *fileManager= [NSFileManager defaultManager];
-        NSError *error;
-        do {
-            NSArray<NSURL *> *downloadDirectoryContents = [fileManager contentsOfDirectoryAtURL:directoryURL includingPropertiesForKeys:nil options:0 error:&error];
-            DDLogInfo(@"Download directory can %@be accessed%@.", downloadDirectoryContents ? @"" : @"not ", error ? [NSString stringWithFormat:@" with error: %@", error] : @"");
-            if (error == nil) {
-                isAccessible = YES;
-                break;
-            }
-        } while (error.code == 257 && counter-- > 0);
-    }
-    return isAccessible;
-}
-
 
 - (void) resetBEKCK
 {

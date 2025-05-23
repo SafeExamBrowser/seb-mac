@@ -133,7 +133,11 @@ bool insideMatrix(void);
 @synthesize lockdownWindows;
 
 - (NSString *)accessibilityMessageString {
-    return [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility.", @""), SEBShortAppName, SEBFullAppNameClassic];
+    return [NSString stringWithFormat:NSLocalizedString(@"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility.", @""), SEBShortAppName, SEBShortAppName, SEBFullAppNameClassic];
+}
+
+- (NSString *)privacyFilesFoldersMessageString {
+    return [NSString stringWithFormat:NSLocalizedString(@"Grant access in System Settings / Privacy & Security / Files & Folders / %@.", @""), SEBFullAppNameClassic];
 }
 
 - (SEBOSXSessionState *) sessionState
@@ -2220,6 +2224,78 @@ bool insideMatrix(void);
         }
     }
     
+    // Check for access control privacy permissions to access download and log folders
+    NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
+    BOOL isAccessible = [self directoryIsAccessible:downloadDirectory directoryType:@"download"];
+    if (isAccessible) {
+        DDLogInfo(@"Configured download directory %@", downloadDirectory);
+        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+    } else {
+        DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory);
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
+        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory], self.privacyFilesFoldersMessageString]];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+        [modalAlert setAlertStyle:NSAlertStyleWarning];
+        void (^privacyGrantAccessFilesFolderHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            switch(answer)
+            {
+                case NSAlertFirstButtonReturn:
+                {
+                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                    return;
+                }
+                    
+                case NSAlertSecondButtonReturn:
+                {
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuitSEBOrSession" object:self];
+                    return;
+                }
+                    
+                default:
+                    // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
+                {
+                    DDLogError(@"Alert for granting access to download folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                    return;
+                }
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
+        return;
+        
+    }
+}
+
+- (BOOL) directoryIsAccessible:(NSURL *)directoryURL directoryType:(NSString *)directoryType
+{
+    BOOL isAccessible = NO;
+    if (directoryURL) {
+        NSFileManager *fileManager= [NSFileManager defaultManager];
+        NSError *error;
+        NSArray<NSURL *> *downloadDirectoryContents = [fileManager contentsOfDirectoryAtURL:directoryURL includingPropertiesForKeys:nil options:0 error:&error];
+        DDLogInfo(@"%@ directory can %@be accessed%@.", [directoryType capitalizedString], downloadDirectoryContents ? @"" : @"not ", error ? [NSString stringWithFormat:@" with error: %@", error] : @"");
+        if (error == nil) {
+            isAccessible = YES;
+        } else {
+            DDLogError(@"Accessing %@ directory at %@ failed with error %@.%@", directoryType, directoryURL, error, error.code == 257 ? @" Likely the Privacy access control permissions for this folder are not yet granted or were denied (see System Settings / Privacy & Security / Files & Folders / Safe Exam Browser." : @"");
+        }
+    }
+    return isAccessible;
+}
+
+
+
+
+- (void) conditionallyInitSEBPermissionsCheckWithCallback:(id)callback
+                                                selector:(SEL)selector
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    
     // Check microphone/camera/screen capturing/proctoring permissions
     
     BOOL browserMediaCaptureCamera = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"];
@@ -2299,15 +2375,6 @@ bool insideMatrix(void);
     void (^conditionallyStartProctoring)(void);
     conditionallyStartProctoring =
     ^{
-        // Check for access control privacy permissions to access download and log folders
-        NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
-        BOOL isAccessible = [self.browserController directoryIsAccessible:downloadDirectory];
-        if (isAccessible) {
-            DDLogInfo(@"Configured download directory %@", downloadDirectory);
-        } else {
-            DDLogError(@"Can not access configured download directory %@!", downloadDirectory);
-        }
-        
         // OK action handler
         void (^startRemoteProctoringOK)(void) =
         ^{

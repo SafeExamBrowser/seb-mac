@@ -169,7 +169,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSURL *)downloadDirectoryURL;
-- (BOOL) directoryIsAccessible:(NSURL *)directoryURL;
 
 - (void) resetBEKCK;
 - (void) quitSession;
