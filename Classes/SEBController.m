@@ -2228,13 +2228,14 @@ bool insideMatrix(void);
     NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
     BOOL isAccessible = [self directoryIsAccessible:downloadDirectory directoryType:@"download"];
     if (isAccessible) {
-        DDLogInfo(@"Configured download directory %@", downloadDirectory);
+        DDLogInfo(@"Configured download directory %@", downloadDirectory.path);
         [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
     } else {
-        DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory);
+        DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory.path);
+        [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
-        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory], self.privacyFilesFoldersMessageString]];
+        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory.path], self.privacyFilesFoldersMessageString]];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
         [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
         [modalAlert setAlertStyle:NSAlertStyleWarning];
