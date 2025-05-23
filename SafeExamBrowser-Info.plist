@@ -111,6 +111,8 @@
 	<string>Cross-website tracking may be needed by some web applications.</string>
 	<key>NSDesktopFolderUsageDescription</key>
 	<string>Downloads or log files may be saved to the Desktop folder.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Downloads or log files may be saved to the Documents folder.</string>
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>Downloaded files are by default saved to the Downloads folder.</string>
 	<key>NSHumanReadableCopyright</key>
