@@ -292,8 +292,8 @@
 /* Class = "NSButtonCell"; title = "Allow running in background"; ObjectID = "NtM-si-0Ie"; */
 "NtM-si-0Ie.title" = "Als Hintergrund-Prozess zulassen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "p8v-1Y-Mnw"; */
-"p8v-1Y-Mnw.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw"; */
+"p8v-1Y-Mnw.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)";
 
 /* Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA"; */
 "rR0-Mm-VzA.title" = "Icon in Dock/Taskleiste";

@@ -13,6 +13,9 @@
 /* Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd"; */
 "4aU-eM-mgd.title" = "Query-Parameter";
 
+/* Class = "NSButtonCell"; title = "Copy Config Key to clipboard when quitting"; ObjectID = "4hW-uq-7wx"; */
+"4hW-uq-7wx.title" = "Beim Beenden Config Key in Zwischenablage kopieren";
+
 /* Class = "NSButtonCell"; title = "Protect Back to Start Button with the quit/unlock password"; ObjectID = "5SR-dU-gy3"; */
 "5SR-dU-gy3.title" = "'Zurück zum Start'-Taste mit dem Beenden/Entsperren-Passwort schützen";
 
@@ -25,8 +28,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20"; */
 "20.ibShadowedToolTip" = "SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Browser Exam Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option";
 
-/* Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting SEB"; ObjectID = "21"; */
-"21.title" = "Beim Beenden von SEB Browser Exam Key in Zwischenablage kopieren";
+/* Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting"; ObjectID = "21"; */
+"21.title" = "Beim Beenden Browser Exam Key in Zwischenablage kopieren";
 
 /* Class = "NSBox"; title = "Link to quit SEB after exam"; ObjectID = "26k-Q1-RaL"; */
 "26k-Q1-RaL.title" = "Link zum Beenden von SEB nach Prüfungsabgabe";
@@ -111,6 +114,9 @@
 
 /* Class = "NSTextFieldCell"; placeholderString = "Back to Start"; ObjectID = "sY9-Fu-u2Z"; */
 "sY9-Fu-u2Z.placeholderString" = "Prüfung neu starten";
+
+/* Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "TxI-K9-Ko0"; */
+"TxI-K9-Ko0.ibShadowedToolTip" = "SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Config Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option";
 
 /* Class = "NSButtonCell"; title = "Restart instead of quitting"; ObjectID = "u5B-hW-58P"; */
 "u5B-hW-58P.title" = "Neustarten anstatt Beenden";

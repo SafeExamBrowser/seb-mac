@@ -71,7 +71,7 @@
 "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." = "%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
-"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. SEB verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %2$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.";
+"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
@@ -419,6 +419,12 @@
 "Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.";
 
 /* No comment provided by engineer. */
+"Current settings require access to the directory %@ for saving downloads." = "Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Downloads.";
+
+/* No comment provided by engineer. */
+"Current settings require access to the directory %@ for saving log files." = "Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Logdateien.";
+
+/* No comment provided by engineer. */
 "Custom Key Binding Detected" = "Benutzerdefinierte Tastenverknüpfung erkannt";
 
 /* Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App */
@@ -636,6 +642,12 @@
 
 /* No comment provided by engineer. */
 "Good server health, waiting until %@ to resume sending cached screen shots" = "Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@";
+
+/* No comment provided by engineer. */
+"Grant access in System Settings / Privacy & Security / Files & Folders / %@." = "Zugriff gewähren in Systemeinstellungen / Datenschutz und Sicherheit / Dateien und Ordner / %@.";
+
+/* No comment provided by engineer. */
+"Grant access to Folder" = "Zugriff auf Verzeichnis gewähren";
 
 /* No comment provided by engineer. */
 "Holding Command Key Not Allowed!" = "Befehlstaste drücken nicht erlaubt!";

@@ -1240,8 +1240,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20";</note>
       </trans-unit>
       <trans-unit id="21.title">
-        <source>Copy Browser Exam Key to clipboard when quitting SEB</source>
-        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting SEB"; ObjectID = "21";</note>
+        <source>Copy Browser Exam Key to clipboard when quitting</source>
+        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting"; ObjectID = "21";</note>
       </trans-unit>
       <trans-unit id="33.title">
         <source>Copy this key (which depends on your SEB configuration) to the according field in your quiz settings in the exam system having support for SEB 2.0 or later built in.</source>

@@ -74,6 +74,9 @@
 "Restart Instead of Quitting" = "Neustarten anstatt Beenden";
 
 /* (No Comment) */
+"Send Browser & Config Keys in HTTP Header" = "Browser und Config Keys im HTTP-Header senden";
+
+/* (No Comment) */
 "Session Cookies" = "Session-Cookies";
 
 /* (No Comment) */
@@ -87,9 +90,6 @@
 
 /* (No Comment) */
 "This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). " = "Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben.";
-
-/* (No Comment) */
-"Send Browser & Config Keys in HTTP Header" = "Browser und Config Keys im HTTP-Header senden";
 
 /* (No Comment) */
 "Use Start URL" = "Start-URL verwenden";

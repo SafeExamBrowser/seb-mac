@@ -1540,7 +1540,7 @@
       </trans-unit>
       <trans-unit id="p8v-1Y-Mnw.ibShadowedToolTip" xml:space="preserve">
         <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar</source>
-        <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen</target>
+        <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "p8v-1Y-Mnw";</note>
       </trans-unit>
       <trans-unit id="rR0-Mm-VzA.title" xml:space="preserve">
@@ -1832,7 +1832,7 @@
       </trans-unit>
       <trans-unit id="661.ibShadowedToolTip" xml:space="preserve">
         <source>Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</source>
-        <target>XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)</target>
+        <target>XULRunner Browser-Profil Beim Beenden löschen (enthält Caches und auch Local Storage)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane."; ObjectID = "661";</note>
       </trans-unit>
       <trans-unit id="663.title" xml:space="preserve">
@@ -2794,9 +2794,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20";</note>
       </trans-unit>
       <trans-unit id="21.title" xml:space="preserve">
-        <source>Copy Browser Exam Key to clipboard when quitting SEB</source>
-        <target>Beim Beenden von SEB Browser Exam Key in Zwischenablage kopieren</target>
-        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting SEB"; ObjectID = "21";</note>
+        <source>Copy Browser Exam Key to clipboard when quitting</source>
+        <target>Beim Beenden Browser Exam Key in Zwischenablage kopieren</target>
+        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting"; ObjectID = "21";</note>
       </trans-unit>
       <trans-unit id="26k-Q1-RaL.title" xml:space="preserve">
         <source>Link to quit SEB after exam</source>
