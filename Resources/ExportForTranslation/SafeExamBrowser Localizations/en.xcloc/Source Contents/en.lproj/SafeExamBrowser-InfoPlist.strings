@@ -7,6 +7,15 @@
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "Camera access is required for web applications / remote proctoring.";
 
+/* Privacy - Desktop Folder Usage Description */
+"NSDesktopFolderUsageDescription" = "Downloads or log files may be saved to the Desktop folder.";
+
+/* Privacy - Documents Folder Usage Description */
+"NSDocumentsFolderUsageDescription" = "Downloads or log files may be saved to the Documents folder.";
+
+/* Privacy - Downloads Folder Usage Description */
+"NSDownloadsFolderUsageDescription" = "Downloaded files are by default saved to the Downloads folder.";
+
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
 

@@ -39,28 +39,16 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="q3M-yD-lYv">
-                                                    <rect key="frame" x="11" y="14" width="586" height="191"/>
+                                                    <rect key="frame" x="11" y="16" width="586" height="189"/>
                                                     <subviews>
-                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                                            <rect key="frame" x="-2" y="174" width="332" height="18"/>
-                                                            <string key="toolTip">When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</string>
-                                                            <buttonCell key="cell" type="check" title="Use Browser &amp; Config Keys (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gk0-kD-QIq">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
-                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
-                                                            </connections>
-                                                        </button>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-0z-l6Z">
-                                                            <rect key="frame" x="0.0" y="94" width="586" height="72"/>
+                                                            <rect key="frame" x="0.0" y="117" width="586" height="72"/>
                                                             <subviews>
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ust-3v-kYO">
                                                                     <rect key="frame" x="0.0" y="56" width="586" height="16"/>
                                                                     <subviews>
                                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Ohm-vb-HPc">
-                                                                            <rect key="frame" x="-2" y="0.0" width="269" height="16"/>
+                                                                            <rect key="frame" x="-2" y="0.0" width="293" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Browser Exam Key" id="iVS-rH-hVZ">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -68,14 +56,13 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                                                                            <rect key="frame" x="273" y="-1" width="313" height="16"/>
+                                                                            <rect key="frame" x="297" y="-1" width="289" height="16"/>
                                                                             <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
-                                                                            <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting SEB" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
+                                                                            <buttonCell key="cell" type="check" title="Copy Browser Exam Key to clipboard when quitting" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="21">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="message" size="11"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="W4K-bF-fFI"/>
                                                                                 <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyBrowserExamKeyToClipboardWhenQuitting" id="1019"/>
                                                                             </connections>
                                                                         </button>
@@ -101,7 +88,6 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <accessibilityConnection property="title" destination="Ohm-vb-HPc" id="Q4d-BI-7HN"/>
-                                                                        <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="A4R-q9-m1B"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
@@ -115,8 +101,10 @@
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="ust-3v-kYO" secondAttribute="trailing" id="2FT-co-o3h"/>
                                                                 <constraint firstAttribute="trailing" secondItem="32" secondAttribute="trailing" constant="2" id="2vm-aI-A5t"/>
                                                                 <constraint firstItem="32" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" constant="2" id="CVz-Ci-9rX"/>
+                                                                <constraint firstItem="ust-3v-kYO" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="REQ-NN-ZBZ"/>
                                                                 <constraint firstItem="14" firstAttribute="leading" secondItem="2B4-0z-l6Z" secondAttribute="leading" id="SBS-a8-jED"/>
                                                                 <constraint firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="h3z-BX-rK8"/>
                                                             </constraints>
@@ -132,16 +120,40 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="FzE-Nn-QYd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="586" height="85"/>
+                                                            <rect key="frame" x="0.0" y="23" width="586" height="85"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
-                                                                    <rect key="frame" x="-2" y="69" width="70" height="16"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
+                                                                <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" spacing="9" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="I6u-uO-65x">
+                                                                    <rect key="frame" x="0.0" y="69" width="586" height="16"/>
+                                                                    <subviews>
+                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LZ0-8d-pGk">
+                                                                            <rect key="frame" x="-2" y="0.0" width="293" height="16"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Config Key" id="EOJ-6z-4oM">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="TxI-K9-Ko0">
+                                                                            <rect key="frame" x="297" y="-1" width="289" height="16"/>
+                                                                            <string key="toolTip">SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</string>
+                                                                            <buttonCell key="cell" type="check" title="Copy Config Key to clipboard when quitting" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="4hW-uq-7wx">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="message" size="11"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_copyConfigKeyToClipboardWhenQuitting" id="77y-aM-TL4"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vag-ov-ItE">
                                                                     <rect key="frame" x="0.0" y="45" width="586" height="21"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mKG-6W-fqf">
@@ -152,7 +164,6 @@
                                                                     <accessibility description="Config Key"/>
                                                                     <connections>
                                                                         <accessibilityConnection property="title" destination="LZ0-8d-pGk" id="eHU-2a-SIz"/>
-                                                                        <binding destination="211" name="enabled" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="9oy-rL-DKw"/>
                                                                     </connections>
                                                                 </textField>
                                                                 <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptt-EJ-rsQ">
@@ -167,6 +178,8 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="ptt-EJ-rsQ" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" constant="2" id="3Te-3t-ABS"/>
+                                                                <constraint firstAttribute="trailing" secondItem="I6u-uO-65x" secondAttribute="trailing" id="H0b-vE-JlD"/>
+                                                                <constraint firstItem="I6u-uO-65x" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="ZOM-nb-Uvp"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Vag-ov-ItE" secondAttribute="trailing" id="dy3-ow-hhh"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ptt-EJ-rsQ" secondAttribute="trailing" constant="2" id="ejs-EE-h0o"/>
                                                                 <constraint firstItem="Vag-ov-ItE" firstAttribute="leading" secondItem="FzE-Nn-QYd" secondAttribute="leading" id="fTf-Un-rXS"/>
@@ -182,6 +195,18 @@
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>
+                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
+                                                            <rect key="frame" x="-1" y="-1" width="379" height="16"/>
+                                                            <string key="toolTip">When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API</string>
+                                                            <buttonCell key="cell" type="check" title="Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gk0-kD-QIq">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="useBrowserExamKey:" target="-2" id="mSF-yh-OO5"/>
+                                                                <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_sendBrowserExamKey" id="l9a-kt-cqh"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="2B4-0z-l6Z" firstAttribute="leading" secondItem="q3M-yD-lYv" secondAttribute="leading" id="cpo-os-xo4"/>
@@ -847,7 +872,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99322033898305084" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.12881355932203387" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

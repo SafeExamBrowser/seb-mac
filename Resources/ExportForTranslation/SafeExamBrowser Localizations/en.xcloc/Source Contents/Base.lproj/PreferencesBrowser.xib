@@ -856,10 +856,10 @@
                                                             </connections>
                                                         </popUpButton>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Rt-uw-NTz">
-                                                            <rect key="frame" x="-2" y="22" width="588" height="56"/>
+                                                            <rect key="frame" x="-2" y="22" width="580" height="56"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="ADW-iA-ngj">
                                                                 <font key="font" metaFont="smallSystem"/>
-                                                                <string key="title">The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</string>
+                                                                <string key="title">The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally.</string>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>

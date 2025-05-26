@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
@@ -1539,9 +1540,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "When using the AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP";</note>
       </trans-unit>
       <trans-unit id="p8v-1Y-Mnw.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar</source>
-        <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird. Ein entsprechender Prozess kann kein Icon im Dock/Taskleiste anzeigen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "p8v-1Y-Mnw";</note>
+        <source>Allow the permitted process to already be running when SEB starts (won't be terminated)</source>
+        <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw";</note>
       </trans-unit>
       <trans-unit id="rR0-Mm-VzA.title" xml:space="preserve">
         <source>Icon in taskbar</source>
@@ -1832,7 +1833,7 @@
       </trans-unit>
       <trans-unit id="661.ibShadowedToolTip" xml:space="preserve">
         <source>Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</source>
-        <target>XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)</target>
+        <target>XULRunner Browser-Profil Beim Beenden löschen (enthält Caches und auch Local Storage)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane."; ObjectID = "661";</note>
       </trans-unit>
       <trans-unit id="663.title" xml:space="preserve">
@@ -1841,9 +1842,9 @@
         <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
-        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
+        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser und Config Keys im HTTP-Header senden. Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser und Config Keys im HTTP-Header senden' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
       </trans-unit>
       <trans-unit id="Afc-A3-r3P.title" xml:space="preserve">
         <source>Media autoplay</source>
@@ -2764,14 +2765,19 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButtonCell"; title = "Clear on session start"; ObjectID = "3Wv-pu-d1v";</note>
       </trans-unit>
       <trans-unit id="3dP-gi-x4W.ibShadowedToolTip" xml:space="preserve">
-        <source>When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system</source>
-        <target>Der Browser Exam Key wird an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam Key is send to the connected web server to authenticate the SEB client and its settings to a compatible exam system"; ObjectID = "3dP-gi-x4W";</note>
+        <source>When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API</source>
+        <target>Die Browser Exam und Config Keys werden mit HTTP-Requests an den Webserver gesendet, um den SEB-Client und seine Einstellungen gegenüber einem kompatiblen Prüfungssystem zu authentifizieren. Diese Einstellung ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API"; ObjectID = "3dP-gi-x4W";</note>
       </trans-unit>
       <trans-unit id="4aU-eM-mgd.title" xml:space="preserve">
         <source>Query String Parameter</source>
         <target>Query-Parameter</target>
         <note>Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd";</note>
+      </trans-unit>
+      <trans-unit id="4hW-uq-7wx.title" xml:space="preserve">
+        <source>Copy Config Key to clipboard when quitting</source>
+        <target>Beim Beenden Config Key in Zwischenablage kopieren</target>
+        <note>Class = "NSButtonCell"; title = "Copy Config Key to clipboard when quitting"; ObjectID = "4hW-uq-7wx";</note>
       </trans-unit>
       <trans-unit id="5SR-dU-gy3.title" xml:space="preserve">
         <source>Protect Back to Start Button with the quit/unlock password</source>
@@ -2794,9 +2800,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "20";</note>
       </trans-unit>
       <trans-unit id="21.title" xml:space="preserve">
-        <source>Copy Browser Exam Key to clipboard when quitting SEB</source>
-        <target>Beim Beenden von SEB Browser Exam Key in Zwischenablage kopieren</target>
-        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting SEB"; ObjectID = "21";</note>
+        <source>Copy Browser Exam Key to clipboard when quitting</source>
+        <target>Beim Beenden Browser Exam Key in Zwischenablage kopieren</target>
+        <note>Class = "NSButtonCell"; title = "Copy Browser Exam Key to clipboard when quitting"; ObjectID = "21";</note>
       </trans-unit>
       <trans-unit id="26k-Q1-RaL.title" xml:space="preserve">
         <source>Link to quit SEB after exam</source>
@@ -2873,6 +2879,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I";</note>
       </trans-unit>
+      <trans-unit id="TxI-K9-Ko0.ibShadowedToolTip" xml:space="preserve">
+        <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
+        <target>SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Config Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "TxI-K9-Ko0";</note>
+      </trans-unit>
       <trans-unit id="Uuj-be-mvj.title" xml:space="preserve">
         <source>Session Cookies</source>
         <target>Session-Cookies</target>
@@ -2929,9 +2940,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
       </trans-unit>
       <trans-unit id="gk0-kD-QIq.title" xml:space="preserve">
-        <source>Use Browser &amp; Config Keys (send in HTTP header)</source>
-        <target>Browser &amp; Config Key benutzen (im HTTP-Header senden)</target>
-        <note>Class = "NSButtonCell"; title = "Use Browser &amp; Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
+        <source>Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)</source>
+        <target>Browser und Config Keys im HTTP-Header senden</target>
+        <note>Class = "NSButtonCell"; title = "Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
       </trans-unit>
       <trans-unit id="iVS-rH-hVZ.title" xml:space="preserve">
         <source>Browser Exam Key</source>
@@ -5154,9 +5165,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung "Sicherheit &amp; Datenschutz" / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security &amp; Privacy / Accessibility." xml:space="preserve">
-        <source>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %2$@ in System Settings / Security &amp; Privacy / Accessibility.</source>
-        <target>%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. SEB verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %2$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.</target>
+      <trans-unit id="%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security &amp; Privacy / Accessibility." xml:space="preserve">
+        <source>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %2$@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %3$@ in System Settings / Security &amp; Privacy / Accessibility.</source>
+        <target>%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
@@ -5684,6 +5695,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Current settings require access to the directory %@ for saving downloads." xml:space="preserve">
+        <source>Current settings require access to the directory %@ for saving downloads.</source>
+        <target>Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Downloads.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Current settings require access to the directory %@ for saving log files." xml:space="preserve">
+        <source>Current settings require access to the directory %@ for saving log files.</source>
+        <target>Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Logdateien.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Custom Key Binding Detected" xml:space="preserve">
         <source>Custom Key Binding Detected</source>
         <target>Benutzerdefinierte Tastenverknüpfung erkannt</target>
@@ -6037,6 +6058,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Good server health, waiting until %@ to resume sending cached screen shots" xml:space="preserve">
         <source>Good server health, waiting until %@ to resume sending cached screen shots</source>
         <target>Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Grant access in System Settings / Privacy &amp; Security / Files &amp; Folders / %@." xml:space="preserve">
+        <source>Grant access in System Settings / Privacy &amp; Security / Files &amp; Folders / %@.</source>
+        <target>Zugriff gewähren in Systemeinstellungen / Datenschutz und Sicherheit / Dateien und Ordner / %@.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Grant access to Folder" xml:space="preserve">
+        <source>Grant access to Folder</source>
+        <target>Zugriff auf Verzeichnis gewähren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Holding Command Key Not Allowed!" xml:space="preserve">
@@ -7402,6 +7433,21 @@ untitled filename</note>
         <target>Kamerazugriff ist notwendig für Web-Applikationen/Fernüberwachung.</target>
         <note>Privacy - Camera Usage Description</note>
       </trans-unit>
+      <trans-unit id="NSDesktopFolderUsageDescription" xml:space="preserve">
+        <source>Downloads or log files may be saved to the Desktop folder.</source>
+        <target>Downloads oder Logdateien können auf den Schreibtisch gespeichert werden.</target>
+        <note>Privacy - Desktop Folder Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSDocumentsFolderUsageDescription" xml:space="preserve">
+        <source>Downloads or log files may be saved to the Documents folder.</source>
+        <target>Downloads oder Logdateien können in den Dokumente-Ordner gespeichert werden.</target>
+        <note>Privacy - Documents Folder Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
+        <source>Downloaded files are by default saved to the Downloads folder.</source>
+        <target>Heruntergeladene Dateien werden standardmässig in den Download-Ordner gespeichert.</target>
+        <note>Privacy - Downloads Folder Usage Description</note>
+      </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
         <source>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
         <target>© 2010-2025 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen</target>
@@ -8104,11 +8150,6 @@ untitled filename</note>
         <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
-        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">
         <source>User Agent</source>
         <target>User Agent</target>
@@ -8698,6 +8739,11 @@ untitled filename</note>
         <target>Neustarten anstatt Beenden</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Send Browser &amp; Config Keys in HTTP Header" xml:space="preserve">
+        <source>Send Browser &amp; Config Keys in HTTP Header</source>
+        <target>Browser und Config Keys im HTTP-Header senden</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Session Cookies" xml:space="preserve">
         <source>Session Cookies</source>
         <target>Session-Cookies</target>
@@ -8708,9 +8754,9 @@ untitled filename</note>
         <target>Schlüssel/Keys teilen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings." xml:space="preserve">
-        <source>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings.</source>
-        <target>Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann.</target>
+      <trans-unit id="The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API." xml:space="preserve">
+        <source>The Browser Exam Key (depends on SEB config and code signature) or the Config Key (depends on SEB config) can be used with compatible exam systems to ensure that an exam can only be accessed with a verified SEB version and/or correct settings. Sending these keys in HTTP requests is not necessary when the used SEB integration supports the SEB Javascript API.</source>
+        <target>Der Browser Exam Key (abhängig von der SEB-Konfiguration und der Codesignatur) oder der Config Key (abhängig von der SEB-Konfiguration) kann bei kompatiblen Prüfungssystemen verwendet werden, um sicherzustellen, dass eine Prüfung nur mit einer verifizierten SEB-Version und/oder korrekten Einstellungen aufgerufen werden kann. Das Senden dieser Schlüssel in HTTP-Requests ist nicht notwendig, wenn die verwendete SEB Integration die SEB Javascript API unterstützt.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
       <trans-unit id="The seb(s):// link to the config file can contain an additional query string, separated from the main URL by '?' or '??' (if the URL itself doesn't contain a query). SEB will then append this query string to the Start URL." xml:space="preserve">
@@ -8721,11 +8767,6 @@ untitled filename</note>
       <trans-unit id="This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). " xml:space="preserve">
         <source>This function doesn't log you out if you are logged in on a website (doesn't clear session cookies). </source>
         <target>Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben.</target>
-        <note/>
-      </trans-unit>
-      <trans-unit id="Use Browser &amp; Config Keys" xml:space="preserve">
-        <source>Use Browser &amp; Config Keys</source>
-        <target>Browser und Config Keys verwenden</target>
         <note/>
       </trans-unit>
       <trans-unit id="Use Start URL" xml:space="preserve">

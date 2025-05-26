@@ -164,7 +164,7 @@
 "598.title" = "Horizontale Positionierung";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane."; ObjectID = "661"; */
-"661.ibShadowedToolTip" = "XULRunner Browser-Profil beim Beenden von SEB löschen (enthält Caches und auch Local Storage)";
+"661.ibShadowedToolTip" = "XULRunner Browser-Profil Beim Beenden löschen (enthält Caches und auch Local Storage)";
 
 /* Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663"; */
 "663.title" = "Profil löschen (Win)";

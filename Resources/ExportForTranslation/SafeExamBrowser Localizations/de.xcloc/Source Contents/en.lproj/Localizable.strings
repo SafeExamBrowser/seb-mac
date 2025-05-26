@@ -71,7 +71,7 @@
 "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." = "%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security & Privacy located in System Settings.";
 
 /* No comment provided by engineer. */
-"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %2$@ in System Settings / Security & Privacy / Accessibility.";
+"%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %2$@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %3$@ in System Settings / Security & Privacy / Accessibility.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ Not Allowed!";
@@ -419,6 +419,12 @@
 "Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.";
 
 /* No comment provided by engineer. */
+"Current settings require access to the directory %@ for saving downloads." = "Current settings require access to the directory %@ for saving downloads.";
+
+/* No comment provided by engineer. */
+"Current settings require access to the directory %@ for saving log files." = "Current settings require access to the directory %@ for saving log files.";
+
+/* No comment provided by engineer. */
 "Custom Key Binding Detected" = "Custom Key Binding Detected";
 
 /* Label for custom (URL protocol) scheme property of an iPadOS/iOS permitted process/Additional App */
@@ -636,6 +642,12 @@
 
 /* No comment provided by engineer. */
 "Good server health, waiting until %@ to resume sending cached screen shots" = "Good server health, waiting until %@ to resume sending cached screen shots";
+
+/* No comment provided by engineer. */
+"Grant access in System Settings / Privacy & Security / Files & Folders / %@." = "Grant access in System Settings / Privacy & Security / Files & Folders / %@.";
+
+/* No comment provided by engineer. */
+"Grant access to Folder" = "Grant access to Folder";
 
 /* No comment provided by engineer. */
 "Holding Command Key Not Allowed!" = "Holding Command Key Not Allowed!";

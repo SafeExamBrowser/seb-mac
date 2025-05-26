@@ -645,6 +645,13 @@ It is deleted when the session ends</string>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
+                                                                                    <connections>
+                                                                                        <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="xMl-zb-2A7">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
+                                                                                    </connections>
                                                                                 </textField>
                                                                                 <textField toolTip="File extension without a leading period ." focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ws8-1S-X3h">
                                                                                     <rect key="frame" x="92" y="0.0" width="456" height="21"/>
@@ -656,6 +663,11 @@ It is deleted when the session ends</string>
                                                                                     <accessibility description="Description"/>
                                                                                     <connections>
                                                                                         <accessibilityConnection property="title" destination="d5T-o3-53B" id="UnV-81-BJ2"/>
+                                                                                        <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="UMh-SQ-RSQ">
+                                                                                            <dictionary key="options">
+                                                                                                <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                            </dictionary>
+                                                                                        </binding>
                                                                                         <binding destination="7Ca-d8-k6R" name="value" keyPath="selection.extension" id="CbF-Lb-LTf"/>
                                                                                     </connections>
                                                                                 </textField>
@@ -684,6 +696,11 @@ It is deleted when the session ends</string>
                                                                                             </textFieldCell>
                                                                                             <connections>
                                                                                                 <accessibilityConnection property="title" destination="jCp-pQ-H3m" id="W1e-S4-RoW"/>
+                                                                                                <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="13a-A8-En7">
+                                                                                                    <dictionary key="options">
+                                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                                    </dictionary>
+                                                                                                </binding>
                                                                                             </connections>
                                                                                         </textField>
                                                                                         <popUpButton toolTip="Operating system on which the file type should be downloaded. This feature might not be supported on all platforms" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jCp-pQ-H3m">
@@ -705,6 +722,11 @@ It is deleted when the session ends</string>
                                                                                             <accessibility description="Select operating system"/>
                                                                                             <connections>
                                                                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_operatingSystems" id="wyQ-Qy-83U"/>
+                                                                                                <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="Y2x-xG-iOg">
+                                                                                                    <dictionary key="options">
+                                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                                    </dictionary>
+                                                                                                </binding>
                                                                                                 <binding destination="7Ca-d8-k6R" name="selectedIndex" keyPath="selection.os" previousBinding="wyQ-Qy-83U" id="3vq-yQ-cpk"/>
                                                                                             </connections>
                                                                                         </popUpButton>
@@ -731,6 +753,13 @@ It is deleted when the session ends</string>
                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                             </textFieldCell>
+                                                                                            <connections>
+                                                                                                <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="k1t-e2-yth">
+                                                                                                    <dictionary key="options">
+                                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                                    </dictionary>
+                                                                                                </binding>
+                                                                                            </connections>
                                                                                         </textField>
                                                                                         <textField toolTip="Optional Bundle Identifier of the associated additional app (permitted process)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WQ1-a8-qQK">
                                                                                             <rect key="frame" x="62" y="0.0" width="333" height="21"/>
@@ -745,6 +774,11 @@ It is deleted when the session ends</string>
                                                                                             <accessibility description="Identifier"/>
                                                                                             <connections>
                                                                                                 <accessibilityConnection property="title" destination="s9E-MH-ntf" id="Kki-cb-sQu"/>
+                                                                                                <binding destination="7Ca-d8-k6R" name="hidden" keyPath="selectedObjects" id="Tf9-Ot-GJE">
+                                                                                                    <dictionary key="options">
+                                                                                                        <string key="NSValueTransformerName">IsEmptyCollectionValueTransformer</string>
+                                                                                                    </dictionary>
+                                                                                                </binding>
                                                                                                 <binding destination="7Ca-d8-k6R" name="value" keyPath="selection.associatedAppId" id="lRM-nq-6bC"/>
                                                                                             </connections>
                                                                                         </textField>
