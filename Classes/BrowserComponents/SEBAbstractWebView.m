@@ -71,7 +71,7 @@
             BOOL sendBrowserExamKey = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"];
             if ((webViewSelectPolicy == webViewSelectAutomatic && !sendBrowserExamKey) ||
                 (webViewSelectPolicy == webViewSelectForceModern) ||
-                (webViewSelectPolicy == webViewSelectPreferModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
+                (webViewSelectPolicy == webViewSelectForceModernInForeignNewTabs && (!sendBrowserExamKey || !commonHostTab)) ||
                 downloadingInTemporaryWebView) {
                 
                 DDLogInfo(@"Opening modern WebView");

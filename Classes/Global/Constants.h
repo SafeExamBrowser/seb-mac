@@ -96,9 +96,9 @@
 #define WebViewMaxPageZoom 4.0
 
 enum {
-    webViewSelectAutomatic                      = 0,
-    webViewSelectForceClassic                   = 1,
-    webViewSelectPreferModernInForeignNewTabs   = 2,
+    webViewSelectAutomatic                     = 0,
+    webViewSelectForceClassic                  = 1,
+    webViewSelectForceModernInForeignNewTabs   = 2,
     webViewSelectForceModern                   = 3
 };
 typedef NSUInteger webViewSelectPolicies;
