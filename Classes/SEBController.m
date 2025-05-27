@@ -2235,6 +2235,8 @@ bool insideMatrix(void);
         } else {
             DDLogError(@"Can not access configured log directory %@, ask user to grant privacy access permission.", logDirectory.path);
             [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
             [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving log files.", @""), logDirectory.path], self.privacyFilesFoldersMessageString]];
@@ -2281,6 +2283,8 @@ bool insideMatrix(void);
     } else {
         DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory.path);
         [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
         NSAlert *modalAlert = [self newAlert];
         [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
         [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory.path], self.privacyFilesFoldersMessageString]];
@@ -2293,7 +2297,7 @@ bool insideMatrix(void);
             {
                 case NSAlertFirstButtonReturn:
                 {
-                    [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
                     return;
                 }
                     
