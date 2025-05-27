@@ -2293,7 +2293,7 @@ bool insideMatrix(void);
             {
                 case NSAlertFirstButtonReturn:
                 {
-                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                    [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
                     return;
                 }
                     
