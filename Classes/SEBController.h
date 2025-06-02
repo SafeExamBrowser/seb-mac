@@ -396,7 +396,7 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) searchTextNext:(id)sender;
 - (IBAction) searchTextPrevious:(id)sender;
 
-- (void) requestedRestart:(NSNotification *_Nullable)notification;
+- (void) requestedRestart;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 

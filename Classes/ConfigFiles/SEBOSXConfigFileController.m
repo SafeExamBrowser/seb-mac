@@ -106,8 +106,7 @@
 {
     DDLogInfo(@"Reconfiguring with client settings was successful");
     // Restart SEB with new settings
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
+    [_sebController serverSessionQuitRestart:YES];
 }
 
 

@@ -500,11 +500,6 @@ bool insideMatrix(void);
                                              selector:@selector(quitLinkDetected:)
                                                  name:@"quitLinkDetected" object:nil];
     
-    // Add an observer for the request to reload start URL
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedRestart:)
-                                                 name:@"requestRestartNotification" object:nil];
-    
     // Add an observer for the request to quit SEB or session unconditionally
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(quitSEBOrSession)
@@ -1035,7 +1030,7 @@ bool insideMatrix(void);
         
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
-            [self requestedRestart:nil];
+            [self sessionQuitRestart:YES];
         } else {
             [self didFinishLaunchingWithSettings];
         }
@@ -1076,7 +1071,7 @@ bool insideMatrix(void);
         
     } else {
         // SEB is being reconfigured by opening a config file
-        [self requestedRestart:nil];
+        [self sessionQuitRestart:YES];
     }
 }
 
@@ -1472,7 +1467,7 @@ bool insideMatrix(void);
 {
     _establishingSEBServerConnection = NO;
     if (restart) {
-        [self requestedRestart:nil];
+        [self requestedRestart];
     } else {
         [self quitSEBOrSession];
     }
@@ -2476,8 +2471,7 @@ bool insideMatrix(void);
                                 // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                             {
                                 DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestRestartNotification" object:self];
+                                [self sessionQuitRestart:YES];
                                 return;
                             }
                         }
@@ -2569,8 +2563,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled screen proctoring.", (long)answer);
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestRestartNotification" object:self];
+                            [self sessionQuitRestart:YES];
                             return;
                         }
                     }
@@ -2693,8 +2686,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestRestartNotification" object:self];
+                            [self sessionQuitRestart:YES];
                             return;
                         }
                     }
@@ -7013,8 +7005,7 @@ conditionallyForWindow:(NSWindow *)window
 
         [self performAfterPreferencesClosedActions];
         
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        [self sessionQuitRestart:YES];
 
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
         [self performSelector:@selector(reinforceKioskMode) withObject: nil afterDelay: 1];
@@ -7267,16 +7258,24 @@ conditionallyForWindow:(NSWindow *)window
         BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
         DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
     }
+
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
         DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
-        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
-            self.establishingSEBServerConnection = NO;
-            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+        if ((self.startingExamFromSEBServer || self.sebServerConnectionEstablished) && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            DDLogInfo(@"%s: There is already a SEB Server session running and the new session is also a SEB Server session: Terminate the running SEB Server session before starting the new one.", __FUNCTION__);
+            [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+                self.establishingSEBServerConnection = NO;
+                DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+                run_on_ui_thread(^{
+                    [self didCloseSEBServerConnectionRestart:restart];
+                });
+            }];
+        } else {
             run_on_ui_thread(^{
                 [self didCloseSEBServerConnectionRestart:restart];
             });
-        }];
+        }
     }];
 }
 
@@ -7287,7 +7286,7 @@ conditionallyForWindow:(NSWindow *)window
     if (self.quittingSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
         [self updateAACAvailablility];
-        [self requestedRestart:nil];
+        [self sessionQuitRestart:YES];
     } else {
         [self requestedExit:nil];
     }
@@ -7296,7 +7295,7 @@ conditionallyForWindow:(NSWindow *)window
 
 /// Restart SEB
 ///
-- (void)requestedRestart:(NSNotification *_Nullable)notification
+- (void)requestedRestart
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
