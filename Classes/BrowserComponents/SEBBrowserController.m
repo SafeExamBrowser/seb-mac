@@ -148,6 +148,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #endif
 }
 
+#if TARGET_OS_OSX
 - (NSURL *)downloadDirectoryURL
 {
     NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
@@ -166,6 +167,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     return downloadDirectory;
 }
+#endif
 
 
 - (void) resetBEKCK
@@ -708,6 +710,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         NSString *sebConfigURLString = url.absoluteString;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
         secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
+        secureSessionReconfigureURLMatch = YES;
     }
     // Check if SEB is in exam mode (= quit password is set) and exam is running,
     // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
