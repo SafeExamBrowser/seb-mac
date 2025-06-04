@@ -872,7 +872,7 @@ bool insideMatrix(void);
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^keyBindingDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
-                [self quitSEBOrSession];
+                [self requestedExit:nil];
             };
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))keyBindingDetectedHandler];
             return;
@@ -1009,6 +1009,7 @@ bool insideMatrix(void);
                    callback:(id)callback
                    selector:(SEL)selector
 {
+    DDLogDebug(@"%s forEditing: %d forceConfiguringClient: %d showReconfiguredAlert: %d callback: %@ selector: %@", __FUNCTION__, forEditing, forceConfiguringClient, showReconfiguredAlert, callback, NSStringFromSelector(selector));
     [self.configFileController storeNewSEBSettings:sebData
                                      forEditing:forEditing
                          forceConfiguringClient:forceConfiguringClient
@@ -1030,7 +1031,7 @@ bool insideMatrix(void);
         
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
-            [self sessionQuitRestart:YES];
+            [self requestedRestart];
         } else {
             [self didFinishLaunchingWithSettings];
         }
@@ -1071,7 +1072,7 @@ bool insideMatrix(void);
         
     } else {
         // SEB is being reconfigured by opening a config file
-        [self sessionQuitRestart:YES];
+        [self requestedRestart];
     }
 }
 
@@ -1161,6 +1162,29 @@ bool insideMatrix(void);
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
+        if (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            // Stop/Reset proctoring
+            [self stopProctoringWithCompletion:^{
+                DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+                    DDLogInfo(@"%s: There is already a SEB Server session running and the new session is also a SEB Server session: Terminate the running SEB Server session before starting the new one.", __FUNCTION__);
+                    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+                        self.establishingSEBServerConnection = NO;
+                        DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+                        run_on_ui_thread(^{
+                            [self startExamFromSEBServerWithFallback:fallback];
+                        });
+                    }];
+            }];
+            
+        } else {
+            [self startExamFromSEBServerWithFallback:fallback];
+        }
+    }
+}
+
+
+- (void) startExamFromSEBServerWithFallback:(BOOL)fallback
+{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
             !fallback) {
@@ -1200,7 +1224,6 @@ bool insideMatrix(void);
         [self persistSecureExamStartURL:self.sessionState.startURL.absoluteString configKey:self.configKey];
         //        }
 
-    }
 }
 
 // Persist start URL of a secure exam
@@ -1450,6 +1473,8 @@ bool insideMatrix(void);
 
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     self.establishingSEBServerConnection = NO;
     if (_sebServerViewDisplayed) {
         [self closeServerView];
@@ -2033,7 +2058,8 @@ bool insideMatrix(void);
                       callback:(id)callback
                       selector:(SEL)selector
 {
-    // Get all running processes, including daemons
+    DDLogDebug(@"%s starting: %d restarting: %d callback: %@ selector: %@", __FUNCTION__, starting, restarting, callback, NSStringFromSelector(selector));
+   // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
     
@@ -2138,7 +2164,9 @@ bool insideMatrix(void);
 }
 
 
-- (void) conditionallyContinueAfterTerminatingAppsWithCallback:(id)callback restarting:(BOOL)restarting selector:(SEL)selector starting:(BOOL)starting {
+- (void) conditionallyContinueAfterTerminatingAppsWithCallback:(id)callback restarting:(BOOL)restarting selector:(SEL)selector starting:(BOOL)starting
+{
+    DDLogDebug(@"%s callback: %@ restarting: %d selector: %@ starting: %d", __FUNCTION__, callback, restarting, NSStringFromSelector(selector), starting);
     if (starting) {
         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
     } else {
@@ -2471,7 +2499,7 @@ bool insideMatrix(void);
                                 // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                             {
                                 DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                                [self sessionQuitRestart:YES];
+                                [self requestedRestart];
                                 return;
                             }
                         }
@@ -2563,7 +2591,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled screen proctoring.", (long)answer);
-                            [self sessionQuitRestart:YES];
+                            [self requestedRestart];
                             return;
                         }
                     }
@@ -2686,7 +2714,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                            [self sessionQuitRestart:YES];
+                            [self requestedRestart];
                             return;
                         }
                     }
@@ -7245,6 +7273,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) sessionQuitRestart:(BOOL)restart
 {
+    DDLogDebug(@"%s restart: %d", __FUNCTION__, restart);
     _openingSettings = NO;
 
     // In case of AAC Multi App Mode, we have to terminate running permitted applications
@@ -7253,6 +7282,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) sessionQuitRestartContinue:(BOOL)restart
 {
+    DDLogDebug(@"%s restart: %d", __FUNCTION__, restart);
+
     NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
     if (permittedProcesses.count > 0) {
         BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
@@ -7262,20 +7293,13 @@ conditionallyForWindow:(NSWindow *)window
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
         DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
-        if ((self.startingExamFromSEBServer || self.sebServerConnectionEstablished) && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
-            DDLogInfo(@"%s: There is already a SEB Server session running and the new session is also a SEB Server session: Terminate the running SEB Server session before starting the new one.", __FUNCTION__);
-            [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
-                self.establishingSEBServerConnection = NO;
-                DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
-                run_on_ui_thread(^{
-                    [self didCloseSEBServerConnectionRestart:restart];
-                });
-            }];
-        } else {
+        [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
+            self.establishingSEBServerConnection = NO;
+            DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
             run_on_ui_thread(^{
                 [self didCloseSEBServerConnectionRestart:restart];
             });
-        }
+        }];
     }];
 }
 
@@ -7286,7 +7310,7 @@ conditionallyForWindow:(NSWindow *)window
     if (self.quittingSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
         [self updateAACAvailablility];
-        [self sessionQuitRestart:YES];
+        [self requestedRestart];
     } else {
         [self requestedExit:nil];
     }
@@ -7396,6 +7420,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
+//    if ((self.startingExamFromSEBServer || self.sebServerConnectionEstablished) && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+
     if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
 
         NSAlert *modalAlert = [self newAlert];

@@ -459,6 +459,7 @@ static NSNumber *_logLevel;
 // Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
@@ -586,6 +587,7 @@ static NSNumber *_logLevel;
 // Write SEB default values to local preferences
 - (void) storeSEBDefaultSettings
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     // Get default settings
     NSDictionary *defaultSettings = [self sebDefaultSettings];
     
