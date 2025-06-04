@@ -7420,8 +7420,6 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) conditionallyCloseSEBServerConnectionWithRestart:(BOOL)restart completion:(void (^)(BOOL))completion
 {
-//    if ((self.startingExamFromSEBServer || self.sebServerConnectionEstablished) && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
-
     if (self.startingExamFromSEBServer || self.establishingSEBServerConnection || self.sebServerConnectionEstablished) {
 
         NSAlert *modalAlert = [self newAlert];
