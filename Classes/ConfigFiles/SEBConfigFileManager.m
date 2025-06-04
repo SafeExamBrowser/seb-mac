@@ -733,6 +733,8 @@ static NSString *getUppercaseAdminPasswordHash(void)
 // Store and use new SEB settings
 - (void) storeDecryptedSEBSettings:(NSDictionary *)sebPreferencesDict
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     if (!sebPreferencesDict) {
         return; //Decryption didn't work, we abort
     }
@@ -1008,6 +1010,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
 // Save imported settings into user defaults (either in private memory or local shared UserDefaults)
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

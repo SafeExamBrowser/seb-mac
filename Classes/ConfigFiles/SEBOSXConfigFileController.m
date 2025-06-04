@@ -110,14 +110,18 @@
 }
 
 
-- (void) willReconfigureTemporary {
+- (void) willReconfigureTemporary
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     // Release preferences window so bindings get synchronized properly with the new loaded values
     [self.sebController.preferencesController releasePreferencesWindow];
     
 }
 
 
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials {
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+{
+    DDLogDebug(@"%s forEditing: %d", __FUNCTION__, forEditing);
     // Reset SEB, close third party applications
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     PreferencesController *prefsController = self.sebController.preferencesController;
