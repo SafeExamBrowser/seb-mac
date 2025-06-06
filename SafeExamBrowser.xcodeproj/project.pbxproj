@@ -3624,9 +3624,7 @@
 						TestTargetID = 69D02480287C68E5006CEC19;
 					};
 					69F7B5FA14F411FB00FD0761 = {
-						DevelopmentTeam = 6F38DNSC7X;
 						LastSwiftMigration = 1030;
-						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -5764,13 +5762,11 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "Safe Exam Browser/Safe Exam Browser.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 15671;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5812,8 +5808,7 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE_SPECIFIER = "SEB macOS Assessment Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "Developer ID Assessment Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -5833,9 +5828,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "Safe Exam Browser/Safe Exam Browser.entitlements";
-				CODE_SIGN_IDENTITY = "Developer ID Application";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: Daniel Schneider (6F38DNSC7X)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 15671;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -5881,7 +5875,7 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.SafeExamBrowser;
 				PRODUCT_NAME = "Safe Exam Browser";
-				PROVISIONING_PROFILE_SPECIFIER = "Developer ID Assessment Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
