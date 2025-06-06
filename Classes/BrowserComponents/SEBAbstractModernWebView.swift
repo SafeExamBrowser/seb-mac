@@ -743,13 +743,13 @@ import CocoaLumberjackSwift
         var url: URL? = nil
         if let frameURL = frame?.request.url, frameURL.absoluteString != "" {
             url = frameURL
+            DDLogDebug("updateKeyJSVariables: Frame URL \(url as Any)")
         } else if let webViewURL = webView.url {
             url = webViewURL
+            DDLogDebug("updateKeyJSVariables: WebView URL \(url as Any)")
         }
-        DDLogDebug("updateKeyJSVariables: Frame URL \(frame?.request.url as Any)")
-        DDLogDebug("updateKeyJSVariables: WebView URL \(webView.url as Any)")
-        DDLogDebug("updateKeyJSVariables: Chosen URL \(url as Any)")
         if url != nil {
+            DDLogDebug("updateKeyJSVariables: Used URL \(url as Any)")
             let browserExamKey = navigationDelegate?.browserExamKey?(for: url!)
             let configKey = navigationDelegate?.configKey?(for: url!)
             if frame != nil {
