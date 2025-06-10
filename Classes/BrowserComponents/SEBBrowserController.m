@@ -148,6 +148,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #endif
 }
 
+#if TARGET_OS_OSX
 - (NSURL *)downloadDirectoryURL
 {
     NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
@@ -166,6 +167,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     }
     return downloadDirectory;
 }
+#endif
 
 
 - (void) resetBEKCK
