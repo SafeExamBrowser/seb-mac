@@ -1333,6 +1333,7 @@ static NSString *urlStrippedFragment(NSURL* url)
             if (appScheme) {
                 DDLogInfo(@"Custom protocol scheme %@ is configured for downloaded file.", appScheme);
                 downloadedFileURL = [downloadedFileURL URLByReplacingScheme:appScheme];
+                DDLogInfo(@"URL using custom protocol scheme: %@", downloadedFileURL);
             } else {
                 if ([self.delegate respondsToSelector:@selector(openDownloadedFile:withAppBundleId:)]) {
                     [self.delegate openDownloadedFile:downloadedFileURL withAppBundleId:bundleId];
