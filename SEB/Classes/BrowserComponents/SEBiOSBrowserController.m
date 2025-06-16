@@ -236,10 +236,9 @@
 }
 
 
-- (void) openDownloadedFile:(NSString *)path
+- (void) openDownloadedFile:(NSURL *)downloadedFileURL
 {
     // Open downloaded file ToDo: Doesn't work on iOS, but app is opened
-    NSURL *downloadedFileURL = [NSURL URLWithString:path];
     [[UIApplication sharedApplication] openURL:downloadedFileURL options:@{} completionHandler:^(BOOL success) {
         DDLogDebug(@"%s %@ %@.", __FUNCTION__, downloadedFileURL, success ? @"successfully" : @"failed");
     }];
