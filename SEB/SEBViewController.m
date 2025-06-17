@@ -3742,12 +3742,33 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
     }
-    
     if (_establishingSEBServerConnection == YES && !fallback) {
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
-        return;
+    } else {
+        if (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            // Stop/Reset proctoring
+            [self stopProctoringWithCompletion:^{
+                DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+                    DDLogInfo(@"%s: There is already a SEB Server session running and the new session is also a SEB Server session: Terminate the running SEB Server session before starting the new one.", __FUNCTION__);
+                    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+                        self.establishingSEBServerConnection = NO;
+                        DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+                        run_on_ui_thread(^{
+                            [self startExamFromSEBServerWithFallback:fallback];
+                        });
+                    }];
+            }];
+            
+        } else {
+            [self startExamFromSEBServerWithFallback:fallback];
+        }
     }
+}
+
+- (void) startExamFromSEBServerWithFallback:(BOOL)fallback
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
         !fallback) {
         NSString *sebServerURLString = [preferences secureStringForKey:@"org_safeexambrowser_SEB_sebServerURL"];
