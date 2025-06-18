@@ -78,13 +78,24 @@ static char _NSData_BytesConversionString_[512] = "000102030405060708090a0b0c0d0
 
 - (NSString *) base16String
 {
-    unsigned char hashedChars[32];
-    [self getBytes:hashedChars length:32];
-    NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
-    for (NSUInteger i = 0 ; i < 32 ; ++i) {
-        [hashedConfigKeyString appendFormat: @"%02x", hashedChars[i]];
+    UInt16*  mapping = (UInt16*)_NSData_BytesConversionString_;
+    register UInt16 len = self.length;
+    char*    hexChars = (char*)malloc( sizeof(char) * (len*2) );
+
+    if (hexChars == NULL) {
+    // we directly raise an exception instead of using NSAssert to make sure assertion is not disabled as this is irrecoverable
+        [NSException raise:@"NSInternalInconsistencyException" format:@"failed malloc" arguments:nil];
+        return nil;
     }
-    return hashedConfigKeyString.copy;
+
+    register UInt16* dst = ((UInt16*)hexChars) + len-1;
+    register unsigned char* src = (unsigned char*)self.bytes + len-1;
+
+    while (len--) *dst-- = mapping[*src--];
+
+    NSString* retVal = [[NSString alloc] initWithBytesNoCopy:hexChars length:self.length*2 encoding:NSASCIIStringEncoding freeWhenDone:YES];
+
+    return retVal;
 }
 
 + (NSData *) dataWithBase32String:(NSString *)encoded

@@ -1276,7 +1276,6 @@ bool insideMatrix(void);
 
 
 - (NSString * _Nullable)appSignatureKey {
-    NSLog(@"appSignatureKey: %@", self.browserController.appSignatureKey);
     return [self.browserController.appSignatureKey base16String];
 }
 
