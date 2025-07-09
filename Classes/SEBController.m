@@ -6240,8 +6240,8 @@ conditionallyForWindow:(NSWindow *)window
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
                                                                  bundleID:nil
                                                          allowManualStart:NO
-                                                                     icon:[NSApp applicationIconImage]
-                                                          highlightedIcon:[NSApp applicationIconImage]
+                                                                     icon:[NSImage imageNamed:@"AppIcon"]
+                                                          highlightedIcon:[NSImage imageNamed:@"AppIcon"]
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
