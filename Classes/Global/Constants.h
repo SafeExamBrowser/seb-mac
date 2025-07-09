@@ -657,8 +657,8 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
 static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_15;
-static NSInteger SEBMinMacOSVersionSupportedMajor = 10;
-static NSInteger SEBMinMacOSVersionSupportedMinor = 15;
+static NSInteger SEBMinMacOSVersionSupportedMajor = 11;
+static NSInteger SEBMinMacOSVersionSupportedMinor = 0;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;
 
 static NSString __unused *proctoringServiceTypeScreenProctoring = @"SCREEN_PROCTORING";
