@@ -216,7 +216,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowFlashFullscreen",
                    
-                   [NSNumber numberWithLong:iOSBetaVersionNone],
+                   [NSNumber numberWithLong:iOSBetaVersion26],
                    @"allowiOSBetaVersionNumber",
                    
                    [NSNumber numberWithLong:iOSVersion13],
@@ -294,6 +294,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowVirtualMachine",
                    
+                   @YES,
+                   @"allowAccessibilityVoiceOver",
+
                    @NO,
                    @"allowWindowCapture",
                    
