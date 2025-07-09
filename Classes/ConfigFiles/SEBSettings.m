@@ -760,7 +760,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"100%",
                    @"mainBrowserWindowWidth",
                    
-                   [NSNumber numberWithLong:SEBMinMacOS10_13],
+                   [NSNumber numberWithLong:SEBMinMacOS11],
                    @"minMacOSVersion",
                    
                    @YES,
