@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -619,7 +619,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1046,7 +1046,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -1553,7 +1553,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -2210,7 +2210,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -2482,7 +2482,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="1Wh-Uz-Gas.title" xml:space="preserve">
@@ -2746,7 +2746,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2940,9 +2940,9 @@ It is deleted when the session ends</target>
         <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
       </trans-unit>
       <trans-unit id="gk0-kD-QIq.title" xml:space="preserve">
-        <source>Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)</source>
-        <target>Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)</target>
-        <note>Class = "NSButtonCell"; title = "Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
+        <source>Send Browser &amp; Config Keys in HTTP Header</source>
+        <target>Send Browser &amp; Config Keys in HTTP Header</target>
+        <note>Class = "NSButtonCell"; title = "Send Browser &amp; Config Keys in HTTP Header"; ObjectID = "gk0-kD-QIq";</note>
       </trans-unit>
       <trans-unit id="iVS-rH-hVZ.title" xml:space="preserve">
         <source>Browser Exam Key</source>
@@ -3013,7 +3013,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -3230,7 +3230,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -3802,7 +3802,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3899,7 +3899,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -4641,7 +4641,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
@@ -4958,7 +4958,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="Classes/Proctoring/Base.lproj/TransmittingCachedScreenShotsView.xib" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="49a-2V-epZ.title" xml:space="preserve">
@@ -4975,7 +4975,7 @@ It is deleted when the session ends</target>
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
@@ -7269,9 +7269,9 @@ untitled filename</note>
         <target>iOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 18" xml:space="preserve">
-        <source>iOS 18</source>
-        <target>iOS 18</target>
+      <trans-unit id="iOS &gt;18" xml:space="preserve">
+        <source>iOS &gt;18</source>
+        <target>iOS &gt;18</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -7358,7 +7358,7 @@ untitled filename</note>
   </file>
   <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -7410,7 +7410,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -7707,7 +7707,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Classes/Proctoring/Base.lproj/ScreenProctoring.storyboard" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Drh-JI-JlO.text" xml:space="preserve">
@@ -7734,7 +7734,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
@@ -7796,7 +7796,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/App.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Active" xml:space="preserve">
@@ -7883,7 +7883,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Apps.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add App..." xml:space="preserve">
@@ -7910,7 +7910,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Navigation" xml:space="preserve">
@@ -8107,7 +8107,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Camera Capture" xml:space="preserve">
@@ -8164,7 +8164,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/ConfigFile.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
@@ -8341,7 +8341,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Dock.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Dock Command Items" xml:space="preserve">
@@ -8408,7 +8408,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownloadFileType.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="App Identifier" xml:space="preserve">
@@ -8465,7 +8465,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownloadFileTypes.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add File Type ..." xml:space="preserve">
@@ -8492,7 +8492,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Downloading Files" xml:space="preserve">
@@ -8554,7 +8554,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Exam.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
@@ -8721,7 +8721,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/ExamKeys.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="BEK" xml:space="preserve">
@@ -8803,7 +8803,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/FilterRule.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Action" xml:space="preserve">
@@ -8855,7 +8855,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/FilterRules.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add Filter Rule ..." xml:space="preserve">
@@ -8882,7 +8882,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
@@ -11130,9 +11130,9 @@ untitled filename</note>
         <target>iOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 18" xml:space="preserve">
-        <source>iOS 18</source>
-        <target>iOS 18</target>
+      <trans-unit id="iOS &gt;18" xml:space="preserve">
+        <source>iOS &gt;18</source>
+        <target>iOS &gt;18</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -11224,7 +11224,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Network.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -11241,7 +11241,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkCertificate.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -11298,7 +11298,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkFilter.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
@@ -11355,7 +11355,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoring.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="AI Proctoring" xml:space="preserve">
@@ -11522,7 +11522,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Tile View" xml:space="preserve">
@@ -11559,7 +11559,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Root.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Additional Apps" xml:space="preserve">
@@ -11651,7 +11651,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -11718,7 +11718,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SEBServer.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Connect to SEB Server" xml:space="preserve">
@@ -11795,7 +11795,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Security.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0" xml:space="preserve">
@@ -11977,7 +11977,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLegacy.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Single App Mode" xml:space="preserve">
@@ -12009,7 +12009,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLogging.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Debug" xml:space="preserve">
@@ -12061,7 +12061,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/UserInterface.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
@@ -12188,7 +12188,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Editing" xml:space="preserve">
@@ -12240,7 +12240,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/Base.lproj/Main.storyboard" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0F9-PI-gFi.title" xml:space="preserve">
@@ -12522,7 +12522,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" 1" xml:space="preserve">
@@ -12769,7 +12769,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/en.lproj/SEBVerificator-InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
