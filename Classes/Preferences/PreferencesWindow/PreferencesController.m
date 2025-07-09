@@ -739,26 +739,7 @@
     }
 
     // If settings changed since before opening preferences:
-    if ([self settingsChanged]) {
-        // Ask if edited settings should be applied or previously active settings restored
-        SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
-        switch(answer)
-        {
-            case SEBApplySettingsAnswerDontApply:
-            {
-                // Don't apply edited settings and restart SEB
-                break;
-            }
-                
-            case SEBApplySettingsAnswerCancel:
-            {
-                // Cancel: Don't restart, restore possibly changed setting keys
-                [oldSettings restoreSettings];
-
-                return;
-            }
-        }
-    }
+    [self handlSettingsChanged:oldSettings];
     
     // If opening the preferences window isn't allowed in these settings,
     // which is dangerous when being applied, we confirm the user knows what he's doing
@@ -840,25 +821,15 @@
             }
         }
 
-    } else if (!NSUserDefaults.userDefaultsPrivate) {
+    }
+    
+    // If settings changed since before opening preferences:
+    [self handlSettingsChanged:oldSettings];
+    
+    if (!NSUserDefaults.userDefaultsPrivate) {
         
         /// Local client settings are active
         DDLogInfo(@"Client settings are active");
-        // If settings changed:
-        if ([self settingsChanged]) {
-            DDLogInfo(@"Client settings have been changed, ask if they should be applied.");
-            // Ask if edited settings should be applied or previously active settings restored
-            SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
-            switch(answer)
-            {
-                case SEBApplySettingsAnswerCancel:
-                {
-                    // Cancel: Don't quit
-                    DDLogInfo(@"User selected to cancel applying changed client settings, also abort quitting SEB.");
-                    return;
-                }
-            }
-        }
         
         // If opening the preferences window isn't allowed in these settings,
         // which is dangerous when being applied, we confirm the user knows what he's doing
@@ -886,6 +857,33 @@
 
 	[[NSNotificationCenter defaultCenter]
      postNotificationName:@"requestExitNotification" object:self];
+}
+
+
+- (void) handlSettingsChanged:(SEBEncapsulatedSettings *)oldSettings {
+    // If settings changed since before opening preferences:
+    if ([self settingsChanged]) {
+        DDLogInfo(@"Client settings have been changed, ask if they should be applied.");
+            // Ask if edited settings should be applied or previously active settings restored
+        SEBApplySettingsAnswers answer = [self askToApplySettingsAlert];
+        switch(answer)
+            {
+                case SEBApplySettingsAnswerDontApply:
+                {
+                    // Don't apply edited settings and restart SEB
+                break;
+                }
+                
+                case SEBApplySettingsAnswerCancel:
+                {
+                    // Cancel: Don't restart, restore possibly changed setting keys
+                DDLogInfo(@"User selected to cancel applying changed client settings, also abort quitting SEB.");
+                [oldSettings restoreSettings];
+                
+                return;
+                }
+            }
+    }
 }
 
 
