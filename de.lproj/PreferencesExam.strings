@@ -67,7 +67,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "If a seb(s):// link contains an additional query string, SEB appends it to the exam's Start URL"; ObjectID = "EZa-c9-03S"; */
 "EZa-c9-03S.ibShadowedToolTip" = "Wenn ein seb(s):// Link eine zusätzliche Query-Zeichenkette beinhaltet, hängt SEB diese an die Start URL der Prüfung an";
 
-/* Class = "NSButtonCell"; title = "Send Browser & Config Keys in HTTP Header (send in HTTP header)"; ObjectID = "gk0-kD-QIq"; */
+/* Class = "NSButtonCell"; title = "Send Browser & Config Keys in HTTP Header"; ObjectID = "gk0-kD-QIq"; */
 "gk0-kD-QIq.title" = "Browser und Config Keys im HTTP-Header senden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Exam session in SEB is restarted, after the quit URL has been detected, instead of quitting SEB"; ObjectID = "HG9-Qt-FY9"; */

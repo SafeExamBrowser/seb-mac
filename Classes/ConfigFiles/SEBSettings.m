@@ -216,7 +216,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowFlashFullscreen",
                    
-                   [NSNumber numberWithLong:iOSBetaVersion19],
+                   [NSNumber numberWithLong:iOSBetaVersion26],
                    @"allowiOSBetaVersionNumber",
                    
                    [NSNumber numberWithLong:iOSVersion13],
@@ -294,6 +294,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowVirtualMachine",
                    
+                   @YES,
+                   @"allowAccessibilityVoiceOver",
+
                    @NO,
                    @"allowWindowCapture",
                    
@@ -757,7 +760,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"100%",
                    @"mainBrowserWindowWidth",
                    
-                   [NSNumber numberWithLong:SEBMinMacOS10_13],
+                   [NSNumber numberWithLong:SEBMinMacOS11],
                    @"minMacOSVersion",
                    
                    @YES,

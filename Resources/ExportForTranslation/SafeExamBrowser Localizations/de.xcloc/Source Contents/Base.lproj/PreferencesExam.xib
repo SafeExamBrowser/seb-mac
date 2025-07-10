@@ -196,9 +196,9 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="3dP-gi-x4W">
-                                                            <rect key="frame" x="-1" y="-1" width="379" height="16"/>
+                                                            <rect key="frame" x="-1" y="-1" width="257" height="16"/>
                                                             <string key="toolTip">When enabled, the Browser Exam and Config Keys are send in each HTTP request to the connected web server to authenticate the SEB client and its settings to a compatible exam system. Enabling this setting is not necessary when the used SEB integration supports the SEB Javascript API</string>
-                                                            <buttonCell key="cell" type="check" title="Send Browser &amp; Config Keys in HTTP Header (send in HTTP header)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gk0-kD-QIq">
+                                                            <buttonCell key="cell" type="check" title="Send Browser &amp; Config Keys in HTTP Header" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gk0-kD-QIq">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="smallSystem"/>
                                                             </buttonCell>
@@ -872,7 +872,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.12881355932203387" horizontal="NO" id="r6K-Tc-3wx">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.72203389830508469" horizontal="NO" id="r6K-Tc-3wx">
                         <rect key="frame" x="651" y="1" width="15" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

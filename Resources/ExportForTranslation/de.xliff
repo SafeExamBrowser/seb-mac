@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0RK-x9-0F0.title" xml:space="preserve">
@@ -618,7 +618,7 @@
   </file>
   <file original="Base.lproj/PreferencesAppearance.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0g5-nW-upZ.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -1045,7 +1045,7 @@
   </file>
   <file original="Base.lproj/PreferencesApplications.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0ME-6B-zzQ.title" xml:space="preserve">
@@ -1539,9 +1539,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "When using the AAC kiosk mode (which prevents network and screen access for other processes), ignore this prohibited process"; ObjectID = "kwe-Gh-ELP";</note>
       </trans-unit>
       <trans-unit id="p8v-1Y-Mnw.ibShadowedToolTip" xml:space="preserve">
-        <source>Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar</source>
+        <source>Allow the permitted process to already be running when SEB starts (won't be terminated)</source>
         <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts. Such a process can't have an icon in the taskbar"; ObjectID = "p8v-1Y-Mnw";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw";</note>
       </trans-unit>
       <trans-unit id="rR0-Mm-VzA.title" xml:space="preserve">
         <source>Icon in taskbar</source>
@@ -1552,7 +1552,7 @@
   </file>
   <file original="Base.lproj/PreferencesBrowser.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0DR-0l-x3s.ibShadowedToolTip" xml:space="preserve">
@@ -1841,9 +1841,9 @@
         <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
-        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
+        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally.</source>
+        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser und Config Keys im HTTP-Header senden. Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser und Config Keys im HTTP-Header senden' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
+        <note>Class = "NSTextFieldCell"; title = "The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally."; ObjectID = "ADW-iA-ngj";</note>
       </trans-unit>
       <trans-unit id="Afc-A3-r3P.title" xml:space="preserve">
         <source>Media autoplay</source>
@@ -2209,7 +2209,7 @@
   </file>
   <file original="Base.lproj/PreferencesConfigFile.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="3.ibShadowedToolTip" xml:space="preserve">
@@ -2481,7 +2481,7 @@
   </file>
   <file original="Base.lproj/PreferencesDownUploads.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="1Wh-Uz-Gas.title" xml:space="preserve">
@@ -2745,7 +2745,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesExam.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2GO-IF-iYo.title" xml:space="preserve">
@@ -2772,6 +2772,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>Query String Parameter</source>
         <target>Query-Parameter</target>
         <note>Class = "NSBox"; title = "Query String Parameter"; ObjectID = "4aU-eM-mgd";</note>
+      </trans-unit>
+      <trans-unit id="4hW-uq-7wx.title" xml:space="preserve">
+        <source>Copy Config Key to clipboard when quitting</source>
+        <target>Beim Beenden Config Key in Zwischenablage kopieren</target>
+        <note>Class = "NSButtonCell"; title = "Copy Config Key to clipboard when quitting"; ObjectID = "4hW-uq-7wx";</note>
       </trans-unit>
       <trans-unit id="5SR-dU-gy3.title" xml:space="preserve">
         <source>Protect Back to Start Button with the quit/unlock password</source>
@@ -2873,6 +2878,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Session-Cookies sollen gelöscht werden, wenn die aktuelle Prüfungssession beim Umkonfigurieren gestartet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Session cookies should be cleared when starting the current exam session (when reconfiguring SEB)"; ObjectID = "Suk-hp-L3I";</note>
       </trans-unit>
+      <trans-unit id="TxI-K9-Ko0.ibShadowedToolTip" xml:space="preserve">
+        <source>SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB</source>
+        <target>SEB löscht die Zwischenablage beim Beenden, also kopieren Sie den Config Key jetzt in Ihr Prüfungssystem oder benutzen Sie diese Option</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "SEB clears the clipboard when quitting, so use either SEB to copy the exam key to your quiz settings or this option to find the exam key in the clipboard after quitting SEB"; ObjectID = "TxI-K9-Ko0";</note>
+      </trans-unit>
       <trans-unit id="Uuj-be-mvj.title" xml:space="preserve">
         <source>Session Cookies</source>
         <target>Session-Cookies</target>
@@ -2929,9 +2939,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSTextFieldCell"; title = "Allow reconfiguring by loading an SEB config file (while using the client config or during an exam session). If the running session is secure (has a quit password set), indicate the allowed URL of the new exam config in Reconfiguring URL (wildcard character '*' can be used)."; ObjectID = "dN3-5O-Rpi";</note>
       </trans-unit>
       <trans-unit id="gk0-kD-QIq.title" xml:space="preserve">
-        <source>Use Browser &amp; Config Keys (send in HTTP header)</source>
-        <target>Browser &amp; Config Key benutzen (im HTTP-Header senden)</target>
-        <note>Class = "NSButtonCell"; title = "Use Browser &amp; Config Keys (send in HTTP header)"; ObjectID = "gk0-kD-QIq";</note>
+        <source>Send Browser &amp; Config Keys in HTTP Header</source>
+        <target>Browser und Config Keys im HTTP-Header senden</target>
+        <note>Class = "NSButtonCell"; title = "Send Browser &amp; Config Keys in HTTP Header"; ObjectID = "gk0-kD-QIq";</note>
       </trans-unit>
       <trans-unit id="iVS-rH-hVZ.title" xml:space="preserve">
         <source>Browser Exam Key</source>
@@ -3002,7 +3012,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesGeneral.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="18i-Ih-TGG.ibExternalAccessibilityDescription" xml:space="preserve">
@@ -3219,7 +3229,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesNetwork.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0yk-gp-6bB.ibShadowedToolTip" xml:space="preserve">
@@ -3791,7 +3801,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesResources.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2301.title" xml:space="preserve">
@@ -3888,7 +3898,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/PreferencesSecurity.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0Ey-3L-Lb6.title" xml:space="preserve">
@@ -4630,7 +4640,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Base.lproj/SEBBrowserWindow.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="2GF-yS-Sed.label" xml:space="preserve">
@@ -4947,7 +4957,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Classes/ProcessMonitoring/Base.lproj/ProcessListView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0H1-qr-5QU.title" xml:space="preserve">
@@ -5004,7 +5014,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="Classes/Proctoring/Base.lproj/TransmittingCachedScreenShotsView.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="49a-2V-epZ.title" xml:space="preserve">
@@ -5021,7 +5031,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
   </file>
   <file original="en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
@@ -5154,9 +5164,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung "Sicherheit &amp; Datenschutz" / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security &amp; Privacy / Accessibility." xml:space="preserve">
-        <source>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. SEB is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %2$@ in System Settings / Security &amp; Privacy / Accessibility.</source>
-        <target>%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. SEB verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %2$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.</target>
+      <trans-unit id="%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security &amp; Privacy / Accessibility." xml:space="preserve">
+        <source>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %2$@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %3$@ in System Settings / Security &amp; Privacy / Accessibility.</source>
+        <target>%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." xml:space="preserve">
@@ -5684,6 +5694,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Die aktuellen Einstellungen erfordern %1$@-Fernüberwachung, welches von dieser %2$@-Version nicht unterstützt wird. Verwenden Sie die korrekte %3$@-Version, welche von Ihrem Prüfungsveranstalter verlangt wird.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Current settings require access to the directory %@ for saving downloads." xml:space="preserve">
+        <source>Current settings require access to the directory %@ for saving downloads.</source>
+        <target>Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Downloads.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Current settings require access to the directory %@ for saving log files." xml:space="preserve">
+        <source>Current settings require access to the directory %@ for saving log files.</source>
+        <target>Aktuelle Einstellungen erfordern Zugriff auf das Verzeichnis %@ zum Speichern von Logdateien.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Custom Key Binding Detected" xml:space="preserve">
         <source>Custom Key Binding Detected</source>
         <target>Benutzerdefinierte Tastenverknüpfung erkannt</target>
@@ -6037,6 +6057,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="Good server health, waiting until %@ to resume sending cached screen shots" xml:space="preserve">
         <source>Good server health, waiting until %@ to resume sending cached screen shots</source>
         <target>Gute Verbindungsqualität, warten auf Wiederaufnahme der Übertragung um %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Grant access in System Settings / Privacy &amp; Security / Files &amp; Folders / %@." xml:space="preserve">
+        <source>Grant access in System Settings / Privacy &amp; Security / Files &amp; Folders / %@.</source>
+        <target>Zugriff gewähren in Systemeinstellungen / Datenschutz und Sicherheit / Dateien und Ordner / %@.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Grant access to Folder" xml:space="preserve">
+        <source>Grant access to Folder</source>
+        <target>Zugriff auf Verzeichnis gewähren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Holding Command Key Not Allowed!" xml:space="preserve">
@@ -7295,9 +7325,9 @@ untitled filename</note>
         <target>iOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 18" xml:space="preserve">
-        <source>iOS 18</source>
-        <target>iOS 18</target>
+      <trans-unit id="iOS &gt;18" xml:space="preserve">
+        <source>iOS &gt;18</source>
+        <target>iOS &gt;18</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -7384,7 +7414,7 @@ untitled filename</note>
   </file>
   <file original="en.lproj/SafeExamBrowser-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -7401,6 +7431,21 @@ untitled filename</note>
         <source>Camera access is required for web applications / remote proctoring.</source>
         <target>Kamerazugriff ist notwendig für Web-Applikationen/Fernüberwachung.</target>
         <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSDesktopFolderUsageDescription" xml:space="preserve">
+        <source>Downloads or log files may be saved to the Desktop folder.</source>
+        <target>Downloads oder Logdateien können auf den Schreibtisch gespeichert werden.</target>
+        <note>Privacy - Desktop Folder Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSDocumentsFolderUsageDescription" xml:space="preserve">
+        <source>Downloads or log files may be saved to the Documents folder.</source>
+        <target>Downloads oder Logdateien können in den Dokumente-Ordner gespeichert werden.</target>
+        <note>Privacy - Documents Folder Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSDownloadsFolderUsageDescription" xml:space="preserve">
+        <source>Downloaded files are by default saved to the Downloads folder.</source>
+        <target>Heruntergeladene Dateien werden standardmässig in den Download-Ordner gespeichert.</target>
+        <note>Privacy - Downloads Folder Usage Description</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
         <source>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</source>
@@ -7421,7 +7466,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="1bF-7Z-Q9L.text" xml:space="preserve">
@@ -7718,7 +7763,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Classes/Proctoring/Base.lproj/ScreenProctoring.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Drh-JI-JlO.text" xml:space="preserve">
@@ -7745,7 +7790,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/AIProctoringSupport.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="AI proctoring features use computer vision algorithms, which are performed on the video frames on-device, not in any cloud and not on SEB Server. If one of the events enabled below is detected, then it is logged in text form and send to a SEB Server instance (if connected to one)." xml:space="preserve">
@@ -7807,7 +7852,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/App.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Active" xml:space="preserve">
@@ -7894,7 +7939,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Apps.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add App..." xml:space="preserve">
@@ -7921,7 +7966,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Browser.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Navigation" xml:space="preserve">
@@ -8104,11 +8149,6 @@ untitled filename</note>
         <target>Die Textsuche funktioniert derzeit nur auf Webseiten, nicht in PDF-Dateien.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally." xml:space="preserve">
-        <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Use Browser &amp; Config Keys). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Use Browser &amp; Config Keys' option in new tabs on a different server or generally.</source>
-        <target>Die moderne WKWebView-Browser-Engine unterstützt das Senden des Browser Exam und Config Key in HTTP-Headern nicht ( Prüfung &gt; Browser &amp; Config Key benutzen (im HTTP-Header senden). Wenn diese Option aktiviert ist, wird bei der Policy 'Automatisch' das klassische WebView benutzt. 'Moderne erzwingen' ignoriert die 'Browser &amp; Config Key benutzen' Einstellung in neuen Fenstern auf einem anderen Server oder generell.</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="User Agent" xml:space="preserve">
         <source>User Agent</source>
         <target>User Agent</target>
@@ -8123,7 +8163,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/BrowserMediaPlayback.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Camera Capture" xml:space="preserve">
@@ -8180,7 +8220,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/ConfigFile.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="A configuration will either start an exam using its settings (temporarily) or change the settings of an SEB client (persistently). The option Remove Default Values reduces the size of an SEB configuration (automatically used for Config URL and QR Code). Configuration files for starting exams can be saved uncompressed as plain text, for importing it into LMS/exam systems which don't support gzip compressed or encrypted config files or for manual editing." xml:space="preserve">
@@ -8357,7 +8397,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Dock.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Dock Command Items" xml:space="preserve">
@@ -8424,7 +8464,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownloadFileType.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="App Identifier" xml:space="preserve">
@@ -8481,7 +8521,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownloadFileTypes.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add File Type ..." xml:space="preserve">
@@ -8508,7 +8548,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/DownUploads.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Downloading Files" xml:space="preserve">
@@ -8570,7 +8610,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Exam.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Deep Linking for Exams" xml:space="preserve">
@@ -8698,6 +8738,11 @@ untitled filename</note>
         <target>Neustarten anstatt Beenden</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Send Browser &amp; Config Keys in HTTP Header" xml:space="preserve">
+        <source>Send Browser &amp; Config Keys in HTTP Header</source>
+        <target>Browser und Config Keys im HTTP-Header senden</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Session Cookies" xml:space="preserve">
         <source>Session Cookies</source>
         <target>Session-Cookies</target>
@@ -8723,11 +8768,6 @@ untitled filename</note>
         <target>Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Use Browser &amp; Config Keys" xml:space="preserve">
-        <source>Use Browser &amp; Config Keys</source>
-        <target>Browser und Config Keys verwenden</target>
-        <note/>
-      </trans-unit>
       <trans-unit id="Use Start URL" xml:space="preserve">
         <source>Use Start URL</source>
         <target>Start-URL verwenden</target>
@@ -8737,7 +8777,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/ExamKeys.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="BEK" xml:space="preserve">
@@ -8819,7 +8859,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/FilterRule.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Action" xml:space="preserve">
@@ -8871,7 +8911,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/FilterRules.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Add Filter Rule ..." xml:space="preserve">
@@ -8898,7 +8938,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." xml:space="preserve">
@@ -11147,9 +11187,9 @@ untitled filename</note>
         <target>iOS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="iOS 18" xml:space="preserve">
-        <source>iOS 18</source>
-        <target>iOS 18</target>
+      <trans-unit id="iOS &gt;18" xml:space="preserve">
+        <source>iOS &gt;18</source>
+        <target>iOS &gt;18</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="iOS User agent" xml:space="preserve">
@@ -11241,7 +11281,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Network.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -11258,7 +11298,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkCertificate.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Certificates" xml:space="preserve">
@@ -11315,7 +11355,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/NetworkFilter.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="'URL Blocked!'" xml:space="preserve">
@@ -11372,7 +11412,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoring.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="AI Proctoring" xml:space="preserve">
@@ -11539,7 +11579,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/RemoteProctoringFeatures.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Tile View" xml:space="preserve">
@@ -11576,7 +11616,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Additional Apps" xml:space="preserve">
@@ -11668,7 +11708,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SEB-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -11735,7 +11775,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SEBServer.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Connect to SEB Server" xml:space="preserve">
@@ -11812,7 +11852,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/Security.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0" xml:space="preserve">
@@ -11994,7 +12034,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLegacy.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Single App Mode" xml:space="preserve">
@@ -12026,7 +12066,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/SecurityLogging.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Debug" xml:space="preserve">
@@ -12078,7 +12118,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/en.lproj/UserInterface.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
@@ -12205,7 +12245,7 @@ untitled filename</note>
   </file>
   <file original="SEB/Resources/Settings.bundle/en.lproj/Root.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="Allow Editing" xml:space="preserve">
@@ -12257,7 +12297,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/Base.lproj/Main.storyboard" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="0F9-PI-gFi.title" xml:space="preserve">
@@ -12539,7 +12579,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id=" 1" xml:space="preserve">
@@ -12786,7 +12826,7 @@ untitled filename</note>
   </file>
   <file original="SEBVerificator/en.lproj/SEBVerificator-InfoPlist.strings" source-language="en" target-language="de" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.3" build-num="16E140"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

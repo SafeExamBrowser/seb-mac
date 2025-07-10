@@ -2420,27 +2420,29 @@ bool insideMatrix(void);
                     accessibilityPermissionsMessageString = [NSString stringWithFormat:@"\n\n%@", self.accessibilityMessageString];
                 }
             }
-            if (!CGPreflightScreenCaptureAccess()) {
-                screenCapturePermissionsRequested = YES;
-                if (self.examSession && self.secureClientSession) {
-                    // When running an exam session and the client session is secure (has quit pw set), we need to quit the exam session first
-                    // but the user or an exam admin will have to quit SEB from the client session manually
-                    NSAlert *modalAlert = [self newAlert];
-                    [modalAlert setMessageText:[NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Permissions Required for Screen Capture", @""), accessibilityPermissionsTitleString]];
-                    [modalAlert setInformativeText:[NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam.", @""), SEBFullAppNameClassic, [NSString stringWithFormat:NSLocalizedString(@" (after quitting %@)", @""), SEBShortAppName], SEBShortAppName], accessibilityPermissionsMessageString]];
-                    [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit Session", @"")];
-                    [modalAlert setAlertStyle:NSAlertStyleCritical];
-                    void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                        [self removeAlertWindow:modalAlert.window];
+            if (@available(macOS 11, *)) {
+                if (!CGPreflightScreenCaptureAccess()) {
+                    screenCapturePermissionsRequested = YES;
+                    if (self.examSession && self.secureClientSession) {
+                        // When running an exam session and the client session is secure (has quit pw set), we need to quit the exam session first
+                        // but the user or an exam admin will have to quit SEB from the client session manually
+                        NSAlert *modalAlert = [self newAlert];
+                        [modalAlert setMessageText:[NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Permissions Required for Screen Capture", @""), accessibilityPermissionsTitleString]];
+                        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:NSLocalizedString(@"For this exam session, screen capturing is required. You need to authorize Screen Recording for %@ in System Settings / Security & Privacy%@. Then restart %@ and your exam.", @""), SEBFullAppNameClassic, [NSString stringWithFormat:NSLocalizedString(@" (after quitting %@)", @""), SEBShortAppName], SEBShortAppName], accessibilityPermissionsMessageString]];
+                        [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit Session", @"")];
+                        [modalAlert setAlertStyle:NSAlertStyleCritical];
+                        void (^permissionsForProctoringHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                            [self removeAlertWindow:modalAlert.window];
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                        };
+                        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
+                        return;
+                    } else {
                         [[NSNotificationCenter defaultCenter]
                          postNotificationName:@"requestQuitSEBOrSession" object:self];
-                    };
-                    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))permissionsForProctoringHandler];
-                    return;
-                } else {
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:@"requestQuitSEBOrSession" object:self];
-                    return;
+                        return;
+                    }
                 }
             }
         }
@@ -6260,8 +6262,8 @@ conditionallyForWindow:(NSWindow *)window
             SEBDockItem *dockItemSEB = [[SEBDockItem alloc] initWithTitle:SEBFullAppNameClassic
                                                                  bundleID:nil
                                                          allowManualStart:NO
-                                                                     icon:[NSApp applicationIconImage]
-                                                          highlightedIcon:[NSApp applicationIconImage]
+                                                                     icon:[NSImage imageNamed:@"AppIcon"]
+                                                          highlightedIcon:[NSImage imageNamed:@"AppIcon"]
                                                                   toolTip:nil
                                                                      menu:self.browserController.openBrowserWindowsWebViewsMenu
                                                                    target:self
