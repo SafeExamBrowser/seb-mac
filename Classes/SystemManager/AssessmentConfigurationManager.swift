@@ -22,6 +22,7 @@ import CocoaLumberjackSwift
             openConfiguration.activates = false
             openConfiguration.addsToRecentItems = false
             openConfiguration.createsNewApplicationInstance = true
+            openConfiguration.arguments = ["-NSQuitAlwaysKeepsWindows", "NO"]
             for permittedApplication in permittedApplications {
                 if permittedApplication["autostart"] as? Bool == true, let bundleIdentifier = permittedApplication["identifier"] as? String, bundleIdentifier.count > 0 {
                     if let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) {
