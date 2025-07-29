@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "SEBulator V3 PoC",
+  "version": "0.1.0",
+  "description": "A Proof of Concept for modifying fetch requests under Manifest V3.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
