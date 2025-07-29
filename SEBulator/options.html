@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SEBulator Options</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .section {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    #status {
+      font-weight: bold;
+    }
+    button {
+      padding: 8px 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+    button:hover {
+        background-color: #e0e0e0;
+    }
+    #currentConfig, #errorMessage {
+        margin-top: 5px;
+        font-style: italic;
+        color: #555;
+        word-wrap: break-word;
+    }
+    #errorMessage {
+        color: #c00;
+    }
+    input[type="file"], input[type="password"] {
+        margin-top: 5px;
+        padding: 5px;
+        width: calc(100% - 12px);
+    }
+    #password-section {
+        display: none; /* Initially hidden */
+    }
+  </style>
+</head>
+<body>
+  <h1>SEBulator Options</h1>
+
+  <div class="section">
+    <h2>Current Status</h2>
+    <p>Status for current active tab: <span id="status">Checking...</span></p>
+    <div id="currentConfig"></div>
+    <div id="errorMessage"></div>
+  </div>
+
+  <div class="section" id="file-loader">
+    <h2>Load SEB Configuration</h2>
+    <p>Select a .seb file to activate SEB Mode for the current tab.</p>
+    <input type="file" id="fileInput" accept=".seb">
+
+    <div id="password-section">
+        <p>This file is encrypted. Please enter the password:</p>
+        <input type="password" id="passwordInput" placeholder="Password">
+    </div>
+
+    <br>
+    <button id="loadButton">Load and Activate</button>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

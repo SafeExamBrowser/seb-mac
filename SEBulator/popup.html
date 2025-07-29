@@ -8,28 +8,21 @@
       width: 250px;
       padding: 15px;
       font-size: 14px;
+      text-align: center;
     }
     h3 {
       margin-top: 0;
       border-bottom: 1px solid #ccc;
       padding-bottom: 5px;
     }
-    #controls, #file-loader {
+    #status-container {
         margin-top: 15px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
     }
     #status {
         font-weight: bold;
-    }
-    button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      background-color: #f0f0f0;
-      cursor: pointer;
-    }
-    button:hover {
-        background-color: #e0e0e0;
     }
     #currentConfig {
         margin-top: 5px;
@@ -37,25 +30,30 @@
         color: #555;
         word-wrap: break-word;
     }
-    input[type="file"] {
-        margin-top: 5px;
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+        background-color: #e0e0e0;
     }
   </style>
 </head>
 <body>
   <h3>SEBulator</h3>
 
-  <div id="controls">
-    <p>Status: <span id="status">Inactive</span></p>
-    <div id="currentConfig">No config loaded.</div>
-    <button id="toggleButton">Activate (Dummy)</button>
+  <div id="status-container">
+    <p>Current Tab Status:</p>
+    <p><span id="status">Checking...</span></p>
+    <div id="currentConfig"></div>
   </div>
 
-  <div id="file-loader">
-    <h4>Load .seb File</h4>
-    <input type="file" id="fileInput" accept=".seb">
-    <button id="loadButton">Load and Activate</button>
-  </div>
+  <button id="optionsButton">Open Settings / Load .seb File</button>
 
   <script src="popup.js"></script>
 </body>
