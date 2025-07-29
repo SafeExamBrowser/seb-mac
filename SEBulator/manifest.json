@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "SEBulator",
+  "version": "1.0.0",
+  "description": "A tool to analyze and interact with SEB-protected web pages.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/icon_inactive.png"
+    }
+  },
+  "icons": {
+    "128": "icons/icon_inactive.png"
+  }
+}

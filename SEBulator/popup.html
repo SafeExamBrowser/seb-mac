@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SEBulator</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      width: 250px;
+      padding: 15px;
+      font-size: 14px;
+    }
+    h3 {
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    #controls, #file-loader {
+        margin-top: 15px;
+    }
+    #status {
+        font-weight: bold;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+    button:hover {
+        background-color: #e0e0e0;
+    }
+    #currentConfig {
+        margin-top: 5px;
+        font-style: italic;
+        color: #555;
+        word-wrap: break-word;
+    }
+    input[type="file"] {
+        margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h3>SEBulator</h3>
+
+  <div id="controls">
+    <p>Status: <span id="status">Inactive</span></p>
+    <div id="currentConfig">No config loaded.</div>
+    <button id="toggleButton">Activate (Dummy)</button>
+  </div>
+
+  <div id="file-loader">
+    <h4>Load .seb File</h4>
+    <input type="file" id="fileInput" accept=".seb">
+    <button id="loadButton">Load and Activate</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
