@@ -105,6 +105,14 @@ typedef NSUInteger webViewSelectPolicies;
 
 
 enum {
+    accessibilityFeaturePolicySystemDefault     = 0,
+    accessibilityFeaturePolicyEnable            = 1,
+    accessibilityFeaturePolicyDisable           = 2
+};
+typedef NSUInteger accessibilityFeaturePolicy;
+
+
+enum {
     browserUserAgentModeiOSDefault              = 0,
     browserUserAgentModeiOSMacDesktop           = 1,
     browserUserAgentModeiOSCustom               = 2,
