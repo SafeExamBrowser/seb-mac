@@ -3755,16 +3755,48 @@ void run_on_ui_thread(dispatch_block_t block)
                         self.establishingSEBServerConnection = NO;
                         DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
                         run_on_ui_thread(^{
-                            [self startExamFromSEBServerWithFallback:fallback];
+                            [self startExamAccessibilityCheckWithFallback:fallback];
                         });
                     }];
             }];
             
         } else {
-            [self startExamFromSEBServerWithFallback:fallback];
+            [self startExamAccessibilityCheckWithFallback:fallback];
         }
     }
 }
+
+
+- (void) startExamAccessibilityCheckWithFallback:(BOOL)fallback
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    BOOL voiceOverEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowAccessibilityVoiceOver"];
+    
+    if (@available(iOS 12.2, *)) {
+        if (!voiceOverEnabled && _secureMode) {
+            UIGuidedAccessConfigureAccessibilityFeatures(UIGuidedAccessAccessibilityFeatureVoiceOver, voiceOverEnabled, ^(BOOL success, NSError * _Nullable error) {
+                if (error) {
+                    DDLogError(@"Could not disable VoiceOver!");
+                    DDLogInfo(@"%s: Quitting session", __FUNCTION__);
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"requestQuit" object:self];
+                    return;
+                } else {
+                    DDLogInfo(@"%s: VoiceOver disabled", __FUNCTION__);
+                }
+                run_on_ui_thread(^{
+                    [self startExamFromSEBServerWithFallback:fallback];
+                });
+            });
+            return;
+        }
+    } else {
+        // Fallback on earlier versions
+    }
+    [self startExamFromSEBServerWithFallback:fallback];
+}
+
 
 - (void) startExamFromSEBServerWithFallback:(BOOL)fallback
 {
@@ -5044,10 +5076,10 @@ void run_on_ui_thread(dispatch_block_t block)
         modernAAC = NO;
         DDLogDebug(@"Running on iOS < 18.1, %s = %d", __FUNCTION__, modernAAC);
     }
-#ifdef DEBUG
-    modernAAC = NO;
-    DDLogDebug(@"Debug build, %s = %d", __FUNCTION__, modernAAC);
-#endif
+//#ifdef DEBUG
+//    modernAAC = NO;
+//    DDLogDebug(@"Debug build, %s = %d", __FUNCTION__, modernAAC);
+//#endif
     return modernAAC;
 }
 

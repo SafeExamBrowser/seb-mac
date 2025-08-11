@@ -294,8 +294,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowVirtualMachine",
                    
-                   @YES,
-                   @"allowAccessibilityVoiceOver",
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureVoiceOver",
 
                    @NO,
                    @"allowWindowCapture",

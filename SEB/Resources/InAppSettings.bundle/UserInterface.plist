@@ -166,6 +166,22 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowSpellCheck</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Accessibility</string>
+			<key>FooterText</key>
+			<string>Allows to control various accessibility features.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Allow VoiceOver</string>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_allowAccessibilityVoiceOver</string>
+		</dict>
 	</array>
 </dict>
 </plist>
