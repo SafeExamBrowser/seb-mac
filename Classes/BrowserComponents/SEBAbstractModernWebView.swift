@@ -743,15 +743,19 @@ import CocoaLumberjackSwift
         var url: URL? = nil
         if let frameURL = frame?.request.url, frameURL.absoluteString != "" {
             url = frameURL
-            DDLogDebug("updateKeyJSVariables: Frame URL \(url as Any)")
+            DDLogDebug("updateKeyJSVariables: Frame URL \(url?.absoluteString ?? "n/a")")
         } else if let webViewURL = webView.url {
             url = webViewURL
-            DDLogDebug("updateKeyJSVariables: WebView URL \(url as Any)")
+            DDLogDebug("updateKeyJSVariables: Frame URL \(url?.absoluteString ?? "n/a")")
         }
         if url != nil {
-            DDLogDebug("updateKeyJSVariables: Used URL \(url as Any)")
-            let browserExamKey = navigationDelegate?.browserExamKey?(for: url!)
-            let configKey = navigationDelegate?.configKey?(for: url!)
+            guard let urlForKeys = url else {
+                DDLogDebug("updateKeyJSVariables: URL was invalid")
+                return
+            }
+            DDLogDebug("updateKeyJSVariables: Frame URL \(urlForKeys.absoluteString)")
+            let browserExamKey = navigationDelegate?.browserExamKey?(for: urlForKeys)
+            let configKey = navigationDelegate?.configKey?(for: urlForKeys)
             if frame != nil {
                 if #available(macOS 11.0, iOS 14.0, *) {
                     webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';", in: frame, in: .page, completionHandler: { (result) in
@@ -825,7 +829,7 @@ import CocoaLumberjackSwift
             newTab = true
         }
         currentFrame = navigationAction.targetFrame
-        currentFrame = currentFrame?.isMainFrame ?? true ? nil : currentFrame
+        currentFrame = (currentFrame?.isMainFrame ?? true) ? nil : currentFrame
         let targetFrameURL = currentFrame?.request.url
         DDLogDebug("webView decidePolicyFor navigationAction: Target frame \(currentFrame as Any), URL: \(targetFrameURL as Any)")
         var navigationActionPolicy = SEBNavigationActionPolicyCancel
