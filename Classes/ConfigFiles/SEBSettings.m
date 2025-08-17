@@ -150,6 +150,21 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"aacDnsPrePinning",
                    
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureAssistiveTouch",
+
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureGrayscaleDisplay",
+
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureInvertColors",
+
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureVoiceOver",
+
+                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureZoom",
+
                    [NSArray array],
                    @"additionalResources",
                    
@@ -293,9 +308,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowVirtualMachine",
-                   
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
-                   @"accessibilityFeatureVoiceOver",
 
                    @NO,
                    @"allowWindowCapture",

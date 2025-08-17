@@ -140,6 +140,15 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
 }
 
 
+- (NSArray *) org_safeexambrowser_SEB_accessibilityFeaturePolicies {
+    return [NSArray arrayWithObjects:
+            NSLocalizedString(@"System Default", @""),
+            NSLocalizedString(@"Enable", @""),
+            NSLocalizedString(@"Disable", @""),
+            nil];
+}
+
+
 - (NSArray *) org_safeexambrowser_SEB_proxyProtocols {
     return [NSArray arrayWithObjects:
             [NSDictionary dictionaryWithObjectsAndKeys:

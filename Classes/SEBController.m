@@ -453,6 +453,11 @@ bool insideMatrix(void);
                                        options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
                                        context:NULL];
     
+    [[NSWorkspace sharedWorkspace] addObserver:self
+                                    forKeyPath:@"voiceOverEnabled"
+                                       options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
+                                       context:NULL];
+
     // Add an observer for the notification that another application was unhidden by the finder
     [[workspace notificationCenter] addObserver:self
                                        selector:@selector(spaceSwitch:)
@@ -7886,6 +7891,8 @@ conditionallyForWindow:(NSWindow *)window
                 [_processListViewController didTerminateRunningApplications:terminatedProcesses];
             }
         }
+    } else if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
+        
     }
 }
 
