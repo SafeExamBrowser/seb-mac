@@ -150,19 +150,19 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"aacDnsPrePinning",
                    
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
                    @"accessibilityFeatureAssistiveTouch",
 
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
                    @"accessibilityFeatureGrayscaleDisplay",
 
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
                    @"accessibilityFeatureInvertColors",
 
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
                    @"accessibilityFeatureVoiceOver",
 
-                   [NSNumber numberWithLong:accessibilityFeaturePolicySystemDefault],
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
                    @"accessibilityFeatureZoom",
 
                    [NSArray array],

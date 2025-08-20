@@ -453,11 +453,6 @@ bool insideMatrix(void);
                                        options:NSKeyValueObservingOptionNew // maybe | NSKeyValueObservingOptionInitial
                                        context:NULL];
     
-    [[NSWorkspace sharedWorkspace] addObserver:self
-                                    forKeyPath:@"voiceOverEnabled"
-                                       options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                                       context:NULL];
-
     // Add an observer for the notification that another application was unhidden by the finder
     [[workspace notificationCenter] addObserver:self
                                        selector:@selector(spaceSwitch:)
@@ -1176,15 +1171,24 @@ bool insideMatrix(void);
                         self.establishingSEBServerConnection = NO;
                         DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
                         run_on_ui_thread(^{
-                            [self startExamFromSEBServerWithFallback:fallback];
+                            [self startExamAccessibilityCheckWithFallback:fallback];
                         });
                     }];
             }];
             
         } else {
-            [self startExamFromSEBServerWithFallback:fallback];
+            [self startExamAccessibilityCheckWithFallback:fallback];
         }
     }
+}
+
+
+- (void) startExamAccessibilityCheckWithFallback:(BOOL)fallback
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    [AccessibilityFeaturesManager controlVoiceOver];
+
+    [self startExamFromSEBServerWithFallback:fallback];
 }
 
 
@@ -2949,6 +2953,8 @@ void run_on_ui_thread(dispatch_block_t block)
         allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
         allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
         allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+        voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -3777,7 +3783,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
              postNotificationName:@"detectedDictation" object:self];
         }
     
-    checkingForWindows = false;
+    checkingForWindows = NO;
     
     // Kill TouchBar Tool if it's running
     NSArray *runningProcessInstances = [allRunningProcesses containsProcessObject:BTouchBarRestartAgent];
@@ -7296,6 +7302,8 @@ conditionallyForWindow:(NSWindow *)window
         DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
     }
 
+    [AccessibilityFeaturesManager restoreVoiceOver];
+
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
         DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
@@ -7722,7 +7730,9 @@ conditionallyForWindow:(NSWindow *)window
         
 //        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
-        if ([executableURL.pathExtension isEqualToString:@"app"] && ![executableURL.path.lastPathComponent isEqualToString:PasswordsMenuBarExtraApp]) {
+        if ([executableURL.pathExtension isEqualToString:@"app"] &&
+            ![executableURL.path.lastPathComponent isEqualToString:PasswordsMenuBarExtraApp] &&
+            ![executableURL.path.lastPathComponent isEqualToString:VoiceOverApp]) {
             NSError *error;
             DDLogInfo(@"Trying to restart terminated process with bundle URL %@", executableURL.path);
             [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
@@ -7867,6 +7877,12 @@ conditionallyForWindow:(NSWindow *)window
                     [self killApplication:startedApplication];
                 }
                 
+                // Check if VoiceOver is disabled
+                if (voiceOverDisabled &&
+                    [bundleID isEqualToString:VoiceOverBundleID]) {
+                    [self killApplication:startedApplication];
+                }
+                
                 NSPredicate *processFilter = [NSPredicate predicateWithFormat:@"%@ LIKE self", bundleID];
                 
                 NSArray *matchingProhibitedApplications = [prohibitedApplications filteredArrayUsingPredicate:processFilter];
@@ -7891,8 +7907,6 @@ conditionallyForWindow:(NSWindow *)window
                 [_processListViewController didTerminateRunningApplications:terminatedProcesses];
             }
         }
-    } else if ([keyPath isEqualToString:@"voiceOverEnabled"]) {
-        
     }
 }
 
