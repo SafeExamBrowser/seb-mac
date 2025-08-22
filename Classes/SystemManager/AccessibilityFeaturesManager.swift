@@ -50,7 +50,27 @@ import CocoaLumberjackSwift
         let voiceOverAccessibilityFeaturePolicy = AccessibilityFeaturePolicy(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_accessibilityFeatureVoiceOver")) ?? .systemDefault
         return voiceOverAccessibilityFeaturePolicy
     }
-    
+
+    class var assistiveTouchPolicySetting: AccessibilityFeaturePolicy {
+        let assistiveTouchAccessibilityFeaturePolicy = AccessibilityFeaturePolicy(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_accessibilityFeatureAssistiveTouch")) ?? .systemDefault
+        return assistiveTouchAccessibilityFeaturePolicy
+    }
+
+    class var grayscaleDisplayPolicySetting: AccessibilityFeaturePolicy {
+        let grayscaleDisplayAccessibilityFeaturePolicy = AccessibilityFeaturePolicy(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_accessibilityFeatureGrayscaleDisplay")) ?? .systemDefault
+        return grayscaleDisplayAccessibilityFeaturePolicy
+    }
+
+    class var invertColorsPolicySetting: AccessibilityFeaturePolicy {
+        let invertColorsAccessibilityFeaturePolicy = AccessibilityFeaturePolicy(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_accessibilityFeatureInvertColors")) ?? .systemDefault
+        return invertColorsAccessibilityFeaturePolicy
+    }
+
+    class var zoomPolicySetting: AccessibilityFeaturePolicy {
+        let zoomAccessibilityFeaturePolicy = AccessibilityFeaturePolicy(rawValue: UserDefaults.standard.secureInteger(forKey: "org_safeexambrowser_SEB_accessibilityFeatureZoom")) ?? .systemDefault
+        return zoomAccessibilityFeaturePolicy
+    }
+
 #if os(macOS)
     public class var isVoiceOverOn: Bool {
         return NSWorkspace.shared.isVoiceOverEnabled
@@ -63,20 +83,15 @@ import CocoaLumberjackSwift
     }
     
     class func conditionallyControlVoiceOver() {
-//        let voiceOverActivated = isVoiceOverOn
         let policy = voiceOverPolicySetting
         switch policy {
         case .systemDefault:
             break
         case .enable:
-//            if !voiceOverActivated {
                 activateVoiceOver()
-//            }
             break
         case .disable:
-//            if voiceOverActivated {
                 deactivateVoiceOver()
-//            }
             break
         @unknown default:
             break
@@ -135,5 +150,47 @@ import CocoaLumberjackSwift
     
 #else
     
+    @available(iOS 12.2, *)
+    typealias AccessibilityFeaturePolicySettings = (name: String, identifier: UIGuidedAccessAccessibilityFeature, policy: AccessibilityFeaturePolicy)
+
+    @available(iOS 12.2, *)
+    class var accessibilityFeaturesPolicySettings: [AccessibilityFeaturePolicySettings] {
+        return [("AssistiveTouch", .assistiveTouch, assistiveTouchPolicySetting),
+                ("Grayscale Display", .grayscaleDisplay, grayscaleDisplayPolicySetting),
+                ("Smart Invert",.invertColors, invertColorsPolicySetting),
+                ("VoiceOver", .voiceOver, voiceOverPolicySetting),
+                ("Zoom", .zoom, zoomPolicySetting)]
+    }
+    
+    
+    @available(iOS 12.2, *)
+    @objc public class func configureAccessibilityFeatures(completionHandler: @escaping () -> Void) {
+        var accessibilityFeaturesPolicies = accessibilityFeaturesPolicySettings
+        configureAccessibilityFeature(featuresPolicySettings: accessibilityFeaturesPolicies, completionHandler: completionHandler)
+    }
+    
+    @available(iOS 12.2, *)
+    class func configureAccessibilityFeature(featuresPolicySettings: [AccessibilityFeaturePolicySettings], completionHandler: @escaping () -> Void) {
+        if let featurePolicySetting = featuresPolicySettings.last {
+            let policy = featurePolicySetting.policy
+            if policy != .systemDefault {
+                UIAccessibility.configureForGuidedAccess(features: featurePolicySetting.identifier, enabled: policy == .enable) { success, error in
+                    if !success || error != nil {
+                        DDLogError("Accessibility Features Manager: Could not disable \(featurePolicySetting.name) with error \(error.debugDescription)!")
+                        DDLogInfo("Accessibility Features Manager: Quitting session")
+                        NotificationCenter.default.post(name: NSNotification.Name("requestQuit"), object: self)
+                        return
+                    } else {
+                        DDLogInfo("Accessibility Features Manager: \(featurePolicySetting.name) \(policy == .enable ? "enabled" : "disabled").")
+                    }
+                }
+            }
+            configureAccessibilityFeature(featuresPolicySettings: featuresPolicySettings.dropLast(), completionHandler: completionHandler)
+
+        } else {
+            completionHandler()
+        }
+    }
+
 #endif
 }
