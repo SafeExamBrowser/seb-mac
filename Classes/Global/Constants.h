@@ -85,7 +85,7 @@
 #define SEBErrorGettingConnectionTokenFailed 401
 #define SEBScreenProctoringCacheSizeDefault 500
 
-#define currentStableMajoriOSVersion 18
+#define currentStableMajoriOSVersion 26
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
