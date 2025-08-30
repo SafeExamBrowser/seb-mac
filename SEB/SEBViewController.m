@@ -4159,8 +4159,18 @@ void run_on_ui_thread(dispatch_block_t block)
             if (quittingClientConfig) {
                 self.previousSessionJitsiMeetEnabled = NO;
             }
-            // Update kiosk flags according to current settings
-            [self updateKioskSettingFlags];
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+            
+            // Exception: If the previous session was secure and a SEB Server session, and
+            // SEB is reconfiguring to a SEB Server connection config, then don't switch
+            // Assessement mode off (special case for subsequent SEB Server quizzes)
+            if (oldSecureMode == YES &&
+                preferences.secureSession == NO &&
+                (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer)) {
+            } else {
+                // Update kiosk flags according to current settings
+                [self updateKioskSettingFlags];
+            }
             
             // If there are one or more difference(s) in active kiosk mode
             // compared to the new kiosk mode settings, also considering:
@@ -4169,6 +4179,7 @@ void run_on_ui_thread(dispatch_block_t block)
             // if the previous session and the current one use different versions of the Assessment Mode (AAC) API
             // we deactivate the current kiosk mode
             BOOL modernAAC = [self modernAAC];
+            
             if ((quittingClientConfig && oldSecureMode) ||
                 oldSecureMode != self.secureMode ||
                 (!self.singleAppModeActivated && (self.ASAMActive != self.enableASAM)) ||
@@ -4991,7 +5002,7 @@ void run_on_ui_thread(dispatch_block_t block)
 // refuse starting a secured exam until SAM/Guided Access is switched off
 - (void) requestDisablingSAM
 {
-    DDLogInfo(@"%s SAM/Guided Access (or AAC/ASAM because of previous crash) is still active, in needs to be (manually) disabled", __FUNCTION__);
+    DDLogInfo(@"%s SAM/Guided Access (or AAC/ASAM because of previous crash) is still active, it needs to be (manually) disabled", __FUNCTION__);
     
     // Is SAM/Guided Access (or ASAM because of previous crash) still active?
     _SAMActive = UIAccessibilityIsGuidedAccessEnabled();
@@ -5174,6 +5185,8 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self showStartSingleAppMode];
         }
+    } else {
+        [self startExamWithFallback:NO];
     }
 }
 
@@ -5184,7 +5197,6 @@ void run_on_ui_thread(dispatch_block_t block)
  {
     DDLogDebug(@"%s callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
     DDLogInfo(@"%s: Requesting to exit AAC/Autonomous Single App Mode", __FUNCTION__);
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (self.assessmentSessionActive) {
         DDLogInfo(@"%s: Assessment Mode session is active, end it", __FUNCTION__);
         if (@available(iOS 13.4, *)) {
