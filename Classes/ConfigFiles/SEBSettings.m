@@ -264,7 +264,11 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowPDFReaderToolbar",
                    
+#ifdef DEBUG
                    @YES,
+#else
+                   @NO,
+#endif
                    @"allowPreferencesWindow",
                    
                    @NO,
