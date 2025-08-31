@@ -111,7 +111,7 @@ void run_block_on_main_thread(dispatch_block_t block)
             examURLString = @"";
             [lockedExams removeAllObjects];
         }
-        DDLogError(@"Attempting to start an exam %@ which is on the list %@ of previously interrupted and not properly finished exams.", examURLString, lockedExams);
+        DDLogDebug(@"Attempting to start an exam %@ which is on the list of previously interrupted and not properly finished exams.", examURLString);
         isStartingLockedExam = YES;
     }
     return isStartingLockedExam;
