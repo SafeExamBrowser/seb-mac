@@ -776,9 +776,11 @@ extension SEBScreenProctoringController {
             alphanumericKeyCount = 0
         }
         if !keyboardShortcuts.isEmpty {
-            if latestTriggerEvent != nil && keyboardShortcuts.count > 0 && latestTriggerEvent!.contains(keyboardShortcuts.last!) {
-                // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
-                keyboardShortcuts.removeLast()
+            if let keyboardShortcutsLast = keyboardShortcuts.last, let latestTriggerEventString = latestTriggerEvent {
+                if latestTriggerEventString.contains(keyboardShortcutsLast) && keyboardShortcuts.count > 0 {
+                    // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
+                    keyboardShortcuts.removeLast()
+                }
             }
             if !keyboardShortcuts.isEmpty {
                 triggerEventString.append(" Keyboard shortcut\(keyboardShortcuts.count > 1 ? "s" : "") pressed: \(keyboardShortcuts.joined(separator: "/"))")

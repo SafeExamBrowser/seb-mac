@@ -261,7 +261,8 @@ public extension SEBServerController {
             return}
         discoveryRequest.load(urlSession) { (discoveryResponse, error) in
             // ToDo: Does this if let check work, response seems to be a double optional?
-            if let discovery = discoveryResponse, let serverAPIEndpoints = discovery?.api_versions[0].endpoints {
+            if error == nil, let unwrappedDiscoveryResponse = discoveryResponse, let discovery = unwrappedDiscoveryResponse {
+                let serverAPIEndpoints = discovery.api_versions[0].endpoints
                 var sebEndpoints = SEB_Endpoints()
                             
                 sebEndpoints.accessToken.endpoint = serverAPIEndpoints.endpoint(name: sebEndpoints.accessToken.name)
