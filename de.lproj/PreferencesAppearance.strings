@@ -82,6 +82,9 @@
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "Position browser window on the left, right or centered"; ObjectID = "geu-O8-rL1"; */
 "geu-O8-rL1.ibShadowedToolTip" = "Browserfenster links, rechts oder zentriert positionieren";
 
+/* Class = "NSTextFieldCell"; title = "Assistive Touch (iOS)"; ObjectID = "GPU-33-Pwp"; */
+"GPU-33-Pwp.title" = "Assistive Touch (iOS)";
+
 /* Class = "NSButtonCell"; title = "Show keyboard layout (Win)"; ObjectID = "HEJ-HA-6o4"; */
 "HEJ-HA-6o4.title" = "Auswahl Tastaturbelegung anzeigen (Win)";
 
@@ -121,8 +124,14 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the scroll lock button in the Dock if the scroll lock feature is enabled (iOS only)"; ObjectID = "lWE-3I-sTM"; */
 "lWE-3I-sTM.ibShadowedToolTip" = "Scrollsperre-Taste im Dock anzeigen, wenn die Scrollsperre-Funktion zugelassen ist (nur iOS)";
 
+/* Class = "NSTextFieldCell"; title = "VoiceOver"; ObjectID = "M8d-8C-k6p"; */
+"M8d-8C-k6p.title" = "VoiceOver";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Shows current keyboard layout and allows to change it"; ObjectID = "ndk-5a-0Nv"; */
 "ndk-5a-0Nv.ibShadowedToolTip" = "Zeigt aktuelle Tastaturbelegung an und erlaubt, diese umzuschalten";
+
+/* Class = "NSTextFieldCell"; title = "Zoom (iOS)"; ObjectID = "NIa-pg-4RL"; */
+"NIa-pg-4RL.title" = "Zoom (iOS)";
 
 /* Class = "NSBox"; title = "Spell Checker"; ObjectID = "nO5-ha-zqD"; */
 "nO5-ha-zqD.title" = "Rechtschreibprüfung";
@@ -166,6 +175,9 @@
 /* Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS"; */
 "qfl-QX-6zS.ibShadowedToolTip" = "Browser-Fenster (kann bewegt und skaliert werden), Hauptfenster im Vollbild oder Touch-/Tablet-Modus (Win) verwenden";
 
+/* Class = "NSBox"; title = "Accessibility Features"; ObjectID = "qlR-pH-2nQ"; */
+"qlR-pH-2nQ.title" = "Bedienungshilfen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad"; */
 "QSj-QF-dad.ibShadowedToolTip" = "Symbolleiste in Browserfenstern anzeigen";
 
@@ -174,6 +186,12 @@
 
 /* Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7"; */
 "rQZ-65-nx7.title" = "Taste Beenden anzeigen";
+
+/* Class = "NSTextFieldCell"; title = "Greyscale Display (iOS)"; ObjectID = "rZz-Dc-BRg"; */
+"rZz-Dc-BRg.title" = "Graustufen-Anzeige (iOS)";
+
+/* Class = "NSTextFieldCell"; title = "Smart Invert (iOS)"; ObjectID = "s7L-DW-WN1"; */
+"s7L-DW-WN1.title" = "Umkehren - Intelligent (iOS)";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode"; ObjectID = "Soq-V2-Zan"; */
 "Soq-V2-Zan.ibShadowedToolTip" = "Zeigt Taste im SEB-Dock, welche das Starten einer Prüfung oder das Umkonfigurieren von SEB mittels Scannen eines QR-Codes erlaubt. Die Taste wird nur angezeigt, wenn 'Konfiguration mit QR-Code erlauben' in den Konfiguration-Einstellungen eingeschaltet ist und SEB nicht im Prüfungsmodus läuft";

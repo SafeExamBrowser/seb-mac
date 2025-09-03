@@ -31,6 +31,16 @@
 /* (No Comment) */
 "Inferred" = "Übernommen";
 
+"Allow Auto-Correction" = "";
+"Accessibility Features" = "";
+"VoiceOver" = "";
+"AssistiveTouch" = "";
+"Greyscale Display" = "";
+"Smart Invert" = "";
+"Zoom" = "";
+
+"Allows to control various accessibility features." = "";
+
 /* String for Titles arrays elements */
 "None" = "Keine";
 
@@ -39,6 +49,22 @@
 
 /* (No Comment) */
 "None - White" = "Keine - weisser Hintergrund";
+
+"System Default" = "";
+"Enable" = "";
+"Disable" = "";
+"System Default" = "";
+"Enable" = "";
+"Disable" = "";
+"System Default" = "";
+"Enable" = "";
+"Disable" = "";
+"System Default" = "";
+"Enable" = "";
+"Disable" = "";
+"System Default" = "";
+"Enable" = "";
+"Disable" = "";
 
 /* String for FooterText elements */
 "On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled." = "Auf Geräten mit FaceID wird die Statusleiste immer angezeigt, wenn die Browser-Symbolleiste aktiviert ist.";
@@ -62,11 +88,11 @@
 "Status/Tool Bar/SEB Dock" = "Statusleiste/Symbolleiste/SEB-Dock";
 
 /* (No Comment) */
+"Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.";
+
+/* (No Comment) */
 "White on Black" = "Weiss auf Schwarz";
 
 /* (No Comment) */
 "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." = "Mit der Scrollsperre-Taste und/oder dem Seitenmenü kann das Scrollen der Webseite, die Textauswahl und Textvergrösserung ausgeschaltet werden. Dies kann die Benutzung von Drag-und-Drop und Freihandzeichnungs-Fragetypen erleichtern.";
-
-/* (No Comment) */
-"Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Der Textzoom funktioniert nur auf einigen (einfachen) Webseiten. Er ist nur aktiviert, wenn die Seiten-Zoomstufe 1.0 ist.";
 

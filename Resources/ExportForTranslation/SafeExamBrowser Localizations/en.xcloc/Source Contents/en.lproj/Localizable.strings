@@ -311,9 +311,6 @@
 "Cannot Restore Touch Bar Mode" = "Cannot Restore Touch Bar Mode";
 
 /* No comment provided by engineer. */
-"Cannot Start Another SEB Server Session" = "Cannot Start Another SEB Server Session";
-
-/* No comment provided by engineer. */
 "Cannot Start Exam" = "Cannot Start Exam";
 
 /* No comment provided by engineer. */
@@ -482,6 +479,9 @@
 "Dictation was activated" = "Dictation was activated";
 
 /* No comment provided by engineer. */
+"Disable" = "Disable";
+
+/* No comment provided by engineer. */
 "Disconnecting from SEB Server" = "Disconnecting from SEB Server";
 
 /* No comment provided by engineer. */
@@ -525,6 +525,9 @@
 
 /* No comment provided by engineer. */
 "Edited settings have unsaved changes." = "Edited settings have unsaved changes.";
+
+/* No comment provided by engineer. */
+"Enable" = "Enable";
 
 /* No comment provided by engineer. */
 "Enter administrator password:" = "Enter administrator password:";
@@ -1154,6 +1157,9 @@
 "Switched back after user switch / login window" = "Switched back after user switch / login window";
 
 /* No comment provided by engineer. */
+"System Default" = "System Default";
+
+/* No comment provided by engineer. */
 "System Preferences" = "System Preferences";
 
 /* No comment provided by engineer. */
@@ -1191,9 +1197,6 @@
 
 /* No comment provided by engineer. */
 "Then restart %@/the exam." = "Then restart %@/the exam.";
-
-/* No comment provided by engineer. */
-"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used (failing key: %@)." = "These settings are corrupted and cannot be used (failing key: %@).";

@@ -38,6 +38,9 @@
 "%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.";
 
 /* No comment provided by engineer. */
+"%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.";
+
+/* No comment provided by engineer. */
 "%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." = "%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.";
 
 /* No comment provided by engineer. */
@@ -66,6 +69,9 @@
 
 /* No comment provided by engineer. */
 "%@ was locked by SEB Server. Please contact your exam support." = "%@ was locked by SEB Server. Please contact your exam support.";
+
+/* No comment provided by engineer. */
+"%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
@@ -269,9 +275,6 @@
 "Cannot Send %@ Logs" = "Cannot Send %@ Logs";
 
 /* No comment provided by engineer. */
-"Cannot Start Another SEB Server Session" = "Cannot Start Another SEB Server Session";
-
-/* No comment provided by engineer. */
 "Cannot Start Exam" = "Cannot Start Exam";
 
 /* No comment provided by engineer. */
@@ -285,6 +288,9 @@
 
 /* No comment provided by engineer. */
 "Checking server health" = "Checking server health";
+
+/* No comment provided by engineer. */
+"Choose" = "Choose";
 
 /* No comment provided by engineer. */
 "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." = "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.";
@@ -416,6 +422,9 @@
 "Device Was in Sleep Mode!" = "Device Was in Sleep Mode!";
 
 /* No comment provided by engineer. */
+"Disable" = "Disable";
+
+/* No comment provided by engineer. */
 "Disable Scroll Lock" = "Disable Scroll Lock";
 
 /* No comment provided by engineer. */
@@ -488,6 +497,9 @@
 "Embedded Certificate" = "Embedded Certificate";
 
 /* No comment provided by engineer. */
+"Enable" = "Enable";
+
+/* No comment provided by engineer. */
 "Enable Scroll Lock" = "Enable Scroll Lock";
 
 /* No comment provided by engineer. */
@@ -558,6 +570,12 @@
 
 /* No comment provided by engineer. */
 "File" = "File";
+
+/* No comment provided by engineer. */
+"File Automatically Chosen" = "File Automatically Chosen";
+
+/* No comment provided by engineer. */
+"File to Upload Not Found!" = "File to Upload Not Found!";
 
 /* No comment provided by engineer. */
 "Finalizing Screen Proctoring" = "Finalizing Screen Proctoring";
@@ -1169,6 +1187,9 @@
 "Student" = "Student";
 
 /* No comment provided by engineer. */
+"System Default" = "System Default";
+
+/* No comment provided by engineer. */
 "The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },";
 
 /* No comment provided by engineer. */
@@ -1206,9 +1227,6 @@
 
 /* No comment provided by engineer. */
 "the webpage" = "the webpage";
-
-/* No comment provided by engineer. */
-"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used (failing key: %@)." = "These settings are corrupted and cannot be used (failing key: %@).";
