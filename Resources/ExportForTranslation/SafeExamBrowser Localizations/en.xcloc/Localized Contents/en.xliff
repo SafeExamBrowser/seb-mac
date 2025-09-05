@@ -5268,6 +5268,11 @@ It is deleted when the session ends</target>
         <target>15 Sequoia</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="26 Tahoe" xml:space="preserve">
+        <source>26 Tahoe</source>
+        <target>26 Tahoe</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</source>
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</target>
@@ -9108,6 +9113,11 @@ untitled filename</note>
       <trans-unit id="15 Sequoia" xml:space="preserve">
         <source>15 Sequoia</source>
         <target>15 Sequoia</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="26 Tahoe" xml:space="preserve">
+        <source>26 Tahoe</source>
+        <target>26 Tahoe</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
