@@ -241,6 +241,7 @@ static SEBUIUserDefaultsController *sharedSEBUIUserDefaultsController = nil;
             NSLocalizedString(@"13 Ventura", @""),
             NSLocalizedString(@"14 Sonoma", @""),
             NSLocalizedString(@"15 Sequoia", @""),
+            NSLocalizedString(@"26 Tahoe", @""),
             nil];
 }
 
