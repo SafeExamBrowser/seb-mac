@@ -90,7 +90,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>The built-in web browser needs permission to write downloaded photos to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The built-in web browser needs permission to access photos from your photo library if you use a &apos;choose file&apos;/upload button on a web page.</string>
+	<string>The built-in web browser needs permission to access photos from your photo library if you use a 'choose file'/upload button on a web page.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -99,8 +99,6 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
