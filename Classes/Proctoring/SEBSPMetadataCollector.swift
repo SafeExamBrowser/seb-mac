@@ -35,6 +35,10 @@
 import Foundation
 import CocoaLumberjackSwift
 
+@objc public protocol SEBSPMetadataCollectorDelegate: AnyObject {
+    func receivedUIEvent(_ event: UIEvent?)
+}
+
 struct Metadata: Codable {
     var screenProctoringMetadataURL: String?
     var screenProctoringMetadataWindowTitle: String?
@@ -220,6 +224,7 @@ public class SEBSPMetadataCollector {
 #if os(iOS)
     public func receivedUIEvent(_ event: UIEvent?, view: UIView) {
         var eventTypeString = ""
+        var eventNotTouchBegan = false
         
         switch event?.type {
         case .touches:
@@ -247,12 +252,16 @@ public class SEBSPMetadataCollector {
             var keyEventDescriptions = Array<String>()
             for uiPress in presses {
                 keyEventDescriptions.append(keyEventDesciption(uiPress: uiPress))
+                eventNotTouchBegan = true
             }
             eventTypeString = eventTypeString + (keyEventDescriptions.isEmpty ? "" : (eventTypeString.isEmpty ? "" : ": ") + keyEventDescriptions.joined(separator: "/"))
         } else {
             if let touches = event?.allTouches {
                 var touchEventDescriptions = Array<String>()
                 for touch in touches {
+                    if touch.phase != .began {
+                        eventNotTouchBegan = true
+                    }
                     let touchEventDescription = touchEventDesciption(touch, view: view)
                     touchEventDescriptions.append("\(touchEventDescription.prefix) \(eventTypeString) \(touchEventDescription.suffix)")
                 }
@@ -265,7 +274,11 @@ public class SEBSPMetadataCollector {
         }
         eventTypeString = eventTypeString.firstUppercased
         DDLogVerbose("Event: \(eventTypeString)")
-        self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
+        if eventNotTouchBegan {
+            self.delegate?.collectedTriggerEvent?(eventData: eventTypeString)
+        } else {
+            DDLogVerbose("Event was touch began, not triggering screen shot.")
+        }
     }
     
 //    public func touchesChange(_ change:UIEventChange, touches: Set<UITouch>, with event: UIEvent?) {

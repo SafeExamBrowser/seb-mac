@@ -73,6 +73,14 @@
 
     [self initializeTemporaryLogger];
 
+   TouchMonitoringWindow *window = [[TouchMonitoringWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+   window.touchMonitoringDelegate = self;
+
+   // Load the storyboard’s initial VC
+   UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:NSBundle.mainBundle];
+   window.rootViewController = [storyboard instantiateInitialViewController];
+   self.window = window;
+
     // Check if Single App Mode is active
     // or Autonomous Single App Mode stayed active because
     // SEB crashed before and was automatically restarted
@@ -164,10 +172,6 @@
             _openedUniversalLink = YES;
         }
     }
-
-    UIGestureRecognizer *tapGesture = [[UIGestureRecognizer alloc] initWithTarget:self action:nil];
-    tapGesture.delegate = self;
-    [self.window addGestureRecognizer:tapGesture];
     
     return shouldPerformAdditionalDelegateHandling;
 }
@@ -515,11 +519,11 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 }
 
 
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveEvent:(nonnull UIEvent *)event
+- (void)receivedUIEvent:event
 {
-    [_sebViewController receivedUIEvent:event];
-    return NO;
+   [_sebViewController receivedUIEvent:event];
 }
+
 
 #pragma mark -
 #pragma mark Handle hardware keyboard shortcuts
