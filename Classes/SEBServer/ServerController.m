@@ -54,7 +54,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
     }
     pingInterval = pingInterval / 1000;
     
-    if (url && institution && username && password && discoveryAPIEndpoint)
+    if (url && institution && username.length > 0 && password.length > 0 && discoveryAPIEndpoint.length > 0)
     {
         _url = url;
         _sebServerController = [[SEBServerController alloc] initWithBaseURL:url
