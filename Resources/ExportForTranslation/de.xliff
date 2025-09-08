@@ -1007,9 +1007,9 @@
         <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7";</note>
       </trans-unit>
       <trans-unit id="rZz-Dc-BRg.title" xml:space="preserve">
-        <source>Greyscale Display (iOS)</source>
+        <source>Grayscale Display (iOS)</source>
         <target>Graustufen-Anzeige (iOS)</target>
-        <note>Class = "NSTextFieldCell"; title = "Greyscale Display (iOS)"; ObjectID = "rZz-Dc-BRg";</note>
+        <note>Class = "NSTextFieldCell"; title = "Grayscale Display (iOS)"; ObjectID = "rZz-Dc-BRg";</note>
       </trans-unit>
       <trans-unit id="s7L-DW-WN1.title" xml:space="preserve">
         <source>Smart Invert (iOS)</source>
@@ -12266,8 +12266,8 @@ untitled filename</note>
         <target>Text-Zoom zulassen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Greyscale Display" xml:space="preserve">
-        <source>Greyscale Display</source>
+      <trans-unit id="Grayscale Display" xml:space="preserve">
+        <source>Grayscale Display</source>
         <target>Graustufen-Anzeige</target>
         <note/>
       </trans-unit>

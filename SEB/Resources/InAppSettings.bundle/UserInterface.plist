@@ -222,7 +222,7 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_accessibilityFeatureGrayscaleDisplay</string>
 			<key>Title</key>
-			<string>Greyscale Display</string>
+			<string>Grayscale Display</string>
 			<key>Titles</key>
 			<array>
 				<string>System Default</string>
