@@ -165,7 +165,7 @@ import CocoaLumberjackSwift
     
     @available(iOS 12.2, *)
     @objc public class func configureAccessibilityFeatures(completionHandler: @escaping () -> Void) {
-        var accessibilityFeaturesPolicies = accessibilityFeaturesPolicySettings
+        let accessibilityFeaturesPolicies = accessibilityFeaturesPolicySettings
         configureAccessibilityFeature(featuresPolicySettings: accessibilityFeaturesPolicies, completionHandler: completionHandler)
     }
     
