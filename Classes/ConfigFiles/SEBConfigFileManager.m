@@ -733,6 +733,8 @@ static NSString *getUppercaseAdminPasswordHash(void)
 // Store and use new SEB settings
 - (void) storeDecryptedSEBSettings:(NSDictionary *)sebPreferencesDict
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+
     if (!sebPreferencesDict) {
         return; //Decryption didn't work, we abort
     }
@@ -749,18 +751,6 @@ static NSString *getUppercaseAdminPasswordHash(void)
         /// If these SEB settings are ment to start an exam or we're in editing mode
         ///
         
-        if (!storeSettingsForEditing && sebConfigPurpose == sebConfigPurposeStartingExam) {
-            if ((_delegate.startingExamFromSEBServer || _delegate.sebServerConnectionEstablished) && [[sebPreferencesDict valueForKey:@"sebMode"] intValue] == sebModeSebServer) {
-                
-                DDLogError(@"%s: There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session.", __FUNCTION__);
-
-                NSString *title = NSLocalizedString(@"Cannot Start Another SEB Server Session", @"");
-                NSString *informativeText = NSLocalizedString(@"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.", @"");
-                [self.delegate showAlertWithTitle:title andText:informativeText];
-
-                return;
-            }
-        }
         // Inform delegate that preferences will be reconfigured
         if ([self.delegate respondsToSelector:@selector(willReconfigureTemporary)]) {
             [self.delegate willReconfigureTemporary];
@@ -1020,6 +1010,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
 // Save imported settings into user defaults (either in private memory or local shared UserDefaults)
 -(void) storeIntoUserDefaults:(NSDictionary *)sebPreferencesDict
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

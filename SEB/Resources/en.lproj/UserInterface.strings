@@ -16,6 +16,12 @@
 "Default Text Zoom Level:" = "Default Text Zoom Level:";
 "Auto-Correction & Predictive Text" = "Auto-Correction & Predictive Text";
 "Allow Auto-Correction" = "Allow Auto-Correction";
+"Accessibility Features" = "Accessibility Features";
+"VoiceOver" = "VoiceOver";
+"AssistiveTouch" = "AssistiveTouch";
+"Grayscale Display" = "Grayscale Display";
+"Smart Invert" = "Smart Invert";
+"Zoom" = "Zoom";
 
 /* String for Titles arrays elements */
 "None" = "None";
@@ -26,11 +32,27 @@
 "Black on White" = "Black on White";
 "None - Black" = "None - Black";
 "None - White" = "None - White";
+"System Default" = "System Default";
+"Enable" = "Enable";
+"Disable" = "Disable";
+"System Default" = "System Default";
+"Enable" = "Enable";
+"Disable" = "Disable";
+"System Default" = "System Default";
+"Enable" = "Enable";
+"Disable" = "Disable";
+"System Default" = "System Default";
+"Enable" = "Enable";
+"Disable" = "Disable";
+"System Default" = "System Default";
+"Enable" = "Enable";
+"Disable" = "Disable";
 
 /* String for FooterText elements */
 "On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled." = "On devices with FaceID, the Status Bar is always displayed when the browser toolbar is enabled.";
 "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." = "With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.";
 "Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." = "Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.";
 "In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled." = "In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled.";
+"Allows to control various accessibility features." = "Allows to control various accessibility features.";
 
 /* String for IASKPlaceholder elements */

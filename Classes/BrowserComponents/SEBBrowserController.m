@@ -403,7 +403,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
         }
 #endif
         // Add "SEB <version number>" to the browser's user agent, so the LMS SEB plugins recognize us
-        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.4 %@/3.4.1 %@/3.5 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
+        overrideUserAgent = [overrideUserAgent stringByAppendingString:[NSString stringWithFormat:@" %@/%@ %@/3.5.4 %@/3.6 %@", SEBUserAgentDefaultSuffix, versionString, SEBUserAgentDefaultSuffix, SEBUserAgentDefaultSuffix, browserUserAgentSuffix]];
         _customSEBUserAgent = overrideUserAgent;
     }
     return _customSEBUserAgent;
@@ -710,6 +710,7 @@ static NSString *urlStrippedFragment(NSURL* url)
         NSString *sebConfigURLString = url.absoluteString;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
         secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
+//        secureSessionReconfigureURLMatch = YES;
     }
     // Check if SEB is in exam mode (= quit password is set) and exam is running,
     // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting

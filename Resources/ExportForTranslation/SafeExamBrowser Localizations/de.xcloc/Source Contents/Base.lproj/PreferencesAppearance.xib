@@ -25,10 +25,10 @@
                         <rect key="frame" x="1" y="1" width="650" height="648"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Kpu-hv-Qpn">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="778"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="954"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" borderType="line" title="Browser view mode" translatesAutoresizingMaskIntoConstraints="NO" id="J5d-BA-D2w">
-                                        <rect key="frame" x="17" y="667" width="616" height="96"/>
+                                        <rect key="frame" x="17" y="843" width="616" height="96"/>
                                         <view key="contentView" id="gyQ-3a-4mB">
                                             <rect key="frame" x="4" y="5" width="608" height="76"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -108,7 +108,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="249" borderType="line" title="Main browser window size and position" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-Ns-eIu">
-                                        <rect key="frame" x="17" y="575" width="616" height="86"/>
+                                        <rect key="frame" x="17" y="751" width="616" height="86"/>
                                         <view key="contentView" id="BDS-2M-DdF">
                                             <rect key="frame" x="4" y="5" width="608" height="66"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -305,7 +305,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Toolbar/Menu Bar/Status Bar" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Cu-Oym">
-                                        <rect key="frame" x="17" y="441" width="616" height="128"/>
+                                        <rect key="frame" x="17" y="617" width="616" height="128"/>
                                         <view key="contentView" id="n8u-Q3-lEh">
                                             <rect key="frame" x="4" y="5" width="608" height="108"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -511,7 +511,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="SEB dock/taskbar" translatesAutoresizingMaskIntoConstraints="NO" id="JtS-CO-tOW">
-                                        <rect key="frame" x="17" y="167" width="616" height="268"/>
+                                        <rect key="frame" x="17" y="343" width="616" height="268"/>
                                         <view key="contentView" id="3Iq-aP-5ha">
                                             <rect key="frame" x="4" y="5" width="608" height="248"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -820,7 +820,7 @@
                                         </constraints>
                                     </box>
                                     <box autoresizesSubviews="NO" borderType="line" title="Enable zoom" translatesAutoresizingMaskIntoConstraints="NO" id="01r-Av-2fG">
-                                        <rect key="frame" x="17" y="77" width="616" height="84"/>
+                                        <rect key="frame" x="17" y="253" width="616" height="84"/>
                                         <view key="contentView" id="QpG-u2-Pup">
                                             <rect key="frame" x="4" y="5" width="608" height="64"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1001,7 +1001,7 @@
                                         </constraints>
                                     </box>
                                     <box borderType="line" title="Spell Checker" translatesAutoresizingMaskIntoConstraints="NO" id="nO5-ha-zqD">
-                                        <rect key="frame" x="17" y="11" width="616" height="60"/>
+                                        <rect key="frame" x="17" y="187" width="616" height="60"/>
                                         <view key="contentView" id="vTr-lN-r8P">
                                             <rect key="frame" x="4" y="5" width="608" height="40"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1073,6 +1073,280 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="FEm-am-w5e"/>
                                         </constraints>
                                     </box>
+                                    <box borderType="line" title="Accessibility Features" translatesAutoresizingMaskIntoConstraints="NO" id="qlR-pH-2nQ">
+                                        <rect key="frame" x="17" y="11" width="616" height="170"/>
+                                        <view key="contentView" id="Bq1-ak-KVA">
+                                            <rect key="frame" x="4" y="5" width="608" height="150"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="keD-vN-QWP">
+                                                    <rect key="frame" x="11" y="10" width="586" height="132"/>
+                                                    <subviews>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3m2-FV-E3P">
+                                                            <rect key="frame" x="0.0" y="112" width="586" height="20"/>
+                                                            <subviews>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MOd-UG-tmQ">
+                                                                    <rect key="frame" x="-2" y="3" width="293" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="VoiceOver" id="M8d-8C-k6p">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="7o6-Ek-mco" id="9J3-3W-gl7"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7o6-Ek-mco">
+                                                                    <rect key="frame" x="294" y="-4" width="296" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5Sx-zu-edw" id="mdW-Lr-5zt">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="message"/>
+                                                                        <menu key="menu" id="rm3-2l-upd">
+                                                                            <items>
+                                                                                <menuItem state="on" id="5Sx-zu-edw"/>
+                                                                                <menuItem id="M8n-ne-LvM"/>
+                                                                                <menuItem id="0QM-9l-NH4"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="RYL-rH-q3z"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_accessibilityFeaturePolicies" id="jX6-jj-Ld3"/>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_accessibilityFeatureVoiceOver" previousBinding="jX6-jj-Ld3" id="dZD-y6-5ui"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5Bf-cz-USQ">
+                                                            <rect key="frame" x="0.0" y="84" width="586" height="20"/>
+                                                            <subviews>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-qK-5hJ">
+                                                                    <rect key="frame" x="-2" y="3" width="293" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Assistive Touch (iOS)" id="GPU-33-Pwp">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="aHx-Zo-It6" id="f16-0M-DlU"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aHx-Zo-It6">
+                                                                    <rect key="frame" x="294" y="-4" width="296" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="163-gY-lAa" id="KEe-Up-d0p">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="message"/>
+                                                                        <menu key="menu" id="D0t-67-UG1">
+                                                                            <items>
+                                                                                <menuItem state="on" id="163-gY-lAa"/>
+                                                                                <menuItem id="kE2-EK-2kQ"/>
+                                                                                <menuItem id="uTv-lf-1ow"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="VrU-T1-1BI"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_accessibilityFeaturePolicies" id="smo-kc-tdr"/>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_accessibilityFeatureAssistiveTouch" previousBinding="smo-kc-tdr" id="bSe-E1-NUC"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="6zU-XV-Izu">
+                                                            <rect key="frame" x="0.0" y="56" width="586" height="20"/>
+                                                            <subviews>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caK-Ii-ceH">
+                                                                    <rect key="frame" x="-2" y="3" width="293" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Greyscale Display (iOS)" id="rZz-Dc-BRg">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="UBV-df-tWq" id="xqQ-1Y-QxO"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-df-tWq">
+                                                                    <rect key="frame" x="294" y="-4" width="296" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4h9-Yw-OOl" id="3Tr-xG-z7u">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="message"/>
+                                                                        <menu key="menu" id="Zxh-zs-jdc">
+                                                                            <items>
+                                                                                <menuItem state="on" id="4h9-Yw-OOl"/>
+                                                                                <menuItem id="Tg1-qQ-zOY"/>
+                                                                                <menuItem id="LZx-l6-dJU"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="70k-Ke-EXf"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_accessibilityFeaturePolicies" id="bkV-hr-lVF"/>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_accessibilityFeatureGrayscaleDisplay" previousBinding="bkV-hr-lVF" id="k7A-xF-G7l"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="t8y-aa-bJG">
+                                                            <rect key="frame" x="0.0" y="28" width="586" height="20"/>
+                                                            <subviews>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HUK-Ng-hQa">
+                                                                    <rect key="frame" x="-2" y="3" width="293" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Smart Invert (iOS)" id="s7L-DW-WN1">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="UUn-Qx-trq" id="TB1-VY-jjy"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UUn-Qx-trq">
+                                                                    <rect key="frame" x="294" y="-4" width="296" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="S6g-f3-dh6" id="8oe-FX-VfL">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="message"/>
+                                                                        <menu key="menu" id="Rtl-mo-9Ig">
+                                                                            <items>
+                                                                                <menuItem state="on" id="S6g-f3-dh6"/>
+                                                                                <menuItem id="ppl-We-ddE"/>
+                                                                                <menuItem id="MCT-u9-7xX"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="z0a-nA-a2J"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_accessibilityFeaturePolicies" id="vYB-co-xoB"/>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_accessibilityFeatureInvertColors" previousBinding="vYB-co-xoB" id="eDj-Na-tVm"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                        <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="0Oh-8e-I9j">
+                                                            <rect key="frame" x="0.0" y="0.0" width="586" height="20"/>
+                                                            <subviews>
+                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mmw-Vd-BcG">
+                                                                    <rect key="frame" x="-2" y="3" width="293" height="16"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Zoom (iOS)" id="NIa-pg-4RL">
+                                                                        <font key="font" metaFont="system"/>
+                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                    <connections>
+                                                                        <accessibilityConnection property="title" destination="2Xj-7o-gkr" id="ggU-ed-IrD"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2Xj-7o-gkr">
+                                                                    <rect key="frame" x="294" y="-4" width="296" height="25"/>
+                                                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8ow-G3-puo" id="3bs-Ve-8IO">
+                                                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="message"/>
+                                                                        <menu key="menu" id="miu-Lj-kan">
+                                                                            <items>
+                                                                                <menuItem state="on" id="8ow-G3-puo"/>
+                                                                                <menuItem id="b2e-7z-aZz"/>
+                                                                                <menuItem id="3hV-de-WbC"/>
+                                                                            </items>
+                                                                        </menu>
+                                                                    </popUpButtonCell>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="zsU-b6-LSd"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_accessibilityFeaturePolicies" id="3hl-HN-FaT"/>
+                                                                        <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_accessibilityFeatureZoom" previousBinding="3hl-HN-FaT" id="GZI-ig-pQx"/>
+                                                                    </connections>
+                                                                </popUpButton>
+                                                            </subviews>
+                                                            <visibilityPriorities>
+                                                                <integer value="1000"/>
+                                                                <integer value="1000"/>
+                                                            </visibilityPriorities>
+                                                            <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                                <real value="3.4028234663852886e+38"/>
+                                                            </customSpacing>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="t8y-aa-bJG" firstAttribute="leading" secondItem="keD-vN-QWP" secondAttribute="leading" id="1ub-MB-hY7"/>
+                                                        <constraint firstAttribute="trailing" secondItem="t8y-aa-bJG" secondAttribute="trailing" id="3QO-eo-mwn"/>
+                                                        <constraint firstItem="6zU-XV-Izu" firstAttribute="leading" secondItem="keD-vN-QWP" secondAttribute="leading" id="ATR-aL-VDK"/>
+                                                        <constraint firstItem="3m2-FV-E3P" firstAttribute="leading" secondItem="keD-vN-QWP" secondAttribute="leading" id="Cav-9l-htn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="3m2-FV-E3P" secondAttribute="trailing" id="Q6a-oC-mtx"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5Bf-cz-USQ" secondAttribute="trailing" id="YAa-ux-ZHl"/>
+                                                        <constraint firstItem="0Oh-8e-I9j" firstAttribute="leading" secondItem="keD-vN-QWP" secondAttribute="leading" id="fCL-V1-2sx"/>
+                                                        <constraint firstAttribute="trailing" secondItem="6zU-XV-Izu" secondAttribute="trailing" id="ndf-wA-gId"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0Oh-8e-I9j" secondAttribute="trailing" id="uQN-CQ-Jh2"/>
+                                                        <constraint firstItem="5Bf-cz-USQ" firstAttribute="leading" secondItem="keD-vN-QWP" secondAttribute="leading" id="v4i-IM-fA1"/>
+                                                    </constraints>
+                                                    <visibilityPriorities>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                        <integer value="1000"/>
+                                                    </visibilityPriorities>
+                                                    <customSpacing>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                        <real value="3.4028234663852886e+38"/>
+                                                    </customSpacing>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="keD-vN-QWP" firstAttribute="top" secondItem="Bq1-ak-KVA" secondAttribute="top" constant="8" id="GKu-Oz-deI"/>
+                                                <constraint firstAttribute="trailing" secondItem="keD-vN-QWP" secondAttribute="trailing" constant="11" id="PWj-MX-fJd"/>
+                                                <constraint firstItem="keD-vN-QWP" firstAttribute="leading" secondItem="Bq1-ak-KVA" secondAttribute="leading" constant="11" id="SXt-Ag-uhZ"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="keD-vN-QWP" secondAttribute="bottom" constant="10" id="qtJ-JN-t7P"/>
+                                            </constraints>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="h7m-Ra-5vC"/>
+                                        </constraints>
+                                    </box>
                                 </subviews>
                                 <edgeInsets key="edgeInsets" left="20" right="20" top="15" bottom="15"/>
                                 <constraints>
@@ -1080,6 +1354,7 @@
                                     <constraint firstAttribute="trailing" secondItem="01r-Av-2fG" secondAttribute="trailing" id="Ezc-QH-BLc"/>
                                     <constraint firstAttribute="width" constant="630" id="eSZ-Xh-RNM"/>
                                     <constraint firstAttribute="trailing" secondItem="JtS-CO-tOW" secondAttribute="trailing" id="gIE-of-yrv"/>
+                                    <constraint firstAttribute="trailing" secondItem="qlR-pH-2nQ" secondAttribute="trailing" id="mC3-fA-GHi"/>
                                     <constraint firstAttribute="trailing" secondItem="Qdn-Cu-Oym" secondAttribute="trailing" id="thy-01-ihV"/>
                                     <constraint firstAttribute="trailing" secondItem="nO5-ha-zqD" secondAttribute="trailing" id="vww-2R-D7H"/>
                                     <constraint firstAttribute="trailing" secondItem="J5d-BA-D2w" secondAttribute="trailing" id="wtY-RX-agS"/>
@@ -1091,8 +1366,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1114,7 +1391,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.29230769230769227" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.91503267973856206" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="651" y="1" width="15" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

@@ -85,7 +85,7 @@
 #define SEBErrorGettingConnectionTokenFailed 401
 #define SEBScreenProctoringCacheSizeDefault 500
 
-#define currentStableMajoriOSVersion 18
+#define currentStableMajoriOSVersion 26
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -102,6 +102,13 @@ enum {
     webViewSelectForceModern                   = 3
 };
 typedef NSUInteger webViewSelectPolicies;
+
+
+typedef NS_ENUM(NSInteger, AccessibilityFeaturePolicy) {
+    AccessibilityFeaturePolicySystemDefault     = 0,
+    AccessibilityFeaturePolicyEnable            = 1,
+    AccessibilityFeaturePolicyDisable           = 2
+};
 
 
 enum {
@@ -494,7 +501,8 @@ enum {
     SEBMinMacOS12                               = 10,
     SEBMinMacOS13                               = 11,
     SEBMinMacOS14                               = 12,
-    SEBMinMacOS15                               = 13
+    SEBMinMacOS15                               = 13,
+    SEBMinMacOS26                               = 14
 };
 typedef NSUInteger SEBMinMacOSVersion;
 
@@ -558,6 +566,11 @@ static NSString __unused *browserWindowTitleSeparator = @"  —  ";
 static NSString __unused *screenSharingAgent = @"ScreensharingAgent";
 static NSString __unused *screenSharingAgentBundleID = @"com.apple.screensharing.agent";
 static NSString __unused *screenCaptureAgent = @"screencapture";
+static NSString __unused *VoiceOverApp = @"VoiceOver.app";
+static NSString __unused *VoiceOverBundleID = @"com.apple.VoiceOver";
+static NSString __unused *VoiceOverDefaultsDomain = @"com.apple.universalaccess";
+static NSString __unused *VoiceOverDefaultsKey = @"voiceOverOnOffKey";
+static NSString __unused *cachedVoiceOverSettingKey = @"cachedVoiceOverSettingKey";
 static NSString __unused *AppleVNCAgent = @"AppleVNCServer";
 static NSString __unused *AppleVNCAgentBundleID = @"com.apple.AppleVNCServer";
 static NSString __unused *ARDAgent = @"ARDAgent";
@@ -656,7 +669,7 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 // The dictionary that is sent back to the MDM server as feedback must be stored in this key.
 static NSString * const kFeedbackKey = @"com.apple.feedback.managed";
 
-static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS10_15;
+static NSInteger SEBMinMacOSVersionSupported = SEBMinMacOS11;
 static NSInteger SEBMinMacOSVersionSupportedMajor = 11;
 static NSInteger SEBMinMacOSVersionSupportedMinor = 0;
 static NSInteger SEBMinMacOSVersionSupportedPatch = 0;

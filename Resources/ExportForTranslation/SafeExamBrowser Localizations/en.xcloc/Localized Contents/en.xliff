@@ -707,6 +707,11 @@
         <target>Status Bar appearance on devices with FaceID</target>
         <note>Class = "NSPopUpButton"; ibShadowedToolTip = "Status Bar appearance on devices with FaceID"; ObjectID = "Fjl-cW-pil";</note>
       </trans-unit>
+      <trans-unit id="GPU-33-Pwp.title" xml:space="preserve">
+        <source>Assistive Touch (iOS)</source>
+        <target>Assistive Touch (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Assistive Touch (iOS)"; ObjectID = "GPU-33-Pwp";</note>
+      </trans-unit>
       <trans-unit id="HEJ-HA-6o4.title" xml:space="preserve">
         <source>Show keyboard layout (Win)</source>
         <target>Show keyboard layout (Win)</target>
@@ -741,6 +746,16 @@
         <source>Enable browser window toolbar</source>
         <target>Enable browser window toolbar</target>
         <note>Class = "NSButtonCell"; title = "Enable browser window toolbar"; ObjectID = "LNX-ve-0Pd";</note>
+      </trans-unit>
+      <trans-unit id="M8d-8C-k6p.title" xml:space="preserve">
+        <source>VoiceOver</source>
+        <target>VoiceOver</target>
+        <note>Class = "NSTextFieldCell"; title = "VoiceOver"; ObjectID = "M8d-8C-k6p";</note>
+      </trans-unit>
+      <trans-unit id="NIa-pg-4RL.title" xml:space="preserve">
+        <source>Zoom (iOS)</source>
+        <target>Zoom (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Zoom (iOS)"; ObjectID = "NIa-pg-4RL";</note>
       </trans-unit>
       <trans-unit id="O0B-MY-YwV.ibShadowedObjectValues[0]" xml:space="preserve">
         <source>50%</source>
@@ -982,10 +997,25 @@
         <target>Use a browser window which can be scaled and moved around, show main window full screen or use the tablet mode (Win)</target>
         <note>Class = "NSMatrix"; ibShadowedToolTip = "Use a browser window which can be scaled and moved around, show main window full screen or use the tablet mode (Win)"; ObjectID = "qfl-QX-6zS";</note>
       </trans-unit>
+      <trans-unit id="qlR-pH-2nQ.title" xml:space="preserve">
+        <source>Accessibility Features</source>
+        <target>Accessibility Features</target>
+        <note>Class = "NSBox"; title = "Accessibility Features"; ObjectID = "qlR-pH-2nQ";</note>
+      </trans-unit>
       <trans-unit id="rQZ-65-nx7.title" xml:space="preserve">
         <source>Show quit button</source>
         <target>Show quit button</target>
         <note>Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7";</note>
+      </trans-unit>
+      <trans-unit id="rZz-Dc-BRg.title" xml:space="preserve">
+        <source>Greyscale Display (iOS)</source>
+        <target>Greyscale Display (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Greyscale Display (iOS)"; ObjectID = "rZz-Dc-BRg";</note>
+      </trans-unit>
+      <trans-unit id="s7L-DW-WN1.title" xml:space="preserve">
+        <source>Smart Invert (iOS)</source>
+        <target>Smart Invert (iOS)</target>
+        <note>Class = "NSTextFieldCell"; title = "Smart Invert (iOS)"; ObjectID = "s7L-DW-WN1";</note>
       </trans-unit>
       <trans-unit id="tSt-QD-jfK.ibShadowedToolTip" xml:space="preserve">
         <source>Shows the Quit SEB/Session Dock button</source>
@@ -5238,6 +5268,11 @@ It is deleted when the session ends</target>
         <target>15 Sequoia</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="26 Tahoe" xml:space="preserve">
+        <source>26 Tahoe</source>
+        <target>26 Tahoe</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." xml:space="preserve">
         <source>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</source>
         <target>A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again.</target>
@@ -5451,11 +5486,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Cannot Restore Touch Bar Mode" xml:space="preserve">
         <source>Cannot Restore Touch Bar Mode</source>
         <target>Cannot Restore Touch Bar Mode</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
-        <source>Cannot Start Another SEB Server Session</source>
-        <target>Cannot Start Another SEB Server Session</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
@@ -5738,6 +5768,11 @@ It is deleted when the session ends</target>
         <target>Dictation was activated</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disable" xml:space="preserve">
+        <source>Disable</source>
+        <target>Disable</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Disconnecting from SEB Server" xml:space="preserve">
         <source>Disconnecting from SEB Server</source>
         <target>Disconnecting from SEB Server</target>
@@ -5811,6 +5846,11 @@ It is deleted when the session ends</target>
       <trans-unit id="Edited settings have unsaved changes." xml:space="preserve">
         <source>Edited settings have unsaved changes.</source>
         <target>Edited settings have unsaved changes.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enable" xml:space="preserve">
+        <source>Enable</source>
+        <target>Enable</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter Exam Password:" xml:space="preserve">
@@ -6783,6 +6823,11 @@ It is deleted when the session ends</target>
         <target>Switched back after user switch / login window</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="System Default" xml:space="preserve">
+        <source>System Default</source>
+        <target>System Default</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="System Preferences" xml:space="preserve">
         <source>System Preferences</source>
         <target>System Preferences</target>
@@ -6836,11 +6881,6 @@ It is deleted when the session ends</target>
       <trans-unit id="Then restart %@/the exam." xml:space="preserve">
         <source>Then restart %@/the exam.</source>
         <target>Then restart %@/the exam.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
-        <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
-        <target>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
@@ -8960,6 +9000,11 @@ untitled filename</note>
         <target>%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." xml:space="preserve">
+        <source>%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</source>
+        <target>%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." xml:space="preserve">
         <source>%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</source>
         <target>%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.</target>
@@ -8993,6 +9038,11 @@ untitled filename</note>
       <trans-unit id="%@ was locked by SEB Server. Please contact your exam support." xml:space="preserve">
         <source>%@ was locked by SEB Server. Please contact your exam support.</source>
         <target>%@ was locked by SEB Server. Please contact your exam support.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
+        <source>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
+        <target>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.7 (this %@: 10.13)" xml:space="preserve">
@@ -9063,6 +9113,11 @@ untitled filename</note>
       <trans-unit id="15 Sequoia" xml:space="preserve">
         <source>15 Sequoia</source>
         <target>15 Sequoia</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="26 Tahoe" xml:space="preserve">
+        <source>26 Tahoe</source>
+        <target>26 Tahoe</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
@@ -9290,11 +9345,6 @@ untitled filename</note>
         <target>Cannot Send %@ Logs</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Cannot Start Another SEB Server Session" xml:space="preserve">
-        <source>Cannot Start Another SEB Server Session</source>
-        <target>Cannot Start Another SEB Server Session</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Cannot Start Exam" xml:space="preserve">
         <source>Cannot Start Exam</source>
         <target>Cannot Start Exam</target>
@@ -9323,6 +9373,11 @@ untitled filename</note>
       <trans-unit id="Checking server health" xml:space="preserve">
         <source>Checking server health</source>
         <target>Checking server health</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Choose" xml:space="preserve">
+        <source>Choose</source>
+        <target>Choose</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." xml:space="preserve">
@@ -9535,6 +9590,11 @@ untitled filename</note>
         <target>Device name: %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Disable" xml:space="preserve">
+        <source>Disable</source>
+        <target>Disable</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Disable Scroll Lock" xml:space="preserve">
         <source>Disable Scroll Lock</source>
         <target>Disable Scroll Lock</target>
@@ -9655,6 +9715,11 @@ untitled filename</note>
         <target>Embedded Certificate</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Enable" xml:space="preserve">
+        <source>Enable</source>
+        <target>Enable</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Enable Scroll Lock" xml:space="preserve">
         <source>Enable Scroll Lock</source>
         <target>Enable Scroll Lock</target>
@@ -9773,6 +9838,16 @@ untitled filename</note>
       <trans-unit id="File" xml:space="preserve">
         <source>File</source>
         <target>File</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="File Automatically Chosen" xml:space="preserve">
+        <source>File Automatically Chosen</source>
+        <target>File Automatically Chosen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="File to Upload Not Found!" xml:space="preserve">
+        <source>File to Upload Not Found!</source>
+        <target>File to Upload Not Found!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Finalizing Screen Proctoring" xml:space="preserve">
@@ -10690,6 +10765,11 @@ untitled filename</note>
         <target>Student</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="System Default" xml:space="preserve">
+        <source>System Default</source>
+        <target>System Default</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
         <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
         <target>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</target>
@@ -10743,11 +10823,6 @@ untitled filename</note>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <target>The user name or password for %@ was incorrect. Please try again.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." xml:space="preserve">
-        <source>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</source>
-        <target>There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
@@ -12064,9 +12139,24 @@ untitled filename</note>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.4" build-num="16F6"/>
     </header>
     <body>
+      <trans-unit id="Accessibility Features" xml:space="preserve">
+        <source>Accessibility Features</source>
+        <target>Accessibility Features</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Allow Auto-Correction" xml:space="preserve">
         <source>Allow Auto-Correction</source>
         <target>Allow Auto-Correction</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Allows to control various accessibility features." xml:space="preserve">
+        <source>Allows to control various accessibility features.</source>
+        <target>Allows to control various accessibility features.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="AssistiveTouch" xml:space="preserve">
+        <source>AssistiveTouch</source>
+        <target>AssistiveTouch</target>
         <note/>
       </trans-unit>
       <trans-unit id="Auto-Correction &amp; Predictive Text" xml:space="preserve">
@@ -12094,6 +12184,16 @@ untitled filename</note>
         <target>Default Text Zoom Level:</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Disable" xml:space="preserve">
+        <source>Disable</source>
+        <target>Disable</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Enable" xml:space="preserve">
+        <source>Enable</source>
+        <target>Enable</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Enable Page Zoom" xml:space="preserve">
         <source>Enable Page Zoom</source>
         <target>Enable Page Zoom</target>
@@ -12107,6 +12207,11 @@ untitled filename</note>
       <trans-unit id="Enable Text Zoom" xml:space="preserve">
         <source>Enable Text Zoom</source>
         <target>Enable Text Zoom</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Greyscale Display" xml:space="preserve">
+        <source>Greyscale Display</source>
+        <target>Greyscale Display</target>
         <note/>
       </trans-unit>
       <trans-unit id="In Assessment Mode/ASAM single app modes, auto-correction and predictive text are always disabled." xml:space="preserve">
@@ -12154,6 +12259,11 @@ untitled filename</note>
         <target>Scroll Lock</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Smart Invert" xml:space="preserve">
+        <source>Smart Invert</source>
+        <target>Smart Invert</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Status Bar (w/FaceID)" xml:space="preserve">
         <source>Status Bar (w/FaceID)</source>
         <target>Status Bar (w/FaceID)</target>
@@ -12169,9 +12279,19 @@ untitled filename</note>
         <target>Status/Tool Bar/SEB Dock</target>
         <note>String for Title elements</note>
       </trans-unit>
+      <trans-unit id="System Default" xml:space="preserve">
+        <source>System Default</source>
+        <target>System Default</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0." xml:space="preserve">
         <source>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</source>
         <target>Text zoom only works on some (simple) webpages. It is only enabled when the page zoom level is 1.0.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="VoiceOver" xml:space="preserve">
+        <source>VoiceOver</source>
+        <target>VoiceOver</target>
         <note/>
       </trans-unit>
       <trans-unit id="White on Black" xml:space="preserve">
@@ -12182,6 +12302,11 @@ untitled filename</note>
       <trans-unit id="With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types." xml:space="preserve">
         <source>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</source>
         <target>With the Scroll Lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Zoom" xml:space="preserve">
+        <source>Zoom</source>
+        <target>Zoom</target>
         <note/>
       </trans-unit>
     </body>

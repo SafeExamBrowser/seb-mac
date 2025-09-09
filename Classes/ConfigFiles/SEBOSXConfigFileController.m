@@ -106,19 +106,22 @@
 {
     DDLogInfo(@"Reconfiguring with client settings was successful");
     // Restart SEB with new settings
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"requestRestartNotification" object:self];
+    [_sebController serverSessionQuitRestart:YES];
 }
 
 
-- (void) willReconfigureTemporary {
+- (void) willReconfigureTemporary
+{
+    DDLogDebug(@"%s", __FUNCTION__);
     // Release preferences window so bindings get synchronized properly with the new loaded values
     [self.sebController.preferencesController releasePreferencesWindow];
     
 }
 
 
-- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials {
+- (void) didReconfigureTemporaryForEditing:(BOOL)forEditing sebFileCredentials:(SEBConfigFileCredentials *)sebFileCrentials
+{
+    DDLogDebug(@"%s forEditing: %d", __FUNCTION__, forEditing);
     // Reset SEB, close third party applications
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     PreferencesController *prefsController = self.sebController.preferencesController;
@@ -219,31 +222,32 @@
 
 
 - (BOOL) saveSettingsUnencryptedUncompressed:(BOOL)uncompressed;
- {
+{
     NSAlert *newAlert = [self.sebController newAlert];
     [newAlert setMessageText:NSLocalizedString(@"No Encryption Credentials Chosen", @"")];
-     
-     [newAlert setInformativeText:[NSString stringWithFormat:@"%@%@\n\n%@", NSLocalizedString(@"The configuration will be saved unencrypted", @""), uncompressed ? @"." : NSLocalizedString(@", but compressed using gzip.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
-    [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+    
+    [newAlert setInformativeText:[NSString stringWithFormat:@"%@%@\n\n%@", NSLocalizedString(@"The configuration will be saved unencrypted", @""), uncompressed ? @"." : NSLocalizedString(@", but compressed using gzip.", @""), NSLocalizedString(@"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.", @"")]];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Unencrypted", @"")];
+    [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
     [newAlert setAlertStyle:NSAlertStyleWarning];
     BOOL (^unencryptedSaveAlertAnswerHandler)(NSModalResponse) = ^BOOL (NSModalResponse answer) {
         [self.sebController removeAlertWindow:newAlert.window];
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
+                // save .seb config data unencrypted
+                return YES;
+
+            case NSAlertSecondButtonReturn:
                 // Post a notification to switch to the Config File prefs pane
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"switchToConfigFilePane" object:self];
                 // don't save the config data
                 return NO;
-                
-            case NSAlertSecondButtonReturn:
-                // save .seb config data unencrypted
-                return YES;
-                
+
             default:
-                DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Configuration will not be saved unencrypted.", answer);
-                return NO;
+                DDLogError(@"%s: Alert was dismissed by the system with NSModalResponse %ld. Configuration will be saved unencrypted.", __FUNCTION__, answer);
+                return YES;
         }
     };
     if (@available(macOS 12.0, *)) {
@@ -255,7 +259,6 @@
             }
         }
     }
-    [newAlert addButtonWithTitle:NSLocalizedString(@"Save Unencrypted", @"")];
     NSModalResponse answer = [newAlert runModal];
     return unencryptedSaveAlertAnswerHandler(answer);
 }

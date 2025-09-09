@@ -166,6 +166,124 @@
 			<key>Key</key>
 			<string>org_safeexambrowser_SEB_allowSpellCheck</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Accessibility Features</string>
+			<key>FooterText</key>
+			<string>Allows to control various accessibility features.</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_accessibilityFeatureVoiceOver</string>
+			<key>Title</key>
+			<string>VoiceOver</string>
+			<key>Titles</key>
+			<array>
+				<string>System Default</string>
+				<string>Enable</string>
+				<string>Disable</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_accessibilityFeatureAssistiveTouch</string>
+			<key>Title</key>
+			<string>AssistiveTouch</string>
+			<key>Titles</key>
+			<array>
+				<string>System Default</string>
+				<string>Enable</string>
+				<string>Disable</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_accessibilityFeatureGrayscaleDisplay</string>
+			<key>Title</key>
+			<string>Grayscale Display</string>
+			<key>Titles</key>
+			<array>
+				<string>System Default</string>
+				<string>Enable</string>
+				<string>Disable</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_accessibilityFeatureInvertColors</string>
+			<key>Title</key>
+			<string>Smart Invert</string>
+			<key>Titles</key>
+			<array>
+				<string>System Default</string>
+				<string>Enable</string>
+				<string>Disable</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>org_safeexambrowser_SEB_accessibilityFeatureZoom</string>
+			<key>Title</key>
+			<string>Zoom</string>
+			<key>Titles</key>
+			<array>
+				<string>System Default</string>
+				<string>Enable</string>
+				<string>Disable</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>DisplaySortedByTitle</key>
+			<false/>
+		</dict>
 	</array>
 </dict>
 </plist>

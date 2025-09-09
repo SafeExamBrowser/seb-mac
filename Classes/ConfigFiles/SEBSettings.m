@@ -150,6 +150,21 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"aacDnsPrePinning",
                    
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureAssistiveTouch",
+
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureGrayscaleDisplay",
+
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureInvertColors",
+
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureVoiceOver",
+
+                   [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
+                   @"accessibilityFeatureZoom",
+
                    [NSArray array],
                    @"additionalResources",
                    
@@ -249,7 +264,11 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowPDFReaderToolbar",
                    
+#ifdef DEBUG
                    @YES,
+#else
+                   @NO,
+#endif
                    @"allowPreferencesWindow",
                    
                    @NO,
@@ -293,9 +312,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"allowVirtualMachine",
-                   
-                   @YES,
-                   @"allowAccessibilityVoiceOver",
 
                    @NO,
                    @"allowWindowCapture",

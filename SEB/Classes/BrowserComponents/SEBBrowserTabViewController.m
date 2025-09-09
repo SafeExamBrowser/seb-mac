@@ -368,6 +368,116 @@ runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
 }
 
 
+- (void)webView:(WKWebView *)webView
+runOpenPanelWithParameters:(id)parameters
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
+API_AVAILABLE(ios(18.4)){
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (self.allowUploads) {
+        if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] != manuallyWithFileRequester) {
+            // If the policy isn't "manually with file requester"
+            // We try to choose the filename and path ourselves, it's the last dowloaded file
+            NSInteger lastDownloadPathIndex = [[MyGlobals sharedMyGlobals] lastDownloadPath];
+            NSMutableArray *downloadPaths = [[MyGlobals sharedMyGlobals] downloadPath];
+            if (downloadPaths && downloadPaths.count) {
+                if (lastDownloadPathIndex == -1) {
+                    //if the index counter of the last downloaded file is -1, we have reached the beginning of the list of downloaded files
+                    lastDownloadPathIndex = [downloadPaths count]-1; //so we jump to the last path in the list
+                }
+                NSString *lastDownloadPath = [downloadPaths objectAtIndex:lastDownloadPathIndex];
+                lastDownloadPathIndex--;
+                [[MyGlobals sharedMyGlobals] setLastDownloadPath:lastDownloadPathIndex];
+                if (lastDownloadPath && [[NSFileManager defaultManager] fileExistsAtPath:lastDownloadPath]) {
+                    completionHandler(@[[NSURL fileURLWithPath:lastDownloadPath]]);
+
+                    if (self.uiAlertController) {
+                        [self.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+                    }
+                    DDLogInfo(@"File to upload automatically chosen");
+                    self.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"File Automatically Chosen", @"")
+                                                                                              message:[NSString stringWithFormat:NSLocalizedString(@"%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.", @""), SEBShortAppName]
+                                                                                       preferredStyle:UIAlertControllerStyleAlert];
+                    [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
+                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                        self.uiAlertController = nil;
+                                                                        }]];
+                    [self presentViewController:self.uiAlertController animated:NO completion:nil];
+                    return;
+                }
+            }
+            
+            if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_chooseFileToUploadPolicy"] == onlyAllowUploadSameFileDownloadedBefore) {
+                // if the policy is "Only allow to upload the same file downloaded before"
+                completionHandler(nil);
+
+                if (self.uiAlertController) {
+                    [self.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+                }
+                DDLogError(@"File to upload (which was downloaded before) not found");
+                self.uiAlertController = [UIAlertController  alertControllerWithTitle:NSLocalizedString(@"File to Upload Not Found!", @"")
+                                                                                          message:[NSString stringWithFormat:NSLocalizedString(@"%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.", @""), SEBShortAppName]
+                                                                                   preferredStyle:UIAlertControllerStyleAlert];
+                [self.uiAlertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
+                                                                    style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    self.uiAlertController = nil;
+                                                                    }]];
+                [self presentViewController:self.uiAlertController animated:NO completion:nil];
+                return;
+            }
+        }
+//        // Create the File Open Dialog class.
+//        NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
+//        
+//        // Enable the selection of files in the dialog.
+//        openFilePanel.canChooseFiles = YES;
+//        
+//        if (@available(macOS 10.12, *)) {
+//            if ([[parameters class] isEqual:WKOpenPanelParameters.class]) {
+//                // Is selection of multiple files at a time allowed?
+//                openFilePanel.allowsMultipleSelection = ((WKOpenPanelParameters *)parameters).allowsMultipleSelection;
+//                // Is selection of directories allowed?
+//                if (@available(macOS 10.13.4, *)) {
+//                    openFilePanel.canChooseDirectories = ((WKOpenPanelParameters *)parameters).allowsDirectories;
+//                } else {
+//                    openFilePanel.canChooseDirectories = NO;
+//                }
+//            }
+//        }
+//        if ([parameters respondsToSelector: @selector(boolValue)]) {
+//            openFilePanel.allowsMultipleSelection = ((NSNumber *)parameters).boolValue;
+//            openFilePanel.canChooseDirectories = NO;
+//        }
+//        
+//        // Change text of the open button in file dialog
+//        openFilePanel.prompt = NSLocalizedString(@"Choose",nil);
+//        
+//        // Change default directory in file dialog
+//        openFilePanel.directoryURL = [self.browserController downloadDirectoryURL];
+//        
+//        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+//        [self makeKeyAndOrderFront:self];
+//        
+//        // Display the dialog.  If the OK button was pressed,
+//        // process the files.
+//        [openFilePanel beginSheetModalForWindow:self
+//                              completionHandler:^(NSInteger result) {
+//            if (result == NSModalResponseOK) {
+//                // Get an array containing the full filenames of all
+//                // files and directories selected.
+//                NSArray* fileURLs = [openFilePanel URLs];
+//                completionHandler(fileURLs);
+//            } else {
+//                completionHandler(nil);
+//            }
+//        }];
+    } else {
+        completionHandler(nil);
+        [self showAlertNotAllowedDownUploading:YES];
+    }
+}
+
+
 #pragma mark - Opening and closing tabs
 
 // Open new tab and load URL

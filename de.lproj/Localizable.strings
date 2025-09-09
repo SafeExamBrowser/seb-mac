@@ -155,6 +155,9 @@
 "15 Sequoia" = "15 Sequoia";
 
 /* No comment provided by engineer. */
+"26 Tahoe" = "26 Tahoe";
+
+/* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display and start %@ again." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display und starten Sie %@ erneut.";
 
 /* No comment provided by engineer. */
@@ -309,9 +312,6 @@
 
 /* No comment provided by engineer. */
 "Cannot Restore Touch Bar Mode" = "Touch Bar Modus kann nicht wiederhergestellt werden";
-
-/* No comment provided by engineer. */
-"Cannot Start Another SEB Server Session" = "Weitere SEB Server Session kann nicht gestartet werden";
 
 /* No comment provided by engineer. */
 "Cannot Start Exam" = "Prüfung kann nicht gestartet werden";
@@ -482,6 +482,9 @@
 "Dictation was activated" = "Diktat-Funktion wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Disable" = "Deaktivieren";
+
+/* No comment provided by engineer. */
 "Disconnecting from SEB Server" = "Verbindung mit SEB Server trennen";
 
 /* No comment provided by engineer. */
@@ -525,6 +528,9 @@
 
 /* No comment provided by engineer. */
 "Edited settings have unsaved changes." = "Bearbeitete Einstellungen haben ungesicherte Änderungen.";
+
+/* No comment provided by engineer. */
+"Enable" = "Aktivieren";
 
 /* No comment provided by engineer. */
 "Enter administrator password:" = "Administrator-Passwort eingeben:";
@@ -1154,6 +1160,9 @@
 "Switched back after user switch / login window" = "Wechsel zurück nach Benutzerwechsel / Anmeldefenster";
 
 /* No comment provided by engineer. */
+"System Default" = "Systemeinstellung";
+
+/* No comment provided by engineer. */
 "System Preferences" = "Systemeinstellungen";
 
 /* No comment provided by engineer. */
@@ -1191,9 +1200,6 @@
 
 /* No comment provided by engineer. */
 "Then restart %@/the exam." = "Dannach starten Sie %@/die Prüfung neu.";
-
-/* No comment provided by engineer. */
-"There is already a SEB Server session running. It is not allowed to reconfigure for another SEB Server session. Quit the SEB Server session first." = "Es läuft bereits eine SEB Server Session. Es ist nicht erlaubt, eine andere SEB Server Session zu starten, die laufende muss zuerst beendet werden.";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafte Einstellung: %@).";

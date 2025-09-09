@@ -73,6 +73,14 @@
 
     [self initializeTemporaryLogger];
 
+   TouchMonitoringWindow *window = [[TouchMonitoringWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+   window.touchMonitoringDelegate = self;
+
+   // Load the storyboard’s initial VC
+   UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:NSBundle.mainBundle];
+   window.rootViewController = [storyboard instantiateInitialViewController];
+   self.window = window;
+
     // Check if Single App Mode is active
     // or Autonomous Single App Mode stayed active because
     // SEB crashed before and was automatically restarted
@@ -164,10 +172,6 @@
             _openedUniversalLink = YES;
         }
     }
-
-    UIGestureRecognizer *tapGesture = [[UIGestureRecognizer alloc] initWithTarget:self action:nil];
-    tapGesture.delegate = self;
-    [self.window addGestureRecognizer:tapGesture];
     
     return shouldPerformAdditionalDelegateHandling;
 }
@@ -181,10 +185,11 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    DDLogDebug(@"%s", __FUNCTION__);
+    DDLogInfo(@"%s", __FUNCTION__);
     _didEnterBackground = YES;
     _sebViewController.appDidEnterBackgroundTime = [NSDate date];
     if (_sebViewController.noSAMAlertDisplayed || _sebViewController.startSAMWAlertDisplayed) {
+        DDLogInfo(@"%s: noSAMAlertDisplayed or startSAMWAlertDisplayed, we didn't succeed to switch an Assessment mode on", __FUNCTION__);
         [_sebViewController.alertController dismissViewControllerAnimated:NO completion:nil];
         _sebViewController.alertController = nil;
         _sebViewController.noSAMAlertDisplayed = false;
@@ -514,11 +519,11 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 }
 
 
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveEvent:(nonnull UIEvent *)event
+- (void)receivedUIEvent:event
 {
-    [_sebViewController receivedUIEvent:event];
-    return NO;
+   [_sebViewController receivedUIEvent:event];
 }
+
 
 #pragma mark -
 #pragma mark Handle hardware keyboard shortcuts

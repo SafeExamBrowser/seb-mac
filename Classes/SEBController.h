@@ -141,6 +141,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     BOOL allowDictionaryLookup;
     BOOL allowOpenAndSavePanel;
     BOOL allowShareSheet;
+    BOOL voiceOverDisabled;
     BOOL detectSIGSTOP;
     BOOL screenCapturePermissionsRequested;
     BOOL systemPreferencesOpenedForScreenRecordingPermissions;
@@ -396,7 +397,7 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) searchTextNext:(id)sender;
 - (IBAction) searchTextPrevious:(id)sender;
 
-- (void) requestedRestart:(NSNotification *_Nullable)notification;
+- (void) requestedRestart;
 
 - (BOOL) applicationShouldOpenUntitledFile:(NSApplication *)sender;
 

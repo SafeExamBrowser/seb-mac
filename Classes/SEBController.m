@@ -500,11 +500,6 @@ bool insideMatrix(void);
                                              selector:@selector(quitLinkDetected:)
                                                  name:@"quitLinkDetected" object:nil];
     
-    // Add an observer for the request to reload start URL
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestedRestart:)
-                                                 name:@"requestRestartNotification" object:nil];
-    
     // Add an observer for the request to quit SEB or session unconditionally
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(quitSEBOrSession)
@@ -877,7 +872,7 @@ bool insideMatrix(void);
             [modalAlert setAlertStyle:NSAlertStyleCritical];
             void (^keyBindingDetectedHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                 [self removeAlertWindow:modalAlert.window];
-                [self quitSEBOrSession];
+                [self requestedExit:nil];
             };
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))keyBindingDetectedHandler];
             return;
@@ -1014,6 +1009,7 @@ bool insideMatrix(void);
                    callback:(id)callback
                    selector:(SEL)selector
 {
+    DDLogDebug(@"%s forEditing: %d forceConfiguringClient: %d showReconfiguredAlert: %d callback: %@ selector: %@", __FUNCTION__, forEditing, forceConfiguringClient, showReconfiguredAlert, callback, NSStringFromSelector(selector));
     [self.configFileController storeNewSEBSettings:sebData
                                      forEditing:forEditing
                          forceConfiguringClient:forceConfiguringClient
@@ -1035,7 +1031,7 @@ bool insideMatrix(void);
         
         if (!_startingUp) {
             // SEB is being reconfigured by opening a config file
-            [self requestedRestart:nil];
+            [self requestedRestart];
         } else {
             [self didFinishLaunchingWithSettings];
         }
@@ -1076,7 +1072,7 @@ bool insideMatrix(void);
         
     } else {
         // SEB is being reconfigured by opening a config file
-        [self requestedRestart:nil];
+        [self requestedRestart];
     }
 }
 
@@ -1166,6 +1162,38 @@ bool insideMatrix(void);
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
+        if (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {
+            // Stop/Reset proctoring
+            [self stopProctoringWithCompletion:^{
+                DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
+                    DDLogInfo(@"%s: There is already a SEB Server session running and the new session is also a SEB Server session: Terminate the running SEB Server session before starting the new one.", __FUNCTION__);
+                    [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+                        self.establishingSEBServerConnection = NO;
+                        DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
+                        run_on_ui_thread(^{
+                            [self startExamAccessibilityCheckWithFallback:fallback];
+                        });
+                    }];
+            }];
+            
+        } else {
+            [self startExamAccessibilityCheckWithFallback:fallback];
+        }
+    }
+}
+
+
+- (void) startExamAccessibilityCheckWithFallback:(BOOL)fallback
+{
+    DDLogInfo(@"%s", __FUNCTION__);
+    [AccessibilityFeaturesManager controlVoiceOver];
+
+    [self startExamFromSEBServerWithFallback:fallback];
+}
+
+
+- (void) startExamFromSEBServerWithFallback:(BOOL)fallback
+{
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer &&
             !fallback) {
@@ -1205,7 +1233,6 @@ bool insideMatrix(void);
         [self persistSecureExamStartURL:self.sessionState.startURL.absoluteString configKey:self.configKey];
         //        }
 
-    }
 }
 
 // Persist start URL of a secure exam
@@ -1454,6 +1481,8 @@ bool insideMatrix(void);
 
 - (void) serverSessionQuitRestart:(BOOL)restart
 {
+    DDLogDebug(@"%s", __FUNCTION__);
+    
     self.establishingSEBServerConnection = NO;
     if (_sebServerViewDisplayed) {
         [self closeServerView];
@@ -1471,7 +1500,7 @@ bool insideMatrix(void);
 {
     _establishingSEBServerConnection = NO;
     if (restart) {
-        [self requestedRestart:nil];
+        [self requestedRestart];
     } else {
         [self quitSEBOrSession];
     }
@@ -2037,7 +2066,8 @@ bool insideMatrix(void);
                       callback:(id)callback
                       selector:(SEL)selector
 {
-    // Get all running processes, including daemons
+    DDLogDebug(@"%s starting: %d restarting: %d callback: %@ selector: %@", __FUNCTION__, starting, restarting, callback, NSStringFromSelector(selector));
+   // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     self.runningProcesses = allRunningProcesses;
     
@@ -2142,7 +2172,9 @@ bool insideMatrix(void);
 }
 
 
-- (void) conditionallyContinueAfterTerminatingAppsWithCallback:(id)callback restarting:(BOOL)restarting selector:(SEL)selector starting:(BOOL)starting {
+- (void) conditionallyContinueAfterTerminatingAppsWithCallback:(id)callback restarting:(BOOL)restarting selector:(SEL)selector starting:(BOOL)starting
+{
+    DDLogDebug(@"%s callback: %@ restarting: %d selector: %@ starting: %d", __FUNCTION__, callback, restarting, NSStringFromSelector(selector), starting);
     if (starting) {
         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
     } else {
@@ -2477,8 +2509,7 @@ bool insideMatrix(void);
                                 // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                             {
                                 DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                                [[NSNotificationCenter defaultCenter]
-                                 postNotificationName:@"requestRestartNotification" object:self];
+                                [self requestedRestart];
                                 return;
                             }
                         }
@@ -2570,8 +2601,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled screen proctoring.", (long)answer);
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestRestartNotification" object:self];
+                            [self requestedRestart];
                             return;
                         }
                     }
@@ -2694,8 +2724,7 @@ bool insideMatrix(void);
                             // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                         {
                             DDLogError(@"Alert was dismissed by the system with NSModalResponse %ld. Canceling session with enabled remote proctoring.", (long)answer);
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestRestartNotification" object:self];
+                            [self requestedRestart];
                             return;
                         }
                     }
@@ -2924,6 +2953,8 @@ void run_on_ui_thread(dispatch_block_t block)
         allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
         allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
         allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+        voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+
     }
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -3752,7 +3783,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
              postNotificationName:@"detectedDictation" object:self];
         }
     
-    checkingForWindows = false;
+    checkingForWindows = NO;
     
     // Kill TouchBar Tool if it's running
     NSArray *runningProcessInstances = [allRunningProcesses containsProcessObject:BTouchBarRestartAgent];
@@ -7014,8 +7045,7 @@ conditionallyForWindow:(NSWindow *)window
 
         [self performAfterPreferencesClosedActions];
         
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"requestRestartNotification" object:self];
+        [self sessionQuitRestart:YES];
 
         // Reinforce kiosk mode after a delay, so eventually visible fullscreen apps get hidden again
         [self performSelector:@selector(reinforceKioskMode) withObject: nil afterDelay: 1];
@@ -7255,6 +7285,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) sessionQuitRestart:(BOOL)restart
 {
+    DDLogDebug(@"%s restart: %d", __FUNCTION__, restart);
     _openingSettings = NO;
 
     // In case of AAC Multi App Mode, we have to terminate running permitted applications
@@ -7263,15 +7294,20 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) sessionQuitRestartContinue:(BOOL)restart
 {
+    DDLogDebug(@"%s restart: %d", __FUNCTION__, restart);
+
     NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
     if (permittedProcesses.count > 0) {
         BOOL removedSavedWindowState = [self.assessmentConfigurationManager removeSavedAppWindowStateWithPermittedApplications:permittedProcesses];
         DDLogInfo(@"Removing saved window state for permitted applications before quitting SEB was %@successful.", removedSavedWindowState ? @"" : @"not ");
     }
+
+    [AccessibilityFeaturesManager restoreVoiceOver];
+
     // Stop/Reset proctoring
     [self stopProctoringWithCompletion:^{
         DDLogDebug(@"%s Conditionally closed (optional) proctoring", __FUNCTION__);
-        [self conditionallyCloseSEBServerConnectionWithRestart:NO completion:^(BOOL restart) {
+        [self conditionallyCloseSEBServerConnectionWithRestart:restart completion:^(BOOL restart) {
             self.establishingSEBServerConnection = NO;
             DDLogDebug(@"%s Conditionally closed (optional) SEB Server connection (restart: %d)", __FUNCTION__, restart);
             run_on_ui_thread(^{
@@ -7288,7 +7324,7 @@ conditionallyForWindow:(NSWindow *)window
     if (self.quittingSession) {
         [NSUserDefaults setUserDefaultsPrivate:NO];
         [self updateAACAvailablility];
-        [self requestedRestart:nil];
+        [self requestedRestart];
     } else {
         [self requestedExit:nil];
     }
@@ -7297,7 +7333,7 @@ conditionallyForWindow:(NSWindow *)window
 
 /// Restart SEB
 ///
-- (void)requestedRestart:(NSNotification *_Nullable)notification
+- (void)requestedRestart
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
     _restarting = YES;
@@ -7694,7 +7730,9 @@ conditionallyForWindow:(NSWindow *)window
         
 //        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
-        if ([executableURL.pathExtension isEqualToString:@"app"] && ![executableURL.path.lastPathComponent isEqualToString:PasswordsMenuBarExtraApp]) {
+        if ([executableURL.pathExtension isEqualToString:@"app"] &&
+            ![executableURL.path.lastPathComponent isEqualToString:PasswordsMenuBarExtraApp] &&
+            ![executableURL.path.lastPathComponent isEqualToString:VoiceOverApp]) {
             NSError *error;
             DDLogInfo(@"Trying to restart terminated process with bundle URL %@", executableURL.path);
             [[NSWorkspace sharedWorkspace] launchApplicationAtURL:executableURL options:NSWorkspaceLaunchDefault configuration:@{} error:&error];
@@ -7836,6 +7874,12 @@ conditionallyForWindow:(NSWindow *)window
                 // Check for Share Sheet UI
                 if (!allowShareSheet && _isAACEnabled && bundleID &&
                     [bundleID isEqualToString:shareSheetBundleID]) {
+                    [self killApplication:startedApplication];
+                }
+                
+                // Check if VoiceOver is disabled
+                if (voiceOverDisabled &&
+                    [bundleID isEqualToString:VoiceOverBundleID]) {
                     [self killApplication:startedApplication];
                 }
                 
