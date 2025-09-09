@@ -35,10 +35,11 @@
 import Foundation
 import CocoaLumberjackSwift
 
+#if os(iOS)
 @objc public protocol SEBSPMetadataCollectorDelegate: AnyObject {
     func receivedUIEvent(_ event: UIEvent?)
 }
-
+#endif
 struct Metadata: Codable {
     var screenProctoringMetadataURL: String?
     var screenProctoringMetadataWindowTitle: String?
