@@ -710,7 +710,6 @@ static NSString *urlStrippedFragment(NSURL* url)
         NSString *sebConfigURLString = url.absoluteString;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", [preferences secureStringForKey:@"org_safeexambrowser_SEB_examSessionReconfigureConfigURL"]];
         secureSessionReconfigureURLMatch = [predicate evaluateWithObject:sebConfigURLString];
-//        secureSessionReconfigureURLMatch = YES;
     }
     // Check if SEB is in exam mode (= quit password is set) and exam is running,
     // but reconfiguring is allowed by setting and the reconfigure config URL matches the setting
