@@ -208,6 +208,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSData *_Nullable browserExamKeySalt;
 @property (strong, nonatomic) NSData *_Nullable serverBrowserExamKey;
 @property (strong, nonatomic) NSData *_Nullable configKey;
+@property (strong, nonatomic) NSData *_Nullable enhancedConfigKey;
+@property (strong, nonatomic) NSString *_Nullable enhancedConfigKeyURL;
+@property (strong, nonatomic) NSArray<NSData *> *_Nullable configKeyEnhancedSalts;
 @property (strong, nonatomic) NSData *_Nullable examSalt;
 @property (strong, nonatomic) NSString *_Nullable connectionToken;
 @property (strong, nonatomic) NSData *_Nullable appSignatureKey;

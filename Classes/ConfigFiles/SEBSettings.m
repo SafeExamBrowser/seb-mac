@@ -437,6 +437,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSData data],
                    @"configKeySalt",
                    
+                   [NSArray array],
+                   @"configKeyEnhancedSalts",
+                   
                    @NO,
                    @"configFileCreateIdentity",
                    

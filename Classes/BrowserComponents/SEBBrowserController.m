@@ -119,6 +119,7 @@ void run_block_on_ui_thread(dispatch_block_t block)
     self.quitURL = [[preferences secureStringForKey:@"org_safeexambrowser_SEB_quitURL"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
     sendHashKeys = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_sendBrowserExamKey"] || [self isUsingServerBEK];
     self.configKey = [preferences secureObjectForKey:@"org_safeexambrowser_configKey"];
+    self.configKeyEnhancedSalts = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_configKeyEnhancedSalts"];
     self.browserExamKeySalt = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_examKeySalt"];
     NSData *currentBrowserExamKey = [preferences secureDataForKey:@"org_safeexambrowser_currentData"];
     self.browserExamKey = currentBrowserExamKey;
@@ -641,25 +642,27 @@ static NSString *urlStrippedFragment(NSURL* url)
 
 - (NSString *) configKeyForURL:(NSURL *)url
 {
+    NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
+    self.enhancedConfigKeyURL = configKeyString.copy;
     unsigned char hashedChars[32];
 
-    [self.configKey getBytes:hashedChars length:32];
-    
-#ifdef DEBUG
-    DDLogVerbose(@"Current Config Key: %@", self.configKey);
-#endif
-    
-    NSMutableString* configKeyString = [[NSMutableString alloc] initWithString:urlStrippedFragment(url)];
-    for (NSUInteger i = 0 ; i < 32 ; ++i) {
-        [configKeyString appendFormat: @"%02x", hashedChars[i]];
+    NSData *configKey = self.enhancedConfigKey;
+    if (!configKey) {
+        configKey = self.configKey;
+        [configKey getBytes:hashedChars length:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [configKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
+        const char *urlString = [configKeyString UTF8String];
+        CC_SHA256(urlString,
+                  (uint)strlen(urlString),
+                  hashedChars);
+    } else {
+        [configKey getBytes:hashedChars length:32];
+        for (NSUInteger i = 0 ; i < 32 ; ++i) {
+            [configKeyString appendFormat: @"%02x", hashedChars[i]];
+        }
     }
-#ifdef DEBUG
-    DDLogVerbose(@"Current request URL + Config Key: %@", configKeyString);
-#endif
-    const char *urlString = [configKeyString UTF8String];
-    CC_SHA256(urlString,
-              (uint)strlen(urlString),
-              hashedChars);
     
     NSMutableString* hashedConfigKeyString = [[NSMutableString alloc] initWithCapacity:32];
     for (NSUInteger i = 0 ; i < 32 ; ++i) {
