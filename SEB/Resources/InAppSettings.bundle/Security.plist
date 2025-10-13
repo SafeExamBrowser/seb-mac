@@ -113,6 +113,9 @@
 				<string>14</string>
 				<string>15</string>
 				<string>16</string>
+				<string>17</string>
+				<string>18</string>
+				<string>26</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -126,6 +129,9 @@
 				<integer>14</integer>
 				<integer>15</integer>
 				<integer>16</integer>
+				<string>17</string>
+				<string>18</string>
+				<string>26</string>
 			</array>
 			<key>DisplaySortedByTitle</key>
 			<false/>
