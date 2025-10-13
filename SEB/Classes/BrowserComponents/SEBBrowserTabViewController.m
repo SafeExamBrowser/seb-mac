@@ -598,6 +598,7 @@ API_AVAILABLE(ios(18.4)){
         [_sebViewController conditionallyOpenStartExamLockdownWindows:url.absoluteString];
     }
     
+    DDLogDebug(@"%s: Opening new tab with URL %@ in visible WebViewController %@", __FUNCTION__, url, _visibleWebViewController);
     [_visibleWebViewController loadURL:url];
     
     return newOpenWebpage.webViewController.sebWebView;;
