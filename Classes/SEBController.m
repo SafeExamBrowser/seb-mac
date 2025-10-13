@@ -2759,6 +2759,7 @@ bool insideMatrix(void);
         
         /// When running on macOS 10.15.4 or newer, use AAC
         if (@available(macOS 10.15.4, *)) {
+            NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             DDLogDebug(@"Running on macOS 10.15.4 or newer, may use AAC if allowed in current settings.");
             [self updateAACAvailablility];
             DDLogDebug(@"_isAACEnabled == true, attempting to close cap (background covering) windows, which might have been open from a previous SEB session.");
@@ -2791,6 +2792,14 @@ bool insideMatrix(void);
                             return;
                         }
                     }
+//                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+                        if ([configuration respondsToSelector: NSSelectorFromString(@"setAllowsScreenshots:")]) {
+                            SEL selector = NSSelectorFromString(@"setAllowsScreenshots:");
+                            IMP imp = [configuration methodForSelector:selector];
+                            void (*func)(id, SEL, BOOL) = (void *)imp;
+                            func(configuration, selector, YES);
+                        }
+//                    }
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                     }
@@ -2803,7 +2812,6 @@ bool insideMatrix(void);
                 if (@available(macOS 12.1, *)) {
                     // DNS pre-pinning not necessary on macOS 12.1 or newer, as the AAC bug is fixed there
                 } else {
-                    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
                     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"]) {
                         NSArray *permittedDomains = SEBURLFilter.sharedSEBURLFilter.permittedDomains;
                         if (permittedDomains.count == 0) {
