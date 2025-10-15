@@ -345,7 +345,7 @@
 // Executed when preferences window should be closed, checking first for unsaved settings,
 // if edited settings should be applied – only if passed flag is YES
 // with restarting SEB or not – this question only appears if flag is YES (otherwise restart anyways)
-// and if "Allow to open preferences window on client" is disabled
+// and if "Allow to open Settings window on client" is disabled
 // Returns NO if user cancels closing the preferences window
 - (BOOL)conditionallyClosePreferencesWindowAskToApply:(BOOL)askToApplySettings
 {
@@ -629,8 +629,8 @@
         }
     }
     NSString *informativeText = NSUserDefaults.userDefaultsPrivate
-    ? NSLocalizedString(@"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
-    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
+    ? NSLocalizedString(@"These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.", @"")
+    : [NSString stringWithFormat:NSLocalizedString(@"Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.", @""), SEBShortAppName];
     
     NSString *defaultButtonText = NSUserDefaults.userDefaultsPrivate
     ? NSLocalizedString(@"Override", @"")

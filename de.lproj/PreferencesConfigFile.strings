@@ -70,7 +70,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "259"; */
 "259.ibShadowedToolTip" = "Üblicherweise kann das Einstellungen-Fenster auf Prüfungsclients ausser für Debugging deaktiviert werden";
 
-/* Class = "NSButtonCell"; title = "Allow to open Preferences window on client"; ObjectID = "260"; */
+/* Class = "NSButtonCell"; title = "Allow to open Settings window on client"; ObjectID = "260"; */
 "260.title" = "Einstellungen-Fenster darf auf Client geöffnet werden";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Open a settings file for editing"; ObjectID = "1046"; */

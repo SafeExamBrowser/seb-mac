@@ -2363,9 +2363,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "259";</note>
       </trans-unit>
       <trans-unit id="260.title" xml:space="preserve">
-        <source>Allow to open Preferences window on client</source>
+        <source>Allow to open Settings window on client</source>
         <target>Einstellungen-Fenster darf auf Client geöffnet werden</target>
-        <note>Class = "NSButtonCell"; title = "Allow to open Preferences window on client"; ObjectID = "260";</note>
+        <note>Class = "NSButtonCell"; title = "Allow to open Settings window on client"; ObjectID = "260";</note>
       </trans-unit>
       <trans-unit id="1046.ibShadowedToolTip" xml:space="preserve">
         <source>Open a settings file for editing</source>
@@ -6224,8 +6224,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Lokale Client-Einstellungen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." xml:space="preserve">
-        <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.</source>
+      <trans-unit id="Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." xml:space="preserve">
+        <source>Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.</source>
         <target>Die lokalen Client-Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert, was das Öffnen des Einstellungen-Fensters selbst nach einem Neustart von %@ verhindert. Sind Sie sicher, dass Sie dies anwenden wollen? Ansonsten können Sie diese Option zurücksetzen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
@@ -6954,8 +6954,8 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Diese Einstellungen können nicht benutzt werden. Sie wurden entweder mit einer inkompatiblen %@-Version erstellt oder sind beschädigt</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." xml:space="preserve">
-        <source>These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
+      <trans-unit id="These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." xml:space="preserve">
+        <source>These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
         <target>Diese Einstellungen haben die Option 'Einstellungen-Fenster darf auf Client geöffnet werden' deaktiviert. Sind Sie sicher, dass Sie das anwenden wollen? Ansonsten können Sie diese Option während der aktuellen Session ignorieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>

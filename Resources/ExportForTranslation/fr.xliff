@@ -1078,8 +1078,8 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Usually disable preferences window on exam clients besides for debugging purposes"; ObjectID = "259";</note>
       </trans-unit>
       <trans-unit id="260.title">
-        <source>Allow to open preferences window on client</source>
-        <note>Class = "NSButtonCell"; title = "Allow to open preferences window on client"; ObjectID = "260";</note>
+        <source>Allow to open Settings window on client</source>
+        <note>Class = "NSButtonCell"; title = "Allow to open Settings window on client"; ObjectID = "260";</note>
       </trans-unit>
       <trans-unit id="1046.ibShadowedToolTip">
         <source>Open a settings file for editing</source>
@@ -2477,8 +2477,8 @@
         <source>Local SEB settings are corrupted!</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
-        <source>Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
+      <trans-unit id="Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.">
+        <source>Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart SEB. Are you sure you want to apply this? Otherwise you can reset this option.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Local preferences were either created by an incompatible SEB version or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure SEB correctly.">
@@ -2673,8 +2673,8 @@
         <source>These settings cannot be used. They may have been created by an incompatible version of SEB or are corrupted.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
-        <source>These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
+      <trans-unit id="These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.">
+        <source>These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.</source>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:">
