@@ -2959,15 +2959,14 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Hide all other applications
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                        withObject:NULL waitUntilDone:YES];
-        
-        allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
-        allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
-        allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
-        allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
-        voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
-
+                                                        withObject:NULL waitUntilDone:YES];        
     }
+    allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+    allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
+    allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
+    allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+    voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
     
