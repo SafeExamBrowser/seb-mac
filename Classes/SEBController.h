@@ -194,6 +194,8 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     
     NSInteger raiseHandUID;
     NSString *raiseHandNotification;
+    
+    HUDPanel *qrCodeOverlayPanel;
 }
 
 - (void) firstDOMElementDeselected;

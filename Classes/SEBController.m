@@ -6350,6 +6350,20 @@ conditionallyForWindow:(NSWindow *)window
             [rightDockItems addObject:dockItemShutDown];
         }
         
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_showQRVerifyButton"]) {
+            SEBDockItem *dockItemQRVerify = [[SEBDockItem alloc] initWithTitle:nil
+                                                                      bundleID:nil
+                                                              allowManualStart:NO
+                                                                          icon:[NSImage imageNamed:@"SEBQRCode"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBQRCode"]
+                                                                       toolTip:[NSString stringWithFormat:NSLocalizedString(@"Show QR code for %@ Verificator",nil), SEBShortAppName]
+                                                                          menu:nil
+                                                                        target:self
+                                                                        action:@selector(qrVerifyButtonPressed)
+                                                               secondaryAction:nil];
+            [rightDockItems addObject:dockItemQRVerify];
+        }
+        
         if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
             SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
             
@@ -6687,6 +6701,60 @@ conditionallyForWindow:(NSWindow *)window
 - (void) batteryButtonPressed
 {
     
+}
+
+
+- (void) qrVerifyButtonPressed
+{
+    if (qrCodeOverlayPanel) {
+        [self hideQRVerifyCode];
+    }
+    // Get selected config purpose
+    sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
+    if (configPurpose != sebConfigPurposeStartingExam && configPurpose != sebConfigPurposeConfiguringClient) {
+        configPurpose = sebConfigPurposeStartingExam;
+    }
+    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
+    NSData *encryptedSEBData = self.browserController.qrVerifyCode;
+    if (encryptedSEBData) {
+        NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
+        NSImage *qrCodeImage;
+        CGFloat imageWidth = 300;
+        CGFloat imageHeigth = 300;
+        NSView *qrCodeView;
+        if (qrCodePNGImageData) {
+            qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
+            imageWidth = qrCodeImage.size.width;
+            imageHeigth = qrCodeImage.size.height;
+            NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
+            qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+        }
+        qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
+
+        [self openLockModalWindows];
+
+        qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
+        qrCodeOverlayPanel.closeOnClick = YES;
+        
+        [qrCodeOverlayPanel center];
+        qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
+        [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
+        [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
+        qrCodeOverlayPanel.delegate = self;
+        [qrCodeOverlayPanel orderFront:self];
+        [qrCodeOverlayPanel invalidateShadow];
+    } else {
+        DDLogError(@"%s: Failed to generate config data", __FUNCTION__);
+    }
+}
+
+- (void) hideQRVerifyCode
+{
+    if (qrCodeOverlayPanel) {
+        [self closeLockModalWindows];
+        [qrCodeOverlayPanel orderOut:self];
+        qrCodeOverlayPanel = nil;
+    }
 }
 
 

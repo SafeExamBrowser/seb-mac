@@ -1083,6 +1083,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"showQuitButton",
                    
                    @YES,
+                   @"showQRVerifyButton",
+                   
+                   @YES,
                    @"showReloadButton",
                    
                    @YES,
