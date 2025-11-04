@@ -7,6 +7,9 @@
 /* No comment provided by engineer. */
 "Gzip Archive (SEB files are gzipped)" = "Gzip-Archiv (SEB-Dateien sind mittels Gzip komprimiert)";
 
+/* Privacy - Bluetooth Always Usage Description */
+"NSBluetoothAlwaysUsageDescription" = "SEB benutzt Bluetooth für Jitsi Meet";
+
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "SEB benutzt Bluetooth für Jitsi Meet";
 

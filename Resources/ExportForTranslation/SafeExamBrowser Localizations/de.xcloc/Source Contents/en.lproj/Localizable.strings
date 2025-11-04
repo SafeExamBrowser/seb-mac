@@ -740,7 +740,7 @@
 "Local Client Settings" = "Local Client Settings";
 
 /* No comment provided by engineer. */
-"Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." = "Local client settings have the option 'Allow to open preferences window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.";
+"Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option." = "Local client settings have the option 'Allow to open Settings window on client' disabled, which will prevent opening the preferences window even when you restart %@. Are you sure you want to apply this? Otherwise you can reset this option.";
 
 /* No comment provided by engineer. */
 "Local hostname: %@" = "Local hostname: %@";
@@ -1211,7 +1211,7 @@
 "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." = "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.";
 
 /* No comment provided by engineer. */
-"These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "These settings have the option 'Allow to open preferences window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.";
+"These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session." = "These settings have the option 'Allow to open Settings window on client' disabled. Are you sure you want to apply this? Otherwise you can override this option for the current session.";
 
 /* No comment provided by engineer. */
 "This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." = "This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.";
