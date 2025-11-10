@@ -110,6 +110,11 @@
                           @"identifier" : @"com.electron.guilded",
                       },
                       @{
+                          @"executable" : @"iTerm2",
+                          @"identifier" : @"com.googlecode.iterm2",
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"Join.me",
                           @"identifier" : @"com.logmein.join.me",
                       },
@@ -194,6 +199,11 @@
                       @{
                           @"executable" : @"Telegram",
                           @"identifier" : @"ru.keepcoder.Telegram",
+                      },
+                      @{
+                          @"executable" : @"Terminal",
+                          @"identifier" : @"com.apple.Terminal",
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Universal Control",
