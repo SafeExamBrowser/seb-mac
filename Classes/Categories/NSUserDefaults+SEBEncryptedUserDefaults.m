@@ -682,8 +682,6 @@ static NSNumber *_logLevel;
         NSString *keyWithPrefix = [self prefixKey:key];
         id value = [sebPreferencesDict objectForKey:key];
 #ifdef DEBUG
-        NSLog(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
-#else
         DDLogVerbose(@"%s Value for key %@ is %@", __FUNCTION__, key, value);
 #endif
         id defaultValue = [defaultSettings objectForKey:keyWithPrefix];
@@ -1167,7 +1165,9 @@ static NSNumber *_logLevel;
             //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
             //[[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] setValue:value forKeyPath:keypath];
 
+#ifdef DEBUG
             DDLogVerbose(@"[localUserDefaults setObject:%@ forKey:%@]", [privateUserDefaults valueForKey:key], key);
+#endif
 
         } else {
             if (value == nil) {
@@ -1203,7 +1203,9 @@ static NSNumber *_logLevel;
                     } else {
                         [self setObject:encryptedData forKey:key];
 
+#ifdef DEBUG
                         DDLogVerbose(@"[self setObject:(encrypted %@) forKey:%@]", value, key);
+#endif
                     }
                 }
                 
@@ -1315,8 +1317,9 @@ static NSNumber *_logLevel;
 {
     if (_usePrivateUserDefaults) {
 
+#ifdef DEBUG
         DDLogVerbose(@"[localUserDefaults objectForKey:%@] = %@", key, [privateUserDefaults valueForKey:key]);
-
+#endif
         return [privateUserDefaults valueForKey:key];
         //NSString *keypath = [NSString stringWithFormat:@"values.%@", key];
         //return [[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController] valueForKeyPath:keypath];
@@ -1352,8 +1355,10 @@ static NSNumber *_logLevel;
 
         id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
 
+#ifdef DEBUG
         DDLogVerbose(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
-
+#endif
+        
         return value;
     }
 }
