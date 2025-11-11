@@ -253,6 +253,7 @@ public extension SEBServerController {
     }
 
     @objc func getServerAPI() {
+        DDLogInfo("SEB Server Controller: Fetching SEB Server API")
         let discoveryResource = DiscoveryResource(baseURL: self.baseURL, discoveryEndpoint: self.discoveryEndpoint)
 
         let discoveryRequest = ApiRequest(resource: discoveryResource)
@@ -302,7 +303,8 @@ public extension SEBServerController {
     private func getServerAccessToken(completionHandler: @escaping () -> Void) {
         if !gettingAccessToken {
             gettingAccessToken = true
-            let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
+            DDLogInfo("SEB Server Controller: Getting Access Token")
+           let accessTokenResource = AccessTokenResource(baseURL: self.baseURL, endpoint: (serverAPI?.accessToken.endpoint?.location)!)
             
             let authorizationString = (serverAPI?.accessToken.endpoint?.authorization ?? "") + " " + (username + ":" + password).data(using: .utf8)!.base64EncodedString()
             let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
@@ -336,6 +338,7 @@ public extension SEBServerController {
     }
     
     func getExamList() {
+        DDLogInfo("SEB Server Controller: Getting exam list")
         var handshakeResource = HandshakeResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let environmentInfo = keys.clientId + "=" + (clientUserId) + "&" + keys.sebOSName + "=" + osName
         let clientInfo = keys.sebVersion + "=" + sebVersion + "&" + keys.sebMachineName + "=" + machineName
@@ -441,6 +444,7 @@ public extension SEBServerController {
 
     
     func updateConnectionHandshake() {
+        DDLogInfo("SEB Server Controller: Update connection handshake.")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Opening Exam...", comment: ""), append: false)
         var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
@@ -474,6 +478,7 @@ public extension SEBServerController {
     
     
     func getExamConfig() {
+        DDLogInfo("SEB Server Controller: Getting Exam Config")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Getting Exam Config...", comment: ""), append: false)
         let examConfigResource = ExamConfigResource(baseURL: self.baseURL, endpoint: (serverAPI?.configuration.endpoint?.location)!, queryParameters: [keys.examId + "=" + selectedExamId])
         
@@ -499,16 +504,19 @@ public extension SEBServerController {
     
     
     @objc func loginToExam() {
+        DDLogInfo("SEB Server Controller: Logging into exam")
         delegate?.loginToExam(selectedExamURL)
     }
 
 
     @objc func loginToExamAborted(completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Logging into exam aborted")
         quitSession(restart: false, completion: completion)
     }
     
     
     @objc func getMoodleUserId(moodleCookie: HTTPCookie, url: URL, endpoint: String) {
+        DDLogInfo("SEB Server Controller: Getting Moodle user ID")
         let moodleUserIdResource = MoodleUserIdResource(baseURL: url, endpoint: endpoint)
 
         let moodleCookieName = moodleCookie.name
@@ -530,6 +538,7 @@ public extension SEBServerController {
     
     
     @objc func startMonitoring(userSessionId: String) {
+        DDLogInfo("SEB Server Controller: Starting monitoring.")
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
         handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
@@ -666,6 +675,7 @@ public extension SEBServerController {
     }
     
     @objc func sendLockscreen(message: String?) -> Int64 {
+        DDLogInfo("SEB Server Controller: Sending lockscreen with message: \(message ?? "<no message>")")
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagLockscreen)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
         }
@@ -673,11 +683,13 @@ public extension SEBServerController {
     }
     
     @objc func sendLockscreenConfirm(notificationUID: Int64) {
+        DDLogInfo("SEB Server Controller: Confirming lockscreen")
         sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
         }
     }
     
     @objc func sendRaiseHand(message: String?) -> Int64 {
+        DDLogInfo("SEB Server Controller: Raising hand")
         notificationNumber+=1
         sendNotification(keys.notificationType, timestamp: nil, numericValue: Double(notificationNumber), text: "<\(keys.notificationTagRaisehand)> \(message ?? "")") { statusCode, errorResponse, responseHeaders, attempt in
         }
@@ -685,11 +697,13 @@ public extension SEBServerController {
     }
     
     @objc func sendLowerHand(notificationUID: Int64) {
+        DDLogInfo("SEB Server Controller: Lowering hand")
         sendNotification(keys.notificationConfirmed, timestamp: nil, numericValue: Double(notificationUID), text: nil) { statusCode, errorResponse, responseHeaders, attempt in
         }
     }
     
     @objc func quitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Quitting session")
         if accessToken != nil {
             let quitSessionResource = QuitSessionResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
             
@@ -733,6 +747,7 @@ public extension SEBServerController {
     }
     
     @objc func cancelQuitSession(restart: Bool, completion: @escaping (Bool) -> Void) {
+        DDLogInfo("SEB Server Controller: Cancelling quitting session")
         self.cancelAllRequests = true
         self.stopPingTimer()
         self.session?.invalidateAndCancel()
