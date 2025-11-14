@@ -1159,6 +1159,7 @@ bool insideMatrix(void);
 {
     DDLogInfo(@"%s", __FUNCTION__);
     if (_establishingSEBServerConnection == YES && !fallback) {
+        [AccessibilityFeaturesManager controlVoiceOver];
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
