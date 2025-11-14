@@ -5993,7 +5993,7 @@ conditionallyForWindow:(NSWindow *)window
 - (void) setElevateWindowLevels
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _sessionState.allowSwitchToApplications = YES; //[preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    _sessionState.allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     if (_sessionState.allowSwitchToApplications || _isAACEnabled || _wasAACEnabled) {
         DDLogDebug(@"%s: false", __FUNCTION__);
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
