@@ -30,11 +30,7 @@
                             <menuItem title="Settings…" keyEquivalent="," id="129">
                                 <connections>
                                     <action selector="openPreferences:" target="543" id="992"/>
-                                    <binding destination="993" name="hidden" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="DFT-6P-cJf">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
+                                    <binding destination="993" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="fsU-Zq-HKH"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="143">
