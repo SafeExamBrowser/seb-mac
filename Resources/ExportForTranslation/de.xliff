@@ -85,9 +85,9 @@
         <note>Class = "NSMenuItem"; title = "About SEB"; ObjectID = "58";</note>
       </trans-unit>
       <trans-unit id="129.title" xml:space="preserve">
-        <source>Preferences…</source>
+        <source>Settings…</source>
         <target>Einstellungen …</target>
-        <note>Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129";</note>
+        <note>Class = "NSMenuItem"; title = "Settings…"; ObjectID = "129";</note>
       </trans-unit>
       <trans-unit id="136.title" xml:space="preserve">
         <source>Quit SEB</source>
