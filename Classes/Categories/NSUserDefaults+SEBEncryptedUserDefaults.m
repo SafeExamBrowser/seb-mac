@@ -640,6 +640,8 @@ static NSNumber *_logLevel;
                 [preferences removeObjectForKey:key];
             }
         }
+        // If reverting local client settings to default, allow to open Settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
 #ifdef DEBUG
         prefsDict = [self getSEBUserDefaultsDomains];
             DDLogDebug(@"UserDefaults after removing SEB key/values: %@", prefsDict);
