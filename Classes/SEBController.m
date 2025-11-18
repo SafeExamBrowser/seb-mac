@@ -2793,18 +2793,18 @@ bool insideMatrix(void);
                             return;
                         }
                     }
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
-                        if ([configuration respondsToSelector: NSSelectorFromString(@"setAllowsScreenshots:")]) {
-                            DDLogDebug(@"AAC with screen proctoring enabled: Use new API to allow screen shots");
-
-                            SEL selector = NSSelectorFromString(@"setAllowsScreenshots:");
-                            IMP imp = [configuration methodForSelector:selector];
-                            void (*func)(id, SEL, BOOL) = (void *)imp;
-                            func(configuration, selector, YES);
-                        } else {
-                            DDLogWarn(@"AAC with screen proctoring enabled: API to allow screen shots is not available.");
-                        }
-                    }
+//                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+//                        if ([configuration respondsToSelector: NSSelectorFromString(@"setAllowsScreenshots:")]) {
+//                            DDLogDebug(@"AAC with screen proctoring enabled: Use new API to allow screen shots");
+//
+//                            SEL selector = NSSelectorFromString(@"setAllowsScreenshots:");
+//                            IMP imp = [configuration methodForSelector:selector];
+//                            void (*func)(id, SEL, BOOL) = (void *)imp;
+//                            func(configuration, selector, YES);
+//                        } else {
+//                            DDLogWarn(@"AAC with screen proctoring enabled: API to allow screen shots is not available.");
+//                        }
+//                    }
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                     }
