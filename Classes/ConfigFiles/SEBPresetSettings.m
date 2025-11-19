@@ -102,6 +102,10 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Chrome",
+                          @"identifier" : @"com.google.chrome",
+                      },
+                      @{
                           @"executable" : @"GoToMeeting",
                           @"identifier" : @"com.logmein.GoToMeeting",
                       },
