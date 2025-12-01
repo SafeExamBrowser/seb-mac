@@ -448,6 +448,7 @@
 		698DFD44267EA3D900B8F1D6 /* NSScreen+SEBScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD42267EA3D800B8F1D6 /* NSScreen+SEBScreen.m */; };
 		698DFD45267EA3D900B8F1D6 /* NSScreen+SEBScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */; };
 		698DFD48267EA43500B8F1D6 /* PreferencesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */; };
+		698E22E92EDD8FC20019B511 /* QRCodeOverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E22E82EDD8FC20019B511 /* QRCodeOverlayWindowController.swift */; };
 		698F3F071D17F4F9003DABBC /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
 		698F3F091D182A5E003DABBC /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
 		698F3F0A1D182A62003DABBC /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
@@ -1363,6 +1364,7 @@
 		698DFD43267EA3D800B8F1D6 /* NSScreen+SEBScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScreen+SEBScreen.h"; sourceTree = "<group>"; };
 		698DFD46267EA43400B8F1D6 /* PreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesViewController.h; sourceTree = "<group>"; };
 		698DFD47267EA43400B8F1D6 /* PreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesViewController.m; sourceTree = "<group>"; };
+		698E22E82EDD8FC20019B511 /* QRCodeOverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeOverlayWindowController.swift; sourceTree = "<group>"; };
 		698F3F061D17F4F9003DABBC /* Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Settings@2x.png"; path = "Resources/Icons/Settings@2x.png"; sourceTree = "<group>"; };
 		69909EFC283CB02E00199EB6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/SafeExamBrowser-InfoPlist.strings"; sourceTree = "<group>"; };
 		69909F02283CB02E00199EB6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/SEB-InfoPlist.strings"; sourceTree = "<group>"; };
@@ -2487,6 +2489,7 @@
 				69E2BBAF26FDBAA90055531A /* SEBServerOSXViewController.m */,
 				69C2C910294C7F7C00092951 /* ReloadPageUIElement.swift */,
 				69B53EB02CEDECB2003FF643 /* SEBNSImageView.swift */,
+				698E22E82EDD8FC20019B511 /* QRCodeOverlayWindowController.swift */,
 			);
 			name = "Additional Views+Windows";
 			path = Classes/AdditionalViewsWindows;
@@ -4438,6 +4441,7 @@
 				69F5229F21467188009F3999 /* CustomHTTPProtocol.m in Sources */,
 				69F32DC416D23374003C9502 /* PrefsAppearanceViewController.m in Sources */,
 				6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */,
+				698E22E92EDD8FC20019B511 /* QRCodeOverlayWindowController.swift in Sources */,
 				6975DA322C03882800ABBD79 /* SEBApplication.swift in Sources */,
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,

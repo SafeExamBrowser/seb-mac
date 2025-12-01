@@ -6713,7 +6713,7 @@ conditionallyForWindow:(NSWindow *)window
         configPurpose = sebConfigPurposeStartingExam;
     }
     // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSEBData = self.browserController.qrVerifyCode;
+    NSData *encryptedSEBData = [NSData data]; //self.browserController.qrVerifyCode;
     if (encryptedSEBData) {
         NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
         NSImage *qrCodeImage;
@@ -6738,7 +6738,7 @@ conditionallyForWindow:(NSWindow *)window
         qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
         [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
         [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
-        qrCodeOverlayPanel.delegate = self;
+//        qrCodeOverlayPanel.delegate = self;
         [qrCodeOverlayPanel orderFront:self];
         [qrCodeOverlayPanel invalidateShadow];
     } else {
