@@ -1159,6 +1159,7 @@ bool insideMatrix(void);
 {
     DDLogInfo(@"%s", __FUNCTION__);
     if (_establishingSEBServerConnection == YES && !fallback) {
+        [AccessibilityFeaturesManager controlVoiceOver];
         _startingExamFromSEBServer = YES;
         [self.serverController startExamFromServer];
     } else {
@@ -1259,7 +1260,7 @@ bool insideMatrix(void);
     _sebServerViewController.serverControllerDelegate = self;
     NSWindow *sebServerViewWindow;
     sebServerViewWindow = [NSWindow windowWithContentViewController:_sebServerViewController];
-    if (_allowSwitchToApplications) {
+    if (_sessionState.allowSwitchToApplications) {
         [sebServerViewWindow setLevel:NSModalPanelWindowLevel-1];
     } else {
         [sebServerViewWindow setLevel:NSMainMenuWindowLevel+5];
@@ -2792,18 +2793,18 @@ bool insideMatrix(void);
                             return;
                         }
                     }
-                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
-                        if ([configuration respondsToSelector: NSSelectorFromString(@"setAllowsScreenshots:")]) {
-                            DDLogDebug(@"AAC with screen proctoring enabled: Use new API to allow screen shots");
-
-                            SEL selector = NSSelectorFromString(@"setAllowsScreenshots:");
-                            IMP imp = [configuration methodForSelector:selector];
-                            void (*func)(id, SEL, BOOL) = (void *)imp;
-                            func(configuration, selector, YES);
-                        } else {
-                            DDLogWarn(@"AAC with screen proctoring enabled: API to allow screen shots is not available.");
-                        }
-                    }
+//                    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
+//                        if ([configuration respondsToSelector: NSSelectorFromString(@"setAllowsScreenshots:")]) {
+//                            DDLogDebug(@"AAC with screen proctoring enabled: Use new API to allow screen shots");
+//
+//                            SEL selector = NSSelectorFromString(@"setAllowsScreenshots:");
+//                            IMP imp = [configuration methodForSelector:selector];
+//                            void (*func)(id, SEL, BOOL) = (void *)imp;
+//                            func(configuration, selector, YES);
+//                        } else {
+//                            DDLogWarn(@"AAC with screen proctoring enabled: API to allow screen shots is not available.");
+//                        }
+//                    }
                     if ([self.assessmentModeManager beginAssessmentModeWithConfiguration:configuration] == NO) {
                         [self assessmentSessionDidEndWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                     }
@@ -2959,15 +2960,14 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Hide all other applications
         [[NSWorkspace sharedWorkspace] performSelectorOnMainThread:@selector(hideOtherApplications)
-                                                        withObject:NULL waitUntilDone:YES];
-        
-        allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
-        allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
-        allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
-        allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
-        voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
-
+                                                        withObject:NULL waitUntilDone:YES];        
     }
+    allowScreenCapture = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+    allowDictionaryLookup = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictionaryLookup"];
+    allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
+    allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
+    voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
     
@@ -3503,7 +3503,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     NSArray *filteredProcesses;
     
     // Check for font download process
-    if (!_allowSwitchToApplications || _isAACEnabled) {
+    if (!_sessionState.allowSwitchToApplications || _isAACEnabled) {
         processNameFilter = [NSPredicate predicateWithFormat:@"name ==[cd] %@ ", fontRegistryUIAgent];
         filteredProcesses = [allRunningProcesses filteredArrayUsingPredicate:processNameFilter];
         if (filteredProcesses.count > 0) {
@@ -3673,7 +3673,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     #endif
 
             // Close Control Center windows or the Notification Center panel (older macOS versions)
-            if ((([windowOwner isEqualToString:@"Notification Center"] && !_allowSwitchToApplications) || [windowName isEqualToString:@"NotificationTableWindow"]) &&
+            if ((([windowOwner isEqualToString:@"Notification Center"] && !_sessionState.allowSwitchToApplications) || [windowName isEqualToString:@"NotificationTableWindow"]) &&
                 ![_preferencesController preferencesAreOpen]) {
                 DDLogWarn(@"Control/Notification Center was opened (owning process name: %@", windowOwner);
                 NSArray *notificationCenterSearchResult =[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.notificationcenterui"];
@@ -3706,7 +3706,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                         CGSGetWindowWorkspace(connection, windowID, &workspace);
                         DDLogVerbose(@"Window %@ is on space %d", windowName, workspace);
     #endif
-                        if (!_allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
+                        if (!_sessionState.allowSwitchToApplications && ![_preferencesController preferencesAreOpen]) {
                             if (appWithPanelBundleID && ![appWithPanelBundleID hasPrefix:@"com.apple."]) {
                                 // Application hasn't a com.apple. bundle ID prefix
                                 // The app which opened the window or panel is no system process
@@ -3752,7 +3752,7 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
                             }
                         } else {
 #ifndef DEBUG
-                            DDLogDebug(@"%@%@don't terminate application %@ (%@)", _allowSwitchToApplications ? @"Switching to applications is allowed, " : @"",
+                            DDLogDebug(@"%@%@don't terminate application %@ (%@)", _sessionState.allowSwitchToApplications ? @"Switching to applications is allowed, " : @"",
                                        _preferencesController.preferencesAreOpen ? @"Preferences are open, " : @"", windowOwner, appWithPanelBundleID);
 #endif
                         }
@@ -5810,8 +5810,7 @@ conditionallyForWindow:(NSWindow *)window
         // Switch the proper kiosk mode on again
         [self setElevateWindowLevels];
         
-        BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-        [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+        [self switchKioskModeAppsAllowed:_sessionState.allowSwitchToApplications overrideShowMenuBar:NO];
         
         [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
         [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
@@ -5995,8 +5994,8 @@ conditionallyForWindow:(NSWindow *)window
 - (void) setElevateWindowLevels
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    _allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (_allowSwitchToApplications || _isAACEnabled || _wasAACEnabled) {
+    _sessionState.allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+    if (_sessionState.allowSwitchToApplications || _isAACEnabled || _wasAACEnabled) {
         DDLogDebug(@"%s: false", __FUNCTION__);
         [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
     } else {
@@ -6036,12 +6035,12 @@ conditionallyForWindow:(NSWindow *)window
     
     // Change window level of cap windows
     CapWindow *capWindow;
-    BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+//    BOOL allowAppsUserDefaultsSetting = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
     
     for (capWindow in self.capWindows) {
         if (allowApps || _isAACEnabled) {
             [capWindow newSetLevel:NSNormalWindowLevel];
-            if (allowAppsUserDefaultsSetting) {
+            if (_sessionState.allowSwitchToApplications) {
                 capWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
             }
         } else {
@@ -6053,7 +6052,7 @@ conditionallyForWindow:(NSWindow *)window
     [self.browserController browserWindowsChangeLevelAllowApps:allowApps];
     
     // Change window level of a modal window (like an alert) if one is displayed
-    [self adjustModalAlertWindowLevels:allowAppsUserDefaultsSetting];
+    [self adjustModalAlertWindowLevels:_sessionState.allowSwitchToApplications];
     
     // Change window level of the about window if it is displayed
     if (self.aboutWindow.isVisible) {
@@ -6179,8 +6178,7 @@ conditionallyForWindow:(NSWindow *)window
             // Switch the proper kiosk mode on again
             [self setElevateWindowLevels];
             
-            BOOL allowSwitchToThirdPartyApps = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-            [self switchKioskModeAppsAllowed:allowSwitchToThirdPartyApps overrideShowMenuBar:NO];
+            [self switchKioskModeAppsAllowed:_sessionState.allowSwitchToApplications overrideShowMenuBar:NO];
             
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
@@ -6297,10 +6295,10 @@ conditionallyForWindow:(NSWindow *)window
         }
         
         // Initialize center dock items (allowed third party applications)
-        if (_isAACEnabled || _allowSwitchToApplications) {
+        if (_isAACEnabled || _sessionState.allowSwitchToApplications) {
             NSMutableArray *centerDockItems = [NSMutableArray array];
             NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
-            DDLogDebug(@"%@%@ enabled: Check if there are permitted apps: %@", _isAACEnabled ? @"AAC" : @"", _allowSwitchToApplications ? @"Switching to applications" : @"", permittedProcesses);
+            DDLogDebug(@"%@%@ enabled: Check if there are permitted apps: %@", _isAACEnabled ? @"AAC" : @"", _sessionState.allowSwitchToApplications ? @"Switching to applications" : @"", permittedProcesses);
             for (NSDictionary *permittedProcess in permittedProcesses) {
                 if ([permittedProcess[@"iconInTaskbar"] boolValue] == YES) {
                     NSString *appName = permittedProcess[@"title"];
@@ -7960,6 +7958,7 @@ conditionallyForWindow:(NSWindow *)window
                 // Check if VoiceOver is disabled
                 if (voiceOverDisabled &&
                     [bundleID isEqualToString:VoiceOverBundleID]) {
+                    DDLogVerbose(@"VoiceOver is disabled in settings, terminating its process.");
                     [self killApplication:startedApplication];
                 }
                 

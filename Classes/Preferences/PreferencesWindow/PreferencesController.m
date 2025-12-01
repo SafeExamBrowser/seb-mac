@@ -1399,6 +1399,9 @@ userEnteredFilename:(NSString *)filename
     if (NSUserDefaults.userDefaultsPrivate) {
         // If reverting other than local client settings to default, use "starting exam" as config purpose
         [[NSUserDefaults standardUserDefaults] setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];
+    } else {
+        // If reverting local client settings to default, allow to open Settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
     }
     
     [self resetBEKCK];
@@ -1654,6 +1657,9 @@ userEnteredFilename:(NSString *)filename
         // Switch config purpose to "starting exam"
         [preferences setSecureInteger:sebConfigPurposeStartingExam forKey:@"org_safeexambrowser_SEB_sebConfigPurpose"];        
         DDLogVerbose(@"Private preferences set: %@", privatePreferences);
+        
+        // If using local client settings, disable opening Settings in exam settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
         
         [self resetBEKCK];
     }

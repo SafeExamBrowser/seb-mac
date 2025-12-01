@@ -187,7 +187,7 @@
 /* Class = "NSButtonCell"; title = "Show quit button"; ObjectID = "rQZ-65-nx7"; */
 "rQZ-65-nx7.title" = "Taste Beenden anzeigen";
 
-/* Class = "NSTextFieldCell"; title = "Grayscale Display (iOS)"; ObjectID = "rZz-Dc-BRg"; */
+/* Class = "NSTextFieldCell"; title = "Greyscale Display (iOS)"; ObjectID = "rZz-Dc-BRg"; */
 "rZz-Dc-BRg.title" = "Graustufen-Anzeige (iOS)";
 
 /* Class = "NSTextFieldCell"; title = "Smart Invert (iOS)"; ObjectID = "s7L-DW-WN1"; */

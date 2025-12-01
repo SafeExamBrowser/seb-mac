@@ -3744,6 +3744,18 @@ void run_on_ui_thread(dispatch_block_t block)
     }
     if (_establishingSEBServerConnection == YES && !fallback) {
         _startingExamFromSEBServer = YES;
+        if (@available(iOS 12.2, *)) {
+            if (_secureMode) {
+                [AccessibilityFeaturesManager configureAccessibilityFeaturesWithCompletionHandler:^{
+                    run_on_ui_thread(^{
+                        [self.serverController startExamFromServer];
+                    });
+                }];
+                return;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
         [self.serverController startExamFromServer];
     } else {
         if (self.sebServerConnectionEstablished && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer) {

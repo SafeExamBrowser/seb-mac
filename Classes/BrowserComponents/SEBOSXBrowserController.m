@@ -413,7 +413,7 @@
     }
     // If the main browser window is displayed fullscreen and switching to apps is allowed,
     // we make the window stationary, so that it isn't scaled down from Exposé
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"] && self.mainBrowserWindow.isFullScreen) {
+    if (_sebController.sessionState.allowSwitchToApplications && self.mainBrowserWindow.isFullScreen) {
         self.mainBrowserWindow.collectionBehavior = NSWindowCollectionBehaviorStationary + NSWindowCollectionBehaviorFullScreenAuxiliary +NSWindowCollectionBehaviorFullScreenDisallowsTiling;
     }
     

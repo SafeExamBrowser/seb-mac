@@ -690,7 +690,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 {
     NSURLRequest *request = navigationAction.request;
     NSURL *url = request.URL;
-    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: %@ newTab: %hhd configuration:%@ downloadFilename:%@]: request = %@, URL = %@", navigationAction, newTab, configuration, downloadFilename, request, url);
+    DDLogVerbose(@"[SEBAbstractWebView decidePolicyForNavigationAction: newTab: %hhd configuration:%@ downloadFilename:%@]: request = %@, URL = %@", newTab, configuration, downloadFilename, request, url);
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     //    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
