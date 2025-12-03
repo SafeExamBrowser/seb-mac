@@ -173,7 +173,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
             DDLogDebug(@"Cookie edx username: %@", openEdXUsername);
             if (openEdXUsername && ![sessionIdentifier isEqualToString:openEdXUsername]) {
                 sessionIdentifier = openEdXUsername;
-                [_sebServerController startMonitoringWithUserSessionId:openEdXUsername];
+                [_sebServerController sendUserIdentifier:openEdXUsername];
             }
         } else if ([cookie.name hasPrefix:@"MoodleSession"]) {
             DDLogDebug(@"Cookie '%@': %@", cookie.name, cookie);
@@ -194,7 +194,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
         if (![moodleUserId isEqualToString:@"0"]) {
             DDLogInfo(@"ServerController: Did receive Moodle user ID");
            sessionIdentifier = moodleUserId;
-            [_sebServerController startMonitoringWithUserSessionId:moodleUserId];
+            [_sebServerController sendUserIdentifier:moodleUserId];
         }
     } else if ([endpoint isEqualToString:moodleUserIDEndpointSEBServerPlugin]) {
         [_sebServerController getMoodleUserIdWithMoodleCookie:moodleCookie url:url endpoint:moodleUserIDEndpointETHTheme];
@@ -209,7 +209,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
     if (userID.length > 0 && ![sessionIdentifier isEqualToString:userID]) {
         DDLogInfo(@"ServerController: Did receive 'X-LMS' user ID");
         sessionIdentifier = userID;
-        [_sebServerController startMonitoringWithUserSessionId:userID];
+        [_sebServerController sendUserIdentifier:userID];
     }
 }
 
@@ -226,7 +226,7 @@ static NSString __unused *moodleUserIDEndpointSEBServerPlugin = @"/mod/quiz/acce
             NSString *testsessionID = [query substringFromIndex:testsessionRange.location + testsessionRange.length];
             if (testsessionID.length > 0 && ![sessionIdentifier isEqualToString:testsessionID]) {
                 sessionIdentifier = testsessionID;
-                [_sebServerController startMonitoringWithUserSessionId:testsessionID];
+                [_sebServerController sendUserIdentifier:testsessionID];
             }
         }
     }

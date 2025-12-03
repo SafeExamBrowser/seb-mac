@@ -477,6 +477,30 @@ public extension SEBServerController {
     }
     
     
+    func finishConnectionHandshake() {
+        DDLogInfo("SEB Server Controller: Finishing connection handshake.")
+        var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+        let encryptedAppSignatureKey = delegate?.appSignatureKey()
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+
+        let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
+        let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
+                              keys.headerAuthorization : authorizationString,
+                              keys.sebConnectionToken : connectionToken ?? ""]
+        loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if handshakeCloseResponse != nil  {
+                let responseData: Data = handshakeCloseResponse!!
+                let responseBody = String(data: responseData, encoding: .utf8)
+                if !(responseBody?.isEmpty ?? true) {
+                    DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
+                }
+            }
+            self.delegate?.didEstablishSEBServerConnection()
+        })
+    }
+    
+    
+
     func getExamConfig() {
         DDLogInfo("SEB Server Controller: Getting Exam Config")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Getting Exam Config...", comment: ""), append: false)
@@ -537,19 +561,19 @@ public extension SEBServerController {
     }
     
     
-    @objc func startMonitoring(userSessionId: String) {
-        DDLogInfo("SEB Server Controller: Starting monitoring.")
-        var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
+    @objc func sendUserIdentifier(_ userSessionId: String) {
+        DDLogInfo("SEB Server Controller: Sending user identifier.")
+        var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+        handshakeResource.body = keys.examId + "=" + selectedExamId + "&" + keys.sebUserSessionId + "=" + userSessionId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
 
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
                               keys.headerAuthorization : authorizationString,
                               keys.sebConnectionToken : connectionToken ?? ""]
-        loadWithFallback(handshakeCloseResource, httpMethod: handshakeCloseResource.httpMethod, body: handshakeCloseResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeCloseResponse, statusCode, errorResponse, responseHeaders, attempt) in
-            if handshakeCloseResponse != nil  {
-                let responseData: Data = handshakeCloseResponse!!
+        loadWithFallback(handshakeResource, httpMethod: handshakeResource.httpMethod, body: handshakeResource.body, headers: requestHeaders, fallbackAttempt: 0, withCompletion: { (handshakeResponse, statusCode, errorResponse, responseHeaders, attempt) in
+            if handshakeResponse != nil  {
+                let responseData: Data = handshakeResponse!!
                 let responseBody = String(data: responseData, encoding: .utf8)
                 if !(responseBody?.isEmpty ?? true) {
                     DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
