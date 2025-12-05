@@ -2257,21 +2257,73 @@ bool insideMatrix(void);
     }
     
     // Check for access control privacy permissions to access log folder
-    NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-    if (logPath.length > 0) {
-        logPath = [logPath stringByExpandingTildeInPath];
-        NSURL *logDirectory = [NSURL URLWithString:logPath];
-        BOOL isLogDirectoryAccessible = [self directoryIsAccessible:logDirectory directoryType:@"log"];
-        if (isLogDirectoryAccessible) {
-            DDLogInfo(@"Configured log directory %@", logDirectory.path);
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"]) {
+        NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+        if (logPath.length > 0) {
+            logPath = [logPath stringByExpandingTildeInPath];
+            NSURL *logDirectory = [NSURL URLWithString:logPath];
+            BOOL isLogDirectoryAccessible = [self directoryIsAccessible:logDirectory directoryType:@"log"];
+            if (isLogDirectoryAccessible) {
+                DDLogInfo(@"Configured log directory %@", logDirectory.path);
+            } else {
+                DDLogError(@"Can not access configured log directory %@, ask user to grant privacy access permission.", logDirectory.path);
+                [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
+                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving log files.", @""), logDirectory.path], self.privacyFilesFoldersMessageString]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+                [modalAlert setAlertStyle:NSAlertStyleWarning];
+                void (^privacyGrantAccessFilesFolderHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch(answer)
+                    {
+                        case NSAlertFirstButtonReturn:
+                        {
+                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                            return;
+                        }
+                            
+                        case NSAlertSecondButtonReturn:
+                        {
+                            [[NSNotificationCenter defaultCenter]
+                             postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
+                        }
+                            
+                        default:
+                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
+                        {
+                            DDLogError(@"Alert for granting access to log folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                            return;
+                        }
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
+                return;
+            }
+        }
+    }
+    
+    // Check for access control privacy permissions to access download folders
+    
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"]) {
+        NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
+        BOOL isAccessible = [self directoryIsAccessible:downloadDirectory directoryType:@"download"];
+        if (isAccessible) {
+            DDLogInfo(@"Configured download directory %@", downloadDirectory.path);
+            [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
         } else {
-            DDLogError(@"Can not access configured log directory %@, ask user to grant privacy access permission.", logDirectory.path);
+            DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory.path);
             [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
             NSAlert *modalAlert = [self newAlert];
             [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
-            [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving log files.", @""), logDirectory.path], self.privacyFilesFoldersMessageString]];
+            [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory.path], self.privacyFilesFoldersMessageString]];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
             [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
             [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -2295,7 +2347,7 @@ bool insideMatrix(void);
                     default:
                         // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
                     {
-                        DDLogError(@"Alert for granting access to log folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                        DDLogError(@"Alert for granting access to download folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
                         [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
                         return;
                     }
@@ -2304,53 +2356,6 @@ bool insideMatrix(void);
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
             return;
         }
-    }
-    
-    // Check for access control privacy permissions to access download folders
-    NSURL *downloadDirectory = [self.browserController downloadDirectoryURL];
-    BOOL isAccessible = [self directoryIsAccessible:downloadDirectory directoryType:@"download"];
-    if (isAccessible) {
-        DDLogInfo(@"Configured download directory %@", downloadDirectory.path);
-        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
-    } else {
-        DDLogError(@"Can not access configured download directory %@, ask user to grant privacy access permission.", downloadDirectory.path);
-        [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
-        [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-
-        NSAlert *modalAlert = [self newAlert];
-        [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
-        [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving downloads.", @""), downloadDirectory.path], self.privacyFilesFoldersMessageString]];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
-        [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-        [modalAlert setAlertStyle:NSAlertStyleWarning];
-        void (^privacyGrantAccessFilesFolderHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-            [self removeAlertWindow:modalAlert.window];
-            switch(answer)
-            {
-                case NSAlertFirstButtonReturn:
-                {
-                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-                    return;
-                }
-                    
-                case NSAlertSecondButtonReturn:
-                {
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:@"requestQuitSEBOrSession" object:self];
-                    return;
-                }
-                    
-                default:
-                    // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
-                {
-                    DDLogError(@"Alert for granting access to download folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
-                    [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-                    return;
-                }
-            }
-        };
-        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
-        return;
     }
 }
 
