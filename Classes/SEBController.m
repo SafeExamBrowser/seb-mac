@@ -2356,6 +2356,8 @@ bool insideMatrix(void);
             [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
             return;
         }
+    } else {
+        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
     }
 }
 
