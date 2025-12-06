@@ -439,12 +439,12 @@ public extension SEBServerController {
     @objc func examSelected(_ examId: String, url: String) {
         selectedExamId = examId
         selectedExamURL = url
-        updateConnectionHandshake()
+        sendSelectedExam()
     }
 
     
-    func updateConnectionHandshake() {
-        DDLogInfo("SEB Server Controller: Update connection handshake.")
+    func sendSelectedExam() {
+        DDLogInfo("SEB Server Controller: Send selected exam Id \(selectedExamId) and finish connection handshake.")
         self.serverControllerUIDelegate?.updateStatus(string: NSLocalizedString("Opening Exam...", comment: ""), append: false)
         var handshakeResource = HandshakeUpdateResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
@@ -463,7 +463,7 @@ public extension SEBServerController {
                 if let serverBEK = (responseHeaders?.first(where: { ($0.key as? String)?.caseInsensitiveCompare(keys.sebServerBEK) == .orderedSame}))?.value {
                     self.delegate?.didReceiveServerBEK(serverBEK as! String)
                 }
-                self.getExamConfig()
+                self.finishConnectionHandshake()
             } else {
                 let errorDebugDescription = "Server didn't update connection handshake, server error: \(errorResponse?.error ?? "Unspecified"), details: \(errorResponse?.error_description ?? "n/a")"
                 let userInfo = [NSLocalizedDescriptionKey : NSLocalizedString("Cannot Open Exam", comment: ""),
@@ -481,7 +481,7 @@ public extension SEBServerController {
         DDLogInfo("SEB Server Controller: Finishing connection handshake.")
         var handshakeCloseResource = HandshakeCloseResource(baseURL: self.baseURL, endpoint: (serverAPI?.handshake.endpoint?.location)!)
         let encryptedAppSignatureKey = delegate?.appSignatureKey()
-        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + "&" + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
+        handshakeCloseResource.body = keys.examId + "=" + selectedExamId + (encryptedAppSignatureKey == nil ? "" : ("&" + keys.sebSignatureKey + "=" + encryptedAppSignatureKey!))
 
         let authorizationString = (serverAPI?.handshake.endpoint?.authorization ?? "") + " " + (accessToken ?? "")
         let requestHeaders = [keys.headerContentType : keys.contentTypeFormURLEncoded,
@@ -495,7 +495,7 @@ public extension SEBServerController {
                     DDLogVerbose("Monitoring request returned response: \(responseBody as Any)")
                 }
             }
-            self.delegate?.didEstablishSEBServerConnection()
+            self.getExamConfig()
         })
     }
     
