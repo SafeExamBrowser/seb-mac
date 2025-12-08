@@ -809,7 +809,7 @@ bool insideMatrix(void);
 
         if (!_openingSettings) {
             _openingSettings = YES;
-            if (_startingUp && !_alternateKeyPressed && ![self.preferencesController preferencesAreOpen]) {
+            if (_startingUp && !_alternateKeyPressed && !self.settingsOpen) {
                 _openedURL = YES;
                 DDLogDebug(@"%s Delay opening file %@ while starting up.", __FUNCTION__, filename);
                 _openingSettingsFileURL = fileURL;
@@ -946,7 +946,7 @@ bool insideMatrix(void);
     _alternateKeyPressed = [self alternateKeyCheck];
     
     // Check if preferences window is open
-    if ([self.preferencesController preferencesAreOpen]) {
+    if (self.settingsOpen) {
         
         /// Open settings file in preferences window for editing
         
@@ -1489,7 +1489,7 @@ bool insideMatrix(void);
         [self closeServerView];
     }
     // Check if Preferences are currently open
-    if ([self.preferencesController preferencesAreOpen]) {
+    if (self.settingsOpen) {
         // Close Preferences
         [self closePreferencesWindow];
     }
@@ -4830,7 +4830,7 @@ bool insideMatrix(void){
         DDLogDebug(@"%s", __FUNCTION__);
     }
     
-    if (!_isTerminating && ![self.preferencesController preferencesAreOpen]) {
+    if (!_isTerminating && !self.settingsOpen) {
         
         // Close inactive screen covering windows if some are open
         for (CapWindow *coverWindowToClose in _inactiveScreenWindows) {
@@ -5235,7 +5235,7 @@ conditionallyForWindow:(NSWindow *)window
                   @"detectedRequiredBuiltinDisplayMissing"])
         {
             if (self.sessionState.builtinDisplayNotAvailableDetected == NO) {
-                if (![self.preferencesController preferencesAreOpen] && !self.openingSettings) {
+                if (!self.settingsOpen && !self.openingSettings) {
                     // Don't display the alert or lock screen while opening new settings
                     if ((self.startingUp || self.restarting)) {
                         // SEB is starting, we give the option to quit
@@ -5252,7 +5252,7 @@ conditionallyForWindow:(NSWindow *)window
                         return;
                     }
                     self.sessionState.builtinDisplayNotAvailableDetected = YES;
-                    if (self.sessionState.builtinDisplayEnforceOverride == NO && ![self.preferencesController preferencesAreOpen]) {
+                    if (self.sessionState.builtinDisplayEnforceOverride == NO && !self.settingsOpen) {
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.state = false;
                         self.sebLockedViewController.overrideEnforcingBuiltinScreen.hidden = false;
                         [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"No Built-In Display Available!", @"Lockdown alert title text for no required built-in display available")
@@ -5729,7 +5729,7 @@ conditionallyForWindow:(NSWindow *)window
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-    if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !fontRegistryUIAgentRunning) {
+    if (!allowSwitchToThirdPartyApps && !self.settingsOpen && !fontRegistryUIAgentRunning) {
         // if switching to ThirdPartyApps not allowed
         DDLogDebug(@"Regain active status after %@", [sender name]);
 #ifndef DEBUG
@@ -6159,7 +6159,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)reinforceKioskMode
 {
-    if (![self.preferencesController preferencesAreOpen]) {
+    if (!self.settingsOpen) {
         DDLogDebug(@"Reinforcing the kiosk mode was requested");
         
         if (_isAACEnabled == NO && _wasAACEnabled == NO) {
@@ -6220,7 +6220,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) copy:(id)sender
 {
-    if (![self.preferencesController preferencesAreOpen]) {
+    if (!self.settingsOpen) {
         [self.browserController privateCopy:sender];
     } else {
         [NSApp.keyWindow.firstResponder tryToPerform:@selector(copy:) with:sender];
@@ -6230,7 +6230,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) cut:(id)sender
 {
-    if (![self.preferencesController preferencesAreOpen]) {
+    if (!self.settingsOpen) {
         [self.browserController privateCut:sender];
     } else {
         [NSApp.keyWindow.firstResponder tryToPerform:@selector(cut:) with:sender];
@@ -6240,7 +6240,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) paste:(id)sender
 {
-    if (![self.preferencesController preferencesAreOpen]) {
+    if (!self.settingsOpen) {
         [self.browserController privatePaste:sender];
     } else {
         [NSApp.keyWindow.firstResponder tryToPerform:@selector(paste:) with:sender];
@@ -6892,7 +6892,7 @@ conditionallyForWindow:(NSWindow *)window
     [enterUsernamePasswordText setStringValue:text];
     
     // If the (main) browser window is full screen, we don't show the dialog as sheet
-    if (window && (self.browserController.mainBrowserWindow.isFullScreen || [self.preferencesController preferencesAreOpen])) {
+    if (window && (self.browserController.mainBrowserWindow.isFullScreen || self.settingsOpen)) {
         window = nil;
     }
     
@@ -6957,12 +6957,18 @@ conditionallyForWindow:(NSWindow *)window
 
 #pragma mark - Open/Close Preferences
 
+- (BOOL) settingsOpen
+{
+    return [self.preferencesController preferencesAreOpen];
+}
+
+
 - (IBAction) openPreferences:(id)sender {
     if (!(_screenProctoringController && _screenProctoringController.sessionIsClosing)) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-            if (![self.preferencesController preferencesAreOpen]) {
+            if (!self.settingsOpen) {
                 // Load admin password from the system's user defaults database
                 NSString *hashedAdminPW = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
                 if (![hashedAdminPW isEqualToString:@""]) {
@@ -7179,7 +7185,7 @@ conditionallyForWindow:(NSWindow *)window
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowQuit"] == YES) {
         NSWindow *currentMainWindow = self.browserController.mainBrowserWindow;
-        if ([self.preferencesController preferencesAreOpen] ) {
+        if (self.settingsOpen ) {
             currentMainWindow = self.preferencesController.preferencesWindow;
             DDLogDebug(@"Preferences are open, displaying according alerts as sheet on window %@", currentMainWindow);
         }
@@ -7279,7 +7285,7 @@ conditionallyForWindow:(NSWindow *)window
         switch(answer)
         {
             case NSAlertFirstButtonReturn:
-                if ([self.preferencesController preferencesAreOpen]) {
+                if (self.settingsOpen) {
                     DDLogInfo(@"Confirmed to quit, preferences window is open");
                     [self.preferencesController quitSEB:self];
                 } else {
@@ -7857,7 +7863,7 @@ conditionallyForWindow:(NSWindow *)window
         // Current Presentation Options changed, so make SEB active and reset them
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
-        if (!allowSwitchToThirdPartyApps && ![self.preferencesController preferencesAreOpen] && !launchedApplication && !fontRegistryUIAgentRunning) {
+        if (!allowSwitchToThirdPartyApps && !self.settingsOpen && !launchedApplication && !fontRegistryUIAgentRunning) {
             // If third party Apps are not allowed, we switch back to SEB
             DDLogInfo(@"Switched back to SEB after currentSystemPresentationOptions changed!");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
@@ -7883,13 +7889,13 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Check for running Open and Save Panel Service
-                if (!allowOpenAndSavePanel && _isAACEnabled && bundleID &&
+                if (!allowOpenAndSavePanel && _isAACEnabled && !self.settingsOpen && bundleID &&
                     [bundleID isEqualToString:openAndSavePanelServiceBundleID]) {
                     [self killApplication:startedApplication];
                 }
                 
                 // Check for Share Sheet UI
-                if (!allowShareSheet && _isAACEnabled && bundleID &&
+                if (!allowShareSheet && _isAACEnabled && !self.settingsOpen && bundleID &&
                     [bundleID isEqualToString:shareSheetBundleID]) {
                     [self killApplication:startedApplication];
                 }
