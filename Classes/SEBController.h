@@ -85,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SEBOSXBrowserController;
 @class SEBOSXLockedViewController;
 @class HUDController;
+@class QRCodeOverlayController;
 @class ServerController;
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
@@ -94,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, QRCodeOverlayControllerDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -215,6 +216,8 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(weak, nonatomic) IBOutlet AboutWindow *aboutWindow;
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
 @property (strong, nonatomic) WKWebView *_Nullable temporaryWebView;
+@property(strong, nonatomic) QRCodeOverlayController *qrCodeOverlayController;
+
 
 #pragma mark - Connecting to SEB Server
 // Waiting for user to select exam from SEB Server and to successfully log in

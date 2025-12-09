@@ -37,13 +37,12 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 #import "SEBKeychainManager.h"
-#import "HUDController.h"
 
 @class PreferencesController;
-@class HUDController;
-@class HUDPanel;
+@class QRCodeOverlayController;
+@protocol QRCodeOverlayControllerDelegate;
 
-@interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule, NSWindowDelegate> {
+@interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule, NSWindowDelegate, QRCodeOverlayControllerDelegate> {
     IBOutlet NSPopUpButton *chooseIdentity;
 
     IBOutlet NSObjectController *controller;
@@ -55,7 +54,7 @@
     IBOutlet NSSecureTextField *settingsPasswordField;
     IBOutlet NSSecureTextField *confirmSettingsPasswordField;
     IBOutlet NSButton *revertLastFileButton;
-    HUDPanel *qrCodeOverlayPanel;
+    QRCodeOverlayController *qrCodeOverlayController;
 }
 
 @property (weak, nonatomic) PreferencesController *preferencesController;

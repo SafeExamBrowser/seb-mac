@@ -10,3 +10,5 @@
 #import "SEBBatteryController.h"
 #import "SEBSystemManager.h"
 #import "SEBURLFilter.h"
+#import "HUDPanel.h"
+#import "HUDController.h"

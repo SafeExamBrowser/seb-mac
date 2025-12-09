@@ -264,17 +264,17 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    [self.configFileVC hideQRConfig];
+//    [self.configFileVC hideQRConfig];
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification
 {
-    [self.configFileVC hideQRConfig];
+//    [self.configFileVC hideQRConfig];
 }
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [self.configFileVC hideQRConfig];
+//    [self.configFileVC hideQRConfig];
 }
 
 // Executed to decide if window should close

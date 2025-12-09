@@ -581,6 +581,10 @@ bool insideMatrix(void);
                                              selector:@selector(goToDockButtonBecameFirstResponder)
                                                  name:@"goToDockButtonBecameFirstResponder" object:nil];
 
+    // Add an observer for closing the QR verification code overlay window
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideQRConfig)
+                                                 name:@"hideQRConfigOverlay" object:nil];
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
      {
@@ -6704,8 +6708,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) qrVerifyButtonPressed
 {
-    if (qrCodeOverlayPanel) {
-        [self hideQRVerifyCode];
+    if (!_qrCodeOverlayController) {
+        _qrCodeOverlayController = [[QRCodeOverlayController alloc] initWithDelegate:self];
     }
     // Get selected config purpose
     sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
@@ -6716,31 +6720,9 @@ conditionallyForWindow:(NSWindow *)window
     NSData *encryptedSEBData = [NSData data]; //self.browserController.qrVerifyCode;
     if (encryptedSEBData) {
         NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-        NSImage *qrCodeImage;
-        CGFloat imageWidth = 300;
-        CGFloat imageHeigth = 300;
-        NSView *qrCodeView;
-        if (qrCodePNGImageData) {
-            qrCodeImage = [[NSImage alloc] initWithData:qrCodePNGImageData];
-            imageWidth = qrCodeImage.size.width;
-            imageHeigth = qrCodeImage.size.height;
-            NSRect frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
-            qrCodeView = [[SEBNSImageView alloc] initWithFrame:frameRect image:qrCodeImage];
+        if (![_qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData]) {
+            DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
         }
-        qrCodeView.translatesAutoresizingMaskIntoConstraints = NO;
-
-        [self openLockModalWindows];
-
-        qrCodeOverlayPanel = [HUDController createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
-        qrCodeOverlayPanel.closeOnClick = YES;
-        
-        [qrCodeOverlayPanel center];
-        qrCodeOverlayPanel.becomesKeyOnlyIfNeeded = YES;
-        [qrCodeOverlayPanel setLevel:NSScreenSaverWindowLevel+1];
-        [qrCodeOverlayPanel setSharingType:NSWindowSharingReadOnly];
-//        qrCodeOverlayPanel.delegate = self;
-        [qrCodeOverlayPanel orderFront:self];
-        [qrCodeOverlayPanel invalidateShadow];
     } else {
         DDLogError(@"%s: Failed to generate config data", __FUNCTION__);
     }
@@ -6748,10 +6730,8 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) hideQRVerifyCode
 {
-    if (qrCodeOverlayPanel) {
-        [self closeLockModalWindows];
-        [qrCodeOverlayPanel orderOut:self];
-        qrCodeOverlayPanel = nil;
+    if (_qrCodeOverlayController) {
+        [_qrCodeOverlayController hideQRConfig];
     }
 }
 

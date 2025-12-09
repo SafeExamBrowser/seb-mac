@@ -43,15 +43,23 @@
 
 - (BOOL)canBecomeKeyWindow
 {
-    return NO;
+    return _canBecomeKey;
 }
 
 // When clicked into the panel, close it
 - (void)mouseDown:(NSEvent *)event {
     if (self.closeOnClick) {
-//        [self orderOut:self];
         [self.delegate windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
     }
 }
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    if (self.closeOnKeyDown) {
+        [self.delegate windowWillClose:[NSNotification notificationWithName:NSWindowWillCloseNotification object:nil]];
+    }
+    [super keyDown:theEvent];
+}
+
 
 @end
