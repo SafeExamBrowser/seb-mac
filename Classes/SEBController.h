@@ -219,6 +219,8 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) QRCodeOverlayController *qrCodeOverlayController;
 
 
+@property(readonly) BOOL settingsOpen;
+
 #pragma mark - Connecting to SEB Server
 // Waiting for user to select exam from SEB Server and to successfully log in
 @property(readwrite) BOOL establishingSEBServerConnection;

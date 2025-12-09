@@ -59,6 +59,10 @@
                           @"identifier" : @"net.sourceforge.chicken",
                       },
                       @{
+                          @"executable" : @"Chrome",
+                          @"identifier" : @"com.google.chrome",
+                      },
+                      @{
                           @"executable" : @"Chrome Remote Desktop Host",
                           @"identifier" : @"com.google.chrome.remote_desktop.native-messaging-host",
                           @"strongKill" : @YES,
@@ -100,10 +104,6 @@
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Google Chrome Helper",
                           @"strongKill" : @YES,
-                      },
-                      @{
-                          @"executable" : @"Chrome",
-                          @"identifier" : @"com.google.chrome",
                       },
                       @{
                           @"executable" : @"GoToMeeting",

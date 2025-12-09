@@ -122,7 +122,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YEZ-6w-HiR">
                                                                     <rect key="frame" x="71" y="31" width="134" height="23"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cye-NU-q1T">
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cye-NU-q1T">
                                                                             <rect key="frame" x="-2" y="4" width="40" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="kbg-Kp-tbc">
                                                                                 <font key="font" metaFont="system"/>
@@ -133,7 +133,7 @@
                                                                                 <accessibilityConnection property="title" destination="9eK-6x-D8A" id="CyE-R4-mob"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <comboBox toolTip="Window width in pixel or percentage of total screen width" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9eK-6x-D8A">
+                                                                        <comboBox toolTip="Window width in pixel or percentage of total screen width" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9eK-6x-D8A">
                                                                             <rect key="frame" x="44" y="0.0" width="90" height="23"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="90" id="Pxg-Du-BDm"/>
@@ -173,7 +173,7 @@
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-T3-gly">
                                                                     <rect key="frame" x="17" y="0.0" width="188" height="23"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sli-3H-w8x">
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sli-3H-w8x">
                                                                             <rect key="frame" x="-2" y="4" width="94" height="16"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="8p0-c4-gAw">
                                                                                 <font key="font" metaFont="system"/>
@@ -184,7 +184,7 @@
                                                                                 <accessibilityConnection property="title" destination="XV8-Xi-8DI" id="Bug-Av-96a"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <comboBox toolTip="Window height in pixel or percentage of total screen height" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XV8-Xi-8DI">
+                                                                        <comboBox toolTip="Window height in pixel or percentage of total screen height" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XV8-Xi-8DI">
                                                                             <rect key="frame" x="98" y="0.0" width="90" height="23"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="90" id="hwc-6z-4kJ"/>
@@ -234,7 +234,7 @@
                                                         <stackView distribution="fillProportionally" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JRY-lU-agV">
                                                             <rect key="frame" x="345" y="30" width="243" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PDm-Fp-4Ea">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PDm-Fp-4Ea">
                                                                     <rect key="frame" x="-2" y="4" width="137" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal positioning" id="cKh-Sd-JBS">
                                                                         <font key="font" metaFont="system"/>
@@ -319,7 +319,7 @@
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="w0A-ck-Wha">
                                                                     <rect key="frame" x="0.0" y="0.0" width="284" height="36"/>
                                                                     <subviews>
-                                                                        <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QSj-QF-dad">
+                                                                        <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="QSj-QF-dad">
                                                                             <rect key="frame" x="0.0" y="20" width="211" height="16"/>
                                                                             <buttonCell key="cell" type="check" title="Enable browser window toolbar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LNX-ve-0Pd">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -330,7 +330,7 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_enableBrowserWindowToolbar" id="TDV-Qn-cSF"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Hide browser window toolbar by default. It can be unhidden using the View menu or alt-cmd-T" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vmu-au-292">
+                                                                        <button toolTip="Hide browser window toolbar by default. It can be unhidden using the View menu or alt-cmd-T" translatesAutoresizingMaskIntoConstraints="NO" id="vmu-au-292">
                                                                             <rect key="frame" x="20" y="0.0" width="160" height="14"/>
                                                                             <buttonCell key="cell" type="check" title="Hide toolbar as default" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Z2G-Dw-4mT">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -385,7 +385,7 @@
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="wED-Dh-QmF">
                                                                     <rect key="frame" x="0.0" y="28" width="588" height="24"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8Rh-Bu-KaB">
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8Rh-Bu-KaB">
                                                                             <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Status Bar Appearance (iOS)" usesSingleLineMode="YES" id="dLs-bX-Goa">
                                                                                 <font key="font" metaFont="system"/>
@@ -427,7 +427,7 @@
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YUP-dm-tdQ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="588" height="24"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dgB-Hd-QAS">
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dgB-Hd-QAS">
                                                                             <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Status Bar with FaceID (iOS)" usesSingleLineMode="YES" id="3Dw-Kd-w6C">
                                                                                 <font key="font" metaFont="system"/>
@@ -732,7 +732,7 @@
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-5e-so6">
                                                                     <rect key="frame" x="0.0" y="0.0" width="121" height="24"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-Pi-uR0">
+                                                                        <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-Pi-uR0">
                                                                             <rect key="frame" x="-2" y="0.0" width="77" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="18" id="ylv-3C-Je0"/>
@@ -746,7 +746,7 @@
                                                                                 <accessibilityConnection property="title" destination="oZJ-Jp-rma" id="Bho-cC-ynf"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" focusRingType="none" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-Jp-rma">
+                                                                        <textField toolTip="SEB dock height in points (pixel height*2 on Retina displays)" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oZJ-Jp-rma">
                                                                             <rect key="frame" x="81" y="0.0" width="40" height="24"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="rjs-lC-BA7"/>
@@ -875,11 +875,11 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Yc1-H4-Wq2">
                                                             <rect key="frame" x="299" y="0.0" width="289" height="52"/>
                                                             <subviews>
-                                                                <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Xz-cHe">
-                                                                    <rect key="frame" x="0.0" y="30" width="194" height="22"/>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPs-Xz-cHe">
+                                                                    <rect key="frame" x="0.0" y="28" width="194" height="24"/>
                                                                     <subviews>
-                                                                        <textField toolTip="Zoom level to use by default on every page" focusRingType="none" horizontalHuggingPriority="1000" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l2A-KY-iEk">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
+                                                                        <textField toolTip="Zoom level to use by default on every page" horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="l2A-KY-iEk">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="24"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="o6y-S1-KoU"/>
                                                                             </constraints>
@@ -903,8 +903,8 @@
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="1Un-CF-a4a"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITS-ce-QW5">
-                                                                            <rect key="frame" x="46" y="2" width="150" height="16"/>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ITS-ce-QW5">
+                                                                            <rect key="frame" x="46" y="4" width="150" height="16"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Default page zoom level" usesSingleLineMode="YES" id="Zkh-MJ-gRD">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -912,6 +912,10 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="ITS-ce-QW5" firstAttribute="firstBaseline" secondItem="l2A-KY-iEk" secondAttribute="firstBaseline" id="fa0-7x-dxV"/>
+                                                                        <constraint firstItem="ITS-ce-QW5" firstAttribute="centerY" secondItem="QPs-Xz-cHe" secondAttribute="centerY" id="j3o-M6-P3X"/>
+                                                                    </constraints>
                                                                     <visibilityPriorities>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
@@ -921,11 +925,11 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1MU-KN-Svg">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="24"/>
+                                                                <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1MU-KN-Svg">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="187" height="22"/>
                                                                     <subviews>
-                                                                        <textField focusRingType="none" horizontalHuggingPriority="1000" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z1l-z6-njE">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="24"/>
+                                                                        <textField horizontalHuggingPriority="1000" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z1l-z6-njE">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="22"/>
                                                                             <string key="toolTip">Zoom level to use by default on every page. When using the modern WebView, text zoom only works on some (simple) webpages and is only enabled when the page zoom level is 1.0</string>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="40" id="C2O-Ch-LUj"/>
@@ -950,8 +954,8 @@
                                                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_showTaskBar" id="Oyh-yD-tqA"/>
                                                                             </connections>
                                                                         </textField>
-                                                                        <textField focusRingType="none" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jF6-pn-oQs">
-                                                                            <rect key="frame" x="46" y="4" width="143" height="16"/>
+                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jF6-pn-oQs">
+                                                                            <rect key="frame" x="46" y="2" width="143" height="16"/>
                                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Default text zoom level" usesSingleLineMode="YES" id="zNp-k1-XUs">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -959,6 +963,9 @@
                                                                             </textFieldCell>
                                                                         </textField>
                                                                     </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstItem="jF6-pn-oQs" firstAttribute="firstBaseline" secondItem="Z1l-z6-njE" secondAttribute="firstBaseline" id="9nf-ML-317"/>
+                                                                    </constraints>
                                                                     <visibilityPriorities>
                                                                         <integer value="1000"/>
                                                                         <integer value="1000"/>
@@ -1085,7 +1092,7 @@
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3m2-FV-E3P">
                                                             <rect key="frame" x="0.0" y="128" width="588" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MOd-UG-tmQ">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MOd-UG-tmQ">
                                                                     <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="VoiceOver" id="M8d-8C-k6p">
                                                                         <font key="font" metaFont="system"/>
@@ -1130,7 +1137,7 @@
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5Bf-cz-USQ">
                                                             <rect key="frame" x="0.0" y="96" width="588" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-qK-5hJ">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b3g-qK-5hJ">
                                                                     <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Assistive Touch (iOS)" id="GPU-33-Pwp">
                                                                         <font key="font" metaFont="system"/>
@@ -1175,7 +1182,7 @@
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="6zU-XV-Izu">
                                                             <rect key="frame" x="0.0" y="64" width="588" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caK-Ii-ceH">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="caK-Ii-ceH">
                                                                     <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Greyscale Display (iOS)" id="rZz-Dc-BRg">
                                                                         <font key="font" metaFont="system"/>
@@ -1220,7 +1227,7 @@
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="t8y-aa-bJG">
                                                             <rect key="frame" x="0.0" y="32" width="588" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HUK-Ng-hQa">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HUK-Ng-hQa">
                                                                     <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Smart Invert (iOS)" id="s7L-DW-WN1">
                                                                         <font key="font" metaFont="system"/>
@@ -1265,7 +1272,7 @@
                                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="baseline" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="0Oh-8e-I9j">
                                                             <rect key="frame" x="0.0" y="0.0" width="588" height="24"/>
                                                             <subviews>
-                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mmw-Vd-BcG">
+                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mmw-Vd-BcG">
                                                                     <rect key="frame" x="-2" y="4" width="294" height="16"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Zoom (iOS)" id="NIa-pg-4RL">
                                                                         <font key="font" metaFont="system"/>
@@ -1391,7 +1398,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.12187499999999996" horizontal="NO" id="8g8-Kg-p4v">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.71562499999999996" horizontal="NO" id="8g8-Kg-p4v">
                         <rect key="frame" x="649" y="1" width="17" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
