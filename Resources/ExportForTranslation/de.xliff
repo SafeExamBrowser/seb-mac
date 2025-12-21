@@ -1105,7 +1105,7 @@
       </trans-unit>
       <trans-unit id="6.title" xml:space="preserve">
         <source>Allow open/save panel</source>
-        <target>Umschalten auf Drittapplikationen erlauben</target>
+        <target>Öffnen/Speichern-Fenster zulassen</target>
         <note>Class = "NSButtonCell"; title = "Allow open/save panel"; ObjectID = "6";</note>
       </trans-unit>
       <trans-unit id="9ep-FT-5jP.title" xml:space="preserve">

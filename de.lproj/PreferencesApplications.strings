@@ -14,7 +14,7 @@
 "5.ibShadowedToolTip" = "Wenn Sie den AAC-Bewertungsmodus verwenden, blockiert SEB den macOS-Dialog 'Datei öffnen' und 'Speichern unter'. Benutzer können das Dateisystem nicht durchsuchen und in den meisten zugelassenen Apps mit AAC Multi-App Modus keine Dateien manuell öffnen.";
 
 /* Class = "NSButtonCell"; title = "Allow open/save panel"; ObjectID = "6"; */
-"6.title" = "Umschalten auf Drittapplikationen erlauben";
+"6.title" = "Öffnen/Speichern-Fenster zulassen";
 
 /* Class = "NSTextFieldCell"; title = "Team ID"; ObjectID = "9ep-FT-5jP"; */
 "9ep-FT-5jP.title" = "Team-ID";
