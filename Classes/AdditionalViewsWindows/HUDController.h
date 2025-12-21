@@ -37,6 +37,10 @@
 
 @class HUDPanel;
 
+@protocol VQRCodeProtocol <NSObject>
+@property (readwrite) BOOL isVQRCode;
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HUDController : NSObject

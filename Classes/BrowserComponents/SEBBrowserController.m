@@ -719,8 +719,10 @@ static NSString *urlStrippedFragment(NSURL* url)
     if ((secureSession && !(secureSessionReconfigureAllow && secureSessionReconfigureURLMatch)) ||
         (!secureSession && NSUserDefaults.userDefaultsPrivate && !secureSessionReconfigureAllow)) {
         // If yes, we don't download the .seb file
+        DDLogDebug(@"%s = false", __FUNCTION__);
         return NO;
     } else {
+        DDLogDebug(@"%s = true", __FUNCTION__);
         return YES;
     }
 }

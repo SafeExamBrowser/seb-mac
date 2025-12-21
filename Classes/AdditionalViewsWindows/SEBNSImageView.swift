@@ -34,7 +34,11 @@
 
 import Foundation
 
-@objc class SEBNSImageView: NSView {
+//@objc public protocol VQRCodeProtocol: AnyObject {
+//    var isVQRCode: Bool { get set }
+//}
+
+@objc class SEBNSImageView: NSView, VQRCodeProtocol {
 
     var image : NSImage? {
         didSet {
@@ -42,6 +46,8 @@ import Foundation
         }
     }
 
+    var isVQRCode: Bool = false
+    
     @objc init(frame frameRect: NSRect, image : NSImage?) {
         self.image = image
         super.init(frame: frameRect)

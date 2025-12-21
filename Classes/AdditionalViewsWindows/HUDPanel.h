@@ -43,3 +43,6 @@
 - (BOOL)canBecomeKeyWindow;
 
 @end
+
+@interface QRCPanel : HUDPanel
+@end

@@ -34,7 +34,7 @@
 
 import Foundation
 
-@objc public protocol QRCodeOverlayControllerDelegate {
+@objc public protocol QRCodeOverlayControllerDelegate: AnyObject {
     func openLockModalWindows()
     func closeLockModalWindows()
 }
@@ -54,7 +54,7 @@ import Foundation
         }
         var imageWidth = 300.0
         var imageHeigth = 300.0
-        var qrCodeView: NSView
+        var qrCodeView: SEBNSImageView
         if (pngData != nil) {
             guard let qrCodeImage = NSImage.init(data: pngData!) else {
                 return false
@@ -62,9 +62,10 @@ import Foundation
             imageWidth = qrCodeImage.size.width;
             imageHeigth = qrCodeImage.size.height;
             let frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
-            qrCodeView = SEBNSImageView(frame: frameRect, image: qrCodeImage) //alloc] initWithFrame:frameRect image:qrCodeImage];
+            qrCodeView = SEBNSImageView(frame: frameRect, image: qrCodeImage)
+            qrCodeView.isVQRCode = true
         } else {
-            qrCodeView = overlayViewForLabel(text: String("Config Too Large for QR Code"))
+            qrCodeView = overlayViewForLabel(text: String("Config Too Large for QR Code")) as! SEBNSImageView
         }
         qrCodeView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -91,7 +92,7 @@ import Foundation
         
         let overlayViewCloseButton = NSButton(title: text, image: NSImage(named: "SEBBadgeWarning")!, target: self, action: #selector(hideQRConfig))
         overlayViewCloseButton.bezelStyle = .regularSquare
-        overlayViewCloseButton.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize) //boldSystemFontOfSize:[NSFont systemFontSize]];
+        overlayViewCloseButton.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = false
         
         overlayView.addSubview(overlayViewCloseButton)

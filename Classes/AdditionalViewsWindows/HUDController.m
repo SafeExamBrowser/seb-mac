@@ -47,7 +47,6 @@
     HUDBackground.layer.cornerRadius = padding/2;
     HUDBackground.layer.backgroundColor = [NSColor lightGrayColor].CGColor;
 
-//    [overlayView setFrameOrigin:NSMakePoint(padding, padding)];
     [HUDBackground addSubview:overlayView];
 
     HUDBackground.translatesAutoresizingMaskIntoConstraints = NO;
@@ -57,7 +56,12 @@
     [HUDBackground.topAnchor constraintEqualToAnchor:overlayView.topAnchor constant: -padding].active = YES;
     [HUDBackground.bottomAnchor constraintEqualToAnchor:overlayView.bottomAnchor constant: padding].active = YES;
 
-    HUDPanel *overlayPanel = [[HUDPanel alloc] initWithContentRect:backgroundRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
+    HUDPanel *overlayPanel;
+    if ([overlayView conformsToProtocol:@protocol(VQRCodeProtocol)] && [(id<VQRCodeProtocol>)overlayView isVQRCode]) {
+        overlayPanel = [[QRCPanel alloc] initWithContentRect:backgroundRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
+    } else {
+        overlayPanel = [[HUDPanel alloc] initWithContentRect:backgroundRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:NO];
+    }
     overlayPanel.backgroundColor = [NSColor clearColor];
     overlayPanel.opaque = NO;
     overlayPanel.alphaValue = 0.75;
@@ -138,3 +142,4 @@
 }
 
 @end
+

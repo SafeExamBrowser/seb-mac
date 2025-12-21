@@ -37,10 +37,10 @@
 #import "MBPreferencesController.h"
 #import "PreferencesController.h"
 #import "SEBKeychainManager.h"
+#import "SafeExamBrowser-Swift.h"
 
 @class PreferencesController;
 @class QRCodeOverlayController;
-@protocol QRCodeOverlayControllerDelegate;
 
 @interface PrefsConfigFileViewController : NSViewController <MBPreferencesModule, NSWindowDelegate, QRCodeOverlayControllerDelegate> {
     IBOutlet NSPopUpButton *chooseIdentity;

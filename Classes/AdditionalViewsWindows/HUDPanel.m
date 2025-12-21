@@ -61,5 +61,7 @@
     [super keyDown:theEvent];
 }
 
+@end
 
+@implementation QRCPanel
 @end

@@ -88,8 +88,9 @@
                                    selector:(SEL)selector
 
 {
-    storeSettingsForEditing = false;
-    storeSettingsForceConfiguringClient = true;
+    DDLogDebug(@"%s: callback %@, selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+    storeSettingsForEditing = NO;
+    storeSettingsForceConfiguringClient = YES;
     storeSettingsCallback = callback;
     storeSettingsSelector = selector;
     sebFileCredentials = [SEBConfigFileCredentials new];
