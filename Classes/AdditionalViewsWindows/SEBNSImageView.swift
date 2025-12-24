@@ -38,9 +38,9 @@ import Foundation
 //    var isVQRCode: Bool { get set }
 //}
 
-@objc class SEBNSImageView: NSView, VQRCodeProtocol {
+@objc class SEBNSImageView: NSImageView, VQRCodeProtocol {
 
-    var image : NSImage? {
+    override var image : NSImage? {
         didSet {
            needsDisplay = true
         }
@@ -49,8 +49,8 @@ import Foundation
     var isVQRCode: Bool = false
     
     @objc init(frame frameRect: NSRect, image : NSImage?) {
-        self.image = image
         super.init(frame: frameRect)
+        self.image = image
     }
 
     required init?(coder: NSCoder) {

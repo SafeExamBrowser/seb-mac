@@ -48,7 +48,7 @@ import Foundation
         self.qrCodeOverlayControllerDelegate = delegate
     }
     
-    @objc func showQRCode(pngData: Data?) -> Bool {
+    @objc func showQRCode(pngData: Data?, isVQRCode: Bool = false) -> Bool {
         if qrCodeOverlayPanel != nil {
             hideQRConfig()
         }
@@ -59,11 +59,11 @@ import Foundation
             guard let qrCodeImage = NSImage.init(data: pngData!) else {
                 return false
             }
-            imageWidth = qrCodeImage.size.width;
-            imageHeigth = qrCodeImage.size.height;
-            let frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth);
+            imageWidth = max(imageWidth, qrCodeImage.size.width)
+            imageHeigth = max(imageHeigth, qrCodeImage.size.height)
+            let frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth)
             qrCodeView = SEBNSImageView(frame: frameRect, image: qrCodeImage)
-            qrCodeView.isVQRCode = true
+            qrCodeView.isVQRCode = isVQRCode
         } else {
             qrCodeView = overlayViewForLabel(text: String("Config Too Large for QR Code")) as! SEBNSImageView
         }
@@ -78,7 +78,7 @@ import Foundation
         qrCodeOverlayPanel?.center()
         qrCodeOverlayPanel?.becomesKeyOnlyIfNeeded = true
         qrCodeOverlayPanel?.level = NSWindow.Level.screenSaver+1
-        qrCodeOverlayPanel?.sharingType = NSWindow.SharingType.readOnly
+        qrCodeOverlayPanel?.sharingType = NSWindow.SharingType.none
         qrCodeOverlayPanel?.delegate = self
         qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
         qrCodeOverlayPanel?.invalidateShadow()

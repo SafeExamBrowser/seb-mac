@@ -340,7 +340,7 @@
                                                                                          removeDefaults:YES];
     if (encryptedSEBData) {
         NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-        if (![qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData]) {
+        if (![qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData isVQRCode:NO]) {
             DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
         }
     } else {

@@ -6727,7 +6727,7 @@ conditionallyForWindow:(NSWindow *)window
     NSData *encryptedSEBData = [NSData data]; //self.browserController.qrVerifyCode;
     if (encryptedSEBData) {
         NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-        if (![_qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData]) {
+        if (![_qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData isVQRCode:YES]) {
             DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
         }
     } else {
