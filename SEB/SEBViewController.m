@@ -501,15 +501,20 @@ static NSMutableSet *browserWindowControllers;
         if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
-            // Initialize UI using client UI/browser settings
-            [self initSEBUIWithCompletionBlock:^{
-                [self conditionallyStartKioskMode];
-            }];
+            // Init SEB only if not reconfiguring from MDM server
+            if (!self.isReconfiguringToMDMConfig && !self.didReceiveMDMConfig) {
+                // Initialize UI using client UI/browser settings
+                [self initSEBUIWithCompletionBlock:^{
+                    [self conditionallyStartKioskMode];
+                }];
+            } else {
+                // DON'T setFinishedInitializing
+                return;
+            }
         }
-        
-        // Set flag that SEB is initialized: Now showing alerts is allowed
-        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-    }    
+    }
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
 
 
@@ -2030,7 +2035,6 @@ static NSMutableSet *browserWindowControllers;
             {
                 DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
                 readMDMConfig = [self readMDMServerConfig:serverConfig];
-                _didReceiveMDMConfig = NO;
                 return readMDMConfig;
             } else {
                 DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
@@ -2041,8 +2045,8 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         _isReconfiguringToMDMConfig = NO;
+        _didReceiveMDMConfig = NO;
     }
-    _didReceiveMDMConfig = NO;
     return readMDMConfig;
 }
 
@@ -2065,6 +2069,17 @@ static NSMutableSet *browserWindowControllers;
         } else {
             DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
+            if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
+                _didReceiveMDMConfig = NO;
+                run_on_ui_thread(^{
+                    // Initialize UI using client UI/browser settings
+                    [self initSEBUIWithCompletionBlock:^{
+                        [self conditionallyStartKioskMode];
+                    }];
+                });
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+            }
         }
     }
     return readMDMConfig;
@@ -3567,8 +3582,6 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.editingConfigFile = NO;
             } else {
                 [self restartExamQuitting:NO];
-                self.isReconfiguringToMDMConfig = NO;
-                self.didReceiveMDMConfig = NO;
             }
         });
         
@@ -3852,6 +3865,8 @@ void run_on_ui_thread(dispatch_block_t block)
         currentStartURL = nil;
         currentConfigKey = nil;
     }
+    self.isReconfiguringToMDMConfig = NO;
+    self.didReceiveMDMConfig = NO;
 }
 
 
