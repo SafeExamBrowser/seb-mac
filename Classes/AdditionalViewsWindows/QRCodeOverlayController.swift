@@ -45,12 +45,14 @@ import Foundation
     private var qrCodeOverlayPanel: HUDPanel?
     
     @objc init(delegate: QRCodeOverlayControllerDelegate? = nil) {
+        super.init()
         self.qrCodeOverlayControllerDelegate = delegate
+        NotificationCenter.default.addObserver(self, selector: #selector(self.hideQRCode), name: NSNotification.Name("hideQRCodeOverlay"), object: nil)
     }
     
     @objc func showQRCode(pngData: Data?, isVQRCode: Bool = false) -> Bool {
         if qrCodeOverlayPanel != nil {
-            hideQRConfig()
+            hideQRCode()
         }
         var imageWidth = 300.0
         var imageHeigth = 300.0
@@ -90,7 +92,7 @@ import Foundation
         let overlayView = NSView()
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         
-        let overlayViewCloseButton = NSButton(title: text, image: NSImage(named: "SEBBadgeWarning")!, target: self, action: #selector(hideQRConfig))
+        let overlayViewCloseButton = NSButton(title: text, image: NSImage(named: "SEBBadgeWarning")!, target: self, action: #selector(hideQRCode))
         overlayViewCloseButton.bezelStyle = .regularSquare
         overlayViewCloseButton.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +108,7 @@ import Foundation
         return overlayView
     }
     
-    @objc func hideQRConfig() {
+    @objc func hideQRCode() {
         if (qrCodeOverlayPanel != nil) {
             qrCodeOverlayControllerDelegate?.closeLockModalWindows()
             qrCodeOverlayPanel?.orderOut(self)
@@ -115,10 +117,10 @@ import Foundation
     }
     
     @objc public func windowDidResignKey(_ notification: Notification) {
-        hideQRConfig()
+        hideQRCode()
     }
     
     @objc public func windowWillClose(_ notification: Notification) {
-        hideQRConfig()
+        hideQRCode()
     }
 }

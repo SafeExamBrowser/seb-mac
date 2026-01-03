@@ -71,9 +71,9 @@
 - (void) awakeFromNib
 {
     // Add an observer for closing the Config QR code overlay window
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideQRConfig)
-                                                 name:@"hideQRConfigOverlay" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(hideQRCode)
+//                                                 name:@"hideQRCodeOverlay" object:nil];
 }
 
 
@@ -349,12 +349,12 @@
 }
 
 
-- (void) hideQRConfig
-{
-    if (qrCodeOverlayController) {
-        [qrCodeOverlayController hideQRConfig];
-    }
-}
+//- (void) hideQRConfig
+//{
+//    if (qrCodeOverlayController) {
+//        [qrCodeOverlayController hideQRCode];
+//    }
+//}
 
 
 - (void)openLockModalWindows {

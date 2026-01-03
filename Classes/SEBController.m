@@ -580,11 +580,6 @@ bool insideMatrix(void);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(goToDockButtonBecameFirstResponder)
                                                  name:@"goToDockButtonBecameFirstResponder" object:nil];
-
-    // Add an observer for closing the QR verification code overlay window
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideQRConfig)
-                                                 name:@"hideQRConfigOverlay" object:nil];
     
     [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^NSEvent *(NSEvent *event)
      {
@@ -6735,10 +6730,10 @@ conditionallyForWindow:(NSWindow *)window
     }
 }
 
-- (void) hideQRVerifyCode
+- (void) hideQRCode
 {
     if (_qrCodeOverlayController) {
-        [_qrCodeOverlayController hideQRConfig];
+        [_qrCodeOverlayController hideQRCode];
     }
 }
 
