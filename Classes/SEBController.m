@@ -6730,13 +6730,6 @@ conditionallyForWindow:(NSWindow *)window
     }
 }
 
-- (void) hideQRCode
-{
-    if (_qrCodeOverlayController) {
-        [_qrCodeOverlayController hideQRCode];
-    }
-}
-
 
 - (void) quitButtonPressed
 {
