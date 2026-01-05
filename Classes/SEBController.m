@@ -66,6 +66,7 @@
 #include <sys/sysctl.h>
 #include <CoreGraphics/CGDirectDisplay.h>
 #import "CGSPrivate.h"
+#import <CoreImage/CoreImage.h>
 
 #import "PrefsBrowserViewController.h"
 #import "SEBBrowserController.h"
@@ -6713,20 +6714,45 @@ conditionallyForWindow:(NSWindow *)window
     if (!_qrCodeOverlayController) {
         _qrCodeOverlayController = [[QRCodeOverlayController alloc] initWithDelegate:self];
     }
-    // Get selected config purpose
-    sebConfigPurposes configPurpose = [self.preferencesController.configFileVC getSelectedConfigPurpose];
-    if (configPurpose != sebConfigPurposeStartingExam && configPurpose != sebConfigPurposeConfiguringClient) {
-        configPurpose = sebConfigPurposeStartingExam;
-    }
-    // Read SEB settings from UserDefaults and encrypt them using the provided security credentials
-    NSData *encryptedSEBData = [NSData data]; //self.browserController.qrVerifyCode;
-    if (encryptedSEBData) {
-        NSData *qrCodePNGImageData = [self.preferencesController encodeConfigData:encryptedSEBData forPurpose:configPurpose format:shareConfigFormatQRCode uncompressed:NO removeDefaults:YES];
-        if (![_qrCodeOverlayController showQRCodeWithPngData:qrCodePNGImageData isVQRCode:YES]) {
-            DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
-        }
-    } else {
-        DDLogError(@"%s: Failed to generate config data", __FUNCTION__);
+    NSSize imageSize = NSMakeSize(300, 300);
+
+    NSImage *image = [[NSImage alloc] initWithSize:imageSize];
+
+    // Draw nothing → fully transparent image
+    [image lockFocus];
+    [[NSColor clearColor] set];
+    NSRectFill(NSMakeRect(0, 0, imageSize.width, imageSize.height));
+    [image unlockFocus];
+
+    // Render into bitmap
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
+        initWithBitmapDataPlanes:NULL
+                      pixelsWide:imageSize.width
+                      pixelsHigh:imageSize.height
+                   bitsPerSample:8
+                 samplesPerPixel:4
+                        hasAlpha:YES
+                        isPlanar:NO
+                  colorSpaceName:NSDeviceRGBColorSpace
+                     bytesPerRow:0
+                    bitsPerPixel:0];
+
+    // Draw image into bitmap
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+    [NSGraphicsContext setCurrentContext:ctx];
+    [image drawAtPoint:NSZeroPoint
+              fromRect:NSZeroRect
+             operation:NSCompositingOperationSourceOver
+              fraction:1.0];
+    [NSGraphicsContext restoreGraphicsState];
+
+    // PNG data
+    NSData *pngData = [rep representationUsingType:NSBitmapImageFileTypePNG
+                                         properties:@{}];
+
+    if (![_qrCodeOverlayController showQRCodeWithPngData:pngData isVQRCode:YES]) {
+        DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
     }
 }
 

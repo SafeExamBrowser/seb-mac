@@ -54,8 +54,8 @@ import Foundation
         if qrCodeOverlayPanel != nil {
             hideQRCode()
         }
-        var imageWidth = 300.0
-        var imageHeigth = 300.0
+        var imageWidth = 340.0
+        var imageHeigth = 340.0
         var qrCodeView: SEBNSImageView
         if (pngData != nil) {
             guard let qrCodeImage = NSImage.init(data: pngData!) else {
