@@ -73,7 +73,7 @@ import Foundation
         
         qrCodeOverlayControllerDelegate?.openLockModalWindows()
         
-        qrCodeOverlayPanel = HUDController.createOverlayPanel(with: qrCodeView, size: CGSizeMake(imageWidth, imageHeigth)) // createOverlayPanelWithView:qrCodeView size:CGSizeMake(imageWidth, imageHeigth)];
+        qrCodeOverlayPanel = HUDController.createOverlayPanel(with: qrCodeView, size: CGSizeMake(imageWidth, imageHeigth))
         qrCodeOverlayPanel?.closeOnClick = true
         qrCodeOverlayPanel?.closeOnKeyDown = true
         qrCodeOverlayPanel?.canBecomeKey = true
