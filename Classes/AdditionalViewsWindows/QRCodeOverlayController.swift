@@ -43,6 +43,7 @@ import Foundation
     
     private var qrCodeOverlayControllerDelegate: QRCodeOverlayControllerDelegate?
     private var qrCodeOverlayPanel: HUDPanel?
+    private var displayingCode: Bool = false
     
     @objc init(delegate: QRCodeOverlayControllerDelegate? = nil) {
         super.init()
@@ -54,6 +55,7 @@ import Foundation
         if qrCodeOverlayPanel != nil {
             hideQRCode()
         }
+        displayingCode = true
         var imageWidth = 340.0
         var imageHeigth = 340.0
         var qrCodeView: SEBNSImageView
@@ -84,6 +86,11 @@ import Foundation
         qrCodeOverlayPanel?.delegate = self
         qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
         qrCodeOverlayPanel?.invalidateShadow()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            self.displayingCode = false
+        }
+        
         return true
     }
 
@@ -109,7 +116,7 @@ import Foundation
     }
     
     @objc func hideQRCode() {
-        if (qrCodeOverlayPanel != nil) {
+        if (qrCodeOverlayPanel != nil && !displayingCode) {
             qrCodeOverlayControllerDelegate?.closeLockModalWindows()
             qrCodeOverlayPanel?.orderOut(self)
             qrCodeOverlayPanel = nil

@@ -629,6 +629,8 @@ bool insideMatrix(void);
             DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
             [self.browserController activatePreviousOpenWindow];
             return nil;
+        } else if (isControl && isShift && event.keyCode == kVK_ANSI_D ) {  //Ctrl + Shift + D
+            [self qrVerifyButtonPressed:self];
         } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl/Shift + F3
             if (NSApp.keyWindow == self.dockController.window) {
                 [self.browserController activateCurrentWindow];
@@ -6364,7 +6366,7 @@ conditionallyForWindow:(NSWindow *)window
                                                                        toolTip:[NSString stringWithFormat:NSLocalizedString(@"Show QR code for %@ Verificator",nil), SEBShortAppName]
                                                                           menu:nil
                                                                         target:self
-                                                                        action:@selector(qrVerifyButtonPressed)
+                                                                        action:@selector(qrVerifyButtonPressed:)
                                                                secondaryAction:nil];
             [rightDockItems addObject:dockItemQRVerify];
         }
@@ -6709,7 +6711,7 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
-- (void) qrVerifyButtonPressed
+- (IBAction) qrVerifyButtonPressed:(id)sender
 {
     if (!_qrCodeOverlayController) {
         _qrCodeOverlayController = [[QRCodeOverlayController alloc] initWithDelegate:self];

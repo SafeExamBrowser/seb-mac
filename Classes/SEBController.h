@@ -396,6 +396,8 @@ conditionallyForWindow:(NSWindow *)window
 - (IBAction) showAbout:(id)sender;
 - (IBAction) showHelp:(id)sender;
 
+- (IBAction) qrVerifyButtonPressed:(id)sender;
+
 @property(readwrite, nonatomic) BOOL reloadButtonEnabled;
 @property(strong, nonatomic) ReloadPageUIElement *reloadPageUIElement;
 
