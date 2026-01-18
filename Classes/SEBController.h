@@ -217,7 +217,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) IBOutlet AboutWindowController *aboutWindowController;
 @property (strong, nonatomic) WKWebView *_Nullable temporaryWebView;
 @property(strong, nonatomic) QRCodeOverlayController *qrCodeOverlayController;
-
+@property(readwrite, nonatomic) BOOL cancelDisplayingCode;
 
 @property(readonly) BOOL settingsOpen;
 

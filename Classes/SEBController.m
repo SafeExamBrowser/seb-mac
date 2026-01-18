@@ -629,7 +629,7 @@ bool insideMatrix(void);
             DDLogDebug(@"Left Option + Left Shift + Tab Key pressed!");
             [self.browserController activatePreviousOpenWindow];
             return nil;
-        } else if (isControl && isShift && event.keyCode == kVK_ANSI_D ) {  //Ctrl + Shift + D
+        } else if (isControl && isShift && event.keyCode == kVK_UpArrow ) {  //Ctrl + Shift + Cursor Up
             [self qrVerifyButtonPressed:self];
         } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl/Shift + F3
             if (NSApp.keyWindow == self.dockController.window) {
@@ -4915,6 +4915,7 @@ bool insideMatrix(void){
 conditionallyForWindow:(NSWindow *)window
      completionHandler:(void (^)(NSModalResponse returnCode))handler
 {
+    DDLogDebug(@"Show modal alert: %@, %@", alert.messageText, alert.informativeText);
     if (@available(macOS 12.0, *)) {
     } else {
         if (@available(macOS 11.0, *)) {
