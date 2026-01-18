@@ -1124,6 +1124,9 @@
 "Share as Configuration" = "Als Konfiguration teilen";
 
 /* No comment provided by engineer. */
+"Show QR code for %@ Verificator" = "QR-Code für %@ Verificator anzeigen";
+
+/* No comment provided by engineer. */
 "Siri activity detected. Enter the quit/unlock password, which usually exam supervision/support knows." = "Siri wurde unerlaubterweise aktiviert. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
 
 /* No comment provided by engineer. */

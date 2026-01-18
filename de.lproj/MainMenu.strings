@@ -274,6 +274,9 @@
 /* Class = "NSWindow"; title = "Lockdown Information"; ObjectID = "kwi-CI-5lx"; */
 "kwi-CI-5lx.title" = "SEB-Lockdown-Information";
 
+/* Class = "NSButton"; ibExternalAccessibilityDescription = "OK"; ObjectID = "l7B-SX-Hmy"; */
+"l7B-SX-Hmy.ibExternalAccessibilityDescription" = "OK";
+
 /* Class = "NSMenuItem"; title = "Revert to Client Settings"; ObjectID = "lIX-w9-SMd"; */
 "lIX-w9-SMd.title" = "Zurücksetzen auf Client-Einstellungen";
 
@@ -345,6 +348,9 @@
 
 /* Class = "NSButtonCell"; title = "Override process security check completely"; ObjectID = "UPO-LF-2DU"; */
 "UPO-LF-2DU.title" = "Check für verbotene Prozesse ganz deaktivieren";
+
+/* Class = "NSStackView"; ibShadowedToolTip = "Show QR code for SEB Verificator"; ObjectID = "VZ1-LZ-RP1"; */
+"VZ1-LZ-RP1.ibShadowedToolTip" = "QR-Code für SEB Verificator anzeigen";
 
 /* Class = "NSTextFieldCell"; title = "SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows."; ObjectID = "xDQ-P3-KpK"; */
 "xDQ-P3-KpK.title" = "SEB ist gesperrt, weil ein verbotener Prozess nicht beendet werden kann. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";

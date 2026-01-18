@@ -1,39 +1,24 @@
 /* Bundle display name */
 "CFBundleDisplayName" = "SEB";
-
 /* Bundle name */
 "CFBundleName" = "SEB";
-
-/* No comment provided by engineer. */
 "Gzip Archive (SEB files are gzipped)" = "Gzip Archive (SEB files are gzipped)";
-
 /* Privacy - Bluetooth Always Usage Description */
 "NSBluetoothAlwaysUsageDescription" = "SEB uses Bluetooth for Jitsi Meet";
-
 /* Privacy - Bluetooth Peripheral Usage Description */
 "NSBluetoothPeripheralUsageDescription" = "SEB uses Bluetooth for Jitsi Meet";
-
 /* Privacy - Calendars Usage Description */
 "NSCalendarsUsageDescription" = "The embeded Jitsi Meet SDK allows to access your calendar for meeting events, though this feature is currently not used in SEB.";
-
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "Camera is needed to scan QR codes, for web applications and remote proctoring.";
-
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen";
-
 /* Privacy - Local Network Usage Description */
 "NSLocalNetworkUsageDescription" = "Local network access is needed when using Automatic Client Configuration to search the local network for a client configuration.";
-
 /* Privacy - Microphone Usage Description */
 "NSMicrophoneUsageDescription" = "Microphone access may be required for web applications and remote proctoring.";
-
 /* Privacy - Photo Library Additions Usage Description */
 "NSPhotoLibraryAddUsageDescription" = "The built-in web browser needs permission to write downloaded photos to your photo library.";
-
 /* Privacy - Photo Library Usage Description */
 "NSPhotoLibraryUsageDescription" = "The built-in web browser needs permission to access photos from your photo library if you use a 'choose file'/upload button on a web page.";
-
-/* No comment provided by engineer. */
 "Safe Exam Browser Configuration" = "Safe Exam Browser Configuration";
-

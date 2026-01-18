@@ -4,6 +4,9 @@
 /* Class = "NSButtonCell"; title = "Touch optimized (Win)"; ObjectID = "0g5-nW-upZ"; */
 "0g5-nW-upZ.title" = "Touch-optimiert (Win)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Shows button to display QR code for SEB Verificator"; ObjectID = "1aA-fy-zUa"; */
+"1aA-fy-zUa.ibShadowedToolTip" = "Taste QR-Code für SEB Verificator anzeigen";
+
 /* Class = "NSBox"; title = "Enable zoom"; ObjectID = "01r-Av-2fG"; */
 "01r-Av-2fG.title" = "Zoom zulassen (Mac/Win)";
 
@@ -198,6 +201,9 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Displays address field in main browser window for manually entering URLs"; ObjectID = "SY0-BY-pkl"; */
 "SY0-BY-pkl.ibShadowedToolTip" = "Zeigt Adressfeld im Hauptfenster für die manuelle Eingabe von URLs an";
+
+/* Class = "NSButtonCell"; title = "Show QR verify button"; ObjectID = "TLh-Dr-wch"; */
+"TLh-Dr-wch.title" = "Taste für Verificator QR-Code anzeigen";
 
 /* Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi"; */
 "TNk-06-tQi.title" = "Uhrzeit anzeigen";
