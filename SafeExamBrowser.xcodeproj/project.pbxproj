@@ -630,6 +630,466 @@
 		69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
 		69C59B142D96B51D0060E01A /* DownloadFileTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B112D96B51D0060E01A /* DownloadFileTypes.strings */; };
 		69C59B182D96B5610060E01A /* DownloadFileType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B152D96B5610060E01A /* DownloadFileType.strings */; };
+		69C5F89A2F1FAD8C00DF5829 /* MscX509Common-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F9268A38A900A0464B /* MscX509Common-Prefix.pch */; };
+		69C5F89B2F1FAD8C00DF5829 /* AboutSEBiOSViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5817C1ED7197700CE70F3 /* AboutSEBiOSViewController.h */; };
+		69C5F89C2F1FAD8C00DF5829 /* MscRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720D268A38AC00A0464B /* MscRSAKey.h */; };
+		69C5F89D2F1FAD8C00DF5829 /* MscCertificateRevocationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07201268A38AA00A0464B /* MscCertificateRevocationList.h */; };
+		69C5F89E2F1FAD8C00DF5829 /* SEBURLFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 69D817E318017DDB00EB7885 /* SEBURLFilter.h */; };
+		69C5F89F2F1FAD8C00DF5829 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C6422A99258500EC18FF /* QRCodeReaderView.h */; };
+		69C5F8A02F1FAD8C00DF5829 /* ProctoringVideoCapturer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6974C0472475E354009F0529 /* ProctoringVideoCapturer.h */; };
+		69C5F8A12F1FAD8C00DF5829 /* SEBServerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 693FB26E232064110062E36E /* SEBServerViewController.h */; };
+		69C5F8A22F1FAD8C00DF5829 /* SEBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932ABC321DE29BE00DEF77D /* SEBConstants.h */; };
+		69C5F8A32F1FAD8C00DF5829 /* NSObject+UIResponderSEBDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */; };
+		69C5F8A42F1FAD8C00DF5829 /* SEBEncapsulatedSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B62177AC7300E93AD8 /* SEBEncapsulatedSettings.h */; };
+		69C5F8A52F1FAD8C00DF5829 /* MyGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A79014471F8C00F9149D /* MyGlobals.h */; };
+		69C5F8A62F1FAD8C00DF5829 /* SEBAbstractClassicWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E977D325F040F400634D74 /* SEBAbstractClassicWebView.h */; };
+		69C5F8A72F1FAD8C00DF5829 /* MscRSAKey_OpenSSL_RSA.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07206268A38AB00A0464B /* MscRSAKey_OpenSSL_RSA.h */; };
+		69C5F8A82F1FAD8C00DF5829 /* SEBLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F081C10AF1D0038BD31 /* SEBLockedViewController.h */; };
+		69C5F8A92F1FAD8C00DF5829 /* SEBNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6949A4791D0B8D9E0040ABF1 /* SEBNavigationController.h */; };
+		69C5F8AA2F1FAD8C00DF5829 /* CacheStoragePolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5229421467187009F3999 /* CacheStoragePolicy.h */; };
+		69C5F8AB2F1FAD8C00DF5829 /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07202268A38AA00A0464B /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h */; };
+		69C5F8AC2F1FAD8C00DF5829 /* SEBiOSLockedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69331F041C10AD750038BD31 /* SEBiOSLockedViewController.h */; };
+		69C5F8AD2F1FAD8C00DF5829 /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 693F135115767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.h */; };
+		69C5F8AE2F1FAD8C00DF5829 /* LGSideMenuGesturesHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708D2033921900C638A8 /* LGSideMenuGesturesHandler.h */; };
+		69C5F8AF2F1FAD8C00DF5829 /* SEBTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2B1C3C2D0500397E18 /* SEBTableViewController.h */; };
+		69C5F8B02F1FAD8C00DF5829 /* UIViewController+LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370902033921A00C638A8 /* UIViewController+LGSideMenuController.h */; };
+		69C5F8B12F1FAD8C00DF5829 /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
+		69C5F8B22F1FAD8C00DF5829 /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
+		69C5F8B32F1FAD8C00DF5829 /* UIDragInteraction+Restrict.h in Headers */ = {isa = PBXBuildFile; fileRef = 69478CF12208985D00352CFA /* UIDragInteraction+Restrict.h */; };
+		69C5F8B42F1FAD8C00DF5829 /* LGSideMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370932033921B00C638A8 /* LGSideMenuView.h */; };
+		69C5F8B52F1FAD8C00DF5829 /* SEBBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B539401C52974100A967B0 /* SEBBrowserController.h */; };
+		69C5F8B62F1FAD8C00DF5829 /* SynthesizeSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6991A78F14471F5A00F9149D /* SynthesizeSingleton.h */; };
+		69C5F8B72F1FAD8C00DF5829 /* MscIssuerAndSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F7268A38A800A0464B /* MscIssuerAndSubject.h */; };
+		69C5F8B82F1FAD8C00DF5829 /* MscOpenSSLExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07200268A38AA00A0464B /* MscOpenSSLExtension.h */; };
+		69C5F8B92F1FAD8C00DF5829 /* LGSideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708A2033921900C638A8 /* LGSideMenuController.h */; };
+		69C5F8BA2F1FAD8C00DF5829 /* MscCertificateSigningRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FE268A38AA00A0464B /* MscCertificateSigningRequest.h */; };
+		69C5F8BB2F1FAD8C00DF5829 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C64A2A99258600EC18FF /* QRCameraSwitchButton.h */; };
+		69C5F8BC2F1FAD8C00DF5829 /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96B1BA0F2FB008C8CFC /* AppDelegate.h */; };
+		69C5F8BD2F1FAD8C00DF5829 /* MscPKCS12_OpenSSL_PKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07205268A38AB00A0464B /* MscPKCS12_OpenSSL_PKCS12.h */; };
+		69C5F8BE2F1FAD8C00DF5829 /* SEBAbstractWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5E2A525756BEE009030C2 /* SEBAbstractWebView.h */; };
+		69C5F8BF2F1FAD8C00DF5829 /* Webpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4D1C3C7C9A00397E18 /* Webpages.h */; };
+		69C5F8C02F1FAD8C00DF5829 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
+		69C5F8C12F1FAD8C00DF5829 /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FC268A38A900A0464B /* MscCertificateRevocationList_OpenSSL_X509_CRL.h */; };
+		69C5F8C22F1FAD8C00DF5829 /* AssessmentModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */; };
+		69C5F8C32F1FAD8C00DF5829 /* CanonicalRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5229521467187009F3999 /* CanonicalRequest.h */; };
+		69C5F8C42F1FAD8C00DF5829 /* SEBiOSWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD311C3C2D0500397E18 /* SEBiOSWebViewController.h */; };
+		69C5F8C52F1FAD8C00DF5829 /* SEBiOSBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698AB4152638630A00E84161 /* SEBiOSBrowserController.h */; };
+		69C5F8C62F1FAD8C00DF5829 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D467230D7584005656B8 /* SEB-Bridging-Header.h */; };
+		69C5F8C72F1FAD8C00DF5829 /* UIWebView+SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */; };
+		69C5F8C82F1FAD8C00DF5829 /* SEBInAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6914D1222183A156004F4A4B /* SEBInAppSettingsViewController.h */; };
+		69C5F8C92F1FAD8C00DF5829 /* SEBActionUITableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B5393C1C490CB200A967B0 /* SEBActionUITableViewCell.h */; };
+		69C5F8CA2F1FAD8C00DF5829 /* SEBSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 697852B52177AC7200E93AD8 /* SEBSettings.h */; };
+		69C5F8CB2F1FAD8C00DF5829 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
+		69C5F8CC2F1FAD8C00DF5829 /* SEBTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2D1C3C2D0500397E18 /* SEBTextField.h */; };
+		69C5F8CD2F1FAD8C00DF5829 /* SEBInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DE51E6ECECD000539F6 /* SEBInitAssistantViewController.h */; };
+		69C5F8CE2F1FAD8C00DF5829 /* ServerLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 69BBAE54232702BD005BC19F /* ServerLogger.h */; };
+		69C5F8CF2F1FAD8C00DF5829 /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
+		69C5F8D02F1FAD8C00DF5829 /* SEBiOSConfigFileController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */; };
+		69C5F8D12F1FAD8C00DF5829 /* SEB_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 69B4160F1BFFA0430049ED2A /* SEB_Prefix.pch */; };
+		69C5F8D22F1FAD8C00DF5829 /* MscX509CommonLocalException.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07209268A38AB00A0464B /* MscX509CommonLocalException.h */; };
+		69C5F8D32F1FAD8C00DF5829 /* MscIssuerAndSerial.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A0720B268A38AB00A0464B /* MscIssuerAndSerial.h */; };
+		69C5F8D42F1FAD8C00DF5829 /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6975CE6829647C4400C7ABF3 /* NSArray+Extensions.h */; };
+		69C5F8D52F1FAD8C00DF5829 /* NSString+MscASCIIExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07208268A38AB00A0464B /* NSString+MscASCIIExtension.h */; };
+		69C5F8D62F1FAD8C00DF5829 /* MscX509CommonError.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07210268A38AC00A0464B /* MscX509CommonError.h */; };
+		69C5F8D72F1FAD8C00DF5829 /* MscCertificateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07203268A38AA00A0464B /* MscCertificateUtils.h */; };
+		69C5F8D82F1FAD8C00DF5829 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C6492A99258600EC18FF /* QRToggleTorchButton.h */; };
+		69C5F8D92F1FAD8C00DF5829 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C6442A99258500EC18FF /* QRCodeReaderDelegate.h */; };
+		69C5F8DA2F1FAD8C00DF5829 /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C6462A99258500EC18FF /* QRCodeReader.h */; };
+		69C5F8DB2F1FAD8C00DF5829 /* MscCertificate.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A07211268A38AC00A0464B /* MscCertificate.h */; };
+		69C5F8DC2F1FAD8C00DF5829 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
+		69C5F8DD2F1FAD8C00DF5829 /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6943C64B2A99258600EC18FF /* QRCodeReaderViewController.h */; };
+		69C5F8DE2F1FAD8C00DF5829 /* SEB-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D468230D7584005656B8 /* SEB-Bridging-Header.h */; };
+		69C5F8DF2F1FAD8C00DF5829 /* ServerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B1D46D230D7586005656B8 /* ServerController.h */; };
+		69C5F8E02F1FAD8C00DF5829 /* MscX509Name.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FF268A38AA00A0464B /* MscX509Name.h */; };
+		69C5F8E12F1FAD8C00DF5829 /* OpenWebpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */; };
+		69C5F8E22F1FAD8C00DF5829 /* SEBViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940B96E1BA0F2FB008C8CFC /* SEBViewController.h */; };
+		69C5F8E32F1FAD8C00DF5829 /* LGSideMenuHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 695370872033921700C638A8 /* LGSideMenuHelper.h */; };
+		69C5F8E42F1FAD8C00DF5829 /* CustomHTTPProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5229821467188009F3999 /* CustomHTTPProtocol.h */; };
+		69C5F8E52F1FAD8C00DF5829 /* SEBUIWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */; };
+		69C5F8E62F1FAD8C00DF5829 /* SEBURLFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F45D3C1A2123C3009CF3AA /* SEBURLFilterExpression.h */; };
+		69C5F8E72F1FAD8C00DF5829 /* MscPKCS7.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F8268A38A900A0464B /* MscPKCS7.h */; };
+		69C5F8E82F1FAD8C00DF5829 /* SEBIASKSecureSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 694FB9D01CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h */; };
+		69C5F8E92F1FAD8C00DF5829 /* LGSideMenuSegue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708F2033921A00C638A8 /* LGSideMenuSegue.h */; };
+		69C5F8EA2F1FAD8C00DF5829 /* ExamCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F9001E232309BB003A5015 /* ExamCell.h */; };
+		69C5F8EB2F1FAD8C00DF5829 /* SEBPresetSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 695EE19226D2F2F8004D8FF7 /* SEBPresetSettings.h */; };
+		69C5F8EC2F1FAD8C00DF5829 /* MscPKCS12.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071FB268A38A900A0464B /* MscPKCS12.h */; };
+		69C5F8ED2F1FAD8C00DF5829 /* MscCertificate_OpenSSL_X509.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A071F2268A386600A0464B /* MscCertificate_OpenSSL_X509.h */; };
+		69C5F8EE2F1FAD8C00DF5829 /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
+		69C5F8EF2F1FAD8C00DF5829 /* SEBDetailViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD231C3C2D0500397E18 /* SEBDetailViewController.h */; };
+		69C5F8F02F1FAD8C00DF5829 /* CustomViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6914D12D2183A25F004F4A4B /* CustomViewCell.h */; };
+		69C5F8F12F1FAD8C00DF5829 /* SEBCertServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F522C22146720B009F3999 /* SEBCertServices.h */; };
+		69C5F8F22F1FAD8C00DF5829 /* SEBFilteredURLCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 69AEC954218A228300848945 /* SEBFilteredURLCache.h */; };
+		69C5F8F32F1FAD8C00DF5829 /* SEBiOSInitAssistantViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69358DDD1E6E142A000539F6 /* SEBiOSInitAssistantViewController.h */; };
+		69C5F8F42F1FAD8C00DF5829 /* SEBAboutController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B581821ED8214700CE70F3 /* SEBAboutController.h */; };
+		69C5F8F52F1FAD8C00DF5829 /* QNSURLSessionDemux.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5229721467188009F3999 /* QNSURLSessionDemux.h */; };
+		69C5F8F62F1FAD8C00DF5829 /* SEBCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = 694B08A116B14ABF00E4997C /* SEBCryptor.h */; };
+		69C5F8F72F1FAD8C00DF5829 /* LGSideMenuBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6953708B2033921900C638A8 /* LGSideMenuBorderView.h */; };
+		69C5F8F82F1FAD8C00DF5829 /* SEBMasterViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */; };
+		69C5F8F92F1FAD8C00DF5829 /* SEBBrowserTabViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD2F1C3C2D0500397E18 /* SEBBrowserTabViewController.h */; };
+		69C5F8FA2F1FAD8C00DF5829 /* SEBSliderItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F215E41CE74FF300BD9AA3 /* SEBSliderItem.h */; };
+		69C5F8FC2F1FAD8C00DF5829 /* MscX509Name.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720E268A38AC00A0464B /* MscX509Name.m */; };
+		69C5F8FD2F1FAD8C00DF5829 /* ProctoringVideoCapturer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6974C0482475E354009F0529 /* ProctoringVideoCapturer.m */; };
+		69C5F8FE2F1FAD8C00DF5829 /* SEBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B581831ED8214700CE70F3 /* SEBAboutController.m */; };
+		69C5F8FF2F1FAD8C00DF5829 /* NSString+MscASCIIExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07215268A38AD00A0464B /* NSString+MscASCIIExtension.m */; };
+		69C5F9002F1FAD8C00DF5829 /* SEBWKContentRuleListCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695BEC1A2D50D5B700EE9407 /* SEBWKContentRuleListCreator.swift */; };
+		69C5F9012F1FAD8C00DF5829 /* MscX509CommonError.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07214268A38AD00A0464B /* MscX509CommonError.m */; };
+		69C5F9022F1FAD8C00DF5829 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A20A52D85B37B00C58815 /* KeyboardToolbar.swift */; };
+		69C5F9032F1FAD8C00DF5829 /* SEBServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D485230D8B8F005656B8 /* SEBServer.swift */; };
+		69C5F9042F1FAD8C00DF5829 /* SEBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 693FB26F232064110062E36E /* SEBServerViewController.m */; };
+		69C5F9052F1FAD8C00DF5829 /* LGSideMenuBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370922033921A00C638A8 /* LGSideMenuBorderView.m */; };
+		69C5F9062F1FAD8C00DF5829 /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
+		69C5F9072F1FAD8C00DF5829 /* qrCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E18FE72987D303007E0689 /* qrCodeGenerator.swift */; };
+		69C5F9082F1FAD8C00DF5829 /* NSURL+SEBURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 69627F8F1A1A46D000E9F2A8 /* NSURL+SEBURL.m */; };
+		69C5F9092F1FAD8C00DF5829 /* SEBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6A3522C738A2600033B3E /* SEBFileManager.swift */; };
+		69C5F90A2F1FAD8C00DF5829 /* AssessmentConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691056002C0A223600C491DE /* AssessmentConfigurationManager.swift */; };
+		69C5F90B2F1FAD8C00DF5829 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943C6482A99258600EC18FF /* QRCodeReaderView.m */; };
+		69C5F90C2F1FAD8C00DF5829 /* MyGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 6991A79114471F8C00F9149D /* MyGlobals.m */; };
+		69C5F90D2F1FAD8C00DF5829 /* SEB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 69E0F3461C454F370038CCCD /* SEB.xcdatamodeld */; };
+		69C5F90E2F1FAD8C00DF5829 /* SEBURLFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F45D3D1A2123C3009CF3AA /* SEBURLFilterExpression.m */; };
+		69C5F90F2F1FAD8C00DF5829 /* UIWebView+SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */; };
+		69C5F9102F1FAD8C00DF5829 /* SEBiOSBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 698AB4162638630A00E84161 /* SEBiOSBrowserController.m */; };
+		69C5F9112F1FAD8C00DF5829 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
+		69C5F9122F1FAD8C00DF5829 /* ServerLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BBAE55232702BD005BC19F /* ServerLogger.m */; };
+		69C5F9132F1FAD8C00DF5829 /* SEBNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FC8F4F28743C5C00ECD0A3 /* SEBNetworkManager.swift */; };
+		69C5F9142F1FAD8C00DF5829 /* SEBCertServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F522C32146720C009F3999 /* SEBCertServices.m */; };
+		69C5F9152F1FAD8C00DF5829 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6914D12C2183A25F004F4A4B /* CustomViewCell.m */; };
+		69C5F9162F1FAD8C00DF5829 /* MscPKCS7.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F6268A38A800A0464B /* MscPKCS7.m */; };
+		69C5F9172F1FAD8C00DF5829 /* SEBiOSTransmittingCachedScreenShotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695506452C9DEDE70022E25D /* SEBiOSTransmittingCachedScreenShotsViewController.swift */; };
+		69C5F9182F1FAD8C00DF5829 /* ProctoringImageAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6962A3B224772ECD00F2C88B /* ProctoringImageAnalyzer.swift */; };
+		69C5F9192F1FAD8C00DF5829 /* SEBAbstractModernWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */; };
+		69C5F91A2F1FAD8C00DF5829 /* NSObject+UIResponderSEBDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */; };
+		69C5F91B2F1FAD8C00DF5829 /* SEBPresetSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 695EE19126D2F2F8004D8FF7 /* SEBPresetSettings.m */; };
+		69C5F91C2F1FAD8C00DF5829 /* SEBActionUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5393D1C490CB200A967B0 /* SEBActionUITableViewCell.m */; };
+		69C5F91D2F1FAD8C00DF5829 /* SEBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96F1BA0F2FB008C8CFC /* SEBViewController.m */; };
+		69C5F91E2F1FAD8C00DF5829 /* SEBiOSConfigFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694803921C236E7800593711 /* SEBiOSConfigFileController.m */; };
+		69C5F91F2F1FAD8C00DF5829 /* OpenWebpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */; };
+		69C5F9202F1FAD8C00DF5829 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370882033921800C638A8 /* LGSideMenuView.m */; };
+		69C5F9212F1FAD8C00DF5829 /* SEBBrowserTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */; };
+		69C5F9222F1FAD8C00DF5829 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943C6452A99258500EC18FF /* QRCameraSwitchButton.m */; };
+		69C5F9232F1FAD8C00DF5829 /* MscPKCS12.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720C268A38AC00A0464B /* MscPKCS12.m */; };
+		69C5F9242F1FAD8C00DF5829 /* SEBiOSLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F051C10AD750038BD31 /* SEBiOSLockedViewController.m */; };
+		69C5F9252F1FAD8C00DF5829 /* CanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5229921467188009F3999 /* CanonicalRequest.m */; };
+		69C5F9262F1FAD8C00DF5829 /* SEBiOSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD321C3C2D0500397E18 /* SEBiOSWebViewController.m */; };
+		69C5F9272F1FAD8C00DF5829 /* SEBCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B08A216B14ABF00E4997C /* SEBCryptor.m */; };
+		69C5F9282F1FAD8C00DF5829 /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943C6432A99258500EC18FF /* QRToggleTorchButton.m */; };
+		69C5F9292F1FAD8C00DF5829 /* MscCertificateSigningRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720A268A38AB00A0464B /* MscCertificateSigningRequest.m */; };
+		69C5F92A2F1FAD8C00DF5829 /* SEBGCMCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */; };
+		69C5F92B2F1FAD8C00DF5829 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370942033921B00C638A8 /* LGSideMenuController.m */; };
+		69C5F92C2F1FAD8C00DF5829 /* MethodSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D5983714C823AE005FE98C /* MethodSwizzling.m */; };
+		69C5F92D2F1FAD8C00DF5829 /* MscIssuerAndSerial.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07213268A38AD00A0464B /* MscIssuerAndSerial.m */; };
+		69C5F92E2F1FAD8C00DF5829 /* SEBAbstractClassicWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E977D425F040F400634D74 /* SEBAbstractClassicWebView.m */; };
+		69C5F92F2F1FAD8C00DF5829 /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
+		69C5F9302F1FAD8C00DF5829 /* SEBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 697852B42177AC7200E93AD8 /* SEBSettings.m */; };
+		69C5F9312F1FAD8C00DF5829 /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
+		69C5F9322F1FAD8C00DF5829 /* MscIssuerAndSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071F5268A38A800A0464B /* MscIssuerAndSubject.m */; };
+		69C5F9332F1FAD8C00DF5829 /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
+		69C5F9342F1FAD8C00DF5829 /* LGSideMenuHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708E2033921A00C638A8 /* LGSideMenuHelper.m */; };
+		69C5F9352F1FAD8C00DF5829 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 693F135215767CD600B1724E /* NSUserDefaults+SEBEncryptedUserDefaults.m */; };
+		69C5F9362F1FAD8C00DF5829 /* SEBInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DE61E6ECECD000539F6 /* SEBInitAssistantViewController.m */; };
+		69C5F9372F1FAD8C00DF5829 /* SEBiOSInitAssistantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69358DDE1E6E142A000539F6 /* SEBiOSInitAssistantViewController.m */; };
+		69C5F9382F1FAD8C00DF5829 /* SEBServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693FB267231D22010062E36E /* SEBServerController.swift */; };
+		69C5F9392F1FAD8C00DF5829 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
+		69C5F93A2F1FAD8C00DF5829 /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D46E230D7586005656B8 /* ServerController.m */; };
+		69C5F93B2F1FAD8C00DF5829 /* KeyboardToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A20A32D85B36300C58815 /* KeyboardToolbarButton.swift */; };
+		69C5F93C2F1FAD8C00DF5829 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		69C5F93D2F1FAD8C00DF5829 /* SEBBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B539411C52974100A967B0 /* SEBBrowserController.m */; };
+		69C5F93E2F1FAD8C00DF5829 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B96C1BA0F2FB008C8CFC /* AppDelegate.m */; };
+		69C5F93F2F1FAD8C00DF5829 /* AccessibilityFeaturesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6914FED82E533FA80087C6AC /* AccessibilityFeaturesManager.swift */; };
+		69C5F9402F1FAD8C00DF5829 /* MscOpenSSLExtension.c in Sources */ = {isa = PBXBuildFile; fileRef = 69A07204268A38AA00A0464B /* MscOpenSSLExtension.c */; };
+		69C5F9412F1FAD8C00DF5829 /* SEBIASKSecureSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 694FB9D11CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.m */; };
+		69C5F9422F1FAD8C00DF5829 /* SEBKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F293AD164A324B00875C00 /* SEBKeychainManager.m */; };
+		69C5F9432F1FAD8C00DF5829 /* PNGQuantization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F63392C66775300FEA23D /* PNGQuantization.swift */; };
+		69C5F9442F1FAD8C00DF5829 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD0A267E9B1900B8F1D6 /* NSDictionary+Extensions.m */; };
+		69C5F9452F1FAD8C00DF5829 /* SEBiOSWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F558B4260563FF00D503EB /* SEBiOSWKWebViewController.swift */; };
+		69C5F9462F1FAD8C00DF5829 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
+		69C5F9472F1FAD8C00DF5829 /* SEBURLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D817E418017DDB00EB7885 /* SEBURLFilter.m */; };
+		69C5F9482F1FAD8C00DF5829 /* SEBFilteredURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 69AEC955218A228300848945 /* SEBFilteredURLCache.m */; };
+		69C5F9492F1FAD8C00DF5829 /* SEBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6949A47A1D0B8D9E0040ABF1 /* SEBNavigationController.m */; };
+		69C5F94A2F1FAD8C00DF5829 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6975CE6929647C4400C7ABF3 /* NSArray+Extensions.m */; };
+		69C5F94B2F1FAD8C00DF5829 /* LGSideMenuSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370912033921A00C638A8 /* LGSideMenuSegue.m */; };
+		69C5F94C2F1FAD8C00DF5829 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940B9691BA0F2FB008C8CFC /* main.m */; };
+		69C5F94D2F1FAD8C00DF5829 /* ScreenShotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981442C72520A00E79DA4 /* ScreenShotCache.swift */; };
+		69C5F94E2F1FAD8C00DF5829 /* SEBOSXSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69973A602B0CF29F00A64376 /* SEBOSXSessionState.swift */; };
+		69C5F94F2F1FAD8C00DF5829 /* MscX509CommonLocalException.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07207268A38AB00A0464B /* MscX509CommonLocalException.m */; };
+		69C5F9502F1FAD8C00DF5829 /* ScreenProctoringServiceResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6958C45A2BD8017000B9F5D2 /* ScreenProctoringServiceResources.swift */; };
+		69C5F9512F1FAD8C00DF5829 /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
+		69C5F9522F1FAD8C00DF5829 /* SEBSliderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F215E51CE74FF300BD9AA3 /* SEBSliderItem.m */; };
+		69C5F9532F1FAD8C00DF5829 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943C64C2A99258600EC18FF /* QRCodeReader.m */; };
+		69C5F9542F1FAD8C00DF5829 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6943C6472A99258600EC18FF /* QRCodeReaderViewController.m */; };
+		69C5F9552F1FAD8C00DF5829 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
+		69C5F9562F1FAD8C00DF5829 /* SEBTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2E1C3C2D0500397E18 /* SEBTextField.m */; };
+		69C5F9572F1FAD8C00DF5829 /* SEBAbstractWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5E2A425756BEE009030C2 /* SEBAbstractWebView.m */; };
+		69C5F9582F1FAD8C00DF5829 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5229621467187009F3999 /* QNSURLSessionDemux.m */; };
+		69C5F9592F1FAD8C00DF5829 /* UIDragInteraction+Restrict.m in Sources */ = {isa = PBXBuildFile; fileRef = 69478CF22208985D00352CFA /* UIDragInteraction+Restrict.m */; };
+		69C5F95A2F1FAD8C00DF5829 /* SEBInAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6914D1232183A156004F4A4B /* SEBInAppSettingsViewController.m */; };
+		69C5F95B2F1FAD8C00DF5829 /* LGSideMenuGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6953708C2033921900C638A8 /* LGSideMenuGesturesHandler.m */; };
+		69C5F95C2F1FAD8C00DF5829 /* SEBLockedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69331F091C10AF1D0038BD31 /* SEBLockedViewController.m */; };
+		69C5F95D2F1FAD8C00DF5829 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D47F230D75ED005656B8 /* NetworkRequest.swift */; };
+		69C5F95E2F1FAD8C00DF5829 /* ExamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F9001F232309BB003A5015 /* ExamCell.m */; };
+		69C5F95F2F1FAD8C00DF5829 /* SEBUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */; };
+		69C5F9602F1FAD8C00DF5829 /* SEBEncapsulatedSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 697852B32177AC7200E93AD8 /* SEBEncapsulatedSettings.m */; };
+		69C5F9612F1FAD8C00DF5829 /* MscRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FD268A38A900A0464B /* MscRSAKey.m */; };
+		69C5F9622F1FAD8C00DF5829 /* MscCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A07212268A38AD00A0464B /* MscCertificate.m */; };
+		69C5F9632F1FAD8C00DF5829 /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F1019F2D88B4E400B026BD /* UIBarButtonItemExtension.swift */; };
+		69C5F9642F1FAD8C00DF5829 /* UIViewController+LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695370892033921800C638A8 /* UIViewController+LGSideMenuController.m */; };
+		69C5F9652F1FAD8C00DF5829 /* SEBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD2C1C3C2D0500397E18 /* SEBTableViewController.m */; };
+		69C5F9662F1FAD8C00DF5829 /* SEBUIUserDefaultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699C540715EFA1EC00B8D210 /* SEBUIUserDefaultsController.m */; };
+		69C5F9672F1FAD8C00DF5829 /* AboutSEBiOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B5817D1ED7197700CE70F3 /* AboutSEBiOSViewController.m */; };
+		69C5F9682F1FAD8C00DF5829 /* CustomHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5229321467187009F3999 /* CustomHTTPProtocol.m */; };
+		69C5F9692F1FAD8C00DF5829 /* MscCertificateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A0720F268A38AC00A0464B /* MscCertificateUtils.m */; };
+		69C5F96A2F1FAD8C00DF5829 /* MscCertificateRevocationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A071FA268A38A900A0464B /* MscCertificateRevocationList.m */; };
+		69C5F96B2F1FAD8C00DF5829 /* TouchMonitoringWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BEC00F2E6C51F5003D04E4 /* TouchMonitoringWindow.swift */; };
+		69C5F96C2F1FAD8C00DF5829 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
+		69C5F96D2F1FAD8C00DF5829 /* APIResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B1D46C230D7585005656B8 /* APIResources.swift */; };
+		69C5F96E2F1FAD8C00DF5829 /* JitsiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69AF449E24699A5300F56542 /* JitsiViewController.swift */; };
+		69C5F96F2F1FAD8C00DF5829 /* AdditionalApplicationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */; };
+		69C5F9702F1FAD8C00DF5829 /* FIFOBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981412C723B7500E79DA4 /* FIFOBuffer.swift */; };
+		69C5F9712F1FAD8C00DF5829 /* AssessmentModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */; };
+		69C5F9722F1FAD8C00DF5829 /* SEBScreenCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6993CD5A2C047CCF00DB2088 /* SEBScreenCaptureController.swift */; };
+		69C5F9732F1FAD8C00DF5829 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
+		69C5F9742F1FAD8C00DF5829 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2619C468E700CBE69F /* RNDecryptor.m */; };
+		69C5F9752F1FAD8C00DF5829 /* SEBSPMetadataCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E16032C04AF9200BE1FA6 /* SEBSPMetadataCollector.swift */; };
+		69C5F9762F1FAD8C00DF5829 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2419C468E700CBE69F /* RNCryptor.m */; };
+		69C5F9772F1FAD8C00DF5829 /* CacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F5229221467187009F3999 /* CacheStoragePolicy.m */; };
+		69C5F9782F1FAD8C00DF5829 /* Webpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4E1C3C7C9A00397E18 /* Webpages.m */; };
+		69C5F97A2F1FAD8C00DF5829 /* libswiftDispatch.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 699BDBAC2BC3446300EA25F5 /* libswiftDispatch.tbd */; };
+		69C5F97B2F1FAD8C00DF5829 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696C1A0128CFCA7600AC19E2 /* WebRTC.xcframework */; };
+		69C5F97C2F1FAD8C00DF5829 /* JitsiMeetSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691188FC28CFC788007082DE /* JitsiMeetSDK.xcframework */; };
+		69C5F97D2F1FAD8C00DF5829 /* libmbedtls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 699B325E2154639800EEA3E5 /* libmbedtls.a */; };
+		69C5F97E2F1FAD8C00DF5829 /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DA25228D4700F15236 /* libSEBSupport.a */; };
+		69C5F97F2F1FAD8C00DF5829 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
+		69C5F9802F1FAD8C00DF5829 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
+		69C5F9812F1FAD8C00DF5829 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
+		69C5F9822F1FAD8C00DF5829 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 69C5F8962F1FAD8C00DF5829 /* InAppSettingsKit */; };
+		69C5F9832F1FAD8C00DF5829 /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
+		69C5F9842F1FAD8C00DF5829 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 69C5F8922F1FAD8C00DF5829 /* CocoaLumberjack */; };
+		69C5F9852F1FAD8C00DF5829 /* Pods_SEB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */; };
+		69C5F9862F1FAD8C00DF5829 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 69C5F8952F1FAD8C00DF5829 /* CocoaLumberjackSwiftLogBackend */; };
+		69C5F9872F1FAD8C00DF5829 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 69C5F8942F1FAD8C00DF5829 /* CocoaLumberjackSwift */; };
+		69C5F9892F1FAD8C00DF5829 /* Security.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B172841715700623060 /* Security.strings */; };
+		69C5F98A2F1FAD8C00DF5829 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9711BA0F2FB008C8CFC /* Main.storyboard */; };
+		69C5F98B2F1FAD8C00DF5829 /* Icon-320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E11D4108BA0065B831 /* Icon-320x320.png */; };
+		69C5F98C2F1FAD8C00DF5829 /* SEBSliderClosePage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D51E4E2200000B4A6D /* SEBSliderClosePage@3x.png */; };
+		69C5F98D2F1FAD8C00DF5829 /* SEBSliderSliderProctoringViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB08F246DFFFD001BF70C /* SEBSliderSliderProctoringViewIcon.png */; };
+		69C5F98E2F1FAD8C00DF5829 /* RemoteProctoring.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B082841713400623060 /* RemoteProctoring.strings */; };
+		69C5F98F2F1FAD8C00DF5829 /* continueCircle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331F001C10AC1B0038BD31 /* continueCircle@2x.png */; };
+		69C5F9902F1FAD8C00DF5829 /* SEBSliderSkipBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DE1E4E2211000B4A6D /* SEBSliderSkipBackIcon@3x.png */; };
+		69C5F9912F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A612C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_inactive_error@2x.png */; };
+		69C5F9922F1FAD8C00DF5829 /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
+		69C5F9932F1FAD8C00DF5829 /* SEBRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A51CF32B030036C480 /* SEBRestartIcon.png */; };
+		69C5F9942F1FAD8C00DF5829 /* SEBSliderSearchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165F92844F70600B00A2C /* SEBSliderSearchIcon.png */; };
+		69C5F9952F1FAD8C00DF5829 /* ConfigFile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AE2284170B700623060 /* ConfigFile.strings */; };
+		69C5F9962F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD02D78EA3C00D776CB /* SEBRaiseHandIcon_raised.png */; };
+		69C5F9972F1FAD8C00DF5829 /* SEBRaiseHandIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CCF2D78EA3C00D776CB /* SEBRaiseHandIcon.png */; };
+		69C5F9982F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD22D78EA3C00D776CB /* SEBRaiseHandIcon_raised@3x.png */; };
+		69C5F9992F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD12D78EA3C00D776CB /* SEBRaiseHandIcon_raised@2x.png */; };
+		69C5F99A2F1FAD8C00DF5829 /* SEBRaiseHandIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD32D78EA3C00D776CB /* SEBRaiseHandIcon@2x.png */; };
+		69C5F99B2F1FAD8C00DF5829 /* SEBRaiseHandIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CD42D78EA3C00D776CB /* SEBRaiseHandIcon@3x.png */; };
+		69C5F99C2F1FAD8C00DF5829 /* ModifyPages.js in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD1F1C3C2B1400397E18 /* ModifyPages.js */; };
+		69C5F99D2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A5E2C9A2430006B7E5E /* SEBSliderScreenProctoringIcon_active_error.png */; };
+		69C5F99E2F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165EF2844F6F100B00A2C /* SEBToolbarSearchNextResultIcon@2x.png */; };
+		69C5F99F2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A602C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_active_warning.png */; };
+		69C5F9A02F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39681E60AC8F005030B0 /* SEBSliderNavigateBackIcon@2x.png */; };
+		69C5F9A12F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE71E6CCEFA00601099 /* SEBToolbarNavigateBackIcon.png */; };
+		69C5F9A22F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A362C9A229E006B7E5E /* SEBScreenProctoringIcon_inactive_error@3x.png */; };
+		69C5F9A32F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396C1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@3x.png */; };
+		69C5F9A42F1FAD8C00DF5829 /* SEBBadgeError.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F3248D4B840074A655 /* SEBBadgeError.png */; };
+		69C5F9A52F1FAD8C00DF5829 /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD0E1C3C2AB900397E18 /* Cancel.png */; };
+		69C5F9A62F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165EC2844F6F100B00A2C /* SEBToolbarSearchNextResultIcon@3x.png */; };
+		69C5F9A72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A3B2C9A229E006B7E5E /* SEBScreenProctoringIcon_active.png */; };
+		69C5F9A82F1FAD8C00DF5829 /* SEBScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220706249B9FD9009F8CD1 /* SEBScrollLockIcon@3x.png */; };
+		69C5F9A92F1FAD8C00DF5829 /* FilterRules.strings in Resources */ = {isa = PBXBuildFile; fileRef = 693425702D933EF100BCBF0B /* FilterRules.strings */; };
+		69C5F9AA2F1FAD8C00DF5829 /* SEBSliderReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E51E4E2630000B4A6D /* SEBSliderReloadIcon@3x.png */; };
+		69C5F9AB2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A332C9A229E006B7E5E /* SEBScreenProctoringIcon_active_error@2x.png */; };
+		69C5F9AC2F1FAD8C00DF5829 /* UserInterface.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B262841719D00623060 /* UserInterface.strings */; };
+		69C5F9AD2F1FAD8C00DF5829 /* SEBReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AB1CF32B1D0036C480 /* SEBReloadIcon@3x.png */; };
+		69C5F9AE2F1FAD8C00DF5829 /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD121C3C2AB900397E18 /* Previous.png */; };
+		69C5F9AF2F1FAD8C00DF5829 /* SEBDockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D01CF1EA8300AB8803 /* SEBDockIcon@3x.png */; };
+		69C5F9B02F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A3C2C9A229F006B7E5E /* SEBScreenProctoringIcon_inactive_error@2x.png */; };
+		69C5F9B12F1FAD8C00DF5829 /* Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 698F3F061D17F4F9003DABBC /* Settings@2x.png */; };
+		69C5F9B22F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEA1E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon@3x.png */; };
+		69C5F9B32F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A5F2C9A2430006B7E5E /* SEBSliderScreenProctoringIcon_active.png */; };
+		69C5F9B42F1FAD8C00DF5829 /* Apps.strings in Resources */ = {isa = PBXBuildFile; fileRef = 690FA7E52CA5EF100004F4E0 /* Apps.strings */; };
+		69C5F9B52F1FAD8C00DF5829 /* Browser.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AC92841662100623060 /* Browser.strings */; };
+		69C5F9B62F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A5C2C9A2430006B7E5E /* SEBSliderScreenProctoringIcon_inactive@3x.png */; };
+		69C5F9B72F1FAD8C00DF5829 /* SEBDockIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4D202927320055988F /* SEBDockIconLandscape.png */; };
+		69C5F9B82F1FAD8C00DF5829 /* SEBSkipBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F21E4E275D000B4A6D /* SEBSkipBackIcon@2x.png */; };
+		69C5F9B92F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A652C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_inactive.png */; };
+		69C5F9BA2F1FAD8C00DF5829 /* Network.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AF92841710400623060 /* Network.strings */; };
+		69C5F9BB2F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE91E6CCEFA00601099 /* SEBToolbarNavigateForwardIcon.png */; };
+		69C5F9BC2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A672C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_active_error@3x.png */; };
+		69C5F9BD2F1FAD8C00DF5829 /* SEBToolbarReloadIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEC1E6CCEFA00601099 /* SEBToolbarReloadIcon@3x.png */; };
+		69C5F9BE2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A312C9A229D006B7E5E /* SEBScreenProctoringIcon_inactive@2x.png */; };
+		69C5F9BF2F1FAD8C00DF5829 /* SEBSliderReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */; };
+		69C5F9C02F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FD2844F70700B00A2C /* SEBSliderZoomDefaultSizeIcon.png */; };
+		69C5F9C12F1FAD8C00DF5829 /* SEBSliderProctoringViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB091246DFFFE001BF70C /* SEBSliderProctoringViewIcon@2x.png */; };
+		69C5F9C22F1FAD8C00DF5829 /* SEBNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39561E60AC6C005030B0 /* SEBNavigateBackIcon@2x.png */; };
+		69C5F9C32F1FAD8C00DF5829 /* SEBNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39591E60AC6C005030B0 /* SEBNavigateForwardIcon@2x.png */; };
+		69C5F9C42F1FAD8C00DF5829 /* SEBBadgeError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447F4248D4B840074A655 /* SEBBadgeError@2x.png */; };
+		69C5F9C52F1FAD8C00DF5829 /* Next.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD101C3C2AB900397E18 /* Next.png */; };
+		69C5F9C62F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A392C9A229E006B7E5E /* SEBScreenProctoringIcon_inactive@3x.png */; };
+		69C5F9C72F1FAD8C00DF5829 /* AIProctoringSupport.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718ADC284170A600623060 /* AIProctoringSupport.strings */; };
+		69C5F9C82F1FAD8C00DF5829 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 69A42D632C345D1F00C845A3 /* PrivacyInfo.xcprivacy */; };
+		69C5F9C92F1FAD8C00DF5829 /* SEBSliderScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D8249D6DD70087B193 /* SEBSliderScrollLockIcon@2x.png */; };
+		69C5F9CA2F1FAD8C00DF5829 /* SEBDockIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4F202927330055988F /* SEBDockIconLandscape@3x.png */; };
+		69C5F9CB2F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5D24890B8D00B45C88 /* SEBProctoringViewIcon_checkmark@2x.png */; };
+		69C5F9CC2F1FAD8C00DF5829 /* SEBBadgeWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447FB248D54870074A655 /* SEBBadgeWarning.png */; };
+		69C5F9CD2F1FAD8C00DF5829 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 693105212CA760EB005C1F85 /* Localizable.strings */; };
+		69C5F9CE2F1FAD8C00DF5829 /* SEBSkipBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F31E4E275D000B4A6D /* SEBSkipBackIcon@3x.png */; };
+		69C5F9CF2F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5924890B8D00B45C88 /* SEBProctoringViewIcon_checkmark.png */; };
+		69C5F9D02F1FAD8C00DF5829 /* continueCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 69331EFF1C10AC1B0038BD31 /* continueCircle.png */; };
+		69C5F9D12F1FAD8C00DF5829 /* SEBAppIcon_256.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581761ED70CC700CE70F3 /* SEBAppIcon_256.png */; };
+		69C5F9D22F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDD2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@2x.png */; };
+		69C5F9D32F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDB2D78EB2F00D776CB /* SEBSliderRaiseHandIcon.png */; };
+		69C5F9D42F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CE02D78EB2F00D776CB /* SEBSliderRaiseHandIcon@3x.png */; };
+		69C5F9D52F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDE2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised@3x.png */; };
+		69C5F9D62F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDC2D78EB2F00D776CB /* SEBSliderRaiseHandIcon_raised.png */; };
+		69C5F9D72F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D72CDF2D78EB2F00D776CB /* SEBSliderRaiseHandIcon@2x.png */; };
+		69C5F9D82F1FAD8C00DF5829 /* SEBReloadIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E41202926060055988F /* SEBReloadIconLandscape@2x.png */; };
+		69C5F9D92F1FAD8C00DF5829 /* SEBReloadIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E43202926070055988F /* SEBReloadIconLandscape@3x.png */; };
+		69C5F9DA2F1FAD8C00DF5829 /* App.strings in Resources */ = {isa = PBXBuildFile; fileRef = 690FA7E72CA5EF100004F4E0 /* App.strings */; };
+		69C5F9DB2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D6249D6DD70087B193 /* SEBSliderScrollLockIcon_locked.png */; };
+		69C5F9DC2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A2E2C9A229D006B7E5E /* SEBScreenProctoringIcon_active_warning.png */; };
+		69C5F9DD2F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5C24890B8D00B45C88 /* SEBProctoringViewIcon_warning.png */; };
+		69C5F9DE2F1FAD8C00DF5829 /* SEBProctoringViewIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB087246DF844001BF70C /* SEBProctoringViewIcon@3x.png */; };
+		69C5F9DF2F1FAD8C00DF5829 /* SEBSliderSettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8861D1DE07100684182 /* SEBSliderSettingsIcon@2x.png */; };
+		69C5F9E02F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A302C9A229D006B7E5E /* SEBScreenProctoringIcon_active@2x.png */; };
+		69C5F9E12F1FAD8C00DF5829 /* SEBShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C41CF1B33900AB8803 /* SEBShutDownIcon.png */; };
+		69C5F9E22F1FAD8C00DF5829 /* NetworkCertificate.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AFE2841711100623060 /* NetworkCertificate.strings */; };
+		69C5F9E32F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A662C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_active@3x.png */; };
+		69C5F9E42F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396A1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon.png */; };
+		69C5F9E52F1FAD8C00DF5829 /* SEBSliderProctoringViewIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB090246DFFFE001BF70C /* SEBSliderProctoringViewIcon@3x.png */; };
+		69C5F9E62F1FAD8C00DF5829 /* SEBSkipBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253F11E4E275D000B4A6D /* SEBSkipBackIcon.png */; };
+		69C5F9E72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A342C9A229E006B7E5E /* SEBScreenProctoringIcon_inactive.png */; };
+		69C5F9E82F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FC2844F70700B00A2C /* SEBSliderZoomOutSmallerSizeIcon@2x.png */; };
+		69C5F9E92F1FAD8C00DF5829 /* ScreenProctoring.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69F0DCC42C9DD57F000D7C8C /* ScreenProctoring.storyboard */; };
+		69C5F9EA2F1FAD8C00DF5829 /* SEBSliderSearchIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696166002844F70800B00A2C /* SEBSliderSearchIcon@3x.png */; };
+		69C5F9EB2F1FAD8C00DF5829 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9791BA0F2FB008C8CFC /* LaunchScreen.storyboard */; };
+		69C5F9EC2F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE81E6CCEFA00601099 /* SEBToolbarNavigateBackIcon@3x.png */; };
+		69C5F9ED2F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E561E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@3x.png */; };
+		69C5F9EE2F1FAD8C00DF5829 /* SEBNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39551E60AC6C005030B0 /* SEBNavigateBackIcon.png */; };
+		69C5F9EF2F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FF2844F70700B00A2C /* SEBSliderZoomInLargerSizeIcon@2x.png */; };
+		69C5F9F02F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5A24890B8D00B45C88 /* SEBProctoringViewIcon_checkmark@3x.png */; };
+		69C5F9F12F1FAD8C00DF5829 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4F1CCE26AD00C2AA9A /* InAppSettings.bundle */; };
+		69C5F9F22F1FAD8C00DF5829 /* SEBScrollLockIcon_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727EA249D93CA0087B193 /* SEBScrollLockIcon_locked.png */; };
+		69C5F9F32F1FAD8C00DF5829 /* SEBSliderReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87E1D1D4E7100684182 /* SEBSliderReloadIcon@2x.png */; };
+		69C5F9F42F1FAD8C00DF5829 /* SEBRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A71CF32B030036C480 /* SEBRestartIcon@3x.png */; };
+		69C5F9F52F1FAD8C00DF5829 /* SEBDockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CF1CF1EA8300AB8803 /* SEBDockIcon@2x.png */; };
+		69C5F9F62F1FAD8C00DF5829 /* SEBShutDownIconLandscape@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E36202924E40055988F /* SEBShutDownIconLandscape@3x.png */; };
+		69C5F9F72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A372C9A229E006B7E5E /* SEBScreenProctoringIcon_active_error.png */; };
+		69C5F9F82F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39691E60AC8F005030B0 /* SEBSliderNavigateBackIcon@3x.png */; };
+		69C5F9F92F1FAD8C00DF5829 /* SEBProctoringViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB086246DF843001BF70C /* SEBProctoringViewIcon.png */; };
+		69C5F9FA2F1FAD8C00DF5829 /* SEBScrollLock_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E9249D93CA0087B193 /* SEBScrollLock_locked@3x.png */; };
+		69C5F9FB2F1FAD8C00DF5829 /* SEBQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598891E7F222D00698BA8 /* SEBQRCodeIcon@3x.png */; };
+		69C5F9FC2F1FAD8C00DF5829 /* SEBReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D61CF26A9C00AB8803 /* SEBReloadIcon.png */; };
+		69C5F9FD2F1FAD8C00DF5829 /* SEBSliderRestartIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8811D1D96BE00684182 /* SEBSliderRestartIcon.png */; };
+		69C5F9FE2F1FAD8C00DF5829 /* Exam.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B282842C4EE00623060 /* Exam.strings */; };
+		69C5F9FF2F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FE2844F70700B00A2C /* SEBSliderZoomDefaultSizeIcon@3x.png */; };
+		69C5FA002F1FAD8C00DF5829 /* SEBSliderShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E81E4E2630000B4A6D /* SEBSliderShutDownIcon@3x.png */; };
+		69C5FA012F1FAD8C00DF5829 /* RemoteProctoringFeatures.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B0D2841713D00623060 /* RemoteProctoringFeatures.strings */; };
+		69C5FA022F1FAD8C00DF5829 /* SEBToolbarReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EE31E6CCA0600601099 /* SEBToolbarReloadIcon@2x.png */; };
+		69C5FA032F1FAD8C00DF5829 /* SEBToolbarReloadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EEB1E6CCEFA00601099 /* SEBToolbarReloadIcon.png */; };
+		69C5FA042F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696166022844F70800B00A2C /* SEBSliderZoomOutSmallerSizeIcon@3x.png */; };
+		69C5FA052F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDC1E6CC87600601099 /* SEBToolbarNavigateForwardIcon@2x.png */; };
+		69C5FA062F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FA2844F70600B00A2C /* SEBSliderZoomOutSmallerSizeIcon.png */; };
+		69C5FA072F1FAD8C00DF5829 /* SEBSliderQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */; };
+		69C5FA082F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165F12844F6F100B00A2C /* SEBToolbarSearchPreviousResultIcon@2x.png */; };
+		69C5FA092F1FAD8C00DF5829 /* SEBProctoringViewIcon_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5B24890B8D00B45C88 /* SEBProctoringViewIcon_error.png */; };
+		69C5FA0A2F1FAD8C00DF5829 /* SEBShutDownIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E37202924E60055988F /* SEBShutDownIconLandscape.png */; };
+		69C5FA0B2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A692C9A2432006B7E5E /* SEBSliderScreenProctoringIcon_active_warning@3x.png */; };
+		69C5FA0C2F1FAD8C00DF5829 /* Icon-22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226DF1D4108BA0065B831 /* Icon-22x29.png */; };
+		69C5FA0D2F1FAD8C00DF5829 /* SEBShutDownIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055AD1CF32B310036C480 /* SEBShutDownIcon@3x.png */; };
+		69C5FA0E2F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E551E841A4200C71FF0 /* SEBQuickActionQRCodeIcon@2x.png */; };
+		69C5FA0F2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A632C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_inactive_error.png */; };
+		69C5FA102F1FAD8C00DF5829 /* SEBReloadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018D51CF26A9C00AB8803 /* SEBReloadIcon@2x.png */; };
+		69C5FA112F1FAD8C00DF5829 /* SEBDockIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E4E202927330055988F /* SEBDockIconLandscape@2x.png */; };
+		69C5FA122F1FAD8C00DF5829 /* SEBShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018C31CF1B33900AB8803 /* SEBShutDownIcon@2x.png */; };
+		69C5FA132F1FAD8C00DF5829 /* DownloadFileType.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B152D96B5610060E01A /* DownloadFileType.strings */; };
+		69C5FA142F1FAD8C00DF5829 /* SecurityLogging.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B212841716A00623060 /* SecurityLogging.strings */; };
+		69C5FA152F1FAD8C00DF5829 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6940B9771BA0F2FB008C8CFC /* Assets.xcassets */; };
+		69C5FA162F1FAD8C00DF5829 /* SEBNavigateForwardIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A395A1E60AC6C005030B0 /* SEBNavigateForwardIcon@3x.png */; };
+		69C5FA172F1FAD8C00DF5829 /* SEBSliderScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727DB249D6DD80087B193 /* SEBSliderScrollLockIcon@3x.png */; };
+		69C5FA182F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A322C9A229E006B7E5E /* SEBScreenProctoringIcon_active_warning@3x.png */; };
+		69C5FA192F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165F82844F70600B00A2C /* SEBSliderZoomInLargerSizeIcon@3x.png */; };
+		69C5FA1A2F1FAD8C00DF5829 /* SEBSliderSettingsIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E71E4E2630000B4A6D /* SEBSliderSettingsIcon@3x.png */; };
+		69C5FA1B2F1FAD8C00DF5829 /* SEBProctoringViewIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699AB088246DF844001BF70C /* SEBProctoringViewIcon@2x.png */; };
+		69C5FA1C2F1FAD8C00DF5829 /* Icon-22x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E01D4108BA0065B831 /* Icon-22x29@2x.png */; };
+		69C5FA1D2F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695A8EDB1E6CC87600601099 /* SEBToolbarNavigateBackIcon@2x.png */; };
+		69C5FA1E2F1FAD8C00DF5829 /* SEBScrollLockIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220708249B9FD9009F8CD1 /* SEBScrollLockIcon@2x.png */; };
+		69C5FA1F2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A352C9A229E006B7E5E /* SEBScreenProctoringIcon_inactive_error.png */; };
+		69C5FA202F1FAD8C00DF5829 /* SEBSliderSearchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696166032844F70800B00A2C /* SEBSliderSearchIcon@2x.png */; };
+		69C5FA212F1FAD8C00DF5829 /* SEBQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598881E7F222D00698BA8 /* SEBQRCodeIcon@2x.png */; };
+		69C5FA222F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E541E841A4200C71FF0 /* SEBQuickActionQRCodeIcon.png */; };
+		69C5FA232F1FAD8C00DF5829 /* SEBServer.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B122841714A00623060 /* SEBServer.strings */; };
+		69C5FA242F1FAD8C00DF5829 /* SecurityLegacy.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B1C2841716100623060 /* SecurityLegacy.strings */; };
+		69C5FA252F1FAD8C00DF5829 /* SEBQRCode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD21E6E0D5F000539F6 /* SEBQRCode@2x.png */; };
+		69C5FA262F1FAD8C00DF5829 /* FilterRule.strings in Resources */ = {isa = PBXBuildFile; fileRef = 695845932D933E0300D91E0B /* FilterRule.strings */; };
+		69C5FA272F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5724890B8D00B45C88 /* SEBProctoringViewIcon_warning@2x.png */; };
+		69C5FA282F1FAD8C00DF5829 /* SEBProctoringViewIcon_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5624890B8D00B45C88 /* SEBProctoringViewIcon_error@2x.png */; };
+		69C5FA292F1FAD8C00DF5829 /* SEBBadgeCheckmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447FC248D54870074A655 /* SEBBadgeCheckmark@2x.png */; };
+		69C5FA2A2F1FAD8C00DF5829 /* SEBQRCode@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD31E6E0D5F000539F6 /* SEBQRCode@3x.png */; };
+		69C5FA2B2F1FAD8C00DF5829 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 69782A4D1CCE068C00C2AA9A /* Settings.bundle */; };
+		69C5FA2C2F1FAD8C00DF5829 /* NetworkFilter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718B032841712300623060 /* NetworkFilter.strings */; };
+		69C5FA2D2F1FAD8C00DF5829 /* SEBNavigateBackIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39571E60AC6C005030B0 /* SEBNavigateBackIcon@3x.png */; };
+		69C5FA2E2F1FAD8C00DF5829 /* BrowserMediaPlayback.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718ADF284170AF00623060 /* BrowserMediaPlayback.strings */; };
+		69C5FA2F2F1FAD8C00DF5829 /* SEBSliderClosePage.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D31E4E2200000B4A6D /* SEBSliderClosePage.png */; };
+		69C5FA302F1FAD8C00DF5829 /* SEBSliderClosePage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253D41E4E2200000B4A6D /* SEBSliderClosePage@2x.png */; };
+		69C5FA312F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A622C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_active@2x.png */; };
+		69C5FA322F1FAD8C00DF5829 /* SEBAppIcon_256@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B581751ED70CC700CE70F3 /* SEBAppIcon_256@2x.png */; };
+		69C5FA332F1FAD8C00DF5829 /* SEBRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694055A61CF32B030036C480 /* SEBRestartIcon@2x.png */; };
+		69C5FA342F1FAD8C00DF5829 /* SEBBadgeWarning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447FD248D54870074A655 /* SEBBadgeWarning@2x.png */; };
+		69C5FA352F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5824890B8D00B45C88 /* SEBProctoringViewIcon_warning@3x.png */; };
+		69C5FA362F1FAD8C00DF5829 /* DownUploads.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AEF284170E000623060 /* DownUploads.strings */; };
+		69C5FA372F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165EE2844F6F100B00A2C /* SEBToolbarSearchNextResultIcon.png */; };
+		69C5FA382F1FAD8C00DF5829 /* SEBSliderQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */; };
+		69C5FA392F1FAD8C00DF5829 /* SEBSliderShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */; };
+		69C5FA3A2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D9249D6DD80087B193 /* SEBSliderScrollLockIcon.png */; };
+		69C5FA3B2F1FAD8C00DF5829 /* SEBScrollLockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220707249B9FD9009F8CD1 /* SEBScrollLockIcon.png */; };
+		69C5FA3C2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A682C9A2432006B7E5E /* SEBSliderScreenProctoringIcon_active_warning@2x.png */; };
+		69C5FA3D2F1FAD8C00DF5829 /* Reload.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD141C3C2AB900397E18 /* Reload.png */; };
+		69C5FA3E2F1FAD8C00DF5829 /* SEBBadgeCheckmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 699447FE248D54870074A655 /* SEBBadgeCheckmark.png */; };
+		69C5FA3F2F1FAD8C00DF5829 /* SEB-InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69909F01283CB02E00199EB6 /* SEB-InfoPlist.strings */; };
+		69C5FA402F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39671E60AC8F005030B0 /* SEBSliderNavigateBackIcon.png */; };
+		69C5FA412F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165F02844F6F100B00A2C /* SEBToolbarSearchPreviousResultIcon.png */; };
+		69C5FA422F1FAD8C00DF5829 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6914D1362183B3CC004F4A4B /* CustomViewCell.xib */; };
+		69C5FA432F1FAD8C00DF5829 /* SEBSliderInfoIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD51EDA375A008D46C0 /* SEBSliderInfoIcon@2x.png */; };
+		69C5FA442F1FAD8C00DF5829 /* SEBSliderQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */; };
+		69C5FA452F1FAD8C00DF5829 /* SEBQRCode.png in Resources */ = {isa = PBXBuildFile; fileRef = 69358DD11E6E0D5F000539F6 /* SEBQRCode.png */; };
+		69C5FA462F1FAD8C00DF5829 /* Previous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD131C3C2AB900397E18 /* Previous@2x.png */; };
+		69C5FA472F1FAD8C00DF5829 /* SEBSliderInfoIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD41EDA375A008D46C0 /* SEBSliderInfoIcon@3x.png */; };
+		69C5FA482F1FAD8C00DF5829 /* Next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD111C3C2AB900397E18 /* Next@2x.png */; };
+		69C5FA492F1FAD8C00DF5829 /* SEBSliderSkipBackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DC1E4E2211000B4A6D /* SEBSliderSkipBackIcon.png */; };
+		69C5FA4A2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A382C9A229E006B7E5E /* SEBScreenProctoringIcon_active@3x.png */; };
+		69C5FA4B2F1FAD8C00DF5829 /* SEBSliderSkipBackIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253DD1E4E2211000B4A6D /* SEBSliderSkipBackIcon@2x.png */; };
+		69C5FA4C2F1FAD8C00DF5829 /* DownloadFileTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69C59B112D96B51D0060E01A /* DownloadFileTypes.strings */; };
+		69C5FA4D2F1FAD8C00DF5829 /* ExamKeys.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AF4284170EE00623060 /* ExamKeys.strings */; };
+		69C5FA4E2F1FAD8C00DF5829 /* SEBSliderShutDownIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */; };
+		69C5FA4F2F1FAD8C00DF5829 /* SEBReloadIconLandscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E42202926070055988F /* SEBReloadIconLandscape.png */; };
+		69C5FA502F1FAD8C00DF5829 /* Reload@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD151C3C2AB900397E18 /* Reload@2x.png */; };
+		69C5FA512F1FAD8C00DF5829 /* Dock.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69718AEA284170D800623060 /* Dock.strings */; };
+		69C5FA522F1FAD8C00DF5829 /* Icon-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B226E21D4108BA0065B831 /* Icon-64x64.png */; };
+		69C5FA532F1FAD8C00DF5829 /* SEBSliderInfoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 695AEAD61EDA375A008D46C0 /* SEBSliderInfoIcon.png */; };
+		69C5FA542F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A5B2C9A2430006B7E5E /* SEBSliderScreenProctoringIcon_inactive@2x.png */; };
+		69C5FA552F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A396B1E60AC8F005030B0 /* SEBSliderNavigateForwardIcon@2x.png */; };
+		69C5FA562F1FAD8C00DF5829 /* SEBScrollLock_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727E8249D93CA0087B193 /* SEBScrollLock_locked@2x.png */; };
+		69C5FA572F1FAD8C00DF5829 /* SEBProctoringViewIcon_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 694A7A5E24890B8D00B45C88 /* SEBProctoringViewIcon_error@3x.png */; };
+		69C5FA582F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A2F2C9A229D006B7E5E /* SEBScreenProctoringIcon_active_error@3x.png */; };
+		69C5FA592F1FAD8C00DF5829 /* Cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696DAD0F1C3C2AB900397E18 /* Cancel@2x.png */; };
+		69C5FA5A2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727D7249D6DD70087B193 /* SEBSliderScrollLockIcon_locked@2x.png */; };
+		69C5FA5B2F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165ED2844F6F100B00A2C /* SEBToolbarSearchPreviousResultIcon@3x.png */; };
+		69C5FA5C2F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 696166012844F70800B00A2C /* SEBSliderZoomInLargerSizeIcon.png */; };
+		69C5FA5D2F1FAD8C00DF5829 /* SEBSliderSettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8851D1DE07100684182 /* SEBSliderSettingsIcon.png */; };
+		69C5FA5E2F1FAD8C00DF5829 /* SEBDockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 691018CE1CF1EA8300AB8803 /* SEBDockIcon.png */; };
+		69C5FA5F2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A3A2C9A229E006B7E5E /* SEBScreenProctoringIcon_active_warning@2x.png */; };
+		69C5FA602F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A5D2C9A2430006B7E5E /* SEBSliderScreenProctoringIcon_inactive_error@3x.png */; };
+		69C5FA612F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69A727DA249D6DD80087B193 /* SEBSliderScrollLockIcon_locked@3x.png */; };
+		69C5FA622F1FAD8C00DF5829 /* SEBNavigateForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 693A39581E60AC6C005030B0 /* SEBNavigateForwardIcon.png */; };
+		69C5FA632F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 696165FB2844F70700B00A2C /* SEBSliderZoomDefaultSizeIcon@2x.png */; };
+		69C5FA642F1FAD8C00DF5829 /* Root.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692E48FD28415DBF0052600B /* Root.strings */; };
+		69C5FA652F1FAD8C00DF5829 /* SEBQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69D598871E7F222D00698BA8 /* SEBQRCodeIcon.png */; };
+		69C5FA662F1FAD8C00DF5829 /* SEBSliderRestartIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69B253E61E4E2630000B4A6D /* SEBSliderRestartIcon@3x.png */; };
+		69C5FA672F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69CB3A642C9A2431006B7E5E /* SEBSliderScreenProctoringIcon_active_error@2x.png */; };
+		69C5FA682F1FAD8C00DF5829 /* SEBSliderRestartIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8821D1D96BE00684182 /* SEBSliderRestartIcon@2x.png */; };
 		69C6522E2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C6522F2BC594E1003CAA74 /* SEBScreenProctoringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */; };
 		69C6A3532C738A2600033B3E /* SEBFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6A3522C738A2600033B3E /* SEBFileManager.swift */; };
@@ -1533,6 +1993,8 @@
 		69C59B132D96B51D0060E01A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/DownloadFileTypes.strings; sourceTree = "<group>"; };
 		69C59B162D96B5610060E01A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Resources/de.lproj/DownloadFileType.strings; sourceTree = "<group>"; };
 		69C59B172D96B5610060E01A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/DownloadFileType.strings; sourceTree = "<group>"; };
+		69C5FA6D2F1FAD8C00DF5829 /* SEB visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SEB visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69C5FA6E2F1FAD8D00DF5829 /* SEB copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SEB copy-Info.plist"; path = "/Users/drs/developer/SafeExamBrowser-ARC/seb-mac/SEB copy-Info.plist"; sourceTree = "<absolute>"; };
 		69C6522D2BC594E1003CAA74 /* SEBScreenProctoringController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenProctoringController.swift; sourceTree = "<group>"; };
 		69C6A3522C738A2600033B3E /* SEBFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBFileManager.swift; sourceTree = "<group>"; };
 		69CB3A2E2C9A229D006B7E5E /* SEBScreenProctoringIcon_active_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBScreenProctoringIcon_active_warning.png; path = Resources/Icons/Dock/SEBScreenProctoringIcon_active_warning.png; sourceTree = "<group>"; };
@@ -1776,6 +2238,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69C5F9792F1FAD8C00DF5829 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69C5F97A2F1FAD8C00DF5829 /* libswiftDispatch.tbd in Frameworks */,
+				69C5F97B2F1FAD8C00DF5829 /* WebRTC.xcframework in Frameworks */,
+				69C5F97C2F1FAD8C00DF5829 /* JitsiMeetSDK.xcframework in Frameworks */,
+				69C5F97D2F1FAD8C00DF5829 /* libmbedtls.a in Frameworks */,
+				69C5F97E2F1FAD8C00DF5829 /* libSEBSupport.a in Frameworks */,
+				69C5F97F2F1FAD8C00DF5829 /* libz.tbd in Frameworks */,
+				69C5F9802F1FAD8C00DF5829 /* WebKit.framework in Frameworks */,
+				69C5F9812F1FAD8C00DF5829 /* libcrypto.dylib in Frameworks */,
+				69C5F9822F1FAD8C00DF5829 /* InAppSettingsKit in Frameworks */,
+				69C5F9832F1FAD8C00DF5829 /* libssl.dylib in Frameworks */,
+				69C5F9842F1FAD8C00DF5829 /* CocoaLumberjack in Frameworks */,
+				69C5F9852F1FAD8C00DF5829 /* Pods_SEB.framework in Frameworks */,
+				69C5F9862F1FAD8C00DF5829 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				69C5F9872F1FAD8C00DF5829 /* CocoaLumberjackSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D0247E287C68E5006CEC19 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1881,6 +2364,7 @@
 				69D02491287C68E7006CEC19 /* SEBVerificatorTests.xctest */,
 				69D0249B287C68E7006CEC19 /* SEBVerificatorUITests.xctest */,
 				69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */,
+				69C5FA6D2F1FAD8C00DF5829 /* SEB visionOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1904,6 +2388,7 @@
 				69BA05A91D57E4C200C07C4F /* Recovered References */,
 				5B8F06187E284248F4B5DF30 /* Pods */,
 				69B7A4D02C6948EC00094ED3 /* SEBTests-Bridging-Header.h */,
+				69C5FA6E2F1FAD8D00DF5829 /* SEB copy-Info.plist */,
 			);
 			name = SEB;
 			sourceTree = "<group>";
@@ -3388,6 +3873,110 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69C5F8992F1FAD8C00DF5829 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69C5F89A2F1FAD8C00DF5829 /* MscX509Common-Prefix.pch in Headers */,
+				69C5F89B2F1FAD8C00DF5829 /* AboutSEBiOSViewController.h in Headers */,
+				69C5F89C2F1FAD8C00DF5829 /* MscRSAKey.h in Headers */,
+				69C5F89D2F1FAD8C00DF5829 /* MscCertificateRevocationList.h in Headers */,
+				69C5F89E2F1FAD8C00DF5829 /* SEBURLFilter.h in Headers */,
+				69C5F89F2F1FAD8C00DF5829 /* QRCodeReaderView.h in Headers */,
+				69C5F8A02F1FAD8C00DF5829 /* ProctoringVideoCapturer.h in Headers */,
+				69C5F8A12F1FAD8C00DF5829 /* SEBServerViewController.h in Headers */,
+				69C5F8A22F1FAD8C00DF5829 /* SEBConstants.h in Headers */,
+				69C5F8A32F1FAD8C00DF5829 /* NSObject+UIResponderSEBDefaults.h in Headers */,
+				69C5F8A42F1FAD8C00DF5829 /* SEBEncapsulatedSettings.h in Headers */,
+				69C5F8A52F1FAD8C00DF5829 /* MyGlobals.h in Headers */,
+				69C5F8A62F1FAD8C00DF5829 /* SEBAbstractClassicWebView.h in Headers */,
+				69C5F8A72F1FAD8C00DF5829 /* MscRSAKey_OpenSSL_RSA.h in Headers */,
+				69C5F8A82F1FAD8C00DF5829 /* SEBLockedViewController.h in Headers */,
+				69C5F8A92F1FAD8C00DF5829 /* SEBNavigationController.h in Headers */,
+				69C5F8AA2F1FAD8C00DF5829 /* CacheStoragePolicy.h in Headers */,
+				69C5F8AB2F1FAD8C00DF5829 /* MscCertificateSigningRequest_OpenSSL_X509_REQ.h in Headers */,
+				69C5F8AC2F1FAD8C00DF5829 /* SEBiOSLockedViewController.h in Headers */,
+				69C5F8AD2F1FAD8C00DF5829 /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
+				69C5F8AE2F1FAD8C00DF5829 /* LGSideMenuGesturesHandler.h in Headers */,
+				69C5F8AF2F1FAD8C00DF5829 /* SEBTableViewController.h in Headers */,
+				69C5F8B02F1FAD8C00DF5829 /* UIViewController+LGSideMenuController.h in Headers */,
+				69C5F8B12F1FAD8C00DF5829 /* SEBiOSKeychainManager.h in Headers */,
+				69C5F8B22F1FAD8C00DF5829 /* SEBConfigFileCredentials.h in Headers */,
+				69C5F8B32F1FAD8C00DF5829 /* UIDragInteraction+Restrict.h in Headers */,
+				69C5F8B42F1FAD8C00DF5829 /* LGSideMenuView.h in Headers */,
+				69C5F8B52F1FAD8C00DF5829 /* SEBBrowserController.h in Headers */,
+				69C5F8B62F1FAD8C00DF5829 /* SynthesizeSingleton.h in Headers */,
+				69C5F8B72F1FAD8C00DF5829 /* MscIssuerAndSubject.h in Headers */,
+				69C5F8B82F1FAD8C00DF5829 /* MscOpenSSLExtension.h in Headers */,
+				69C5F8B92F1FAD8C00DF5829 /* LGSideMenuController.h in Headers */,
+				69C5F8BA2F1FAD8C00DF5829 /* MscCertificateSigningRequest.h in Headers */,
+				69C5F8BB2F1FAD8C00DF5829 /* QRCameraSwitchButton.h in Headers */,
+				69C5F8BC2F1FAD8C00DF5829 /* AppDelegate.h in Headers */,
+				69C5F8BD2F1FAD8C00DF5829 /* MscPKCS12_OpenSSL_PKCS12.h in Headers */,
+				69C5F8BE2F1FAD8C00DF5829 /* SEBAbstractWebView.h in Headers */,
+				69C5F8BF2F1FAD8C00DF5829 /* Webpages.h in Headers */,
+				69C5F8C02F1FAD8C00DF5829 /* NSData+NSDataZIPExtension.h in Headers */,
+				69C5F8C12F1FAD8C00DF5829 /* MscCertificateRevocationList_OpenSSL_X509_CRL.h in Headers */,
+				69C5F8C22F1FAD8C00DF5829 /* AssessmentModeManager.h in Headers */,
+				69C5F8C32F1FAD8C00DF5829 /* CanonicalRequest.h in Headers */,
+				69C5F8C42F1FAD8C00DF5829 /* SEBiOSWebViewController.h in Headers */,
+				69C5F8C52F1FAD8C00DF5829 /* SEBiOSBrowserController.h in Headers */,
+				69C5F8C62F1FAD8C00DF5829 /* SEB-Bridging-Header.h in Headers */,
+				69C5F8C72F1FAD8C00DF5829 /* UIWebView+SEBWebView.h in Headers */,
+				69C5F8C82F1FAD8C00DF5829 /* SEBInAppSettingsViewController.h in Headers */,
+				69C5F8C92F1FAD8C00DF5829 /* SEBActionUITableViewCell.h in Headers */,
+				69C5F8CA2F1FAD8C00DF5829 /* SEBSettings.h in Headers */,
+				69C5F8CB2F1FAD8C00DF5829 /* SEBURLFilterRegexExpression.h in Headers */,
+				69C5F8CC2F1FAD8C00DF5829 /* SEBTextField.h in Headers */,
+				69C5F8CD2F1FAD8C00DF5829 /* SEBInitAssistantViewController.h in Headers */,
+				69C5F8CE2F1FAD8C00DF5829 /* ServerLogger.h in Headers */,
+				69C5F8CF2F1FAD8C00DF5829 /* SEBRootViewController.h in Headers */,
+				69C5F8D02F1FAD8C00DF5829 /* SEBiOSConfigFileController.h in Headers */,
+				69C5F8D12F1FAD8C00DF5829 /* SEB_Prefix.pch in Headers */,
+				69C5F8D22F1FAD8C00DF5829 /* MscX509CommonLocalException.h in Headers */,
+				69C5F8D32F1FAD8C00DF5829 /* MscIssuerAndSerial.h in Headers */,
+				69C5F8D42F1FAD8C00DF5829 /* NSArray+Extensions.h in Headers */,
+				69C5F8D52F1FAD8C00DF5829 /* NSString+MscASCIIExtension.h in Headers */,
+				69C5F8D62F1FAD8C00DF5829 /* MscX509CommonError.h in Headers */,
+				69C5F8D72F1FAD8C00DF5829 /* MscCertificateUtils.h in Headers */,
+				69C5F8D82F1FAD8C00DF5829 /* QRToggleTorchButton.h in Headers */,
+				69C5F8D92F1FAD8C00DF5829 /* QRCodeReaderDelegate.h in Headers */,
+				69C5F8DA2F1FAD8C00DF5829 /* QRCodeReader.h in Headers */,
+				69C5F8DB2F1FAD8C00DF5829 /* MscCertificate.h in Headers */,
+				69C5F8DC2F1FAD8C00DF5829 /* SEBUIController.h in Headers */,
+				69C5F8DD2F1FAD8C00DF5829 /* QRCodeReaderViewController.h in Headers */,
+				69C5F8DE2F1FAD8C00DF5829 /* SEB-Bridging-Header.h in Headers */,
+				69C5F8DF2F1FAD8C00DF5829 /* ServerController.h in Headers */,
+				69C5F8E02F1FAD8C00DF5829 /* MscX509Name.h in Headers */,
+				69C5F8E12F1FAD8C00DF5829 /* OpenWebpages.h in Headers */,
+				69C5F8E22F1FAD8C00DF5829 /* SEBViewController.h in Headers */,
+				69C5F8E32F1FAD8C00DF5829 /* LGSideMenuHelper.h in Headers */,
+				69C5F8E42F1FAD8C00DF5829 /* CustomHTTPProtocol.h in Headers */,
+				69C5F8E52F1FAD8C00DF5829 /* SEBUIWebViewController.h in Headers */,
+				69C5F8E62F1FAD8C00DF5829 /* SEBURLFilterExpression.h in Headers */,
+				69C5F8E72F1FAD8C00DF5829 /* MscPKCS7.h in Headers */,
+				69C5F8E82F1FAD8C00DF5829 /* SEBIASKSecureSettingsStore.h in Headers */,
+				69C5F8E92F1FAD8C00DF5829 /* LGSideMenuSegue.h in Headers */,
+				69C5F8EA2F1FAD8C00DF5829 /* ExamCell.h in Headers */,
+				69C5F8EB2F1FAD8C00DF5829 /* SEBPresetSettings.h in Headers */,
+				69C5F8EC2F1FAD8C00DF5829 /* MscPKCS12.h in Headers */,
+				69C5F8ED2F1FAD8C00DF5829 /* MscCertificate_OpenSSL_X509.h in Headers */,
+				69C5F8EE2F1FAD8C00DF5829 /* SEBConfigFileManager.h in Headers */,
+				69C5F8EF2F1FAD8C00DF5829 /* SEBDetailViewController.h in Headers */,
+				69C5F8F02F1FAD8C00DF5829 /* CustomViewCell.h in Headers */,
+				69C5F8F12F1FAD8C00DF5829 /* SEBCertServices.h in Headers */,
+				69C5F8F22F1FAD8C00DF5829 /* SEBFilteredURLCache.h in Headers */,
+				69C5F8F32F1FAD8C00DF5829 /* SEBiOSInitAssistantViewController.h in Headers */,
+				69C5F8F42F1FAD8C00DF5829 /* SEBAboutController.h in Headers */,
+				69C5F8F52F1FAD8C00DF5829 /* QNSURLSessionDemux.h in Headers */,
+				69C5F8F62F1FAD8C00DF5829 /* SEBCryptor.h in Headers */,
+				69C5F8F72F1FAD8C00DF5829 /* LGSideMenuBorderView.h in Headers */,
+				69C5F8F82F1FAD8C00DF5829 /* SEBMasterViewController.h in Headers */,
+				69C5F8F92F1FAD8C00DF5829 /* SEBBrowserTabViewController.h in Headers */,
+				69C5F8FA2F1FAD8C00DF5829 /* SEBSliderItem.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69E08132289C60B400653364 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3487,6 +4076,32 @@
 			productName = SafeExamBrowserTests;
 			productReference = 69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		69C5F8912F1FAD8C00DF5829 /* SEB visionOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69C5FA6A2F1FAD8C00DF5829 /* Build configuration list for PBXNativeTarget "SEB visionOS" */;
+			buildPhases = (
+				69C5F8982F1FAD8C00DF5829 /* [CP] Check Pods Manifest.lock */,
+				69C5F8992F1FAD8C00DF5829 /* Headers */,
+				69C5F8FB2F1FAD8C00DF5829 /* Sources */,
+				69C5F9792F1FAD8C00DF5829 /* Frameworks */,
+				69C5F9882F1FAD8C00DF5829 /* Resources */,
+				69C5FA692F1FAD8C00DF5829 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SEB visionOS";
+			packageProductDependencies = (
+				69C5F8922F1FAD8C00DF5829 /* CocoaLumberjack */,
+				69C5F8942F1FAD8C00DF5829 /* CocoaLumberjackSwift */,
+				69C5F8952F1FAD8C00DF5829 /* CocoaLumberjackSwiftLogBackend */,
+				69C5F8962F1FAD8C00DF5829 /* InAppSettingsKit */,
+			);
+			productName = SEB;
+			productReference = 69C5FA6D2F1FAD8C00DF5829 /* SEB visionOS.app */;
+			productType = "com.apple.product-type.application";
 		};
 		69D02480287C68E5006CEC19 /* SEBVerificator */ = {
 			isa = PBXNativeTarget;
@@ -3655,6 +4270,7 @@
 				69D02480287C68E5006CEC19 /* SEBVerificator */,
 				69D02490287C68E7006CEC19 /* SEBVerificatorTests */,
 				69D0249A287C68E7006CEC19 /* SEBVerificatorUITests */,
+				69C5F8912F1FAD8C00DF5829 /* SEB visionOS */,
 			);
 		};
 /* End PBXProject section */
@@ -3912,6 +4528,237 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69C5F9882F1FAD8C00DF5829 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69C5F9892F1FAD8C00DF5829 /* Security.strings in Resources */,
+				69C5F98A2F1FAD8C00DF5829 /* Main.storyboard in Resources */,
+				69C5F98B2F1FAD8C00DF5829 /* Icon-320x320.png in Resources */,
+				69C5F98C2F1FAD8C00DF5829 /* SEBSliderClosePage@3x.png in Resources */,
+				69C5F98D2F1FAD8C00DF5829 /* SEBSliderSliderProctoringViewIcon.png in Resources */,
+				69C5F98E2F1FAD8C00DF5829 /* RemoteProctoring.strings in Resources */,
+				69C5F98F2F1FAD8C00DF5829 /* continueCircle@2x.png in Resources */,
+				69C5F9902F1FAD8C00DF5829 /* SEBSliderSkipBackIcon@3x.png in Resources */,
+				69C5F9912F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error@2x.png in Resources */,
+				69C5F9922F1FAD8C00DF5829 /* SEBShutDownIconLandscape@2x.png in Resources */,
+				69C5F9932F1FAD8C00DF5829 /* SEBRestartIcon.png in Resources */,
+				69C5F9942F1FAD8C00DF5829 /* SEBSliderSearchIcon.png in Resources */,
+				69C5F9952F1FAD8C00DF5829 /* ConfigFile.strings in Resources */,
+				69C5F9962F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised.png in Resources */,
+				69C5F9972F1FAD8C00DF5829 /* SEBRaiseHandIcon.png in Resources */,
+				69C5F9982F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised@3x.png in Resources */,
+				69C5F9992F1FAD8C00DF5829 /* SEBRaiseHandIcon_raised@2x.png in Resources */,
+				69C5F99A2F1FAD8C00DF5829 /* SEBRaiseHandIcon@2x.png in Resources */,
+				69C5F99B2F1FAD8C00DF5829 /* SEBRaiseHandIcon@3x.png in Resources */,
+				69C5F99C2F1FAD8C00DF5829 /* ModifyPages.js in Resources */,
+				69C5F99D2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error.png in Resources */,
+				69C5F99E2F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon@2x.png in Resources */,
+				69C5F99F2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning.png in Resources */,
+				69C5F9A02F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon@2x.png in Resources */,
+				69C5F9A12F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon.png in Resources */,
+				69C5F9A22F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error@3x.png in Resources */,
+				69C5F9A32F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon@3x.png in Resources */,
+				69C5F9A42F1FAD8C00DF5829 /* SEBBadgeError.png in Resources */,
+				69C5F9A52F1FAD8C00DF5829 /* Cancel.png in Resources */,
+				69C5F9A62F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon@3x.png in Resources */,
+				69C5F9A72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active.png in Resources */,
+				69C5F9A82F1FAD8C00DF5829 /* SEBScrollLockIcon@3x.png in Resources */,
+				69C5F9A92F1FAD8C00DF5829 /* FilterRules.strings in Resources */,
+				69C5F9AA2F1FAD8C00DF5829 /* SEBSliderReloadIcon@3x.png in Resources */,
+				69C5F9AB2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error@2x.png in Resources */,
+				69C5F9AC2F1FAD8C00DF5829 /* UserInterface.strings in Resources */,
+				69C5F9AD2F1FAD8C00DF5829 /* SEBReloadIcon@3x.png in Resources */,
+				69C5F9AE2F1FAD8C00DF5829 /* Previous.png in Resources */,
+				69C5F9AF2F1FAD8C00DF5829 /* SEBDockIcon@3x.png in Resources */,
+				69C5F9B02F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error@2x.png in Resources */,
+				69C5F9B12F1FAD8C00DF5829 /* Settings@2x.png in Resources */,
+				69C5F9B22F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon@3x.png in Resources */,
+				69C5F9B32F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active.png in Resources */,
+				69C5F9B42F1FAD8C00DF5829 /* Apps.strings in Resources */,
+				69C5F9B52F1FAD8C00DF5829 /* Browser.strings in Resources */,
+				69C5F9B62F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive@3x.png in Resources */,
+				69C5F9B72F1FAD8C00DF5829 /* SEBDockIconLandscape.png in Resources */,
+				69C5F9B82F1FAD8C00DF5829 /* SEBSkipBackIcon@2x.png in Resources */,
+				69C5F9B92F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive.png in Resources */,
+				69C5F9BA2F1FAD8C00DF5829 /* Network.strings in Resources */,
+				69C5F9BB2F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon.png in Resources */,
+				69C5F9BC2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error@3x.png in Resources */,
+				69C5F9BD2F1FAD8C00DF5829 /* SEBToolbarReloadIcon@3x.png in Resources */,
+				69C5F9BE2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive@2x.png in Resources */,
+				69C5F9BF2F1FAD8C00DF5829 /* SEBSliderReloadIcon.png in Resources */,
+				69C5F9C02F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon.png in Resources */,
+				69C5F9C12F1FAD8C00DF5829 /* SEBSliderProctoringViewIcon@2x.png in Resources */,
+				69C5F9C22F1FAD8C00DF5829 /* SEBNavigateBackIcon@2x.png in Resources */,
+				69C5F9C32F1FAD8C00DF5829 /* SEBNavigateForwardIcon@2x.png in Resources */,
+				69C5F9C42F1FAD8C00DF5829 /* SEBBadgeError@2x.png in Resources */,
+				69C5F9C52F1FAD8C00DF5829 /* Next.png in Resources */,
+				69C5F9C62F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive@3x.png in Resources */,
+				69C5F9C72F1FAD8C00DF5829 /* AIProctoringSupport.strings in Resources */,
+				69C5F9C82F1FAD8C00DF5829 /* PrivacyInfo.xcprivacy in Resources */,
+				69C5F9C92F1FAD8C00DF5829 /* SEBSliderScrollLockIcon@2x.png in Resources */,
+				69C5F9CA2F1FAD8C00DF5829 /* SEBDockIconLandscape@3x.png in Resources */,
+				69C5F9CB2F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark@2x.png in Resources */,
+				69C5F9CC2F1FAD8C00DF5829 /* SEBBadgeWarning.png in Resources */,
+				69C5F9CD2F1FAD8C00DF5829 /* Localizable.strings in Resources */,
+				69C5F9CE2F1FAD8C00DF5829 /* SEBSkipBackIcon@3x.png in Resources */,
+				69C5F9CF2F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark.png in Resources */,
+				69C5F9D02F1FAD8C00DF5829 /* continueCircle.png in Resources */,
+				69C5F9D12F1FAD8C00DF5829 /* SEBAppIcon_256.png in Resources */,
+				69C5F9D22F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised@2x.png in Resources */,
+				69C5F9D32F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon.png in Resources */,
+				69C5F9D42F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon@3x.png in Resources */,
+				69C5F9D52F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised@3x.png in Resources */,
+				69C5F9D62F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon_raised.png in Resources */,
+				69C5F9D72F1FAD8C00DF5829 /* SEBSliderRaiseHandIcon@2x.png in Resources */,
+				69C5F9D82F1FAD8C00DF5829 /* SEBReloadIconLandscape@2x.png in Resources */,
+				69C5F9D92F1FAD8C00DF5829 /* SEBReloadIconLandscape@3x.png in Resources */,
+				69C5F9DA2F1FAD8C00DF5829 /* App.strings in Resources */,
+				69C5F9DB2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked.png in Resources */,
+				69C5F9DC2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning.png in Resources */,
+				69C5F9DD2F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning.png in Resources */,
+				69C5F9DE2F1FAD8C00DF5829 /* SEBProctoringViewIcon@3x.png in Resources */,
+				69C5F9DF2F1FAD8C00DF5829 /* SEBSliderSettingsIcon@2x.png in Resources */,
+				69C5F9E02F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active@2x.png in Resources */,
+				69C5F9E12F1FAD8C00DF5829 /* SEBShutDownIcon.png in Resources */,
+				69C5F9E22F1FAD8C00DF5829 /* NetworkCertificate.strings in Resources */,
+				69C5F9E32F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active@3x.png in Resources */,
+				69C5F9E42F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon.png in Resources */,
+				69C5F9E52F1FAD8C00DF5829 /* SEBSliderProctoringViewIcon@3x.png in Resources */,
+				69C5F9E62F1FAD8C00DF5829 /* SEBSkipBackIcon.png in Resources */,
+				69C5F9E72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive.png in Resources */,
+				69C5F9E82F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon@2x.png in Resources */,
+				69C5F9E92F1FAD8C00DF5829 /* ScreenProctoring.storyboard in Resources */,
+				69C5F9EA2F1FAD8C00DF5829 /* SEBSliderSearchIcon@3x.png in Resources */,
+				69C5F9EB2F1FAD8C00DF5829 /* LaunchScreen.storyboard in Resources */,
+				69C5F9EC2F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon@3x.png in Resources */,
+				69C5F9ED2F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon@3x.png in Resources */,
+				69C5F9EE2F1FAD8C00DF5829 /* SEBNavigateBackIcon.png in Resources */,
+				69C5F9EF2F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon@2x.png in Resources */,
+				69C5F9F02F1FAD8C00DF5829 /* SEBProctoringViewIcon_checkmark@3x.png in Resources */,
+				69C5F9F12F1FAD8C00DF5829 /* InAppSettings.bundle in Resources */,
+				69C5F9F22F1FAD8C00DF5829 /* SEBScrollLockIcon_locked.png in Resources */,
+				69C5F9F32F1FAD8C00DF5829 /* SEBSliderReloadIcon@2x.png in Resources */,
+				69C5F9F42F1FAD8C00DF5829 /* SEBRestartIcon@3x.png in Resources */,
+				69C5F9F52F1FAD8C00DF5829 /* SEBDockIcon@2x.png in Resources */,
+				69C5F9F62F1FAD8C00DF5829 /* SEBShutDownIconLandscape@3x.png in Resources */,
+				69C5F9F72F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error.png in Resources */,
+				69C5F9F82F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon@3x.png in Resources */,
+				69C5F9F92F1FAD8C00DF5829 /* SEBProctoringViewIcon.png in Resources */,
+				69C5F9FA2F1FAD8C00DF5829 /* SEBScrollLock_locked@3x.png in Resources */,
+				69C5F9FB2F1FAD8C00DF5829 /* SEBQRCodeIcon@3x.png in Resources */,
+				69C5F9FC2F1FAD8C00DF5829 /* SEBReloadIcon.png in Resources */,
+				69C5F9FD2F1FAD8C00DF5829 /* SEBSliderRestartIcon.png in Resources */,
+				69C5F9FE2F1FAD8C00DF5829 /* Exam.strings in Resources */,
+				69C5F9FF2F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon@3x.png in Resources */,
+				69C5FA002F1FAD8C00DF5829 /* SEBSliderShutDownIcon@3x.png in Resources */,
+				69C5FA012F1FAD8C00DF5829 /* RemoteProctoringFeatures.strings in Resources */,
+				69C5FA022F1FAD8C00DF5829 /* SEBToolbarReloadIcon@2x.png in Resources */,
+				69C5FA032F1FAD8C00DF5829 /* SEBToolbarReloadIcon.png in Resources */,
+				69C5FA042F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon@3x.png in Resources */,
+				69C5FA052F1FAD8C00DF5829 /* SEBToolbarNavigateForwardIcon@2x.png in Resources */,
+				69C5FA062F1FAD8C00DF5829 /* SEBSliderZoomOutSmallerSizeIcon.png in Resources */,
+				69C5FA072F1FAD8C00DF5829 /* SEBSliderQRCodeIcon.png in Resources */,
+				69C5FA082F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon@2x.png in Resources */,
+				69C5FA092F1FAD8C00DF5829 /* SEBProctoringViewIcon_error.png in Resources */,
+				69C5FA0A2F1FAD8C00DF5829 /* SEBShutDownIconLandscape.png in Resources */,
+				69C5FA0B2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning@3x.png in Resources */,
+				69C5FA0C2F1FAD8C00DF5829 /* Icon-22x29.png in Resources */,
+				69C5FA0D2F1FAD8C00DF5829 /* SEBShutDownIcon@3x.png in Resources */,
+				69C5FA0E2F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon@2x.png in Resources */,
+				69C5FA0F2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error.png in Resources */,
+				69C5FA102F1FAD8C00DF5829 /* SEBReloadIcon@2x.png in Resources */,
+				69C5FA112F1FAD8C00DF5829 /* SEBDockIconLandscape@2x.png in Resources */,
+				69C5FA122F1FAD8C00DF5829 /* SEBShutDownIcon@2x.png in Resources */,
+				69C5FA132F1FAD8C00DF5829 /* DownloadFileType.strings in Resources */,
+				69C5FA142F1FAD8C00DF5829 /* SecurityLogging.strings in Resources */,
+				69C5FA152F1FAD8C00DF5829 /* Assets.xcassets in Resources */,
+				69C5FA162F1FAD8C00DF5829 /* SEBNavigateForwardIcon@3x.png in Resources */,
+				69C5FA172F1FAD8C00DF5829 /* SEBSliderScrollLockIcon@3x.png in Resources */,
+				69C5FA182F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning@3x.png in Resources */,
+				69C5FA192F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon@3x.png in Resources */,
+				69C5FA1A2F1FAD8C00DF5829 /* SEBSliderSettingsIcon@3x.png in Resources */,
+				69C5FA1B2F1FAD8C00DF5829 /* SEBProctoringViewIcon@2x.png in Resources */,
+				69C5FA1C2F1FAD8C00DF5829 /* Icon-22x29@2x.png in Resources */,
+				69C5FA1D2F1FAD8C00DF5829 /* SEBToolbarNavigateBackIcon@2x.png in Resources */,
+				69C5FA1E2F1FAD8C00DF5829 /* SEBScrollLockIcon@2x.png in Resources */,
+				69C5FA1F2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_inactive_error.png in Resources */,
+				69C5FA202F1FAD8C00DF5829 /* SEBSliderSearchIcon@2x.png in Resources */,
+				69C5FA212F1FAD8C00DF5829 /* SEBQRCodeIcon@2x.png in Resources */,
+				69C5FA222F1FAD8C00DF5829 /* SEBQuickActionQRCodeIcon.png in Resources */,
+				69C5FA232F1FAD8C00DF5829 /* SEBServer.strings in Resources */,
+				69C5FA242F1FAD8C00DF5829 /* SecurityLegacy.strings in Resources */,
+				69C5FA252F1FAD8C00DF5829 /* SEBQRCode@2x.png in Resources */,
+				69C5FA262F1FAD8C00DF5829 /* FilterRule.strings in Resources */,
+				69C5FA272F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning@2x.png in Resources */,
+				69C5FA282F1FAD8C00DF5829 /* SEBProctoringViewIcon_error@2x.png in Resources */,
+				69C5FA292F1FAD8C00DF5829 /* SEBBadgeCheckmark@2x.png in Resources */,
+				69C5FA2A2F1FAD8C00DF5829 /* SEBQRCode@3x.png in Resources */,
+				69C5FA2B2F1FAD8C00DF5829 /* Settings.bundle in Resources */,
+				69C5FA2C2F1FAD8C00DF5829 /* NetworkFilter.strings in Resources */,
+				69C5FA2D2F1FAD8C00DF5829 /* SEBNavigateBackIcon@3x.png in Resources */,
+				69C5FA2E2F1FAD8C00DF5829 /* BrowserMediaPlayback.strings in Resources */,
+				69C5FA2F2F1FAD8C00DF5829 /* SEBSliderClosePage.png in Resources */,
+				69C5FA302F1FAD8C00DF5829 /* SEBSliderClosePage@2x.png in Resources */,
+				69C5FA312F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active@2x.png in Resources */,
+				69C5FA322F1FAD8C00DF5829 /* SEBAppIcon_256@2x.png in Resources */,
+				69C5FA332F1FAD8C00DF5829 /* SEBRestartIcon@2x.png in Resources */,
+				69C5FA342F1FAD8C00DF5829 /* SEBBadgeWarning@2x.png in Resources */,
+				69C5FA352F1FAD8C00DF5829 /* SEBProctoringViewIcon_warning@3x.png in Resources */,
+				69C5FA362F1FAD8C00DF5829 /* DownUploads.strings in Resources */,
+				69C5FA372F1FAD8C00DF5829 /* SEBToolbarSearchNextResultIcon.png in Resources */,
+				69C5FA382F1FAD8C00DF5829 /* SEBSliderQRCodeIcon@2x.png in Resources */,
+				69C5FA392F1FAD8C00DF5829 /* SEBSliderShutDownIcon.png in Resources */,
+				69C5FA3A2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon.png in Resources */,
+				69C5FA3B2F1FAD8C00DF5829 /* SEBScrollLockIcon.png in Resources */,
+				69C5FA3C2F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_warning@2x.png in Resources */,
+				69C5FA3D2F1FAD8C00DF5829 /* Reload.png in Resources */,
+				69C5FA3E2F1FAD8C00DF5829 /* SEBBadgeCheckmark.png in Resources */,
+				69C5FA3F2F1FAD8C00DF5829 /* SEB-InfoPlist.strings in Resources */,
+				69C5FA402F1FAD8C00DF5829 /* SEBSliderNavigateBackIcon.png in Resources */,
+				69C5FA412F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon.png in Resources */,
+				69C5FA422F1FAD8C00DF5829 /* CustomViewCell.xib in Resources */,
+				69C5FA432F1FAD8C00DF5829 /* SEBSliderInfoIcon@2x.png in Resources */,
+				69C5FA442F1FAD8C00DF5829 /* SEBSliderQRCodeIcon@3x.png in Resources */,
+				69C5FA452F1FAD8C00DF5829 /* SEBQRCode.png in Resources */,
+				69C5FA462F1FAD8C00DF5829 /* Previous@2x.png in Resources */,
+				69C5FA472F1FAD8C00DF5829 /* SEBSliderInfoIcon@3x.png in Resources */,
+				69C5FA482F1FAD8C00DF5829 /* Next@2x.png in Resources */,
+				69C5FA492F1FAD8C00DF5829 /* SEBSliderSkipBackIcon.png in Resources */,
+				69C5FA4A2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active@3x.png in Resources */,
+				69C5FA4B2F1FAD8C00DF5829 /* SEBSliderSkipBackIcon@2x.png in Resources */,
+				69C5FA4C2F1FAD8C00DF5829 /* DownloadFileTypes.strings in Resources */,
+				69C5FA4D2F1FAD8C00DF5829 /* ExamKeys.strings in Resources */,
+				69C5FA4E2F1FAD8C00DF5829 /* SEBSliderShutDownIcon@2x.png in Resources */,
+				69C5FA4F2F1FAD8C00DF5829 /* SEBReloadIconLandscape.png in Resources */,
+				69C5FA502F1FAD8C00DF5829 /* Reload@2x.png in Resources */,
+				69C5FA512F1FAD8C00DF5829 /* Dock.strings in Resources */,
+				69C5FA522F1FAD8C00DF5829 /* Icon-64x64.png in Resources */,
+				69C5FA532F1FAD8C00DF5829 /* SEBSliderInfoIcon.png in Resources */,
+				69C5FA542F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive@2x.png in Resources */,
+				69C5FA552F1FAD8C00DF5829 /* SEBSliderNavigateForwardIcon@2x.png in Resources */,
+				69C5FA562F1FAD8C00DF5829 /* SEBScrollLock_locked@2x.png in Resources */,
+				69C5FA572F1FAD8C00DF5829 /* SEBProctoringViewIcon_error@3x.png in Resources */,
+				69C5FA582F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_error@3x.png in Resources */,
+				69C5FA592F1FAD8C00DF5829 /* Cancel@2x.png in Resources */,
+				69C5FA5A2F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked@2x.png in Resources */,
+				69C5FA5B2F1FAD8C00DF5829 /* SEBToolbarSearchPreviousResultIcon@3x.png in Resources */,
+				69C5FA5C2F1FAD8C00DF5829 /* SEBSliderZoomInLargerSizeIcon.png in Resources */,
+				69C5FA5D2F1FAD8C00DF5829 /* SEBSliderSettingsIcon.png in Resources */,
+				69C5FA5E2F1FAD8C00DF5829 /* SEBDockIcon.png in Resources */,
+				69C5FA5F2F1FAD8C00DF5829 /* SEBScreenProctoringIcon_active_warning@2x.png in Resources */,
+				69C5FA602F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_inactive_error@3x.png in Resources */,
+				69C5FA612F1FAD8C00DF5829 /* SEBSliderScrollLockIcon_locked@3x.png in Resources */,
+				69C5FA622F1FAD8C00DF5829 /* SEBNavigateForwardIcon.png in Resources */,
+				69C5FA632F1FAD8C00DF5829 /* SEBSliderZoomDefaultSizeIcon@2x.png in Resources */,
+				69C5FA642F1FAD8C00DF5829 /* Root.strings in Resources */,
+				69C5FA652F1FAD8C00DF5829 /* SEBQRCodeIcon.png in Resources */,
+				69C5FA662F1FAD8C00DF5829 /* SEBSliderRestartIcon@3x.png in Resources */,
+				69C5FA672F1FAD8C00DF5829 /* SEBSliderScreenProctoringIcon_active_error@2x.png in Resources */,
+				69C5FA682F1FAD8C00DF5829 /* SEBSliderRestartIcon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		69D0247F287C68E5006CEC19 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4115,6 +4962,44 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbN=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbN=$((0x$bN))\nbN=$(($bN + 1))\nbN=$(printf \"%X\" $bN)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $bN\" \"$INFOPLIST_FILE\"\n";
 		};
+		69C5F8982F1FAD8C00DF5829 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SEB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69C5FA692F1FAD8C00DF5829 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/JitsiMeetSDK.framework/JitsiMeetSDK",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/JitsiMeetSDK/WebRTC.framework/WebRTC",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JitsiMeetSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SEB/Pods-SEB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B93B27565E7AA0BBF4D88920 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4292,6 +5177,138 @@
 			files = (
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69C5F8FB2F1FAD8C00DF5829 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69C5F8FC2F1FAD8C00DF5829 /* MscX509Name.m in Sources */,
+				69C5F8FD2F1FAD8C00DF5829 /* ProctoringVideoCapturer.m in Sources */,
+				69C5F8FE2F1FAD8C00DF5829 /* SEBAboutController.m in Sources */,
+				69C5F8FF2F1FAD8C00DF5829 /* NSString+MscASCIIExtension.m in Sources */,
+				69C5F9002F1FAD8C00DF5829 /* SEBWKContentRuleListCreator.swift in Sources */,
+				69C5F9012F1FAD8C00DF5829 /* MscX509CommonError.m in Sources */,
+				69C5F9022F1FAD8C00DF5829 /* KeyboardToolbar.swift in Sources */,
+				69C5F9032F1FAD8C00DF5829 /* SEBServer.swift in Sources */,
+				69C5F9042F1FAD8C00DF5829 /* SEBServerViewController.m in Sources */,
+				69C5F9052F1FAD8C00DF5829 /* LGSideMenuBorderView.m in Sources */,
+				69C5F9062F1FAD8C00DF5829 /* SEBConfigFileManager.m in Sources */,
+				69C5F9072F1FAD8C00DF5829 /* qrCodeGenerator.swift in Sources */,
+				69C5F9082F1FAD8C00DF5829 /* NSURL+SEBURL.m in Sources */,
+				69C5F9092F1FAD8C00DF5829 /* SEBFileManager.swift in Sources */,
+				69C5F90A2F1FAD8C00DF5829 /* AssessmentConfigurationManager.swift in Sources */,
+				69C5F90B2F1FAD8C00DF5829 /* QRCodeReaderView.m in Sources */,
+				69C5F90C2F1FAD8C00DF5829 /* MyGlobals.m in Sources */,
+				69C5F90D2F1FAD8C00DF5829 /* SEB.xcdatamodeld in Sources */,
+				69C5F90E2F1FAD8C00DF5829 /* SEBURLFilterExpression.m in Sources */,
+				69C5F90F2F1FAD8C00DF5829 /* UIWebView+SEBWebView.m in Sources */,
+				69C5F9102F1FAD8C00DF5829 /* SEBiOSBrowserController.m in Sources */,
+				69C5F9112F1FAD8C00DF5829 /* RNEncryptor.m in Sources */,
+				69C5F9122F1FAD8C00DF5829 /* ServerLogger.m in Sources */,
+				69C5F9132F1FAD8C00DF5829 /* SEBNetworkManager.swift in Sources */,
+				69C5F9142F1FAD8C00DF5829 /* SEBCertServices.m in Sources */,
+				69C5F9152F1FAD8C00DF5829 /* CustomViewCell.m in Sources */,
+				69C5F9162F1FAD8C00DF5829 /* MscPKCS7.m in Sources */,
+				69C5F9172F1FAD8C00DF5829 /* SEBiOSTransmittingCachedScreenShotsViewController.swift in Sources */,
+				69C5F9182F1FAD8C00DF5829 /* ProctoringImageAnalyzer.swift in Sources */,
+				69C5F9192F1FAD8C00DF5829 /* SEBAbstractModernWebView.swift in Sources */,
+				69C5F91A2F1FAD8C00DF5829 /* NSObject+UIResponderSEBDefaults.m in Sources */,
+				69C5F91B2F1FAD8C00DF5829 /* SEBPresetSettings.m in Sources */,
+				69C5F91C2F1FAD8C00DF5829 /* SEBActionUITableViewCell.m in Sources */,
+				69C5F91D2F1FAD8C00DF5829 /* SEBViewController.m in Sources */,
+				69C5F91E2F1FAD8C00DF5829 /* SEBiOSConfigFileController.m in Sources */,
+				69C5F91F2F1FAD8C00DF5829 /* OpenWebpages.m in Sources */,
+				69C5F9202F1FAD8C00DF5829 /* LGSideMenuView.m in Sources */,
+				69C5F9212F1FAD8C00DF5829 /* SEBBrowserTabViewController.m in Sources */,
+				69C5F9222F1FAD8C00DF5829 /* QRCameraSwitchButton.m in Sources */,
+				69C5F9232F1FAD8C00DF5829 /* MscPKCS12.m in Sources */,
+				69C5F9242F1FAD8C00DF5829 /* SEBiOSLockedViewController.m in Sources */,
+				69C5F9252F1FAD8C00DF5829 /* CanonicalRequest.m in Sources */,
+				69C5F9262F1FAD8C00DF5829 /* SEBiOSWebViewController.m in Sources */,
+				69C5F9272F1FAD8C00DF5829 /* SEBCryptor.m in Sources */,
+				69C5F9282F1FAD8C00DF5829 /* QRToggleTorchButton.m in Sources */,
+				69C5F9292F1FAD8C00DF5829 /* MscCertificateSigningRequest.m in Sources */,
+				69C5F92A2F1FAD8C00DF5829 /* SEBGCMCryptor.swift in Sources */,
+				69C5F92B2F1FAD8C00DF5829 /* LGSideMenuController.m in Sources */,
+				69C5F92C2F1FAD8C00DF5829 /* MethodSwizzling.m in Sources */,
+				69C5F92D2F1FAD8C00DF5829 /* MscIssuerAndSerial.m in Sources */,
+				69C5F92E2F1FAD8C00DF5829 /* SEBAbstractClassicWebView.m in Sources */,
+				69C5F92F2F1FAD8C00DF5829 /* SEBiOSKeychainManager.m in Sources */,
+				69C5F9302F1FAD8C00DF5829 /* SEBSettings.m in Sources */,
+				69C5F9312F1FAD8C00DF5829 /* SEBRootViewController.m in Sources */,
+				69C5F9322F1FAD8C00DF5829 /* MscIssuerAndSubject.m in Sources */,
+				69C5F9332F1FAD8C00DF5829 /* NSData+NSDataZIPExtension.m in Sources */,
+				69C5F9342F1FAD8C00DF5829 /* LGSideMenuHelper.m in Sources */,
+				69C5F9352F1FAD8C00DF5829 /* NSUserDefaults+SEBEncryptedUserDefaults.m in Sources */,
+				69C5F9362F1FAD8C00DF5829 /* SEBInitAssistantViewController.m in Sources */,
+				69C5F9372F1FAD8C00DF5829 /* SEBiOSInitAssistantViewController.m in Sources */,
+				69C5F9382F1FAD8C00DF5829 /* SEBServerController.swift in Sources */,
+				69C5F9392F1FAD8C00DF5829 /* SEBScreenProctoringController.swift in Sources */,
+				69C5F93A2F1FAD8C00DF5829 /* ServerController.m in Sources */,
+				69C5F93B2F1FAD8C00DF5829 /* KeyboardToolbarButton.swift in Sources */,
+				69C5F93C2F1FAD8C00DF5829 /* SEBURLFilterRegexExpression.m in Sources */,
+				69C5F93D2F1FAD8C00DF5829 /* SEBBrowserController.m in Sources */,
+				69C5F93E2F1FAD8C00DF5829 /* AppDelegate.m in Sources */,
+				69C5F93F2F1FAD8C00DF5829 /* AccessibilityFeaturesManager.swift in Sources */,
+				69C5F9402F1FAD8C00DF5829 /* MscOpenSSLExtension.c in Sources */,
+				69C5F9412F1FAD8C00DF5829 /* SEBIASKSecureSettingsStore.m in Sources */,
+				69C5F9422F1FAD8C00DF5829 /* SEBKeychainManager.m in Sources */,
+				69C5F9432F1FAD8C00DF5829 /* PNGQuantization.swift in Sources */,
+				69C5F9442F1FAD8C00DF5829 /* NSDictionary+Extensions.m in Sources */,
+				69C5F9452F1FAD8C00DF5829 /* SEBiOSWKWebViewController.swift in Sources */,
+				69C5F9462F1FAD8C00DF5829 /* SEBUIController.m in Sources */,
+				69C5F9472F1FAD8C00DF5829 /* SEBURLFilter.m in Sources */,
+				69C5F9482F1FAD8C00DF5829 /* SEBFilteredURLCache.m in Sources */,
+				69C5F9492F1FAD8C00DF5829 /* SEBNavigationController.m in Sources */,
+				69C5F94A2F1FAD8C00DF5829 /* NSArray+Extensions.m in Sources */,
+				69C5F94B2F1FAD8C00DF5829 /* LGSideMenuSegue.m in Sources */,
+				69C5F94C2F1FAD8C00DF5829 /* main.m in Sources */,
+				69C5F94D2F1FAD8C00DF5829 /* ScreenShotCache.swift in Sources */,
+				69C5F94E2F1FAD8C00DF5829 /* SEBOSXSessionState.swift in Sources */,
+				69C5F94F2F1FAD8C00DF5829 /* MscX509CommonLocalException.m in Sources */,
+				69C5F9502F1FAD8C00DF5829 /* ScreenProctoringServiceResources.swift in Sources */,
+				69C5F9512F1FAD8C00DF5829 /* SEBBatteryController.m in Sources */,
+				69C5F9522F1FAD8C00DF5829 /* SEBSliderItem.m in Sources */,
+				69C5F9532F1FAD8C00DF5829 /* QRCodeReader.m in Sources */,
+				69C5F9542F1FAD8C00DF5829 /* QRCodeReaderViewController.m in Sources */,
+				69C5F9552F1FAD8C00DF5829 /* SEBConfigFileCredentials.m in Sources */,
+				69C5F9562F1FAD8C00DF5829 /* SEBTextField.m in Sources */,
+				69C5F9572F1FAD8C00DF5829 /* SEBAbstractWebView.m in Sources */,
+				69C5F9582F1FAD8C00DF5829 /* QNSURLSessionDemux.m in Sources */,
+				69C5F9592F1FAD8C00DF5829 /* UIDragInteraction+Restrict.m in Sources */,
+				69C5F95A2F1FAD8C00DF5829 /* SEBInAppSettingsViewController.m in Sources */,
+				69C5F95B2F1FAD8C00DF5829 /* LGSideMenuGesturesHandler.m in Sources */,
+				69C5F95C2F1FAD8C00DF5829 /* SEBLockedViewController.m in Sources */,
+				69C5F95D2F1FAD8C00DF5829 /* NetworkRequest.swift in Sources */,
+				69C5F95E2F1FAD8C00DF5829 /* ExamCell.m in Sources */,
+				69C5F95F2F1FAD8C00DF5829 /* SEBUIWebViewController.m in Sources */,
+				69C5F9602F1FAD8C00DF5829 /* SEBEncapsulatedSettings.m in Sources */,
+				69C5F9612F1FAD8C00DF5829 /* MscRSAKey.m in Sources */,
+				69C5F9622F1FAD8C00DF5829 /* MscCertificate.m in Sources */,
+				69C5F9632F1FAD8C00DF5829 /* UIBarButtonItemExtension.swift in Sources */,
+				69C5F9642F1FAD8C00DF5829 /* UIViewController+LGSideMenuController.m in Sources */,
+				69C5F9652F1FAD8C00DF5829 /* SEBTableViewController.m in Sources */,
+				69C5F9662F1FAD8C00DF5829 /* SEBUIUserDefaultsController.m in Sources */,
+				69C5F9672F1FAD8C00DF5829 /* AboutSEBiOSViewController.m in Sources */,
+				69C5F9682F1FAD8C00DF5829 /* CustomHTTPProtocol.m in Sources */,
+				69C5F9692F1FAD8C00DF5829 /* MscCertificateUtils.m in Sources */,
+				69C5F96A2F1FAD8C00DF5829 /* MscCertificateRevocationList.m in Sources */,
+				69C5F96B2F1FAD8C00DF5829 /* TouchMonitoringWindow.swift in Sources */,
+				69C5F96C2F1FAD8C00DF5829 /* RNCryptorEngine.m in Sources */,
+				69C5F96D2F1FAD8C00DF5829 /* APIResources.swift in Sources */,
+				69C5F96E2F1FAD8C00DF5829 /* JitsiViewController.swift in Sources */,
+				69C5F96F2F1FAD8C00DF5829 /* AdditionalApplicationsController.swift in Sources */,
+				69C5F9702F1FAD8C00DF5829 /* FIFOBuffer.swift in Sources */,
+				69C5F9712F1FAD8C00DF5829 /* AssessmentModeManager.m in Sources */,
+				69C5F9722F1FAD8C00DF5829 /* SEBScreenCaptureController.swift in Sources */,
+				69C5F9732F1FAD8C00DF5829 /* RepeatingTimer.swift in Sources */,
+				69C5F9742F1FAD8C00DF5829 /* RNDecryptor.m in Sources */,
+				69C5F9752F1FAD8C00DF5829 /* SEBSPMetadataCollector.swift in Sources */,
+				69C5F9762F1FAD8C00DF5829 /* RNCryptor.m in Sources */,
+				69C5F9772F1FAD8C00DF5829 /* CacheStoragePolicy.m in Sources */,
+				69C5F9782F1FAD8C00DF5829 /* Webpages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4992,7 +6009,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15702;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5023,7 +6040,7 @@
 					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5093,7 +6110,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15702;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5125,7 +6142,7 @@
 					SEB/Frameworks/OpenSSL/include,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SEB/Resources/SEB-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5388,7 +6405,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5435,7 +6452,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5454,6 +6471,221 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Safe Exam Browser.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Safe Exam Browser";
+			};
+			name = Release;
+		};
+		69C5FA6B2F1FAD8C00DF5829 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D32A1D6CDEC2CF1C15F44B7B /* Pods-SEB.debug.xcconfig */;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_FRAMEWORK_INCLUDE_PRIVATE_FROM_PUBLIC = NO;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 15701;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/OtherSources/SEB_Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"ios-mbedtls/mbedtls/mbedtls/include",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
+					SEB/Frameworks/OpenSSL/include,
+				);
+				INFOPLIST_FILE = "SEB copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+					"$(SDKROOT)/usr/lib/swift",
+					"$(PROJECT_DIR)/SEB/Addons",
+				);
+				MARKETING_VERSION = 3.6.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"JitsiMeetSDK\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebRTC\"",
+					"-ObjC",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/macosx/libswiftAppKit.dylib",
+					"-Wl",
+					"-weak_reference_mismatches",
+					"\"weak\"",
+				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=xros*]" = org.safeexambrowser.visionos.seb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				XROS_DEPLOYMENT_TARGET = 26.0;
+				none = "";
+			};
+			name = Debug;
+		};
+		69C5FA6C2F1FAD8C00DF5829 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B474E1220063666921806418 /* Pods-SEB.release.xcconfig */;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_FRAMEWORK_INCLUDE_PRIVATE_FROM_PUBLIC = NO;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = SEB/Resources/SEB.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 15701;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9Z623UDZ5L;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+				);
+				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/OtherSources/SEB_Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"ios-mbedtls/mbedtls/mbedtls/include",
+					"\"${PODS_ROOT}/JitsiMeetSDK/Frameworks/WebRTC.xcframework/ios-arm64/WebRTC.framework/Headers\"",
+					SEB/Frameworks/OpenSSL/include,
+				);
+				INFOPLIST_FILE = "SEB copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SEB/Frameworks/OpenSSL/lib",
+					"$(PROJECT_DIR)/SEB/Frameworks",
+					"$(SDKROOT)/usr/lib/swift",
+					"$(PROJECT_DIR)/SEB/Addons",
+				);
+				MARKETING_VERSION = 3.6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"JitsiMeetSDK\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebRTC\"",
+					"-ObjC",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/macosx/libswiftAppKit.dylib",
+					"-Wl",
+					"-weak_reference_mismatches",
+					"\"weak\"",
+				);
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.safeexambrowser.ios.seb;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=xros*]" = org.safeexambrowser.visionos.seb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "OtherSources/SEB-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				XROS_DEPLOYMENT_TARGET = 26.0;
+				none = "";
 			};
 			name = Release;
 		};
@@ -5477,7 +6709,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5542,7 +6774,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5603,7 +6835,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5647,7 +6879,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5684,7 +6916,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5727,7 +6959,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5904,7 +7136,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5959,7 +7191,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15700;
+				CURRENT_PROJECT_VERSION = 15701;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6021,6 +7253,15 @@
 			buildConfigurations = (
 				69B7A4DE2C694CAE00094ED3 /* Debug */,
 				69B7A4DF2C694CAE00094ED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69C5FA6A2F1FAD8C00DF5829 /* Build configuration list for PBXNativeTarget "SEB visionOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69C5FA6B2F1FAD8C00DF5829 /* Debug */,
+				69C5FA6C2F1FAD8C00DF5829 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -6089,6 +7330,22 @@
 				minimumVersion = 3.8.5;
 			};
 		};
+		69C5F8932F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		69C5F8972F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/futuretap/InAppSettingsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6140,6 +7397,26 @@
 		69A9859B2D98BE1800B89451 /* InAppSettingsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 69A9859A2D98BE1800B89451 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */;
+			productName = InAppSettingsKit;
+		};
+		69C5F8922F1FAD8C00DF5829 /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C5F8932F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		69C5F8942F1FAD8C00DF5829 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C5F8932F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		69C5F8952F1FAD8C00DF5829 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C5F8932F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		69C5F8962F1FAD8C00DF5829 /* InAppSettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69C5F8972F1FAD8C00DF5829 /* XCRemoteSwiftPackageReference "InAppSettingsKit" */;
 			productName = InAppSettingsKit;
 		};
 /* End XCSwiftPackageProductDependency section */

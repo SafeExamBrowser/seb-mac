@@ -29,7 +29,12 @@
 		<key>SEB-iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
+		</dict>
+		<key>SEB-visionOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>SEB.xcscheme</key>
 		<dict>
@@ -39,12 +44,12 @@
 		<key>SEBTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>6</integer>
 		</dict>
 		<key>SEBVerificator.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Safe Exam Browser ETH.xcscheme_^#shared#^_</key>
 		<dict>
@@ -56,7 +61,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Safe Exam Browser copy.xcscheme_^#shared#^_</key>
 		<dict>
@@ -102,6 +107,11 @@
 			<true/>
 		</dict>
 		<key>69B1714B20FE2D95004BD0FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69C5F8912F1FAD8C00DF5829</key>
 		<dict>
 			<key>primary</key>
 			<true/>
