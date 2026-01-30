@@ -99,7 +99,7 @@ import CocoaLumberjackSwift
             qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
             qrCodeOverlayPanel?.invalidateShadow()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                 if let userInfo = self.hideNotificationUserInfoDictionary {
                     self.hideNotificationUserInfoDictionary = nil
                     self.showQRCodeErrorNotification(userInfo: userInfo)
@@ -167,6 +167,20 @@ import CocoaLumberjackSwift
     
     private func showQRCodeErrorNotification(userInfo:[AnyHashable : Any]) {
         DDLogDebug("QRCodeOverlayController.showQRCodeErrorNotification")
+        
+        if let isOffline = userInfo["offline"] as? Bool, isOffline {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): Not showing QR code as app is offline")
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Can't show QR code", comment: "Title of alert 'Can't show QR code'")
+            alert.informativeText = NSLocalizedString("An Internet connection is required to show the QR code.", comment: "")
+            DispatchQueue.main.async {
+                self.qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
+                    self.removeQRCode()
+                    self.displayingCode = false
+                })
+            }
+            return
+        }
         guard let elapsedSecondsAfterLastClickString = userInfo["seconds"] else {
             DDLogDebug("QRCodeOverlayController.hideQRCode(): No 'seconds' key in userInfo dictionary")
             return
@@ -181,10 +195,12 @@ import CocoaLumberjackSwift
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Can't show QR code", comment: "Title of alert 'Can't show QR code'")
             alert.informativeText = NSLocalizedString("For security reasons, wait \(60 - elapsedSecondsAfterLastClick) seconds before attempting to show a Verificator QR Code again", comment: "")
-            qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
-                removeQRCode()
-                self.displayingCode = false
-            })
+            DispatchQueue.main.async {
+                self.qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
+                    self.removeQRCode()
+                    self.displayingCode = false
+                })
+            }
         }
     }
     
