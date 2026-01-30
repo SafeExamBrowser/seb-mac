@@ -630,7 +630,13 @@ bool insideMatrix(void);
             [self.browserController activatePreviousOpenWindow];
             return nil;
         } else if (isControl && isShift && event.keyCode == kVK_UpArrow ) {  //Ctrl + Shift + Cursor Up
-            [self qrVerifyButtonPressed:self];
+            DDLogDebug(@"SEBController: Ctrl + Shift + Cursor Up pressed, show SEB Verificator QRCode");
+            if (![self showQRVerifyCode]) {
+                DDLogDebug(@"SEBController: qrVerifyButtonPressed, show SEB Verificator QRCode");
+                return event;
+            } else {
+                return nil;
+            }
         } else if ((isControl || isShift) && event.keyCode == 0x63 ) {  //Ctrl/Shift + F3
             if (NSApp.keyWindow == self.dockController.window) {
                 [self.browserController activateCurrentWindow];
@@ -6714,6 +6720,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) qrVerifyButtonPressed:(id)sender
 {
+    DDLogDebug(@"SEBController: qrVerifyButtonPressed, show SEB Verificator QRCode");
+    [self showQRVerifyCode];
+}
+
+- (BOOL) showQRVerifyCode
+{
     if (!_qrCodeOverlayController) {
         _qrCodeOverlayController = [[QRCodeOverlayController alloc] initWithDelegate:self];
     }
@@ -6755,7 +6767,10 @@ conditionallyForWindow:(NSWindow *)window
                                          properties:@{}];
 
     if (![_qrCodeOverlayController showQRCodeWithPngData:pngData isVQRCode:YES]) {
-        DDLogError(@"%s: Couldn't generate image for QR code", __FUNCTION__);
+        DDLogError(@"%s: Couldn't show QR code", __FUNCTION__);
+        return NO;
+    } else {
+        return YES;
     }
 }
 

@@ -49,6 +49,7 @@ import CocoaLumberjackSwift
     private var qrCodeOverlayControllerDelegate: QRCodeOverlayControllerDelegate?
     private var qrCodeOverlayPanel: HUDPanel?
     private var displayingCode: Bool = false
+    private var hideNotificationUserInfoDictionary: [AnyHashable : Any]?
     private var cancelDisplayingCode: Bool = false
 
     @objc init(delegate: QRCodeOverlayControllerDelegate? = nil) {
@@ -59,30 +60,32 @@ import CocoaLumberjackSwift
     }
     
     @objc func showQRCode(pngData: Data?, isVQRCode: Bool = false) -> Bool {
-        if qrCodeOverlayPanel != nil {
-            hideQRCode()
-        }
-        displayingCode = true
-        var imageWidth = 340.0
-        var imageHeigth = 340.0
-        var qrCodeView: SEBNSImageView
-        if (pngData != nil) {
-            guard let qrCodeImage = NSImage.init(data: pngData!) else {
-                return false
+        DDLogDebug("QRCodeOverlayController.showQRCode isVQRCode: \(isVQRCode)")
+        if !displayingCode {
+            displayingCode = true
+            if qrCodeOverlayPanel != nil {
+                DDLogDebug("QRCodeOverlayController.showQRCode: qrCodeOverlayPanel already exists: true, remove displayed QRCode first")
+                removeQRCode()
             }
-            imageWidth = max(imageWidth, qrCodeImage.size.width)
-            imageHeigth = max(imageHeigth, qrCodeImage.size.height)
-            let frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth)
-            qrCodeView = SEBNSImageView(frame: frameRect, image: qrCodeImage)
-            qrCodeView.isVQRCode = isVQRCode
-        } else {
-            qrCodeView = overlayViewForLabel(text: String("Config Too Large for QR Code")) as! SEBNSImageView
-        }
-        qrCodeView.translatesAutoresizingMaskIntoConstraints = false
-        
-        qrCodeOverlayControllerDelegate?.openLockModalWindows()
-        
-        if !cancelDisplayingCode {
+            var imageWidth = 340.0
+            var imageHeigth = 340.0
+            var qrCodeView: SEBNSImageView
+            if (pngData != nil) {
+                guard let qrCodeImage = NSImage.init(data: pngData!) else {
+                    return false
+                }
+                imageWidth = max(imageWidth, qrCodeImage.size.width)
+                imageHeigth = max(imageHeigth, qrCodeImage.size.height)
+                let frameRect = NSMakeRect(0, 0, imageWidth, imageHeigth)
+                qrCodeView = SEBNSImageView(frame: frameRect, image: qrCodeImage)
+                qrCodeView.isVQRCode = isVQRCode
+            } else {
+                qrCodeView = overlayViewForLabel(text: String("Config Too Large for QR Code")) as! SEBNSImageView
+            }
+            qrCodeView.translatesAutoresizingMaskIntoConstraints = false
+            
+            qrCodeOverlayControllerDelegate?.openLockModalWindows()
+            
             qrCodeOverlayPanel = HUDController.createOverlayPanel(with: qrCodeView, size: CGSizeMake(imageWidth, imageHeigth))
             qrCodeOverlayPanel?.closeOnClick = true
             qrCodeOverlayPanel?.closeOnKeyDown = true
@@ -92,23 +95,22 @@ import CocoaLumberjackSwift
             qrCodeOverlayPanel?.level = NSWindow.Level.screenSaver+1
             qrCodeOverlayPanel?.sharingType = NSWindow.SharingType.none
             qrCodeOverlayPanel?.delegate = self
-        } else {
-            displayingCode = false
-            hideQRCode()
-        }
-        if !cancelDisplayingCode {
             qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
             qrCodeOverlayPanel?.invalidateShadow()
-            
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self.displayingCode = false
+                if let userInfo = self.hideNotificationUserInfoDictionary {
+                    self.hideNotificationUserInfoDictionary = nil
+                    self.showQRCodeErrorNotification(userInfo: userInfo)
+                } else {
+                    self.displayingCode = false
+                }
             }
+            return true
         } else {
-            displayingCode = false
-            hideQRCode()
+            DDLogDebug("QRCodeOverlayController.displayingCode: true, not showing new QRCode")
+            return false
         }
-        
-        return true
     }
 
     func overlayViewForLabel(text: String) -> NSView {
@@ -116,7 +118,7 @@ import CocoaLumberjackSwift
         let overlayView = NSView()
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         
-        let overlayViewCloseButton = NSButton(title: text, image: NSImage(named: "SEBBadgeWarning")!, target: self, action: #selector(hideQRCode))
+        let overlayViewCloseButton = NSButton(title: text, image: NSImage(named: "SEBBadgeWarning")!, target: self, action: #selector(removeQRCode))
         overlayViewCloseButton.bezelStyle = .regularSquare
         overlayViewCloseButton.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         overlayViewCloseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -132,51 +134,64 @@ import CocoaLumberjackSwift
         return overlayView
     }
     
-    @objc func hideQRCode(notification: NSNotification? = nil) {
-        DDLogDebug("QRCodeOverlayController.hideQRCode(): notification received (notification: \(String(describing: notification)) userInfo: \(String(describing: notification?.userInfo)), displaying code: \(displayingCode)")
-        
-        var userInfoDictionary: [AnyHashable : Any]? = nil
-        if let notificationWithUserInfo = notification, let userInfo = notificationWithUserInfo.userInfo {
-            userInfoDictionary = userInfo
-        }
-
-        if (qrCodeOverlayPanel != nil && (!displayingCode || userInfoDictionary != nil)) {
-            DDLogDebug("QRCodeOverlayController.hideQRCode(): closing QR code overlay")
-            cancelDisplayingCode = true
+    @objc func removeQRCode() {
+        if (qrCodeOverlayPanel != nil) {
             qrCodeOverlayControllerDelegate?.closeLockModalWindows()
             qrCodeOverlayPanel?.orderOut(self)
             qrCodeOverlayPanel = nil
-            cancelDisplayingCode = false
+        }
+    }
+    
+    @objc func hideQRCode(notification: NSNotification) {
+        DDLogDebug("QRCodeOverlayController.hideQRCode(): notification received (notification: \(String(describing: notification)) userInfo: \(String(describing: notification.userInfo)), displaying code: \(displayingCode)")
+        
+        if let userInfo = notification.userInfo {
+            hideNotificationUserInfoDictionary = userInfo
+        }
+
+        if (qrCodeOverlayPanel != nil && !displayingCode) {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): removing QR code overlay")
+            removeQRCode()
+        } else if hideNotificationUserInfoDictionary != nil && displayingCode {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): Notfication with userInfo but QR code still displayed")
+            return
         }
         
-        if (userInfoDictionary != nil) {
-            guard let elapsedSecondsAfterLastClickString = userInfoDictionary?["seconds"] else {
-                DDLogDebug("QRCodeOverlayController.hideQRCode(): No 'seconds' key in userInfo dictionary")
-                return
-            }
-            guard let elapsedSecondsAfterLastClick = Int64(elapsedSecondsAfterLastClickString as? String ?? "") else {
-                DDLogDebug("QRCodeOverlayController.hideQRCode(): No int number value in 'seconds' key in userInfo dictionary")
-                return
-            }
-            DDLogDebug("QRCodeOverlayController.hideQRCode(): userInfo dictionary contained a 'seconds' key with value \(elapsedSecondsAfterLastClick)")
-            if (elapsedSecondsAfterLastClick < 60) {
-                DDLogDebug("QRCodeOverlayController.hideQRCode(): Show alert 'Can't show QR code, wait \(60 - elapsedSecondsAfterLastClick) seconds before attempting to show a Verificator QR Code again'")
-                let alert = NSAlert()
-                alert.messageText = NSLocalizedString("Can't show QR code", comment: "Title of alert 'Can't show QR code'")
-                alert.informativeText = NSLocalizedString("For security reasons, wait \(60 - elapsedSecondsAfterLastClick) seconds before attempting to show a Verificator QR Code again", comment: "")
-                qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
-                    hideQRCode()
-                })
-            }
+        if let userInfo = hideNotificationUserInfoDictionary {
+            hideNotificationUserInfoDictionary = nil
+            showQRCodeErrorNotification(userInfo: userInfo)
+        }
+    }
+    
+    private func showQRCodeErrorNotification(userInfo:[AnyHashable : Any]) {
+        DDLogDebug("QRCodeOverlayController.showQRCodeErrorNotification")
+        guard let elapsedSecondsAfterLastClickString = userInfo["seconds"] else {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): No 'seconds' key in userInfo dictionary")
+            return
+        }
+        guard let elapsedSecondsAfterLastClick = Int64(elapsedSecondsAfterLastClickString as? String ?? "") else {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): No int number value in 'seconds' key in userInfo dictionary")
+            return
+        }
+        DDLogDebug("QRCodeOverlayController.hideQRCode(): userInfo dictionary contained a 'seconds' key with value \(elapsedSecondsAfterLastClick)")
+        if (elapsedSecondsAfterLastClick < 60) {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): Show alert 'Can't show QR code, wait \(60 - elapsedSecondsAfterLastClick) seconds before attempting to show a Verificator QR Code again'")
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Can't show QR code", comment: "Title of alert 'Can't show QR code'")
+            alert.informativeText = NSLocalizedString("For security reasons, wait \(60 - elapsedSecondsAfterLastClick) seconds before attempting to show a Verificator QR Code again", comment: "")
+            qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
+                removeQRCode()
+                self.displayingCode = false
+            })
         }
     }
     
     @objc public func windowDidResignKey(_ notification: Notification) {
-        hideQRCode()
+        removeQRCode()
     }
     
     @objc public func windowWillClose(_ notification: Notification) {
-        hideQRCode()
+        removeQRCode()
     }
 }
 
