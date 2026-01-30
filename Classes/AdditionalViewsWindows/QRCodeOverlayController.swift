@@ -95,6 +95,7 @@ import CocoaLumberjackSwift
             qrCodeOverlayPanel?.level = NSWindow.Level.screenSaver+1
             qrCodeOverlayPanel?.sharingType = NSWindow.SharingType.none
             qrCodeOverlayPanel?.delegate = self
+            qrCodeOverlayPanel?.alphaValue = 0.0
             qrCodeOverlayPanel?.makeKeyAndOrderFront(self)
             qrCodeOverlayPanel?.invalidateShadow()
 
@@ -103,6 +104,7 @@ import CocoaLumberjackSwift
                     self.hideNotificationUserInfoDictionary = nil
                     self.showQRCodeErrorNotification(userInfo: userInfo)
                 } else {
+                    self.qrCodeOverlayPanel?.alphaValue = 1.0
                     self.displayingCode = false
                 }
             }
