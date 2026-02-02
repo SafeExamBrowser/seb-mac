@@ -168,6 +168,19 @@ import CocoaLumberjackSwift
     private func showQRCodeErrorNotification(userInfo:[AnyHashable : Any]) {
         DDLogDebug("QRCodeOverlayController.showQRCodeErrorNotification")
         
+        if let error = userInfo["error"] as? CLong, error != 0 {
+            DDLogDebug("QRCodeOverlayController.hideQRCode(): Not showing QR code, invalid code signature, error code: \(error)")
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Invalid Code Signature", comment: "Title of alert 'Invalid Code Signature'")
+            alert.informativeText = NSLocalizedString("The code signature is invalid, use an offical \(SEBShortAppName) release", comment: "")
+            DispatchQueue.main.async {
+                self.qrCodeOverlayControllerDelegate?.runModalAlert(alert, conditionallyForWindow: nil, completionHandler: { _ in
+                    self.removeQRCode()
+                    self.displayingCode = false
+                })
+            }
+            return
+        }
         if let isOffline = userInfo["offline"] as? Bool, isOffline {
             DDLogDebug("QRCodeOverlayController.hideQRCode(): Not showing QR code as app is offline")
             let alert = NSAlert()

@@ -10,5 +10,8 @@
 #import "SEBBatteryController.h"
 #import "SEBSystemManager.h"
 #import "SEBURLFilter.h"
+
+#if TARGET_OS_OSX
 #import "HUDPanel.h"
 #import "HUDController.h"
+#endif
