@@ -2070,7 +2070,8 @@ static NSMutableSet *browserWindowControllers;
             DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
             if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
-                _didReceiveMDMConfig = NO;
+                DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
+//                _didReceiveMDMConfig = NO;
                 run_on_ui_thread(^{
                     // Initialize UI using client UI/browser settings
                     [self initSEBUIWithCompletionBlock:^{
@@ -2451,6 +2452,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [self adjustBars];
     
     if (_showNavigationBarTemporarily) {
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
         run_on_ui_thread(completionBlock);
     } else {
         if (!temporary) {
@@ -2502,6 +2504,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
                         }
+                        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
                         run_on_ui_thread(completionBlock);
                     };
                     
@@ -3866,7 +3869,7 @@ void run_on_ui_thread(dispatch_block_t block)
         currentConfigKey = nil;
     }
     self.isReconfiguringToMDMConfig = NO;
-    self.didReceiveMDMConfig = NO;
+//    self.didReceiveMDMConfig = NO;
 }
 
 
@@ -4137,7 +4140,7 @@ void run_on_ui_thread(dispatch_block_t block)
         quittingClientConfig:(BOOL)quittingClientConfig
             pasteboardString:(NSString *)pasteboardString
 {
-    _isReconfiguringToMDMConfig = NO;
+    //_isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
@@ -4268,6 +4271,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) restartSessionAfterStoppingAssessmentMode:(BOOL)quittingASAMtoSAM
 {
     self.ASAMActive = NO;
+    self.didReceiveMDMConfig = NO;
     [self restartExamASAM:quittingASAMtoSAM];
 }
 
@@ -5212,7 +5216,9 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self showStartSingleAppMode];
         }
-    } else {
+    } else if (NSUserDefaults.userDefaultsPrivate ) {
+        // This prevents iOS assessment mode being stoped and reenabled when using multiple consecutive quizzes with SEB Server and Moodle
+        // but only when using settings for starting exam (not client settings, where this causes an issue when secure MDM settings are used)
         [self startExamWithFallback:NO];
     }
 }
