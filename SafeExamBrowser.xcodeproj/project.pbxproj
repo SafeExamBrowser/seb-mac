@@ -316,6 +316,7 @@
 		69633E601E844B3600C71FF0 /* SEBSliderQRCodeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5D1E844B3600C71FF0 /* SEBSliderQRCodeIcon.png */; };
 		69633E621E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5E1E844B3600C71FF0 /* SEBSliderQRCodeIcon@2x.png */; };
 		69633E641E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */; };
+		69639CDA2F3A47E20064E058 /* SEBVerificatorQRCodeIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69639CD92F3A47E20064E058 /* SEBVerificatorQRCodeIcon.iconset */; };
 		69640B291C1F0F75007ADE72 /* SEBConfigFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CE9C5C17326AB90011609B /* SEBConfigFileManager.m */; };
 		69640B2A1C1F0F7D007ADE72 /* SEBConfigFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69CE9C5B17326AB90011609B /* SEBConfigFileManager.h */; };
 		6966F87B1D1C081300684182 /* SEBSliderShutDownIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */; };
@@ -1226,6 +1227,7 @@
 		69633E5F1E844B3600C71FF0 /* SEBSliderQRCodeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderQRCodeIcon@3x.png"; path = "Resources/Icons/Slider/SEBSliderQRCodeIcon@3x.png"; sourceTree = "<group>"; };
 		69637420267E6DD400058E7C /* libmbedtls.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmbedtls.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		69637422267E6F6A00058E7C /* Safe Exam Browser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Safe Exam Browser.entitlements"; path = "Safe Exam Browser/Safe Exam Browser.entitlements"; sourceTree = "<group>"; };
+		69639CD92F3A47E20064E058 /* SEBVerificatorQRCodeIcon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBVerificatorQRCodeIcon.iconset; path = Resources/Icons/SEBVerificatorQRCodeIcon.iconset; sourceTree = "<group>"; };
 		6966F8791D1C081300684182 /* SEBSliderShutDownIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderShutDownIcon.png; path = Resources/Icons/Slider/SEBSliderShutDownIcon.png; sourceTree = "<group>"; };
 		6966F87A1D1C081300684182 /* SEBSliderShutDownIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBSliderShutDownIcon@2x.png"; path = "Resources/Icons/Slider/SEBSliderShutDownIcon@2x.png"; sourceTree = "<group>"; };
 		6966F87D1D1D4E7100684182 /* SEBSliderReloadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SEBSliderReloadIcon.png; path = Resources/Icons/Slider/SEBSliderReloadIcon.png; sourceTree = "<group>"; };
@@ -2399,6 +2401,7 @@
 				69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */,
 				697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */,
 				697048E126D779D4009A822B /* SEBBatteryIcon.iconset */,
+				69639CD92F3A47E20064E058 /* SEBVerificatorQRCodeIcon.iconset */,
 				69BB5F992C6A467B00018F55 /* SEBScreenProctoringIcon_active.iconset */,
 				69BB5F9C2C6B863C00018F55 /* SEBScreenProctoringIcon_active_green.iconset */,
 				69F626412C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset */,
@@ -3996,6 +3999,7 @@
 				69CB3A762C9A2432006B7E5E /* SEBSliderScreenProctoringIcon_inactive_error@2x.png in Resources */,
 				69CB3A4D2C9A229F006B7E5E /* SEBScreenProctoringIcon_inactive_error@3x.png in Resources */,
 				69BB5FA12C6B9F3D00018F55 /* SEBScreenProctoringIcon_inactive_error_red.iconset in Resources */,
+				69639CDA2F3A47E20064E058 /* SEBVerificatorQRCodeIcon.iconset in Resources */,
 				69CB3A4F2C9A229F006B7E5E /* SEBScreenProctoringIcon_active_error.png in Resources */,
 				69CB3A6C2C9A2432006B7E5E /* SEBSliderScreenProctoringIcon_inactive@3x.png in Resources */,
 				69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */,

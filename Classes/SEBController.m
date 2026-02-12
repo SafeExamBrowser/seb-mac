@@ -6368,8 +6368,8 @@ conditionallyForWindow:(NSWindow *)window
             SEBDockItem *dockItemQRVerify = [[SEBDockItem alloc] initWithTitle:nil
                                                                       bundleID:nil
                                                               allowManualStart:NO
-                                                                          icon:[NSImage imageNamed:@"SEBQRCode"]
-                                                               highlightedIcon:[NSImage imageNamed:@"SEBQRCode"]
+                                                                          icon:[NSImage imageNamed:@"SEBVerificatorQRCodeIcon"]
+                                                               highlightedIcon:[NSImage imageNamed:@"SEBVerificatorQRCodeIcon"]
                                                                        toolTip:[NSString stringWithFormat:NSLocalizedString(@"Show QR code for %@ Verificator",nil), SEBShortAppName]
                                                                           menu:nil
                                                                         target:self
