@@ -1028,11 +1028,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
     return [self.navigationDelegate downloadingInTemporaryWebView];
 }
 
-- (BOOL) originalURLIsEqualToURL:(NSURL *)url
-{
-    return [_originalURL isEqual:url];
-}
-
 @end
 
 

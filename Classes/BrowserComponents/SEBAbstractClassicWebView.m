@@ -33,7 +33,6 @@
 
 #import "SEBAbstractClassicWebView.h"
 #if TARGET_OS_IPHONE
-#import "SEBUIWebViewController.h"
 #else
 #import "SEBWebViewController.h"
 #endif
@@ -46,8 +45,6 @@
     if (self) {
         _navigationDelegate = delegate;
 #if TARGET_OS_IPHONE
-        SEBUIWebViewController *sebUIWebViewController = [[SEBUIWebViewController alloc] initWithDelegate:self];
-        self.browserControllerDelegate = sebUIWebViewController;
 #else
         SEBWebViewController *sebWebViewController = [[SEBWebViewController alloc] initWithDelegate:self];
         self.browserControllerDelegate = sebWebViewController;
@@ -649,12 +646,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 {
     return self.navigationDelegate.downloadingInTemporaryWebView;
 }
-
-- (BOOL) originalURLIsEqualToURL:(NSURL *)url
-{
-    return [self.navigationDelegate originalURLIsEqualToURL:url];
-}
-
 
 - (SEBBackgroundTintStyle) backgroundTintStyle
 {

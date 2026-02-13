@@ -356,8 +356,6 @@
 		696DAD421C3C2D0500397E18 /* SEBBrowserTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */; };
 		696DAD431C3C2D0500397E18 /* SEBiOSWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD311C3C2D0500397E18 /* SEBiOSWebViewController.h */; };
 		696DAD441C3C2D0500397E18 /* SEBiOSWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD321C3C2D0500397E18 /* SEBiOSWebViewController.m */; };
-		696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */; };
-		696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */; };
 		696DAD4F1C3C7C9A00397E18 /* OpenWebpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */; };
 		696DAD501C3C7C9A00397E18 /* OpenWebpages.m in Sources */ = {isa = PBXBuildFile; fileRef = 696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */; };
 		696DAD511C3C7C9A00397E18 /* Webpages.h in Headers */ = {isa = PBXBuildFile; fileRef = 696DAD4D1C3C7C9A00397E18 /* Webpages.h */; };
@@ -805,8 +803,6 @@
 		69E977D925F040F400634D74 /* SEBAbstractClassicWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E977D425F040F400634D74 /* SEBAbstractClassicWebView.m */; };
 		69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */; };
 		69E977F125F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */; };
-		69E977FE25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */; };
-		69E9780025F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */; };
 		69EA170319FA77A0001E0C51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69EA170119FA77A0001E0C51 /* Localizable.strings */; };
 		69EC2A3D1BD63B4800790AF7 /* WebViewInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */; };
 		69EC2A3F1BD6C4FF00790AF7 /* WebPluginDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */; };
@@ -1257,8 +1253,6 @@
 		696DAD301C3C2D0500397E18 /* SEBBrowserTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBBrowserTabViewController.m; path = Classes/BrowserComponents/SEBBrowserTabViewController.m; sourceTree = "<group>"; };
 		696DAD311C3C2D0500397E18 /* SEBiOSWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSWebViewController.h; path = Classes/BrowserComponents/SEBiOSWebViewController.h; sourceTree = "<group>"; };
 		696DAD321C3C2D0500397E18 /* SEBiOSWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSWebViewController.m; path = Classes/BrowserComponents/SEBiOSWebViewController.m; sourceTree = "<group>"; };
-		696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+SEBWebView.h"; path = "Classes/BrowserComponents/UIWebView+SEBWebView.h"; sourceTree = "<group>"; };
-		696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+SEBWebView.m"; path = "Classes/BrowserComponents/UIWebView+SEBWebView.m"; sourceTree = "<group>"; };
 		696DAD4B1C3C7C9A00397E18 /* OpenWebpages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenWebpages.h; sourceTree = "<group>"; };
 		696DAD4C1C3C7C9A00397E18 /* OpenWebpages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenWebpages.m; sourceTree = "<group>"; };
 		696DAD4D1C3C7C9A00397E18 /* Webpages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webpages.h; sourceTree = "<group>"; };
@@ -1660,8 +1654,6 @@
 		69E977D325F040F400634D74 /* SEBAbstractClassicWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBAbstractClassicWebView.h; path = Classes/BrowserComponents/SEBAbstractClassicWebView.h; sourceTree = "<group>"; };
 		69E977D425F040F400634D74 /* SEBAbstractClassicWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBAbstractClassicWebView.m; path = Classes/BrowserComponents/SEBAbstractClassicWebView.m; sourceTree = "<group>"; };
 		69E977EF25F0423C00634D74 /* SEBAbstractModernWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBAbstractModernWebView.swift; path = Classes/BrowserComponents/SEBAbstractModernWebView.swift; sourceTree = "<group>"; };
-		69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBUIWebViewController.h; path = Classes/BrowserComponents/SEBUIWebViewController.h; sourceTree = "<group>"; };
-		69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SEBUIWebViewController.m; path = Classes/BrowserComponents/SEBUIWebViewController.m; sourceTree = "<group>"; };
 		69EC2A3C1BD63B4800790AF7 /* WebViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewInternal.h; sourceTree = "<group>"; };
 		69EC2A3E1BD6C4FF00790AF7 /* WebPluginDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebPluginDatabase.h; sourceTree = "<group>"; };
 		69EDAC1C1BBB476F00A3E6C4 /* SEBOSXLockedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBOSXLockedViewController.h; sourceTree = "<group>"; };
@@ -2034,10 +2026,6 @@
 				696DAD311C3C2D0500397E18 /* SEBiOSWebViewController.h */,
 				696DAD321C3C2D0500397E18 /* SEBiOSWebViewController.m */,
 				69F558B4260563FF00D503EB /* SEBiOSWKWebViewController.swift */,
-				69E977FC25F2E1BB00634D74 /* SEBUIWebViewController.h */,
-				69E977FD25F2E1BB00634D74 /* SEBUIWebViewController.m */,
-				696DAD331C3C2D0500397E18 /* UIWebView+SEBWebView.h */,
-				696DAD341C3C2D0500397E18 /* UIWebView+SEBWebView.m */,
 				69AEC954218A228300848945 /* SEBFilteredURLCache.h */,
 				69AEC955218A228300848945 /* SEBFilteredURLCache.m */,
 				696DAD251C3C2D0500397E18 /* SEBMasterViewController.h */,
@@ -3222,7 +3210,6 @@
 				696DAD431C3C2D0500397E18 /* SEBiOSWebViewController.h in Headers */,
 				698AB4172638630A00E84161 /* SEBiOSBrowserController.h in Headers */,
 				699F63142A3719160040E612 /* SEB-Bridging-Header.h in Headers */,
-				696DAD451C3C2D0500397E18 /* UIWebView+SEBWebView.h in Headers */,
 				6914D1242183A156004F4A4B /* SEBInAppSettingsViewController.h in Headers */,
 				69B5393E1C490CB200A967B0 /* SEBActionUITableViewCell.h in Headers */,
 				697852C22177AC7300E93AD8 /* SEBSettings.h in Headers */,
@@ -3252,7 +3239,6 @@
 				698DFD03267E978E00B8F1D6 /* SEBViewController.h in Headers */,
 				695370962033921B00C638A8 /* LGSideMenuHelper.h in Headers */,
 				69F522B921467188009F3999 /* CustomHTTPProtocol.h in Headers */,
-				69E977FE25F2E1BB00634D74 /* SEBUIWebViewController.h in Headers */,
 				69D35D20217AB4F400C6CFB9 /* SEBURLFilterExpression.h in Headers */,
 				69A0721C268A38AD00A0464B /* MscPKCS7.h in Headers */,
 				694FB9D21CCF0C5900E80CD9 /* SEBIASKSecureSettingsStore.h in Headers */,
@@ -4161,7 +4147,6 @@
 				694316651BFF943C00F784EE /* MyGlobals.m in Sources */,
 				69E0F3481C454F370038CCCD /* SEB.xcdatamodeld in Sources */,
 				69D35D21217AB4F400C6CFB9 /* SEBURLFilterExpression.m in Sources */,
-				696DAD461C3C2D0500397E18 /* UIWebView+SEBWebView.m in Sources */,
 				698AB4192638630A00E84161 /* SEBiOSBrowserController.m in Sources */,
 				691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */,
 				69BBAE5A232702BD005BC19F /* ServerLogger.m in Sources */,
@@ -4241,7 +4226,6 @@
 				69331F0D1C10AF1D0038BD31 /* SEBLockedViewController.m in Sources */,
 				69B1D481230D75ED005656B8 /* NetworkRequest.swift in Sources */,
 				69F90022232309BB003A5015 /* ExamCell.m in Sources */,
-				69E9780025F2E1BB00634D74 /* SEBUIWebViewController.m in Sources */,
 				697852B82177AC7300E93AD8 /* SEBEncapsulatedSettings.m in Sources */,
 				69A07226268A38AD00A0464B /* MscRSAKey.m in Sources */,
 				69A07250268A38AD00A0464B /* MscCertificate.m in Sources */,

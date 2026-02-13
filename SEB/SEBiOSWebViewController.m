@@ -874,6 +874,26 @@ API_AVAILABLE(ios(18.4)){
     return returnImage;
 }
 
+- (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView
+{
+    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"SearchWebView" ofType:@"js"];
+    NSString *jsCodeSearch = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [webView stringByEvaluatingJavaScriptFromString:jsCodeSearch];
+    
+    NSString *startSearch = [NSString stringWithFormat:@"MyApp_HighlightAllOccurencesOfString('%@')", searchString];
+    [webView stringByEvaluatingJavaScriptFromString:startSearch];
+    
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"MyApp_SearchResultCount"];
+    return [result integerValue];
+}
+
+
+- (void)removeAllHighlightsInWebView:(UIWebView *)webView
+{
+    [webView stringByEvaluatingJavaScriptFromString:@"MyApp_RemoveAllHighlights()"];
+}
+
 
 - (void)loadWebPageOrSearchResultWithString:(NSString *)webSearchString
 {

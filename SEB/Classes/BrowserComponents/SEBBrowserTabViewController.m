@@ -33,7 +33,6 @@
 #import "AppDelegate.h"
 
 #import "SEBBrowserTabViewController.h"
-#import "UIWebView+SEBWebView.h"
 #import "Constants.h"
 #import "Webpages.h"
 #import "OpenWebpages.h"
@@ -363,7 +362,6 @@ completionHandler:(void (^)(NSString *result))completionHandler
 runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
             defaultText:(NSString *)defaultText
 {
-    // On iOS, this will never be called (as UIWebView doesn't implement this delegate)
     return @"";
 }
 

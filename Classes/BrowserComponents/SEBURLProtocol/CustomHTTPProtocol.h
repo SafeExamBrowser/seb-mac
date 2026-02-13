@@ -50,7 +50,7 @@
 @protocol CustomHTTPProtocolDelegate;
 
 /*! An NSURLProtocol subclass that overrides the built-in HTTP/HTTPS protocol to intercept 
- *  authentication challenges for subsystems, ilke UIWebView, that don't otherwise allow it.  
+ *  authentication challenges for subsystems, ilke classic macOS WebView, that don't otherwise allow it.  
  *  To use this class you should set up your delegate (+setDelegate:) and then call +start. 
  *  If you don't call +start the class is completely benign.
  *
