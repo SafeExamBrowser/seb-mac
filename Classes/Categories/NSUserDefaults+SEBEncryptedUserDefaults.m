@@ -637,7 +637,10 @@ static NSNumber *_logLevel;
         for (NSString *key in prefsDict) {
             if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
                 DDLogDebug(@"resetSEBUserDefaults removing SEB key: %@", key);
-                [preferences removeObjectForKey:key];
+                id object = [preferences objectForKey:key];
+                if (object != nil) {
+                    [preferences removeObjectForKey:key];
+                }
             }
         }
         // If reverting local client settings to default, allow to open Settings
