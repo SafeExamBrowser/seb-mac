@@ -637,10 +637,7 @@ static NSNumber *_logLevel;
         for (NSString *key in prefsDict) {
             if ([key hasPrefix:sebPrivateUserDefaultsPrefix]) {
                 DDLogDebug(@"resetSEBUserDefaults removing SEB key: %@", key);
-                id object = [preferences objectForKey:key];
-                if (object != nil) {
-                    [preferences removeObjectForKey:key];
-                }
+                [preferences removeObjectForKey:key];
             }
         }
         // If reverting local client settings to default, allow to open Settings
@@ -669,8 +666,9 @@ static NSNumber *_logLevel;
         NSDictionary *prefsDict;
         
         // Include UserDefaults from NSRegistrationDomain (which contains application domain)
-        [self addSuiteNamed:@"NSRegistrationDomain"];
-        prefsDict = [self dictionaryRepresentation];
+//        [self addSuiteNamed:@"NSRegistrationDomain"];
+        prefsDict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+//        prefsDict = [self dictionaryRepresentation];
         return prefsDict;
     }
 }
@@ -1177,10 +1175,16 @@ static NSNumber *_logLevel;
         } else {
             if (value == nil) {
                 // Use non-secure method to remove the key
-                [self setValue:value forKey:key];
+                [self removeObjectForKey:key];
+//                [self setValue:value forKey:key];
                 
             } else if ([self _isValidPropertyListObject:value]) {
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
+                NSError *archivingError = nil;
+                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:NO error:&archivingError];
+                if (archivingError || data == nil) {
+                    DDLogError(@"Archiving error in setSecureObject:forKey: for key %@: %@", key, archivingError);
+                    return;
+                }
                 NSError *error;
                 NSData *encryptedData;
                 
@@ -1247,7 +1251,14 @@ static NSNumber *_logLevel;
 - (NSData *)secureDataForObject:(id)value andKey:(NSString *)key
 {
 	if ([self _isValidPropertyListObject:value]) {
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
+        NSError *archivingError = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:NO error:&archivingError];
+        if (archivingError || data == nil) {
+
+            DDLogError(@"Archiving error in secureDataForObject:andKey: for key %@: %@", key, archivingError);
+
+            return nil;
+        }
         NSError *error;
         NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
         if (error || !encryptedData) {
@@ -1370,3 +1381,4 @@ static NSNumber *_logLevel;
 
 
 @end
+
