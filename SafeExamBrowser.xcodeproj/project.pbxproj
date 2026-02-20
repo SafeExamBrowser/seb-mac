@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */; };
-		288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */; };
 		685E3A5E10165CEFE0705773 /* Pods_SEB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E930E3E85BBD8B26A6A5BBCE /* Pods_SEB.framework */; };
 		69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */; };
 		69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */; };
@@ -927,8 +925,6 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		256AC3F00F4B6AF500CF3369 /* SEB_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEB_Prefix.pch; sourceTree = "<group>"; };
 		287B25953061DEB353A46EBD /* Pods_SEBVerificator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEBVerificator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+UIResponderSEBDefaults.h"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.h"; sourceTree = "<group>"; };
-		288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+UIResponderSEBDefaults.m"; path = "Classes/Categories/NSObject+UIResponderSEBDefaults.m"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -2525,8 +2521,6 @@
 			children = (
 				69478CF12208985D00352CFA /* UIDragInteraction+Restrict.h */,
 				69478CF22208985D00352CFA /* UIDragInteraction+Restrict.m */,
-				288384B529D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h */,
-				288384B629D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -3174,7 +3168,6 @@
 				6974C0492475E354009F0529 /* ProctoringVideoCapturer.h in Headers */,
 				693FB270232064110062E36E /* SEBServerViewController.h in Headers */,
 				6932ABC521DE29BE00DEF77D /* SEBConstants.h in Headers */,
-				288384B729D6E4960007F744 /* NSObject+UIResponderSEBDefaults.h in Headers */,
 				697852C72177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				69C3FC662A9B5EC600F4AFFD /* MyGlobals.h in Headers */,
 				69E977D625F040F400634D74 /* SEBAbstractClassicWebView.h in Headers */,
@@ -4157,7 +4150,6 @@
 				695506462C9DEDE70022E25D /* SEBiOSTransmittingCachedScreenShotsViewController.swift in Sources */,
 				6962A3B324772ECD00F2C88B /* ProctoringImageAnalyzer.swift in Sources */,
 				69E977F125F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
-				288384B829D6E4960007F744 /* NSObject+UIResponderSEBDefaults.m in Sources */,
 				695EE19426D2F2F8004D8FF7 /* SEBPresetSettings.m in Sources */,
 				69B5393F1C490CB200A967B0 /* SEBActionUITableViewCell.m in Sources */,
 				6940B9701BA0F2FB008C8CFC /* SEBViewController.m in Sources */,
@@ -4976,7 +4968,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5077,7 +5069,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z623UDZ5L;
 				ENABLE_BITCODE = NO;
@@ -5372,7 +5364,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5419,7 +5411,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -5461,7 +5453,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5526,7 +5518,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5587,7 +5579,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5631,7 +5623,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5668,7 +5660,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5711,7 +5703,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DXYN3744;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -5745,7 +5737,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -5811,7 +5803,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6F38DNSC7X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -5888,7 +5880,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5943,7 +5935,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Fondation de l'Ecole hôtelière de Lausanne, EHL";
-				CURRENT_PROJECT_VERSION = 15729;
+				CURRENT_PROJECT_VERSION = 15733;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
