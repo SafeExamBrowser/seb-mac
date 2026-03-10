@@ -2974,6 +2974,7 @@ void run_on_ui_thread(dispatch_block_t block)
     allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
     allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+    allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -3599,6 +3600,15 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // Kill AI Writing Tools if running
         processDetails = nil;
         error = [self runningProcessCheckForName:WritingToolsExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+        if (processDetails) {
+            DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
+        }
+    }
+    
+    // Check for running spellcheck process in AAC, if dictation is allowed
+    if (allowDictation && _isAACEnabled) {
+        NSDictionary *processDetails = nil;
+        NSError *error = [self runningProcessCheckForName:AppleSpellProcess inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
         if (processDetails) {
             DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
         }
@@ -7904,6 +7914,14 @@ conditionallyForWindow:(NSWindow *)window
                 if (voiceOverDisabled &&
                     [bundleID isEqualToString:VoiceOverBundleID]) {
                     DDLogVerbose(@"VoiceOver is disabled in settings, terminating its process.");
+                    [self killApplication:startedApplication];
+                }
+                
+                // While in AAC, check if Dictation was started and it is disabled
+                if (_isAACEnabled &&
+                    !allowDictation &&
+                    [bundleID isEqualToString:DictationProcessBundleID]) {
+                    DDLogVerbose(@"Dictation is disabled in settings and running in AAC, terminating its process.");
                     [self killApplication:startedApplication];
                 }
                 

@@ -138,6 +138,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     BOOL allowScreenSharing;
     BOOL allowSiri;
     BOOL allowDictation;
+    BOOL allowSpellCheck;
     BOOL allowDictionaryLookup;
     BOOL allowOpenAndSavePanel;
     BOOL allowShareSheet;
