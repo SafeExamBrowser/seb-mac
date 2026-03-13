@@ -3029,14 +3029,14 @@ void run_on_ui_thread(dispatch_block_t block)
     NSArray *allRunningProcesses = [self getProcessArray];
     NSArray *allRunningProcessNames = [allRunningProcesses valueForKey:@"name"];
     DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcessNames.count, allRunningProcessNames);
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+
     if (_isAACEnabled == NO) {
         // Check for activated screen sharing if settings demand it
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
         ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
         allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-        allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
         
         if (!allowScreenSharing &&
             ([allRunningProcessNames containsObject:screenSharingAgent] ||
@@ -3600,15 +3600,6 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         // Kill AI Writing Tools if running
         processDetails = nil;
         error = [self runningProcessCheckForName:WritingToolsExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
-        if (processDetails) {
-            DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
-        }
-    }
-    
-    // Check for running spellcheck process in AAC, if dictation is allowed
-    if (allowDictation && _isAACEnabled) {
-        NSDictionary *processDetails = nil;
-        NSError *error = [self runningProcessCheckForName:AppleSpellProcess inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
         if (processDetails) {
             DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
         }
@@ -7918,10 +7909,10 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // While in AAC, check if Dictation was started and it is disabled
-                if (_isAACEnabled &&
-                    !allowDictation &&
+                if ((_isAACEnabled ||
+                    !allowDictation ) &&
                     [bundleID isEqualToString:DictationProcessBundleID]) {
-                    DDLogVerbose(@"Dictation is disabled in settings and running in AAC, terminating its process.");
+                    DDLogDebug(@"Dictation is disabled in settings or running in AAC, terminating its process.");
                     [self killApplication:startedApplication];
                 }
                 
