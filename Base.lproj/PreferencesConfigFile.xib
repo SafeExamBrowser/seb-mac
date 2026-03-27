@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -141,29 +141,8 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
-                            <rect key="frame" x="0.0" y="365" width="613" height="16"/>
-                            <subviews>
-                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
-                                    <rect key="frame" x="0.0" y="0.0" width="263" height="16"/>
-                                    <buttonCell key="cell" type="check" title="Allow to open Settings window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <visibilityPriorities>
-                                <integer value="1000"/>
-                            </visibilityPriorities>
-                            <customSpacing>
-                                <real value="3.4028234663852886e+38"/>
-                            </customSpacing>
-                        </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-u1-aHh">
-                            <rect key="frame" x="0.0" y="293" width="434" height="56"/>
+                            <rect key="frame" x="0.0" y="325" width="434" height="56"/>
                             <subviews>
                                 <textField focusRingType="none" verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                                     <rect key="frame" x="-2" y="40" width="438" height="16"/>
@@ -217,7 +196,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DBU-0A-Xbb">
-                            <rect key="frame" x="0.0" y="212" width="613" height="65"/>
+                            <rect key="frame" x="0.0" y="244" width="613" height="65"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="naq-c2-eME">
                                     <rect key="frame" x="194" y="43" width="419" height="22"/>
@@ -345,6 +324,27 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
+                            <rect key="frame" x="0.0" y="212" width="613" height="16"/>
+                            <subviews>
+                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                                    <rect key="frame" x="0.0" y="0.0" width="263" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Allow to open Settings window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
                         <box borderType="line" title="iOS Settings" translatesAutoresizingMaskIntoConstraints="NO" id="Skz-8h-R96">
                             <rect key="frame" x="0.0" y="126" width="613" height="70"/>
                             <view key="contentView" id="uYt-bb-t9R">
@@ -368,11 +368,11 @@
                                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
                                                 </connections>
                                             </button>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q96-px-ZAo">
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q96-px-ZAo">
                                                 <rect key="frame" x="0.0" y="0.0" width="593" height="16"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="339" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="289" height="16"/>
                                                         <string key="toolTip">Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</string>
                                                         <buttonCell key="cell" type="check" title="Show settings in app" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -383,7 +383,7 @@
                                                         </connections>
                                                     </button>
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Tt-Wm6">
-                                                        <rect key="frame" x="355" y="2" width="238" height="14"/>
+                                                        <rect key="frame" x="305" y="2" width="288" height="14"/>
                                                         <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</string>
                                                         <buttonCell key="cell" type="check" title="Show 'Edit Config File' Quick Action" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7KN-IV-lyH">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
