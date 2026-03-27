@@ -923,12 +923,14 @@ bool insideMatrix(void);
 
 - (void)applicationDidFinishLaunchingProceed
 {
-    if (_openingSettings && _openingSettingsFileURL) {
-        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
-        [self openFile:_openingSettingsFileURL];
-        _openingSettingsFileURL = nil;
-    } else {
-        [self didFinishLaunchingWithSettings];
+    if (!_isReconfiguringToMDMConfig) {
+        if (_openingSettings && _openingSettingsFileURL) {
+            DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
+            [self openFile:_openingSettingsFileURL];
+            _openingSettingsFileURL = nil;
+        } else {
+            [self didFinishLaunchingWithSettings];
+        }
     }
 }
 
@@ -1248,6 +1250,7 @@ bool insideMatrix(void);
         currentExamStartURL = nil;
         currentExamConfigKey = nil;
     }
+    self.isReconfiguringToMDMConfig = NO;
 }
 
 #pragma mark - Connecting to SEB Server

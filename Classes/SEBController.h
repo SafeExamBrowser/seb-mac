@@ -294,6 +294,8 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(readwrite) BOOL shiftTabPressedWhileDockIsKeyWindow;
 @property(readwrite) BOOL shiftTabPressedWhileWebViewIsFirstResponder;
 @property(readwrite) BOOL startingUp;
+@property(readwrite) BOOL didReceiveMDMConfig;
+@property(readwrite) BOOL isReconfiguringToMDMConfig;
 @property(readwrite) BOOL openedURL;
 @property(readwrite) BOOL restarting;
 @property(readwrite) BOOL openingSettings;
