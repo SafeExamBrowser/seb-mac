@@ -141,7 +141,7 @@ void run_block_on_main_thread(dispatch_block_t block)
     NSUInteger indexOfLockedExamDictionary = 0;
     NSMutableArray *lockedExams;
     NSString *startURL;
-    BOOL secureExam = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    BOOL secureExam = preferences.secureSession;
     
     // Persist log strings for a "secure exam" (has a quit password)
     if (secureExam) {

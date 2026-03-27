@@ -3853,7 +3853,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+    if (preferences.secureSession) {
         currentStartURL = startURLString;
         currentConfigKey = configKey;
         [self.sebLockedViewController addLockedExam:currentStartURL configKey:currentConfigKey];
@@ -5320,8 +5320,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if (hashedQuitPassword.length > 0) {
+    if (preferences.secureSession) {
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
         DDLogInfo(@"%s: A quit password is set in current settings: Ask user to restart Guided Access. If Guided Access isn't already on, show alert to switch it on again", __FUNCTION__);
@@ -6155,9 +6154,8 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *backToStartText = [self backToStartText];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] == YES) {
-        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         // if quitting SEB is allowed
-        if (hashedQuitPassword.length > 0) {
+        if (preferences.secureSession) {
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;

@@ -1242,7 +1242,7 @@ bool insideMatrix(void);
 - (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+    if (preferences.secureSession) {
         currentExamStartURL = startURLString;
         currentExamConfigKey = configKey;
         [self.sebLockedViewController addLockedExam:currentExamStartURL configKey: currentExamConfigKey];
@@ -5366,7 +5366,7 @@ conditionallyForWindow:(NSWindow *)window
 - (BOOL) conditionallyLockExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
     if ([self.sebLockedViewController isStartingLockedExam:examURLString configKey:configKey]) {
-        if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        if ([NSUserDefaults standardUserDefaults].secureSession) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
             return YES;
@@ -7523,7 +7523,7 @@ conditionallyForWindow:(NSWindow *)window
 - (BOOL) secureClientSession
 {
     [NSUserDefaults setUserDefaultsPrivate:NO];
-    BOOL secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    BOOL secureClientSession = [NSUserDefaults standardUserDefaults].secureSession;
     [NSUserDefaults setUserDefaultsPrivate:YES];
     return secureClientSession;
 }
