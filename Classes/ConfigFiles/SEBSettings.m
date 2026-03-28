@@ -524,6 +524,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableSebBrowser",
                    
+                   @YES,
+                   @"enableSessionVerification",
+                   
                    @NO,
                    @"enableScreenProctoring",
                    
