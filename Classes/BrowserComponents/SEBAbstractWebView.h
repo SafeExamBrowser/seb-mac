@@ -307,8 +307,6 @@ didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3), ios(14.5));
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies;
 - (void) downloadSEBConfigFileFromURL:(NSURL *)url originalURL:(NSURL *)originalURL cookies:(NSArray <NSHTTPCookie *>*)cookies sender:(nullable id <SEBAbstractBrowserControllerDelegate>)sender;
 @property (readonly) BOOL downloadingInTemporaryWebView;
-// Required by SEB-iOS (SEBUIWebViewController)
-- (BOOL) originalURLIsEqualToURL:(NSURL *)url;
 
 @end
 

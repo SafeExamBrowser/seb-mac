@@ -208,19 +208,32 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 - (BOOL)updateEncryptedUserDefaults:(BOOL)updateUserDefaults
                          updateSalt:(BOOL)generateNewSalt
 {
+    static void *kQueueKey = &kQueueKey;
+
     if (!lockQueue) {
         lockQueue = dispatch_queue_create("org.safeexambrowser.cryptorqueue", NULL);
+        dispatch_queue_set_specific(lockQueue, kQueueKey, kQueueKey, NULL);
     }
-    __block BOOL encryptedUserDefaultsChanged;
-    
-    dispatch_sync(lockQueue, ^{
+
+    if (dispatch_get_specific(kQueueKey)) {
+        // Already on the queue: call directly
+#ifdef DEBUG
+        DDLogDebug(@"Calling on same queue: [SEBCryptor updateEncryptedUserDefaults:%d, updateSalt:%d]", updateUserDefaults, generateNewSalt);
+#endif
         NSData *newChecksum;
-        encryptedUserDefaultsChanged = [self updateEncryptedUserDefaults:updateUserDefaults
-                                                              updateSalt:generateNewSalt
-                                                             newChecksum:&newChecksum];
-    });
-    
-    return encryptedUserDefaultsChanged;
+        return [self updateEncryptedUserDefaults:updateUserDefaults
+                                      updateSalt:generateNewSalt
+                                     newChecksum:&newChecksum];
+    } else {
+        __block BOOL result;
+        dispatch_sync(lockQueue, ^{
+            NSData *newChecksum;
+            result = [self updateEncryptedUserDefaults:updateUserDefaults
+                                            updateSalt:generateNewSalt
+                                           newChecksum:&newChecksum];
+        });
+        return result;
+    }
 }
 
 

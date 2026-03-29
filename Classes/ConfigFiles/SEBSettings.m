@@ -147,7 +147,7 @@ static SEBSettings *sharedSEBSettings = nil;
     return  @{@"rootSettings" :
                   [NSDictionary dictionaryWithObjectsAndKeys:
                    
-                   @NO,
+                   @YES,
                    @"aacDnsPrePinning",
                    
                    [NSNumber numberWithLong:AccessibilityFeaturePolicySystemDefault],
@@ -506,7 +506,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"enableLogging",
                    
-                   @NO,
+                   @YES,
                    @"enableMacOSAAC",
                    
                    @NO,
@@ -523,6 +523,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableSebBrowser",
+                   
+                   @YES,
+                   @"enableSessionVerification",
                    
                    @NO,
                    @"enableScreenProctoring",

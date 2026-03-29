@@ -501,15 +501,20 @@ static NSMutableSet *browserWindowControllers;
         if (![[MyGlobals sharedMyGlobals] finishedInitializing] &&
                    _appDelegate.openedURL == NO &&
                    _appDelegate.openedUniversalLink == NO) {
-            // Initialize UI using client UI/browser settings
-            [self initSEBUIWithCompletionBlock:^{
-                [self conditionallyStartKioskMode];
-            }];
+            // Init SEB only if not reconfiguring from MDM server
+            if (!self.isReconfiguringToMDMConfig && !self.didReceiveMDMConfig) {
+                // Initialize UI using client UI/browser settings
+                [self initSEBUIWithCompletionBlock:^{
+                    [self conditionallyStartKioskMode];
+                }];
+            } else {
+                // DON'T setFinishedInitializing
+                return;
+            }
         }
-        
-        // Set flag that SEB is initialized: Now showing alerts is allowed
-        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
-    }    
+    }
+    // Set flag that SEB is initialized: Now showing alerts is allowed
+    [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
 }
 
 
@@ -2030,7 +2035,6 @@ static NSMutableSet *browserWindowControllers;
             {
                 DDLogVerbose(@"%s: Received new configuration from MDM server (containing %lu setting key/values), while client config is active, only exam page is open and browser is still displaying the Start URL.", __FUNCTION__, (unsigned long)serverConfig.count);
                 readMDMConfig = [self readMDMServerConfig:serverConfig];
-                _didReceiveMDMConfig = NO;
                 return readMDMConfig;
             } else {
                 DDLogVerbose(@"%s: %@ receive non-empty MDM Managed Configuration dictionary, reconfiguring isn't allowed currently.", __FUNCTION__, serverConfig.count > 0 ? @"Did" : @"Didn't");
@@ -2041,8 +2045,8 @@ static NSMutableSet *browserWindowControllers;
         }
     } else {
         _isReconfiguringToMDMConfig = NO;
+        _didReceiveMDMConfig = NO;
     }
-    _didReceiveMDMConfig = NO;
     return readMDMConfig;
 }
 
@@ -2065,6 +2069,18 @@ static NSMutableSet *browserWindowControllers;
         } else {
             DDLogVerbose(@"%s: Received same configuration as before from MDM server, ignoring it.", __FUNCTION__);
             _isReconfiguringToMDMConfig = NO;
+            if (![[MyGlobals sharedMyGlobals] finishedInitializing]) {
+                DDLogDebug(@"%s: Received new configuration from MDM server with %lu keys", __FUNCTION__, (unsigned long)serverConfig.count);
+//                _didReceiveMDMConfig = NO;
+                run_on_ui_thread(^{
+                    // Initialize UI using client UI/browser settings
+                    [self initSEBUIWithCompletionBlock:^{
+                        [self conditionallyStartKioskMode];
+                    }];
+                });
+                // Set flag that SEB is initialized: Now showing alerts is allowed
+                [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
+            }
         }
     }
     return readMDMConfig;
@@ -2183,14 +2199,7 @@ void run_on_ui_thread(dispatch_block_t block)
         
         // Set preventing Auto-Lock according to settings
         [UIApplication sharedApplication].idleTimerDisabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_mobilePreventAutoLock"];
-        
-        // This doesn't work anymore when building with the iOS 17 SDK
-//        // Create browser user agent according to settings
-//        NSString *overrideUserAgent = [self.browserController customSEBUserAgent];
-//        // Register browser user agent for UIWebView
-//        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:overrideUserAgent, @"UserAgent", nil];
-//        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
-        
+                
         // Update URL filter flags and rules
         [[SEBURLFilter sharedSEBURLFilter] updateFilterRulesWithStartURL:self.startURL];
         // Update URL filter ignore rules
@@ -2436,6 +2445,7 @@ void run_on_ui_thread(dispatch_block_t block)
     [self adjustBars];
     
     if (_showNavigationBarTemporarily) {
+        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
         run_on_ui_thread(completionBlock);
     } else {
         if (!temporary) {
@@ -2487,6 +2497,7 @@ void run_on_ui_thread(dispatch_block_t block)
                             [self openJitsiView];
                             [self.jitsiViewController openJitsiMeetWithSender:self];
                         }
+                        [[MyGlobals sharedMyGlobals] setFinishedInitializing:YES];
                         run_on_ui_thread(completionBlock);
                     };
                     
@@ -3567,8 +3578,6 @@ void run_on_ui_thread(dispatch_block_t block)
                 self.editingConfigFile = NO;
             } else {
                 [self restartExamQuitting:NO];
-                self.isReconfiguringToMDMConfig = NO;
-                self.didReceiveMDMConfig = NO;
             }
         });
         
@@ -3844,7 +3853,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+    if (preferences.secureSession) {
         currentStartURL = startURLString;
         currentConfigKey = configKey;
         [self.sebLockedViewController addLockedExam:currentStartURL configKey:currentConfigKey];
@@ -3852,6 +3861,8 @@ void run_on_ui_thread(dispatch_block_t block)
         currentStartURL = nil;
         currentConfigKey = nil;
     }
+    self.isReconfiguringToMDMConfig = NO;
+//    self.didReceiveMDMConfig = NO;
 }
 
 
@@ -4122,7 +4133,7 @@ void run_on_ui_thread(dispatch_block_t block)
         quittingClientConfig:(BOOL)quittingClientConfig
             pasteboardString:(NSString *)pasteboardString
 {
-    _isReconfiguringToMDMConfig = NO;
+    //_isReconfiguringToMDMConfig = NO;
     // Close the left slider view first if it was open
     if (self.sideMenuController.isLeftViewHidden == NO) {
         [self.sideMenuController hideLeftViewAnimated:YES completionHandler:^{
@@ -4253,6 +4264,7 @@ void run_on_ui_thread(dispatch_block_t block)
 - (void) restartSessionAfterStoppingAssessmentMode:(BOOL)quittingASAMtoSAM
 {
     self.ASAMActive = NO;
+    self.didReceiveMDMConfig = NO;
     [self restartExamASAM:quittingASAMtoSAM];
 }
 
@@ -5197,7 +5209,9 @@ void run_on_ui_thread(dispatch_block_t block)
         } else {
             [self showStartSingleAppMode];
         }
-    } else {
+    } else if (NSUserDefaults.userDefaultsPrivate ) {
+        // This prevents iOS assessment mode being stoped and reenabled when using multiple consecutive quizzes with SEB Server and Moodle
+        // but only when using settings for starting exam (not client settings, where this causes an issue when secure MDM settings are used)
         [self startExamWithFallback:NO];
     }
 }
@@ -5306,8 +5320,7 @@ void run_on_ui_thread(dispatch_block_t block)
     
     // First check if a quit password is set
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if (hashedQuitPassword.length > 0) {
+    if (preferences.secureSession) {
         // A quit password is set in current settings: Ask user to restart Guided Access
         // If Guided Access isn't already on, show alert to switch it on again
         DDLogInfo(@"%s: A quit password is set in current settings: Ask user to restart Guided Access. If Guided Access isn't already on, show alert to switch it on again", __FUNCTION__);
@@ -6141,9 +6154,8 @@ void run_on_ui_thread(dispatch_block_t block)
     NSString *backToStartText = [self backToStartText];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_restartExamPasswordProtected"] == YES) {
-        NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
         // if quitting SEB is allowed
-        if (hashedQuitPassword.length > 0) {
+        if (preferences.secureSession) {
             // if quit password is set, then restrict quitting
             // Allow up to 5 attempts for entering decoding password
             attempts = 5;

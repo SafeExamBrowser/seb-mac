@@ -89,16 +89,18 @@ public class FIFOBuffer {
     }
     
     func pushObject(_ object: AnyHashable) {
-        fifoDispatchQueue.async {
+        fifoDispatchQueue.async(flags: .barrier) {
             self.queue.enqueue(object)
         }
     }
     
     func popObject() -> AnyHashable? {
-        guard let object = self.queue.dequeue() else {
-            return nil
+        fifoDispatchQueue.sync(flags: .barrier) {
+            guard let object = self.queue.dequeue() else {
+                return nil
+            }
+            return object
         }
-        return object
     }
     
     func removeObject(_ object: AnyHashable) -> Bool {

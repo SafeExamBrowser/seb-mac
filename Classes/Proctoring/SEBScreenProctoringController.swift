@@ -196,7 +196,7 @@ struct MetadataSettings {
     private var screenShotMinIntervalTimer: RepeatingTimer?
     private var screenShotMaxIntervalTimer: RepeatingTimer?
     private var screenProctoringCacheSize: Int?
-    private let deferredTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".deferredTransmission", qos: .utility)
+    private let metadataCollectionQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".metadataCollection", qos: .userInitiated)
     private let delayForResumingTimerQueue = DispatchQueue(label: keysSPS.dispatchQueueLabel+".resumingDelay", qos: .utility)
     private var screenShotDeferredTransmissionIntervalTimer: RepeatingTimer?
     private var transmittingDeferredScreenShotsWhileClosingErrorCount = 0
@@ -763,31 +763,33 @@ extension SEBScreenProctoringController {
 
     private func getTriggerEventString() -> String {
         var triggerEventString = latestTriggerEvent ?? ""
-        if !triggerEventString.isEmpty {
-            triggerEventString += ". "
-        }
-        if alphanumericKeyCount > 1 {
-            let alphanumericKeysString = "\(alphanumericKeyCount) " + keysSPS.alphanumericKeyString + "s"
-            if triggerEventString.contains(keysSPS.alphanumericKeyString.firstUppercased)  {
-                triggerEventString = triggerEventString.replacingOccurrences(of: keysSPS.alphanumericKeyString.firstUppercased, with: alphanumericKeysString)
-            } else {
-                triggerEventString.append(alphanumericKeysString + " pressed.")
+        metadataCollectionQueue.sync(flags: .barrier) {
+            if !triggerEventString.isEmpty {
+                triggerEventString += ". "
             }
-            alphanumericKeyCount = 0
-        }
-        if !keyboardShortcuts.isEmpty {
-            if let keyboardShortcutsLast = keyboardShortcuts.last, let latestTriggerEventString = latestTriggerEvent {
-                if latestTriggerEventString.contains(keyboardShortcutsLast) && keyboardShortcuts.count > 0 {
-                    // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
-                    keyboardShortcuts.removeLast()
+            if alphanumericKeyCount > 1 {
+                let alphanumericKeysString = "\(alphanumericKeyCount) " + keysSPS.alphanumericKeyString + "s"
+                if triggerEventString.contains(keysSPS.alphanumericKeyString.firstUppercased)  {
+                    triggerEventString = triggerEventString.replacingOccurrences(of: keysSPS.alphanumericKeyString.firstUppercased, with: alphanumericKeysString)
+                } else {
+                    triggerEventString.append(alphanumericKeysString + " pressed.")
                 }
+                alphanumericKeyCount = 0
             }
             if !keyboardShortcuts.isEmpty {
-                triggerEventString.append(" Keyboard shortcut\(keyboardShortcuts.count > 1 ? "s" : "") pressed: \(keyboardShortcuts.joined(separator: "/"))")
-                keyboardShortcuts.removeAll()
+                if let keyboardShortcutsLast = keyboardShortcuts.last, let latestTriggerEventString = latestTriggerEvent {
+                    if latestTriggerEventString.contains(keyboardShortcutsLast) && keyboardShortcuts.count > 0 {
+                        // Don't repeat the latest shortcut in the list of shortcuts pressed between two screen shots
+                        keyboardShortcuts.removeLast()
+                    }
+                }
+                if !keyboardShortcuts.isEmpty {
+                    triggerEventString.append(" Keyboard shortcut\(keyboardShortcuts.count > 1 ? "s" : "") pressed: \(keyboardShortcuts.joined(separator: "/"))")
+                    keyboardShortcuts.removeAll()
+                }
             }
+            latestTriggerEvent = nil
         }
-        latestTriggerEvent = nil
         return triggerEventString
     }
     

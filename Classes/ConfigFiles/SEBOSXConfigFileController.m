@@ -105,6 +105,7 @@
 - (void) reconfigureClientWithSebClientSettingsCallback
 {
     DDLogInfo(@"Reconfiguring with client settings was successful");
+    _sebController.isReconfiguringToMDMConfig = YES;
     // Restart SEB with new settings
     [_sebController serverSessionQuitRestart:YES];
 }

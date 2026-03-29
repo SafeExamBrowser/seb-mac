@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,7 +35,7 @@
                                         <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-sN-L4a">
                                             <rect key="frame" x="0.0" y="0.0" width="351" height="60"/>
                                             <subviews>
-                                                <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
+                                                <textField horizontalHuggingPriority="750" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="237">
                                                     <rect key="frame" x="-2" y="44" width="147" height="16"/>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Use configuration for ..." usesSingleLineMode="YES" id="239">
                                                         <font key="font" metaFont="system"/>
@@ -141,31 +141,10 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
-                            <rect key="frame" x="0.0" y="365" width="613" height="16"/>
-                            <subviews>
-                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
-                                    <rect key="frame" x="0.0" y="0.0" width="263" height="16"/>
-                                    <buttonCell key="cell" type="check" title="Allow to open Settings window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <visibilityPriorities>
-                                <integer value="1000"/>
-                            </visibilityPriorities>
-                            <customSpacing>
-                                <real value="3.4028234663852886e+38"/>
-                            </customSpacing>
-                        </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3KG-u1-aHh">
-                            <rect key="frame" x="0.0" y="293" width="434" height="56"/>
+                            <rect key="frame" x="0.0" y="325" width="434" height="56"/>
                             <subviews>
-                                <textField focusRingType="none" verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
+                                <textField verticalHuggingPriority="749" verticalCompressionResistancePriority="752" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                                     <rect key="frame" x="-2" y="40" width="438" height="16"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Choose identity certificate to be used for encrypting SEB settings file ..." usesSingleLineMode="YES" id="75">
                                         <font key="font" metaFont="system"/>
@@ -187,7 +166,7 @@
                                     </popUpButtonCell>
                                     <accessibility description="Choose identity certificate to be used for encrypting SEB settings file"/>
                                 </popUpButton>
-                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="173">
                                     <rect key="frame" x="-2" y="0.0" width="308" height="14"/>
                                     <string key="toolTip">If used on unmanaged (student) computers, using a password is recommended, on managed computers (no administrator access by users/students) a cryptographic identity might be more convenient.</string>
                                     <constraints>
@@ -217,12 +196,12 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DBU-0A-Xbb">
-                            <rect key="frame" x="0.0" y="212" width="613" height="65"/>
+                            <rect key="frame" x="0.0" y="244" width="613" height="65"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="naq-c2-eME">
                                     <rect key="frame" x="194" y="43" width="419" height="22"/>
                                     <subviews>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="111">
                                             <rect key="frame" x="-2" y="3" width="116" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Settings password" id="118">
                                                 <font key="font" metaFont="system"/>
@@ -230,7 +209,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" focusRingType="none" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
+                                        <secureTextField toolTip="Password to decrypt the settings file, prompted when SEB reads these settings" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="114">
                                             <rect key="frame" x="119" y="0.0" width="300" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="Fvm-Ma-06X"/>
@@ -269,7 +248,7 @@
                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="1RC-7P-OVb">
                                     <rect key="frame" x="142" y="18" width="471" height="21"/>
                                     <subviews>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="112">
                                             <rect key="frame" x="-2" y="3" width="167" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm settings password" id="117">
                                                 <font key="font" metaFont="system"/>
@@ -277,7 +256,7 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <secureTextField toolTip="Retype the settings password" focusRingType="none" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                                        <secureTextField toolTip="Retype the settings password" verticalHuggingPriority="750" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                                             <rect key="frame" x="171" y="0.0" width="300" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="300" id="81y-1l-6VD"/>
@@ -313,7 +292,7 @@
                                         <real value="3.4028234663852886e+38"/>
                                     </customSpacing>
                                 </stackView>
-                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="113">
                                     <rect key="frame" x="408" y="0.0" width="207" height="14"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please enter correct confirm password" id="116">
                                         <font key="font" metaFont="message" size="11"/>
@@ -345,6 +324,27 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="gk8-DP-i3l">
+                            <rect key="frame" x="0.0" y="212" width="613" height="16"/>
+                            <subviews>
+                                <button toolTip="Usually disable preferences window on exam clients besides for debugging purposes" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="259">
+                                    <rect key="frame" x="0.0" y="0.0" width="263" height="16"/>
+                                    <buttonCell key="cell" type="check" title="Allow to open Settings window on client" bezelStyle="regularSquare" imagePosition="left" inset="2" id="260">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_allowPreferencesWindow" id="595"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
                         <box borderType="line" title="iOS Settings" translatesAutoresizingMaskIntoConstraints="NO" id="Skz-8h-R96">
                             <rect key="frame" x="0.0" y="126" width="613" height="70"/>
                             <view key="contentView" id="uYt-bb-t9R">
@@ -368,11 +368,11 @@
                                                     <binding destination="211" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowQRCodeConfig" id="pY6-j4-Sp9"/>
                                                 </connections>
                                             </button>
-                                            <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q96-px-ZAo">
+                                            <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q96-px-ZAo">
                                                 <rect key="frame" x="0.0" y="0.0" width="593" height="16"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="VYd-lj-NUe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="339" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="289" height="16"/>
                                                         <string key="toolTip">Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config</string>
                                                         <buttonCell key="cell" type="check" title="Show settings in app" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b4O-Hy-kCT">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -383,7 +383,7 @@
                                                         </connections>
                                                     </button>
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Tt-Wm6">
-                                                        <rect key="frame" x="355" y="2" width="238" height="14"/>
+                                                        <rect key="frame" x="305" y="2" width="288" height="14"/>
                                                         <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</string>
                                                         <buttonCell key="cell" type="check" title="Show 'Edit Config File' Quick Action" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7KN-IV-lyH">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -440,7 +440,7 @@
                                 <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="s3a-rg-MhB">
                                     <rect key="frame" x="0.0" y="0.0" width="191" height="110"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1172">
                                             <rect key="frame" x="-2" y="96" width="119" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Configuration Editing:" usesSingleLineMode="YES" id="1174">
                                                 <font key="font" metaFont="message" size="11"/>
@@ -524,7 +524,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="YUG-9w-qce">
                                     <rect key="frame" x="211" y="0.0" width="191" height="110"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1119">
                                             <rect key="frame" x="-2" y="96" width="107" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Revert Settings to…" usesSingleLineMode="YES" id="1120">
                                                 <font key="font" metaFont="message" size="11"/>
@@ -596,7 +596,7 @@
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="RaO-Jh-GiT">
                                     <rect key="frame" x="422" y="0.0" width="191" height="110"/>
                                     <subviews>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="1189">
                                             <rect key="frame" x="-2" y="96" width="137" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Use Current Settings to…" usesSingleLineMode="YES" id="1190">
                                                 <font key="font" metaFont="message" size="11"/>

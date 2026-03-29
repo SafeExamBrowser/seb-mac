@@ -789,7 +789,7 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             NSString *urlResourceSpecifier = [[url resourceSpecifier] stringByRemovingPercentEncoding];
             DDLogDebug(@"resourceSpecifier of data: URL is %@", urlResourceSpecifier);
             NSRange mediaTypeRange = [urlResourceSpecifier rangeOfString:@","];
-            if (mediaTypeRange.location != NSNotFound && urlResourceSpecifier.length > mediaTypeRange.location > 0) {
+            if (mediaTypeRange.location != NSNotFound && mediaTypeRange.location > 0 && urlResourceSpecifier.length > mediaTypeRange.location) {
                 NSString *mediaType = [[urlResourceSpecifier substringToIndex:mediaTypeRange.location] lowercaseString];
                 NSArray *mediaTypeParameters = [mediaType componentsSeparatedByString:@";"];
                 if ([mediaTypeParameters indexOfObject:SEBConfigMIMEType] != NSNotFound) {
@@ -1026,11 +1026,6 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
 - (BOOL) downloadingInTemporaryWebView
 {
     return [self.navigationDelegate downloadingInTemporaryWebView];
-}
-
-- (BOOL) originalURLIsEqualToURL:(NSURL *)url
-{
-    return [_originalURL isEqual:url];
 }
 
 @end

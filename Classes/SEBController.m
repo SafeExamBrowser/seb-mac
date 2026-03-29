@@ -340,7 +340,9 @@ bool insideMatrix(void);
         // Set default preferences for the case there are no user prefs yet
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
-        
+        // If reverting local client settings to default, allow to open Settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+
         // Check if there is a SebClientSettings.seb file saved in the preferences directory
         [self.configFileController reconfigureClientWithSebClientSettings];
         
@@ -931,12 +933,14 @@ bool insideMatrix(void);
 
 - (void)applicationDidFinishLaunchingProceed
 {
-    if (_openingSettings && _openingSettingsFileURL) {
-        DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
-        [self openFile:_openingSettingsFileURL];
-        _openingSettingsFileURL = nil;
-    } else {
-        [self didFinishLaunchingWithSettings];
+    if (!_isReconfiguringToMDMConfig) {
+        if (_openingSettings && _openingSettingsFileURL) {
+            DDLogDebug(@"%s Open file: %@", __FUNCTION__, _openingSettingsFileURL);
+            [self openFile:_openingSettingsFileURL];
+            _openingSettingsFileURL = nil;
+        } else {
+            [self didFinishLaunchingWithSettings];
+        }
     }
 }
 
@@ -1248,7 +1252,7 @@ bool insideMatrix(void);
 - (void) persistSecureExamStartURL:(NSString *)startURLString configKey:(NSData *)configKey
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    if ([preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+    if (preferences.secureSession) {
         currentExamStartURL = startURLString;
         currentExamConfigKey = configKey;
         [self.sebLockedViewController addLockedExam:currentExamStartURL configKey: currentExamConfigKey];
@@ -1256,6 +1260,7 @@ bool insideMatrix(void);
         currentExamStartURL = nil;
         currentExamConfigKey = nil;
     }
+    self.isReconfiguringToMDMConfig = NO;
 }
 
 #pragma mark - Connecting to SEB Server
@@ -2982,6 +2987,7 @@ void run_on_ui_thread(dispatch_block_t block)
     allowOpenAndSavePanel = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
     allowShareSheet = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     voiceOverDisabled = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_accessibilityFeatureVoiceOver"] == AccessibilityFeaturePolicyDisable;
+    allowSpellCheck = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSpellCheck"];
 
     // Switch off display mirroring and find main active screen according to settings
     [self conditionallyTerminateDisplayMirroring];
@@ -3036,14 +3042,14 @@ void run_on_ui_thread(dispatch_block_t block)
     NSArray *allRunningProcesses = [self getProcessArray];
     NSArray *allRunningProcessNames = [allRunningProcesses valueForKey:@"name"];
     DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcessNames.count, allRunningProcessNames);
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
+
     if (_isAACEnabled == NO) {
         // Check for activated screen sharing if settings demand it
-        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         allowScreenSharing = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
         ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
         allowSiri = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSiri"];
-        allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
         
         if (!allowScreenSharing &&
             ([allRunningProcessNames containsObject:screenSharingAgent] ||
@@ -5371,7 +5377,7 @@ conditionallyForWindow:(NSWindow *)window
 - (BOOL) conditionallyLockExam:(NSString *)examURLString configKey:(NSData *)configKey
 {
     if ([self.sebLockedViewController isStartingLockedExam:examURLString configKey:configKey]) {
-        if ([[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0) {
+        if ([NSUserDefaults standardUserDefaults].secureSession) {
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"detectedReOpeningExam" object:self];
             return YES;
@@ -7599,7 +7605,7 @@ conditionallyForWindow:(NSWindow *)window
 - (BOOL) secureClientSession
 {
     [NSUserDefaults setUserDefaultsPrivate:NO];
-    BOOL secureClientSession = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"].length != 0;
+    BOOL secureClientSession = [NSUserDefaults standardUserDefaults].secureSession;
     [NSUserDefaults setUserDefaultsPrivate:YES];
     return secureClientSession;
 }
@@ -7984,6 +7990,14 @@ conditionallyForWindow:(NSWindow *)window
                 if (voiceOverDisabled &&
                     [bundleID isEqualToString:VoiceOverBundleID]) {
                     DDLogVerbose(@"VoiceOver is disabled in settings, terminating its process.");
+                    [self killApplication:startedApplication];
+                }
+                
+                // While in AAC, check if Dictation was started and it is disabled
+                if ((_isAACEnabled ||
+                    !allowDictation ) &&
+                    [bundleID isEqualToString:DictationProcessBundleID]) {
+                    DDLogDebug(@"Dictation is disabled in settings or running in AAC, terminating its process.");
                     [self killApplication:startedApplication];
                 }
                 

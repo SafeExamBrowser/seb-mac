@@ -79,9 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
                    overrideSpellCheck:(BOOL)overrideSpellCheck
                              delegate:(nonnull id<SEBAbstractWebViewNavigationDelegate>)delegate;
 
-- (NSInteger)highlightAllOccurencesOfString:(NSString*)searchString inWebView:(UIWebView *)webView;
-- (void)removeAllHighlightsInWebView:(UIWebView *)webView;
-
 - (id) infoValueForKey:(NSString *)key;
 - (NSString *)tempDirectoryPath;
 
