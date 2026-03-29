@@ -339,7 +339,9 @@ bool insideMatrix(void);
         // Set default preferences for the case there are no user prefs yet
         // and set flag for displaying alert to new users
         firstStart = [preferences setSEBDefaults];
-        
+        // If reverting local client settings to default, allow to open Settings
+        [[NSUserDefaults standardUserDefaults] setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"];
+
         // Check if there is a SebClientSettings.seb file saved in the preferences directory
         [self.configFileController reconfigureClientWithSebClientSettings];
         
