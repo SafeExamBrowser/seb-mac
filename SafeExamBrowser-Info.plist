@@ -95,11 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>1579F</string>
-=======
-	<string>1575F</string>
->>>>>>> main
+	<string>157A1</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.education</string>
 	<key>LSMinimumSystemVersion</key>

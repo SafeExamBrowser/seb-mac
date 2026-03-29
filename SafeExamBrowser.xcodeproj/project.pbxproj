@@ -15,7 +15,7 @@
 		6902C9701B0CF95E00715855 /* SEBShutDownIcon.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 6902C96F1B0CF95E00715855 /* SEBShutDownIcon.iconset */; };
 		6902D5812DA3CDB8002B70B7 /* DownloadFileTypesArrayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6902D5802DA3CDB8002B70B7 /* DownloadFileTypesArrayController.swift */; };
 		69036BD82C32902100E8BE38 /* AssessmentModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFD35267EA2C900B8F1D6 /* AssessmentModeManager.m */; };
-		69036BD92C32902500E8BE38 /* AssessmentModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */; };
+		69036BD92C32902500E8BE38 /* AssessmentModeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 698DFD31267EA11900B8F1D6 /* AssessmentModeManager.h */; }; 
 		6905C5AB1961B4E5000008EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6905C5AA1961B4E5000008EC /* SystemConfiguration.framework */; };
 		6905CB402E1EB9CB00CE7B0F /* libSEBSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6988A0DA25228D4700F15236 /* libSEBSupport.a */; };
 		6906F3C21A3FA5EE0011CF93 /* NSURL+KKDomain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6906F3C01A3FA5EE0011CF93 /* NSURL+KKDomain.h */; };
@@ -5778,11 +5778,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-<<<<<<< HEAD
 				MARKETING_VERSION = 3.7b2;
-=======
-				MARKETING_VERSION = 3.6.2;
->>>>>>> main
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (
@@ -5849,11 +5845,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-<<<<<<< HEAD
 				MARKETING_VERSION = 3.7b2;
-=======
-				MARKETING_VERSION = 3.6.2;
->>>>>>> main
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = (

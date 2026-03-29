@@ -1125,11 +1125,7 @@ DQ
                     <rect key="frame" x="20" y="133" width="460" height="592"/>
                     <subviews>
                         <textField focusRingType="none" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-0g-525" customClass="SEBTextField">
-<<<<<<< HEAD
                             <rect key="frame" x="-2" y="568" width="464" height="24"/>
-=======
-                            <rect key="frame" x="-2" y="564" width="464" height="24"/>
->>>>>>> main
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Prohibited Process Locked SEB!" id="9V8-Fs-9oi">
                                 <font key="font" size="20" name="HelveticaNeue-Bold"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1140,11 +1136,7 @@ DQ
                             </connections>
                         </textField>
                         <textField focusRingType="none" horizontalCompressionResistancePriority="250" verifyAmbiguity="off" preferredMaxLayoutWidth="460" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-Md-KnP" customClass="SEBTextField">
-<<<<<<< HEAD
                             <rect key="frame" x="-2" y="512" width="464" height="48"/>
-=======
-                            <rect key="frame" x="-2" y="508" width="464" height="48"/>
->>>>>>> main
                             <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" allowsEditingTextAttributes="YES" id="xDQ-P3-KpK">
                                 <font key="font" metaFont="system"/>
                                 <string key="title">SEB is locked because a process, which isn't allow to run cannot be terminated. Enter the quit/unlock password, which usually exam supervision/support knows.</string>

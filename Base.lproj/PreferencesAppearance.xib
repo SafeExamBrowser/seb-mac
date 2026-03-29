@@ -123,11 +123,7 @@
                                                                     <rect key="frame" x="71" y="31" width="134" height="23"/>
                                                                     <subviews>
                                                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cye-NU-q1T">
-<<<<<<< HEAD
                                                                             <rect key="frame" x="-2" y="4" width="40" height="16"/>
-=======
-                                                                            <rect key="frame" x="-2" y="0.0" width="40" height="16"/>
->>>>>>> main
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Width" id="kbg-Kp-tbc">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -178,11 +174,7 @@
                                                                     <rect key="frame" x="17" y="0.0" width="188" height="23"/>
                                                                     <subviews>
                                                                         <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sli-3H-w8x">
-<<<<<<< HEAD
                                                                             <rect key="frame" x="-2" y="4" width="94" height="16"/>
-=======
-                                                                            <rect key="frame" x="-2" y="0.0" width="94" height="16"/>
->>>>>>> main
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Height" id="8p0-c4-gAw">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -558,17 +550,11 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3dZ-i2-vT2">
-<<<<<<< HEAD
-                                                    <rect key="frame" x="11" y="8" width="588" height="236"/>
-                                                    <subviews>
-                                                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="haG-9a-u2M">
-                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="236"/>
-=======
+
                                                     <rect key="frame" x="11" y="12" width="588" height="214"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="haG-9a-u2M">
                                                             <rect key="frame" x="0.0" y="0.0" width="289" height="214"/>
->>>>>>> main
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="Zfa-sc-BEA">
                                                                     <rect key="frame" x="0.0" y="220" width="117" height="16"/>
@@ -731,11 +717,7 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="68I-OY-w2B">
-<<<<<<< HEAD
                                                             <rect key="frame" x="282" y="76" width="306" height="160"/>
-=======
-                                                            <rect key="frame" x="299" y="146" width="289" height="68"/>
->>>>>>> main
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="bdb-Ye-f5Q">
                                                                     <rect key="frame" x="0.0" y="52" width="163" height="16"/>
@@ -1426,11 +1408,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-<<<<<<< HEAD
                     <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.109375" horizontal="NO" id="8g8-Kg-p4v">
-=======
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.10174418604651159" horizontal="NO" id="8g8-Kg-p4v">
->>>>>>> main
                         <rect key="frame" x="649" y="1" width="17" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
