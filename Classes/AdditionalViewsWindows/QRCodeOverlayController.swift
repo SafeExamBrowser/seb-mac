@@ -67,8 +67,8 @@ import CocoaLumberjackSwift
                 DDLogDebug("QRCodeOverlayController.showQRCode: qrCodeOverlayPanel already exists: true, remove displayed QRCode first")
                 removeQRCode()
             }
-            var imageWidth = 340.0
-            var imageHeigth = 340.0
+            var imageWidth = 400.0
+            var imageHeigth = 400.0
             var qrCodeView: SEBNSImageView
             if (pngData != nil) {
                 guard let qrCodeImage = NSImage.init(data: pngData!) else {
