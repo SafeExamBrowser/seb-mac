@@ -171,9 +171,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowApplicationLog",
                    
-                   @NO,
-                   @"allowAudioCapture",
-                   
                    @YES,
                    @"audioControlEnabled",
                    
@@ -306,9 +303,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"allowUserSwitching",
-                   
-                   @NO,
-                   @"allowVideoCapture",
                    
                    @NO,
                    @"allowVirtualMachine",
@@ -505,9 +499,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableLogging",
-                   
-                   @YES,
-                   @"enableMacOSAAC",
                    
                    @NO,
                    @"enableMiddleMouse",
@@ -764,6 +755,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:SEBLogLevelDebug],
                    @"logLevel",
                    
+                   [NSNumber numberWithLong:lockdownModePolicyAutomatic],
+                   @"lockdownModePolicy",
+
                    @YES,
                    @"lockOnMessageSocketClose",
                    

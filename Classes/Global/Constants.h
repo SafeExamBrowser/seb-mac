@@ -285,6 +285,14 @@ typedef NSUInteger mobileStatusBarAppearancesExtended;
 
 
 enum {
+    lockdownModePolicyAutomatic                 = 0,
+    lockdownModePolicyEnforceClassic            = 1,
+    lockdownModePolicyEnforceAAC                = 2
+};
+typedef NSInteger lockdownModePolicy;
+
+
+enum {
     SEBBackgroundTintStyleNone                  = 0,
     SEBBackgroundTintStyleLight                 = 1,
     SEBBackgroundTintStyleDark                  = 2
