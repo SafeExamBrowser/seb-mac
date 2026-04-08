@@ -956,9 +956,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"removeBrowserProfile",
                    
-                   @NO,
-                   @"removeLocalStorage",
-                   
                    @YES,
                    @"restartExamPasswordProtected",
                    

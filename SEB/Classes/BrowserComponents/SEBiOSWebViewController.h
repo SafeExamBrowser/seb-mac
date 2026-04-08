@@ -53,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL allowSpellCheck;
     NSString *quitURLTrimmed;
     BOOL mobileEnableGuidedAccessLinkTransform;
-    BOOL enableDrawingEditor;
     UIButton *overlayViewCloseButton;
     BOOL firstAppearance;
 }
