@@ -486,9 +486,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableCursorVerification",
                    
                    @NO,
-                   @"enableDrawingEditor",
-                   
-                   @NO,
                    @"enableFindPrinter",
                    
                    @NO,
@@ -1338,6 +1335,20 @@ static SEBSettings *sharedSEBSettings = nil;
                   @"pingInterval" : [NSNumber numberWithLong:SEBServerDefaultPingInterval]
               }
               
+    };
+}
+
+- (NSDictionary *)removedSEBSettings {
+    return @{@"rootSettings" : @[
+        @"allowAudioCapture",
+        @"allowVideoCapture",
+        @"allowWLAN",
+        @"enableDrawingEditor",
+        @"enableMacOSAAC",
+        @"mobileAllowAirPlayMediaPlayback",
+        @"mobileAllowGuidedAccess",
+        @"removeLocalStorage"
+    ]
     };
 }
 
