@@ -176,35 +176,6 @@ static SEBURLFilter *sharedSEBURLFilter = nil;
 }
 
 
-// Convert these rules and add them to the XULRunner seb keys
-- (void) createSebRuleLists
-{
-    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    
-    // Set prohibited rules
-    NSString *sebRuleString = [self sebRuleStringForSEBURLFilterRuleList:self.prohibitedList];
-    [preferences setSecureString:sebRuleString forKey:@"org_safeexambrowser_SEB_blacklistURLFilter"];
-    
-    // Set permitted rules
-    sebRuleString = [self sebRuleStringForSEBURLFilterRuleList:self.permittedList];
-    [preferences setSecureString:sebRuleString forKey:@"org_safeexambrowser_SEB_whitelistURLFilter"];
-    
-    // All rules are regex
-    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_urlFilterRegex"];
-    
-    // Set if content filter is enabled
-    [preferences setSecureBool:[preferences secureBoolForKey:@"org_safeexambrowser_SEB_URLFilterEnableContentFilter"]
-                        forKey:@"org_safeexambrowser_SEB_urlFilterTrustedContent"];
-}
-
-
-- (NSString *) sebRuleStringForSEBURLFilterRuleList:(NSMutableArray *)filterRuleList
-{
-    NSArray *regexFilterRuleStrings = [self regexFilterRuleStringsForSEBURLFilterRuleList:filterRuleList];
-    return [regexFilterRuleStrings componentsJoinedByString:@";"];
-}
-
-
 - (NSArray<NSString*>*) regexFilterRuleStringsForSEBURLFilterRuleList:(NSArray*)filterRuleList
 {
     if (filterRuleList.count == 0) {

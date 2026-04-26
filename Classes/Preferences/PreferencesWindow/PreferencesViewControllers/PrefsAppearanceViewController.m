@@ -82,10 +82,8 @@
     mainBrowserWindowPositioning.enabled = browserViewModeWindowSelected;
        
     BOOL browserViewModeTouchSelected = [sender selectedRow] == browserViewModeTouch;
-    enableTouchExit.enabled = browserViewModeTouchSelected;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_touchOptimized"];
-    [preferences setSecureBool:browserViewModeTouchSelected forKey:@"org_safeexambrowser_SEB_browserScreenKeyboard"];
     
     if ([[MBPreferencesController sharedController].window isVisible] && !self.touchOptimizedWarning && browserViewModeTouchSelected && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_createNewDesktop"]) {
         self.touchOptimizedWarning = true;

@@ -36,6 +36,7 @@
 #import "PreferencesController.h"
 #import "MBPreferencesController.h"
 #import "SEBCryptor.h"
+#import "SEBSettings.h"
 #import "SEBURLFilter.h"
 #import "NSURL+SEBURL.h"
 #import "PreferencesViewController.h"
@@ -1038,9 +1039,18 @@
 //    // Force recalculating Config Key
 //    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
 
-    if ([preferences secureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"]) {
-        // Remove this outdated key (current version: allowWlan) as it messes up ConfigKey calculation
-        [preferences removeSecureObjectForKey:@"org_safeexambrowser_SEB_allowWLAN"];
+    // Remove all outdated setting keys as they mess up ConfigKey calculation
+    NSDictionary *removedSettings = [[SEBSettings sharedSEBSettings] removedSEBSettings];
+    NSArray *removedRootSettings = removedSettings[@"rootSettings"];
+    BOOL removedAnyKey = NO;
+    for (NSString *key in removedRootSettings) {
+        NSString *prefKey = [NSString stringWithFormat:@"org_safeexambrowser_SEB_%@", key];
+        if ([preferences secureObjectForKey:prefKey]) {
+            [preferences removeSecureObjectForKey:prefKey];
+            removedAnyKey = YES;
+        }
+    }
+    if (removedAnyKey) {
         // Force recalculating the ConfigKeyContainedKeys dictionary
         [preferences setSecureObject:[NSDictionary dictionary] forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     }

@@ -301,9 +301,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowUserAppFolderInstall",
                    
-                   @YES,
-                   @"allowUserSwitching",
-                   
                    @NO,
                    @"allowVirtualMachine",
 
@@ -352,20 +349,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"browserMediaCaptureScreen", //setting for WebRTC screen capture
                    
-                   [NSNumber numberWithLong:120000],
-                   @"browserMessagingPingTime",
-                   
-                   @"ws://localhost:8706",
-                   @"browserMessagingSocket",
-                   
                    @YES,
                    @"browserShowFileSystemElementPath",
-                   
-                   @NO,
-                   @"browserScreenKeyboard",
-                   
-                   @YES,
-                   @"browserURLSalt",
                    
                    @"",
                    @"browserUserAgent",
@@ -449,9 +434,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"detectStoppedProcess",
                    
-                   @NO,
-                   @"disableSessionChangeLockScreen",
-                   
                    @YES,
                    @"displayAlwaysOn",
                    
@@ -520,9 +502,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"enableScrollLock",
-                   
-                   @NO,
-                   @"enableTouchExit",
                    
                    @NO,
                    @"enableURLContentFilter",
@@ -620,15 +599,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"",
                    @"examSessionReconfigureConfigURL",
                    
-                   [NSNumber numberWithLong:2],
-                   @"exitKey1",
-                   
-                   [NSNumber numberWithLong:10],
-                   @"exitKey2",
-                   
-                   [NSNumber numberWithLong:5],
-                   @"exitKey3",
-                   
                    @"",
                    @"hashedAdminPassword",
                    
@@ -643,9 +613,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @YES,
                    @"forceAppFolderInstall",
-                   
-                   @YES,
-                   @"ignoreExitKeys",
                    
                    @NO,
                    @"ignoreQuitPassword",
@@ -755,9 +722,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:lockdownModePolicyAutomatic],
                    @"lockdownModePolicy",
 
-                   @YES,
-                   @"lockOnMessageSocketClose",
-                   
                    @NO,
                    @"logSendingRequiresAdminPassword",
                    
@@ -848,9 +812,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"mobilePreventAutoLock",
                    
-                   @YES,
-                   @"monitorProcesses",
-                   
                    @NO,
                    @"newBrowserWindowAllowAddressBar",
                    
@@ -871,12 +832,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @"1000",
                    @"newBrowserWindowByLinkWidth",
-                   
-                   @NO,
-                   @"newBrowserWindowByScriptBlockForeign",
-                   
-                   [NSNumber numberWithLong:openInNewWindow],
-                   @"newBrowserWindowByScriptPolicy",
                    
                    @YES,
                    @"newBrowserWindowNavigation",
@@ -1094,9 +1049,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @YES,
                    @"showTime",
                    
-                   @"",
-                   @"startResource",
-                   
                    SEBStartPage,
                    @"startURL",
                    
@@ -1114,9 +1066,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    [NSNumber numberWithLong:SEBDefaultDockHeight],
                    @"taskBarHeight",
-                   
-                   @NO,
-                   @"terminateProcesses",
                    
                    @NO,
                    @"touchOptimized",
@@ -1145,17 +1094,8 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"useTemporaryDownUploadDirectory",
                    
-                   @"",
-                   @"blacklistURLFilter",
-                   
-                   @"",
-                   @"whitelistURLFilter",
-                   
                    [NSArray array],
                    @"URLFilterRules",
-                   
-                   [NSNumber numberWithLong:SEBZoomModePage],
-                   @"zoomMode",
                    
                    @"",
                    @"zoomAPIKey",
@@ -1341,13 +1281,34 @@ static SEBSettings *sharedSEBSettings = nil;
 - (NSDictionary *)removedSEBSettings {
     return @{@"rootSettings" : @[
         @"allowAudioCapture",
+        @"allowSpellCheckDictionary",
+        @"allowUserSwitching",
         @"allowVideoCapture",
         @"allowWLAN",
+        @"blacklistURLFilter",
+        @"browserMessagingPingTime",
+        @"browserMessagingSocket",
+        @"browserScreenKeyboard",
+        @"browserURLSalt",
+        @"disableSessionChangeLockScreen",
         @"enableDrawingEditor",
         @"enableMacOSAAC",
+        @"enableTouchExit",
+        @"exitKey1",
+        @"exitKey2",
+        @"exitKey3",
+        @"ignoreExitKeys",
+        @"lockOnMessageSocketClose",
         @"mobileAllowAirPlayMediaPlayback",
         @"mobileAllowGuidedAccess",
-        @"removeLocalStorage"
+        @"monitorProcesses",
+        @"newBrowserWindowByScriptBlockForeign",
+        @"newBrowserWindowByScriptPolicy",
+        @"removeLocalStorage",
+        @"startResource",
+        @"terminateProcesses",
+        @"whitelistURLFilter",
+        @"zoomMode",
     ]
     };
 }

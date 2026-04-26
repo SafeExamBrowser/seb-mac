@@ -72,5 +72,6 @@
 @property (strong, nonatomic) NSDictionary *defaultExamSettings;
 
 - (NSDictionary *)defaultSEBSettings;
+- (NSDictionary *)removedSEBSettings;
 
 @end
