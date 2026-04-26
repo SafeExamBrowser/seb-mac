@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -48,10 +48,10 @@
                     <rect key="frame" x="20" y="20" width="610" height="665"/>
                     <subviews>
                         <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-hY-tgo">
-                            <rect key="frame" x="0.0" y="654" width="275" height="11"/>
+                            <rect key="frame" x="0.0" y="654" width="273" height="11"/>
                             <subviews>
                                 <button toolTip="SEB will attempt to quit prohibited applications automatically but nicely, allowing them to save edited documents" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="48u-14-9LW">
-                                    <rect key="frame" x="-2" y="-1" width="277" height="13"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="273" height="11"/>
                                     <buttonCell key="cell" type="check" title="Automatically quit prohibited applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="MVu-c3-I1R">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -65,7 +65,7 @@
                                     </connections>
                                 </button>
                                 <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="299" userLabel="Require to quit all applications">
-                                    <rect key="frame" x="313" y="-2" width="209" height="18"/>
+                                    <rect key="frame" x="313" y="-2" width="205" height="16"/>
                                     <string key="toolTip">SEB will attempt to quit applications/processes which are not permitted to run during an exam and require to terminate those which are prohibited</string>
                                     <buttonCell key="cell" type="check" title="Require to quit all applications" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="301">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -98,7 +98,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
+                                                <rect key="frame" x="24" y="45" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -107,7 +107,7 @@
                                                                 <rect key="frame" x="0.0" y="576" width="570" height="16"/>
                                                                 <subviews>
                                                                     <button hidden="YES" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                                                                        <rect key="frame" x="-2" y="-1" width="161" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="157" height="16"/>
                                                                         <string key="toolTip">When using AAC Assessment Mode, SEB blocks the macOS Open File and Save As panel. Users cannot browse the file system and open files manuall in most permitted apps with AAC Multi App Mode.</string>
                                                                         <buttonCell key="cell" type="check" title="Allow open/save panel" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="6">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -124,7 +124,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button hidden="YES" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="k51-pu-omV" userLabel="Allow share sheet">
-                                                                        <rect key="frame" x="-2" y="-1" width="133" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="129" height="16"/>
                                                                         <string key="toolTip">When using AAC Assessment Mode, SEB blocks the macOS share sheet. Users cannot share documents in permitted apps with AAC Multi App Mode.</string>
                                                                         <buttonCell key="cell" type="check" title="Allow share sheet" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2Rj-SD-rgT">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -141,7 +141,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="Jx8-0V-1sZ">
-                                                                        <rect key="frame" x="-2" y="-1" width="572" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="570" height="16"/>
                                                                         <string key="toolTip">Decreases security of the kiosk mode by allowing the process switcher (Cmd+Tab). The blacked out background of SEB also doesn't cover some alerts and modal windows in this mode.</string>
                                                                         <buttonCell key="cell" type="check" title="Allow app switching (open book/debug mode)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Mf8-Fd-4KH">
                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -273,7 +273,7 @@
                                                                         </tableHeaderView>
                                                                     </scrollView>
                                                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="11" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IoO-zt-SzH">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="204" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="208" height="22"/>
                                                                         <subviews>
                                                                             <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Zx-6s-QTe">
                                                                                 <rect key="frame" x="0.0" y="1" width="44" height="21"/>
@@ -323,7 +323,7 @@
                                                                                 </customSpacing>
                                                                             </stackView>
                                                                             <button toolTip="Allows choosing an application (or a process executable file) which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="495">
-                                                                                <rect key="frame" x="48" y="-6" width="163" height="32"/>
+                                                                                <rect key="frame" x="55" y="0.0" width="153" height="22"/>
                                                                                 <buttonCell key="cell" type="push" title="Choose Application..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="496">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
@@ -333,7 +333,7 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
-                                                                                <rect key="frame" x="-7" y="-5" width="144" height="32"/>
+                                                                                <rect key="frame" x="0.0" y="-2" width="134" height="24"/>
                                                                                 <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
@@ -377,25 +377,25 @@
                                                                 </customSpacing>
                                                             </stackView>
                                                             <box autoresizesSubviews="NO" borderType="line" title="Selected Process" translatesAutoresizingMaskIntoConstraints="NO" id="405">
-                                                                <rect key="frame" x="-3" y="-4" width="576" height="379"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="570" height="375"/>
                                                                 <view key="contentView" id="SO0-jy-cdk">
-                                                                    <rect key="frame" x="4" y="5" width="568" height="359"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="363"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-54-ERS">
-                                                                            <rect key="frame" x="15" y="29" width="538" height="321"/>
+                                                                            <rect key="frame" x="15" y="2" width="540" height="352"/>
                                                                             <subviews>
-                                                                                <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="144" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BY-LQ-f9Q">
-                                                                                    <rect key="frame" x="0.0" y="300" width="538" height="21"/>
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BY-LQ-f9Q">
+                                                                                    <rect key="frame" x="0.0" y="328" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
-                                                                                            <rect key="frame" x="-2" y="-1" width="64" height="20"/>
+                                                                                            <rect key="frame" x="0.0" y="4" width="188" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="638">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
                                                                                             </buttonCell>
                                                                                             <constraints>
-                                                                                                <constraint firstAttribute="height" constant="18" id="908"/>
+                                                                                                <constraint firstAttribute="height" constant="16" id="908"/>
                                                                                             </constraints>
                                                                                             <connections>
                                                                                                 <binding destination="610" name="value" keyPath="selection.active" id="1165">
@@ -407,10 +407,10 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27x-OQ-kn3">
-                                                                                            <rect key="frame" x="206" y="0.0" width="332" height="21"/>
+                                                                                            <rect key="frame" x="208" y="0.0" width="332" height="24"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
-                                                                                                    <rect key="frame" x="-2" y="3" width="31" height="16"/>
+                                                                                                    <rect key="frame" x="-2" y="4" width="31" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="642">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -425,10 +425,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
-                                                                                                    <rect key="frame" x="35" y="0.0" width="297" height="21"/>
-                                                                                                    <constraints>
-                                                                                                        <constraint firstAttribute="width" constant="297" id="828"/>
-                                                                                                    </constraints>
+                                                                                                    <rect key="frame" x="35" y="0.0" width="297" height="24"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -454,6 +451,9 @@
                                                                                             </customSpacing>
                                                                                         </stackView>
                                                                                     </subviews>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="trailing" secondItem="27x-OQ-kn3" secondAttribute="trailing" id="cDN-QZ-5oq"/>
+                                                                                    </constraints>
                                                                                     <visibilityPriorities>
                                                                                         <integer value="1000"/>
                                                                                         <integer value="1000"/>
@@ -464,10 +464,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-jB-iWG">
-                                                                                    <rect key="frame" x="0.0" y="271" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="296" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
-                                                                                            <rect key="frame" x="-2" y="3" width="74" height="16"/>
+                                                                                            <rect key="frame" x="-2" y="4" width="74" height="16"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="657">
                                                                                                 <font key="font" metaFont="system"/>
                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -482,7 +482,7 @@
                                                                                             </connections>
                                                                                         </textField>
                                                                                         <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
-                                                                                            <rect key="frame" x="78" y="0.0" width="460" height="21"/>
+                                                                                            <rect key="frame" x="78" y="0.0" width="462" height="24"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
                                                                                                 <font key="font" metaFont="system"/>
                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -508,13 +508,13 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nqg-0J-yw6">
-                                                                                    <rect key="frame" x="0.0" y="242" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="264" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BD-lW-2NV">
-                                                                                            <rect key="frame" x="0.0" y="1" width="128" height="20"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="130" height="24"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
-                                                                                                    <rect key="frame" x="-2" y="4" width="28" height="16"/>
+                                                                                                    <rect key="frame" x="-2" y="8" width="30" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1304">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -530,7 +530,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <popUpButton toolTip="Indicates on which operating system the permitted process runs" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1314">
-                                                                                                    <rect key="frame" x="25" y="-4" width="107" height="25"/>
+                                                                                                    <rect key="frame" x="30" y="0.0" width="100" height="24"/>
                                                                                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1319" id="1315">
                                                                                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                                                                         <font key="font" metaFont="message"/>
@@ -571,10 +571,10 @@
                                                                                             </customSpacing>
                                                                                         </stackView>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jRP-pP-ZCg">
-                                                                                            <rect key="frame" x="148" y="0.0" width="390" height="21"/>
+                                                                                            <rect key="frame" x="150" y="0.0" width="390" height="24"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
-                                                                                                    <rect key="frame" x="-2" y="3" width="71" height="16"/>
+                                                                                                    <rect key="frame" x="-2" y="4" width="71" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="677">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -589,7 +589,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
-                                                                                                    <rect key="frame" x="75" y="0.0" width="315" height="21"/>
+                                                                                                    <rect key="frame" x="75" y="0.0" width="315" height="24"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="315" id="pw1-B4-ysX"/>
                                                                                                     </constraints>
@@ -628,13 +628,13 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NsW-zB-Bw1">
-                                                                                    <rect key="frame" x="0.0" y="213" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="232" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="htN-Bd-tUY">
-                                                                                            <rect key="frame" x="147" y="0.0" width="391" height="21"/>
+                                                                                            <rect key="frame" x="149" y="0.0" width="391" height="24"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
-                                                                                                    <rect key="frame" x="-2" y="3" width="90" height="16"/>
+                                                                                                    <rect key="frame" x="-2" y="4" width="90" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -649,7 +649,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
-                                                                                                    <rect key="frame" x="94" y="0.0" width="297" height="21"/>
+                                                                                                    <rect key="frame" x="94" y="0.0" width="297" height="24"/>
                                                                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
                                                                                                         <font key="font" metaFont="system"/>
@@ -685,13 +685,13 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWQ-ro-37J">
-                                                                                    <rect key="frame" x="0.0" y="184" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="200" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3t-kM-gpg">
-                                                                                            <rect key="frame" x="44" y="0.0" width="494" height="21"/>
+                                                                                            <rect key="frame" x="46" y="0.0" width="494" height="24"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
-                                                                                                    <rect key="frame" x="-2" y="3" width="32" height="16"/>
+                                                                                                    <rect key="frame" x="-2" y="4" width="32" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="690">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -706,7 +706,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
-                                                                                                    <rect key="frame" x="36" y="0.0" width="458" height="21"/>
+                                                                                                    <rect key="frame" x="36" y="0.0" width="458" height="24"/>
                                                                                                     <string key="toolTip">If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. Win: Filesystem path to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
                                                                                                         <font key="font" metaFont="system"/>
@@ -742,13 +742,13 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qxA-HW-Abg">
-                                                                                    <rect key="frame" x="0.0" y="106" width="538" height="70"/>
+                                                                                    <rect key="frame" x="0.0" y="122" width="540" height="70"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="31" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEL-uN-dOT">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="72" height="68"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="74" height="68"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
-                                                                                                    <rect key="frame" x="3" y="52" width="71" height="16"/>
+                                                                                                    <rect key="frame" x="5" y="52" width="71" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Arguments" id="773">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -763,7 +763,7 @@
                                                                                                     </connections>
                                                                                                 </textField>
                                                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tAB-f2-Fn4">
-                                                                                                    <rect key="frame" x="28" y="0.0" width="44" height="21"/>
+                                                                                                    <rect key="frame" x="30" y="0.0" width="44" height="21"/>
                                                                                                     <subviews>
                                                                                                         <button toolTip="Add a command line argument for the permitted process" translatesAutoresizingMaskIntoConstraints="NO" id="865">
                                                                                                             <rect key="frame" x="0.0" y="0.0" width="22" height="21"/>
@@ -835,7 +835,7 @@
                                                                                             </customSpacing>
                                                                                         </stackView>
                                                                                         <scrollView verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="733">
-                                                                                            <rect key="frame" x="80" y="0.0" width="458" height="70"/>
+                                                                                            <rect key="frame" x="82" y="0.0" width="458" height="70"/>
                                                                                             <clipView key="contentView" id="UYw-pC-SvI">
                                                                                                 <rect key="frame" x="1" y="1" width="456" height="68"/>
                                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -913,10 +913,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7s-lR-Wir">
-                                                                                    <rect key="frame" x="0.0" y="77" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="93" width="540" height="21"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                                                            <rect key="frame" x="-2" y="2" width="161" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="3" width="161" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -934,7 +934,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwe-Jk-Q1r">
-                                                                                            <rect key="frame" x="179" y="0.0" width="359" height="21"/>
+                                                                                            <rect key="frame" x="181" y="0.0" width="359" height="21"/>
                                                                                             <subviews>
                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4tq-fE-gIf">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="21"/>
@@ -1003,10 +1003,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sh-CL-G9g">
-                                                                                    <rect key="frame" x="0.0" y="48" width="538" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="64" width="540" height="21"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Allow the permitted app in AAC Multi App Mode to access the network/internet" translatesAutoresizingMaskIntoConstraints="NO" id="956">
-                                                                                            <rect key="frame" x="-2" y="2" width="176" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="3" width="176" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Allow network access" bezelStyle="regularSquare" imagePosition="left" inset="2" id="957">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1021,7 +1021,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="982">
-                                                                                            <rect key="frame" x="-2" y="4" width="282" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="5" width="278" height="16"/>
                                                                                             <string key="toolTip">Allow locating third party applications with a file dialog if it cannot be found at the paths specified. Only applications matching other criteria specified (like executable, signature) are accepted</string>
                                                                                             <buttonCell key="cell" type="check" title="Allow user to select location of application" bezelStyle="regularSquare" imagePosition="left" inset="2" id="983">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1037,7 +1037,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QAN-B4-SjM">
-                                                                                            <rect key="frame" x="184" y="0.0" width="354" height="21"/>
+                                                                                            <rect key="frame" x="186" y="0.0" width="354" height="21"/>
                                                                                             <subviews>
                                                                                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qox-fm-s7W" userLabel="Team Identifier">
                                                                                                     <rect key="frame" x="-2" y="3" width="53" height="16"/>
@@ -1097,10 +1097,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="urk-QT-Wpo">
-                                                                                    <rect key="frame" x="0.0" y="24" width="538" height="16"/>
+                                                                                    <rect key="frame" x="0.0" y="24" width="540" height="32"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
-                                                                                            <rect key="frame" x="-2" y="-1" width="394" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="16" width="397" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Autostart" bezelStyle="regularSquare" imagePosition="left" inset="2" id="950">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1115,7 +1115,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <button horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13k-Ch-eng" userLabel="Allow manual start">
-                                                                                            <rect key="frame" x="400" y="-1" width="138" height="18"/>
+                                                                                            <rect key="frame" x="407" y="0.0" width="133" height="32"/>
                                                                                             <string key="toolTip">Allow user to start the additional application with its Dock icon. Otherwise the app can be started by downloading and opening its documents</string>
                                                                                             <buttonCell key="cell" type="check" title="Allow manual start" bezelStyle="regularSquare" imagePosition="left" inset="2" id="4Gu-dy-BzM">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1141,10 +1141,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-oa-qqf">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="538" height="16"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
-                                                                                            <rect key="frame" x="-2" y="-1" width="540" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2246">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1159,7 +1159,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <button hidden="YES" toolTip="Allow the permitted process to already be running when SEB starts (won't be terminated)" translatesAutoresizingMaskIntoConstraints="NO" id="p8v-1Y-Mnw">
-                                                                                            <rect key="frame" x="-2" y="-1" width="198" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NtM-si-0Ie">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1174,7 +1174,7 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1183">
-                                                                                            <rect key="frame" x="-7" y="-11" width="146" height="32"/>
+                                                                                            <rect key="frame" x="0.0" y="-8" width="136" height="24"/>
                                                                                             <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1184">
                                                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -1496,11 +1496,11 @@
                                                             <box autoresizesSubviews="NO" borderType="line" title="Selected Process" translatesAutoresizingMaskIntoConstraints="NO" id="1840">
                                                                 <rect key="frame" x="-3" y="-4" width="576" height="182"/>
                                                                 <view key="contentView" id="Chp-M2-5uo">
-                                                                    <rect key="frame" x="4" y="5" width="568" height="162"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="576" height="170"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qhg-0A-p5r">
-                                                                            <rect key="frame" x="15" y="21" width="538" height="132"/>
+                                                                            <rect key="frame" x="15" y="29" width="538" height="132"/>
                                                                             <subviews>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="bottom" spacing="104" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eW8-AL-pYg">
                                                                                     <rect key="frame" x="0.0" y="111" width="538" height="21"/>
