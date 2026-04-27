@@ -5843,10 +5843,12 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSString *appLocalizedName = application.localizedName;
     appLocalizedName = appLocalizedName ? appLocalizedName : application.executableURL.path;
+    appLocalizedName = appLocalizedName ? appLocalizedName : @"(unknown)";
     NSURL *appURL = [self getBundleOrExecutableURL:application];
     appURL = appURL ? appURL : NSURL.new;
     NSString *appBundleID = application.bundleIdentifier;
     appBundleID = appBundleID ? appBundleID : application.bundleURL.path;
+    appBundleID = appBundleID ? appBundleID : @"(unknown)";
     NSDictionary *processDetails = @{
         @"name" : appLocalizedName,
         @"PID" : [NSNumber numberWithInt:application.processIdentifier],
