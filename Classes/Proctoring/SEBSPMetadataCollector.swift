@@ -57,7 +57,7 @@ struct Metadata: Codable {
 
 public class SEBSPMetadataCollector {
     
-    private var delegate: ScreenProctoringDelegate?
+    private weak var delegate: ScreenProctoringDelegate?
     private var settings: MetadataSettings
     private var localEventMonitor: Any?
     private var globalEventMonitor: Any?
@@ -67,6 +67,10 @@ public class SEBSPMetadataCollector {
         self.delegate = delegate
         self.settings = settings
         dynamicLogLevel = MyGlobals.ddLogLevel()
+    }
+
+    deinit {
+        stopMonitoringEvents()
     }
     
     public func collectMetaData(triggerMetadata: String) -> String? {
@@ -116,7 +120,8 @@ public class SEBSPMetadataCollector {
     public func monitorEvents() {
         if localEventMonitor == nil || globalEventMonitor == nil {
 #if os(macOS)
-            let eventHandler = { (event: NSEvent) in
+            let eventHandler = { [weak self] (event: NSEvent) in
+                guard let self else { return }
                 var eventTypeString = ""
                 let location = NSEvent.mouseLocation
                 let locationString = " (at \(Int(location.x)), \(Int(location.y)))"
@@ -190,6 +195,8 @@ public class SEBSPMetadataCollector {
                     eventTypeString = "Touch bar touched"
                 case .changeMode:
                     eventTypeString = "Mode of a pencil on an iPad connected as screen changed"
+                case .mouseCancelled:
+                    eventTypeString = "Mouse cancelled"
                 @unknown default:
                     eventTypeString = "Unknown event type (\(event.type))"
                 }
