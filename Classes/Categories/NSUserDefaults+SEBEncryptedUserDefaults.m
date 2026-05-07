@@ -463,6 +463,42 @@ static NSNumber *_logLevel;
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
+    // Migration for macOS AAC settings
+    // Check if new setting lockdownModePolicy is contained in loaded settings
+    if (sebPreferencesDict[@"lockdownModePolicy"] == nil) {
+        BOOL enableMacOSAAC = [sebPreferencesDict[@"enableMacOSAAC"] boolValue];
+        if (enableMacOSAAC) {
+            // Use values from loaded config, falling back to defaults (already written to NSUserDefaults)
+            NSInteger minMacOSVersion = sebPreferencesDict[@"minMacOSVersion"]
+                ? [sebPreferencesDict[@"minMacOSVersion"] integerValue]
+                : [self secureIntegerForKey:[self prefixKey:@"minMacOSVersion"]];
+            BOOL checkFullVersion = sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"]
+                ? [sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"] boolValue]
+                : [self secureBoolForKey:[self prefixKey:@"allowMacOSVersionNumberCheckFull"]];
+            NSInteger versionMajor = sebPreferencesDict[@"allowMacOSVersionNumberMajor"]
+                ? [sebPreferencesDict[@"allowMacOSVersionNumberMajor"] integerValue]
+                : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMajor"]];
+            NSInteger versionMinor = sebPreferencesDict[@"allowMacOSVersionNumberMinor"]
+                ? [sebPreferencesDict[@"allowMacOSVersionNumberMinor"] integerValue]
+                : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMinor"]];
+            BOOL aacDnsPrePinning = sebPreferencesDict[@"aacDnsPrePinning"]
+                ? [sebPreferencesDict[@"aacDnsPrePinning"] boolValue]
+                : [self secureBoolForKey:[self prefixKey:@"aacDnsPrePinning"]];
+            BOOL aacSupported;
+            if (checkFullVersion) {
+                aacSupported = (versionMajor > 12) ||
+                               (versionMajor == 12 && versionMinor >= 1) ||
+                               (versionMajor >= 11 && aacDnsPrePinning);
+            } else {
+                aacSupported = (minMacOSVersion > SEBMinMacOS12) ||
+                               (minMacOSVersion >= SEBMinMacOS11 && aacDnsPrePinning);
+            }
+            if (aacSupported) {
+                [self setSecureObject:@(lockdownModePolicyEnforceAAC) forKey:[self prefixKey:@"lockdownModePolicy"]];
+            }
+        }
+    }
+
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];

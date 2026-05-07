@@ -2047,8 +2047,37 @@ bool insideMatrix(void);
     
     /// Kiosk mode checks
     
+    // Update AAC availability before version check
+    [self updateAACAvailablility];
+
     // Check if running on minimal macOS version
     [self checkMinMacOSVersion];
+
+    // Check if AAC Assessment Mode is enforced but unsupported on this macOS version
+    if (enforceAACUnsupportedMacOS) {
+        BOOL aacDnsPrePinning = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"];
+        NSString *minRequiredVersion = aacDnsPrePinning ? @"macOS 11.2.5" : @"macOS 12.1";
+        NSString *alertMessage = [NSString stringWithFormat:@"%@%@%@.",
+                                  SEBShortAppName,
+                                  NSLocalizedString(@" settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least ", @""),
+                                  minRequiredVersion];
+        DDLogError(@"%s %@", __FUNCTION__, alertMessage);
+
+        NSAlert *modalAlert = [self newAlert];
+        [modalAlert setMessageText:NSLocalizedString(@"AAC Assessment Mode Not Supported!", @"")];
+        [modalAlert setInformativeText:alertMessage];
+        [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [modalAlert setAlertStyle:NSAlertStyleCritical];
+        void (^terminateSEBAlertOK)(NSModalResponse) = ^void (NSModalResponse answer) {
+            [self removeAlertWindow:modalAlert.window];
+            if (self.startingUp) {
+                [self requestedExit:nil];
+            } else {
+                [self quitSEBOrSession];
+            }
+        };
+        [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+    }
     
     // Check if launched SEB is placed ("installed") in an Applications folder
     [self installedInApplicationsFolder];
@@ -5981,26 +6010,51 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void) updateAACAvailablility
 {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+
+    if (policy == lockdownModePolicyEnforceClassic) {
+        _isAACEnabled = NO;
+        DDLogInfo(@"Using lockdownModePolicyEnforceClassic%@", _overrideAAC ? @" (overrideAAC)": @"");
+        return;
+    }
+
     NSUInteger currentOSMajorVersion = NSProcessInfo.processInfo.operatingSystemVersion.majorVersion;
     NSUInteger currentOSMinorVersion = NSProcessInfo.processInfo.operatingSystemVersion.minorVersion;
     NSUInteger currentOSPatchVersion = NSProcessInfo.processInfo.operatingSystemVersion.patchVersion;
 
-    BOOL aacDnsPrePinning = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"];
+    BOOL aacDnsPrePinning = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_aacDnsPrePinning"];
     // Determine on which macOS versions AAC is possible:
     BOOL aacPossible = ((currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion >= 4) && //>= Catalina 10.15.4
     !(currentOSMajorVersion == 10 && currentOSMinorVersion == 15 && currentOSPatchVersion == 5)) || //except 10.15.5 connectivity broken
     (aacDnsPrePinning && currentOSMajorVersion == 11) || //Big Sur 11 with DNS pre-pinning
-    (aacDnsPrePinning && currentOSMajorVersion == 12 && currentOSMinorVersion == 1) || //Monterey 12.1 with DNS pre-pinning
-    (currentOSMajorVersion == 12 && currentOSMinorVersion > 1) || //>12.1 without bugs (hopefully)
+    (aacDnsPrePinning && currentOSMajorVersion == 12 && currentOSMinorVersion == 0) || //Monterey 12.0 with DNS pre-pinning
+    (currentOSMajorVersion == 12 && currentOSMinorVersion >= 1) || //12.1+ without bugs
     currentOSMajorVersion > 12;
-    
-    if (aacPossible) {
-        DDLogDebug(@"Running on supported macOS version where AAC isn't buggy (or with DNS pre-pinning enabled), may use AAC if allowed in current settings.");
-        _isAACEnabled = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] && !_overrideAAC;
+
+    if (policy == lockdownModePolicyEnforceAAC) {
+        enforceAACUnsupportedMacOS = !aacPossible;
+        if (enforceAACUnsupportedMacOS) {
+            DDLogError(@"Using lockdownModePolicyEnforceAAC but running on unsupported macOS version for AAC.");
+        }
+        _isAACEnabled = aacPossible && !_overrideAAC;
+        DDLogInfo(@"Using lockdownModePolicyEnforceAAC%@", _overrideAAC ? @", but overrideAAC is set!": @"");
+
     } else {
-        _isAACEnabled = NO;
+        // lockdownModePolicyAutomatic
+        if (aacPossible && !_overrideAAC) {
+            // Don't use AAC when screen/window capture or screen sharing is enabled
+            BOOL screenCaptureEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCapture"];
+            BOOL windowCaptureEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowWindowCapture"];
+            BOOL screenSharingEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
+                ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
+            BOOL browserScreenCaptureEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
+            _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled;
+        } else {
+            _isAACEnabled = NO;
+        }
+        DDLogInfo(@"Using lockdownModePolicyAutomatic: AAC %@%@", _isAACEnabled ? @"enabled": @"disabled", _overrideAAC ? @" (overrideAAC)": @"");
     }
-    DDLogDebug(@"Updated _isAACEnabled to %d (_overrideAAC = %d)", _isAACEnabled, _overrideAAC);
 }
 
 

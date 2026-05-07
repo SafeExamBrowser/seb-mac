@@ -133,6 +133,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     DDFileLogger *_myLogger;
     BOOL _forceAppFolder;
     BOOL enforceMinMacOSVersion;
+    BOOL enforceAACUnsupportedMacOS;
     pid_t sebPID;
     BOOL allowScreenCapture;
     BOOL allowScreenSharing;
