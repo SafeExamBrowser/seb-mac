@@ -1,7 +1,4 @@
 /* No comment provided by engineer. */
-"" = "";
-
-/* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d Remaining)";
 
 /* No comment provided by engineer. */
@@ -291,9 +288,6 @@
 
 /* No comment provided by engineer. */
 "Checking server health" = "Checking server health";
-
-/* No comment provided by engineer. */
-"Choose" = "Choose";
 
 /* No comment provided by engineer. */
 "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." = "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.";
@@ -803,9 +797,6 @@
 "No Camera Available" = "No Camera Available";
 
 /* No comment provided by engineer. */
-"No Encryption Credentials Chosen" = "No Encryption Credentials Chosen";
-
-/* No comment provided by engineer. */
 "No Hostname Found" = "No Hostname Found";
 
 /* No comment provided by engineer. */
@@ -929,9 +920,6 @@
 "Received Config from MDM Server" = "Received Config from MDM Server";
 
 /* No comment provided by engineer. */
-"Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration." = "Recommended for higher security: Assessment systems using the Config Key or Browser Exam Key to verify the configuration.";
-
-/* No comment provided by engineer. */
 "regex" = "regex";
 
 /* No comment provided by engineer. */
@@ -1005,9 +993,6 @@
 
 /* No comment provided by engineer. */
 "Running on New iOS Version Not Allowed" = "Running on New iOS Version Not Allowed";
-
-/* No comment provided by engineer. */
-"Save unencrypted" = "Save unencrypted";
 
 /* No comment provided by engineer. */
 "Saved file '%@'" = "Saved file '%@'";
@@ -1191,9 +1176,6 @@
 
 /* No comment provided by engineer. */
 "System Default" = "System Default";
-
-/* No comment provided by engineer. */
-"The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," = "The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },";
 
 /* No comment provided by engineer. */
 "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.";

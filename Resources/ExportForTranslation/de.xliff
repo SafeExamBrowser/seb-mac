@@ -10826,8 +10826,8 @@ untitled filename</note>
         <target>Systemeinstellung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      }," xml:space="preserve">
-        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.                      },</source>
+      <trans-unit id="The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.}," xml:space="preserve">
+        <source>The configuration file will be saved unencrypted, but compressed using gzip. To save a plain text config file in the Plist or .seb format, use the option MDM Managed Configuration.},</source>
         <target>Die Konfigurationsdatei wird unverschlüsselt gespeichert, aber mit gzip komprimiert. Um eine Klartext-Konfigurationsdatei im Plist- oder .seb-Format zu speichern, verwenden Sie die Option 'Verwaltete MDM-Konfiguration'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>

@@ -1,9 +1,6 @@
 /* Class = "NSButtonCell"; title = "Force installation in /Applications folder"; ObjectID = "0Ey-3L-Lb6"; */
 "0Ey-3L-Lb6.title" = "SEB im Programmverzeichnis erzwingen";
 
-/* Class = "NSButtonCell"; title = "Prefer Assessment Mode (AAC)"; ObjectID = "0in-TF-gTG"; */
-"0in-TF-gTG.title" = "Assessment-Modus (AAC) bevorzugen";
-
 /* Class = "NSButtonCell"; title = "Ignore SEB Service"; ObjectID = "0Nd-GJ-9QM"; */
 "0Nd-GJ-9QM.title" = "SEB Service ignorieren";
 
@@ -21,6 +18,9 @@
 
 /* Class = "NSButtonCell"; title = "Use standard directory"; ObjectID = "4vb-oP-Qf1"; */
 "4vb-oP-Qf1.title" = "Standardverzeichnis benutzen";
+
+/* Class = "NSBox"; title = "Clipboard Policy (Win)"; ObjectID = "5qP-uG-mhQ"; */
+"5qP-uG-mhQ.title" = "Zwischenablage-Richtlinie (Win)";
 
 /* Class = "NSTextField"; ibExternalAccessibilityDescription = "Log file directory (Windows Versions 2.x):"; ObjectID = "6DQ-Jd-s1A"; */
 "6DQ-Jd-s1A.ibExternalAccessibilityDescription" = "Log-Dateiverzeichnis (Windows Versionen 2.x):";
@@ -91,13 +91,16 @@
 /* Class = "NSButtonCell"; title = "Create new desktop"; ObjectID = "AwA-eq-zFC"; */
 "AwA-eq-zFC.title" = "Neuen Desktop erstellen";
 
+/* Class = "NSButtonCell"; title = "Automatic (AAC when no screen/window capture/sharing enabled)"; ObjectID = "AXD-WO-YlC"; */
+"AXD-WO-YlC.title" = "Automatisch (AAC, wenn keine Bildschirm-/Fensteraufnahme/-freigabe aktiviert)";
+
 /* Class = "NSTextField"; ibShadowedToolTip = "Maximum allowed number of connected displays (including built-in)"; ObjectID = "BKE-3M-dWN"; */
 "BKE-3M-dWN.ibShadowedToolTip" = "Anzahl maximal erlaubte Bildschirme (inklusive eingebautes)";
 
 /* Class = "NSButtonCell"; title = "Lock screen after sleep mode"; ObjectID = "brP-Q3-eve"; */
 "brP-Q3-eve.title" = "Bildschirm nach Ruhezustand sperren";
 
-/* Class = "NSButtonCell"; title = "Enforce built-in display"; ObjectID = "BsP-9L-abh"; */
+/* Class = "NSButtonCell"; title = "Enforce built-in display (Mac/Win)"; ObjectID = "BsP-9L-abh"; */
 "BsP-9L-abh.title" = "Eingebautes Display erzwingen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off"; ObjectID = "btE-nf-WWC"; */
@@ -117,6 +120,12 @@
 
 /* Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt"; */
 "cfE-bh-Syt.title" = "Private Zwischenablage auf Mac erzwingen";
+
+/* Class = "NSMatrix"; ibExternalAccessibilityDescription = "Browser view mode"; ObjectID = "ci1-uS-Bra"; */
+"ci1-uS-Bra.ibExternalAccessibilityDescription" = "Lockdown-Modus";
+
+/* Class = "NSMatrix"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 / 10.15.6+), from macOS Big Sur 11 with restrictions. It blocks various macOS features (which cannot be allowed optionally, like screen/window capture/sharing/mirroring, Siri, Dictation, Screen Proctoring)"; ObjectID = "ci1-uS-Bra"; */
+"ci1-uS-Bra.ibShadowedToolTip" = "Automatic Assessment Configuration (AAC) Bewertungsmodus ist ab macOS Monterey 12.1 (und Catalina 10.15.4 / 10.15.6+) verfügbar, ab macOS Big Sur 11 mit Einschränkungen. Er blockiert verschiedene macOS-Funktionen (die nicht optional erlaubt werden können, wie Bildschirm-/Fensteraufnahme/-freigabe/-spiegelung, Siri, Diktat, Screen Proctoring)";
 
 /* Class = "NSButtonCell"; title = "Enforce blocking screen sharing on Mac"; ObjectID = "CP1-uX-itB"; */
 "CP1-uX-itB.title" = "Bildschirmfreigabe Blockieren erzwingen (Mac)";
@@ -150,6 +159,9 @@
 
 /* Class = "NSBox"; title = "While running SEB"; ObjectID = "dYr-I9-VL8"; */
 "dYr-I9-VL8.title" = "Während SEB läuft";
+
+/* Class = "NSButtonCell"; title = "Enable Session Verification (Win)"; ObjectID = "Ech-Nq-ea9"; */
+"Ech-Nq-ea9.title" = "Session-Verifizierung aktivieren (Win)";
 
 /* Class = "NSBox"; title = "Function Keys (Win)"; ObjectID = "Eqg-kF-Hjl"; */
 "Eqg-kF-Hjl.title" = "Funktionstasten";
@@ -187,10 +199,13 @@
 /* Class = "NSButton"; ibShadowedToolTip = "On macOS <12.1 DNS lookup doesn't work while in AAC. Pre-pinning resolves all domains from Start URL and URL filter rules before starting AAC to mitigate this bug. This allows to use AAC on macOS 11 - 12.0"; ObjectID = "GXF-y1-76z"; */
 "GXF-y1-76z.ibShadowedToolTip" = "Unter macOS <12.1 funktioniert die DNS-Auflösung in AAC nicht. Das Pre-Pinning löst alle Domains aus der Start-URL und den URL-Filterregeln vor dem Start von AAC auf, um diesen Fehler zu vermeiden. Dies ermöglicht die Verwendung von AAC unter macOS 11 - 12.0";
 
+/* Class = "NSBox"; title = "Lockdown/Kiosk mode"; ObjectID = "HKg-ux-TqM"; */
+"HKg-ux-TqM.title" = "Lockdown/Kiosk-Modus";
+
 /* Class = "NSButton"; ibShadowedToolTip = "On devices with iOS <= 12, sleep mode can be activated while in AAC by for example closing an iPad case. Use this option to display a lock screen when the device is woken up"; ObjectID = "HN5-u7-3UG"; */
 "HN5-u7-3UG.ibShadowedToolTip" = "Auf Geräten mit iOS <= 12 kann der Sperrbildschirm auch im AAC-Assessment-/Bewertungsmodus beispielsweise durch Schliessen einer iPad-Hülle angezeigt werden. Mit dieser Option blockiert SEB den Bildschirm (Beenden-Passwort zur Freigabe notwendig), nachdem das Gerät entsperrt wurde.";
 
-/* Class = "NSTextFieldCell"; title = "maximum allowed number of connected displays"; ObjectID = "hpd-SM-vcA"; */
+/* Class = "NSTextFieldCell"; title = "maximum allowed number of connected displays (Mac/Win)"; ObjectID = "hpd-SM-vcA"; */
 "hpd-SM-vcA.title" = "maximal erlaubte Bildschirme";
 
 /* Class = "NSButtonCell"; title = "Allow display mirroring (affects also AirPlay Display)"; ObjectID = "hwg-eH-cMm"; */
@@ -198,6 +213,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Options in the Windows Security Screen invoked by Ctrl-Alt-Del"; ObjectID = "i04-6r-xmo"; */
 "i04-6r-xmo.title" = "Optionen im durch Ctrl-Alt-Del geöffneten Windows-Sicherheitsfenster";
+
+/* Class = "NSButtonCell"; title = "Enforce classic kiosk mode (allows screen/window capture etc.)"; ObjectID = "I7C-T0-MDg"; */
+"I7C-T0-MDg.title" = "Klassischen Kiosk-Modus erzwingen (erlaubt Bildschirm-/Fensteraufnahme etc.)";
 
 /* Class = "NSButtonCell"; title = "Use modern AAC API"; ObjectID = "I61-hI-auP"; */
 "I61-hI-auP.title" = "Moderne AAC API benutzen";
@@ -219,6 +237,9 @@
 
 /* Class = "NSButtonCell"; title = "Guided Access Compatibility"; ObjectID = "JG9-Mn-nzE"; */
 "JG9-Mn-nzE.title" = "Kompatibilität zu 'Geführtem Zugriff'";
+
+/* Class = "NSButtonCell"; title = "Enforce AAC Assessment Mode (more secure)"; ObjectID = "jMN-5u-5wM"; */
+"jMN-5u-5wM.title" = "AAC-Bewertungsmodus erzwingen (sicherer)";
 
 /* Class = "NSButtonCell"; title = "Use AAC with DNS pre-pinning"; ObjectID = "jQ0-cO-PEU"; */
 "jQ0-cO-PEU.title" = "AAC mit DNS-Pre-Pinning verwenden";
@@ -247,9 +268,6 @@
 /* Class = "NSButton"; ibShadowedToolTip = "SEB can also be installed in the Applications folder of the current user (~/Applications)"; ObjectID = "KKV-0r-AMe"; */
 "KKV-0r-AMe.ibShadowedToolTip" = "SEB darf auch im Verzeichnis Programme des aktuellen Benutzers installiert sein (~/Programme)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 and >= 10.15.6). It blocks various macOS features (which cannot be allowed optionally, like screen capture/sharing, Siri, Dictation)"; ObjectID = "krs-I7-LT9"; */
-"krs-I7-LT9.ibShadowedToolTip" = "Der Automatic Assessment Configuration (AAC) Modus ist ab macOS Catalina 10.15.4 verfügbar. Er blockiert verschiedene macOS-Funktionen (diese können nicht optional erlaubt werden, beispielsweise Bildschirmaufzeichnung, Siri und Diktieren)";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Use legacy method to block macOS screen shots (invoked with cmd+shift+3/+4/+5). Disable together with enabling settings 'Allow screen capture/recording' and 'Allow window capture (screen shots)' will allow to take screen shots on Mac (use 'Enable Print Screen' in Hooked Keys tab to allow screen shots to be taken on Win)."; ObjectID = "LEn-zs-oJl"; */
 "LEn-zs-oJl.ibShadowedToolTip" = "Blockiert macOS Bildschirmfotos (cmd-shift-3/-4/-5) mittels einer älteren Methode (kompatibel mit einigen Remote Proctoring Tools). Für Bildschirmfotos diese Einstellung deaktivieren und 'Bildschirmaufnahme erlauben' und 'Fenster auf Bildschirmfotos darstellen' aktivieren. Für Windows die Option 'Print Screen erlauben' (Sicherheit / 'Hooked Keys' Einstellungen) verwenden.";
 
@@ -274,11 +292,17 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Uses either AAC (for BYOD) or requires device to be supervised and having SEB set as an allowed app to invoke Autonomous Single App Mode (ASAM, which takes priority over AAC)"; ObjectID = "mCE-kG-rgQ"; */
 "mCE-kG-rgQ.ibShadowedToolTip" = "Benutzt entweder AAC (für BYOD) oder benötigt ein betreutes Gerät, auf dem SEB als autorisierte App konfiguriert ist, um den autonomen Einzel-App-Modus (ASAM) ohne Rückfrage aktivieren zu können ";
 
+/* Class = "NSMatrix"; ibShadowedToolTip = "Allow or block system clipboard or use isolated clipboard only working within the browser application of SEB"; ObjectID = "mmq-Ud-5Ai"; */
+"mmq-Ud-5Ai.ibShadowedToolTip" = "Systemzwischenablage erlauben oder blockieren, oder isolierte Zwischenablage verwenden, die nur innerhalb der Browser-Anwendung von SEB funktioniert";
+
 /* Class = "NSPopUpButton"; ibExternalAccessibilityDescription = "Enforce minimum macOS version"; ObjectID = "MYN-Xy-8h5"; */
 "MYN-Xy-8h5.ibExternalAccessibilityDescription" = "Minimale macOS-Version erzwingen";
 
 /* Class = "NSPopUpButton"; ibShadowedToolTip = "SEB refuses to run on an older system version. This setting is used when the new setting \"Check full macOS version number\" is disabled"; ObjectID = "MYN-Xy-8h5"; */
 "MYN-Xy-8h5.ibShadowedToolTip" = "SEB verweigert den Betrieb auf einer älteren Betriebssystemversion";
+
+/* Class = "NSView"; ibExternalAccessibilityDescription = "Select kiosk mode for SEB on Windows"; ObjectID = "mzF-fP-Nff"; */
+"mzF-fP-Nff.ibExternalAccessibilityDescription" = "Kiosk-Modus für SEB auf Windows auswählen";
 
 /* Class = "NSButtonCell"; title = "Enable F3"; ObjectID = "n1l-UI-Mxa"; */
 "n1l-UI-Mxa.title" = "F3 erlauben";
@@ -289,7 +313,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Activate when using SEB inside a virtual machine, otherwise display detection will not work properly"; ObjectID = "ngP-Zu-OIN"; */
 "ngP-Zu-OIN.ibShadowedToolTip" = "Anwählen, wenn SEB in einer virtuellen Maschine benutzt wird, ansonsten funktioniert das Erkennen von Bildschirmen nicht";
 
-/* Class = "NSButtonCell"; title = "Ignore errors when validating displays"; ObjectID = "NRp-5r-KY5"; */
+/* Class = "NSButtonCell"; title = "Ignore errors when validating displays (Win)"; ObjectID = "NRp-5r-KY5"; */
 "NRp-5r-KY5.title" = "Fehler beim Validieren von Bildschirmen ignorieren";
 
 /* Class = "NSTextFieldCell"; title = "Save log file to:"; ObjectID = "nui-Ct-A6q"; */
@@ -349,6 +373,12 @@
 /* Class = "NSTextFieldCell"; title = "Minor version number"; ObjectID = "QDh-CB-5x6"; */
 "QDh-CB-5x6.title" = "Minor-Versionsnummer";
 
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Create new desktop"; ObjectID = "QHl-gL-uGm"; */
+"QHl-gL-uGm.ibExternalAccessibilityDescription" = "Neuen Desktop erstellen";
+
+/* Class = "NSButtonCell"; title = "Allow"; ObjectID = "QHl-gL-uGm"; */
+"QHl-gL-uGm.title" = "Erlauben";
+
 /* Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds"; */
 "qqs-ZA-6ds.ibShadowedToolTip" = "Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können";
 
@@ -391,6 +421,9 @@
 /* Class = "NSButtonCell"; title = "Enable F12"; ObjectID = "UcT-h8-nFW"; */
 "UcT-h8-nFW.title" = "F12 erlauben";
 
+/* Class = "NSButtonCell"; title = "Enable Cursor Verification (Win)"; ObjectID = "udA-1n-sqK"; */
+"udA-1n-sqK.title" = "Cursor-Verifizierung aktivieren (Win)";
+
 /* Class = "NSTabViewItem"; label = "System Lockdown"; ObjectID = "UDI-4x-V3M"; */
 "UDI-4x-V3M.label" = "System sperren";
 
@@ -423,6 +456,18 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Controls Print Screen"; ObjectID = "wUs-SE-6xn"; */
 "wUs-SE-6xn.ibShadowedToolTip" = "'Print Screen'-Taste erlauben, entspricht macOS 'Bildschirmfotos erlauben' (cmd-shift-3 und cmd-shift-4)";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "Disable Explorer Shell"; ObjectID = "XZa-nL-Xv3"; */
+"XZa-nL-Xv3.ibExternalAccessibilityDescription" = "Windows Explorer deaktivieren";
+
+/* Class = "NSButtonCell"; title = "Block"; ObjectID = "XZa-nL-Xv3"; */
+"XZa-nL-Xv3.title" = "Blockieren";
+
+/* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "None (for debugging only)"; ObjectID = "y1W-ge-5wy"; */
+"y1W-ge-5wy.ibExternalAccessibilityDescription" = "Keiner (nur für Debugging)";
+
+/* Class = "NSButtonCell"; title = "SEB Only"; ObjectID = "y1W-ge-5wy"; */
+"y1W-ge-5wy.title" = "Nur SEB";
 
 /* Class = "NSButtonCell"; title = "Set VMware configuration"; ObjectID = "Y3K-X1-40d"; */
 "Y3K-X1-40d.title" = "VMware-Konfiguration setzen";

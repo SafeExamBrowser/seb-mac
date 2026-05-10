@@ -23,6 +23,9 @@
 " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " = " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS ";
 
 /* No comment provided by engineer. */
+" settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least " = " settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least ";
+
+/* No comment provided by engineer. */
 ", but compressed using gzip." = ", but compressed using gzip.";
 
 /* No comment provided by engineer. */
@@ -162,6 +165,9 @@
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." = "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows.";
+
+/* No comment provided by engineer. */
+"AAC Assessment Mode Not Supported!" = "AAC Assessment Mode Not Supported!";
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Required" = "Accessibility Permissions Required";
@@ -834,9 +840,6 @@
 
 /* No comment provided by engineer. */
 "Open webpages" = "Open webpages";
-
-/* No comment provided by engineer. */
-"Open webpages menu" = "Open webpages menu";
 
 /* No comment provided by engineer. */
 "Opening" = "Opening";

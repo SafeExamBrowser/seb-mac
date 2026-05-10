@@ -23,6 +23,9 @@
 " settings don't allow to run on the macOS version installed on this device. Update to latest macOS version or at least macOS " = " Einstellungen erlauben die Benutzung auf der auf diesem Gerät installierten macOS-Version nicht. Aktualisieren Sie auf die neuste macOS-Version oder mindestens macOS";
 
 /* No comment provided by engineer. */
+" settings require AAC Assessment Mode, which is not supported on the macOS version installed on this device. Please update to at least " = " Einstellungen erfordern den AAC-Bewertungsmodus, der auf der auf diesem Gerät installierten macOS-Version nicht unterstützt wird. Bitte aktualisieren Sie mindestens auf ";
+
+/* No comment provided by engineer. */
 ", but compressed using gzip." = ", aber mit gzip komprimiert.";
 
 /* No comment provided by engineer. */
@@ -162,6 +165,9 @@
 
 /* No comment provided by engineer. */
 "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." = "Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
+
+/* No comment provided by engineer. */
+"AAC Assessment Mode Not Supported!" = "AAC-Bewertungsmodus nicht unterstützt!";
 
 /* No comment provided by engineer. */
 "Accessibility Permissions Required" = "Zugriffsrechte erforderlich für Bedienungshilfen";
@@ -834,9 +840,6 @@
 
 /* No comment provided by engineer. */
 "Open webpages" = "Offene Webseiten";
-
-/* No comment provided by engineer. */
-"Open webpages menu" = "Menü mit offenen Webseiten";
 
 /* No comment provided by engineer. */
 "Opening" = "Öffnen";

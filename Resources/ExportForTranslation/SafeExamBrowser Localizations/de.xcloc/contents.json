@@ -1,12 +1,12 @@
 {
   "developmentRegion" : "en",
-  "project" : "SafeExamBrowser.xcodeproj",
   "targetLocale" : "de",
   "toolInfo" : {
-    "toolBuildNumber" : "17B55",
+    "toolBuildNumber" : "17E202",
     "toolID" : "com.apple.dt.xcode",
     "toolName" : "Xcode",
-    "toolVersion" : "26.1"
+    "toolVersion" : "26.4.1"
   },
-  "version" : "1.0"
+  "version" : "1.0",
+  "workspace" : "SafeExamBrowser.xcworkspace"
 }

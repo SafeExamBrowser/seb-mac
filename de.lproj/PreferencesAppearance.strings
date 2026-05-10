@@ -25,8 +25,8 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Pages can be zoomed with cmd +/- or the commands in the view menu and browser window toolbar"; ObjectID = "5q3-9k-8so"; */
 "5q3-9k-8so.ibShadowedToolTip" = "Webseiten können mit Cmd +/- oder den Befehlen im Menü Darstellung und der Browserfenster-Werkzeugleiste vergrössert/verkleinert werden";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad"; ObjectID = "5vc-3w-9mP"; */
-"5vc-3w-9mP.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen";
+/* Class = "NSButton"; ibShadowedToolTip = "Allow looking up text elements on a web site using the 3-finger tap (or force touch) on a trackpad. Doesn't work with AAC"; ObjectID = "5vc-3w-9mP"; */
+"5vc-3w-9mP.ibShadowedToolTip" = "Mit drei Fingern auf dem Trackpad tippen oder den kräftigen Klick zum Nachschlagen von Begriffen zulassen. Funktioniert nicht mit dem AAC-Bewertungsmodus";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu."; ObjectID = "8gT-1Z-xTw"; */
 "8gT-1Z-xTw.ibShadowedToolTip" = "Navigations-Knöpfe (Zurück/Vorwärts) im SEB für iOS Dock anzeigen. Ansonsten werden diese Kontrollelemente in der Browser-Symbolleiste (falls aktiviert) oder im Seitenmenü angezeigt";
@@ -100,7 +100,7 @@
 /* Class = "NSBox"; title = "Browser view mode"; ObjectID = "J5d-BA-D2w"; */
 "J5d-BA-D2w.title" = "Browser-Darstellungsmodus";
 
-/* Class = "NSBox"; title = "SEB dock/taskbar"; ObjectID = "JtS-CO-tOW"; */
+/* Class = "NSBox"; title = "Dock/Taskbar / Side Menu"; ObjectID = "JtS-CO-tOW"; */
 "JtS-CO-tOW.title" = "SEB Dock/Taskleiste";
 
 /* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "kbg-Kp-tbc"; */
