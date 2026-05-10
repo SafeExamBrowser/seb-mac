@@ -6049,7 +6049,8 @@ conditionallyForWindow:(NSWindow *)window
             BOOL screenSharingEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenSharing"] &&
                 ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
             BOOL browserScreenCaptureEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
-            _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled;
+            BOOL enableScreenProctoring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+            _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled && !enableScreenProctoring;
         } else {
             _isAACEnabled = NO;
         }
