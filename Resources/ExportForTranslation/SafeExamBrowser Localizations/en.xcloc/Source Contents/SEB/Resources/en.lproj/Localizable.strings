@@ -1,0 +1,1407 @@
+/* No comment provided by engineer. */
+" (%d:%d Remaining)" = " (%1$d:%2$d Remaining)";
+
+/* No comment provided by engineer. */
+" (Connected to Power Source)" = " (Connected to Power Source)";
+
+/* No comment provided by engineer. */
+" %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." = " %1$@ itself doesn't connect to any centralized %2$@ screen proctoring server, your exam provider decides which proctoring service/server to use.";
+
+/* No comment provided by engineer. */
+" 1" = " 1";
+
+/* No comment provided by engineer. */
+" and " = " and ";
+
+/* word indicating the duplicate of a file, same as in Finder ' copy' */
+" copy" = " copy";
+
+/* No comment provided by engineer. */
+" settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS " = " settings don't allow to run on the iOS version installed on this device. Update to latest iOS version or use another device with at least iOS ";
+
+/* No comment provided by engineer. */
+"%@ %@ Configurations Not Allowed!" = "%1$@ %2$@ Configurations Not Allowed!";
+
+/* No comment provided by engineer. */
+"%@ Config File %@" = "%1$@ Config File %2$@";
+
+/* No comment provided by engineer. */
+"%@ Config File %@%@" = "%1$@ Config File %2$@%3$@";
+
+/* No comment provided by engineer. */
+"%@ files is not allowed in current %@ settings. Report this to your exam provider." = "%1$@ files is not allowed in current %2$@ settings. Report this to your exam provider.";
+
+/* No comment provided by engineer. */
+"%@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %@ quit button before starting another exam." = "%1$@ is already running in exam mode and it is not allowed to interrupt this by starting another exam. Finish the exam session or use the %2$@ quit button before starting another exam.";
+
+/* No comment provided by engineer. */
+"%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path." = "%@ is configured to only allow uploading a file which was downloaded before. So download a file and if you edit it in a third party application, be sure to save it with the same name at the same path.";
+
+/* No comment provided by engineer. */
+"%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." = "%@ is locked because Single App Mode was switched off during the exam or the device was restarted. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows.";
+
+/* No comment provided by engineer. */
+"%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows." = "%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.";
+
+/* Default title of lock screen alert. */
+"%@ Is Locked!" = "%@ Is Locked!";
+
+/* No comment provided by engineer. */
+"%@ needs to be used differently depending on your role." = "%@ needs to be used differently depending on your role.";
+
+/* No comment provided by engineer. */
+"%@ Not Allowed!" = "%@ Not Allowed!";
+
+/* No comment provided by engineer. */
+"%@ of %@ configurations is not allowed in current settings. Report this to your exam provider." = "%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.";
+
+/* No comment provided by engineer. */
+"%@ Re-Configured" = "%@ Re-Configured";
+
+/* App full/build version */
+"%@ version %@ (Build %@)" = "%1$@ version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)";
+
+/* No comment provided by engineer. */
+"%@ was locked by SEB Server. Please contact your exam support." = "%@ was locked by SEB Server. Please contact your exam support.";
+
+/* No comment provided by engineer. */
+"%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.";
+
+/* No comment provided by engineer. */
+"10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.8 (this %@: 10.13)" = "10.8 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.9 (this %@: 10.13)" = "10.9 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.10 (this %@: 10.13)" = "10.10 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.11 (this %@: 10.13)" = "10.11 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.12 (this %@: 10.13)" = "10.12 (this %@: 10.13)";
+
+/* No comment provided by engineer. */
+"10.13 High Sierra" = "10.13 High Sierra";
+
+/* No comment provided by engineer. */
+"10.14 Mojave" = "10.14 Mojave";
+
+/* No comment provided by engineer. */
+"10.15 Catalina" = "10.15 Catalina";
+
+/* No comment provided by engineer. */
+"11 Big Sur" = "11 Big Sur";
+
+/* No comment provided by engineer. */
+"12 Monterey" = "12 Monterey";
+
+/* No comment provided by engineer. */
+"13 Ventura" = "13 Ventura";
+
+/* No comment provided by engineer. */
+"14 Sonoma" = "14 Sonoma";
+
+/* No comment provided by engineer. */
+"15 Sequoia" = "15 Sequoia";
+
+/* No comment provided by engineer. */
+"26 Tahoe" = "26 Tahoe";
+
+/* No comment provided by engineer. */
+"About %@" = "About %@";
+
+/* No comment provided by engineer. */
+"Actions for opening, creating or resetting settings" = "Actions for opening, creating or resetting settings";
+
+/* No comment provided by engineer. */
+"Activate Scroll Lock" = "Activate Scroll Lock";
+
+/* No comment provided by engineer. */
+"Admin Password" = "Admin Password";
+
+/* No comment provided by engineer. */
+"Administrator" = "Administrator";
+
+/* No comment provided by engineer. */
+"All cached screenshots transmitted" = "All cached screenshots transmitted";
+
+/* No comment provided by engineer. */
+"allow" = "allow";
+
+/* No comment provided by engineer. */
+"allow to use %@ only with service" = "allow to use %@ only with service";
+
+/* No comment provided by engineer. */
+"allow to use %@ without service" = "allow to use %@ without service";
+
+/* No comment provided by engineer. */
+"Always" = "Always";
+
+/* No comment provided by engineer. */
+"An identity needs a unique name." = "An identity needs a unique name.";
+
+/* No comment provided by engineer. */
+"An identity with the same name is already stored in the Keychain. Please use a unique name." = "An identity with the same name is already stored in the Keychain. Please use a unique name.";
+
+/* No comment provided by engineer. */
+"Apply" = "Apply";
+
+/* No comment provided by engineer. */
+"Apply Settings" = "Apply Settings";
+
+/* No comment provided by engineer. */
+"Are you sure you want to quit this session?" = "Are you sure you want to quit this session?";
+
+/* No comment provided by engineer. */
+"Are you sure you want to restart this session?" = "Are you sure you want to restart this session?";
+
+/* No comment provided by engineer. */
+"Are you sure?" = "Are you sure?";
+
+/* No comment provided by engineer. */
+"Ask the vendor of your assessment solution about how to use it with %@.%@General instructions on how to configure %@ can be found on %@." = "Ask the vendor of your assessment solution about how to use it with %1$@.%2$@General instructions on how to configure %3$@ can be found on %4$@.";
+
+/* No comment provided by engineer. */
+"Assessment Mode was interrupted with error: " = "Assessment Mode was interrupted with error: ";
+
+/* No comment provided by engineer. */
+"Authentication Required" = "Authentication Required";
+
+/* No comment provided by engineer. */
+"Auto Proxy Discovery" = "Auto Proxy Discovery";
+
+/* No comment provided by engineer. */
+"Automatic" = "Automatic";
+
+/* No comment provided by engineer. */
+"Automatic Proxy Configuration" = "Automatic Proxy Configuration";
+
+/* No comment provided by engineer. */
+"Back to Start" = "Back to Start";
+
+/* No comment provided by engineer. */
+"Battery Level %.f%%%@" = "Battery Level %.f%%%@";
+
+/* No comment provided by engineer. */
+"Before receiving title" = "Before receiving title";
+
+/* No comment provided by engineer. */
+"Black on White" = "Black on White";
+
+/* No comment provided by engineer. */
+"block" = "block";
+
+/* No comment provided by engineer. */
+"Browser Exam and/or Config Keys for %@ %@ Config File %@%@" = "Browser Exam and/or Config Keys for %1$@ %2$@ Config File %3$@%4$@";
+
+/* Browser Exam Key */
+"Browser Exam Key" = "Browser Exam Key";
+
+/* No comment provided by engineer. */
+"Bundle ID: %@, executable: %@" = "Bundle ID: %1$@, executable: %2$@";
+
+/* No comment provided by engineer. */
+"by attempting to upload same file downloaded before" = "by attempting to upload same file downloaded before";
+
+/* No comment provided by engineer. */
+"by only allowing to upload the same file downloaded before" = "by only allowing to upload the same file downloaded before";
+
+/* No comment provided by engineer. */
+"CA" = "CA";
+
+/* No comment provided by engineer. */
+"CA Certificate" = "CA Certificate";
+
+/* No comment provided by engineer. */
+"camera" = "camera";
+
+/* No comment provided by engineer. */
+"Camera Access Denied" = "Camera Access Denied";
+
+/* No comment provided by engineer. */
+"Can't Send Log File" = "Can't Send Log File";
+
+/* Cancel */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Cannot access server because of error: " = "Cannot access server because of error: ";
+
+/* No comment provided by engineer. */
+"Cannot Configure Client" = "Cannot Configure Client";
+
+/* No comment provided by engineer. */
+"Cannot Decrypt Settings" = "Cannot Decrypt Settings";
+
+/* No comment provided by engineer. */
+"Cannot Edit %@ Settings" = "Cannot Edit %@ Settings";
+
+/* No comment provided by engineer. */
+"Cannot Establish Server Connection" = "Cannot Establish Server Connection";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam Config" = "Cannot Get Exam Config";
+
+/* No comment provided by engineer. */
+"Cannot Get Exam List" = "Cannot Get Exam List";
+
+/* No comment provided by engineer. */
+"Cannot Get Server API" = "Cannot Get Server API";
+
+/* No comment provided by engineer. */
+"Cannot Open Exam" = "Cannot Open Exam";
+
+/* No comment provided by engineer. */
+"Cannot Open Settings" = "Cannot Open Settings";
+
+/* No comment provided by engineer. */
+"Cannot Quit Session" = "Cannot Quit Session";
+
+/* No comment provided by engineer. */
+"Cannot Reconfigure Client" = "Cannot Reconfigure Client";
+
+/* No comment provided by engineer. */
+"Cannot Reset %@ Settings" = "Cannot Reset %@ Settings";
+
+/* No comment provided by engineer. */
+"Cannot Send %@ Logs" = "Cannot Send %@ Logs";
+
+/* No comment provided by engineer. */
+"Cannot Start Exam" = "Cannot Start Exam";
+
+/* No comment provided by engineer. */
+"Capturing Screen Not Allowed" = "Capturing Screen Not Allowed";
+
+/* No comment provided by engineer. */
+"Center" = "Center";
+
+/* No comment provided by engineer. */
+"Check your server connection configuration." = "Check your server connection configuration.";
+
+/* No comment provided by engineer. */
+"Checking server health" = "Checking server health";
+
+/* No comment provided by engineer. */
+"Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider." = "Classic WebView (UIWebView) is no longer supported on iOS/iPadOS! The used %@ assessment solution integration/settings might no longer work and need to be updated to support the modern WebView. Contact the vendor of your assessment solution or your exam provider.";
+
+/* No comment provided by engineer. */
+"Close Warning" = "Close Warning";
+
+/* No comment provided by engineer. */
+"Closing lockdown windows" = "Closing lockdown windows";
+
+/* No comment provided by engineer. */
+"Closing QR Code scanner" = "Closing QR Code scanner";
+
+/* No comment provided by engineer. */
+"Closing Session" = "Closing Session";
+
+/* No comment provided by engineer. */
+"Code contributions © 2015 - 2016 Janison" = "Code contributions © 2015 - 2016 Janison";
+
+/* Separator in slider menu */
+"Commands" = "Commands";
+
+/* Config Key */
+"Config Key" = "Config Key";
+
+/* No comment provided by engineer. */
+"Config QR Code" = "Config QR Code";
+
+/* No comment provided by engineer. */
+"Config Too Large for QR Code" = "Config Too Large for QR Code";
+
+/* No comment provided by engineer. */
+"Config URL" = "Config URL";
+
+/* No comment provided by engineer. */
+"Configuring Client" = "Configuring Client";
+
+/* No comment provided by engineer. */
+"Confirm Removing Identity" = "Confirm Removing Identity";
+
+/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+"Connecting…" = "Connecting…";
+
+/* No comment provided by engineer. */
+"Connection to SEB Server Failed" = "Connection to SEB Server Failed";
+
+/* No comment provided by engineer. */
+"Connection to SEB Server Failed: Fallback Option" = "Connection to SEB Server Failed: Fallback Option";
+
+/* No comment provided by engineer. */
+"Contact your exam administrator" = "Contact your exam administrator";
+
+/* No comment provided by engineer. */
+"Contact your server administrator" = "Contact your server administrator";
+
+/* No comment provided by engineer. */
+"Contact your server/exam administrator (Server error: " = "Contact your server/exam administrator (Server error: ";
+
+/* No comment provided by engineer. */
+"Continue" = "Continue";
+
+/* No comment provided by engineer. */
+"Correct password entered" = "Correct password entered";
+
+/* No comment provided by engineer. */
+"Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Could not determine a correct hostname. You can enter the domain URL of your institution manually.";
+
+/* No comment provided by engineer. */
+"Could not Export Identity" = "Could not Export Identity";
+
+/* No comment provided by engineer. */
+"Could not save downloaded data, probably a wrong download directory was used in %@ settings." = "Could not save downloaded data, probably a wrong download directory was used in %@ settings.";
+
+/* No comment provided by engineer. */
+"Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution." = "Couldn't access the identity certificate needed to decrypt these settings. %@ might not have been configured correctly for your institution.";
+
+/* No comment provided by engineer. */
+"Create Default Exam Settings" = "Create Default Exam Settings";
+
+/* No comment provided by engineer. */
+"Create Exam Settings" = "Create Exam Settings";
+
+/* No comment provided by engineer. */
+"Create New Identity" = "Create New Identity";
+
+/* No comment provided by engineer. */
+"Create New…" = "Create New…";
+
+/* No comment provided by engineer. */
+"Current settings require %@remote proctoring, which this %@ version doesn't support. Use the correct %@ version required by your exam organizer." = "Current settings require %1$@remote proctoring, which this %2$@ version doesn't support. Use the correct %3$@ version required by your exam organizer.";
+
+/* No comment provided by engineer. */
+"Current Settings require Single App Mode to be active to proceed." = "Current Settings require Single App Mode to be active to proceed.";
+
+/* No comment provided by engineer. */
+"Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started." = "Current settings require that Guided Access or an MDM/Apple Configurator invoked Single App Mode is first switched off before the exam can be started.";
+
+/* No comment provided by engineer. */
+"Currently it isn't allowed to run %@ on the iOS version installed on this device." = "Currently it isn't allowed to run %@ on the iOS version installed on this device.";
+
+/* No comment provided by engineer. */
+"Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements." = "Deactivates scrolling and text selection on the web page, facilitates using drag-and-drop web elements.";
+
+/* No comment provided by engineer. */
+"Debug" = "Debug";
+
+/* No comment provided by engineer. */
+"DEBUG" = "DEBUG";
+
+/* No comment provided by engineer. */
+"Debug Certificate" = "Debug Certificate";
+
+/* No comment provided by engineer. */
+"decoding error: " = "decoding error: ";
+
+/* No comment provided by engineer. */
+"Decrypting exam settings was canceled" = "Decrypting exam settings was canceled";
+
+/* No comment provided by engineer. */
+"Decrypting settings was canceled" = "Decrypting settings was canceled";
+
+/* No comment provided by engineer. */
+"Default Size" = "Default Size";
+
+/* No comment provided by engineer. */
+"Device name: %@" = "Device name: %@";
+
+/* Lockdown alert title text for device was in sleep mode */
+"Device Was in Sleep Mode!" = "Device Was in Sleep Mode!";
+
+/* No comment provided by engineer. */
+"Disable" = "Disable";
+
+/* No comment provided by engineer. */
+"Disable Scroll Lock" = "Disable Scroll Lock";
+
+/* No comment provided by engineer. */
+"Discard" = "Discard";
+
+/* No comment provided by engineer. */
+"Discard Settings" = "Discard Settings";
+
+/* No comment provided by engineer. */
+"Discard settings currently being edited and restart with client settings" = "Discard settings currently being edited and restart with client settings";
+
+/* No comment provided by engineer. */
+"Disconnecting from SEB Server" = "Disconnecting from SEB Server";
+
+/* No comment provided by engineer. */
+"Display Config QR Code" = "Display Config QR Code";
+
+/* No comment provided by engineer. */
+"Displays a camera view to scan %@ configuration QR codes" = "Displays a camera view to scan %@ configuration QR codes";
+
+/* No comment provided by engineer. */
+"Displays a camera view to scan for %@ configuration QR codes" = "Displays a camera view to scan for %@ configuration QR codes";
+
+/* No comment provided by engineer. */
+"Do you really want to reload the web page?" = "Do you really want to reload the web page?";
+
+/* No comment provided by engineer. */
+"Do you want to abort opening Settings and apply this managed configuration?" = "Do you want to abort opening Settings and apply this managed configuration?";
+
+/* No comment provided by engineer. */
+"Do you want to close Settings and apply this managed configuration?" = "Do you want to close Settings and apply this managed configuration?";
+
+/* No comment provided by engineer. */
+"Do you want to create a new configuration with default %@ settings?" = "Do you want to create a new configuration with default %@ settings?";
+
+/* No comment provided by engineer. */
+"Done" = "Done";
+
+/* No comment provided by engineer. */
+"Download Failed" = "Download Failed";
+
+/* No comment provided by engineer. */
+"Download Finished" = "Download Finished";
+
+/* No comment provided by engineer. */
+"Downloading" = "Downloading";
+
+/* No comment provided by engineer. */
+"Downloading and Opening" = "Downloading and Opening";
+
+/* No comment provided by engineer. */
+"Edit %@ configuration files" = "Edit %@ configuration files";
+
+/* No comment provided by engineer. */
+"Edit Config File" = "Edit Config File";
+
+/* No comment provided by engineer. */
+"Edit New Configuration" = "Edit New Configuration";
+
+/* No comment provided by engineer. */
+"Edit Settings" = "Edit Settings";
+
+/* No comment provided by engineer. */
+"Embed" = "Embed";
+
+/* No comment provided by engineer. */
+"Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." = "Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).";
+
+/* No comment provided by engineer. */
+"Embedded Certificate" = "Embedded Certificate";
+
+/* No comment provided by engineer. */
+"Enable" = "Enable";
+
+/* No comment provided by engineer. */
+"Enable Scroll Lock" = "Enable Scroll Lock";
+
+/* No comment provided by engineer. */
+"encrypted with identity certificate " = "encrypted with identity certificate ";
+
+/* No comment provided by engineer. */
+"Ends an exam session and returns to client settings" = "Ends an exam session and returns to client settings";
+
+/* No comment provided by engineer. */
+"Enter Exam Password:" = "Enter Exam Password:";
+
+/* No comment provided by engineer. */
+"Enter Identity Admin Password" = "Enter Identity Admin Password";
+
+/* No comment provided by engineer. */
+"Enter password used to encrypt these settings:" = "Enter password used to encrypt these settings:";
+
+/* No comment provided by engineer. */
+"Enter quit password:" = "Enter quit password:";
+
+/* Prompting user to enter message for SEB Server Raise Hand feature */
+"Enter Raise Hand message:" = "Enter Raise Hand message:";
+
+/* No comment provided by engineer. */
+"Enter SEB Server fallback password:" = "Enter SEB Server fallback password:";
+
+/* No comment provided by engineer. */
+"Enter the %@ administrator password used in these settings:" = "Enter the %@ administrator password used in these settings:";
+
+/* No comment provided by engineer. */
+"Enter the URL of an institution which supports %@" = "Enter the URL of an institution which supports %@";
+
+/* No comment provided by engineer. */
+"Entering the current %@ administrator password was canceled" = "Entering the current %@ administrator password was canceled";
+
+/* No comment provided by engineer. */
+"Error" = "Error";
+
+/* No comment provided by engineer. */
+"Error Decrypting Settings" = "Error Decrypting Settings";
+
+/* No comment provided by engineer. */
+"Exam List is Empty" = "Exam List is Empty";
+
+/* No comment provided by engineer. */
+"Exam Page" = "Exam Page";
+
+/* No comment provided by engineer. */
+"Exam Session Finished" = "Exam Session Finished";
+
+/* No comment provided by engineer. */
+"Failed" = "Failed";
+
+/* No comment provided by engineer. */
+"Failed to Save Downloaded File" = "Failed to Save Downloaded File";
+
+/* No comment provided by engineer. */
+"Failed to Start Single App Mode" = "Failed to Start Single App Mode";
+
+/* No comment provided by engineer. */
+"Failed, retrying..." = "Failed, retrying...";
+
+/* No comment provided by engineer. */
+"Fallback" = "Fallback";
+
+/* No comment provided by engineer. */
+"Fetching identities" = "Fetching identities";
+
+/* No comment provided by engineer. */
+"File" = "File";
+
+/* No comment provided by engineer. */
+"File Automatically Chosen" = "File Automatically Chosen";
+
+/* No comment provided by engineer. */
+"File to Upload Not Found!" = "File to Upload Not Found!";
+
+/* No comment provided by engineer. */
+"Finalizing Screen Proctoring" = "Finalizing Screen Proctoring";
+
+/* No comment provided by engineer. */
+"Follow your educator's instructions about how to start an exam in %@.%@Trying to edit %@ settings yourself may block access to exams." = "Follow your educator's instructions about how to start an exam in %1$@.%2$@Trying to edit %3$@ settings yourself may block access to exams.";
+
+/* No comment provided by engineer. */
+"for configuring clients" = "for configuring clients";
+
+/* No comment provided by engineer. */
+"for Managed Configuration (MDM)" = "for Managed Configuration (MDM)";
+
+/* No comment provided by engineer. */
+"For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version." = "For security reasons %@ cannot run on an iOS 11 version prior to iOS 11.2.5. Update to the current iOS version.";
+
+/* No comment provided by engineer. */
+"for starting an exam" = "for starting an exam";
+
+/* No comment provided by engineer. */
+"For this session, %@%@ access for %@ is required. On this device, %@%@ access is restricted. Ask your IT support to provide you a device without these restrictions." = "For this session, %1$@%2$@ access for %3$@ is required. On this device, %4$@%5$@ access is restricted. Ask your IT support to provide you a device without these restrictions.";
+
+/* No comment provided by engineer. */
+"For this session, %@%@ access for %@ is required. You need to authorize %@%@ access %@before you can %@start the session." = "For this session, %1$@%2$@ access for %3$@ is required. You need to authorize %4$@%5$@ access %6$@before you can %7$@start the session.";
+
+/* No comment provided by engineer. */
+"Force Classic" = "Force Classic";
+
+/* No comment provided by engineer. */
+"Force Close" = "Force Close";
+
+/* No comment provided by engineer. */
+"Force Modern" = "Force Modern";
+
+/* No comment provided by engineer. */
+"Force Modern in New Tab+Different Host" = "Force Modern in New Tab+Different Host";
+
+/* No comment provided by engineer. */
+"FTP Proxy" = "FTP Proxy";
+
+/* No comment provided by engineer. */
+"Full user name: %@" = "Full user name: %@";
+
+/* No comment provided by engineer. */
+"get generally blocked" = "get generally blocked";
+
+/* No comment provided by engineer. */
+"Getting Exam Config..." = "Getting Exam Config...";
+
+/* No comment provided by engineer. */
+"GitHub Issue/Discussion Required for Log Submission" = "GitHub Issue/Discussion Required for Log Submission";
+
+/* No comment provided by engineer. */
+"Go Back" = "Go Back";
+
+/* No comment provided by engineer. */
+"Go Forward" = "Go Forward";
+
+/* No comment provided by engineer. */
+"Good server health, waiting until %@ to resume sending cached screen shots" = "Good server health, waiting until %@ to resume sending cached screen shots";
+
+/* No comment provided by engineer. */
+"Hand is not raised" = "Hand is not raised";
+
+/* No comment provided by engineer. */
+"Hand is raised" = "Hand is raised";
+
+/* No comment provided by engineer. */
+"Hiding" = "Hiding";
+
+/* No comment provided by engineer. */
+"Identity" = "Identity";
+
+/* No comment provided by engineer. */
+"IDENTITY" = "IDENTITY";
+
+/* No comment provided by engineer. */
+"Identity in Keychain" = "Identity in Keychain";
+
+/* No comment provided by engineer. */
+"Identity Name" = "Identity Name";
+
+/* No comment provided by engineer. */
+"Identity Name Not Unique" = "Identity Name Not Unique";
+
+/* No comment provided by engineer. */
+"If SEB Server doesn't respond for a while, you can forcibly close the connection" = "If SEB Server doesn't respond for a while, you can forcibly close the connection";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct quit password, then you cannot quit the session." = "If you don't enter the correct quit password, then you cannot quit the session.";
+
+/* No comment provided by engineer. */
+"If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback." = "If you don't enter the correct SEB Server fallback password, then you cannot invoke fallback.";
+
+/* No comment provided by engineer. */
+"If you don't enter the right administrator password used in these settings you cannot open them." = "If you don't enter the right administrator password used in these settings you cannot open them.";
+
+/* No comment provided by engineer. */
+"If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore." = "If you remove the identity '%@' from the Keychain and you don't have a copy (embedded in a config file or installed on another device), then you cannot decrypt exam config files encrypted with this identity anymore.";
+
+/* No comment provided by engineer. */
+"If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator." = "If your institution does not support Automatic %@ Client Configuration, follow instructions of your exam administrator.";
+
+/* No comment provided by engineer. */
+"in Settings " = "in Settings ";
+
+/* No comment provided by engineer. */
+"inactive" = "inactive";
+
+/* No comment provided by engineer. */
+"Info" = "Info";
+
+/* No comment provided by engineer. */
+"Instructions for Administrators" = "Instructions for Administrators";
+
+/* No comment provided by engineer. */
+"Instructions for Students" = "Instructions for Students";
+
+/* No comment provided by engineer. */
+"iOS" = "iOS";
+
+/* No comment provided by engineer. */
+"iOS >18" = "iOS >18";
+
+/* No comment provided by engineer. */
+"iOS User agent" = "iOS User agent";
+
+/* No comment provided by engineer. */
+"iPadOS" = "iPadOS";
+
+/* No comment provided by engineer. */
+"Left" = "Left";
+
+/* No comment provided by engineer. */
+"Load Error" = "Load Error";
+
+/* No comment provided by engineer. */
+"Loaded data doesn't contain valid %@ settings." = "Loaded data doesn't contain valid %@ settings.";
+
+/* No comment provided by engineer. */
+"Loading New %@ Settings Not Allowed!" = "Loading New %@ Settings Not Allowed!";
+
+/* No comment provided by engineer. */
+"Loading settings" = "Loading settings";
+
+/* No comment provided by engineer. */
+"Loading Settings" = "Loading Settings";
+
+/* No comment provided by engineer. */
+"Local hostname: %@" = "Local hostname: %@";
+
+/* No comment provided by engineer. */
+"Local Network Access" = "Local Network Access";
+
+/* No comment provided by engineer. */
+"Local network access is needed when using Automatic Client Configuration to search the local network for a %@ client configuration. You can allow access to the local network for %@ in Settings." = "Local network access is needed when using Automatic Client Configuration to search the local network for a %1$@ client configuration. You can allow access to the local network for %2$@ in Settings.";
+
+/* No comment provided by engineer. */
+"Log File %@ iOS" = "Log File %@ iOS";
+
+/* No comment provided by engineer. */
+"Log In" = "Log In";
+
+/* No comment provided by engineer. */
+"Log in to" = "Log in to";
+
+/* No comment provided by engineer. */
+"Lower Hand" = "Lower Hand";
+
+/* No comment provided by engineer. */
+"macOS" = "macOS";
+
+/* No comment provided by engineer. */
+"manually with file requester" = "manually with file requester";
+
+/* No comment provided by engineer. */
+"microphone" = "microphone";
+
+/* No comment provided by engineer. */
+"Missing Connection Settings" = "Missing Connection Settings";
+
+/* No comment provided by engineer. */
+"Moodle" = "Moodle";
+
+/* No comment provided by engineer. */
+"More information at https://safeexambrowser.org" = "More information at https://safeexambrowser.org";
+
+/* No comment provided by engineer. */
+"Name" = "Name";
+
+/* No comment provided by engineer. */
+"Navigate Back" = "Navigate Back";
+
+/* No comment provided by engineer. */
+"Navigate Forward" = "Navigate Forward";
+
+/* No comment provided by engineer. */
+"Navigates back to the start URL or to another preset URL. Doesn't log users out" = "Navigates back to the start URL or to another preset URL. Doesn't log users out";
+
+/* No comment provided by engineer. */
+"Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help." = "Neither Automatic Assessment Configuration nor (Autonomous) Single App Mode are available on this device or activated in settings. Ask your exam support for an eligible exam environment. Sometimes also restarting the device might help.";
+
+/* No comment provided by engineer. */
+"Never" = "Never";
+
+/* No comment provided by engineer. */
+"New settings have been saved, they will also be used when you start %@ next time again." = "New settings have been saved, they will also be used when you start %@ next time again.";
+
+/* No comment provided by engineer. */
+"No %@ Configuration Found" = "No %@ Configuration Found";
+
+/* No comment provided by engineer. */
+"No %@ configuration found!" = "No %@ configuration found!";
+
+/* No comment provided by engineer. */
+"No %@ settings have been found at the specified URL. Use a correct link to configure %@ or start an exam." = "No %1$@ settings have been found at the specified URL. Use a correct link to configure %2$@ or start an exam.";
+
+/* No comment provided by engineer. */
+"No Assessment Mode Available" = "No Assessment Mode Available";
+
+/* No comment provided by engineer. */
+"No Camera Available" = "No Camera Available";
+
+/* No comment provided by engineer. */
+"No Hostname Found" = "No Hostname Found";
+
+/* No comment provided by engineer. */
+"No Identity Name Provided" = "No Identity Name Provided";
+
+/* No comment provided by engineer. */
+"No SEB Server Fallback Password entered" = "No SEB Server Fallback Password entered";
+
+/* No comment provided by engineer. */
+"No valid %@ config found." = "No valid %@ config found.";
+
+/* No comment provided by engineer. */
+"None" = "None";
+
+/* No comment provided by engineer. */
+"None - Black" = "None - Black";
+
+/* No comment provided by engineer. */
+"None - White" = "None - White";
+
+/* No comment provided by engineer. */
+"Not Connected to Wi-Fi or VPN" = "Not Connected to Wi-Fi or VPN";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Only on load error" = "Only on load error";
+
+/* No comment provided by engineer. */
+"Open %@ exam or configuration link from Safari, Mail or a messenger app." = "Open %@ exam or configuration link from Safari, Mail or a messenger app.";
+
+/* No comment provided by engineer. */
+"Open Config File" = "Open Config File";
+
+/* No comment provided by engineer. */
+"Open edX" = "Open edX";
+
+/* No comment provided by engineer. */
+"open in new window" = "open in new window";
+
+/* No comment provided by engineer. */
+"open in same window" = "open in same window";
+
+/* No comment provided by engineer. */
+"Opening" = "Opening";
+
+/* No comment provided by engineer. */
+"Opening Exam..." = "Opening Exam...";
+
+/* No comment provided by engineer. */
+"Opening New Settings Failed!" = "Opening New Settings Failed!";
+
+/* No comment provided by engineer. */
+"Opening QR Code scanner" = "Opening QR Code scanner";
+
+/* No comment provided by engineer. */
+"Opening Settings Failed" = "Opening Settings Failed";
+
+/* No comment provided by engineer. */
+"Opening Universal Link" = "Opening Universal Link";
+
+/* No comment provided by engineer. */
+"Opening Universal Link Failed" = "Opening Universal Link Failed";
+
+/* No comment provided by engineer. */
+"Options to start an exam or configure %@ for your institution" = "Options to start an exam or configure %@ for your institution";
+
+/* No comment provided by engineer. */
+"OS version %@" = "OS version %@";
+
+/* No comment provided by engineer. */
+"Parsing Settings Failed" = "Parsing Settings Failed";
+
+/* No comment provided by engineer. */
+"Password" = "Password";
+
+/* No comment provided by engineer. */
+"Permissions Required for %@" = "Permissions Required for %@";
+
+/* No comment provided by engineer. */
+"Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):" = "Please add a GitHub Issue/Discussion number/link or describe the issue you observed (what were you doing when the issue happened, what did you expect and what actually happened, step-by-step instructions to reproduce the issue):";
+
+/* No comment provided by engineer. */
+"Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.";
+
+/* No comment provided by engineer. */
+"Please Select Your Role" = "Please Select Your Role";
+
+/* No comment provided by engineer. */
+"Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." = "Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.";
+
+/* No comment provided by engineer. */
+"QR Code" = "QR Code";
+
+/* No comment provided by engineer. */
+"QR Code scanned" = "QR Code scanned";
+
+/* No comment provided by engineer. */
+"Quit" = "Quit";
+
+/* No comment provided by engineer. */
+"Quit Session" = "Quit Session";
+
+/* No comment provided by engineer. */
+"Raise Hand" = "Raise Hand";
+
+/* No comment provided by engineer. */
+"Re-enter Identity Admin Password" = "Re-enter Identity Admin Password";
+
+/* No comment provided by engineer. */
+"Re-opening an exam which was locked before" = "Re-opening an exam which was locked before";
+
+/* No comment provided by engineer. */
+"Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode." = "Re-opening an exam which was locked before, but now doesn't have a quit password set, therefore doesn't run in secure mode.";
+
+/* No comment provided by engineer. */
+"Reading Settings Failed" = "Reading Settings Failed";
+
+/* No comment provided by engineer. */
+"Received Config from MDM Server" = "Received Config from MDM Server";
+
+/* No comment provided by engineer. */
+"regex" = "regex";
+
+/* No comment provided by engineer. */
+"Reload" = "Reload";
+
+/* No comment provided by engineer. */
+"Reload Page" = "Reload Page";
+
+/* No comment provided by engineer. */
+"Reload this page" = "Reload this page";
+
+/* No comment provided by engineer. */
+"remote proctoring" = "remote proctoring";
+
+/* No comment provided by engineer. */
+"Remote Proctoring" = "Remote Proctoring";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Active" = "Remote Proctoring Active";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Not Available" = "Remote Proctoring Not Available";
+
+/* No comment provided by engineer. */
+"Remote Proctoring Session" = "Remote Proctoring Session";
+
+/* No comment provided by engineer. */
+"Remove" = "Remove";
+
+/* No comment provided by engineer. */
+"Removing Identity Failed!" = "Removing Identity Failed!";
+
+/* No comment provided by engineer. */
+"Repeating Error: Invalid Token" = "Repeating Error: Invalid Token";
+
+/* No comment provided by engineer. */
+"Request failed" = "Request failed";
+
+/* No comment provided by engineer. */
+"Request failed, retrying..." = "Request failed, retrying...";
+
+/* No comment provided by engineer. */
+"Reset Settings" = "Reset Settings";
+
+/* No comment provided by engineer. */
+"Reset to Default Settings" = "Reset to Default Settings";
+
+/* No comment provided by engineer. */
+"Restart" = "Restart";
+
+/* No comment provided by engineer. */
+"Restart Session" = "Restart Session";
+
+/* No comment provided by engineer. */
+"Restart session using settings currently being edited" = "Restart session using settings currently being edited";
+
+/* No comment provided by engineer. */
+"Retry" = "Retry";
+
+/* No comment provided by engineer. */
+"return to %@ and re" = "return to %@ and re";
+
+/* No comment provided by engineer. */
+"Revert to Client Settings" = "Revert to Client Settings";
+
+/* No comment provided by engineer. */
+"Right" = "Right";
+
+/* No comment provided by engineer. */
+"Running on Current iOS Version Not Allowed" = "Running on Current iOS Version Not Allowed";
+
+/* No comment provided by engineer. */
+"Running on New iOS Version Not Allowed" = "Running on New iOS Version Not Allowed";
+
+/* No comment provided by engineer. */
+"Saved file '%@'" = "Saved file '%@'";
+
+/* No comment provided by engineer. */
+"Scan %@ configuration QR code" = "Scan %@ configuration QR code";
+
+/* No comment provided by engineer. */
+"Scan Config QR Code" = "Scan Config QR Code";
+
+/* No comment provided by engineer. */
+"Scan QR Code" = "Scan QR Code";
+
+/* No comment provided by engineer. */
+"Scanning Config QR Code Failed" = "Scanning Config QR Code Failed";
+
+/* No comment provided by engineer. */
+"Screen capturing/sharing was started while running in secure mode" = "Screen capturing/sharing was started while running in secure mode";
+
+/* Lockdown alert title text for screen is being captured/shared */
+"Screen is Being Captured/Shared!" = "Screen is Being Captured/Shared!";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Active" = "Screen Proctoring Active";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Inactive" = "Screen Proctoring Inactive";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Session" = "Screen Proctoring Session";
+
+/* No comment provided by engineer. */
+"Scroll Lock" = "Scroll Lock";
+
+/* No comment provided by engineer. */
+"Scroll Lock Active" = "Scroll Lock Active";
+
+/* No comment provided by engineer. */
+"Scroll Lock Inactive" = "Scroll Lock Inactive";
+
+/* No comment provided by engineer. */
+"Search Text" = "Search Text";
+
+/* No comment provided by engineer. */
+"Search text on web pages" = "Search text on web pages";
+
+/* No comment provided by engineer. */
+"Searching for %@ Configuration Canceled" = "Searching for %@ Configuration Canceled";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file …" = "Searching for a valid %@ config file …";
+
+/* No comment provided by engineer. */
+"Searching for a valid %@ config file was canceled." = "Searching for a valid %@ config file was canceled.";
+
+/* No comment provided by engineer. */
+"Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too." = "Searching local network for Automatic %@ Client Configuration requires a Wi-Fi or VPN connection. You can enter the domain URL of your institution manually too.";
+
+/* No comment provided by engineer. */
+"SEB Server Fallback Password Required" = "SEB Server Fallback Password Required";
+
+/* No comment provided by engineer. */
+"Secure exam session was started, URL: " = "Secure exam session was started, URL: ";
+
+/* No comment provided by engineer. */
+"Secure session was started" = "Secure session was started";
+
+/* No comment provided by engineer. */
+"Secure Web Proxy (HTTPS)" = "Secure Web Proxy (HTTPS)";
+
+/* 'Select Exam' header in 'Connecting to SEB Server' table view. */
+"Select Exam" = "Select Exam";
+
+/* No comment provided by engineer. */
+"Send" = "Send";
+
+/* No comment provided by engineer. */
+"Send %@ Logfiles" = "Send %@ Logfiles";
+
+/* No comment provided by engineer. */
+"Send Log File" = "Send Log File";
+
+/* No comment provided by engineer. */
+"Send Logs to %@ Developers" = "Send Logs to %@ Developers";
+
+/* No comment provided by engineer. */
+"Sending cached screen shots, server health %d out of 10" = "Sending cached screen shots, server health %d out of 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10" = "Server health %d out of 10";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, deferring sending screen shots" = "Server health %d out of 10, deferring sending screen shots";
+
+/* No comment provided by engineer. */
+"Server health %d out of 10, waiting until %@ to resume sending cached screen shots" = "Server health %1$d out of 10, waiting until %2$@ to resume sending cached screen shots";
+
+/* No comment provided by engineer. */
+"Settings" = "Settings";
+
+/* No comment provided by engineer. */
+"Settings Actions" = "Settings Actions";
+
+/* No comment provided by engineer. */
+"Share" = "Share";
+
+/* No comment provided by engineer. */
+"Share %@ log file for debugging" = "Share %@ log file for debugging";
+
+/* No comment provided by engineer. */
+"Share as Configuration" = "Share as Configuration";
+
+/* No comment provided by engineer. */
+"Share Log File" = "Share Log File";
+
+/* No comment provided by engineer. */
+"Share settings" = "Share settings";
+
+/* No comment provided by engineer. */
+"Share settings to see Key" = "Share settings to see Key";
+
+/* No comment provided by engineer. */
+"Show Remote Proctoring Information" = "Show Remote Proctoring Information";
+
+/* No comment provided by engineer. */
+"Show the next page" = "Show the next page";
+
+/* No comment provided by engineer. */
+"Show the previous page" = "Show the previous page";
+
+/* No comment provided by engineer. */
+"Showing" = "Showing";
+
+/* No comment provided by engineer. */
+"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" = "Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again";
+
+/* No comment provided by engineer. */
+"side menu" = "side menu";
+
+/* No comment provided by engineer. */
+"Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." = "Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue.";
+
+/* No comment provided by engineer. */
+"Single App Mode needs to be reactivated before %@ can continue." = "Single App Mode needs to be reactivated before %@ can continue.";
+
+/* No comment provided by engineer. */
+"Single App Mode switched off!" = "Single App Mode switched off!";
+
+/* No comment provided by engineer. */
+"Single App Mode was switched on again." = "Single App Mode was switched on again.";
+
+/* No comment provided by engineer. */
+"Single App Mode/Guided Access Not Allowed" = "Single App Mode/Guided Access Not Allowed";
+
+/* No comment provided by engineer. */
+"Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows." = "Sleep mode was activated, for example by closing an iPad case. Before unlocking, check if the lock screen wallpaper of the device is displaying a cheat sheet. Then enter the quit/unlock password to unlock, which usually exam supervision/support knows.";
+
+/* No comment provided by engineer. */
+"SOCKS Proxy" = "SOCKS Proxy";
+
+/* No comment provided by engineer. */
+"SSL" = "SSL";
+
+/* No comment provided by engineer. */
+"SSL Certificate" = "SSL Certificate";
+
+/* No comment provided by engineer. */
+"Standard user agent" = "Standard user agent";
+
+/* No comment provided by engineer. */
+"Start Another Exam" = "Start Another Exam";
+
+/* No comment provided by engineer. */
+"Starting Exam" = "Starting Exam";
+
+/* No comment provided by engineer. */
+"Streaming Proxy (RTSP)" = "Streaming Proxy (RTSP)";
+
+/* No comment provided by engineer. */
+"Student" = "Student";
+
+/* No comment provided by engineer. */
+"System Default" = "System Default";
+
+/* No comment provided by engineer. */
+"The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." = "The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.";
+
+/* No comment provided by engineer. */
+"The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ proctoring server, your exam provider decides which proctoring service/server to use." = "The current session will be remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ proctoring server, your exam provider decides which proctoring service/server to use.";
+
+/* No comment provided by engineer. */
+"The device was in sleep mode for %ld:%.2ld (minutes:seconds)" = "The device was in sleep mode for %1$ld:%2$.2ld (minutes:seconds)";
+
+/* No comment provided by engineer. */
+"The entered %@ admin password didn't match the one stored for this identity. Try again." = "The entered %@ admin password didn't match the one stored for this identity. Try again.";
+
+/* No comment provided by engineer. */
+"the exam page" = "the exam page";
+
+/* No comment provided by engineer. */
+"The identity '%@' could not be removed from the Keychain." = "The identity '%@' could not be removed from the Keychain.";
+
+/* No comment provided by engineer. */
+"The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution." = "The identity certificate needed to decrypt these settings isn't installed on this device. %@ might not have been configured correctly for your institution.";
+
+/* No comment provided by engineer. */
+"The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners." = "The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.";
+
+/* No comment provided by engineer. */
+"The private key and certificate contained in the selected identity could not be exported. Try another identity." = "The private key and certificate contained in the selected identity could not be exported. Try another identity.";
+
+/* No comment provided by engineer. */
+"The screen is being captured/shared. The exam cannot be started." = "The screen is being captured/shared. The exam cannot be started.";
+
+/* No comment provided by engineer. */
+"The user name or password for %@ was incorrect. Please try again." = "The user name or password for %@ was incorrect. Please try again.";
+
+/* No comment provided by engineer. */
+"the webpage" = "the webpage";
+
+/* No comment provided by engineer. */
+"These settings are corrupted and cannot be used (failing key: %@)." = "These settings are corrupted and cannot be used (failing key: %@).";
+
+/* No comment provided by engineer. */
+"These settings are corrupted and cannot be used." = "These settings are corrupted and cannot be used.";
+
+/* No comment provided by engineer. */
+"These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted." = "These settings cannot be used. They may have been created by an incompatible version of %@ or are corrupted.";
+
+/* No comment provided by engineer. */
+"This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings." = "This configuration doesn't fit into a QR code, maybe it was created with an older %@ version/on another platform or contains large data like many prohibited processes, embedded certificates or many URL filter rules. You could try to re-create it manually from scratch using default settings and changing only necessary settings.";
+
+/* No comment provided by engineer. */
+"This device isn't configured for sending email." = "This device isn't configured for sending email.";
+
+/* No comment provided by engineer. */
+"This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:" = "This identity was stored to the Keychain while using a different %@ admin password than currently set. Enter the admin password associated with the identity:";
+
+/* No comment provided by engineer. */
+"This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.";
+
+/* No comment provided by engineer. */
+"To scan a QR code, enable the camera in settings" = "To scan a QR code, enable the camera in settings";
+
+/* No comment provided by engineer. */
+"To scan a QR code, your device must have a camera" = "To scan a QR code, your device must have a camera";
+
+/* No comment provided by engineer. */
+"Toggle Proctoring View" = "Toggle Proctoring View";
+
+/* No comment provided by engineer. */
+"Toggle Side Menu" = "Toggle Side Menu";
+
+/* No comment provided by engineer. */
+"Transmitting screen shot %d of %d" = "Transmitting screen shot %1$d of %2$d";
+
+/* No comment provided by engineer. */
+"Transmitting screen shot failed with error: %@" = "Transmitting screen shot failed with error: %@";
+
+/* No comment provided by engineer. */
+"Type" = "Type";
+
+/* Default message of lock screen alert. */
+"Unlock %@ with the quit password, which usually exam supervision/support knows." = "Unlock %@ with the quit password, which usually exam supervision/support knows.";
+
+/* untitled filename */
+"Untitled" = "Untitled";
+
+/* No comment provided by engineer. */
+"Untitled Page" = "Untitled Page";
+
+/* No comment provided by engineer. */
+"Uploading" = "Uploading";
+
+/* No comment provided by engineer. */
+"URL Blocked!" = "URL Blocked!";
+
+/* No comment provided by engineer. */
+"URLSession was invalidated" = "URLSession was invalidated";
+
+/* No comment provided by engineer. */
+"Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." = "Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.";
+
+/* No comment provided by engineer. */
+"Used third-party frameworks:" = "Used third-party frameworks:";
+
+/* No comment provided by engineer. */
+"User Name" = "User Name";
+
+/* No comment provided by engineer. */
+"User name: %@" = "User name: %@";
+
+/* No comment provided by engineer. */
+"Verbose" = "Verbose";
+
+/* No comment provided by engineer. */
+"Version" = "Version";
+
+/* No comment provided by engineer. */
+"Waiting %d seconds" = "Waiting %d seconds";
+
+/* No comment provided by engineer. */
+"Waiting for Single App Mode" = "Waiting for Single App Mode";
+
+/* No comment provided by engineer. */
+"Waiting For Single App Mode to End" = "Waiting For Single App Mode to End";
+
+/* No comment provided by engineer. */
+"Waiting until %@ to resume sending cached screen shots" = "Waiting until %@ to resume sending cached screen shots";
+
+/* No comment provided by engineer. */
+"warn when service is not running" = "warn when service is not running";
+
+/* No comment provided by engineer. */
+"Warning" = "Warning";
+
+/* No comment provided by engineer. */
+"web applications" = "web applications";
+
+/* No comment provided by engineer. */
+"Web Proxy (HTTP)" = "Web Proxy (HTTP)";
+
+/* No comment provided by engineer. */
+"Webpage." = "Webpage.";
+
+/* No comment provided by engineer. */
+"White on Black" = "White on Black";
+
+/* No comment provided by engineer. */
+"Win" = "Win";
+
+/* No comment provided by engineer. */
+"Win: User agent for desktop mode" = "Win: User agent for desktop mode";
+
+/* No comment provided by engineer. */
+"Win: User agent for touch/tablet mode" = "Win: User agent for touch/tablet mode";
+
+/* No comment provided by engineer. */
+"Wrong Institution URL" = "Wrong Institution URL";
+
+/* No comment provided by engineer. */
+"Wrong password entered!" = "Wrong password entered!";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct exam password:" = "Wrong password! Try again to enter the correct exam password:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the correct password used to encrypt these settings:" = "Wrong password! Try again to enter the correct password used to encrypt these settings:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the current %@ administrator password:" = "Wrong password! Try again to enter the current %@ administrator password:";
+
+/* No comment provided by engineer. */
+"Wrong password! Try again to enter the quit password:" = "Wrong password! Try again to enter the quit password:";
+
+/* No comment provided by engineer. */
+"Wrong SEB Server Fallback Password entered" = "Wrong SEB Server Fallback Password entered";
+
+/* No comment provided by engineer. */
+"You can only edit settings after entering the %@ administrator password:" = "You can only edit settings after entering the %@ administrator password:";
+
+/* No comment provided by engineer. */
+"You can only reconfigure by entering the current %@ administrator password:" = "You can only reconfigure by entering the current %@ administrator password:";
+
+/* No comment provided by engineer. */
+"You can only reset settings after entering the %@ administrator password:" = "You can only reset settings after entering the %@ administrator password:";
+
+/* No comment provided by engineer. */
+"You can only send log files after entering the %@ administrator password:" = "You can only send log files after entering the %@ administrator password:";
+
+/* No comment provided by engineer. */
+"You can't send log files while in an exam session. Finish the exam first and try it again." = "You can't send log files while in an exam session. Finish the exam first and try it again.";
+
+/* No comment provided by engineer. */
+"You cannot enter a path to an %@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %@/developer." = "You cannot enter a path to an %1$@ configuration file here, only a domain URL of your institution (host name with domain and optionally subdomains). Administrators can get more information about Automatic Client Configuration at %2$@/developer.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct %@ administrator password." = "You didn't enter the correct %@ administrator password.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct current %@ administrator password." = "You didn't enter the correct current %@ administrator password.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct exam password." = "You didn't enter the correct exam password.";
+
+/* No comment provided by engineer. */
+"You didn't enter the correct settings password." = "You didn't enter the correct settings password.";
+
+/* No comment provided by engineer. */
+"You either entered the wrong password or these settings were saved with an incompatible %@ version." = "You either entered the wrong password or these settings were saved with an incompatible %@ version.";
+
+/* No comment provided by engineer. */
+"You need to enter the correct quit password for this command." = "You need to enter the correct quit password for this command.";
+
+/* No comment provided by engineer. */
+"You will be able to work with other apps after Single App Mode is switched off by your administrator." = "You will be able to work with other apps after Single App Mode is switched off by your administrator.";
+
+/* No comment provided by engineer. */
+"Your device is now unlocked, you can exit %@ using the Home button/indicator.%@Use the button below to start another exam session and lock the device again." = "Your device is now unlocked, you can exit %1$@ using the Home button/indicator.%2$@Use the button below to start another exam session and lock the device again.";
+
+/* No comment provided by engineer. */
+"Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator." = "Your institution might not support Automatic %@ Client Configuration. Follow the instructions of your exam administrator.";
+
+/* No comment provided by engineer. */
+"Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" = "Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@";
+
+/* No comment provided by engineer. */
+"Zoom Page In" = "Zoom Page In";
+
+/* No comment provided by engineer. */
+"Zoom Page Out" = "Zoom Page Out";
+

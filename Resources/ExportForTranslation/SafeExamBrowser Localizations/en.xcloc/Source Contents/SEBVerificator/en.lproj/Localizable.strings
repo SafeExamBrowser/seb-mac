@@ -1,0 +1,144 @@
+/* No comment provided by engineer. */
+" 1" = " 1";
+
+/* word indicating the duplicate of a file, same as in Finder ' copy' */
+" copy" = " copy";
+
+/* No comment provided by engineer. */
+" with argument " = " with argument ";
+
+/* App full/build version */
+"%@ version %@ (Build %@)" = "%1$@ version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system)." = "%@ was unable to force quit all processes, administrator rights might be necessary. Try using the macOS Activity Monitor application or uninstall helper processes (which might be automatically restarted by the system).";
+
+/* Title for window with list of running SEB-like applications to be terminated */
+"Applications Must Be Terminated" = "Applications Must Be Terminated";
+
+/* No comment provided by engineer. */
+"Bundle ID" = "Bundle ID";
+
+/* No comment provided by engineer. */
+"Bundle ID: %@, executable: %@" = "Bundle ID: %1$@, executable: %2$@";
+
+/* No comment provided by engineer. */
+"Cancel" = "Cancel";
+
+/* No comment provided by engineer. */
+"Couldn't terminate process: %@" = "Couldn't terminate process: %@";
+
+/* No comment provided by engineer. */
+"Default for opening" = "Default for opening";
+
+/* No comment provided by engineer. */
+"Device name: %@" = "Device name: %@";
+
+/* No comment provided by engineer. */
+"Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save." = "Do you really want to force quit all running prohibited processes? Applications might loose unsaved changes to documents, especially if they don't support auto save.";
+
+/* No comment provided by engineer. */
+"Force Quit All Processes" = "Force Quit All Processes";
+
+/* No comment provided by engineer. */
+"Force Quitting Processes Failed" = "Force Quitting Processes Failed";
+
+/* No comment provided by engineer. */
+"Full user name: %@" = "Full user name: %@";
+
+/* Invalid signature */
+"Invalid" = "Invalid";
+
+/* No comment provided by engineer. */
+"Local hostname: %@" = "Local hostname: %@";
+
+/* No comment provided by engineer. */
+"no BundleID" = "no BundleID";
+
+/* Signature OK */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Opening SEB app" = "Opening SEB app";
+
+/* No comment provided by engineer. */
+"OS version %@" = "OS version %@";
+
+/* No comment provided by engineer. */
+"Path" = "Path";
+
+/* No comment provided by engineer. */
+"quit" = "quit";
+
+/* No comment provided by engineer. */
+"Quit %@" = "Quit %@";
+
+/* No comment provided by engineer. */
+"Quit All Applications" = "Quit All Applications";
+
+/* No comment provided by engineer. */
+"Quit Apps & Start SEB" = "Quit Apps & Start SEB";
+
+/* No comment provided by engineer. */
+"Quit Session" = "Quit Session";
+
+/* No comment provided by engineer. */
+"Rescanning for SEB-alike applications" = "Rescanning for SEB-alike applications";
+
+/* No comment provided by engineer. */
+"Scanning for SEB-alike applications" = "Scanning for SEB-alike applications";
+
+/* No comment provided by engineer. */
+"SEB Verificator initialized" = "SEB Verificator initialized";
+
+/* No comment provided by engineer. */
+"Signature" = "Signature";
+
+/* No comment provided by engineer. */
+"Start SEB" = "Start SEB";
+
+/* No comment provided by engineer. */
+"Start with config " = "Start with config ";
+
+/* No comment provided by engineer. */
+"Starting SEB failed with error: " = "Starting SEB failed with error: ";
+
+/* No comment provided by engineer. */
+"terminated" = "terminated";
+
+/* No comment provided by engineer. */
+"Terminating SEB Verficator after starting SEB" = "Terminating SEB Verficator after starting SEB";
+
+/* No comment provided by engineer. */
+"The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB." = "The applications below are running, they need to be closed before starting SEB. You can quit applications yourself and return to SEB Verificator to start SEB.";
+
+/* No comment provided by engineer. */
+"The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam." = "The applications/processes below are running, they need to be closed before starting the exam. You can quit applications yourself or deactivate/uninstall helper processes and return to %@ to continue to the exam.";
+
+/* untitled filename */
+"Untitled" = "Untitled";
+
+/* No comment provided by engineer. */
+"User name: %@" = "User name: %@";
+
+/* No comment provided by engineer. */
+"Version" = "Version";
+
+/* No comment provided by engineer. */
+"Warning About Selected SEB Version" = "Warning About Selected SEB Version";
+
+/* No comment provided by engineer. */
+"We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version." = "We recommend to delete/archive all other SEB versions to prevent that exams are started in the wrong SEB version.";
+
+/* No comment provided by engineer. */
+"You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator." = "You are about to start an SEB version which isn't registered as default app to open both .seb files and seb(s):// links. This is inconsistent and an issue for exams not started with SEB Verificator.";
+
+/* No comment provided by engineer. */
+"You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links" = "You are about to start an SEB version which isn't registered as the default application in the system to open .seb files and seb(s):// links";
+
+/* No comment provided by engineer. */
+"You can also force quit these processes, but this may lead to loss of data." = "You can also force quit these processes, but this may lead to loss of data.";
+
+/* No comment provided by engineer. */
+"You can also send all the listed applications a quit instruction, they can still ask about saving edited documents." = "You can also send all the listed applications a quit instruction, they can still ask about saving edited documents.";
+

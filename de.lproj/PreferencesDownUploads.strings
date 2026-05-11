@@ -8,7 +8,7 @@
 "9Zv-oc-2jg.title" = "Applikation auswählen …";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allows file downloads, saved in the configured directory. Currently also setting \"allow downloading and uploading files\" needs to be enabled"; ObjectID = "13"; */
-"13.ibShadowedToolTip" = "Normalerweise zu verwenden, wenn das Umschalten auf Drittapplikationen erlaubt ist oder wenn die HTML5 Download-Funktion für lokale Backups benutzt wird.";
+"13.ibShadowedToolTip" = "Ermöglicht das Herunterladen von Dateien, die im konfigurierten Verzeichnis gespeichert werden. Derzeit muss zusätzlich die Einstellung „Download und Upload erlauben“ aktiviert sein.";
 
 /* Class = "NSButtonCell"; title = "Allow downloading files"; ObjectID = "14"; */
 "14.title" = "Download und Upload erlauben";

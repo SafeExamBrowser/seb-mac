@@ -121,9 +121,6 @@
 /* Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt"; */
 "cfE-bh-Syt.title" = "Private Zwischenablage auf Mac erzwingen";
 
-/* Class = "NSMatrix"; ibExternalAccessibilityDescription = "Browser view mode"; ObjectID = "ci1-uS-Bra"; */
-"ci1-uS-Bra.ibExternalAccessibilityDescription" = "Lockdown-Modus";
-
 /* Class = "NSMatrix"; ibShadowedToolTip = "Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 / 10.15.6+), from macOS Big Sur 11 with restrictions. It blocks various macOS features (which cannot be allowed optionally, like screen/window capture/sharing/mirroring, Siri, Dictation, Screen Proctoring)"; ObjectID = "ci1-uS-Bra"; */
 "ci1-uS-Bra.ibShadowedToolTip" = "Automatic Assessment Configuration (AAC) Bewertungsmodus ist ab macOS Monterey 12.1 (und Catalina 10.15.4 / 10.15.6+) verfügbar, ab macOS Big Sur 11 mit Einschränkungen. Er blockiert verschiedene macOS-Funktionen (die nicht optional erlaubt werden können, wie Bildschirm-/Fensteraufnahme/-freigabe/-spiegelung, Siri, Diktat, Screen Proctoring)";
 

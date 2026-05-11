@@ -1,7 +1,7 @@
 {
   "developmentRegion" : "en",
   "project" : "SafeExamBrowser.xcodeproj",
-  "targetLocale" : "de",
+  "targetLocale" : "en",
   "toolInfo" : {
     "toolBuildNumber" : "17E202",
     "toolID" : "com.apple.dt.xcode",
