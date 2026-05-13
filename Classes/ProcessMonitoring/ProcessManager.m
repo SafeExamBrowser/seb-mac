@@ -126,17 +126,10 @@ static ProcessManager *sharedProcessManager = nil;
     }
 
     NSDictionary *prohibitedProcess;
-    
-    BOOL isAACActive;
-    if (@available(macOS 10.15.4, *)) {
-        isAACActive = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
-    } else {
-        isAACActive = NO;
-    }
-    
+        
     for (prohibitedProcess in _prohibitedProcesses) {
         
-        if (!(isAACActive && [prohibitedProcess[@"ignoreInAAC"] boolValue] == YES)) {
+        if (!(_isAACActive && [prohibitedProcess[@"ignoreInAAC"] boolValue] == YES)) {
             NSString *bundleID = prohibitedProcess[@"identifier"];
             if (bundleID.length > 0) {
                 [self.prohibitedApplications addObject:bundleID];

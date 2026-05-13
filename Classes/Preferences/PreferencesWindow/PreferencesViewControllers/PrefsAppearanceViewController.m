@@ -67,7 +67,9 @@
     }
     [self browserViewModeMatrix:browserViewModeMatrix];
     
-    allowDictionaryLookupButton.enabled = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+
+    allowDictionaryLookupButton.enabled = (policy == lockdownModePolicyEnforceClassic);
 }
 
 

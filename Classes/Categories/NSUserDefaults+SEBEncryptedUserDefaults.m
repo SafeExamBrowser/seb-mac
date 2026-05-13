@@ -320,7 +320,7 @@ static NSNumber *_logLevel;
         if (sebUserDefaults == nil) {
             // Set the flag to indicate user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
-            DDLogError(@"%s: Something went wrong reading SEB client settings from UserDefaults: Local preferences have been reset!", __FUNCTION__);
+            DDLogError(@"%s: Something went wrong reading SEB client settings from UserDefaults: Local settings have been reset!", __FUNCTION__);
             // The currentUserDefaults should be an empty dictionary then
             currentUserDefaults = [NSMutableDictionary new];
         } else {
@@ -334,13 +334,13 @@ static NSNumber *_logLevel;
                 // Set the flag to indicate to user later that settings have been reset
                 [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
 
-                DDLogError(@"Initial Exam Settings Key check failed: Local preferences have been reset!");
+                DDLogError(@"Initial Exam Settings Key check failed: Local settings have been reset!");
             }
         }
     } else {
         // Were there invalid SEB prefs keys in UserDefaults?
         if ([self sebKeysSet].count > 0) {
-            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local preferences have been reset!");
+            DDLogError(@"There were invalid SEB prefs keys in UserDefaults: Local settings have been reset!");
             // Set the flag to indicate to user later that settings have been reset
             [[MyGlobals sharedMyGlobals] setPreferencesReset:YES];
         } else {

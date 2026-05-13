@@ -57,11 +57,12 @@
 - (void)willBeDisplayed
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL enableAAC = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+    BOOL enableAAC = (policy != lockdownModePolicyEnforceClassic);
     allowSwitchToApplicationsButton.hidden = enableAAC;
     allowOpenSavePanelButton.hidden = !enableAAC;
     allowShareSheetButton.hidden = !enableAAC;
-    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];;
+    allowFlashFullscreen.enabled = allowSwitchToApplicationsButton.state && !enableAAC;
     [self updateFieldsForOS];
     [self conditionallyShowDependentSettingsWarning:self];
 }
@@ -326,10 +327,13 @@
 - (BOOL)checkSettingsForMultiAppMode
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL multiAppModeSettings = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] &&
-    ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+
+    BOOL multiAppModeSettings = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
     ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"] &&
-    [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0];
+    ((policy == lockdownModePolicyEnforceAAC) ||
+     ((policy == lockdownModePolicyAutomatic) &&
+    [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0]));
     
     return multiAppModeSettings;
 }
@@ -341,10 +345,16 @@
     [_preferencesController releasePreferencesWindow];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_enableMacOSAAC"];
+    [preferences setSecureInteger:lockdownModePolicyEnforceAAC forKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     
+    if (![self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:1]) {
+        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
+        [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+        [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+        [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    }
     [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
     [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
     [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];

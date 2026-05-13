@@ -42,6 +42,7 @@
 @property (strong, nonatomic) NSMutableArray *permittedApplications;
 @property (strong, nonatomic) NSMutableArray *prohibitedBSDProcesses;
 @property (strong, nonatomic) NSMutableArray *permittedBSDProcesses;
+@property(readwrite) BOOL isAACActive;
 
 + (ProcessManager *) sharedProcessManager;
 

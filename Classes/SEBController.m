@@ -6056,6 +6056,7 @@ conditionallyForWindow:(NSWindow *)window
         }
         DDLogInfo(@"Using lockdownModePolicyAutomatic: AAC %@%@", _isAACEnabled ? @"enabled": @"disabled", _overrideAAC ? @" (overrideAAC)": @"");
     }
+    [ProcessManager sharedProcessManager].isAACActive = _isAACEnabled;
 }
 
 
@@ -7803,7 +7804,7 @@ conditionallyForWindow:(NSWindow *)window
     }
     
     BOOL touchBarRestoreSuccess;
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enableMacOSAAC"] == NO) {
+    if (_isAACEnabled) {
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         DDLogDebug(@"Restored system settings. Restoring TouchBar settings (if available) %@", touchBarRestoreSuccess ? @"was successfull" : @"failed");
         [self killTouchBarAgent];
