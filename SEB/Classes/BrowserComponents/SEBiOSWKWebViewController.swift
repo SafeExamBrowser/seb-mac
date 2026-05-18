@@ -77,10 +77,10 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.scrollView.setZoomScale(zoomScale!, animated: true)
         if contentZoomScale != 1 {
             let js = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);"
-            sebWebView?.evaluateJavaScript(js)
+            sebWebView?.seb_evaluateJavaScript(js, completionHandler: nil)
         }
     }
-    
+
     convenience init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         self.init()
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -137,18 +137,18 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
         sebWebView?.scrollView.bounces = !scrollLockActive
         if scrollLockActive {
             // Disable text/content selection
-            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='none';")
+            sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitUserSelect='none';", completionHandler: nil)
             // Disable selection context popup (copy/paste etc.)
-            sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';")
+            sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitTouchCallout='none';", completionHandler: nil)
             // Disable magnifier glass
-                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='none';")
+                sebWebView?.seb_evaluateJavaScript("document.body.style.webkitUserSelect='none';", completionHandler: nil)
         } else {
             // Enable text/content selection
-                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitUserSelect='text';")
+                sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitUserSelect='text';", completionHandler: nil)
             // Enable selection context popup (copy/paste etc.)
-                sebWebView?.evaluateJavaScript("document.documentElement.style.webkitTouchCallout='default';")
+                sebWebView?.seb_evaluateJavaScript("document.documentElement.style.webkitTouchCallout='default';", completionHandler: nil)
             // Enable magnifier glass
-                sebWebView?.evaluateJavaScript("document.body.style.webkitUserSelect='default';")
+                sebWebView?.seb_evaluateJavaScript("document.body.style.webkitUserSelect='default';", completionHandler: nil)
         }
     }
     

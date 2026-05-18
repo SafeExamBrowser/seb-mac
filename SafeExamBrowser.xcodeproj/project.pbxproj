@@ -531,6 +531,8 @@
 		69A2233E1C20E0BA00766354 /* NSData+NSDataZIPExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6940A75F1853B2AD00D9D00D /* NSData+NSDataZIPExtension.h */; };
 		69A2233F1C20E0BD00766354 /* NSData+NSDataZIPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6940A7601853B2AD00D9D00D /* NSData+NSDataZIPExtension.m */; };
 		69A223421C20E45A00766354 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 69A223401C20E38600766354 /* libz.tbd */; };
+		69A332352FBB54AD00FF96FF /* WKWebView+SEBEvaluateJavaScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A332342FBB54AD00FF96FF /* WKWebView+SEBEvaluateJavaScript.h */; };
+		69A332372FBB54B200FF96FF /* WKWebView+SEBEvaluateJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A332362FBB54B200FF96FF /* WKWebView+SEBEvaluateJavaScript.m */; };
 		69A3FCD41C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
 		69A3FCD51C1B5680009BEA13 /* SEBConfigFileCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */; };
 		69A3FCD61C1B5680009BEA13 /* SEBConfigFileCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */; };
@@ -1431,6 +1433,8 @@
 		69A2233A1C20C10B00766354 /* SEBiOSConfigFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSConfigFileController.h; path = Classes/ConfigFiles/SEBiOSConfigFileController.h; sourceTree = "<group>"; };
 		69A223401C20E38600766354 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		69A3022919FE7B8F00B9A0F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69A332342FBB54AD00FF96FF /* WKWebView+SEBEvaluateJavaScript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+SEBEvaluateJavaScript.h"; sourceTree = "<group>"; };
+		69A332362FBB54B200FF96FF /* WKWebView+SEBEvaluateJavaScript.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+SEBEvaluateJavaScript.m"; sourceTree = "<group>"; };
 		69A3FCD21C1B5680009BEA13 /* SEBConfigFileCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBConfigFileCredentials.h; sourceTree = "<group>"; };
 		69A3FCD31C1B5680009BEA13 /* SEBConfigFileCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBConfigFileCredentials.m; sourceTree = "<group>"; };
 		69A42D632C345D1F00C845A3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -2338,6 +2342,8 @@
 				69009BDE19EA7F590083274C /* SEBBrowserOpenWindowWebView.h */,
 				69009BDF19EA7F590083274C /* SEBBrowserOpenWindowWebView.m */,
 				69F522912146715A009F3999 /* SEBURLProtocol */,
+				69A332342FBB54AD00FF96FF /* WKWebView+SEBEvaluateJavaScript.h */,
+				69A332362FBB54B200FF96FF /* WKWebView+SEBEvaluateJavaScript.m */,
 			);
 			name = "Browser Components";
 			sourceTree = "<group>";
@@ -3338,6 +3344,7 @@
 				6975CE6A29647C4400C7ABF3 /* NSArray+Extensions.h in Headers */,
 				69DFAF3919C468E700CBE69F /* RNCryptor+Private.h in Headers */,
 				69F522B321467188009F3999 /* QNSURLSessionDemux.h in Headers */,
+				69A332352FBB54AD00FF96FF /* WKWebView+SEBEvaluateJavaScript.h in Headers */,
 				695CA8D328E39FFD005BE4E8 /* SEBZoomController.h in Headers */,
 				698DFD0F267E9B1900B8F1D6 /* NSDictionary+Extensions.h in Headers */,
 				699F63132A3719140040E612 /* SEB-Bridging-Header.h in Headers */,
@@ -4370,6 +4377,7 @@
 				69B539441C52974200A967B0 /* SEBBrowserController.m in Sources */,
 				6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */,
 				69B5E2A625756BEF009030C2 /* SEBAbstractWebView.m in Sources */,
+				69A332372FBB54B200FF96FF /* WKWebView+SEBEvaluateJavaScript.m in Sources */,
 				691056012C0A223600C491DE /* AssessmentConfigurationManager.swift in Sources */,
 				6930D22D1C2086010087F79E /* SEBOSXKeychainManager.m in Sources */,
 				69F522BD21467188009F3999 /* CanonicalRequest.m in Sources */,

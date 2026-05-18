@@ -3,6 +3,7 @@
 //
 
 #import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "WKWebView+SEBEvaluateJavaScript.h"
 #import "Constants.h"
 #import "MyGlobals.h"
 #import "SEBAbstractWebView.h"

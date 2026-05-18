@@ -145,18 +145,15 @@ import CocoaLumberjackSwift
                         return
                     }
                     if #available(macOS 11.0, iOS 14.0, *) {
-                        self.sebWebView.evaluateJavaScript(callback + "();", in: frame, in: .page, completionHandler: { (result) in
-                            var error: Error?
-                            switch result {
-                            case .success(_):
+                        self.sebWebView.seb_evaluateJavaScript(callback + "();", inFrame: frame, in: .page) { _, error in
+                            if let error {
+                                DDLogDebug("Modern WebView updateJSVariables callback error: \(error)")
+                            } else {
                                 DDLogDebug("Modern WebView updateJSVariables callback called successfully")
-                            case .failure(let jsError):
-                                error = jsError
-                                DDLogDebug("Modern WebView updateJSVariables callback error: \(error as Any)")
                             }
-                        })
+                        }
                     } else {
-                        self.sebWebView.evaluateJavaScript(callback + "();") { (response, error) in
+                        self.sebWebView.seb_evaluateJavaScript(callback + "();") { _, error in
                             if let _ = error {
                                 DDLogDebug("Modern WebView updateJSVariables callback error: \(error as Any)")
                             }
@@ -274,7 +271,7 @@ import CocoaLumberjackSwift
             }
             return
         } else {
-            sebWebView.evaluateJavaScript(stopMediaScript, completionHandler: { (response, error) in
+            sebWebView.seb_evaluateJavaScript(stopMediaScript) { _, error in
                 if let _ = error {
                     print(error as Any)
                 }
@@ -282,7 +279,7 @@ import CocoaLumberjackSwift
                     self.sebWebView.closeAllMediaPresentations()
                 }
                 completionHandler()
-            })
+            }
             return
         }
     }
@@ -378,11 +375,11 @@ import CocoaLumberjackSwift
     }
     
     public func focusFirstElement() {
-        sebWebView.evaluateJavaScript("SEB_FocusFirstElement()")
+        sebWebView.seb_evaluateJavaScript("SEB_FocusFirstElement()", completionHandler: nil)
     }
 
     public func focusLastElement() {
-        sebWebView.evaluateJavaScript("SEB_FocusLastElement()")
+        sebWebView.seb_evaluateJavaScript("SEB_FocusLastElement()", completionHandler: nil)
     }
 
     private func setPageZoom() {
@@ -407,7 +404,7 @@ import CocoaLumberjackSwift
                                     images[i].height = height * \(zoomLevelDelta);
                                 }
     """
-                        sebWebView.evaluateJavaScript(js) { (response, error) in
+                        sebWebView.seb_evaluateJavaScript(js) { _, error in
                             if let _ = error {
                                     print(error as Any)
                             }
@@ -419,7 +416,7 @@ import CocoaLumberjackSwift
                         reload()
                     } else {
                         let js = "document.documentElement.style.zoom = '\(pageZoom)'; \(textZoomJS(zoomLevel: pageZoom))"
-                        sebWebView.evaluateJavaScript(js) { (response, error) in
+                        sebWebView.seb_evaluateJavaScript(js) { _, error in
                             if let _ = error {
                                     print(error as Any)
                             }
@@ -433,7 +430,7 @@ import CocoaLumberjackSwift
 #endif
             } else {
                 let js = "document.documentElement.style.zoom = '\(pageZoom)'"
-                sebWebView.evaluateJavaScript(js) { (response, error) in
+                sebWebView.seb_evaluateJavaScript(js) { _, error in
                     if let _ = error {
                         print(error as Any)
                     }
@@ -504,7 +501,7 @@ import CocoaLumberjackSwift
 #if os(iOS)
         if (pageZoom == 1 && textZoom != 1 && textZoom <= WebViewMaxTextZoom && textZoom >= WebViewMinTextZoom) {
             let js = textZoomJS(zoomLevel: textZoom)
-            sebWebView.evaluateJavaScript(js) { (response, error) in
+            sebWebView.seb_evaluateJavaScript(js) { _, error in
                 if let _ = error {
                     print(error as Any)
                 }
@@ -557,7 +554,7 @@ import CocoaLumberjackSwift
                     let matchFound = findResult.matchFound
                     if !matchFound {
                         let js = "window.getSelection().removeAllRanges();"
-                        self.sebWebView.evaluateJavaScript(js) { (response, error) in
+                        self.sebWebView.seb_evaluateJavaScript(js) { _, error in
                             if let _ = error {
                                 DDLogError("\(String(describing: error))")
                             }
@@ -571,7 +568,7 @@ import CocoaLumberjackSwift
 #endif
         if searchText.isEmpty {
             previousSearchText = searchText
-            sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+            sebWebView.seb_evaluateJavaScript("SEB_RemoveAllHighlights()", completionHandler: nil)
             self.navigationDelegate?.searchTextMatchFound?(false)
         } else {
             // Check if we're dealing with a PDF
@@ -580,21 +577,21 @@ import CocoaLumberjackSwift
 //            }
             if textToSearch == previousSearchText {
                 if backwards {
-                    self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
+                    self.sebWebView.seb_evaluateJavaScript("SEB_SearchPrevious()", completionHandler: nil)
                 } else {
-                    self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
+                    self.sebWebView.seb_evaluateJavaScript("SEB_SearchNext()", completionHandler: nil)
                 }
                 self.navigationDelegate?.searchTextMatchFound?(true)
             } else {
                 previousSearchText = searchText
                 let searchString = "SEB_HighlightAllOccurencesOfString('\(searchText)')"
-                sebWebView.evaluateJavaScript(searchString) { result, error in
+                sebWebView.seb_evaluateJavaScript(searchString) { _, _ in
                     if backwards {
-                        self.sebWebView.evaluateJavaScript("SEB_SearchPrevious()")
+                        self.sebWebView.seb_evaluateJavaScript("SEB_SearchPrevious()", completionHandler: nil)
                     } else {
-                        self.sebWebView.evaluateJavaScript("SEB_SearchNext()")
+                        self.sebWebView.seb_evaluateJavaScript("SEB_SearchNext()", completionHandler: nil)
                     }
-                    self.sebWebView.evaluateJavaScript("SEB_SearchResultCount") { (result, error) in
+                    self.sebWebView.seb_evaluateJavaScript("SEB_SearchResultCount") { result, error in
                         if error == nil {
                             if result != nil {
                                 let count = result as! Int
@@ -604,7 +601,7 @@ import CocoaLumberjackSwift
                                 }
                             }
                         }
-                        self.sebWebView.evaluateJavaScript("SEB_RemoveAllHighlights()")
+                        self.sebWebView.seb_evaluateJavaScript("SEB_RemoveAllHighlights()", completionHandler: nil)
                         self.navigationDelegate?.searchTextMatchFound?(false)
                     }
                 }
@@ -758,21 +755,13 @@ import CocoaLumberjackSwift
             let configKey = navigationDelegate?.configKey?(for: urlForKeys)
             if frame != nil {
                 if #available(macOS 11.0, iOS 14.0, *) {
-                    webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';", in: frame, in: .page, completionHandler: { (result) in
-                        var error: Error?
-                        var response: String?
-                        switch result {
-                        case .success(let callbackResponse):
-                            response = callbackResponse as? String
-                        case .failure(let jsError):
-                            error = jsError
-                        }
-                        completionHandler?(response ?? "", error)
-                    })
+                    webView.seb_evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';", inFrame: frame, in: .page) { result, error in
+                        completionHandler?(result ?? "", error)
+                    }
                     return
                 }
             }
-            webView.evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { (response, error) in
+            webView.seb_evaluateJavaScript("SafeExamBrowser.security.browserExamKey = '\(browserExamKey ?? "")';SafeExamBrowser.security.configKey = '\(configKey ?? "")';") { response, error in
                 completionHandler?(response ?? "", error)
             }
         }
@@ -811,7 +800,7 @@ import CocoaLumberjackSwift
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
         navigationDelegate?.sebWebViewDidFinishLoad?()
-        sebWebView.evaluateJavaScript(controlSpellCheckCode)
+        sebWebView.seb_evaluateJavaScript(controlSpellCheckCode, completionHandler: nil)
         if currentFrame != nil {
             DDLogDebug("WKWebView didFinish currentFrame: \(currentFrame as Any)")
             updateKeyJSVariables(webView, frame: currentFrame)
@@ -942,7 +931,7 @@ import CocoaLumberjackSwift
         
         // Main method body continues
         if !url.hasDirectoryPath && ((allowDownloads && !WKDownloadSupported) || (urlIsPDF && (self.downloadFilename ?? "").isEmpty)) {
-            webView.evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") {(result, error) in
+            webView.seb_evaluateJavaScript("document.querySelector('[href=\"" + url.absoluteString + "\"]')?.download") { result, error in
                 if error == nil {
                     self.downloadFilename = result as? String
                     if !(self.downloadFilename ?? "").isEmpty {
