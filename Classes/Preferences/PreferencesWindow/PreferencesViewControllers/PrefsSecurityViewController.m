@@ -115,20 +115,23 @@
 
 // Action to set the enabled property of dependent buttons
 // This is necessary because bindings don't work with private user defaults
-- (IBAction)setEnableEnableAAC:(NSButton *)sender
+- (IBAction)setEnableEnableAAC:(id)sender
 {
-    BOOL AACDisabled = !sender.state;
-    
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    lockdownModePolicy policy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"];
+    BOOL AACDisabled = (policy == lockdownModePolicyEnforceClassic);
+    BOOL enforceAAC = (policy == lockdownModePolicyEnforceAAC);
+
     aacDnsPrePinningButton.enabled = !AACDisabled;
-    allowScreenCaptureButton.enabled = AACDisabled;
-    allowWindowCaptureButton.enabled = AACDisabled;
-    blockScreenShotsButton.enabled = AACDisabled;
-    allowScreenSharingButton.enabled =AACDisabled;
-    screenSharingMacEnforceButton.enabled = AACDisabled;
-    enableAppSwitcherButton.enabled = AACDisabled;
+    allowScreenCaptureButton.enabled = !enforceAAC;
+    allowWindowCaptureButton.enabled = !enforceAAC;
+    blockScreenShotsButton.enabled = !enforceAAC;
+    allowScreenSharingButton.enabled = !enforceAAC;
+    screenSharingMacEnforceButton.enabled = !enforceAAC;
+    enableAppSwitcherButton.enabled = !enforceAAC;
     allowSiriButton.enabled = AACDisabled;
     allowDictationButton.enabled = AACDisabled;
-    allowDisplayMirroringButton.enabled = AACDisabled;
+    allowDisplayMirroringButton.enabled = !enforceAAC;
 }
 
 

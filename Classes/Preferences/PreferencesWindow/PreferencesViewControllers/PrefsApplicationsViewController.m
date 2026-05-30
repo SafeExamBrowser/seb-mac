@@ -500,4 +500,60 @@
 }
 
 
+- (BOOL)settingsRequireMinMacOSVersionMajor:(NSUInteger)majorVersion
+                                      minor:(NSUInteger)minorVersion
+                                      patch:(NSUInteger)patchVersion
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSUInteger allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+    NSUInteger allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+    NSUInteger allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+
+    if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"]) {
+        SEBMinMacOSVersion minMacOSVersion = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_minMacOSVersion"];
+        switch (minMacOSVersion) {
+            case SEBMinMacOS10_14:
+                allowMacOSVersionMajor = 10; allowMacOSVersionMinor = 14; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS10_15:
+                allowMacOSVersionMajor = 10; allowMacOSVersionMinor = 15; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS11:
+                allowMacOSVersionMajor = 11; allowMacOSVersionMinor = 0; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS12:
+                allowMacOSVersionMajor = 12; allowMacOSVersionMinor = 0; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS13:
+                allowMacOSVersionMajor = 13; allowMacOSVersionMinor = 0; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS14:
+                allowMacOSVersionMajor = 14; allowMacOSVersionMinor = 0; allowMacOSVersionPatch = 0; break;
+            case SEBMinMacOS15:
+                allowMacOSVersionMajor = 15; allowMacOSVersionMinor = 0; allowMacOSVersionPatch = 0; break;
+            default:
+                break;
+        }
+    } else {
+        allowMacOSVersionMajor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
+        allowMacOSVersionMinor = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
+        allowMacOSVersionPatch = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    }
+
+    // Clamp to SEB's own minimum supported version
+    if (allowMacOSVersionMajor < SEBMinMacOSVersionSupportedMajor) {
+        allowMacOSVersionMajor = SEBMinMacOSVersionSupportedMajor;
+        allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+        allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+    } else if (allowMacOSVersionMajor == SEBMinMacOSVersionSupportedMajor) {
+        if (allowMacOSVersionMinor < SEBMinMacOSVersionSupportedMinor) {
+            allowMacOSVersionMinor = SEBMinMacOSVersionSupportedMinor;
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        } else if (allowMacOSVersionMinor == SEBMinMacOSVersionSupportedMinor && allowMacOSVersionPatch < SEBMinMacOSVersionSupportedPatch) {
+            allowMacOSVersionPatch = SEBMinMacOSVersionSupportedPatch;
+        }
+    }
+
+    // Return YES if the configured minimum version is >= the requested version
+    return (allowMacOSVersionMajor > majorVersion ||
+            (allowMacOSVersionMajor == majorVersion && allowMacOSVersionMinor > minorVersion) ||
+            (allowMacOSVersionMajor == majorVersion && allowMacOSVersionMinor == minorVersion && allowMacOSVersionPatch >= patchVersion));
+}
+
+
 @end
