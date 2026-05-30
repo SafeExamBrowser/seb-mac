@@ -284,6 +284,36 @@ enum {
 typedef NSUInteger mobileStatusBarAppearancesExtended;
 
 
+/**
+ * @typedef lockdownModePolicy
+ * @brief Controls which kiosk/lockdown mode SEB uses on macOS.
+ *
+ * Preference key: @c org_safeexambrowser_SEB_lockdownModePolicy
+ * Default: @c lockdownModePolicyAutomatic (0)
+ *
+ * @constant lockdownModePolicyAutomatic
+ *   SEB automatically selects the lockdown mode based on the running macOS version
+ *   and current settings. Automatic Assessment Configuration (AAC) is used when the
+ *   macOS version supports it (≥ 10.15.4 except 10.15.5, ≥ 11 with DNS pre-pinning,
+ *   ≥ 12.0 with DNS pre-pinning, ≥ 12.1 unconditionally) AND none of the following
+ *   are enabled: screen capture, window capture, screen sharing, browser screen
+ *   capture, or screen proctoring. Falls back to Classic kiosk mode otherwise.
+ *
+ * @constant lockdownModePolicyEnforceClassic
+ *   Always uses Classic kiosk mode (elevated window levels, no AAC), regardless of
+ *   macOS version or other settings. Dictionary lookup is only available in this mode.
+ *   The UI shows @c allowSwitchToApplications instead of @c allowOpenAndSavePanel.
+ *
+ * @constant lockdownModePolicyEnforceAAC
+ *   Always enforces Automatic Assessment Configuration (AAC). If the running macOS
+ *   version does not support AAC, SEB logs an error and AAC is disabled at runtime.
+ *   The UI shows @c allowOpenAndSavePanel and @c allowShareSheet instead of
+ *   @c allowSwitchToApplications.
+ *
+ * @note Migration: config files that lack this key but have @c enableMacOSAAC=YES are
+ *   automatically migrated to @c lockdownModePolicyEnforceAAC when their minimum macOS
+ *   version requirement implies AAC support.
+ */
 enum {
     lockdownModePolicyAutomatic                 = 0,
     lockdownModePolicyEnforceClassic            = 1,
