@@ -73,6 +73,7 @@
 - (void)willBeDisplayed
 {
     [self setLogDirectory];
+    [self setEnableEnableAAC:self];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
