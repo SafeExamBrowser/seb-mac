@@ -981,18 +981,25 @@ extension SEBScreenProctoringController {
 #endif
 
     public func collectedTriggerEvent(eventData:String) {
-        latestTriggerEvent = eventData
-        latestTriggerEventTimestamp = NSDate().timeIntervalSince1970
+        let timestamp = NSDate().timeIntervalSince1970
         if !closingSession {
             if self.screenShotMinIntervalTimer == nil {
 #if DEBUG
                 DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval has passed, trigger screen shot immediately")
 #endif
-                self.screenShotMinIntervallTriggered()
+                minIntervalTimerQueue.async {
+                    self.latestTriggerEvent = eventData
+                    self.latestTriggerEventTimestamp = timestamp
+                    self.screenShotMinIntervallTriggered()
+                }
             } else {
 #if DEBUG
                 DDLogDebug("SEB Screen Proctoring Controller collectedTriggerEvent(eventData): Minimum interval timer is running, not necessary to trigger it.")
 #endif
+                minIntervalTimerQueue.async {
+                    self.latestTriggerEvent = eventData
+                    self.latestTriggerEventTimestamp = timestamp
+                }
             }
         }
     }
