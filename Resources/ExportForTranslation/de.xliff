@@ -7055,7 +7055,7 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only when running %@ in a special user account, with only %@ and the desired applications allowed." xml:space="preserve">
+      <trans-unit id="This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." xml:space="preserve">
         <source>This setting allows to switch to any application on the exam client computer. Use this option only when running %1$@ in a special user account, with only %2$@ and the desired applications allowed.</source>
         <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur benutzt werden, wenn %1$@ in einem separaten Benutzeraccount verwendet wird. Dabei sollten nur %2$@ und die gewünschten Applikationen zugelassen werden.</target>
         <note>No comment provided by engineer.</note>

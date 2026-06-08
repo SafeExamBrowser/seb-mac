@@ -75,7 +75,7 @@
     if (sender.state) {
         NSAlert *newAlert = [[NSAlert alloc] init];
         [newAlert setMessageText:NSLocalizedString(@"Security Warning", @"")];
-        [newAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"This setting allows to switch to any application on the exam client computer. Use this option only when running %@ in a special user account, with only %@ and the desired applications allowed.", @""), SEBShortAppName, SEBShortAppName]];
+        [newAlert setInformativeText:NSLocalizedString(@"This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging.", @"")];
         [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
         [newAlert setAlertStyle:NSAlertStyleCritical];
         // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
