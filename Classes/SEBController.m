@@ -2459,7 +2459,14 @@ bool insideMatrix(void);
     }
     
     if (browserMediaCaptureScreen || screenProctoringEnable) {
-        if (@available(macOS 10.15, *)) {
+        if (@available(macOS 10.15.4, *)) {
+            // AAC hides system permission dialogs behind its restricted UI, so end it first
+            if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession.active) {
+                DDLogDebug(@"%s: AAC session is active, ending it temporarily so system permission dialogs are visible", __FUNCTION__);
+                _checkingPermissionsAfterAACEnd = YES;
+                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:NO];
+                return;
+            }
             NSString *accessibilityPermissionsTitleString = @"";
             NSString *accessibilityPermissionsMessageString = @"";
             if (screenProctoringEnable) {
@@ -2954,6 +2961,10 @@ bool insideMatrix(void);
         IMP imp = [callback methodForSelector:selector];
         void (*func)(id, SEL) = (void *)imp;
         func(callback, selector);
+    } else if (_checkingPermissionsAfterAACEnd) {
+        _checkingPermissionsAfterAACEnd = NO;
+        DDLogDebug(@"%s: AAC ended for permissions check, re-running permissions check with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
     } else {
         DDLogDebug(@"%s, continue with [self initSEBProcessesCheckedWithCallback:%@ selector: %@]", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self initSEBProcessesCheckedWithCallback:callback selector:selector];
