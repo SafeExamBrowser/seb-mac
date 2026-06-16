@@ -406,6 +406,8 @@ bool insideMatrix(void);
         }
     }
     
+    [AccessibilityFeaturesManager getRunningAppsWithAccessibility];
+    
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     /// Setup Notifications

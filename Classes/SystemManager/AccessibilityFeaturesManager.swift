@@ -34,6 +34,8 @@
 //
 
 import Foundation
+import ApplicationServices
+import SQLite3
 import CocoaLumberjackSwift
 
 @objc public protocol AccessibilityFeaturesProtocol {
@@ -148,6 +150,66 @@ import CocoaLumberjackSwift
         UserDefaults.standard.setValue(false as NSNumber, forKey: VoiceOverDefaultsKey, forDefaultsDomain: VoiceOverDefaultsDomain)
     }
     
+    @objc public class func getRunningAppsWithAccessibility() {
+        DDLogInfo("Scanning for apps with active Accessibility permissions...")
+
+        let tccPaths = [
+            //"/Library/Application Support/com.apple.TCC/TCC.db",
+            (NSHomeDirectory() as NSString).appendingPathComponent("Library/Application Support/com.apple.TCC/TCC.db")
+        ]
+
+        var accessibilityBundleIDs: Set<String> = []
+
+        for path in tccPaths {
+            var db: OpaquePointer?
+            guard sqlite3_open_v2(path, &db, SQLITE_OPEN_READONLY | SQLITE_OPEN_NOMUTEX, nil) == SQLITE_OK,
+                  let db else {
+                DDLogDebug("Could not open TCC database at \(path)")
+                continue
+            }
+            defer { sqlite3_close(db) }
+
+            // Try macOS 12+ schema (auth_value = 2); fall back to older schema (allowed = 1).
+            // sqlite3_prepare_v2 returns an error if the referenced column doesn't exist,
+            // so whichever query compiles successfully is the right one for this OS version.
+            let queries = [
+                "SELECT client FROM access WHERE service = 'kTCCServiceAccessibility' AND client_type = 0 AND auth_value = 2",
+                "SELECT client FROM access WHERE service = 'kTCCServiceAccessibility' AND client_type = 0 AND allowed = 1"
+            ]
+            for query in queries {
+                var stmt: OpaquePointer?
+                guard sqlite3_prepare_v2(db, query, -1, &stmt, nil) == SQLITE_OK, let stmt else {
+                    sqlite3_finalize(stmt)
+                    continue
+                }
+                defer { sqlite3_finalize(stmt) }
+                while sqlite3_step(stmt) == SQLITE_ROW {
+                    if let cString = sqlite3_column_text(stmt, 0) {
+                        accessibilityBundleIDs.insert(String(cString: cString))
+                    }
+                }
+                break // Stop after the first query that compiles successfully
+            }
+        }
+
+        guard !accessibilityBundleIDs.isEmpty else {
+            DDLogError("Accessibility check: Could not read TCC database (Full Disk Access may be required)")
+            return
+        }
+
+        // Cross-reference with running applications
+        let runningApps = NSWorkspace.shared.runningApplications
+        for bundleID in accessibilityBundleIDs.sorted() {
+            let matches = runningApps.filter { $0.bundleIdentifier == bundleID }
+            if matches.isEmpty {
+                DDLogDebug("Accessibility permission granted (not running): \(bundleID)")
+            } else {
+                for app in matches {
+                    DDLogInfo("Running app with Accessibility permission: \(app.localizedName ?? bundleID) (Bundle: \(bundleID) | PID: \(app.processIdentifier))")
+                }
+            }
+        }
+    }
 #else
     
     @available(iOS 12.2, *)
