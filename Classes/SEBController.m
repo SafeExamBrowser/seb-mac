@@ -3530,6 +3530,10 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 
 -(void)processWatcher
 {
+    if (quittingMyself) {
+        DDLogDebug(@"App is terminating, skip process watcher");
+        return;
+    }
     if (checkingRunningProcesses) {
         DDLogDebug(@"Check for prohibited processes still ongoing, return");
         return;
@@ -7826,7 +7830,7 @@ conditionallyForWindow:(NSWindow *)window
     // Restart terminated apps
     DDLogInfo(@"These processes were terminated by SEB during this session: %@", _terminatedProcessesExecutableURLs);
     
-    for (NSURL *executableURL in _terminatedProcessesExecutableURLs) {
+    for (NSURL *executableURL in [_terminatedProcessesExecutableURLs copy]) {
         
 //        NSArray *taskArguments = [NSArray arrayWithObjects:@"", nil];
         
