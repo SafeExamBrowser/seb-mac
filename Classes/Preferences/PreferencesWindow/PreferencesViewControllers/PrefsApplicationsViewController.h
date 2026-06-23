@@ -65,6 +65,7 @@
     __weak IBOutlet NSButton *runningInBackgroundButton;
     __weak IBOutlet NSButton *userSelectLocation;
     __weak IBOutlet NSButton *forceQuitButton;
+    __weak IBOutlet NSButton *allowAccessibilityButton;
     __weak IBOutlet NSPopUpButton *osPopUpButton;
     __weak IBOutlet NSTableView *permittedProcessesTableView;
     

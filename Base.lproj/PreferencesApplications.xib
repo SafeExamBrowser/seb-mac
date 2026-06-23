@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
             <connections>
+                <outlet property="allowAccessibilityButton" destination="qje-gt-QNa" id="Pxl-Up-4BW"/>
                 <outlet property="allowManualStartButton" destination="13k-Ch-eng" id="2iW-VO-HCi"/>
                 <outlet property="allowOpenSavePanelButton" destination="5" id="YyI-kF-AR9"/>
                 <outlet property="allowShareSheetButton" destination="k51-pu-omV" id="EeA-fE-rdI"/>
@@ -98,7 +99,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="52" y="69" width="604" height="612"/>
+                                                <rect key="frame" x="45" y="63" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -464,7 +465,7 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-jB-iWG">
-                                                                                    <rect key="frame" x="0.0" y="128" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="323" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
                                                                                             <rect key="frame" x="-2" y="4" width="74" height="16"/>
@@ -1196,25 +1197,10 @@
                                                                                     <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                                     <subviews>
-                                                                                        <button hidden="YES" toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="0u6-IA-Yyl">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="192" height="16"/>
-                                                                                            <buttonCell key="cell" type="check" title="Force quit (risk of data loss)" bezelStyle="regularSquare" imagePosition="left" inset="2" id="AoY-MA-ygc">
-                                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                                <font key="font" metaFont="system"/>
-                                                                                            </buttonCell>
-                                                                                            <connections>
-                                                                                                <binding destination="610" name="value" keyPath="selection.strongKill" id="qtr-QI-NGf">
-                                                                                                    <dictionary key="options">
-                                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
-                                                                                                    </dictionary>
-                                                                                                </binding>
-                                                                                            </connections>
-                                                                                        </button>
                                                                                         <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qje-gt-QNa" userLabel="Allow Accessibility">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="194" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="134" height="16"/>
                                                                                             <string key="toolTip">Allow the permitted process to have Accessibility permissions (see System Settings / Privacy &amp; Security / Accessibility). If 'Block Accessibility control' in Security Pane is enabled, then processes with Accessibility permissions (not excluded here) will be terminated</string>
-                                                                                            <buttonCell key="cell" type="check" title="Allow running in background" bezelStyle="regularSquare" imagePosition="left" inset="2" id="IYU-a0-pbv">
+                                                                                            <buttonCell key="cell" type="check" title="Allow Accessibility" bezelStyle="regularSquare" imagePosition="left" inset="2" id="IYU-a0-pbv" userLabel="Allow Accessibility">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
                                                                                             </buttonCell>
@@ -1238,10 +1224,8 @@
                                                                                     <visibilityPriorities>
                                                                                         <integer value="1000"/>
                                                                                         <integer value="1000"/>
-                                                                                        <integer value="1000"/>
                                                                                     </visibilityPriorities>
                                                                                     <customSpacing>
-                                                                                        <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>

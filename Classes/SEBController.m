@@ -406,8 +406,6 @@ bool insideMatrix(void);
         }
     }
     
-    [AccessibilityFeaturesManager getRunningAppsWithAccessibility];
-    
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     /// Setup Notifications
@@ -2090,6 +2088,8 @@ bool insideMatrix(void);
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+        // Log running apps with Accessibility permission before terminating prohibited processes
+        [AccessibilityFeaturesManager getRunningAppsWithAccessibility];
         [self addAccessibilityAppsToProhibitedApplicationsList];
     }
     
@@ -2120,6 +2120,13 @@ bool insideMatrix(void);
                 [allowedAccessibilityBundleIDs addObject:bundleID];
             }
         }
+    }
+    // Ensure apps with allowAccessibility = YES are not terminated at session start:
+    // terminateApplications adds permittedApplications to its termination list, so remove
+    // these apps from there. This applies regardless of AAC mode.
+    NSMutableArray *permittedApplications = [ProcessManager sharedProcessManager].permittedApplications;
+    for (NSString *bundleID in allowedAccessibilityBundleIDs) {
+        [permittedApplications removeObject:bundleID];
     }
     // Add remaining accessibility apps (not explicitly permitted) to the prohibited list
     NSMutableArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;

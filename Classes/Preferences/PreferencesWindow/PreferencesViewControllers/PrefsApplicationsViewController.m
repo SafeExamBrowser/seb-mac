@@ -114,6 +114,7 @@
                 runningInBackgroundButton.hidden = NO;
                 userSelectLocation.hidden = YES;
                 forceQuitButton.hidden = NO;
+                allowAccessibilityButton.hidden = NO;
                 break;
                 
             case SEBSupportedOSWindows:
@@ -132,6 +133,7 @@
                 runningInBackgroundButton.hidden = NO;
                 userSelectLocation.hidden = NO;
                 forceQuitButton.hidden = NO;
+                allowAccessibilityButton.hidden = YES;
                 break;
                 
             case SEBSupportedOSiPadOS:
@@ -150,6 +152,7 @@
                 runningInBackgroundButton.hidden = YES;
                 userSelectLocation.hidden = YES;
                 forceQuitButton.hidden = YES;
+                allowAccessibilityButton.hidden = YES;
                 break;
                 
             default:
