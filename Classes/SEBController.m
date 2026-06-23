@@ -394,10 +394,11 @@ bool insideMatrix(void);
     NSRunningApplication *iterApp;
     visibleApps = [NSMutableArray array]; //array for storing bundleIDs of visible apps
     
+    DDLogVerbose(@"Running applications at application start");
     for (iterApp in runningApps) {
         BOOL isHidden = [iterApp isHidden];
         NSString *appBundleID = [iterApp valueForKey:@"bundleIdentifier"];
-        DDLogInfo(@"Running app: %@, bundle ID: %@", iterApp.localizedName, appBundleID);
+        DDLogVerbose(@"%@, bundle ID: %@", iterApp.localizedName, appBundleID);
         if ((appBundleID != nil) & !isHidden) {
             [visibleApps addObject:appBundleID]; //add ID of the visible app
         }
@@ -2087,9 +2088,17 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
+    // Log all running applications at session start for diagnostic purposes
+    NSArray *runningAppsAtSessionStart = [NSWorkspace sharedWorkspace].runningApplications;
+    DDLogInfo(@"Running applications at session start (%lu):", (unsigned long)runningAppsAtSessionStart.count);
+    for (NSRunningApplication *app in runningAppsAtSessionStart) {
+        DDLogDebug(@"  %@ (Bundle: %@ | PID: %d)",
+                   app.localizedName ?: @"(unknown)",
+                   app.bundleIdentifier ?: @"(no bundle ID)",
+                   app.processIdentifier);
+    }
+    
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
-        // Log running apps with Accessibility permission before terminating prohibited processes
-        [AccessibilityFeaturesManager getRunningAppsWithAccessibility];
         [self addAccessibilityAppsToProhibitedApplicationsList];
     }
     

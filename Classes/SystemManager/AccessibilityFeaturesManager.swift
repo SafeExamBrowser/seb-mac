@@ -211,29 +211,7 @@ import CocoaLumberjackSwift
         return result as NSSet
     }
 
-    /// Logs all apps that currently have Accessibility permission and are running.
-    @objc public class func getRunningAppsWithAccessibility() {
-        DDLogInfo("Scanning for apps with active Accessibility permissions...")
 
-        let accessibilityBundleIDs = bundleIDsWithAccessibilityPermission() as! Set<String>
-
-        guard !accessibilityBundleIDs.isEmpty else {
-            DDLogError("Accessibility check: Could not read TCC database (Full Disk Access may be required)")
-            return
-        }
-
-        let runningApps = NSWorkspace.shared.runningApplications
-        for bundleID in accessibilityBundleIDs.sorted() {
-            let matches = runningApps.filter { $0.bundleIdentifier == bundleID }
-            if matches.isEmpty {
-                DDLogDebug("Accessibility permission granted (not running): \(bundleID)")
-            } else {
-                for app in matches {
-                    DDLogInfo("Running app with Accessibility permission: \(app.localizedName ?? bundleID) (Bundle: \(bundleID) | PID: \(app.processIdentifier))")
-                }
-            }
-        }
-    }
 #else
     
     @available(iOS 12.2, *)
