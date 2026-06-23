@@ -150,15 +150,27 @@ import CocoaLumberjackSwift
         UserDefaults.standard.setValue(false as NSNumber, forKey: VoiceOverDefaultsKey, forDefaultsDomain: VoiceOverDefaultsDomain)
     }
     
-    @objc public class func getRunningAppsWithAccessibility() {
-        DDLogInfo("Scanning for apps with active Accessibility permissions...")
+    /// Returns true if SEB has Full Disk Access (required to read the TCC database).
+    @objc public static var hasFullDiskAccess: Bool {
+        FileManager.default.isReadableFile(atPath: "/Library/Application Support/com.apple.TCC/TCC.db")
+    }
 
+    /// Opens System Settings to the Full Disk Access pane.
+    @objc public class func openFullDiskAccessSettings() {
+        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
+            NSWorkspace.shared.open(url)
+        }
+    }
+
+    /// Queries both TCC databases and returns the set of bundle IDs that have been granted
+    /// Accessibility permission. Requires Full Disk Access; returns an empty set if unavailable.
+    @objc public class func bundleIDsWithAccessibilityPermission() -> NSSet {
         let tccPaths = [
-            //"/Library/Application Support/com.apple.TCC/TCC.db",
+            "/Library/Application Support/com.apple.TCC/TCC.db",
             (NSHomeDirectory() as NSString).appendingPathComponent("Library/Application Support/com.apple.TCC/TCC.db")
         ]
 
-        var accessibilityBundleIDs: Set<String> = []
+        var result: Set<String> = []
 
         for path in tccPaths {
             var db: OpaquePointer?
@@ -185,19 +197,31 @@ import CocoaLumberjackSwift
                 defer { sqlite3_finalize(stmt) }
                 while sqlite3_step(stmt) == SQLITE_ROW {
                     if let cString = sqlite3_column_text(stmt, 0) {
-                        accessibilityBundleIDs.insert(String(cString: cString))
+                        result.insert(String(cString: cString))
                     }
                 }
                 break // Stop after the first query that compiles successfully
             }
         }
 
+        // Exclude SEB itself — it legitimately holds Accessibility permission
+        // and must never appear in its own prohibited list.
+        result.remove(Bundle.main.bundleIdentifier ?? "")
+
+        return result as NSSet
+    }
+
+    /// Logs all apps that currently have Accessibility permission and are running.
+    @objc public class func getRunningAppsWithAccessibility() {
+        DDLogInfo("Scanning for apps with active Accessibility permissions...")
+
+        let accessibilityBundleIDs = bundleIDsWithAccessibilityPermission() as! Set<String>
+
         guard !accessibilityBundleIDs.isEmpty else {
             DDLogError("Accessibility check: Could not read TCC database (Full Disk Access may be required)")
             return
         }
 
-        // Cross-reference with running applications
         let runningApps = NSWorkspace.shared.runningApplications
         for bundleID in accessibilityBundleIDs.sorted() {
             let matches = runningApps.filter { $0.bundleIdentifier == bundleID }

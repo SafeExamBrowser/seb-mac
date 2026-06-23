@@ -432,6 +432,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"defaultTextZoomLevel",
                    
                    @YES,
+                   @"detectAccessibilityApps",
+                   
+                   @YES,
                    @"detectStoppedProcess",
                    
                    @YES,
@@ -1179,6 +1182,7 @@ static SEBSettings *sharedSEBSettings = nil;
               
               @"permittedProcesses" : @{
                   @"active" : @YES,
+                  @"allowAccessibility" : @NO,
                   @"allowedExecutables" : @"",
                   @"allowManualStart" : @YES,
                   @"allowNetworkAccess" : @NO,

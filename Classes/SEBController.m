@@ -2089,10 +2089,71 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+        [self addAccessibilityAppsToProhibitedApplicationsList];
+    }
+    
     NSArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;
     NSArray *prohibitedBSDProcesses = [ProcessManager sharedProcessManager].prohibitedBSDProcesses;
     
     [self terminateApplications:prohibitedApplications processes:prohibitedBSDProcesses starting:YES restarting:NO callback:callback selector:selector];
+}
+
+
+/// Queries the TCC database for apps with Accessibility permission and adds those that are
+/// not explicitly permitted (via allowAccessibility on a permittedProcess entry) to the
+/// prohibited applications list, so they are treated like any other prohibited app.
+- (void) addAccessibilityAppsToProhibitedApplicationsList
+{
+    NSSet *accessibilityBundleIDs = [AccessibilityFeaturesManager bundleIDsWithAccessibilityPermission];
+    if (accessibilityBundleIDs.count == 0) {
+        DDLogDebug(@"%s: No apps with Accessibility permission found (or Full Disk Access not available)", __FUNCTION__);
+        return;
+    }
+    // Collect bundle IDs of permitted processes that are allowed to have Accessibility permission
+    NSArray *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+    NSMutableSet *allowedAccessibilityBundleIDs = [NSMutableSet new];
+    for (NSDictionary *process in permittedProcesses) {
+        if ([process[@"allowAccessibility"] boolValue] == YES) {
+            NSString *bundleID = process[@"identifier"];
+            if (bundleID.length > 0) {
+                [allowedAccessibilityBundleIDs addObject:bundleID];
+            }
+        }
+    }
+    // Add remaining accessibility apps (not explicitly permitted) to the prohibited list
+    NSMutableArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;
+    for (NSString *bundleID in accessibilityBundleIDs) {
+        if (![allowedAccessibilityBundleIDs containsObject:bundleID] &&
+            ![prohibitedApplications containsObject:bundleID]) {
+            DDLogInfo(@"%s: App with Accessibility permission added to prohibited list: %@", __FUNCTION__, bundleID);
+            [prohibitedApplications addObject:bundleID];
+        }
+    }
+}
+
+
+/// Force-terminates all currently running apps that have Accessibility permission
+/// and appear in the prohibited applications list (i.e., not covered by allowAccessibility).
+/// Called after Full Disk Access is granted, to catch any apps missed during the initial
+/// terminateApplications pass.
+- (void) terminateRunningAccessibilityProhibitedApps
+{
+    NSSet *accessibilityBundleIDs = [AccessibilityFeaturesManager bundleIDsWithAccessibilityPermission];
+    if (accessibilityBundleIDs.count == 0) {
+        return;
+    }
+    NSArray *prohibitedApplications = [ProcessManager sharedProcessManager].prohibitedApplications;
+    for (NSRunningApplication *app in [NSWorkspace sharedWorkspace].runningApplications) {
+        NSString *bundleID = app.bundleIdentifier;
+        if (bundleID &&
+            [accessibilityBundleIDs containsObject:bundleID] &&
+            [prohibitedApplications containsObject:bundleID]) {
+            DDLogInfo(@"%s: Force terminating running app with Accessibility permission: %@ (%@)",
+                      __FUNCTION__, app.localizedName ?: bundleID, bundleID);
+            [self killApplication:app];
+        }
+    }
 }
 
 
@@ -2458,6 +2519,43 @@ bool insideMatrix(void);
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))remoteProctoringDisclaimerHandler];
         return;
+    }
+    
+    // Check for Full Disk Access if accessibility app detection is enabled.
+    // FDA is required to query the TCC database for apps with Accessibility permission.
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+        if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
+            DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
+            [AccessibilityFeaturesManager openFullDiskAccessSettings];
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            NSAlert *modalAlert = [self newAlert];
+            [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+            [modalAlert setAlertStyle:NSAlertStyleWarning];
+            void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self removeAlertWindow:modalAlert.window];
+                switch (answer) {
+                    case NSAlertFirstButtonReturn:
+                        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+                        return;
+                    case NSAlertSecondButtonReturn:
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
+                        return;
+                    default:
+                        DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+                        return;
+                }
+            };
+            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
+            return;
+        }
+        // Full Disk Access is available: update the prohibited list and terminate any
+        // accessibility apps that are still running (may have been missed before FDA was granted).
+        [self addAccessibilityAppsToProhibitedApplicationsList];
+        [self terminateRunningAccessibilityProhibitedApps];
     }
     
     if (browserMediaCaptureScreen || screenProctoringEnable) {
