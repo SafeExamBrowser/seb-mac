@@ -327,6 +327,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) NSMutableArray *systemProcessPIDs;
 @property(strong, nonatomic) NSMutableArray *runningProhibitedProcesses;
 @property(strong, nonatomic) NSMutableSet *terminatedProcessesExecutableURLs;
+@property(strong, nonatomic) NSMutableDictionary<NSString *, NSDate *> *loggedStartedAppTimestamps;
 
 @property(strong, nonatomic) SEBDockItemButton *dockButtonReload;
 @property(strong, nonatomic) SEBDockItemButton *dockButtonBattery;

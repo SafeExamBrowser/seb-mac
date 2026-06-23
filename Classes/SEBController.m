@@ -1087,6 +1087,7 @@ bool insideMatrix(void);
     DDLogDebug(@"%s", __FUNCTION__);
     _runningProhibitedProcesses = [NSMutableArray new];
     _terminatedProcessesExecutableURLs = [NSMutableSet new];
+    _loggedStartedAppTimestamps = [NSMutableDictionary new];
 
     _alternateKeyPressed = [self alternateKeyCheck];
 
@@ -2088,14 +2089,20 @@ bool insideMatrix(void);
     
     [[ProcessManager sharedProcessManager] updateMonitoredProcesses];
     
-    // Log all running applications at session start for diagnostic purposes
+    // Log all running applications at session start for diagnostic purposes.
+    // Only the first instance of each name/bundle-ID combination is logged to avoid
+    // noise from multi-process apps (e.g. many Web Content processes).
     NSArray *runningAppsAtSessionStart = [NSWorkspace sharedWorkspace].runningApplications;
-    DDLogInfo(@"Running applications at session start (%lu):", (unsigned long)runningAppsAtSessionStart.count);
+    DDLogInfo(@"Running applications at session start (%lu total):", (unsigned long)runningAppsAtSessionStart.count);
+    NSMutableSet *loggedAppKeys = [NSMutableSet new];
     for (NSRunningApplication *app in runningAppsAtSessionStart) {
-        DDLogDebug(@"  %@ (Bundle: %@ | PID: %d)",
-                   app.localizedName ?: @"(unknown)",
-                   app.bundleIdentifier ?: @"(no bundle ID)",
-                   app.processIdentifier);
+        NSString *name = app.localizedName ?: @"(unknown)";
+        NSString *bundleID = app.bundleIdentifier ?: @"(no bundle ID)";
+        NSString *key = [NSString stringWithFormat:@"%@|%@", name, bundleID];
+        if (![loggedAppKeys containsObject:key]) {
+            [loggedAppKeys addObject:key];
+            DDLogDebug(@"  %@ (bundle ID: %@)", name, bundleID);
+        }
     }
     
     if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
@@ -8075,12 +8082,22 @@ conditionallyForWindow:(NSWindow *)window
             
             for (NSRunningApplication *startedApplication in startedProcesses) {
                 
-                NSString *bundleID = startedApplication.bundleIdentifier;
-                if (bundleID && ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] ||
-                                 [bundleID isEqualToString:UniversalControlBundleID])) {
-                    DDLogVerbose(@"Started application with bundle ID: %@", bundleID);
+                NSString *name = startedApplication.localizedName ?: @"(unknown)";
+                NSString *bundleID = startedApplication.bundleIdentifier ?: @"(no bundle ID)";
+                if ([bundleID isEqualToString:WebKitNetworkingProcessBundleID] ||
+                     [bundleID isEqualToString:WebKitContentProcessBundleID] ||
+                     [bundleID isEqualToString:UniversalControlBundleID]) {
+                    DDLogVerbose(@"Started application %@ with bundle ID: %@", name, bundleID);
                 } else {
-                    DDLogDebug(@"Started application with bundle ID: %@", bundleID);
+                    NSString *appKey = [NSString stringWithFormat:@"%@|%@", name, bundleID];
+                    NSDate *now = [NSDate date];
+                    NSDate *lastStart = _loggedStartedAppTimestamps[appKey];
+                    if (!lastStart || [now timeIntervalSinceDate:lastStart] >= 0.5) {
+                        DDLogInfo(@"Started application %@ with bundle ID: %@", name, bundleID);
+                    } else {
+                        DDLogDebug(@"Started application %@ with bundle ID: %@", name, bundleID);
+                    }
+                    _loggedStartedAppTimestamps[appKey] = now;
                 }
                 
                 // Check for running Open and Save Panel Service
