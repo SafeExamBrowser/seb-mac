@@ -37,6 +37,13 @@
                           @"ignoreInAAC" : @NO,
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"aText",
+                          @"identifier" : @"com.trankynam.aText",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"AutoFill",
                           @"identifier" : @"com.apple.AutoFillPanelService",
                           @"strongKill" : @YES,
@@ -107,6 +114,13 @@
                           @"identifier" : @"im.riot.app",
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"espanso",
+                          @"identifier" : @"com.federicoterzi.espanso",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"FaceTime",
                           @"identifier" : @"com.apple.FaceTime",
                       },
@@ -152,6 +166,13 @@
                           @"executable" : @"Jump Desktop Connect",
                           @"identifier" : @"com.p5sys.jump.mac.connect",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text on key combination",
+                          @"executable" : @"Keysmith",
+                          @"identifier" : @"app.keysmith.Keysmith",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Keyboard Viewer (Assistive Control)",
@@ -222,9 +243,23 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Raycast",
+                          @"identifier" : @"com.raycast.macos",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"Parsec",
                           @"identifier" : @"com.parsec.Parsec",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Poof",
+                          @"identifier" : @"com.brnbw.Poof",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Parsec",
@@ -325,6 +360,20 @@
                           @"executable" : @"ToDesk",
                           @"identifier" : @"com.youqu.todesk*",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Typexp",
+                          @"identifier" : @"com.creativeapplicationsnet.textexp",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Typinator",
+                          @"identifier" : @"com.macility.typinator2",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Universal Control",
@@ -606,7 +655,7 @@
                       @{
                           @"currentUser" : @YES,
                           @"executable" : @"MS-teams.exe",
-                          @"originalName" : @"MS-teams.exe",
+                          @"originalName" : @"MS-Teams.exe",
                           @"os" : @1,
                       },
                       @{
