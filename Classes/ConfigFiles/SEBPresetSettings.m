@@ -68,6 +68,11 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Chrome Remote Desktop Host",
+                          @"identifier" : @"com.google.ChromeRemoteDesktop",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Chromium Helper",
                           @"strongKill" : @YES,
@@ -92,6 +97,7 @@
                           @"identifier" : @"com.dosdude1.Discord-Lite",
                       },
                       @{
+                          @"description": @"DWService Agent",
                           @"executable" : @"DWAgent",
                           @"identifier" : @"com.dwservice.dwagent",
                           @"strongKill" : @YES,
@@ -140,6 +146,7 @@
                       @{
                           @"executable" : @"Jump Desktop",
                           @"identifier" : @"com.p5sys.jump.mac.viewer",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"Jump Desktop Connect",
@@ -185,6 +192,7 @@
                       @{
                           @"executable" : @"Microsoft Remote Desktop",
                           @"identifier" : @"com.microsoft.rdc.macos",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"Moonlight",
@@ -211,6 +219,11 @@
                       @{
                           @"executable" : @"Parallels Access",
                           @"identifier" : @"com.parallels.access*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Parsec",
+                          @"identifier" : @"com.parsec.Parsec",
                           @"strongKill" : @YES,
                       },
                       @{
@@ -325,6 +338,7 @@
                       @{
                           @"executable" : @"VNC Viewer",
                           @"identifier" : @"com.realvnc.vncviewer",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"vncserver",
@@ -347,6 +361,14 @@
 
                       @{
                           @"currentUser" : @YES,
+                          @"description" : @"Ammyy Admin Remote Utility",
+                          @"executable" : @"AA.exe",
+                          @"originalName" : @"AA.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description" : @"Ammyy Admin Remote Utility",
                           @"executable" : @"AA_v3.exe",
                           @"originalName" : @"AA_v3.exe",
                           @"os" : @1,
@@ -362,6 +384,12 @@
                           @"executable" : @"AnyDesk.exe",
                           @"originalName" : @"AnyDesk.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"description": @"Barrier Screen Share Client",
+                          @"executable": @"barrier.exe",
+                          @"originalName": @"barrier.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -449,6 +477,7 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"DWService Agent",
                           @"executable" : @"dwagent.exe",
                           @"originalName" : @"dwagent.exe",
                           @"os" : @1,
@@ -476,6 +505,13 @@
                           @"executable" : @"g2mstart.exe",
                           @"originalName" : @"g2mstart.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"GoToAssist Client Engine",
+                          @"executable": @"g2ax_user.exe",
+                          @"originalName": @"g2ax_user.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -545,9 +581,23 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"Windows Remote Desktop Client",
+                          @"executable": @"mstsc.exe",
+                          @"originalName": @"mstsc.exe",
+                          @"os": @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"MS-teams.exe",
                           @"originalName" : @"MS-teams.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"NinjaRMM Management Agent",
+                          @"executable": @"NinjaRMMAgent.exe",
+                          @"originalName": @"NinjaRMMAgent.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -590,6 +640,13 @@
                           @"executable" : @"ptoneclk.exe",
                           @"originalName" : @"ptoneclk.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Windows Quick Assist",
+                          @"executable": @"quickassist.exe",
+                          @"originalName": @"quickassist.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -647,6 +704,19 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable": @"ScreenConnect.Client.exe",
+                          @"originalName": @"ScreenConnect.Client.exe",
+                          @"os": @1
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"ScreenConnect Windows Service",
+                          @"executable": @"ScreenConnect.Service.exe",
+                          @"originalName": @"ScreenConnect.Service.exe",
+                          @"os": @1
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"sethc.exe",
                           @"originalName" : @"sethc.exe",
                           @"os" : @1,
@@ -689,6 +759,7 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"Splashtop Streamer",
                           @"executable" : @"SRServer.exe",
                           @"originalName" : @"SRServer.exe",
                           @"os" : @1,
@@ -701,15 +772,31 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop",
                           @"executable" : @"Supremo.exe",
                           @"originalName" : @"Supremo.exe",
                           @"os" : @1,
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop Helper Service",
+                          @"executable" : @"SupremoHelper.exe",
+                          @"originalName" : @"SupremoHelper.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Supremo Remote Desktop Service",
                           @"executable" : @"SupremoService.exe",
                           @"originalName" : @"SupremoService.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"Synergy Client",
+                          @"executable": @"synergyc.exe",
+                          @"originalName": @"synergyc.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -731,15 +818,24 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"TightVNC Server",
                           @"executable" : @"tvnserver.exe",
                           @"originalName" : @"tvnserver.exe",
                           @"os" : @1,
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"TightVNC Viewer",
                           @"executable" : @"tvnviewer.exe",
                           @"originalName" : @"tvnviewer.exe",
                           @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraVNC Server",
+                          @"executable": @"winvnc.exe",
+                          @"originalName": @"winvnc.exe",
+                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
