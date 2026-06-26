@@ -73,6 +73,11 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"ConnectWise Control Client",
+                          @"identifier" : @"com.connectwise.control*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"DataDetectorsViewService",
                           @"identifier" : @"com.apple.DataDetectorsViewService",
                           @"ignoreInAAC" : @NO,
@@ -85,6 +90,11 @@
                       @{
                           @"executable" : @"Discord Lite",
                           @"identifier" : @"com.dosdude1.Discord-Lite",
+                      },
+                      @{
+                          @"executable" : @"DWAgent",
+                          @"identifier" : @"com.dwservice.dwagent",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"Element (Riot)",
@@ -114,6 +124,11 @@
                           @"identifier" : @"com.electron.guilded",
                       },
                       @{
+                          @"executable" : @"ISL Light",
+                          @"identifier" : @"com.islonline.ISLLight*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"iTerm2",
                           @"identifier" : @"com.googlecode.iterm2",
                           @"ignoreInAAC" : @NO,
@@ -123,10 +138,28 @@
                           @"identifier" : @"com.logmein.join.me",
                       },
                       @{
+                          @"executable" : @"Jump Desktop",
+                          @"identifier" : @"com.p5sys.jump.mac.viewer",
+                      },
+                      @{
+                          @"executable" : @"Jump Desktop Connect",
+                          @"identifier" : @"com.p5sys.jump.mac.connect",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Keyboard Viewer (Assistive Control)",
                           @"identifier" : KeyboardViewerBundleID,
                           @"strongKill" : @YES,
                           @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"executable" : @"LogMeIn",
+                          @"identifier" : @"com.logmein.LogMeIn*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Loom",
+                          @"identifier" : @"com.loom.desktop",
                       },
                       @{
                           @"executable" : @"Messages",
@@ -150,12 +183,54 @@
                           @"identifier" : @"com.microsoft.Lync",
                       },
                       @{
+                          @"executable" : @"Microsoft Remote Desktop",
+                          @"identifier" : @"com.microsoft.rdc.macos",
+                      },
+                      @{
+                          @"executable" : @"Moonlight",
+                          @"identifier" : @"com.moonlight-stream.Moonlight",
+                      },
+                      @{
                           @"executable" : @"MSTeams",
                           @"identifier" : @"com.microsoft.teams2",
                       },
                       @{
+                          @"executable" : @"NoMachine",
+                          @"identifier" : @"com.nomachine.nxplayer",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"OBS",
+                          @"identifier" : @"com.obsproject.obs-studio",
+                      },
+                      @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
                           @"executable" : @"Opera Helper",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Parallels Access",
+                          @"identifier" : @"com.parallels.access*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Parsec",
+                          @"identifier" : @"com.parsecgaming.parsec",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"RemotePC",
+                          @"identifier" : @"com.remotepc.RemotePCDesktop",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Remote Utilities*",
+                          @"identifier" : @"com.remoteutilities.*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"RustDesk",
+                          @"identifier" : @"com.carriez.rustdesk",
                           @"strongKill" : @YES,
                       },
                       @{
@@ -165,8 +240,17 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"executable" : @"Screen Sharing",
+                          @"identifier" : @"com.apple.ScreenSharing",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Screenconnect",
                           @"identifier" : @"com.elsitech.screenconnect.client",
+                      },
+                      @{
+                          @"executable" : @"Screens*",
+                          @"identifier" : @"com.edovia.screens*",
                       },
                       @{
                           @"executable" : @"Skype",
@@ -183,6 +267,21 @@
                       @{
                           @"executable" : @"SolsticeClient",
                           @"identifier" : @"com.mersive.solstice.client",
+                      },
+                      @{
+                          @"executable" : @"Splashtop*",
+                          @"identifier" : @"com.splashtop.*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"Supremo",
+                          @"identifier" : @"com.nanosystems.Supremo*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
+                          @"executable" : @"sunshine",
+                          @"description" : @"Sunshine game streaming server.",
+                          @"strongKill" : @YES,
                       },
                       @{
                           @"executable" : @"Swiftcord",
@@ -224,6 +323,10 @@
                           @"identifier" : @"org.videolan.vlc",
                       },
                       @{
+                          @"executable" : @"VNC Viewer",
+                          @"identifier" : @"com.realvnc.vncviewer",
+                      },
+                      @{
                           @"executable" : @"vncserver",
                           @"description" : @"The user will have to deactivate/uninstall RealVNC server to use SEB.",
                       },
@@ -241,7 +344,7 @@
                       },
 
                       // SEB for Windows
-                      
+
                       @{
                           @"currentUser" : @YES,
                           @"executable" : @"AA_v3.exe",
@@ -252,6 +355,12 @@
                           @"currentUser" : @YES,
                           @"executable" : @"AeroAdmin.exe",
                           @"originalName" : @"AeroAdmin.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"AnyDesk.exe",
+                          @"originalName" : @"AnyDesk.exe",
                           @"os" : @1,
                       },
                       @{
@@ -316,6 +425,12 @@
                        },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"ConnectWiseControl.Client.exe",
+                          @"originalName" : @"ConnectWiseControl.Client.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Discord.exe",
                           @"originalName" : @"Discord.exe",
                           @"os" : @1,
@@ -330,6 +445,12 @@
                           @"currentUser" : @YES,
                           @"executable" : @"DiscordCanary.exe",
                           @"originalName" : @"DiscordCanary.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"dwagent.exe",
+                          @"originalName" : @"dwagent.exe",
                           @"os" : @1,
                       },
                       @{
@@ -370,6 +491,18 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"ISLAlwaysOn.exe",
+                          @"originalName" : @"ISLAlwaysOn.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"ISLLight.exe",
+                          @"originalName" : @"ISLLight.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"join.me.exe",
                           @"originalName" : @"join.me.exe",
                           @"os" : @1,
@@ -378,6 +511,18 @@
                           @"currentUser" : @YES,
                           @"executable" : @"join.me.sentinel.exe",
                           @"originalName" : @"join.me.sentinel.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"LogMeIn.exe",
+                          @"originalName" : @"LogMeIn.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"Loom.exe",
+                          @"originalName" : @"Loom.exe",
                           @"os" : @1,
                       },
                       @{
@@ -394,8 +539,26 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"Moonlight.exe",
+                          @"originalName" : @"Moonlight.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"MS-teams.exe",
                           @"originalName" : @"MS-teams.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"nxclient.exe",
+                          @"originalName" : @"nxclient.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"nxplayer.exe",
+                          @"originalName" : @"nxplayer.exe",
                           @"os" : @1,
                       },
                       @{
@@ -412,6 +575,12 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"parsecd.exe",
+                          @"originalName" : @"parsecd.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"pcmontask.exe",
                           @"originalName" : @"pcmontask.exe",
                           @"os" : @1,
@@ -420,6 +589,12 @@
                           @"currentUser" : @YES,
                           @"executable" : @"ptoneclk.exe",
                           @"originalName" : @"ptoneclk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"Radmin.exe",
+                          @"originalName" : @"Radmin.exe",
                           @"os" : @1,
                       },
                       @{
@@ -436,6 +611,12 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"rfusclient.exe",
+                          @"originalName" : @"rfusclient.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"RPCService.exe",
                           @"originalName" : @"RPCService.exe",
                           @"os" : @1,
@@ -444,6 +625,24 @@
                           @"currentUser" : @YES,
                           @"executable" : @"RPCSuite.exe",
                           @"originalName" : @"RPCSuite.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rserver3.exe",
+                          @"originalName" : @"rserver3.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rustdesk.exe",
+                          @"originalName" : @"rustdesk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"rutserv.exe",
+                          @"originalName" : @"rutserv.exe",
                           @"os" : @1,
                       },
                       @{
@@ -478,6 +677,12 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"SplashtopStreamer.exe",
+                          @"originalName" : @"SplashtopStreamer.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"spotify.exe",
                           @"originalName" : @"spotify.exe",
                           @"os" : @1,
@@ -496,6 +701,18 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"Supremo.exe",
+                          @"originalName" : @"Supremo.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"SupremoService.exe",
+                          @"originalName" : @"SupremoService.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Teams.exe",
                           @"originalName" : @"Teams.exe",
                           @"os" : @1,
@@ -510,6 +727,18 @@
                           @"currentUser" : @YES,
                           @"executable" : @"Telegram.exe",
                           @"originalName" : @"Telegram.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tvnserver.exe",
+                          @"originalName" : @"tvnserver.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tvnviewer.exe",
+                          @"originalName" : @"tvnviewer.exe",
                           @"os" : @1,
                       },
                       @{
@@ -544,15 +773,21 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"winvnc.exe",
+                          @"originalName" : @"winvnc.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Zoom.exe",
                           @"originalName" : @"Zoom.exe",
                           @"os" : @1,
                       },
 
                   ], // prohibitedProcesses end
-              
+
           }, // rootSettings end
-      
+
     }; // defaultSettings end
 }
 
@@ -563,11 +798,11 @@
     return
     @{@"rootSettings" :
           @{
-    
+
               @"allowPreferencesWindow" : @NO
-              
+
           }, // rootSettings end
-      
+
     }; // defaultExamSettings end
 }
 
