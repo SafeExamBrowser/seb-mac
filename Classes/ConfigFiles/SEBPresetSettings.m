@@ -322,6 +322,11 @@
                           @"ignoreInAAC" : @NO,
                       },
                       @{
+                          @"executable" : @"ToDesk",
+                          @"identifier" : @"com.youqu.todesk*",
+                          @"strongKill" : @YES,
+                      },
+                      @{
                           @"executable" : @"Universal Control",
                           @"identifier" : UniversalControlBundleID,
                           @"strongKill" : @YES,
@@ -581,6 +586,18 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"MouseWithoutBorders.exe",
+                          @"originalName" : @"MouseWithoutBorders.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"MouseWithoutBordersHelper.exe",
+                          @"originalName" : @"MouseWithoutBordersHelper.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"description": @"Windows Remote Desktop Client",
                           @"executable": @"mstsc.exe",
                           @"originalName": @"mstsc.exe",
@@ -631,6 +648,12 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"PCMonitorSrv.exe",
+                          @"originalName" : @"PCMonitorSrv.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"pcmontask.exe",
                           @"originalName" : @"pcmontask.exe",
                           @"os" : @1,
@@ -652,6 +675,18 @@
                           @"currentUser" : @YES,
                           @"executable" : @"Radmin.exe",
                           @"originalName" : @"Radmin.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"remote_assistance_host.exe",
+                          @"originalName" : @"remote_assistance_host.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"remote_assistance_host.exe",
+                          @"originalName" : @"remoting_native_messaging_host.exe",
                           @"os" : @1,
                       },
                       @{
@@ -812,8 +847,38 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"executable" : @"TeamViewer_Desktop.exe",
+                          @"originalName" : @"TeamViewer_Desktop.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"TeamViewer_Service.exe",
+                          @"originalName" : @"TeamViewer_Service.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"Telegram.exe",
                           @"originalName" : @"Telegram.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"ToDesk.exe",
+                          @"originalName" : @"ToDesk.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tv_w32.exe",
+                          @"originalName" : @"tv_w32.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"executable" : @"tv_x64.exe",
+                          @"originalName" : @"tv_x64.exe",
                           @"os" : @1,
                       },
                       @{
@@ -829,13 +894,6 @@
                           @"executable" : @"tvnviewer.exe",
                           @"originalName" : @"tvnviewer.exe",
                           @"os" : @1,
-                      },
-                      @{
-                          @"currentUser" : @YES,
-                          @"description": @"UltraVNC Server",
-                          @"executable": @"winvnc.exe",
-                          @"originalName": @"winvnc.exe",
-                          @"os": @1,
                       },
                       @{
                           @"currentUser" : @YES,
@@ -869,6 +927,7 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"UltraVNC Server",
                           @"executable" : @"winvnc.exe",
                           @"originalName" : @"winvnc.exe",
                           @"os" : @1,
