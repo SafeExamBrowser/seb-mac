@@ -54,6 +54,13 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"description" : @"Input customization with text triggers",
+                          @"executable" : @"BetterTouchTool",
+                          @"identifier" : @"com.hegenberg.BetterTouchTool*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"Camtasia*",
                           @"identifier" : @"com.techsmith.camtasia*",
                       },
@@ -90,10 +97,24 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"description" : @"AI writing assistant with text injection",
+                          @"executable" : @"Cotypist",
+                          @"identifier" : @"app.cotypist.Cotypist",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"DataDetectorsViewService",
                           @"identifier" : @"com.apple.DataDetectorsViewService",
                           @"ignoreInAAC" : @NO,
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"API docs browser with snippet expander",
+                          @"executable" : @"Dash",
+                          @"identifier" : @"com.kapeli.dashdoc",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Discord",
@@ -125,6 +146,13 @@
                           @"identifier" : @"com.apple.FaceTime",
                       },
                       @{
+                          @"description" : @"Script launcher with text injection",
+                          @"executable" : @"FastScripts",
+                          @"identifier" : @"com.red-sweater.fastscripts3",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"description" : @"Firefox: This stops video conferencing and screen sharing, without having to quit the browser. Users have to restore their open tabs afterwards though.",
                           @"executable" : @"plugin-container",
                           @"identifier" : @"org.mozilla.plugincontainer",
@@ -142,6 +170,13 @@
                       @{
                           @"executable" : @"Guilded",
                           @"identifier" : @"com.electron.guilded",
+                      },
+                      @{
+                          @"description" : @"Lua-based automation with text injection",
+                          @"executable" : @"Hammerspoon",
+                          @"identifier" : @"org.hammerspoon.Hammerspoon",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"ISL Light",
@@ -168,9 +203,30 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"description" : @"Keyboard customizer with text output rules",
+                          @"executable" : @"Karabiner-Elements",
+                          @"identifier" : @"org.pqrs.Karabiner*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"description" : @"Text on key combination",
                           @"executable" : @"Keysmith",
                           @"identifier" : @"app.keysmith.Keysmith",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Macro automation with text injection",
+                          @"executable" : @"Keyboard Maestro",
+                          @"identifier" : @"com.stairways.keyboardmaestro.editor",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Keyboard Maestro background engine",
+                          @"executable" : @"Keyboard Maestro Engine",
+                          @"identifier" : @"com.stairways.keyboardmaestro.engine",
                           @"strongKill" : @YES,
                           @"ignoreInAAC" : @NO,
                       },
@@ -267,6 +323,27 @@
                           @"strongKill" : @YES,
                       },
                       @{
+                          @"description" : @"Clipboard manager with text expansion",
+                          @"executable" : @"Pastebot",
+                          @"identifier" : @"com.tapbots.Pastebot2Mac",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"PhraseExpress",
+                          @"identifier" : @"com.bartelsmedia.PhraseExpressOSX",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text selection actions/insertion",
+                          @"executable" : @"PopClip",
+                          @"identifier" : @"com.pilotmoon.popclip",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"RemotePC",
                           @"identifier" : @"com.remotepc.RemotePCDesktop",
                           @"strongKill" : @YES,
@@ -280,6 +357,13 @@
                           @"executable" : @"RustDesk",
                           @"identifier" : @"com.carriez.rustdesk",
                           @"strongKill" : @YES,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Rocket Typist",
+                          @"identifier" : @"com.witt-software.Rocket-Typist*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"description" : @"This stops video conferencing and screen sharing, without having to quit the browser.",
@@ -313,6 +397,13 @@
                           @"identifier" : @"com.tinyspeck.slackmacgap",
                       },
                       @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"Snippety",
+                          @"identifier" : @"pl.wojciechkulik.Snippety",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"SolsticeClient",
                           @"identifier" : @"com.mersive.solstice.client",
                       },
@@ -340,6 +431,13 @@
                           @"identifier" : @"com.microsoft.teams",
                       },
                       @{
+                          @"description" : @"Code snippet expander",
+                          @"executable" : @"TeaCode",
+                          @"identifier" : @"com.apptorium.TeaCode*",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"TeamViewer",
                           @"identifier" : @"com.teamviewer.TeamViewer",
                       },
@@ -350,6 +448,20 @@
                       @{
                           @"executable" : @"Telegram",
                           @"identifier" : @"ru.keepcoder.Telegram",
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"TextExpander",
+                          @"identifier" : @"com.smileonmymac.textexpander",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text cleaning/transformation",
+                          @"executable" : @"TextSoap",
+                          @"identifier" : @"com.unmarked.textsoap",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"Terminal",
@@ -372,6 +484,13 @@
                           @"description" : @"Text replacement (Hotstrings)",
                           @"executable" : @"Typinator",
                           @"identifier" : @"com.macility.typinator2",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
+                          @"description" : @"Text replacement (Hotstrings)",
+                          @"executable" : @"TypeIt4Me",
+                          @"identifier" : @"com.typeit4me.TypeIt4MeMenu",
                           @"strongKill" : @YES,
                           @"ignoreInAAC" : @NO,
                       },
@@ -401,6 +520,13 @@
                       @{
                           @"executable" : @"Voxa",
                           @"identifier" : @"lol.peril.voxa",
+                      },
+                      @{
+                          @"description" : @"AI typing assistant",
+                          @"executable" : @"WunderType",
+                          @"identifier" : @"com.wunderpen.app",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
                       },
                       @{
                           @"executable" : @"webexmta",
