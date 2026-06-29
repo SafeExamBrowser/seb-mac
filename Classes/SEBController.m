@@ -3155,6 +3155,9 @@ void run_on_ui_thread(dispatch_block_t block)
         // Disable Spotlight clipboard history in non-AAC lockdown mode
         [self conditionallyDisablePasteboardHistory];
         
+        // Disable Live Activities from iPhone in non-AAC lockdown mode
+        [self conditionallyDisableRemoteLiveActivities];
+        
         // Switch off TouchBar features
         [self disableTouchBarFeatures];
         
@@ -4355,6 +4358,25 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
             [preferences setValue:[NSNumber numberWithBool:NO]
                            forKey:PasteboardHistoryDefaultsKey
                 forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+        }
+    }
+}
+
+
+// Disable Live Activities from iPhone (displayed in the menu bar) when using
+// SEB's own lockdown mode (non-AAC) to prevent information leaking from iPhone.
+// ControlCenter watches this key and removes Live Activities immediately.
+- (void)conditionallyDisableRemoteLiveActivities
+{
+    if (!_isAACEnabled) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL remoteLiveActivitiesEnabled = [[preferences valueForDefaultsDomain:RemoteLiveActivitiesDefaultsDomain
+                                                                            key:RemoteLiveActivitiesDefaultsKey] boolValue];
+        if (remoteLiveActivitiesEnabled) {
+            DDLogInfo(@"Live Activities from iPhone are enabled, disabling them for this session");
+            [preferences setValue:[NSNumber numberWithBool:NO]
+                           forKey:RemoteLiveActivitiesDefaultsKey
+                forDefaultsDomain:RemoteLiveActivitiesDefaultsDomain];
         }
     }
 }
@@ -7980,6 +8002,19 @@ conditionallyForWindow:(NSWindow *)window
             [preferences setValue:[NSNumber numberWithBool:YES]
                            forKey:PasteboardHistoryDefaultsKey
                 forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+        }
+    }
+    
+    // Restore Live Activities from iPhone setting unconditionally,
+    // because the AAC mode may have changed during reconfiguration
+    {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL cachedRemoteLiveActivities = [preferences persistedSecureBoolForKey:cachedRemoteLiveActivitiesSettingKey];
+        if (cachedRemoteLiveActivities) {
+            DDLogInfo(@"Restoring Live Activities from iPhone setting");
+            [preferences setValue:[NSNumber numberWithBool:YES]
+                           forKey:RemoteLiveActivitiesDefaultsKey
+                forDefaultsDomain:RemoteLiveActivitiesDefaultsDomain];
         }
     }
     

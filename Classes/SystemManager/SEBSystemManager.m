@@ -86,6 +86,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
                                                                     key:PasteboardHistoryDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:pasteboardHistoryEnabled forKey:cachedPasteboardHistorySettingKey];
     
+    // Cache current system preferences setting for remote Live Activities from iPhone (macOS 26+)
+    BOOL remoteLiveActivitiesEnabled = [[preferences valueForDefaultsDomain:RemoteLiveActivitiesDefaultsDomain
+                                                                       key:RemoteLiveActivitiesDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:remoteLiveActivitiesEnabled forKey:cachedRemoteLiveActivitiesSettingKey];
+    
     // Cache current system preferences setting for TouchBar
     NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
                                                                              key:TouchBarGlobalDefaultsKey];
@@ -127,6 +132,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     [preferences setValue:[NSNumber numberWithBool:pasteboardHistoryEnabled]
                    forKey:PasteboardHistoryDefaultsKey
         forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+    
+    // Restore setting for remote Live Activities from iPhone before SEB was running to system preferences
+    BOOL remoteLiveActivitiesEnabled = [preferences persistedSecureBoolForKey:cachedRemoteLiveActivitiesSettingKey];
+    [preferences setValue:[NSNumber numberWithBool:remoteLiveActivitiesEnabled]
+                   forKey:RemoteLiveActivitiesDefaultsKey
+        forDefaultsDomain:RemoteLiveActivitiesDefaultsDomain];
     
     // Restore setting for TouchBar before SEB was running to system preferences
     NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
