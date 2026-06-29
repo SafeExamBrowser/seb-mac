@@ -563,7 +563,25 @@
     NSPasteboard *generalPasteboard = [NSPasteboard generalPasteboard];
     [generalPasteboard clearContents];
     NSArray *archive = self.navigationDelegate.privatePasteboardItems;
-    [generalPasteboard restoreArchive:archive];
+
+    // Restore archived items with concealed/transient markers so clipboard
+    // history managers (including macOS 26 Spotlight) won't capture them
+    NSPasteboardType const concealedType = @"org.nspasteboard.ConcealedType";
+    NSPasteboardType const transientType = @"org.nspasteboard.TransientType";
+    NSMutableArray *items = [NSMutableArray array];
+    for (NSPasteboardItem *archivedItem in archive) {
+        NSPasteboardItem *newItem = [[NSPasteboardItem alloc] init];
+        for (NSString *type in [archivedItem types]) {
+            NSData *data = [archivedItem dataForType:type];
+            if (data) {
+                [newItem setData:data forType:type];
+            }
+        }
+        [newItem setData:[NSData data] forType:concealedType];
+        [newItem setData:[NSData data] forType:transientType];
+        [items addObject:newItem];
+    }
+    [generalPasteboard writeObjects:items];
 #endif
 }
 

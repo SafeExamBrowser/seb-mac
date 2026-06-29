@@ -3152,6 +3152,9 @@ void run_on_ui_thread(dispatch_block_t block)
         // Switch off Siri and dictation if not allowed in settings
         [self conditionallyDisableSpeechInput];
         
+        // Disable Spotlight clipboard history in non-AAC lockdown mode
+        [self conditionallyDisablePasteboardHistory];
+        
         // Switch off TouchBar features
         [self disableTouchBarFeatures];
         
@@ -4334,6 +4337,25 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         [preferences setValue:[NSNumber numberWithBool:allowSiri]
                        forKey:SiriDefaultsKey
             forDefaultsDomain:SiriDefaultsDomain];
+    }
+}
+
+
+// Disable Spotlight clipboard history when using SEB's own lockdown mode
+// (non-AAC) to prevent copied content from appearing in clipboard history.
+// Disabling the setting also clears any existing clipboard history.
+- (void)conditionallyDisablePasteboardHistory
+{
+    if (!_isAACEnabled) {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL pasteboardHistoryEnabled = [[preferences valueForDefaultsDomain:PasteboardHistoryDefaultsDomain
+                                                                         key:PasteboardHistoryDefaultsKey] boolValue];
+        if (pasteboardHistoryEnabled) {
+            DDLogInfo(@"Spotlight clipboard history is enabled, disabling it for this session");
+            [preferences setValue:[NSNumber numberWithBool:NO]
+                           forKey:PasteboardHistoryDefaultsKey
+                forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+        }
     }
 }
 
@@ -7946,6 +7968,19 @@ conditionallyForWindow:(NSWindow *)window
         touchBarRestoreSuccess = [_systemManager restoreSystemSettings];
         DDLogDebug(@"Restored system settings. Restoring TouchBar settings (if available) %@", touchBarRestoreSuccess ? @"was successfull" : @"failed");
         [self killTouchBarAgent];
+    }
+    
+    // Restore Spotlight clipboard history setting unconditionally,
+    // because the AAC mode may have changed during reconfiguration
+    {
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        BOOL cachedPasteboardHistory = [preferences persistedSecureBoolForKey:cachedPasteboardHistorySettingKey];
+        if (cachedPasteboardHistory) {
+            DDLogInfo(@"Restoring Spotlight clipboard history setting");
+            [preferences setValue:[NSNumber numberWithBool:YES]
+                           forKey:PasteboardHistoryDefaultsKey
+                forDefaultsDomain:PasteboardHistoryDefaultsDomain];
+        }
     }
     
     // Restart terminated apps

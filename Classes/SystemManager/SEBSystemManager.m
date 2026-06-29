@@ -81,6 +81,11 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
                                                                    key:RemoteDictationDefaultsKey] boolValue];
     [preferences setPersistedSecureBool:remoteDictationEnabled forKey:cachedRemoteDictationSettingKey];
     
+    // Cache current system preferences setting for Spotlight clipboard history (macOS 26+)
+    BOOL pasteboardHistoryEnabled = [[preferences valueForDefaultsDomain:PasteboardHistoryDefaultsDomain
+                                                                    key:PasteboardHistoryDefaultsKey] boolValue];
+    [preferences setPersistedSecureBool:pasteboardHistoryEnabled forKey:cachedPasteboardHistorySettingKey];
+    
     // Cache current system preferences setting for TouchBar
     NSString *touchBarGlobalDefaultsValue = (NSString *)[preferences valueForDefaultsDomain:TouchBarDefaultsDomain
                                                                              key:TouchBarGlobalDefaultsKey];
@@ -116,6 +121,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
     [preferences setValue:[NSNumber numberWithBool:remoteDictationEnabled]
                    forKey:RemoteDictationDefaultsKey
         forDefaultsDomain:RemoteDictationDefaultsDomain];
+    
+    // Restore setting for Spotlight clipboard history before SEB was running to system preferences
+    BOOL pasteboardHistoryEnabled = [preferences persistedSecureBoolForKey:cachedPasteboardHistorySettingKey];
+    [preferences setValue:[NSNumber numberWithBool:pasteboardHistoryEnabled]
+                   forKey:PasteboardHistoryDefaultsKey
+        forDefaultsDomain:PasteboardHistoryDefaultsDomain];
     
     // Restore setting for TouchBar before SEB was running to system preferences
     NSString *touchBarGlobalDefaultsValue = [preferences persistedSecureObjectForKey:cachedTouchBarGlobalSettingsKey];
