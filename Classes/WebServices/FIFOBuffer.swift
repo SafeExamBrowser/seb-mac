@@ -81,21 +81,25 @@ public class FIFOBuffer {
     }
     
     var isEmpty: Bool {
-        return queue.isEmpty
+        fifoDispatchQueue.sync {
+            return queue.isEmpty
+        }
     }
 
     var count: Int {
-        return queue.count
+        fifoDispatchQueue.sync {
+            return queue.count
+        }
     }
     
     func pushObject(_ object: AnyHashable) {
-        fifoDispatchQueue.async(flags: .barrier) {
+        fifoDispatchQueue.async {
             self.queue.enqueue(object)
         }
     }
     
     func popObject() -> AnyHashable? {
-        fifoDispatchQueue.sync(flags: .barrier) {
+        fifoDispatchQueue.sync {
             guard let object = self.queue.dequeue() else {
                 return nil
             }
@@ -104,13 +108,17 @@ public class FIFOBuffer {
     }
     
     func removeObject(_ object: AnyHashable) -> Bool {
-        return self.queue.remove(object)
+        fifoDispatchQueue.sync {
+            return self.queue.remove(object)
+        }
     }
     
     func copyObject() -> AnyHashable? {
-        guard let object = self.queue.copyFirst() else {
-            return nil
+        fifoDispatchQueue.sync {
+            guard let object = self.queue.copyFirst() else {
+                return nil
+            }
+            return object
         }
-        return object
     }
 }
