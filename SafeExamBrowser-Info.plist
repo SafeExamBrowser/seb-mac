@@ -95,7 +95,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>15799</string>
+	<string>157BC</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.education</string>
 	<key>LSMinimumSystemVersion</key>
@@ -116,7 +116,7 @@
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>Downloaded files are by default saved to the Downloads folder.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2010-2025 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
+	<string>© 2010-2026 Daniel R. Schneider, ETH Zurich, IT Services, based on the original idea of Safe Exam Browser by Stefan Schneider, University of Giessen</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
