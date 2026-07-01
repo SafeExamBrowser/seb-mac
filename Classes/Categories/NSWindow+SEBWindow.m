@@ -39,7 +39,9 @@
 
 - (void)newSetLevel:(NSInteger)windowLevel
 {
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"]) {
+    NSInteger originalLevel = windowLevel;
+    BOOL elevate = [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
+    if (elevate) {
         if (windowLevel == NSNormalWindowLevel) {
             windowLevel = NSMainMenuWindowLevel+5;
             DDLogVerbose(@"Window %@ level NSNormalWindowLevel changed to NSMainMenuWindowLevel+5", self);
@@ -51,7 +53,10 @@
     }
     if (windowLevel == NSModalPanelWindowLevel) {
         windowLevel = NSMainMenuWindowLevel+6;
-        DDLogVerbose(@"Window %@ level NSModalPanelWindowLevel changed to NSMainMenuWindowLevel+6", self);
+        DDLogDebug(@"Window %@ level NSModalPanelWindowLevel (%ld) changed to NSMainMenuWindowLevel+6 (%ld), elevateWindowLevels=%hhd", self, (long)NSModalPanelWindowLevel, (long)windowLevel, elevate);
+    }
+    if (originalLevel != windowLevel) {
+        DDLogDebug(@"Window %@ setLevel: %ld → %ld (elevateWindowLevels=%hhd)", self, (long)originalLevel, (long)windowLevel, elevate);
     }
     [self newSetLevel:windowLevel]; //call the original(!) method
 }

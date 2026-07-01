@@ -401,7 +401,11 @@
             DDLogInfo(@"Show Reload Current Page warning.");
             // Display warning and ask if to reload page
             NSAlert *newAlert = [self.browserController.sebController newAlert];
+#ifdef DEBUG
+            [newAlert setMessageText:[NSString stringWithFormat:@"%@ (Alert window level: %ld)", NSLocalizedString(@"Reload Current Page", @""), (long)newAlert.window.level]];
+#else
             [newAlert setMessageText:NSLocalizedString(@"Reload Current Page", @"")];
+#endif
             [newAlert setInformativeText:NSLocalizedString(@"Do you really want to reload the current web page?", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Reload", @"")];
             [newAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
@@ -657,7 +661,8 @@
     [_filterMessageHUD setFrameTopLeftPoint:topLeftPoint];
     
     _filterMessageHUD.becomesKeyOnlyIfNeeded = YES;
-    [_filterMessageHUD setLevel:NSModalPanelWindowLevel];
+    // Use newSetLevel: to bypass unreliable swizzle after AAC transition
+    [_filterMessageHUD newSetLevel:NSMainMenuWindowLevel+6];
     DDLogDebug(@"Opening URL blocked HUD: %@", _filterMessageHUD);
     [_filterMessageHUD makeKeyAndOrderFront:nil];
     [_filterMessageHUD invalidateShadow];
@@ -750,6 +755,11 @@
                             }
                         }
                         
+                        // Explicitly set elevated window level as NSWindow setLevel: swizzle
+                        // may not work reliably after AAC to SEB kiosk mode transition
+                        if (!window) {
+                            [self.URLFilterAlert newSetLevel:NSMainMenuWindowLevel+6];
+                        }
                         [NSApp beginSheet: self.URLFilterAlert
                            modalForWindow: window
                             modalDelegate: nil

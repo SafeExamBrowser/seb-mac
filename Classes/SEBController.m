@@ -1770,6 +1770,11 @@ bool insideMatrix(void);
             }
         }
 
+        // Explicitly set elevated window level as NSWindow setLevel: swizzle
+        // may not work reliably after AAC to SEB kiosk mode transition
+        if (!windowToShowModalFor) {
+            [_enterRaiseHandMessageWindow newSetLevel:NSMainMenuWindowLevel+6];
+        }
         [NSApp beginSheet: _enterRaiseHandMessageWindow
            modalForWindow: windowToShowModalFor
             modalDelegate: nil
@@ -5105,7 +5110,8 @@ bool insideMatrix(void){
 - (NSAlert *) newAlert
 {
     NSAlert *newAlert = [[NSAlert alloc] init];
-    DDLogDebug(@"Adding modal alert window %@", newAlert.window);
+    [newAlert.window newSetLevel:NSMainMenuWindowLevel+6];
+    DDLogDebug(@"Adding modal alert window %@ with level %ld", newAlert.window, newAlert.window.level);
     [_modalAlertWindows addObject:newAlert.window];
     if (self.aboutWindow.isVisible) {
         DDLogDebug(@"%s About SEB window is visible, attempting to close it.", __FUNCTION__);
@@ -5139,6 +5145,13 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
     }
+    DDLogDebug(@"%s: alert window level before runModal: %ld, parent window level: %ld, elevateWindowLevels: %hhd, isAACEnabled: %hhd, wasAACEnabled: %hhd",
+             __FUNCTION__,
+             (long)alert.window.level,
+             (long)window.level,
+             [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"],
+             _isAACEnabled,
+             _wasAACEnabled);
     NSModalResponse answer = [alert runModal];
     if (handler) {
         handler(answer);
@@ -5873,7 +5886,8 @@ conditionallyForWindow:(NSWindow *)window
     [informationHUD setFrameTopLeftPoint:topLeftPoint];
     
     informationHUD.becomesKeyOnlyIfNeeded = YES;
-    [informationHUD setLevel:NSModalPanelWindowLevel];
+    // Use newSetLevel: to bypass unreliable swizzle after AAC transition
+    [informationHUD newSetLevel:NSMainMenuWindowLevel+6];
     DDLogDebug(@"Opening info HUD: %@", informationTextFinal);
     [informationHUD makeKeyAndOrderFront:nil];
 }
@@ -6248,13 +6262,15 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _sessionState.allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-    if (_sessionState.allowSwitchToApplications || _isAACEnabled || _wasAACEnabled) {
-        DDLogDebug(@"%s: false", __FUNCTION__);
-        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    } else {
-        DDLogDebug(@"%s: true", __FUNCTION__);
-        [preferences setSecureBool:YES forKey:@"org_safeexambrowser_elevateWindowLevels"];
-    }
+    BOOL elevate = !(_sessionState.allowSwitchToApplications || _isAACEnabled);
+    DDLogDebug(@"%s: allowSwitchToApplications=%hhd, _isAACEnabled=%hhd, _wasAACEnabled=%hhd → elevateWindowLevels=%hhd, privateUserDefaults=%hhd",
+             __FUNCTION__,
+             _sessionState.allowSwitchToApplications,
+             _isAACEnabled,
+             _wasAACEnabled,
+             elevate,
+             NSUserDefaults.userDefaultsPrivate);
+    [preferences setSecureBool:elevate forKey:@"org_safeexambrowser_elevateWindowLevels"];
 }
 
 
@@ -7061,6 +7077,11 @@ conditionallyForWindow:(NSWindow *)window
                 windowToShowModalFor = window;
             }
         }
+        // Explicitly set elevated window level as NSWindow setLevel: swizzle
+        // may not work reliably after AAC to SEB kiosk mode transition
+        if (!windowToShowModalFor) {
+            [enterPasswordDialogWindow newSetLevel:NSMainMenuWindowLevel+6];
+        }
         [NSApp beginSheet: enterPasswordDialogWindow
            modalForWindow: windowToShowModalFor
             modalDelegate: nil
@@ -7157,6 +7178,11 @@ conditionallyForWindow:(NSWindow *)window
         }
     }
 
+    // Explicitly set elevated window level as NSWindow setLevel: swizzle
+    // may not work reliably after AAC to SEB kiosk mode transition
+    if (!window) {
+        [enterUsernamePasswordDialogWindow newSetLevel:NSMainMenuWindowLevel+6];
+    }
     [NSApp beginSheet: enterUsernamePasswordDialogWindow
        modalForWindow: window
         modalDelegate: self
