@@ -139,7 +139,25 @@ import CocoaLumberjackSwift
             DDLogError("Cannot connect: no WiFi interface available")
             return
         }
-        try interface.associate(to: network, password: password)
+
+        // The CWNetwork object from cachedScanResults may be stale.
+        // Perform a fresh targeted scan to get an up-to-date network object.
+        var targetNetwork = network
+        if let ssid = network.ssid {
+            do {
+                let freshNetworks = try interface.scanForNetworks(withName: ssid)
+                if let freshNetwork = freshNetworks.first(where: { $0.ssid == ssid }) {
+                    DDLogDebug("Using fresh CWNetwork object for \(ssid)")
+                    targetNetwork = freshNetwork
+                } else {
+                    DDLogWarn("Fresh scan for '\(ssid)' returned no match, using cached network object")
+                }
+            } catch {
+                DDLogWarn("Fresh scan for '\(ssid)' failed: \(error.localizedDescription), using cached network object")
+            }
+        }
+
+        try interface.associate(to: targetNetwork, password: password)
     }
 
     // MARK: - Computed Properties

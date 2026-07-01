@@ -1545,41 +1545,164 @@ bool insideMatrix(void);
 
     DDLogInfo(@"Attempting to connect to WiFi network: %@", network.ssid);
 
-    // Check if this is a known network (password may be in keychain)
-    NSError *error = nil;
-    BOOL success = [self.wifiController connectToNetwork:network password:nil error:&error];
-
-    if (!success) {
-        // If connection without password fails, prompt for password
-        DDLogInfo(@"WiFi connection without password failed (error: %@), prompting for password", error.localizedDescription);
-        [self promptForWiFiPassword:network];
+    // 1. Try to retrieve a previously saved password from SEB's own keychain
+    NSString *savedPassword = [self savedWiFiPasswordForSSID:network.ssid];
+    if (savedPassword) {
+        NSError *error = nil;
+        BOOL success = [self.wifiController connectToNetwork:network password:savedPassword error:&error];
+        if (success) {
+            DDLogInfo(@"Connected to %@ using saved password", network.ssid);
+            return;
+        }
+        DDLogDebug(@"WiFi connection with saved password failed: %@", error.localizedDescription);
+        // Saved password may be outdated, remove it
+        [self removeSavedWiFiPasswordForSSID:network.ssid];
     }
+
+    // 2. Try to retrieve the password from the system keychain via the security CLI tool.
+    //    This may prompt the user for admin credentials (one-time per network).
+    NSString *systemPassword = [self findSystemKeychainWiFiPasswordForSSID:network.ssid];
+    if (systemPassword) {
+        NSError *error = nil;
+        BOOL success = [self.wifiController connectToNetwork:network password:systemPassword error:&error];
+        if (success) {
+            DDLogInfo(@"Connected to %@ using system keychain password", network.ssid);
+            // Save to SEB's own keychain so we don't need admin credentials next time
+            [self saveWiFiPassword:systemPassword forSSID:network.ssid];
+            return;
+        }
+        DDLogDebug(@"WiFi connection with system keychain password failed: %@", error.localizedDescription);
+    }
+
+    // 3. Prompt for password as last resort
+    DDLogInfo(@"Prompting user for WiFi password for %@", network.ssid);
+    [self promptForWiFiPassword:network];
+}
+
+- (NSString *) findSystemKeychainWiFiPasswordForSSID:(NSString *)ssid
+{
+    if (!ssid) return nil;
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/usr/bin/security";
+    task.arguments = @[@"find-generic-password",
+                       @"-D", @"AirPort network password",
+                       @"-a", ssid,
+                       @"-w",
+                       @"/Library/Keychains/System.keychain"];
+    NSPipe *outputPipe = [NSPipe pipe];
+    NSPipe *errorPipe = [NSPipe pipe];
+    task.standardOutput = outputPipe;
+    task.standardError = errorPipe;
+    @try {
+        [task launch];
+        [task waitUntilExit];
+        if (task.terminationStatus == 0) {
+            NSData *outputData = [outputPipe.fileHandleForReading readDataToEndOfFile];
+            NSString *password = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
+            password = [password stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (password.length > 0) {
+                DDLogDebug(@"Retrieved WiFi password from system keychain for %@", ssid);
+                return password;
+            }
+        } else {
+            NSData *errorData = [errorPipe.fileHandleForReading readDataToEndOfFile];
+            NSString *errorOutput = [[NSString alloc] initWithData:errorData encoding:NSUTF8StringEncoding];
+            DDLogDebug(@"System keychain lookup failed for %@ (exit %d): %@", ssid, task.terminationStatus, errorOutput);
+        }
+    } @catch (NSException *exception) {
+        DDLogDebug(@"security CLI exception: %@", exception.reason);
+    }
+    return nil;
+}
+
+#pragma mark - WiFi Password Keychain Storage
+
+static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi";
+
+- (NSString *) savedWiFiPasswordForSSID:(NSString *)ssid
+{
+    if (!ssid) return nil;
+    NSDictionary *query = @{
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: kSEBWiFiKeychainService,
+        (__bridge id)kSecAttrAccount: ssid,
+        (__bridge id)kSecReturnData: @YES,
+        (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne
+    };
+    CFTypeRef result = NULL;
+    OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+    if (status == errSecSuccess && result) {
+        NSData *passwordData = (__bridge_transfer NSData *)result;
+        NSString *password = [[NSString alloc] initWithData:passwordData encoding:NSUTF8StringEncoding];
+        DDLogDebug(@"Found saved WiFi password for %@", ssid);
+        return password;
+    }
+    return nil;
+}
+
+- (void) saveWiFiPassword:(NSString *)password forSSID:(NSString *)ssid
+{
+    if (!ssid || !password) return;
+
+    // Remove any existing entry first
+    [self removeSavedWiFiPasswordForSSID:ssid];
+
+    NSDictionary *attributes = @{
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: kSEBWiFiKeychainService,
+        (__bridge id)kSecAttrAccount: ssid,
+        (__bridge id)kSecValueData: [password dataUsingEncoding:NSUTF8StringEncoding],
+        (__bridge id)kSecAttrLabel: [NSString stringWithFormat:@"SEB WiFi: %@", ssid]
+    };
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)attributes, NULL);
+    if (status == errSecSuccess) {
+        DDLogDebug(@"Saved WiFi password for %@", ssid);
+    } else {
+        DDLogWarn(@"Failed to save WiFi password for %@ (OSStatus %d)", ssid, (int)status);
+    }
+}
+
+- (void) removeSavedWiFiPasswordForSSID:(NSString *)ssid
+{
+    if (!ssid) return;
+    NSDictionary *query = @{
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrService: kSEBWiFiKeychainService,
+        (__bridge id)kSecAttrAccount: ssid
+    };
+    SecItemDelete((__bridge CFDictionaryRef)query);
 }
 
 
 - (void) promptForWiFiPassword:(CWNetwork *)network
 {
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Enter password for \"%@\"", nil), network.ssid];
-    alert.alertStyle = NSAlertStyleInformational;
-    [alert addButtonWithTitle:NSLocalizedString(@"Join", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"Enter password for \"%@\"", nil), network.ssid]];
+    [modalAlert setAlertStyle:NSAlertStyleInformational];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Join", nil)];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
     NSSecureTextField *passwordField = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 220, 24)];
     passwordField.placeholderString = NSLocalizedString(@"Password", nil);
-    alert.accessoryView = passwordField;
+    modalAlert.accessoryView = passwordField;
+    [modalAlert.window makeFirstResponder:passwordField];
 
-    [alert beginSheetModalForWindow:self.dockController.window completionHandler:^(NSModalResponse returnCode) {
-        if (returnCode == NSAlertFirstButtonReturn) {
+    void (^wifiPasswordHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self removeAlertWindow:modalAlert.window];
+        if (answer == NSAlertFirstButtonReturn) {
             NSString *password = passwordField.stringValue;
             NSError *connectError = nil;
             BOOL success = [self.wifiController connectToNetwork:network password:password error:&connectError];
-            if (!success) {
+            if (success) {
+                // Save password so the user won't be prompted again for this network
+                [self saveWiFiPassword:password forSSID:network.ssid];
+                DDLogInfo(@"Connected to %@ and saved password", network.ssid);
+            } else {
                 DDLogError(@"WiFi connection with password failed: %@", connectError.localizedDescription);
             }
         }
-    }];
-    [alert.window makeFirstResponder:passwordField];
+    };
+    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))wifiPasswordHandler];
 }
 
 
@@ -4059,10 +4182,11 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
     }
     // Kill Passwords menu bar extra if running
     NSDictionary *processDetails = nil;
-    NSError *error = [self runningProcessCheckForName:PasswordsMenuBarExtraExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
-    if (processDetails) {
-        DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
-    }
+    NSError *error;
+//    error = [self runningProcessCheckForName:PasswordsMenuBarExtraExecutable inRunningProcesses:&allRunningProcesses processDetails:&processDetails];
+//    if (processDetails) {
+//        DDLogDebug(@"Terminating %@ was %@successfull (error: %@)", processDetails, error ? @"not " : @"", error);
+//    }
     
     if (@available(macOS 15.1, *)) {
         // Kill AI Writing Tools if running
