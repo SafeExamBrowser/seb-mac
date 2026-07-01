@@ -35,6 +35,8 @@
 #import "SEBController.h"
 
 #import <IOKit/pwr_mgt/IOPMLib.h>
+@import CoreWLAN;
+@import CoreLocation;
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -121,6 +123,10 @@ bool insideMatrix(void);
 
 #pragma mark -
 
+@interface SEBController () <CLLocationManagerDelegate>
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@end
+
 @implementation SEBController
 
 
@@ -203,6 +209,15 @@ bool insideMatrix(void);
         _batteryController = [[SEBBatteryController alloc] init];
     }
     return _batteryController;
+}
+
+
+- (SEBWiFiController *) wifiController
+{
+    if (!_wifiController) {
+        _wifiController = [[SEBWiFiController alloc] init];
+    }
+    return _wifiController;
 }
 
 
@@ -915,6 +930,10 @@ bool insideMatrix(void);
         }
     }
     
+    // Request Location Services authorization early (before kiosk windows)
+    // so the system prompt is visible. Required for WiFi SSID access on macOS 14+.
+    [self requestLocationServicesAuthorization];
+
     // Show the About SEB Window
     _alternateKeyPressed = [self alternateKeyCheck];
     if (_alternateKeyPressed == NO) {
@@ -1295,6 +1314,272 @@ bool insideMatrix(void);
 {
     [self.batteryController addDelegate:delegate];
     [self.batteryController startMonitoringBattery];
+}
+
+
+#pragma mark - Location Services (for WiFi SSID access)
+
+- (void) requestLocationServicesAuthorization
+{
+    if (@available(macOS 11.0, *)) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        CLAuthorizationStatus status = self.locationManager.authorizationStatus;
+        DDLogInfo(@"Location Services authorization status: %d", (int)status);
+        if (status == kCLAuthorizationStatusNotDetermined) {
+            // On macOS, starting a location service triggers the system authorization prompt
+            [self.locationManager startUpdatingLocation];
+        } else if (status == kCLAuthorizationStatusDenied ||
+                   status == kCLAuthorizationStatusRestricted) {
+            DDLogWarn(@"Location Services not authorized (status %d) - WiFi SSID not accessible", (int)status);
+            [self showLocationServicesDeniedAlert];
+        }
+    }
+}
+
+- (void) showLocationServicesDeniedAlert
+{
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"Location Services Required for Wi-Fi", @"")];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services.", @""), SEBShortAppName, SEBFullAppNameClassic]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Open System Settings", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Skip", @"")];
+    [modalAlert setAlertStyle:NSAlertStyleWarning];
+    void (^locationPermissionsHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self removeAlertWindow:modalAlert.window];
+        if (answer == NSAlertFirstButtonReturn) {
+            // Open System Settings to Privacy & Security / Location Services
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
+        }
+    };
+    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))locationPermissionsHandler];
+}
+
+- (void) locationManagerDidChangeAuthorization:(CLLocationManager *)manager
+{
+    if (@available(macOS 11.0, *)) {
+        CLAuthorizationStatus status = manager.authorizationStatus;
+        DDLogInfo(@"Location Services authorization changed to: %d", (int)status);
+        if (status == kCLAuthorizationStatusAuthorized ||
+            status == kCLAuthorizationStatusAuthorizedAlways) {
+            // Authorization granted, stop location updates
+            [manager stopUpdatingLocation];
+        } else if (status == kCLAuthorizationStatusDenied ||
+                   status == kCLAuthorizationStatusRestricted) {
+            // Denied - stop location updates and show alert
+            [manager stopUpdatingLocation];
+            [self showLocationServicesDeniedAlert];
+        }
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    // We don't need actual location data, just the authorization for WiFi SSID access
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    DDLogDebug(@"Location manager error (expected if only used for WiFi authorization): %@", error.localizedDescription);
+}
+
+
+- (void) startWiFiMonitoringWithDelegate:(id)delegate
+{
+    [self.wifiController addDelegate:delegate];
+    [self.wifiController startMonitoringWiFi];
+}
+
+
+#pragma mark - SEBDockItemWiFiDelegate
+
+- (void) wifiButtonPressed:(id)sender
+{
+    NSMenu *wifiMenu = [self buildWiFiMenu];
+    NSView *senderView = (NSView *)sender;
+    NSPoint menuLocation = NSMakePoint(0, senderView.frame.size.height);
+    NSEvent *popupEvent = [NSEvent mouseEventWithType:NSEventTypeLeftMouseDown
+                                             location:[senderView convertPoint:menuLocation toView:nil]
+                                        modifierFlags:0
+                                            timestamp:0
+                                         windowNumber:senderView.window.windowNumber
+                                              context:nil
+                                          eventNumber:0
+                                           clickCount:1
+                                             pressure:1.0];
+    [NSMenu popUpContextMenu:wifiMenu withEvent:popupEvent forView:senderView];
+}
+
+
+- (NSMenu *) buildWiFiMenu
+{
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Wi-Fi"];
+
+    // Header: "Wi-Fi"
+    NSMenuItem *headerItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Wi-Fi", nil) action:nil keyEquivalent:@""];
+    headerItem.attributedTitle = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"Wi-Fi", nil)
+                                                                attributes:@{NSFontAttributeName: [NSFont boldSystemFontOfSize:13]}];
+    headerItem.enabled = NO;
+    [menu addItem:headerItem];
+
+    CWInterface *interface = [self.wifiController currentInterface];
+    NSString *currentSSID = interface.ssid;
+
+    // Current network with checkmark
+    if (currentSSID) {
+        NSMenuItem *currentNetworkItem = [[NSMenuItem alloc] initWithTitle:currentSSID action:nil keyEquivalent:@""];
+        currentNetworkItem.state = NSControlStateValueOn;
+        NSString *signalIconName = [SEBWiFiController iconNameForRSSI:interface.rssiValue connected:YES];
+        NSImage *signalIcon = [NSImage imageNamed:signalIconName];
+        if (signalIcon) {
+            signalIcon = [signalIcon copy];
+            signalIcon.size = NSMakeSize(16, 16);
+            currentNetworkItem.image = signalIcon;
+        }
+        currentNetworkItem.enabled = NO;
+        [menu addItem:currentNetworkItem];
+    } else {
+        NSMenuItem *notConnectedItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Not Connected", nil) action:nil keyEquivalent:@""];
+        notConnectedItem.enabled = NO;
+        [menu addItem:notConnectedItem];
+    }
+
+    [menu addItem:[NSMenuItem separatorItem]];
+
+    // Use cached scan results for instant menu display (avoids blocking the main thread)
+    CWInterface *wifiInterface = [self.wifiController currentInterface];
+    NSSet<CWNetwork *> *networks = wifiInterface ? [wifiInterface cachedScanResults] : nil;
+
+    // Get known/preferred network SSIDs
+    NSMutableSet<NSString *> *knownSSIDs = [NSMutableSet set];
+    CWConfiguration *config = interface.configuration;
+    if (config) {
+        for (CWNetworkProfile *profile in config.networkProfiles) {
+            if (profile.ssid) {
+                [knownSSIDs addObject:profile.ssid];
+            }
+        }
+    }
+
+    // Separate networks into known and other
+    NSMutableArray<CWNetwork *> *knownNetworks = [NSMutableArray array];
+    NSMutableArray<CWNetwork *> *otherNetworks = [NSMutableArray array];
+    NSMutableSet<NSString *> *seenSSIDs = [NSMutableSet set];
+
+    // Sort by signal strength (strongest first)
+    NSArray<CWNetwork *> *sortedNetworks = [networks.allObjects sortedArrayUsingComparator:^NSComparisonResult(CWNetwork *n1, CWNetwork *n2) {
+        return [@(n2.rssiValue) compare:@(n1.rssiValue)];
+    }];
+
+    for (CWNetwork *network in sortedNetworks) {
+        NSString *ssid = network.ssid;
+        if (!ssid || ssid.length == 0 || [ssid isEqualToString:currentSSID]) continue;
+        if ([seenSSIDs containsObject:ssid]) continue;
+        [seenSSIDs addObject:ssid];
+
+        if ([knownSSIDs containsObject:ssid]) {
+            [knownNetworks addObject:network];
+        } else {
+            [otherNetworks addObject:network];
+        }
+    }
+
+    // Known Networks submenu
+    if (knownNetworks.count > 0) {
+        NSMenuItem *knownItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Known Networks", nil) action:nil keyEquivalent:@""];
+        NSMenu *knownSubmenu = [[NSMenu alloc] initWithTitle:@"Known Networks"];
+        for (CWNetwork *network in knownNetworks) {
+            NSMenuItem *networkItem = [self menuItemForNetwork:network];
+            [knownSubmenu addItem:networkItem];
+        }
+        knownItem.submenu = knownSubmenu;
+        [menu addItem:knownItem];
+    }
+
+    // Other Networks submenu
+    if (otherNetworks.count > 0) {
+        NSMenuItem *otherItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Other Networks", nil) action:nil keyEquivalent:@""];
+        NSMenu *otherSubmenu = [[NSMenu alloc] initWithTitle:@"Other Networks"];
+        for (CWNetwork *network in otherNetworks) {
+            NSMenuItem *networkItem = [self menuItemForNetwork:network];
+            [otherSubmenu addItem:networkItem];
+        }
+        otherItem.submenu = otherSubmenu;
+        [menu addItem:otherItem];
+    }
+
+    if (knownNetworks.count == 0 && otherNetworks.count == 0) {
+        NSMenuItem *noNetworksItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"No networks found", nil) action:nil keyEquivalent:@""];
+        noNetworksItem.enabled = NO;
+        [menu addItem:noNetworksItem];
+    }
+
+    return menu;
+}
+
+
+- (NSMenuItem *) menuItemForNetwork:(CWNetwork *)network
+{
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:network.ssid ?: @""
+                                                 action:@selector(connectToSelectedNetwork:)
+                                          keyEquivalent:@""];
+    item.target = self;
+    item.representedObject = network;
+
+    NSString *signalIconName = [SEBWiFiController iconNameForRSSI:network.rssiValue connected:YES];
+    NSImage *signalIcon = [NSImage imageNamed:signalIconName];
+    if (signalIcon) {
+        signalIcon = [signalIcon copy];
+        signalIcon.size = NSMakeSize(16, 16);
+        item.image = signalIcon;
+    }
+
+    return item;
+}
+
+
+- (void) connectToSelectedNetwork:(NSMenuItem *)menuItem
+{
+    CWNetwork *network = menuItem.representedObject;
+    if (!network) return;
+
+    DDLogInfo(@"Attempting to connect to WiFi network: %@", network.ssid);
+
+    // Check if this is a known network (password may be in keychain)
+    NSError *error = nil;
+    BOOL success = [self.wifiController connectToNetwork:network password:nil error:&error];
+
+    if (!success) {
+        // If connection without password fails, prompt for password
+        DDLogInfo(@"WiFi connection without password failed (error: %@), prompting for password", error.localizedDescription);
+        [self promptForWiFiPassword:network];
+    }
+}
+
+
+- (void) promptForWiFiPassword:(CWNetwork *)network
+{
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"Enter password for \"%@\"", nil), network.ssid];
+    alert.alertStyle = NSAlertStyleInformational;
+    [alert addButtonWithTitle:NSLocalizedString(@"Join", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+    NSSecureTextField *passwordField = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(0, 0, 220, 24)];
+    passwordField.placeholderString = NSLocalizedString(@"Password", nil);
+    alert.accessoryView = passwordField;
+
+    [alert beginSheetModalForWindow:self.dockController.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            NSString *password = passwordField.stringValue;
+            NSError *connectError = nil;
+            BOOL success = [self.wifiController connectToNetwork:network password:password error:&connectError];
+            if (!success) {
+                DDLogError(@"WiFi connection with password failed: %@", connectError.localizedDescription);
+            }
+        }
+    }];
+    [alert.window makeFirstResponder:passwordField];
 }
 
 
@@ -6628,6 +6913,16 @@ conditionallyForWindow:(NSWindow *)window
             }
         }
 
+        // WiFi control - displayed when menu bar is hidden or in AAC mode, unless hideWiFiControls is set
+        if ((_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) &&
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideWiFiControls"]) {
+            sebDockItemWiFi = [[SEBDockItemWiFi alloc] init];
+            sebDockItemWiFi.wifiActionDelegate = self;
+            [sebDockItemWiFi startDisplayingWiFi];
+            [rightDockItems addObject:sebDockItemWiFi];
+            [self startWiFiMonitoringWithDelegate:sebDockItemWiFi];
+        }
+
         if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"]) {
             ScreenProctoringIconInactiveState = [NSImage imageNamed:@"SEBScreenProctoringIcon_inactive"];
             if (@available(macOS 10.14, *)) {
@@ -7656,6 +7951,12 @@ conditionallyForWindow:(NSWindow *)window
         [_batteryController stopMonitoringBattery];
         _batteryController = nil;
     }
+
+    if (_wifiController && !_establishingSEBServerConnection) {
+        [_wifiController stopMonitoringWiFi];
+        _wifiController = nil;
+    }
+    sebDockItemWiFi = nil;
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];

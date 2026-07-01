@@ -610,7 +610,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"hideBrowserWindowToolbar",
-                   
+
+                   @NO,
+                   @"hideWiFiControls",
+
                    @YES,
                    @"hookKeys",
                    

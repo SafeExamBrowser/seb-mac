@@ -9,5 +9,6 @@
 #import "SEBAbstractWebView.h"
 #import "SEBURLFilter.h"
 #import "SEBBatteryController.h"
+#import "SEBWiFiController.h"
 #import "SEBSystemManager.h"
 #import "SEBURLFilter.h"

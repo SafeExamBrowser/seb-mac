@@ -58,7 +58,9 @@
 #import "SEBDockItem.h"
 #import "SEBDockItemTime.h"
 #import "SEBDockItemBattery.h"
+#import "SEBDockItemWiFi.h"
 #import "SEBBatteryController.h"
+#import "SEBWiFiController.h"
 
 #import "SEBEncryptedUserDefaultsController.h"
 #import "SEBSystemManager.h"
@@ -88,13 +90,14 @@ NS_ASSUME_NONNULL_BEGIN
 @class ServerController;
 @class SEBServerOSXViewController;
 @class SEBBatteryController;
+@class SEBWiFiController;
 @class SEBScreenProctoringController;
 @class TransmittingCachedScreenShotsViewController;
 @class SEBZoomController;
 
 static NSString __unused *accessibilityTitleString = @" and Accessibility";
 
-@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate>
+@interface SEBController : NSObject <NSApplicationDelegate, SEBLockedViewControllerDelegate, ProcessListViewControllerDelegate, AssessmentModeDelegate, ServerControllerDelegate, ServerLoggerDelegate, SEBDockItemButtonDelegate, ScreenProctoringDelegate, SPSControllerUIDelegate, SEBDockItemWiFiDelegate>
 {
     NSArray *runningAppsWhileTerminating;
     NSMutableArray *visibleApps;
@@ -121,6 +124,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
     
     IBOutlet SEBDockItemTime *sebDockItemTime;
     IBOutlet SEBDockItemBattery *sebDockItemBattery;
+    SEBDockItemWiFi *sebDockItemWiFi;
 
 	IOPMAssertionID assertionID1;
 	IOPMAssertionID assertionID2;
@@ -209,6 +213,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(strong, nonatomic) IBOutlet SEBSystemManager *systemManager;
 @property(strong, nonatomic) SEBFileManager *sebFileManager;
 @property(strong, nonatomic) SEBBatteryController *batteryController;
+@property(strong, nonatomic) SEBWiFiController *wifiController;
 @property(strong, nonatomic) SEBDockController *_Nullable dockController;
 @property(strong, nonatomic) SEBOSXBrowserController *browserController;
 @property(strong, nonatomic) IBOutlet SEBOSXLockedViewController *sebLockedViewController;

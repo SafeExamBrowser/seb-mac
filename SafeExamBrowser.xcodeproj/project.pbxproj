@@ -777,6 +777,18 @@
 		69E2E52D27F68767005F33D3 /* SEBBatteryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E2E52A27F68767005F33D3 /* SEBBatteryController.m */; };
 		69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */; };
 		69E4EDFE1C208F2300F5E5EB /* SEBiOSKeychainManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */; };
+		69E551E62FF555AF008713AF /* SEBWiFiIcon_0.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E12FF555AF008713AF /* SEBWiFiIcon_0.iconset */; };
+		69E551E72FF555AF008713AF /* SEBWiFiIcon_33.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E22FF555AF008713AF /* SEBWiFiIcon_33.iconset */; };
+		69E551E82FF555AF008713AF /* SEBWiFiIcon_100.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E42FF555AF008713AF /* SEBWiFiIcon_100.iconset */; };
+		69E551E92FF555AF008713AF /* SEBWiFiIcon_66.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E32FF555AF008713AF /* SEBWiFiIcon_66.iconset */; };
+		69E551EA2FF555AF008713AF /* SEBWiFiIcon_off.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E52FF555AF008713AF /* SEBWiFiIcon_off.iconset */; };
+		69E551EC2FF555B0008713AF /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF555B0008713AF /* CoreWLAN.framework */; };
+		69E551EC2FF56233008713AF /* SEBWiFiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF56233008713AF /* SEBWiFiController.h */; };
+		69E551ED2FF56233008713AF /* SEBWiFiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF56233008713AF /* SEBWiFiController.h */; };
+		69E551F22FF5625E008713AF /* SEBDockItemWiFi.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551F12FF5625E008713AF /* SEBDockItemWiFi.h */; };
+		69E551F42FF56275008713AF /* SEBDockItemWiFi.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F32FF56275008713AF /* SEBDockItemWiFi.m */; };
+		69E551F62FF5676F008713AF /* SEBWiFiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F52FF5676F008713AF /* SEBWiFiController.swift */; };
+		69E551F72FF5676F008713AF /* SEBWiFiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F52FF5676F008713AF /* SEBWiFiController.swift */; };
 		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
 		69E64C0C22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
 		69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
@@ -1640,6 +1652,16 @@
 		69E2E52A27F68767005F33D3 /* SEBBatteryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBBatteryController.m; sourceTree = "<group>"; };
 		69E4EDFB1C208F2300F5E5EB /* SEBiOSKeychainManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBiOSKeychainManager.h; path = Classes/Cryptography/SEBiOSKeychainManager.h; sourceTree = "<group>"; };
 		69E4EDFC1C208F2300F5E5EB /* SEBiOSKeychainManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBiOSKeychainManager.m; path = Classes/Cryptography/SEBiOSKeychainManager.m; sourceTree = "<group>"; };
+		69E551E12FF555AF008713AF /* SEBWiFiIcon_0.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBWiFiIcon_0.iconset; path = Resources/Icons/SEBWiFiIcon_0.iconset; sourceTree = "<group>"; };
+		69E551E22FF555AF008713AF /* SEBWiFiIcon_33.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBWiFiIcon_33.iconset; path = Resources/Icons/SEBWiFiIcon_33.iconset; sourceTree = "<group>"; };
+		69E551E32FF555AF008713AF /* SEBWiFiIcon_66.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBWiFiIcon_66.iconset; path = Resources/Icons/SEBWiFiIcon_66.iconset; sourceTree = "<group>"; };
+		69E551E42FF555AF008713AF /* SEBWiFiIcon_100.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBWiFiIcon_100.iconset; path = Resources/Icons/SEBWiFiIcon_100.iconset; sourceTree = "<group>"; };
+		69E551E52FF555AF008713AF /* SEBWiFiIcon_off.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBWiFiIcon_off.iconset; path = Resources/Icons/SEBWiFiIcon_off.iconset; sourceTree = "<group>"; };
+		69E551EB2FF555B0008713AF /* CoreWLAN.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreWLAN.framework; path = System/Library/Frameworks/CoreWLAN.framework; sourceTree = SDKROOT; };
+		69E551EB2FF56233008713AF /* SEBWiFiController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBWiFiController.h; sourceTree = "<group>"; };
+		69E551F12FF5625E008713AF /* SEBDockItemWiFi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBDockItemWiFi.h; sourceTree = "<group>"; };
+		69E551F32FF56275008713AF /* SEBDockItemWiFi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBDockItemWiFi.m; sourceTree = "<group>"; };
+		69E551F52FF5676F008713AF /* SEBWiFiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBWiFiController.swift; sourceTree = "<group>"; };
 		69E64C0622B7D5F300B593AE /* SEBRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SEBRootViewController.h; sourceTree = "<group>"; };
 		69E64C0722B7D5F300B593AE /* SEBRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEBRootViewController.m; sourceTree = "<group>"; };
 		69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBShutDownIconLandscape@2x.png"; path = "Resources/Icons/Dock/SEBShutDownIconLandscape@2x.png"; sourceTree = "<group>"; };
@@ -1807,6 +1829,7 @@
 				6943C6182A991C4000EC18FF /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				69F7B61F14F411FB00FD0761 /* Carbon.framework in Frameworks */,
 				69F7B62014F411FB00FD0761 /* IOKit.framework in Frameworks */,
+				69E551EC2FF555B0008713AF /* CoreWLAN.framework in Frameworks */,
 				696F28E815751ED600780DA8 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1848,6 +1871,7 @@
 				6962F88D13A8C21B007C16F0 /* WebKit.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				6947949C12B050AA00651933 /* IOKit.framework */,
+				69E551EB2FF555B0008713AF /* CoreWLAN.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1995,6 +2019,8 @@
 				695BE5F319EC3FED00CA2BB4 /* SEBDockItemMenu.m */,
 				699AFE4427E9EA3200F8FE35 /* SEBGoToDockButton.h */,
 				699AFE4527E9EA3200F8FE35 /* SEBGoToDockButton.m */,
+				69E551F12FF5625E008713AF /* SEBDockItemWiFi.h */,
+				69E551F32FF56275008713AF /* SEBDockItemWiFi.m */,
 			);
 			name = "SEB Dock";
 			sourceTree = "<group>";
@@ -2387,6 +2413,11 @@
 				69DA91241C6A3685008D38E6 /* SEBShutDownIconHighlighted.iconset */,
 				697048E026D779D4009A822B /* SEBBatteryIcon_charging.iconset */,
 				697048E126D779D4009A822B /* SEBBatteryIcon.iconset */,
+				69E551E12FF555AF008713AF /* SEBWiFiIcon_0.iconset */,
+				69E551E22FF555AF008713AF /* SEBWiFiIcon_33.iconset */,
+				69E551E32FF555AF008713AF /* SEBWiFiIcon_66.iconset */,
+				69E551E42FF555AF008713AF /* SEBWiFiIcon_100.iconset */,
+				69E551E52FF555AF008713AF /* SEBWiFiIcon_off.iconset */,
 				69BB5F992C6A467B00018F55 /* SEBScreenProctoringIcon_active.iconset */,
 				69BB5F9C2C6B863C00018F55 /* SEBScreenProctoringIcon_active_green.iconset */,
 				69F626412C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset */,
@@ -2994,6 +3025,8 @@
 				691056002C0A223600C491DE /* AssessmentConfigurationManager.swift */,
 				69C6A3522C738A2600033B3E /* SEBFileManager.swift */,
 				6914FED82E533FA80087C6AC /* AccessibilityFeaturesManager.swift */,
+				69E551EB2FF56233008713AF /* SEBWiFiController.h */,
+				69E551F52FF5676F008713AF /* SEBWiFiController.swift */,
 			);
 			name = SystemManager;
 			path = Classes/SystemManager;
@@ -3185,6 +3218,7 @@
 				69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */,
 				6930D2271C205F4B0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
+				69E551ED2FF56233008713AF /* SEBWiFiController.h in Headers */,
 				696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */,
 				695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */,
@@ -3286,6 +3320,7 @@
 				69FF14AC1A1BB10300912933 /* SEBFilterArrayController.h in Headers */,
 				697852C62177AC7300E93AD8 /* SEBEncapsulatedSettings.h in Headers */,
 				691B521026BE21A30087C09E /* MBPreferencesController.h in Headers */,
+				69E551EC2FF56233008713AF /* SEBWiFiController.h in Headers */,
 				69DFAF3019C468E700CBE69F /* RNDecryptor.h in Headers */,
 				69CEDCF226ACD00C0030787B /* SEBWebViewController.h in Headers */,
 				69DE764717FC2A9300EE5958 /* PrefsResourcesViewController.h in Headers */,
@@ -3327,6 +3362,7 @@
 				69623A2E1A26184900ED451C /* WebPreferencesPrivate.h in Headers */,
 				698DFD14267E9B1900B8F1D6 /* NSRunningApplication+SEB.h in Headers */,
 				6930D22C1C2086010087F79E /* SEBOSXKeychainManager.h in Headers */,
+				69E551F22FF5625E008713AF /* SEBDockItemWiFi.h in Headers */,
 				69623A2C1A26180E00ED451C /* WebStorageManagerPrivate.h in Headers */,
 				693647FA17122A0300EE41BC /* DropDownButton.h in Headers */,
 				69DFAF2D19C468E700CBE69F /* RNCryptor.h in Headers */,
@@ -3984,6 +4020,11 @@
 				69EFA36A16CB121200E967B4 /* DownUploadIcon.png in Resources */,
 				69B2EB871A435E2000B5AE67 /* AboutSEB.png in Resources */,
 				69F626462C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning_orange.iconset in Resources */,
+				69E551E62FF555AF008713AF /* SEBWiFiIcon_0.iconset in Resources */,
+				69E551E72FF555AF008713AF /* SEBWiFiIcon_33.iconset in Resources */,
+				69E551E82FF555AF008713AF /* SEBWiFiIcon_100.iconset in Resources */,
+				69E551E92FF555AF008713AF /* SEBWiFiIcon_66.iconset in Resources */,
+				69E551EA2FF555AF008713AF /* SEBWiFiIcon_off.iconset in Resources */,
 				69EFA36D16CB121200E967B4 /* DownUploadIcon@2x.png in Resources */,
 				69261B8F26BE2FE4001DE2BB /* PreferencesBrowser.xib in Resources */,
 				69F626452C7C7C9700FCC544 /* SEBScreenProctoringIcon_active_warning.iconset in Resources */,
@@ -4231,6 +4272,7 @@
 				69F101A02D88B4E400B026BD /* UIBarButtonItemExtension.swift in Sources */,
 				6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */,
+				69E551F72FF5676F008713AF /* SEBWiFiController.swift in Sources */,
 				69CF5829220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */,
 				69B581801ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */,
 				69F522A021467188009F3999 /* CustomHTTPProtocol.m in Sources */,
@@ -4334,6 +4376,7 @@
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,
 				69F7B60F14F411FB00FD0761 /* SEBBrowserWindow.m in Sources */,
 				694F633A2C66775300FEA23D /* PNGQuantization.swift in Sources */,
+				69E551F42FF56275008713AF /* SEBDockItemWiFi.m in Sources */,
 				69F7B61014F411FB00FD0761 /* MBPreferencesController.m in Sources */,
 				69F7B61114F411FB00FD0761 /* PreferencesController.m in Sources */,
 				6930D17D2A0E3745002E32F2 /* qrCodeGenerator.swift in Sources */,
@@ -4369,6 +4412,7 @@
 				690BBEB219D2C6E500F7C9C6 /* SEBDockItemButton.m in Sources */,
 				69009BE119EA7F590083274C /* SEBBrowserOpenWindowWebView.m in Sources */,
 				698DFD38267EA2CA00B8F1D6 /* HUDController.m in Sources */,
+				69E551F62FF5676F008713AF /* SEBWiFiController.swift in Sources */,
 				69F45D3F1A2123C3009CF3AA /* SEBURLFilterExpression.m in Sources */,
 				69E977F025F0423C00634D74 /* SEBAbstractModernWebView.swift in Sources */,
 				6993CD5B2C047CCF00DB2088 /* SEBScreenCaptureController.swift in Sources */,
