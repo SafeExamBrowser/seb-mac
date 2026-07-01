@@ -1542,76 +1542,83 @@ bool insideMatrix(void);
 {
     CWNetwork *network = menuItem.representedObject;
     if (!network) return;
+    NSString *ssid = network.ssid;
 
-    DDLogInfo(@"Attempting to connect to WiFi network: %@", network.ssid);
+    DDLogInfo(@"Attempting to connect to WiFi network: %@", ssid);
 
-    // 1. Try to retrieve a previously saved password from SEB's own keychain
-    NSString *savedPassword = [self savedWiFiPasswordForSSID:network.ssid];
-    if (savedPassword) {
-        NSError *error = nil;
-        BOOL success = [self.wifiController connectToNetwork:network password:savedPassword error:&error];
-        if (success) {
-            DDLogInfo(@"Connected to %@ using saved password", network.ssid);
-            return;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        // 1. Try to retrieve a previously saved password from SEB's own keychain
+        NSString *savedPassword = [self savedWiFiPasswordForSSID:ssid];
+        if (savedPassword) {
+            NSError *error = nil;
+            BOOL success = [self.wifiController connectToNetwork:network password:savedPassword error:&error];
+            if (success) {
+                DDLogInfo(@"Connected to %@ using saved password", ssid);
+                return;
+            }
+            DDLogDebug(@"WiFi connection with saved password failed: %@", error.localizedDescription);
+            // Saved password may be outdated, remove it
+            [self removeSavedWiFiPasswordForSSID:ssid];
         }
-        DDLogDebug(@"WiFi connection with saved password failed: %@", error.localizedDescription);
-        // Saved password may be outdated, remove it
-        [self removeSavedWiFiPasswordForSSID:network.ssid];
-    }
 
-    // 2. Try to retrieve the password from the system keychain via the security CLI tool.
-    //    This may prompt the user for admin credentials (one-time per network).
-    NSString *systemPassword = [self findSystemKeychainWiFiPasswordForSSID:network.ssid];
-    if (systemPassword) {
-        NSError *error = nil;
-        BOOL success = [self.wifiController connectToNetwork:network password:systemPassword error:&error];
-        if (success) {
-            DDLogInfo(@"Connected to %@ using system keychain password", network.ssid);
-            // Save to SEB's own keychain so we don't need admin credentials next time
-            [self saveWiFiPassword:systemPassword forSSID:network.ssid];
-            return;
+        // 2. Try to retrieve the password from the system keychain.
+        //    This may prompt the user for keychain access authorization (one-time per network).
+        NSString *systemPassword = [self findSystemKeychainWiFiPasswordForSSID:ssid];
+        if (systemPassword) {
+            NSError *error = nil;
+            BOOL success = [self.wifiController connectToNetwork:network password:systemPassword error:&error];
+            if (success) {
+                DDLogInfo(@"Connected to %@ using system keychain password", ssid);
+                // Save to SEB's own keychain so we don't need authorization next time
+                [self saveWiFiPassword:systemPassword forSSID:ssid];
+                return;
+            }
+            DDLogDebug(@"WiFi connection with system keychain password failed: %@", error.localizedDescription);
         }
-        DDLogDebug(@"WiFi connection with system keychain password failed: %@", error.localizedDescription);
-    }
 
-    // 3. Prompt for password as last resort
-    DDLogInfo(@"Prompting user for WiFi password for %@", network.ssid);
-    [self promptForWiFiPassword:network];
+        // 3. Prompt for password as last resort (must be on main thread)
+        DDLogInfo(@"Prompting user for WiFi password for %@", ssid);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self promptForWiFiPassword:network];
+        });
+    });
 }
 
 - (NSString *) findSystemKeychainWiFiPasswordForSSID:(NSString *)ssid
 {
     if (!ssid) return nil;
-    NSTask *task = [[NSTask alloc] init];
-    task.launchPath = @"/usr/bin/security";
-    task.arguments = @[@"find-generic-password",
-                       @"-D", @"AirPort network password",
-                       @"-a", ssid,
-                       @"-w",
-                       @"/Library/Keychains/System.keychain"];
-    NSPipe *outputPipe = [NSPipe pipe];
-    NSPipe *errorPipe = [NSPipe pipe];
-    task.standardOutput = outputPipe;
-    task.standardError = errorPipe;
-    @try {
-        [task launch];
-        [task waitUntilExit];
-        if (task.terminationStatus == 0) {
-            NSData *outputData = [outputPipe.fileHandleForReading readDataToEndOfFile];
-            NSString *password = [[NSString alloc] initWithData:outputData encoding:NSUTF8StringEncoding];
-            password = [password stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            if (password.length > 0) {
-                DDLogDebug(@"Retrieved WiFi password from system keychain for %@", ssid);
-                return password;
-            }
-        } else {
-            NSData *errorData = [errorPipe.fileHandleForReading readDataToEndOfFile];
-            NSString *errorOutput = [[NSString alloc] initWithData:errorData encoding:NSUTF8StringEncoding];
-            DDLogDebug(@"System keychain lookup failed for %@ (exit %d): %@", ssid, task.terminationStatus, errorOutput);
-        }
-    } @catch (NSException *exception) {
-        DDLogDebug(@"security CLI exception: %@", exception.reason);
+
+    SecKeychainRef systemKeychain = NULL;
+    OSStatus status = SecKeychainOpen("/Library/Keychains/System.keychain", &systemKeychain);
+    if (status != errSecSuccess) {
+        DDLogDebug(@"Failed to open system keychain: OSStatus %d", (int)status);
+        return nil;
     }
+
+    NSDictionary *query = @{
+        (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+        (__bridge id)kSecAttrAccount: ssid,
+        (__bridge id)kSecAttrDescription: @"AirPort network password",
+        (__bridge id)kSecMatchSearchList: @[(__bridge id)systemKeychain],
+        (__bridge id)kSecReturnData: @YES,
+        (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne,
+    };
+
+    CFTypeRef result = NULL;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+    CFRelease(systemKeychain);
+
+    if (status == errSecSuccess && result) {
+        NSData *passwordData = (__bridge_transfer NSData *)result;
+        NSString *password = [[NSString alloc] initWithData:passwordData encoding:NSUTF8StringEncoding];
+        if (password.length > 0) {
+            DDLogDebug(@"Retrieved WiFi password from system keychain for %@", ssid);
+            return password;
+        }
+    }
+
+    DDLogDebug(@"System keychain lookup failed for %@ (OSStatus %d)", ssid, (int)status);
     return nil;
 }
 
