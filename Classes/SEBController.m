@@ -1563,18 +1563,22 @@ bool insideMatrix(void);
         }
 
         // 2. Try to retrieve the password from the system keychain.
-        //    This may prompt the user for keychain access authorization (one-time per network).
-        NSString *systemPassword = [self findSystemKeychainWiFiPasswordForSSID:ssid];
-        if (systemPassword) {
-            NSError *error = nil;
-            BOOL success = [self.wifiController connectToNetwork:network password:systemPassword error:&error];
-            if (success) {
-                DDLogInfo(@"Connected to %@ using system keychain password", ssid);
-                // Save to SEB's own keychain so we don't need authorization next time
-                [self saveWiFiPassword:systemPassword forSSID:ssid];
-                return;
+        //    Skip in AAC mode: the system keychain authorization dialog would be hidden behind AAC.
+        if (!self->_isAACEnabled) {
+            NSString *systemPassword = [self findSystemKeychainWiFiPasswordForSSID:ssid];
+            if (systemPassword) {
+                NSError *error = nil;
+                BOOL success = [self.wifiController connectToNetwork:network password:systemPassword error:&error];
+                if (success) {
+                    DDLogInfo(@"Connected to %@ using system keychain password", ssid);
+                    // Save to SEB's own keychain so we don't need authorization next time
+                    [self saveWiFiPassword:systemPassword forSSID:ssid];
+                    return;
+                }
+                DDLogDebug(@"WiFi connection with system keychain password failed: %@", error.localizedDescription);
             }
-            DDLogDebug(@"WiFi connection with system keychain password failed: %@", error.localizedDescription);
+        } else {
+            DDLogDebug(@"Skipping system keychain lookup in AAC mode (authorization dialog would be hidden)");
         }
 
         // 3. Prompt for password as last resort (must be on main thread)
