@@ -125,6 +125,8 @@ bool insideMatrix(void);
 
 @interface SEBController () <CLLocationManagerDelegate>
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (assign) BOOL waitingForLocationAuth;
+@property (strong, nonatomic) dispatch_source_t locationAuthPollSource;
 @end
 
 @implementation SEBController
@@ -940,7 +942,10 @@ bool insideMatrix(void);
         [self.aboutWindowController showAboutWindowForSeconds:2];
     }
 
-    [self applicationDidFinishLaunchingProceed];
+    if (!_waitingForLocationAuth) {
+        [self applicationDidFinishLaunchingProceed];
+    }
+    // Otherwise, applicationDidFinishLaunchingProceed is called after Location Services is resolved
 }
 
 - (void)applicationDidFinishLaunchingProceed
@@ -1327,14 +1332,91 @@ bool insideMatrix(void);
         CLAuthorizationStatus status = self.locationManager.authorizationStatus;
         DDLogInfo(@"Location Services authorization status: %d", (int)status);
         if (status == kCLAuthorizationStatusNotDetermined) {
+            if (self.startingUp) {
+                // During initial startup: wait for the user to respond before starting kiosk/AAC mode
+                _waitingForLocationAuth = YES;
+            }
             // On macOS, starting a location service triggers the system authorization prompt
             [self.locationManager startUpdatingLocation];
         } else if (status == kCLAuthorizationStatusDenied ||
                    status == kCLAuthorizationStatusRestricted) {
             DDLogWarn(@"Location Services not authorized (status %d) - WiFi SSID not accessible", (int)status);
-            [self showLocationServicesDeniedAlert];
+            if (self.startingUp) {
+                _waitingForLocationAuth = YES;
+                [self showStartupLocationServicesDeniedAlert];
+            } else {
+                [self showLocationServicesDeniedAlert];
+            }
         }
     }
+}
+
+- (void) showStartupLocationServicesDeniedAlert
+{
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"Location Services Required for Wi-Fi", @"")];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.", @""), SEBShortAppName, SEBFullAppNameClassic]];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Open System Settings", @"")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Skip", @"")];
+    [modalAlert setAlertStyle:NSAlertStyleWarning];
+
+    // Distinct response code used when polling auto-dismisses the alert
+    static const NSModalResponse SEBLocationAuthGrantedResponse = 8250;
+
+    // Poll for authorization changes so we can auto-dismiss when granted.
+    // [alert runModal] runs a nested modal run loop that does not reliably service
+    // NSTimers on this OS, so we use a GCD dispatch source timer on a background queue
+    // (fires independently of the main run loop) and hop to the main queue to stop the modal.
+    dispatch_source_t pollSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
+                                                          dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+    dispatch_source_set_timer(pollSource,
+                              dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)),
+                              (uint64_t)(1.0 * NSEC_PER_SEC),
+                              (uint64_t)(100 * NSEC_PER_MSEC));
+    dispatch_source_set_event_handler(pollSource, ^{
+        if (@available(macOS 11.0, *)) {
+            // The authorizationStatus of an existing CLLocationManager is a cached value that
+            // only updates when its delegate callback is delivered on the (currently blocked)
+            // main run loop. Allocate a fresh instance to read the current live status.
+            CLLocationManager *freshManager = [[CLLocationManager alloc] init];
+            CLAuthorizationStatus currentStatus = freshManager.authorizationStatus;
+            if (currentStatus == kCLAuthorizationStatusAuthorized ||
+                currentStatus == kCLAuthorizationStatusAuthorizedAlways) {
+                DDLogInfo(@"Location Services authorization granted while waiting - auto-dismissing alert");
+                if (self.locationAuthPollSource) {
+                    dispatch_source_cancel(self.locationAuthPollSource);
+                    self.locationAuthPollSource = nil;
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
+                });
+            }
+        }
+    });
+    self.locationAuthPollSource = pollSource;
+    dispatch_resume(pollSource);
+
+    void (^handler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        if (self.locationAuthPollSource) {
+            dispatch_source_cancel(self.locationAuthPollSource);
+            self.locationAuthPollSource = nil;
+        }
+        [self removeAlertWindow:modalAlert.window];
+        DDLogInfo(@"Location Services startup alert dismissed (answer: %ld)", (long)answer);
+
+        if (answer == NSAlertFirstButtonReturn) {
+            // Open System Settings (visible because kiosk/AAC mode hasn't started yet),
+            // then re-show the alert to keep waiting and polling for authorization.
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
+            [self showStartupLocationServicesDeniedAlert];
+            return;
+        }
+
+        // Skip pressed or authorization granted (auto-dismiss): continue launching
+        self->_waitingForLocationAuth = NO;
+        [self applicationDidFinishLaunchingProceed];
+    };
+    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))handler];
 }
 
 - (void) showLocationServicesDeniedAlert
@@ -1348,11 +1430,15 @@ bool insideMatrix(void);
     void (^locationPermissionsHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         if (answer == NSAlertFirstButtonReturn) {
-            // Open System Settings to Privacy & Security / Location Services
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
         }
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))locationPermissionsHandler];
+}
+
+- (void) openLocationServicesSettings:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
 }
 
 - (void) locationManagerDidChangeAuthorization:(CLLocationManager *)manager
@@ -1362,13 +1448,21 @@ bool insideMatrix(void);
         DDLogInfo(@"Location Services authorization changed to: %d", (int)status);
         if (status == kCLAuthorizationStatusAuthorized ||
             status == kCLAuthorizationStatusAuthorizedAlways) {
-            // Authorization granted, stop location updates
             [manager stopUpdatingLocation];
+            if (_waitingForLocationAuth) {
+                // Authorization granted during startup - continue launching
+                _waitingForLocationAuth = NO;
+                [self applicationDidFinishLaunchingProceed];
+            }
         } else if (status == kCLAuthorizationStatusDenied ||
                    status == kCLAuthorizationStatusRestricted) {
-            // Denied - stop location updates and show alert
             [manager stopUpdatingLocation];
-            [self showLocationServicesDeniedAlert];
+            if (_waitingForLocationAuth) {
+                // User denied the system prompt during startup - show our alert
+                [self showStartupLocationServicesDeniedAlert];
+            } else {
+                [self showLocationServicesDeniedAlert];
+            }
         }
     }
 }
@@ -1425,6 +1519,12 @@ bool insideMatrix(void);
     CWInterface *interface = [self.wifiController currentInterface];
     NSString *currentSSID = interface.ssid;
 
+    // Check if Location Services authorization is missing (SSID nil despite being connected)
+    BOOL locationServicesNeeded = NO;
+    if (!currentSSID && interface && interface.powerOn && interface.interfaceMode == kCWInterfaceModeStation) {
+        locationServicesNeeded = YES;
+    }
+
     // Current network with checkmark
     if (currentSSID) {
         NSMenuItem *currentNetworkItem = [[NSMenuItem alloc] initWithTitle:currentSSID action:nil keyEquivalent:@""];
@@ -1438,6 +1538,10 @@ bool insideMatrix(void);
         }
         currentNetworkItem.enabled = NO;
         [menu addItem:currentNetworkItem];
+    } else if (locationServicesNeeded) {
+        NSMenuItem *connectedItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Connected (network name unavailable)", nil) action:nil keyEquivalent:@""];
+        connectedItem.enabled = NO;
+        [menu addItem:connectedItem];
     } else {
         NSMenuItem *notConnectedItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Not Connected", nil) action:nil keyEquivalent:@""];
         notConnectedItem.enabled = NO;
@@ -1446,72 +1550,86 @@ bool insideMatrix(void);
 
     [menu addItem:[NSMenuItem separatorItem]];
 
-    // Use cached scan results for instant menu display (avoids blocking the main thread)
-    CWInterface *wifiInterface = [self.wifiController currentInterface];
-    NSSet<CWNetwork *> *networks = wifiInterface ? [wifiInterface cachedScanResults] : nil;
+    if (locationServicesNeeded) {
+        // Location Services not authorized: show explanation and action item instead of empty network lists
+        NSString *explanation;
+        if (_isAACEnabled || ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
+            explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.", nil);
+        } else {
+            explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names.", nil);
+        }
+        NSMenuItem *explanationItem = [[NSMenuItem alloc] initWithTitle:explanation action:nil keyEquivalent:@""];
+        explanationItem.enabled = NO;
+        [menu addItem:explanationItem];
+    } else {
 
-    // Get known/preferred network SSIDs
-    NSMutableSet<NSString *> *knownSSIDs = [NSMutableSet set];
-    CWConfiguration *config = interface.configuration;
-    if (config) {
-        for (CWNetworkProfile *profile in config.networkProfiles) {
-            if (profile.ssid) {
-                [knownSSIDs addObject:profile.ssid];
+        // Use cached scan results for instant menu display (avoids blocking the main thread)
+        CWInterface *wifiInterface = [self.wifiController currentInterface];
+        NSSet<CWNetwork *> *networks = wifiInterface ? [wifiInterface cachedScanResults] : nil;
+
+        // Get known/preferred network SSIDs
+        NSMutableSet<NSString *> *knownSSIDs = [NSMutableSet set];
+        CWConfiguration *config = interface.configuration;
+        if (config) {
+            for (CWNetworkProfile *profile in config.networkProfiles) {
+                if (profile.ssid) {
+                    [knownSSIDs addObject:profile.ssid];
+                }
             }
         }
-    }
 
-    // Separate networks into known and other
-    NSMutableArray<CWNetwork *> *knownNetworks = [NSMutableArray array];
-    NSMutableArray<CWNetwork *> *otherNetworks = [NSMutableArray array];
-    NSMutableSet<NSString *> *seenSSIDs = [NSMutableSet set];
+        // Separate networks into known and other
+        NSMutableArray<CWNetwork *> *knownNetworks = [NSMutableArray array];
+        NSMutableArray<CWNetwork *> *otherNetworks = [NSMutableArray array];
+        NSMutableSet<NSString *> *seenSSIDs = [NSMutableSet set];
 
-    // Sort by signal strength (strongest first)
-    NSArray<CWNetwork *> *sortedNetworks = [networks.allObjects sortedArrayUsingComparator:^NSComparisonResult(CWNetwork *n1, CWNetwork *n2) {
-        return [@(n2.rssiValue) compare:@(n1.rssiValue)];
-    }];
+        // Sort by signal strength (strongest first)
+        NSArray<CWNetwork *> *sortedNetworks = [networks.allObjects sortedArrayUsingComparator:^NSComparisonResult(CWNetwork *n1, CWNetwork *n2) {
+            return [@(n2.rssiValue) compare:@(n1.rssiValue)];
+        }];
 
-    for (CWNetwork *network in sortedNetworks) {
-        NSString *ssid = network.ssid;
-        if (!ssid || ssid.length == 0 || [ssid isEqualToString:currentSSID]) continue;
-        if ([seenSSIDs containsObject:ssid]) continue;
-        [seenSSIDs addObject:ssid];
+        for (CWNetwork *network in sortedNetworks) {
+            NSString *ssid = network.ssid;
+            if (!ssid || ssid.length == 0 || [ssid isEqualToString:currentSSID]) continue;
+            if ([seenSSIDs containsObject:ssid]) continue;
+            [seenSSIDs addObject:ssid];
 
-        if ([knownSSIDs containsObject:ssid]) {
-            [knownNetworks addObject:network];
-        } else {
-            [otherNetworks addObject:network];
+            if ([knownSSIDs containsObject:ssid]) {
+                [knownNetworks addObject:network];
+            } else {
+                [otherNetworks addObject:network];
+            }
         }
-    }
 
-    // Known Networks submenu
-    if (knownNetworks.count > 0) {
-        NSMenuItem *knownItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Known Networks", nil) action:nil keyEquivalent:@""];
-        NSMenu *knownSubmenu = [[NSMenu alloc] initWithTitle:@"Known Networks"];
-        for (CWNetwork *network in knownNetworks) {
-            NSMenuItem *networkItem = [self menuItemForNetwork:network];
-            [knownSubmenu addItem:networkItem];
+        // Known Networks submenu
+        if (knownNetworks.count > 0) {
+            NSMenuItem *knownItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Known Networks", nil) action:nil keyEquivalent:@""];
+            NSMenu *knownSubmenu = [[NSMenu alloc] initWithTitle:@"Known Networks"];
+            for (CWNetwork *network in knownNetworks) {
+                NSMenuItem *networkItem = [self menuItemForNetwork:network];
+                [knownSubmenu addItem:networkItem];
+            }
+            knownItem.submenu = knownSubmenu;
+            [menu addItem:knownItem];
         }
-        knownItem.submenu = knownSubmenu;
-        [menu addItem:knownItem];
-    }
 
-    // Other Networks submenu
-    if (otherNetworks.count > 0) {
-        NSMenuItem *otherItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Other Networks", nil) action:nil keyEquivalent:@""];
-        NSMenu *otherSubmenu = [[NSMenu alloc] initWithTitle:@"Other Networks"];
-        for (CWNetwork *network in otherNetworks) {
-            NSMenuItem *networkItem = [self menuItemForNetwork:network];
-            [otherSubmenu addItem:networkItem];
+        // Other Networks submenu
+        if (otherNetworks.count > 0) {
+            NSMenuItem *otherItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Other Networks", nil) action:nil keyEquivalent:@""];
+            NSMenu *otherSubmenu = [[NSMenu alloc] initWithTitle:@"Other Networks"];
+            for (CWNetwork *network in otherNetworks) {
+                NSMenuItem *networkItem = [self menuItemForNetwork:network];
+                [otherSubmenu addItem:networkItem];
+            }
+            otherItem.submenu = otherSubmenu;
+            [menu addItem:otherItem];
         }
-        otherItem.submenu = otherSubmenu;
-        [menu addItem:otherItem];
-    }
 
-    if (knownNetworks.count == 0 && otherNetworks.count == 0) {
-        NSMenuItem *noNetworksItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"No networks found", nil) action:nil keyEquivalent:@""];
-        noNetworksItem.enabled = NO;
-        [menu addItem:noNetworksItem];
+        if (knownNetworks.count == 0 && otherNetworks.count == 0) {
+            NSMenuItem *noNetworksItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"No networks found", nil) action:nil keyEquivalent:@""];
+            noNetworksItem.enabled = NO;
+            [menu addItem:noNetworksItem];
+        }
     }
 
     return menu;
