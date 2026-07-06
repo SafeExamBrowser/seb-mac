@@ -129,6 +129,7 @@ bool insideMatrix(void);
 @property (strong, nonatomic) dispatch_source_t locationAuthPollSource;
 @end
 
+
 @implementation SEBController
 
 
@@ -2417,6 +2418,80 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
     return self.browserController.openWebpagesTitlesString;
 }
 
+- (ScreenProctoringAACCapturePolicy) screenProctoringAACCapturePolicy
+{
+    return [[NSUserDefaults standardUserDefaults] secureIntegerForKey:@"org_safeexambrowser_SEB_screenProctoringAACCapturePolicy"];
+}
+
+- (NSView *) screenProctoringCaptureView
+{
+    // Under AAC the system screen capture API (CGWindowListCreateImage) returns
+    // black because AAC's capture protection blocks it, so screen proctoring
+    // captures SEB's own view hierarchy instead. Provide the active window's view
+    // for the ActiveWindow policy (also used as a fallback when AAC is force-enabled
+    // but the policy is None, since system capture would be black). For AllWindows
+    // the compositor path (screenProctoringCaptureWindows) is used, so return nil
+    // here. Outside AAC we return nil so full-screen system capture is used.
+    if (!_isAACEnabled) {
+        return nil;
+    }
+    if ([self screenProctoringAACCapturePolicy] == ScreenProctoringAACCapturePolicyAllWindows) {
+        return nil;
+    }
+    // Return the window's frame view (superview of contentView), which includes
+    // the window chrome (title bar, toolbar). Fall back to contentView if not available.
+    NSView *contentView = self.browserController.activeBrowserWindow.contentView;
+    return contentView.superview ?: contentView;
+}
+
+- (NSArray<NSWindow *> *) screenProctoringCaptureWindows
+{
+    // Composite all SEB-owned windows only under AAC with the AllWindows policy.
+    // Return them ordered back-to-front for the compositor (NSApp.orderedWindows is
+    // front-to-back). All of this app's windows are SEB-owned, so no ownership
+    // filtering is needed beyond visibility.
+    if (!_isAACEnabled || [self screenProctoringAACCapturePolicy] != ScreenProctoringAACCapturePolicyAllWindows) {
+        return nil;
+    }
+    NSMutableArray<NSWindow *> *windows = [NSMutableArray array];
+    NSMutableSet<NSWindow *> *seen = [NSMutableSet set];
+    for (NSWindow *window in [NSApp orderedWindows].reverseObjectEnumerator) {
+        [self appendScreenProctoringCaptureWindow:window toArray:windows seen:seen];
+    }
+    // NSAlert windows shown via -runModal (used on macOS 12+, see runModalAlert:
+    // conditionallyForWindow:) are application-modal panels that are NOT part of
+    // NSApp.orderedWindows, so they would be missing from the composited screen shot.
+    // SEB tracks them in _modalAlertWindows; add them on top (they are modal).
+    for (NSWindow *alertWindow in _modalAlertWindows) {
+        [self appendScreenProctoringCaptureWindow:alertWindow toArray:windows seen:seen];
+    }
+    return windows;
+}
+
+// Appends a window and its child windows / attached sheets to the capture list in
+// back-to-front order. Attached sheets and other child windows are NOT included in
+// NSApp.orderedWindows, so alerts shown as sheets (via beginSheetModalForWindow:)
+// would otherwise be missing from the composited screen shot. Children draw above
+// their parent, so they are appended after it.
+- (void) appendScreenProctoringCaptureWindow:(NSWindow *)window
+                                     toArray:(NSMutableArray<NSWindow *> *)windows
+                                        seen:(NSMutableSet<NSWindow *> *)seen
+{
+    if (!window || [seen containsObject:window]) {
+        return;
+    }
+    [seen addObject:window];
+    if (window.isVisible && window.alphaValue > 0 && !window.isMiniaturized) {
+        [windows addObject:window];
+    }
+    for (NSWindow *childWindow in window.childWindows) {
+        [self appendScreenProctoringCaptureWindow:childWindow toArray:windows seen:seen];
+    }
+    if (window.attachedSheet) {
+        [self appendScreenProctoringCaptureWindow:window.attachedSheet toArray:windows seen:seen];
+    }
+}
+
 
 #pragma mark - Screen Proctoring SPSControllerUIDelegate methods
 
@@ -3091,30 +3166,36 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
         if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
             DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
-            [AccessibilityFeaturesManager openFullDiskAccessSettings];
-            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-            NSAlert *modalAlert = [self newAlert];
-            [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
-            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
-            [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-            [modalAlert setAlertStyle:NSAlertStyleWarning];
-            void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                [self removeAlertWindow:modalAlert.window];
-                switch (answer) {
-                    case NSAlertFirstButtonReturn:
-                        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
-                        return;
-                    case NSAlertSecondButtonReturn:
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
-                        return;
-                    default:
-                        DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
-                        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
-                        return;
-                }
-            };
-            [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
+            // Present the alert asynchronously on the main queue: this method can be reached
+            // synchronously (when configured folders are accessible) while still inside a Core
+            // Animation transaction commit from window/screen setup, and -[NSAlert runModal]
+            // is suppressed inside a transaction. Deferring lets the transaction commit first.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [AccessibilityFeaturesManager openFullDiskAccessSettings];
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+                [modalAlert setAlertStyle:NSAlertStyleWarning];
+                void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch (answer) {
+                        case NSAlertFirstButtonReturn:
+                            [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+                            return;
+                        case NSAlertSecondButtonReturn:
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
+                        default:
+                            DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                            [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+                            return;
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
+            });
             return;
         }
         // Full Disk Access is available: update the prohibited list and terminate any
@@ -6784,7 +6865,11 @@ conditionallyForWindow:(NSWindow *)window
                 ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_screenSharingMacEnforceBlocked"];
             BOOL browserScreenCaptureEnabled = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
             BOOL enableScreenProctoring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
-            _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled && !enableScreenProctoring;
+            // Screen proctoring can capture SEB's own windows under AAC (view-based capture),
+            // so it no longer forces AAC off - unless its AAC capture policy is set to None.
+            ScreenProctoringAACCapturePolicy spCapturePolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_screenProctoringAACCapturePolicy"];
+            BOOL blockAACForScreenProctoring = enableScreenProctoring && spCapturePolicy == ScreenProctoringAACCapturePolicyNone;
+            _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled && !blockAACForScreenProctoring;
         } else {
             _isAACEnabled = NO;
         }
@@ -6800,6 +6885,11 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _sessionState.allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
+#ifdef DEBUG
+    if (!_isAACEnabled) {
+        _sessionState.allowSwitchToApplications = YES;
+    }
+#endif
     BOOL elevate = !(_sessionState.allowSwitchToApplications || _isAACEnabled);
     DDLogDebug(@"%s: allowSwitchToApplications=%hhd, _isAACEnabled=%hhd, _wasAACEnabled=%hhd → elevateWindowLevels=%hhd, privateUserDefaults=%hhd",
              __FUNCTION__,

@@ -322,6 +322,41 @@ enum {
 typedef NSInteger lockdownModePolicy;
 
 
+/**
+ * @typedef ScreenProctoringAACCapturePolicy
+ * @brief Controls how screen proctoring captures the screen while AAC
+ *   (Automatic Assessment Configuration) is active on macOS.
+ *
+ * Preference key: @c org_safeexambrowser_SEB_screenProctoringAACCapturePolicy
+ * Default: @c ScreenProctoringAACCapturePolicyAllWindows (2)
+ *
+ * Under AAC the system screen capture API (CGWindowListCreateImage) returns
+ * black output, so screen proctoring instead renders SEB's own windows via
+ * NSView cacheDisplay. This policy selects what gets captured.
+ *
+ * @constant ScreenProctoringAACCapturePolicyNone
+ *   Screen proctoring does not use view-based capture under AAC. In the
+ *   automatic lockdown mode this additionally prevents AAC from being selected
+ *   while screen proctoring is enabled (SEB falls back to Classic kiosk mode,
+ *   where system screen capture works). If AAC is force-enabled anyway, capture
+ *   falls back to the active window (system capture would be black).
+ *
+ * @constant ScreenProctoringAACCapturePolicyActiveWindow
+ *   Captures only the active browser window (including its window chrome).
+ *
+ * @constant ScreenProctoringAACCapturePolicyAllWindows
+ *   Captures all SEB-owned windows (browser windows, Dock, alerts/dialogs) and
+ *   composites them onto a full virtual-screen image using their positions and
+ *   z-order. Content that isn't in the view's backing store (e.g. hardware or
+ *   protected video) may appear black.
+ */
+typedef NS_ENUM(NSInteger, ScreenProctoringAACCapturePolicy) {
+    ScreenProctoringAACCapturePolicyNone         = 0,
+    ScreenProctoringAACCapturePolicyActiveWindow = 1,
+    ScreenProctoringAACCapturePolicyAllWindows   = 2
+};
+
+
 enum {
     SEBBackgroundTintStyleNone                  = 0,
     SEBBackgroundTintStyleLight                 = 1,

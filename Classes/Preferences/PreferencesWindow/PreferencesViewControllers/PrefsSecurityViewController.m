@@ -133,6 +133,13 @@
     allowSiriButton.enabled = AACDisabled;
     allowDictationButton.enabled = AACDisabled;
     allowDisplayMirroringButton.enabled = !enforceAAC;
+
+    // The screen proctoring AAC capture policy only applies when screen proctoring
+    // is enabled and AAC can actually run (i.e. not in enforced classic kiosk mode).
+    BOOL enableScreenProctoring = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+    BOOL screenProctoringCapturePolicyEnabled = enableScreenProctoring && !AACDisabled;
+    screenProctoringAACCapturePolicyButton.enabled = screenProctoringCapturePolicyEnabled;
+    screenProctoringAACCapturePolicyLabel.enabled = screenProctoringCapturePolicyEnabled;
 }
 
 

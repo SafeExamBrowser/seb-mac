@@ -992,6 +992,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:0],
                    @"screenProctoringImageQuantization",
                    
+                   [NSNumber numberWithLong:ScreenProctoringAACCapturePolicyAllWindows],
+                   @"screenProctoringAACCapturePolicy",
+                   
                    @NO,
                    @"screenProctoringIndicateHealthAndCaching",
                    

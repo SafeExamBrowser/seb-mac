@@ -35,6 +35,8 @@
                 <outlet property="miniOSVersionMajor" destination="m5k-oe-ViX" id="G4s-0k-qeH"/>
                 <outlet property="miniOSVersionMinor" destination="Lid-g0-Fjz" id="3QM-hc-Ovh"/>
                 <outlet property="miniOSVersionPatch" destination="dGB-Ao-RnH" id="sLP-33-Joq"/>
+                <outlet property="screenProctoringAACCapturePolicyButton" destination="spC-Pu-001" id="spC-Ou-001"/>
+                <outlet property="screenProctoringAACCapturePolicyLabel" destination="spC-Lb-001" id="spC-Ou-002"/>
                 <outlet property="screenSharingMacEnforceButton" destination="pn0-dK-cZw" id="Dwt-bW-mjY"/>
                 <outlet property="selectStandardDirectoryButton" destination="eiE-cV-UEx" id="04p-z9-Sbk"/>
                 <outlet property="view" destination="1" id="4"/>
@@ -437,19 +439,19 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
-                                                            <rect key="frame" x="15" y="-48" width="574" height="530"/>
+                                                            <rect key="frame" x="15" y="-83" width="574" height="565"/>
                                                             <subviews>
                                                                 <box autoresizesSubviews="NO" borderType="line" title="Lockdown/Kiosk mode" translatesAutoresizingMaskIntoConstraints="NO" id="HKg-ux-TqM">
-                                                                    <rect key="frame" x="0.0" y="420" width="574" height="110"/>
+                                                                    <rect key="frame" x="0.0" y="420" width="574" height="145"/>
                                                                     <view key="contentView" id="FmA-0O-60d">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="574" height="98"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="574" height="133"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="xug-Kn-fLC">
-                                                                                <rect key="frame" x="11" y="11" width="552" height="79"/>
+                                                                                <rect key="frame" x="11" y="17" width="552" height="108"/>
                                                                                 <subviews>
                                                                                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci1-uS-Bra">
-                                                                                        <rect key="frame" x="0.0" y="21" width="552" height="58"/>
+                                                                                        <rect key="frame" x="0.0" y="50" width="552" height="58"/>
                                                                                         <string key="toolTip">Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 / 10.15.6+), from macOS Big Sur 11 with restrictions. It blocks various macOS features (which cannot be allowed optionally, like screen/window capture/sharing/mirroring, Siri, Dictation, Screen Proctoring)</string>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="height" constant="58" id="nji-hT-65t"/>
@@ -483,7 +485,7 @@
                                                                                         </connections>
                                                                                     </matrix>
                                                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="GXF-y1-76z">
-                                                                                        <rect key="frame" x="24" y="0.0" width="184" height="16"/>
+                                                                                        <rect key="frame" x="24" y="29" width="184" height="16"/>
                                                                                         <string key="toolTip">On macOS &lt;12.1 DNS lookup doesn't work while in AAC. Pre-pinning resolves all domains from Start URL and URL filter rules before starting AAC to mitigate this bug. This allows to use AAC on macOS 11 - 12.0</string>
                                                                                         <buttonCell key="cell" type="check" title="Use AAC with DNS pre-pinning" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="jQ0-cO-PEU">
                                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -493,6 +495,45 @@
                                                                                             <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_aacDnsPrePinning" id="gWh-rG-E6L"/>
                                                                                         </connections>
                                                                                     </button>
+                                                                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="spC-Rw-001">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="547" height="24"/>
+                                                                                        <subviews>
+                                                                                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="spC-Lb-001">
+                                                                                                <rect key="frame" x="-2" y="4" width="236" height="16"/>
+                                                                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Screen proctoring capture under AAC:" id="spC-Lc-001">
+                                                                                                    <font key="font" metaFont="system"/>
+                                                                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                                </textFieldCell>
+                                                                                            </textField>
+                                                                                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="spC-Pu-001">
+                                                                                                <rect key="frame" x="240" y="0.0" width="307" height="24"/>
+                                                                                                <string key="toolTip">Under AAC (Assessment Mode) the system screen capture returns black, so screen proctoring captures SEB's own windows instead. Choose which windows are captured, or disable using AAC when screen proctoring is enabled.</string>
+                                                                                                <popUpButtonCell key="cell" type="push" title="Capture all windows (composited)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="spC-Mi-002" id="spC-Pc-001">
+                                                                                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                                                                    <font key="font" metaFont="message"/>
+                                                                                                    <menu key="menu" title="OtherViews" id="spC-Mn-001">
+                                                                                                        <items>
+                                                                                                            <menuItem title="Don't use AAC (disable Assessment Mode)" id="spC-Mi-000"/>
+                                                                                                            <menuItem title="Capture active window only" id="spC-Mi-001"/>
+                                                                                                            <menuItem title="Capture all windows (composited)" state="on" id="spC-Mi-002"/>
+                                                                                                        </items>
+                                                                                                    </menu>
+                                                                                                </popUpButtonCell>
+                                                                                                <connections>
+                                                                                                    <binding destination="110" name="selectedIndex" keyPath="values.org_safeexambrowser_SEB_screenProctoringAACCapturePolicy" id="spC-Bs-001"/>
+                                                                                                </connections>
+                                                                                            </popUpButton>
+                                                                                        </subviews>
+                                                                                        <visibilityPriorities>
+                                                                                            <integer value="1000"/>
+                                                                                            <integer value="1000"/>
+                                                                                        </visibilityPriorities>
+                                                                                        <customSpacing>
+                                                                                            <real value="3.4028234663852886e+38"/>
+                                                                                            <real value="3.4028234663852886e+38"/>
+                                                                                        </customSpacing>
+                                                                                    </stackView>
                                                                                 </subviews>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="trailing" secondItem="ci1-uS-Bra" secondAttribute="trailing" id="Wmx-pg-2G1"/>
@@ -501,8 +542,10 @@
                                                                                 <visibilityPriorities>
                                                                                     <integer value="1000"/>
                                                                                     <integer value="1000"/>
+                                                                                    <integer value="1000"/>
                                                                                 </visibilityPriorities>
                                                                                 <customSpacing>
+                                                                                    <real value="3.4028234663852886e+38"/>
                                                                                     <real value="3.4028234663852886e+38"/>
                                                                                     <real value="3.4028234663852886e+38"/>
                                                                                 </customSpacing>
@@ -515,7 +558,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="110" id="pZP-2q-10v"/>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="145" id="pZP-2q-10v"/>
                                                                     </constraints>
                                                                 </box>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">

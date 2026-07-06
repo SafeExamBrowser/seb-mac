@@ -50,6 +50,8 @@
     __weak IBOutlet NSPopUpButton *chooseLogDirectoryControl;
     __weak IBOutlet NSButton *selectStandardDirectoryButton;
     __weak IBOutlet NSButton *aacDnsPrePinningButton;
+    __weak IBOutlet NSPopUpButton *screenProctoringAACCapturePolicyButton;
+    __weak IBOutlet NSTextField *screenProctoringAACCapturePolicyLabel;
     __weak IBOutlet NSButton *allowUserAppFolderInstallButton;
     __weak IBOutlet NSMenuItem *logDirectory;
     __weak IBOutlet NSMatrix *kioskMode;

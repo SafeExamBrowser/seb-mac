@@ -89,6 +89,19 @@ private struct SPSTransmittingState {
     @objc optional func collectedTriggerEvent(eventData: String)
     @objc optional func collectedKeyboardShortcutEvent(_ eventData: String)
     @objc optional func collectedAlphanumericKeyEvent()
+#if os(macOS)
+    /// Returns the view to capture for screen proctoring when system screen
+    /// capture APIs are unavailable (e.g. in AAC mode). Typically the active
+    /// browser window's contentView. Non-nil only when the AAC capture policy
+    /// is ActiveWindow (or None under force-enabled AAC).
+    @objc optional func screenProctoringCaptureView() -> NSView?
+
+    /// Returns all SEB-owned windows to composite into a full-screen shot,
+    /// ordered back-to-front. Non-nil only under AAC with capture policy
+    /// AllWindows. Used instead of system screen capture, which returns black
+    /// under AAC.
+    @objc optional func screenProctoringCaptureWindows() -> [NSWindow]?
+#endif
 }
 
 @objc public protocol SPSControllerUIDelegate: AnyObject {
@@ -445,7 +458,25 @@ extension SEBScreenProctoringController {
     }
     
     private func captureScreenShot(triggerMetadata: String, timeStamp: TimeInterval?) {
-        if let screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp) {
+        var screenShotData: Data?
+#if os(macOS)
+        // Under AAC the system screen capture API (CGWindowListCreateImage) returns
+        // black, so we capture SEB's own windows via view-based rendering instead.
+        // The delegate encodes the AAC capture policy: it returns a window list for
+        // AllWindows (composited full-screen), a single view for ActiveWindow, or nil
+        // when not under AAC (then we use full-screen system capture). We try the
+        // richest option first.
+        if let captureWindows = self.delegate?.screenProctoringCaptureWindows?(), !captureWindows.isEmpty {
+            screenShotData = self.screenCaptureController.takeScreenShot(ofWindows: captureWindows, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        } else if let captureView = self.delegate?.screenProctoringCaptureView?() {
+            screenShotData = self.screenCaptureController.takeScreenShot(of: captureView, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        } else {
+            screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+        }
+#else
+        screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
+#endif
+        if let screenShotData {
             self.sendScreenShot(data: screenShotData, metaData: self.metadataCollector.collectMetaData(triggerMetadata: triggerMetadata) ?? "", timeStamp: timeStamp, resending: false) { success in
             }
         }

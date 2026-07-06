@@ -34,6 +34,16 @@
 #import "SEBDockItemMenu.h"
 #include <Carbon/Carbon.h>
 
+@interface SEBDockItemMenu ()
+// Text labels mirroring the menu item titles, added to the popover's content view
+// so that screen proctoring's window compositing (under AAC) captures the open
+// window titles. The native NSMenu is drawn on top of the popover at the same
+// position, so these labels are not visible to the user; they only exist to be
+// captured, because the native menu is rendered in a system window that cannot be
+// captured under AAC.
+@property (strong) NSMutableArray<NSTextField *> *capturedTitleLabels;
+@end
+
 @implementation SEBDockItemMenu
 
 
@@ -64,6 +74,8 @@
         [popover setContentSize:dockMenuView.frame.size];
         [popover setContentViewController:controller];
         [popover setAnimates:NO];
+
+        self.capturedTitleLabels = [NSMutableArray array];
     }
     return self;
 }
@@ -86,6 +98,7 @@
 
 - (void) menuWillOpen:(NSMenu *)menu
 {
+    [self updateCapturedTitleLabels];
 //    NSDictionary *userInfo = @{
 //        NSAccessibilityAnnouncementKey : NSLocalizedString(@"Open webpages menu", @""),
 //        NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh)
@@ -104,8 +117,62 @@
 
 - (void) menuDidClose:(NSMenu *)menu
 {
+    [self removeCapturedTitleLabels];
     [self.dockMenuPopover close];
     [_dockItemButton unhighlight];
+}
+
+
+// Populates the popover's content view with labels mirroring the current menu item
+// titles, so screen proctoring (under AAC) captures the open window titles. See the
+// capturedTitleLabels property comment.
+- (void) updateCapturedTitleLabels
+{
+    [self removeCapturedTitleLabels];
+
+    NSMutableArray<NSMenuItem *> *titleItems = [NSMutableArray array];
+    for (NSMenuItem *item in self.itemArray) {
+        if (!item.isSeparatorItem && item.title.length > 0) {
+            [titleItems addObject:item];
+        }
+    }
+    NSUInteger count = titleItems.count;
+    if (count == 0) {
+        return;
+    }
+
+    CGFloat viewWidth = self.dockMenuView.frame.size.width;
+    CGFloat viewHeight = self.dockMenuView.frame.size.height;
+    CGFloat rowHeight = viewHeight / count;
+    NSFont *menuFont = [NSFont menuFontOfSize:0];
+    CGFloat leadingInset = 20;
+    CGFloat trailingInset = 8;
+
+    for (NSUInteger i = 0; i < count; i++) {
+        NSMenuItem *item = titleItems[i];
+        // Menu items are laid out top-to-bottom; the content view is not flipped,
+        // so the first item gets the highest y.
+        NSRect labelFrame = NSMakeRect(leadingInset,
+                                       viewHeight - (i + 1) * rowHeight,
+                                       MAX(0, viewWidth - leadingInset - trailingInset),
+                                       rowHeight);
+        NSTextField *label = [NSTextField labelWithString:item.title];
+        label.font = menuFont;
+        label.textColor = NSColor.labelColor;
+        label.lineBreakMode = NSLineBreakByTruncatingTail;
+        label.frame = labelFrame;
+        [self.dockMenuView addSubview:label];
+        [self.capturedTitleLabels addObject:label];
+    }
+}
+
+
+- (void) removeCapturedTitleLabels
+{
+    for (NSTextField *label in self.capturedTitleLabels) {
+        [label removeFromSuperview];
+    }
+    [self.capturedTitleLabels removeAllObjects];
 }
 
 

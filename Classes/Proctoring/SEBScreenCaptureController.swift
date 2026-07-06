@@ -36,12 +36,183 @@ import Foundation
 #if os(iOS)
 import MobileCoreServices
 #endif
+#if os(macOS)
+import AppKit
+#endif
 
 public class ScreenCaptureController {
     
     public init() {
     }
     
+#if os(macOS)
+    /// Capture the contents of a specific view using cacheDisplay(in:to:),
+    /// which renders from the app's own view hierarchy rather than using
+    /// system screen capture APIs (which are blocked by AAC).
+    /// The view rendering is dispatched to the main thread since NSView
+    /// operations require it, while the image processing runs on the caller's thread.
+    public func takeScreenShot(of view: NSView, scale: Double, quantization: ColorQuantization) -> Data? {
+        // Capture the bitmap on the main thread
+        var cgImage: CGImage?
+        let work = {
+            cgImage = self.captureBitmapRep(of: view)?.cgImage
+        }
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.sync { work() }
+        }
+        guard var imageRef = cgImage else {
+            return nil
+        }
+        return processImage(&imageRef, scale: scale, quantization: quantization)
+    }
+
+    /// Capture all given windows (ordered back-to-front) and composite them onto a
+    /// single image spanning the union of all screens, positioned by each window's
+    /// frame and z-order. Used under AAC, where system screen capture returns black.
+    /// All view rendering and compositing happens on the main thread (NSView /
+    /// NSScreen access requires it); the image processing runs on the caller's thread.
+    public func takeScreenShot(ofWindows windows: [NSWindow], scale: Double, quantization: ColorQuantization) -> Data? {
+        var cgImage: CGImage?
+        let work = {
+            cgImage = self.compositeWindows(windows)
+        }
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.sync { work() }
+        }
+        guard var imageRef = cgImage else {
+            return nil
+        }
+        return processImage(&imageRef, scale: scale, quantization: quantization)
+    }
+
+    /// Renders a single view into a bitmap via cacheDisplay. Must be called on the main thread.
+    private func captureBitmapRep(of view: NSView) -> NSBitmapImageRep? {
+        let bounds = view.bounds
+        guard bounds.width > 0 && bounds.height > 0 else {
+            return nil
+        }
+        guard let bitmapRep = view.bitmapImageRepForCachingDisplay(in: bounds) else {
+            return nil
+        }
+        view.cacheDisplay(in: bounds, to: bitmapRep)
+        return bitmapRep
+    }
+
+    /// Composites the given windows (back-to-front) onto a canvas spanning the union
+    /// of all screens. Coordinates are in AppKit screen space (bottom-left origin),
+    /// so window frames map directly into the canvas. Must be called on the main thread.
+    private func compositeWindows(_ windows: [NSWindow]) -> CGImage? {
+        // Canvas = union of all screen frames (global coordinates, bottom-left origin)
+        var canvasRect = CGRect.null
+        for screen in NSScreen.screens {
+            canvasRect = canvasRect.union(screen.frame)
+        }
+        guard !canvasRect.isNull, canvasRect.width >= 1, canvasRect.height >= 1 else {
+            return nil
+        }
+        let pixelWidth = Int(canvasRect.width.rounded())
+        let pixelHeight = Int(canvasRect.height.rounded())
+
+        guard let canvasRep = NSBitmapImageRep(bitmapDataPlanes: nil,
+                                               pixelsWide: pixelWidth,
+                                               pixelsHigh: pixelHeight,
+                                               bitsPerSample: 8,
+                                               samplesPerPixel: 4,
+                                               hasAlpha: true,
+                                               isPlanar: false,
+                                               colorSpaceName: .deviceRGB,
+                                               bytesPerRow: 0,
+                                               bitsPerPixel: 0),
+              let context = NSGraphicsContext(bitmapImageRep: canvasRep) else {
+            return nil
+        }
+
+        let previousContext = NSGraphicsContext.current
+        NSGraphicsContext.current = context
+        defer { NSGraphicsContext.current = previousContext }
+
+        // Base fill: neutral gray for the area outside SEB's own windows (not
+        // capturable under AAC). This also matches AAC's own gray backdrop, so the
+        // composite looks more realistic.
+        NSColor(white: 0.5, alpha: 1.0).setFill()
+        NSRect(x: 0, y: 0, width: CGFloat(pixelWidth), height: CGFloat(pixelHeight)).fill()
+
+        for window in windows {
+            guard window.isVisible, window.alphaValue > 0, !window.isMiniaturized else {
+                continue
+            }
+            let frame = window.frame
+            guard frame.intersects(canvasRect), frame.width >= 1, frame.height >= 1 else {
+                continue
+            }
+            // Capture the window's frame view (contentView.superview) to include chrome.
+            guard let view = window.contentView?.superview ?? window.contentView,
+                  let rep = captureBitmapRep(of: view) else {
+                continue
+            }
+            // Map window frame into canvas coordinates (both bottom-left origin).
+            let destination = NSRect(x: frame.origin.x - canvasRect.origin.x,
+                                     y: frame.origin.y - canvasRect.origin.y,
+                                     width: frame.width,
+                                     height: frame.height)
+            // Clip to rounded corners so the square corners of the captured bitmap
+            // don't paint over windows/background behind them (macOS windows have
+            // rounded corners). Windows that fill a whole screen are left square.
+            let cornerRadius = windowCornerRadius(for: frame)
+            if cornerRadius > 0 {
+                NSGraphicsContext.saveGraphicsState()
+                NSBezierPath(roundedRect: destination, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
+                rep.draw(in: destination)
+                NSGraphicsContext.restoreGraphicsState()
+            } else {
+                rep.draw(in: destination)
+            }
+        }
+
+        // Composite the mouse pointer on top, at its current location.
+        drawMousePointer(canvasRect: canvasRect)
+
+        return canvasRep.cgImage
+    }
+
+    /// Returns the corner radius to use when compositing a window with the given
+    /// frame. Windows that fill an entire screen (e.g. the full-screen browser
+    /// window) are kept square; other windows get the standard macOS rounding.
+    private func windowCornerRadius(for frame: CGRect) -> CGFloat {
+        let standardRadius: CGFloat = 10
+        for screen in NSScreen.screens {
+            if abs(frame.width - screen.frame.width) < 1 && abs(frame.height - screen.frame.height) < 1 {
+                return 0
+            }
+        }
+        return standardRadius
+    }
+
+    /// Draws the current system mouse pointer into the active graphics context,
+    /// positioned by its hot spot. Coordinates are AppKit screen space (bottom-left
+    /// origin); cursor images use a top-left origin, so the hot spot is flipped.
+    /// Must be called on the main thread with an active NSGraphicsContext.
+    private func drawMousePointer(canvasRect: CGRect) {
+        let cursor = NSCursor.currentSystem ?? NSCursor.current
+        let cursorImage = cursor.image
+        let size = cursorImage.size
+        guard size.width > 0, size.height > 0 else {
+            return
+        }
+        let hotSpot = cursor.hotSpot
+        let mouseLocation = NSEvent.mouseLocation
+        let destination = NSRect(x: mouseLocation.x - hotSpot.x - canvasRect.origin.x,
+                                 y: mouseLocation.y - (size.height - hotSpot.y) - canvasRect.origin.y,
+                                 width: size.width,
+                                 height: size.height)
+        cursorImage.draw(in: destination)
+    }
+#endif
+
     public func takeScreenShot(scale: Double, quantization: ColorQuantization) -> Data? {
         //        let displayID = CGMainDisplayID()
         //        guard var imageRef = CGDisplayCreateImage(displayID) else {
@@ -65,6 +236,10 @@ public class ScreenCaptureController {
             return nil
         }
 #endif
+        return processImage(&imageRef, scale: scale, quantization: quantization)
+    }
+    
+    private func processImage(_ imageRef: inout CGImage, scale: Double, quantization: ColorQuantization) -> Data? {
         if quantization != .color24Bpp || quantization != .color16Bpp || quantization != .color8Bpp {
             if let greyscaleImage = imageRef.greyscale() {
                 imageRef = greyscaleImage
