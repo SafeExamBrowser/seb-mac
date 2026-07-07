@@ -16,6 +16,12 @@
 /* Class = "NSButtonCell"; title = "Enable scroll lock (iOS)"; ObjectID = "4jn-9i-JSP"; */
 "4jn-9i-JSP.title" = "Scrollsperre zulassen (iOS)";
 
+/* Class = "NSButtonCell"; title = "Hide Wi-Fi controls (Mac)"; ObjectID = "hwc-01-cel"; */
+"hwc-01-cel.title" = "Wi-Fi-Steuerung ausblenden (Mac)";
+
+/* Class = "NSButton"; toolTip = "Hides the Wi-Fi control in the SEB Dock/Taskbar and from macOS 27 also the one in the menu bar in AAC Assessment Mode"; ObjectID = "hwc-01-btn"; */
+"hwc-01-btn.toolTip" = "Blendet die Wi-Fi-Steuerung im SEB-Dock/Taskbar aus und ab macOS 27 auch jene in der Menüleiste im AAC-Bewertungsmodus";
+
 /* Class = "NSButtonCell"; title = "Enable text zoom"; ObjectID = "4om-Lh-WpE"; */
 "4om-Lh-WpE.title" = "Text-Zoom zulassen";
 

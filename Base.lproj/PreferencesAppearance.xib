@@ -704,8 +704,18 @@
                                                             </customSpacing>
                                                         </stackView>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="68I-OY-w2B">
-                                                            <rect key="frame" x="299" y="146" width="289" height="68"/>
+                                                            <rect key="frame" x="299" y="124" width="289" height="90"/>
                                                             <subviews>
+                                                                <button toolTip="Hides the Wi-Fi control in the SEB Dock/Taskbar and from macOS 27 also the one in the menu bar in AAC Assessment Mode" translatesAutoresizingMaskIntoConstraints="NO" id="hwc-01-btn">
+                                                                    <rect key="frame" x="0.0" y="74" width="178" height="16"/>
+                                                                    <buttonCell key="cell" type="check" title="Hide Wi-Fi controls (Mac)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="hwc-01-cel">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_hideWiFiControls" id="hwc-01-bnd"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="bdb-Ye-f5Q">
                                                                     <rect key="frame" x="0.0" y="52" width="163" height="16"/>
                                                                     <string key="toolTip">With the scroll lock button and/or side menu item, web page scrolling, selecting text and the text magnifier can be disabled. This can facilitate using drag-and-drop and drawing question types. (iOS only)</string>
@@ -789,8 +799,10 @@
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
                                                                 <integer value="1000"/>
+                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
+                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
