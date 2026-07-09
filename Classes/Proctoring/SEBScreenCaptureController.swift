@@ -162,15 +162,25 @@ public class ScreenCaptureController {
             // Clip to rounded corners so the square corners of the captured bitmap
             // don't paint over windows/background behind them (macOS windows have
             // rounded corners). Windows that fill a whole screen are left square.
-            let cornerRadius = windowCornerRadius(for: frame)
+            let cornerRadius = windowCornerRadius(for: window)
+            // Transparent regions of the captured bitmap (e.g. the tiles behind
+            // borderless dock buttons like Reload/Quit, which paint no background)
+            // would otherwise show the desktop base gray or, worse, be composited over
+            // black by the later greyscale step (black boxes). Fill the window's rect
+            // with its own opaque background color first (e.g. the dock bar color) so
+            // those regions match the window, then draw the bitmap source-over on top.
+            let windowBackground = window.backgroundColor.usingColorSpace(.deviceRGB)
+            let hasOpaqueBackground = (windowBackground?.alphaComponent ?? 0) > 0.99
+            NSGraphicsContext.saveGraphicsState()
             if cornerRadius > 0 {
-                NSGraphicsContext.saveGraphicsState()
                 NSBezierPath(roundedRect: destination, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
-                rep.draw(in: destination)
-                NSGraphicsContext.restoreGraphicsState()
-            } else {
-                rep.draw(in: destination)
             }
+            if hasOpaqueBackground {
+                windowBackground!.setFill()
+                destination.fill()
+            }
+            rep.draw(in: destination, from: .zero, operation: .sourceOver, fraction: 1.0, respectFlipped: true, hints: nil)
+            NSGraphicsContext.restoreGraphicsState()
         }
 
         // Composite the mouse pointer on top, at its current location.
@@ -179,15 +189,29 @@ public class ScreenCaptureController {
         return canvasRep.cgImage
     }
 
-    /// Returns the corner radius to use when compositing a window with the given
-    /// frame. Windows that fill an entire screen (e.g. the full-screen browser
-    /// window) are kept square; other windows get the standard macOS rounding.
-    private func windowCornerRadius(for frame: CGRect) -> CGFloat {
+    /// Returns the corner radius to use when compositing the given window.
+    /// The real corner radius isn't exposed by AppKit (it's drawn by the private
+    /// window frame view), so we approximate per window type:
+    ///  - windows filling an entire screen (e.g. the full-screen browser window)
+    ///    are kept square;
+    ///  - the SEB Dock window draws its own rounded background, so it's not clipped;
+    ///  - NSAlert panels use a larger radius than standard windows;
+    ///  - everything else gets the standard macOS window rounding.
+    private func windowCornerRadius(for window: NSWindow) -> CGFloat {
         let standardRadius: CGFloat = 10
+        let alertRadius: CGFloat = 16
+        let frame = window.frame
         for screen in NSScreen.screens {
             if abs(frame.width - screen.frame.width) < 1 && abs(frame.height - screen.frame.height) < 1 {
                 return 0
             }
+        }
+        let className = NSStringFromClass(type(of: window))
+        if className == "SEBDockWindow" {
+            return 0
+        }
+        if className.contains("Alert") {
+            return alertRadius
         }
         return standardRadius
     }

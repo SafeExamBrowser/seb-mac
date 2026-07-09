@@ -144,7 +144,9 @@
     CGFloat viewWidth = self.dockMenuView.frame.size.width;
     CGFloat viewHeight = self.dockMenuView.frame.size.height;
     CGFloat rowHeight = viewHeight / count;
-    NSFont *menuFont = [NSFont menuFontOfSize:0];
+    // Use a slightly larger font (default menu font + 1pt) so the captured titles
+    // better fill the popover backdrop in the composited screen proctoring image.
+    NSFont *menuFont = [NSFont menuFontOfSize:[NSFont menuFontOfSize:0].pointSize + 1];
     CGFloat leadingInset = 20;
     CGFloat trailingInset = 8;
 

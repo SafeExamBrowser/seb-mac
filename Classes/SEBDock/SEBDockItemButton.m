@@ -262,6 +262,12 @@ self.highlighted = false;
 
 - (void)mouseEntered:(NSEvent *)theEvent
 {
+    // Don't show the icon title label while the dock item menu (e.g. the open
+    // windows list) is open: it would overlap the menu, also obscuring the menu
+    // titles in composited screen proctoring screen shots under AAC.
+    if (self.dockMenu.dockMenuPopover.isShown) {
+        return;
+    }
     [self.labelPopover showRelativeToRect:[self bounds] ofView:self preferredEdge:NSMaxYEdge];
 #ifdef DEBUG
     DDLogVerbose(@"Dock item label popover show relative to rect: %f, %f at origin: %f, %f", self.bounds.size.width, self.bounds.size.height, self.bounds.origin.x, self.bounds.origin.y);
