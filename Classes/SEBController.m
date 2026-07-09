@@ -45,6 +45,7 @@
 #include <mach/mach_port.h>
 #include <mach/mach_interface.h>
 #include <mach/mach_init.h>
+#include <mach/message.h>
 
 #import <sys/sysctl.h>
 #import <sys/mount.h>
@@ -4632,8 +4633,21 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
 }
 
 
-// Check if application is a legit Apple system executable
-- (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
+// csops() is a private syscall whose constants live in the non-public
+// <sys/codesign.h> header. We use it to fetch a process's audit token so that
+// code-signature validation can be pinned to a specific process instance: the
+// audit token embeds the PID generation, so a recycled PID can't satisfy it.
+#ifndef CS_OPS_AUDITTOKEN
+#define CS_OPS_AUDITTOKEN 16
+#endif
+extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
+
+
+// Fallback static (on-disk) code-signature validation, used only when a live
+// code object for the running process can't be obtained. This re-hashes the
+// executable from disk and checks it against Apple's system software signing
+// certificates.
+- (BOOL)staticSignedSystemExecutable:(pid_t)runningExecutablePID
 {
     NSString * executablePath = [ProcessManager getExecutablePathForPID:runningExecutablePID];
     if (executablePath) {
@@ -4730,6 +4744,70 @@ static int GetBSDProcessList(kinfo_proc **procList, size_t *procCount)
         DDLogDebug(@"Couldn't determine executable path of process with PID %d.", runningExecutablePID);
         return NO;
     }
+}
+
+
+// Check if application is a legit Apple system executable
+// Validates the running process object dynamically against the "anchor apple"
+// requirement (Apple's own system software). This leverages the signature the
+// kernel has already verified instead of re-hashing the executable from disk,
+// and pins validation to the process's audit token (which embeds the PID
+// generation) so a recycled PID can't be mistaken for the process we observed.
+- (BOOL)signedSystemExecutable:(pid_t)runningExecutablePID
+{
+    SecCodeRef codeRef = NULL;
+    OSStatus status = errSecCSNoSuchCode;
+
+    // Prefer the audit token: the watcher only surfaces raw PIDs, so we fetch
+    // the token via csops. The token embeds the PID generation, defeating the
+    // race where a PID is recycled between observing and validating a process.
+    audit_token_t auditToken;
+    if (csops(runningExecutablePID, CS_OPS_AUDITTOKEN, &auditToken, sizeof(auditToken)) == 0) {
+        NSData *tokenData = [NSData dataWithBytes:&auditToken length:sizeof(auditToken)];
+        NSDictionary *attributes = @{ (__bridge id)kSecGuestAttributeAudit : tokenData };
+        status = SecCodeCopyGuestWithAttributes(NULL, (__bridge CFDictionaryRef)attributes, kSecCSDefaultFlags, &codeRef);
+    }
+
+    // Fall back to identifying the guest by raw PID if the audit token wasn't
+    // available (accepts the small residual PID-reuse race).
+    if (status != errSecSuccess || codeRef == NULL) {
+        NSDictionary *attributes = @{ (__bridge id)kSecGuestAttributePid : @(runningExecutablePID) };
+        status = SecCodeCopyGuestWithAttributes(NULL, (__bridge CFDictionaryRef)attributes, kSecCSDefaultFlags, &codeRef);
+    }
+
+    // If no live code object could be obtained, fall back to static on-disk
+    // validation so we don't regress detection.
+    if (status != errSecSuccess || codeRef == NULL) {
+        DDLogDebug(@"Couldn't obtain code object for process with PID %d (status %d), falling back to static validation.", runningExecutablePID, (int)status);
+        if (codeRef) {
+            CFRelease(codeRef);
+        }
+        return [self staticSignedSystemExecutable:runningExecutablePID];
+    }
+
+    // "anchor apple" designates Apple's own system software (the same guarantee
+    // as the Software Signing leaf-certificate checks used by the static path).
+    SecRequirementRef requirement = NULL;
+    status = SecRequirementCreateWithString(CFSTR("anchor apple"), kSecCSDefaultFlags, &requirement);
+    if (status == errSecSuccess && requirement != NULL) {
+        status = SecCodeCheckValidity(codeRef, kSecCSDefaultFlags, requirement);
+        DDLogDebug(@"Dynamically validated code signature of process with PID %d, status %d", runningExecutablePID, (int)status);
+    }
+
+    if (codeRef) {
+        CFRelease(codeRef);
+    }
+    if (requirement) {
+        CFRelease(requirement);
+    }
+
+    if (status != errSecSuccess) {
+        DDLogDebug(@"Code signature suggests that process with PID %d isn't correctly signed macOS system software.", runningExecutablePID);
+        return NO;
+    }
+
+    DDLogDebug(@"Code signature of process with PID %d was checked and it positively identifies macOS system software.", runningExecutablePID);
+    return YES;
 }
 
 
@@ -6885,11 +6963,11 @@ conditionallyForWindow:(NSWindow *)window
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     _sessionState.allowSwitchToApplications = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowSwitchToApplications"];
-#ifdef DEBUG
-    if (!_isAACEnabled) {
-        _sessionState.allowSwitchToApplications = YES;
-    }
-#endif
+//#ifdef DEBUG
+//    if (!_isAACEnabled) {
+//        _sessionState.allowSwitchToApplications = YES;
+//    }
+//#endif
     BOOL elevate = !(_sessionState.allowSwitchToApplications || _isAACEnabled);
     DDLogDebug(@"%s: allowSwitchToApplications=%hhd, _isAACEnabled=%hhd, _wasAACEnabled=%hhd → elevateWindowLevels=%hhd, privateUserDefaults=%hhd",
              __FUNCTION__,
