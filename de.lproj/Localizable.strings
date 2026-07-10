@@ -1,3 +1,6 @@
+/* Accessibility label for the active window in the SEB Dock open windows menu */
+"%@, current window" = "%@, aktives Fenster";
+
 /* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
 
