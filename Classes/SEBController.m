@@ -1330,31 +1330,53 @@ bool insideMatrix(void);
 {
     if (@available(macOS 11.0, *)) {
         self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
         CLAuthorizationStatus status = self.locationManager.authorizationStatus;
         DDLogInfo(@"Location Services authorization status: %d", (int)status);
+
+        self.locationManager.delegate = self;
+
         if (status == kCLAuthorizationStatusNotDetermined) {
-            if (self.startingUp) {
-                // During initial startup: wait for the user to respond before starting kiosk/AAC mode
-                _waitingForLocationAuth = YES;
-            }
             // On macOS, starting a location service triggers the system authorization prompt
             [self.locationManager startUpdatingLocation];
-        } else if (status == kCLAuthorizationStatusDenied ||
-                   status == kCLAuthorizationStatusRestricted) {
-            DDLogWarn(@"Location Services not authorized (status %d) - WiFi SSID not accessible", (int)status);
-            if (self.startingUp) {
-                _waitingForLocationAuth = YES;
+        }
+
+        BOOL needsAuthorization = (status == kCLAuthorizationStatusNotDetermined ||
+                                   status == kCLAuthorizationStatusDenied ||
+                                   status == kCLAuthorizationStatusRestricted);
+
+        if (self.startingUp && needsAuthorization) {
+            // Gate startup until the user grants access or chooses to skip. In addition to
+            // the system prompt (for NotDetermined), always show SEB's own waiting dialog so
+            // the user is never left with no visible, actionable UI - even if the system
+            // prompt doesn't appear. That dialog also polls for a grant made in System Settings.
+            // Dispatched async so this method returns first and applicationDidFinishLaunching
+            // does not itself call applicationDidFinishLaunchingProceed.
+            _waitingForLocationAuth = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self showStartupLocationServicesDeniedAlert];
-            } else {
-                [self showLocationServicesDeniedAlert];
-            }
+            });
         }
     }
 }
 
 - (void) showStartupLocationServicesDeniedAlert
 {
+    if (!_waitingForLocationAuth) {
+        // Already resolved (e.g. granted before this dispatched call ran)
+        return;
+    }
+    if (@available(macOS 11.0, *)) {
+        // If access was already granted (e.g. quickly via the system prompt), continue immediately
+        CLLocationManager *freshManager = [[CLLocationManager alloc] init];
+        CLAuthorizationStatus currentStatus = freshManager.authorizationStatus;
+        if (currentStatus == kCLAuthorizationStatusAuthorized ||
+            currentStatus == kCLAuthorizationStatusAuthorizedAlways) {
+            _waitingForLocationAuth = NO;
+            [self applicationDidFinishLaunchingProceed];
+            return;
+        }
+    }
+
     NSAlert *modalAlert = [self newAlert];
     [modalAlert setMessageText:NSLocalizedString(@"Location Services Required for Wi-Fi", @"")];
     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.", @""), SEBShortAppName, SEBFullAppNameClassic]];
@@ -1448,24 +1470,24 @@ bool insideMatrix(void);
     if (@available(macOS 11.0, *)) {
         CLAuthorizationStatus status = manager.authorizationStatus;
         DDLogInfo(@"Location Services authorization changed to: %d", (int)status);
-        if (status == kCLAuthorizationStatusAuthorized ||
-            status == kCLAuthorizationStatusAuthorizedAlways) {
-            [manager stopUpdatingLocation];
-            if (_waitingForLocationAuth) {
-                // Authorization granted during startup - continue launching
-                _waitingForLocationAuth = NO;
-                [self applicationDidFinishLaunchingProceed];
-            }
-        } else if (status == kCLAuthorizationStatusDenied ||
-                   status == kCLAuthorizationStatusRestricted) {
-            [manager stopUpdatingLocation];
-            if (_waitingForLocationAuth) {
-                // User denied the system prompt during startup - show our alert
-                [self showStartupLocationServicesDeniedAlert];
-            } else {
+
+        if (status == kCLAuthorizationStatusNotDetermined) {
+            // Still waiting for the user to respond to the system prompt - do nothing yet
+            return;
+        }
+
+        [manager stopUpdatingLocation];
+
+        if (status == kCLAuthorizationStatusDenied ||
+            status == kCLAuthorizationStatusRestricted) {
+            if (!_waitingForLocationAuth) {
+                // Denied outside of initial startup (e.g. while reconfiguring)
                 [self showLocationServicesDeniedAlert];
             }
+            // During startup, the waiting dialog (showStartupLocationServicesDeniedAlert) is
+            // already shown; its poll and completion handler drive startup continuation.
         }
+        // When authorized during startup, the waiting dialog's poll detects it and continues startup.
     }
 }
 
@@ -1476,7 +1498,12 @@ bool insideMatrix(void);
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    DDLogDebug(@"Location manager error (expected if only used for WiFi authorization): %@", error.localizedDescription);
+    if ([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorDenied) {
+        // Expected when Location Services is denied - WiFi network names will be unavailable
+        DDLogInfo(@"Location Services denied - WiFi network names will be unavailable");
+        return;
+    }
+    DDLogDebug(@"Location manager error: %@", error.localizedDescription);
 }
 
 
