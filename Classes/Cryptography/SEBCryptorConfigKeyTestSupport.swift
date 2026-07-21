@@ -17,7 +17,7 @@ import Foundation
     /// Serializes a Double exactly as it is included in the Config Key JSON.
     /// See -[SEBCryptor jsonStringForObject:].
     @objc public static func jsonString(forDouble value: Double) -> String {
-        return SEBCryptor.sharedSEBCryptor().jsonString(forObject: NSNumber(value: value))
+        return SEBCryptor.shared().jsonString(for: NSNumber(value: value))
     }
 }
 #endif

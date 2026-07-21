@@ -2,9 +2,9 @@
 //  SEBCryptor+Testing.h
 //  SafeExamBrowser
 //
-//  Exposes otherwise private SEBCryptor helpers to the unit test target so the
-//  platform-independent Config Key JSON serialization can be verified. Not
-//  intended to be imported by product code.
+//  Exposes otherwise private SEBCryptor helpers to the (DEBUG-only) test-support
+//  shim so the platform-independent Config Key JSON serialization can be
+//  verified. Not intended to be imported by product code.
 //
 
 #import "SEBCryptor.h"

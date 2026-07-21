@@ -407,6 +407,11 @@
 		6986652E16DAE184009C0226 /* SEBWindowSizeValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */; };
 		6986652F16DAE184009C0226 /* SEBWindowSizeValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */; };
 		69879B442991208D002B039D /* SEBDocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 69879B432991208D002B039D /* SEBDocumentIcon.icns */; };
+		698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A1769300FD80C006646A9 /* SEBConfigKeyDoubleTests.swift */; };
+		698A176C300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */; };
+		698A176D300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */; };
+		698A176F300FE2B8006646A9 /* SEBCryptor+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */; };
+		698A1770300FE2B8006646A9 /* SEBCryptor+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */; };
 		698A20A42D85B36300C58815 /* KeyboardToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A20A32D85B36300C58815 /* KeyboardToolbarButton.swift */; };
 		698A20A62D85B37B00C58815 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A20A52D85B37B00C58815 /* KeyboardToolbar.swift */; };
 		698AB4172638630A00E84161 /* SEBiOSBrowserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 698AB4152638630A00E84161 /* SEBiOSBrowserController.h */; };
@@ -1328,6 +1333,9 @@
 		6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBWindowSizeValueTransformer.m; sourceTree = "<group>"; };
 		69879B432991208D002B039D /* SEBDocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = SEBDocumentIcon.icns; path = Resources/Icons/SEBDocumentIcon.icns; sourceTree = "<group>"; };
 		6988A0DA25228D4700F15236 /* libSEBSupport.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSEBSupport.a; path = SEB/Addons/libSEBSupport.a; sourceTree = "<group>"; };
+		698A1769300FD80C006646A9 /* SEBConfigKeyDoubleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBConfigKeyDoubleTests.swift; sourceTree = "<group>"; };
+		698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBCryptorConfigKeyTestSupport.swift; sourceTree = "<group>"; };
+		698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SEBCryptor+Testing.h"; sourceTree = "<group>"; };
 		698A20A32D85B36300C58815 /* KeyboardToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbarButton.swift; sourceTree = "<group>"; };
 		698A20A52D85B37B00C58815 /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
 		698AB4152638630A00E84161 /* SEBiOSBrowserController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SEBiOSBrowserController.h; path = Classes/BrowserComponents/SEBiOSBrowserController.h; sourceTree = "<group>"; };
@@ -2257,6 +2265,7 @@
 				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
 				6940B9871BA0F2FB008C8CFC /* Info.plist */,
 				69BAAE152CA03FD7002B14FB /* SEBIntegrationTests.swift */,
+				698A1769300FD80C006646A9 /* SEBConfigKeyDoubleTests.swift */,
 			);
 			path = SEBTests;
 			sourceTree = "<group>";
@@ -2829,6 +2838,8 @@
 				69D5983614C823AE005FE98C /* MethodSwizzling.h */,
 				69F522C32146720C009F3999 /* SEBCertServices.m */,
 				6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */,
+				698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */,
+				698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */,
 			);
 			name = Cryptography;
 			path = Classes/Cryptography;
@@ -3198,6 +3209,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				698A176F300FE2B8006646A9 /* SEBCryptor+Testing.h in Headers */,
 				69A0721E268A38AD00A0464B /* MscX509Common-Prefix.pch in Headers */,
 				69B5817E1ED7197700CE70F3 /* AboutSEBiOSViewController.h in Headers */,
 				69A07246268A38AD00A0464B /* MscRSAKey.h in Headers */,
@@ -3300,6 +3312,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				698A1770300FE2B8006646A9 /* SEBCryptor+Testing.h in Headers */,
 				694B08A316B14ABF00E4997C /* SEBCryptor.h in Headers */,
 				6906F3C61A3FA60C0011CF93 /* NSString+KKDomain.h in Headers */,
 				6930D2231C20112B0087F79E /* SEBEncryptedUserDefaultsController.h in Headers */,
@@ -4281,6 +4294,7 @@
 				69BEC0102E6C51F5003D04E4 /* TouchMonitoringWindow.swift in Sources */,
 				691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */,
 				69B1D470230D7586005656B8 /* APIResources.swift in Sources */,
+				698A176C300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift in Sources */,
 				69AF449F24699A5300F56542 /* JitsiViewController.swift in Sources */,
 				693425782D954D3F00BCBF0B /* AdditionalApplicationsController.swift in Sources */,
 				691981432C723B7500E79DA4 /* FIFOBuffer.swift in Sources */,
@@ -4317,6 +4331,7 @@
 			files = (
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
+				698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4471,6 +4486,7 @@
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
+				698A176D300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift in Sources */,
 				69EE1E322C3DA55900172C75 /* PermittedProcessesArrayController.swift in Sources */,
 				69D817E618017DDB00EB7885 /* SEBURLFilter.m in Sources */,
 				69BBAE59232702BD005BC19F /* ServerLogger.m in Sources */,

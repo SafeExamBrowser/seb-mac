@@ -12,3 +12,8 @@
 #import "SEBWiFiController.h"
 #import "SEBSystemManager.h"
 #import "SEBURLFilter.h"
+#if DEBUG
+// Exposes SEBCryptor's private Config Key value serializer to the (DEBUG-only)
+// test-support shim; see SEBCryptorConfigKeyTestSupport.swift.
+#import "SEBCryptor+Testing.h"
+#endif

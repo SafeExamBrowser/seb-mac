@@ -417,6 +417,21 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         jsonString = [NSString stringWithFormat:@"\"%@\"", object];
     } else if ((strcmp([object objCType], "c") == 0)) {
         jsonString = [NSString stringWithFormat:@"%@", ([object boolValue] == 0 ? @"false" : @"true")];
+    } else if (strcmp([object objCType], "d") == 0 || strcmp([object objCType], "f") == 0) {
+        // Floating point values must be serialized identically on all SEB platforms,
+        // as the Config Key is a hash over these exact JSON bytes. SEB for Windows
+        // (.NET Framework 4.8) serializes doubles with
+        // Double.ToString(NumberFormatInfo.InvariantInfo), i.e. the "G15" general
+        // format: up to 15 significant digits, invariant culture (decimal point ".")
+        // and, when scientific notation is used, an uppercase 'E' exponent.
+        // NSNumber's -description instead emits the shortest round-tripping form (up
+        // to 17 digits), which diverges for values not representable in <= 15 digits
+        // (see seb-win-refactoring issue #1495). "%.15g" matches .NET's "G15" rules
+        // (15 significant digits, trailing zeros stripped, same fixed-vs-scientific
+        // threshold); we only need to upper-case the exponent marker to match.
+        // -stringWithFormat: is not localized, so the decimal separator is always ".".
+        jsonString = [NSString stringWithFormat:@"%.15g", [object doubleValue]];
+        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"e" withString:@"E"];
     } else {
         jsonString = [NSString stringWithFormat:@"%@", object];
     }
