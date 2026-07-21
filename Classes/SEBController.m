@@ -7352,8 +7352,11 @@ conditionallyForWindow:(NSWindow *)window
         
         if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
             SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
-            
-            if ([dockItemBattery batteryLevel] != -1.0) {
+
+            // Only show the battery Dock item if this Mac actually has an
+            // internal battery (query the hardware via the battery controller,
+            // not the Dock item's own default level property).
+            if ([self.batteryController batteryLevel] != -1.0) {
                 [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
                 [dockItemBattery startDisplayingBattery];
                 [rightDockItems addObject:dockItemBattery];

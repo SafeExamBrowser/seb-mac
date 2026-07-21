@@ -39,6 +39,11 @@
 @import IOKit.ps;
 #endif
 
+@interface SEBBatteryController ()
+- (void) sendCurrentBatteryStateToDelegate:(id <SEBBatteryControllerDelegate>)delegate;
+- (NSString *) batteryInfoStringForLevel:(double)batteryLevel;
+@end
+
 @implementation SEBBatteryController
 
 
@@ -50,6 +55,13 @@
     } else {
         _delegates = [currentDelegates arrayByAddingObject:delegate];
     }
+    // Immediately push the current battery state to the newly added delegate.
+    // Otherwise a freshly created (or reset) delegate like the Dock battery item
+    // stays at its default display until updateBatteryLevel detects a *change* -
+    // which never happens if this controller is reused and its cached level
+    // already matches the current level (e.g. when the Dock is rebuilt within a
+    // session). That is what made the Dock battery indicator stick at "full".
+    [self sendCurrentBatteryStateToDelegate:delegate];
 }
 
 
@@ -70,14 +82,16 @@
                                           userInfo:nil repeats:YES];
     
     NSRunLoop *currentRunLoop = [NSRunLoop currentRunLoop];
-    [currentRunLoop addTimer:batteryTimer forMode: NSDefaultRunLoopMode];
+    // Use common modes so the timer keeps firing while the run loop is in event
+    // tracking or modal panel mode (otherwise the indicator freezes during those).
+    [currentRunLoop addTimer:batteryTimer forMode: NSRunLoopCommonModes];
     
     powerSourceMonitoringCallbackMethod((__bridge void *)(self));
     [self updateBatteryLevel];
 
     powerSourceMonitoringLoop = IOPSNotificationCreateRunLoopSource(powerSourceMonitoringCallbackMethod, (__bridge void *)(self));
     if (powerSourceMonitoringLoop) {
-        CFRunLoopAddSource(CFRunLoopGetCurrent(), powerSourceMonitoringLoop, kCFRunLoopDefaultMode);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), powerSourceMonitoringLoop, kCFRunLoopCommonModes);
     }
 #else
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -127,25 +141,46 @@ void powerSourceMonitoringCallbackMethod(void *context)
         powerSourceConnectedState != lastPowerSourceConnectedState) {
         lastBatteryLevel = batteryLevel;
         lastPowerSourceConnectedState = powerSourceConnectedState;
-        NSString *additionalBatteryInformation;
-#if TARGET_OS_OSX
-        CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
-        int hoursRemaining = remainingTime/3600;
-        int minutesRemaining = (remainingTime - hoursRemaining*3600)/60;
-        additionalBatteryInformation = remainingTime == kIOPSTimeRemainingUnlimited ?
-                                        NSLocalizedString(@" (Connected to Power Source)", @"") :
-                                        ((remainingTime == kIOPSTimeRemainingUnknown ?
-                                          @"" :
-                                          [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", @""), hoursRemaining, minutesRemaining]));
-#else
-        additionalBatteryInformation = powerSourceConnectedState ? NSLocalizedString(@" (Connected to Power Source)", @"") : @"";
-#endif
-        NSString *infoString = [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", @""), batteryLevel, additionalBatteryInformation];
+        NSString *infoString = [self batteryInfoStringForLevel:batteryLevel];
         NSArray *currentDelegates = _delegates.copy;
         for (id <SEBBatteryControllerDelegate> delegate in currentDelegates) {
             [delegate updateBatteryLevel:batteryLevel infoString:infoString];
         }
     }
+}
+
+
+// Push the currently read battery level and power state to a single delegate,
+// bypassing the change detection in updateBatteryLevel. Used to initialise a
+// newly added delegate.
+- (void) sendCurrentBatteryStateToDelegate:(id <SEBBatteryControllerDelegate>)delegate
+{
+    double batteryLevel = self.batteryLevel;
+    NSString *infoString = [self batteryInfoStringForLevel:batteryLevel];
+    [delegate updateBatteryLevel:batteryLevel infoString:infoString];
+#if TARGET_OS_OSX
+    IOPSLowBatteryWarningLevel batteryWarningLevel = IOPSGetBatteryWarningLevel();
+    [delegate setPowerConnected:self.powerSourceConnected warningLevel:(SEBLowBatteryWarningLevel)batteryWarningLevel];
+#endif
+}
+
+
+- (NSString *) batteryInfoStringForLevel:(double)batteryLevel
+{
+    NSString *additionalBatteryInformation;
+#if TARGET_OS_OSX
+    CFTimeInterval remainingTime = IOPSGetTimeRemainingEstimate();
+    int hoursRemaining = remainingTime/3600;
+    int minutesRemaining = (remainingTime - hoursRemaining*3600)/60;
+    additionalBatteryInformation = remainingTime == kIOPSTimeRemainingUnlimited ?
+                                    NSLocalizedString(@" (Connected to Power Source)", @"") :
+                                    ((remainingTime == kIOPSTimeRemainingUnknown ?
+                                      @"" :
+                                      [NSString stringWithFormat:NSLocalizedString(@" (%d:%d Remaining)", @""), hoursRemaining, minutesRemaining]));
+#else
+    additionalBatteryInformation = self.powerSourceConnected ? NSLocalizedString(@" (Connected to Power Source)", @"") : @"";
+#endif
+    return [NSString stringWithFormat:NSLocalizedString(@"Battery Level %.f%%%@", @""), batteryLevel, additionalBatteryInformation];
 }
 
 
@@ -167,42 +202,50 @@ void powerSourceMonitoringCallbackMethod(void *context)
 - (double) batteryLevel
 {
 #if TARGET_OS_OSX
-  CFTypeRef blob = IOPSCopyPowerSourcesInfo();
-  CFArrayRef sources = IOPSCopyPowerSourcesList(blob);
-  
-  CFDictionaryRef pSource = NULL;
-  const void *psValue;
-  
-  long numOfSources = CFArrayGetCount(sources);
-  if (numOfSources == 0) {
-    NSLog(@"Error in CFArrayGetCount");
-    return -1.0f;
-  }
-  
-  for (int i = 0 ; i < numOfSources ; i++)
-  {
-    pSource = IOPSGetPowerSourceDescription(blob, CFArrayGetValueAtIndex(sources, i));
-    if (!pSource) {
-      NSLog(@"Error in IOPSGetPowerSourceDescription");
-        continue;;
+    double percent = -1.0;
+
+    CFTypeRef blob = IOPSCopyPowerSourcesInfo();
+    if (!blob) {
+        return -1.0;
     }
-    psValue = (CFStringRef)CFDictionaryGetValue(pSource, CFSTR(kIOPSNameKey));
-    
-    int curCapacity = 0;
-    int maxCapacity = 0;
-    double percent;
-    
-    psValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSCurrentCapacityKey));
-    CFNumberGetValue((CFNumberRef)psValue, kCFNumberSInt32Type, &curCapacity);
-    
-    psValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSMaxCapacityKey));
-    CFNumberGetValue((CFNumberRef)psValue, kCFNumberSInt32Type, &maxCapacity);
-    
-    percent = ((double)curCapacity/(double)maxCapacity * 100.0f);
-    
+    CFArrayRef sources = IOPSCopyPowerSourcesList(blob);
+    if (sources) {
+        long numOfSources = CFArrayGetCount(sources);
+        for (int i = 0 ; i < numOfSources ; i++) {
+            CFDictionaryRef pSource = IOPSGetPowerSourceDescription(blob, CFArrayGetValueAtIndex(sources, i));
+            if (!pSource) {
+                continue;
+            }
+            // Only consider the internal battery, and only if it is actually
+            // present, so we don't accidentally report another power source
+            // (e.g. a UPS) or read a source whose data isn't populated yet.
+            CFStringRef psType = CFDictionaryGetValue(pSource, CFSTR(kIOPSTypeKey));
+            if (psType && !CFEqual(psType, CFSTR(kIOPSInternalBatteryType))) {
+                continue;
+            }
+            CFBooleanRef isPresent = CFDictionaryGetValue(pSource, CFSTR(kIOPSIsPresentKey));
+            if (isPresent && !CFBooleanGetValue(isPresent)) {
+                continue;
+            }
+            int curCapacity = 0;
+            int maxCapacity = 0;
+            CFNumberRef curValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSCurrentCapacityKey));
+            CFNumberRef maxValue = CFDictionaryGetValue(pSource, CFSTR(kIOPSMaxCapacityKey));
+            // Skip this source if the capacity values aren't (yet) available or
+            // would lead to a division by zero - avoids a bogus reading at launch.
+            if (!curValue || !maxValue ||
+                !CFNumberGetValue(curValue, kCFNumberSInt32Type, &curCapacity) ||
+                !CFNumberGetValue(maxValue, kCFNumberSInt32Type, &maxCapacity) ||
+                maxCapacity <= 0) {
+                continue;
+            }
+            percent = ((double)curCapacity / (double)maxCapacity) * 100.0;
+            break;
+        }
+        CFRelease(sources);
+    }
+    CFRelease(blob);
     return percent;
-  }
-  return -1.0f;
 #else
     return (double)(UIDevice.currentDevice.batteryLevel*100);
 #endif
