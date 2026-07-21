@@ -1072,6 +1072,27 @@
                       },
                       @{
                           @"currentUser" : @YES,
+                          @"description": @"UltraViewer remote control (main application)",
+                          @"executable" : @"UltraViewer_Desktop.exe",
+                          @"originalName" : @"UltraViewer_Desktop.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraViewer remote control (background service)",
+                          @"executable" : @"UltraViewer_Service.exe",
+                          @"originalName" : @"UltraViewer_Service.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
+                          @"description": @"UltraVNC Server",
+                          @"executable" : @"winvnc.exe",
+                          @"originalName" : @"winvnc.exe",
+                          @"os" : @1,
+                      },
+                      @{
+                          @"currentUser" : @YES,
                           @"executable" : @"VLC.exe",
                           @"originalName" : @"VLC.exe",
                           @"os" : @1,
@@ -1098,13 +1119,6 @@
                           @"currentUser" : @YES,
                           @"executable" : @"webexmta.exe",
                           @"originalName" : @"webexmta.exe",
-                          @"os" : @1,
-                      },
-                      @{
-                          @"currentUser" : @YES,
-                          @"description": @"UltraVNC Server",
-                          @"executable" : @"winvnc.exe",
-                          @"originalName" : @"winvnc.exe",
                           @"os" : @1,
                       },
                       @{
