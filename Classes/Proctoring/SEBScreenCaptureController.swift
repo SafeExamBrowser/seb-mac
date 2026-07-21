@@ -264,7 +264,7 @@ public class ScreenCaptureController {
     }
     
     private func processImage(_ imageRef: inout CGImage, scale: Double, quantization: ColorQuantization) -> Data? {
-        if quantization != .color24Bpp || quantization != .color16Bpp || quantization != .color8Bpp {
+        if quantization != .color24Bpp && quantization != .color16Bpp && quantization != .color8Bpp {
             if let greyscaleImage = imageRef.greyscale() {
                 imageRef = greyscaleImage
             }
