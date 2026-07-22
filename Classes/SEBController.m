@@ -1411,9 +1411,7 @@ bool insideMatrix(void);
                     dispatch_source_cancel(self.locationAuthPollSource);
                     self.locationAuthPollSource = nil;
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
-                });
+                [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
             }
         }
     });
