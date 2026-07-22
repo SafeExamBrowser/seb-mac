@@ -179,6 +179,13 @@
                           @"ignoreInAAC" : @NO,
                       },
                       @{
+                          @"description" : @"Speech to text into any text field",
+                          @"executable" : @"Handy",
+                          @"identifier" : @"com.pais.handy",
+                          @"strongKill" : @YES,
+                          @"ignoreInAAC" : @NO,
+                      },
+                      @{
                           @"executable" : @"ISL Light",
                           @"identifier" : @"com.islonline.ISLLight*",
                           @"strongKill" : @YES,
