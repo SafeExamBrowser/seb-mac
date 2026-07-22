@@ -54,10 +54,10 @@
                         <rect key="frame" x="1" y="1" width="648" height="700"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NFT-WK-gUf">
-                                <rect key="frame" x="0.0" y="0.0" width="630" height="824"/>
+                                <rect key="frame" x="0.0" y="0.0" width="630" height="924"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="fzP-sx-Pjd">
-                                        <rect key="frame" x="20" y="727" width="590" height="82"/>
+                                        <rect key="frame" x="20" y="827" width="590" height="82"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="4Z8-1t-DB7">
                                                 <rect key="frame" x="0.0" y="0.0" width="285" height="82"/>
@@ -201,7 +201,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <box autoresizesSubviews="NO" borderType="line" title="Logging" translatesAutoresizingMaskIntoConstraints="NO" id="M5z-0E-3yB">
-                                        <rect key="frame" x="20" y="577" width="610" height="136"/>
+                                        <rect key="frame" x="20" y="677" width="610" height="136"/>
                                         <view key="contentView" id="zcb-WA-Wne">
                                             <rect key="frame" x="0.0" y="0.0" width="610" height="124"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -419,7 +419,7 @@
                                         </constraints>
                                     </box>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="1000" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBJ-HX-kB3">
-                                        <rect key="frame" x="18" y="549" width="115" height="14"/>
+                                        <rect key="frame" x="18" y="649" width="115" height="14"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS Specific Settings " id="ADm-4H-Zh3">
                                             <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -427,22 +427,22 @@
                                         </textFieldCell>
                                     </textField>
                                     <tabView toolTip="Detail settings for locking down the system and specific system features" verticalHuggingPriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-Aw-k1e">
-                                        <rect key="frame" x="13" y="5" width="624" height="536"/>
+                                        <rect key="frame" x="13" y="5" width="624" height="636"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="520" id="pJ6-Me-Ys0"/>
+                                            <constraint firstAttribute="height" constant="620" id="pJ6-Me-Ys0"/>
                                         </constraints>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="macOS" identifier="" id="Dcg-5G-FDH">
                                                 <view key="view" id="ot5-GZ-LBL">
-                                                    <rect key="frame" x="10" y="33" width="604" height="490"/>
+                                                    <rect key="frame" x="10" y="33" width="604" height="590"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-rh-7rJ">
-                                                            <rect key="frame" x="15" y="-83" width="574" height="565"/>
+                                                            <rect key="frame" x="15" y="7" width="574" height="575"/>
                                                             <subviews>
                                                                 <box autoresizesSubviews="NO" borderType="line" title="Lockdown/Kiosk mode" translatesAutoresizingMaskIntoConstraints="NO" id="HKg-ux-TqM">
-                                                                    <rect key="frame" x="0.0" y="420" width="574" height="145"/>
+                                                                    <rect key="frame" x="0.0" y="430" width="574" height="145"/>
                                                                     <view key="contentView" id="FmA-0O-60d">
                                                                         <rect key="frame" x="0.0" y="0.0" width="574" height="133"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -562,7 +562,7 @@
                                                                     </constraints>
                                                                 </box>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="a9Y-jJ-E1h">
-                                                                    <rect key="frame" x="0.0" y="396" width="235" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="406" width="235" height="16"/>
                                                                     <string key="toolTip">SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode</string>
                                                                     <buttonCell key="cell" type="check" title="Disable app switcher when starting" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JRL-fG-lI3">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -573,7 +573,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="92" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="byW-Yd-sjZ">
-                                                                    <rect key="frame" x="0.0" y="372" width="508" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="382" width="508" height="16"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="25" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="iql-Mg-ZPK">
                                                                             <rect key="frame" x="0.0" y="0.0" width="508" height="16"/>
@@ -623,7 +623,7 @@
                                                                     </customSpacing>
                                                                 </stackView>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="FJP-p9-xw7">
-                                                                    <rect key="frame" x="0.0" y="348" width="119" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="358" width="119" height="16"/>
                                                                     <string key="toolTip">If enabled, Siri can be used by tapping the menu bar icon, Touch Bar icon or shortcut set in System Preferences/Siri (default: hold command space). The Siri window won't be displayed though</string>
                                                                     <buttonCell key="cell" type="check" title="Allow to use Siri" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3JA-FW-lAf">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -634,7 +634,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button toolTip="If enabled, dictation can be invoked with the shortcut set in System Preferences/Keyboard/Dictation (default: press fn twice)" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-YR-Pun">
-                                                                    <rect key="frame" x="0.0" y="324" width="152" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="334" width="152" height="16"/>
                                                                     <buttonCell key="cell" type="check" title="Allow to use dictation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="O4R-7z-oLy">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -644,7 +644,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="FHY-jc-rXS">
-                                                                    <rect key="frame" x="0.0" y="300" width="259" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="310" width="259" height="16"/>
                                                                     <string key="toolTip">SEB displays a lock screen (requiring to enter the quit/unlock password) if it detects that its process was stopped, which can indicate manipulation</string>
                                                                     <buttonCell key="cell" type="check" title="Detect when SEB process was stopped" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="WA3-Fp-0nb">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -655,7 +655,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="rSD-zM-6qb">
-                                                                    <rect key="frame" x="0.0" y="276" width="281" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="286" width="281" height="16"/>
                                                                     <string key="toolTip">Apps with Accessibility permissions (System Settings / Privacy &amp; Security / Accessibility) are terminated when they are running (except if allowed in Permitted Processes). Requires "Full Disk Access" permission</string>
                                                                     <buttonCell key="cell" type="check" title="Detect apps with Accessibility Permissions" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="HIE-7O-skK">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -666,7 +666,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="3x4-Pf-QCV">
-                                                                    <rect key="frame" x="0.0" y="244" width="426" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="254" width="426" height="24"/>
                                                                     <subviews>
                                                                         <textField toolTip="Maximum allowed number of connected displays (including built-in)" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BKE-3M-dWN">
                                                                             <rect key="frame" x="-2" y="4" width="365" height="16"/>
@@ -706,7 +706,7 @@
                                                                     </customSpacing>
                                                                 </stackView>
                                                                 <button toolTip="If not selected, SEB prevents to mirror the main display to another (for example an AirPlay Display)" translatesAutoresizingMaskIntoConstraints="NO" id="oq3-9u-BrJ">
-                                                                    <rect key="frame" x="0.0" y="220" width="337" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="230" width="337" height="16"/>
                                                                     <buttonCell key="cell" type="check" title="Allow display mirroring (affects also AirPlay Display)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="hwg-eH-cMm">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -716,7 +716,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <stackView distribution="fillEqually" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="r9j-2e-YhA">
-                                                                    <rect key="frame" x="0.0" y="176" width="574" height="36"/>
+                                                                    <rect key="frame" x="0.0" y="186" width="574" height="36"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TTZ-xg-Be8">
                                                                             <rect key="frame" x="0.0" y="0.0" width="283" height="36"/>
@@ -830,13 +830,13 @@
                                                                     </customSpacing>
                                                                 </stackView>
                                                                 <box borderType="line" title="Allow running from macOS version" translatesAutoresizingMaskIntoConstraints="NO" id="fbv-Hd-X6P">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="574" height="168"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="574" height="178"/>
                                                                     <view key="contentView" id="9Yq-rM-jP5">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="574" height="156"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="574" height="166"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="z7b-rX-IY3">
-                                                                                <rect key="frame" x="11" y="2" width="552" height="144"/>
+                                                                                <rect key="frame" x="11" y="12" width="552" height="144"/>
                                                                                 <subviews>
                                                                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-rc-duP">
                                                                                         <rect key="frame" x="0.0" y="120" width="270" height="24"/>
@@ -1051,7 +1051,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="168" id="PWw-3u-0Dk"/>
+                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="178" id="PWw-3u-0Dk"/>
                                                                     </constraints>
                                                                 </box>
                                                             </subviews>
@@ -2290,7 +2290,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.9838709677419355" horizontal="NO" id="Wcn-E4-i4h">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.9910714285714286" horizontal="NO" id="Wcn-E4-i4h">
                         <rect key="frame" x="649" y="1" width="17" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
