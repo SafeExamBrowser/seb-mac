@@ -2503,9 +2503,9 @@
         <note>Class = "NSButtonCell"; title = "Remove default values"; ObjectID = "hOC-jh-iwA";</note>
       </trans-unit>
       <trans-unit id="vsD-Tt-Wm6.ibShadowedToolTip" xml:space="preserve">
-        <source>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</source>
+        <source>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings</source>
         <target>Zeigt eine Schnellaktion zum Bearbeiten von Konfigurationsdateien auf dem Home-Bildschirm an (berühren und halten Sie das App-Symbol). Sie können eine Konfigurationsdatei in der Dateiauswahl öffnen oder, wenn Sie die Auswahl schliessen, eine neue Konfiguration mit Voreinstellungen erstellen</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings"; ObjectID = "vsD-Tt-Wm6";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings"; ObjectID = "vsD-Tt-Wm6";</note>
       </trans-unit>
     </body>
   </file>
@@ -8475,8 +8475,8 @@ untitled filename</note>
         <target>Einstellungen in App anzeigen</target>
         <note/>
       </trans-unit>
-      <trans-unit id="Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings." xml:space="preserve">
-        <source>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings.</source>
+      <trans-unit id="Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings." xml:space="preserve">
+        <source>Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings.</source>
         <target>Zeigt eine Schnellaktion zum Bearbeiten von Konfigurationsdateien auf dem Home-Bildschirm an (berühren und halten Sie das App-Symbol). Sie können eine Konfigurationsdatei in der Dateiauswahl öffnen oder, wenn Sie die Auswahl schliessen, eine neue Konfiguration mit Voreinstellungen erstellen.</target>
         <note/>
       </trans-unit>

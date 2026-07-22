@@ -151,7 +151,7 @@
 /* Class = "NSBox"; title = "iOS Settings"; ObjectID = "Skz-8h-R96"; */
 "Skz-8h-R96.title" = "iOS-Einstellungen";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings"; ObjectID = "vsD-Tt-Wm6"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings"; ObjectID = "vsD-Tt-Wm6"; */
 "vsD-Tt-Wm6.ibShadowedToolTip" = "Zeigt eine Schnellaktion zum Bearbeiten von Konfigurationsdateien auf dem Home-Bildschirm an (berühren und halten Sie das App-Symbol). Sie können eine Konfigurationsdatei in der Dateiauswahl öffnen oder, wenn Sie die Auswahl schliessen, eine neue Konfiguration mit Voreinstellungen erstellen";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Shows the Edit Settings command in the left slider menu. If this option is enabled in the client configuration, in-app settings will also be available after opening an exam config"; ObjectID = "VYd-lj-NUe"; */
