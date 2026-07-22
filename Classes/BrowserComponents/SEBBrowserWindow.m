@@ -1598,6 +1598,25 @@ completionHandler:(void (^)(NSArray<NSURL *> *URLs))completionHandler
                 return;
             }
         }
+        // Check if open and save panels (applies also to this document picker) are blocked in current settings
+        if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] == NO) {
+            [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+            [self makeKeyAndOrderFront:self];
+            
+            NSAlert *modalAlert = [self.browserController.sebController newAlert];
+            DDLogError(@"File to upload should be chosen manually with file requester/open file dialog, but Open and Save Panels are blocked by settings!");
+            [modalAlert setMessageText:NSLocalizedString(@"Cannot Display Open File Dialog", @"")];
+            [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Open/save panels for file selection are disabled in current %@ settings, contact your exam provider.", @""), SEBShortAppName]];
+            [modalAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+            [modalAlert setAlertStyle:NSAlertStyleCritical];
+            void (^alertOKHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                [self.browserController.sebController removeAlertWindow:modalAlert.window];
+            };
+            completionHandler(nil);
+            [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
+            return;
+        }
+        
         // Create the File Open Dialog class.
         NSOpenPanel* openFilePanel = [NSOpenPanel openPanel];
         

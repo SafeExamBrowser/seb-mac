@@ -177,4 +177,21 @@
 }
  
 
+- (IBAction) chooseFileToUploadPoliciesPopUpButton:(NSPopUpButton *)sender {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    if (sender.indexOfSelectedItem != onlyAllowUploadSameFileDownloadedBefore &&
+        ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
+        (lockdownModePolicy)[preferences secureIntegerForKey:@"org_safeexambrowser_SEB_lockdownModePolicy"] != lockdownModePolicyEnforceClassic) {
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:NSLocalizedString(@"Choose File Dialog Blocked by Settings", @"")];
+        [newAlert setInformativeText:NSLocalizedString(@"The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane).", @"")];
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [newAlert setAlertStyle:NSAlertStyleCritical];
+        // beginSheetModalForWindow: completionHandler: is available from macOS 10.9,
+        // which also is the minimum macOS version the Preferences window is available from
+        [newAlert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+    }
+}
+
+
 @end

@@ -496,6 +496,13 @@ static NSNumber *_logLevel;
             if (aacSupported) {
                 [self setSecureObject:@(lockdownModePolicyEnforceAAC) forKey:[self prefixKey:@"lockdownModePolicy"]];
             }
+        } else {
+            // If new setting lockdownModePolicy isn't contained in loaded settings and
+            // the old setting enableMacOSAAC was false (classic lockdown mode, not AAC)
+            // we set allowOpenAndSavePanel = true, as it's default value false only has an effect in AAC
+            // but with lockdownModePolicy's default lockdownModePolicyAutomatic, AAC might be active in this session
+            // and then the file chooser for uploading files wouldn't be working
+            [self setSecureBool:YES forKey:[self prefixKey:@"allowOpenAndSavePanel"]];
         }
     }
 
