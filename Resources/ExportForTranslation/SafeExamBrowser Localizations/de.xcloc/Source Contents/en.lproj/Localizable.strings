@@ -77,6 +77,12 @@
 "%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %2$@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %3$@ in System Settings / Security & Privacy / Accessibility.";
 
 /* No comment provided by engineer. */
+"%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." = "%1$@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %2$@ in System Settings / Privacy & Security / Location Services.";
+
+/* No comment provided by engineer. */
+"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %2$@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.";
+
+/* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ Not Allowed!";
 
 /* No comment provided by engineer. */
@@ -114,6 +120,9 @@
 
 /* No comment provided by engineer. */
 "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.";
+
+/* Accessibility label for the active window in the SEB Dock open windows menu */
+"%@, current window" = "%@, current window";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
@@ -293,6 +302,9 @@
 "Cannot Decrypt Settings" = "Cannot Decrypt Settings";
 
 /* No comment provided by engineer. */
+"Cannot Display Open File Dialog" = "Cannot Display Open File Dialog";
+
+/* No comment provided by engineer. */
 "Cannot Establish Server Connection" = "Cannot Establish Server Connection";
 
 /* No comment provided by engineer. */
@@ -335,6 +347,9 @@
 "Choose" = "Choose";
 
 /* No comment provided by engineer. */
+"Choose File Dialog Blocked by Settings" = "Choose File Dialog Blocked by Settings";
+
+/* No comment provided by engineer. */
 "Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView.";
 
 /* No comment provided by engineer. */
@@ -372,6 +387,9 @@
 
 /* No comment provided by engineer. */
 "Configuring Client" = "Configuring Client";
+
+/* No comment provided by engineer. */
+"Connected (network name unavailable)" = "Connected (network name unavailable)";
 
 /* No comment provided by engineer. */
 "Connecting to SEB Server" = "Connecting to SEB Server";
@@ -545,6 +563,9 @@
 "Enter Exam Password:" = "Enter Exam Password:";
 
 /* No comment provided by engineer. */
+"Enter password for \"%@\"" = "Enter password for \"%@\"";
+
+/* No comment provided by engineer. */
 "Enter password used to encrypt these settings:" = "Enter password used to encrypt these settings:";
 
 /* No comment provided by engineer. */
@@ -662,6 +683,9 @@
 "Grant access to Folder" = "Grant access to Folder";
 
 /* No comment provided by engineer. */
+"Grant Full Disk Access" = "Grant Full Disk Access";
+
+/* No comment provided by engineer. */
 "Holding Command Key Not Allowed!" = "Holding Command Key Not Allowed!";
 
 /* No comment provided by engineer. */
@@ -719,6 +743,12 @@
 "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:" = "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:";
 
 /* No comment provided by engineer. */
+"Join" = "Join";
+
+/* No comment provided by engineer. */
+"Known Networks" = "Known Networks";
+
+/* No comment provided by engineer. */
 "Left" = "Left";
 
 /* No comment provided by engineer. */
@@ -753,6 +783,15 @@
 
 /* No comment provided by engineer. */
 "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." = "Local preferences were created by an incompatible %1$@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %2$@ correctly.";
+
+/* No comment provided by engineer. */
+"Location Services access is required to display Wi-Fi network names." = "Location Services access is required to display Wi-Fi network names.";
+
+/* No comment provided by engineer. */
+"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB." = "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.";
+
+/* No comment provided by engineer. */
+"Location Services Required for Wi-Fi" = "Location Services Required for Wi-Fi";
 
 /* No comment provided by engineer. */
 "Log in to" = "Log in to";
@@ -809,6 +848,9 @@
 "No Hostname Found" = "No Hostname Found";
 
 /* No comment provided by engineer. */
+"No networks found" = "No networks found";
+
+/* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "No SEB Server Fallback Password entered";
 
 /* No comment provided by engineer. */
@@ -819,6 +861,9 @@
 
 /* No comment provided by engineer. */
 "None - White" = "None - White";
+
+/* No comment provided by engineer. */
+"Not Connected" = "Not Connected";
 
 /* No comment provided by engineer. */
 "Not Connected to Wi-Fi or VPN" = "Not Connected to Wi-Fi or VPN";
@@ -839,7 +884,13 @@
 "open in same window" = "open in same window";
 
 /* No comment provided by engineer. */
+"Open System Settings" = "Open System Settings";
+
+/* No comment provided by engineer. */
 "Open webpages" = "Open webpages";
+
+/* No comment provided by engineer. */
+"Open/save panels for file selection are disabled in current %@ settings, contact your exam provider." = "Open/save panels for file selection are disabled in current %@ settings, contact your exam provider.";
 
 /* No comment provided by engineer. */
 "Opening" = "Opening";
@@ -869,6 +920,9 @@
 "OS version %@" = "OS version %@";
 
 /* No comment provided by engineer. */
+"Other Networks" = "Other Networks";
+
+/* No comment provided by engineer. */
 "Override" = "Override";
 
 /* No comment provided by engineer. */
@@ -876,6 +930,9 @@
 
 /* No comment provided by engineer. */
 "Parsing Settings Failed" = "Parsing Settings Failed";
+
+/* No comment provided by engineer. */
+"Password" = "Password";
 
 /* No comment provided by engineer. */
 "Paste from saved clipboard" = "Paste from saved clipboard";
@@ -1142,6 +1199,9 @@
 "Siri was activated" = "Siri was activated";
 
 /* No comment provided by engineer. */
+"Skip" = "Skip";
+
+/* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS Proxy";
 
 /* No comment provided by engineer. */
@@ -1185,6 +1245,9 @@
 
 /* No comment provided by engineer. */
 "the exam page" = "the exam page";
+
+/* No comment provided by engineer. */
+"The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane)." = "The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane).";
 
 /* No comment provided by engineer. */
 "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." = "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'.";
@@ -1238,7 +1301,7 @@
 "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.";
 
 /* No comment provided by engineer. */
-"This setting allows to switch to any application on the exam client computer. Use this option only when running %@ in a special user account, with only %@ and the desired applications allowed." = "This setting allows to switch to any application on the exam client computer. Use this option only when running %1$@ in a special user account, with only %2$@ and the desired applications allowed.";
+"This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." = "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging.";
 
 /* No comment provided by engineer. */
 "To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." = "To avoid that %1$@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %2$@ is still running.";
@@ -1248,6 +1311,9 @@
 
 /* No comment provided by engineer. */
 "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." = "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.";
+
+/* No comment provided by engineer. */
+"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.";
 
 /* No comment provided by engineer. */
 "Toggle Proctoring View" = "Toggle Proctoring View";
@@ -1348,6 +1414,18 @@ untitled filename */
 
 /* No comment provided by engineer. */
 "White on Black" = "White on Black";
+
+/* No comment provided by engineer. */
+"Wi-Fi" = "Wi-Fi";
+
+/* No comment provided by engineer. */
+"Wi-Fi: %@ (Signal: %ld dBm)" = "Wi-Fi: %1$@ (Signal: %2$ld dBm)";
+
+/* No comment provided by engineer. */
+"Wi-Fi: Connected (Signal: %ld dBm)" = "Wi-Fi: Connected (Signal: %ld dBm)";
+
+/* No comment provided by engineer. */
+"Wi-Fi: Not Connected" = "Wi-Fi: Not Connected";
 
 /* No comment provided by engineer. */
 "Win" = "Win";

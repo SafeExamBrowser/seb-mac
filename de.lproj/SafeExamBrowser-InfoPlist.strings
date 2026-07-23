@@ -19,6 +19,9 @@
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "© 2010-2026 Daniel R. Schneider, ETH Zürich, Informatikdienste, basierend auf der Originalidee des Safe Exam Browser von Stefan Schneider, Universität von Giessen";
 
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Der Zugriff auf die Ortung ist erforderlich, um die Namen von Wi-Fi-Netzwerken in der Nähe anzuzeigen. Es wird kein geografischer Standort ermittelt!";
+
 /* Privacy - Microphone Usage Description */
 "NSMicrophoneUsageDescription" = "Mikrofonzugriff ist notwendig für Web-Applikationen/Fernüberwachung.";
 

@@ -196,6 +196,9 @@
 /* Class = "NSButton"; ibShadowedToolTip = "On macOS <12.1 DNS lookup doesn't work while in AAC. Pre-pinning resolves all domains from Start URL and URL filter rules before starting AAC to mitigate this bug. This allows to use AAC on macOS 11 - 12.0"; ObjectID = "GXF-y1-76z"; */
 "GXF-y1-76z.ibShadowedToolTip" = "Unter macOS <12.1 funktioniert die DNS-Auflösung in AAC nicht. Das Pre-Pinning löst alle Domains aus der Start-URL und den URL-Filterregeln vor dem Start von AAC auf, um diesen Fehler zu vermeiden. Dies ermöglicht die Verwendung von AAC unter macOS 11 - 12.0";
 
+/* Class = "NSButtonCell"; title = "Detect apps with Accessibility Permissions"; ObjectID = "HIE-7O-skK"; */
+"HIE-7O-skK.title" = "Apps mit Bedienungshilfen-Berechtigungen erkennen";
+
 /* Class = "NSBox"; title = "Lockdown/Kiosk mode"; ObjectID = "HKg-ux-TqM"; */
 "HKg-ux-TqM.title" = "Lockdown/Kiosk-Modus";
 
@@ -240,21 +243,6 @@
 
 /* Class = "NSButtonCell"; title = "Use AAC with DNS pre-pinning"; ObjectID = "jQ0-cO-PEU"; */
 "jQ0-cO-PEU.title" = "AAC mit DNS-Pre-Pinning verwenden";
-
-/* Class = "NSTextFieldCell"; title = "Screen proctoring capture under AAC:"; ObjectID = "spC-Lc-001"; */
-"spC-Lc-001.title" = "Screen-Proctoring-Aufnahme unter AAC:";
-
-/* Class = "NSMenuItem"; title = "Don't use AAC (disable Assessment Mode)"; ObjectID = "spC-Mi-000"; */
-"spC-Mi-000.title" = "AAC nicht verwenden (Bewertungsmodus deaktivieren)";
-
-/* Class = "NSMenuItem"; title = "Capture active window only"; ObjectID = "spC-Mi-001"; */
-"spC-Mi-001.title" = "Nur aktives Fenster aufnehmen";
-
-/* Class = "NSMenuItem"; title = "Capture all windows (composited)"; ObjectID = "spC-Mi-002"; */
-"spC-Mi-002.title" = "Alle Fenster aufnehmen (zusammengesetzt)";
-
-/* Class = "NSPopUpButton"; toolTip = "Under AAC (Assessment Mode) the system screen capture returns black, so screen proctoring captures SEB's own windows instead. Choose which windows are captured, or disable using AAC when screen proctoring is enabled."; ObjectID = "spC-Pu-001"; */
-"spC-Pu-001.toolTip" = "Unter AAC (Bewertungsmodus) liefert die System-Bildschirmaufnahme ein schwarzes Bild, deshalb nimmt Screen Proctoring stattdessen die eigenen Fenster von SEB auf. Wählen Sie, welche Fenster aufgenommen werden, oder deaktivieren Sie die Verwendung von AAC, wenn Screen Proctoring aktiviert ist.";
 
 /* Class = "NSButtonCell"; title = "Disable app switcher when starting"; ObjectID = "JRL-fG-lI3"; */
 "JRL-fG-lI3.title" = "Programmumschalter während Start verbieten";
@@ -408,6 +396,27 @@
 
 /* Class = "NSButtonCell"; title = "Enable Switch User"; ObjectID = "rm8-cp-dzk"; */
 "rm8-cp-dzk.title" = "Benutzerwechsel erlauben";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Apps with Accessibility permissions (System Settings / Privacy & Security / Accessibility) are terminated when they are running (except if allowed in Permitted Processes). Requires \"Full Disk Access\" permission"; ObjectID = "rSD-zM-6qb"; */
+"rSD-zM-6qb.ibShadowedToolTip" = "Apps mit Bedienungshilfen-Berechtigungen (Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen) werden beendet, wenn sie laufen (ausser wenn sie in den zugelassenen Prozessen erlaubt sind). Erfordert die Berechtigung \"Festplattenvollzugriff\"";
+
+/* Class = "NSTextFieldCell"; title = "Screen proctoring capture under AAC:"; ObjectID = "spC-Lc-001"; */
+"spC-Lc-001.title" = "Screen-Proctoring-Aufnahme unter AAC:";
+
+/* Class = "NSMenuItem"; title = "Don't use AAC (disable Assessment Mode)"; ObjectID = "spC-Mi-000"; */
+"spC-Mi-000.title" = "AAC nicht verwenden (Bewertungsmodus deaktivieren)";
+
+/* Class = "NSMenuItem"; title = "Capture active window only"; ObjectID = "spC-Mi-001"; */
+"spC-Mi-001.title" = "Nur aktives Fenster aufnehmen";
+
+/* Class = "NSMenuItem"; title = "Capture all windows (composited)"; ObjectID = "spC-Mi-002"; */
+"spC-Mi-002.title" = "Alle Fenster aufnehmen (zusammengesetzt)";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "spC-Mn-001"; */
+"spC-Mn-001.title" = "OtherViews";
+
+/* Class = "NSPopUpButton"; ibShadowedToolTip = "Under AAC (Assessment Mode) the system screen capture returns black, so screen proctoring captures SEB's own windows instead. Choose which windows are captured, or disable using AAC when screen proctoring is enabled."; ObjectID = "spC-Pu-001"; */
+"spC-Pu-001.ibShadowedToolTip" = "Unter AAC (Bewertungsmodus) liefert die System-Bildschirmaufnahme ein schwarzes Bild, daher nimmt Screen Proctoring stattdessen die eigenen Fenster von SEB auf. Wählen Sie, welche Fenster aufgenommen werden, oder deaktivieren Sie die Verwendung von AAC, wenn Screen Proctoring aktiviert ist.";
 
 /* Class = "NSButtonCell"; title = "Allow also user's ~/Applications folder"; ObjectID = "sUj-TY-bKw"; */
 "sUj-TY-bKw.title" = "Verzeichnis ~/Programme erlauben";

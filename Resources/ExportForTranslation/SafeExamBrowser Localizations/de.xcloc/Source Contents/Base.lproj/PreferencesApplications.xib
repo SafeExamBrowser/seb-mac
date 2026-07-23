@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PrefsApplicationsViewController">
             <connections>
+                <outlet property="allowAccessibilityButton" destination="qje-gt-QNa" id="Pxl-Up-4BW"/>
                 <outlet property="allowManualStartButton" destination="13k-Ch-eng" id="2iW-VO-HCi"/>
                 <outlet property="allowOpenSavePanelButton" destination="5" id="YyI-kF-AR9"/>
                 <outlet property="allowShareSheetButton" destination="k51-pu-omV" id="EeA-fE-rdI"/>
@@ -98,7 +99,7 @@
                                     <tabViewItems>
                                         <tabViewItem label="Permitted Processes" identifier="1" id="240">
                                             <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="243">
-                                                <rect key="frame" x="24" y="45" width="604" height="612"/>
+                                                <rect key="frame" x="31" y="51" width="604" height="612"/>
                                                 <subviews>
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6DK-IZ-ER5">
                                                         <rect key="frame" x="17" y="10" width="570" height="592"/>
@@ -195,7 +196,7 @@
                                                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.active" id="1164"/>
                                                                                             </connections>
                                                                                         </tableColumn>
-                                                                                        <tableColumn width="65" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
+                                                                                        <tableColumn width="64.95841439688607" minWidth="10" maxWidth="3.4028234663852886e+38" id="360">
                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="OS">
                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -218,7 +219,7 @@
                                                                                                 <binding destination="610" name="selectedIndex" keyPath="arrangedObjects.os" id="1340"/>
                                                                                             </connections>
                                                                                         </tableColumn>
-                                                                                        <tableColumn width="239" minWidth="40" maxWidth="1000" id="351">
+                                                                                        <tableColumn width="239.00729571984036" minWidth="40" maxWidth="1000" id="351">
                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Executable">
                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -233,7 +234,7 @@
                                                                                                 <binding destination="610" name="value" keyPath="arrangedObjects.executable" id="2136"/>
                                                                                             </connections>
                                                                                         </tableColumn>
-                                                                                        <tableColumn width="201" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
+                                                                                        <tableColumn width="200.82563229571647" minWidth="10" maxWidth="3.4028234663852886e+38" id="537">
                                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Title">
                                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -340,7 +341,7 @@
                                                                                 </buttonCell>
                                                                             </button>
                                                                             <button hidden="YES" toolTip="Update dependent settings for Multi App Mode and secure download/opening/upload of files in additional apps" translatesAutoresizingMaskIntoConstraints="NO" id="I9H-dv-7jE" userLabel="Warning Dependent Settings">
-                                                                                <rect key="frame" x="0.0" y="10" width="15" height="15"/>
+                                                                                <rect key="frame" x="0.0" y="9.999999999996362" width="15" height="15.000000000003638"/>
                                                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="exclamationmark.circle" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="qBV-gX-z9k">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
@@ -383,13 +384,13 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-54-ERS">
-                                                                            <rect key="frame" x="15" y="2" width="540" height="352"/>
+                                                                            <rect key="frame" x="15" y="170" width="540" height="184"/>
                                                                             <subviews>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2BY-LQ-f9Q">
-                                                                                    <rect key="frame" x="0.0" y="328" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="358" width="540" height="25"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Permitted process item is active" translatesAutoresizingMaskIntoConstraints="NO" id="637">
-                                                                                            <rect key="frame" x="0.0" y="4" width="188" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="5" width="188" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Active" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="638">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -407,10 +408,10 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27x-OQ-kn3">
-                                                                                            <rect key="frame" x="208" y="0.0" width="332" height="24"/>
+                                                                                            <rect key="frame" x="208" y="0.0" width="332" height="25"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
-                                                                                                    <rect key="frame" x="-2" y="4" width="31" height="16"/>
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="641">
+                                                                                                    <rect key="frame" x="-2" y="5" width="31" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="642">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -424,8 +425,8 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
-                                                                                                    <rect key="frame" x="35" y="0.0" width="297" height="24"/>
+                                                                                                <textField toolTip="Application title which is displayed in the application chooser and SEB dock/taskbar" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="645">
+                                                                                                    <rect key="frame" x="35" y="0.0" width="297" height="25"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="646">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -464,9 +465,9 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMi-jB-iWG">
-                                                                                    <rect key="frame" x="0.0" y="296" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="325" width="540" height="25"/>
                                                                                     <subviews>
-                                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
+                                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="653">
                                                                                             <rect key="frame" x="-2" y="4" width="74" height="16"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="657">
                                                                                                 <font key="font" metaFont="system"/>
@@ -481,7 +482,7 @@
                                                                                                 </binding>
                                                                                             </connections>
                                                                                         </textField>
-                                                                                        <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
+                                                                                        <textField toolTip="Optional, should explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="654">
                                                                                             <rect key="frame" x="78" y="0.0" width="462" height="24"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="656">
                                                                                                 <font key="font" metaFont="system"/>
@@ -508,12 +509,12 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nqg-0J-yw6">
-                                                                                    <rect key="frame" x="0.0" y="264" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="293" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6BD-lW-2NV">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="130" height="24"/>
+                                                                                            <rect key="frame" x="0.0" y="1" width="130" height="24"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1303">
                                                                                                     <rect key="frame" x="-2" y="8" width="30" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1304">
                                                                                                         <font key="font" metaFont="system"/>
@@ -571,10 +572,10 @@
                                                                                             </customSpacing>
                                                                                         </stackView>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jRP-pP-ZCg">
-                                                                                            <rect key="frame" x="150" y="0.0" width="390" height="24"/>
+                                                                                            <rect key="frame" x="150" y="0.0" width="390" height="25"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
-                                                                                                    <rect key="frame" x="-2" y="4" width="71" height="16"/>
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="673">
+                                                                                                    <rect key="frame" x="-2" y="5" width="71" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="677">
                                                                                                         <font key="font" metaFont="system"/>
                                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -588,8 +589,8 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
-                                                                                                    <rect key="frame" x="75" y="0.0" width="315" height="24"/>
+                                                                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="674">
+                                                                                                    <rect key="frame" x="75" y="0.0" width="315" height="25"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="315" id="pw1-B4-ysX"/>
                                                                                                     </constraints>
@@ -628,12 +629,12 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NsW-zB-Bw1">
-                                                                                    <rect key="frame" x="0.0" y="232" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="260" width="540" height="25"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="htN-Bd-tUY">
                                                                                             <rect key="frame" x="149" y="0.0" width="391" height="24"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2201">
                                                                                                     <rect key="frame" x="-2" y="4" width="90" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="2204">
                                                                                                         <font key="font" metaFont="system"/>
@@ -648,7 +649,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2202">
                                                                                                     <rect key="frame" x="94" y="0.0" width="297" height="24"/>
                                                                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2203">
@@ -685,12 +686,12 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mWQ-ro-37J">
-                                                                                    <rect key="frame" x="0.0" y="200" width="540" height="24"/>
+                                                                                    <rect key="frame" x="0.0" y="228" width="540" height="24"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3t-kM-gpg">
-                                                                                            <rect key="frame" x="46" y="0.0" width="494" height="24"/>
+                                                                                            <rect key="frame" x="46" y="0.0" width="494" height="25"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="686">
                                                                                                     <rect key="frame" x="-2" y="4" width="32" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="690">
                                                                                                         <font key="font" metaFont="system"/>
@@ -705,8 +706,8 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
-                                                                                                    <rect key="frame" x="36" y="0.0" width="458" height="24"/>
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="687">
+                                                                                                    <rect key="frame" x="36" y="0.0" width="458" height="25"/>
                                                                                                     <string key="toolTip">If you enter the identifier of an additional app which has a custom scheme, that app will be opened after the download finishes. Win: Filesystem path to the process executable’s directory (excluding the file name). If the path is not given or relative, then SEB searches system provided paths for applications.</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="689">
                                                                                                         <font key="font" metaFont="system"/>
@@ -742,12 +743,12 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="bottom" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qxA-HW-Abg">
-                                                                                    <rect key="frame" x="0.0" y="122" width="540" height="70"/>
+                                                                                    <rect key="frame" x="0.0" y="150" width="540" height="70"/>
                                                                                     <subviews>
                                                                                         <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="31" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEL-uN-dOT">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="74" height="68"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="772">
                                                                                                     <rect key="frame" x="5" y="52" width="71" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Arguments" id="773">
                                                                                                         <font key="font" metaFont="system"/>
@@ -861,7 +862,7 @@
                                                                                                                     <binding destination="1782" name="value" keyPath="arrangedObjects.active" id="1791"/>
                                                                                                                 </connections>
                                                                                                             </tableColumn>
-                                                                                                            <tableColumn width="394" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
+                                                                                                            <tableColumn width="393.71741245135524" minWidth="10" maxWidth="3.4028234663852886e+38" id="1290">
                                                                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -913,10 +914,10 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7s-lR-Wir">
-                                                                                    <rect key="frame" x="0.0" y="93" width="540" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="117" width="540" height="25"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Show icon of permitted application in dock/taskbar (not possible when 'run in background' is enabled)" translatesAutoresizingMaskIntoConstraints="NO" id="3ET-Le-SL5">
-                                                                                            <rect key="frame" x="0.0" y="3" width="161" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="4" width="161" height="16"/>
                                                                                             <buttonCell key="cell" type="check" title="Icon in taskbar" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rR0-Mm-VzA">
                                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                                 <font key="font" metaFont="system"/>
@@ -934,13 +935,13 @@
                                                                                             </connections>
                                                                                         </button>
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwe-Jk-Q1r">
-                                                                                            <rect key="frame" x="181" y="0.0" width="359" height="21"/>
+                                                                                            <rect key="frame" x="181" y="0.0" width="359" height="25"/>
                                                                                             <subviews>
                                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4tq-fE-gIf">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="21"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="25"/>
                                                                                                     <subviews>
-                                                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
-                                                                                                            <rect key="frame" x="-2" y="3" width="58" height="16"/>
+                                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="896">
+                                                                                                            <rect key="frame" x="-2" y="4" width="58" height="16"/>
                                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="897">
                                                                                                                 <font key="font" metaFont="system"/>
                                                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -954,8 +955,8 @@
                                                                                                                 </binding>
                                                                                                             </connections>
                                                                                                         </textField>
-                                                                                                        <textField toolTip="Bundle identifier of the app/process in reverse domain notation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
-                                                                                                            <rect key="frame" x="62" y="0.0" width="297" height="21"/>
+                                                                                                        <textField toolTip="Bundle identifier of the app/process in reverse domain notation" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="887">
+                                                                                                            <rect key="frame" x="62" y="0.0" width="297" height="25"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="height" constant="21" id="NLy-Zx-d3f"/>
                                                                                                             </constraints>
@@ -1003,7 +1004,7 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sh-CL-G9g">
-                                                                                    <rect key="frame" x="0.0" y="64" width="540" height="21"/>
+                                                                                    <rect key="frame" x="0.0" y="88" width="540" height="21"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Allow the permitted app in AAC Multi App Mode to access the network/internet" translatesAutoresizingMaskIntoConstraints="NO" id="956">
                                                                                             <rect key="frame" x="0.0" y="3" width="176" height="16"/>
@@ -1039,7 +1040,7 @@
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QAN-B4-SjM">
                                                                                             <rect key="frame" x="186" y="0.0" width="354" height="21"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qox-fm-s7W" userLabel="Team Identifier">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qox-fm-s7W" userLabel="Team Identifier">
                                                                                                     <rect key="frame" x="-2" y="3" width="53" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Team ID" id="9ep-FT-5jP" userLabel="Team Identifier">
                                                                                                         <font key="font" metaFont="system"/>
@@ -1054,7 +1055,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Team identifier of the app's code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-V9-Us6">
+                                                                                                <textField toolTip="Team identifier of the app's code signature" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JdC-V9-Us6">
                                                                                                     <rect key="frame" x="57" y="0.0" width="297" height="21"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="height" constant="21" id="gKw-Eh-tnC"/>
@@ -1097,7 +1098,7 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="urk-QT-Wpo">
-                                                                                    <rect key="frame" x="0.0" y="24" width="540" height="32"/>
+                                                                                    <rect key="frame" x="0.0" y="48" width="540" height="32"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Start the process automatically together with SEB" translatesAutoresizingMaskIntoConstraints="NO" id="948">
                                                                                             <rect key="frame" x="0.0" y="16" width="397" height="16"/>
@@ -1141,7 +1142,7 @@
                                                                                     </customSpacing>
                                                                                 </stackView>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-oa-qqf">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
+                                                                                    <rect key="frame" x="0.0" y="24" width="540" height="16"/>
                                                                                     <subviews>
                                                                                         <button toolTip="Force terminate process, which may cause data loss if the application had unsaved data" translatesAutoresizingMaskIntoConstraints="NO" id="2244">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
@@ -1192,6 +1193,43 @@
                                                                                         <real value="3.4028234663852886e+38"/>
                                                                                     </customSpacing>
                                                                                 </stackView>
+                                                                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="6k8-Uf-SNH">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="16"/>
+                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                                    <subviews>
+                                                                                        <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qje-gt-QNa" userLabel="Allow Accessibility">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="134" height="16"/>
+                                                                                            <string key="toolTip">Allow the permitted process to have Accessibility permissions (see System Settings / Privacy &amp; Security / Accessibility). If 'Detect apps with Accessibility Permissions' in Security Pane is enabled, then processes with Accessibility permissions (not excluded here) will be terminated</string>
+                                                                                            <buttonCell key="cell" type="check" title="Allow Accessibility" bezelStyle="regularSquare" imagePosition="left" inset="2" id="IYU-a0-pbv" userLabel="Allow Accessibility">
+                                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                            </buttonCell>
+                                                                                            <connections>
+                                                                                                <binding destination="610" name="value" keyPath="selection.allowAccessibility" id="u6y-gD-KCq">
+                                                                                                    <dictionary key="options">
+                                                                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                                                                        <bool key="NSConditionallySetsHidden" value="YES"/>
+                                                                                                    </dictionary>
+                                                                                                </binding>
+                                                                                            </connections>
+                                                                                        </button>
+                                                                                        <button hidden="YES" toolTip="Show details about the application/process code signature" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e6r-ug-rq4">
+                                                                                            <rect key="frame" x="0.0" y="-8" width="136" height="24"/>
+                                                                                            <buttonCell key="cell" type="push" title="Code Signatures..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ml0-Xk-R23">
+                                                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                                <font key="font" metaFont="system"/>
+                                                                                            </buttonCell>
+                                                                                        </button>
+                                                                                    </subviews>
+                                                                                    <visibilityPriorities>
+                                                                                        <integer value="1000"/>
+                                                                                        <integer value="1000"/>
+                                                                                    </visibilityPriorities>
+                                                                                    <customSpacing>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                        <real value="3.4028234663852886e+38"/>
+                                                                                    </customSpacing>
+                                                                                </stackView>
                                                                             </subviews>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="trailing" secondItem="GR2-oa-qqf" secondAttribute="trailing" id="2no-bT-5o7"/>
@@ -1223,8 +1261,10 @@
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
+                                                                                <integer value="1000"/>
                                                                             </visibilityPriorities>
                                                                             <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
@@ -1283,7 +1323,7 @@
                                                     <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-AJ-1Zf">
                                                         <rect key="frame" x="17" y="10" width="570" height="590"/>
                                                         <subviews>
-                                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
+                                                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1844">
                                                                 <rect key="frame" x="-2" y="576" width="318" height="14"/>
                                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="System processes which are not allowed to run during exam" id="1847">
                                                                     <font key="font" metaFont="message" size="11"/>
@@ -1526,7 +1566,7 @@
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EXn-kq-VAm">
                                                                                             <rect key="frame" x="166" y="0.0" width="372" height="21"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1897">
                                                                                                     <rect key="frame" x="-2" y="3" width="71" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Executable" id="1909">
                                                                                                         <font key="font" metaFont="system"/>
@@ -1541,7 +1581,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Process name, usually the file name of the executable" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
+                                                                                                <textField toolTip="Process name, usually the file name of the executable" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1893">
                                                                                                     <rect key="frame" x="75" y="0.0" width="297" height="21"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="297" id="1915"/>
@@ -1583,7 +1623,7 @@
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78V-ST-DtI">
                                                                                     <rect key="frame" x="0.0" y="82" width="538" height="21"/>
                                                                                     <subviews>
-                                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
+                                                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1894">
                                                                                             <rect key="frame" x="-2" y="3" width="74" height="16"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="1913">
                                                                                                 <font key="font" metaFont="system"/>
@@ -1598,7 +1638,7 @@
                                                                                                 </binding>
                                                                                             </connections>
                                                                                         </textField>
-                                                                                        <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
+                                                                                        <textField toolTip="Optional, to explain what kind of process this is, because this might not be obvious only from the executable's name" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1895">
                                                                                             <rect key="frame" x="78" y="0.0" width="460" height="21"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1911">
                                                                                                 <font key="font" metaFont="system"/>
@@ -1631,7 +1671,7 @@
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHl-nG-7x1">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="123" height="20"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1899">
                                                                                                     <rect key="frame" x="-2" y="4" width="23" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="1906">
                                                                                                         <font key="font" metaFont="system"/>
@@ -1691,7 +1731,7 @@
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QAG-dD-QvM">
                                                                                             <rect key="frame" x="143" y="0.0" width="395" height="21"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1858">
                                                                                                     <rect key="frame" x="-2" y="3" width="58" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="1917">
                                                                                                         <font key="font" metaFont="system"/>
@@ -1706,7 +1746,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField toolTip="Identifier of the process in reverse domain notation" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
+                                                                                                <textField toolTip="Identifier of the process in reverse domain notation" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1859">
                                                                                                     <rect key="frame" x="62" y="0.0" width="333" height="21"/>
                                                                                                     <constraints>
                                                                                                         <constraint firstAttribute="width" constant="333" id="1iF-3H-SjL"/>
@@ -1769,7 +1809,7 @@
                                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="veH-f6-uyK">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="538" height="21"/>
                                                                                             <subviews>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1857">
                                                                                                     <rect key="frame" x="-2" y="3" width="237" height="16"/>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Original Name" id="1918">
                                                                                                         <font key="font" metaFont="system"/>
@@ -1784,7 +1824,7 @@
                                                                                                         </binding>
                                                                                                     </connections>
                                                                                                 </textField>
-                                                                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
+                                                                                                <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1896">
                                                                                                     <rect key="frame" x="241" y="0.0" width="297" height="21"/>
                                                                                                     <string key="toolTip">Original file name of the executable (Win). Some files don't have this metadata information. If it is available, SEB will prioritize this string over the Executable file name string</string>
                                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1910">

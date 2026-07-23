@@ -418,6 +418,7 @@ It is deleted when the session ends</string>
                                             </popUpButtonCell>
                                             <accessibility description="Choose file to upload policy"/>
                                             <connections>
+                                                <action selector="chooseFileToUploadPoliciesPopUpButton:" target="-2" id="kg4-uA-VpE"/>
                                                 <binding destination="191" name="contentValues" keyPath="org_safeexambrowser_SEB_chooseFileToUploadPolicies" id="202"/>
                                                 <binding destination="110" name="enabled" keyPath="values.org_safeexambrowser_SEB_allowDownUploads" id="178"/>
                                                 <binding destination="110" name="enabled2" keyPath="values.org_safeexambrowser_SEB_allowUploads" previousBinding="178" id="FE7-Hc-eQR">
@@ -633,7 +634,7 @@ It is deleted when the session ends</string>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8a-rj-qdp">
-                                                                    <rect key="frame" x="15" y="4" width="552" height="56"/>
+                                                                    <rect key="frame" x="15" y="8" width="552" height="56"/>
                                                                     <subviews>
                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qlV-Oj-A5G">
                                                                             <rect key="frame" x="0.0" y="32" width="552" height="24"/>

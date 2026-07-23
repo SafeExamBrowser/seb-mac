@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -384,7 +383,7 @@
                                                     </button>
                                                     <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vsD-Tt-Wm6">
                                                         <rect key="frame" x="305" y="2" width="288" height="14"/>
-                                                        <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the file picker or if you dismiss the picker, create a new config with default settings</string>
+                                                        <string key="toolTip">Shows a quick action for editing config files on the Home Screen (touch and hold the app icon). You can open a config file in the document picker or if you dismiss the picker, create a new config with default settings</string>
                                                         <buttonCell key="cell" type="check" title="Show 'Edit Config File' Quick Action" bezelStyle="regularSquare" imagePosition="left" inset="2" id="7KN-IV-lyH">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>

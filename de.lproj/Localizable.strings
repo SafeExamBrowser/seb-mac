@@ -1,6 +1,3 @@
-/* Accessibility label for the active window in the SEB Dock open windows menu */
-"%@, current window" = "%@, aktives Fenster";
-
 /* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
 
@@ -80,6 +77,12 @@
 "%@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %@ in System Settings / Security & Privacy / Accessibility." = "%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
+"%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." = "%1$@ benötigt die Berechtigung für Ortungsdienste, um den aktuellen Wi-Fi-Netzwerknamen anzuzeigen. Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
+
+/* No comment provided by engineer. */
+"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.\n\nErlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde.";
+
+/* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
 
 /* No comment provided by engineer. */
@@ -117,6 +120,9 @@
 
 /* No comment provided by engineer. */
 "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
+
+/* Accessibility label for the active window in the SEB Dock open windows menu */
+"%@, current window" = "%@, aktives Fenster";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (dieser %@: 10.13)";
@@ -296,6 +302,9 @@
 "Cannot Decrypt Settings" = "Konfiguration kann nicht entschlüsselt werden";
 
 /* No comment provided by engineer. */
+"Cannot Display Open File Dialog" = "Dialog zum Öffnen von Dateien kann nicht angezeigt werden";
+
+/* No comment provided by engineer. */
 "Cannot Establish Server Connection" = "Kann Serververbindung nicht aufbauen";
 
 /* No comment provided by engineer. */
@@ -338,6 +347,9 @@
 "Choose" = "Auswählen";
 
 /* No comment provided by engineer. */
+"Choose File Dialog Blocked by Settings" = "Dateiauswahldialog durch Einstellungen blockiert";
+
+/* No comment provided by engineer. */
 "Classic WebView is deprecated and no longer fully supported by macOS! The used %@ assessment system integration/settings need to be updated to support the modern WebView." = "Das klassische WebView ist veraltet und wird von macOS nicht mehr vollständig unterstützt! Die verwendete %@-Prüfungssystem-Integration/Einstellungen müssen aktualisiert werden, um das moderne WebView zu unterstützen.";
 
 /* No comment provided by engineer. */
@@ -375,6 +387,9 @@
 
 /* No comment provided by engineer. */
 "Configuring Client" = "Client konfigurieren";
+
+/* No comment provided by engineer. */
+"Connected (network name unavailable)" = "Verbunden (Netzwerkname nicht verfügbar)";
 
 /* No comment provided by engineer. */
 "Connecting to SEB Server" = "Mit SEB Server verbinden";
@@ -548,6 +563,9 @@
 "Enter Exam Password:" = "Prüfungspasswort eingeben:";
 
 /* No comment provided by engineer. */
+"Enter password for \"%@\"" = "Passwort für \"%@\" eingeben";
+
+/* No comment provided by engineer. */
 "Enter password used to encrypt these settings:" = "Zum Verschlüsseln dieser Einstellungen benutztes Passwort eingeben:";
 
 /* No comment provided by engineer. */
@@ -665,6 +683,9 @@
 "Grant access to Folder" = "Zugriff auf Verzeichnis gewähren";
 
 /* No comment provided by engineer. */
+"Grant Full Disk Access" = "Festplattenvollzugriff gewähren";
+
+/* No comment provided by engineer. */
 "Holding Command Key Not Allowed!" = "Befehlstaste drücken nicht erlaubt!";
 
 /* No comment provided by engineer. */
@@ -722,6 +743,12 @@
 "It's not allowed to open this URL! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese URL zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
+"Join" = "Verbinden";
+
+/* No comment provided by engineer. */
+"Known Networks" = "Bekannte Netzwerke";
+
+/* No comment provided by engineer. */
 "Left" = "Links";
 
 /* No comment provided by engineer. */
@@ -756,6 +783,15 @@
 
 /* No comment provided by engineer. */
 "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen %1$@-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um %2$@ wieder korrekt zu konfigurieren.";
+
+/* No comment provided by engineer. */
+"Location Services access is required to display Wi-Fi network names." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich.";
+
+/* No comment provided by engineer. */
+"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von SEB unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
+
+/* No comment provided by engineer. */
+"Location Services Required for Wi-Fi" = "Ortungsdienste für Wi-Fi erforderlich";
 
 /* No comment provided by engineer. */
 "Log in to" = "Einloggen";
@@ -812,6 +848,9 @@
 "No Hostname Found" = "Kein Hostname gefunden";
 
 /* No comment provided by engineer. */
+"No networks found" = "Keine Netzwerke gefunden";
+
+/* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
@@ -822,6 +861,9 @@
 
 /* No comment provided by engineer. */
 "None - White" = "Keine - weisser Hintergrund";
+
+/* No comment provided by engineer. */
+"Not Connected" = "Nicht verbunden";
 
 /* No comment provided by engineer. */
 "Not Connected to Wi-Fi or VPN" = "Nicht mit WLAN oder VPN verbunden";
@@ -842,7 +884,13 @@
 "open in same window" = "im selben Fenster öffnen";
 
 /* No comment provided by engineer. */
+"Open System Settings" = "Systemeinstellungen öffnen";
+
+/* No comment provided by engineer. */
 "Open webpages" = "Offene Webseiten";
+
+/* No comment provided by engineer. */
+"Open/save panels for file selection are disabled in current %@ settings, contact your exam provider." = "Öffnen-/Sichern-Dialoge zur Dateiauswahl sind in den aktuellen %@-Einstellungen deaktiviert, wenden Sie sich an Ihren Prüfungsanbieter.";
 
 /* No comment provided by engineer. */
 "Opening" = "Öffnen";
@@ -872,6 +920,9 @@
 "OS version %@" = "Betriebssystemversion: %@";
 
 /* No comment provided by engineer. */
+"Other Networks" = "Andere Netzwerke";
+
+/* No comment provided by engineer. */
 "Override" = "Ignorieren";
 
 /* No comment provided by engineer. */
@@ -879,6 +930,9 @@
 
 /* No comment provided by engineer. */
 "Parsing Settings Failed" = "Einlesen der Konfiguration ist fehlgeschlagen";
+
+/* No comment provided by engineer. */
+"Password" = "Passwort";
 
 /* No comment provided by engineer. */
 "Paste from saved clipboard" = "Einfügen aus gesicherter Zwischenablage";
@@ -1145,6 +1199,9 @@
 "Siri was activated" = "Siri wurde aktiviert";
 
 /* No comment provided by engineer. */
+"Skip" = "Überspringen";
+
+/* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS-Proxy";
 
 /* No comment provided by engineer. */
@@ -1188,6 +1245,9 @@
 
 /* No comment provided by engineer. */
 "the exam page" = "die Prüfungsseite";
+
+/* No comment provided by engineer. */
+"The file dialog will not be displayed, because Open and Save Panels are blocked (see Applications pane)." = "Der Dateidialog wird nicht angezeigt, weil Öffnen- und Sichern-Dialoge blockiert sind (siehe Bereich Applikationen).";
 
 /* No comment provided by engineer. */
 "The identity certificate might be corrupted or the associated private key was imported to the Keychain as 'non-exportable'. If the identity was embedded in a config file, open it here in Preferences. Then the private key will be added to the Keychain as 'exportable'." = "Das Identitätszertifikat könnte beschädigt sein oder der dazugehörige private Schlüssel wurde als 'nicht-exportierbar' in den Schlüsselbund importiert. Falls das Identitätszertifikat in einer Konfigurationsdatei eingebettet war, öffnen Sie diese hier im Einstellungen-Fenster. Dann wird der private Schlüssel als 'exportierbar' zum Schlüsselbund hinzugefügt.";
@@ -1251,6 +1311,9 @@
 
 /* No comment provided by engineer. */
 "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
+
+/* No comment provided by engineer. */
+"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %@ Festplattenvollzugriff. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'.";
 
 /* No comment provided by engineer. */
 "Toggle Proctoring View" = "Fernüberwachungs-Fenster anzeigen/ausblenden";
@@ -1351,6 +1414,18 @@ untitled filename */
 
 /* No comment provided by engineer. */
 "White on Black" = "Weiss auf Schwarz";
+
+/* No comment provided by engineer. */
+"Wi-Fi" = "Wi-Fi";
+
+/* No comment provided by engineer. */
+"Wi-Fi: %@ (Signal: %ld dBm)" = "Wi-Fi: %1$@ (Signal: %2$ld dBm)";
+
+/* No comment provided by engineer. */
+"Wi-Fi: Connected (Signal: %ld dBm)" = "Wi-Fi: Verbunden (Signal: %ld dBm)";
+
+/* No comment provided by engineer. */
+"Wi-Fi: Not Connected" = "Wi-Fi: Nicht verbunden";
 
 /* No comment provided by engineer. */
 "Win" = "Win";

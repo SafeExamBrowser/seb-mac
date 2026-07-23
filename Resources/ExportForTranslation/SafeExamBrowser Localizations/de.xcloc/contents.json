@@ -3,10 +3,10 @@
   "project" : "SafeExamBrowser.xcodeproj",
   "targetLocale" : "de",
   "toolInfo" : {
-    "toolBuildNumber" : "17E202",
+    "toolBuildNumber" : "17F113",
     "toolID" : "com.apple.dt.xcode",
     "toolName" : "Xcode",
-    "toolVersion" : "26.4.1"
+    "toolVersion" : "26.6"
   },
   "version" : "1.0"
 }

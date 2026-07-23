@@ -268,8 +268,14 @@
 /* Class = "NSButtonCell"; title = "Force quit (risk of data loss)"; ObjectID = "2246"; */
 "2246.title" = "Sofort beenden (Datenverlust möglich)";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Show details about the application/process code signature"; ObjectID = "e6r-ug-rq4"; */
+"e6r-ug-rq4.ibShadowedToolTip" = "Details zur Code-Signatur der Applikation/Prozess anzeigen";
+
 /* Class = "NSButton"; ibShadowedToolTip = "Update dependent settings for Multi App Mode and secure download/opening/upload of files in additional apps"; ObjectID = "I9H-dv-7jE"; */
 "I9H-dv-7jE.ibShadowedToolTip" = "Aktualisierung der relevanten Einstellungen für den Multi-App-Modus und sicheres Herunterladen/Öffnen/Hochladen von Dateien in zusätzlichen Anwendungen";
+
+/* Class = "NSButtonCell"; title = "Allow Accessibility"; ObjectID = "IYU-a0-pbv"; */
+"IYU-a0-pbv.title" = "Bedienungshilfen erlauben";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "Team identifier of the app's code signature"; ObjectID = "JdC-V9-Us6"; */
 "JdC-V9-Us6.ibShadowedToolTip" = "Team-Identifikator der Codesignatur der Anwendung";
@@ -286,6 +292,9 @@
 /* Class = "NSButtonCell"; title = "Allow app switching (open book/debug mode)"; ObjectID = "Mf8-Fd-4KH"; */
 "Mf8-Fd-4KH.title" = "Umschalten auf andere Applikationen erlauben (Open Book/Debug Modus)";
 
+/* Class = "NSButtonCell"; title = "Code Signatures..."; ObjectID = "ml0-Xk-R23"; */
+"ml0-Xk-R23.title" = "Code-Signaturen …";
+
 /* Class = "NSButtonCell"; title = "Automatically quit prohibited applications"; ObjectID = "MVu-c3-I1R"; */
 "MVu-c3-I1R.title" = "Versuche verbotene Applikationen zu beenden";
 
@@ -294,6 +303,9 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw"; */
 "p8v-1Y-Mnw.ibShadowedToolTip" = "Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to have Accessibility permissions (see System Settings / Privacy & Security / Accessibility). If 'Detect apps with Accessibility Permissions' in Security Pane is enabled, then processes with Accessibility permissions (not excluded here) will be terminated"; ObjectID = "qje-gt-QNa"; */
+"qje-gt-QNa.ibShadowedToolTip" = "Erlaubt dem zugelassenen Prozess, Bedienungshilfen-Berechtigungen zu haben (siehe Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen). Wenn 'Apps mit Bedienungshilfen-Berechtigungen erkennen' im Bereich Sicherheit aktiviert ist, werden Prozesse mit Bedienungshilfen-Berechtigungen (die hier nicht ausgeschlossen sind) beendet";
 
 /* Class = "NSButtonCell"; title = "Icon in taskbar"; ObjectID = "rR0-Mm-VzA"; */
 "rR0-Mm-VzA.title" = "Icon in Dock/Taskleiste";
