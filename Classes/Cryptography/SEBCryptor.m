@@ -422,16 +422,25 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         // as the Config Key is a hash over these exact JSON bytes. SEB for Windows
         // (.NET Framework 4.8) serializes doubles with
         // Double.ToString(NumberFormatInfo.InvariantInfo), i.e. the "G15" general
-        // format: up to 15 significant digits, invariant culture (decimal point ".")
-        // and, when scientific notation is used, an uppercase 'E' exponent.
-        // NSNumber's -description instead emits the shortest round-tripping form (up
-        // to 17 digits), which diverges for values not representable in <= 15 digits
-        // (see seb-win-refactoring issue #1495). "%.15g" matches .NET's "G15" rules
-        // (15 significant digits, trailing zeros stripped, same fixed-vs-scientific
-        // threshold); we only need to upper-case the exponent marker to match.
+        // format. "G15" uses up to 15 significant digits of *precision*; the
+        // *notation* (fixed-point vs. scientific) is chosen by the decimal exponent:
+        // fixed-point for an exponent in [-4, 15), otherwise scientific with an
+        // uppercase 'E' (e.g. 0.00001 -> "1E-05"). C's "%.15g" applies the same
+        // precision and the same fixed-vs-scientific threshold, so it matches "G15"
+        // after upper-casing the exponent marker -- with one exception: .NET
+        // Framework renders negative zero as "0" whereas printf renders "-0", so we
+        // normalise that. (NSNumber's -description instead emits the shortest
+        // round-tripping form, up to 17 digits, which diverges for values not exactly
+        // representable in <= 15 digits; see seb-win-refactoring issue #1495.)
         // -stringWithFormat: is not localized, so the decimal separator is always ".".
-        jsonString = [NSString stringWithFormat:@"%.15g", [object doubleValue]];
-        jsonString = [jsonString stringByReplacingOccurrencesOfString:@"e" withString:@"E"];
+        double doubleValue = [object doubleValue];
+        if (doubleValue == 0) {
+            // Covers both +0.0 and -0.0; matches .NET Framework, which drops the sign.
+            jsonString = @"0";
+        } else {
+            jsonString = [NSString stringWithFormat:@"%.15g", doubleValue];
+            jsonString = [jsonString stringByReplacingOccurrencesOfString:@"e" withString:@"E"];
+        }
     } else {
         jsonString = [NSString stringWithFormat:@"%@", object];
     }

@@ -46,4 +46,19 @@ final class SEBConfigKeyDoubleTests: XCTestCase {
         XCTAssertEqual(jsonString(0.25), "0.25")
         XCTAssertEqual(jsonString(2.0), "2")
     }
+
+    // .NET Framework 4.8 drops the sign of negative zero ("0"), whereas printf's
+    // "%.15g" would emit "-0"; both zeroes must serialize as "0".
+    func testNegativeZeroIsNormalized() {
+        XCTAssertEqual(jsonString(-0.0), "0")
+        XCTAssertEqual(jsonString(0.0), "0")
+    }
+
+    // Notation, not just precision: G15 (and %.15g) switch to scientific notation
+    // for exponents < -4 or >= 15, using an uppercase 'E'. 0.00001 has exponent -5.
+    // (Note this differs from RFC 8785, which would render "0.00001".)
+    func testScientificNotationMatchesWindows() {
+        XCTAssertEqual(jsonString(0.00001), "1E-05")
+        XCTAssertEqual(jsonString(0.0001), "0.0001")   // exponent -4: still fixed-point
+    }
 }
