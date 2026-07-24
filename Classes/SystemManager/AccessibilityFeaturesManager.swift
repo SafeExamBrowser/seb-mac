@@ -34,7 +34,9 @@
 //
 
 import Foundation
+#if canImport(ApplicationServices)
 import ApplicationServices
+#endif
 import SQLite3
 import CocoaLumberjackSwift
 
