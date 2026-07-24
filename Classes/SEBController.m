@@ -1994,7 +1994,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                                 NSString *password = [self.enterPassword stringValue];
                                 
                                 SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                                if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                                if (password.length > 0 && [keychainManager hashedString:sebServerFallbackPasswordHash matchesPassword:password]) {
                                     DDLogInfo(@"Correct SEB Server fallback password entered");
                                     DDLogInfo(@"Open startURL as SEB Server fallback");
                                     self.establishingSEBServerConnection = NO;
@@ -7638,7 +7638,7 @@ conditionallyForWindow:(NSWindow *)window
         NSString *password = [self.enterPassword stringValue];
         
         SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-        if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+        if ([keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
             // if the correct quit/unlock password was entered, restart the exam
             [self.browserController backToStartCommand];
         } else {
@@ -7852,7 +7852,7 @@ conditionallyForWindow:(NSWindow *)window
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureObjectForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+    if ([keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
         // if the correct quit password was entered
         DDLogInfo(@"Correct quit password entered");
         [self exitSEB]; // Force quit SEB
@@ -7994,7 +7994,7 @@ conditionallyForWindow:(NSWindow *)window
                     }
                     NSString *password = [self.enterPassword stringValue];
                     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                    if ([hashedAdminPW caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] != NSOrderedSame) {
+                    if (![keychainManager hashedString:hashedAdminPW matchesPassword:password]) {
                         //if hash of entered password is not equal to the one in preferences
                         // Wrong admin password was entered
                         NSAlert *modalAlert = [self newAlert];
@@ -8219,7 +8219,7 @@ conditionallyForWindow:(NSWindow *)window
             NSString *password = [self.enterPassword stringValue];
             
             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-            if (hashedQuitPassword && [hashedQuitPassword caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+            if ([keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
                 // if the correct quit password was entered
                 DDLogInfo(@"Correct quit password entered");
                 if (!quittingFromSPSCacheUpload) {

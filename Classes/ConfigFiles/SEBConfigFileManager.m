@@ -496,9 +496,21 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSData *sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
     if (!sebDataDecrypted || error) {
         // For compatibility with the previous (wrong) implementation, we try it with an uppercase hash
-        hashedPassword = [hashedPassword uppercaseString];
         error = nil;
-        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword error:&error];
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:hashedPassword.uppercaseString error:&error];
+    }
+    if (!sebDataDecrypted || error) {
+        // For backward compatibility with settings encrypted on an Apple platform
+        // before NFC normalization was introduced, we additionally try the hash of
+        // the non-normalized password (which was stored in NFD form). See
+        // -[SEBKeychainManager hashedString:matchesPassword:].
+        NSString *unnormalizedHashedPassword = [keychainManager generateSHAHashStringWithoutNormalization:password];
+        error = nil;
+        sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:unnormalizedHashedPassword error:&error];
+        if (!sebDataDecrypted || error) {
+            error = nil;
+            sebDataDecrypted = [RNDecryptor decryptData:encryptedSEBData withPassword:unnormalizedHashedPassword.uppercaseString error:&error];
+        }
     }
     attempts--;
     
@@ -608,18 +620,18 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSString *hashedAdminPassword = getUppercaseAdminPasswordHash();
 
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
-    if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
-    }
-    
+
     attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:hashedAdminPassword] != NSOrderedSame) {
+
+    BOOL passwordCorrect;
+    if (password.length == 0) {
+        // An empty password has to match an empty hashed password string
+        passwordCorrect = (hashedAdminPassword.length == 0);
+    } else {
+        passwordCorrect = [keychainManager hashedString:hashedAdminPassword matchesPassword:password];
+    }
+
+    if (!passwordCorrect) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -676,18 +688,18 @@ static NSString *getUppercaseAdminPasswordHash(void)
         return;
     }
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
-    if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
-    }
-    
+
     attempts--;
-    
-    if ([hashedPassword caseInsensitiveCompare:passwordHash] != NSOrderedSame) {
+
+    BOOL passwordCorrect;
+    if (password.length == 0) {
+        // An empty password has to match an empty hashed password string
+        passwordCorrect = (passwordHash.length == 0);
+    } else {
+        passwordCorrect = [keychainManager hashedString:passwordHash matchesPassword:password];
+    }
+
+    if (!passwordCorrect) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -972,7 +984,6 @@ static NSString *getUppercaseAdminPasswordHash(void)
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
     int i = 5;
     NSString *password = nil;
-    NSString *hashedPassword;
     bool passwordsMatch;
     do {
         i--;
@@ -984,11 +995,11 @@ static NSString *getUppercaseAdminPasswordHash(void)
             return NO;
         }
         if (password.length == 0) {
-            hashedPassword = @"";
+            // An empty password has to match an empty hashed password string
+            passwordsMatch = (sebFileHashedAdminPassword.length == 0);
         } else {
-            hashedPassword = [keychainManager generateSHAHashString:password];
+            passwordsMatch = [keychainManager hashedString:sebFileHashedAdminPassword matchesPassword:password];
         }
-        passwordsMatch = (hashedPassword && [hashedPassword caseInsensitiveCompare:sebFileHashedAdminPassword] == NSOrderedSame);
         // in case we get an error we allow the user to try it again
     } while ((password == nil || !passwordsMatch) && i > 0);
     

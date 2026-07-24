@@ -222,22 +222,13 @@
     // Get admin password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
     if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
+        // An empty password has to match an empty hashed password string
+        return hashedAdminPassword.length == 0;
     }
-    return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+    return [keychainManager hashedString:hashedAdminPassword matchesPassword:password];
 }
 
 

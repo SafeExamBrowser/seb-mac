@@ -1112,10 +1112,10 @@
     [_sebViewController.alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"")
                                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                                                                                NSString *enteredAdminPassword = self.sebViewController.alertController.textFields.firstObject.text;
-                                                                               NSData *enteredAdminPasswordHash = [[self.keychainManager generateSHAHashString:enteredAdminPassword].uppercaseString dataUsingEncoding:NSUTF8StringEncoding];
+                                                                               NSString *identityAdminPasswordHashString = [[NSString alloc] initWithData:identityAdminPasswordHash encoding:NSUTF8StringEncoding];
 
                                                                                self.sebViewController.alertController = nil;
-                                                                               if (enteredAdminPasswordHash.length > 0 && ![identityAdminPasswordHash isEqualToData:enteredAdminPasswordHash]) {
+                                                                               if (![self.keychainManager hashedString:identityAdminPasswordHashString matchesPassword:enteredAdminPassword]) {
                                                                                    [self.sebViewController alertWithTitle:NSLocalizedString(@"Re-enter Identity Admin Password", @"")
                                                                                                                   message:[NSString stringWithFormat:NSLocalizedString(@"The entered %@ admin password didn't match the one stored for this identity. Try again.", @""), SEBShortAppName]
                                                                                                              action1Title:NSLocalizedString(@"OK", @"")

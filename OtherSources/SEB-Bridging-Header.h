@@ -16,4 +16,7 @@
 // Exposes SEBCryptor's private Config Key value serializer to the (DEBUG-only)
 // test-support shim; see SEBCryptorConfigKeyTestSupport.swift.
 #import "SEBCryptor+Testing.h"
+// Exposes SEBKeychainManager's password hashing/comparison to the (DEBUG-only)
+// test-support shim; see SEBKeychainManagerTestSupport.swift.
+#import "SEBKeychainManager.h"
 #endif

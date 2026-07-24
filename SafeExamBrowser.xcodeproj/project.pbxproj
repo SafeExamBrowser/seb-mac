@@ -617,6 +617,8 @@
 		69B98F802BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
 		69B98F812BE0FBD200DC06E2 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */; };
 		69BAAE162CA03FD7002B14FB /* SEBIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BAAE152CA03FD7002B14FB /* SEBIntegrationTests.swift */; };
+		69BAD4E13013AE81003887E8 /* SEBKeychainManagerTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BAD4E03013AE81003887E8 /* SEBKeychainManagerTestSupport.swift */; };
+		69BAD4E33013AF19003887E8 /* SEBKeychainPasswordHashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BAD4E23013AF19003887E8 /* SEBKeychainPasswordHashTests.swift */; };
 		69BB07441BA11CD40065E1F2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BB07431BA11CD40065E1F2 /* WebKit.framework */; };
 		69BB5F9A2C6A467B00018F55 /* SEBScreenProctoringIcon_active.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69BB5F992C6A467B00018F55 /* SEBScreenProctoringIcon_active.iconset */; };
 		69BB5F9D2C6B863C00018F55 /* SEBScreenProctoringIcon_inactive.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69BB5F9B2C6B863B00018F55 /* SEBScreenProctoringIcon_inactive.iconset */; };
@@ -789,11 +791,9 @@
 		69E551EA2FF555AF008713AF /* SEBWiFiIcon_off.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 69E551E52FF555AF008713AF /* SEBWiFiIcon_off.iconset */; };
 		69E551EC2FF555B0008713AF /* CoreWLAN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF555B0008713AF /* CoreWLAN.framework */; };
 		69E551EC2FF56233008713AF /* SEBWiFiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF56233008713AF /* SEBWiFiController.h */; };
-		69E551ED2FF56233008713AF /* SEBWiFiController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551EB2FF56233008713AF /* SEBWiFiController.h */; };
 		69E551F22FF5625E008713AF /* SEBDockItemWiFi.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E551F12FF5625E008713AF /* SEBDockItemWiFi.h */; };
 		69E551F42FF56275008713AF /* SEBDockItemWiFi.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F32FF56275008713AF /* SEBDockItemWiFi.m */; };
 		69E551F62FF5676F008713AF /* SEBWiFiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F52FF5676F008713AF /* SEBWiFiController.swift */; };
-		69E551F72FF5676F008713AF /* SEBWiFiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E551F52FF5676F008713AF /* SEBWiFiController.swift */; };
 		69E64C0822B7D5F300B593AE /* SEBRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E64C0622B7D5F300B593AE /* SEBRootViewController.h */; };
 		69E64C0C22B7D5F300B593AE /* SEBRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E64C0722B7D5F300B593AE /* SEBRootViewController.m */; };
 		69E87E38202924E70055988F /* SEBShutDownIconLandscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E87E35202924E30055988F /* SEBShutDownIconLandscape@2x.png */; };
@@ -1531,6 +1531,8 @@
 		69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		69BA05AA1D57E80C00C07C4F /* libPods-SEB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SEB.a"; path = "../../Builds/SafeExamBrowser-gcyjidykkgkznbatujqrlsxvsklv/Build/Products/Debug-iphonesimulator/libPods-SEB.a"; sourceTree = "<group>"; };
 		69BAAE152CA03FD7002B14FB /* SEBIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBIntegrationTests.swift; sourceTree = "<group>"; };
+		69BAD4E03013AE81003887E8 /* SEBKeychainManagerTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBKeychainManagerTestSupport.swift; sourceTree = "<group>"; };
+		69BAD4E23013AF19003887E8 /* SEBKeychainPasswordHashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBKeychainPasswordHashTests.swift; sourceTree = "<group>"; };
 		69BB07431BA11CD40065E1F2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		69BB5F992C6A467B00018F55 /* SEBScreenProctoringIcon_active.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBScreenProctoringIcon_active.iconset; path = Resources/Icons/SEBScreenProctoringIcon_active.iconset; sourceTree = "<group>"; };
 		69BB5F9B2C6B863B00018F55 /* SEBScreenProctoringIcon_inactive.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = SEBScreenProctoringIcon_inactive.iconset; path = Resources/Icons/SEBScreenProctoringIcon_inactive.iconset; sourceTree = "<group>"; };
@@ -2261,6 +2263,7 @@
 		6940B9841BA0F2FB008C8CFC /* SEBTests */ = {
 			isa = PBXGroup;
 			children = (
+				69BAD4E23013AF19003887E8 /* SEBKeychainPasswordHashTests.swift */,
 				69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */,
 				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
 				6940B9871BA0F2FB008C8CFC /* Info.plist */,
@@ -2839,6 +2842,7 @@
 				69F522C32146720C009F3999 /* SEBCertServices.m */,
 				6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */,
 				698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */,
+				69BAD4E03013AE81003887E8 /* SEBKeychainManagerTestSupport.swift */,
 				698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */,
 			);
 			name = Cryptography;
@@ -3230,7 +3234,6 @@
 				69331F061C10AD750038BD31 /* SEBiOSLockedViewController.h in Headers */,
 				6930D2271C205F4B0087F79E /* NSUserDefaults+SEBEncryptedUserDefaults.h in Headers */,
 				695370A82033921C00C638A8 /* LGSideMenuGesturesHandler.h in Headers */,
-				69E551ED2FF56233008713AF /* SEBWiFiController.h in Headers */,
 				696DAD3D1C3C2D0500397E18 /* SEBTableViewController.h in Headers */,
 				695370B12033921C00C638A8 /* UIViewController+LGSideMenuController.h in Headers */,
 				69E4EDFD1C208F2300F5E5EB /* SEBiOSKeychainManager.h in Headers */,
@@ -4285,7 +4288,6 @@
 				69F101A02D88B4E400B026BD /* UIBarButtonItemExtension.swift in Sources */,
 				6953709C2033921C00C638A8 /* UIViewController+LGSideMenuController.m in Sources */,
 				696DAD3E1C3C2D0500397E18 /* SEBTableViewController.m in Sources */,
-				69E551F72FF5676F008713AF /* SEBWiFiController.swift in Sources */,
 				69CF5829220B2DE8003DD5C8 /* SEBUIUserDefaultsController.m in Sources */,
 				69B581801ED7197700CE70F3 /* AboutSEBiOSViewController.m in Sources */,
 				69F522A021467188009F3999 /* CustomHTTPProtocol.m in Sources */,
@@ -4330,6 +4332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
+				69BAD4E33013AF19003887E8 /* SEBKeychainPasswordHashTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
 				698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */,
 			);
@@ -4504,6 +4507,7 @@
 				698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */,
 				69CEDCF326ACD00C0030787B /* SEBWebViewController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
+				69BAD4E13013AE81003887E8 /* SEBKeychainManagerTestSupport.swift in Sources */,
 				69CE1C181741309C0072207D /* SEBFilterTreeController.m in Sources */,
 				699AFE4E27EBD3D400F8FE35 /* SEBBrowserWindowAccessoryView.m in Sources */,
 				698C153F26D1A8D700B5AD96 /* ProhibitedProcessesArrayController.m in Sources */,

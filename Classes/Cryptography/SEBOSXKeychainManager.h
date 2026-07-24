@@ -63,6 +63,8 @@
 - (NSData*)encryptData:(NSData*)plainData withPublicKeyFromCertificate:(SecCertificateRef)certificate;
 - (NSData*)decryptData:(NSData*)cipherData withPrivateKey:(SecKeyRef)privateKey;
 - (NSString*)generateSHAHashString:(NSString*)inputString;
+- (NSString*)generateSHAHashStringWithoutNormalization:(NSString*)inputString;
+- (BOOL)hashedString:(NSString*)hashedString matchesPassword:(NSString*)password;
 
 - (BOOL) storeKey:(NSData *)keyData;
 - (BOOL) storeKeyWithID:(NSString *)keyID keyData:(NSData *)keyData;

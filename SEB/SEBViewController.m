@@ -1193,22 +1193,13 @@ static NSMutableSet *browserWindowControllers;
     // Get admin password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedAdminPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedAdminPassword"];
-    if (!hashedAdminPassword) {
-        hashedAdminPassword = @"";
-    } else {
-        hashedAdminPassword = [hashedAdminPassword uppercaseString];
-    }
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword;
     if (password.length == 0) {
-        // An empty password has to be an empty hashed password string
-        hashedPassword = @"";
-    } else {
-        hashedPassword = [keychainManager generateSHAHashString:password];
-        hashedPassword = [hashedPassword uppercaseString];
+        // An empty password has to match an empty hashed password string
+        return hashedAdminPassword.length == 0;
     }
-    return [hashedPassword caseInsensitiveCompare:hashedAdminPassword] == NSOrderedSame;
+    return [keychainManager hashedString:hashedAdminPassword matchesPassword:password];
 }
 
 
@@ -3916,15 +3907,12 @@ void run_on_ui_thread(dispatch_block_t block)
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
+
     attempts--;
     
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+    if (![keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
@@ -4449,7 +4437,7 @@ void run_on_ui_thread(dispatch_block_t block)
                         [self promptPasswordWithMessageText:NSLocalizedString(@"Enter SEB Server fallback password:", @"") title:NSLocalizedString(@"SEB Server Fallback Password Required", @"") completion:^(NSString* password) {
                             
                             SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-                            if (password.length > 0 && [sebServerFallbackPasswordHash caseInsensitiveCompare:[keychainManager generateSHAHashString:password]] == NSOrderedSame) {
+                            if (password.length > 0 && [keychainManager hashedString:sebServerFallbackPasswordHash matchesPassword:password]) {
                                 DDLogInfo(@"Correct SEB Server fallback password entered");
                                 DDLogInfo(@"Open startURL as SEB Server fallback");
                                 self.establishingSEBServerConnection = NO;
@@ -6298,16 +6286,13 @@ void run_on_ui_thread(dispatch_block_t block)
     // Get quit password hash from current client settings
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSString *hashedQuitPassword = [preferences secureStringForKey:@"org_safeexambrowser_SEB_hashedQuitPassword"];
-    hashedQuitPassword = [hashedQuitPassword uppercaseString];
-    
+
     SEBKeychainManager *keychainManager = [[SEBKeychainManager alloc] init];
-    NSString *hashedPassword = [keychainManager generateSHAHashString:password];
-    hashedPassword = [hashedPassword uppercaseString];
-    
+
     attempts--;
     
     NSString *backToStartText = [self backToStartText];
-    if ([hashedPassword caseInsensitiveCompare:hashedQuitPassword] != NSOrderedSame) {
+    if (![keychainManager hashedString:hashedQuitPassword matchesPassword:password]) {
         // wrong password entered, are there still attempts left?
         if (attempts > 0) {
             // Let the user try it again
