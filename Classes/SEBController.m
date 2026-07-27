@@ -8185,6 +8185,7 @@ conditionallyForWindow:(NSWindow *)window
 
 - (IBAction) requestedQuit:(id)sender
 {
+    DDLogDebug(@"%s sender: %@ (class %@)", __FUNCTION__, sender, [sender class]);
     BOOL quittingFromSPSCacheUpload = NO;
     id senderObject;
     if ([sender respondsToSelector:@selector(object)]) {

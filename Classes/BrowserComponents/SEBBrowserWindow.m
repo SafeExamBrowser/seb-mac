@@ -93,12 +93,13 @@
 // Closing of SEB Browser Window //
 - (BOOL)windowShouldClose:(id)sender
 {
-    DDLogDebug(@"SEBBrowserWindow %@ windowShouldClose: %@", self, sender);
-    if (self == self.browserController.mainBrowserWindow) {
+    BOOL isMainBrowserWindow = self.webView.isMainBrowserWebView;
+    DDLogInfo(@"SEBBrowserWindow %@ windowShouldClose: %@ (isMainBrowserWebView: %hhd, mainBrowserWindow: %@)", self, sender, isMainBrowserWindow, self.browserController.mainBrowserWindow);
+    if (isMainBrowserWindow) {
         // Post a notification that SEB/Session should conditionally quit
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"requestQuitNotification" object:self];
-        
+
         return NO; //but don't close the window (that will happen anyways in case quitting is confirmed)
     }
     return YES;

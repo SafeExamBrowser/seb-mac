@@ -728,7 +728,12 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
     
     // Check if quit URL has been clicked (regardless of current URL Filter)
-    if ([[originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]] isEqualToString:quitURLTrimmed]) {
+    // Only compare if a quit URL is actually configured (non-empty), otherwise a
+    // request with an empty URL (e.g. from window.open("")) would wrongfully match
+    // an empty quit URL and trigger quitting.
+    NSString *absoluteRequestURLTrimmed = [originalURL.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    DDLogDebug(@"Checking for quit URL: comparing request URL '%@' (trimmed) with quit URL '%@' (trimmed)", absoluteRequestURLTrimmed, quitURLTrimmed);
+    if (quitURLTrimmed.length > 0 && [absoluteRequestURLTrimmed isEqualToString:quitURLTrimmed]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
         return newNavigationAction;

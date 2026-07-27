@@ -579,7 +579,10 @@ static NSString *urlStrippedFragment(NSURL* url)
     // Trim a possible trailing slash "/"    
     NSString *absoluteRequestURLTrimmed = [url.absoluteString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
 
-    if ([absoluteRequestURLTrimmed isEqualToString:_quitURL]) {
+    // Only compare if a quit URL is actually configured (non-empty), otherwise a
+    // request with an empty URL would wrongfully match an empty quit URL.
+    DDLogDebug(@"Checking for quit URL: comparing request URL '%@' (trimmed) with quit URL '%@' (trimmed)", absoluteRequestURLTrimmed, _quitURL);
+    if (_quitURL.length > 0 && [absoluteRequestURLTrimmed isEqualToString:_quitURL]) {
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"quitLinkDetected" object:self];
     }
