@@ -66,6 +66,12 @@ static NSString __unused *DownloadPathsKey = @"downloadPathsList";
 
 + (NSArray<NSString *> *) logSystemInfo;
 
+// Runs the given block, catching any Objective-C NSException (which Swift cannot
+// catch) and reporting it as an NSError. Returns YES if the block completed without
+// an exception. Used to guard against e.g. -[NSURLSession dataTaskWithRequest:]
+// throwing "Task created in a session that has been invalidated".
++ (BOOL)catchException:(void (NS_NOESCAPE ^)(void))tryBlock error:(NSError * _Nullable * _Nullable)error;
+
 @property(readwrite) BOOL finishedInitializing;
 @property(copy, readwrite) NSMutableArray *downloadPath;
 @property(readwrite) NSInteger lastDownloadPath;

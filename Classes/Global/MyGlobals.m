@@ -120,6 +120,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 }
 
 
++ (BOOL)catchException:(void (NS_NOESCAPE ^)(void))tryBlock error:(NSError * _Nullable * _Nullable)error
+{
+    @try {
+        tryBlock();
+        return YES;
+    }
+    @catch (NSException *exception) {
+        if (error) {
+            NSString *description = exception.reason ?: exception.name ?: @"Objective-C exception";
+            *error = [NSError errorWithDomain:@"SEBExceptionDomain"
+                                         code:0
+                                     userInfo:@{ NSLocalizedDescriptionKey: description }];
+        }
+        return NO;
+    }
+}
+
+
 + (NSArray<NSString *> *) logSystemInfo
 {
     NSMutableArray *logOutput = [NSMutableArray new];
