@@ -68,22 +68,81 @@ public class ScreenCaptureController {
         return processImage(&imageRef, scale: scale, quantization: quantization)
     }
 
+    /// Captured content of a single window plus where/how to composite it. Gathered
+    /// on the main thread (view rendering), then drawn on a background thread.
+    private struct CapturedWindowLayer {
+        let bitmap: NSBitmapImageRep
+        let destination: NSRect
+        let cornerRadius: CGFloat
+        let backgroundColor: NSColor?
+    }
+
     /// Capture all given windows (ordered back-to-front) and composite them onto a
-    /// single image spanning the union of all screens, positioned by each window's
-    /// frame and z-order. Used under AAC, where system screen capture returns black.
-    /// All view rendering and compositing happens on the main thread (NSView /
-    /// NSScreen access requires it); the image processing runs on the caller's thread.
+    /// single image spanning the union of all screens. Only the unavoidable view /
+    /// screen / cursor access happens on the main thread (rendering each window with
+    /// cacheDisplay); allocating the (large) canvas and compositing the bitmaps, plus
+    /// the image processing, run on the caller's (background) thread so the UI /
+    /// scrolling isn't blocked by that work.
     public func takeScreenShot(ofWindows windows: [NSWindow], scale: Double, quantization: ColorQuantization) -> Data? {
-        var cgImage: CGImage?
-        let work = {
-            cgImage = self.compositeWindows(windows)
+        var canvasRect = CGRect.null
+        var layers: [CapturedWindowLayer] = []
+        var cursorImage: NSImage?
+        var cursorDestination = NSRect.zero
+
+        let gatherOnMainThread = {
+            for screen in NSScreen.screens {
+                canvasRect = canvasRect.union(screen.frame)
+            }
+            guard !canvasRect.isNull else {
+                return
+            }
+            for window in windows {
+                guard window.isVisible, window.alphaValue > 0, !window.isMiniaturized else {
+                    continue
+                }
+                let frame = window.frame
+                guard frame.intersects(canvasRect), frame.width >= 1, frame.height >= 1 else {
+                    continue
+                }
+                // Capture the window's frame view (contentView.superview) to include chrome.
+                guard let view = window.contentView?.superview ?? window.contentView,
+                      let rep = self.captureBitmapRep(of: view) else {
+                    continue
+                }
+                let destination = NSRect(x: frame.origin.x - canvasRect.origin.x,
+                                         y: frame.origin.y - canvasRect.origin.y,
+                                         width: frame.width,
+                                         height: frame.height)
+                layers.append(CapturedWindowLayer(bitmap: rep,
+                                                  destination: destination,
+                                                  cornerRadius: self.windowCornerRadius(for: window),
+                                                  backgroundColor: window.backgroundColor.usingColorSpace(.deviceRGB)))
+            }
+            // Mouse pointer position/image (must be read on the main thread).
+            let cursor = NSCursor.currentSystem ?? NSCursor.current
+            let image = cursor.image
+            let size = image.size
+            if size.width > 0 && size.height > 0 {
+                let hotSpot = cursor.hotSpot
+                let mouseLocation = NSEvent.mouseLocation
+                cursorImage = image
+                cursorDestination = NSRect(x: mouseLocation.x - hotSpot.x - canvasRect.origin.x,
+                                           y: mouseLocation.y - (size.height - hotSpot.y) - canvasRect.origin.y,
+                                           width: size.width,
+                                           height: size.height)
+            }
         }
         if Thread.isMainThread {
-            work()
+            gatherOnMainThread()
         } else {
-            DispatchQueue.main.sync { work() }
+            DispatchQueue.main.sync { gatherOnMainThread() }
         }
-        guard var imageRef = cgImage else {
+
+        guard !canvasRect.isNull, canvasRect.width >= 1, canvasRect.height >= 1, !layers.isEmpty else {
+            return nil
+        }
+        guard var imageRef = compositeLayers(layers, canvasRect: canvasRect,
+                                             cursorImage: cursorImage, cursorDestination: cursorDestination) else {
             return nil
         }
         return processImage(&imageRef, scale: scale, quantization: quantization)
@@ -102,22 +161,17 @@ public class ScreenCaptureController {
         return bitmapRep
     }
 
-    /// Composites the given windows (back-to-front) onto a canvas spanning the union
-    /// of all screens. Coordinates are in AppKit screen space (bottom-left origin),
-    /// so window frames map directly into the canvas. Must be called on the main thread.
-    private func compositeWindows(_ windows: [NSWindow]) -> CGImage? {
-        // Canvas = union of all screen frames (global coordinates, bottom-left origin)
-        var canvasRect = CGRect.null
-        for screen in NSScreen.screens {
-            canvasRect = canvasRect.union(screen.frame)
-        }
-        guard !canvasRect.isNull, canvasRect.width >= 1, canvasRect.height >= 1 else {
-            return nil
-        }
+    /// Composites the captured window bitmaps (back-to-front) and the mouse pointer
+    /// onto a canvas spanning the union of all screens. Safe to run off the main
+    /// thread: it only touches already-captured bitmaps and plain values (no NSView /
+    /// NSScreen / NSCursor access).
+    private func compositeLayers(_ layers: [CapturedWindowLayer], canvasRect: CGRect,
+                                 cursorImage: NSImage?, cursorDestination: NSRect) -> CGImage? {
         let pixelWidth = Int(canvasRect.width.rounded())
         let pixelHeight = Int(canvasRect.height.rounded())
 
-        guard let canvasRep = NSBitmapImageRep(bitmapDataPlanes: nil,
+        guard pixelWidth >= 1, pixelHeight >= 1,
+              let canvasRep = NSBitmapImageRep(bitmapDataPlanes: nil,
                                                pixelsWide: pixelWidth,
                                                pixelsHigh: pixelHeight,
                                                bitsPerSample: 8,
@@ -141,50 +195,28 @@ public class ScreenCaptureController {
         NSColor(white: 0.5, alpha: 1.0).setFill()
         NSRect(x: 0, y: 0, width: CGFloat(pixelWidth), height: CGFloat(pixelHeight)).fill()
 
-        for window in windows {
-            guard window.isVisible, window.alphaValue > 0, !window.isMiniaturized else {
-                continue
-            }
-            let frame = window.frame
-            guard frame.intersects(canvasRect), frame.width >= 1, frame.height >= 1 else {
-                continue
-            }
-            // Capture the window's frame view (contentView.superview) to include chrome.
-            guard let view = window.contentView?.superview ?? window.contentView,
-                  let rep = captureBitmapRep(of: view) else {
-                continue
-            }
-            // Map window frame into canvas coordinates (both bottom-left origin).
-            let destination = NSRect(x: frame.origin.x - canvasRect.origin.x,
-                                     y: frame.origin.y - canvasRect.origin.y,
-                                     width: frame.width,
-                                     height: frame.height)
-            // Clip to rounded corners so the square corners of the captured bitmap
-            // don't paint over windows/background behind them (macOS windows have
-            // rounded corners). Windows that fill a whole screen are left square.
-            let cornerRadius = windowCornerRadius(for: window)
-            // Transparent regions of the captured bitmap (e.g. the tiles behind
-            // borderless dock buttons like Reload/Quit, which paint no background)
-            // would otherwise show the desktop base gray or, worse, be composited over
-            // black by the later greyscale step (black boxes). Fill the window's rect
-            // with its own opaque background color first (e.g. the dock bar color) so
-            // those regions match the window, then draw the bitmap source-over on top.
-            let windowBackground = window.backgroundColor.usingColorSpace(.deviceRGB)
-            let hasOpaqueBackground = (windowBackground?.alphaComponent ?? 0) > 0.99
+        for layer in layers {
+            // Fill the window's rect with its own opaque background color (e.g. the
+            // dock bar color) so transparent regions of the captured bitmap match the
+            // window instead of showing the base gray or being composited over black
+            // by the later greyscale step; then draw the bitmap source-over on top.
+            // Windows are clipped to their rounded corners (full-screen windows aren't).
+            let hasOpaqueBackground = (layer.backgroundColor?.alphaComponent ?? 0) > 0.99
             NSGraphicsContext.saveGraphicsState()
-            if cornerRadius > 0 {
-                NSBezierPath(roundedRect: destination, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
+            if layer.cornerRadius > 0 {
+                NSBezierPath(roundedRect: layer.destination, xRadius: layer.cornerRadius, yRadius: layer.cornerRadius).addClip()
             }
             if hasOpaqueBackground {
-                windowBackground!.setFill()
-                destination.fill()
+                layer.backgroundColor!.setFill()
+                layer.destination.fill()
             }
-            rep.draw(in: destination, from: .zero, operation: .sourceOver, fraction: 1.0, respectFlipped: true, hints: nil)
+            layer.bitmap.draw(in: layer.destination, from: .zero, operation: .sourceOver, fraction: 1.0, respectFlipped: true, hints: nil)
             NSGraphicsContext.restoreGraphicsState()
         }
 
-        // Composite the mouse pointer on top, at its current location.
-        drawMousePointer(canvasRect: canvasRect)
+        if let cursorImage = cursorImage {
+            cursorImage.draw(in: cursorDestination)
+        }
 
         return canvasRep.cgImage
     }
@@ -216,25 +248,6 @@ public class ScreenCaptureController {
         return standardRadius
     }
 
-    /// Draws the current system mouse pointer into the active graphics context,
-    /// positioned by its hot spot. Coordinates are AppKit screen space (bottom-left
-    /// origin); cursor images use a top-left origin, so the hot spot is flipped.
-    /// Must be called on the main thread with an active NSGraphicsContext.
-    private func drawMousePointer(canvasRect: CGRect) {
-        let cursor = NSCursor.currentSystem ?? NSCursor.current
-        let cursorImage = cursor.image
-        let size = cursorImage.size
-        guard size.width > 0, size.height > 0 else {
-            return
-        }
-        let hotSpot = cursor.hotSpot
-        let mouseLocation = NSEvent.mouseLocation
-        let destination = NSRect(x: mouseLocation.x - hotSpot.x - canvasRect.origin.x,
-                                 y: mouseLocation.y - (size.height - hotSpot.y) - canvasRect.origin.y,
-                                 width: size.width,
-                                 height: size.height)
-        cursorImage.draw(in: destination)
-    }
 #endif
 
     public func takeScreenShot(scale: Double, quantization: ColorQuantization) -> Data? {

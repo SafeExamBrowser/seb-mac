@@ -466,9 +466,27 @@ extension SEBScreenProctoringController {
         // AllWindows (composited full-screen), a single view for ActiveWindow, or nil
         // when not under AAC (then we use full-screen system capture). We try the
         // richest option first.
-        if let captureWindows = self.delegate?.screenProctoringCaptureWindows?(), !captureWindows.isEmpty {
+        // The delegate methods read NSApp/NSWindow state (orderedWindows, childWindows,
+        // isVisible, attachedSheet, …) which are main-thread-only, but this method runs
+        // on the screenshot background queue — so gather the capture targets on the main
+        // thread first. (The capture methods below dispatch their own rendering to main.)
+        var captureWindows: [NSWindow]?
+        var captureView: NSView?
+        let gatherCaptureTargets = {
+            captureWindows = self.delegate?.screenProctoringCaptureWindows?() ?? nil
+            if captureWindows == nil || captureWindows!.isEmpty {
+                captureView = self.delegate?.screenProctoringCaptureView?() ?? nil
+            }
+        }
+        if Thread.isMainThread {
+            gatherCaptureTargets()
+        } else {
+            DispatchQueue.main.sync { gatherCaptureTargets() }
+        }
+
+        if let captureWindows, !captureWindows.isEmpty {
             screenShotData = self.screenCaptureController.takeScreenShot(ofWindows: captureWindows, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
-        } else if let captureView = self.delegate?.screenProctoringCaptureView?() {
+        } else if let captureView {
             screenShotData = self.screenCaptureController.takeScreenShot(of: captureView, scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
         } else {
             screenShotData = self.screenCaptureController.takeScreenShot(scale: self.imageScale, quantization: self.imageQuantization ?? .grayscale4Bpp)
