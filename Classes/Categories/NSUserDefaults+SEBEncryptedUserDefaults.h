@@ -133,6 +133,16 @@
 
 // Store settings dictionary into UserDefaults
 - (void)storeSEBDictionary:(NSDictionary *)sebPreferencesDict;
+// Migrate lockdownModePolicy from a pre-lockdownModePolicy config; must be called with the
+// originally loaded settings (before default values are merged in) and after storeSEBDictionary:
+- (void)migrateLockdownModePolicyFromLoadedSettings:(NSDictionary *)sebPreferencesDict;
+// Pure decision helper (no side effects) used by the lockdownModePolicy migration:
+// returns whether AAC is supported for the given (loaded config) macOS version settings
++ (BOOL)aacSupportedForMinMacOSVersion:(NSInteger)minMacOSVersion
+                      checkFullVersion:(BOOL)checkFullVersion
+                          versionMajor:(NSInteger)versionMajor
+                          versionMinor:(NSInteger)versionMinor
+                      aacDnsPrePinning:(BOOL)aacDnsPrePinning;
 // Write SEB default values to local preferences
 - (void)storeSEBDefaultSettings;
 

@@ -1025,14 +1025,24 @@ static NSString *getUppercaseAdminPasswordHash(void)
     NSDictionary *configKeyContainedKeys = [NSDictionary dictionary];
     NSData *configKey = [NSData data];
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    // Keep a reference to the originally loaded settings (before default values are merged in
+    // by calculating the Config Key), needed for the lockdownModePolicy migration below
+    NSDictionary *loadedSebPreferencesDict = sebPreferencesDict;
     // We reset the Config Key in current user defaults, to make sure it is freshly calculated for loaded settings
     [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
     sebPreferencesDict = [[SEBCryptor sharedSEBCryptor] updateConfigKeyInSettings:sebPreferencesDict
                                                         configKeyContainedKeysRef:&configKeyContainedKeys
                                                                      configKeyRef:&configKey
                                                           initializeContainedKeys:YES];
-    
+
     [preferences storeSEBDictionary:sebPreferencesDict];
+
+    // Migration for macOS AAC settings for configs which predate the lockdownModePolicy setting.
+    // Has to run on the originally loaded settings (loadedSebPreferencesDict) and after
+    // storeSEBDictionary:, so the migrated values aren't overwritten by the loaded config values.
+    // The possibly changed allowOpenAndSavePanel / lockdownModePolicy values are intentionally not
+    // contained in the settings used above for the Config Key calculation.
+    [preferences migrateLockdownModePolicyFromLoadedSettings:loadedSebPreferencesDict];
 
     [preferences setSecureObject:configKeyContainedKeys forKey:@"org_safeexambrowser_configKeyContainedKeys"];
     // Store new Config Key in UserDefaults

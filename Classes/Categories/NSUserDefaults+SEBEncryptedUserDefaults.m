@@ -463,49 +463,6 @@ static NSNumber *_logLevel;
     // Write SEB default values to NSUserDefaults
     [self storeSEBDefaultSettings];
 
-    // Migration for macOS AAC settings
-    // Check if new setting lockdownModePolicy is contained in loaded settings
-    if (sebPreferencesDict[@"lockdownModePolicy"] == nil) {
-        BOOL enableMacOSAAC = [sebPreferencesDict[@"enableMacOSAAC"] boolValue];
-        if (enableMacOSAAC) {
-            // Use values from loaded config, falling back to defaults (already written to NSUserDefaults)
-            NSInteger minMacOSVersion = sebPreferencesDict[@"minMacOSVersion"]
-                ? [sebPreferencesDict[@"minMacOSVersion"] integerValue]
-                : [self secureIntegerForKey:[self prefixKey:@"minMacOSVersion"]];
-            BOOL checkFullVersion = sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"]
-                ? [sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"] boolValue]
-                : [self secureBoolForKey:[self prefixKey:@"allowMacOSVersionNumberCheckFull"]];
-            NSInteger versionMajor = sebPreferencesDict[@"allowMacOSVersionNumberMajor"]
-                ? [sebPreferencesDict[@"allowMacOSVersionNumberMajor"] integerValue]
-                : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMajor"]];
-            NSInteger versionMinor = sebPreferencesDict[@"allowMacOSVersionNumberMinor"]
-                ? [sebPreferencesDict[@"allowMacOSVersionNumberMinor"] integerValue]
-                : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMinor"]];
-            BOOL aacDnsPrePinning = sebPreferencesDict[@"aacDnsPrePinning"]
-                ? [sebPreferencesDict[@"aacDnsPrePinning"] boolValue]
-                : [self secureBoolForKey:[self prefixKey:@"aacDnsPrePinning"]];
-            BOOL aacSupported;
-            if (checkFullVersion) {
-                aacSupported = (versionMajor > 12) ||
-                               (versionMajor == 12 && versionMinor >= 1) ||
-                               (versionMajor >= 11 && aacDnsPrePinning);
-            } else {
-                aacSupported = (minMacOSVersion > SEBMinMacOS12) ||
-                               (minMacOSVersion >= SEBMinMacOS11 && aacDnsPrePinning);
-            }
-            if (aacSupported) {
-                [self setSecureObject:@(lockdownModePolicyEnforceAAC) forKey:[self prefixKey:@"lockdownModePolicy"]];
-            }
-        } else {
-            // If new setting lockdownModePolicy isn't contained in loaded settings and
-            // the old setting enableMacOSAAC was false (classic lockdown mode, not AAC)
-            // we set allowOpenAndSavePanel = true, as it's default value false only has an effect in AAC
-            // but with lockdownModePolicy's default lockdownModePolicyAutomatic, AAC might be active in this session
-            // and then the file chooser for uploading files wouldn't be working
-            [self setSecureBool:YES forKey:[self prefixKey:@"allowOpenAndSavePanel"]];
-        }
-    }
-
     // Write values from .seb config file to local preferences
     for (NSString *key in sebPreferencesDict) {
         id value = [sebPreferencesDict objectForKey:key];
@@ -621,8 +578,186 @@ static NSNumber *_logLevel;
             [newProcesses addObjectsFromArray:processesFromSettings];
             value = newProcesses.copy;
         }
-        
+
+        // We need to join loaded permitted processes with preset default processes
+        if ([key isEqualToString:@"permittedProcesses"]) {
+            NSDictionary *presetProcess;
+            NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+            NSMutableArray *presetProcesses = [self secureArrayForKey:keyWithPrefix].mutableCopy;
+            NSMutableArray *newProcesses = [NSMutableArray new];
+            for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                presetProcess = presetProcesses[i];
+                NSInteger os = [presetProcess[@"os"] longValue];
+                if (os == operatingSystemMacOS) {
+                    NSString *bundleID = presetProcess[@"identifier"];
+                    NSString *executable = presetProcess[@"executable"];
+                    NSArray *matches;
+                    if (bundleID.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the permitted process doesn't indicate a bundle ID, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                if (processFromSettingsBundleID.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify a bundle ID
+                                    matchingProcess = processFromSettings;
+                                    break;
+                                }
+                            }
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
+                        if (description.length == 0) {
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowNetworkAccess"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"runInBackground"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"teamIdentifier"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
+                    }
+                }
+                if (os == operatingSystemWin) {
+                    NSString *originalName = presetProcess[@"originalName"];
+                    NSString *executable = presetProcess[@"executable"];
+                    NSArray *matches;
+                    if (originalName.length > 0) {
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@" originalName ==[cd] %@", originalName];
+                        matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                    } else {
+                        // If the permitted process doesn't indicate an original name, check for duplicate executable
+                        if (executable.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                            NSDictionary *matchingProcess;
+                            for (NSDictionary *processFromSettings in matches) {
+                                NSString *processFromOriginalName = processFromSettings[@"originalName"];
+                                if (processFromOriginalName.length == 0) {
+                                    // we join processes with same executable only if they both
+                                    // don't specify an original name
+                                    matchingProcess = processFromSettings;
+                                    break;
+                                }
+                            }
+                            if (matchingProcess) {
+                                matches = [NSArray arrayWithObject:matchingProcess];
+                            }
+                        }
+                    }
+                    if (matches.count > 0) {
+                        NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                        [processesFromSettings removeObject:matchingProcessFromSettings];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowedExecutables"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                        NSString *description = matchingProcessFromSettings[@"description"];
+                        if (description.length == 0) {
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                        }
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowNetworkAccess"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"runInBackground"];
+                        [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+
+                        [newProcesses addObject:matchingProcessFromSettings];
+                    } else {
+                        [newProcesses addObject:presetProcess];
+                    }
+                }
+            }
+            [newProcesses addObjectsFromArray:processesFromSettings];
+            value = newProcesses.copy;
+        }
+
         [self setSecureObject:value forKey:keyWithPrefix];
+    }
+}
+
+
+// Migration for macOS AAC settings for configs which predate the lockdownModePolicy setting.
+// This has to be called with the originally loaded config settings (before default values were
+// merged in, e.g. by calculating the Config Key), otherwise the lockdownModePolicy key would
+// always be present (with its default value) and the migration wouldn't be triggered.
+// It also has to be called after storeSEBDictionary:, so the values written here aren't
+// overwritten again by the values from the loaded config.
+- (void) migrateLockdownModePolicyFromLoadedSettings:(NSDictionary *)sebPreferencesDict
+{
+    DDLogDebug(@"%s", __FUNCTION__);
+    // If the new setting lockdownModePolicy is already contained in loaded settings, nothing to migrate
+    if (sebPreferencesDict[@"lockdownModePolicy"] != nil) {
+        return;
+    }
+    BOOL enableMacOSAAC = [sebPreferencesDict[@"enableMacOSAAC"] boolValue];
+    DDLogDebug(@"%s: lockdownModePolicy = nil, enableMacOSAAC = %@", __FUNCTION__, enableMacOSAAC ? @"true" : @"false");
+    if (enableMacOSAAC) {
+        // Use values from loaded config, falling back to defaults (already written to NSUserDefaults)
+        NSInteger minMacOSVersion = sebPreferencesDict[@"minMacOSVersion"]
+            ? [sebPreferencesDict[@"minMacOSVersion"] integerValue]
+            : [self secureIntegerForKey:[self prefixKey:@"minMacOSVersion"]];
+        BOOL checkFullVersion = sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"]
+            ? [sebPreferencesDict[@"allowMacOSVersionNumberCheckFull"] boolValue]
+            : [self secureBoolForKey:[self prefixKey:@"allowMacOSVersionNumberCheckFull"]];
+        NSInteger versionMajor = sebPreferencesDict[@"allowMacOSVersionNumberMajor"]
+            ? [sebPreferencesDict[@"allowMacOSVersionNumberMajor"] integerValue]
+            : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMajor"]];
+        NSInteger versionMinor = sebPreferencesDict[@"allowMacOSVersionNumberMinor"]
+            ? [sebPreferencesDict[@"allowMacOSVersionNumberMinor"] integerValue]
+            : [self secureIntegerForKey:[self prefixKey:@"allowMacOSVersionNumberMinor"]];
+        BOOL aacDnsPrePinning = sebPreferencesDict[@"aacDnsPrePinning"]
+            ? [sebPreferencesDict[@"aacDnsPrePinning"] boolValue]
+            : [self secureBoolForKey:[self prefixKey:@"aacDnsPrePinning"]];
+        BOOL aacSupported = [NSUserDefaults aacSupportedForMinMacOSVersion:minMacOSVersion
+                                                          checkFullVersion:checkFullVersion
+                                                              versionMajor:versionMajor
+                                                              versionMinor:versionMinor
+                                                          aacDnsPrePinning:aacDnsPrePinning];
+        if (aacSupported) {
+            [self setSecureObject:@(lockdownModePolicyEnforceAAC) forKey:[self prefixKey:@"lockdownModePolicy"]];
+        }
+    } else {
+        // If new setting lockdownModePolicy isn't contained in loaded settings and
+        // the old setting enableMacOSAAC was false (classic lockdown mode, not AAC)
+        // we set allowOpenAndSavePanel = true, as it's default value false only has an effect in AAC
+        // but with lockdownModePolicy's default lockdownModePolicyAutomatic, AAC might be active in this session
+        // and then the file chooser for uploading files wouldn't be working
+        [self setSecureBool:YES forKey:[self prefixKey:@"allowOpenAndSavePanel"]];
+        DDLogInfo(@"%s: allowOpenAndSavePanel set to true (possible override)", __FUNCTION__);
+    }
+}
+
+
+// Pure decision helper (no side effects) used by the lockdownModePolicy migration above:
+// determines whether AAC is supported for the given (loaded config) macOS version settings.
+// Extracted as a class method so it can be unit tested without touching NSUserDefaults.
++ (BOOL)aacSupportedForMinMacOSVersion:(NSInteger)minMacOSVersion
+                      checkFullVersion:(BOOL)checkFullVersion
+                          versionMajor:(NSInteger)versionMajor
+                          versionMinor:(NSInteger)versionMinor
+                      aacDnsPrePinning:(BOOL)aacDnsPrePinning
+{
+    if (checkFullVersion) {
+        return (versionMajor > 12) ||
+               (versionMajor == 12 && versionMinor >= 1) ||
+               (versionMajor >= 11 && aacDnsPrePinning);
+    } else {
+        return (minMacOSVersion > SEBMinMacOS12) ||
+               (minMacOSVersion >= SEBMinMacOS11 && aacDnsPrePinning);
     }
 }
 

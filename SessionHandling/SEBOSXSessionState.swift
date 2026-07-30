@@ -39,16 +39,18 @@ import Foundation
     @objc public var sebServerExamStartURL: URL?
     
     @objc lazy public var startURL: URL? = {
-        var currentStartURL: URL?
-        if sebServerExamStartURL != nil {
-            currentStartURL = sebServerExamStartURL
-        } else {
-            currentStartURL = URL(string: UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"))
-            if currentStartURL == nil {
-                currentStartURL = URL(string: SEBStartPage)
-            }
+        if let sebServerExamStartURL {
+            return sebServerExamStartURL
         }
-        return currentStartURL
+        // secureStringForKey: is bridged as an implicitly unwrapped optional (String!),
+        // so it can be nil when the key isn't set (e.g. no settings loaded yet); guard
+        // against it instead of force-unwrapping into URL(string:).
+        if let startURLString = UserDefaults.standard.secureString(forKey: "org_safeexambrowser_SEB_startURL"),
+           !startURLString.isEmpty,
+           let currentStartURL = URL(string: startURLString) {
+            return currentStartURL
+        }
+        return URL(string: SEBStartPage)
     }()
 }
 

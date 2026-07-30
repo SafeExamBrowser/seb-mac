@@ -63,6 +63,8 @@
 		6915F2EA19C8F77600DAEA37 /* SEBDockWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */; };
 		6917744A1A2776FB0039CC39 /* SEBURLFilterRegexExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = 691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */; };
 		6917744B1A2776FB0039CC39 /* SEBURLFilterRegexExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */; };
+		6918BCB5301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB4301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift */; };
+		6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */; };
 		6918BCB92D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */; };
 		6918BCBA2D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */; };
 		691981422C723B7500E79DA4 /* FIFOBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981412C723B7500E79DA4 /* FIFOBuffer.swift */; };
@@ -1008,6 +1010,8 @@
 		6915F2E819C8F77600DAEA37 /* SEBDockWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBDockWindow.m; path = Classes/SEBDock/SEBDockWindow.m; sourceTree = "<group>"; };
 		691774481A2776FB0039CC39 /* SEBURLFilterRegexExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SEBURLFilterRegexExpression.h; sourceTree = "<group>"; };
 		691774491A2776FB0039CC39 /* SEBURLFilterRegexExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SEBURLFilterRegexExpression.m; sourceTree = "<group>"; };
+		6918BCB4301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBLockdownModePolicyMigrationTestSupport.swift; sourceTree = "<group>"; };
+		6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBLockdownModePolicyMigrationTests.swift; sourceTree = "<group>"; };
 		6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBGCMCryptor.swift; sourceTree = "<group>"; };
 		691981412C723B7500E79DA4 /* FIFOBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIFOBuffer.swift; sourceTree = "<group>"; };
 		691981442C72520A00E79DA4 /* ScreenShotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotCache.swift; sourceTree = "<group>"; };
@@ -2264,6 +2268,7 @@
 			isa = PBXGroup;
 			children = (
 				69BAD4E23013AF19003887E8 /* SEBKeychainPasswordHashTests.swift */,
+				6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */,
 				69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */,
 				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
 				6940B9871BA0F2FB008C8CFC /* Info.plist */,
@@ -2541,6 +2546,7 @@
 				695EE19226D2F2F8004D8FF7 /* SEBPresetSettings.h */,
 				695EE19126D2F2F8004D8FF7 /* SEBPresetSettings.m */,
 				693425772D954D3F00BCBF0B /* AdditionalApplicationsController.swift */,
+				6918BCB4301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift */,
 			);
 			name = "Config Files";
 			path = Classes/ConfigFiles;
@@ -4332,6 +4338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
+				6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */,
 				69BAD4E33013AF19003887E8 /* SEBKeychainPasswordHashTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
 				698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */,
@@ -4389,6 +4396,7 @@
 				699E16042C04AF9200BE1FA6 /* SEBSPMetadataCollector.swift in Sources */,
 				69F7B60B14F411FB00FD0761 /* SEBController.m in Sources */,
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
+				6918BCB5301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
 				69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */,
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,

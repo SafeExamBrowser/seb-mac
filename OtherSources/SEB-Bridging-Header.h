@@ -19,4 +19,7 @@
 // Exposes SEBKeychainManager's password hashing/comparison to the (DEBUG-only)
 // test-support shim; see SEBKeychainManagerTestSupport.swift.
 #import "SEBKeychainManager.h"
+// Exposes the config-import path to the (DEBUG-only) lockdownModePolicy migration
+// test-support shim; see SEBLockdownModePolicyMigrationTestSupport.swift.
+#import "SEBConfigFileManager.h"
 #endif
