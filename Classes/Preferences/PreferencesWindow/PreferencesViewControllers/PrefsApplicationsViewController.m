@@ -334,9 +334,8 @@
 
     BOOL multiAppModeSettings = ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"] &&
     ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowShareSheet"] &&
-    ((policy == lockdownModePolicyEnforceAAC) ||
-     ((policy == lockdownModePolicyAutomatic) &&
-    [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0]));
+    ((policy == lockdownModePolicyEnforceAAC) &&
+    [self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:0]);
     
     return multiAppModeSettings;
 }
@@ -358,10 +357,7 @@
         [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
         [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
     }
-    [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
-    [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
-    [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
-    [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberPatch"];
+    DDLogInfo(@"Settings updated for AAC Multi-App Mode.");
     
     // Re-initialize and open preferences window
     [_preferencesController initPreferencesWindow];
