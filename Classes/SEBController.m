@@ -6971,7 +6971,7 @@ conditionallyForWindow:(NSWindow *)window
             // Screen proctoring can capture SEB's own windows under AAC (view-based capture),
             // so it no longer forces AAC off - unless its AAC capture policy is set to None.
             ScreenProctoringAACCapturePolicy spCapturePolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_screenProctoringAACCapturePolicy"];
-            BOOL blockAACForScreenProctoring = enableScreenProctoring && spCapturePolicy == ScreenProctoringAACCapturePolicyNone;
+            BOOL blockAACForScreenProctoring = enableScreenProctoring && (spCapturePolicy == ScreenProctoringAACCapturePolicyNone);
             _isAACEnabled = !screenCaptureEnabled && !windowCaptureEnabled && !screenSharingEnabled && !browserScreenCaptureEnabled && !blockAACForScreenProctoring;
         } else {
             _isAACEnabled = NO;
