@@ -3672,6 +3672,16 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                 DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
                 [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:NO];
                 return;
+            } else if (_isAACEnabled == YES && _wasAACEnabled == YES) {
+                // AAC session is already running and remains active after reconfiguring settings.
+                // As an AEAssessmentSession's configuration cannot be changed while it is running,
+                // we have to end the current session and start a new one with the reconfigured
+                // AEAssessmentConfiguration (built from the updated permitted processes) so that
+                // changed per-app properties like allowsNetworkAccess take effect.
+                DDLogDebug(@"_isAACEnabled = true && _wasAACEnabled == true: ending running AAC session to restart it with reconfigured settings");
+                _restartingAACForReconfigure = YES;
+                [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:NO];
+                return;
             }
         } else {
             _isAACEnabled = NO;
@@ -3737,6 +3747,14 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         _checkingPermissionsAfterAACEnd = NO;
         DDLogDebug(@"%s: AAC ended for permissions check, re-running permissions check with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+    } else if (_restartingAACForReconfigure) {
+        _restartingAACForReconfigure = NO;
+        DDLogDebug(@"%s: AAC ended for reconfiguration, restarting AAC session with reconfigured settings, callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        // Allow conditionallyStartAAC... to run its body again (it guards on this flag)
+        _conditionalInitAfterProcessesChecked = NO;
+        // _wasAACEnabled is now NO, so conditionallyStartAAC... will build a fresh
+        // AEAssessmentConfiguration and begin a new assessment session
+        [self conditionallyStartAACWithCallback:callback selector:selector];
     } else {
         DDLogDebug(@"%s, continue with [self initSEBProcessesCheckedWithCallback:%@ selector: %@]", __FUNCTION__, callback, NSStringFromSelector(selector));
         [self initSEBProcessesCheckedWithCallback:callback selector:selector];

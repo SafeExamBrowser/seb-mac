@@ -289,6 +289,7 @@ static NSString __unused *accessibilityTitleString = @" and Accessibility";
 @property(readwrite) BOOL overrideAAC;
 @property(readwrite) BOOL wasAACEnabled;
 @property(readwrite) BOOL checkingPermissionsAfterAACEnd;
+@property(readwrite) BOOL restartingAACForReconfigure;
 
 @property(readwrite) BOOL SIGSTOPDetected;
 @property(readonly) BOOL noRequiredBuiltInScreenAvailable;
