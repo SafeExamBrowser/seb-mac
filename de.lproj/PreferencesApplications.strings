@@ -64,6 +64,12 @@
 /* Class = "NSButtonCell"; title = "Choose Application..."; ObjectID = "496"; */
 "496.title" = "Applikation auswählen …";
 
+/* Class = "NSButton"; ibShadowedToolTip = "Add a preset permitted process which is available in every configuration"; ObjectID = "prs-01-btn"; */
+"prs-01-btn.ibShadowedToolTip" = "Einen voreingestellten erlaubten Prozess hinzufügen, der in jeder Konfiguration verfügbar ist";
+
+/* Class = "NSButtonCell"; title = "Add Preset Process..."; ObjectID = "prs-01-cel"; */
+"prs-01-cel.title" = "Voreingestellten Prozess hinzufügen …";
+
 /* Class = "NSTableColumn"; headerCell.title = "Title"; ObjectID = "537"; */
 "537.headerCell.title" = "Titel";
 

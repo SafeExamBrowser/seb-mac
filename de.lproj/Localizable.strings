@@ -1511,3 +1511,27 @@ untitled filename */
 /* No comment provided by engineer. */
 "Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" = "Ihr Bildschirm wird während dieser Prüfung gemäss den Vorgaben und Datenschutzrichtlinien Ihres Prüfungsanbieters aufgezeichnet. Für Fragen hierzu wenden Sie sich bitte an Ihren Prüfungsanbieter.";
 
+/* Button title in the Add Preset Permitted Process dialog */
+"Add" = "Hinzufügen";
+
+/* Title of the dialog to add preset permitted processes */
+"Add Preset Permitted Process" = "Voreingestellten erlaubten Prozess hinzufügen";
+
+/* Alert title when no inactive preset permitted processes are available to add */
+"No Preset Processes Available" = "Keine voreingestellten Prozesse verfügbar";
+
+/* Informative text of the Add Preset Permitted Process dialog */
+"Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." = "Wählen Sie die voreingestellten erlaubten Prozesse aus, die Sie zu Ihren %@-Einstellungen hinzufügen möchten. Sie werden als aktive Prozesse hinzugefügt.";
+
+/* Informative text when there are no preset permitted processes left to add */
+"There are currently no additional preset permitted processes which could be added to your %@ settings." = "Es sind momentan keine weiteren voreingestellten erlaubten Prozesse vorhanden, die zu Ihren %@-Einstellungen hinzugefügt werden könnten.";
+
+/* Fallback label for a preset process without a title or executable name */
+"(Unnamed process)" = "(Unbenannter Prozess)";
+
+/* Suffix marking a process offered from the local client settings */
+" (from client settings)" = " (aus Client-Einstellungen)";
+
+/* Informative text of the Add Preset Permitted Process dialog when it also includes client settings processes */
+"Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." = "Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt.";
+
