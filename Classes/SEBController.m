@@ -6678,7 +6678,17 @@ conditionallyForWindow:(NSWindow *)window
             [NSApp abortModal];
         }
     }
-    
+
+    // In AAC (Automatic Assessment Configuration) mode the system enforces the
+    // lockdown. SEB must not fight for focus: when it resigns active or another
+    // (permitted) app becomes active, SEB should not force its windows back to
+    // the front or take input focus back. Regaining active status this way is
+    // only the expected behavior in SEB's classic kiosk mode.
+    if (_isAACEnabled || _wasAACEnabled) {
+        DDLogDebug(@"%s: AAC active, not regaining active status / forcing SEB windows to the front", __FUNCTION__);
+        return;
+    }
+
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     BOOL allowSwitchToThirdPartyApps = ![preferences secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"];
