@@ -133,6 +133,10 @@
 
 // Store settings dictionary into UserDefaults
 - (void)storeSEBDictionary:(NSDictionary *)sebPreferencesDict;
+// Returns a copy of the passed permitted processes array with inactive preset permitted processes
+// removed (those merely injected by merging in default values). To be used when the loaded config
+// didn't contain permitted processes, so inactive presets aren't persisted (e.g. reverting to defaults)
+- (NSArray *)permittedProcessesByRemovingInactivePresets:(NSArray *)permittedProcesses;
 // Migrate lockdownModePolicy from a pre-lockdownModePolicy config; must be called with the
 // originally loaded settings (before default values are merged in) and after storeSEBDictionary:
 - (void)migrateLockdownModePolicyFromLoadedSettings:(NSDictionary *)sebPreferencesDict;

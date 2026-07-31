@@ -88,6 +88,7 @@
 
 - (IBAction) allowSwitchToApplicationsButton:(NSButton *)sender;
 - (IBAction) chooseApplication:(id)sender;
+- (IBAction) addPresetPermittedProcess:(id)sender;
 - (IBAction) showDependentSettingsWarning:(id)sender;
 - (void) showAlertCannotRemoveProcess;
 - (IBAction) changedOS:(id)sender;

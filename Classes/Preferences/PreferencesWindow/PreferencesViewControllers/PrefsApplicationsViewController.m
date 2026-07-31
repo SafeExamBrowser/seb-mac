@@ -224,6 +224,198 @@
 }
 
 
+// Show a dialog listing the preset permitted processes which can be added to the current
+// settings: the hardcoded inactive preset processes and, when editing an exam configuration
+// (private user defaults active), the permitted processes from the local client settings.
+// Processes already present in the current settings are omitted. The user can select one or
+// several of them; the selected processes are added to the settings with active = YES.
+- (IBAction)addPresetPermittedProcess:(id)sender {
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *currentProcesses = (NSArray *)self.permittedProcessesArrayController.arrangedObjects;
+    NSMutableArray<NSDictionary *> *availablePresets = [NSMutableArray new];
+    // Client settings processes are added first, so the first clientProcessCount entries of
+    // availablePresets originate from the local client settings
+    NSUInteger clientProcessCount = 0;
+
+    // When editing an exam configuration (private user defaults active), also offer the
+    // permitted processes from the local client settings. This way an admin user can build
+    // their own library of regularly used processes in the client settings on their admin Mac
+    // and quickly add them to exam configurations with this feature.
+    if (NSUserDefaults.userDefaultsPrivate) {
+        NSArray *clientProcesses = (NSArray *)[preferences persistedSecureObjectForKey:@"org_safeexambrowser_SEB_permittedProcesses"];
+        for (NSDictionary *clientProcess in clientProcesses) {
+            NSString *identifier = clientProcess[@"identifier"];
+            NSString *executable = clientProcess[@"executable"];
+            if (identifier.length == 0 && executable.length == 0) {
+                // Skip empty template rows which couldn't be matched or meaningfully displayed
+                continue;
+            }
+            if ([self permittedProcess:clientProcess existsInProcesses:currentProcesses] ||
+                [self permittedProcess:clientProcess existsInProcesses:availablePresets]) {
+                continue;
+            }
+            [availablePresets addObject:clientProcess];
+        }
+        clientProcessCount = availablePresets.count;
+    }
+
+    // Add the hardcoded inactive preset permitted processes which aren't already present in the
+    // current settings (active presets are added to every configuration automatically)
+    NSDictionary *defaultSEBSettings = [preferences sebDefaultSettings];
+    NSArray *presetProcesses = defaultSEBSettings[@"org_safeexambrowser_SEB_permittedProcesses"];
+    for (NSDictionary *presetProcess in presetProcesses) {
+        if ([presetProcess[@"active"] boolValue]) {
+            continue;
+        }
+        if ([self permittedProcess:presetProcess existsInProcesses:currentProcesses]) {
+            continue;
+        }
+        // If a process representing the same app (same identifier and executable and, when set on
+        // both, the same team identifier) is already offered from the client settings, prefer that
+        // one, so the admin's customized properties (e.g. hiding the Dock icon) are used instead of
+        // the hardcoded preset's properties.
+        BOOL sameAppAlreadyOffered = NO;
+        for (NSDictionary *offeredProcess in availablePresets) {
+            if ([self permittedProcess:offeredProcess isSameAppAs:presetProcess]) {
+                sameAppAlreadyOffered = YES;
+                break;
+            }
+        }
+        if (sameAppAlreadyOffered) {
+            continue;
+        }
+        [availablePresets addObject:presetProcess];
+    }
+
+    if (availablePresets.count == 0) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:NSLocalizedString(@"No Preset Processes Available", @"")];
+        [alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"There are currently no additional preset permitted processes which could be added to your %@ settings.", @""), SEBShortAppName]];
+        [alert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [alert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:nil];
+        return;
+    }
+
+    // Build a checkbox for each available preset process, listing its title (or executable if no title)
+    NSStackView *stackView = [NSStackView new];
+    stackView.orientation = NSUserInterfaceLayoutOrientationVertical;
+    stackView.alignment = NSLayoutAttributeLeading;
+    stackView.spacing = 6;
+    stackView.edgeInsets = NSEdgeInsetsMake(6, 6, 6, 6);
+    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSMutableArray<NSButton *> *checkboxes = [NSMutableArray new];
+    for (NSUInteger i = 0; i < availablePresets.count; i++) {
+        NSDictionary *presetProcess = availablePresets[i];
+        NSString *title = presetProcess[@"title"];
+        if (title.length == 0) {
+            title = presetProcess[@"executable"];
+        }
+        if (title.length == 0) {
+            title = NSLocalizedString(@"(Unnamed process)", @"");
+        }
+        if (i < clientProcessCount) {
+            // Mark processes which originate from the local client settings
+            title = [title stringByAppendingString:NSLocalizedString(@" (from client settings)", @"Suffix marking a process offered from the local client settings")];
+        }
+        NSButton *checkbox = [NSButton checkboxWithTitle:title target:nil action:nil];
+        checkbox.translatesAutoresizingMaskIntoConstraints = NO;
+        [checkboxes addObject:checkbox];
+        [stackView addArrangedSubview:checkbox];
+    }
+
+    CGFloat width = 380;
+    CGFloat visibleHeight = MIN(stackView.fittingSize.height, 220);
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, width, visibleHeight)];
+    scrollView.hasVerticalScroller = YES;
+    scrollView.hasHorizontalScroller = NO;
+    scrollView.borderType = NSBezelBorder;
+    scrollView.drawsBackground = NO;
+    scrollView.documentView = stackView;
+    [NSLayoutConstraint activateConstraints:@[
+        [stackView.leadingAnchor constraintEqualToAnchor:scrollView.contentView.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:scrollView.contentView.trailingAnchor],
+        [stackView.topAnchor constraintEqualToAnchor:scrollView.contentView.topAnchor],
+    ]];
+
+    NSString *informativeText;
+    if (clientProcessCount > 0) {
+        informativeText = [NSString stringWithFormat:NSLocalizedString(@"Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes.", @""), SEBShortAppName];
+    } else {
+        informativeText = [NSString stringWithFormat:NSLocalizedString(@"Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes.", @""), SEBShortAppName];
+    }
+
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:NSLocalizedString(@"Add Preset Permitted Process", @"")];
+    [alert setInformativeText:informativeText];
+    [alert addButtonWithTitle:NSLocalizedString(@"Add", @"")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"")];
+    alert.accessoryView = scrollView;
+    [alert beginSheetModalForWindow:MBPreferencesController.sharedController.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            for (NSUInteger i = 0; i < availablePresets.count; i++) {
+                if (checkboxes[i].state == NSControlStateValueOn) {
+                    NSMutableDictionary *newProcess = [availablePresets[i] mutableCopy];
+                    [newProcess setValue:@YES forKey:@"active"];
+                    [self.permittedProcessesArrayController addObject:newProcess];
+                }
+            }
+        }
+    }];
+}
+
+
+// Checks whether a process matching the given preset process (by bundle identifier, or by
+// executable name if no identifier is set) already exists for the same OS in the passed array
+- (BOOL)permittedProcess:(NSDictionary *)presetProcess existsInProcesses:(NSArray *)processes {
+    NSString *identifier = presetProcess[@"identifier"];
+    NSString *executable = presetProcess[@"executable"];
+    NSInteger os = [presetProcess[@"os"] longValue];
+    for (NSDictionary *process in processes) {
+        if ([process[@"os"] longValue] != os) {
+            continue;
+        }
+        if (identifier.length > 0) {
+            if ([process[@"identifier"] caseInsensitiveCompare:identifier] == NSOrderedSame) {
+                return YES;
+            }
+        } else if (executable.length > 0 &&
+                   [process[@"executable"] caseInsensitiveCompare:executable] == NSOrderedSame) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+// Returns YES if the two permitted processes represent the same application: same OS, same bundle
+// identifier and same executable name, and — when a team identifier is set on both processes — the
+// same team identifier. Used to detect a preset process which is available both as a hardcoded
+// preset and (possibly customized) in the local client settings.
+- (BOOL)permittedProcess:(NSDictionary *)process isSameAppAs:(NSDictionary *)otherProcess {
+    if ([process[@"os"] longValue] != [otherProcess[@"os"] longValue]) {
+        return NO;
+    }
+    NSString *identifier = process[@"identifier"] ?: @"";
+    NSString *otherIdentifier = otherProcess[@"identifier"] ?: @"";
+    if ([identifier caseInsensitiveCompare:otherIdentifier] != NSOrderedSame) {
+        return NO;
+    }
+    NSString *executable = process[@"executable"] ?: @"";
+    NSString *otherExecutable = otherProcess[@"executable"] ?: @"";
+    if ([executable caseInsensitiveCompare:otherExecutable] != NSOrderedSame) {
+        return NO;
+    }
+    // Only discriminate by team identifier if it is set on both processes
+    NSString *teamIdentifier = process[@"teamIdentifier"] ?: @"";
+    NSString *otherTeamIdentifier = otherProcess[@"teamIdentifier"] ?: @"";
+    if (teamIdentifier.length > 0 && otherTeamIdentifier.length > 0 &&
+        [teamIdentifier caseInsensitiveCompare:otherTeamIdentifier] != NSOrderedSame) {
+        return NO;
+    }
+    return YES;
+}
+
+
 - (IBAction)chooseProhibitedApplication:(id)sender {
     // Set the default name for the file and show the panel.
     NSOpenPanel *panel = [NSOpenPanel openPanel];

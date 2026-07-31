@@ -1035,6 +1035,17 @@ static NSString *getUppercaseAdminPasswordHash(void)
                                                                      configKeyRef:&configKey
                                                           initializeContainedKeys:YES];
 
+    // If the loaded configuration didn't contain permitted processes, don't persist inactive preset
+    // permitted processes which were only injected above by merging in default values (e.g. when
+    // reverting to default settings). Inactive preset processes are added to a configuration only
+    // when explicitly chosen with the "Add Preset Process" feature. Permitted processes actually
+    // contained in the loaded config (including a deliberately deactivated preset process) are kept.
+    if (loadedSebPreferencesDict[@"permittedProcesses"] == nil && sebPreferencesDict[@"permittedProcesses"]) {
+        NSMutableDictionary *mutablePreferencesDict = sebPreferencesDict.mutableCopy;
+        mutablePreferencesDict[@"permittedProcesses"] = [preferences permittedProcessesByRemovingInactivePresets:sebPreferencesDict[@"permittedProcesses"]];
+        sebPreferencesDict = mutablePreferencesDict.copy;
+    }
+
     [preferences storeSEBDictionary:sebPreferencesDict];
 
     // Migration for macOS AAC settings for configs which predate the lockdownModePolicy setting.

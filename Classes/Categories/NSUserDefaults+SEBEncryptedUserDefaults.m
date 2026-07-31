@@ -456,6 +456,73 @@ static NSNumber *_logLevel;
     return filteredPrefsSet;
 }
 
+// Returns the hardcoded preset permitted processes which are set to inactive. These are added to a
+// configuration only when the user explicitly chooses them with the "Add Preset Process" feature
+// (see PrefsApplicationsViewController), so they must not be persisted when they were merely
+// injected by merging in default values (for example when reverting to default settings or opening
+// a config which doesn't contain permitted processes).
+- (NSArray *)inactivePresetPermittedProcesses
+{
+    NSArray *defaultProcesses = [self sebDefaultSettings][@"org_safeexambrowser_SEB_permittedProcesses"];
+    NSMutableArray *inactiveProcesses = [NSMutableArray new];
+    for (NSDictionary *process in defaultProcesses) {
+        if (process[@"active"] != nil && ![process[@"active"] boolValue]) {
+            [inactiveProcesses addObject:process];
+        }
+    }
+    return inactiveProcesses.copy;
+}
+
+
+// Returns YES if the passed permitted process is inactive and matches (same OS and bundle identifier,
+// or executable name when no identifier is set) one of the passed inactive preset permitted processes.
+- (BOOL)isInactivePresetPermittedProcess:(NSDictionary *)process
+                          inactivePresets:(NSArray *)inactivePresets
+{
+    if (process[@"active"] == nil || [process[@"active"] boolValue]) {
+        return NO;
+    }
+    NSString *identifier = process[@"identifier"];
+    NSString *executable = process[@"executable"];
+    NSInteger os = [process[@"os"] longValue];
+    for (NSDictionary *preset in inactivePresets) {
+        if ([preset[@"os"] longValue] != os) {
+            continue;
+        }
+        if (identifier.length > 0) {
+            if ([preset[@"identifier"] caseInsensitiveCompare:identifier] == NSOrderedSame) {
+                return YES;
+            }
+        } else if (executable.length > 0 &&
+                   [preset[@"executable"] caseInsensitiveCompare:executable] == NSOrderedSame) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+// Returns a copy of the passed permitted processes array with inactive preset permitted processes
+// removed. Used when the loaded configuration didn't contain permitted processes, so inactive
+// presets which were merely injected by merging in default values aren't persisted. Permitted
+// processes actually contained in a configuration (including a deliberately deactivated preset
+// process) are kept, because then the array was present in the loaded configuration.
+- (NSArray *)permittedProcessesByRemovingInactivePresets:(NSArray *)permittedProcesses
+{
+    if (![permittedProcesses isKindOfClass:NSArray.class]) {
+        return permittedProcesses;
+    }
+    NSArray *inactivePresets = [self inactivePresetPermittedProcesses];
+    NSMutableArray *filteredProcesses = [NSMutableArray new];
+    for (NSDictionary *process in permittedProcesses) {
+        if (![self isInactivePresetPermittedProcess:process inactivePresets:inactivePresets]) {
+            [filteredProcesses addObject:process];
+        }
+    }
+    return filteredProcesses.copy;
+}
+
+
 // Save imported settings into user defaults (either in private memory or local client shared NSUserDefaults)
 - (void) storeSEBDictionary:(NSDictionary *)sebPreferencesDict
 {
@@ -587,6 +654,11 @@ static NSNumber *_logLevel;
             NSMutableArray *newProcesses = [NSMutableArray new];
             for (NSUInteger i = 0; i < presetProcesses.count; i++) {
                 presetProcess = presetProcesses[i];
+                // Only preset permitted processes marked as active are added automatically.
+                // Inactive presets can be added manually with the "Add Preset Process" button.
+                if (presetProcess[@"active"] && ![presetProcess[@"active"] boolValue]) {
+                    continue;
+                }
                 NSInteger os = [presetProcess[@"os"] longValue];
                 if (os == operatingSystemMacOS) {
                     NSString *bundleID = presetProcess[@"identifier"];
@@ -772,6 +844,19 @@ static NSNumber *_logLevel;
     // Write SEB default value/keys to UserDefaults
     for (NSString *key in defaultSettings) {
         id value = [defaultSettings objectForKey:key];
+        // Don't write inactive preset permitted processes to the default settings: they are not
+        // added to configurations automatically (e.g. when reverting to default settings). Users
+        // can add them manually with the "Add Preset Process" feature (see PrefsApplicationsViewController).
+        if ([key isEqualToString:@"org_safeexambrowser_SEB_permittedProcesses"] &&
+            [value isKindOfClass:[NSArray class]]) {
+            NSMutableArray *activePresetProcesses = [NSMutableArray new];
+            for (NSDictionary *process in (NSArray *)value) {
+                if (process[@"active"] == nil || [process[@"active"] boolValue]) {
+                    [activePresetProcesses addObject:process];
+                }
+            }
+            value = activePresetProcesses.copy;
+        }
         if (value) [self setSecureObject:value forKey:key];
     }
 }
@@ -1036,7 +1121,118 @@ static NSNumber *_logLevel;
                 [newProcesses addObjectsFromArray:processesFromSettings];
                 value = newProcesses.copy;
             }
-            
+
+            // We need to join loaded permitted processes with preset default processes
+            if ([key isEqualToString:@"permittedProcesses"]) {
+                NSDictionary *presetProcess;
+                NSMutableArray *processesFromSettings = ((NSArray *)value).mutableCopy;
+                NSMutableArray *presetProcesses = ((NSArray *)[defaultSettings objectForKey:key]).mutableCopy;
+                NSMutableArray *newProcesses = [NSMutableArray new];
+                for (NSUInteger i = 0; i < presetProcesses.count; i++) {
+                    presetProcess = presetProcesses[i];
+                    // Only preset permitted processes marked as active are added automatically.
+                    // Inactive presets can be added manually with the "Add Preset Process" button.
+                    if (presetProcess[@"active"] && ![presetProcess[@"active"] boolValue]) {
+                        continue;
+                    }
+                    NSInteger os = [presetProcess[@"os"] longValue];
+                    if (os == operatingSystemMacOS) {
+                        NSString *bundleID = presetProcess[@"identifier"];
+                        NSString *executable = presetProcess[@"executable"];
+                        NSArray *matches;
+                        if (bundleID.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" identifier ==[cd] %@", bundleID];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                        } else {
+                            // If the permitted process doesn't indicate a bundle ID, check for duplicate executable
+                            if (executable.length > 0) {
+                                NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                                matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                                NSDictionary *matchingProcess;
+                                for (NSDictionary *processFromSettings in matches) {
+                                    NSString *processFromSettingsBundleID = processFromSettings[@"identifier"];
+                                    if (processFromSettingsBundleID.length == 0) {
+                                        // we join processes with same executable only if they both
+                                        // don't specify a bundle ID
+                                        matchingProcess = processFromSettings;
+                                        break;
+                                    }
+                                }
+                                if (matchingProcess) {
+                                    matches = [NSArray arrayWithObject:matchingProcess];
+                                }
+                            }
+                        }
+                        if (matches.count > 0) {
+                            NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                            [processesFromSettings removeObject:matchingProcessFromSettings];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                            NSString *description = matchingProcessFromSettings[@"description"];
+                            if (description.length == 0) {
+                                [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                            }
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowNetworkAccess"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"runInBackground"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"teamIdentifier"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+
+                            [newProcesses addObject:matchingProcessFromSettings];
+                        } else {
+                            [newProcesses addObject:presetProcess];
+                        }
+                    }
+                    if (os == operatingSystemWin) {
+                        NSString *originalName = presetProcess[@"originalName"];
+                        NSString *executable = presetProcess[@"executable"];
+                        NSArray *matches;
+                        if (originalName.length > 0) {
+                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@" originalName ==[cd] %@", originalName];
+                            matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                        } else {
+                            // If the permitted process doesn't indicate an original name, check for duplicate executable
+                            if (executable.length > 0) {
+                                NSPredicate *predicate = [NSPredicate predicateWithFormat:@" executable ==[cd] %@", executable];
+                                matches = [processesFromSettings filteredArrayUsingPredicate:predicate];
+                                NSDictionary *matchingProcess;
+                                for (NSDictionary *processFromSettings in matches) {
+                                    NSString *processFromSettingsOriginalName = processFromSettings[@"originalName"];
+                                    if (processFromSettingsOriginalName.length == 0) {
+                                        // we join processes with same executable only if they both
+                                        // don't specify an original name
+                                        matchingProcess = processFromSettings;
+                                        break;
+                                    }
+                                }
+                                if (matchingProcess) {
+                                    matches = [NSArray arrayWithObject:matchingProcess];
+                                }
+                            }
+                        }
+                        if (matches.count > 0) {
+                            NSMutableDictionary *matchingProcessFromSettings = [matches[0] mutableCopy];
+                            [processesFromSettings removeObject:matchingProcessFromSettings];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"executable"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowedExecutables"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"active"];
+                            NSString *description = matchingProcessFromSettings[@"description"];
+                            if (description.length == 0) {
+                                [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"description"];
+                            }
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"allowNetworkAccess"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"runInBackground"];
+                            [matchingProcessFromSettings setNonexistingValueInDictionary:presetProcess forKey:@"strongKill"];
+
+                            [newProcesses addObject:matchingProcessFromSettings];
+                        } else {
+                            [newProcesses addObject:presetProcess];
+                        }
+                    }
+                }
+                [newProcesses addObjectsFromArray:processesFromSettings];
+                value = newProcesses.copy;
+            }
+
             [completedSettings setValue:value forKey:key];
         }
     }

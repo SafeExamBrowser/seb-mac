@@ -1137,6 +1137,19 @@
 
                   ], // prohibitedProcesses end
 
+              @"permittedProcesses" :
+                  @[
+                      @{
+                          @"active" : @NO,
+                          @"allowNetworkAccess" : @YES,
+                          @"description" : @"Cisco Secure Client might be necessary for some VPN environments. Please verify if this preset works with the current version.",
+                          @"executable" : @"Cisco Secure Client",
+                          @"identifier" : @"com.cisco.secureclient.gui",
+                          @"runInBackground" : @YES,
+                          @"teamIdentifier" : @"DE8Y96K9QP",
+                      },
+                  ], // permittedProcesses end
+              
           }, // rootSettings end
 
     }; // defaultSettings end

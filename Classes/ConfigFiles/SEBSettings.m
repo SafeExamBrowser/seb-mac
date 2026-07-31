@@ -1199,12 +1199,12 @@ static SEBSettings *sharedSEBSettings = nil;
                   @"executable" : @"",
                   @"iconInTaskbar" : @YES,
                   @"identifier" : @"",
-                  @"teamIdentifier" : @"",
                   @"originalName" : @"",
                   @"os" : @0,
                   @"path" : @"",
                   @"runInBackground" : @NO,
                   @"strongKill" : @NO,
+                  @"teamIdentifier" : @"",
                   @"title" : @"",
               },
               
