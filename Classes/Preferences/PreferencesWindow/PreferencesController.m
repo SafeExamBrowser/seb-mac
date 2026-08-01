@@ -1036,6 +1036,14 @@
     self.browserController.browserExamKey = nil;
     self.browserController.configKey = nil;
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // The "show menu bar" setting was removed from the UI; the menu bar is always hidden. When using
+    // Save As, force showMenuBar off in the saved config so it also hides the menu bar when opened in
+    // an older SEB version. Only done for Save As, as it changes the Config Key. (The oldSettings
+    // snapshot above restores the previous value if saving is canceled.)
+    if (saveAs) {
+        [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    }
 //    // Force recalculating Config Key
 //    [preferences setSecureObject:[NSData data] forKey:@"org_safeexambrowser_configKey"];
 
