@@ -6778,6 +6778,17 @@ conditionallyForWindow:(NSWindow *)window
             systemPreferencesOpenedForScreenRecordingPermissions = NO;
             [NSApp abortModal];
         }
+
+        // When SecurityAgent (the system's authorization dialog) becomes active,
+        // e.g. asking for credentials to access the keychain when connecting to a
+        // Wi-Fi network, SEB must not take focus back, otherwise the user can't
+        // interact with the system dialog. Only skip regaining active status if
+        // the process genuinely is Apple-signed system software.
+        if ([launchedApp.bundleIdentifier isEqualToString:securityAgentBundleID] &&
+            [self signedSystemExecutable:launchedApp.processIdentifier]) {
+            DDLogDebug(@"%s: Genuine Apple-signed SecurityAgent became active, not regaining active status / forcing SEB windows to the front", __FUNCTION__);
+            return;
+        }
     }
 
     // In AAC (Automatic Assessment Configuration) mode the system enforces the

@@ -683,6 +683,7 @@ static NSString __unused *KeyBindingsPath = @"/KeyBindings/DefaultKeyBinding.dic
 static NSString __unused *cachedTouchBarGlobalSettingsKey = @"cachedTouchBarGlobalSettingsKey";
 static NSString __unused *cachedTouchBarFnDictionarySettingsKey = @"cachedTouchBarFnDictionarySettingsKey";
 static NSString __unused *systemPreferencesBundleID = @"com.apple.systempreferences";
+static NSString __unused *securityAgentBundleID = @"com.apple.SecurityAgent";
 static NSString __unused *pathToKeyboardPreferences = @"/System/Library/PreferencePanes/Keyboard.prefPane";
 static NSString __unused *pathToSecurityPrivacyPreferences = @"x-apple.systempreferences:com.apple.preference.security?Privacy";
 static NSString __unused *DictationProcess = @"DictationIM";
