@@ -205,17 +205,32 @@
 
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen
 {
-    [self setCalculatedFrameOnScreen:self.screen mainBrowserWindow:NO temporaryWindow:NO];
+    [self setCalculatedFrameOnScreen:screen mainBrowserWindow:NO temporaryWindow:NO];
 }
 
 - (void) setCalculatedFrameOnScreen:(NSScreen *)screen mainBrowserWindow:(BOOL)mainBrowserWindow temporaryWindow:(BOOL)temporaryWindow
 {
-    if (mainBrowserWindow || temporaryWindow) {
+    // Robustly detect the main browser window. The mainBrowserWindow argument is only passed
+    // as YES when the window is first opened; on later recalculations (screen parameter changes,
+    // mirroring termination etc.) it is NO. We therefore must not rely on the weak
+    // browserController.mainBrowserWindow property alone (it can be nil or not yet set at these
+    // times), which would make the main window fall through to the "another browser window"
+    // branch and get sized like a newBrowserWindowByLink window on the wrong screen. The web
+    // view's isMainBrowserWebView flag is set once at creation and is the reliable signal.
+    BOOL isMainBrowserWindow = mainBrowserWindow || self.webView.isMainBrowserWebView || self == self.browserController.mainBrowserWindow;
+    BOOL isTemporaryWindow = temporaryWindow || (self.webView && self.webView == self.browserController.temporaryWebView);
+    if (isMainBrowserWindow || isTemporaryWindow) {
+        screen = _browserController.mainScreen;
+    } else if (!screen || screen.inactive) {
+        // Additional (new) browser windows are created by AppKit on the screen carrying the
+        // menu bar, which may be a display SEB isn't allowed to use (flagged inactive). Laying
+        // the window out there would make it briefly appear on the wrong screen before the
+        // screen watcher relocates it. Open it on the allowed main screen right away instead.
         screen = _browserController.mainScreen;
     }
     if (screen) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-        
+
         // Get frame of the usable screen (considering if menu bar or SEB dock is enabled)
         NSRect screenFrame = [_browserController visibleFrameForScreen:screen];
 
@@ -223,7 +238,7 @@
         NSString *windowWidth;
         NSString *windowHeight;
         NSInteger windowPositioning;
-        if (mainBrowserWindow || self == self.browserController.mainBrowserWindow) {
+        if (isMainBrowserWindow) {
             // This is the main browser window
             if (_isFullScreen) {
                 // Full screen windows cover the whole screen
@@ -235,7 +250,7 @@
                 windowHeight = [preferences secureStringForKey:@"org_safeexambrowser_SEB_mainBrowserWindowHeight"];
                 windowPositioning = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_mainBrowserWindowPositioning"];
             }
-        } else if (temporaryWindow || (self.webView && self.webView == self.browserController.temporaryWebView)) {
+        } else if (isTemporaryWindow) {
             // This is a temporary browser window used for downloads with authentication
             windowWidth = @"1050";
             windowHeight = @"100%";

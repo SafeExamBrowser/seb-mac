@@ -330,11 +330,14 @@ void DisposeWindow (
 
         
         if (movingWindowBack) {
-            NSRect recalculatedFrame = NSMakeRect(newFrame.origin.x, newFrame.origin.y, self.window.frame.size.width, newFrame.size.height);
-            [self.window setFrame:recalculatedFrame display:YES animate:YES];
+            // Recalculate the full frame on the allowed screen so the window keeps its configured
+            // size and positioning (mainBrowserWindow* or newBrowserWindowByLink*), instead of
+            // being forced to the screen's left edge. This is done without animation so a window
+            // that briefly landed on a disallowed screen isn't seen sliding across from it.
+            [self.browserWindow setCalculatedFrameOnScreen:newScreen];
             DDLogDebug(@"Moved browser window back to previous screen, frame: %@",
-                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(recalculatedFrame)));
-            
+                       (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(self.window.frame)));
+
         } else {
             NSRect oldWindowFrame = self.window.frame;
             NSRect newWindowFrame = oldWindowFrame;
@@ -356,7 +359,7 @@ void DisposeWindow (
             DDLogDebug(@"Adjusted window frame for new screen to: %@",
                        (NSDictionary *)CFBridgingRelease(CGRectCreateDictionaryRepresentation(newWindowFrame)));
         }
-        
+
         // If this is the main browser window, check if it's still on the same screen as when the dock was opened
         if (!movingWindowBack && self.window == self.browserController.mainBrowserWindow) {
             // Post a notification that the main screen changed
