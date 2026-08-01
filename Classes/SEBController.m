@@ -1580,11 +1580,9 @@ bool insideMatrix(void);
     if (locationServicesNeeded) {
         // Location Services not authorized: show explanation and action item instead of empty network lists
         NSString *explanation;
-        if (_isAACEnabled || ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
-            explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.", nil);
-        } else {
-            explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names.", nil);
-        }
+        // The menu bar is always hidden, so Wi-Fi network names are shown in the SEB Dock and
+        // Location Services must be granted in System Settings after closing SEB.
+        explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.", nil);
         NSMenuItem *explanationItem = [[NSMenuItem alloc] initWithTitle:explanation action:nil keyEquivalent:@""];
         explanationItem.enabled = NO;
         [menu addItem:explanationItem];
@@ -5594,8 +5592,10 @@ bool insideMatrix(void){
         windowLevel = NSNormalWindowLevel;
     }
 
-    BOOL excludeMenuBar = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
-    
+    // The menu bar is always hidden now (the "show menu bar" setting was removed), so the covering
+    // background windows always include the menu bar area.
+    BOOL excludeMenuBar = NO;
+
     NSArray *backgroundCoveringWindows = [self fillScreensWithCoveringWindows:coveringWindowBackground windowLevel:windowLevel excludeMenuBar:excludeMenuBar];
     if (!self.capWindows) {
         self.capWindows = [NSMutableArray arrayWithArray:backgroundCoveringWindows];	// array for storing our cap (covering) background windows
@@ -7183,7 +7183,9 @@ conditionallyForWindow:(NSWindow *)window
     // Switch to kiosk mode by setting the proper presentation options
     // Load preferences from the system's user defaults database
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
-    BOOL showMenuBar = overrideShowMenuBar || [preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"];
+    // The persistent "show menu bar" setting has been removed: the menu bar is always hidden during a
+    // session. It can still be shown temporarily via overrideShowMenuBar (e.g. while settings are open).
+    BOOL showMenuBar = overrideShowMenuBar;
     NSApplicationPresentationOptions presentationOptions;
     
         if (allowSwitchToThirdPartyApps) {
@@ -7459,23 +7461,23 @@ conditionallyForWindow:(NSWindow *)window
             [rightDockItems addObject:dockItemShutDown];
         }
         
-        if (_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) {
-            SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
+        // The menu bar is always hidden, so the battery status is always shown in the SEB Dock
+        // (if this Mac has an internal battery).
+        SEBDockItemBattery *dockItemBattery = sebDockItemBattery;
 
-            // Only show the battery Dock item if this Mac actually has an
-            // internal battery (query the hardware via the battery controller,
-            // not the Dock item's own default level property).
-            if ([self.batteryController batteryLevel] != -1.0) {
-                [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
-                [dockItemBattery startDisplayingBattery];
-                [rightDockItems addObject:dockItemBattery];
-                [self startBatteryMonitoringWithDelegate:dockItemBattery];
-            }
+        // Only show the battery Dock item if this Mac actually has an
+        // internal battery (query the hardware via the battery controller,
+        // not the Dock item's own default level property).
+        if ([self.batteryController batteryLevel] != -1.0) {
+            [dockItemBattery setToolTip:NSLocalizedString(@"Battery Status",nil)];
+            [dockItemBattery startDisplayingBattery];
+            [rightDockItems addObject:dockItemBattery];
+            [self startBatteryMonitoringWithDelegate:dockItemBattery];
         }
 
-        // WiFi control - displayed when menu bar is hidden or in AAC mode, unless hideWiFiControls is set
-        if ((_isAACEnabled || ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_showMenuBar"]) &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideWiFiControls"]) {
+        // WiFi control - the menu bar is always hidden, so it's shown in the SEB Dock unless
+        // hideWiFiControls is set
+        if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_hideWiFiControls"]) {
             sebDockItemWiFi = [[SEBDockItemWiFi alloc] init];
             sebDockItemWiFi.wifiActionDelegate = self;
             [sebDockItemWiFi startDisplayingWiFi];
