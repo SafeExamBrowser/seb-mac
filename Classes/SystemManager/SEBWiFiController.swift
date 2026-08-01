@@ -192,10 +192,9 @@ import CocoaLumberjackSwift
             return "SEBWiFiIcon_100"
         } else if rssi >= -60 {
             return "SEBWiFiIcon_66"
-        } else if rssi >= -70 {
-            return "SEBWiFiIcon_33"
         } else {
-            return "SEBWiFiIcon_0"
+            // Still connected, but with a weak signal: always show at least one bar.
+            return "SEBWiFiIcon_33"
         }
     }
 }
