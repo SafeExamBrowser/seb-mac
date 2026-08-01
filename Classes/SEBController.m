@@ -5673,6 +5673,28 @@ bool insideMatrix(void){
             [window setSharingType: NSWindowSharingNone];  //don't allow other processes to read window contents
         }
         [window newSetLevel:windowLevel];
+        // On multi-display setups with macOS "Displays have separate Spaces" enabled (and especially
+        // under AAC Assessment Mode), a covering window otherwise gets bound to a single display's
+        // Space. That can leave some displays uncovered — including the display SEB runs on — and, for
+        // the lockdown alert, the dismiss UI stranded on an inactive Space (invisible, so the lock
+        // can't be dismissed). Letting the covering windows join all Spaces keeps each one visible on
+        // its own screen regardless of which Space is currently active there. This applies to all
+        // covering window kinds (kiosk black background, lockdown alert, modal alert).
+        ((NSWindow *)window).collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces |
+                                                  NSWindowCollectionBehaviorStationary |
+                                                  NSWindowCollectionBehaviorFullScreenAuxiliary;
+        // Explicitly position the covering window on its screen using GLOBAL coordinates. The window
+        // was created via -initWithContentRect:…screen: with a zeroed origin, relying on the old
+        // behaviour of interpreting the rect relative to the given screen. On current macOS that no
+        // longer reliably places the window on non-main screens — they end up at the global origin
+        // (0,0), i.e. all stacked on the menu-bar display, leaving the other displays (including the
+        // one SEB runs on) uncovered. Setting the frame to the screen's global frame fixes this and
+        // is a no-op on the main screen / single-display setups (whose origin is already (0,0)).
+        NSRect coveringFrame = iterScreen.frame;
+        if (excludeMenuBar && (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_10 || iterScreen == screens[0])) {
+            coveringFrame.size.height -= iterScreen.menuBarHeight;
+        }
+        [((NSWindow *)window) setFrame:coveringFrame display:NO];
         //[window orderBack:self];
         [coveringWindows addObject: window];
         NSView *superview = [window contentView];
@@ -5744,6 +5766,14 @@ bool insideMatrix(void){
     [window setReleasedWhenClosed:YES];
     [window setBackgroundColor:[NSColor orangeColor]];
     [window newSetLevel:NSScreenSaverWindowLevel];
+    // Position the window on its (inactive) screen using GLOBAL coordinates and let it join all
+    // Spaces, so it reliably covers that screen regardless of which display carries the menu bar or
+    // which Space is active — same fix as the lockdown/background covering windows. The window was
+    // created with a zeroed origin, which on current macOS no longer places it on a non-main screen.
+    [window setFrame:screen.frame display:NO];
+    window.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces |
+                                NSWindowCollectionBehaviorStationary |
+                                NSWindowCollectionBehaviorFullScreenAuxiliary;
     NSView *superview = [window contentView];
     [superview addSubview:capview];
     CapWindowController *capWindowController = [[CapWindowController alloc] initWithWindow:window];
@@ -5807,8 +5837,17 @@ bool insideMatrix(void){
         if (self.lockdownWindows.count > 0) {
             DDLogDebug(@"Adjusting lockdown windows");
             NSDate *originalDidLockSEBTime = self.didLockSEBTime;
+            // End the modal session for the covering window that's about to be closed, rebuild the
+            // covering windows on the currently connected screens, then restart the modal session on
+            // the new UI-hosting window. Otherwise the modal session keeps pointing at the now-closed
+            // window and the rebuilt lockdown UI isn't shown / can't be used to unlock after a display
+            // was connected or disconnected while SEB is locked.
+            [NSApp endModalSession:lockdownModalSession];
             [self closeCoveringWindows:self.lockdownWindows];
             [self openCoveringWindows];
+            NSAccessibilityPostNotification(_sebLockedViewController.view.window, NSAccessibilityFocusedWindowChangedNotification);
+            lockdownModalSession = [NSApp beginModalSessionForWindow:self.lockdownWindows[0]];
+            [NSApp runModalSession:lockdownModalSession];
             self.didLockSEBTime = originalDidLockSEBTime;
             DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
         }
@@ -6559,6 +6598,19 @@ conditionallyForWindow:(NSWindow *)window
     self.lockdownWindows = [self fillScreensWithCoveringWindows:coveringWindowLockdownAlert
                                                     windowLevel:NSScreenSaverWindowLevel
                                                  excludeMenuBar:false];
+    // The lockdown alert UI (password field etc.) and the modal session use lockdownWindows[0],
+    // which is created in [NSScreen screens] order (index 0 = the menu-bar display). On a
+    // multi-display setup that may not be the display SEB runs on. Move the covering window that's
+    // on SEB's main screen to the front so the UI appears where the exam is shown. (This relies on
+    // the covering windows now being correctly positioned per-screen and joining all Spaces.)
+    for (NSUInteger i = 1; i < self.lockdownWindows.count; i++) {
+        NSWindow *window = self.lockdownWindows[i];
+        if (self.mainScreen && NSEqualRects(window.frame, self.mainScreen.frame)) {
+            [self.lockdownWindows removeObjectAtIndex:i];
+            [self.lockdownWindows insertObject:window atIndex:0];
+            break;
+        }
+    }
     NSWindow *coveringWindow = self.lockdownWindows[0];
     NSView *coveringView = coveringWindow.contentView;
     [coveringView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
