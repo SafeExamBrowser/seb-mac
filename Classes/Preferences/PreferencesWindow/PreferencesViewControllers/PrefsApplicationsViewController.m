@@ -543,7 +543,7 @@
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowOpenAndSavePanel"];
     [preferences setSecureBool:NO forKey:@"org_safeexambrowser_SEB_allowShareSheet"];
     
-    if (![self checkSettingsForMinMacOSVersionMajor:12 minor:0 patch:1]) {
+    if (![self settingsRequireMinMacOSVersionMajor:12 minor:0 patch:1]) {
         [preferences setSecureBool:YES forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberCheckFull"];
         [preferences setSecureInteger:12 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMajor"];
         [preferences setSecureInteger:0 forKey:@"org_safeexambrowser_SEB_allowMacOSVersionNumberMinor"];
