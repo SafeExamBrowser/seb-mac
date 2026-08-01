@@ -5897,10 +5897,36 @@ conditionallyForWindow:(NSWindow *)window
              [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_elevateWindowLevels"],
              _isAACEnabled,
              _wasAACEnabled);
+    // Center the alert on SEB's screen. NSAlert -runModal is application-modal and AppKit centers
+    // it on the screen carrying the menu bar, which on a multi-display setup can be a display SEB
+    // isn't running on (so the alert appears off on the wrong screen). Position it on the parent
+    // window's screen (falling back to the main screen) so it's centered where the exam is shown.
+    // The deferred re-centering wins over AppKit's own centering, which happens when the modal
+    // window is ordered front inside -runModal.
+    NSScreen *alertScreen = window.screen ?: self.mainScreen;
+    [alert layout];
+    [self centerWindow:alert.window onScreen:alertScreen];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self centerWindow:alert.window onScreen:alertScreen];
+    });
     NSModalResponse answer = [alert runModal];
     if (handler) {
         handler(answer);
     }
+}
+
+
+// Center a window horizontally and vertically on the given screen's visible frame
+- (void) centerWindow:(NSWindow *)windowToCenter onScreen:(NSScreen *)screen
+{
+    if (!windowToCenter || !screen) {
+        return;
+    }
+    NSRect screenFrame = screen.visibleFrame;
+    NSRect windowFrame = windowToCenter.frame;
+    NSPoint origin = NSMakePoint(screenFrame.origin.x + (screenFrame.size.width - windowFrame.size.width) / 2,
+                                 screenFrame.origin.y + (screenFrame.size.height - windowFrame.size.height) / 2);
+    [windowToCenter setFrameOrigin:origin];
 }
 
 
