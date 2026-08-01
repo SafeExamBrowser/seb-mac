@@ -5835,7 +5835,12 @@ bool insideMatrix(void){
 // Called when main browser window changed screen
 - (void) changeMainScreen: (id)sender
 {
-    [self.dockController moveDockToScreen:self.browserController.mainBrowserWindow.screen];
+    // Follow the main browser window to its screen. The mainBrowserWindow property is weak and
+    // its screen can momentarily be nil (e.g. before the window is pinned to the main screen);
+    // moving the dock to a nil screen would collapse it to a zero frame on the wrong display,
+    // so fall back to the authoritative main screen in that case.
+    NSScreen *screen = self.browserController.mainBrowserWindow.screen ?: self.mainScreen;
+    [self.dockController moveDockToScreen:screen];
 }
 
 
