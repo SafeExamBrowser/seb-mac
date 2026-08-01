@@ -8104,6 +8104,7 @@ conditionallyForWindow:(NSWindow *)window
 
 
 - (IBAction) openPreferences:(id)sender {
+    DDLogInfo(@"%s", __FUNCTION__);
     if (!(_screenProctoringController && _screenProctoringController.sessionIsClosing)) {
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         if (lockdownWindows.count == 0 && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowPreferencesWindow"]) {
@@ -8149,11 +8150,12 @@ conditionallyForWindow:(NSWindow *)window
                 }
                 
                 // Show preferences window
+                DDLogInfo(@"%s: Open Settings window.", __FUNCTION__);
                 [self.preferencesController openPreferencesWindow];
                 
             } else {
                 // Show preferences window
-                DDLogDebug(@"openPreferences: Preferences already open, just show Window");
+                DDLogInfo(@"%s: Settings already open, just show Window", __FUNCTION__);
                 // Release preferences window so buttons get enabled properly for the local client settings mode
                 [self.preferencesController releasePreferencesWindow];
                 // Re-initialize and open preferences window
