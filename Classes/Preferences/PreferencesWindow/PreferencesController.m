@@ -199,7 +199,8 @@
 // Public method called to open the preferences window
 - (void)openPreferencesWindow
 {
-    if (![[MBPreferencesController sharedController] modules]) {
+    DDLogInfo(@"%s", __FUNCTION__);
+   if (![[MBPreferencesController sharedController] modules]) {
         [self initPreferencesWindow];
     }
 
@@ -238,6 +239,7 @@
 // Method called to reopen the closed preferences window programmatically
 - (void)reopenPreferencesWindow
 {
+    DDLogDebug(@"%s", __FUNCTION__);
     // Post a notification that it was requested to re-open the preferences window
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"showPreferencesWindow" object:self];
