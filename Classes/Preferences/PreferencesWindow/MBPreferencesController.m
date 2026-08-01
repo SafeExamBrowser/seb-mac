@@ -64,7 +64,7 @@ NSString *MBPreferencesSelectionAutosaveKey = @"MBPreferencesSelection";
             prefsWindow.toolbarStyle = NSWindowToolbarStylePreference;
         }
         self.window = prefsWindow;
-        
+
         [self _setupToolbar];
     }
 }
@@ -146,12 +146,17 @@ static MBPreferencesController *sharedPreferencesController = nil;
         [defaultModule willBeDisplayed];
     }
 
+    // NOTE: On a multi-display setup where the menu bar is on a display SEB isn't running on, and
+    // macOS "Displays have separate Spaces" is enabled, the preferences window opens on the menu-bar
+    // display instead of SEB's screen. The window server binds the window to that display's Space
+    // when it's first shown and overrides subsequent frame changes, so this can't be reliably
+    // corrected here. Accepted as a known macOS limitation.
 	[self.window center];
-    
+
     NSPoint topLeftPoint;
     topLeftPoint.x = self.window.frame.origin.x;
     topLeftPoint.y = self.window.screen.frame.size.height - 44;
-    
+
     [self.window setFrameTopLeftPoint:topLeftPoint];
 
 	[super showWindow:sender];
@@ -315,7 +320,7 @@ static MBPreferencesController *sharedPreferencesController = nil;
 	newWindowFrame.origin = [self.window frame].origin;
 	newWindowFrame.origin.y -= newWindowFrame.size.height - [self.window frame].size.height;
     _newWindowSize = newWindowFrame.size;
-    
+
 	[self.window setFrame:newWindowFrame display:YES animate:YES];
 	
 	[[self.window toolbar] setSelectedItemIdentifier:[module identifier]];
