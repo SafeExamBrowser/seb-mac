@@ -22,4 +22,7 @@
 // Exposes the config-import path to the (DEBUG-only) lockdownModePolicy migration
 // test-support shim; see SEBLockdownModePolicyMigrationTestSupport.swift.
 #import "SEBConfigFileManager.h"
+// Exposes the server-trust authorization decision to the (DEBUG-only) trust
+// test-support shim; see SEBBrowserControllerTrustTestSupport.swift.
+#import "SEBBrowserController+Testing.h"
 #endif

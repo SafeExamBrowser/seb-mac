@@ -47,7 +47,6 @@ static NSString * const authenticationUsername = @"username";
 static NSString * const authenticationPassword = @"password";
 
 @interface SEBBrowserController () <CustomHTTPProtocolDelegate> {
-    NSMutableArray *authorizedHosts;
     NSMutableArray *previousAuthentications;
 }
 
@@ -749,7 +748,6 @@ static NSString *urlStrippedFragment(NSURL* url)
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBCertServices *sharedCertService = [SEBCertServices sharedInstance];
-    authorizedHosts = [NSMutableArray new];
     previousAuthentications = [NSMutableArray new];
     pinEmbeddedCertificates = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_pinEmbeddedCertificates"];
 
@@ -1373,6 +1371,227 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
     [self didReceiveAuthenticationChallenge:challenge completionHandler:completionHandler];
 }
 
+// Decide whether a server trust authentication challenge should be authorized when
+// using embedded certificates. This is a PURE function of the passed-in server
+// trust, host/port and embedded certificate stores: it holds NO cross-connection
+// state, so a previously successful evaluation can never influence a later one.
+// (A host-based fallback that did exactly that was removed, see CWE-295 fix.)
+//
+// Authorization is granted only if EITHER the OS trust evaluation succeeds against
+// the (optionally embedded-cert-extended, or pinned) trust store, OR an embedded
+// TLS/debug cert's public key exactly matches the server leaf's public key and
+// basic validation passes (with the documented debug-cert host/port override).
+//
+// Invariant expected of the callers: debugCertNames is parallel to debugCerts
+// (same count, same order) — SEBCertServices builds them together — and none of
+// the array parameters are nil. The debug-cert override below indexes
+// debugCertNames by the debug cert's position, relying on that correspondence.
++ (BOOL)shouldAuthorizeServerTrust:(SecTrustRef)serverTrust
+                              host:(NSString *)serverHost
+                              port:(NSInteger)serverPort
+                           caCerts:(NSArray *)caCerts
+                          tlsCerts:(NSArray *)tlsCerts
+                        debugCerts:(NSArray *)debugCerts
+                    debugCertNames:(NSArray *)debugCertNames
+           pinEmbeddedCertificates:(BOOL)pinEmbeddedCertificates
+{
+    BOOL authorized = NO;
+    if (serverTrust)
+    {
+        NSArray *trustStore = nil;
+        NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:caCerts];
+        
+        if (!pinEmbeddedCertificates)
+        {
+            // Embedded SSL/TLS certs extend system trust store if
+            // not pinned (these would typically be self-signed)
+            [embeddedCertificates addObjectsFromArray:tlsCerts];
+            
+            // Also add embedded debug certs, which we also use to extend
+            // the system trust store (note: they might fail the first check
+            // because of expiration or common name/alternative names not
+            // matching domain
+            [embeddedCertificates addObjectsFromArray:debugCerts];
+        }
+        
+        if (pinEmbeddedCertificates || [embeddedCertificates count])
+        {
+            trustStore = embeddedCertificates;
+        }
+        
+        // If pinned, only embedded CA certs will be in trust store
+        // If !pinned, system trust store is extended by embedded CA and SSL/TLS (including debug) certs
+        SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)trustStore); // If trustStore == nil, use system default
+        SecTrustSetAnchorCertificatesOnly(serverTrust, pinEmbeddedCertificates);
+        
+        SecTrustResultType result;
+        OSStatus status = SecTrustEvaluate(serverTrust, &result);
+        
+#if DEBUG
+        DDLogDebug(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
+#endif
+
+        if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
+        {
+            authorized = YES;
+
+        } else {
+            // Because the CA trust evaluation above failed, we know that the
+            // server's SSL/TLS cert does not chain back to a CA root cert from
+            // any embedded CA root certs (or if it did, it was deemed invalid
+            // on other grounds such as expiration, or required private
+            // intermediate CA certs were not included in caCerts)
+            //
+            // We now need to explicitly handle the case of the user wanting to
+            // pin a (usually self-signed) SSL/TLS cert or use a debug cert which
+            // can be expired or issued for another server domain (in the debug case
+            // we check if the server domain matches the debug cert's "name" field.
+            // For this check, we must have
+            // an embedded SSL/TLS cert whose public key matches the server's
+            // SSL/TLS cert (we compare against the public key because the
+            // server's cert could be re-issued with the same PK but with other
+            // differences)
+            
+            // SECURITY: A previous successful trust evaluation for a
+            // host (or any host of which the new host is a substring)
+            // must NEVER authorize a later failed evaluation. Every TLS
+            // authentication challenge has to independently pass normal
+            // trust evaluation (above) or the explicit public-key pin /
+            // debug-cert check below. There is no host-based fallback.
+            {
+                // Use embedded debug certs if some are available
+                embeddedCertificates = [NSMutableArray arrayWithArray:debugCerts];
+                NSInteger debugCertsCount = embeddedCertificates.count;
+
+                // Add regular TLS certs
+                [embeddedCertificates addObjectsFromArray:tlsCerts];
+                
+                if ([embeddedCertificates count])
+                {
+                    // Index 0 (leaf) is always present
+                    SecCertificateRef serverLeafCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
+                    
+                    if (serverLeafCertificate)
+                    {
+                        NSData *serverLeafCertificateDataDER = CFBridgingRelease(SecCertificateCopyData(serverLeafCertificate));
+                        
+                        if (serverLeafCertificateDataDER)
+                        {
+                            mbedtls_x509_crt serverCert;
+                            mbedtls_x509_crt_init(&serverCert);
+                            
+                            if (mbedtls_x509_crt_parse_der(&serverCert, [serverLeafCertificateDataDER bytes], [serverLeafCertificateDataDER length]) == 0)
+                            {
+#if DEBUG
+                                char infoBuf[2048];
+                                *infoBuf = '\0';
+                                mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &serverCert);
+                                DDLogDebug(@"Server leaf certificate:\n%s", infoBuf);
+                                [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+                                                                           stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
+#endif
+                                unsigned char *pkBuffer;
+                                unsigned int pkBufferSize;
+                                
+                                // We're extracting the SPKI, not just the PK bit string.
+                                // This is an additional level of security. See here:
+                                // https://www.imperialviolet.org/2011/05/04/pinning.html
+                                mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(&pkBuffer, &pkBufferSize);
+                                
+                                unsigned int serverPkBufferSize = pkBufferSize;
+                                unsigned char *serverPkBuffer = malloc(serverPkBufferSize);
+                                
+                                if (serverPkBuffer)
+                                {
+                                    memcpy(serverPkBuffer, pkBuffer, serverPkBufferSize);
+                                    // Now we have the public key bytes in serverPkBuffer
+                                    
+                                    mbedtls_x509_crt tlsList;
+                                    mbedtls_x509_crt_init(&tlsList);
+                                    
+                                    for (NSInteger i = 0; i < [embeddedCertificates count]; i++)
+                                    {
+                                        NSData *tlsData = CFBridgingRelease(SecCertificateCopyData((SecCertificateRef)[embeddedCertificates objectAtIndex:i]));
+                                        
+                                        if (tlsData)
+                                        {
+                                            if (mbedtls_x509_crt_parse_der(&tlsList, [tlsData bytes], [tlsData length]) == 0)
+                                            {
+                                                mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(&pkBuffer, &pkBufferSize);
+                                                
+                                                if (serverPkBufferSize == pkBufferSize)
+                                                {
+                                                    if (memcmp(serverPkBuffer, pkBuffer, serverPkBufferSize) == 0)
+                                                    {
+                                                        // We have an exact PK match with the server cert which
+                                                        // means that we trust this server because it must have
+                                                        // the associated private key to decrypt traffic sent
+                                                        // to it. All that remains to be done is basic validation
+                                                        // such as domain and expiration checks which we let the
+                                                        // OS handle by evaluating a custom trust store.
+                                                        NSArray *array = [NSArray arrayWithObject:[embeddedCertificates objectAtIndex:i]];
+                                                        SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)array);
+                                                        status = SecTrustEvaluate(serverTrust, &result);
+                                                        
+                                                        if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
+                                                        {
+                                                            authorized = YES;
+                                                            // If the cert didn't pass this basic validation
+                                                        } else if (i < debugCertsCount) {
+                                                            // and it is a debug cert, check if server domain (host:port) matches the "name" subkey of this embedded debug cert
+                                                            NSString *debugCertOverrideURLString = debugCertNames[i];
+                                                            
+                                                            // Check if filter expression contains a scheme
+                                                            if (debugCertOverrideURLString.length > 0) {
+                                                                // We can abort if there is no override domain for the cert
+                                                                NSRange scanResult = [debugCertOverrideURLString rangeOfString:@"://"];
+                                                                if (scanResult.location == NSNotFound) {
+                                                                    // Filter expression doesn't contain a scheme, prefix it with a https:// scheme
+                                                                    debugCertOverrideURLString = [NSString stringWithFormat:@"https://%@", debugCertOverrideURLString];
+                                                                    // Convert override domain string to a NSURL
+                                                                }
+                                                                NSURL *debugCertOverrideURL = [NSURL URLWithString:debugCertOverrideURLString];
+                                                                if (debugCertOverrideURL) {
+                                                                    // If certificate doesn't have any correct override domain in its name field, abort
+                                                                    NSString *certHost = debugCertOverrideURL.host;
+                                                                    NSNumber *certPort = debugCertOverrideURL.port;
+#if DEBUG
+                                                                    DDLogDebug(@"Cert host: %@ and port: %@", certHost, certPort);
+#endif
+                                                                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", certHost];
+                                                                    if ([predicate evaluateWithObject:serverHost]) {
+                                                                        // If the server host name matches the one in the debug cert ...
+                                                                        if (!certPort || certPort.integerValue == serverPort) {
+                                                                            // ... and there either is not port indicated in the cert
+                                                                            // or it is same as the one of the server we're connecting to, we accept it
+                                                                            authorized = YES;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    mbedtls_x509_crt_free(&tlsList);
+                                    free(serverPkBuffer);
+                                }
+                            }
+                            
+                            mbedtls_x509_crt_free(&serverCert);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return authorized;
+}
+
+
 - (void)didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler
 {
@@ -1451,210 +1670,20 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
             DDLogVerbose(@"DidReceive other authentication challenge, not using embedded certificates: Default handling");
             completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, NULL);
         } else {
-            BOOL authorized = NO;
             NSURLCredential *credential;
             SecTrustRef serverTrust = challenge.protectionSpace.serverTrust;
             NSString *serverHost = challenge.protectionSpace.host;
             NSInteger serverPort = challenge.protectionSpace.port;
+            SEBCertServices *sc = [SEBCertServices sharedInstance];
 
-            if (serverTrust)
-            {
-                SEBCertServices *sc = [SEBCertServices sharedInstance];
-                
-                NSArray *trustStore = nil;
-                NSMutableArray *embeddedCertificates = [NSMutableArray arrayWithArray:[sc caCerts]];
-                
-                if (!pinEmbeddedCertificates)
-                {
-                    // Embedded SSL/TLS certs extend system trust store if
-                    // not pinned (these would typically be self-signed)
-                    [embeddedCertificates addObjectsFromArray:[sc tlsCerts]];
-                    
-                    // Also add embedded debug certs, which we also use to extend
-                    // the system trust store (note: they might fail the first check
-                    // because of expiration or common name/alternative names not
-                    // matching domain
-                    [embeddedCertificates addObjectsFromArray:[sc debugCerts]];
-                }
-                
-                if (pinEmbeddedCertificates || [embeddedCertificates count])
-                {
-                    trustStore = embeddedCertificates;
-                }
-                
-                // If pinned, only embedded CA certs will be in trust store
-                // If !pinned, system trust store is extended by embedded CA and SSL/TLS (including debug) certs
-                SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)trustStore); // If trustStore == nil, use system default
-                SecTrustSetAnchorCertificatesOnly(serverTrust, pinEmbeddedCertificates);
-                
-                SecTrustResultType result;
-                OSStatus status = SecTrustEvaluate(serverTrust, &result);
-                
-    #if DEBUG
-                DDLogDebug(@"Server host: %@ and port: %ld", serverHost, (long)serverPort);
-    #endif
-
-                if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
-                {
-                    authorized = YES;
-                    if (![authorizedHosts containsObject:serverHost]) {
-                        [authorizedHosts addObject:serverHost];
-                    }
-                    
-                } else {
-                    // Because the CA trust evaluation above failed, we know that the
-                    // server's SSL/TLS cert does not chain back to a CA root cert from
-                    // any embedded CA root certs (or if it did, it was deemed invalid
-                    // on other grounds such as expiration, or required private
-                    // intermediate CA certs were not included in caCerts)
-                    //
-                    // We now need to explicitly handle the case of the user wanting to
-                    // pin a (usually self-signed) SSL/TLS cert or use a debug cert which
-                    // can be expired or issued for another server domain (in the debug case
-                    // we check if the server domain matches the debug cert's "name" field.
-                    // For this check, we must have
-                    // an embedded SSL/TLS cert whose public key matches the server's
-                    // SSL/TLS cert (we compare against the public key because the
-                    // server's cert could be re-issued with the same PK but with other
-                    // differences)
-                    
-                    // First check if not authorized domain is
-                    // a subdomain of a previously trused domain
-                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ contains[c] SELF", serverHost];
-                    NSArray *results = [authorizedHosts filteredArrayUsingPredicate:predicate];
-                    if (results.count > 0) {
-                        authorized = YES;
-                    } else {
-                        // Use embedded debug certs if some are available
-                        embeddedCertificates = [NSMutableArray arrayWithArray:[sc debugCerts]];
-                        NSInteger debugCertsCount = embeddedCertificates.count;
-                        NSArray *debugCertNames = [sc debugCertNames];
-                        
-                        // Add regular TLS certs
-                        [embeddedCertificates addObjectsFromArray:[sc tlsCerts]];
-                        
-                        if ([embeddedCertificates count])
-                        {
-                            // Index 0 (leaf) is always present
-                            SecCertificateRef serverLeafCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0);
-                            
-                            if (serverLeafCertificate)
-                            {
-                                NSData *serverLeafCertificateDataDER = CFBridgingRelease(SecCertificateCopyData(serverLeafCertificate));
-                                
-                                if (serverLeafCertificateDataDER)
-                                {
-                                    mbedtls_x509_crt serverCert;
-                                    mbedtls_x509_crt_init(&serverCert);
-                                    
-                                    if (mbedtls_x509_crt_parse_der(&serverCert, [serverLeafCertificateDataDER bytes], [serverLeafCertificateDataDER length]) == 0)
-                                    {
-    #if DEBUG
-                                        char infoBuf[2048];
-                                        *infoBuf = '\0';
-                                        mbedtls_x509_crt_info(infoBuf, sizeof(infoBuf) - 1, "   ", &serverCert);
-                                        DDLogDebug(@"Server leaf certificate:\n%s", infoBuf);
-                                        [serverLeafCertificateDataDER writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
-                                                                                   stringByAppendingPathComponent:@"last_server.der"] atomically:YES];
-    #endif
-                                        unsigned char *pkBuffer;
-                                        unsigned int pkBufferSize;
-                                        
-                                        // We're extracting the SPKI, not just the PK bit string.
-                                        // This is an additional level of security. See here:
-                                        // https://www.imperialviolet.org/2011/05/04/pinning.html
-                                        mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(&pkBuffer, &pkBufferSize);
-                                        
-                                        unsigned int serverPkBufferSize = pkBufferSize;
-                                        unsigned char *serverPkBuffer = malloc(serverPkBufferSize);
-                                        
-                                        if (serverPkBuffer)
-                                        {
-                                            memcpy(serverPkBuffer, pkBuffer, serverPkBufferSize);
-                                            // Now we have the public key bytes in serverPkBuffer
-                                            
-                                            mbedtls_x509_crt tlsList;
-                                            mbedtls_x509_crt_init(&tlsList);
-                                            
-                                            for (NSInteger i = 0; i < [embeddedCertificates count]; i++)
-                                            {
-                                                NSData *tlsData = CFBridgingRelease(SecCertificateCopyData((SecCertificateRef)[embeddedCertificates objectAtIndex:i]));
-                                                
-                                                if (tlsData)
-                                                {
-                                                    if (mbedtls_x509_crt_parse_der(&tlsList, [tlsData bytes], [tlsData length]) == 0)
-                                                    {
-                                                        mbedtls_x509_private_seb_obtainLastPublicKeyASN1Block(&pkBuffer, &pkBufferSize);
-                                                        
-                                                        if (serverPkBufferSize == pkBufferSize)
-                                                        {
-                                                            if (memcmp(serverPkBuffer, pkBuffer, serverPkBufferSize) == 0)
-                                                            {
-                                                                // We have an exact PK match with the server cert which
-                                                                // means that we trust this server because it must have
-                                                                // the associated private key to decrypt traffic sent
-                                                                // to it. All that remains to be done is basic validation
-                                                                // such as domain and expiration checks which we let the
-                                                                // OS handle by evaluating a custom trust store.
-                                                                NSArray *array = [NSArray arrayWithObject:[embeddedCertificates objectAtIndex:i]];
-                                                                SecTrustSetAnchorCertificates(serverTrust, (__bridge CFArrayRef)array);
-                                                                status = SecTrustEvaluate(serverTrust, &result);
-                                                                
-                                                                if (status == errSecSuccess && (result == kSecTrustResultProceed || result == kSecTrustResultUnspecified))
-                                                                {
-                                                                    authorized = YES;
-                                                                    // If the cert didn't pass this basic validation
-                                                                } else if (i < debugCertsCount) {
-                                                                    // and it is a debug cert, check if server domain (host:port) matches the "name" subkey of this embedded debug cert
-                                                                    NSString *debugCertOverrideURLString = debugCertNames[i];
-                                                                    
-                                                                    // Check if filter expression contains a scheme
-                                                                    if (debugCertOverrideURLString.length > 0) {
-                                                                        // We can abort if there is no override domain for the cert
-                                                                        NSRange scanResult = [debugCertOverrideURLString rangeOfString:@"://"];
-                                                                        if (scanResult.location == NSNotFound) {
-                                                                            // Filter expression doesn't contain a scheme, prefix it with a https:// scheme
-                                                                            debugCertOverrideURLString = [NSString stringWithFormat:@"https://%@", debugCertOverrideURLString];
-                                                                            // Convert override domain string to a NSURL
-                                                                        }
-                                                                        NSURL *debugCertOverrideURL = [NSURL URLWithString:debugCertOverrideURLString];
-                                                                        if (debugCertOverrideURL) {
-                                                                            // If certificate doesn't have any correct override domain in its name field, abort
-                                                                            NSString *certHost = debugCertOverrideURL.host;
-                                                                            NSNumber *certPort = debugCertOverrideURL.port;
-    #if DEBUG
-                                                                            DDLogDebug(@"Cert host: %@ and port: %@", certHost, certPort);
-    #endif
-                                                                            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self LIKE %@", certHost];
-                                                                            if ([predicate evaluateWithObject:serverHost]) {
-                                                                                // If the server host name matches the one in the debug cert ...
-                                                                                if (!certPort || certPort.integerValue == serverPort) {
-                                                                                    // ... and there either is not port indicated in the cert
-                                                                                    // or it is same as the one of the server we're connecting to, we accept it
-                                                                                    authorized = YES;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            
-                                            mbedtls_x509_crt_free(&tlsList);
-                                            free(serverPkBuffer);
-                                        }
-                                    }
-                                    
-                                    mbedtls_x509_crt_free(&serverCert);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            BOOL authorized = [SEBBrowserController shouldAuthorizeServerTrust:serverTrust
+                                                                          host:serverHost
+                                                                          port:serverPort
+                                                                       caCerts:[sc caCerts]
+                                                                      tlsCerts:[sc tlsCerts]
+                                                                    debugCerts:[sc debugCerts]
+                                                                debugCertNames:[sc debugCertNames]
+                                                       pinEmbeddedCertificates:pinEmbeddedCertificates];
             if (authorized)
             {
                 DDLogDebug(@"%s: didReceiveAuthenticationChallenge", __FUNCTION__);
