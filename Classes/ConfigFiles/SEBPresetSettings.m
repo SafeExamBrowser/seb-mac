@@ -1142,11 +1142,13 @@
                       @{
                           @"active" : @NO,
                           @"allowNetworkAccess" : @YES,
-                          @"description" : @"Cisco Secure Client might be necessary for some VPN environments. Please verify if this preset works with the current version.",
-                          @"executable" : @"Cisco Secure Client",
-                          @"identifier" : @"com.cisco.secureclient.gui",
+                          @"description" : @"Cisco AnyConnect might be necessary for some VPN environments and has to be connected before starting SEB. Please verify whether this preset works with the current version.",
+                          @"executable" : @"AnyConnect",
+                          @"iconInTaskbar" : @NO,
+                          @"identifier" : @"com.cisco.anyconnect",
                           @"runInBackground" : @YES,
                           @"teamIdentifier" : @"DE8Y96K9QP",
+                          @"title" : @"Cisco AnyConnect VPN",
                       },
                   ], // permittedProcesses end
               
