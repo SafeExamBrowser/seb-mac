@@ -153,8 +153,29 @@ import CocoaLumberjackSwift
     }
     
     /// Returns true if SEB has Full Disk Access (required to read the TCC database).
+    ///
+    /// We must NOT use `FileManager.isReadableFile(atPath:)` here: it is backed by
+    /// `access(2)`, which only checks POSIX permissions and is not intercepted by TCC
+    /// on macOS 11 and 12 (Apple only made the `access`/`stat` family TCC-aware in
+    /// macOS 13). On those versions it reports the raw POSIX readability of the TCC
+    /// database regardless of the Full Disk Access grant — returning false on macOS 12
+    /// even after FDA is granted (so Retry/relaunch never detect it) and true on
+    /// macOS 11 even without FDA (so the dialog never appears).
+    ///
+    /// Instead we actually open the TCC database and read a byte. `open(2)` is gated
+    /// by TCC on every macOS version that supports Full Disk Access, so it only
+    /// succeeds when FDA has actually been granted.
     @objc public static var hasFullDiskAccess: Bool {
-        FileManager.default.isReadableFile(atPath: "/Library/Application Support/com.apple.TCC/TCC.db")
+        let path = "/Library/Application Support/com.apple.TCC/TCC.db"
+        let fd = open(path, O_RDONLY)
+        guard fd >= 0 else {
+            return false
+        }
+        defer { close(fd) }
+        var byte: UInt8 = 0
+        // read() returns -1 (with errno EPERM) if the read is denied by TCC, 0 at EOF,
+        // or the number of bytes read otherwise. Any non-negative result means access.
+        return read(fd, &byte, 1) >= 0
     }
 
     /// Opens System Settings to the Full Disk Access pane.
