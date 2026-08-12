@@ -83,7 +83,9 @@
 		691CC4131BA134070020D3EC /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2819C468E700CBE69F /* RNEncryptor.m */; };
 		691CC4141BA134070020D3EC /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DFAF2A19C468E700CBE69F /* RNCryptorEngine.m */; };
 		6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */; };
+		FEED0000000000000000B003 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000B001 /* NSColorValueTransformer.h */; };
 		6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */; };
+		FEED0000000000000000B004 /* NSColorValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000B002 /* NSColorValueTransformer.m */; };
 		6921294716F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */; };
 		6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */; };
 		69220709249B9FDA009F8CD1 /* SEBScrollLockIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 69220706249B9FD9009F8CD1 /* SEBScrollLockIcon@3x.png */; };
@@ -1024,7 +1026,9 @@
 		691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBEncryptedUserDefaultsController.h; path = Classes/Preferences/SEBEncryptedUserDefaultsController.h; sourceTree = "<group>"; };
 		691CD9AB1468947E00B43CDC /* SEBEncryptedUserDefaultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEBEncryptedUserDefaultsController.m; path = Classes/Preferences/SEBEncryptedUserDefaultsController.m; sourceTree = "<group>"; };
 		6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoolValueTransformer.h; sourceTree = "<group>"; };
+		FEED0000000000000000B001 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoolValueTransformer.m; sourceTree = "<group>"; };
+		FEED0000000000000000B002 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
 		6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsEmptyCollectionValueTransformer.h; sourceTree = "<group>"; };
 		6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsEmptyCollectionValueTransformer.m; sourceTree = "<group>"; };
 		69220706249B9FD9009F8CD1 /* SEBScrollLockIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SEBScrollLockIcon@3x.png"; path = "Resources/Icons/Dock/SEBScrollLockIcon@3x.png"; sourceTree = "<group>"; };
@@ -2221,7 +2225,9 @@
 				6986652C16DAE184009C0226 /* SEBWindowSizeValueTransformer.h */,
 				6986652D16DAE184009C0226 /* SEBWindowSizeValueTransformer.m */,
 				6921294016F91C6600AFC3B0 /* BoolValueTransformer.h */,
+				FEED0000000000000000B001 /* NSColorValueTransformer.h */,
 				6921294116F91C6600AFC3B0 /* BoolValueTransformer.m */,
+				FEED0000000000000000B002 /* NSColorValueTransformer.m */,
 				6921294516F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.h */,
 				6921294616F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m */,
 				6913E5C21A4AD5EB002CF0FE /* NSTextFieldNilToEmptyStringTransformer.h */,
@@ -3363,6 +3369,7 @@
 				698CCFB6268F813D002973D3 /* SEB_Prefix.pch in Headers */,
 				699731C418C8D6ED0069FE35 /* CapWindow.h in Headers */,
 				6921294216F91C6600AFC3B0 /* BoolValueTransformer.h in Headers */,
+				FEED0000000000000000B003 /* NSColorValueTransformer.h in Headers */,
 				69009BE019EA7F590083274C /* SEBBrowserOpenWindowWebView.h in Headers */,
 				690C6EE619E29E3600EDE103 /* SEBOSXBrowserController.h in Headers */,
 				69F522B821467188009F3999 /* CustomHTTPProtocol.h in Headers */,
@@ -4510,6 +4517,7 @@
 				69DFAF3119C468E700CBE69F /* RNDecryptor.m in Sources */,
 				6906F3C31A3FA5EE0011CF93 /* NSURL+KKDomain.m in Sources */,
 				6921294316F91C6600AFC3B0 /* BoolValueTransformer.m in Sources */,
+				FEED0000000000000000B004 /* NSColorValueTransformer.m in Sources */,
 				6921294816F91C7E00AFC3B0 /* IsEmptyCollectionValueTransformer.m in Sources */,
 				698A176D300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift in Sources */,
 				69EE1E322C3DA55900172C75 /* PermittedProcessesArrayController.swift in Sources */,

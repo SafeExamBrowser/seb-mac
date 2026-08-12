@@ -92,6 +92,7 @@
 #import "BoolValueTransformer.h"
 #import "IsEmptyCollectionValueTransformer.h"
 #import "NSTextFieldNilToEmptyStringTransformer.h"
+#import "NSColorValueTransformer.h"
 
 #include <SystemConfiguration/SystemConfiguration.h>
 
@@ -314,6 +315,14 @@ bool insideMatrix(void);
     NSTextFieldNilToEmptyStringTransformer *textFieldNilToEmptyStringTransformer = [[NSTextFieldNilToEmptyStringTransformer alloc] init];
     [NSValueTransformer setValueTransformer:textFieldNilToEmptyStringTransformer
                                     forName:@"NSTextFieldNilToEmptyStringTransformer"];
+
+    // Used by the "Certificates: Advanced" table's textColor binding (colors
+    // expired certificates red). Must be registered, otherwise resolving the
+    // binding raises an exception when the table draws — fatal on macOS 15+,
+    // which crashes when the Advanced sheet is opened (SEBMAC cert-advanced crash).
+    NSColorValueTransformer *colorValueTransformer = [[NSColorValueTransformer alloc] init];
+    [NSValueTransformer setValueTransformer:colorValueTransformer
+                                    forName:@"NSColorValueTransformer"];
 }
 
 
