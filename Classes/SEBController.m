@@ -2981,6 +2981,74 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 }
 
 
+// Returns YES if the current session requires a permission that can ONLY be granted in System
+// Settings and is not currently granted — which means an active AAC assessment session must be
+// ended first so the prompt / System Settings is reachable (the student can't open System
+// Settings while AAC is active). Pure status queries — never shows UI.
+//
+// Camera and microphone are counted ONLY when previously Denied/Restricted: a NotDetermined
+// status shows an in-context system prompt that works while AAC is active, so it doesn't
+// require ending AAC. FDA, Screen Recording and Accessibility have no usable in-context grant,
+// so any missing state counts. (Location is handled separately, in -conditionallyStartAAC…,
+// where it is requested while AAC is off just before the assessment session begins.)
+- (BOOL) permissionAuthorizationRequiresEndingAAC
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+
+    // Full Disk Access (only grantable in System Settings)
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"] &&
+        !AccessibilityFeaturesManager.hasFullDiskAccess) {
+        return YES;
+    }
+
+    BOOL browserMediaCaptureScreen = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureScreen"];
+    BOOL screenProctoringEnable = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableScreenProctoring"];
+
+    // Screen Recording (only grantable in System Settings)
+    if (browserMediaCaptureScreen || screenProctoringEnable) {
+        if (@available(macOS 11.0, *)) {
+            if (!CGPreflightScreenCaptureAccess()) {
+                return YES;
+            }
+        }
+    }
+
+    // Accessibility, required for screen proctoring (only grantable in System Settings)
+    if (screenProctoringEnable) {
+        NSDictionary *options = @{(__bridge id)kAXTrustedCheckOptionPrompt : @NO};
+        if (!AXIsProcessTrustedWithOptions((CFDictionaryRef)options)) {
+            return YES;
+        }
+    }
+
+    // Camera / microphone: only a Denied/Restricted status needs System Settings; NotDetermined
+    // shows an in-context system prompt that works under AAC.
+    BOOL cameraNeeded = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureCamera"] ||
+                        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"] ||
+                        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
+    BOOL microphoneNeeded = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_browserMediaCaptureMicrophone"] ||
+                            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_jitsiMeetEnable"] ||
+                            [preferences secureBoolForKey:@"org_safeexambrowser_SEB_zoomEnable"];
+    // -authorizationStatusForMediaType: (and the TCC camera/microphone permissions) exist only
+    // on macOS 10.14+; on older systems there is nothing to end AAC for here.
+    if (@available(macOS 10.14, *)) {
+        if (cameraNeeded) {
+            AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+            if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+                return YES;
+            }
+        }
+        if (microphoneNeeded) {
+            AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+            if (status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted) {
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
 - (void) conditionallyInitSEBProcessesCheckedWithCallback:(id)callback
                                                  selector:(SEL)selector
 {
@@ -2989,7 +3057,21 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         return;
     }
     DDLogDebug(@"%s", __FUNCTION__);
-    
+
+    // If reconfiguring from an active AAC session and a permission that can only be granted in
+    // System Settings is missing, end AAC now so its prompt / System Settings is reachable. The
+    // whole permission phase (this method + the media/screen/accessibility checks) then runs with
+    // AAC off; a new AAC session is (re)started afterwards (see -assessmentSessionDidEndWithCallback:,
+    // _checkingPermissionsAfterAACEnd, which resumes this method). On initial start AAC is not yet
+    // active, so this is a no-op there.
+    if (self.assessmentModeManager && self.assessmentModeManager.assessmentSession.active &&
+        [self permissionAuthorizationRequiresEndingAAC]) {
+        DDLogInfo(@"A System-Settings-only permission is missing; ending AAC temporarily so it can be granted.");
+        _checkingPermissionsAfterAACEnd = YES;
+        [self.assessmentModeManager endAssessmentModeWithCallback:callback selector:selector quittingToAssessmentMode:NO];
+        return;
+    }
+
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     if (![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowVirtualMachine"]) {
         // Check if SEB is running inside a virtual machine
@@ -3026,6 +3108,51 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         }
     }
     
+    // Check for Full Disk Access if accessibility app detection is enabled, BEFORE the
+    // download/log folder access checks below: FDA is required to query the TCC database for
+    // apps with Accessibility permission, and granting it also grants access to those folders,
+    // so the separate folder-access prompts are then no longer needed.
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+        if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
+            DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
+            // Present the alert asynchronously on the main queue: this method can be reached
+            // synchronously while still inside a Core Animation transaction commit from
+            // window/screen setup, and -[NSAlert runModal] is suppressed inside a transaction.
+            // Deferring lets the transaction commit first.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [AccessibilityFeaturesManager openFullDiskAccessSettings];
+                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+                NSAlert *modalAlert = [self newAlert];
+                [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
+                [modalAlert setAlertStyle:NSAlertStyleWarning];
+                void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+                    [self removeAlertWindow:modalAlert.window];
+                    switch (answer) {
+                        case NSAlertFirstButtonReturn:
+                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                            return;
+                        case NSAlertSecondButtonReturn:
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
+                            return;
+                        default:
+                            DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
+                            return;
+                    }
+                };
+                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
+            });
+            return;
+        }
+        // Full Disk Access is available: update the prohibited list and terminate any
+        // accessibility apps that are still running (may have been missed before FDA was granted).
+        [self addAccessibilityAppsToProhibitedApplicationsList];
+        [self terminateRunningAccessibilityProhibitedApps];
+    }
+
     // Check for access control privacy permissions to access log folder
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"]) {
         NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
@@ -3194,49 +3321,10 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         return;
     }
     
-    // Check for Full Disk Access if accessibility app detection is enabled.
-    // FDA is required to query the TCC database for apps with Accessibility permission.
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
-        if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
-            DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
-            // Present the alert asynchronously on the main queue: this method can be reached
-            // synchronously (when configured folders are accessible) while still inside a Core
-            // Animation transaction commit from window/screen setup, and -[NSAlert runModal]
-            // is suppressed inside a transaction. Deferring lets the transaction commit first.
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [AccessibilityFeaturesManager openFullDiskAccessSettings];
-                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-                [modalAlert setAlertStyle:NSAlertStyleWarning];
-                void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    switch (answer) {
-                        case NSAlertFirstButtonReturn:
-                            [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
-                            return;
-                        case NSAlertSecondButtonReturn:
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
-                            return;
-                        default:
-                            DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
-                            [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
-                            return;
-                    }
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
-            });
-            return;
-        }
-        // Full Disk Access is available: update the prohibited list and terminate any
-        // accessibility apps that are still running (may have been missed before FDA was granted).
-        [self addAccessibilityAppsToProhibitedApplicationsList];
-        [self terminateRunningAccessibilityProhibitedApps];
-    }
-    
+    // Note: the Full Disk Access check (gated by detectAccessibilityApps) runs earlier, in
+    // -conditionallyInitSEBProcessesCheckedWithCallback:, BEFORE the download/log folder access
+    // checks — granting FDA also grants access to those folders, avoiding extra folder prompts.
+
     if (browserMediaCaptureScreen || screenProctoringEnable) {
         if (@available(macOS 10.15.4, *)) {
             // AAC hides system permission dialogs behind its restricted UI, so end it first
@@ -3752,8 +3840,11 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         func(callback, selector);
     } else if (_checkingPermissionsAfterAACEnd) {
         _checkingPermissionsAfterAACEnd = NO;
-        DDLogDebug(@"%s: AAC ended for permissions check, re-running permissions check with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
-        [self conditionallyInitSEBPermissionsCheckWithCallback:callback selector:selector];
+        DDLogDebug(@"%s: AAC ended for permissions check, re-running the permission phase (from processes-checked) with callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
+        // Resume from the start of the permission phase so FDA and folder-access checks (in
+        // -conditionallyInitSEBProcessesChecked…) also run with AAC off, not only the media/
+        // screen/accessibility checks in -conditionallyInitSEBPermissionsCheck….
+        [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
     } else if (_restartingAACForReconfigure) {
         _restartingAACForReconfigure = NO;
         DDLogDebug(@"%s: AAC ended for reconfiguration, restarting AAC session with reconfigured settings, callback: %@ selector: %@", __FUNCTION__, callback, NSStringFromSelector(selector));
