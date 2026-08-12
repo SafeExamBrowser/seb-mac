@@ -129,6 +129,9 @@ bool insideMatrix(void);
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign) BOOL waitingForLocationAuth;
 @property (strong, nonatomic) dispatch_source_t locationAuthPollSource;
+// Called once the user has resolved the Location Services prompt/wait dialog
+// (granted, denied or skipped), to resume the exam-session start.
+@property (nonatomic, copy) void (^locationAuthContinuation)(void);
 @end
 
 
@@ -943,9 +946,10 @@ bool insideMatrix(void);
         }
     }
     
-    // Request Location Services authorization early (before kiosk windows)
-    // so the system prompt is visible. Required for WiFi SSID access on macOS 14+.
-    [self requestLocationServicesAuthorization];
+    // Location Services authorization is NOT requested here anymore: at launch SEB may
+    // only be opening the Preferences window (e.g. option key held), where prompting would
+    // be wrong. It is now requested when the exam session actually starts (see
+    // -didFinishLaunchingWithSettingsProcessesChecked), before AAC assessment mode begins.
 
     // Show the About SEB Window
     _alternateKeyPressed = [self alternateKeyCheck];
@@ -956,7 +960,9 @@ bool insideMatrix(void);
     if (!_waitingForLocationAuth) {
         [self applicationDidFinishLaunchingProceed];
     }
-    // Otherwise, applicationDidFinishLaunchingProceed is called after Location Services is resolved
+    // Note: Location Services is no longer requested at launch; it is requested at
+    // exam-session start (see -didFinishLaunchingWithSettingsProcessesChecked), so
+    // _waitingForLocationAuth is not set here.
 }
 
 - (void)applicationDidFinishLaunchingProceed
@@ -1143,9 +1149,23 @@ bool insideMatrix(void);
         [self.browserController resetBrowser];
 
         if (!_openingSettings) {
-            // Initialize SEB according to client settings
-            [self conditionallyInitSEBWithCallback:self
-                                          selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
+            void (^initSEB)(void) = ^{
+                // Initialize SEB according to client settings
+                [self conditionallyInitSEBWithCallback:self
+                                              selector:@selector(didFinishLaunchingWithSettingsProcessesChecked)];
+            };
+            if (_isAACEnabled) {
+                // AAC: Location Services (needed for Wi-Fi SSID) must be requested while AAC is
+                // OFF. AAC is started deep inside -conditionallyInitSEBWithCallback: and can't be
+                // interrupted to show a prompt, so the request is deferred to just before the
+                // assessment session begins (and on every AAC (re)start) — see
+                // -conditionallyStartAACWithCallback:.
+                initSEB();
+            } else {
+                // Classic kiosk mode: request now, before lockdown starts. No-op if
+                // hideWiFiControls is set or access is already granted.
+                [self requestLocationServicesAuthorizationWithContinuation:initSEB];
+            }
         } else if (_isAACEnabled == NO) {
             // Cover all attached screens with cap windows to prevent clicks on desktop making finder active
             [self coverScreens];
@@ -1335,8 +1355,27 @@ bool insideMatrix(void);
 
 #pragma mark - Location Services (for WiFi SSID access)
 
-- (void) requestLocationServicesAuthorization
+// Requests Location Services authorization (needed for Wi-Fi SSID access) and runs
+// `continuation` once the user has resolved it. If access is already granted (or we're
+// on a system without this requirement), `continuation` runs immediately. Otherwise the
+// system prompt is triggered and SEB's own waiting dialog is shown, blocking until the
+// user grants, denies or skips — `continuation` runs from there.
+//
+// Called at exam-session start, BEFORE AAC assessment mode is enabled: under AAC the
+// student can no longer reach System Settings to grant the permission.
+- (void) requestLocationServicesAuthorizationWithContinuation:(void (^)(void))continuation
 {
+    // Location Services is only needed to read the current Wi-Fi SSID for the Wi-Fi
+    // controls. If those are hidden in the active session's settings, never request it.
+    // Checked here (not cached) so a reconfigured session that now shows the Wi-Fi
+    // controls still triggers the request.
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_hideWiFiControls"]) {
+        DDLogInfo(@"hideWiFiControls is set - not requesting Location Services authorization.");
+        if (continuation) {
+            continuation();
+        }
+        return;
+    }
     if (@available(macOS 11.0, *)) {
         self.locationManager = [[CLLocationManager alloc] init];
         CLAuthorizationStatus status = self.locationManager.authorizationStatus;
@@ -1353,18 +1392,61 @@ bool insideMatrix(void);
                                    status == kCLAuthorizationStatusDenied ||
                                    status == kCLAuthorizationStatusRestricted);
 
-        if (self.startingUp && needsAuthorization) {
-            // Gate startup until the user grants access or chooses to skip. In addition to
-            // the system prompt (for NotDetermined), always show SEB's own waiting dialog so
-            // the user is never left with no visible, actionable UI - even if the system
-            // prompt doesn't appear. That dialog also polls for a grant made in System Settings.
-            // Dispatched async so this method returns first and applicationDidFinishLaunching
-            // does not itself call applicationDidFinishLaunchingProceed.
+        if (needsAuthorization) {
+            // Block the session start until the user grants access or chooses to skip. In
+            // addition to the system prompt (for NotDetermined), always show SEB's own waiting
+            // dialog so the user is never left with no visible, actionable UI - even if the
+            // system prompt doesn't appear. That dialog also polls for a grant made in System
+            // Settings. Dispatched async so this method returns to the caller first.
+            self.locationAuthContinuation = continuation;
             _waitingForLocationAuth = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showStartupLocationServicesDeniedAlert];
             });
+            return;
         }
+    }
+    // Already authorized (or pre-macOS 11): continue the session start immediately.
+    if (continuation) {
+        continuation();
+    }
+}
+
+// Resolves the Location Services wait (granted / denied / skipped) and resumes the
+// pending session-start continuation exactly once.
+- (void) finishWaitingForLocationAuthAndContinue
+{
+    _waitingForLocationAuth = NO;
+    void (^continuation)(void) = self.locationAuthContinuation;
+    self.locationAuthContinuation = nil;
+    if (continuation) {
+        continuation();
+    }
+}
+
+// Opens the Location Services pane in System Settings AND brings System Settings to the
+// foreground. A plain -openURL: launches it behind SEB's windows; the activating
+// configuration makes it the active app.
+- (void) openLocationServicesSystemSettings
+{
+    NSURL *url = [NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"];
+    if (@available(macOS 11.0, *)) {
+        NSWorkspaceOpenConfiguration *configuration = [NSWorkspaceOpenConfiguration configuration];
+        configuration.activates = YES;
+        [[NSWorkspace sharedWorkspace] openURL:url configuration:configuration completionHandler:nil];
+    } else {
+        [[NSWorkspace sharedWorkspace] openURL:url];
+    }
+}
+
+// Raises an already-running System Settings above SEB's (re-shown, focus-stealing) waiting
+// alert. Called from the startup poll timer, shortly after the alert is re-presented.
+- (void) raiseSystemSettingsToForeground
+{
+    NSRunningApplication *settingsApp =
+        [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.apple.systempreferences"].firstObject;
+    if (settingsApp) {
+        [settingsApp activateWithOptions:NSApplicationActivateAllWindows];
     }
 }
 
@@ -1380,8 +1462,7 @@ bool insideMatrix(void);
         CLAuthorizationStatus currentStatus = freshManager.authorizationStatus;
         if (currentStatus == kCLAuthorizationStatusAuthorized ||
             currentStatus == kCLAuthorizationStatusAuthorizedAlways) {
-            _waitingForLocationAuth = NO;
-            [self applicationDidFinishLaunchingProceed];
+            [self finishWaitingForLocationAuthAndContinue];
             return;
         }
     }
@@ -1396,6 +1477,11 @@ bool insideMatrix(void);
     // Distinct response code used when polling auto-dismisses the alert
     static const NSModalResponse SEBLocationAuthGrantedResponse = 8250;
 
+    // If System Settings was opened (by the "Open System Settings" button), the re-shown
+    // modal alert re-activates SEB and covers it. Raise System Settings back to the front
+    // once, from the (reliably-firing) poll timer below.
+    __block BOOL raisedSystemSettings = NO;
+
     // Poll for authorization changes so we can auto-dismiss when granted.
     // [alert runModal] runs a nested modal run loop that does not reliably service
     // NSTimers on this OS, so we use a GCD dispatch source timer on a background queue
@@ -1407,6 +1493,14 @@ bool insideMatrix(void);
                               (uint64_t)(1.0 * NSEC_PER_SEC),
                               (uint64_t)(100 * NSEC_PER_MSEC));
     dispatch_source_set_event_handler(pollSource, ^{
+        // Raise System Settings above the re-shown SEB alert once (no-op if it isn't running,
+        // e.g. before the user pressed "Open System Settings").
+        if (!raisedSystemSettings) {
+            raisedSystemSettings = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self raiseSystemSettingsToForeground];
+            });
+        }
         if (@available(macOS 11.0, *)) {
             // The authorizationStatus of an existing CLLocationManager is a cached value that
             // only updates when its delegate callback is delivered on the (currently blocked)
@@ -1437,15 +1531,16 @@ bool insideMatrix(void);
 
         if (answer == NSAlertFirstButtonReturn) {
             // Open System Settings (visible because kiosk/AAC mode hasn't started yet),
-            // then re-show the alert to keep waiting and polling for authorization.
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
+            // then re-show the alert to keep waiting and polling for authorization. Re-showing
+            // the modal re-activates SEB on top, so the re-shown alert's poll timer raises
+            // System Settings back to the front (see raiseSystemSettingsToForeground below).
+            [self openLocationServicesSystemSettings];
             [self showStartupLocationServicesDeniedAlert];
             return;
         }
 
-        // Skip pressed or authorization granted (auto-dismiss): continue launching
-        self->_waitingForLocationAuth = NO;
-        [self applicationDidFinishLaunchingProceed];
+        // Skip pressed or authorization granted (auto-dismiss): resume the session start
+        [self finishWaitingForLocationAuthAndContinue];
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))handler];
 }
@@ -1461,7 +1556,7 @@ bool insideMatrix(void);
     void (^locationPermissionsHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
         [self removeAlertWindow:modalAlert.window];
         if (answer == NSAlertFirstButtonReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
+            [self openLocationServicesSystemSettings];
         }
     };
     [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))locationPermissionsHandler];
@@ -1469,7 +1564,7 @@ bool insideMatrix(void);
 
 - (void) openLocationServicesSettings:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices"]];
+    [self openLocationServicesSystemSettings];
 }
 
 - (void) locationManagerDidChangeAuthorization:(CLLocationManager *)manager
@@ -3761,7 +3856,14 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                         }
                     }
                 }
-                startAssessmentMode();
+                // Request Location Services (for Wi-Fi SSID) now, right before the assessment
+                // session begins: AAC is currently OFF (fresh start, or the previous session
+                // was just ended when reconfiguring), so the prompt is reachable and the student
+                // can open System Settings. Blocks until granted/denied/skipped, then starts AAC.
+                // No-op if hideWiFiControls is set or access is already granted.
+                [self requestLocationServicesAuthorizationWithContinuation:^{
+                    startAssessmentMode();
+                }];
                 return;
             } else if (_isAACEnabled == NO && _wasAACEnabled == YES) {
                 DDLogDebug(@"_isAACEnabled = false && _wasAACEnabled == true");
@@ -8636,6 +8738,11 @@ conditionallyForWindow:(NSWindow *)window
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
+
+    // Location Services for the reconfigured session is NOT requested here: at this point the
+    // previous AAC session is still active, so a prompt would be hidden behind the locked-down
+    // UI. For an AAC session it is requested later, while AAC is off, just before the
+    // (re)started assessment session begins (see -conditionallyStartAACWithCallback:).
     [self conditionallyInitSEBWithCallback:self selector:@selector(requestedRestartProcessesChecked)];
 }
 
