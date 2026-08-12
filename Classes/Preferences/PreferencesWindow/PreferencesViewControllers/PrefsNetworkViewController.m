@@ -41,6 +41,13 @@
 #import "SEBURLFilter.h"
 #import "SEBURLFilterExpression.h"
 #include "x509_crt.h"
+#import "NSUserDefaults+SEBEncryptedUserDefaults.h"
+#import "SafeExamBrowser-Swift.h"
+
+@interface PrefsNetworkViewController ()
+// Kept alive while the (SwiftUI) fetch sheet is presented; cleared on completion.
+@property (nonatomic, strong) id serverCertificateFetchPresenter;
+@end
 
 @implementation PrefsNetworkViewController
 
@@ -439,6 +446,38 @@
         }
         [chooseIdentity selectItemAtIndex:0];
         [chooseIdentity synchronizeTitleAndSelectedItem];
+    }
+}
+
+
+// Fetch the certificate chain a server presents (by entering its URL) and let the
+// admin choose which certificate(s) to embed. See SEBServerCertificateFetchUI.swift.
+- (IBAction) fetchServerCertificate:(id)sender
+{
+    if (@available(macOS 12.0, *)) {
+        NSWindow *window = [MBPreferencesController sharedController].window;
+        if (!window) {
+            return;
+        }
+        NSString *startURLString = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_startURL"];
+        SEBServerCertificateFetchPresenter *presenter = [[SEBServerCertificateFetchPresenter alloc] init];
+        self.serverCertificateFetchPresenter = presenter;
+        [presenter presentFrom:window startURLString:startURLString completion:^(NSArray<SEBEmbeddableCertificate *> * _Nonnull selectedCertificates) {
+            for (SEBEmbeddableCertificate *certificate in selectedCertificates) {
+                NSMutableDictionary *certificateToEmbed = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                           [NSNumber numberWithInteger:certificate.type], @"type",
+                                                           certificate.name, @"name",
+                                                           certificate.certificateDataBase64, @"certificateDataBase64",
+                                                           nil];
+                [self->certificatesArrayController addObject:certificateToEmbed];
+            }
+            self.serverCertificateFetchPresenter = nil;
+        }];
+    } else {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = NSLocalizedString(@"Requires macOS 12 or Later", @"Alert title shown when Fetch from Server is used on macOS 11 or older");
+        alert.informativeText = NSLocalizedString(@"Fetching a server certificate by URL is available on macOS 12 (Monterey) and later.", @"Alert message shown when Fetch from Server is used on macOS 11 or older");
+        [alert runModal];
     }
 }
 

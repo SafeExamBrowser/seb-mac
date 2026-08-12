@@ -991,6 +991,17 @@
                                             <action selector="showAdvancedCertificateSheet:" target="-2" id="ndd-ld-R45"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" id="fss-Fe-tch0">
+                                        <rect key="frame" x="325" y="10" width="162" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Fetch from Server…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fss-Ce-ll00">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="fetchServerCertificate:" target="-2" id="fss-Ac-t000"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="1779" firstAttribute="top" secondItem="242" secondAttribute="top" constant="24" id="1790"/>

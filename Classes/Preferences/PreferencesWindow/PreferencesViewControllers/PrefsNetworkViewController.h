@@ -117,6 +117,9 @@
 - (IBAction) certificateSelected:(id)sender;
 - (IBAction) CASelected:(id)sender;
 
+// Fetch a server's certificate(s) by URL and embed them (see SEBServerCertificateFetchUI.swift)
+- (IBAction) fetchServerCertificate:(id)sender;
+
 // Advanced Certificates sheet
 - (IBAction) showAdvancedCertificateSheet:(id)sender;
 - (IBAction) cancelAdvancedCertificateSheet:(id)sender;

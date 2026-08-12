@@ -69,6 +69,10 @@
 		6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */; };
 		6918BCB92D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */; };
 		6918BCBA2D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */; };
+		FEED0000000000000000C012 /* SEBServerCertificateFetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000C011 /* SEBServerCertificateFetchUI.swift */; };
+		FEED0000000000000000C013 /* SEBServerCertificateFetchUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000C011 /* SEBServerCertificateFetchUI.swift */; };
+		FEED0000000000000000C002 /* SEBServerCertificateFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000C001 /* SEBServerCertificateFetcher.swift */; };
+		FEED0000000000000000C003 /* SEBServerCertificateFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000C001 /* SEBServerCertificateFetcher.swift */; };
 		691981422C723B7500E79DA4 /* FIFOBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981412C723B7500E79DA4 /* FIFOBuffer.swift */; };
 		691981432C723B7500E79DA4 /* FIFOBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981412C723B7500E79DA4 /* FIFOBuffer.swift */; };
 		691981452C72520A00E79DA4 /* ScreenShotCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691981442C72520A00E79DA4 /* ScreenShotCache.swift */; };
@@ -1021,6 +1025,8 @@
 		FEED0000000000000000A003 /* SEBBrowserControllerTrustTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBBrowserControllerTrustTests.swift; sourceTree = "<group>"; };
 		6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBLockdownModePolicyMigrationTests.swift; sourceTree = "<group>"; };
 		6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBGCMCryptor.swift; sourceTree = "<group>"; };
+		FEED0000000000000000C011 /* SEBServerCertificateFetchUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBServerCertificateFetchUI.swift; sourceTree = "<group>"; };
+		FEED0000000000000000C001 /* SEBServerCertificateFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBServerCertificateFetcher.swift; sourceTree = "<group>"; };
 		691981412C723B7500E79DA4 /* FIFOBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIFOBuffer.swift; sourceTree = "<group>"; };
 		691981442C72520A00E79DA4 /* ScreenShotCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShotCache.swift; sourceTree = "<group>"; };
 		691CD9AA1468947E00B43CDC /* SEBEncryptedUserDefaultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEBEncryptedUserDefaultsController.h; path = Classes/Preferences/SEBEncryptedUserDefaultsController.h; sourceTree = "<group>"; };
@@ -2863,6 +2869,8 @@
 				69D5983614C823AE005FE98C /* MethodSwizzling.h */,
 				69F522C32146720C009F3999 /* SEBCertServices.m */,
 				6918BCB82D419BA5002A9C57 /* SEBGCMCryptor.swift */,
+				FEED0000000000000000C011 /* SEBServerCertificateFetchUI.swift */,
+				FEED0000000000000000C001 /* SEBServerCertificateFetcher.swift */,
 				698A176B300FE275006646A9 /* SEBCryptorConfigKeyTestSupport.swift */,
 				69BAD4E03013AE81003887E8 /* SEBKeychainManagerTestSupport.swift */,
 				698A176E300FE2B8006646A9 /* SEBCryptor+Testing.h */,
@@ -4255,6 +4263,8 @@
 				6943C64E2A99258600EC18FF /* QRToggleTorchButton.m in Sources */,
 				69A07240268A38AD00A0464B /* MscCertificateSigningRequest.m in Sources */,
 				6918BCBA2D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */,
+				FEED0000000000000000C012 /* SEBServerCertificateFetchUI.swift in Sources */,
+				FEED0000000000000000C002 /* SEBServerCertificateFetcher.swift in Sources */,
 				695370BD2033921C00C638A8 /* LGSideMenuController.m in Sources */,
 				69782A511CCEA41B00C2AA9A /* MethodSwizzling.m in Sources */,
 				69A07252268A38AD00A0464B /* MscIssuerAndSerial.m in Sources */,
@@ -4534,6 +4544,8 @@
 				69CE9C5E17326AB90011609B /* SEBConfigFileManager.m in Sources */,
 				690BBEAD19D2C6A000F7C9C6 /* SEBDockController.m in Sources */,
 				6918BCB92D419BA5002A9C57 /* SEBGCMCryptor.swift in Sources */,
+				FEED0000000000000000C013 /* SEBServerCertificateFetchUI.swift in Sources */,
+				FEED0000000000000000C003 /* SEBServerCertificateFetcher.swift in Sources */,
 				698DFD25267E9F2B00B8F1D6 /* ProcessListElement.m in Sources */,
 				69CEDCF326ACD00C0030787B /* SEBWebViewController.m in Sources */,
 				69CE9C6417378B9A0011609B /* SEBTextField.m in Sources */,
