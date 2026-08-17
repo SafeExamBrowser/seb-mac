@@ -337,3 +337,6 @@
 /* Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN"; */
 "wtP-tT-RxN.ibShadowedToolTip" = "Hinweis auswählen, der im Browserfenster angezeigt wird, wenn eine URL nicht erlaubt ist";
 
+
+/* Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00"; */
+"fss-Ce-ll00.title" = "Vom Server abrufen…";
