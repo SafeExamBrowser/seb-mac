@@ -928,7 +928,10 @@ static SEBSettings *sharedSEBSettings = nil;
                    
                    @NO,
                    @"screenSharingMacEnforceBlocked",
-                   
+
+                   [NSArray array],
+                   @"sebAllowedVersions",
+
                    [NSNumber numberWithLong:sebConfigPurposeDefault],
                    @"sebConfigPurpose",
                    

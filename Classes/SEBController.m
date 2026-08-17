@@ -82,6 +82,7 @@
 #import "NSScreen+SEBScreen.h"
 #import "NSWindow+SEBWindow.h"
 #import "SEBConfigFileManager.h"
+#import "SEBAllowedSEBVersions.h"
 #import "NSRunningApplication+SEB.h"
 #import "ProcessManager.h"
 
@@ -2791,7 +2792,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         return;
     }
     DDLogDebug(@"%s", __FUNCTION__);
-    
+
     /// Kiosk mode checks
     
     // Update AAC availability before version check
@@ -2799,6 +2800,13 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 
     // Check if running on minimal macOS version
     [self checkMinMacOSVersion];
+
+    // Check if the running SEB version is allowed by the current settings. If not,
+    // abort initialization here: the alert is presented (deferred) and SEB quits,
+    // so the session must not continue to start (no browser window etc.).
+    if (![self checkAllowedSEBVersions]) {
+        return;
+    }
 
     // Check if AAC Assessment Mode is enforced but unsupported on this macOS version
     if (enforceAACUnsupportedMacOS) {
@@ -5576,6 +5584,95 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
     } else {
         DDLogInfo(@"%s: Running on current macOS version is allowed.", __FUNCTION__);
+    }
+}
+
+
+// Check if the running SEB version is allowed by the current settings
+// (sebAllowedVersions). Returns YES if allowed (SEB may continue starting the
+// session), NO if not (the caller must abort initialization). When not allowed a
+// blocking alert offering to download a required SEB version is presented and SEB
+// is quit; the alert is deferred to the next run loop cycle so that an in-progress
+// preferences-close / session reconfiguration has fully settled (otherwise the
+// modal alert can fail to come to front and only appear on a later attempt).
+- (BOOL)checkAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *allowedVersions = [preferences secureStringArrayForKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+
+    if (allowedVersions.count == 0) {
+        return YES; // No SEB version restriction specified.
+    }
+
+    NSString *version = [MyGlobals versionString];
+    NSString *build = [MyGlobals buildNumber];
+
+    SEBAllowedSEBVersions *allowedSEBVersions = [SEBAllowedSEBVersions new];
+    BOOL allowed = [allowedSEBVersions allowedSEBVersion:version
+                                             buildNumber:build
+                                                platform:SEBAllowedVersionPlatformMac
+                                         allianceEdition:NO
+                                      fromVersionStrings:allowedVersions];
+    if (allowed) {
+        DDLogInfo(@"%s: The running SEB version (%@ build %@) is allowed by current settings.", __FUNCTION__, version, build);
+        return YES;
+    }
+
+    NSString *requirement = [allowedSEBVersions requirementDescriptionForPlatform:SEBAllowedVersionPlatformMac
+                                                              fromVersionStrings:allowedVersions];
+    NSString *runningInfo = [NSString stringWithFormat:NSLocalizedString(@"You are running %@ version %@ (build %@). Please download and install a required version.", @""),
+                             SEBShortAppName, version, build];
+    NSString *informativeText = [NSString stringWithFormat:@"%@\n\n%@", requirement, runningInfo];
+    DDLogError(@"%s The running SEB version (%@ build %@) is not allowed. %@", __FUNCTION__, version, build, requirement);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:informativeText];
+    });
+    return NO;
+}
+
+
+// Presents the "SEB Version Not Allowed!" alert and quits SEB on either button.
+- (void)presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:(NSString *)informativeText
+{
+    // Bring SEB to the front so the critical alert reliably becomes key and visible
+    // (see also -presentPreferencesCorruptedError).
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+
+    NSAlert *modalAlert = [self newAlert];
+    [modalAlert setMessageText:NSLocalizedString(@"SEB Version Not Allowed!", @"")];
+    [modalAlert setInformativeText:informativeText];
+    [modalAlert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Download %@", @""), SEBShortAppName]];
+    [modalAlert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName]];
+    [modalAlert setAlertStyle:NSAlertStyleCritical];
+    void (^allowedSEBVersionsAlertHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self removeAlertWindow:modalAlert.window];
+        if (answer == NSAlertFirstButtonReturn) {
+            // Open the SEB download page in the default browser before quitting.
+            [self openSEBDownloadPage];
+        }
+        // A disallowed version can never continue into the exam: quit SEB entirely
+        // (both buttons), as required.
+        [self requestedExit:nil];
+    };
+    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))allowedSEBVersionsAlertHandler];
+}
+
+
+// Open the localized SEB download page on the SEB website in the default browser.
+- (void)openSEBDownloadPage
+{
+    NSString *language = [NSLocale preferredLanguages].firstObject;
+    NSString *languageCode = (language.length >= 2) ? [[language substringToIndex:2] lowercaseString] : @"en";
+    // The website provides English, German and French download pages.
+    if (![@[@"en", @"de", @"fr"] containsObject:languageCode]) {
+        languageCode = @"en";
+    }
+    NSString *urlString = [NSString stringWithFormat:SEBDownloadPageFormat, languageCode];
+    NSURL *url = [NSURL URLWithString:urlString];
+    DDLogInfo(@"%s Opening SEB download page %@", __FUNCTION__, urlString);
+    if (url) {
+        [[NSWorkspace sharedWorkspace] openURL:url];
     }
 }
 

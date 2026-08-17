@@ -72,6 +72,10 @@
     __weak IBOutlet NSComboBox *allowediOSBetaVersion;
     
     __weak IBOutlet NSButton *enablePrintScreenButton;
+
+    // Main vertical stack view of the Security pane. The "Allowed SEB Versions"
+    // section is built programmatically and appended here (see the .m).
+    __weak IBOutlet NSStackView *securitySettingsStackView;
 }
 
 - (NSString *)identifier;
