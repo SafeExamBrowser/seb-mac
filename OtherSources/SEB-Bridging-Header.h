@@ -25,4 +25,7 @@
 // Exposes the server-trust authorization decision to the (DEBUG-only) trust
 // test-support shim; see SEBBrowserControllerTrustTestSupport.swift.
 #import "SEBBrowserController+Testing.h"
+// Exposes the SEB version restriction check to the (DEBUG-only) test-support
+// shim; see SEBAllowedSEBVersionsTestSupport.swift.
+#import "SEBAllowedSEBVersions.h"
 #endif

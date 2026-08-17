@@ -35,6 +35,17 @@
 
 #import "PrefsSecurityViewController.h"
 
+static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAllowedVersions";
+
+@interface PrefsSecurityViewController () <NSTableViewDataSource, NSTableViewDelegate>
+{
+    // Programmatically created "Allowed SEB Versions" controls.
+    NSTableView *allowedSEBVersionsTableView;
+    NSMutableArray<NSString *> *allowedSEBVersions;
+    BOOL allowedSEBVersionsSectionBuilt;
+}
+@end
+
 @implementation PrefsSecurityViewController
 
 - (NSString *)title
@@ -66,6 +77,8 @@
     [miniOSVersionMinor addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [miniOSVersionPatch addItemsWithObjectValues:@[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9]];
     [allowediOSBetaVersion addItemsWithObjectValues:@[@0, [NSNumber numberWithInt:iOSBetaVersion26]]];
+
+    [self buildAllowedSEBVersionsSectionIfNeeded];
 }
 
 
@@ -74,6 +87,7 @@
 {
     [self setLogDirectory];
     [self setEnableEnableAAC:self];
+    [self loadAllowedSEBVersions];
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     
@@ -285,6 +299,221 @@
 
 - (IBAction)setEnablePrintScreen:(NSButton *)sender {
     allowiOSScreenCaptureButton.state = sender.state;
+}
+
+
+#pragma mark - Allowed SEB Versions
+
+// Builds the "Allowed SEB Versions" section (title, description, editable table
+// and add/remove buttons) and appends it to the Security pane's main stack view.
+// The section is built once; guard against awakeFromNib being called repeatedly.
+- (void)buildAllowedSEBVersionsSectionIfNeeded
+{
+    if (allowedSEBVersionsSectionBuilt || securitySettingsStackView == nil) {
+        return;
+    }
+    allowedSEBVersionsSectionBuilt = YES;
+
+    NSTextField *titleLabel = [NSTextField labelWithString:NSLocalizedString(@"Allowed SEB Versions", @"")];
+    titleLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
+
+    NSTextField *descriptionLabel = [NSTextField wrappingLabelWithString:NSLocalizedString(@"Specify one or more SEB version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows SEB for Windows 3.9 or newer.", @"")];
+    descriptionLabel.font = [NSFont systemFontOfSize:[NSFont smallSystemFontSize]];
+    descriptionLabel.textColor = [NSColor secondaryLabelColor];
+    descriptionLabel.selectable = NO;
+    descriptionLabel.preferredMaxLayoutWidth = 460;
+
+    // Cell-based, single-column, editable table view.
+    allowedSEBVersionsTableView = [[NSTableView alloc] initWithFrame:NSZeroRect];
+    NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"version"];
+    column.editable = YES;
+    column.title = NSLocalizedString(@"SEB Version", @"");
+    [allowedSEBVersionsTableView addTableColumn:column];
+    allowedSEBVersionsTableView.headerView = nil;
+    allowedSEBVersionsTableView.usesAlternatingRowBackgroundColors = YES;
+    allowedSEBVersionsTableView.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
+    allowedSEBVersionsTableView.allowsMultipleSelection = YES;
+    allowedSEBVersionsTableView.rowHeight = 19;
+    allowedSEBVersionsTableView.dataSource = self;
+    allowedSEBVersionsTableView.delegate = self;
+
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSZeroRect];
+    scrollView.documentView = allowedSEBVersionsTableView;
+    scrollView.hasVerticalScroller = YES;
+    scrollView.borderType = NSBezelBorder;
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    // Nudge the content down slightly so the first row isn't drawn flush against the top
+    // bezel (otherwise it looks shifted up by ~2 pt).
+    scrollView.automaticallyAdjustsContentInsets = NO;
+    scrollView.contentInsets = NSEdgeInsetsMake(2, 0, 0, 0);
+    // Size the visible area to a whole number of rows so the bottom row is never cropped
+    // with default macOS 26 metrics. Derived from the actual row height + intercell spacing
+    // (plus the content insets) so it stays correct if those change.
+    NSInteger visibleRows = 3;
+    CGFloat rowUnit = allowedSEBVersionsTableView.rowHeight + allowedSEBVersionsTableView.intercellSpacing.height;
+    NSSize contentSize = NSMakeSize(460, rowUnit * visibleRows + scrollView.contentInsets.top + scrollView.contentInsets.bottom);
+    NSSize frameSize = [NSScrollView frameSizeForContentSize:contentSize
+                                     horizontalScrollerClass:Nil
+                                       verticalScrollerClass:Nil
+                                                  borderType:scrollView.borderType
+                                                 controlSize:NSControlSizeRegular
+                                               scrollerStyle:NSScrollerStyleOverlay];
+    [scrollView.heightAnchor constraintEqualToConstant:frameSize.height].active = YES;
+    [scrollView.widthAnchor constraintEqualToConstant:460].active = YES;
+
+    NSSegmentedControl *addRemoveControl = [NSSegmentedControl segmentedControlWithLabels:@[@"+", @"−"]
+                                                                             trackingMode:NSSegmentSwitchTrackingMomentary
+                                                                                   target:self
+                                                                                   action:@selector(addRemoveAllowedSEBVersion:)];
+    addRemoveControl.segmentStyle = NSSegmentStyleSmallSquare;
+    // Make both segments square (segment width == control height).
+    [addRemoveControl sizeToFit];
+    CGFloat segmentSide = addRemoveControl.fittingSize.height;
+    [addRemoveControl setWidth:segmentSide forSegment:0];
+    [addRemoveControl setWidth:segmentSide forSegment:1];
+
+    NSStackView *section = [[NSStackView alloc] initWithFrame:NSZeroRect];
+    section.orientation = NSUserInterfaceLayoutOrientationVertical;
+    section.alignment = NSLayoutAttributeLeading;
+    section.spacing = 6;
+    section.translatesAutoresizingMaskIntoConstraints = NO;
+    [section addArrangedSubview:titleLabel];
+    [section addArrangedSubview:descriptionLabel];
+    [section addArrangedSubview:scrollView];
+    [section addArrangedSubview:addRemoveControl];
+
+    [securitySettingsStackView addArrangedSubview:section];
+}
+
+
+// Handles the momentary add (segment 0) / remove (segment 1) segmented control.
+- (void)addRemoveAllowedSEBVersion:(NSSegmentedControl *)sender
+{
+    if (sender.selectedSegment == 0) {
+        [self addAllowedSEBVersion:sender];
+    } else {
+        [self removeAllowedSEBVersion:sender];
+    }
+}
+
+
+- (void)addAllowedSEBVersion:(id)sender
+{
+    if (allowedSEBVersions == nil) {
+        allowedSEBVersions = [NSMutableArray array];
+    }
+    [allowedSEBVersions addObject:@""];
+    [allowedSEBVersionsTableView reloadData];
+    [self saveAllowedSEBVersions];
+    NSInteger row = allowedSEBVersions.count - 1;
+    [allowedSEBVersionsTableView editColumn:0 row:row withEvent:nil select:YES];
+}
+
+
+- (void)removeAllowedSEBVersion:(id)sender
+{
+    NSIndexSet *selectedRows = allowedSEBVersionsTableView.selectedRowIndexes;
+    if (selectedRows.count == 0) {
+        return;
+    }
+    // Discard any in-progress cell editing first: otherwise ending the edit while
+    // removing commits/queries a row index that no longer exists once the model
+    // shrinks (which would crash with an out-of-bounds array access).
+    [allowedSEBVersionsTableView abortEditing];
+    [allowedSEBVersionsTableView.window makeFirstResponder:allowedSEBVersionsTableView];
+    // Only remove indexes that are actually within bounds of the model.
+    NSMutableIndexSet *rowsToRemove = [selectedRows mutableCopy];
+    [rowsToRemove removeIndexesInRange:NSMakeRange(allowedSEBVersions.count, NSUIntegerMax - allowedSEBVersions.count)];
+    if (rowsToRemove.count == 0) {
+        return;
+    }
+    [allowedSEBVersions removeObjectsAtIndexes:rowsToRemove];
+    [allowedSEBVersionsTableView reloadData];
+    [self saveAllowedSEBVersions];
+}
+
+
+- (void)loadAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *storedVersions = [preferences secureStringArrayForKey:allowedSEBVersionsKey];
+    allowedSEBVersions = storedVersions ? [storedVersions mutableCopy] : [NSMutableArray array];
+    [allowedSEBVersionsTableView reloadData];
+}
+
+
+- (void)saveAllowedSEBVersions
+{
+    // Persist only non-empty, trimmed entries so an accidentally added blank row (or
+    // a row left empty) is never stored into the settings array.
+    NSMutableArray<NSString *> *versionsToStore = [NSMutableArray arrayWithCapacity:allowedSEBVersions.count];
+    for (NSString *version in allowedSEBVersions) {
+        NSString *trimmed = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (trimmed.length > 0) {
+            [versionsToStore addObject:trimmed];
+        }
+    }
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureObject:[versionsToStore copy] forKey:allowedSEBVersionsKey];
+}
+
+
+#pragma mark - NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return allowedSEBVersions.count;
+}
+
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    // Guard against a stale field-editor callback referencing a removed row.
+    if (row < 0 || row >= (NSInteger)allowedSEBVersions.count) {
+        return @"";
+    }
+    return allowedSEBVersions[row];
+}
+
+
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    if (row < 0 || row >= (NSInteger)allowedSEBVersions.count) {
+        return;
+    }
+    NSString *value = [object isKindOfClass:[NSString class]] ? (NSString *)object : [object description];
+    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    allowedSEBVersions[row] = value ?: @"";
+    [self saveAllowedSEBVersions];
+    // Empty rows are removed once editing ends (see controlTextDidEndEditing:).
+}
+
+
+// Removes any empty (or whitespace-only) entries from the model and table. Called after
+// editing ends so a blank row never lingers — whether the edit was confirmed empty with
+// Enter, cancelled with Escape, or ended by clicking away / closing the window. Deferred
+// to the next run loop so the table isn't mutated from within the field editor callback.
+- (void)removeEmptyAllowedSEBVersionRows
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexSet *emptyRows = [self->allowedSEBVersions indexesOfObjectsPassingTest:^BOOL(NSString *version, NSUInteger idx, BOOL *stop) {
+            return [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0;
+        }];
+        if (emptyRows.count == 0) {
+            return;
+        }
+        [self->allowedSEBVersions removeObjectsAtIndexes:emptyRows];
+        [self->allowedSEBVersionsTableView reloadData];
+        [self saveAllowedSEBVersions];
+    });
+}
+
+
+#pragma mark - NSTableViewDelegate
+
+- (void)controlTextDidEndEditing:(NSNotification *)notification
+{
+    [self removeEmptyAllowedSEBVersionRows];
 }
 
 

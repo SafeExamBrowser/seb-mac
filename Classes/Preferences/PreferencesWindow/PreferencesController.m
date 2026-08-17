@@ -303,14 +303,22 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self.configFileVC hideQRConfig];
-    if (self.preferencesAreOpen && !self.refreshingPreferences) {
+    // Don't post anything during the internal release/reopen "refresh" dance used to
+    // re-sync bindings (refreshingPreferences == YES).
+    if (!self.refreshingPreferences) {
 //        self.sebController.browserController.reinforceKioskModeRequested = YES;
-        // Post a notification that the preferences window closes
         if (restartSEB) {
+            // A settings change requiring a restart was applied: always post this,
+            // even if the window is no longer visible. During the reconfigure
+            // open/close dance the final close carrying restartSEB can arrive after
+            // the window was already hidden; gating it on -preferencesAreOpen
+            // (window.isVisible) would drop the notification and the session would
+            // never restart with the new settings.
             restartSEB = NO;
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"preferencesClosedRestartSEB" object:self];
-        } else {
+        } else if (self.preferencesAreOpen) {
+            // Post a notification that the preferences window closes (no reconfiguration)
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"preferencesClosed" object:self];
         }

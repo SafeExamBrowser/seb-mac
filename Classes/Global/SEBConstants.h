@@ -46,6 +46,8 @@ static NSString __unused *sebErrorDomain = @"org.safeexambrowser.SEB";
 
 static NSString __unused *SEBStartPage = @"https://safeexambrowser.org/start";
 static NSString __unused *SEBHelpPage = @"https://safeexambrowser.org/macosx";
+// Localized download page: the "%@" is replaced by a language code (e.g. "en", "de", "fr").
+static NSString __unused *SEBDownloadPageFormat = @"https://safeexambrowser.org/download_%@#MacOSX.html";
 static NSString __unused *SEBSupportEmail = @"info@safeexambrowser.org";
 static NSString __unused *SEBWebsiteShort = @"safeexambrowser.org";
 
