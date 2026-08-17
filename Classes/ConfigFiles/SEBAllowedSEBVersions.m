@@ -206,6 +206,7 @@ static BOOL SEBIsNonNegativeInteger(NSString *string)
 
 
 - (nullable NSString *)requirementDescriptionForPlatform:(SEBAllowedVersionPlatform)platform
+                                                 appName:(NSString *)appName
                                       fromVersionStrings:(nullable NSArray<NSString *> *)restrictions
 {
     if (restrictions.count == 0) {
@@ -229,23 +230,23 @@ static BOOL SEBIsNonNegativeInteger(NSString *string)
     }
 
     if (minVersions.count == 0 && exactVersions.count == 0) {
-        return NSLocalizedString(@"This version of SEB is not allowed for this exam.", @"");
+        return [NSString stringWithFormat:NSLocalizedString(@"This version of %@ is not allowed for this exam.", @""), appName];
     }
 
     NSString *minClause = nil;
     if (minVersions.count > 0) {
         NSString *joined = [minVersions componentsJoinedByString:@", "];
         minClause = minVersions.count == 1 ?
-            [NSString stringWithFormat:NSLocalizedString(@"SEB version %@ or higher", @""), joined] :
-            [NSString stringWithFormat:NSLocalizedString(@"one of the SEB versions %@ or higher", @""), joined];
+            [NSString stringWithFormat:NSLocalizedString(@"%@ version %@ or higher", @""), appName, joined] :
+            [NSString stringWithFormat:NSLocalizedString(@"one of the %@ versions %@ or higher", @""), appName, joined];
     }
 
     NSString *exactClause = nil;
     if (exactVersions.count > 0) {
         NSString *joined = [exactVersions componentsJoinedByString:@", "];
         exactClause = exactVersions.count == 1 ?
-            [NSString stringWithFormat:NSLocalizedString(@"SEB version %@", @""), joined] :
-            [NSString stringWithFormat:NSLocalizedString(@"one of the SEB versions %@", @""), joined];
+            [NSString stringWithFormat:NSLocalizedString(@"%@ version %@", @""), appName, joined] :
+            [NSString stringWithFormat:NSLocalizedString(@"one of the %@ versions %@", @""), appName, joined];
     }
 
     NSString *requirement;

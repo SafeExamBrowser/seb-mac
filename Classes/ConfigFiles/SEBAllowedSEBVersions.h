@@ -69,10 +69,12 @@ typedef NS_ENUM(NSInteger, SEBAllowedVersionPlatform) {
 
 /// Returns a localized, human-readable description of the version requirement for
 /// the given platform, suitable for an alert's informative text (e.g. "SEB version
-/// 3.9 or higher is required for this exam."). Returns nil if `restrictions` is
-/// empty or nil. Alliance-Edition-only restrictions are omitted because this
-/// (non-AE) build can never satisfy them.
+/// 3.9 or higher is required for this exam."). `appName` is the (possibly custom)
+/// short application name substituted into the text (e.g. SEBShortAppName).
+/// Returns nil if `restrictions` is empty or nil. Alliance-Edition-only
+/// restrictions are omitted because this (non-AE) build can never satisfy them.
 - (nullable NSString *)requirementDescriptionForPlatform:(SEBAllowedVersionPlatform)platform
+                                                 appName:(NSString *)appName
                                       fromVersionStrings:(nullable NSArray<NSString *> *)restrictions;
 
 @end

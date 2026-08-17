@@ -1535,3 +1535,45 @@ untitled filename */
 /* Informative text of the Add Preset Permitted Process dialog when it also includes client settings processes */
 "Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." = "Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt.";
 
+
+/* SEBMAC-491 Allowed SEB Versions — Security preferences UI (%@ = app name, e.g. SEB) */
+"Allowed %@ Versions" = "Erlaubte %@-Versionen";
+"%@ Version" = "%@-Version";
+"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." = "Geben Sie eine oder mehrere %@-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind – eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in eckigen Klammern). Beispiel: \"Win.3.9.min\" erlaubt %@ für Windows 3.9 oder neuer.";
+
+/* SEBMAC-491 Allowed SEB Versions — blocking alert when the running version isn't allowed (%@ = app name) */
+"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
+"Download %@" = "%@ herunterladen";
+"You are running %@ version %@ (build %@). Please download and install a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte laden Sie eine erforderliche Version herunter und installieren Sie sie.";
+
+/* SEBMAC-491 Allowed SEB Versions — requirement description (composed; first %@ = app name) */
+"%@ is required for this exam." = "%@ ist für diese Session erforderlich.";
+"This version of %@ is not allowed for this exam." = "Diese Version von %@ ist für diese Session nicht erlaubt.";
+"%@ version %@ or higher" = "%@-Version %@ oder höher";
+"%@ version %@" = "%@-Version %@";
+"one of the %@ versions %@ or higher" = "eine der %@-Versionen %@ oder höher";
+"one of the %@ versions %@" = "eine der %@-Versionen %@";
+"%@, or %@" = "%@ oder %@";
+
+/* --- SEBMAC-836 Fetch server certificate by URL (Network / Certificates) --- */
+"Embed Server Certificate" = "Server-Zertifikat einbetten";
+"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.";
+"Server URL or host (e.g. exam.example.org)" = "Server-URL oder Host (z. B. exam.example.org)";
+"Fetch" = "Abrufen";
+"Use Start URL" = "Start-URL verwenden";
+"Fill in the domain of the exam's start URL (%@)" = "Die Domain der Start-URL der Prüfung einsetzen (%@)";
+"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.";
+"Select the certificate(s) to embed and choose their type:" = "Wählen Sie die einzubettenden Zertifikate und deren Typ:";
+"(no common name)" = "(kein Common Name)";
+"root" = "Root";
+"self-signed" = "selbstsigniert";
+"CA anchor" = "CA-Anker";
+"TLS/SSL pin" = "TLS/SSL-Pin";
+"Expired %@" = "Abgelaufen %@";
+"Valid until %@" = "Gültig bis %@";
+"Embed" = "Einbetten";
+"The server did not present any certificates." = "Der Server hat keine Zertifikate präsentiert.";
+"Please enter a valid server URL or host name." = "Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.";
+"Could not connect to the server." = "Verbindung zum Server nicht möglich.";
+"Requires macOS 12 or Later" = "Erfordert macOS 12 oder neuer";
+"Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." = "Das Abrufen eines Server-Zertifikats über eine URL ist ab macOS 12 (Monterey) verfügbar.";

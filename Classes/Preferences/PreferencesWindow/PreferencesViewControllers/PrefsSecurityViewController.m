@@ -314,10 +314,10 @@ static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAll
     }
     allowedSEBVersionsSectionBuilt = YES;
 
-    NSTextField *titleLabel = [NSTextField labelWithString:NSLocalizedString(@"Allowed SEB Versions", @"")];
+    NSTextField *titleLabel = [NSTextField labelWithString:[NSString stringWithFormat:NSLocalizedString(@"Allowed %@ Versions", @""), SEBShortAppName]];
     titleLabel.font = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
 
-    NSTextField *descriptionLabel = [NSTextField wrappingLabelWithString:NSLocalizedString(@"Specify one or more SEB version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows SEB for Windows 3.9 or newer.", @"")];
+    NSTextField *descriptionLabel = [NSTextField wrappingLabelWithString:[NSString stringWithFormat:NSLocalizedString(@"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer.", @""), SEBShortAppName, SEBShortAppName]];
     descriptionLabel.font = [NSFont systemFontOfSize:[NSFont smallSystemFontSize]];
     descriptionLabel.textColor = [NSColor secondaryLabelColor];
     descriptionLabel.selectable = NO;
@@ -327,7 +327,7 @@ static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAll
     allowedSEBVersionsTableView = [[NSTableView alloc] initWithFrame:NSZeroRect];
     NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"version"];
     column.editable = YES;
-    column.title = NSLocalizedString(@"SEB Version", @"");
+    column.title = [NSString stringWithFormat:NSLocalizedString(@"%@ Version", @""), SEBShortAppName];
     [allowedSEBVersionsTableView addTableColumn:column];
     allowedSEBVersionsTableView.headerView = nil;
     allowedSEBVersionsTableView.usesAlternatingRowBackgroundColors = YES;

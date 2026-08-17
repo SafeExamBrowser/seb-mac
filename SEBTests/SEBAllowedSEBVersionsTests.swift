@@ -127,27 +127,36 @@ final class SEBAllowedSEBVersionsTests: XCTestCase {
     // MARK: - Requirement description
 
     func testRequirementDescription_nilForEmpty() {
-        XCTAssertNil(SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, restrictions: []))
+        XCTAssertNil(SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, appName: "SEB", restrictions: []))
     }
 
     func testRequirementDescription_min() {
-        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, restrictions: ["Mac.3.9.min"])
+        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, appName: "SEB", restrictions: ["Mac.3.9.min"])
         XCTAssertNotNil(text)
         XCTAssertTrue(text!.contains("3.9"))
         XCTAssertTrue(text!.lowercased().contains("higher"))
     }
 
     func testRequirementDescription_exact() {
-        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, restrictions: ["Mac.3.4", "Mac.3.5.1"])
+        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, appName: "SEB", restrictions: ["Mac.3.4", "Mac.3.5.1"])
         XCTAssertNotNil(text)
         XCTAssertTrue(text!.contains("3.4"))
         XCTAssertTrue(text!.contains("3.5.1"))
     }
 
     func testRequirementDescription_mixed() {
-        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, restrictions: ["Mac.3.9.min", "Mac.3.4"])
+        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, appName: "SEB", restrictions: ["Mac.3.9.min", "Mac.3.4"])
         XCTAssertNotNil(text)
         XCTAssertTrue(text!.contains("3.9"))
         XCTAssertTrue(text!.contains("3.4"))
+    }
+
+    func testRequirementDescription_usesCustomAppName() {
+        // The app name is a placeholder (SEBShortAppName), so a custom-named build
+        // appears in the requirement text instead of a hardcoded "SEB".
+        let text = SEBAllowedSEBVersionsTestSupport.requirementDescription(platform: mac, appName: "CustomBrowser", restrictions: ["Mac.3.9.min"])
+        XCTAssertNotNil(text)
+        XCTAssertTrue(text!.contains("CustomBrowser"))
+        XCTAssertFalse(text!.contains("SEB"))
     }
 }

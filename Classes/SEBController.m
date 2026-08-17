@@ -5619,6 +5619,7 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
     }
 
     NSString *requirement = [allowedSEBVersions requirementDescriptionForPlatform:SEBAllowedVersionPlatformMac
+                                                                          appName:SEBShortAppName
                                                               fromVersionStrings:allowedVersions];
     NSString *runningInfo = [NSString stringWithFormat:NSLocalizedString(@"You are running %@ version %@ (build %@). Please download and install a required version.", @""),
                              SEBShortAppName, version, build];
@@ -5640,7 +5641,7 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
     [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
 
     NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:NSLocalizedString(@"SEB Version Not Allowed!", @"")];
+    [modalAlert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"%@ Version Not Allowed!", @""), SEBShortAppName]];
     [modalAlert setInformativeText:informativeText];
     [modalAlert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Download %@", @""), SEBShortAppName]];
     [modalAlert addButtonWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName]];

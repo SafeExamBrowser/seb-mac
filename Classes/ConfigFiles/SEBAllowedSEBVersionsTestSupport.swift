@@ -29,11 +29,13 @@ import Foundation
                                          fromVersionStrings: restrictions)
     }
 
-    /// Wraps -[SEBAllowedSEBVersions requirementDescriptionForPlatform:fromVersionStrings:].
+    /// Wraps -[SEBAllowedSEBVersions requirementDescriptionForPlatform:appName:fromVersionStrings:].
     @objc public static func requirementDescription(platform: Int,
+                                                     appName: String,
                                                      restrictions: [String]?) -> String? {
         let checker = SEBAllowedSEBVersions()
         return checker.requirementDescription(for: SEBAllowedVersionPlatform(rawValue: platform)!,
+                                              appName: appName,
                                               fromVersionStrings: restrictions)
     }
 }
