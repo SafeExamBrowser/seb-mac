@@ -1127,7 +1127,7 @@
 "Showing" = "Zeige";
 
 /* No comment provided by engineer. */
-"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" = "Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und SEB-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.";
+"Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again" = "Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und %@-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.";
 
 /* No comment provided by engineer. */
 "side menu" = "Seitenmenü";

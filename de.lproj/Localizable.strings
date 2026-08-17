@@ -788,7 +788,7 @@
 "Location Services access is required to display Wi-Fi network names." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich.";
 
 /* No comment provided by engineer. */
-"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von SEB unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
+"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von %@ unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
 
 /* No comment provided by engineer. */
 "Location Services Required for Wi-Fi" = "Ortungsdienste für Wi-Fi erforderlich";

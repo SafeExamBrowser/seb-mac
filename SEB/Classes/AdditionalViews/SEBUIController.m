@@ -111,7 +111,7 @@
                                                    target:self
                                                    action:@selector(leftDrawerButtonPress:)];
         dockItem.accessibilityLabel = NSLocalizedString(@"Toggle Side Menu", @"");
-        dockItem.accessibilityHint = NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again", @"");
+        dockItem.accessibilityHint = [NSString stringWithFormat:NSLocalizedString(@"Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again", @""), SEBShortAppName];
 
         [newDockItems addObject:dockItem];
         

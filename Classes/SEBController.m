@@ -1687,7 +1687,7 @@ bool insideMatrix(void);
         NSString *explanation;
         // The menu bar is always hidden, so Wi-Fi network names are shown in the SEB Dock and
         // Location Services must be granted in System Settings after closing SEB.
-        explanation = NSLocalizedString(@"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.", nil);
+        explanation = [NSString stringWithFormat:NSLocalizedString(@"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@.", nil), SEBShortAppName];
         NSMenuItem *explanationItem = [[NSMenuItem alloc] initWithTitle:explanation action:nil keyEquivalent:@""];
         explanationItem.enabled = NO;
         [menu addItem:explanationItem];
