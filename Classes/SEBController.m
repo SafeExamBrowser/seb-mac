@@ -6223,7 +6223,14 @@ conditionallyForWindow:(NSWindow *)window
     if (@available(macOS 12.0, *)) {
     } else {
         if (@available(macOS 11.0, *)) {
-            if (_isAACEnabled || _wasAACEnabled) {
+            // On macOS 11 an application-modal -[NSAlert runModal] can be suppressed while an
+            // AAC session covers the screen, so alerts are shown as a sheet on the parent window.
+            // This requires a host window: during the startup permission checks (Full Disk Access,
+            // Location Services) no browser window exists yet, so `window` is nil. Attaching a sheet
+            // to a nil window never presents it AND never calls the completion handler, hanging SEB
+            // indefinitely. Only take the sheet path when there is a window to host it; otherwise
+            // fall through to -runModal (which works here, as the AAC session has not begun yet).
+            if ((_isAACEnabled || _wasAACEnabled) && window) {
                 [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
                 return;
             }
