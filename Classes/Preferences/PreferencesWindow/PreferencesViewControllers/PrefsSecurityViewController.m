@@ -361,16 +361,28 @@ static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAll
     [scrollView.heightAnchor constraintEqualToConstant:frameSize.height].active = YES;
     [scrollView.widthAnchor constraintEqualToConstant:460].active = YES;
 
-    NSSegmentedControl *addRemoveControl = [NSSegmentedControl segmentedControlWithLabels:@[@"+", @"−"]
-                                                                             trackingMode:NSSegmentSwitchTrackingMomentary
-                                                                                   target:self
-                                                                                   action:@selector(addRemoveAllowedSEBVersion:)];
-    addRemoveControl.segmentStyle = NSSegmentStyleSmallSquare;
-    // Make both segments square (segment width == control height).
-    [addRemoveControl sizeToFit];
-    CGFloat segmentSide = addRemoveControl.fittingSize.height;
-    [addRemoveControl setWidth:segmentSide forSegment:0];
-    [addRemoveControl setWidth:segmentSide forSegment:1];
+    // Add/remove buttons matching the Network / Filter tab: two shadowless-square
+    // NSButtons (22 x 21) with the standard +/- template images, overlapping by 1 pt
+    // so their borders merge into a shared middle edge (like there).
+    NSButton *addButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameAddTemplate] target:self action:@selector(addAllowedSEBVersion:)];
+    NSButton *removeButton = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameRemoveTemplate] target:self action:@selector(removeAllowedSEBVersion:)];
+    addButton.toolTip = NSLocalizedString(@"Add", @"");
+    removeButton.toolTip = NSLocalizedString(@"Remove", @"");
+    for (NSButton *button in @[addButton, removeButton]) {
+        button.bezelStyle = NSBezelStyleShadowlessSquare;
+        button.imagePosition = NSImageOnly;
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        [button.widthAnchor constraintEqualToConstant:22].active = YES;
+        [button.heightAnchor constraintEqualToConstant:21].active = YES;
+    }
+
+    // Overlap the two buttons by 1 pt so their 1 pt borders coincide and they share
+    // the middle edge (matches the Network tab). The size constraints are required,
+    // so the enclosing vertical stack can't stretch them.
+    NSStackView *addRemoveRow = [NSStackView stackViewWithViews:@[addButton, removeButton]];
+    addRemoveRow.orientation = NSUserInterfaceLayoutOrientationHorizontal;
+    addRemoveRow.spacing = -1;
+    addRemoveRow.translatesAutoresizingMaskIntoConstraints = NO;
 
     NSStackView *section = [[NSStackView alloc] initWithFrame:NSZeroRect];
     section.orientation = NSUserInterfaceLayoutOrientationVertical;
@@ -380,20 +392,9 @@ static NSString * const allowedSEBVersionsKey = @"org_safeexambrowser_SEB_sebAll
     [section addArrangedSubview:titleLabel];
     [section addArrangedSubview:descriptionLabel];
     [section addArrangedSubview:scrollView];
-    [section addArrangedSubview:addRemoveControl];
+    [section addArrangedSubview:addRemoveRow];
 
     [securitySettingsStackView addArrangedSubview:section];
-}
-
-
-// Handles the momentary add (segment 0) / remove (segment 1) segmented control.
-- (void)addRemoveAllowedSEBVersion:(NSSegmentedControl *)sender
-{
-    if (sender.selectedSegment == 0) {
-        [self addAllowedSEBVersion:sender];
-    } else {
-        [self removeAllowedSEBVersion:sender];
-    }
 }
 
 
