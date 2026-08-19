@@ -167,15 +167,25 @@ import CocoaLumberjackSwift
     /// succeeds when FDA has actually been granted.
     @objc public static var hasFullDiskAccess: Bool {
         let path = "/Library/Application Support/com.apple.TCC/TCC.db"
+        let exists = FileManager.default.fileExists(atPath: path)
         let fd = open(path, O_RDONLY)
         guard fd >= 0 else {
+            let err = errno
+            DDLogInfo("hasFullDiskAccess: open(\(path)) failed - errno \(err) (\(String(cString: strerror(err)))), fileExists=\(exists)")
             return false
         }
         defer { close(fd) }
         var byte: UInt8 = 0
         // read() returns -1 (with errno EPERM) if the read is denied by TCC, 0 at EOF,
         // or the number of bytes read otherwise. Any non-negative result means access.
-        return read(fd, &byte, 1) >= 0
+        let bytesRead = read(fd, &byte, 1)
+        if bytesRead < 0 {
+            let err = errno
+            DDLogInfo("hasFullDiskAccess: read(\(path)) failed - errno \(err) (\(String(cString: strerror(err)))), fileExists=\(exists)")
+            return false
+        }
+        DDLogInfo("hasFullDiskAccess: TCC database readable - Full Disk Access granted.")
+        return true
     }
 
     /// Opens System Settings to the Full Disk Access pane.

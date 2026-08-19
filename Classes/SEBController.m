@@ -129,6 +129,11 @@ bool insideMatrix(void);
 @interface SEBController () <CLLocationManagerDelegate>
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign) BOOL waitingForLocationAuth;
+// YES while the initial startup Location Services request is being resolved from the first
+// authoritative -locationManagerDidChangeAuthorization: callback (rather than the unreliable
+// synchronous -authorizationStatus read, which reports NotDetermined on macOS 11 even when
+// access is already granted).
+@property (assign) BOOL resolvingInitialLocationAuth;
 @property (strong, nonatomic) dispatch_source_t locationAuthPollSource;
 // Called once the user has resolved the Location Services prompt/wait dialog
 // (granted, denied or skipped), to resume the exam-session start.
@@ -1378,38 +1383,73 @@ bool insideMatrix(void);
         return;
     }
     if (@available(macOS 11.0, *)) {
+        // Do NOT decide from a synchronous -authorizationStatus read: on macOS 11 a freshly
+        // created CLLocationManager reports NotDetermined synchronously even when access is
+        // actually already granted, which produced a spurious waiting dialog that briefly
+        // flashed and then auto-dismissed once the real status arrived. The authoritative,
+        // current status is only delivered via the -locationManagerDidChangeAuthorization:
+        // delegate callback, which fires once shortly after the delegate is set. Defer the
+        // grant / prompt / deny decision to -resolveInitialLocationAuthWithStatus:, driven
+        // from that callback.
+        self.locationAuthContinuation = continuation;
+        _waitingForLocationAuth = YES;
+        _resolvingInitialLocationAuth = YES;
         self.locationManager = [[CLLocationManager alloc] init];
-        CLAuthorizationStatus status = self.locationManager.authorizationStatus;
-        DDLogInfo(@"Location Services authorization status: %d", (int)status);
-
         self.locationManager.delegate = self;
 
-        if (status == kCLAuthorizationStatusNotDetermined) {
-            // On macOS, starting a location service triggers the system authorization prompt
+        // Fallback: if the initial delegate callback never arrives, resolve after a short
+        // grace period from whatever status is then available, so startup can't hang.
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            typeof(self) strongSelf = weakSelf;
+            if (strongSelf.resolvingInitialLocationAuth) {
+                DDLogWarn(@"Location Services initial authorization callback did not arrive within grace period; resolving from current status.");
+                [strongSelf resolveInitialLocationAuthWithStatus:strongSelf.locationManager.authorizationStatus];
+            }
+        });
+        return;
+    }
+    // Pre-macOS 11: continue the session start immediately.
+    if (continuation) {
+        continuation();
+    }
+}
+
+// Resolves the initial startup Location Services request from the first authoritative
+// authorization status (from the delegate callback, or the grace-period fallback). Runs on
+// the main queue. When already authorized, startup continues immediately with no dialog;
+// otherwise SEB's waiting dialog is shown (triggering the system prompt when NotDetermined),
+// which polls for a grant made via the prompt or System Settings and continues from there.
+- (void) resolveInitialLocationAuthWithStatus:(CLAuthorizationStatus)status
+{
+    if (!_resolvingInitialLocationAuth) {
+        return;
+    }
+    _resolvingInitialLocationAuth = NO;
+    DDLogInfo(@"Resolving initial Location Services authorization from status: %d", (int)status);
+
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined: {
+            // On macOS, starting a location service triggers the system authorization prompt.
             [self.locationManager startUpdatingLocation];
-        }
-
-        BOOL needsAuthorization = (status == kCLAuthorizationStatusNotDetermined ||
-                                   status == kCLAuthorizationStatusDenied ||
-                                   status == kCLAuthorizationStatusRestricted);
-
-        if (needsAuthorization) {
-            // Block the session start until the user grants access or chooses to skip. In
-            // addition to the system prompt (for NotDetermined), always show SEB's own waiting
-            // dialog so the user is never left with no visible, actionable UI - even if the
-            // system prompt doesn't appear. That dialog also polls for a grant made in System
-            // Settings. Dispatched async so this method returns to the caller first.
-            self.locationAuthContinuation = continuation;
-            _waitingForLocationAuth = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showStartupLocationServicesDeniedAlert];
             });
-            return;
+            break;
         }
-    }
-    // Already authorized (or pre-macOS 11): continue the session start immediately.
-    if (continuation) {
-        continuation();
+        case kCLAuthorizationStatusDenied:
+        case kCLAuthorizationStatusRestricted: {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showStartupLocationServicesDeniedAlert];
+            });
+            break;
+        }
+        default: {
+            // Authorized (Always / WhenInUse): continue the session start immediately.
+            [self.locationManager stopUpdatingLocation];
+            [self finishWaitingForLocationAuthAndContinue];
+            break;
+        }
     }
 }
 
@@ -1573,6 +1613,13 @@ bool insideMatrix(void);
     if (@available(macOS 11.0, *)) {
         CLAuthorizationStatus status = manager.authorizationStatus;
         DDLogInfo(@"Location Services authorization changed to: %d", (int)status);
+
+        if (_resolvingInitialLocationAuth) {
+            // First authoritative status for the startup request: decide here rather than from
+            // the unreliable synchronous read in -requestLocationServicesAuthorization…
+            [self resolveInitialLocationAuthWithStatus:status];
+            return;
+        }
 
         if (status == kCLAuthorizationStatusNotDetermined) {
             // Still waiting for the user to respond to the system prompt - do nothing yet
@@ -2858,7 +2905,8 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         }
     }
     
-    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+    if ([[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"] &&
+        [self accessibilityAppDetectionSupported]) {
         [self addAccessibilityAppsToProhibitedApplicationsList];
     }
     
@@ -3094,12 +3142,27 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 // require ending AAC. FDA, Screen Recording and Accessibility have no usable in-context grant,
 // so any missing state counts. (Location is handled separately, in -conditionallyStartAAC…,
 // where it is requested while AAC is off just before the assessment session begins.)
+// Whether SEB can detect other apps' Accessibility permission on this macOS version.
+// Detection reads the *system* TCC database (/Library/Application Support/com.apple.TCC/TCC.db),
+// which requires Full Disk Access. On macOS 11 the OS denies read access to that database even
+// when Full Disk Access has been granted (open()/stat() fail with EACCES / "Permission denied"),
+// so the feature cannot work and its FDA dialog would be an unsatisfiable loop. FDA to the system
+// TCC database is only reliably granted to apps on macOS 12 and later.
+- (BOOL) accessibilityAppDetectionSupported
+{
+    if (@available(macOS 12.0, *)) {
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL) permissionAuthorizationRequiresEndingAAC
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
 
-    // Full Disk Access (only grantable in System Settings)
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"] &&
+    // Full Disk Access (only grantable in System Settings; only usable on macOS 12+)
+    if ([self accessibilityAppDetectionSupported] &&
+        [preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"] &&
         !AccessibilityFeaturesManager.hasFullDiskAccess) {
         return YES;
     }
@@ -3215,7 +3278,10 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
     // download/log folder access checks below: FDA is required to query the TCC database for
     // apps with Accessibility permission, and granting it also grants access to those folders,
     // so the separate folder-access prompts are then no longer needed.
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
+    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"] &&
+        ![self accessibilityAppDetectionSupported]) {
+        DDLogWarn(@"%s: detectAccessibilityApps is enabled but accessibility-app detection is unavailable on this macOS version (Full Disk Access to the system TCC database is not supported before macOS 12). Skipping the Full Disk Access requirement and detection.", __FUNCTION__);
+    } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
         if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
             DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
             // Present the alert asynchronously on the main queue: this method can be reached
@@ -8843,6 +8909,26 @@ conditionallyForWindow:(NSWindow *)window
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
+
+    // If SEB is still starting up and a config file (e.g. an exam config) was opened
+    // (double-clicked / seb:// file link) while SEB was reconfiguring to deployed client
+    // settings (a SEBClientSettings.seb in /Library/Preferences/), that file open was
+    // deferred (see -application:openFile:) but never honored: -applicationDidFinishLaunchingProceed
+    // skips it while _isReconfiguringToMDMConfig is set, and this restart (triggered by the
+    // client reconfigure) would otherwise abort in -conditionallyInitSEBWithCallback: because
+    // the pending _openingSettings flag is still set — leaving SEB hung with no lockdown and
+    // no browser window (see issue #630). The client settings are now applied, so instead of
+    // aborting we open the deferred config file, which reconfigures SEB accordingly and starts
+    // its session.
+    if (_startingUp && _openingSettings && _openingSettingsFileURL) {
+        NSURL *deferredFileURL = _openingSettingsFileURL;
+        _openingSettingsFileURL = nil;
+        _openingSettings = NO;
+        _isReconfiguringToMDMConfig = NO;
+        DDLogInfo(@"Client was reconfigured with deployed client settings while a config file was opened during startup; now opening the deferred config file: %@", deferredFileURL);
+        [self openFile:deferredFileURL];
+        return;
+    }
 
     // Location Services for the reconfigured session is NOT requested here: at this point the
     // previous AAC session is still active, so a prompt would be hidden behind the locked-down
