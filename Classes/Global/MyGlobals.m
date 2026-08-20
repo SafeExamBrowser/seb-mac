@@ -217,6 +217,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
 + (DDFileLogger *)initializeFileLoggerWithDirectory:(NSString *)logPath
 {
     DDFileLogger *myLogger;
+#if !TARGET_OS_IPHONE
+    if (logPath.length == 0) {
+        // macOS: resolve the standard log directory explicitly (~/Library/Logs/<app name>)
+        // instead of passing nil down to DDLogFileManagerDefault. This mirrors CocoaLumberjack's
+        // own macOS default (NSLibraryDirectory + "Logs" + process name) but makes the location
+        // deterministic and independent of any change in how the library treats a nil directory,
+        // so the temporary startup logger and the permanent logger reliably use the same standard
+        // directory. On iOS we keep passing nil so CocoaLumberjack uses its platform default
+        // (the Caches directory), unchanged.
+        NSString *basePath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject;
+        if (basePath.length > 0) {
+            NSString *appName = [NSProcessInfo processInfo].processName;
+            logPath = [[basePath stringByAppendingPathComponent:@"Logs"] stringByAppendingPathComponent:appName];
+        }
+    }
+#endif
     DDLogFileManagerDefault* logFileManager = [[DDLogFileManagerDefault alloc] initWithLogsDirectory:logPath];
     myLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
     myLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling

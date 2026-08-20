@@ -4274,11 +4274,20 @@ void run_on_ui_thread(dispatch_block_t block)
 // settings are initialized
 - (void) initializeTemporaryLogger
 {
+    // Log startup events at Debug level until the log level from the current settings is
+    // applied later (see -initializeLogger). The global dynamic log level (ddLogLevel) is
+    // otherwise still at its initial value at this point, which doesn't include Info, so the
+    // Info startup lines below (the "STARTING UP SEB" header and the system info) would be
+    // dropped and the log would appear to start only at the first Warning (e.g. the
+    // "DCAppAttestService is not available" line logged during -setSEBDefaults).
+    [[MyGlobals sharedMyGlobals] setDDLogLevel:SEBLogLevelDebug];
+
     _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
     [DDLog addLogger:_myLogger];
     
     DDLogInfo(@"---------- STARTING UP SEB - INITIALIZE SETTINGS -------------");
-    DDLogInfo(@"(log after start up is finished may continue in another file, according to current settings)");
+    DDLogInfo(@"(log continues in the same file if the current settings keep the default log directory, otherwise in another file in the configured directory)");
+    DDLogInfo(@"Temporary startup log directory: %@", _myLogger.logFileManager.logsDirectory);
     [MyGlobals logSystemInfo];
 }
 
@@ -4295,7 +4304,6 @@ void run_on_ui_thread(dispatch_block_t block)
     } else {
         //Set log directory
         NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-        [DDLog removeLogger:_myLogger];
         if (logPath.length == 0) {
             // No log directory indicated: We use the standard one
             logPath = nil;
@@ -4303,8 +4311,21 @@ void run_on_ui_thread(dispatch_block_t block)
             logPath = [logPath stringByExpandingTildeInPath];
             // Add subdirectory with the name of the computer
         }
-        _myLogger = [MyGlobals initializeFileLoggerWithDirectory:logPath];
-        [DDLog addLogger:_myLogger];
+        // Only switch the file logger when the resolved log directory actually differs from the
+        // one the current logger (e.g. the temporary startup logger set up in
+        // -initializeTemporaryLogger) is already writing to. Creating a new DDFileLogger rolls a
+        // new log file, so recreating it unconditionally split the startup log (including the
+        // early client-settings reconfigure logged during -init) from the rest of the session.
+        // Keeping the same logger when the directory is unchanged (typically the default log
+        // directory) keeps the whole session in one continuous file.
+        DDFileLogger *candidateLogger = [MyGlobals initializeFileLoggerWithDirectory:logPath];
+        if (_myLogger && [_myLogger.logFileManager.logsDirectory isEqualToString:candidateLogger.logFileManager.logsDirectory]) {
+            // Same directory: keep the existing logger so logging continues in the same file.
+        } else {
+            [DDLog removeLogger:_myLogger];
+            _myLogger = candidateLogger;
+            [DDLog addLogger:_myLogger];
+        }
         
         if ([preferences secureIntegerForKey:@"org_safeexambrowser_SEB_sebMode"] == sebModeSebServer ||
             _establishingSEBServerConnection || _sebServerConnectionEstablished) {
@@ -4315,6 +4336,7 @@ void run_on_ui_thread(dispatch_block_t block)
         }
         
         DDLogInfo(@"---------- INITIALIZING SEB - STARTING SESSION -------------");
+        DDLogInfo(@"Log directory: %@%@", _myLogger.logFileManager.logsDirectory, (logPath == nil) ? @" (default)" : @" (from settings)");
         [MyGlobals logSystemInfo];
     }
 }

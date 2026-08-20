@@ -374,6 +374,13 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 // settings are initialized
 - (void) initializeTemporaryLogger
 {
+    // Log startup events at Debug level until the log level from the current settings is
+    // applied later. The global dynamic log level (ddLogLevel) is otherwise still at its
+    // initial value at this point, which doesn't include Info, so the Info startup lines
+    // below (the "STARTING UP SEB" header and the system info) would be dropped and the log
+    // would appear to start only at the first Warning.
+    [[MyGlobals sharedMyGlobals] setDDLogLevel:SEBLogLevelDebug];
+
     _myLogger = [MyGlobals initializeFileLoggerWithDirectory:nil];
     [DDLog addLogger:_myLogger];
     
