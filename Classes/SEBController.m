@@ -8875,6 +8875,58 @@ conditionallyForWindow:(NSWindow *)window
 - (void)requestedRestart
 {
     DDLogInfo(@"---------- RESTARTING SEB SESSION -------------");
+
+    // Log why SEB is restarting. The deployed client-settings reconfigure that triggers the
+    // first restart at launch runs very early (in -init, before the persistent file logger
+    // is (re)initialized in -initializeLogger), so its own log lines land in the temporary
+    // startup log file rather than this session's log. Logging the reason here makes the
+    // cause of the restart visible in the running session's log.
+    if (_isReconfiguringToMDMConfig) {
+        DDLogInfo(@"Restart reason: SEB was reconfigured with deployed client settings (a SEBClientSettings.seb in /Library/Preferences/, per-user or all-users) or an MDM-provided configuration.");
+    } else {
+        DDLogInfo(@"Restart reason: the exam session was reconfigured or a restart was requested (e.g. opening a config file/link, closing the Preferences window, or restarting the session).");
+    }
+
+    // #630: Handle the collision between the deployed client-settings reconfigure and a
+    // config the user opened while SEB was still starting up. When a SEBClientSettings.seb
+    // is deployed in /Library/Preferences/, SEB reconfigures + restarts on every launch:
+    // -reconfigureClientWithSebClientSettingsCallback sets _isReconfiguringToMDMConfig and
+    // calls -serverSessionQuitRestart: → this method. If the user simultaneously opened an
+    // exam config (by double-clicking a .seb file or via a seb:// link), this "restart" is
+    // really part of startup, not a restart of a running session, and running the full
+    // restart collides with the startup the config open drives:
+    //   • Path A (config file): the open was deferred in -application:openFile: and never
+    //     honored (-applicationDidFinishLaunchingProceed skips it while
+    //     _isReconfiguringToMDMConfig is set) and the stale _openingSettings flag aborts
+    //     -conditionallyInitSEBWithCallback: → SEB hangs with no lockdown / no window.
+    //   • Path B (seb:// URL): the open already applied the exam config and started
+    //     -didFinishLaunchingWithSettings, so this restart initialises the session a second
+    //     time and the leftover start path then falsely detects the exam as "re-opened"
+    //     (locked) → red lock screen.
+    // _openedURL is set in both -application:openFile: and -application:openURLs: and is
+    // only reset below, so it reliably marks "a config open is in flight during startup".
+    // In that case, don't run the competing restart; let the config open drive startup
+    // (opening the deferred file first, if any). This matches a normal config-open launch,
+    // where _openedURL likewise stays set for the whole session.
+    if (_startingUp && _openedURL) {
+        _isReconfiguringToMDMConfig = NO;
+        if (_openingSettings && _openingSettingsFileURL) {
+            // Path A: open the deferred config file on top of the just-applied client
+            // settings so its exam session starts.
+            NSURL *deferredFileURL = _openingSettingsFileURL;
+            _openingSettingsFileURL = nil;
+            _openingSettings = NO;
+            DDLogInfo(@"Client settings were applied while a config file was opened during startup; now opening the deferred config file: %@", deferredFileURL);
+            [self openFile:deferredFileURL];
+        } else {
+            // Path B: the seb:// config URL open already applied the exam config and started
+            // startup; aborting this redundant restart lets that startup finish and start
+            // the exam session exactly once.
+            DDLogInfo(@"Client settings were applied while a config URL was opened during startup; aborting redundant restart so the config URL startup can finish.");
+        }
+        return;
+    }
+
     _restarting = YES;
     _conditionalInitAfterProcessesChecked = NO;
     _openedURL = NO;
@@ -8909,26 +8961,6 @@ conditionallyForWindow:(NSWindow *)window
     
     // Re-Initialize file logger if logging enabled
     [self initializeLogger];
-
-    // If SEB is still starting up and a config file (e.g. an exam config) was opened
-    // (double-clicked / seb:// file link) while SEB was reconfiguring to deployed client
-    // settings (a SEBClientSettings.seb in /Library/Preferences/), that file open was
-    // deferred (see -application:openFile:) but never honored: -applicationDidFinishLaunchingProceed
-    // skips it while _isReconfiguringToMDMConfig is set, and this restart (triggered by the
-    // client reconfigure) would otherwise abort in -conditionallyInitSEBWithCallback: because
-    // the pending _openingSettings flag is still set — leaving SEB hung with no lockdown and
-    // no browser window (see issue #630). The client settings are now applied, so instead of
-    // aborting we open the deferred config file, which reconfigures SEB accordingly and starts
-    // its session.
-    if (_startingUp && _openingSettings && _openingSettingsFileURL) {
-        NSURL *deferredFileURL = _openingSettingsFileURL;
-        _openingSettingsFileURL = nil;
-        _openingSettings = NO;
-        _isReconfiguringToMDMConfig = NO;
-        DDLogInfo(@"Client was reconfigured with deployed client settings while a config file was opened during startup; now opening the deferred config file: %@", deferredFileURL);
-        [self openFile:deferredFileURL];
-        return;
-    }
 
     // Location Services for the reconfigured session is NOT requested here: at this point the
     // previous AAC session is still active, so a prompt would be hidden behind the locked-down
@@ -8985,6 +9017,23 @@ conditionallyForWindow:(NSWindow *)window
 
     // Adjust screen locking
     [self adjustScreenLocking:nil];
+
+    // If this restart actually completed SEB's startup, finish startup here. A deployed
+    // client-settings reconfigure (SEBClientSettings.seb in /Library/Preferences/) starts
+    // the session via -requestedRestart (see -reconfigureClientWithSebClientSettingsCallback
+    // → -serverSessionQuitRestart:) rather than via -didFinishLaunchingWithSettingsProcessesChecked,
+    // which is the only other place that clears _startingUp and finishes initialization.
+    // Without clearing it here, _startingUp would stay true for the whole client-settings
+    // session, so the first in-session config open (e.g. a seb:// exam link) would be
+    // misrouted through the startup path (-didOpenSettings → -didFinishLaunchingWithSettings)
+    // instead of a reconfigure (-requestedRestart) — applying the new config inconsistently
+    // (e.g. keeping the client-settings start URL while using the exam config's quit
+    // password) — see issue #630. Guarded by _startingUp so normal in-session restarts,
+    // where startup already finished, are unaffected.
+    if (_startingUp) {
+        _startingUp = false;
+        [self performSelector:@selector(performAfterStartActions:) withObject: nil afterDelay: 2];
+    }
     
     // ToDo: Opening of additional resources (but not only here, also when starting SEB)
     //    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
