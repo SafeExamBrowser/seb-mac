@@ -66,11 +66,14 @@
 {
     NSData *sebData = [self.delegate getSEBClientSettings];
     if (sebData) {
+        DDLogInfo(@"Found deployed SEB client settings (SEBClientSettings.seb in Library/Preferences/): reconfiguring SEB with these client settings. This will restart the session.");
         [self storeNewSEBSettings:sebData
                        forEditing:NO
            forceConfiguringClient:YES
                          callback:self
                          selector:@selector(reconfigureClientWithSebClientSettingsCallback)];
+    } else {
+        DDLogDebug(@"No deployed SEB client settings (SEBClientSettings.seb) found in Library/Preferences/; starting up with the local client configuration.");
     }
 }
 

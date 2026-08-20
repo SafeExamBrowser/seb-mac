@@ -90,6 +90,9 @@
     if (libraryDirectory) {
         NSURL *sebClientSettingsFileURL = [[libraryDirectory URLByAppendingPathComponent:SEBClientSettingsDirectory] URLByAppendingPathComponent:SEBClientSettingsFilename];
         sebData = [NSData dataWithContentsOfURL:sebClientSettingsFileURL];
+        if (sebData) {
+            DDLogInfo(@"Deployed SEB client settings found at %@ (%@).", sebClientSettingsFileURL.path, domain == NSLocalDomainMask ? @"all users" : @"current user");
+        }
         if (sebData && domain == NSUserDomainMask) {
             // Delete the SEBClientSettings.seb file from the user's Preferences directory
             error = nil;

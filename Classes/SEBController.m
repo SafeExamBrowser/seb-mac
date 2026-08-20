@@ -4143,7 +4143,12 @@ void run_on_ui_thread(dispatch_block_t block)
     // Get all running processes, including daemons
     NSArray *allRunningProcesses = [self getProcessArray];
     NSArray *allRunningProcessNames = [allRunningProcesses valueForKey:@"name"];
-    DDLogInfo(@"There are %lu running BSD processes: \n%@", (unsigned long)allRunningProcessNames.count, allRunningProcessNames);
+    // Log the process names deduplicated (and sorted) to avoid the long list of duplicate
+    // names from multi-process apps (e.g. many "com.apple.WebKit.WebContent"). The full
+    // allRunningProcessNames array (with duplicates) is still used for the containsObject:
+    // checks below.
+    NSArray *uniqueRunningProcessNames = [[[NSSet setWithArray:allRunningProcessNames] allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    DDLogInfo(@"There are %lu running BSD processes (%lu unique names): \n%@", (unsigned long)allRunningProcessNames.count, (unsigned long)uniqueRunningProcessNames.count, uniqueRunningProcessNames);
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     allowDictation = [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDictation"];
 
