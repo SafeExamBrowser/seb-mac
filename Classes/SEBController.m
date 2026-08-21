@@ -1555,7 +1555,17 @@ bool insideMatrix(void);
                     dispatch_source_cancel(self.locationAuthPollSource);
                     self.locationAuthPollSource = nil;
                 }
-                [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
+                // Dismiss on the main thread. The alert is a sheet under AAC on macOS 11 (which
+                // must be ended via its sheet parent, not by -stopModalWithCode:) and a -runModal
+                // alert otherwise; handle both so auto-dismiss works in every presentation mode.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSWindow *alertWindow = modalAlert.window;
+                    if (alertWindow.sheetParent) {
+                        [alertWindow.sheetParent endSheet:alertWindow returnCode:SEBLocationAuthGrantedResponse];
+                    } else {
+                        [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
+                    }
+                });
             }
         }
     });
@@ -2845,8 +2855,12 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
     // Update AAC availability before version check
     [self updateAACAvailablility];
 
-    // Check if running on minimal macOS version
-    [self checkMinMacOSVersion];
+    // Check if running on minimal macOS version. If not allowed, abort initialization here: the
+    // alert is presented (asynchronously under AAC on macOS 11) and SEB quits from its handler, so
+    // the session must not continue to start.
+    if (![self checkMinMacOSVersion]) {
+        return;
+    }
 
     // Check if the running SEB version is allowed by the current settings. If not,
     // abort initialization here: the alert is presented (deferred) and SEB quits,
@@ -5548,7 +5562,12 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
 #pragma mark - Checks for System Environment
 
 // Check if running on minimal allowed macOS version or a newer version
-- (void)checkMinMacOSVersion
+// Returns YES if the current macOS version is allowed by the active settings (initialization may
+// continue), NO if not. When not allowed, a blocking alert is presented and SEB is quit from its
+// completion handler; the caller MUST abort initialization (return) so no session is started. The
+// alert is asynchronous under AAC on macOS 11 (shown as a sheet), so this must not rely on it
+// blocking - the return value is what stops the flow.
+- (BOOL)checkMinMacOSVersion
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     enforceMinMacOSVersion = NO;
@@ -5675,9 +5694,11 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
             }
         };
         [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))terminateSEBAlertOK];
+        return NO;
     } else {
         DDLogInfo(@"%s: Running on current macOS version is allowed.", __FUNCTION__);
     }
+    return YES;
 }
 
 
@@ -6208,12 +6229,14 @@ bool insideMatrix(void){
 
 - (void) adjustScreenLocking: (id _Nullable)sender
 {
+#ifdef DEBUG
     // This should only be done when the preferences window isn't open
     if (sender) {
         DDLogDebug(@"%s NSApplicationDidChangeScreenParametersNotification sender: %@", __FUNCTION__, sender);
     } else {
         DDLogDebug(@"%s", __FUNCTION__);
     }
+#endif
     
     if (!_isTerminating && !self.settingsOpen) {
         
@@ -6309,6 +6332,33 @@ bool insideMatrix(void){
 }
 
 
+// Returns a visible window suitable to host a modal sheet, used on macOS 11 under AAC when no
+// specific parent window is available (see -runModalAlert:conditionallyForWindow:completionHandler:).
+// Prefers a full-screen cover (cap) window; otherwise any visible window (e.g. the SEB Dock).
+// We deliberately do NOT create a new top-level window here: bringing up a fresh key window under
+// an active AAC session on macOS 11 proved unsafe.
+- (NSWindow *) anyVisibleWindowForModalHost
+{
+    for (NSWindow *capWindow in self.capWindows) {
+        if (capWindow.isVisible) {
+            return capWindow;
+        }
+    }
+    if (NSApp.keyWindow.isVisible) {
+        return NSApp.keyWindow;
+    }
+    if (NSApp.mainWindow.isVisible) {
+        return NSApp.mainWindow;
+    }
+    for (NSWindow *someWindow in NSApp.windows) {
+        // Skip the modal alert panels themselves; any other visible window can host the sheet.
+        if (someWindow.isVisible && ![_modalAlertWindows containsObject:someWindow]) {
+            return someWindow;
+        }
+    }
+    return nil;
+}
+
 - (void) runModalAlert:(NSAlert *)alert
 conditionallyForWindow:(NSWindow *)window
      completionHandler:(void (^)(NSModalResponse returnCode))handler
@@ -6316,16 +6366,24 @@ conditionallyForWindow:(NSWindow *)window
     if (@available(macOS 12.0, *)) {
     } else {
         if (@available(macOS 11.0, *)) {
-            // On macOS 11 an application-modal -[NSAlert runModal] can be suppressed while an
-            // AAC session covers the screen, so alerts are shown as a sheet on the parent window.
-            // This requires a host window: during the startup permission checks (Full Disk Access,
-            // Location Services) no browser window exists yet, so `window` is nil. Attaching a sheet
-            // to a nil window never presents it AND never calls the completion handler, hanging SEB
-            // indefinitely. Only take the sheet path when there is a window to host it; otherwise
-            // fall through to -runModal (which works here, as the AAC session has not begun yet).
-            if ((_isAACEnabled || _wasAACEnabled) && window) {
-                [alert beginSheetModalForWindow:window completionHandler:(void (^)(NSModalResponse answer))handler];
-                return;
+            // On macOS 11 a free-standing application-modal -[NSAlert runModal] is invisible while
+            // an AAC session covers the screen (it must become key/front on its own, which AAC
+            // blocks). A sheet attached to a visible window IS shown and interactive under AAC, so
+            // present the alert as a document-modal sheet. This is ASYNCHRONOUS: the completion
+            // handler runs when the user responds and this method returns immediately. Do NOT try
+            // to make it synchronous with a nested run loop - pumping the run loop under an active
+            // AAC session on macOS 11 deadlocks the WindowServer (hard freeze). Callers that must
+            // not proceed until the user responds (minimum-macOS-version / allowed-SEB-versions
+            // checks) therefore abort their init flow when the alert is shown and act only from the
+            // completion handler.
+            if (_isAACEnabled || _wasAACEnabled) {
+                NSWindow *hostWindow = window ?: [self anyVisibleWindowForModalHost];
+                if (hostWindow) {
+                    DDLogDebug(@"%s: presenting alert as async sheet on host window %@ (parent window: %@)", __FUNCTION__, hostWindow, window);
+                    [alert beginSheetModalForWindow:hostWindow completionHandler:(void (^)(NSModalResponse answer))handler];
+                    return;
+                }
+                DDLogWarn(@"%s: AAC enabled on macOS 11 but no host window available for a sheet; falling back to -runModal (visible only if no AAC session is active).", __FUNCTION__);
             }
         }
     }
