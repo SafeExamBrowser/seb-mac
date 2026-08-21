@@ -1555,15 +1555,19 @@ bool insideMatrix(void);
                     dispatch_source_cancel(self.locationAuthPollSource);
                     self.locationAuthPollSource = nil;
                 }
-                // Dismiss on the main thread. The alert is a sheet under AAC on macOS 11 (which
-                // must be ended via its sheet parent, not by -stopModalWithCode:) and a -runModal
-                // alert otherwise; handle both so auto-dismiss works in every presentation mode.
+                // Two presentation modes need two different dismissals:
+                // - -runModal (macOS 12+, or macOS 11 without an active AAC session): the main
+                //   thread is blocked in a modal run loop that does NOT drain the main dispatch
+                //   queue, so a dispatch_async(main) dismissal would never run. -stopModalWithCode:
+                //   breaks the modal loop directly from this background queue (as before).
+                // - Sheet (macOS 11 under AAC): not a modal session, so -stopModalWithCode: is a
+                //   no-op; end the sheet via its sheet parent on the main thread instead.
+                // Both are harmless in the other mode (no modal session / no sheet parent).
+                [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSWindow *alertWindow = modalAlert.window;
                     if (alertWindow.sheetParent) {
                         [alertWindow.sheetParent endSheet:alertWindow returnCode:SEBLocationAuthGrantedResponse];
-                    } else {
-                        [NSApp stopModalWithCode:SEBLocationAuthGrantedResponse];
                     }
                 });
             }
