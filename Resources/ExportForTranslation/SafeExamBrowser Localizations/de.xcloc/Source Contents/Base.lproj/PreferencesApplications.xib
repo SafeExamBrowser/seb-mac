@@ -333,6 +333,16 @@
                                                                                     <action selector="chooseApplication:" target="-2" id="tbh-H0-Qsw"/>
                                                                                 </connections>
                                                                             </button>
+                                                                            <button toolTip="Add a preset permitted process which is available in every configuration" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="prs-01-btn">
+                                                                                <rect key="frame" x="213" y="0.0" width="163" height="22"/>
+                                                                                <buttonCell key="cell" type="push" title="Add Preset Process..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="prs-01-cel">
+                                                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                    <font key="font" metaFont="system"/>
+                                                                                </buttonCell>
+                                                                                <connections>
+                                                                                    <action selector="addPresetPermittedProcess:" target="-2" id="prs-01-act"/>
+                                                                                </connections>
+                                                                            </button>
                                                                             <button hidden="YES" toolTip="For choosing a running process which will be added to the list of permitted processes" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1600">
                                                                                 <rect key="frame" x="0.0" y="-2" width="134" height="24"/>
                                                                                 <buttonCell key="cell" type="push" title="Choose Process..." bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1601">
@@ -359,8 +369,10 @@
                                                                             <integer value="1000"/>
                                                                             <integer value="1000"/>
                                                                             <integer value="1000"/>
+                                                                            <integer value="1000"/>
                                                                         </visibilityPriorities>
                                                                         <customSpacing>
+                                                                            <real value="3.4028234663852886e+38"/>
                                                                             <real value="3.4028234663852886e+38"/>
                                                                             <real value="3.4028234663852886e+38"/>
                                                                             <real value="3.4028234663852886e+38"/>

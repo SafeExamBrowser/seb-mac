@@ -274,6 +274,9 @@
 /* Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7"; */
 "f49-Sx-zE7.title" = "Regex";
 
+/* Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00"; */
+"fss-Ce-ll00.title" = "Vom Server abrufen…";
+
 /* Class = "NSButtonCell"; ibExternalAccessibilityDescription = "URL Filter message"; ObjectID = "gNh-Qf-Z8W"; */
 "gNh-Qf-Z8W.ibExternalAccessibilityDescription" = "URL-Filter-Nachricht";
 
@@ -337,6 +340,3 @@
 /* Class = "NSMatrix"; ibShadowedToolTip = "Chooses message/symbol which is displayed in the browser window toolbar when a URL isn't allowed"; ObjectID = "wtP-tT-RxN"; */
 "wtP-tT-RxN.ibShadowedToolTip" = "Hinweis auswählen, der im Browserfenster angezeigt wird, wenn eine URL nicht erlaubt ist";
 
-
-/* Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00"; */
-"fss-Ce-ll00.title" = "Vom Server abrufen…";

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.6" build-num="17F113"/>
@@ -793,9 +792,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad";</note>
       </trans-unit>
       <trans-unit id="Qdn-Cu-Oym.title" xml:space="preserve">
-        <source>Toolbar/Menu Bar/Status Bar</source>
-        <target>Symbolleiste/Menüleiste/Statusleiste</target>
-        <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
+        <source>Toolbar/Status Bar</source>
+        <target>Symbolleiste/Statusleiste</target>
+        <note>Class = "NSBox"; title = "Toolbar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
       </trans-unit>
       <trans-unit id="RJU-Xs-qUE.title" xml:space="preserve">
         <source>Show address bar for main window (Win)</source>
@@ -816,11 +815,6 @@
         <source>Show time</source>
         <target>Uhrzeit anzeigen</target>
         <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi";</note>
-      </trans-unit>
-      <trans-unit id="Vv2-Sf-65e.title" xml:space="preserve">
-        <source>Show menu bar</source>
-        <target>Menüleiste anzeigen</target>
-        <note>Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e";</note>
       </trans-unit>
       <trans-unit id="W1X-bf-zFD.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Use browser window</source>
@@ -1076,11 +1070,6 @@
         <source>Default text zoom level</source>
         <target>Standard-Textgrösse</target>
         <note>Class = "NSTextFieldCell"; title = "Default text zoom level"; ObjectID = "zNp-k1-XUs";</note>
-      </trans-unit>
-      <trans-unit id="zrE-tv-pfV.ibShadowedToolTip" xml:space="preserve">
-        <source>Show the macOS menu bar to allow accessing settings like Wi-Fi</source>
-        <target>macOS Menüleiste anzeigen für Zugriff auf Einstellungen wie WLAN</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "zrE-tv-pfV";</note>
       </trans-unit>
     </body>
   </file>
@@ -1541,7 +1530,7 @@
       </trans-unit>
       <trans-unit id="I9H-dv-7jE.ibShadowedToolTip" xml:space="preserve">
         <source>Update dependent settings for Multi App Mode and secure download/opening/upload of files in additional apps</source>
-        <target>Aktualisierung der relevanten Einstellungen für den Multi-App-Modus und sicheres Herunterladen/Öffnen/Hochladen von Dateien in zusätzlichen Anwendungen</target>
+        <target>Aktualisierung der relevanten Einstellungen für den Multi-App-Modus und sicheres Herunterladen/Öffnen/Hochladen von Dateien in zusätzlichen Applikationen</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Update dependent settings for Multi App Mode and secure download/opening/upload of files in additional apps"; ObjectID = "I9H-dv-7jE";</note>
       </trans-unit>
       <trans-unit id="IYU-a0-pbv.title" xml:space="preserve">
@@ -1598,6 +1587,16 @@
         <source>Allow the permitted process to already be running when SEB starts (won't be terminated)</source>
         <target>Die Applikation darf bereits laufen, wenn SEB gestartet wird (wird nicht beendet)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw";</note>
+      </trans-unit>
+      <trans-unit id="prs-01-btn.ibShadowedToolTip" xml:space="preserve">
+        <source>Add a preset permitted process which is available in every configuration</source>
+        <target>Einen voreingestellten erlaubten Prozess hinzufügen, der in jeder Konfiguration verfügbar ist</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a preset permitted process which is available in every configuration"; ObjectID = "prs-01-btn";</note>
+      </trans-unit>
+      <trans-unit id="prs-01-cel.title" xml:space="preserve">
+        <source>Add Preset Process...</source>
+        <target>Voreingestellten Prozess hinzufügen …</target>
+        <note>Class = "NSButtonCell"; title = "Add Preset Process..."; ObjectID = "prs-01-cel";</note>
       </trans-unit>
       <trans-unit id="qje-gt-QNa.ibShadowedToolTip" xml:space="preserve">
         <source>Allow the permitted process to have Accessibility permissions (see System Settings / Privacy &amp; Security / Accessibility). If 'Detect apps with Accessibility Permissions' in Security Pane is enabled, then processes with Accessibility permissions (not excluded here) will be terminated</source>
@@ -1748,7 +1747,7 @@
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
         <source>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</source>
-        <target>In einigen Webanwendungen führt der erneute Versuch, eine fehlgeschlagene URL nach einem Verbindungsfehler zu laden, zu Problemen. Wenn diese Option aktiviert ist, wird stattdessen die gesamte Seite neu geladen.</target>
+        <target>In einigen Webapplikationen führt der erneute Versuch, eine fehlgeschlagene URL nach einem Verbindungsfehler zu laden, zu Problemen. Wenn diese Option aktiviert ist, wird stattdessen die gesamte Seite neu geladen.</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead"; ObjectID = "168";</note>
       </trans-unit>
       <trans-unit id="169.title" xml:space="preserve">
@@ -2682,7 +2681,7 @@
       </trans-unit>
       <trans-unit id="Puc-ch-f22.ibShadowedToolTip" xml:space="preserve">
         <source>Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads</source>
-        <target>Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittanwendungen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden</target>
+        <target>Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittapplikationen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads"; ObjectID = "Puc-ch-f22";</note>
       </trans-unit>
       <trans-unit id="Q5A-oO-lwh.ibShadowedToolTip" xml:space="preserve">
@@ -3797,6 +3796,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <source>Regex</source>
         <target>Regex</target>
         <note>Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7";</note>
+      </trans-unit>
+      <trans-unit id="fss-Ce-ll00.title" xml:space="preserve">
+        <source>Fetch from Server…</source>
+        <target>Vom Server abrufen…</target>
+        <note>Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00";</note>
       </trans-unit>
       <trans-unit id="gNh-Qf-Z8W.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>URL Filter message</source>
@@ -5225,6 +5229,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>(nach Beenden von %@)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id=" (from client settings)" xml:space="preserve">
+        <source> (from client settings)</source>
+        <target> (aus Client-Einstellungen)</target>
+        <note>Suffix marking a process offered from the local client settings</note>
+      </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
         <target>1</target>
@@ -5278,6 +5287,16 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
       <trans-unit id="%@ Re-Configured" xml:space="preserve">
         <source>%@ Re-Configured</source>
         <target>%@ neu konfiguriert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Version" xml:space="preserve">
+        <source>%@ Version</source>
+        <target>%@-Version</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Version Not Allowed!" xml:space="preserve">
+        <source>%@ Version Not Allowed!</source>
+        <target>%@-Version nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
@@ -5335,6 +5354,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%@ ist gesperrt, weil versucht wurde, auf einen anderen Benutzer umzuschalten. Beenden/Entsperren-Passwort eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
+      <trans-unit id="%@ is required for this exam." xml:space="preserve">
+        <source>%@ is required for this exam.</source>
+        <target>%@ ist für diese Session erforderlich.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security &amp; Privacy located in System Settings." xml:space="preserve">
         <source>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy located in System Settings.</source>
         <target>%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung "Sicherheit &amp; Datenschutz" / Bedienungshilfen.</target>
@@ -5345,13 +5369,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>%1$@ benötigt die Berechtigung für Barrierefreiheit, um den Titel des aktiven (vordersten) Fensters einer beliebigen Anwendung für Screen Proctoring zu lesen. %2$@ verwendet diese Zugriffsberechtigungen NUR während Screen Proctoring-Sitzungen. Erlauben Sie %3$@ den Zugriff unter Systemeinstellungen / Datenschutz und Sicherheit / Bedienungshilfen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.&#10;&#10;Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted." xml:space="preserve">
-        <source>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.
-
-Grant Location Services access to %2$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</source>
-        <target>%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.
-
-Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde.</target>
+      <trans-unit id="%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted." xml:space="preserve">
+        <source>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%2$@Grant Location Services access to %3$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</source>
+        <target>%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.%2$@Erlauben Sie %3$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services." xml:space="preserve">
@@ -5374,10 +5394,20 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>  %1$@ session was inactive for %2$ld:%3$.2ld (minutes:seconds)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ version %@" xml:space="preserve">
+        <source>%1$@ version %2$@</source>
+        <target>%@-Version %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
+      </trans-unit>
+      <trans-unit id="%@ version %@ or higher" xml:space="preserve">
+        <source>%1$@ version %2$@ or higher</source>
+        <target>%@-Version %@ oder höher</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -5409,9 +5439,19 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>%@, aktives Fenster</target>
         <note>Accessibility label for the active window in the SEB Dock open windows menu</note>
       </trans-unit>
+      <trans-unit id="%@, or %@" xml:space="preserve">
+        <source>%1$@, or %2$@</source>
+        <target>%@ oder %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)" xml:space="preserve">
         <source>(This function doesn't log you out if you are logged in on a website)</source>
         <target>(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="(Unnamed process)" xml:space="preserve">
+        <source>(Unnamed process)</source>
+        <target>(Unbenannter Prozess)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=", but compressed using gzip." xml:space="preserve">
@@ -5519,6 +5559,16 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Aktiviert den %@-Browser. Rechtsklick zeigt Menü mit geöffneten Webseiten an.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Add" xml:space="preserve">
+        <source>Add</source>
+        <target>Hinzufügen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Add Preset Permitted Process" xml:space="preserve">
+        <source>Add Preset Permitted Process</source>
+        <target>Voreingestellten erlaubten Prozess hinzufügen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Additional Applications Not Available" xml:space="preserve">
         <source>Additional Applications Not Available</source>
         <target>Zusätzliche Applikationen nicht verfügbar</target>
@@ -5527,6 +5577,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       <trans-unit id="All cached screenshots transmitted" xml:space="preserve">
         <source>All cached screenshots transmitted</source>
         <target>Alle zwischengespeicherten Bildschirmfotos übertragen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Allowed %@ Versions" xml:space="preserve">
+        <source>Allowed %@ Versions</source>
+        <target>Erlaubte %@-Versionen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Always" xml:space="preserve">
@@ -5653,6 +5708,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <source>CA Certificate</source>
         <target>CA-Zertifikat</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="CA anchor" xml:space="preserve">
+        <source>CA anchor</source>
+        <target>CA-Anker</target>
+        <note>Certificate embed type: a CA trust anchor</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
@@ -5832,7 +5892,8 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
         <target>Verbinde…</target>
-        <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+        <note>'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate</note>
       </trans-unit>
       <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
         <source>Connection to SEB Server Failed</source>
@@ -5876,8 +5937,13 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       </trans-unit>
       <trans-unit id="Could Not Access Data of Additional Apps" xml:space="preserve">
         <source>Could Not Access Data of Additional Apps</source>
-        <target>Kein Zugriff auf Daten zusätzlicher Anwendungen möglich</target>
+        <target>Kein Zugriff auf Daten zusätzlicher Applikationen möglich</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not connect to the server." xml:space="preserve">
+        <source>Could not connect to the server.</source>
+        <target>Verbindung zum Server nicht möglich.</target>
+        <note>Error when the connection to the entered server failed</note>
       </trans-unit>
       <trans-unit id="Could not determine a correct hostname. You can enter the domain URL of your institution manually." xml:space="preserve">
         <source>Could not determine a correct hostname. You can enter the domain URL of your institution manually.</source>
@@ -6049,6 +6115,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Down/Uploads</target>
         <note>Title of 'Down/Uploads' preference pane</note>
       </trans-unit>
+      <trans-unit id="Download %@" xml:space="preserve">
+        <source>Download %@</source>
+        <target>%@ herunterladen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Download Failed" xml:space="preserve">
         <source>Download Failed</source>
         <target>Download fehlgeschlagen</target>
@@ -6088,6 +6159,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <source>Edited settings have unsaved changes.</source>
         <target>Bearbeitete Einstellungen haben ungesicherte Änderungen.</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Embed Server Certificate" xml:space="preserve">
+        <source>Embed Server Certificate</source>
+        <target>Server-Zertifikat einbetten</target>
+        <note>Title of the fetch-server-certificate sheet window</note>
       </trans-unit>
       <trans-unit id="Enable" xml:space="preserve">
         <source>Enable</source>
@@ -6193,6 +6269,16 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <source>Fallback</source>
         <target>Fallback</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." xml:space="preserve">
+        <source>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</source>
+        <target>Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.</target>
+        <note>Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)</note>
+      </trans-unit>
+      <trans-unit id="Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." xml:space="preserve">
+        <source>Fetching a server certificate by URL is available on macOS 12 (Monterey) and later.</source>
+        <target>Das Abrufen eines Server-Zertifikats über eine URL ist ab macOS 12 (Monterey) verfügbar.</target>
+        <note>Alert message shown when Fetch from Server is used on macOS 11 or older</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
@@ -6449,14 +6535,9 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Ortungsdienste für Wi-Fi erforderlich</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Location Services access is required to display Wi-Fi network names." xml:space="preserve">
-        <source>Location Services access is required to display Wi-Fi network names.</source>
-        <target>Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing SEB." xml:space="preserve">
-        <source>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing SEB.</source>
-        <target>Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von SEB unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.</target>
+      <trans-unit id="Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing %@." xml:space="preserve">
+        <source>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing %@.</source>
+        <target>Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von %@ unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Log in to" xml:space="preserve">
@@ -6527,6 +6608,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       <trans-unit id="No Hostname Found" xml:space="preserve">
         <source>No Hostname Found</source>
         <target>Kein Hostname gefunden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No Preset Processes Available" xml:space="preserve">
+        <source>No Preset Processes Available</source>
+        <target>Keine voreingestellten Prozesse verfügbar</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
@@ -6699,6 +6785,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Bitte wenden Sie sich an Ihren Prüfungs-Support.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please enter a valid server URL or host name." xml:space="preserve">
+        <source>Please enter a valid server URL or host name.</source>
+        <target>Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.</target>
+        <note>Error when the entered server URL / host is not valid</note>
+      </trans-unit>
       <trans-unit id="Please enter correct confirm password" xml:space="preserve">
         <source>Please enter correct confirm password</source>
         <target>Bitte gleiches Passwort erneut eingeben</target>
@@ -6834,6 +6925,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Session mit Fernüberwachung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Remove" xml:space="preserve">
+        <source>Remove</source>
+        <target>Entfernen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
         <source>Repeating Error: Invalid Token</source>
         <target>Wiederholter Fehler: Ungültiges Token</target>
@@ -6853,6 +6949,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <source>Required built-in display is still not available!</source>
         <target>Verlangtes eingebautes Display immer noch nicht verfügbar!</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Requires macOS 12 or Later" xml:space="preserve">
+        <source>Requires macOS 12 or Later</source>
+        <target>Erfordert macOS 12 oder neuer</target>
+        <note>Alert title shown when Fetch from Server is used on macOS 11 or older</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
@@ -7029,6 +7130,21 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Prüfung auswählen</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
+      <trans-unit id="Select the certificate(s) to embed and choose their type:" xml:space="preserve">
+        <source>Select the certificate(s) to embed and choose their type:</source>
+        <target>Wählen Sie die einzubettenden Zertifikate und deren Typ:</target>
+        <note>Heading above the list of fetched certificates</note>
+      </trans-unit>
+      <trans-unit id="Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." xml:space="preserve">
+        <source>Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes.</source>
+        <target>Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." xml:space="preserve">
+        <source>Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes.</source>
+        <target>Wählen Sie die voreingestellten erlaubten Prozesse aus, die Sie zu Ihren %@-Einstellungen hinzufügen möchten. Sie werden als aktive Prozesse hinzugefügt.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Sending cached screen shots, server health %d out of 10" xml:space="preserve">
         <source>Sending cached screen shots, server health %d out of 10</source>
         <target>Übertragung läuft, Verbindungsqualität %d von 10</target>
@@ -7104,6 +7220,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Überspringen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: &quot;Win.3.9.min&quot; allows %@ for Windows 3.9 or newer." xml:space="preserve">
+        <source>Specify one or more %1$@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: "Win.3.9.min" allows %2$@ for Windows 3.9 or newer.</source>
+        <target>Geben Sie eine oder mehrere %@-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind – eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in eckigen Klammern). Beispiel: "Win.3.9.min" erlaubt %@ für Windows 3.9 oder neuer.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Standard user agent" xml:space="preserve">
         <source>Standard user agent</source>
         <target>Standard User Agent</target>
@@ -7138,6 +7259,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <source>System Preferences</source>
         <target>Systemeinstellungen</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="TLS/SSL pin" xml:space="preserve">
+        <source>TLS/SSL pin</source>
+        <target>TLS/SSL-Pin</target>
+        <note>Certificate embed type: a TLS/SSL public-key pin</note>
       </trans-unit>
       <trans-unit id="The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
@@ -7184,6 +7310,16 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." xml:space="preserve">
+        <source>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</source>
+        <target>Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.</target>
+        <note>Warning shown when a fetched certificate chain fails normal system trust validation</note>
+      </trans-unit>
+      <trans-unit id="The server did not present any certificates." xml:space="preserve">
+        <source>The server did not present any certificates.</source>
+        <target>Der Server hat keine Zertifikate präsentiert.</target>
+        <note>Error when a fetched TLS connection returned no certificates</note>
+      </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <target>Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.</target>
@@ -7192,6 +7328,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       <trans-unit id="Then restart %@/the exam." xml:space="preserve">
         <source>Then restart %@/the exam.</source>
         <target>Dannach starten Sie %@/die Prüfung neu.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="There are currently no additional preset permitted processes which could be added to your %@ settings." xml:space="preserve">
+        <source>There are currently no additional preset permitted processes which could be added to your %@ settings.</source>
+        <target>Es sind momentan keine weiteren voreingestellten erlaubten Prozesse vorhanden, die zu Ihren %@-Einstellungen hinzugefügt werden könnten.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
@@ -7226,12 +7367,12 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
       </trans-unit>
       <trans-unit id="This exam session requires the following additional applications to be available:" xml:space="preserve">
         <source>This exam session requires the following additional applications to be available:</source>
-        <target>Für diese Prüfungssession müssen die folgenden zusätzlichen Anwendungen zur Verfügung stehen:</target>
+        <target>Für diese Prüfungssession müssen die folgenden zusätzlichen Applikationen zur Verfügung stehen:</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time." xml:space="preserve">
         <source>This exam session requires using additional applications. You have to allow access to their data, as %1$@ has to remove the saved state of previously open document windows in these apps (%2$@ is not accessing any of your data created in these apps). %3$@ will quit now, restart the exam and grant access to the data of additional apps next time.</source>
-        <target>Für diese Prüfungssession werden zusätzliche Anwendungen benötigt. Sie müssen den Zugriff auf deren Daten erlauben, da %1$@ den gespeicherten Status der zuvor geöffneten Dokumentfenster in diesen Anwendungen entfernen muss (%2$@ greift nicht auf Ihre in diesen Anwendungen erstellten Daten zu). %3$@ wird sich jetzt beenden, starten Sie die Prüfung erneut und erlauben Sie beim nächsten Mal den Zugriff auf die Daten der zusätzlichen Applikationen.</target>
+        <target>Für diese Prüfungssession werden zusätzliche Applikationen benötigt. Sie müssen den Zugriff auf deren Daten erlauben, da %1$@ den gespeicherten Status der zuvor geöffneten Dokumentfenster in diesen Applikationen entfernen muss (%2$@ greift nicht auf Ihre in diesen Applikationen erstellten Daten zu). %3$@ wird sich jetzt beenden, starten Sie die Prüfung erneut und erlauben Sie beim nächsten Mal den Zugriff auf die Daten der zusätzlichen Applikationen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." xml:space="preserve">
@@ -7254,6 +7395,11 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur für Open Book Prüfungen (ohne Kioskmodus) oder Debugging benutzt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="This version of %@ is not allowed for this exam." xml:space="preserve">
+        <source>This version of %@ is not allowed for this exam.</source>
+        <target>Diese Version von %@ ist für diese Session nicht erlaubt.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." xml:space="preserve">
         <source>To avoid that %1$@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %2$@ is still running.</source>
         <target>Um zu verhindern, dass %1$@ eine Prüfungssession blockiert, muss immer ein Beenden/Entsperren-Link nach Abgabe der Prüfung oder die Beenden-Taste benutzt werden. Versuchen Sie nie, Ihren Mac neu zu starten oder abzuschalten, während %2$@ noch läuft.</target>
@@ -7269,9 +7415,9 @@ Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen /
         <target>Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry." xml:space="preserve">
-        <source>To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</source>
-        <target>Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %@ Festplattenvollzugriff. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'.</target>
+      <trans-unit id="To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry." xml:space="preserve">
+        <source>To detect apps with Accessibility permissions, %1$@ requires Full Disk Access. %2$@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</source>
+        <target>Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %1$@ Festplattenvollzugriff. %2$@ liest keine anderen Daten als die macOS-Systemliste der Applikationen mit Bedienungshilfen-Berechtigungen. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
@@ -7344,6 +7490,11 @@ untitled filename</note>
         <source>Uploading</source>
         <target>Upload</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Use Start URL" xml:space="preserve">
+        <source>Use Start URL</source>
+        <target>Start-URL verwenden</target>
+        <note>Link that fills the URL field with the exam's start URL host</note>
       </trans-unit>
       <trans-unit id="Used third-party frameworks:" xml:space="preserve">
         <source>Used third-party frameworks:</source>
@@ -7530,6 +7681,11 @@ untitled filename</note>
         <target>Es ist nicht erlaubt, %@ innerhalb einer virtuellen Maschine zu betreiben!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="You are running %@ version %@ (build %@). Please download and install a required version." xml:space="preserve">
+        <source>You are running %1$@ version %2$@ (build %3$@). Please download and install a required version.</source>
+        <target>Sie verwenden %@ Version %@ (Build %@). Bitte laden Sie eine erforderliche Version herunter und installieren Sie sie.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="You can also force quit these processes, but this may lead to loss of data." xml:space="preserve">
         <source>You can also force quit these processes, but this may lead to loss of data.</source>
         <target>Sie können diese Prozesse auch sofort beenden, aber das kann zu Datenverlust führen.</target>
@@ -7680,6 +7836,16 @@ untitled filename</note>
         <target>Mikrofon</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="one of the %@ versions %@" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@</source>
+        <target>eine der %@-Versionen %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="one of the %@ versions %@ or higher" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@ or higher</source>
+        <target>eine der %@-Versionen %@ oder höher</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
         <target>in neuem Fenster öffnen</target>
@@ -7704,6 +7870,16 @@ untitled filename</note>
         <source>return to %@ and re</source>
         <target>zu %@ zurückkehren und </target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="root" xml:space="preserve">
+        <source>root</source>
+        <target>Root</target>
+        <note>Badge for a self-signed root CA certificate</note>
+      </trans-unit>
+      <trans-unit id="self-signed" xml:space="preserve">
+        <source>self-signed</source>
+        <target>selbstsigniert</target>
+        <note>Badge for a self-signed (non-CA) server certificate</note>
       </trans-unit>
       <trans-unit id="settings" xml:space="preserve">
         <source>settings</source>
@@ -9356,6 +9532,11 @@ untitled filename</note>
         <target>%@ ist gesperrt, weil versucht wurde, den Bildschirm während einer Prüfung aufzuzeichnen oder zu teilen. Stoppen Sie die Aufzeichnung/Teilen des Bildschirms (oder benutzen Sie die 'Ignorieren'-Schaltfläche) und geben Sie das Beenden/Entsperren-Passwort ein, welches üblicherweise der Prüfungsaufsicht bekannt ist.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ is required for this exam." xml:space="preserve">
+        <source>%@ is required for this exam.</source>
+        <target>%@ ist für diese Session erforderlich.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
         <source>%@ needs to be used differently depending on your role.</source>
         <target>%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.</target>
@@ -9366,10 +9547,20 @@ untitled filename</note>
         <target>%1$@ von %2$@-Konfigurationen ist in den aktuellen Einstellungen nicht erlaubt. Melden Sie dies Ihrem Prüfungsveranstalter.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ version %@" xml:space="preserve">
+        <source>%1$@ version %2$@</source>
+        <target>%1$@ Version %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ Version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
+      </trans-unit>
+      <trans-unit id="%@ version %@ or higher" xml:space="preserve">
+        <source>%1$@ version %2$@ or higher</source>
+        <target>%1$@ Version %2$@ oder höher</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -9384,6 +9575,11 @@ untitled filename</note>
       <trans-unit id="%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
         <source>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
         <target>%@ wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@, or %@" xml:space="preserve">
+        <source>%1$@, or %2$@</source>
+        <target>%@ oder %@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.7 (this %@: 10.13)" xml:space="preserve">
@@ -9606,6 +9802,11 @@ untitled filename</note>
         <target>CA-Zertifikat</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="CA anchor" xml:space="preserve">
+        <source>CA anchor</source>
+        <target>CA-Anker</target>
+        <note>Certificate embed type: a CA trust anchor</note>
+      </trans-unit>
       <trans-unit id="Camera Access Denied" xml:space="preserve">
         <source>Camera Access Denied</source>
         <target>Kamerazugriff verweigert</target>
@@ -9784,7 +9985,8 @@ untitled filename</note>
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
         <target>Verbinde…</target>
-        <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+        <note>'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate</note>
       </trans-unit>
       <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
         <source>Connection to SEB Server Failed</source>
@@ -9825,6 +10027,11 @@ untitled filename</note>
         <source>Could not Export Identity</source>
         <target>Konnte Identität nicht exportieren</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not connect to the server." xml:space="preserve">
+        <source>Could not connect to the server.</source>
+        <target>Verbindung zum Server nicht möglich.</target>
+        <note>Error when the connection to the entered server failed</note>
       </trans-unit>
       <trans-unit id="Could not determine a correct hostname. You can enter the domain URL of your institution manually." xml:space="preserve">
         <source>Could not determine a correct hostname. You can enter the domain URL of your institution manually.</source>
@@ -10041,6 +10248,11 @@ untitled filename</note>
         <target>Einbetten</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Embed Server Certificate" xml:space="preserve">
+        <source>Embed Server Certificate</source>
+        <target>Server-Zertifikat einbetten</target>
+        <note>Title of the fetch-server-certificate sheet window</note>
+      </trans-unit>
       <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." xml:space="preserve">
         <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</source>
         <target>Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfiguration').</target>
@@ -10165,6 +10377,11 @@ untitled filename</note>
         <source>Fallback</source>
         <target>Fallback</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." xml:space="preserve">
+        <source>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</source>
+        <target>Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.</target>
+        <note>Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
@@ -10626,6 +10843,11 @@ untitled filename</note>
         <target>Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können %@-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please enter a valid server URL or host name." xml:space="preserve">
+        <source>Please enter a valid server URL or host name.</source>
+        <target>Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.</target>
+        <note>Error when the entered server URL / host is not valid</note>
+      </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">
         <source>Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</source>
         <target>Projekt-Konzept: Thomas Piendl, Daniel R. Schneider, Damian Büchel, Andreas Hefti, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</target>
@@ -10926,6 +11148,11 @@ untitled filename</note>
         <target>Prüfung auswählen</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
+      <trans-unit id="Select the certificate(s) to embed and choose their type:" xml:space="preserve">
+        <source>Select the certificate(s) to embed and choose their type:</source>
+        <target>Wählen Sie die einzubettenden Zertifikate und deren Typ:</target>
+        <note>Heading above the list of fetched certificates</note>
+      </trans-unit>
       <trans-unit id="Send" xml:space="preserve">
         <source>Send</source>
         <target>Senden</target>
@@ -11026,9 +11253,9 @@ untitled filename</note>
         <target>Zeige</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
-        <source>Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again</source>
-        <target>Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und SEB-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.</target>
+      <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
+        <source>Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again</source>
+        <target>Blendet Seitenmenü ein/aus, welches offene Browser-Tabs auflistet (beginnend mit dem Prüfungs-Tab) und %@-Kontrollelemente. Das Seitenmenü muss ausgeblendet werden, um wieder auf die Browser-Inhalte zuzugreifen.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." xml:space="preserve">
@@ -11091,6 +11318,11 @@ untitled filename</note>
         <target>Systemeinstellung</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="TLS/SSL pin" xml:space="preserve">
+        <source>TLS/SSL pin</source>
+        <target>TLS/SSL-Pin</target>
+        <note>Certificate embed type: a TLS/SSL public-key pin</note>
+      </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">
         <source>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</source>
         <target>Die aktuelle Session wird mittels eines Live-Video- und Audiostreams fernüberwacht, welcher an einen individuell konfigurierten (Proctoring-)Server gesendet wird. Fragen Sie Ihren Prüfungsverantwortlichen nach dessen Datenschutzbestimmungen. %1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Proctoring-Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoringdienst oder Server verwendet werden soll.
@@ -11127,6 +11359,11 @@ untitled filename</note>
         <target>Die Fernüberwachungs-Ansicht wird zunächst in der rechten unteren Ecke angezeigt und kann in die anderen Bildschirmecken bewegt werden.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." xml:space="preserve">
+        <source>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</source>
+        <target>Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.</target>
+        <note>Warning shown when a fetched certificate chain fails normal system trust validation</note>
+      </trans-unit>
       <trans-unit id="The private key and certificate contained in the selected identity could not be exported. Try another identity." xml:space="preserve">
         <source>The private key and certificate contained in the selected identity could not be exported. Try another identity.</source>
         <target>Der private Schlüssel und das Zertifikat, die in der ausgewählten Identität enthalten sind, konnten nicht exportiert werden. Versuchen Sie eine andere Identität.</target>
@@ -11136,6 +11373,11 @@ untitled filename</note>
         <source>The screen is being captured/shared. The exam cannot be started.</source>
         <target>Bildschirm wird aufgezeichnet/geteilt. Die Prüfung kann nicht gestartet werden.</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The server did not present any certificates." xml:space="preserve">
+        <source>The server did not present any certificates.</source>
+        <target>Der Server hat keine Zertifikate präsentiert.</target>
+        <note>Error when a fetched TLS connection returned no certificates</note>
       </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
@@ -11175,6 +11417,11 @@ untitled filename</note>
       <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." xml:space="preserve">
         <source>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</source>
         <target>Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This version of %@ is not allowed for this exam." xml:space="preserve">
+        <source>This version of %@ is not allowed for this exam.</source>
+        <target>Diese Version von %@ ist für diese Session nicht erlaubt.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="To scan a QR code, enable the camera in settings" xml:space="preserve">
@@ -11241,6 +11488,11 @@ untitled filename</note>
         <source>Uploading</source>
         <target>Upload</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Use Start URL" xml:space="preserve">
+        <source>Use Start URL</source>
+        <target>Start-URL verwenden</target>
+        <note>Link that fills the URL field with the exam's start URL host</note>
       </trans-unit>
       <trans-unit id="Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." xml:space="preserve">
         <source>Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.</source>
@@ -11562,6 +11814,16 @@ untitled filename</note>
         <target>das Mikrofon</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="one of the %@ versions %@" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@</source>
+        <target>eine der %1$@-Versionen %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="one of the %@ versions %@ or higher" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@ or higher</source>
+        <target>eine der %1$@-Versionen %2$@ oder höher</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
         <target>in neuem Fenster öffnen</target>
@@ -11586,6 +11848,16 @@ untitled filename</note>
         <source>return to %@ and re</source>
         <target>und %@ erneut</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="root" xml:space="preserve">
+        <source>root</source>
+        <target>Root</target>
+        <note>Badge for a self-signed root CA certificate</note>
+      </trans-unit>
+      <trans-unit id="self-signed" xml:space="preserve">
+        <source>self-signed</source>
+        <target>selbstsigniert</target>
+        <note>Badge for a self-signed (non-CA) server certificate</note>
       </trans-unit>
       <trans-unit id="side menu" xml:space="preserve">
         <source>side menu</source>

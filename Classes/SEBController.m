@@ -1510,7 +1510,7 @@ bool insideMatrix(void);
 
     NSAlert *modalAlert = [self newAlert];
     [modalAlert setMessageText:NSLocalizedString(@"Location Services Required for Wi-Fi", @"")];
-    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.", @""), SEBShortAppName, SEBFullAppNameClassic]];
+    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.", @""), SEBShortAppName, @"\n\n", SEBFullAppNameClassic]];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Open System Settings", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Skip", @"")];
     [modalAlert setAlertStyle:NSAlertStyleWarning];

@@ -116,7 +116,7 @@
 "pgn-wC-9uD.placeholderString" = "Dateierweiterung ohne .";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use for downloading exam results or to download/upload files for editing in permitted third party applications. Deprecated setting: start using separate settings for allowing downloads/uploads"; ObjectID = "Puc-ch-f22"; */
-"Puc-ch-f22.ibShadowedToolTip" = "Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittanwendungen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden";
+"Puc-ch-f22.ibShadowedToolTip" = "Zum Download von Prüfungsergebnissen oder zum Download/Upload von Dateien zur Bearbeitung in zugelassenen Drittapplikationen. Veraltete Einstellung: ab jetzt separate Einstellungen für das Zulassen von Downloads/Uploads verwenden";
 
 /* Class = "NSScrollView"; ibShadowedToolTip = "Specify file types which will be downloaded instead of displayed by the browser. You can also indicate the associated additional app for the file type and use the option 'Open files after downloading' above. This feature might not be supported on all platforms"; ObjectID = "Q5A-oO-lwh"; */
 "Q5A-oO-lwh.ibShadowedToolTip" = "Geben Sie Dateitypen an, die heruntergeladen und nicht im Browser angezeigt werden sollen. Sie können auch die zugehörige zusätzliche App für den Dateityp angeben und die Option 'App für heruntergeladene Datei öffnen' oben verwenden. Diese Funktion ist möglicherweise nicht auf allen Plattformen verfügbar";

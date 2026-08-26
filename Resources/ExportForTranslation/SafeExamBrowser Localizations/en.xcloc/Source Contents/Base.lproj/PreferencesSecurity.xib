@@ -38,6 +38,7 @@
                 <outlet property="screenProctoringAACCapturePolicyButton" destination="spC-Pu-001" id="spC-Ou-001"/>
                 <outlet property="screenProctoringAACCapturePolicyLabel" destination="spC-Lb-001" id="spC-Ou-002"/>
                 <outlet property="screenSharingMacEnforceButton" destination="pn0-dK-cZw" id="Dwt-bW-mjY"/>
+                <outlet property="securitySettingsStackView" destination="NFT-WK-gUf" id="Asv-01-stk"/>
                 <outlet property="selectStandardDirectoryButton" destination="eiE-cV-UEx" id="04p-z9-Sbk"/>
                 <outlet property="view" destination="1" id="4"/>
             </connections>

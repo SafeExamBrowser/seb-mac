@@ -7,6 +7,9 @@
 /* No comment provided by engineer. */
 " (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
+/* Suffix marking a process offered from the local client settings */
+" (from client settings)" = " (aus Client-Einstellungen)";
+
 /* No comment provided by engineer. */
 " %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." = "%1$@ selbst stellt keine Verbindung zu einem zentralen %2$@ Screen Proctoring Server her. Ihr Prüfungsanbieter entscheidet, welcher Proctoring-Server verwendet werden soll.";
 
@@ -30,6 +33,9 @@
 
 /* No comment provided by engineer. */
 "(This function doesn't log you out if you are logged in on a website)" = "(Diese Funktion loggt Sie nicht aus, falls Sie sich auf einer Website eingeloggt haben)";
+
+/* No comment provided by engineer. */
+"(Unnamed process)" = "(Unbenannter Prozess)";
 
 /* No comment provided by engineer. */
 "%@ %@ Configurations Not Allowed!" = "%1$@ von %2$@-Konfigurationen nicht erlaubt!";
@@ -71,6 +77,9 @@
 "%@ is Locked!" = "%@ ist gesperrt!";
 
 /* No comment provided by engineer. */
+"%@ is required for this exam." = "%@ ist für diese Session erforderlich.";
+
+/* No comment provided by engineer. */
 "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." = "%1$@ benötigt die Erlaubnis, den Computer mit Funktionen der Bedienungshilfe zu steuern, um den im Hintergrund angezeigten Dialog schliessen zu können, der angezeigt wird, wenn eine Webseite versucht, eine Schriftart herunterzuladenl, die nicht auf dem Mac installiert ist. Erlauben Sie %2$@ den Zugriff über die Systemeinstellung \"Sicherheit & Datenschutz\" / Bedienungshilfen.";
 
 /* No comment provided by engineer. */
@@ -80,7 +89,7 @@
 "%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." = "%1$@ benötigt die Berechtigung für Ortungsdienste, um den aktuellen Wi-Fi-Netzwerknamen anzuzeigen. Erlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
 
 /* No comment provided by engineer. */
-"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.\n\nErlauben Sie %2$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde.";
+"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ benötigt die Berechtigung für Ortungsdienste, um Wi-Fi-Netzwerknamen anzuzeigen und das Wechseln von Netzwerken zu erlauben.%2$@Erlauben Sie %3$@ den Zugriff auf die Ortungsdienste unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste. Dieser Dialog wird automatisch geschlossen, sobald der Zugriff gewährt wurde.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ nicht erlaubt!";
@@ -103,8 +112,20 @@
 /* No comment provided by engineer. */
 "%@ session was inactive for %ld:%.2ld(minutes:seconds)" = "  %1$@ session was inactive for %2$ld:%3$.2ld (minutes:seconds)";
 
+/* No comment provided by engineer. */
+"%@ Version" = "%@-Version";
+
+/* No comment provided by engineer. */
+"%@ version %@" = "%@-Version %@";
+
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ version %@ or higher" = "%@-Version %@ oder höher";
+
+/* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
 
 /* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ war gesperrt (Prüfung unterbrochen) für %2$ld:%3$.2ld (Minuten:Sekunden)";
@@ -123,6 +144,9 @@
 
 /* Accessibility label for the active window in the SEB Dock open windows menu */
 "%@, current window" = "%@, aktives Fenster";
+
+/* No comment provided by engineer. */
+"%@, or %@" = "%@ oder %@";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (dieser %@: 10.13)";
@@ -185,6 +209,12 @@
 "Activates %@ browser. Right click displays menu with open webpages." = "Aktiviert den %@-Browser. Rechtsklick zeigt Menü mit geöffneten Webseiten an.";
 
 /* No comment provided by engineer. */
+"Add" = "Hinzufügen";
+
+/* No comment provided by engineer. */
+"Add Preset Permitted Process" = "Voreingestellten erlaubten Prozess hinzufügen";
+
+/* No comment provided by engineer. */
 "Additional Applications Not Available" = "Zusätzliche Applikationen nicht verfügbar";
 
 /* No comment provided by engineer. */
@@ -201,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "allow to use %@ without service" = "%@ darf ohne Service laufen";
+
+/* No comment provided by engineer. */
+"Allowed %@ Versions" = "Erlaubte %@-Versionen";
 
 /* No comment provided by engineer. */
 "Always" = "Immer";
@@ -282,6 +315,9 @@
 
 /* No comment provided by engineer. */
 "by only allowing to upload the same file downloaded before" = "nur zuvor heruntergeladene Datei zulassen";
+
+/* Certificate embed type: a CA trust anchor */
+"CA anchor" = "CA-Anker";
 
 /* No comment provided by engineer. */
 "CA Certificate" = "CA-Zertifikat";
@@ -394,7 +430,8 @@
 /* No comment provided by engineer. */
 "Connecting to SEB Server" = "Mit SEB Server verbinden";
 
-/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+/* 'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate */
 "Connecting…" = "Verbinde…";
 
 /* No comment provided by engineer. */
@@ -422,7 +459,10 @@
 "Correct password entered" = "Korrektes Passwort eingegeben";
 
 /* No comment provided by engineer. */
-"Could Not Access Data of Additional Apps" = "Kein Zugriff auf Daten zusätzlicher Anwendungen möglich";
+"Could Not Access Data of Additional Apps" = "Kein Zugriff auf Daten zusätzlicher Applikationen möglich";
+
+/* Error when the connection to the entered server failed */
+"Could not connect to the server." = "Verbindung zum Server nicht möglich.";
 
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.";
@@ -530,6 +570,9 @@
 "Down/Uploads" = "Down/Uploads";
 
 /* No comment provided by engineer. */
+"Download %@" = "%@ herunterladen";
+
+/* No comment provided by engineer. */
 "Download Failed" = "Download fehlgeschlagen";
 
 /* No comment provided by engineer. */
@@ -552,6 +595,9 @@
 
 /* No comment provided by engineer. */
 "Edited settings have unsaved changes." = "Bearbeitete Einstellungen haben ungesicherte Änderungen.";
+
+/* Title of the fetch-server-certificate sheet window */
+"Embed Server Certificate" = "Server-Zertifikat einbetten";
 
 /* No comment provided by engineer. */
 "Enable" = "Aktivieren";
@@ -612,6 +658,12 @@
 
 /* No comment provided by engineer. */
 "Fallback" = "Fallback";
+
+/* Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings) */
+"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.";
+
+/* Alert message shown when Fetch from Server is used on macOS 11 or older */
+"Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." = "Das Abrufen eines Server-Zertifikats über eine URL ist ab macOS 12 (Monterey) verfügbar.";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
@@ -785,9 +837,6 @@
 "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." = "Die lokalen Einstellungen wurden entweder von einer inkompatiblen %1$@-Version erstellt, beschädigt oder manipuliert. Sie wurden auf die Voreinstellungen zurückgesetzt. Wenden Sie sich an Ihren Prüfungs-Support, um %2$@ wieder korrekt zu konfigurieren.";
 
 /* No comment provided by engineer. */
-"Location Services access is required to display Wi-Fi network names." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich.";
-
-/* No comment provided by engineer. */
 "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@." = "Für die Anzeige von Wi-Fi-Netzwerknamen ist der Zugriff auf die Ortungsdienste erforderlich. Gewähren Sie den Zugriff nach dem Beenden von %@ unter Systemeinstellungen / Datenschutz und Sicherheit / Ortungsdienste.";
 
 /* No comment provided by engineer. */
@@ -851,6 +900,9 @@
 "No networks found" = "Keine Netzwerke gefunden";
 
 /* No comment provided by engineer. */
+"No Preset Processes Available" = "Keine voreingestellten Prozesse verfügbar";
+
+/* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "Kein SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
@@ -870,6 +922,12 @@
 
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@" = "eine der %@-Versionen %@";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@ or higher" = "eine der %@-Versionen %@ oder höher";
 
 /* No comment provided by engineer. */
 "Only on load error" = "Nur bei Verbindungsfehlern";
@@ -951,6 +1009,9 @@
 
 /* No comment provided by engineer. */
 "Please contact your exam support." = "Bitte wenden Sie sich an Ihren Prüfungs-Support.";
+
+/* Error when the entered server URL / host is not valid */
+"Please enter a valid server URL or host name." = "Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.";
 
 /* No comment provided by engineer. */
 "Please enter correct confirm password" = "Bitte gleiches Passwort erneut eingeben";
@@ -1040,6 +1101,9 @@
 "Remote Proctoring Session" = "Session mit Fernüberwachung";
 
 /* No comment provided by engineer. */
+"Remove" = "Entfernen";
+
+/* No comment provided by engineer. */
 "Repeating Error: Invalid Token" = "Wiederholter Fehler: Ungültiges Token";
 
 /* No comment provided by engineer. */
@@ -1050,6 +1114,9 @@
 
 /* No comment provided by engineer. */
 "Required built-in display is still not available!" = "Verlangtes eingebautes Display immer noch nicht verfügbar!";
+
+/* Alert title shown when Fetch from Server is used on macOS 11 or older */
+"Requires macOS 12 or Later" = "Erfordert macOS 12 oder neuer";
 
 /* No comment provided by engineer. */
 "Reset" = "Zurücksetzen";
@@ -1074,6 +1141,9 @@
 
 /* No comment provided by engineer. */
 "Right" = "Rechts";
+
+/* Badge for a self-signed root CA certificate */
+"root" = "Root";
 
 /* No comment provided by engineer. */
 "Running on Current macOS Version Not Allowed!" = "Benutzung auf aktueller macOS-Version nicht erlaubt!";
@@ -1153,6 +1223,18 @@
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Prüfung auswählen";
 
+/* Heading above the list of fetched certificates */
+"Select the certificate(s) to embed and choose their type:" = "Wählen Sie die einzubettenden Zertifikate und deren Typ:";
+
+/* No comment provided by engineer. */
+"Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." = "Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt.";
+
+/* No comment provided by engineer. */
+"Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." = "Wählen Sie die voreingestellten erlaubten Prozesse aus, die Sie zu Ihren %@-Einstellungen hinzufügen möchten. Sie werden als aktive Prozesse hinzugefügt.";
+
+/* Badge for a self-signed (non-CA) server certificate */
+"self-signed" = "selbstsigniert";
+
 /* No comment provided by engineer. */
 "Sending cached screen shots, server health %d out of 10" = "Übertragung läuft, Verbindungsqualität %d von 10";
 
@@ -1203,6 +1285,9 @@
 
 /* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS-Proxy";
+
+/* No comment provided by engineer. */
+"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." = "Geben Sie eine oder mehrere %@-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind – eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in eckigen Klammern). Beispiel: \"Win.3.9.min\" erlaubt %@ für Windows 3.9 oder neuer.";
 
 /* No comment provided by engineer. */
 "SSL Certificate" = "SSL-Zertifikat";
@@ -1258,6 +1343,12 @@
 /* No comment provided by engineer. */
 "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" = "Die Liste mit Filterregeln für zu ignorierende URLs hat nur im Filterregeln-Lernen-Modus eine Wirkung, für ignorierte URLs/Ressourcen wird dauerhaft keine Warnung angezeigt. Blockiert werden diese URLs sowieso, weil alle nicht explizit erlaubten URLs vom Filter blockiert werden. Wollen Sie die Liste nun löschen?";
 
+/* Warning shown when a fetched certificate chain fails normal system trust validation */
+"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.";
+
+/* Error when a fetched TLS connection returned no certificates */
+"The server did not present any certificates." = "Der Server hat keine Zertifikate präsentiert.";
+
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.";
 
@@ -1266,6 +1357,9 @@
 
 /* No comment provided by engineer. */
 "Then restart %@/the exam." = "Dannach starten Sie %@/die Prüfung neu.";
+
+/* No comment provided by engineer. */
+"There are currently no additional preset permitted processes which could be added to your %@ settings." = "Es sind momentan keine weiteren voreingestellten erlaubten Prozesse vorhanden, die zu Ihren %@-Einstellungen hinzugefügt werden könnten.";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used (failing key: %@)." = "Diese Einstellungen sind beschädigt und können nicht benutzt werden (fehlerhafte Einstellung: %@).";
@@ -1286,10 +1380,10 @@
 "This embedded resource isn't allowed! You can create a new filter rule based on the following patterns:" = "Es ist nicht erlaubt, diese eingebettete Ressource zu öffnen! Sie können eine neue Filterregel basierend auf den folgenden Schemas erstellen:";
 
 /* No comment provided by engineer. */
-"This exam session requires the following additional applications to be available:" = "Für diese Prüfungssession müssen die folgenden zusätzlichen Anwendungen zur Verfügung stehen:";
+"This exam session requires the following additional applications to be available:" = "Für diese Prüfungssession müssen die folgenden zusätzlichen Applikationen zur Verfügung stehen:";
 
 /* No comment provided by engineer. */
-"This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time." = "Für diese Prüfungssession werden zusätzliche Anwendungen benötigt. Sie müssen den Zugriff auf deren Daten erlauben, da %1$@ den gespeicherten Status der zuvor geöffneten Dokumentfenster in diesen Anwendungen entfernen muss (%2$@ greift nicht auf Ihre in diesen Anwendungen erstellten Daten zu). %3$@ wird sich jetzt beenden, starten Sie die Prüfung erneut und erlauben Sie beim nächsten Mal den Zugriff auf die Daten der zusätzlichen Applikationen.";
+"This exam session requires using additional applications. You have to allow access to their data, as %@ has to remove the saved state of previously open document windows in these apps (%@ is not accessing any of your data created in these apps). %@ will quit now, restart the exam and grant access to the data of additional apps next time." = "Für diese Prüfungssession werden zusätzliche Applikationen benötigt. Sie müssen den Zugriff auf deren Daten erlauben, da %1$@ den gespeicherten Status der zuvor geöffneten Dokumentfenster in diesen Applikationen entfernen muss (%2$@ greift nicht auf Ihre in diesen Applikationen erstellten Daten zu). %3$@ wird sich jetzt beenden, starten Sie die Prüfung erneut und erlauben Sie beim nächsten Mal den Zugriff auf die Daten der zusätzlichen Applikationen.";
 
 /* No comment provided by engineer. */
 "This exam was interrupted before and not finished properly. Enter the quit/unlock password from the current session's settings, which usually exam supervision/support knows." = "Diese Prüfungssession wurde zuvor unterbrochen und nicht korrekt beendet. Beenden/Entsperren-Passwort aus den Einstellungen der aktuellen Session eingeben, welche üblicherweise der Prüfungsaufsicht bekannt sind.";
@@ -1304,6 +1398,12 @@
 "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." = "Diese Einstellung erlaubt es, auf jede beliebige Applikation auf dem Prüfungsrechner zu wechseln. Sie sollte nur für Open Book Prüfungen (ohne Kioskmodus) oder Debugging benutzt werden.";
 
 /* No comment provided by engineer. */
+"This version of %@ is not allowed for this exam." = "Diese Version von %@ ist für diese Session nicht erlaubt.";
+
+/* Certificate embed type: a TLS/SSL public-key pin */
+"TLS/SSL pin" = "TLS/SSL-Pin";
+
+/* No comment provided by engineer. */
 "To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." = "Um zu verhindern, dass %1$@ eine Prüfungssession blockiert, muss immer ein Beenden/Entsperren-Link nach Abgabe der Prüfung oder die Beenden-Taste benutzt werden. Versuchen Sie nie, Ihren Mac neu zu starten oder abzuschalten, während %2$@ noch läuft.";
 
 /* No comment provided by engineer. */
@@ -1313,7 +1413,7 @@
 "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." = "Um zu verhindern, dass %@ wegen der Bildschirmfreigabe während einer Prüfung gesperrt wird, kann 'Bildschirmfreigabe' und 'Entfernte Verwaltung' in Systemeinstellungen/Freigaben ausgeschaltet werden. Netzwerk-Administratoren können auch die für das VNC-Protokoll benutzten Ports blockieren.";
 
 /* No comment provided by engineer. */
-"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %@ Festplattenvollzugriff. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'.";
+"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "Um Apps mit Bedienungshilfen-Berechtigungen zu erkennen, benötigt %1$@ Festplattenvollzugriff. %2$@ liest keine anderen Daten als die macOS-Systemliste der Applikationen mit Bedienungshilfen-Berechtigungen. Bitte aktivieren Sie diesen unter Systemeinstellungen / Datenschutz und Sicherheit / Festplattenvollzugriff und klicken Sie dann auf 'Wiederholen'.";
 
 /* No comment provided by engineer. */
 "Toggle Proctoring View" = "Fernüberwachungs-Fenster anzeigen/ausblenden";
@@ -1357,6 +1457,9 @@ untitled filename */
 
 /* No comment provided by engineer. */
 "URLSession was invalidated" = "URLSession nicht mehr gültig";
+
+/* Link that fills the URL field with the exam's start URL host */
+"Use Start URL" = "Start-URL verwenden";
 
 /* No comment provided by engineer. */
 "Used third-party frameworks:" = "Benutzte Dritthersteller-Bibliotheken:";
@@ -1476,6 +1579,9 @@ untitled filename */
 "You are not allowed to run %@ inside a virtual machine!" = "Es ist nicht erlaubt, %@ innerhalb einer virtuellen Maschine zu betreiben!";
 
 /* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please download and install a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte laden Sie eine erforderliche Version herunter und installieren Sie sie.";
+
+/* No comment provided by engineer. */
 "You can also force quit these processes, but this may lead to loss of data." = "Sie können diese Prozesse auch sofort beenden, aber das kann zu Datenverlust führen.";
 
 /* No comment provided by engineer. */
@@ -1511,69 +1617,3 @@ untitled filename */
 /* No comment provided by engineer. */
 "Your screen will be recorded during this exam in accordance with the specifications and data privacy regulations of your exam provider. If you have any questions, please contact your exam provider.%@" = "Ihr Bildschirm wird während dieser Prüfung gemäss den Vorgaben und Datenschutzrichtlinien Ihres Prüfungsanbieters aufgezeichnet. Für Fragen hierzu wenden Sie sich bitte an Ihren Prüfungsanbieter.";
 
-/* Button title in the Add Preset Permitted Process dialog */
-"Add" = "Hinzufügen";
-
-/* Title of the dialog to add preset permitted processes */
-"Add Preset Permitted Process" = "Voreingestellten erlaubten Prozess hinzufügen";
-
-/* Alert title when no inactive preset permitted processes are available to add */
-"No Preset Processes Available" = "Keine voreingestellten Prozesse verfügbar";
-
-/* Informative text of the Add Preset Permitted Process dialog */
-"Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." = "Wählen Sie die voreingestellten erlaubten Prozesse aus, die Sie zu Ihren %@-Einstellungen hinzufügen möchten. Sie werden als aktive Prozesse hinzugefügt.";
-
-/* Informative text when there are no preset permitted processes left to add */
-"There are currently no additional preset permitted processes which could be added to your %@ settings." = "Es sind momentan keine weiteren voreingestellten erlaubten Prozesse vorhanden, die zu Ihren %@-Einstellungen hinzugefügt werden könnten.";
-
-/* Fallback label for a preset process without a title or executable name */
-"(Unnamed process)" = "(Unbenannter Prozess)";
-
-/* Suffix marking a process offered from the local client settings */
-" (from client settings)" = " (aus Client-Einstellungen)";
-
-/* Informative text of the Add Preset Permitted Process dialog when it also includes client settings processes */
-"Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." = "Wählen Sie die erlaubten Prozesse aus, die Sie zu Ihren %@-Prüfungseinstellungen hinzufügen möchten. Die Liste enthält die integrierten voreingestellten Prozesse sowie die erlaubten Prozesse aus Ihren lokalen Client-Einstellungen (entsprechend gekennzeichnet). Sie werden als aktive Prozesse hinzugefügt.";
-
-
-/* SEBMAC-491 Allowed SEB Versions — Security preferences UI (%@ = app name, e.g. SEB) */
-"Allowed %@ Versions" = "Erlaubte %@-Versionen";
-"%@ Version" = "%@-Version";
-"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." = "Geben Sie eine oder mehrere %@-Version(en) an, die zur Verwendung dieser Konfiguration erforderlich sind – eine pro Zeile. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in eckigen Klammern). Beispiel: \"Win.3.9.min\" erlaubt %@ für Windows 3.9 oder neuer.";
-
-/* SEBMAC-491 Allowed SEB Versions — blocking alert when the running version isn't allowed (%@ = app name) */
-"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
-"Download %@" = "%@ herunterladen";
-"You are running %@ version %@ (build %@). Please download and install a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte laden Sie eine erforderliche Version herunter und installieren Sie sie.";
-
-/* SEBMAC-491 Allowed SEB Versions — requirement description (composed; first %@ = app name) */
-"%@ is required for this exam." = "%@ ist für diese Session erforderlich.";
-"This version of %@ is not allowed for this exam." = "Diese Version von %@ ist für diese Session nicht erlaubt.";
-"%@ version %@ or higher" = "%@-Version %@ oder höher";
-"%@ version %@" = "%@-Version %@";
-"one of the %@ versions %@ or higher" = "eine der %@-Versionen %@ oder höher";
-"one of the %@ versions %@" = "eine der %@-Versionen %@";
-"%@, or %@" = "%@ oder %@";
-
-/* --- SEBMAC-836 Fetch server certificate by URL (Network / Certificates) --- */
-"Embed Server Certificate" = "Server-Zertifikat einbetten";
-"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.";
-"Server URL or host (e.g. exam.example.org)" = "Server-URL oder Host (z. B. exam.example.org)";
-"Fetch" = "Abrufen";
-"Use Start URL" = "Start-URL verwenden";
-"Fill in the domain of the exam's start URL (%@)" = "Die Domain der Start-URL der Prüfung einsetzen (%@)";
-"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.";
-"Select the certificate(s) to embed and choose their type:" = "Wählen Sie die einzubettenden Zertifikate und deren Typ:";
-"(no common name)" = "(kein Common Name)";
-"root" = "Root";
-"self-signed" = "selbstsigniert";
-"CA anchor" = "CA-Anker";
-"TLS/SSL pin" = "TLS/SSL-Pin";
-"Expired %@" = "Abgelaufen %@";
-"Valid until %@" = "Gültig bis %@";
-"Embed" = "Einbetten";
-"The server did not present any certificates." = "Der Server hat keine Zertifikate präsentiert.";
-"Please enter a valid server URL or host name." = "Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.";
-"Could not connect to the server." = "Verbindung zum Server nicht möglich.";
-"Requires macOS 12 or Later" = "Erfordert macOS 12 oder neuer";
-"Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." = "Das Abrufen eines Server-Zertifikats über eine URL ist ab macOS 12 (Monterey) verfügbar.";

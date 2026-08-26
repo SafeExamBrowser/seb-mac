@@ -304,7 +304,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="82" id="SuZ-RX-1v1"/>
                                         </constraints>
                                     </box>
-                                    <box autoresizesSubviews="NO" borderType="line" title="Toolbar/Menu Bar/Status Bar" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Cu-Oym">
+                                    <box autoresizesSubviews="NO" borderType="line" title="Toolbar/Status Bar" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-Cu-Oym">
                                         <rect key="frame" x="20" y="613" width="610" height="170"/>
                                         <view key="contentView" id="n8u-Q3-lEh">
                                             <rect key="frame" x="0.0" y="0.0" width="610" height="158"/>
@@ -359,23 +359,11 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
-                                                                <button toolTip="Show the macOS menu bar to allow accessing settings like Wi-Fi" translatesAutoresizingMaskIntoConstraints="NO" id="zrE-tv-pfV">
-                                                                    <rect key="frame" x="304" y="22" width="284" height="16"/>
-                                                                    <buttonCell key="cell" type="check" title="Show menu bar" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Vv2-Sf-65e">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showMenuBar" id="Aga-jA-DAm"/>
-                                                                    </connections>
-                                                                </button>
                                                             </subviews>
                                                             <visibilityPriorities>
                                                                 <integer value="1000"/>
-                                                                <integer value="1000"/>
                                                             </visibilityPriorities>
                                                             <customSpacing>
-                                                                <real value="3.4028234663852886e+38"/>
                                                                 <real value="3.4028234663852886e+38"/>
                                                             </customSpacing>
                                                         </stackView>

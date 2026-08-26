@@ -47,6 +47,9 @@
 "%@ Is Locked!" = "%@ ist gesperrt!";
 
 /* No comment provided by engineer. */
+"%@ is required for this exam." = "%@ ist für diese Session erforderlich.";
+
+/* No comment provided by engineer. */
 "%@ needs to be used differently depending on your role." = "%@ muss je nach Ihrer Rolle unterschiedlich verwendet werden.";
 
 /* No comment provided by engineer. */
@@ -58,8 +61,14 @@
 /* No comment provided by engineer. */
 "%@ Re-Configured" = "%@ neu konfiguriert";
 
+/* No comment provided by engineer. */
+"%@ version %@" = "%1$@ Version %2$@";
+
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ Version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ version %@ or higher" = "%1$@ Version %2$@ oder höher";
 
 /* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ war gesperrt (Prüfung unterbrochen) für %2$ld:%3$.2ld (Minuten:Sekunden)";
@@ -69,6 +78,9 @@
 
 /* No comment provided by engineer. */
 "%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." = "%@ wird die zuvor heruntergeladene Datei heraufladen. Wenn also eine Datei heruntergeladenen und in einer Drittapplikation bearbeitet wird, muss diese mit demselben Dateinamen im selben Verzeichnis wieder gespeichert werden.";
+
+/* No comment provided by engineer. */
+"%@, or %@" = "%@ oder %@";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (dieser %@: 10.13)";
@@ -217,6 +229,9 @@
 /* No comment provided by engineer. */
 "CA" = "CA";
 
+/* Certificate embed type: a CA trust anchor */
+"CA anchor" = "CA-Anker";
+
 /* No comment provided by engineer. */
 "CA Certificate" = "CA-Zertifikat";
 
@@ -328,7 +343,8 @@
 /* No comment provided by engineer. */
 "Confirm Removing Identity" = "Entfernen der Identität bestätigen";
 
-/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+/* 'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate */
 "Connecting…" = "Verbinde…";
 
 /* No comment provided by engineer. */
@@ -351,6 +367,9 @@
 
 /* No comment provided by engineer. */
 "Correct password entered" = "Korrektes Passwort eingegeben";
+
+/* Error when the connection to the entered server failed */
+"Could not connect to the server." = "Verbindung zum Server nicht möglich.";
 
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Es konnte kein korrekter Hostname ermittelt werden. Sie können die Domain-URL Ihrer Institution manuell eingeben.";
@@ -487,6 +506,9 @@
 /* No comment provided by engineer. */
 "Embed" = "Einbetten";
 
+/* Title of the fetch-server-certificate sheet window */
+"Embed Server Certificate" = "Server-Zertifikat einbetten";
+
 /* No comment provided by engineer. */
 "Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." = "Betten Sie das Identitätszertifikat '%@' in eine Client-Konfigurationsdatei ein und verwenden Sie diese zur Konfiguration von Prüfungsgeräten. Anschliessend können Sie Prüfungskonfigurationsdateien mit der Identität verschlüsseln (siehe Seite 'Konfiguration').";
 
@@ -561,6 +583,9 @@
 
 /* No comment provided by engineer. */
 "Fallback" = "Fallback";
+
+/* Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings) */
+"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
@@ -824,6 +849,12 @@
 "OK" = "OK";
 
 /* No comment provided by engineer. */
+"one of the %@ versions %@" = "eine der %1$@-Versionen %2$@";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@ or higher" = "eine der %1$@-Versionen %2$@ oder höher";
+
+/* No comment provided by engineer. */
 "Only on load error" = "Nur bei Verbindungsfehlern";
 
 /* No comment provided by engineer. */
@@ -882,6 +913,9 @@
 
 /* No comment provided by engineer. */
 "Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information." = "Bitte erstellen Sie ein Issue oder eine Diskussion in unserem GitHub-Repository https://github.com/SafeExamBrowser/seb-mac inklusive einer detaillierten Beschreibung des Problems, das Sie melden möchten. Sie können %@-Logs an Ihre eigene E-Mail-Adresse senden und diese an Ihr GitHub Issue/Diskussion anhängen. Direkte Log-Einsendungen ohne Problembeschreibung werden ignoriert, da die meisten Probleme ohne zusätzliche Informationen nicht analysiert werden können.";
+
+/* Error when the entered server URL / host is not valid */
+"Please enter a valid server URL or host name." = "Bitte geben Sie eine gültige Server-URL oder einen gültigen Hostnamen ein.";
 
 /* No comment provided by engineer. */
 "Please Select Your Role" = "Bitte wählen Sie Ihre Rolle";
@@ -988,6 +1022,9 @@
 /* No comment provided by engineer. */
 "Right" = "Rechts";
 
+/* Badge for a self-signed root CA certificate */
+"root" = "Root";
+
 /* No comment provided by engineer. */
 "Running on Current iOS Version Not Allowed" = "Benutzung auf aktueller iOS-Version nicht erlaubt!";
 
@@ -1065,6 +1102,12 @@
 
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Prüfung auswählen";
+
+/* Heading above the list of fetched certificates */
+"Select the certificate(s) to embed and choose their type:" = "Wählen Sie die einzubettenden Zertifikate und deren Typ:";
+
+/* Badge for a self-signed (non-CA) server certificate */
+"self-signed" = "selbstsigniert";
 
 /* No comment provided by engineer. */
 "Send" = "Senden";
@@ -1201,11 +1244,17 @@
 /* No comment provided by engineer. */
 "The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners." = "Die Fernüberwachungs-Ansicht wird zunächst in der rechten unteren Ecke angezeigt und kann in die anderen Bildschirmecken bewegt werden.";
 
+/* Warning shown when a fetched certificate chain fails normal system trust validation */
+"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "Die präsentierte Zertifikatskette besteht die normale Vertrauensprüfung NICHT. Dies kann auf ein Abfangen der Verbindung hindeuten – betten Sie das Zertifikat nur ein, wenn Sie den Fingerabdruck unabhängig überprüfen können.";
+
 /* No comment provided by engineer. */
 "The private key and certificate contained in the selected identity could not be exported. Try another identity." = "Der private Schlüssel und das Zertifikat, die in der ausgewählten Identität enthalten sind, konnten nicht exportiert werden. Versuchen Sie eine andere Identität.";
 
 /* No comment provided by engineer. */
 "The screen is being captured/shared. The exam cannot be started." = "Bildschirm wird aufgezeichnet/geteilt. Die Prüfung kann nicht gestartet werden.";
+
+/* Error when a fetched TLS connection returned no certificates */
+"The server did not present any certificates." = "Der Server hat keine Zertifikate präsentiert.";
 
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.";
@@ -1233,6 +1282,12 @@
 
 /* No comment provided by engineer. */
 "This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." = "Dieses Projekt wurde teilweise im Rahmen des von SWITCH geleiteten Programms 'AAA/SWITCH – e-Infrastructure für e-Science' und des durch SWITCH koordinierten CRUS-Kooperationsprojektes 'Learning Infrastructure' durchgeführt und erhielt finanzielle Unterstützung durch den ETH-Rat.";
+
+/* No comment provided by engineer. */
+"This version of %@ is not allowed for this exam." = "Diese Version von %@ ist für diese Session nicht erlaubt.";
+
+/* Certificate embed type: a TLS/SSL public-key pin */
+"TLS/SSL pin" = "TLS/SSL-Pin";
 
 /* No comment provided by engineer. */
 "To scan a QR code, enable the camera in settings" = "Um einen SEB-Konfigurations-QR-Code einzulesen, erlauben Sie den Kamerazugriff in den Einstellungen";
@@ -1272,6 +1327,9 @@
 
 /* No comment provided by engineer. */
 "URLSession was invalidated" = "URLSession nicht mehr gültig";
+
+/* Link that fills the URL field with the exam's start URL host */
+"Use Start URL" = "Start-URL verwenden";
 
 /* No comment provided by engineer. */
 "Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." = "Verwenden Sie den Identitätsnamen, der sich aus dem Dateinamen der aktuellen Konfiguration ergibt, oder geben Sie einen anderen ein. Er muss unter allen Identitäten einmalig sein.";

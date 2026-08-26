@@ -7,6 +7,9 @@
 /* No comment provided by engineer. */
 " (Connected to Power Source)" = " (Connected to Power Source)";
 
+/* Suffix marking a process offered from the local client settings */
+" (from client settings)" = " (from client settings)";
+
 /* No comment provided by engineer. */
 " %@ itself doesn't connect to any centralized %@ screen proctoring server, your exam provider decides which proctoring service/server to use." = " %1$@ itself doesn't connect to any centralized %2$@ screen proctoring server, your exam provider decides which proctoring service/server to use.";
 
@@ -30,6 +33,9 @@
 
 /* No comment provided by engineer. */
 "(This function doesn't log you out if you are logged in on a website)" = "(This function doesn't log you out if you are logged in on a website)";
+
+/* No comment provided by engineer. */
+"(Unnamed process)" = "(Unnamed process)";
 
 /* No comment provided by engineer. */
 "%@ %@ Configurations Not Allowed!" = "%1$@ %2$@ Configurations Not Allowed!";
@@ -71,6 +77,9 @@
 "%@ is Locked!" = "%@ is Locked!";
 
 /* No comment provided by engineer. */
+"%@ is required for this exam." = "%@ is required for this exam.";
+
+/* No comment provided by engineer. */
 "%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security & Privacy located in System Settings." = "%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security & Privacy located in System Settings.";
 
 /* No comment provided by engineer. */
@@ -80,7 +89,7 @@
 "%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services." = "%1$@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %2$@ in System Settings / Privacy & Security / Location Services.";
 
 /* No comment provided by engineer. */
-"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.\n\nGrant Location Services access to %2$@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.";
+"%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted." = "%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%2$@Grant Location Services access to %3$@ in System Settings / Privacy & Security / Location Services. This dialog will close automatically once access is granted.";
 
 /* No comment provided by engineer. */
 "%@ Not Allowed!" = "%@ Not Allowed!";
@@ -103,8 +112,20 @@
 /* No comment provided by engineer. */
 "%@ session was inactive for %ld:%.2ld(minutes:seconds)" = "%1$@ session was inactive for %2$ld:%3$.2ld(minutes:seconds)";
 
+/* No comment provided by engineer. */
+"%@ Version" = "%@ Version";
+
+/* No comment provided by engineer. */
+"%@ version %@" = "%1$@ version %2$@";
+
 /* App full/build version */
 "%@ version %@ (Build %@)" = "%1$@ version %2$@ (Build %3$@)";
+
+/* No comment provided by engineer. */
+"%@ version %@ or higher" = "%1$@ version %2$@ or higher";
+
+/* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@ Version Not Allowed!";
 
 /* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)";
@@ -123,6 +144,9 @@
 
 /* Accessibility label for the active window in the SEB Dock open windows menu */
 "%@, current window" = "%@, current window";
+
+/* No comment provided by engineer. */
+"%@, or %@" = "%1$@, or %2$@";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
@@ -185,6 +209,12 @@
 "Activates %@ browser. Right click displays menu with open webpages." = "Activates %@ browser. Right click displays menu with open webpages.";
 
 /* No comment provided by engineer. */
+"Add" = "Add";
+
+/* No comment provided by engineer. */
+"Add Preset Permitted Process" = "Add Preset Permitted Process";
+
+/* No comment provided by engineer. */
 "Additional Applications Not Available" = "Additional Applications Not Available";
 
 /* No comment provided by engineer. */
@@ -201,6 +231,9 @@
 
 /* No comment provided by engineer. */
 "allow to use %@ without service" = "allow to use %@ without service";
+
+/* No comment provided by engineer. */
+"Allowed %@ Versions" = "Allowed %@ Versions";
 
 /* No comment provided by engineer. */
 "Always" = "Always";
@@ -282,6 +315,9 @@
 
 /* No comment provided by engineer. */
 "by only allowing to upload the same file downloaded before" = "by only allowing to upload the same file downloaded before";
+
+/* Certificate embed type: a CA trust anchor */
+"CA anchor" = "CA anchor";
 
 /* No comment provided by engineer. */
 "CA Certificate" = "CA Certificate";
@@ -394,7 +430,8 @@
 /* No comment provided by engineer. */
 "Connecting to SEB Server" = "Connecting to SEB Server";
 
-/* 'Connecting…' header in 'Connecting to SEB Server' table view. */
+/* 'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate */
 "Connecting…" = "Connecting…";
 
 /* No comment provided by engineer. */
@@ -423,6 +460,9 @@
 
 /* No comment provided by engineer. */
 "Could Not Access Data of Additional Apps" = "Could Not Access Data of Additional Apps";
+
+/* Error when the connection to the entered server failed */
+"Could not connect to the server." = "Could not connect to the server.";
 
 /* No comment provided by engineer. */
 "Could not determine a correct hostname. You can enter the domain URL of your institution manually." = "Could not determine a correct hostname. You can enter the domain URL of your institution manually.";
@@ -530,6 +570,9 @@
 "Down/Uploads" = "Down/Uploads";
 
 /* No comment provided by engineer. */
+"Download %@" = "Download %@";
+
+/* No comment provided by engineer. */
 "Download Failed" = "Download Failed";
 
 /* No comment provided by engineer. */
@@ -552,6 +595,9 @@
 
 /* No comment provided by engineer. */
 "Edited settings have unsaved changes." = "Edited settings have unsaved changes.";
+
+/* Title of the fetch-server-certificate sheet window */
+"Embed Server Certificate" = "Embed Server Certificate";
 
 /* No comment provided by engineer. */
 "Enable" = "Enable";
@@ -612,6 +658,12 @@
 
 /* No comment provided by engineer. */
 "Fallback" = "Fallback";
+
+/* Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings) */
+"Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.";
+
+/* Alert message shown when Fetch from Server is used on macOS 11 or older */
+"Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." = "Fetching a server certificate by URL is available on macOS 12 (Monterey) and later.";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Fetching identities";
@@ -785,10 +837,7 @@
 "Local preferences were created by an incompatible %@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %@ correctly." = "Local preferences were created by an incompatible %1$@ version, damaged or manipulated. They have been reset to the default settings. Ask your exam supporter to re-configure %2$@ correctly.";
 
 /* No comment provided by engineer. */
-"Location Services access is required to display Wi-Fi network names." = "Location Services access is required to display Wi-Fi network names.";
-
-/* No comment provided by engineer. */
-"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB." = "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing SEB.";
+"Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@." = "Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy & Security / Location Services after closing %@.";
 
 /* No comment provided by engineer. */
 "Location Services Required for Wi-Fi" = "Location Services Required for Wi-Fi";
@@ -851,6 +900,9 @@
 "No networks found" = "No networks found";
 
 /* No comment provided by engineer. */
+"No Preset Processes Available" = "No Preset Processes Available";
+
+/* No comment provided by engineer. */
 "No SEB Server Fallback Password entered" = "No SEB Server Fallback Password entered";
 
 /* No comment provided by engineer. */
@@ -870,6 +922,12 @@
 
 /* No comment provided by engineer. */
 "OK" = "OK";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@" = "one of the %1$@ versions %2$@";
+
+/* No comment provided by engineer. */
+"one of the %@ versions %@ or higher" = "one of the %1$@ versions %2$@ or higher";
 
 /* No comment provided by engineer. */
 "Only on load error" = "Only on load error";
@@ -951,6 +1009,9 @@
 
 /* No comment provided by engineer. */
 "Please contact your exam support." = "Please contact your exam support.";
+
+/* Error when the entered server URL / host is not valid */
+"Please enter a valid server URL or host name." = "Please enter a valid server URL or host name.";
 
 /* No comment provided by engineer. */
 "Please enter correct confirm password" = "Please enter correct confirm password";
@@ -1040,6 +1101,9 @@
 "Remote Proctoring Session" = "Remote Proctoring Session";
 
 /* No comment provided by engineer. */
+"Remove" = "Remove";
+
+/* No comment provided by engineer. */
 "Repeating Error: Invalid Token" = "Repeating Error: Invalid Token";
 
 /* No comment provided by engineer. */
@@ -1050,6 +1114,9 @@
 
 /* No comment provided by engineer. */
 "Required built-in display is still not available!" = "Required built-in display is still not available!";
+
+/* Alert title shown when Fetch from Server is used on macOS 11 or older */
+"Requires macOS 12 or Later" = "Requires macOS 12 or Later";
 
 /* No comment provided by engineer. */
 "Reset" = "Reset";
@@ -1074,6 +1141,9 @@
 
 /* No comment provided by engineer. */
 "Right" = "Right";
+
+/* Badge for a self-signed root CA certificate */
+"root" = "root";
 
 /* No comment provided by engineer. */
 "Running on Current macOS Version Not Allowed!" = "Running on Current macOS Version Not Allowed!";
@@ -1153,6 +1223,18 @@
 /* 'Select Exam' header in 'Connecting to SEB Server' table view. */
 "Select Exam" = "Select Exam";
 
+/* Heading above the list of fetched certificates */
+"Select the certificate(s) to embed and choose their type:" = "Select the certificate(s) to embed and choose their type:";
+
+/* No comment provided by engineer. */
+"Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." = "Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes.";
+
+/* No comment provided by engineer. */
+"Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." = "Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes.";
+
+/* Badge for a self-signed (non-CA) server certificate */
+"self-signed" = "self-signed";
+
 /* No comment provided by engineer. */
 "Sending cached screen shots, server health %d out of 10" = "Sending cached screen shots, server health %d out of 10";
 
@@ -1203,6 +1285,9 @@
 
 /* No comment provided by engineer. */
 "SOCKS Proxy" = "SOCKS Proxy";
+
+/* No comment provided by engineer. */
+"Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %@ for Windows 3.9 or newer." = "Specify one or more %1$@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: \"Win.3.9.min\" allows %2$@ for Windows 3.9 or newer.";
 
 /* No comment provided by engineer. */
 "SSL Certificate" = "SSL Certificate";
@@ -1258,6 +1343,12 @@
 /* No comment provided by engineer. */
 "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?" = "The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?";
 
+/* Warning shown when a fetched certificate chain fails normal system trust validation */
+"The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." = "The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.";
+
+/* Error when a fetched TLS connection returned no certificates */
+"The server did not present any certificates." = "The server did not present any certificates.";
+
 /* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "The user name or password for %@ was incorrect. Please try again.";
 
@@ -1266,6 +1357,9 @@
 
 /* No comment provided by engineer. */
 "Then restart %@/the exam." = "Then restart %@/the exam.";
+
+/* No comment provided by engineer. */
+"There are currently no additional preset permitted processes which could be added to your %@ settings." = "There are currently no additional preset permitted processes which could be added to your %@ settings.";
 
 /* No comment provided by engineer. */
 "These settings are corrupted and cannot be used (failing key: %@)." = "These settings are corrupted and cannot be used (failing key: %@).";
@@ -1304,6 +1398,12 @@
 "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging." = "This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging.";
 
 /* No comment provided by engineer. */
+"This version of %@ is not allowed for this exam." = "This version of %@ is not allowed for this exam.";
+
+/* Certificate embed type: a TLS/SSL public-key pin */
+"TLS/SSL pin" = "TLS/SSL pin";
+
+/* No comment provided by engineer. */
 "To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." = "To avoid that %1$@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %2$@ is still running.";
 
 /* No comment provided by engineer. */
@@ -1313,7 +1413,7 @@
 "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol." = "To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.";
 
 /* No comment provided by engineer. */
-"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.";
+"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry." = "To detect apps with Accessibility permissions, %1$@ requires Full Disk Access. %2$@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.";
 
 /* No comment provided by engineer. */
 "Toggle Proctoring View" = "Toggle Proctoring View";
@@ -1357,6 +1457,9 @@ untitled filename */
 
 /* No comment provided by engineer. */
 "URLSession was invalidated" = "URLSession was invalidated";
+
+/* Link that fills the URL field with the exam's start URL host */
+"Use Start URL" = "Use Start URL";
 
 /* No comment provided by engineer. */
 "Used third-party frameworks:" = "Used third-party frameworks:";
@@ -1474,6 +1577,9 @@ untitled filename */
 
 /* No comment provided by engineer. */
 "You are not allowed to run %@ inside a virtual machine!" = "You are not allowed to run %@ inside a virtual machine!";
+
+/* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please download and install a required version." = "You are running %1$@ version %2$@ (build %3$@). Please download and install a required version.";
 
 /* No comment provided by engineer. */
 "You can also force quit these processes, but this may lead to loss of data." = "You can also force quit these processes, but this may lead to loss of data.";

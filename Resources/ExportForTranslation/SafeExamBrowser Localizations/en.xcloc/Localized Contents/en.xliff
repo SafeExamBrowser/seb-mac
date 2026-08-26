@@ -793,9 +793,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Displays a toolbar on top of the browser window which can also be hidden by the user"; ObjectID = "QSj-QF-dad";</note>
       </trans-unit>
       <trans-unit id="Qdn-Cu-Oym.title" xml:space="preserve">
-        <source>Toolbar/Menu Bar/Status Bar</source>
-        <target>Toolbar/Menu Bar/Status Bar</target>
-        <note>Class = "NSBox"; title = "Toolbar/Menu Bar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
+        <source>Toolbar/Status Bar</source>
+        <target>Toolbar/Status Bar</target>
+        <note>Class = "NSBox"; title = "Toolbar/Status Bar"; ObjectID = "Qdn-Cu-Oym";</note>
       </trans-unit>
       <trans-unit id="RJU-Xs-qUE.title" xml:space="preserve">
         <source>Show address bar for main window (Win)</source>
@@ -816,11 +816,6 @@
         <source>Show time</source>
         <target>Show time</target>
         <note>Class = "NSButtonCell"; title = "Show time"; ObjectID = "TNk-06-tQi";</note>
-      </trans-unit>
-      <trans-unit id="Vv2-Sf-65e.title" xml:space="preserve">
-        <source>Show menu bar</source>
-        <target>Show menu bar</target>
-        <note>Class = "NSButtonCell"; title = "Show menu bar"; ObjectID = "Vv2-Sf-65e";</note>
       </trans-unit>
       <trans-unit id="W1X-bf-zFD.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>Use browser window</source>
@@ -1076,11 +1071,6 @@
         <source>Default text zoom level</source>
         <target>Default text zoom level</target>
         <note>Class = "NSTextFieldCell"; title = "Default text zoom level"; ObjectID = "zNp-k1-XUs";</note>
-      </trans-unit>
-      <trans-unit id="zrE-tv-pfV.ibShadowedToolTip" xml:space="preserve">
-        <source>Show the macOS menu bar to allow accessing settings like Wi-Fi</source>
-        <target>Show the macOS menu bar to allow accessing settings like Wi-Fi</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Show the macOS menu bar to allow accessing settings like Wi-Fi"; ObjectID = "zrE-tv-pfV";</note>
       </trans-unit>
     </body>
   </file>
@@ -1598,6 +1588,16 @@
         <source>Allow the permitted process to already be running when SEB starts (won't be terminated)</source>
         <target>Allow the permitted process to already be running when SEB starts (won't be terminated)</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Allow the permitted process to already be running when SEB starts (won't be terminated)"; ObjectID = "p8v-1Y-Mnw";</note>
+      </trans-unit>
+      <trans-unit id="prs-01-btn.ibShadowedToolTip" xml:space="preserve">
+        <source>Add a preset permitted process which is available in every configuration</source>
+        <target>Add a preset permitted process which is available in every configuration</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Add a preset permitted process which is available in every configuration"; ObjectID = "prs-01-btn";</note>
+      </trans-unit>
+      <trans-unit id="prs-01-cel.title" xml:space="preserve">
+        <source>Add Preset Process...</source>
+        <target>Add Preset Process...</target>
+        <note>Class = "NSButtonCell"; title = "Add Preset Process..."; ObjectID = "prs-01-cel";</note>
       </trans-unit>
       <trans-unit id="qje-gt-QNa.ibShadowedToolTip" xml:space="preserve">
         <source>Allow the permitted process to have Accessibility permissions (see System Settings / Privacy &amp; Security / Accessibility). If 'Detect apps with Accessibility Permissions' in Security Pane is enabled, then processes with Accessibility permissions (not excluded here) will be terminated</source>
@@ -3798,6 +3798,11 @@ It is deleted when the session ends</target>
         <target>Regex</target>
         <note>Class = "NSButtonCell"; title = "Regex"; ObjectID = "f49-Sx-zE7";</note>
       </trans-unit>
+      <trans-unit id="fss-Ce-ll00.title" xml:space="preserve">
+        <source>Fetch from Server…</source>
+        <target>Fetch from Server…</target>
+        <note>Class = "NSButtonCell"; title = "Fetch from Server…"; ObjectID = "fss-Ce-ll00";</note>
+      </trans-unit>
       <trans-unit id="gNh-Qf-Z8W.ibExternalAccessibilityDescription" xml:space="preserve">
         <source>URL Filter message</source>
         <target>URL Filter message</target>
@@ -5168,6 +5173,11 @@ It is deleted when the session ends</target>
         <target> (after quitting %@)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id=" (from client settings)" xml:space="preserve">
+        <source> (from client settings)</source>
+        <target> (from client settings)</target>
+        <note>Suffix marking a process offered from the local client settings</note>
+      </trans-unit>
       <trans-unit id=" 1" xml:space="preserve">
         <source> 1</source>
         <target> 1</target>
@@ -5221,6 +5231,16 @@ It is deleted when the session ends</target>
       <trans-unit id="%@ Re-Configured" xml:space="preserve">
         <source>%@ Re-Configured</source>
         <target>%@ Re-Configured</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Version" xml:space="preserve">
+        <source>%@ Version</source>
+        <target>%@ Version</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Version Not Allowed!" xml:space="preserve">
+        <source>%@ Version Not Allowed!</source>
+        <target>%@ Version Not Allowed!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ cannot run when the Force Quit window or another system frontmost dialog is open. Close the window or quit %@. If the window isn't open and this alert is displayed anyways, restart your Mac." xml:space="preserve">
@@ -5278,6 +5298,11 @@ It is deleted when the session ends</target>
         <target>%@ is locked because it was attempted to switch the user. Enter the quit/unlock password, which usually exam supervision/support knows.</target>
         <note>Lockdown alert message text for switching the user</note>
       </trans-unit>
+      <trans-unit id="%@ is required for this exam." xml:space="preserve">
+        <source>%@ is required for this exam.</source>
+        <target>%@ is required for this exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %@ in Security &amp; Privacy located in System Settings." xml:space="preserve">
         <source>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy located in System Settings.</source>
         <target>%1$@ needs Accessibility permissions to close the font download dialog displayed when a webpage tries to use a font not installed on your Mac. Grant access to %2$@ in Security &amp; Privacy located in System Settings.</target>
@@ -5288,13 +5313,9 @@ It is deleted when the session ends</target>
         <target>%1$@ needs Accessibility permissions to read the title of the active (frontmost) window of any app for screen proctoring. %2$@ is using these Accessiblilty permissions ONLY during screen proctoring sessions. Grant access to %3$@ in System Settings / Security &amp; Privacy / Accessibility.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.&#10;&#10;Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted." xml:space="preserve">
-        <source>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.
-
-Grant Location Services access to %2$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</source>
-        <target>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.
-
-Grant Location Services access to %2$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</target>
+      <trans-unit id="%@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%@Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted." xml:space="preserve">
+        <source>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%2$@Grant Location Services access to %3$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</source>
+        <target>%1$@ needs Location Services permission to display Wi-Fi network names and allow switching networks.%2$@Grant Location Services access to %3$@ in System Settings / Privacy &amp; Security / Location Services. This dialog will close automatically once access is granted.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy &amp; Security / Location Services." xml:space="preserve">
@@ -5317,10 +5338,20 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>%1$@ session was inactive for %2$ld:%3$.2ld(minutes:seconds)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ version %@" xml:space="preserve">
+        <source>%1$@ version %2$@</source>
+        <target>%1$@ version %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
+      </trans-unit>
+      <trans-unit id="%@ version %@ or higher" xml:space="preserve">
+        <source>%1$@ version %2$@ or higher</source>
+        <target>%1$@ version %2$@ or higher</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -5352,9 +5383,19 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>%@, current window</target>
         <note>Accessibility label for the active window in the SEB Dock open windows menu</note>
       </trans-unit>
+      <trans-unit id="%@, or %@" xml:space="preserve">
+        <source>%1$@, or %2$@</source>
+        <target>%1$@, or %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="(This function doesn't log you out if you are logged in on a website)" xml:space="preserve">
         <source>(This function doesn't log you out if you are logged in on a website)</source>
         <target>(This function doesn't log you out if you are logged in on a website)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="(Unnamed process)" xml:space="preserve">
+        <source>(Unnamed process)</source>
+        <target>(Unnamed process)</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id=", but compressed using gzip." xml:space="preserve">
@@ -5462,6 +5503,16 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Activates %@ browser. Right click displays menu with open webpages.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Add" xml:space="preserve">
+        <source>Add</source>
+        <target>Add</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Add Preset Permitted Process" xml:space="preserve">
+        <source>Add Preset Permitted Process</source>
+        <target>Add Preset Permitted Process</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Additional Applications Not Available" xml:space="preserve">
         <source>Additional Applications Not Available</source>
         <target>Additional Applications Not Available</target>
@@ -5470,6 +5521,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
       <trans-unit id="All cached screenshots transmitted" xml:space="preserve">
         <source>All cached screenshots transmitted</source>
         <target>All cached screenshots transmitted</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Allowed %@ Versions" xml:space="preserve">
+        <source>Allowed %@ Versions</source>
+        <target>Allowed %@ Versions</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Always" xml:space="preserve">
@@ -5596,6 +5652,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>CA Certificate</source>
         <target>CA Certificate</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="CA anchor" xml:space="preserve">
+        <source>CA anchor</source>
+        <target>CA anchor</target>
+        <note>Certificate embed type: a CA trust anchor</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
@@ -5775,7 +5836,8 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
         <target>Connecting…</target>
-        <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+        <note>'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate</note>
       </trans-unit>
       <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
         <source>Connection to SEB Server Failed</source>
@@ -5821,6 +5883,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>Could Not Access Data of Additional Apps</source>
         <target>Could Not Access Data of Additional Apps</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not connect to the server." xml:space="preserve">
+        <source>Could not connect to the server.</source>
+        <target>Could not connect to the server.</target>
+        <note>Error when the connection to the entered server failed</note>
       </trans-unit>
       <trans-unit id="Could not determine a correct hostname. You can enter the domain URL of your institution manually." xml:space="preserve">
         <source>Could not determine a correct hostname. You can enter the domain URL of your institution manually.</source>
@@ -5992,6 +6059,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Down/Uploads</target>
         <note>Title of 'Down/Uploads' preference pane</note>
       </trans-unit>
+      <trans-unit id="Download %@" xml:space="preserve">
+        <source>Download %@</source>
+        <target>Download %@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Download Failed" xml:space="preserve">
         <source>Download Failed</source>
         <target>Download Failed</target>
@@ -6031,6 +6103,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>Edited settings have unsaved changes.</source>
         <target>Edited settings have unsaved changes.</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Embed Server Certificate" xml:space="preserve">
+        <source>Embed Server Certificate</source>
+        <target>Embed Server Certificate</target>
+        <note>Title of the fetch-server-certificate sheet window</note>
       </trans-unit>
       <trans-unit id="Enable" xml:space="preserve">
         <source>Enable</source>
@@ -6136,6 +6213,16 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>Fallback</source>
         <target>Fallback</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." xml:space="preserve">
+        <source>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</source>
+        <target>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</target>
+        <note>Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)</note>
+      </trans-unit>
+      <trans-unit id="Fetching a server certificate by URL is available on macOS 12 (Monterey) and later." xml:space="preserve">
+        <source>Fetching a server certificate by URL is available on macOS 12 (Monterey) and later.</source>
+        <target>Fetching a server certificate by URL is available on macOS 12 (Monterey) and later.</target>
+        <note>Alert message shown when Fetch from Server is used on macOS 11 or older</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
@@ -6392,14 +6479,9 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Location Services Required for Wi-Fi</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Location Services access is required to display Wi-Fi network names." xml:space="preserve">
-        <source>Location Services access is required to display Wi-Fi network names.</source>
-        <target>Location Services access is required to display Wi-Fi network names.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing SEB." xml:space="preserve">
-        <source>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing SEB.</source>
-        <target>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing SEB.</target>
+      <trans-unit id="Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing %@." xml:space="preserve">
+        <source>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing %@.</source>
+        <target>Location Services access is required to display Wi-Fi network names. Grant access in System Settings / Privacy &amp; Security / Location Services after closing %@.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Log in to" xml:space="preserve">
@@ -6470,6 +6552,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
       <trans-unit id="No Hostname Found" xml:space="preserve">
         <source>No Hostname Found</source>
         <target>No Hostname Found</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="No Preset Processes Available" xml:space="preserve">
+        <source>No Preset Processes Available</source>
+        <target>No Preset Processes Available</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="No SEB Server Fallback Password entered" xml:space="preserve">
@@ -6642,6 +6729,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Please contact your exam support.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please enter a valid server URL or host name." xml:space="preserve">
+        <source>Please enter a valid server URL or host name.</source>
+        <target>Please enter a valid server URL or host name.</target>
+        <note>Error when the entered server URL / host is not valid</note>
+      </trans-unit>
       <trans-unit id="Please enter correct confirm password" xml:space="preserve">
         <source>Please enter correct confirm password</source>
         <target>Please enter correct confirm password</target>
@@ -6777,6 +6869,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Remote Proctoring Session</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Remove" xml:space="preserve">
+        <source>Remove</source>
+        <target>Remove</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Repeating Error: Invalid Token" xml:space="preserve">
         <source>Repeating Error: Invalid Token</source>
         <target>Repeating Error: Invalid Token</target>
@@ -6796,6 +6893,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>Required built-in display is still not available!</source>
         <target>Required built-in display is still not available!</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Requires macOS 12 or Later" xml:space="preserve">
+        <source>Requires macOS 12 or Later</source>
+        <target>Requires macOS 12 or Later</target>
+        <note>Alert title shown when Fetch from Server is used on macOS 11 or older</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
@@ -6972,6 +7074,21 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Select Exam</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
+      <trans-unit id="Select the certificate(s) to embed and choose their type:" xml:space="preserve">
+        <source>Select the certificate(s) to embed and choose their type:</source>
+        <target>Select the certificate(s) to embed and choose their type:</target>
+        <note>Heading above the list of fetched certificates</note>
+      </trans-unit>
+      <trans-unit id="Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes." xml:space="preserve">
+        <source>Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes.</source>
+        <target>Select the permitted processes you want to add to your %@ exam settings. The list includes the built-in preset processes and the permitted processes from your local client settings (marked accordingly). They will be added as active processes.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes." xml:space="preserve">
+        <source>Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes.</source>
+        <target>Select the preset permitted processes you want to add to your %@ settings. They will be added as active processes.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Sending cached screen shots, server health %d out of 10" xml:space="preserve">
         <source>Sending cached screen shots, server health %d out of 10</source>
         <target>Sending cached screen shots, server health %d out of 10</target>
@@ -7047,6 +7164,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>Skip</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Specify one or more %@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: &quot;Win.3.9.min&quot; allows %@ for Windows 3.9 or newer." xml:space="preserve">
+        <source>Specify one or more %1$@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: "Win.3.9.min" allows %2$@ for Windows 3.9 or newer.</source>
+        <target>Specify one or more %1$@ version(s) required to use this configuration, one per row. Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: "Win.3.9.min" allows %2$@ for Windows 3.9 or newer.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Standard user agent" xml:space="preserve">
         <source>Standard user agent</source>
         <target>Standard user agent</target>
@@ -7081,6 +7203,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <source>System Preferences</source>
         <target>System Preferences</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="TLS/SSL pin" xml:space="preserve">
+        <source>TLS/SSL pin</source>
+        <target>TLS/SSL pin</target>
+        <note>Certificate embed type: a TLS/SSL public-key pin</note>
       </trans-unit>
       <trans-unit id="The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows." xml:space="preserve">
         <source>The %@ process was interrupted, which can indicate manipulation. Enter the quit/unlock password, which usually exam supervision/support knows.</source>
@@ -7127,6 +7254,16 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>The list containing ignore filter expressions has only an effect on the 'Teach allowed/blocked URLs' mode; loading ignored URLs/resources won't display a dialog anymore. They are blocked anyways, because all not allowed URLs are blocked by the URL filter. Do you want to clear the list now?</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." xml:space="preserve">
+        <source>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</source>
+        <target>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</target>
+        <note>Warning shown when a fetched certificate chain fails normal system trust validation</note>
+      </trans-unit>
+      <trans-unit id="The server did not present any certificates." xml:space="preserve">
+        <source>The server did not present any certificates.</source>
+        <target>The server did not present any certificates.</target>
+        <note>Error when a fetched TLS connection returned no certificates</note>
+      </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <target>The user name or password for %@ was incorrect. Please try again.</target>
@@ -7135,6 +7272,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
       <trans-unit id="Then restart %@/the exam." xml:space="preserve">
         <source>Then restart %@/the exam.</source>
         <target>Then restart %@/the exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="There are currently no additional preset permitted processes which could be added to your %@ settings." xml:space="preserve">
+        <source>There are currently no additional preset permitted processes which could be added to your %@ settings.</source>
+        <target>There are currently no additional preset permitted processes which could be added to your %@ settings.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
@@ -7197,6 +7339,11 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>This setting allows to switch to any application on the exam client computer. Use this option only for open book exams (without lock down) or for debugging.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="This version of %@ is not allowed for this exam." xml:space="preserve">
+        <source>This version of %@ is not allowed for this exam.</source>
+        <target>This version of %@ is not allowed for this exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="To avoid that %@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %@ is still running." xml:space="preserve">
         <source>To avoid that %1$@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %2$@ is still running.</source>
         <target>To avoid that %1$@ locks an exam, you have to always use a quit/unlock link after the exam was submitted or the quit button. Never restart your Mac while %2$@ is still running.</target>
@@ -7212,9 +7359,9 @@ Grant Location Services access to %2$@ in System Settings / Privacy &amp; Securi
         <target>To avoid that %@ locks itself during an exam when it detects that screen sharing started, it's best to switch off 'Screen Sharing' and 'Remote Management' in System Settings/Sharing. You can also ask your network administrators to block ports used for the VNC protocol.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry." xml:space="preserve">
-        <source>To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</source>
-        <target>To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</target>
+      <trans-unit id="To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry." xml:space="preserve">
+        <source>To detect apps with Accessibility permissions, %1$@ requires Full Disk Access. %2$@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</source>
+        <target>To detect apps with Accessibility permissions, %1$@ requires Full Disk Access. %2$@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy &amp; Security / Full Disk Access, then click Retry.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Toggle Proctoring View" xml:space="preserve">
@@ -7287,6 +7434,11 @@ untitled filename</note>
         <source>Uploading</source>
         <target>Uploading</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Use Start URL" xml:space="preserve">
+        <source>Use Start URL</source>
+        <target>Use Start URL</target>
+        <note>Link that fills the URL field with the exam's start URL host</note>
       </trans-unit>
       <trans-unit id="Used third-party frameworks:" xml:space="preserve">
         <source>Used third-party frameworks:</source>
@@ -7473,6 +7625,11 @@ untitled filename</note>
         <target>You are not allowed to run %@ inside a virtual machine!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="You are running %@ version %@ (build %@). Please download and install a required version." xml:space="preserve">
+        <source>You are running %1$@ version %2$@ (build %3$@). Please download and install a required version.</source>
+        <target>You are running %1$@ version %2$@ (build %3$@). Please download and install a required version.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="You can also force quit these processes, but this may lead to loss of data." xml:space="preserve">
         <source>You can also force quit these processes, but this may lead to loss of data.</source>
         <target>You can also force quit these processes, but this may lead to loss of data.</target>
@@ -7623,6 +7780,16 @@ untitled filename</note>
         <target>microphone</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="one of the %@ versions %@" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@</source>
+        <target>one of the %1$@ versions %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="one of the %@ versions %@ or higher" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@ or higher</source>
+        <target>one of the %1$@ versions %2$@ or higher</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
         <target>open in new window</target>
@@ -7647,6 +7814,16 @@ untitled filename</note>
         <source>return to %@ and re</source>
         <target>return to %@ and re</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="root" xml:space="preserve">
+        <source>root</source>
+        <target>root</target>
+        <note>Badge for a self-signed root CA certificate</note>
+      </trans-unit>
+      <trans-unit id="self-signed" xml:space="preserve">
+        <source>self-signed</source>
+        <target>self-signed</target>
+        <note>Badge for a self-signed (non-CA) server certificate</note>
       </trans-unit>
       <trans-unit id="settings" xml:space="preserve">
         <source>settings</source>
@@ -9299,6 +9476,11 @@ untitled filename</note>
         <target>%@ is locked because the screen is being captured/shared during an exam. Stop screen capturing (or ignore it) and enter  the quit password to unlock, which usually exam supervision/support knows.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ is required for this exam." xml:space="preserve">
+        <source>%@ is required for this exam.</source>
+        <target>%@ is required for this exam.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ needs to be used differently depending on your role." xml:space="preserve">
         <source>%@ needs to be used differently depending on your role.</source>
         <target>%@ needs to be used differently depending on your role.</target>
@@ -9309,10 +9491,20 @@ untitled filename</note>
         <target>%1$@ of %2$@ configurations is not allowed in current settings. Report this to your exam provider.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ version %@" xml:space="preserve">
+        <source>%1$@ version %2$@</source>
+        <target>%1$@ version %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ version %@ (Build %@)" xml:space="preserve">
         <source>%1$@ version %2$@ (Build %3$@)</source>
         <target>%1$@ version %2$@ (Build %3$@)</target>
         <note>App full/build version</note>
+      </trans-unit>
+      <trans-unit id="%@ version %@ or higher" xml:space="preserve">
+        <source>%1$@ version %2$@ or higher</source>
+        <target>%1$@ version %2$@ or higher</target>
+        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" xml:space="preserve">
         <source>%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)</source>
@@ -9327,6 +9519,11 @@ untitled filename</note>
       <trans-unit id="%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path." xml:space="preserve">
         <source>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</source>
         <target>%@ will upload the same file which was downloaded before. If you edited it in a third party application, be sure you have saved it with the same name at the same path.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@, or %@" xml:space="preserve">
+        <source>%1$@, or %2$@</source>
+        <target>%1$@, or %2$@</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="10.7 (this %@: 10.13)" xml:space="preserve">
@@ -9549,6 +9746,11 @@ untitled filename</note>
         <target>CA Certificate</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="CA anchor" xml:space="preserve">
+        <source>CA anchor</source>
+        <target>CA anchor</target>
+        <note>Certificate embed type: a CA trust anchor</note>
+      </trans-unit>
       <trans-unit id="Camera Access Denied" xml:space="preserve">
         <source>Camera Access Denied</source>
         <target>Camera Access Denied</target>
@@ -9727,7 +9929,8 @@ untitled filename</note>
       <trans-unit id="Connecting…" xml:space="preserve">
         <source>Connecting…</source>
         <target>Connecting…</target>
-        <note>'Connecting…' header in 'Connecting to SEB Server' table view.</note>
+        <note>'Connecting…' header in 'Connecting to SEB Server' table view.
+Shown while connecting to the server to fetch its certificate</note>
       </trans-unit>
       <trans-unit id="Connection to SEB Server Failed" xml:space="preserve">
         <source>Connection to SEB Server Failed</source>
@@ -9768,6 +9971,11 @@ untitled filename</note>
         <source>Could not Export Identity</source>
         <target>Could not Export Identity</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Could not connect to the server." xml:space="preserve">
+        <source>Could not connect to the server.</source>
+        <target>Could not connect to the server.</target>
+        <note>Error when the connection to the entered server failed</note>
       </trans-unit>
       <trans-unit id="Could not determine a correct hostname. You can enter the domain URL of your institution manually." xml:space="preserve">
         <source>Could not determine a correct hostname. You can enter the domain URL of your institution manually.</source>
@@ -9984,6 +10192,11 @@ untitled filename</note>
         <target>Embed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Embed Server Certificate" xml:space="preserve">
+        <source>Embed Server Certificate</source>
+        <target>Embed Server Certificate</target>
+        <note>Title of the fetch-server-certificate sheet window</note>
+      </trans-unit>
       <trans-unit id="Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page)." xml:space="preserve">
         <source>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</source>
         <target>Embed the identity certificate '%@' into a client config file and use that to configure exam devices. Then you can encrypt exam config files with the identity (see Configuration page).</target>
@@ -10108,6 +10321,11 @@ untitled filename</note>
         <source>Fallback</source>
         <target>Fallback</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." xml:space="preserve">
+        <source>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</source>
+        <target>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</target>
+        <note>Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)</note>
       </trans-unit>
       <trans-unit id="Fetching identities" xml:space="preserve">
         <source>Fetching identities</source>
@@ -10569,6 +10787,11 @@ untitled filename</note>
         <target>Please create an issue or discussion on our GitHub repository https://github.com/SafeExamBrowser/seb-mac and provide a detailed description of the issue you would like to report there. You can send %@ logs to your own email address and attach these to your GitHub issue/discussion. Direct log submissions without an issue description will be ignored, as most issues cannot be analyzed without additional information.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Please enter a valid server URL or host name." xml:space="preserve">
+        <source>Please enter a valid server URL or host name.</source>
+        <target>Please enter a valid server URL or host name.</target>
+        <note>Error when the entered server URL / host is not valid</note>
+      </trans-unit>
       <trans-unit id="Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs." xml:space="preserve">
         <source>Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</source>
         <target>Project concept: Thomas Piendl, Daniel R. Schneider, Damian Buechel, Dirk Bauer, Kai Reuter, Tobias Halbherr, Karsten Burger, Marco Lehre, Brigitte Schmucki, Oliver Rahs.</target>
@@ -10869,6 +11092,11 @@ untitled filename</note>
         <target>Select Exam</target>
         <note>'Select Exam' header in 'Connecting to SEB Server' table view.</note>
       </trans-unit>
+      <trans-unit id="Select the certificate(s) to embed and choose their type:" xml:space="preserve">
+        <source>Select the certificate(s) to embed and choose their type:</source>
+        <target>Select the certificate(s) to embed and choose their type:</target>
+        <note>Heading above the list of fetched certificates</note>
+      </trans-unit>
       <trans-unit id="Send" xml:space="preserve">
         <source>Send</source>
         <target>Send</target>
@@ -10969,9 +11197,9 @@ untitled filename</note>
         <target>Showing</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
-        <source>Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again</source>
-        <target>Shows or hides menu which lists browser tabs (starting with the exam tab) and SEB commands. You have to hide the side menu to access the browser view again</target>
+      <trans-unit id="Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again" xml:space="preserve">
+        <source>Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again</source>
+        <target>Shows or hides menu which lists browser tabs (starting with the exam tab) and %@ commands. You have to hide the side menu to access the browser view again</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Single App Mode could not be started. You need to restart your device (iPad with Face ID: Press and hold either volume button and the top button until the power off slider appears. iPad with Home button: Press and hold the top button until the power off slider appears). Update iOS/iPadOS to the latest version to prevent this issue." xml:space="preserve">
@@ -11034,6 +11262,11 @@ untitled filename</note>
         <target>System Default</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="TLS/SSL pin" xml:space="preserve">
+        <source>TLS/SSL pin</source>
+        <target>TLS/SSL pin</target>
+        <note>Certificate embed type: a TLS/SSL public-key pin</note>
+      </trans-unit>
       <trans-unit id="The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %@ itself doesn't connect to any centralized %@ server, your exam provider decides which proctoring server to use." xml:space="preserve">
         <source>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</source>
         <target>The current session is being remote proctored using a live video and audio stream, which is sent to an individually configured server. Ask your examinator about their privacy policy. %1$@ itself doesn't connect to any centralized %2$@ server, your exam provider decides which proctoring server to use.</target>
@@ -11069,6 +11302,11 @@ untitled filename</note>
         <target>The overlay proctoring view is initially displayed in the lower right corner and can be swiped to other display corners.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently." xml:space="preserve">
+        <source>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</source>
+        <target>The presented chain does NOT pass normal trust validation. This may indicate interception — only embed if you can verify the fingerprint independently.</target>
+        <note>Warning shown when a fetched certificate chain fails normal system trust validation</note>
+      </trans-unit>
       <trans-unit id="The private key and certificate contained in the selected identity could not be exported. Try another identity." xml:space="preserve">
         <source>The private key and certificate contained in the selected identity could not be exported. Try another identity.</source>
         <target>The private key and certificate contained in the selected identity could not be exported. Try another identity.</target>
@@ -11078,6 +11316,11 @@ untitled filename</note>
         <source>The screen is being captured/shared. The exam cannot be started.</source>
         <target>The screen is being captured/shared. The exam cannot be started.</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The server did not present any certificates." xml:space="preserve">
+        <source>The server did not present any certificates.</source>
+        <target>The server did not present any certificates.</target>
+        <note>Error when a fetched TLS connection returned no certificates</note>
       </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
@@ -11117,6 +11360,11 @@ untitled filename</note>
       <trans-unit id="This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board." xml:space="preserve">
         <source>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</source>
         <target>This project was partly carried out under the program 'AAA/SWITCH – e-Infrastructure for e-Science' lead by SWITCH, the Swiss National Research and Education Network and the cooperative CRUS project 'Learning Infrastructure' coordinated by SWITCH, supported by funds from the ETH Board.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This version of %@ is not allowed for this exam." xml:space="preserve">
+        <source>This version of %@ is not allowed for this exam.</source>
+        <target>This version of %@ is not allowed for this exam.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="To scan a QR code, enable the camera in settings" xml:space="preserve">
@@ -11183,6 +11431,11 @@ untitled filename</note>
         <source>Uploading</source>
         <target>Uploading</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Use Start URL" xml:space="preserve">
+        <source>Use Start URL</source>
+        <target>Use Start URL</target>
+        <note>Link that fills the URL field with the exam's start URL host</note>
       </trans-unit>
       <trans-unit id="Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities." xml:space="preserve">
         <source>Use the identity name derived from the current config file name or enter another. It has to be unique amongst all identities.</source>
@@ -11504,6 +11757,16 @@ untitled filename</note>
         <target>microphone</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="one of the %@ versions %@" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@</source>
+        <target>one of the %1$@ versions %2$@</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="one of the %@ versions %@ or higher" xml:space="preserve">
+        <source>one of the %1$@ versions %2$@ or higher</source>
+        <target>one of the %1$@ versions %2$@ or higher</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="open in new window" xml:space="preserve">
         <source>open in new window</source>
         <target>open in new window</target>
@@ -11528,6 +11791,16 @@ untitled filename</note>
         <source>return to %@ and re</source>
         <target>return to %@ and re</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="root" xml:space="preserve">
+        <source>root</source>
+        <target>root</target>
+        <note>Badge for a self-signed root CA certificate</note>
+      </trans-unit>
+      <trans-unit id="self-signed" xml:space="preserve">
+        <source>self-signed</source>
+        <target>self-signed</target>
+        <note>Badge for a self-signed (non-CA) server certificate</note>
       </trans-unit>
       <trans-unit id="side menu" xml:space="preserve">
         <source>side menu</source>
