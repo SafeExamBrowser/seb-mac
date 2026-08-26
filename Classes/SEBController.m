@@ -2854,6 +2854,24 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
     }
     DDLogDebug(@"%s", __FUNCTION__);
 
+    // If the user holds the Option key at startup to open the Settings window (and opening it is
+    // allowed), open Settings instead of starting the session. The Option key is normally handled
+    // in -didFinishLaunchingWithSettings, but when SEB reconfigures with deployed client settings
+    // (a SEBClientSettings.seb in /Library/Preferences/) at launch, that method is skipped (see
+    // -applicationDidFinishLaunchingProceed, guarded by _isReconfiguringToMDMConfig) and startup is
+    // driven through -requestedRestart → this method, so the Option key would otherwise be ignored.
+    // Only at initial startup (_startingUp), never on a mid-session restart.
+    if (_startingUp && [self alternateKeyCheck]) {
+        DDLogInfo(@"%s: Option key held at startup - opening the Settings window instead of starting the session.", __FUNCTION__);
+        _alternateKeyPressed = YES;
+        if (self.aboutWindow.isVisible) {
+            [self closeAboutWindow];
+        }
+        [self saveCurrentPasteboardString];
+        [self openPreferences:self];
+        return;
+    }
+
     /// Kiosk mode checks
     
     // Update AAC availability before version check
