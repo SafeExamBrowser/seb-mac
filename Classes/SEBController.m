@@ -3329,7 +3329,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 NSAlert *modalAlert = [self newAlert];
                 [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName]];
+                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName, SEBShortAppName]];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -5188,6 +5188,24 @@ extern int csops(pid_t pid, unsigned int ops, void *useraddr, size_t usersize);
 
     DDLogDebug(@"Code signature of process with PID %d was checked and it positively identifies macOS system software.", runningExecutablePID);
     return YES;
+}
+
+
+// Returns YES if a genuine Apple-signed SecurityAgent (the system's authorization
+// dialog, e.g. asking for keychain/Wi-Fi credentials) is currently active/frontmost.
+// Used so SEB doesn't take focus back from the system dialog, also on code paths
+// where regainActiveStatus: is triggered without a workspace notification (e.g. KVO
+// on SEB's isActive property or a nil sender), where the activated app isn't
+// available from a notification's userInfo.
+- (BOOL)genuineSecurityAgentActive
+{
+    NSArray<NSRunningApplication *> *securityAgents = [NSRunningApplication runningApplicationsWithBundleIdentifier:securityAgentBundleID];
+    for (NSRunningApplication *securityAgent in securityAgents) {
+        if (securityAgent.active && [self signedSystemExecutable:securityAgent.processIdentifier]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 
@@ -7249,8 +7267,8 @@ conditionallyForWindow:(NSWindow *)window
 #endif
     
     NSDictionary *userInfo = [sender userInfo];
+    NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
     if (userInfo) {
-        NSRunningApplication *launchedApp = [userInfo objectForKey:NSWorkspaceApplicationKey];
 #ifdef DEBUG
         DDLogInfo(@"Activated app localizedName: %@, bundle ID: %@, executableURL: %@", launchedApp.localizedName, launchedApp.bundleIdentifier, launchedApp.executableURL);
 #endif
@@ -7258,17 +7276,23 @@ conditionallyForWindow:(NSWindow *)window
             systemPreferencesOpenedForScreenRecordingPermissions = NO;
             [NSApp abortModal];
         }
+    }
 
-        // When SecurityAgent (the system's authorization dialog) becomes active,
-        // e.g. asking for credentials to access the keychain when connecting to a
-        // Wi-Fi network, SEB must not take focus back, otherwise the user can't
-        // interact with the system dialog. Only skip regaining active status if
-        // the process genuinely is Apple-signed system software.
-        if ([launchedApp.bundleIdentifier isEqualToString:securityAgentBundleID] &&
-            [self signedSystemExecutable:launchedApp.processIdentifier]) {
-            DDLogDebug(@"%s: Genuine Apple-signed SecurityAgent became active, not regaining active status / forcing SEB windows to the front", __FUNCTION__);
-            return;
-        }
+    // When SecurityAgent (the system's authorization dialog) becomes active,
+    // e.g. asking for credentials to access the keychain when connecting to a
+    // Wi-Fi network, SEB must not take focus back, otherwise the user can't
+    // interact with the system dialog. Only skip regaining active status if
+    // the process genuinely is Apple-signed system software.
+    // The activated app is available from a workspace notification's userInfo,
+    // but this method is also called without one (e.g. from KVO on SEB's isActive
+    // property or with a nil sender), so fall back to scanning for a genuine
+    // active SecurityAgent.
+    BOOL launchedAppIsGenuineSecurityAgent =
+        [launchedApp.bundleIdentifier isEqualToString:securityAgentBundleID] &&
+        [self signedSystemExecutable:launchedApp.processIdentifier];
+    if (launchedAppIsGenuineSecurityAgent || [self genuineSecurityAgentActive]) {
+        DDLogDebug(@"%s: Genuine Apple-signed SecurityAgent is active, not regaining active status / forcing SEB windows to the front", __FUNCTION__);
+        return;
     }
 
     // In AAC (Automatic Assessment Configuration) mode the system enforces the
