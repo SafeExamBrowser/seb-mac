@@ -138,6 +138,18 @@ bool insideMatrix(void);
 // Called once the user has resolved the Location Services prompt/wait dialog
 // (granted, denied or skipped), to resume the exam-session start.
 @property (nonatomic, copy) void (^locationAuthContinuation)(void);
+
+// YES while the classic (non-AAC) kiosk mode has been temporarily downgraded to
+// "allow switching to third-party apps" so a permission dialog (Full Disk Access /
+// Location Services) and the System Settings pane it points to can be shown in the
+// foreground. Owns the restore back to strict kiosk mode and prevents double
+// relaxing/restoring across the Full Disk Access "Retry" recursion.
+@property (assign) BOOL relaxedKioskForPermissionDialog;
+- (BOOL) relaxKioskModeForPermissionDialog;
+- (void) restoreKioskModeAfterPermissionDialog;
+- (void) presentLocationServicesWaitAlertWithCompletion:(void (^)(void))completion;
+- (void) presentLocationServicesWaitAlertRaisingSystemSettings:(BOOL)raiseSystemSettings
+                                                    completion:(void (^)(void))completion;
 @end
 
 
@@ -1491,19 +1503,61 @@ bool insideMatrix(void);
     }
 }
 
+// Startup Location Services wait dialog: shown before the exam session start continues. Thin
+// wrapper around the shared -presentLocationServicesWaitAlertWithCompletion: (which holds the
+// wait/poll/auto-dismiss/System-Settings-raise machinery); the completion resumes the pending
+// session-start continuation.
 - (void) showStartupLocationServicesDeniedAlert
 {
     if (!_waitingForLocationAuth) {
         // Already resolved (e.g. granted before this dispatched call ran)
         return;
     }
+    [self presentLocationServicesWaitAlertWithCompletion:^{
+        [self finishWaitingForLocationAuthAndContinue];
+    }];
+}
+
+// Runtime Location Services wait dialog: shown when access is denied outside of initial startup
+// (e.g. while reconfiguring a running session whose new settings show the Wi-Fi controls). Uses the
+// same wait/poll/auto-dismiss behavior as at startup, so both cases behave identically. No
+// continuation to resume, so the completion is nil.
+- (void) showLocationServicesDeniedAlert
+{
+    [self presentLocationServicesWaitAlertWithCompletion:nil];
+}
+
+// Entry point for the first presentation of the Location Services wait dialog: do NOT force System
+// Settings to the foreground yet. System Settings may already be open on a different (e.g. Full
+// Disk Access) page from a preceding permission dialog; raising it here would confusingly surface
+// that stale page. It is only brought forward — on the Location Services page — once the user
+// presses "Open System Settings" (see the re-show below), which navigates there first.
+- (void) presentLocationServicesWaitAlertWithCompletion:(void (^)(void))completion
+{
+    [self presentLocationServicesWaitAlertRaisingSystemSettings:NO completion:completion];
+}
+
+// Shared implementation of the Location Services wait dialog. Shows an alert pointing the user to
+// System Settings and polls for authorization, auto-dismissing (and running `completion`) once
+// access is granted; "Skip" also runs `completion`. During a reconfigure of a running classic-kiosk
+// session the strict kiosk mode is temporarily downgraded (see -relaxKioskModeForPermissionDialog)
+// so System Settings can be reached, and restored on every terminal path (granted / skipped) but
+// not while re-showing after "Open System Settings". `raiseSystemSettings` controls whether the
+// poll brings System Settings back to the front (only after the user opened the Location Services
+// page via "Open System Settings"; NO on the first presentation).
+- (void) presentLocationServicesWaitAlertRaisingSystemSettings:(BOOL)raiseSystemSettings
+                                                    completion:(void (^)(void))completion
+{
     if (@available(macOS 11.0, *)) {
         // If access was already granted (e.g. quickly via the system prompt), continue immediately
         CLLocationManager *freshManager = [[CLLocationManager alloc] init];
         CLAuthorizationStatus currentStatus = freshManager.authorizationStatus;
         if (currentStatus == kCLAuthorizationStatusAuthorized ||
             currentStatus == kCLAuthorizationStatusAuthorizedAlways) {
-            [self finishWaitingForLocationAuthAndContinue];
+            [self restoreKioskModeAfterPermissionDialog];
+            if (completion) {
+                completion();
+            }
             return;
         }
     }
@@ -1514,6 +1568,11 @@ bool insideMatrix(void);
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Open System Settings", @"")];
     [modalAlert addButtonWithTitle:NSLocalizedString(@"Skip", @"")];
     [modalAlert setAlertStyle:NSAlertStyleWarning];
+
+    // Downgrade a running classic-kiosk session so System Settings can be shown in the foreground
+    // while this dialog waits. Called after the alert exists (added to _modalAlertWindows in
+    // -newAlert) so the alert is lowered too. No-op at startup (kiosk not yet started) and under AAC.
+    [self relaxKioskModeForPermissionDialog];
 
     // Distinct response code used when polling auto-dismisses the alert
     static const NSModalResponse SEBLocationAuthGrantedResponse = 8250;
@@ -1534,13 +1593,17 @@ bool insideMatrix(void);
                               (uint64_t)(1.0 * NSEC_PER_SEC),
                               (uint64_t)(100 * NSEC_PER_MSEC));
     dispatch_source_set_event_handler(pollSource, ^{
-        // Raise System Settings above the re-shown SEB alert once (no-op if it isn't running,
-        // e.g. before the user pressed "Open System Settings").
-        if (!raisedSystemSettings) {
+        // Raise System Settings above the re-shown SEB alert once, but only after the user opened
+        // the Location Services page via "Open System Settings" (raiseSystemSettings == YES). On the
+        // first presentation we must NOT raise it: System Settings may already be open on a stale
+        // page (e.g. Full Disk Access from a preceding dialog), and surfacing that is confusing.
+        // Called directly on this background queue, NOT hopped to the main queue: the main thread is
+        // blocked in -[NSAlert runModal], which does not drain the main dispatch queue, so a
+        // dispatch_async(main) would only run after the alert is dismissed.
+        // -[NSRunningApplication activateWithOptions:] is thread-safe.
+        if (raiseSystemSettings && !raisedSystemSettings) {
             raisedSystemSettings = YES;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self raiseSystemSettingsToForeground];
-            });
+            [self raiseSystemSettingsToForeground];
         }
         if (@available(macOS 11.0, *)) {
             // The authorizationStatus of an existing CLLocationManager is a cached value that
@@ -1582,39 +1645,29 @@ bool insideMatrix(void);
             self.locationAuthPollSource = nil;
         }
         [self removeAlertWindow:modalAlert.window];
-        DDLogInfo(@"Location Services startup alert dismissed (answer: %ld)", (long)answer);
+        DDLogInfo(@"Location Services wait alert dismissed (answer: %ld)", (long)answer);
 
         if (answer == NSAlertFirstButtonReturn) {
-            // Open System Settings (visible because kiosk/AAC mode hasn't started yet),
-            // then re-show the alert to keep waiting and polling for authorization. Re-showing
-            // the modal re-activates SEB on top, so the re-shown alert's poll timer raises
-            // System Settings back to the front (see raiseSystemSettingsToForeground below).
+            // Open System Settings (visible because the kiosk mode has been downgraded for this
+            // dialog, or isn't started yet at startup), then re-show the alert to keep waiting and
+            // polling for authorization. Re-showing the modal re-activates SEB on top, so the
+            // re-shown alert's poll timer raises System Settings back to the front (see
+            // raiseSystemSettingsToForeground above).
             [self openLocationServicesSystemSettings];
-            [self showStartupLocationServicesDeniedAlert];
+            // Re-show with raiseSystemSettings:YES: System Settings has now been navigated to the
+            // Location Services page, so the re-shown alert's poll should bring it back to the front.
+            [self presentLocationServicesWaitAlertRaisingSystemSettings:YES completion:completion];
             return;
         }
 
-        // Skip pressed or authorization granted (auto-dismiss): resume the session start
-        [self finishWaitingForLocationAuthAndContinue];
-    };
-    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))handler];
-}
-
-- (void) showLocationServicesDeniedAlert
-{
-    NSAlert *modalAlert = [self newAlert];
-    [modalAlert setMessageText:NSLocalizedString(@"Location Services Required for Wi-Fi", @"")];
-    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ needs Location Services permission to display the current Wi-Fi network name. Grant Location Services access to %@ in System Settings / Privacy & Security / Location Services.", @""), SEBShortAppName, SEBFullAppNameClassic]];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Open System Settings", @"")];
-    [modalAlert addButtonWithTitle:NSLocalizedString(@"Skip", @"")];
-    [modalAlert setAlertStyle:NSAlertStyleWarning];
-    void (^locationPermissionsHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-        [self removeAlertWindow:modalAlert.window];
-        if (answer == NSAlertFirstButtonReturn) {
-            [self openLocationServicesSystemSettings];
+        // Skip pressed or authorization granted (auto-dismiss): restore the kiosk mode (if it was
+        // downgraded for this dialog) and resume.
+        [self restoreKioskModeAfterPermissionDialog];
+        if (completion) {
+            completion();
         }
     };
-    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))locationPermissionsHandler];
+    [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))handler];
 }
 
 - (void) openLocationServicesSettings:(id)sender
@@ -3333,6 +3386,11 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleWarning];
+                // Downgrade the classic kiosk mode so System Settings / Full Disk Access can be shown
+                // in the foreground while this dialog waits for the permission. Called here, after the
+                // alert window exists (added to _modalAlertWindows in -newAlert), so the alert is also
+                // lowered below/around System Settings. Restored on the success and Quit paths below.
+                [self relaxKioskModeForPermissionDialog];
                 void (^fullDiskAccessHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
                     [self removeAlertWindow:modalAlert.window];
                     switch (answer) {
@@ -3340,6 +3398,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                             [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
                             return;
                         case NSAlertSecondButtonReturn:
+                            [self restoreKioskModeAfterPermissionDialog];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuitSEBOrSession" object:self];
                             return;
                         default:
@@ -3348,10 +3407,21 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                             return;
                     }
                 };
+                // Bring System Settings (opened above) to the foreground shortly after the alert is
+                // shown. -runModalAlert: below blocks the main thread in -[NSAlert runModal] (which
+                // activates SEB and doesn't drain the main queue), so schedule this on a background
+                // queue and call -[NSRunningApplication activateWithOptions:] (thread-safe) directly.
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)),
+                               dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self raiseSystemSettingsToForeground];
+                });
                 [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))fullDiskAccessHandler];
             });
             return;
         }
+        // Full Disk Access is available (possibly just granted via the dialog above): restore the
+        // strict kiosk mode if it was downgraded for that dialog before continuing.
+        [self restoreKioskModeAfterPermissionDialog];
         // Full Disk Access is available: update the prohibited list and terminate any
         // accessibility apps that are still running (may have been missed before FDA was granted).
         [self addAccessibilityAppsToProhibitedApplicationsList];
@@ -3993,6 +4063,20 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         } else {
             _isAACEnabled = NO;
         }
+    }
+    // For a classic-kiosk reconfigure, request Location Services (for the Wi-Fi SSID) now, before the
+    // session continues. The AAC path above already does this for assessment sessions, and the
+    // initial classic launch does it in -didFinishLaunching…; a classic→classic (or AAC→classic, or
+    // deployed-client-settings) reconfigure otherwise never requests it, so the reconfigured
+    // session's Wi-Fi controls would show "access not granted" with no prompt. AAC is off here, so
+    // the prompt / System Settings is reachable (the kiosk mode is temporarily downgraded for the
+    // dialog). No-op if hideWiFiControls is set or access is already granted. Gated to a reconfigure
+    // (_restarting) so it isn't requested twice on the initial classic launch.
+    if (_isAACEnabled == NO && _restarting) {
+        [self requestLocationServicesAuthorizationWithContinuation:^{
+            [self initSEBProcessesCheckedWithCallback:callback selector:selector];
+        }];
+        return;
     }
     [self initSEBProcessesCheckedWithCallback:callback selector:selector];
 }
@@ -7773,6 +7857,63 @@ conditionallyForWindow:(NSWindow *)window
 }
 
 
+// Temporarily downgrade the classic (non-AAC) kiosk mode to "allow switching to third-party apps"
+// so a permission dialog (Full Disk Access / Location Services) and the System Settings pane it
+// points to can be shown in the foreground. Otherwise the strict kiosk mode keeps System Settings
+// hidden behind SEB's elevated cap windows and the alert itself (created at NSMainMenuWindowLevel+6),
+// and SEB steals focus back (via -regainActiveStatus:) when the user clicks into System Settings.
+//
+// IMPORTANT: this deliberately does NOT gate on the persisted elevateWindowLevels flag — during a
+// reconfigure that flag can be out of sync with the actually-applied (strict) window levels, so we
+// force the relaxed state directly. The gate is only "we are in classic kiosk mode" (not AAC).
+// Setting elevateWindowLevels = NO also makes -regainActiveStatus: stop pulling focus back to SEB.
+// Because -changeWindowLevels: (inside -switchKioskModeAppsAllowed:) sets modal alert levels from
+// _sessionState.allowSwitchToApplications (which may still be NO for the outgoing session), the
+// alert window(s) are lowered explicitly afterwards so an already-shown dialog drops below/around
+// System Settings. Call AFTER the alert has been created (added to _modalAlertWindows). Idempotent
+// across the Full Disk Access "Retry" recursion. Balanced by -restoreKioskModeAfterPermissionDialog.
+- (BOOL) relaxKioskModeForPermissionDialog
+{
+    if (_isAACEnabled || _wasAACEnabled) {
+        return NO;
+    }
+    if (_relaxedKioskForPermissionDialog) {
+        // Already relaxed; re-assert the low alert level in case a new alert window was added since.
+        [self adjustModalAlertWindowLevels:YES];
+        return YES;
+    }
+    DDLogInfo(@"Temporarily downgrading classic kiosk mode (allowSwitchToApplications) so a permission dialog / System Settings can be shown.");
+    _relaxedKioskForPermissionDialog = YES;
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
+    [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
+    // Force the modal alert window(s) below the (now normal-level) System Settings-reachable state:
+    // -changeWindowLevels: above may have re-raised them based on the outgoing session's setting.
+    [self adjustModalAlertWindowLevels:YES];
+    return YES;
+}
+
+// Restore the strict classic kiosk mode after a permission dialog, if it was downgraded by
+// -relaxKioskModeForPermissionDialog. -setElevateWindowLevels is called first so the restored
+// mode reflects the (possibly reconfigured) current settings' allowSwitchToApplications value;
+// -switchKioskModeAppsAllowed: (not -startKioskMode) is used because it also re-elevates the cap
+// window levels that were lowered while relaxed.
+- (void) restoreKioskModeAfterPermissionDialog
+{
+    if (!_relaxedKioskForPermissionDialog) {
+        return;
+    }
+    DDLogInfo(@"Restoring classic kiosk mode after a permission dialog.");
+    _relaxedKioskForPermissionDialog = NO;
+    [self setElevateWindowLevels];
+    [self switchKioskModeAppsAllowed:_sessionState.allowSwitchToApplications overrideShowMenuBar:NO];
+    [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    if (self.browserController.mainBrowserWindow.isVisible) {
+        [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
+    }
+}
+
+
 - (void)requestedReinforceKioskMode:(NSNotification *)notification
 {
     [self reinforceKioskMode];
@@ -7780,6 +7921,13 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)reinforceKioskMode
 {
+    if (_relaxedKioskForPermissionDialog) {
+        // A permission dialog (Full Disk Access / Location Services) has temporarily downgraded the
+        // kiosk mode so System Settings can be reached; don't re-tighten it (and re-hide System
+        // Settings) underneath the dialog. -restoreKioskModeAfterPermissionDialog will restore it.
+        DDLogDebug(@"Not reinforcing kiosk mode: it is temporarily downgraded for a permission dialog.");
+        return;
+    }
     if (!self.settingsOpen) {
         DDLogDebug(@"Reinforcing the kiosk mode was requested");
         
