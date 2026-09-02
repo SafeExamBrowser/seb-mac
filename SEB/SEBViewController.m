@@ -3715,7 +3715,7 @@ void run_on_ui_thread(dispatch_block_t block)
     if (@available(iOS 11.0, *)) {
         if (_secureMode &&
             UIScreen.mainScreen.isCaptured &&
-            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ) {
+            ![preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"] ) {
             NSString *alertMessageiOSVersion = NSLocalizedString(@"The screen is being captured/shared. The exam cannot be started.", @"");
             if (_alertController) {
                 [_alertController dismissViewControllerAnimated:NO completion:nil];
@@ -5370,7 +5370,7 @@ void run_on_ui_thread(dispatch_block_t block)
             _secureMode &&
             _sessionRunning &&
             !_clientConfigSecureModePaused &&
-            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"]) {
+            ![[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"]) {
             DDLogError(@"Screen is being captured while in secure mode!");
             [self openLockdownWindows];
             [self.sebLockedViewController setLockdownAlertTitle: NSLocalizedString(@"Screen is Being Captured/Shared!", @"Lockdown alert title text for screen is being captured/shared")
@@ -5381,7 +5381,7 @@ void run_on_ui_thread(dispatch_block_t block)
             NSString *logString = [NSString stringWithFormat:@"Screen capturing/sharing %@, while %@running in secure mode%@.",
                                    UIScreen.mainScreen.isCaptured ? @"started" : @"stopped",
                                    _secureMode ? @"" : @"not ",
-                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_enablePrintScreen"] ? @" and it is allowed in current settings" : @""];
+                                   [[NSUserDefaults standardUserDefaults] secureBoolForKey:@"org_safeexambrowser_SEB_allowScreenCaptureiOS"] ? @" and it is allowed in current settings" : @""];
             DDLogInfo(@"%@", logString);
         }
     }

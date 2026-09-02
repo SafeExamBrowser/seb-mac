@@ -281,6 +281,9 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"allowScreenCapture",
                    
                    @NO,
+                   @"allowScreenCaptureiOS",
+                   
+                   @NO,
                    @"allowScreenSharing",
                    
                    @NO,

@@ -74,7 +74,7 @@
 			<key>Title</key>
 			<string>Allow Screen Capture</string>
 			<key>Key</key>
-			<string>org_safeexambrowser_SEB_enablePrintScreen</string>
+			<string>org_safeexambrowser_SEB_allowScreenCaptureiOS</string>
 		</dict>
 		<dict>
 			<key>Type</key>
