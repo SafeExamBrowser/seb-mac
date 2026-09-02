@@ -85,7 +85,7 @@
 #define SEBErrorGettingConnectionTokenFailed 401
 #define SEBScreenProctoringCacheSizeDefault 500
 
-#define currentStableMajoriOSVersion 26
+#define currentStableMajoriOSVersion 27
 
 #define WebViewDefaultTextSize 120.0
 #define WebViewDefaultTextZoom 1.0
@@ -207,7 +207,7 @@ typedef NSUInteger cryptoIdentities;
 
 enum {
     iOSBetaVersionNone                          = 0,
-    iOSBetaVersion26                            = 26
+    iOSBetaVersion27                            = 27
 };
 typedef NSUInteger iOSBetaVersion;
 

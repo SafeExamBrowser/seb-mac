@@ -228,7 +228,7 @@ static SEBSettings *sharedSEBSettings = nil;
                    @NO,
                    @"allowFlashFullscreen",
                    
-                   [NSNumber numberWithLong:iOSBetaVersion26],
+                   [NSNumber numberWithLong:iOSBetaVersion27],
                    @"allowiOSBetaVersionNumber",
                    
                    [NSNumber numberWithLong:iOSVersion13],
