@@ -122,6 +122,32 @@ function SEB_FocusLastElement() {
 var SEB_SearchResultCount = 0;
 var SEB_currentSelected = -1;
 
+// Returns false for elements that are not rendered (display:none or
+// visibility:hidden/collapse). Because we test this on every element while
+// descending, hitting a hidden container stops us before we reach its
+// (hidden) descendants — e.g. the accessibility clones a rich text editor
+// keeps in the DOM. That keeps invisible text from being highlighted, which
+// in turn keeps prev/next navigation from stopping on unseen matches.
+function SEB_IsElementVisible(element) {
+    var doc = element.ownerDocument;
+    var win = (doc && doc.defaultView) || window;
+    var style = win.getComputedStyle(element);
+    if (!style) {
+        return true;
+    }
+    return style.display != "none" &&
+           style.visibility != "hidden" &&
+           style.visibility != "collapse";
+}
+
+// Returns true only if the (highlight) element actually occupies space in the
+// layout. Used as a safety net during navigation so we never land on a match
+// that became invisible after it was created.
+function SEB_IsRendered(element) {
+    return element &&
+           (element.offsetParent !== null || element.getClientRects().length > 0);
+}
+
 // helper function, recursively searches in elements and their child nodes
 function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
     if (element) {
@@ -148,6 +174,20 @@ function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
             }
         } else if (element.nodeType == 1) { // Element node
             var nodeName = element.nodeName.toLowerCase();
+            if (nodeName == 'iframe' || nodeName == 'frame') {
+                // Descend into (same-origin) frames as well. Accessing the
+                // contentDocument of a cross-origin frame throws a SecurityError,
+                // so we guard it and simply skip frames we're not allowed to read.
+                try {
+                    var frameDoc = element.contentDocument;
+                    if (frameDoc && frameDoc.body) {
+                        SEB_HighlightAllOccurencesOfStringForElement(frameDoc.body, keyword);
+                    }
+                } catch (e) {
+                    // Cross-origin frame: access denied, skip it.
+                }
+                return;
+            }
             // Never modify editable regions (e.g. rich text answer fields like
             // the OLAT/TinyMCE editor): injecting highlight spans into their
             // content makes the editor strip the span together with the wrapped
@@ -156,7 +196,7 @@ function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
             var isEditable = element.isContentEditable ||
                              nodeName == 'input' ||
                              nodeName == 'textarea';
-            if (element.style.display != "none" && nodeName != 'select' && !isEditable) {
+            if (SEB_IsElementVisible(element) && nodeName != 'select' && !isEditable) {
                 for (var i=element.childNodes.length-1; i>=0; i--) {
                     SEB_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword);
                 }
@@ -173,27 +213,61 @@ function SEB_SearchPrevious() {
     SEB_jump(-1);
 }
 
+// Collect all highlight spans across the top document and any same-origin
+// frames, so that prev/next navigation also cycles through matches found
+// inside iframes (cross-origin frames are skipped, as above).
+function SEB_CollectHighlights(doc, result) {
+    var highlights = doc.getElementsByClassName("SEB_FoundTextHighlight");
+    for (var i=0; i<highlights.length; i++) {
+        // Safety net: only navigate to matches that are actually visible.
+        if (SEB_IsRendered(highlights[i])) {
+            result.push(highlights[i]);
+        }
+    }
+    var frames = doc.getElementsByTagName("iframe");
+    for (var j=0; j<frames.length; j++) {
+        try {
+            var frameDoc = frames[j].contentDocument;
+            if (frameDoc) {
+                SEB_CollectHighlights(frameDoc, result);
+            }
+        } catch (e) {
+            // Cross-origin frame: access denied, skip it.
+        }
+    }
+    return result;
+}
+
 function SEB_jump(increment) {
+    var highlights = SEB_CollectHighlights(document, []);
+    if (highlights.length == 0) {
+        return;
+    }
     previousSelected = SEB_currentSelected;
     SEB_currentSelected = SEB_currentSelected + increment;
-    
+
     if (SEB_currentSelected < 0) {
-        SEB_currentSelected = SEB_SearchResultCount + SEB_currentSelected;
+        SEB_currentSelected = highlights.length + SEB_currentSelected;
     }
-    
-    if (SEB_currentSelected >= SEB_SearchResultCount) {
-        SEB_currentSelected = SEB_currentSelected - SEB_SearchResultCount;
+
+    if (SEB_currentSelected >= highlights.length) {
+        SEB_currentSelected = SEB_currentSelected - highlights.length;
     }
-    
-    previousElement = document.getElementsByClassName("SEB_FoundTextHighlight")[previousSelected];
-    
+
+    previousElement = highlights[previousSelected];
+
     if (previousElement) {
         previousElement.style.backgroundColor="yellow";
     }
-    currentElement = document.getElementsByClassName("SEB_FoundTextHighlight")[SEB_currentSelected];
+    currentElement = highlights[SEB_currentSelected];
     if (currentElement) {
         currentElement.style.backgroundColor="green";
-        currentElement.scrollIntoView(true);
+        // Center the match vertically rather than aligning it to the very top
+        // of the viewport, so results near the top of the page aren't hidden
+        // behind SEB's title/search bar overlay. (On pages too short to scroll,
+        // the top area can still be partly covered - the browser cannot scroll
+        // further than the page allows.)
+        currentElement.scrollIntoView({block: "center", inline: "nearest"});
     }
 }
 
@@ -207,6 +281,19 @@ function SEB_HighlightAllOccurencesOfString(keyword) {
 function SEB_RemoveAllHighlightsForElement(element) {
     if (element) {
         if (element.nodeType == 1) {
+            var nodeName = element.nodeName.toLowerCase();
+            if (nodeName == 'iframe' || nodeName == 'frame') {
+                // Remove highlights inside (same-origin) frames as well.
+                try {
+                    var frameDoc = element.contentDocument;
+                    if (frameDoc && frameDoc.body) {
+                        SEB_RemoveAllHighlightsForElement(frameDoc.body);
+                    }
+                } catch (e) {
+                    // Cross-origin frame: access denied, skip it.
+                }
+                return false;
+            }
             if (element.getAttribute("class") == "SEB_FoundTextHighlight") {
                 var text = element.removeChild(element.firstChild);
                 element.parentNode.insertBefore(text,element);
