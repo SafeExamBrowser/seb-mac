@@ -39,10 +39,12 @@ final class SEBAllowedSEBVersionsTests: XCTestCase {
         XCTAssertTrue(allowed("3.4.0", nil))
     }
 
-    // MARK: - Wrong platform only
+    // MARK: - Other platforms only
 
-    func testOnlyOtherPlatforms_blocked() {
-        XCTAssertFalse(allowed("3.4.0", ["Win.3.9.min", "iOS.3.6"]))
+    func testOnlyOtherPlatforms_allowed() {
+        // Restrictions only constrain the platform they name. With no Mac restriction
+        // configured, any Mac version is allowed even if Win/iOS are restricted.
+        XCTAssertTrue(allowed("3.4.0", ["Win.3.9.min", "iOS.3.6"]))
     }
 
     // MARK: - Exact match
@@ -111,9 +113,16 @@ final class SEBAllowedSEBVersionsTests: XCTestCase {
         XCTAssertTrue(allowed("3.4.0", ["   "]))
     }
 
-    func testMalformedEntriesMixedWithValidOtherPlatform_blocked() {
-        // Garbage is skipped, but a valid non-Mac restriction still blocks the Mac build.
-        XCTAssertFalse(allowed("3.4.0", ["", "garbage", "Win.3.9.min"]))
+    func testMalformedEntriesMixedWithValidOtherPlatform_allowed() {
+        // Garbage is skipped and a valid non-Mac restriction doesn't constrain Mac, so
+        // with no Mac restriction the Mac build is allowed.
+        XCTAssertTrue(allowed("3.4.0", ["", "garbage", "Win.3.9.min"]))
+    }
+
+    func testOtherPlatformRestrictedButMacRestrictedToo_blocks() {
+        // When Mac IS restricted, an unsatisfied Mac rule still blocks (other platforms ignored).
+        XCTAssertFalse(allowed("3.4.0", ["Win.3.9.min", "Mac.3.9.min"]))
+        XCTAssertTrue(allowed("3.9.0", ["Win.3.9.min", "Mac.3.9.min"]))
     }
 
     func testMalformedEntriesSkipped_validEntryStillParsed() {

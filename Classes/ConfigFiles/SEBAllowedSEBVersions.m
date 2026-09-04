@@ -167,19 +167,20 @@ static BOOL SEBIsNonNegativeInteger(NSString *string)
 
     NSArray<NSNumber *> *running = [self versionComponentsForVersion:version buildNumber:build];
 
-    NSUInteger validRestrictionCount = 0;
-    BOOL foundRelevantRestriction = NO;
+    // A restriction only constrains the platform it names. Consider only restrictions
+    // for the running platform; restrictions for other platforms (and empty/malformed
+    // entries) are ignored.
+    BOOL foundRestrictionForPlatform = NO;
     for (NSString *restrictionString in restrictions) {
         SEBVersionRestriction *restriction = [SEBVersionRestriction restrictionFromString:restrictionString];
         if (!restriction) {
             DDLogWarn(@"%s Ignoring empty or malformed sebAllowedVersions entry: %@", __FUNCTION__, restrictionString);
             continue;
         }
-        validRestrictionCount++;
         if (restriction.platform != platform) {
             continue; // Restriction is for another platform.
         }
-        foundRelevantRestriction = YES;
+        foundRestrictionForPlatform = YES;
         // Alliance Edition must match exactly (this build's AE flag vs. the restriction's).
         if (restriction.allianceEdition != allianceEdition) {
             continue;
@@ -189,18 +190,14 @@ static BOOL SEBIsNonNegativeInteger(NSString *string)
         }
     }
 
-    if (validRestrictionCount == 0) {
-        // The list contained only empty/malformed entries: treat it as no restriction
-        // rather than blocking (e.g. an accidentally added blank row).
-        DDLogWarn(@"%s sebAllowedVersions contained only empty/malformed entries; treating as no restriction.", __FUNCTION__);
+    if (!foundRestrictionForPlatform) {
+        // No (valid) restriction is configured for the running platform, so every
+        // version of that platform is allowed — even if other platforms are restricted.
         return YES;
     }
 
-    if (!foundRelevantRestriction) {
-        DDLogWarn(@"%s sebAllowedVersions specifies no version for this platform; running build is not allowed.", __FUNCTION__);
-    }
-    // A restriction list with valid entries but no satisfiable one for this platform
-    // means the running build is not among the allowed versions.
+    // Restriction(s) exist for this platform but none is satisfied by the running build.
+    DDLogWarn(@"%s The running build is not among the versions allowed for this platform by sebAllowedVersions.", __FUNCTION__);
     return NO;
 }
 

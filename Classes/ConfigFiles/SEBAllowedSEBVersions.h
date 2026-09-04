@@ -58,9 +58,11 @@ typedef NS_ENUM(NSInteger, SEBAllowedVersionPlatform) {
 @interface SEBAllowedSEBVersions : NSObject
 
 /// Returns YES if the running build is allowed to run with the given restrictions.
-/// An empty or nil `restrictions` array means "no restriction" and returns YES.
-/// A non-empty list that contains no satisfiable restriction for `platform` returns
-/// NO (the running platform/version is not among the allowed ones).
+/// A restriction only constrains the platform it names, so restrictions for other
+/// platforms are ignored. If no restriction is configured for `platform` (empty/nil
+/// list, or only entries for other platforms), every version of `platform` is allowed
+/// and this returns YES. If one or more restrictions for `platform` exist, this returns
+/// YES only if the running build satisfies at least one of them, otherwise NO.
 - (BOOL)allowedSEBVersion:(NSString *)version
               buildNumber:(nullable NSString *)build
                  platform:(SEBAllowedVersionPlatform)platform
