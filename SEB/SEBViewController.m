@@ -36,6 +36,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "SEBViewController.h"
+#import "SEBAllowedSEBVersions.h"
 
 static NSMutableSet *browserWindowControllers;
 
@@ -264,6 +265,85 @@ static NSMutableSet *browserWindowControllers;
         return NO;
     } else {
         return YES;
+    }
+}
+
+
+// Check if the running SEB version is allowed by the current settings (sebAllowedVersions).
+// Returns YES if allowed (or no restriction is configured for the iOS platform). If not allowed,
+// presents the "SEB Version Not Allowed!" alert and returns NO; the caller must abort starting
+// the session (no exam etc.). Mirrors -checkAllowedSEBVersions in the macOS SEBController.
+- (BOOL)checkAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray<NSString *> *allowedVersions = [preferences secureStringArrayForKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+
+    if (allowedVersions.count == 0) {
+        return YES; // No SEB version restriction specified.
+    }
+
+    NSString *version = [MyGlobals versionString];
+    NSString *build = [MyGlobals buildNumber];
+
+    SEBAllowedSEBVersions *allowedSEBVersions = [SEBAllowedSEBVersions new];
+    BOOL allowed = [allowedSEBVersions allowedSEBVersion:version
+                                             buildNumber:build
+                                                platform:SEBAllowedVersionPlatformiOS
+                                         allianceEdition:NO
+                                      fromVersionStrings:allowedVersions];
+    if (allowed) {
+        DDLogInfo(@"%s: The running SEB version (%@ build %@) is allowed by current settings.", __FUNCTION__, version, build);
+        return YES;
+    }
+
+    NSString *requirement = [allowedSEBVersions requirementDescriptionForPlatform:SEBAllowedVersionPlatformiOS
+                                                                          appName:SEBShortAppName
+                                                               fromVersionStrings:allowedVersions];
+    NSString *runningInfo = [NSString stringWithFormat:NSLocalizedString(@"You are running %@ version %@ (build %@). Please update to a required version.", @""),
+                             SEBShortAppName, version, build];
+    NSString *informativeText = [NSString stringWithFormat:@"%@\n\n%@", requirement, runningInfo];
+    DDLogError(@"%s The running SEB version (%@ build %@) is not allowed. %@", __FUNCTION__, version, build, requirement);
+
+    [self presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:informativeText];
+    return NO;
+}
+
+
+// Presents the "SEB Version Not Allowed!" alert and ends the exam session on either button.
+// A disallowed version can never continue into the exam, so both buttons quit the session.
+- (void)presentAllowedSEBVersionsNotAllowedAlertWithInformativeText:(NSString *)informativeText
+{
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    _alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"%@ Version Not Allowed!", @""), SEBShortAppName]
+                                                          message:informativeText
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+    [_alertController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Update %@", @""), SEBShortAppName]
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        // Open SEB's App Store page before ending the session.
+        [self openSEBAppStorePage];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuit" object:self];
+    }]];
+    [_alertController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Quit %@", @""), SEBShortAppName]
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+        self.alertController = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"requestQuit" object:self];
+    }]];
+    [self.topMostController presentViewController:_alertController animated:NO completion:nil];
+}
+
+
+// Opens SEB's App Store page so the user can update to a required version.
+- (void)openSEBAppStorePage
+{
+    NSURL *url = [NSURL URLWithString:SEBiOSAppStorePage];
+    DDLogInfo(@"%s Opening SEB App Store page %@", __FUNCTION__, SEBiOSAppStorePage);
+    if (url && [[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }
 }
 
@@ -4918,6 +4998,14 @@ void run_on_ui_thread(dispatch_block_t block)
             return;
         }
         
+        // Check if the running SEB version is allowed by the current settings. If not,
+        // abort starting the session here: the alert is presented and SEB ends the exam,
+        // so the session must not continue to start.
+        if (![self checkAllowedSEBVersions]) {
+            DDLogError(@"%s Running a SEB version which isn't allowed by current settings, don't start kiosk mode", __FUNCTION__);
+            return;
+        }
+
         // Update kiosk flags according to current settings
         [self updateKioskSettingFlags];
         

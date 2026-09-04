@@ -1463,3 +1463,15 @@ Shown while connecting to the server to fetch its certificate */
 /* No comment provided by engineer. */
 "Zoom Page Out" = "Seiteninhalt verkleinern";
 
+/* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
+
+/* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please update to a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte aktualisieren Sie auf eine erforderliche Version.";
+
+/* No comment provided by engineer. */
+"Update %@" = "%@ aktualisieren";
+
+/* No comment provided by engineer. */
+"Quit %@" = "%@ beenden";
+
