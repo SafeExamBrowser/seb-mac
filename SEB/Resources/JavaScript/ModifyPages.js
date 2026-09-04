@@ -147,7 +147,16 @@ function SEB_HighlightAllOccurencesOfStringForElement(element,keyword) {
                 SEB_SearchResultCount++;    // update the counter
             }
         } else if (element.nodeType == 1) { // Element node
-            if (element.style.display != "none" && element.nodeName.toLowerCase() != 'select') {
+            var nodeName = element.nodeName.toLowerCase();
+            // Never modify editable regions (e.g. rich text answer fields like
+            // the OLAT/TinyMCE editor): injecting highlight spans into their
+            // content makes the editor strip the span together with the wrapped
+            // text, so the found word would disappear. isContentEditable is true
+            // for a contenteditable element and all of its descendants.
+            var isEditable = element.isContentEditable ||
+                             nodeName == 'input' ||
+                             nodeName == 'textarea';
+            if (element.style.display != "none" && nodeName != 'select' && !isEditable) {
                 for (var i=element.childNodes.length-1; i>=0; i--) {
                     SEB_HighlightAllOccurencesOfStringForElement(element.childNodes[i],keyword);
                 }
