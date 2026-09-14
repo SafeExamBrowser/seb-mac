@@ -132,13 +132,13 @@
 {
     [self stopProcessWatcher];
     if (_windowOpen) {
+        _windowOpen = NO;
         [self closeModalAlert];
         dispatch_async(dispatch_get_main_queue(), ^{
             id callbackMethod = self.callback;
             DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
             [self.delegate closeProcessListWindowWithCallback:callbackMethod selector:self.selector];
         });
-        _windowOpen = NO;
     }
 }
 
@@ -290,8 +290,7 @@
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.runningApplications.count + self.runningProcesses.count == 0) {
-            DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
-            [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
+            [self closeWindow];
         } else {
             self.modalAlert = [self.delegate newAlert];
             DDLogError(@"Force quitting processes failed!");
