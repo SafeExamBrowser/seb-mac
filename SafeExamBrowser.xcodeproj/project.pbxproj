@@ -621,6 +621,7 @@
 		69B6759C2038849000FA58F5 /* SEBUIController.h in Headers */ = {isa = PBXBuildFile; fileRef = 69B675992038849000FA58F5 /* SEBUIController.h */; };
 		69B6759F2038849000FA58F5 /* SEBUIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B6759A2038849000FA58F5 /* SEBUIController.m */; };
 		69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */; };
+		AC55E22375ED4DC988B9EC69 /* ProcessListViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE90E249B5C44E5CA8825D48 /* ProcessListViewControllerTests.m */; };
 		69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */; };
 		69B8A7252718A34D0006178D /* libssl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A6F92718A34C0006178D /* libssl.dylib */; };
 		69B8A72E2718A34D0006178D /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69B8A7022718A34C0006178D /* libcrypto.dylib */; };
@@ -1552,6 +1553,7 @@
 		69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBScreenCaptureControllerTests.swift; sourceTree = "<group>"; };
 		69B7A4D72C694CAE00094ED3 /* SafeExamBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeExamBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeExamBrowserTests.swift; sourceTree = "<group>"; };
+		EE90E249B5C44E5CA8825D48 /* ProcessListViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessListViewControllerTests.m; sourceTree = "<group>"; };
 		69B8A6F92718A34C0006178D /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = ZoomSDK/libssl.dylib; sourceTree = "<group>"; };
 		69B8A7022718A34C0006178D /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = ZoomSDK/libcrypto.dylib; sourceTree = "<group>"; };
 		69B98F7F2BE0FBD200DC06E2 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
@@ -3062,6 +3064,7 @@
 		69B7A4D82C694CAE00094ED3 /* SafeExamBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
+				EE90E249B5C44E5CA8825D48 /* ProcessListViewControllerTests.m */,
 				69B7A4D92C694CAE00094ED3 /* SafeExamBrowserTests.swift */,
 			);
 			path = SafeExamBrowserTests;
@@ -4389,6 +4392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC55E22375ED4DC988B9EC69 /* ProcessListViewControllerTests.m in Sources */,
 				69B7A4DA2C694CAE00094ED3 /* SafeExamBrowserTests.swift in Sources */,
 				6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */,
 				69482BC6302F57D100E4CFEB /* SEBAllowedSEBVersionsTests.swift in Sources */,
