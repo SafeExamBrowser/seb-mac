@@ -74,6 +74,12 @@ conditionallyForWindow:(NSWindow *)window
 
 - (void)didTerminateRunningApplications:(NSArray *)terminatedApplications;
 
+// Closes the prohibited-process window and dispatches the completion callback,
+// but only once: it is guarded by _windowOpen so that the process watch timer and
+// the delayed force-quit completion path can't both complete startup (which would
+// open the exam session twice and trigger the "Re-Opening Locked Exam" screen).
+- (void)closeWindow;
+
 @end
 
 NS_ASSUME_NONNULL_END

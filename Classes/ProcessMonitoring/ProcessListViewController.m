@@ -290,8 +290,14 @@
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self.runningApplications.count + self.runningProcesses.count == 0) {
-            DDLogDebug(@"%s calling [self.delegate closeProcessListWindowWithCallback: %@ selector: %@]", __FUNCTION__, self.callback, NSStringFromSelector(self.selector));
-            [self.delegate closeProcessListWindowWithCallback:self.callback selector:self.selector];
+            // Route the success path through closeWindow so it consumes _windowOpen
+            // (and stops the process watcher) before dispatching the delegate callback.
+            // Otherwise the process watch timer, which can detect all processes
+            // terminated first and already close the window, would race this block and
+            // the delegate completion would be invoked twice, opening the exam session
+            // twice and falsely triggering the "Re-Opening Locked Exam" screen.
+            DDLogDebug(@"%s calling [self closeWindow]", __FUNCTION__);
+            [self closeWindow];
         } else {
             self.modalAlert = [self.delegate newAlert];
             DDLogError(@"Force quitting processes failed!");

@@ -28,4 +28,11 @@
 // Exposes the SEB version restriction check to the (DEBUG-only) test-support
 // shim; see SEBAllowedSEBVersionsTestSupport.swift.
 #import "SEBAllowedSEBVersions.h"
+// Exposes the prohibited-process window controller to the (DEBUG-only) test-support
+// shim guarding the duplicated force-quit completion; see
+// ProcessListCompletionRaceTestSupport.swift. macOS only: the header imports
+// <Cocoa/Cocoa.h>, which does not exist on iOS (this bridging header is shared).
+#if TARGET_OS_OSX
+#import "ProcessListViewController.h"
+#endif
 #endif
