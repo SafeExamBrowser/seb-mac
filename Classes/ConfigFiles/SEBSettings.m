@@ -397,9 +397,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    [NSNumber numberWithLong:browserWindowShowURLNever],
                    @"browserWindowShowURL",
                    
-                   @"",
-                   @"browserWindowTitleSuffix",
-                   
 #if TARGET_OS_OSX
                    [NSNumber numberWithLong:webViewSelectForceModernInForeignNewTabs],
 #else
@@ -1306,6 +1303,7 @@ static SEBSettings *sharedSEBSettings = nil;
         @"browserMessagingSocket",
         @"browserScreenKeyboard",
         @"browserURLSalt",
+        @"browserWindowTitleSuffix",
         @"disableSessionChangeLockScreen",
         @"enableDrawingEditor",
         @"enableMacOSAAC",
