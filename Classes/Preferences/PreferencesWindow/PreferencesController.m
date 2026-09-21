@@ -369,8 +369,8 @@
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     SEBEncapsulatedSettings *oldSettings = [[SEBEncapsulatedSettings alloc] initWithCurrentSettings];
 
-    // Reject applying settings that contain a disallowed character (a double quote in
-    // any string value or key, which SEB does not allow in settings) or an invalid
+    // Reject applying settings that contain a disallowed character sequence (a double
+    // quote directly followed by a comma, in any string value or key) or an invalid
     // hashed password value. Keep the Settings window open so the user can correct
     // the offending setting before closing/applying.
     NSError *disallowedSettingsError = nil;
@@ -1171,8 +1171,8 @@
     BOOL uncompressed = self.canSavePlainText && sharePlainTextConfig;
     BOOL removeDefaults = [preferences secureBoolForKey:@"org_safeexambrowser_removeDefaults"];
 
-    // Reject settings that contain a disallowed character (a double quote in any
-    // string value or key, which SEB does not allow in settings) or an invalid
+    // Reject settings that contain a disallowed character sequence (a double quote
+    // directly followed by a comma, in any string value or key) or an invalid
     // hashed password value, before encrypting/saving them.
     NSError *disallowedSettingsError = nil;
     if (![self.configFileController checkForDisallowedSettings:[preferences dictionaryRepresentationSEBRemoveDefaults:removeDefaults]

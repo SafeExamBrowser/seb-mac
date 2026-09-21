@@ -402,29 +402,6 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
 }
 
 
-// Escape the double quote character when serializing a string value or key for
-// the Config Key JSON. The Config Key is a hash over these exact JSON bytes and
-// must be computed identically on all SEB platforms, so a string's content must
-// not be able to change the structure of the serialized JSON. Escaping the
-// double quote keeps the serialization well-formed and unambiguous.
-//
-// Only the double quote is escaped here: the output is byte-identical to the
-// previous serialization for any string that contains no double quote (hashes,
-// URLs, wildcard filters, and also regex filters and Windows paths, which use
-// backslashes), so existing Config Keys are unchanged. Full JSON canonicalization
-// (RFC 8785 — additionally escaping the backslash and control characters) is
-// planned for the SEB 4.0 Config Key format change; doing it here would change
-// the Config Key of existing configs that contain backslashes and must not ship
-// in a patch release. Configurations that contain a double quote in any string
-// value or key are rejected on load (see -[SEBConfigFileManager
-// checkForDisallowedSettings:error:]); this escaping is a robustness fallback for
-// any settings that reach the Config Key without passing through that check.
-- (NSString *)jsonEscapedString:(NSString *)string
-{
-    return [string stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-}
-
-
 - (NSString *)jsonStringForObject:(id)object
 {
     Class objectClass = [object superclass];
@@ -434,11 +411,10 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
         if ([object isEqualToData:[NSData data]]) {
             jsonString = @"\"\"";
         } else {
-            // Base64 output only contains characters that need no JSON escaping.
             jsonString = [NSString stringWithFormat:@"\"%@\"", [object base64EncodedStringWithOptions:0]];
         }
     } else if (objectClass == [NSString class] || [objectClass isSubclassOfClass:[NSString class]]) {
-        jsonString = [NSString stringWithFormat:@"\"%@\"", [self jsonEscapedString:object]];
+        jsonString = [NSString stringWithFormat:@"\"%@\"", object];
     } else if ((strcmp([object objCType], "c") == 0)) {
         jsonString = [NSString stringWithFormat:@"%@", ([object boolValue] == 0 ? @"false" : @"true")];
     } else if (strcmp([object objCType], "d") == 0 || strcmp([object objCType], "f") == 0) {
@@ -706,9 +682,8 @@ static const RNCryptorSettings kSEBCryptorAES256Settings = {
             // If the key is contained in the array of keys in current settings,
             // we use it for calculating the Config Key
             [filteredPrefsDict setObject:value forKey:key];
-            // Update JSON string (the key must be JSON-escaped for the same
-            // reason string values are — see -jsonEscapedString:)
-            [*jsonStringPtr appendFormat:@"\"%@\":", [self jsonEscapedString:key]];
+            // Update JSON string
+            [*jsonStringPtr appendFormat:@"\"%@\":", key];
             if (dictionaryJSON.length > 0) {
                 [*jsonStringPtr appendFormat:@"%@,", dictionaryJSON];
             } else {

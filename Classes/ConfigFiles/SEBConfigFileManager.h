@@ -216,10 +216,10 @@
 - (NSString *) getHashedAdminPassword;
 - (NSError *) errorCorruptedSettingsForUnderlyingError:(NSError *)error;
 
-// Security sanity check: rejects settings that contain a double quote (") in any
-// string value or key (which could inject JSON structure into the Config Key), or
-// an invalid value in a hashed password field. Returns NO and sets *error on
-// failure. Run on both the config load and save paths.
+// Security sanity check: rejects settings that contain a double quote directly
+// followed by a comma (allowing whitespace in between) in any string value or key,
+// or an invalid value in a hashed password field. Returns NO and sets *error on
+// failure. Run on the config load, save and apply paths.
 - (BOOL) checkForDisallowedSettings:(NSDictionary *)sebPreferencesDict error:(NSError **)error;
 - (void) promptPasswordForHashedPassword:(NSString *)passwordHash
                              messageText:(NSString *)messageText

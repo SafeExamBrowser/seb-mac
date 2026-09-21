@@ -2021,8 +2021,8 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)applySettings
 {
-    // Reject applying settings that contain a disallowed character (a double quote in any
-    // string value or key, which SEB does not allow in settings) or an invalid hashed
+    // Reject applying settings that contain a disallowed character sequence (a double
+    // quote directly followed by a comma, in any string value or key) or an invalid hashed
     // password value. Keep the Settings screen open (don't dismiss) so the user can correct
     // the offending setting; the alert is shown by -editedSettingsValidForApplying. Mirrors
     // -conditionallyClosePreferencesWindowAskToApply: on macOS.

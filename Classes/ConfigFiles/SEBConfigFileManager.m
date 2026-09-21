@@ -917,20 +917,21 @@ static NSString *getUppercaseAdminPasswordHash(void)
 
 // Sanity checks on freshly parsed settings, run before the settings are stored
 // and before the Config Key is calculated. The Config Key is a hash over a JSON
-// serialization of these settings; SEB has no functional need for the double
-// quote character in any setting, and disallowing it in string values and keys
-// keeps that serialization well-formed and consistent across platforms. As
+// serialization of these settings; a string value or key that contains a double
+// quote immediately followed by a comma (allowing whitespace in between) could
+// alter the structure of that serialization, so we reject it. A double quote on
+// its own is allowed (e.g. a quoted path in a permitted process argument). As
 // additional validation, hashed password fields must be either empty or a hash
 // value.
 - (BOOL)checkForDisallowedSettings:(NSDictionary *)sebPreferencesDict error:(NSError **)error
 {
-    NSString *offendingKeyPath = [self keyPathOfStringContainingDoubleQuoteInObject:sebPreferencesDict atKeyPath:nil];
+    NSString *offendingKeyPath = [self keyPathOfStringWithDisallowedSequenceInObject:sebPreferencesDict atKeyPath:nil];
     if (offendingKeyPath) {
-        DDLogError(@"%s Setting '%@' contains the not allowed double quote (\") character!", __FUNCTION__, offendingKeyPath);
+        DDLogError(@"%s Setting '%@' contains a double quote followed by a comma, which is not allowed!", __FUNCTION__, offendingKeyPath);
         *error = [NSError errorWithDomain:sebErrorDomain
                                      code:SEBErrorParsingSettingsFailedForbiddenCharacter
                                  userInfo:@{NSLocalizedDescriptionKey : NSLocalizedString(@"Reading Settings Failed", @""),
-                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again.", @""), @"\"", offendingKeyPath]}];
+                                            NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedString(@"A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.", @""), offendingKeyPath]}];
         return NO;
     }
 
@@ -949,13 +950,23 @@ static NSString *getUppercaseAdminPasswordHash(void)
 }
 
 
+// Returns YES if the string contains a double quote directly followed by a comma
+// (allowing any whitespace in between) — the character sequence a manipulated
+// config would need to alter the structure of the Config Key JSON serialization.
+- (BOOL)stringContainsDisallowedSequence:(NSString *)string
+{
+    return [string rangeOfString:@"\"\\s*," options:NSRegularExpressionSearch].location != NSNotFound;
+}
+
+
 // Recursively search the settings tree (dictionaries, arrays and their string
-// keys and values) for a string containing a double quote character. Returns the
-// key path of the first offending string, or nil if none is found.
-- (NSString *)keyPathOfStringContainingDoubleQuoteInObject:(id)object atKeyPath:(NSString *)keyPath
+// keys and values) for a string containing the disallowed sequence (see
+// -stringContainsDisallowedSequence:). Returns the key path of the first
+// offending string, or nil if none is found.
+- (NSString *)keyPathOfStringWithDisallowedSequenceInObject:(id)object atKeyPath:(NSString *)keyPath
 {
     if ([object isKindOfClass:[NSString class]]) {
-        if ([(NSString *)object rangeOfString:@"\""].location != NSNotFound) {
+        if ([self stringContainsDisallowedSequence:(NSString *)object]) {
             return keyPath.length > 0 ? keyPath : (NSString *)object;
         }
         return nil;
@@ -965,11 +976,11 @@ static NSString *getUppercaseAdminPasswordHash(void)
             NSString *keyString = [key isKindOfClass:[NSString class]] ? (NSString *)key : [key description];
             // The key itself is serialized into the Config Key JSON, so check it too
             if ([key isKindOfClass:[NSString class]] &&
-                [(NSString *)key rangeOfString:@"\""].location != NSNotFound) {
+                [self stringContainsDisallowedSequence:(NSString *)key]) {
                 return keyPath.length > 0 ? [keyPath stringByAppendingFormat:@".%@", keyString] : keyString;
             }
             NSString *childKeyPath = keyPath.length > 0 ? [keyPath stringByAppendingFormat:@".%@", keyString] : keyString;
-            NSString *found = [self keyPathOfStringContainingDoubleQuoteInObject:[(NSDictionary *)object objectForKey:key] atKeyPath:childKeyPath];
+            NSString *found = [self keyPathOfStringWithDisallowedSequenceInObject:[(NSDictionary *)object objectForKey:key] atKeyPath:childKeyPath];
             if (found) {
                 return found;
             }
@@ -980,7 +991,7 @@ static NSString *getUppercaseAdminPasswordHash(void)
         NSUInteger index = 0;
         for (id element in (NSArray *)object) {
             NSString *childKeyPath = [NSString stringWithFormat:@"%@[%lu]", keyPath.length > 0 ? keyPath : @"", (unsigned long)index];
-            NSString *found = [self keyPathOfStringContainingDoubleQuoteInObject:element atKeyPath:childKeyPath];
+            NSString *found = [self keyPathOfStringWithDisallowedSequenceInObject:element atKeyPath:childKeyPath];
             if (found) {
                 return found;
             }
