@@ -237,6 +237,20 @@
 			<key>DisplaySortedByTitle</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Allowed SEB Versions</string>
+			<key>File</key>
+			<string>AllowedSEBVersions</string>
+		</dict>
 	</array>
 </dict>
 </plist>

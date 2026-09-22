@@ -19,6 +19,7 @@
 "Patch Version Number" = "Patch Version Number";
 "" = "";
 "Allow Running on iOS Beta" = "Allow Running on iOS Beta";
+"Allowed SEB Versions" = "Allowed SEB Versions";
 
 /* String for Titles arrays elements */
 "9" = "9";

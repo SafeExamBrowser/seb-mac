@@ -351,7 +351,22 @@
          cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
          return cell;
      }
-     
+
+     if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+         // Allowed SEB versions are stored as plain version restriction strings (not
+         // dictionaries), so the row's value can be either a string or, transiently
+         // right after adding/editing (before it is normalized), a {version: ...} dict.
+         id entry = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+         NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+         UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"allowedSEBVersionCell"];
+         if (!cell) {
+             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"allowedSEBVersionCell"];
+         }
+         cell.textLabel.text = [version isKindOfClass:NSString.class] ? version : @"";
+         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         return cell;
+     }
+
     CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:specifier.key];
     if (!cell) {
         cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell"
@@ -397,6 +412,26 @@
             [contentDictionary setValue:[NSNumber numberWithLong:operatingSystemiOS] forKey:@"os"];
         }
         return YES;
+    }
+    if ([specifier.parentSpecifier.key isEqualToString:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+        // Allowed SEB versions are stored as plain strings, so when editing an existing
+        // entry IASK opens the child pane with an empty content dictionary. Seed it once
+        // (on the initial validation pass, before the user edits) with the current version
+        // string so the text field shows the value being edited.
+        if (!specifier.isAddSpecifier && contentDictionary[@"version"] == nil) {
+            NSArray *versions = [self.appSettingsViewController.settingsStore arrayForSpecifier:specifier.parentSpecifier];
+            if (specifier.itemIndex < versions.count) {
+                id entry = versions[specifier.itemIndex];
+                NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+                if ([version isKindOfClass:NSString.class]) {
+                    [contentDictionary setValue:version forKey:@"version"];
+                }
+            }
+        }
+        // Only allow adding/keeping an entry when it contains a non-empty version string.
+        NSString *version = contentDictionary[@"version"];
+        return [version isKindOfClass:NSString.class] &&
+               [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0;
     }
     return YES;
 }
@@ -618,8 +653,14 @@
     if ([changedKeys containsObject:@"org_safeexambrowser_SEB_allowDownUploads"]) {
         [self setDependentKeysForAllowDownUploads];
     }
-   
-    
+
+    /// Security / Allowed SEB Versions
+
+    if ([changedKeys containsObject:@"org_safeexambrowser_SEB_sebAllowedVersions"]) {
+        [self normalizeAllowedSEBVersions];
+    }
+
+
     /// Exam Session
     
     if ([changedKeys containsObject:@"org_safeexambrowser_configFileShareBrowserExamKey"] ||
@@ -762,6 +803,32 @@
          [changedKeys containsObject:@"org_safeexambrowser_SEB_mobileEnableModernAAC"]) {
          [self setDependentKeysForAAC];
      }
+}
+
+
+// The Allowed SEB Versions setting is stored (and shared cross-platform / used for the
+// Config Key) as an array of plain version restriction strings. IASK's list group editor
+// however persists each added/edited row as a {version: ...} dictionary. After such a
+// change we flatten the array back to trimmed, non-empty strings so the stored value keeps
+// the expected format. Writing back via setSecureObject: doesn't post kIASKAppSettingChanged,
+// so this doesn't recurse.
+- (void)normalizeAllowedSEBVersions
+{
+    NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+    NSArray *rawVersions = [preferences secureArrayForKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+    NSMutableArray<NSString *> *normalizedVersions = [NSMutableArray arrayWithCapacity:rawVersions.count];
+    for (id entry in rawVersions) {
+        NSString *version = [entry isKindOfClass:NSDictionary.class] ? ((NSDictionary *)entry)[@"version"] : entry;
+        if ([version isKindOfClass:NSString.class]) {
+            NSString *trimmedVersion = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if (trimmedVersion.length > 0) {
+                [normalizedVersions addObject:trimmedVersion];
+            }
+        }
+    }
+    if (![normalizedVersions isEqualToArray:rawVersions]) {
+        [preferences setSecureObject:normalizedVersions.copy forKey:@"org_safeexambrowser_SEB_sebAllowedVersions"];
+    }
 }
 
 
