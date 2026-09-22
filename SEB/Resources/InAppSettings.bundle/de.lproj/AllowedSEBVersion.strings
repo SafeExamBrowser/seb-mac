@@ -1,0 +1,11 @@
+/* String for Title elements */
+"Allowed SEB Version" = "Erlaubte SEB-Version";
+
+/* (No Comment) */
+"Version" = "Version";
+
+/* String for FooterText elements */
+"Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS is Win, Mac or iOS; optional parts in brackets). Example: 'Win.3.9.min' allows SEB for Windows 3.9 or newer." = "Format: OS.Major.Minor.[Patch].[Build].[AE].[min] (OS ist Win, Mac oder iOS; optionale Teile in Klammern). Beispiel: 'Win.3.9.min' erlaubt SEB für Windows 3.9 oder neuer.";
+
+/* String for IASKPlaceholder elements */
+"e.g. iOS.3.9" = "z. B. iOS.3.9";
