@@ -1998,6 +1998,16 @@
         }
       }
     },
+    "Downloading Settings Failed" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herunterladen der Einstellungen fehlgeschlagen"
+          }
+        }
+      }
+    },
     "Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." : {
       "localizations" : {
         "de" : {
@@ -4612,6 +4622,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Der Server hat keine Zertifikate präsentiert."
+          }
+        }
+      }
+    },
+    "The server didn't return any %@ settings data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat keine %@ Einstellungsdaten zurückgegeben."
+          }
+        }
+      }
+    },
+    "The server returned an error (HTTP status code %ld)." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld)."
           }
         }
       }

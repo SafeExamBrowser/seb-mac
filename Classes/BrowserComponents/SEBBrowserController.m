@@ -1149,9 +1149,31 @@ static NSString *urlStrippedFragment(NSURL* url)
             }
         }
     } else {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSHTTPURLResponse *httpResponse = [response isKindOfClass:[NSHTTPURLResponse class]] ? (NSHTTPURLResponse *)response : nil;
         NSInteger statusCode = httpResponse.statusCode;
         DDLogDebug(@"NSHTTPURLResponse statusCode: %ld", (long)statusCode);
+
+        // A missing transport error doesn't mean the download succeeded: NSURLSession
+        // reports HTTP 4xx/5xx as successful requests. If the server returned an error
+        // status or an empty body and this wasn't a direct download attempt (which has
+        // its own temporary-WebView fallback for servers requiring web-based
+        // authentication), there is no valid config data to parse. Show a clear download
+        // error instead of feeding empty/invalid data to the parser (which would result
+        // in a misleading "settings are corrupted" message).
+        if (!_directConfigDownloadAttempted && ((httpResponse && statusCode >= 400) || sebFileData.length == 0)) {
+            DDLogError(@"Downloading SEB config data failed: HTTP status code %ld, %lu bytes received", (long)statusCode, (unsigned long)sebFileData.length);
+            NSString *recoverySuggestion = sebFileData.length == 0 ?
+                [NSString stringWithFormat:NSLocalizedString(@"The server didn't return any %@ settings data.", @""), SEBShortAppName] :
+                [NSString stringWithFormat:NSLocalizedString(@"The server returned an error (HTTP status code %ld).", @""), (long)statusCode];
+            NSError *downloadError = [NSError errorWithDomain:sebErrorDomain
+                                                         code:SEBErrorNoValidConfigData
+                                                     userInfo:@{ NSLocalizedDescriptionKey : NSLocalizedString(@"Downloading Settings Failed", @""),
+                                                                 NSLocalizedRecoverySuggestionErrorKey : recoverySuggestion }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self downloadingSEBConfigFailed:downloadError];
+            });
+            return;
+        }
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [self processDownloadedSEBConfigData:sebFileData fromURL:url originalURL:originalURL];
