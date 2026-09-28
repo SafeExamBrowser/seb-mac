@@ -3037,6 +3037,16 @@
         }
       }
     },
+    "No configuration data." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Konfigurationsdaten."
+          }
+        }
+      }
+    },
     "No Encryption Credentials Chosen" : {
       "localizations" : {
         "de" : {
