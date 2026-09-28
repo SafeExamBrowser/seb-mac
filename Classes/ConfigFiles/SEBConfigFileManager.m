@@ -1068,11 +1068,32 @@ static NSString *getUppercaseAdminPasswordHash(void)
 -(NSDictionary *) getPreferencesDictionaryFromConfigData:(NSData *)sebData error:(NSError **)error
 {
     NSError *plistError = nil;
+    NSDictionary *sebPreferencesDict = nil;
     //NSString *sebPreferencesXML = [[NSString alloc] initWithData:sebData encoding:NSUTF8StringEncoding];
-    NSDictionary *sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
-                                                                                 options:0
-                                                                                  format:NULL
-                                                                                   error:&plistError];
+    // NSPropertyListSerialization throws an NSInvalidArgumentException (which is NOT
+    // reported through the error: parameter) when passed nil data, and can raise other
+    // exceptions on unexpected input. Guard against nil/empty data and catch any
+    // exception so corrupted or missing config data results in a handled error instead
+    // of aborting the app.
+    if (sebData.length == 0) {
+        DDLogError(@"%s: No configuration data to deserialize (data was nil or empty).", __FUNCTION__);
+        plistError = [NSError errorWithDomain:sebErrorDomain
+                                         code:SEBErrorParsingSettingsSerializingFailed
+                                     userInfo:@{ NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No configuration data.", @"") }];
+    } else {
+        @try {
+            sebPreferencesDict = [NSPropertyListSerialization propertyListWithData:sebData
+                                                                          options:0
+                                                                           format:NULL
+                                                                            error:&plistError];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Deserializing the XML plist raised an exception: %@", __FUNCTION__, exception);
+            plistError = [NSError errorWithDomain:sebErrorDomain
+                                             code:SEBErrorParsingSettingsSerializingFailed
+                                         userInfo:@{ NSLocalizedFailureReasonErrorKey : (exception.reason ?: exception.name ?: @"") }];
+        }
+    }
     if (plistError) {
         // If it exists, then add the localized error reason from serializing the plist to the error object
         DDLogError(@"%s: Failed serializing of the XML plist ! Error: %@", __FUNCTION__, plistError.description);

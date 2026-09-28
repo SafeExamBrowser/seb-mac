@@ -359,6 +359,12 @@ Boolean GetHTTPSProxySetting(char *host, size_t hostSize, UInt16 *port);
 {
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
     NSData *storedDirectoryData = [preferences persistedSecureObjectForKey:key];
+    // unarchivedObjectOfClass:fromData:error: returns nil + error for corrupted data,
+    // but throws an NSException when passed nil data. Guard against nil so a missing
+    // stored value returns nil instead of aborting the app.
+    if (storedDirectoryData == nil) {
+        return nil;
+    }
     NSError *error = nil;
     NSURL *storedURL = [NSKeyedUnarchiver unarchivedObjectOfClass:NSURL.class fromData:storedDirectoryData error:&error];
     if (error) {

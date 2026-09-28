@@ -1745,12 +1745,38 @@ static NSNumber *_logLevel;
             }
         }
 
-        id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
+        if (decrypted == nil) {
+            return nil;
+        }
+        // Use a keyed unarchiver configured to return an error instead of raising an
+        // NSException (as the deprecated +unarchiveObjectWithData: did) so corrupted
+        // stored user data is treated as an invalid value instead of aborting the app.
+        // Secure coding is disabled to stay compatible with existing archives and the
+        // arbitrary value types stored in the (encrypted) user defaults. The @try/@catch
+        // is a final safety net: the failure policy handles all decode failures, but a
+        // decoded object's own initWithCoder: could still raise.
+        id value = nil;
+        @try {
+            NSError *unarchiveError = nil;
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:decrypted error:&unarchiveError];
+            if (unarchiver == nil) {
+                DDLogError(@"%s: Could not create unarchiver for key %@, error: %@", __FUNCTION__, key, unarchiveError);
+                return nil;
+            }
+            unarchiver.requiresSecureCoding = NO;
+            unarchiver.decodingFailurePolicy = NSDecodingFailurePolicySetErrorAndReturn;
+            value = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+            [unarchiver finishDecoding];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Unarchiving decrypted value for key %@ raised an exception: %@", __FUNCTION__, key, exception);
+            return nil;
+        }
 
 #ifdef DEBUG
         DDLogVerbose(@"[self objectForKey:%@] = %@ (decrypted)", key, value);
 #endif
-        
+
         return value;
     }
 }

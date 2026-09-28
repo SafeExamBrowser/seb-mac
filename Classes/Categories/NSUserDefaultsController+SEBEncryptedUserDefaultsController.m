@@ -58,8 +58,34 @@
         }
         NSError *error;
         NSData *decrypted = [[SEBCryptor sharedSEBCryptor] decryptData:encrypted forKey: key error:&error];
-        
-        id value = [NSKeyedUnarchiver unarchiveObjectWithData:decrypted];
+        if (error || decrypted == nil) {
+            DDLogError(@"%s: Could not decrypt value for keypath %@, error: %@", __FUNCTION__, keyPath, error);
+            return nil;
+        }
+        // Use a keyed unarchiver configured to return an error instead of raising an
+        // NSException (as the deprecated +unarchiveObjectWithData: did) so corrupted
+        // stored user data is treated as an invalid value instead of aborting the app.
+        // Secure coding is disabled to stay compatible with existing archives and the
+        // arbitrary value types stored in the (encrypted) user defaults. The @try/@catch
+        // is a final safety net: the failure policy handles all decode failures, but a
+        // decoded object's own initWithCoder: could still raise.
+        id value = nil;
+        @try {
+            NSError *unarchiveError = nil;
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:decrypted error:&unarchiveError];
+            if (unarchiver == nil) {
+                DDLogError(@"%s: Could not create unarchiver for keypath %@, error: %@", __FUNCTION__, keyPath, unarchiveError);
+                return nil;
+            }
+            unarchiver.requiresSecureCoding = NO;
+            unarchiver.decodingFailurePolicy = NSDecodingFailurePolicySetErrorAndReturn;
+            value = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+            [unarchiver finishDecoding];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Unarchiving decrypted value for keypath %@ raised an exception: %@", __FUNCTION__, keyPath, exception);
+            return nil;
+        }
         DDLogVerbose(@"[super valueForKeyPath:%@] = %@ (decrypted)", keyPath, value);
         return value;
     }
@@ -91,10 +117,25 @@
             [super setValue:value forKeyPath:keyPath];
             
         } else {
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:value];
-            NSError *error;
+            // Unlike setSecureObject:forKey:, this path doesn't pre-validate that value
+            // is a property-list type, so archiving an object that doesn't conform to
+            // NSCoding could raise an NSException (not reliably reported via error:).
+            // Catch it so an unexpected value type can't abort the app.
+            NSError *error = nil;
+            NSData *data = nil;
+            @try {
+                data = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:NO error:&error];
+            }
+            @catch (NSException *exception) {
+                DDLogError(@"%s: Archiving value for keypath %@ raised an exception: %@", __FUNCTION__, keyPath, exception);
+                return;
+            }
+            if (error || data == nil) {
+                DDLogError(@"%s: Could not archive value for keypath %@, error: %@", __FUNCTION__, keyPath, error);
+                return;
+            }
             NSData *encryptedData = [[SEBCryptor sharedSEBCryptor] encryptData:data forKey:key error:&error];
-            
+
             DDLogVerbose(@"[super setValue:(encrypted %@) forKeyPath:%@]", value, keyPath);
             [super setValue:encryptedData forKeyPath:keyPath];
         }

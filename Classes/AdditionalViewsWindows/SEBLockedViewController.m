@@ -162,7 +162,31 @@ void run_block_on_main_thread(dispatch_block_t block)
             if (logString.length == 0) {
                 setConsoleLogString = YES;
             }
-            logString = [[NSKeyedUnarchiver unarchiveObjectWithData:[persistedLockedExam objectForKey:@"logString"]] mutableCopy];
+            // Use a keyed unarchiver that returns an error instead of raising an
+            // NSException (as the deprecated +unarchiveObjectWithData: did) so a
+            // corrupted persisted log string falls back to an empty log (below)
+            // instead of aborting the app.
+            NSData *persistedLogStringData = [persistedLockedExam objectForKey:@"logString"];
+            if (persistedLogStringData) {
+                // The @try/@catch is a final safety net: the failure policy handles all
+                // decode failures, but a decoded object's own initWithCoder: could still raise.
+                @try {
+                    NSError *unarchiveError = nil;
+                    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:persistedLogStringData error:&unarchiveError];
+                    if (unarchiver) {
+                        unarchiver.requiresSecureCoding = NO;
+                        unarchiver.decodingFailurePolicy = NSDecodingFailurePolicySetErrorAndReturn;
+                        logString = [[unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey] mutableCopy];
+                        [unarchiver finishDecoding];
+                    } else {
+                        DDLogError(@"%s: Could not create unarchiver for persisted log string, error: %@", __FUNCTION__, unarchiveError);
+                    }
+                }
+                @catch (NSException *exception) {
+                    DDLogError(@"%s: Unarchiving persisted log string raised an exception: %@", __FUNCTION__, exception);
+                    logString = nil;
+                }
+            }
         }
     }
     
@@ -187,8 +211,22 @@ void run_block_on_main_thread(dispatch_block_t block)
     [appendedLogString appendAttributedString:attributedErrorString];
 
     if (secureExam) {
-        // Persist the new log string
-        NSData *logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString];
+        // Persist the new log string. logString is always an NSMutableAttributedString
+        // (NSSecureCoding), so this is safe; the @try/@catch is defensive belt-and-suspenders.
+        NSError *archiveError = nil;
+        NSData *logStringArchived = nil;
+        @try {
+            logStringArchived = [NSKeyedArchiver archivedDataWithRootObject:logString requiringSecureCoding:NO error:&archiveError];
+        }
+        @catch (NSException *exception) {
+            DDLogError(@"%s: Archiving log string raised an exception: %@", __FUNCTION__, exception);
+        }
+        if (logStringArchived == nil) {
+            // Never store nil (would crash the dictionary literal below); fall back to
+            // empty data, which is read back as an empty log.
+            DDLogError(@"%s: Could not archive log string, error: %@", __FUNCTION__, archiveError);
+            logStringArchived = [NSData data];
+        }
         // Add the new (modified) entry
         NSDictionary *interruptedLockedExam = @{
                                                 @"startURL" : startURL,
