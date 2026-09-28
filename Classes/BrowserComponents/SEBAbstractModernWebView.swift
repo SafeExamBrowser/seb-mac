@@ -184,6 +184,15 @@ import CocoaLumberjackSwift
     private var firstLoad = true
     private var currentFrame: WKFrameInfo?
 
+    // Guards against an endless white-screen reload loop when the web content
+    // process keeps terminating. Reset to 0 after a successful navigation.
+    private var webContentProcessTerminationCount = 0
+    private let maxWebContentProcessTerminationReloads = 3
+
+    // Remembers the last logged non-2xx main-frame status ("statusCode url") to
+    // suppress repetitive identical log entries (e.g. when a page is polled/retried).
+    private var lastLoggedMainFrameStatus: String?
+
     @objc public init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         super.init()
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -819,6 +828,9 @@ import CocoaLumberjackSwift
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation) {
+        // A page finished loading, so the content process is healthy again:
+        // reset the termination counter used by the reload-loop guard.
+        webContentProcessTerminationCount = 0
         navigationDelegate?.sebWebViewDidFinishLoad?()
         sebWebView.seb_evaluateJavaScript(controlSpellCheckCode, completionHandler: nil)
         if currentFrame != nil {
@@ -826,10 +838,23 @@ import CocoaLumberjackSwift
             updateKeyJSVariables(webView, frame: currentFrame)
         }
     }
-    
+
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-        DDLogWarn("webViewWebContentProcessDidTerminate")
-        reload()
+        webContentProcessTerminationCount += 1
+        DDLogWarn("webViewWebContentProcessDidTerminate (termination #\(webContentProcessTerminationCount))")
+        if webContentProcessTerminationCount <= maxWebContentProcessTerminationReloads {
+            DDLogWarn("Reloading web page after web content process terminated (attempt \(webContentProcessTerminationCount) of \(maxWebContentProcessTerminationReloads))")
+            reload()
+        } else {
+            // Stop reloading to avoid an endless white-screen reload loop and
+            // surface the failure through the standard load-error alert.
+            DDLogError("Web content process terminated \(webContentProcessTerminationCount) times, not reloading again; reporting error to user")
+            let errorMessage = NSLocalizedString("The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again.", comment: "Shown when the web content process keeps terminating")
+            let error = NSError(domain: "org.safeexambrowser.SEB", code: NSURLErrorCannotDecodeContentData, userInfo: [
+                NSLocalizedDescriptionKey: errorMessage
+            ])
+            navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
+        }
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -990,12 +1015,49 @@ import CocoaLumberjackSwift
             }
             
             if let response = navigationResponse.response as? HTTPURLResponse,
-                  let url = response.url,
-                  response.statusCode == 200,
-                  let headers = response.allHeaderFields as? [String: String] {
-                self.navigationDelegate?.examineHeaders?(headers, for: url)
+                  let responseURL = response.url {
+                let statusCode = response.statusCode
+                if statusCode == 200,
+                      let headers = response.allHeaderFields as? [String: String] {
+                    self.navigationDelegate?.examineHeaders?(headers, for: responseURL)
+                }
+                // Log the HTTP status code of the main frame page load for diagnostics
+                // and surface server errors that WebKit would otherwise render as a
+                // blank (white) page without reporting any error to SEB.
+                if isForMainFrame {
+                    let expectedContentLength = response.expectedContentLength
+                    if statusCode < 200 || statusCode >= 300 {
+                        // Only log the first of consecutive identical non-2xx results
+                        // to avoid flooding the log when a page is polled or retried.
+                        let statusKey = "\(statusCode) \(responseURL.absoluteString)"
+                        if statusKey != self.lastLoggedMainFrameStatus {
+                            self.lastLoggedMainFrameStatus = statusKey
+                            DDLogWarn("Main frame load of \(responseURL.absoluteString) returned HTTP status code \(statusCode) (expectedContentLength: \(expectedContentLength))")
+                        }
+                    } else {
+                        self.lastLoggedMainFrameStatus = nil
+                        DDLogDebug("Main frame load of \(responseURL.absoluteString) returned HTTP status code \(statusCode)")
+                    }
+                    // Treat 5xx server errors as load errors, and 4xx client errors
+                    // only when the response body is empty (there is nothing useful
+                    // to display, so the user would just see a white screen).
+                    let isServerError = statusCode >= 500
+                    let isEmptyClientError = statusCode >= 400 && statusCode < 500 && expectedContentLength == 0
+                    if !self.downloadingSEBConfig && (isServerError || isEmptyClientError) {
+                        DDLogError("Main frame HTTP status \(statusCode) treated as load error and reported to the user")
+                        let localizedStatus = HTTPURLResponse.localizedString(forStatusCode: statusCode)
+                        let errorMessage = String(format: NSLocalizedString("The server returned an error: %ld %@", comment: "Shown when a page load fails with an HTTP error status code"), statusCode, localizedStatus)
+                        let error = NSError(domain: "org.safeexambrowser.SEB", code: statusCode, userInfo: [
+                            NSLocalizedDescriptionKey: errorMessage,
+                            NSURLErrorFailingURLStringErrorKey: responseURL.absoluteString
+                        ])
+                        decisionHandler(.cancel)
+                        self.navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
+                        return
+                    }
+                }
             }
-            
+
             if (self.downloadFilename ?? "").isEmpty {
                 self.downloadFilename = self.getFileNameFromResponse(navigationResponse.response)
             }

@@ -4606,12 +4606,46 @@
         }
       }
     },
+    "The server returned an error: %ld %@" : {
+      "comment" : "Shown when a page load fails with an HTTP error status code",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat einen Fehler zurückgegeben: %1$ld %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server returned an error: %1$ld %2$@"
+          }
+        }
+      }
+    },
     "The user name or password for %@ was incorrect. Please try again." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut."
+          }
+        }
+      }
+    },
+    "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." : {
+      "comment" : "Shown when the web content process keeps terminating",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Webseite musste mehrmals neu geladen werden, weil ihr Inhalt nicht mehr reagierte. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again."
           }
         }
       }
