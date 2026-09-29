@@ -1,0 +1,7 @@
+# Crash reports can contain user/device data — keep them out of version control.
+# Track this folder (README + this file) but ignore the actual logs.
+*.ips
+*.crash
+*.txt
+*.log
+!README.md
