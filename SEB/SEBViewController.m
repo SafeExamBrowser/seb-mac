@@ -977,34 +977,103 @@ static NSMutableSet *browserWindowControllers;
 
 - (void)openInitAssistant
 {
-    if (!_initAssistantOpen) {
-        if (_alertController) {
-            [_alertController dismissViewControllerAnimated:NO completion:^{
-                self.alertController = nil;
-                [self openInitAssistant];
-            }];
-            return;
+    if (_initAssistantOpen) {
+        return;
+    }
+    // Presenting view controllers must happen on the main thread.
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self openInitAssistant];
+        });
+        return;
+    }
+    // If an alert is currently displayed, dismiss it first and then open the assistant.
+    if (_alertController) {
+        [_alertController dismissViewControllerAnimated:NO completion:^{
+            self.alertController = nil;
+            [self openInitAssistant];
+        }];
+        return;
+    }
+
+    if (!_assistantViewController) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
+        _assistantViewController.sebViewController = self;
+        _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        if (@available(iOS 13.0, *)) {
+            _assistantViewController.modalInPresentation = YES;
         }
-        
-        if (!_assistantViewController) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            _assistantViewController = [storyboard instantiateViewControllerWithIdentifier:@"SEBInitAssistantView"];
-            _assistantViewController.sebViewController = self;
-            _assistantViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-            if (@available(iOS 13.0, *)) {
-                _assistantViewController.modalInPresentation = YES;
-            }
-        }
-        //// Initialize SEB Dock, commands section in the slider view and
-        //// 3D Touch Home screen quick actions
-        
+    }
+    //// Initialize SEB Dock, commands section in the slider view and
+    //// 3D Touch Home screen quick actions
+
 //        // Add scan QR code Home screen quick action
 //        [UIApplication sharedApplication].shortcutItems = [NSArray arrayWithObject:[self scanQRCodeShortcutItem]];
-        
-        self.initAssistantOpen = YES;
-        [self.topMostController presentViewController:_assistantViewController animated:YES completion:^{
-        }];
+
+    // Mark as open now so re-entrant calls don't start a second presentation attempt.
+    // presentInitAssistantWhenReady waits for any in-progress presentation/dismissal to
+    // finish before presenting, so we never present onto a controller that is mid-transition
+    // (which would throw an uncaught exception and terminate the app).
+    self.initAssistantOpen = YES;
+    [self presentInitAssistantWhenReady:0];
+}
+
+
+// Presents the Initial Configuration Assistant as soon as the top most view controller is
+// ready (i.e. no presentation/dismissal transition is in progress). If a transition is
+// currently running we wait for it to complete and then try again, so the assistant is
+// always shown eventually instead of being skipped (which would leave SEB without any UI)
+// or presented mid-transition (which would crash with an uncaught exception).
+- (void)presentInitAssistantWhenReady:(NSInteger)attempt
+{
+    // The assistant is already presented (or being presented): nothing more to do.
+    if (_assistantViewController.presentingViewController != nil ||
+        _assistantViewController.isBeingPresented) {
+        return;
     }
+
+    UIViewController *presenter = self.topMostController;
+
+    // topMostController already resolved to the assistant itself: it is showing.
+    if (presenter == _assistantViewController) {
+        return;
+    }
+
+    // The presenter is unavailable (no root view controller yet) or in the middle of a
+    // present/dismiss transition - we can't present onto it right now.
+    BOOL presenterBusy = (presenter == nil ||
+                          presenter.isBeingPresented ||
+                          presenter.isBeingDismissed ||
+                          presenter.transitionCoordinator != nil ||
+                          presenter.presentedViewController != nil);
+
+    if (presenterBusy) {
+        static const NSInteger maxAttempts = 100;
+        if (attempt >= maxAttempts) {
+            DDLogError(@"openInitAssistant: presenter still not ready after %ld attempts (presenter: %@) - giving up", (long)attempt, presenter);
+            self.initAssistantOpen = NO;
+            return;
+        }
+        DDLogInfo(@"openInitAssistant: presenter busy, waiting for current transition to finish (attempt %ld, presenter: %@)", (long)attempt, presenter);
+        // Prefer to be notified exactly when the running transition completes; fall back
+        // to a short delayed retry (e.g. when there is no root view controller yet).
+        BOOL scheduled = NO;
+        id<UIViewControllerTransitionCoordinator> coordinator = presenter.transitionCoordinator;
+        if (coordinator) {
+            scheduled = [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+                [self presentInitAssistantWhenReady:attempt + 1];
+            }];
+        }
+        if (!scheduled) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self presentInitAssistantWhenReady:attempt + 1];
+            });
+        }
+        return;
+    }
+
+    [presenter presentViewController:_assistantViewController animated:YES completion:nil];
 }
 
 

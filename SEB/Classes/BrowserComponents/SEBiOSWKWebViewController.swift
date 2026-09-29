@@ -210,7 +210,17 @@ public class SEBiOSWKWebViewController: UIViewController, WKUIDelegate, WKNaviga
     }
     
     public func stopLoading() {
-        sebWebView?.stopLoading()
+        // WKWebView must only be used on the main thread. stopLoading can be invoked from
+        // an NSURLSession delegate/completion queue (config and file download handlers in
+        // SEBBrowserController), so marshal to the main thread to avoid a WebKit
+        // main-thread assertion (EXC_BREAKPOINT / SIGTRAP).
+        if Thread.isMainThread {
+            sebWebView?.stopLoading()
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.sebWebView?.stopLoading()
+            }
+        }
     }
  
     
