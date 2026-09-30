@@ -88,7 +88,7 @@ It is deleted when the session ends</string>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xOU-lf-1Wq">
                                             <rect key="frame" x="149" y="81" width="463" height="24"/>
                                             <subviews>
-                                                <textField focusRingType="none" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                                                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                                                     <rect key="frame" x="-2" y="8" width="159" height="16"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Save downloaded files to:" usesSingleLineMode="YES" id="23">
                                                         <font key="font" metaFont="system"/>
@@ -178,7 +178,7 @@ It is deleted when the session ends</string>
                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHS-6D-gM9">
                                                     <rect key="frame" x="0.0" y="34" width="489" height="21"/>
                                                     <subviews>
-                                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eP3-ce-aHz">
                                                             <rect key="frame" x="-2" y="3" width="185" height="16"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Download directory Windows:" id="24Q-1c-lTs">
                                                                 <font key="font" metaFont="system"/>
@@ -186,7 +186,7 @@ It is deleted when the session ends</string>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
+                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-Ye-zQz">
                                                             <rect key="frame" x="189" y="0.0" width="300" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="m3W-Ov-cMI"/>
@@ -389,7 +389,7 @@ It is deleted when the session ends</string>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9No-Am-tk3">
                                     <rect key="frame" x="0.0" y="0.0" width="612" height="46"/>
                                     <subviews>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                                             <rect key="frame" x="-2" y="30" width="147" height="16"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Choose file to upload …" id="100">
                                                 <font key="font" metaFont="system"/>
@@ -639,7 +639,7 @@ It is deleted when the session ends</string>
                                                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qlV-Oj-A5G">
                                                                             <rect key="frame" x="0.0" y="32" width="552" height="24"/>
                                                                             <subviews>
-                                                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d5T-o3-53B">
+                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d5T-o3-53B">
                                                                                     <rect key="frame" x="-2" y="4" width="88" height="16"/>
                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="File Extension" id="typ-vO-dYB">
                                                                                         <font key="font" metaFont="system"/>
@@ -654,7 +654,7 @@ It is deleted when the session ends</string>
                                                                                         </binding>
                                                                                     </connections>
                                                                                 </textField>
-                                                                                <textField toolTip="File extension without a leading period ." focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ws8-1S-X3h">
+                                                                                <textField toolTip="File extension without a leading period ." verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ws8-1S-X3h">
                                                                                     <rect key="frame" x="92" y="0.0" width="460" height="24"/>
                                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Extension without leading ." drawsBackground="YES" id="pgn-wC-9uD">
                                                                                         <font key="font" metaFont="system"/>
@@ -688,7 +688,7 @@ It is deleted when the session ends</string>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="4" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktp-u5-Bap">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="123" height="24"/>
                                                                                     <subviews>
-                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nqg-Js-ybM">
+                                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nqg-Js-ybM">
                                                                                             <rect key="frame" x="-2" y="8" width="23" height="16"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="OS" id="evx-LJ-AQv">
                                                                                                 <font key="font" metaFont="system"/>
@@ -747,7 +747,7 @@ It is deleted when the session ends</string>
                                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="km4-T8-LWv">
                                                                                     <rect key="frame" x="143" y="0.0" width="395" height="24"/>
                                                                                     <subviews>
-                                                                                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s9E-MH-ntf">
+                                                                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s9E-MH-ntf">
                                                                                             <rect key="frame" x="-2" y="4" width="58" height="16"/>
                                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identifier" id="fuO-ob-aYr">
                                                                                                 <font key="font" metaFont="system"/>
@@ -762,7 +762,7 @@ It is deleted when the session ends</string>
                                                                                                 </binding>
                                                                                             </connections>
                                                                                         </textField>
-                                                                                        <textField toolTip="Optional Bundle Identifier of the associated additional app (permitted process)" focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WQ1-a8-qQK">
+                                                                                        <textField toolTip="Optional Bundle Identifier of the associated additional app (permitted process)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WQ1-a8-qQK">
                                                                                             <rect key="frame" x="62" y="0.0" width="333" height="24"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="333" id="Lhr-dF-tUq"/>

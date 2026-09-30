@@ -2192,9 +2192,9 @@
         <note>Class = "NSButtonCell"; title = "Allow text search"; ObjectID = "kbH-Rg-sB6";</note>
       </trans-unit>
       <trans-unit id="ktc-tU-dLx.title" xml:space="preserve">
-        <source>Enable toolbar of PDF reader (Win)</source>
+        <source>Allow toolbar of PDF reader (Win)</source>
         <target>Symbolleiste in PDF-Vorschau anzeigen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Enable toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx";</note>
+        <note>Class = "NSButtonCell"; title = "Allow toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx";</note>
       </trans-unit>
       <trans-unit id="mRw-O9-H0n.title" xml:space="preserve">
         <source>iPad</source>

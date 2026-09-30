@@ -265,7 +265,7 @@
 /* Class = "NSButtonCell"; title = "Custom"; ObjectID = "kJa-eD-szz"; */
 "kJa-eD-szz.title" = "Benutzerdefiniert";
 
-/* Class = "NSButtonCell"; title = "Enable toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx"; */
+/* Class = "NSButtonCell"; title = "Allow toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx"; */
 "ktc-tU-dLx.title" = "Symbolleiste in PDF-Vorschau anzeigen (Win)";
 
 /* Class = "NSButtonCell"; title = "Allow inline playback on iPhone"; ObjectID = "LQ1-WH-kpW"; */
