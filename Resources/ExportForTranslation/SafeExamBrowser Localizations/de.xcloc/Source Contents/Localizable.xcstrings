@@ -151,6 +151,9 @@
     "%@, or %@" : {
 
     },
+    "%1$ld of %2$ld" : {
+      "comment" : "Search results counter shown in the search field, e.g. '1 of 15'"
+    },
     "10.7 (this %@: 10.13)" : {
 
     },
@@ -202,7 +205,7 @@
     "A built-in display is required, but not available. If you're using a MacBook, use its internal display. To override this requirement, select the option below and enter the quit/unlock password, which usually exam supervision/support knows." : {
 
     },
-    "A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again." : {
+    "A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." : {
 
     },
     "AAC Assessment Mode Not Supported!" : {
@@ -592,6 +595,9 @@
     "Downloading and Opening" : {
 
     },
+    "Downloading Settings Failed" : {
+
+    },
     "Due to Zoom licensing issues, Zoom live proctoring is only available for SEB Alliance members. Please see https://safeexambrowser.org/alliance." : {
 
     },
@@ -646,6 +652,16 @@
     "Error Decrypting Settings" : {
 
     },
+    "Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry."
+          }
+        }
+      }
+    },
     "Exam" : {
       "comment" : "Title of 'Exam' preference pane"
     },
@@ -666,6 +682,10 @@
     },
     "Fallback" : {
 
+    },
+    "Fetch" : {
+      "comment" : "Button that fetches the certificate chain from the entered server",
+      "extractionState" : "stale"
     },
     "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." : {
       "comment" : "Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings)"
@@ -719,6 +739,9 @@
 
     },
     "FTP Proxy" : {
+
+    },
+    "Full Disk Access Not Working" : {
 
     },
     "Full user name: %@" : {
@@ -897,6 +920,9 @@
     },
     "No Built-In Display Available!" : {
       "comment" : "Lockdown alert title text for no required built-in display available"
+    },
+    "No configuration data." : {
+
     },
     "No Encryption Credentials Chosen" : {
 
@@ -1177,6 +1203,9 @@
     "Screen Proctoring Active" : {
 
     },
+    "Screen Proctoring Connection Failed" : {
+
+    },
     "Screen Proctoring Inactive" : {
 
     },
@@ -1254,6 +1283,10 @@
     },
     "Server health %d out of 10, waiting until %@ to resume sending cached screen shots" : {
 
+    },
+    "Server URL or host (e.g. exam.example.org)" : {
+      "comment" : "Placeholder in the server URL field of the fetch-server-certificate sheet",
+      "extractionState" : "stale"
     },
     "settings" : {
 
@@ -1357,8 +1390,36 @@
     "The server did not present any certificates." : {
       "comment" : "Error when a fetched TLS connection returned no certificates"
     },
+    "The server didn't return any %@ settings data." : {
+
+    },
+    "The server returned an error (HTTP status code %ld)." : {
+
+    },
+    "The server returned an error: %ld %@" : {
+      "comment" : "Shown when a page load fails with an HTTP error status code",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server returned an error: %1$ld %2$@"
+          }
+        }
+      }
+    },
     "The user name or password for %@ was incorrect. Please try again." : {
 
+    },
+    "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." : {
+      "comment" : "Shown when the web content process keeps terminating",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again."
+          }
+        }
+      }
     },
     "the webpage" : {
 

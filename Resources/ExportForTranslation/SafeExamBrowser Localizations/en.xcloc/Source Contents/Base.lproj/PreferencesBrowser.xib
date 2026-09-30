@@ -11,7 +11,6 @@
                 <outlet property="browserMediaAutoplayAudioButton" destination="H1e-8y-dLi" id="FIn-Dv-e2l"/>
                 <outlet property="browserMediaAutoplayVideoButton" destination="uOh-V9-bip" id="EIE-JJ-Q2J"/>
                 <outlet property="defaultUserAgentMac" destination="dP1-5V-zqF" id="R4C-6G-RnU"/>
-                <outlet property="enablePlugIns" destination="107" id="LcP-eg-uaw"/>
                 <outlet property="newBrowserWindowByLinkBlockForeignButton" destination="101" id="TIO-5D-RXb"/>
                 <outlet property="scrollView" destination="y6G-Hf-v7L" id="t2G-V2-JJG"/>
                 <outlet property="userAgentEnvironmentTabView" destination="WH0-5V-GCS" id="fFD-kY-XG9"/>
@@ -236,7 +235,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IFC-Xq-BSZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="234" height="104"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="104"/>
                                                                     <subviews>
                                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2dw-Ko-tLl" userLabel="Allow text search">
                                                                             <rect key="frame" x="0.0" y="88" width="126" height="16"/>
@@ -249,18 +248,8 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowFind" id="gwp-Xk-lPf"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button toolTip="Pressing the tab key moves focus to the next link and form control. Shift-tab moves focus to the previous control" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
-                                                                            <rect key="frame" x="0.0" y="66" width="126" height="16"/>
-                                                                            <buttonCell key="cell" type="check" title="Tab focuses links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2BE-Ri-RWP">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_tabFocusesLinks" id="NyC-8f-hpk"/>
-                                                                            </connections>
-                                                                        </button>
                                                                         <button toolTip="Disables pop-up windows (often advertisement) opened by JavaScript without a user action such as a button click" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                                                                            <rect key="frame" x="0.0" y="44" width="160" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="66" width="160" height="16"/>
                                                                             <buttonCell key="cell" type="check" title="Block pop-up windows" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="177">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -270,7 +259,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Enables JavaScript. Please note that most modern websites need JavaScript for full functionality" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="171">
-                                                                            <rect key="frame" x="0.0" y="22" width="130" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="44" width="130" height="16"/>
                                                                             <buttonCell key="cell" type="check" title="Enable JavaScript" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="172">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -279,15 +268,26 @@
                                                                                 <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableJavaScript" id="206"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="234" height="16"/>
-                                                                            <string key="toolTip">In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</string>
-                                                                            <buttonCell key="cell" type="check" title="Reload page after connection error" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-38-Q1a">
+                                                                            <rect key="frame" x="0.0" y="22" width="182" height="16"/>
+                                                                            <string key="toolTip">Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in video players</string>
+                                                                            <buttonCell key="cell" type="check" title="Enable right mouse button" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aN2-81-3Zh">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserConnectionErrorReload" id="6hi-WR-Fs7"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouseMac" id="cAk-bY-V8I"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="261" height="16"/>
+                                                                            <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
+                                                                            <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowDeveloperConsole" id="foy-Kd-tRw"/>
                                                                             </connections>
                                                                         </button>
                                                                     </subviews>
@@ -318,44 +318,42 @@
                                                             <rect key="frame" x="304" y="0.0" width="284" height="104"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-Mb-8DU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="261" height="104"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="234" height="104"/>
                                                                     <subviews>
-                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Xhr-38-Q1a">
-                                                                            <rect key="frame" x="0.0" y="88" width="182" height="16"/>
-                                                                            <string key="toolTip">Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</string>
-                                                                            <buttonCell key="cell" type="check" title="Enable right mouse button" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aN2-81-3Zh">
+                                                                        <button verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="168">
+                                                                            <rect key="frame" x="0.0" y="88" width="234" height="16"/>
+                                                                            <string key="toolTip">In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</string>
+                                                                            <buttonCell key="cell" type="check" title="Reload page after connection error" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="169">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enableRightMouseMac" id="cAk-bY-V8I"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserConnectionErrorReload" id="6hi-WR-Fs7"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="wFa-eR-NzK">
-                                                                            <rect key="frame" x="0.0" y="66" width="261" height="16"/>
-                                                                            <string key="toolTip">If enabled and right click isn't disabled (see setting 'Enable right mouse button'), you can right click/ctrl-left click on a web page element and open Web Inspector with 'Inspect Element'. Win: Use browser window toolbar menu for developer tools.</string>
-                                                                            <buttonCell key="cell" type="check" title="Enable Web Inspector (developer tools)" bezelStyle="regularSquare" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" id="29c-3t-HLf">
+                                                                        <button toolTip="Pressing the tab key moves focus to the next link and form control. Shift-tab moves focus to the previous control" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="QIK-Ry-nFM">
+                                                                            <rect key="frame" x="0.0" y="66" width="126" height="16"/>
+                                                                            <buttonCell key="cell" type="check" title="Tab focuses links" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="2BE-Ri-RWP">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowDeveloperConsole" id="foy-Kd-tRw"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_tabFocusesLinks" id="NyC-8f-hpk"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
-                                                                            <rect key="frame" x="0.0" y="44" width="117" height="16"/>
-                                                                            <string key="toolTip">Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions</string>
-                                                                            <buttonCell key="cell" type="check" title="Enable plug-ins" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
+                                                                        <button toolTip="Allows printing of web content (Win). This does not control printing via internal PDF reader (see separate setting)" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                                                                            <rect key="frame" x="0.0" y="44" width="142" height="16"/>
+                                                                            <buttonCell key="cell" type="check" title="Allow printing (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="108">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
-                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_enablePlugIns" id="652"/>
+                                                                                <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_allowPrint" id="Y5v-RR-0tC"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Be aware, the toolbar of the internal PDF reader also allows access to the print and download functions of the PDF reader" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-rQ-UjN">
-                                                                            <rect key="frame" x="0.0" y="22" width="233" height="16"/>
-                                                                            <buttonCell key="cell" type="check" title="Enable toolbar of PDF reader (Win)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ktc-tU-dLx">
+                                                                            <rect key="frame" x="0.0" y="22" width="225" height="16"/>
+                                                                            <buttonCell key="cell" type="check" title="Allow toolbar of PDF reader (Win)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ktc-tU-dLx">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
@@ -364,9 +362,9 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="661">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="127" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="135" height="16"/>
                                                                             <string key="toolTip">Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane.</string>
-                                                                            <buttonCell key="cell" type="check" title="Clear cache(Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
+                                                                            <buttonCell key="cell" type="check" title="Delete cache(Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="663">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
@@ -676,19 +674,8 @@
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplay" id="scX-Gx-apm"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button toolTip="Using the modern WebView, video autoplay can be controlled separately" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uOh-V9-bip">
-                                                                    <rect key="frame" x="15" y="66" width="112" height="16"/>
-                                                                    <buttonCell key="cell" type="check" title="Video autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="MOG-Nd-tGS">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplay" id="SqW-Lm-V28"/>
-                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplayVideo" id="uCe-wW-6aV"/>
-                                                                    </connections>
-                                                                </button>
                                                                 <button toolTip="Using the modern WebView, audio autoplay can be controlled separately" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-8y-dLi">
-                                                                    <rect key="frame" x="15" y="44" width="112" height="16"/>
+                                                                    <rect key="frame" x="15" y="66" width="112" height="16"/>
                                                                     <buttonCell key="cell" type="check" title="Audio autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="p8H-vN-YbW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
@@ -696,6 +683,17 @@
                                                                     <connections>
                                                                         <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplay" id="0Lo-uj-FN9"/>
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplayAudio" id="f5C-wh-J8d"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button toolTip="Using the modern WebView, video autoplay can be controlled separately" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uOh-V9-bip">
+                                                                    <rect key="frame" x="15" y="44" width="112" height="16"/>
+                                                                    <buttonCell key="cell" type="check" title="Video autoplay" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="MOG-Nd-tGS">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="122" name="enabled" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplay" id="SqW-Lm-V28"/>
+                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaAutoplayVideo" id="uCe-wW-6aV"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bjS-Ok-Dj9">
@@ -743,8 +741,19 @@
                                                         <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="7kt-y8-7Rd">
                                                             <rect key="frame" x="304" y="22" width="284" height="82"/>
                                                             <subviews>
+                                                                <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NjH-uQ-OnL">
+                                                                    <rect key="frame" x="0.0" y="66" width="149" height="16"/>
+                                                                    <string key="toolTip">Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )</string>
+                                                                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fCI-oc-vd6">
+                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaCaptureScreen" id="PHj-bQ-ReC"/>
+                                                                    </connections>
+                                                                </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-A3-rqm">
-                                                                    <rect key="frame" x="0.0" y="66" width="196" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="44" width="196" height="16"/>
                                                                     <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPad" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fRI-Y9-Qs5">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -755,7 +764,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="rf6-Kj-obV">
-                                                                    <rect key="frame" x="0.0" y="44" width="212" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="22" width="212" height="16"/>
                                                                     <string key="toolTip">Video content can be played inline on a web page or only in full screen. By disabling this option, HTML5 video players are forced to use the iOS user interface for controlling playback</string>
                                                                     <buttonCell key="cell" type="check" title="Allow inline playback on iPhone" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LQ1-WH-kpW">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -766,7 +775,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IqX-2Y-Ffc">
-                                                                    <rect key="frame" x="0.0" y="22" width="233" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="233" height="16"/>
                                                                     <string key="toolTip">On devices supporting PiP, the video plays in a movable and resizable overlay window. If not running SEB in Single App Mode, PiP video keeps playing even if switching to other apps</string>
                                                                     <buttonCell key="cell" type="check" title="Allow picture in picture video (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zZ5-9g-Lhz">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -774,17 +783,6 @@
                                                                     </buttonCell>
                                                                     <connections>
                                                                         <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_mobileAllowPictureInPictureMediaPlayback" id="PRS-fW-XES"/>
-                                                                    </connections>
-                                                                </button>
-                                                                <button verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="NjH-uQ-OnL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="149" height="16"/>
-                                                                    <string key="toolTip">Allow web sites to capture the screen, for WebRTC live streams or still pictures (only in modern WebView and on macOS 11.1 or newer )</string>
-                                                                    <buttonCell key="cell" type="check" title="Allow screen capture" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="fCI-oc-vd6">
-                                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                        <font key="font" metaFont="system"/>
-                                                                    </buttonCell>
-                                                                    <connections>
-                                                                        <binding destination="122" name="value" keyPath="values.org_safeexambrowser_SEB_browserMediaCaptureScreen" id="PHj-bQ-ReC"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -1518,7 +1516,7 @@
                         <rect key="frame" x="-100" y="-100" width="650" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.99469496021220161" horizontal="NO" id="u7V-fL-czw">
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.039787798408488118" horizontal="NO" id="u7V-fL-czw">
                         <rect key="frame" x="649" y="1" width="17" height="648"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

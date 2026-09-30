@@ -1,9 +1,6 @@
 /* No comment provided by engineer. */
 " (%d:%d Remaining)" = " (%1$d:%2$d verbleibend)";
 
-/* Search results counter shown in the search field, e.g. '1 of 15' */
-"%1$ld of %2$ld" = "%1$ld von %2$ld";
-
 /* No comment provided by engineer. */
 " (Connected to Power Source)" = "(mit Stromquelle verbunden)";
 
@@ -74,6 +71,9 @@
 "%@ version %@ or higher" = "%1$@ Version %2$@ oder höher";
 
 /* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
+
+/* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ war gesperrt (Prüfung unterbrochen) für %2$ld:%3$.2ld (Minuten:Sekunden)";
 
 /* No comment provided by engineer. */
@@ -84,6 +84,9 @@
 
 /* No comment provided by engineer. */
 "%@, or %@" = "%@ oder %@";
+
+/* Search results counter shown in the search field, e.g. '1 of 15' */
+"%1$ld of %2$ld" = "%1$ld von %2$ld";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (dieser %@: 10.13)";
@@ -143,6 +146,9 @@
 "Activate Scroll Lock" = "Scrollsperre aktivieren";
 
 /* No comment provided by engineer. */
+"Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version." = "Das Hinzufügen eines Zertifikats durch Eingabe einer Server-URL erfordert iOS 15 oder neuer. Auf älteren Versionen betten Sie TLS/SSL- und CA-Zertifikate mit einer SEB-Desktop-Version ein.";
+
+/* No comment provided by engineer. */
 "Admin Password" = "Administrator-Passwort";
 
 /* No comment provided by engineer. */
@@ -177,9 +183,6 @@
 
 /* No comment provided by engineer. */
 "Applying Settings Failed" = "Anwenden der Einstellungen fehlgeschlagen";
-
-/* No comment provided by engineer. */
-"Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Sind Sie sicher, dass Sie diese Session beenden wollen?";
@@ -504,6 +507,9 @@ Shown while connecting to the server to fetch its certificate */
 "Downloading and Opening" = "Download und Öffnen";
 
 /* No comment provided by engineer. */
+"Downloading Settings Failed" = "Herunterladen der Einstellungen fehlgeschlagen";
+
+/* No comment provided by engineer. */
 "Edit %@ configuration files" = "%@-Einstellungen bearbeiten";
 
 /* No comment provided by engineer. */
@@ -598,12 +604,6 @@ Shown while connecting to the server to fetch its certificate */
 
 /* Explanation at the top of the fetch-server-certificate sheet (Network / Certificates settings) */
 "Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." = "Ein von einem HTTPS-Server präsentiertes Zertifikat abrufen und in die Einstellungen einbetten. Überprüfen Sie den SHA-256-Fingerabdruck über einen unabhängigen Kanal, bevor Sie es einbetten.";
-
-/* Placeholder in the server URL field of the fetch-server-certificate sheet */
-"Server URL or host (e.g. exam.example.org)" = "Server-URL oder Host (z. B. exam.example.org)";
-
-/* Button that fetches the certificate chain from the entered server */
-"Fetch" = "Abrufen";
 
 /* No comment provided by engineer. */
 "Fetching identities" = "Identitäten werden geladen …";
@@ -840,6 +840,9 @@ Shown while connecting to the server to fetch its certificate */
 "No Camera Available" = "Keine Kamera verfügbar";
 
 /* No comment provided by engineer. */
+"No configuration data." = "Keine Konfigurationsdaten.";
+
+/* No comment provided by engineer. */
 "No Hostname Found" = "Kein Hostname gefunden";
 
 /* No comment provided by engineer. */
@@ -951,6 +954,9 @@ Shown while connecting to the server to fetch its certificate */
 "Quit" = "Beenden";
 
 /* No comment provided by engineer. */
+"Quit %@" = "%@ beenden";
+
+/* No comment provided by engineer. */
 "Quit Session" = "Session beenden";
 
 /* No comment provided by engineer. */
@@ -1014,6 +1020,9 @@ Shown while connecting to the server to fetch its certificate */
 "Request failed, retrying..." = "Request fehlgeschlagen, erneut versuchen…";
 
 /* No comment provided by engineer. */
+"Requires iOS 15 or Newer" = "Erfordert iOS 15 oder neuer";
+
+/* No comment provided by engineer. */
 "Reset Settings" = "Einstellungen zurücksetzen";
 
 /* No comment provided by engineer. */
@@ -1051,6 +1060,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Saved file '%@'" = "Datei '%@' gespeichert";
+
+/* No comment provided by engineer. */
+"Saving Settings Failed" = "Speichern der Einstellungen fehlgeschlagen";
 
 /* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "%@-Konfigurations-QR-Code scannen";
@@ -1278,7 +1290,19 @@ Shown while connecting to the server to fetch its certificate */
 "The server did not present any certificates." = "Der Server hat keine Zertifikate präsentiert.";
 
 /* No comment provided by engineer. */
+"The server didn't return any %@ settings data." = "Der Server hat keine %@ Einstellungsdaten zurückgegeben.";
+
+/* No comment provided by engineer. */
+"The server returned an error (HTTP status code %ld)." = "Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld).";
+
+/* Shown when a page load fails with an HTTP error status code */
+"The server returned an error: %ld %@" = "Der Server hat einen Fehler zurückgegeben: %1$ld %2$@";
+
+/* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.";
+
+/* Shown when the web content process keeps terminating */
+"The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." = "Die Webseite musste mehrmals neu geladen werden, weil ihr Inhalt nicht mehr reagierte. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.";
 
 /* No comment provided by engineer. */
 "the webpage" = "die Webseite";
@@ -1339,6 +1363,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Untitled Page" = "Unbenannte Seite";
+
+/* No comment provided by engineer. */
+"Update %@" = "%@ aktualisieren";
 
 /* No comment provided by engineer. */
 "Uploading" = "Upload";
@@ -1431,6 +1458,9 @@ Shown while connecting to the server to fetch its certificate */
 "Wrong SEB Server Fallback Password entered" = "Falsches SEB Server Fallback-Passwort eingegeben";
 
 /* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please update to a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte aktualisieren Sie auf eine erforderliche Version.";
+
+/* No comment provided by engineer. */
 "You can only edit settings after entering the %@ administrator password:" = "Das aktuelle %@ Administrator-Passwort muss zum Editieren der Einstellungen eingegeben werden:";
 
 /* No comment provided by engineer. */
@@ -1483,16 +1513,4 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Zoom Page Out" = "Seiteninhalt verkleinern";
-
-/* No comment provided by engineer. */
-"%@ Version Not Allowed!" = "%@-Version nicht erlaubt!";
-
-/* No comment provided by engineer. */
-"You are running %@ version %@ (build %@). Please update to a required version." = "Sie verwenden %@ Version %@ (Build %@). Bitte aktualisieren Sie auf eine erforderliche Version.";
-
-/* No comment provided by engineer. */
-"Update %@" = "%@ aktualisieren";
-
-/* No comment provided by engineer. */
-"Quit %@" = "%@ beenden";
 

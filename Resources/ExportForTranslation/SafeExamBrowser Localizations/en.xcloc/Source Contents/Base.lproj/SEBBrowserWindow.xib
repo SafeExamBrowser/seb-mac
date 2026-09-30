@@ -131,7 +131,7 @@
                         <searchField key="view" toolTip="Search text on web pages. Search in PDFs only works with modern WebView and macOS 11 or newer" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" id="S08-6E-SPm">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="21s-IH-qIo">
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="21s-IH-qIo" customClass="SEBSearchFieldCell">
                                 <font key="font" usesAppearanceFont="YES"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -71,6 +71,9 @@
 "%@ version %@ or higher" = "%1$@ version %2$@ or higher";
 
 /* No comment provided by engineer. */
+"%@ Version Not Allowed!" = "%@ Version Not Allowed!";
+
+/* No comment provided by engineer. */
 "%@ was locked (exam interrupted) for %ld:%.2ld (minutes:seconds)" = "%1$@ was locked (exam interrupted) for %2$ld:%3$.2ld (minutes:seconds)";
 
 /* No comment provided by engineer. */
@@ -81,6 +84,9 @@
 
 /* No comment provided by engineer. */
 "%@, or %@" = "%1$@, or %2$@";
+
+/* Search results counter shown in the search field, e.g. '1 of 15' */
+"%1$ld of %2$ld" = "%1$ld of %2$ld";
 
 /* No comment provided by engineer. */
 "10.7 (this %@: 10.13)" = "10.7 (this %@: 10.13)";
@@ -128,7 +134,7 @@
 "26 Tahoe" = "26 Tahoe";
 
 /* No comment provided by engineer. */
-"A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again." = "A setting contains the character (%1$@), which is not allowed. Please remove it from the setting '%2$@' and try again.";
+"A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." = "A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.";
 
 /* No comment provided by engineer. */
 "About %@" = "About %@";
@@ -138,6 +144,9 @@
 
 /* No comment provided by engineer. */
 "Activate Scroll Lock" = "Activate Scroll Lock";
+
+/* No comment provided by engineer. */
+"Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version." = "Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version.";
 
 /* No comment provided by engineer. */
 "Admin Password" = "Admin Password";
@@ -171,6 +180,9 @@
 
 /* No comment provided by engineer. */
 "Apply Settings" = "Apply Settings";
+
+/* No comment provided by engineer. */
+"Applying Settings Failed" = "Applying Settings Failed";
 
 /* No comment provided by engineer. */
 "Are you sure you want to quit this session?" = "Are you sure you want to quit this session?";
@@ -493,6 +505,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Downloading and Opening" = "Downloading and Opening";
+
+/* No comment provided by engineer. */
+"Downloading Settings Failed" = "Downloading Settings Failed";
 
 /* No comment provided by engineer. */
 "Edit %@ configuration files" = "Edit %@ configuration files";
@@ -825,6 +840,9 @@ Shown while connecting to the server to fetch its certificate */
 "No Camera Available" = "No Camera Available";
 
 /* No comment provided by engineer. */
+"No configuration data." = "No configuration data.";
+
+/* No comment provided by engineer. */
 "No Hostname Found" = "No Hostname Found";
 
 /* No comment provided by engineer. */
@@ -936,6 +954,9 @@ Shown while connecting to the server to fetch its certificate */
 "Quit" = "Quit";
 
 /* No comment provided by engineer. */
+"Quit %@" = "Quit %@";
+
+/* No comment provided by engineer. */
 "Quit Session" = "Quit Session";
 
 /* No comment provided by engineer. */
@@ -999,6 +1020,9 @@ Shown while connecting to the server to fetch its certificate */
 "Request failed, retrying..." = "Request failed, retrying...";
 
 /* No comment provided by engineer. */
+"Requires iOS 15 or Newer" = "Requires iOS 15 or Newer";
+
+/* No comment provided by engineer. */
 "Reset Settings" = "Reset Settings";
 
 /* No comment provided by engineer. */
@@ -1038,6 +1062,9 @@ Shown while connecting to the server to fetch its certificate */
 "Saved file '%@'" = "Saved file '%@'";
 
 /* No comment provided by engineer. */
+"Saving Settings Failed" = "Saving Settings Failed";
+
+/* No comment provided by engineer. */
 "Scan %@ configuration QR code" = "Scan %@ configuration QR code";
 
 /* No comment provided by engineer. */
@@ -1057,6 +1084,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Screen Proctoring Active" = "Screen Proctoring Active";
+
+/* No comment provided by engineer. */
+"Screen Proctoring Connection Failed" = "Screen Proctoring Connection Failed";
 
 /* No comment provided by engineer. */
 "Screen Proctoring Inactive" = "Screen Proctoring Inactive";
@@ -1260,7 +1290,19 @@ Shown while connecting to the server to fetch its certificate */
 "The server did not present any certificates." = "The server did not present any certificates.";
 
 /* No comment provided by engineer. */
+"The server didn't return any %@ settings data." = "The server didn't return any %@ settings data.";
+
+/* No comment provided by engineer. */
+"The server returned an error (HTTP status code %ld)." = "The server returned an error (HTTP status code %ld).";
+
+/* Shown when a page load fails with an HTTP error status code */
+"The server returned an error: %ld %@" = "The server returned an error: %1$ld %2$@";
+
+/* No comment provided by engineer. */
 "The user name or password for %@ was incorrect. Please try again." = "The user name or password for %@ was incorrect. Please try again.";
+
+/* Shown when the web content process keeps terminating */
+"The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." = "The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again.";
 
 /* No comment provided by engineer. */
 "the webpage" = "the webpage";
@@ -1321,6 +1363,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Untitled Page" = "Untitled Page";
+
+/* No comment provided by engineer. */
+"Update %@" = "Update %@";
 
 /* No comment provided by engineer. */
 "Uploading" = "Uploading";
@@ -1411,6 +1456,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "Wrong SEB Server Fallback Password entered" = "Wrong SEB Server Fallback Password entered";
+
+/* No comment provided by engineer. */
+"You are running %@ version %@ (build %@). Please update to a required version." = "You are running %1$@ version %2$@ (build %3$@). Please update to a required version.";
 
 /* No comment provided by engineer. */
 "You can only edit settings after entering the %@ administrator password:" = "You can only edit settings after entering the %@ administrator password:";

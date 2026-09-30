@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Base.lproj/MainMenu.xib" source-language="en" target-language="de" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.6" build-num="17F113"/>
@@ -1737,14 +1736,14 @@
         <note>Class = "NSButtonCell"; title = "block when directing to a different server"; ObjectID = "102";</note>
       </trans-unit>
       <trans-unit id="107.ibShadowedToolTip" xml:space="preserve">
-        <source>Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions</source>
-        <target>Erlaubt Web-Plug-Ins wie Flash. Aus Sicherheitsgründen wird empfohlen, diese Option auszuschalten, wenn keine Plug-In-Inhalte benötigt werden</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enables web plugins like Flash. For security reasons it's recommended to disable this option if plugin content is not used. Plugins are no longer supported on current macOS versions"; ObjectID = "107";</note>
+        <source>Allows printing of web content (Win). This does not control printing via internal PDF reader (see separate setting)</source>
+        <target>Erlaubt das Drucken von Webinhalten (Win). Dies steuert nicht das Drucken über die interne PDF-Anzeige (siehe separate Einstellung)</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Allows printing of web content (Win). This does not control printing via internal PDF reader (see separate setting)"; ObjectID = "107";</note>
       </trans-unit>
       <trans-unit id="108.title" xml:space="preserve">
-        <source>Enable plug-ins</source>
-        <target>Plug-Ins aktivieren</target>
-        <note>Class = "NSButtonCell"; title = "Enable plug-ins"; ObjectID = "108";</note>
+        <source>Allow printing (Win)</source>
+        <target>Drucken erlauben (Win)</target>
+        <note>Class = "NSButtonCell"; title = "Allow printing (Win)"; ObjectID = "108";</note>
       </trans-unit>
       <trans-unit id="168.ibShadowedToolTip" xml:space="preserve">
         <source>In some web applications, retrying to load a failed URL after a connection error causes issues. When enabled, a full page reload is performed instead</source>
@@ -1897,9 +1896,9 @@
         <note>Class = "NSButton"; ibShadowedToolTip = "Deletes cache when re-configuring or terminating SEB (Win): This feature will dismiss all session information when re-configuring or restarting SEB. This setting only works, if 'Clear browser session when ending...' is activated in Exam pane."; ObjectID = "661";</note>
       </trans-unit>
       <trans-unit id="663.title" xml:space="preserve">
-        <source>Clear cache(Win)</source>
+        <source>Delete cache(Win)</source>
         <target>Profil löschen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Clear cache(Win)"; ObjectID = "663";</note>
+        <note>Class = "NSButtonCell"; title = "Delete cache(Win)"; ObjectID = "663";</note>
       </trans-unit>
       <trans-unit id="ADW-iA-ngj.title" xml:space="preserve">
         <source>The modern WKWebView browser engine doesn't support sending the Browser Exam and Config Key in HTTP headers (Exam Session &gt; Send Browser &amp; Config Keys in HTTP Header). If this setting is enabled, the classic WebView is used in the Automatic policy. Force Modern ignores the 'Send Browser &amp; Config Keys in HTTP Header' option in new tabs on a different server or generally.</source>
@@ -2077,9 +2076,9 @@
         <note>Class = "NSTextField"; ibShadowedToolTip = "Default string on this Mac (it depends on installed Safari/WebKit version and therefore can differ on exam clients!)"; ObjectID = "XSw-aj-V6a";</note>
       </trans-unit>
       <trans-unit id="Xhr-38-Q1a.ibShadowedToolTip" xml:space="preserve">
-        <source>Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players</source>
-        <target>Erlaubt Anzeige des Kontext-Menüs mittels Rechtsklick/ctrl-Linksklick für den Web Inspector (NUR für Debugging benutzen!). Muss deaktiviert werden, um die Befehle im Kontextmenü zum Teilen von Inhalten (modernes WebView) und in Browser Plug-Ins und Videoplayern auszuschalten</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in browser plugins/video players"; ObjectID = "Xhr-38-Q1a";</note>
+        <source>Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in video players</source>
+        <target>Erlaubt Anzeige des Kontext-Menüs mittels Rechtsklick/ctrl-Linksklick für den Web Inspector (NUR für Debugging benutzen!). Muss deaktiviert werden, um die Befehle im Kontextmenü zum Teilen von Inhalten (modernes WebView) und in Videoplayern auszuschalten</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enable to access context menu for Web Inspector in SEB for macOS (use ONLY for debugging). Disable to prevent right mouse button actions/context menu for sharing content (with modern WebView) and in video players"; ObjectID = "Xhr-38-Q1a";</note>
       </trans-unit>
       <trans-unit id="YE5-tr-HaY.title" xml:space="preserve">
         <source>Custom</source>
@@ -2192,9 +2191,9 @@
         <note>Class = "NSButtonCell"; title = "Allow text search"; ObjectID = "kbH-Rg-sB6";</note>
       </trans-unit>
       <trans-unit id="ktc-tU-dLx.title" xml:space="preserve">
-        <source>Enable toolbar of PDF reader (Win)</source>
+        <source>Allow toolbar of PDF reader (Win)</source>
         <target>Symbolleiste in PDF-Vorschau anzeigen (Win)</target>
-        <note>Class = "NSButtonCell"; title = "Enable toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx";</note>
+        <note>Class = "NSButtonCell"; title = "Allow toolbar of PDF reader (Win)"; ObjectID = "ktc-tU-dLx";</note>
       </trans-unit>
       <trans-unit id="mRw-O9-H0n.title" xml:space="preserve">
         <source>iPad</source>
@@ -4072,16 +4071,6 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target>SEB-Service Richtlinie (Win)</target>
         <note>Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100";</note>
       </trans-unit>
-      <trans-unit id="292.ibShadowedToolTip" xml:space="preserve">
-        <source>Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)</source>
-        <target>Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen in einem verwalteten Benutzerkonto gearbeitet werden soll (wenn 'Private Zwischenablage auf Mac erzwingen' aktiv ist, beeinflusst diese Einstellung nur SEB für Windows und ältere Mac-Versionen)</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard on Mac' is enabled, this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "292";</note>
-      </trans-unit>
-      <trans-unit id="293.title" xml:space="preserve">
-        <source>Use private clipboard</source>
-        <target>Private Zwischenablage verwenden</target>
-        <note>Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293";</note>
-      </trans-unit>
       <trans-unit id="AAQ-sm-YAt.title" xml:space="preserve">
         <source>Allow desktop Macs</source>
         <target>Desktop-Macs zulassen</target>
@@ -4473,9 +4462,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Use the built-in display (if available) when only one display is allowed or when SEB switches display mirroring off"; ObjectID = "btE-nf-WWC";</note>
       </trans-unit>
       <trans-unit id="c2c-ER-MY0.ibShadowedToolTip" xml:space="preserve">
-        <source>Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win</source>
+        <source>Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable</source>
         <target>Steuert die Aufzeichnung oder Wiedergabe des Bildschirminhalts eines iOS-Gerätes über AirPlay oder ein Lightning/USC-C Kabel. Entspricht 'PrintScreen erlauben' auf Win</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win"; ObjectID = "c2c-ER-MY0";</note>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable"; ObjectID = "c2c-ER-MY0";</note>
       </trans-unit>
       <trans-unit id="cYs-RO-IZD.title" xml:space="preserve">
         <source>Enable network connection selector</source>
@@ -4483,9 +4472,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButtonCell"; title = "Enable network connection selector"; ObjectID = "cYs-RO-IZD";</note>
       </trans-unit>
       <trans-unit id="cfE-bh-Syt.title" xml:space="preserve">
-        <source>Enforce private clipboard on Mac</source>
-        <target>Private Zwischenablage auf Mac erzwingen</target>
-        <note>Class = "NSButtonCell"; title = "Enforce private clipboard on Mac"; ObjectID = "cfE-bh-Syt";</note>
+        <source>Enforce private clipboard (Mac)</source>
+        <target>Private Zwischenablage erzwingen (Mac)</target>
+        <note>Class = "NSButtonCell"; title = "Enforce private clipboard (Mac)"; ObjectID = "cfE-bh-Syt";</note>
       </trans-unit>
       <trans-unit id="ci1-uS-Bra.ibShadowedToolTip" xml:space="preserve">
         <source>Automatic Assessment Configuration (AAC) Assessment Mode is available from macOS Monterey 12.1 (and Catalina 10.15.4 / 10.15.6+), from macOS Big Sur 11 with restrictions. It blocks various macOS features (which cannot be allowed optionally, like screen/window capture/sharing/mirroring, Siri, Dictation, Screen Proctoring)</source>
@@ -4533,9 +4522,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSButton"; ibShadowedToolTip = "Transforms specific HTTP requests for clicked links to prevent the 'Guided Access is enabled' message being displayed when clicking all links"; ObjectID = "gaS-9v-32d";</note>
       </trans-unit>
       <trans-unit id="gma-Qm-KEF.title" xml:space="preserve">
-        <source>Use built-in display</source>
-        <target>Eingebautes Display benutzen</target>
-        <note>Class = "NSButtonCell"; title = "Use built-in display"; ObjectID = "gma-Qm-KEF";</note>
+        <source>Use built-in display (Mac)</source>
+        <target>Eingebautes Display benutzen (Mac)</target>
+        <note>Class = "NSButtonCell"; title = "Use built-in display (Mac)"; ObjectID = "gma-Qm-KEF";</note>
       </trans-unit>
       <trans-unit id="hpd-SM-vcA.title" xml:space="preserve">
         <source>maximum allowed number of connected displays (Mac/Win)</source>
@@ -4688,9 +4677,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <note>Class = "NSTabViewItem"; label = "iOS"; ObjectID = "qR0-7R-jPL";</note>
       </trans-unit>
       <trans-unit id="qqs-ZA-6ds.ibShadowedToolTip" xml:space="preserve">
-        <source>If enabled, overrides the old setting 'Use private clipboard" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows</source>
-        <target>Wenn aktiviert, wird die alte Einstellung 'Private Zwischenablage verwenden' nicht beachtet, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können</target>
-        <note>Class = "NSButton"; ibShadowedToolTip = "If enabled, overrides the old setting 'Use private clipboard\" and enforces the private clipboard, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds";</note>
+        <source>Enforces the private clipboard in the classic kiosk mode, so contents can only be copy-pasted inside SEB browser windows</source>
+        <target>Private Zwischenablage wird im klassischen Kioskmodus erzwungen, sodass Inhalte nur innerhalb von SEB-Browserfenstern kopiert und eingefügt werden können</target>
+        <note>Class = "NSButton"; ibShadowedToolTip = "Enforces the private clipboard in the classic kiosk mode, so contents can only be copy-pasted inside SEB browser windows"; ObjectID = "qqs-ZA-6ds";</note>
       </trans-unit>
       <trans-unit id="rSD-zM-6qb.ibShadowedToolTip" xml:space="preserve">
         <source>Apps with Accessibility permissions (System Settings / Privacy &amp; Security / Accessibility) are terminated when they are running (except if allowed in Permitted Processes). Requires "Full Disk Access" permission</source>
@@ -5317,6 +5306,11 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target state="translated"> Einstellungen erfordern den AAC-Bewertungsmodus, der auf der auf diesem Gerät installierten macOS-Version nicht unterstützt wird. Bitte aktualisieren Sie mindestens auf </target>
         <note/>
       </trans-unit>
+      <trans-unit id="%1$ld of %2$ld" xml:space="preserve">
+        <source>%1$ld of %2$ld</source>
+        <target state="translated">%1$ld von %2$ld</target>
+        <note>Search results counter shown in the search field, e.g. '1 of 15'</note>
+      </trans-unit>
       <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
         <source>%@ %@ Configurations Not Allowed!</source>
         <target state="translated">%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
@@ -5602,9 +5596,9 @@ Es wird gelöscht, wenn die Sitzung beendet wird</target>
         <target state="translated">Ein eingebautes Display wird benötigt, ist aber nicht verfügbar. Falls Sie ein MacBook verwenden, benutzen Sie dessen eingebautes Display. Um trotzdem ein externes Display zu benutzen, wählen Sie die Option unten an und geben Sie das Beenden/Entsperren-Passwort ein, welche üblicherweise der Prüfungsaufsicht bekannt sind.</target>
         <note/>
       </trans-unit>
-      <trans-unit id="A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again." xml:space="preserve">
-        <source>A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again.</source>
-        <target state="translated">Eine Einstellung enthält das Zeichen (%1$@), welches nicht erlaubt ist. Bitte entfernen Sie es aus der Einstellung '%2$@' und versuchen Sie es erneut.</target>
+      <trans-unit id="A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." xml:space="preserve">
+        <source>A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.</source>
+        <target state="translated">Eine Einstellung enthält ein doppeltes Anführungszeichen gefolgt von einem Komma, was nicht erlaubt ist. Bitte entfernen Sie es aus der Einstellung '%@' und versuchen Sie es erneut.</target>
         <note/>
       </trans-unit>
       <trans-unit id="AAC Assessment Mode Not Supported!" xml:space="preserve">
@@ -6203,6 +6197,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Download</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Downloading Settings Failed" xml:space="preserve">
+        <source>Downloading Settings Failed</source>
+        <target state="translated">Herunterladen der Einstellungen fehlgeschlagen</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Downloading and Opening" xml:space="preserve">
         <source>Downloading and Opening</source>
         <target state="translated">Download und Öffnen</target>
@@ -6298,6 +6297,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Fehler beim Entschlüsseln der Einstellungen</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry." xml:space="preserve">
+        <source>Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy &amp; Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.</source>
+        <target state="translated">Obwohl Full Disk Access anscheinend erteilt wurde, kann %1$@ die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht lesen (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Dies kann vorkommen, wenn Full Disk Access für diese Kopie von %4$@ nicht wirksam geworden ist (zum Beispiel wenn sie an Ort und Stelle aktualisiert oder aus einem Quarantäne-Speicherort gestartet wurde) oder wenn die Berechtigungen dieses Systemordners gegenüber den macOS-Standardwerten geändert wurden. Versuchen Sie, %5$@ in den Systemeinstellungen / Datenschutz &amp; Sicherheit / Full Disk Access zu entfernen, es durch Ziehen in den Programme-Ordner neu zu installieren und erneut hinzuzufügen. Falls das nicht hilft, sollte ein Administrator prüfen, ob der Ordner noch seine Standardberechtigungen hat. Klicken Sie anschließend auf „Wiederholen“.</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Exam" xml:space="preserve">
         <source>Exam</source>
         <target state="translated">Prüfung</target>
@@ -6337,6 +6341,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <source>Fallback</source>
         <target state="translated">Fallback</target>
         <note/>
+      </trans-unit>
+      <trans-unit id="Fetch" xml:space="preserve">
+        <source>Fetch</source>
+        <target state="translated">Abrufen</target>
+        <note>Button that fetches the certificate chain from the entered server</note>
       </trans-unit>
       <trans-unit id="Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding." xml:space="preserve">
         <source>Fetch a certificate presented by an HTTPS server and embed it into the settings. Verify the SHA-256 fingerprint out of band before embedding.</source>
@@ -6421,6 +6430,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Force Quitting Processes Failed" xml:space="preserve">
         <source>Force Quitting Processes Failed</source>
         <target state="translated">Sofort beenden fehlgeschlagen</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Full Disk Access Not Working" xml:space="preserve">
+        <source>Full Disk Access Not Working</source>
+        <target state="translated">Full Disk Access funktioniert nicht</target>
         <note/>
       </trans-unit>
       <trans-unit id="Full user name: %@" xml:space="preserve">
@@ -6691,6 +6705,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="No built-in display available, although required in settings!" xml:space="preserve">
         <source>No built-in display available, although required in settings!</source>
         <target state="translated">Kein eingebautes Display verfügbar, obwohl dies in den Einstellungen verlangt wird!</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="No configuration data." xml:space="preserve">
+        <source>No configuration data.</source>
+        <target state="translated">Keine Konfigurationsdaten.</target>
         <note/>
       </trans-unit>
       <trans-unit id="No networks found" xml:space="preserve">
@@ -7108,6 +7127,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Screen Proctoring Aktiv</target>
         <note/>
       </trans-unit>
+      <trans-unit id="Screen Proctoring Connection Failed" xml:space="preserve">
+        <source>Screen Proctoring Connection Failed</source>
+        <target state="translated">Screen Proctoring-Verbindung fehlgeschlagen</target>
+        <note/>
+      </trans-unit>
       <trans-unit id="Screen Proctoring Inactive" xml:space="preserve">
         <source>Screen Proctoring Inactive</source>
         <target state="translated">Screen Proctoring Inaktiv</target>
@@ -7217,6 +7241,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <source>Sending cached screen shots, server health %d out of 10</source>
         <target state="translated">Übertragung läuft, Verbindungsqualität %d von 10</target>
         <note/>
+      </trans-unit>
+      <trans-unit id="Server URL or host (e.g. exam.example.org)" xml:space="preserve">
+        <source>Server URL or host (e.g. exam.example.org)</source>
+        <target state="translated">Server-URL oder Host (z. B. exam.example.org)</target>
+        <note>Placeholder in the server URL field of the fetch-server-certificate sheet</note>
       </trans-unit>
       <trans-unit id="Server health %d out of 10" xml:space="preserve">
         <source>Server health %d out of 10</source>
@@ -7388,10 +7417,30 @@ Shown while connecting to the server to fetch its certificate</note>
         <target state="translated">Der Server hat keine Zertifikate präsentiert.</target>
         <note>Error when a fetched TLS connection returned no certificates</note>
       </trans-unit>
+      <trans-unit id="The server didn't return any %@ settings data." xml:space="preserve">
+        <source>The server didn't return any %@ settings data.</source>
+        <target state="translated">Der Server hat keine %@ Einstellungsdaten zurückgegeben.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The server returned an error (HTTP status code %ld)." xml:space="preserve">
+        <source>The server returned an error (HTTP status code %ld).</source>
+        <target state="translated">Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld).</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="The server returned an error: %ld %@" xml:space="preserve">
+        <source>The server returned an error: %1$ld %2$@</source>
+        <target state="translated">Der Server hat einen Fehler zurückgegeben: %1$ld %2$@</target>
+        <note>Shown when a page load fails with an HTTP error status code</note>
+      </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <target state="translated">Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.</target>
         <note/>
+      </trans-unit>
+      <trans-unit id="The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." xml:space="preserve">
+        <source>The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again.</source>
+        <target state="translated">Die Webseite musste mehrmals neu geladen werden, weil ihr Inhalt nicht mehr reagierte. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</target>
+        <note>Shown when the web content process keeps terminating</note>
       </trans-unit>
       <trans-unit id="Then restart %@/the exam." xml:space="preserve">
         <source>Then restart %@/the exam.</source>
@@ -9488,6 +9537,11 @@ untitled filename</note>
         <target>-Einstellungen erlauben die Benutzung der auf diesem Gerät installierten iOS-Version nicht. Aktualisieren Sie auf die neueste iOS-Version oder verwenden Sie ein anderes Gerät mit mindestens iOS </target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%1$ld of %2$ld" xml:space="preserve">
+        <source>%1$ld of %2$ld</source>
+        <target>%1$ld von %2$ld</target>
+        <note>Search results counter shown in the search field, e.g. '1 of 15'</note>
+      </trans-unit>
       <trans-unit id="%@ %@ Configurations Not Allowed!" xml:space="preserve">
         <source>%1$@ %2$@ Configurations Not Allowed!</source>
         <target>%1$@ von %2$@-Konfigurationen nicht erlaubt!</target>
@@ -9516,6 +9570,11 @@ untitled filename</note>
       <trans-unit id="%@ Re-Configured" xml:space="preserve">
         <source>%@ Re-Configured</source>
         <target>%@ neu konfiguriert</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="%@ Version Not Allowed!" xml:space="preserve">
+        <source>%@ Version Not Allowed!</source>
+        <target>%@-Version nicht erlaubt!</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ files is not allowed in current %@ settings. Report this to your exam provider." xml:space="preserve">
@@ -9668,9 +9727,9 @@ untitled filename</note>
         <target>26 Tahoe</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="A setting contains the character (%@), which is not allowed. Please remove it from the setting '%@' and try again." xml:space="preserve">
-        <source>A setting contains the character (%1$@), which is not allowed. Please remove it from the setting '%2$@' and try again.</source>
-        <target>Eine Einstellung enthält das Zeichen (%1$@), welches nicht erlaubt ist. Bitte entfernen Sie es aus der Einstellung '%2$@' und versuchen Sie es erneut.</target>
+      <trans-unit id="A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again." xml:space="preserve">
+        <source>A setting contains a double quote followed by a comma, which is not allowed. Please remove it from the setting '%@' and try again.</source>
+        <target>Eine Einstellung enthält ein doppeltes Anführungszeichen gefolgt von einem Komma, was nicht erlaubt ist. Bitte entfernen Sie es aus der Einstellung '%@' und versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="About %@" xml:space="preserve">
@@ -9686,6 +9745,11 @@ untitled filename</note>
       <trans-unit id="Activate Scroll Lock" xml:space="preserve">
         <source>Activate Scroll Lock</source>
         <target>Scrollsperre aktivieren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version." xml:space="preserve">
+        <source>Adding a certificate by entering a server URL requires iOS 15 or newer. On earlier versions, embed TLS/SSL and CA certificates using a SEB desktop version.</source>
+        <target>Das Hinzufügen eines Zertifikats durch Eingabe einer Server-URL erfordert iOS 15 oder neuer. Auf älteren Versionen betten Sie TLS/SSL- und CA-Zertifikate mit einer SEB-Desktop-Version ein.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Admin Password" xml:space="preserve">
@@ -9726,6 +9790,11 @@ untitled filename</note>
       <trans-unit id="Apply Settings" xml:space="preserve">
         <source>Apply Settings</source>
         <target>Einstellungen anwenden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Applying Settings Failed" xml:space="preserve">
+        <source>Applying Settings Failed</source>
+        <target>Anwenden der Einstellungen fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to quit this session?" xml:space="preserve">
@@ -10234,6 +10303,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Download</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Downloading Settings Failed" xml:space="preserve">
+        <source>Downloading Settings Failed</source>
+        <target>Herunterladen der Einstellungen fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Downloading and Opening" xml:space="preserve">
         <source>Downloading and Opening</source>
         <target>Download und Öffnen</target>
@@ -10734,6 +10808,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Kein SEB Server Fallback-Passwort eingegeben</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="No configuration data." xml:space="preserve">
+        <source>No configuration data.</source>
+        <target>Keine Konfigurationsdaten.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="No valid %@ config found." xml:space="preserve">
         <source>No valid %@ config found.</source>
         <target>Keine %@-Konfigurationsdatei gefunden</target>
@@ -10884,6 +10963,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Beenden</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Quit %@" xml:space="preserve">
+        <source>Quit %@</source>
+        <target>%@ beenden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Quit Session" xml:space="preserve">
         <source>Quit Session</source>
         <target>Session beenden</target>
@@ -10979,6 +11063,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Request fehlgeschlagen, erneut versuchen…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Requires iOS 15 or Newer" xml:space="preserve">
+        <source>Requires iOS 15 or Newer</source>
+        <target>Erfordert iOS 15 oder neuer</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Reset Settings" xml:space="preserve">
         <source>Reset Settings</source>
         <target>Einstellungen zurücksetzen</target>
@@ -11054,6 +11143,11 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Datei '%@' gespeichert</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Saving Settings Failed" xml:space="preserve">
+        <source>Saving Settings Failed</source>
+        <target>Speichern der Einstellungen fehlgeschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Scan %@ configuration QR code" xml:space="preserve">
         <source>Scan %@ configuration QR code</source>
         <target>%@-Konfigurations-QR-Code scannen</target>
@@ -11077,6 +11171,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Screen Proctoring Active" xml:space="preserve">
         <source>Screen Proctoring Active</source>
         <target>Screen Proctoring Aktiv</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Screen Proctoring Connection Failed" xml:space="preserve">
+        <source>Screen Proctoring Connection Failed</source>
+        <target>Screen Proctoring-Verbindung fehlgeschlagen</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Screen Proctoring Inactive" xml:space="preserve">
@@ -11395,10 +11494,30 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Der Server hat keine Zertifikate präsentiert.</target>
         <note>Error when a fetched TLS connection returned no certificates</note>
       </trans-unit>
+      <trans-unit id="The server didn't return any %@ settings data." xml:space="preserve">
+        <source>The server didn't return any %@ settings data.</source>
+        <target>Der Server hat keine %@ Einstellungsdaten zurückgegeben.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The server returned an error (HTTP status code %ld)." xml:space="preserve">
+        <source>The server returned an error (HTTP status code %ld).</source>
+        <target>Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld).</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The server returned an error: %ld %@" xml:space="preserve">
+        <source>The server returned an error: %1$ld %2$@</source>
+        <target>Der Server hat einen Fehler zurückgegeben: %1$ld %2$@</target>
+        <note>Shown when a page load fails with an HTTP error status code</note>
+      </trans-unit>
       <trans-unit id="The user name or password for %@ was incorrect. Please try again." xml:space="preserve">
         <source>The user name or password for %@ was incorrect. Please try again.</source>
         <target>Der Benutzername oder das Passwort für %@ war falsch. Bitte versuchen Sie es erneut.</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again." xml:space="preserve">
+        <source>The web page had to be reloaded repeatedly because its content stopped responding. Please check your internet connection and try again.</source>
+        <target>Die Webseite musste mehrmals neu geladen werden, weil ihr Inhalt nicht mehr reagierte. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</target>
+        <note>Shown when the web content process keeps terminating</note>
       </trans-unit>
       <trans-unit id="These settings are corrupted and cannot be used (failing key: %@)." xml:space="preserve">
         <source>These settings are corrupted and cannot be used (failing key: %@).</source>
@@ -11498,6 +11617,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Untitled Page" xml:space="preserve">
         <source>Untitled Page</source>
         <target>Unbenannte Seite</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Update %@" xml:space="preserve">
+        <source>Update %@</source>
+        <target>%@ aktualisieren</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Uploading" xml:space="preserve">
@@ -11628,6 +11752,11 @@ Shown while connecting to the server to fetch its certificate</note>
       <trans-unit id="Wrong password! Try again to enter the quit password:" xml:space="preserve">
         <source>Wrong password! Try again to enter the quit password:</source>
         <target>Falsches Passwort! Bitte das korrekte Beenden-Passwort eingeben:</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are running %@ version %@ (build %@). Please update to a required version." xml:space="preserve">
+        <source>You are running %1$@ version %2$@ (build %3$@). Please update to a required version.</source>
+        <target>Sie verwenden %@ Version %@ (Build %@). Bitte aktualisieren Sie auf eine erforderliche Version.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="You can only edit settings after entering the %@ administrator password:" xml:space="preserve">
@@ -12653,9 +12782,9 @@ Shown while connecting to the server to fetch its certificate</note>
         <target>Verwendet entweder den AAC-Assessment-/Bewertungsmodus (für BYOD) oder erfordert, dass das Gerät per MDM beaufsichtigt wird und SEB als erlaubte App eingestellt ist, um den Autonomen Einzel-App-Modus (ASAM, der Vorrang vor AAC hat) aufzurufen.</target>
         <note>String for FooterText elements</note>
       </trans-unit>
-      <trans-unit id="iOS 18" xml:space="preserve">
-        <source>iOS 18</source>
-        <target>iOS 18</target>
+      <trans-unit id="iOS 27" xml:space="preserve">
+        <source>iOS 27</source>
+        <target>iOS 27</target>
         <note/>
       </trans-unit>
     </body>

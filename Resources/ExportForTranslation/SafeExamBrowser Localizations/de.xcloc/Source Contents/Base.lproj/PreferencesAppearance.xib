@@ -317,7 +317,7 @@
                                                             <rect key="frame" x="0.0" y="100" width="588" height="38"/>
                                                             <subviews>
                                                                 <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="w0A-ck-Wha">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="38"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="588" height="38"/>
                                                                     <subviews>
                                                                         <button toolTip="Displays a toolbar on top of the browser window which can also be hidden by the user" translatesAutoresizingMaskIntoConstraints="NO" id="QSj-QF-dad">
                                                                             <rect key="frame" x="0.0" y="22" width="211" height="16"/>
@@ -582,8 +582,18 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showBackToStartButton" id="og8-rv-IvE"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="ndk-5a-0Nv">
+                                                                            <rect key="frame" x="0.0" y="132" width="192" height="16"/>
+                                                                            <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="HEJ-HA-6o4">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="F53-s5-Caw"/>
+                                                                            </connections>
+                                                                        </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="8gT-1Z-xTw">
-                                                                            <rect key="frame" x="0.0" y="132" width="206" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="110" width="206" height="16"/>
                                                                             <string key="toolTip">Shows navigation buttons (back/forward) in the SEB for iOS Dock. Otherwise these buttons are displayed in the browser toolbar (if enabled), or in the side menu.</string>
                                                                             <buttonCell key="cell" type="check" title="Show navigation buttons (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="vVA-cT-h1p">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -593,8 +603,18 @@
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showNavigationButtons" id="AK9-K1-Ea9"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <button toolTip="Shows the Quit SEB/Session Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-QD-jfK">
+                                                                            <rect key="frame" x="0.0" y="88" width="126" height="16"/>
+                                                                            <buttonCell key="cell" type="check" title="Show quit button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rQZ-65-nx7">
+                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                                <font key="font" metaFont="system"/>
+                                                                            </buttonCell>
+                                                                            <connections>
+                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showQuitButton" id="G9U-fO-6tx"/>
+                                                                            </connections>
+                                                                        </button>
                                                                         <button toolTip="Reloads current web page. Shows warning if enabled in Browser settings pane" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-yl-e2o">
-                                                                            <rect key="frame" x="0.0" y="110" width="140" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="66" width="140" height="16"/>
                                                                             <buttonCell key="cell" type="check" title="Show reload button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="whL-zd-OWS">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -604,7 +624,7 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="Soq-V2-Zan">
-                                                                            <rect key="frame" x="0.0" y="88" width="221" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="44" width="221" height="16"/>
                                                                             <string key="toolTip">Shows Dock button which allows to start an exam or to reconfigure SEB by scanning a QR code with a SEB link. The button is only displayed if QR Code Config is enabled in Config File pane and if not running in exam mode</string>
                                                                             <buttonCell key="cell" type="check" title="Show scan QR code button (iOS)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="XpZ-o2-ZKZ">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -615,33 +635,13 @@
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Show current time" translatesAutoresizingMaskIntoConstraints="NO" id="wZf-F1-YN6">
-                                                                            <rect key="frame" x="0.0" y="66" width="86" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="22" width="86" height="16"/>
                                                                             <buttonCell key="cell" type="check" title="Show time" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="TNk-06-tQi">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
                                                                             </buttonCell>
                                                                             <connections>
                                                                                 <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showTime" id="Egg-TF-7s3"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Shows current keyboard layout and allows to change it" translatesAutoresizingMaskIntoConstraints="NO" id="ndk-5a-0Nv">
-                                                                            <rect key="frame" x="0.0" y="44" width="192" height="16"/>
-                                                                            <buttonCell key="cell" type="check" title="Show keyboard layout (Win)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="HEJ-HA-6o4">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showInputLanguage" id="F53-s5-Caw"/>
-                                                                            </connections>
-                                                                        </button>
-                                                                        <button toolTip="Shows the Quit SEB/Session Dock button" translatesAutoresizingMaskIntoConstraints="NO" id="tSt-QD-jfK">
-                                                                            <rect key="frame" x="0.0" y="22" width="126" height="16"/>
-                                                                            <buttonCell key="cell" type="check" title="Show quit button" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="rQZ-65-nx7">
-                                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                                <font key="font" metaFont="system"/>
-                                                                            </buttonCell>
-                                                                            <connections>
-                                                                                <binding destination="110" name="value" keyPath="values.org_safeexambrowser_SEB_showQuitButton" id="G9U-fO-6tx"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button toolTip="Allows to reconnect to WiFi networks which have previously been connected to" translatesAutoresizingMaskIntoConstraints="NO" id="P8m-ga-H0m">

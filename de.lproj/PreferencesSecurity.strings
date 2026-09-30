@@ -61,12 +61,6 @@
 /* Class = "NSTextFieldCell"; title = "SEB Service policy"; ObjectID = "100"; */
 "100.title" = "SEB-Service Richtlinie (Win)";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Private clipboard should always be used besides when working with third party applications in a managed user account (if 'Enforce private clipboard (Mac)' is enabled, this setting only affects SEB for Windows and older Mac versions)"; ObjectID = "292"; */
-"292.ibShadowedToolTip" = "Üblicherweise sollte die private Zwischenablage verwendet werden, ausser wenn mit zugelassenen Drittapplikationen in einem verwalteten Benutzerkonto gearbeitet werden soll (wenn 'Private Zwischenablage erzwingen (Mac)' aktiv ist, beeinflusst diese Einstellung nur SEB für Windows und ältere Mac-Versionen)";
-
-/* Class = "NSButtonCell"; title = "Use private clipboard"; ObjectID = "293"; */
-"293.title" = "Private Zwischenablage verwenden";
-
 /* Class = "NSButton"; ibShadowedToolTip = "SEB checks for the command key being held down while SEB is starting up. This prevents using the application switcher to mess with SEB's kiosk mode"; ObjectID = "a9Y-jJ-E1h"; */
 "a9Y-jJ-E1h.ibShadowedToolTip" = "SEB überprüft während des Aufstartens, ob die Befehlstaste (cmd) gedrückt gehalten wird. Dies verhindert Manipulationen mit Hilfe des Programmumschalters";
 
@@ -115,7 +109,7 @@
 /* Class = "NSTextFieldCell"; title = "Minor version number"; ObjectID = "bWG-hR-Cd7"; */
 "bWG-hR-Cd7.title" = "Minor-Versionsnummer";
 
-/* Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable. Corresponds with enable PrintScreen on Win"; ObjectID = "c2c-ER-MY0"; */
+/* Class = "NSButton"; ibShadowedToolTip = "Controls capturing the iOS device screen using AirPlay or a Lightning/USB-C cable"; ObjectID = "c2c-ER-MY0"; */
 "c2c-ER-MY0.ibShadowedToolTip" = "Steuert die Aufzeichnung oder Wiedergabe des Bildschirminhalts eines iOS-Gerätes über AirPlay oder ein Lightning/USC-C Kabel. Entspricht 'PrintScreen erlauben' auf Win";
 
 /* Class = "NSButtonCell"; title = "Enforce private clipboard (Mac)"; ObjectID = "cfE-bh-Syt"; */
