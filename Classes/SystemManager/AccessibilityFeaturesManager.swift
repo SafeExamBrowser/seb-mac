@@ -152,7 +152,41 @@ import CocoaLumberjackSwift
         UserDefaults.standard.setValue(false as NSNumber, forKey: VoiceOverDefaultsKey, forDefaultsDomain: VoiceOverDefaultsDomain)
     }
     
-    /// Returns true if SEB has Full Disk Access (required to read the TCC database).
+    /// Classification of a Full Disk Access probe. Deliberately distinguishes a plain access
+    /// denial from an unexpected failure, so callers can report the actual problem instead of
+    /// unconditionally telling the user "Full Disk Access is not granted" (which is misleading
+    /// when the grant is present but not being applied to this copy of SEB).
+    @objc public enum FullDiskAccessStatus: Int {
+        case granted        // The system TCC database is readable — Full Disk Access is effective.
+        case denied         // open()/read() was denied (EACCES/EPERM). Either FDA was never granted,
+                            // or the grant is not being applied to this copy of SEB (e.g. a
+                            // code-signature/identity mismatch or app translocation).
+        case unavailable    // An unexpected error (not a plain access denial) prevented the check.
+    }
+
+    /// Structured result of probing for Full Disk Access. Preserves the failing operation and
+    /// errno so callers can surface the real error rather than a bare "not granted".
+    @objc public class FullDiskAccessProbeResult: NSObject {
+        @objc public let status: FullDiskAccessStatus
+        @objc public let errnoCode: Int32          // 0 when granted
+        @objc public let failedOperation: String   // "" when granted, otherwise "open" or "read"
+        @objc public let fileExists: Bool          // stat() result — NOT reliable before macOS 13
+
+        init(status: FullDiskAccessStatus, errnoCode: Int32, failedOperation: String, fileExists: Bool) {
+            self.status = status
+            self.errnoCode = errnoCode
+            self.failedOperation = failedOperation
+            self.fileExists = fileExists
+        }
+
+        /// Localized errno description, e.g. "Permission denied". Empty when granted.
+        @objc public var errnoDescription: String {
+            errnoCode == 0 ? "" : String(cString: strerror(errnoCode))
+        }
+    }
+
+    /// Probes whether SEB can read the system TCC database (required for Full Disk Access), and
+    /// returns a structured result preserving the failing operation and errno.
     ///
     /// We must NOT use `FileManager.isReadableFile(atPath:)` here: it is backed by
     /// `access(2)`, which only checks POSIX permissions and is not intercepted by TCC
@@ -165,14 +199,19 @@ import CocoaLumberjackSwift
     /// Instead we actually open the TCC database and read a byte. `open(2)` is gated
     /// by TCC on every macOS version that supports Full Disk Access, so it only
     /// succeeds when FDA has actually been granted.
-    @objc public static var hasFullDiskAccess: Bool {
+    ///
+    /// NOTE: `fileExists` is reported for diagnostics ONLY. The parent directory is not
+    /// searchable by non-root users and `stat()` is not TCC-aware before macOS 13, so this
+    /// is false on macOS 12 even when FDA is granted — it must never be used to decide access.
+    @objc public static var fullDiskAccessProbe: FullDiskAccessProbeResult {
         let path = "/Library/Application Support/com.apple.TCC/TCC.db"
         let exists = FileManager.default.fileExists(atPath: path)
         let fd = open(path, O_RDONLY)
         guard fd >= 0 else {
             let err = errno
             DDLogInfo("hasFullDiskAccess: open(\(path)) failed - errno \(err) (\(String(cString: strerror(err)))), fileExists=\(exists)")
-            return false
+            let status: FullDiskAccessStatus = (err == EACCES || err == EPERM) ? .denied : .unavailable
+            return FullDiskAccessProbeResult(status: status, errnoCode: err, failedOperation: "open", fileExists: exists)
         }
         defer { close(fd) }
         var byte: UInt8 = 0
@@ -182,10 +221,16 @@ import CocoaLumberjackSwift
         if bytesRead < 0 {
             let err = errno
             DDLogInfo("hasFullDiskAccess: read(\(path)) failed - errno \(err) (\(String(cString: strerror(err)))), fileExists=\(exists)")
-            return false
+            let status: FullDiskAccessStatus = (err == EACCES || err == EPERM) ? .denied : .unavailable
+            return FullDiskAccessProbeResult(status: status, errnoCode: err, failedOperation: "read", fileExists: exists)
         }
         DDLogInfo("hasFullDiskAccess: TCC database readable - Full Disk Access granted.")
-        return true
+        return FullDiskAccessProbeResult(status: .granted, errnoCode: 0, failedOperation: "", fileExists: exists)
+    }
+
+    /// Convenience: true only when Full Disk Access is effective (the system TCC database is readable).
+    @objc public static var hasFullDiskAccess: Bool {
+        return fullDiskAccessProbe.status == .granted
     }
 
     /// Opens System Settings to the Full Disk Access pane.
@@ -195,13 +240,34 @@ import CocoaLumberjackSwift
         }
     }
 
-    /// Queries both TCC databases and returns the set of bundle IDs that have been granted
-    /// Accessibility permission. Requires Full Disk Access; returns an empty set if unavailable.
-    @objc public class func bundleIDsWithAccessibilityPermission() -> NSSet {
+    /// Result of querying the TCC databases for apps with Accessibility permission.
+    ///
+    /// `systemDatabaseAvailable` is critical for security: the `kTCCServiceAccessibility` service
+    /// lives ONLY in the system TCC database, so if that database could not be read the returned
+    /// `bundleIDs` set is INCOMPLETE and must NOT be treated as "no apps have the permission".
+    @objc public class AccessibilityPermissionQueryResult: NSObject {
+        @objc public let bundleIDs: NSSet
+        @objc public let systemDatabaseAvailable: Bool
+
+        init(bundleIDs: NSSet, systemDatabaseAvailable: Bool) {
+            self.bundleIDs = bundleIDs
+            self.systemDatabaseAvailable = systemDatabaseAvailable
+        }
+    }
+
+    /// Queries both TCC databases for the bundle IDs granted Accessibility permission, and reports
+    /// whether the (authoritative) system database was actually readable. Requires Full Disk Access;
+    /// with FDA unavailable the system database can't be read and the result is flagged incomplete.
+    @objc public class func accessibilityPermissionQuery() -> AccessibilityPermissionQueryResult {
         let tccPaths = [
             "/Library/Application Support/com.apple.TCC/TCC.db",
             (NSHomeDirectory() as NSString).appendingPathComponent("Library/Application Support/com.apple.TCC/TCC.db")
         ]
+
+        // Reading the system TCC database IS the Full Disk Access probe, so reuse the vetted
+        // open()+read() check as the authoritative signal for whether it is available. sqlite3's
+        // own open result is unreliable here (lazy open; access semantics differ across versions).
+        let systemDatabaseAvailable = (fullDiskAccessProbe.status == .granted)
 
         var result: Set<String> = []
 
@@ -241,7 +307,8 @@ import CocoaLumberjackSwift
         // and must never appear in its own prohibited list.
         result.remove(Bundle.main.bundleIdentifier ?? "")
 
-        return result as NSSet
+        return AccessibilityPermissionQueryResult(bundleIDs: result as NSSet,
+                                                  systemDatabaseAvailable: systemDatabaseAvailable)
     }
 
 

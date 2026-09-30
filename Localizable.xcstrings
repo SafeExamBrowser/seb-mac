@@ -2189,6 +2189,22 @@
         }
       }
     },
+    "Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obwohl Full Disk Access anscheinend erteilt wurde, kann %1$@ die macOS-Systemdatenbank mit der Liste der Apps mit Bedienungshilfen-Berechtigungen nicht lesen (Fehler %2$ld: %3$@ unter /Library/Application Support/com.apple.TCC). Dies kann vorkommen, wenn Full Disk Access für diese Kopie von %4$@ nicht wirksam geworden ist (zum Beispiel wenn sie an Ort und Stelle aktualisiert oder aus einem Quarantäne-Speicherort gestartet wurde) oder wenn die Berechtigungen dieses Systemordners gegenüber den macOS-Standardwerten geändert wurden. Versuchen Sie, %5$@ in den Systemeinstellungen / Datenschutz & Sicherheit / Full Disk Access zu entfernen, es durch Ziehen in den Programme-Ordner neu zu installieren und erneut hinzuzufügen. Falls das nicht hilft, sollte ein Administrator prüfen, ob der Ordner noch seine Standardberechtigungen hat. Klicken Sie anschließend auf „Wiederholen“."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Even though Full Disk Access appears to be granted, %1$@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %2$ld: %3$@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %4$@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %5$@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry."
+          }
+        }
+      }
+    },
     "Exam" : {
       "comment" : "Title of 'Exam' preference pane",
       "localizations" : {
@@ -2450,6 +2466,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FTP-Proxy"
+          }
+        }
+      }
+    },
+    "Full Disk Access Not Working" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full Disk Access funktioniert nicht"
           }
         }
       }

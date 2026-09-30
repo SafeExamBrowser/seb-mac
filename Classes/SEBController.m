@@ -145,6 +145,11 @@ bool insideMatrix(void);
 // foreground. Owns the restore back to strict kiosk mode and prevents double
 // relaxing/restoring across the Full Disk Access "Retry" recursion.
 @property (assign) BOOL relaxedKioskForPermissionDialog;
+// Number of times the Full Disk Access dialog has been shown and retried without the grant
+// becoming effective. After the first unsuccessful retry the dialog escalates to report the
+// actual database-access error (see -conditionallyInitSEBProcessesCheckedWithCallback:selector:),
+// instead of repeating the misleading "Full Disk Access is not granted" message indefinitely.
+@property (assign) NSInteger fullDiskAccessRetryCount;
 - (BOOL) relaxKioskModeForPermissionDialog;
 - (void) restoreKioskModeAfterPermissionDialog;
 - (void) presentLocationServicesWaitAlertWithCompletion:(void (^)(void))completion;
@@ -3057,9 +3062,19 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 /// prohibited applications list, so they are treated like any other prohibited app.
 - (void) addAccessibilityAppsToProhibitedApplicationsList
 {
-    NSSet *accessibilityBundleIDs = [AccessibilityFeaturesManager bundleIDsWithAccessibilityPermission];
+    AccessibilityPermissionQueryResult *queryResult = [AccessibilityFeaturesManager accessibilityPermissionQuery];
+    if (!queryResult.systemDatabaseAvailable) {
+        // The system TCC database (the only place kTCCServiceAccessibility is recorded) could not
+        // be read, so enumeration is INCOMPLETE. Do not treat this as "no prohibited apps": that
+        // would silently satisfy the configured detection requirement. Log it as an error; the
+        // Full Disk Access gate in -conditionallyInitSEBProcessesChecked… should normally prevent
+        // reaching here without access.
+        DDLogError(@"%s: The system TCC database could not be read; apps with Accessibility permission cannot be reliably detected. Detection is INCOMPLETE.", __FUNCTION__);
+        return;
+    }
+    NSSet *accessibilityBundleIDs = queryResult.bundleIDs;
     if (accessibilityBundleIDs.count == 0) {
-        DDLogDebug(@"%s: No apps with Accessibility permission found (or Full Disk Access not available)", __FUNCTION__);
+        DDLogDebug(@"%s: No apps with Accessibility permission found", __FUNCTION__);
         return;
     }
     // Collect bundle IDs of permitted processes that are allowed to have Accessibility permission
@@ -3098,7 +3113,12 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
 /// terminateApplications pass.
 - (void) terminateRunningAccessibilityProhibitedApps
 {
-    NSSet *accessibilityBundleIDs = [AccessibilityFeaturesManager bundleIDsWithAccessibilityPermission];
+    AccessibilityPermissionQueryResult *queryResult = [AccessibilityFeaturesManager accessibilityPermissionQuery];
+    if (!queryResult.systemDatabaseAvailable) {
+        DDLogError(@"%s: The system TCC database could not be read; running apps with Accessibility permission cannot be reliably detected. Detection is INCOMPLETE.", __FUNCTION__);
+        return;
+    }
+    NSSet *accessibilityBundleIDs = queryResult.bundleIDs;
     if (accessibilityBundleIDs.count == 0) {
         return;
     }
@@ -3417,8 +3437,19 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         ![self accessibilityAppDetectionSupported]) {
         DDLogWarn(@"%s: detectAccessibilityApps is enabled but accessibility-app detection is unavailable on this macOS version (Full Disk Access to the system TCC database is not supported before macOS 12). Skipping the Full Disk Access requirement and detection.", __FUNCTION__);
     } else if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_detectAccessibilityApps"]) {
-        if (!AccessibilityFeaturesManager.hasFullDiskAccess) {
-            DDLogError(@"%s: Full Disk Access not granted, required to detect apps with Accessibility permission.", __FUNCTION__);
+        FullDiskAccessProbeResult *fdaProbe = AccessibilityFeaturesManager.fullDiskAccessProbe;
+        if (fdaProbe.status != FullDiskAccessStatusGranted) {
+            // Distinguish "the grant is present but still not working" from a first-time missing
+            // grant: after the user has already visited System Settings and retried at least once
+            // and access still fails, repeating "Full Disk Access is not granted" is misleading
+            // (it usually is granted, just not applied to this copy of SEB). Escalate to a dialog
+            // that reports the actual database-access error and offers actionable guidance.
+            BOOL escalate = self.fullDiskAccessRetryCount >= 1;
+            long errnoCode = (long)fdaProbe.errnoCode;
+            NSString *errnoDesc = fdaProbe.errnoDescription;
+            DDLogError(@"%s: Full Disk Access not effective (status %ld, %@ failed with errno %ld: %@). Attempt %ld, escalate=%d.",
+                       __FUNCTION__, (long)fdaProbe.status, fdaProbe.failedOperation, errnoCode, errnoDesc,
+                       (long)self.fullDiskAccessRetryCount, escalate);
             // Present the alert asynchronously on the main queue: this method can be reached
             // synchronously while still inside a Core Animation transaction commit from
             // window/screen setup, and -[NSAlert runModal] is suppressed inside a transaction.
@@ -3427,8 +3458,13 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                 [AccessibilityFeaturesManager openFullDiskAccessSettings];
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName, SEBShortAppName]];
+                if (escalate) {
+                    [modalAlert setMessageText:NSLocalizedString(@"Full Disk Access Not Working", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.", @""), SEBShortAppName, errnoCode, errnoDesc, SEBShortAppName, SEBShortAppName]];
+                } else {
+                    [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName, SEBShortAppName]];
+                }
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
                 [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
                 [modalAlert setAlertStyle:NSAlertStyleWarning];
@@ -3441,6 +3477,9 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                     [self removeAlertWindow:modalAlert.window];
                     switch (answer) {
                         case NSAlertFirstButtonReturn:
+                            // Count this retry so the next unsuccessful pass escalates to the
+                            // accurate database-access error instead of looping the same message.
+                            self.fullDiskAccessRetryCount++;
                             [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
                             return;
                         case NSAlertSecondButtonReturn:
@@ -3449,6 +3488,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                             return;
                         default:
                             DDLogError(@"Alert for Full Disk Access was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
+                            self.fullDiskAccessRetryCount++;
                             [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
                             return;
                     }
@@ -3467,6 +3507,7 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         }
         // Full Disk Access is available (possibly just granted via the dialog above): restore the
         // strict kiosk mode if it was downgraded for that dialog before continuing.
+        self.fullDiskAccessRetryCount = 0;
         [self restoreKioskModeAfterPermissionDialog];
         // Full Disk Access is available: update the prohibited list and terminate any
         // accessibility apps that are still running (may have been missed before FDA was granted).
