@@ -486,9 +486,6 @@ static SEBSettings *sharedSEBSettings = nil;
                    @"enableMiddleMouse",
                    
                    @YES,
-                   @"enablePlugIns",
-                   
-                   @YES,
                    @"enablePrivateClipboard",
                    
                    @YES,
@@ -1307,6 +1304,7 @@ static SEBSettings *sharedSEBSettings = nil;
         @"disableSessionChangeLockScreen",
         @"enableDrawingEditor",
         @"enableMacOSAAC",
+        @"enablePlugIns",
         @"enableTouchExit",
         @"exitKey1",
         @"exitKey2",

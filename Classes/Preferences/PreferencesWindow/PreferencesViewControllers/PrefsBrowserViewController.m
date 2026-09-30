@@ -40,9 +40,6 @@
 
 - (void) awakeFromNib {
     [self scrollToTop:_scrollView];
-#ifdef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-    [enablePlugIns setEnabled:NO]; // disable the checkbox for plug-ins
-#endif
     userAgentWinDesktopDefault.stringValue = SEBWinUserAgentDesktopDefault;
     userAgentWinTouchDefault.stringValue = SEBWinUserAgentTouchDefault;
     userAgentWinTouchiPad.stringValue = SEBWinUserAgentTouchiPad;

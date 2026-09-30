@@ -41,7 +41,6 @@
 @class PreferencesController;
 
 @interface PrefsBrowserViewController : PreferencesViewController <MBPreferencesModule> {
-    IBOutlet NSButton *enablePlugIns;
     IBOutlet NSButton *newBrowserWindowByLinkBlockForeignButton;
     __weak IBOutlet NSButton *browserMediaAutoplayVideoButton;
     __weak IBOutlet NSButton *browserMediaAutoplayAudioButton;

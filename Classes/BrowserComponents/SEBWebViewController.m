@@ -52,12 +52,6 @@
 
         // Set bindings to web preferences
         WebPreferences *webPrefs = [WebPreferences standardPreferences];
-    #ifndef __i386__        // Plugins can't be switched on in the 32-bit Intel build
-        [webPrefs bind:@"plugInsEnabled"
-              toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
-           withKeyPath:@"values.org_safeexambrowser_SEB_enablePlugIns"
-               options:nil];
-    #endif
         [webPrefs bind:@"javaEnabled"
               toObject:[SEBEncryptedUserDefaultsController sharedSEBEncryptedUserDefaultsController]
            withKeyPath:@"values.org_safeexambrowser_SEB_enableJava"
