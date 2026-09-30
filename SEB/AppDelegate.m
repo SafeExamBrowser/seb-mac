@@ -627,20 +627,22 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"SEB.sqlite"];
     NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        // Report any error we got.
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
-        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
-        dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        // Replace this with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        // The store lives in the Caches directory and only holds disposable browser
+        // session/event data, so it can be purged by the OS or become incompatible after
+        // a data model change. Instead of aborting (which crashes the app on launch, see
+        // SEBMAC-857), discard the existing store and recreate it.
+        DDLogError(@"Could not add persistent store (%@, %@) - recreating it", error, error.userInfo);
+        error = nil;
+        [_persistentStoreCoordinator destroyPersistentStoreAtURL:storeURL withType:NSSQLiteStoreType options:nil error:&error];
+        error = nil;
+        if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+            // Still failing: continue without a persistent store rather than crashing.
+            // Core Data then operates in-memory only for this launch.
+            DDLogError(@"Could not recreate persistent store (%@, %@) - continuing without persisted session data", error, error.userInfo);
+        }
     }
-    
+
     return _persistentStoreCoordinator;
 }
 
@@ -667,10 +669,11 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     if (managedObjectContext != nil) {
         NSError *error = nil;
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            // This only persists disposable browser session/event data (stored in the
+            // Caches directory), so a failed save must not crash the app (see SEBMAC-857).
+            // Log and roll back the unsaved changes instead of aborting.
+            DDLogError(@"Could not save managed object context (%@, %@) - rolling back", error, error.userInfo);
+            [managedObjectContext rollback];
         }
     }
 }
