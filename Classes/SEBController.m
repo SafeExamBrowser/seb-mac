@@ -3447,6 +3447,13 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
             BOOL escalate = self.fullDiskAccessRetryCount >= 1;
             long errnoCode = (long)fdaProbe.errnoCode;
             NSString *errnoDesc = fdaProbe.errnoDescription;
+            // EACCES (Permission denied) is a POSIX/filesystem denial: the TCC folder's
+            // permissions/ownership have been changed from their macOS default, so even a
+            // granted Full Disk Access can't help. Any other error (typically EPERM,
+            // "Operation not permitted") is a TCC denial: POSIX allows access but Full Disk
+            // Access isn't granted, or the grant doesn't apply to this copy of SEB. The two
+            // cases need different guidance.
+            BOOL posixDenied = (fdaProbe.errnoCode == EACCES);
             DDLogError(@"%s: Full Disk Access not effective (status %ld, %@ failed with errno %ld: %@). Attempt %ld, escalate=%d.",
                        __FUNCTION__, (long)fdaProbe.status, fdaProbe.failedOperation, errnoCode, errnoDesc,
                        (long)self.fullDiskAccessRetryCount, escalate);
@@ -3458,9 +3465,15 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
                 [AccessibilityFeaturesManager openFullDiskAccessSettings];
                 [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
                 NSAlert *modalAlert = [self newAlert];
-                if (escalate) {
+                if (escalate && posixDenied) {
+                    // EACCES: the file system itself denied access — folder permissions changed.
                     [modalAlert setMessageText:NSLocalizedString(@"Full Disk Access Not Working", @"")];
-                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Even though Full Disk Access appears to be granted, %@ still cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). This can happen if Full Disk Access has not taken effect for this copy of %@ (for example if it was updated in place or launched from a quarantined location), or if the permissions of that system folder have been changed from their macOS default. Try removing %@ from System Settings / Privacy & Security / Full Disk Access, reinstalling it by dragging it into the Applications folder, and adding it again. If that does not help, an administrator should check that the folder still has its default permissions. Then click Retry.", @""), SEBShortAppName, errnoCode, errnoDesc, SEBShortAppName, SEBShortAppName]];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"%@ cannot read the macOS system database that lists apps with Accessibility permissions because the file system denied access (error %ld: %@ at /Library/Application Support/com.apple.TCC). The permissions of that system folder appear to have been changed from their macOS default (drwxr-xr-x, owner root, group wheel). An administrator should restore the default permissions (for example with “sudo chown root:wheel” and “sudo chmod 755” on that folder), then click Retry.", @""), SEBShortAppName, errnoCode, errnoDesc]];
+                } else if (escalate) {
+                    // EPERM or other: POSIX allows access but TCC denied it — Full Disk Access
+                    // isn't granted, or the grant doesn't apply to this copy of SEB.
+                    [modalAlert setMessageText:NSLocalizedString(@"Full Disk Access Not Working", @"")];
+                    [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"Full Disk Access still isn't in effect for %@, so it cannot read the macOS system database that lists apps with Accessibility permissions (error %ld: %@ at /Library/Application Support/com.apple.TCC). Make sure Full Disk Access is enabled for %@ in System Settings / Privacy & Security / Full Disk Access. If it is already enabled, the grant may not apply to this copy of %@ (for example if it was updated in place or launched from a quarantined location) — remove %@ from the list, reinstall it by dragging it into the Applications folder, and add it again. Then click Retry.", @""), SEBShortAppName, errnoCode, errnoDesc, SEBShortAppName, SEBShortAppName, SEBShortAppName]];
                 } else {
                     [modalAlert setMessageText:NSLocalizedString(@"Grant Full Disk Access", @"")];
                     [modalAlert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"To detect apps with Accessibility permissions, %@ requires Full Disk Access. %@ is not reading any other data than the macOS system list of applications with Accessibility permissions. Please enable it in System Settings / Privacy & Security / Full Disk Access, then click Retry.", @""), SEBShortAppName, SEBShortAppName]];
