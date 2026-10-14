@@ -912,6 +912,8 @@
 		69FF14AD1A1BB10300912933 /* SEBFilterArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FF14AB1A1BB10300912933 /* SEBFilterArrayController.m */; };
 		FEED0000000000000000A002 /* SEBBrowserControllerTrustTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000A001 /* SEBBrowserControllerTrustTestSupport.swift */; };
 		FEED0000000000000000A004 /* SEBBrowserControllerTrustTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000A003 /* SEBBrowserControllerTrustTests.swift */; };
+		FEED0000000000000000D002 /* SEBWebViewLoadingTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000D001 /* SEBWebViewLoadingTestSupport.swift */; };
+		FEED0000000000000000D004 /* SEBWebViewLoadErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000D003 /* SEBWebViewLoadErrorHandlingTests.swift */; };
 		FEED0000000000000000A006 /* SEBBrowserController+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000A005 /* SEBBrowserController+Testing.h */; };
 		FEED0000000000000000A007 /* SEBBrowserController+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000A005 /* SEBBrowserController+Testing.h */; };
 		FEED0000000000000000B003 /* NSColorValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = FEED0000000000000000B001 /* NSColorValueTransformer.h */; };
@@ -1784,6 +1786,8 @@
 		FD0AEC1826F0E1C74E39CAA1 /* Pods_Safe_Exam_Browser_ETH.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Safe_Exam_Browser_ETH.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEED0000000000000000A001 /* SEBBrowserControllerTrustTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBBrowserControllerTrustTestSupport.swift; path = Classes/BrowserComponents/SEBBrowserControllerTrustTestSupport.swift; sourceTree = "<group>"; };
 		FEED0000000000000000A003 /* SEBBrowserControllerTrustTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBBrowserControllerTrustTests.swift; sourceTree = "<group>"; };
+		FEED0000000000000000D001 /* SEBWebViewLoadingTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SEBWebViewLoadingTestSupport.swift; path = Classes/BrowserComponents/SEBWebViewLoadingTestSupport.swift; sourceTree = "<group>"; };
+		FEED0000000000000000D003 /* SEBWebViewLoadErrorHandlingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEBWebViewLoadErrorHandlingTests.swift; sourceTree = "<group>"; };
 		FEED0000000000000000A005 /* SEBBrowserController+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SEBBrowserController+Testing.h"; path = "Classes/BrowserComponents/SEBBrowserController+Testing.h"; sourceTree = "<group>"; };
 		FEED0000000000000000B001 /* NSColorValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSColorValueTransformer.h; sourceTree = "<group>"; };
 		FEED0000000000000000B002 /* NSColorValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSColorValueTransformer.m; sourceTree = "<group>"; };
@@ -2302,6 +2306,7 @@
 				69BAD4E23013AF19003887E8 /* SEBKeychainPasswordHashTests.swift */,
 				6918BCB6301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift */,
 				FEED0000000000000000A003 /* SEBBrowserControllerTrustTests.swift */,
+				FEED0000000000000000D003 /* SEBWebViewLoadErrorHandlingTests.swift */,
 				69B7A4D12C6948EC00094ED3 /* SEBScreenCaptureControllerTests.swift */,
 				6940B9851BA0F2FB008C8CFC /* SEBTests.m */,
 				6940B9871BA0F2FB008C8CFC /* Info.plist */,
@@ -2395,6 +2400,7 @@
 				69B539401C52974100A967B0 /* SEBBrowserController.h */,
 				69B539411C52974100A967B0 /* SEBBrowserController.m */,
 				FEED0000000000000000A001 /* SEBBrowserControllerTrustTestSupport.swift */,
+				FEED0000000000000000D001 /* SEBWebViewLoadingTestSupport.swift */,
 				FEED0000000000000000A005 /* SEBBrowserController+Testing.h */,
 				690C6EE419E29E3600EDE103 /* SEBOSXBrowserController.h */,
 				690C6EE519E29E3600EDE103 /* SEBOSXBrowserController.m */,
@@ -4393,6 +4399,7 @@
 				6918BCB7301ACF9E00E602A2 /* SEBLockdownModePolicyMigrationTests.swift in Sources */,
 				69482BC6302F57D100E4CFEB /* SEBAllowedSEBVersionsTests.swift in Sources */,
 				FEED0000000000000000A004 /* SEBBrowserControllerTrustTests.swift in Sources */,
+				FEED0000000000000000D004 /* SEBWebViewLoadErrorHandlingTests.swift in Sources */,
 				69BAD4E33013AF19003887E8 /* SEBKeychainPasswordHashTests.swift in Sources */,
 				69B7A4E02C694D7400094ED3 /* SEBScreenCaptureControllerTests.swift in Sources */,
 				698A176A300FDF52006646A9 /* SEBConfigKeyDoubleTests.swift in Sources */,
@@ -4452,6 +4459,7 @@
 				69F7B60C14F411FB00FD0761 /* CapView.m in Sources */,
 				6918BCB5301ACEEC00E602A2 /* SEBLockdownModePolicyMigrationTestSupport.swift in Sources */,
 				FEED0000000000000000A002 /* SEBBrowserControllerTrustTestSupport.swift in Sources */,
+				FEED0000000000000000D002 /* SEBWebViewLoadingTestSupport.swift in Sources */,
 				69F7B60D14F411FB00FD0761 /* AboutWindow.m in Sources */,
 				69C2C911294C7F7C00092951 /* ReloadPageUIElement.swift in Sources */,
 				69F7B60E14F411FB00FD0761 /* AboutView.m in Sources */,
