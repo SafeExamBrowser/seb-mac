@@ -182,6 +182,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) presentAlertWithTitle:(NSString *)title
                        message:(NSString *)message;
 
+// Required by SEB-macOS. Returns YES only when the registered handler for the
+// URL is an explicitly permitted application and the URL was handed to it.
+- (BOOL) openExternalURLIfPermitted:(NSURL *)url;
+
 // Required by SEB-iOS
 - (SEBBackgroundTintStyle) backgroundTintStyle;
 

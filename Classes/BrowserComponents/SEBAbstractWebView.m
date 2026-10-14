@@ -766,6 +766,33 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     }
     
     NSString *fileExtension = [url pathExtension];
+
+#if TARGET_OS_OSX
+    // WKWebView doesn't forward custom URL schemes to their registered macOS
+    // handlers. Hand them off explicitly, but only if the navigation delegate
+    // confirms that the registered application is permitted in the current
+    // SEB session. Always cancel the WebKit navigation so an unhandled custom
+    // scheme cannot fall through and produce NSURLErrorUnsupportedURL.
+    NSString *scheme = url.scheme.lowercaseString;
+    NSSet<NSString *> *webViewSchemes = [NSSet setWithObjects:
+                                         @"about", @"blob", @"data", @"file",
+                                         @"http", @"https", @"javascript",
+                                         SEBProtocolScheme.lowercaseString,
+                                         SEBSSecureProtocolScheme.lowercaseString,
+                                         nil];
+    if (scheme.length > 0 && ![webViewSchemes containsObject:scheme]) {
+        BOOL opened = NO;
+        if ([self.navigationDelegate respondsToSelector:@selector(openExternalURLIfPermitted:)]) {
+            opened = [self.navigationDelegate openExternalURLIfPermitted:url];
+        }
+        if (opened) {
+            DDLogInfo(@"Opened external URL with scheme '%@' in a permitted application.", scheme);
+        } else {
+            DDLogWarn(@"Blocked external URL with scheme '%@' because no permitted handler is available.", scheme);
+        }
+        return newNavigationAction;
+    }
+#endif
     
     if (newTab) {
         newBrowserWindowPolicies newBrowserWindowPolicy = [preferences secureIntegerForKey:@"org_safeexambrowser_SEB_newBrowserWindowByLinkPolicy"];

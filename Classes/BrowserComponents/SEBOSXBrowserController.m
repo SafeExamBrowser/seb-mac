@@ -38,6 +38,7 @@
 
 #import "NSURL+SEBURL.h"
 #import "NSScreen+SEBScreen.h"
+#import "ProcessManager.h"
 
 @implementation SEBOSXBrowserController
 
@@ -981,6 +982,38 @@
 {
     DDLogInfo(@"Attempting to open downloaded file at %@ with app bundle ID %@.", fileURL, bundleId);
     [self.sebController openURLs:@[fileURL] withAppAtURL:nil bundleID:bundleId];
+}
+
+
+- (BOOL) openExternalURLIfPermitted:(NSURL *)url
+{
+    NSURL *applicationURL = [[NSWorkspace sharedWorkspace] URLForApplicationToOpenURL:url];
+    if (!applicationURL) {
+        DDLogWarn(@"No application is registered for external URL scheme '%@'.", url.scheme.lowercaseString);
+        return NO;
+    }
+
+    NSString *bundleIdentifier = [NSBundle bundleWithURL:applicationURL].bundleIdentifier;
+    if (bundleIdentifier.length == 0) {
+        DDLogWarn(@"Could not determine the bundle identifier of the application registered for external URL scheme '%@'.", url.scheme.lowercaseString);
+        return NO;
+    }
+
+    NSArray<NSDictionary *> *permittedProcesses = [ProcessManager sharedProcessManager].permittedProcesses;
+    NSPredicate *identifierPredicate = [NSPredicate predicateWithBlock:^BOOL(NSDictionary *process, NSDictionary *bindings) {
+        NSString *permittedIdentifier = process[@"identifier"];
+        return permittedIdentifier.length > 0 &&
+            [permittedIdentifier caseInsensitiveCompare:bundleIdentifier] == NSOrderedSame;
+    }];
+    NSDictionary *permittedProcess = [[permittedProcesses filteredArrayUsingPredicate:identifierPredicate] firstObject];
+    if (!permittedProcess) {
+        DDLogWarn(@"Blocked external URL scheme '%@': its registered handler '%@' isn't a permitted application.", url.scheme.lowercaseString, bundleIdentifier);
+        return NO;
+    }
+
+    DDLogInfo(@"Opening external URL scheme '%@' with permitted application '%@'.", url.scheme.lowercaseString, bundleIdentifier);
+    [self.sebController openURLs:@[url] withAppAtURL:applicationURL bundleID:bundleIdentifier];
+    return YES;
 }
 
 
