@@ -35,6 +35,14 @@
 #import "AppDelegate.h"
 
 
+@interface SEBiOSWebViewController ()
+
+// Currently displayed "page is still loading" alert
+@property (weak, nonatomic, nullable) UIAlertController *loadPendingAlertController;
+
+@end
+
+
 @implementation SEBiOSWebViewController
 
 - (instancetype)initNewTabMainWebView:(BOOL)mainWebView
@@ -559,6 +567,56 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
         }]];
         
         [self.navigationDelegate presentViewController:self.navigationDelegate.uiAlertController animated:NO completion:nil];
+    }
+}
+
+
+// A page load is waiting for a response for a long time: Ask the user to keep waiting or to
+// retry. The navigation isn't canceled, as the server might just be slow (e.g. under load).
+- (void)sebWebViewLoadIsPendingForURL:(NSURL *)url
+                              seconds:(NSTimeInterval)seconds
+                    completionHandler:(void (^)(BOOL retry))completionHandler
+{
+    if (self.loadPendingAlertController) {
+        return;
+    }
+    // Show the URL according to the ShowURL policy settings for load errors
+    NSString *policyKey = self.sebWebView.isMainBrowserWebView ? @"org_safeexambrowser_SEB_browserWindowShowURL" : @"org_safeexambrowser_SEB_newBrowserWindowShowURL";
+    BOOL showURL = url && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:policyKey] >= browserWindowShowURLOnlyLoadError;
+    NSString *message = NSLocalizedString(@"The server hasn't responded yet. You can keep waiting or try to load the page again.", @"Shown when a page load is waiting for a server response for a long time");
+    if (showURL) {
+        message = [NSString stringWithFormat:@"%@\n%@", message, url.absoluteString];
+    }
+    if (self.navigationDelegate.uiAlertController) {
+        [self.navigationDelegate.uiAlertController dismissViewControllerAnimated:NO completion:nil];
+    }
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Page Is Still Loading", @"Title of alert shown when a page load is waiting for a server response for a long time")
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Keep Waiting", @"Button to continue waiting for a page to load")
+                                                         style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self.navigationDelegate.uiAlertController = nil;
+        completionHandler(NO);
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Retry", @"")
+                                                         style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.navigationDelegate.uiAlertController = nil;
+        completionHandler(YES);
+    }]];
+    self.navigationDelegate.uiAlertController = alertController;
+    self.loadPendingAlertController = alertController;
+    [self.navigationDelegate presentViewController:alertController animated:NO completion:nil];
+}
+
+
+- (void)sebWebViewLoadIsNoLongerPending
+{
+    UIAlertController *alertController = self.loadPendingAlertController;
+    self.loadPendingAlertController = nil;
+    // Only dismiss the alert if it is still displayed and wasn't replaced by another one
+    if (alertController && self.navigationDelegate.uiAlertController == alertController) {
+        [alertController dismissViewControllerAnimated:NO completion:nil];
+        self.navigationDelegate.uiAlertController = nil;
     }
 }
 

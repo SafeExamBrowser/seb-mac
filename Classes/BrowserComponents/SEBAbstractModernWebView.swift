@@ -193,6 +193,22 @@ import CocoaLumberjackSwift
     // suppress repetitive identical log entries (e.g. when a page is polled/retried).
     private var lastLoggedMainFrameStatus: String?
 
+    // Watchdog for main frame navigations which neither complete nor fail (for example
+    // when a request never receives a response), which otherwise leaves a blank page
+    // without any feedback. It never cancels the navigation by itself: The user is asked
+    // to keep waiting or to retry. Internal (not private) so tests can shorten the timeouts.
+    var pendingNavigationTimeout: TimeInterval = 30
+    var pendingNavigationExtendedTimeout: TimeInterval = 60
+    private var pendingNavigation: WKNavigation?
+    private var pendingNavigationURL: URL?
+    private var pendingNavigationStart: Date?
+    private var pendingNavigationTimer: Timer?
+    private var mainFrameNavigationURL: URL?
+    // Identifies the currently displayed "still loading" alert, so a late answer to an
+    // outdated (meanwhile dismissed) alert is ignored
+    private var pendingNavigationAlertID = 0
+    private var pendingNavigationAlertShown = false
+
     @objc public init(delegate: SEBAbstractWebViewNavigationDelegate, configuration: WKWebViewConfiguration?) {
         super.init()
         dynamicLogLevel = MyGlobals.ddLogLevel()
@@ -797,14 +813,18 @@ import CocoaLumberjackSwift
     }
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        startPendingNavigationWatchdog(for: navigation, url: mainFrameNavigationURL ?? webView.url)
+        mainFrameNavigationURL = nil
         navigationDelegate?.sebWebViewDidStartLoad?()
     }
-    
+
     public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
 //        searchSessionIdentifiers()
+        pendingNavigationDidProgress(to: webView.url)
     }
-    
+
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        stopPendingNavigationWatchdog(for: navigation)
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }
     
@@ -820,6 +840,7 @@ import CocoaLumberjackSwift
     
     public func webView(_ webView: WKWebView,
                         didCommit navigation: WKNavigation) {
+        stopPendingNavigationWatchdog(for: navigation)
         previousZoomLevel = 1
         setPageZoom()
         setTextSize()
@@ -831,6 +852,7 @@ import CocoaLumberjackSwift
         // A page finished loading, so the content process is healthy again:
         // reset the termination counter used by the reload-loop guard.
         webContentProcessTerminationCount = 0
+        stopPendingNavigationWatchdog(for: navigation)
         navigationDelegate?.sebWebViewDidFinishLoad?()
         sebWebView.seb_evaluateJavaScript(controlSpellCheckCode, completionHandler: nil)
         if currentFrame != nil {
@@ -840,6 +862,8 @@ import CocoaLumberjackSwift
     }
 
     public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        // A pending navigation can't complete anymore, it is replaced by reloading or an error
+        stopPendingNavigationWatchdog(for: nil)
         webContentProcessTerminationCount += 1
         DDLogWarn("webViewWebContentProcessDidTerminate (termination #\(webContentProcessTerminationCount))")
         if webContentProcessTerminationCount <= maxWebContentProcessTerminationReloads {
@@ -871,6 +895,10 @@ import CocoaLumberjackSwift
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
             return
+        }
+        if navigationAction.targetFrame?.isMainFrame == true {
+            // Remember the requested URL for the pending navigation watchdog
+            mainFrameNavigationURL = url
         }
 
         let allowDownloads = self.navigationDelegate?.allowDownloads ?? false
@@ -998,7 +1026,14 @@ import CocoaLumberjackSwift
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationResponse: WKNavigationResponse,
                         decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        
+
+        if navigationResponse.isForMainFrame {
+            // Logged before fetching cookies (asynchronously), so the log shows whether a
+            // main frame navigation received a response at all, even if it then doesn't commit
+            logMainFrameResponse(navigationResponse.response)
+            pendingNavigationDidProgress(to: navigationResponse.response.url)
+        }
+
         let decidePolicyWithCookies:([HTTPCookie]) -> () = { cookies in
             guard let url = navigationResponse.response.url else {
                 decisionHandler(.cancel)
@@ -1021,23 +1056,10 @@ import CocoaLumberjackSwift
                       let headers = response.allHeaderFields as? [String: String] {
                     self.navigationDelegate?.examineHeaders?(headers, for: responseURL)
                 }
-                // Log the HTTP status code of the main frame page load for diagnostics
-                // and surface server errors that WebKit would otherwise render as a
+                // Surface server errors that WebKit would otherwise render as a
                 // blank (white) page without reporting any error to SEB.
                 if isForMainFrame {
                     let expectedContentLength = response.expectedContentLength
-                    if statusCode < 200 || statusCode >= 300 {
-                        // Only log the first of consecutive identical non-2xx results
-                        // to avoid flooding the log when a page is polled or retried.
-                        let statusKey = "\(statusCode) \(responseURL.absoluteString)"
-                        if statusKey != self.lastLoggedMainFrameStatus {
-                            self.lastLoggedMainFrameStatus = statusKey
-                            DDLogWarn("Main frame load of \(responseURL.absoluteString) returned HTTP status code \(statusCode) (expectedContentLength: \(expectedContentLength))")
-                        }
-                    } else {
-                        self.lastLoggedMainFrameStatus = nil
-                        DDLogDebug("Main frame load of \(responseURL.absoluteString) returned HTTP status code \(statusCode)")
-                    }
                     // Treat 5xx server errors as load errors, and 4xx client errors
                     // only when the response body is empty (there is nothing useful
                     // to display, so the user would just see a white screen).
@@ -1120,6 +1142,135 @@ import CocoaLumberjackSwift
         return ""
     }
     
+    /// Logs a received main frame response: Successful responses at Debug level, others
+    /// at Warn level, consecutive identical non-2xx responses (same status code and URL)
+    /// only once to avoid flooding the log when a page is polled or retried.
+    private func logMainFrameResponse(_ response: URLResponse) {
+        let urlString = response.url?.absoluteString ?? "<no URL>"
+        guard let httpResponse = response as? HTTPURLResponse else {
+            DDLogDebug("Main frame response received for \(urlString) (not an HTTP response)")
+            return
+        }
+        let statusCode = httpResponse.statusCode
+        if statusCode < 200 || statusCode >= 300 {
+            let statusKey = "\(statusCode) \(urlString)"
+            if statusKey != lastLoggedMainFrameStatus {
+                lastLoggedMainFrameStatus = statusKey
+                DDLogWarn("Main frame load of \(urlString) returned HTTP status code \(statusCode) (expectedContentLength: \(httpResponse.expectedContentLength))")
+            }
+        } else {
+            lastLoggedMainFrameStatus = nil
+            DDLogDebug("Main frame load of \(urlString) returned HTTP status code \(statusCode)")
+        }
+    }
+
+    private func startPendingNavigationWatchdog(for navigation: WKNavigation?, url: URL?) {
+        if pendingNavigationAlertShown {
+            // A new navigation replaces the one the user was alerted about
+            dismissPendingNavigationAlert()
+        }
+        pendingNavigation = navigation
+        pendingNavigationURL = url
+        pendingNavigationStart = Date()
+        armPendingNavigationTimer(timeout: pendingNavigationTimeout)
+    }
+
+    /// A pending navigation made progress (server redirect or response received)
+    private func pendingNavigationDidProgress(to url: URL?) {
+        guard pendingNavigationStart != nil else {
+            return
+        }
+        if let url = url {
+            pendingNavigationURL = url
+        }
+        if pendingNavigationAlertShown {
+            DDLogInfo("Pending navigation to \(pendingNavigationURL?.absoluteString ?? "<unknown>") made progress, dismissing 'page is still loading' alert")
+            dismissPendingNavigationAlert()
+        }
+        pendingNavigationStart = Date()
+        armPendingNavigationTimer(timeout: pendingNavigationTimeout)
+    }
+
+    /// The pending navigation committed, finished or failed
+    private func stopPendingNavigationWatchdog(for navigation: WKNavigation?) {
+        // Ignore callbacks for an older navigation which was replaced by a newer one
+        // (for example the cancellation of the previous navigation, reported after
+        // the new one already started)
+        if let navigation = navigation, let pendingNavigation = pendingNavigation, navigation !== pendingNavigation {
+            return
+        }
+        pendingNavigationTimer?.invalidate()
+        pendingNavigationTimer = nil
+        if pendingNavigationAlertShown {
+            DDLogInfo("Pending navigation to \(pendingNavigationURL?.absoluteString ?? "<unknown>") completed or failed, dismissing 'page is still loading' alert")
+            dismissPendingNavigationAlert()
+        }
+        pendingNavigation = nil
+        pendingNavigationURL = nil
+        pendingNavigationStart = nil
+    }
+
+    private func armPendingNavigationTimer(timeout: TimeInterval) {
+        pendingNavigationTimer?.invalidate()
+        pendingNavigationTimer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
+            self?.pendingNavigationTimerFired()
+        }
+    }
+
+    private func pendingNavigationTimerFired() {
+        pendingNavigationTimer = nil
+        guard let pendingNavigationStart = pendingNavigationStart else {
+            return
+        }
+        let seconds = Date().timeIntervalSince(pendingNavigationStart)
+        let urlString = pendingNavigationURL?.absoluteString ?? "<unknown>"
+        DDLogWarn("Main frame navigation to \(urlString) has been waiting \(Int(seconds)) s for a response without completing or failing")
+        if downloadingSEBConfig {
+            return
+        }
+        pendingNavigationAlertID += 1
+        let alertID = pendingNavigationAlertID
+        pendingNavigationAlertShown = true
+        // On macOS the alert may run modally, then the completion handler is called
+        // before this method returns
+        navigationDelegate?.sebWebViewLoadIsPending?(url: pendingNavigationURL, seconds: seconds) { [weak self] retry in
+            self?.pendingNavigationAlertAnswered(alertID: alertID, retry: retry)
+        }
+    }
+
+    private func pendingNavigationAlertAnswered(alertID: Int, retry: Bool) {
+        guard alertID == pendingNavigationAlertID, pendingNavigationAlertShown else {
+            DDLogDebug("Ignoring answer to an outdated 'page is still loading' alert")
+            return
+        }
+        pendingNavigationAlertShown = false
+        guard pendingNavigationStart != nil else {
+            DDLogInfo("User chose to \(retry ? "retry" : "keep waiting") in the 'page is still loading' alert, but the navigation completed in the meantime")
+            return
+        }
+        let url = pendingNavigationURL
+        if retry {
+            DDLogInfo("User chose to retry loading \(url?.absoluteString ?? "<unknown>"), which was waiting for a response")
+            stopPendingNavigationWatchdog(for: nil)
+            // Retry the same way as after a load error
+            if let url = url, !UserDefaults.standard.secureBool(forKey: "org_safeexambrowser_SEB_browserConnectionErrorReload") {
+                load(url)
+            } else {
+                reload()
+            }
+        } else {
+            DDLogInfo("User chose to keep waiting for \(url?.absoluteString ?? "<unknown>") to load")
+            armPendingNavigationTimer(timeout: pendingNavigationExtendedTimeout)
+        }
+    }
+
+    private func dismissPendingNavigationAlert() {
+        pendingNavigationAlertShown = false
+        // Invalidates the dismissed alert, a late answer to it will be ignored
+        pendingNavigationAlertID += 1
+        navigationDelegate?.sebWebViewLoadIsNoLongerPending?()
+    }
+
     public func sebWebViewDidFailLoadWithError(_ error: Error) {
         navigationDelegate?.sebWebViewDidFailLoadWithError?(error)
     }

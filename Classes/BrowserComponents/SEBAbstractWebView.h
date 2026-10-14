@@ -195,6 +195,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sebWebViewDidStartLoad;
 - (void)sebWebViewDidFinishLoad;
 - (void)sebWebViewDidFailLoadWithError:(NSError *)error;
+// A main frame navigation has neither completed nor failed for a while: Ask the user
+// to keep waiting or to retry (completionHandler(YES)). Must not cancel the navigation.
+- (void)sebWebViewLoadIsPendingForURL:(nullable NSURL *)url
+                              seconds:(NSTimeInterval)seconds
+                    completionHandler:(void (^)(BOOL retry))completionHandler
+NS_SWIFT_NAME(sebWebViewLoadIsPending(url:seconds:completionHandler:));
+// The pending navigation completed or failed: Dismiss the alert if it is still displayed
+- (void)sebWebViewLoadIsNoLongerPending;
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                   newTab:(BOOL)newTab
                                            configuration:(nullable WKWebViewConfiguration *)configuration

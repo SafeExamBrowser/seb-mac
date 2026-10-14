@@ -135,21 +135,27 @@
     return [self.browserControllerDelegate canGoForward];
 }
 
+// goBack, goForward and reload are only invoked by manual user actions (toolbar, Dock,
+// keyboard shortcuts, Retry button), so they are logged at Info level
 - (void)goBack
 {
+    DDLogInfo(@"User navigates back in browser history (current URL: %@)", self.url.absoluteString);
     [self.browserControllerDelegate goBack];
 }
 
 - (void)goForward
 {
+    DDLogInfo(@"User navigates forward in browser history (current URL: %@)", self.url.absoluteString);
     [self.browserControllerDelegate goForward];
 }
 
 - (void)reload
 {
     if (self.isReloadAllowed == NO) {
+        DDLogInfo(@"User requested reloading the page, but reloading isn't allowed (current URL: %@)", self.url.absoluteString);
         return;
     }
+    DDLogInfo(@"User reloads the page (current URL: %@)", self.url.absoluteString);
     [self.browserControllerDelegate reload];
 }
 
@@ -708,6 +714,45 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
 }
 
 
+- (void)sebWebViewLoadIsPendingForURL:(NSURL *)url
+                              seconds:(NSTimeInterval)seconds
+                    completionHandler:(void (^)(BOOL retry))completionHandler
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewLoadIsPendingForURL:seconds:completionHandler:)]) {
+        [self.navigationDelegate sebWebViewLoadIsPendingForURL:url seconds:seconds completionHandler:completionHandler];
+    }
+}
+
+
+- (void)sebWebViewLoadIsNoLongerPending
+{
+    if ([self.navigationDelegate respondsToSelector:@selector(sebWebViewLoadIsNoLongerPending)]) {
+        [self.navigationDelegate sebWebViewLoadIsNoLongerPending];
+    }
+}
+
+
+- (NSString *)nameForNavigationType:(WKNavigationType)navigationType
+{
+    switch (navigationType) {
+        case WKNavigationTypeLinkActivated:
+            return @"link activated";
+        case WKNavigationTypeFormSubmitted:
+            return @"form submitted";
+        case WKNavigationTypeBackForward:
+            return @"back/forward";
+        case WKNavigationTypeReload:
+            return @"reload";
+        case WKNavigationTypeFormResubmitted:
+            return @"form resubmitted";
+        case WKNavigationTypeOther:
+            return @"other";
+        default:
+            return [NSString stringWithFormat:@"%ld", (long)navigationType];
+    }
+}
+
+
 - (SEBNavigationAction *)decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                                                       newTab:(BOOL)newTab
                                            configuration:(WKWebViewConfiguration *)configuration
@@ -719,8 +764,15 @@ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NS
     WKNavigationType navigationType = navigationAction.navigationType;
     NSString *httpMethod = request.HTTPMethod;
     //    NSDictionary<NSString *,NSString *> *allHTTPHeaderFields = request.allHTTPHeaderFields;
-    DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
-    DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
+    // Main frame navigations are logged at Debug level (one entry per page load),
+    // subframe navigations only at Verbose level, as they can be very frequent
+    WKFrameInfo *targetFrame = navigationAction.targetFrame;
+    if (targetFrame == nil || targetFrame.isMainFrame) {
+        DDLogDebug(@"Main frame navigation%@ of type %@ with HTTP method %@ to URL %@", targetFrame == nil ? @" (new window)" : @"", [self nameForNavigationType:navigationType], httpMethod, url);
+    } else {
+        DDLogVerbose(@"Navigation type for URL %@: %ld", url, (long)navigationType);
+        DDLogVerbose(@"HTTP method for URL %@: %@", url, httpMethod);
+    }
     //    DDLogVerbose(@"All HTTP header fields for URL %@: %@", url, allHTTPHeaderFields);
     
     NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];

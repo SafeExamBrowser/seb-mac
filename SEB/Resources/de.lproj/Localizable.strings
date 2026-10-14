@@ -746,6 +746,9 @@ Shown while connecting to the server to fetch its certificate */
 /* No comment provided by engineer. */
 "iPadOS" = "iPadOS";
 
+/* Button to continue waiting for a page to load */
+"Keep Waiting" = "Weiter warten";
+
 /* No comment provided by engineer. */
 "Left" = "Links";
 
@@ -919,6 +922,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "OS version %@" = "Betriebssystemversion: %@";
+
+/* Title of alert shown when a page load is waiting for a server response for a long time */
+"Page Is Still Loading" = "Seite wird noch geladen";
 
 /* No comment provided by engineer. */
 "Parsing Settings Failed" = "Einlesen der Konfiguration ist fehlgeschlagen";
@@ -1291,6 +1297,9 @@ Shown while connecting to the server to fetch its certificate */
 
 /* No comment provided by engineer. */
 "The server didn't return any %@ settings data." = "Der Server hat keine %@ Einstellungsdaten zurückgegeben.";
+
+/* Shown when a page load is waiting for a server response for a long time */
+"The server hasn't responded yet. You can keep waiting or try to load the page again." = "Der Server hat noch nicht geantwortet. Sie können weiter warten oder versuchen, die Seite erneut zu laden.";
 
 /* No comment provided by engineer. */
 "The server returned an error (HTTP status code %ld)." = "Der Server hat einen Fehler zurückgegeben (HTTP-Statuscode %ld).";

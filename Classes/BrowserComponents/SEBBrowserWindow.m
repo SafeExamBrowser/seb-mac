@@ -42,6 +42,13 @@
 
 #include <CoreServices/CoreServices.h>
 
+@interface SEBBrowserWindow ()
+
+// Currently displayed "page is still loading" alert
+@property (strong, nonatomic, nullable) NSAlert *loadPendingAlert;
+
+@end
+
 @implementation SEBBrowserWindow
 
 @synthesize webView;
@@ -1378,6 +1385,62 @@
         [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))alertOKHandler];
     }
 }
+
+
+// A page load is waiting for a response for a long time: Ask the user to keep waiting or to
+// retry. The navigation isn't canceled, as the server might just be slow (e.g. under load).
+- (void)sebWebViewLoadIsPendingForURL:(NSURL *)url
+                              seconds:(NSTimeInterval)seconds
+                    completionHandler:(void (^)(BOOL retry))completionHandler
+{
+    if (self.loadPendingAlert) {
+        return;
+    }
+    // Show the URL according to the ShowURL policy settings for load errors
+    NSString *policyKey = self.webView.isMainBrowserWebView ? @"org_safeexambrowser_SEB_browserWindowShowURL" : @"org_safeexambrowser_SEB_newBrowserWindowShowURL";
+    BOOL showURL = url && [[NSUserDefaults standardUserDefaults] secureIntegerForKey:policyKey] >= browserWindowShowURLOnlyLoadError;
+    NSString *message = NSLocalizedString(@"The server hasn't responded yet. You can keep waiting or try to load the page again.", @"Shown when a page load is waiting for a server response for a long time");
+    if (showURL) {
+        message = [NSString stringWithFormat:@"%@\n%@", message, url.absoluteString];
+    }
+    NSAlert *modalAlert = [self.browserController.sebController newAlert];
+    self.loadPendingAlert = modalAlert;
+    [modalAlert setMessageText:NSLocalizedString(@"Page Is Still Loading", @"Title of alert shown when a page load is waiting for a server response for a long time")];
+    [modalAlert setInformativeText:message];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Keep Waiting", @"Button to continue waiting for a page to load")];
+    [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
+    [modalAlert setAlertStyle:NSAlertStyleWarning];
+    void (^alertHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
+        [self.browserController.sebController removeAlertWindow:modalAlert.window];
+        if (self.loadPendingAlert != modalAlert) {
+            // Alert was dismissed because the page load completed or failed meanwhile
+            return;
+        }
+        self.loadPendingAlert = nil;
+        completionHandler(answer == NSAlertSecondButtonReturn);
+    };
+    [self.browserController.sebController runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:alertHandler];
+}
+
+
+- (void)sebWebViewLoadIsNoLongerPending
+{
+    NSAlert *alert = self.loadPendingAlert;
+    if (!alert) {
+        return;
+    }
+    self.loadPendingAlert = nil;
+    NSWindow *alertWindow = alert.window;
+    if (alertWindow.sheetParent) {
+        [alertWindow.sheetParent endSheet:alertWindow returnCode:NSModalResponseAbort];
+    } else if (NSApp.modalWindow == alertWindow) {
+        // Only abort the modal session if it belongs to this alert. If another alert
+        // is displayed on top of it, this alert stays until answered and the answer
+        // is ignored.
+        [NSApp abortModal];
+    }
+}
+
 
 - (void)sebWebViewDidUpdateTitle:(nullable NSString *)title
 {

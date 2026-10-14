@@ -2777,6 +2777,17 @@
         }
       }
     },
+    "Keep Waiting" : {
+      "comment" : "Button to continue waiting for a page to load",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter warten"
+          }
+        }
+      }
+    },
     "Known Networks" : {
       "localizations" : {
         "de" : {
@@ -3416,6 +3427,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Internen Bildschirm erzwingen wurde deaktiviert!"
+          }
+        }
+      }
+    },
+    "Page Is Still Loading" : {
+      "comment" : "Title of alert shown when a page load is waiting for a server response for a long time",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seite wird noch geladen"
           }
         }
       }
@@ -4674,6 +4696,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Der Server hat keine %@ Einstellungsdaten zurückgegeben."
+          }
+        }
+      }
+    },
+    "The server hasn't responded yet. You can keep waiting or try to load the page again." : {
+      "comment" : "Shown when a page load is waiting for a server response for a long time",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Server hat noch nicht geantwortet. Sie können weiter warten oder versuchen, die Seite erneut zu laden."
           }
         }
       }
