@@ -6243,6 +6243,16 @@ bool insideMatrix(void){
     }
 }
 
+
+// Replace the background covering windows without a gap: open the new ones before closing the
+// old ones. Closing first briefly exposes the desktop, which is visible as flickering in areas the
+// browser window doesn't cover, e.g. the menu bar/camera housing strip on MacBooks with a notch.
+- (void) recoverScreens {
+    NSMutableArray *previousCapWindows = [self.capWindows mutableCopy];
+    [self coverScreens];
+    [self closeCoveringWindows:previousCapWindows];
+}
+
                            
 - (NSMutableArray *) fillScreensWithCoveringWindows:(coveringWindowKind)coveringWindowKind windowLevel:(NSUInteger)windowLevel excludeMenuBar:(BOOL)excludeMenuBar {
     NSMutableArray *coveringWindows = [NSMutableArray new];	// array for storing our cap (covering)  windows
@@ -6492,14 +6502,14 @@ bool insideMatrix(void){
             DDLogDebug(@"Adjusting screen locking: didLockSEBTime %@, didBecomeActiveTime %@", self.didLockSEBTime, self.didBecomeActiveTime);
         }
         
-        // Close the covering windows
-        // (which most likely are no longer there where they should be)
-        [self closeCapWindows];
-        
+        // Replace the covering windows (which most likely are no longer there where they should be)
         if (_isAACEnabled == NO && _wasAACEnabled == NO && !_startingUp) {
-            
+
             // Open new covering background windows on all currently available screens
-            [self coverScreens];
+            // before closing the old ones, to prevent flickering
+            [self recoverScreens];
+        } else {
+            [self closeCapWindows];
         }
         
         // We adjust position and size of the SEB Dock
@@ -8036,20 +8046,18 @@ conditionallyForWindow:(NSWindow *)window
             NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
             [self switchKioskModeAppsAllowed:YES overrideShowMenuBar:NO];
-            
-            // Close the black background covering windows
-            [self closeCapWindows];
-            
+
             // Reopen the covering Windows and reset the windows elevation levels
             DDLogDebug(@"requestedReinforceKioskMode: Reopening cap windows.");
             [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
             if (self.browserController.mainBrowserWindow.isVisible) {
                 [self.browserController.mainBrowserWindow makeKeyAndOrderFront:self];
             }
-            
-            // Open new covering background windows on all currently available screens
+
+            // Replace the black background covering windows on all currently available screens
+            // (new ones are opened before the old ones are closed, to prevent flickering)
             [preferences setSecureBool:NO forKey:@"org_safeexambrowser_elevateWindowLevels"];
-            [self coverScreens];
+            [self recoverScreens];
             
             // Switch the proper kiosk mode on again
             [self setElevateWindowLevels];
