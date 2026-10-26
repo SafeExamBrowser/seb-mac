@@ -555,18 +555,40 @@
 
 - (void) openingSEBPrefsSucessfull:(NSError *)error
 {
-    if (error) {
-        // Error when reading configuration data
-        [MBPreferencesController.sharedController.window presentError:error modalForWindow:MBPreferencesController.sharedController.window delegate:nil didPresentSelector:NULL contextInfo:NULL];
-    } else {
+    if (!error) {
         // if successfull save the path to the file for possible editing in the preferences window
         [[MyGlobals sharedMyGlobals] setCurrentConfigURL:currentSEBFileURL];
-        
+
         [[MBPreferencesController sharedController] setSettingsFileURL:currentSEBFileURL];
     }
     // Re-initialize and open preferences window
     [self initPreferencesWindow];
     [self reopenPreferencesWindow];
+
+    if (error) {
+        // Error when reading/decrypting/parsing configuration data (for example corrupted
+        // settings). The preferences window was released before loading the new settings
+        // (see -openSEBPrefsAtURL: / -revertToLastSaved:), so the error has to be presented
+        // only after the window was re-initialized and reopened above, otherwise the sheet
+        // would be attached to a nil window and never be displayed.
+        // Show the same message text/informative text as when opening the config file
+        // outside of the Settings window (-[SEBController storeNewSEBSettingsSuccessful:]).
+        DDLogError(@"%s: Opening settings in the Settings window failed, error: %@", __FUNCTION__, error);
+        NSAlert *newAlert = [[NSAlert alloc] init];
+        [newAlert setMessageText:error.localizedDescription ?: NSLocalizedString(@"Opening Settings Failed", @"")];
+        NSString *informativeText = error.localizedFailureReason.length > 0 ? error.localizedFailureReason : error.localizedRecoverySuggestion;
+        if (informativeText.length > 0) {
+            [newAlert setInformativeText:informativeText];
+        }
+        [newAlert addButtonWithTitle:NSLocalizedString(@"OK", @"")];
+        [newAlert setAlertStyle:NSAlertStyleCritical];
+        NSWindow *preferencesWindow = self.preferencesWindow;
+        if (preferencesWindow.isVisible) {
+            [newAlert beginSheetModalForWindow:preferencesWindow completionHandler:nil];
+        } else {
+            [self.sebController runModalAlert:newAlert conditionallyForWindow:preferencesWindow completionHandler:nil];
+        }
+    }
 }
 
 
