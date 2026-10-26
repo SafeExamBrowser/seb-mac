@@ -305,7 +305,7 @@
 "oTH-6g-3oo.ibExternalAccessibilityDescription" = "Benutzerdefinierten User Agent für SEB auf iOS eingeben";
 
 /* Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu"; */
-"p3T-fI-3bu.ibShadowedToolTip" = "Standard-Zeichenkette auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)";
+"p3T-fI-3bu.ibShadowedToolTip" = "Diese Zeichenkette wird an jede User Agent Zeichenkette angehängt (unabhängig von den anderen User Agent Einstellungen unten)";
 
 /* Class = "NSButtonCell"; title = "Audio autoplay"; ObjectID = "p8H-vN-YbW"; */
 "p8H-vN-YbW.title" = "Audio automatisch abspielen";

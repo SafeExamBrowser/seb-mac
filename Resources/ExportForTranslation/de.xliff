@@ -2207,7 +2207,7 @@
       </trans-unit>
       <trans-unit id="p3T-fI-3bu.ibShadowedToolTip" xml:space="preserve">
         <source>This string will be appended to any user agent string (independent from the other user agent settings below)</source>
-        <target>Standard-Zeichenkette auf diesem Mac (hängt von der installierten Safari/WebKit-Version ab und kann deswegen auf Clients abweichen)</target>
+        <target>Diese Zeichenkette wird an jede User Agent Zeichenkette angehängt (unabhängig von den anderen User Agent Einstellungen unten)</target>
         <note>Class = "NSTextField"; ibShadowedToolTip = "This string will be appended to any user agent string (independent from the other user agent settings below)"; ObjectID = "p3T-fI-3bu";</note>
       </trans-unit>
       <trans-unit id="p8H-vN-YbW.title" xml:space="preserve">
