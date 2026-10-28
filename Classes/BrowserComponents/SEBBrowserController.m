@@ -150,21 +150,65 @@ void run_block_on_ui_thread(dispatch_block_t block)
 #if TARGET_OS_OSX
 - (NSURL *)downloadDirectoryURL
 {
-    NSString *downloadPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"];
-    downloadPath = [downloadPath stringByExpandingTildeInPath];
-    NSURL *downloadDirectory;
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    BOOL isDir;
+    NSString *downloadPath = [[[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_downloadDirectoryOSX"] stringByExpandingTildeInPath];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *downloadDirectory = nil;
 
-    if (downloadPath.length == 0 || [downloadPath isEqualToString:@"~/Downloads"] || !([fileManager fileExistsAtPath:downloadPath isDirectory:&isDir] && isDir)) {
+    if (downloadPath.length > 0) {
+        downloadDirectory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
+        BOOL isDir = NO;
+        if (![MyGlobals directoryIsRedirected:downloadDirectory] &&
+            !([fileManager fileExistsAtPath:downloadPath isDirectory:&isDir] && isDir)) {
+            // The configured directory doesn't exist (a redirected one is handled below)
+            downloadDirectory = nil;
+        }
+    }
+    if (!downloadDirectory) {
         // If there's no path saved in preferences or a non-existing directory, use Downloads directory
         NSError *error;
         downloadDirectory = [fileManager URLForDirectory:NSDownloadsDirectory inDomain:NSUserDomainMask appropriateForURL:fileManager.homeDirectoryForCurrentUser create:NO error:&error];
         DDLogInfo(@"Default Downloads directory set.");
-    } else {
-        downloadDirectory = [NSURL fileURLWithPath:downloadPath isDirectory:YES];
+    }
+    // Downloading into a redirected directory (symbolic link or Finder alias, e.g. a folder moved
+    // to a cloud drive) isn't allowed, as downloaded exam files
+    // could be synced to other devices. Use a Downloads_SEB_<date> directory instead (issue #654).
+    if ([MyGlobals directoryIsRedirected:downloadDirectory]) {
+        downloadDirectory = [self downloadDirectoryReplacingRedirectedDirectory:downloadDirectory];
     }
     return downloadDirectory;
+}
+
+
+// Returns a directory named Downloads_SEB_<current date>, created in the parent directory of
+// the passed redirected download directory or, if that parent directory is redirected as well
+// (or the directory can't be created there), in the user's home directory.
+- (NSURL *)downloadDirectoryReplacingRedirectedDirectory:(NSURL *)redirectedDirectory
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *homeDirectory = fileManager.homeDirectoryForCurrentUser;
+    NSURL *parentDirectory = redirectedDirectory.URLByDeletingLastPathComponent;
+    if ([MyGlobals directoryIsRedirected:parentDirectory]) {
+        DDLogWarn(@"Parent directory %@ of the redirected download directory is redirected as well, using the home directory instead.", parentDirectory.path);
+        parentDirectory = homeDirectory;
+    }
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    NSString *directoryName = [NSString stringWithFormat:@"Downloads_SEB_%@", [dateFormatter stringFromDate:[NSDate date]]];
+
+    NSURL *sebDownloadsDirectory = [parentDirectory URLByAppendingPathComponent:directoryName isDirectory:YES];
+    NSError *error;
+    if (![fileManager createDirectoryAtURL:sebDownloadsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
+        DDLogError(@"Could not create download directory %@ (error: %@).", sebDownloadsDirectory.path, error);
+        if (![parentDirectory.path.stringByStandardizingPath isEqualToString:homeDirectory.path.stringByStandardizingPath]) {
+            sebDownloadsDirectory = [homeDirectory URLByAppendingPathComponent:directoryName isDirectory:YES];
+            if (![fileManager createDirectoryAtURL:sebDownloadsDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
+                DDLogError(@"Could not create download directory %@ in the home directory either (error: %@).", sebDownloadsDirectory.path, error);
+            }
+        }
+    }
+    DDLogWarn(@"Download directory %@ is redirected (symbolic link or alias), using %@ instead.", redirectedDirectory.path, sebDownloadsDirectory.path);
+    return sebDownloadsDirectory;
 }
 #endif
 

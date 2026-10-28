@@ -3528,58 +3528,11 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         [self terminateRunningAccessibilityProhibitedApps];
     }
 
-    // Check for access control privacy permissions to access log folder
-    if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_enableLogging"]) {
-        NSString *logPath = [preferences secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-        if (logPath.length > 0) {
-            logPath = [logPath stringByExpandingTildeInPath];
-            NSURL *logDirectory = [NSURL URLWithString:logPath];
-            BOOL isLogDirectoryAccessible = [self directoryIsAccessible:logDirectory directoryType:@"log"];
-            if (isLogDirectoryAccessible) {
-                DDLogInfo(@"Configured log directory %@", logDirectory.path);
-            } else {
-                DDLogError(@"Can not access configured log directory %@, ask user to grant privacy access permission.", logDirectory.path);
-                [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:pathToSecurityPrivacyPreferences]];
-                [[NSRunningApplication currentApplication] activateWithOptions:(NSApplicationActivateAllWindows | NSApplicationActivateIgnoringOtherApps)];
+    // Note: Removed privacy permission check for the configured log directory.
+    // -initializeLogger (via -resolvedConfiguredLogDirectoryPath) follows symbolic links/aliases
+    // of the configured directory and falls back to the default log directory if it isn't
+    // accessible, so a redirected or protected log directory can't block starting SEB (issue #654).
 
-                NSAlert *modalAlert = [self newAlert];
-                [modalAlert setMessageText:NSLocalizedString(@"Grant access to Folder", @"")];
-                [modalAlert setInformativeText:[NSString stringWithFormat:@"%@ %@", [NSString stringWithFormat:NSLocalizedString(@"Current settings require access to the directory %@ for saving log files.", @""), logDirectory.path], self.privacyFilesFoldersMessageString]];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"")];
-                [modalAlert addButtonWithTitle:NSLocalizedString(@"Quit", @"")];
-                [modalAlert setAlertStyle:NSAlertStyleWarning];
-                void (^privacyGrantAccessFilesFolderHandler)(NSModalResponse) = ^void (NSModalResponse answer) {
-                    [self removeAlertWindow:modalAlert.window];
-                    switch(answer)
-                    {
-                        case NSAlertFirstButtonReturn:
-                        {
-                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-                            return;
-                        }
-                            
-                        case NSAlertSecondButtonReturn:
-                        {
-                            [[NSNotificationCenter defaultCenter]
-                             postNotificationName:@"requestQuitSEBOrSession" object:self];
-                            return;
-                        }
-                            
-                        default:
-                            // Can get invoked in case of NSModalResponseStop=-1000 or NSModalResponseAbort=-1001
-                        {
-                            DDLogError(@"Alert for granting access to log folder was dismissed by the system with NSModalResponse %ld. Retrying", (long)answer);
-                            [self conditionallyInitSEBProcessesCheckedWithCallback:callback selector:selector];
-                            return;
-                        }
-                    }
-                };
-                [self runModalAlert:modalAlert conditionallyForWindow:self.browserController.mainBrowserWindow completionHandler:(void (^)(NSModalResponse answer))privacyGrantAccessFilesFolderHandler];
-                return;
-            }
-        }
-    }
-    
     // Check for access control privacy permissions to access download folders
     
     if ([preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownUploads"] && [preferences secureBoolForKey:@"org_safeexambrowser_SEB_allowDownloads"]) {
@@ -4527,15 +4480,9 @@ void run_on_ui_thread(dispatch_block_t block)
             [DDLog removeLogger:ServerLogger.sharedInstance];
         }
     } else {
-        //Set log directory
-        NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
-        if (logPath.length == 0) {
-            // No log directory indicated: We use the standard one
-            logPath = nil;
-        } else {
-            logPath = [logPath stringByExpandingTildeInPath];
-            // Add subdirectory with the name of the computer
-        }
+        // Set log directory (nil = default log directory): Follows symbolic links/aliases of the
+        // configured directory and falls back to the default directory if it isn't accessible
+        NSString *logPath = [self resolvedConfiguredLogDirectoryPath];
         // Only switch the file logger when the resolved log directory actually differs from the
         // one the current logger (e.g. the temporary startup logger set up in
         // -initializeTemporaryLogger) is already writing to. Creating a new DDFileLogger rolls a
@@ -4564,6 +4511,42 @@ void run_on_ui_thread(dispatch_block_t block)
         DDLogInfo(@"Log directory: %@%@", _myLogger.logFileManager.logsDirectory, (logPath == nil) ? @" (default)" : @" (from settings)");
         [MyGlobals logSystemInfo];
     }
+}
+
+
+// Returns the path of the log directory to use according to the logDirectoryOSX setting
+// or nil if the default log directory should be used (no directory configured or the
+// configured directory isn't accessible). Symbolic links and Finder aliases in the configured
+// path are followed, e.g. when ~/Documents is redirected to a cloud storage location)
+// A not yet existing directory is created.
+- (NSString *) resolvedConfiguredLogDirectoryPath
+{
+    NSString *logPath = [[NSUserDefaults standardUserDefaults] secureStringForKey:@"org_safeexambrowser_SEB_logDirectoryOSX"];
+    if (logPath.length == 0) {
+        // No log directory indicated: We use the standard one
+        return nil;
+    }
+    NSURL *configuredLogDirectory = [NSURL fileURLWithPath:[logPath stringByExpandingTildeInPath] isDirectory:YES];
+    NSURL *logDirectory = [MyGlobals resolvedDirectoryURL:configuredLogDirectory];
+    if (![logDirectory.path isEqualToString:configuredLogDirectory.path]) {
+        DDLogInfo(@"Configured log directory %@ is redirected, using the resolved directory %@.", configuredLogDirectory.path, logDirectory.path);
+    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDirectory = NO;
+    if (![fileManager fileExistsAtPath:logDirectory.path isDirectory:&isDirectory]) {
+        // The configured directory doesn't exist yet: Try to create it
+        NSError *error;
+        if ([fileManager createDirectoryAtURL:logDirectory withIntermediateDirectories:YES attributes:nil error:&error]) {
+            isDirectory = YES;
+        } else {
+            DDLogError(@"Could not create configured log directory %@ (error: %@).", logDirectory.path, error);
+        }
+    }
+    if (isDirectory && [self directoryIsAccessible:logDirectory directoryType:@"log"]) {
+        return logDirectory.path;
+    }
+    DDLogError(@"Configured log directory %@ isn't accessible, using the default log directory instead.", logDirectory.path);
+    return nil;
 }
 
 

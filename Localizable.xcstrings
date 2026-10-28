@@ -1682,6 +1682,7 @@
       }
     },
     "Current settings require access to the directory %@ for saving log files." : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

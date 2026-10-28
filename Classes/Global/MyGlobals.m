@@ -242,8 +242,54 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(MyGlobals);
     [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
     [dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm:ss:SSS"];
     myLogger.logFormatter = [[DDLogFileFormatterDefault alloc] initWithDateFormatter:dateFormatter];
-    
+
     return myLogger;
+}
+
+
++ (NSURL *)resolvedDirectoryURL:(NSURL *)directoryURL
+{
+    if (!directoryURL.isFileURL) {
+        return directoryURL;
+    }
+    // Symbolic links and aliases can only be resolved for existing items, so split off not (yet)
+    // existing trailing path components (e.g. ~/Documents/SEB when SEB doesn't exist yet, but
+    // ~/Documents is redirected) and re-append them after resolving the existing ancestor.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *existingPath = directoryURL.path.stringByStandardizingPath;
+    NSMutableArray<NSString *> *missingComponents = [NSMutableArray new];
+    while (existingPath.length > 1 && ![fileManager fileExistsAtPath:existingPath]) {
+        [missingComponents insertObject:existingPath.lastPathComponent atIndex:0];
+        existingPath = existingPath.stringByDeletingLastPathComponent;
+    }
+    // Resolve symbolic links in all path components (also an ancestor like a symlinked ~/Documents)
+    NSString *resolvedPath = existingPath.stringByResolvingSymlinksInPath;
+    // Resolve a Finder alias file: Unlike a symbolic link, an alias is a regular file, so trying to
+    // read it as a directory fails with POSIX error 20 "Not a directory". This returns the same URL
+    // if the item isn't an alias file and fails (returns nil) for a non-existing item.
+    NSError *error;
+    NSURL *aliasTargetURL = [NSURL URLByResolvingAliasFileAtURL:[NSURL fileURLWithPath:resolvedPath]
+                                                        options:(NSURLBookmarkResolutionWithoutUI | NSURLBookmarkResolutionWithoutMounting)
+                                                          error:&error];
+    if (aliasTargetURL) {
+        resolvedPath = aliasTargetURL.path;
+    }
+    for (NSString *component in missingComponents) {
+        resolvedPath = [resolvedPath stringByAppendingPathComponent:component];
+    }
+    return [NSURL fileURLWithPath:resolvedPath.stringByStandardizingPath isDirectory:YES];
+}
+
+
++ (BOOL)directoryIsRedirected:(NSURL *)directoryURL
+{
+    if (!directoryURL.isFileURL) {
+        return NO;
+    }
+    // Standardize both paths, so e.g. the system's /tmp -> /private/tmp link isn't reported as redirected
+    NSString *originalPath = directoryURL.path.stringByStandardizingPath;
+    NSString *resolvedPath = [self resolvedDirectoryURL:directoryURL].path.stringByStandardizingPath;
+    return ![originalPath isEqualToString:resolvedPath];
 }
 
 

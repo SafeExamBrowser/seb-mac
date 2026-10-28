@@ -103,6 +103,17 @@ static NSString __unused *DownloadPathsKey = @"downloadPathsList";
 - (id)infoValueForKey:(NSString*)key;
 - (void)setDDLogLevel:(SEBLogLevel)sebLogLevel;
 + (DDFileLogger *)initializeFileLoggerWithDirectory:(nullable NSString *)logPath;
+
+// Returns the passed file URL with symbolic links and Finder alias files resolved
+// (e.g. a user folder like ~/Documents redirected to a cloud storage location)
+// If alias resolution fails, the URL with only its
+// symbolic links resolved is returned. Non-file URLs are returned unchanged.
++ (NSURL *)resolvedDirectoryURL:(NSURL *)directoryURL;
+
+// Returns YES if the passed file URL (or any component of its path) is a symbolic link
+// or Finder alias file, i.e. the directory is redirected to another location
++ (BOOL)directoryIsRedirected:(NSURL *)directoryURL;
+
 - (NSString *)createUniqueFilename:(nullable NSString *)filename
                  intendedExtension:(nullable NSString*)extension;
 - (nullable NSString *)fileExtensionForConfigFormat:(ShareConfigFormat)configFormat;
