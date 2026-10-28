@@ -68,8 +68,26 @@ Two bugs of the original are fixed: a held Command key at launch no longer produ
 
 Delete the app, then `~/Library/Application Support/org.safeexambrowser.SafeExamBrowser` (holds one key file), `~/Library/Logs/Safe Exam Browser` if the logs are no longer wanted, and run `defaults delete org.safeexambrowser.SafeExamBrowser`. An official SEB on the same Mac shares that preference domain, so do the last step only if it is not needed.
 
+## Checking a new Mac (about 10 minutes)
+
+Run this once on every kind of Mac the college has (Apple silicon and Intel, each macOS version in use). It needs a test exam page that has a text box and, for step 7, one page that asks for the camera.
+
+1. **Install:** `bash install-exam-browser.sh SafeExamBrowser-3.7.1.1.dmg`. It must end with `Installed: …` and no "could not verify" dialog may appear.
+2. **Check the install:** `bash verify-install.sh`. Every line must say `ok` and it must end with `All checks passed.`
+3. **Start an exam:** paste the test page's address. The page must fill the screen with no title bar, and no other window may flash behind it while it opens.
+4. **Lock:** press Cmd+Shift+L. A lock icon flashes top-left for about a second and disappears. While locked, Cmd+Tab, Mission Control (F3 or Ctrl+Up) and swiping between desktops must do nothing. Press Cmd+Shift+L again: the icon shows open and all of them work.
+5. **Copy and paste:** copy text from the exam page into another app and back, also on a page that blocks pasting. It must work both ways, locked and unlocked.
+6. **Windows:** a link that opens "in a new window" must open in the same window; there must never be a second exam window.
+7. **Camera exam:** on the first camera page SEB shows "Permissions Required", then macOS asks once. After Allow, live video appears.
+8. **Quit:** Cmd+Q, then Return. SEB must be gone within 5 seconds, and the Mac's own Dock, menu bar and apps must be normal afterwards.
+9. **Check the log:** `bash verify-install.sh` again. It must still end with `All checks passed.`, now including a start-of-session line, an end-of-session line and no page addresses.
+
+If a step fails, send the step number, the Mac model, the macOS version (Apple menu, About This Mac) and the output of `bash verify-install.sh`.
+
 ## Tested, and not tested
 
 Tested on macOS 26.2 (Apple silicon), from the built DMG, with real key presses: launching from a `.seb` file (the address parser was tested separately on 29 inputs, including `seb://`, `sebs://`, bare host names and rejected schemes); copy and paste (normal and hostile pages); lock and unlock, blocked keys, Mission Control; the quit dialog; the camera exam end to end; the log against the complete original log; a network check (the app's own process connects to nothing but this Mac; no code that contacts a fixed remote host is compiled in); installing from a DMG marked as downloaded; first launch on a Mac that has the official SEB's preferences; dozens of launches and quits in a row without a crash or hang.
 
-Not tested: a second Mac (use `verify-install.sh` on it), other macOS versions, Intel Macs, real trackpad gestures (the equivalent keyboard shortcuts were used), more than one display, and sleep or wake during an exam.
+The pushed source also builds from an empty folder (a fresh clone of the `college-open-book` branch, built with `scripts/build-dmg.sh`): same app contents, same checks pass.
+
+Not tested: a second Mac (use the checklist above on it), other macOS versions, Intel Macs, real trackpad gestures (the equivalent keyboard shortcuts were used), more than one display, and sleep or wake during an exam.
